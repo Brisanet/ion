@@ -1,4 +1,4 @@
-![Group 69](https://user-images.githubusercontent.com/6165180/177863336-9dcb9441-035d-4c2c-ad84-4e3734a99fab.png)
+![IonLogo](https://user-images.githubusercontent.com/6165180/177863336-9dcb9441-035d-4c2c-ad84-4e3734a99fab.png)
 
 Component library following a great Design System
 
