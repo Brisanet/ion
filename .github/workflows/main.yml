@@ -34,7 +34,7 @@ jobs:
 
       # `--prefer-offline` gives cache priority
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: lint
         run: yarn lint
 
