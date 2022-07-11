@@ -8,9 +8,8 @@ describe('IonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IonComponent ]
-    })
-    .compileComponents();
+      declarations: [IonComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

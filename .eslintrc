@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "env": {
+    "es2021": true,
+    "browser": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "error",
+    "no-console": 1
+  },
+  "ignorePatterns": ["*.js"]
+}

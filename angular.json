@@ -31,12 +31,11 @@
               "projects/ion/tsconfig.lib.json",
               "projects/ion/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "ion"
 }
