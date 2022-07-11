@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@main
+          uses: actions/checkout@main
 
         - name: Get yarn cache directory path
           id: yarn-cache-dir-path
