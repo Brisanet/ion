@@ -37,7 +37,7 @@ jobs:
         if: steps.npm-cache.outputs.cache-hit != 'true'
         run: npm install
       - name: Lint
-        run: npm lint
+        run: npm run lint
 
   # prettier:
   #   runs-on: ubuntu-latest
