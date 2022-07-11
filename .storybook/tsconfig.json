@@ -1,9 +1,7 @@
 {
   "extends": "../projects/ion/tsconfig.lib.json",
   "compilerOptions": {
-    "types": [
-      "node"
-    ],
+    "types": ["node"],
     "allowSyntheticDefaultImports": true
   },
   "exclude": [
@@ -11,11 +9,6 @@
     "../src/**/*.spec.ts",
     "../projects/**/*.spec.ts"
   ],
-  "include": [
-    "../src/**/*",
-    "../projects/**/*"
-  ],
-  "files": [
-    "./typings.d.ts"
-  ]
+  "include": ["../src/**/*", "../projects/**/*"],
+  "files": ["./typings.d.ts"]
 }
