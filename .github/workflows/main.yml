@@ -31,12 +31,14 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-
-      # `--prefer-offline` gives cache priority
-      - name: Install dependencies
         run: yarn install --prefer-offline --frozen-lockfile
 
-      - name: lint
+      - name: Lint
+        uses: actions/cache@v3
+        id: yarn-cache
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
         run: yarn lint
 
 
