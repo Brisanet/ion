@@ -19,9 +19,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: yarn install --frozen-lockfile
+    - run: yarn install
 
-  lint-prettier:
+  lint:
     runs-on: ubuntu-latest
     needs: install
     strategy:
@@ -34,7 +34,23 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+        cache-dependency-path: subdir/yarn.lock
     - run: yarn lint
+
+  prettier:
+    runs-on: ubuntu-latest
+    needs: install
+    strategy:
+      matrix:
+        node-version: [12.22.1]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+        cache-dependency-path: subdir/yarn.lock
     - run: yarn prettier
 
   build:
@@ -50,4 +66,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
+        cache-dependency-path: subdir/yarn.lock
     - run: yarn run build
