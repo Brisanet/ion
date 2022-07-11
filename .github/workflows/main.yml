@@ -21,5 +21,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
-    - run: yarn run build --if-present
+    - run: yarn
+    - run: yarn run build
     - run: yarn test
