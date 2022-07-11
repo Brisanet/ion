@@ -31,7 +31,7 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-        run: yarn install --prefer-offline --frozen-lockfile
+      - run: yarn install --prefer-offline --frozen-lockfile
 
       - name: Lint
         uses: actions/cache@v3
@@ -39,7 +39,7 @@ jobs:
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
           key: ${{ runner.os }}-yarn-${{ matrix.node-version }}-${{ hashFiles('**/yarn.lock') }}
-        run: yarn lint
+      - run: yarn lint
 
 
   # lint:
