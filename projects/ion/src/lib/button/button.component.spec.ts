@@ -1,24 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render, screen } from '@testing-library/angular';
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
-  let component: ButtonComponent;
-  let fixture: ComponentFixture<ButtonComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ButtonComponent],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ButtonComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  it('should render button with custom label', async () => {
+    await render(ButtonComponent, {
+      componentProperties: {
+        label: 'Clique aqui',
+      },
+    });
+    expect(screen.getByText('Clique aqui'));
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should render button with warning msg when is witout label', async () => {
+    await render(ButtonComponent);
+    expect(screen.getByText('configure uma label'));
   });
 });

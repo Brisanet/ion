@@ -16,14 +16,6 @@
             "project": "projects/ion/ng-package.json"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ion/src/test.ts",
-            "tsConfig": "projects/ion/tsconfig.spec.json",
-            "karmaConfig": "projects/ion/karma.conf.js"
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
