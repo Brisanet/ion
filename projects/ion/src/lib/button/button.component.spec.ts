@@ -11,7 +11,7 @@ describe('ButtonComponent', () => {
     expect(screen.getByText('Clique aqui'));
   });
 
-  it('should render button with warning msg when is witout label', async () => {
+  it('should render button with warning msg when label is not provided', async () => {
     await render(ButtonComponent);
     expect(screen.getByText('configure uma label'));
   });

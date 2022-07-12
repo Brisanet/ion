@@ -29,5 +29,10 @@
       }
     }
   },
-  "defaultProject": "ion"
+  "defaultProject": "ion",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "less"
+    }
+  }
 }
