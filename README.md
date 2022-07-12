@@ -2,10 +2,13 @@
 
 Component library following a great Design System
 
+<a href="https://codeclimate.com/github/iurynogueira/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/maintainability" /></a>
+<a href="https://codeclimate.com/github/iurynogueira/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/test_coverage" /></a>
+
 ## Create a component
 
 Run `ng generate component component-name project=ion` to generate a new component.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
