@@ -4,7 +4,7 @@
   "injectables": [
     {
       "name": "IonService",
-      "id": "injectable-IonService-41127d8ad1aafdb4e2ec618a0d4f2c0dba83252456620b11f4edfe9e14ab4fce41782bf05ef5415f990ef8197f979d2ed837b51a8eab38f5ae6773a414a019fc",
+      "id": "injectable-IonService-9319234982ce4aebc61f62e33ff1f4137f3ba8ee46ea2657290bbc0613bdc4de0311ca9735147ccc9a6028346225f2a65acb793ebc69a694173ee3f5119f86fc",
       "file": "projects/ion/src/lib/ion.service.ts",
       "properties": [],
       "methods": [],
@@ -12,15 +12,7 @@
       "deprecationMessage": "",
       "description": "",
       "rawdescription": "\n",
-      "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class IonService {\n\n  constructor() { }\n}\n",
-      "constructorObj": {
-        "name": "constructor",
-        "description": "",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "args": [],
-        "line": 6
-      },
+      "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class IonService {}\n",
       "type": "injectable"
     }
   ],
@@ -31,7 +23,7 @@
   "components": [
     {
       "name": "ButtonComponent",
-      "id": "component-ButtonComponent-a1c80efbcef41a34a24a96b9beeebbf8ddf3d3a7a461e733034ee19ca119ca895e09577e6dd8b6e6853c181a9d50466dd847b9a1ae0b5a8e16371d0fbf1fc9e4",
+      "id": "component-ButtonComponent-00d2e7c9c03917be7354c2d140e34d45320cf329dd4d4d5707a2d06925568258cff03d3cd2915104f8d291e72fb1c618df5744189eea12fe820173b32209ac1a",
       "file": "projects/ion/src/lib/button/button.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -39,7 +31,7 @@
       "outputs": [],
       "providers": [],
       "selector": "ion-button",
-      "styleUrls": ["./button.component.css"],
+      "styleUrls": ["./button.component.less"],
       "styles": [],
       "templateUrl": ["./button.component.html"],
       "viewProviders": [],
@@ -55,18 +47,7 @@
       ],
       "outputsClass": [],
       "propertiesClass": [],
-      "methodsClass": [
-        {
-          "name": "ngOnInit",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 13,
-          "deprecated": false,
-          "deprecationMessage": ""
-        }
-      ],
+      "methodsClass": [],
       "deprecated": false,
       "deprecationMessage": "",
       "hostBindings": [],
@@ -74,29 +55,20 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, Input, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent implements OnInit {\n  @Input() label: string;\n\n  constructor() { }\n\n  ngOnInit() {\n  }\n\n}\n",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.less'],\n})\nexport class ButtonComponent {\n  @Input() label: string;\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": "",
-          "styleUrl": "./button.component.css"
+          "data": ".teste {\n  color: red;\n}\n",
+          "styleUrl": "./button.component.less"
         }
       ],
       "stylesData": "",
-      "constructorObj": {
-        "name": "constructor",
-        "description": "",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "args": [],
-        "line": 9
-      },
-      "implements": ["OnInit"],
-      "templateData": "<button>{{label || 'configure uma label'}}</button>\n"
+      "templateData": "<button>{{ label || 'configure uma label' }}</button>\n"
     },
     {
       "name": "IonComponent",
-      "id": "component-IonComponent-fd72954324480b80ddc84638da2122533a1993e432d4cd95010e40562048bab974a050315056450dd5fcdf675ea0e46749adb862fad9d0c289fdda7db6ee1af0",
+      "id": "component-IonComponent-c308e17d51c019b0882abfa2329db7d036010b96fa40f42966db340d5033cb9e7f071264760b996e59408ea671313264e2b76d8d9052954464524cabc5830b87",
       "file": "projects/ion/src/lib/ion.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -106,24 +78,13 @@
       "selector": "lib-ion",
       "styleUrls": [],
       "styles": [],
-      "template": "<p>\n  ion works!\n</p>\n",
+      "template": "<p>ion works!</p>",
       "templateUrl": [],
       "viewProviders": [],
       "inputsClass": [],
       "outputsClass": [],
       "propertiesClass": [],
-      "methodsClass": [
-        {
-          "name": "ngOnInit",
-          "args": [],
-          "optional": false,
-          "returnType": "void",
-          "typeParameters": [],
-          "line": 16,
-          "deprecated": false,
-          "deprecationMessage": ""
-        }
-      ],
+      "methodsClass": [],
       "deprecated": false,
       "deprecationMessage": "",
       "hostBindings": [],
@@ -131,31 +92,22 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'lib-ion',\n  template: `\n    <p>\n      ion works!\n    </p>\n  `,\n  styles: []\n})\nexport class IonComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit() {\n  }\n\n}\n",
+      "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'lib-ion',\n  template: ` <p>ion works!</p> `,\n  styles: [],\n})\nexport class IonComponent {}\n",
       "assetsDirs": [],
       "styleUrlsData": "",
-      "stylesData": "",
-      "constructorObj": {
-        "name": "constructor",
-        "description": "",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "args": [],
-        "line": 12
-      },
-      "implements": ["OnInit"]
+      "stylesData": ""
     }
   ],
   "modules": [
     {
       "name": "IonModule",
-      "id": "module-IonModule-61ea4257d90822dc9121d349d652946ed69fa65fb88550ffa1c4ff5e1d4e9ad665a411e97469e3e7c2ea2b61529a6aeeb69581a91274e15695f9cf26cb1aad5b",
+      "id": "module-IonModule-b9c1525c9f3f88c2cda4746bac8dae9f8dc7d8ee4d4c087e9db3a21867e94ea4a67d6651e2ae24e4a6d099bfc77c6d0a531dc08b298ee4e339275bccad980037",
       "description": "",
       "deprecationMessage": "",
       "deprecated": false,
       "file": "projects/ion/src/lib/ion.module.ts",
       "methods": [],
-      "sourceCode": "import { NgModule } from '@angular/core';\nimport { IonComponent } from './ion.component';\nimport { ButtonComponent } from './button/button.component';\n\n\n\n@NgModule({\n  declarations: [IonComponent, ButtonComponent],\n  imports: [\n  ],\n  exports: [IonComponent, ButtonComponent]\n})\nexport class IonModule { }\n",
+      "sourceCode": "import { NgModule } from '@angular/core';\nimport { IonComponent } from './ion.component';\nimport { ButtonComponent } from './button/button.component';\n\n@NgModule({\n  declarations: [IonComponent, ButtonComponent],\n  imports: [],\n  exports: [IonComponent, ButtonComponent],\n})\nexport class IonModule {}\n",
       "children": [
         {
           "type": "providers",
@@ -303,7 +255,7 @@
         "linktype": "component",
         "name": "ButtonComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/4",
+        "coverageCount": "0/2",
         "status": "low"
       },
       {
@@ -312,7 +264,7 @@
         "linktype": "component",
         "name": "IonComponent",
         "coveragePercent": 0,
-        "coverageCount": "0/3",
+        "coverageCount": "0/1",
         "status": "low"
       },
       {
@@ -321,7 +273,7 @@
         "linktype": "injectable",
         "name": "IonService",
         "coveragePercent": 0,
-        "coverageCount": "0/2",
+        "coverageCount": "0/1",
         "status": "low"
       },
       {
