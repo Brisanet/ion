@@ -1,0 +1,24 @@
+import { Story, Meta } from '@storybook/angular/types-6-0';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+
+export default {
+  title: 'Ion/Icons',
+  component: IonIconComponent,
+} as Meta;
+
+const Template: Story<IonIconComponent> = (args: IonIconComponent) => ({
+  component: IonIconComponent,
+  props: args,
+});
+
+export const IconDefault = Template.bind({});
+IconDefault.args = {
+  type: 'pencil',
+};
+
+export const IconOtherSize = Template.bind({});
+IconOtherSize.args = {
+  type: 'pencil',
+  size: 60,
+  color: 'orange',
+};

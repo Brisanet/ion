@@ -7,7 +7,7 @@ Component library following a great Design System
 
 ## Create a component
 
-Run `ng generate component component-name project=ion` to generate a new component.
+Run `ng generate component component-name --project=ion` to generate a new component.
 
 ## Build
 
