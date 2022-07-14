@@ -18,7 +18,7 @@ IconDefault.args = {
 
 export const IconOtherSize = Template.bind({});
 IconOtherSize.args = {
-  type: 'pencil',
+  type: 'trash',
   size: 60,
   color: 'orange',
 };
