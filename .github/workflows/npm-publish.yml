@@ -38,6 +38,6 @@ jobs:
 
       - run: cd dist/ion && npm publish --access public
         env:
-          NODE_AUTH_TOKEN: ${{ env.prod.NPM_TOKEN }}
-          NPM_TOKEN: ${{ env.prod.NPM_TOKEN }}
-          token: ${{ env.prod.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NPM_TOKEN: ${{ secrets.npm_token }}
+          token: ${{ secrets.npm_token }}
