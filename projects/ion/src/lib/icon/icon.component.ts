@@ -5,10 +5,10 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { iconesTipos } from './svgs/icons';
+import { iconsPaths } from './svgs/icons';
 
 export type SvgModule = typeof import('./svgs/icons');
-export type IconType = keyof typeof iconesTipos;
+export type IconType = keyof typeof iconsPaths;
 
 export interface IonIconProps {
   type: IconType;
@@ -31,7 +31,7 @@ export class IonIconComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.svg.nativeElement.insertAdjacentHTML(
       'beforeend',
-      iconesTipos[this.type]
+      iconsPaths[this.type]
     );
   }
 }
