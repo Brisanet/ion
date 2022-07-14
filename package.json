@@ -47,8 +47,8 @@
     "@storybook/builder-webpack4": "^6.5.9",
     "@storybook/manager-webpack4": "^6.5.9",
     "@storybook/testing-library": "0.0.13",
-    "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/angular": "^10.11.0",
+    "@testing-library/jest-dom": "^5.14.1",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^27.0.1",
@@ -61,6 +61,7 @@
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "7.0.4",
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "^27.1.0",
@@ -102,5 +103,10 @@
       "html",
       "lcov"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test"
+    }
   }
 }
