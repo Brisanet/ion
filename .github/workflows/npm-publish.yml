@@ -50,4 +50,4 @@ jobs:
 
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: ${{ prod.NPM_TOKEN }}
