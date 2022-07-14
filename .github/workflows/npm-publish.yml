@@ -36,6 +36,8 @@ jobs:
       - name: Run Build
         run: yarn build
 
-      - run: cd dist/ion && npm publish
+      - run: cd dist/ion && npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ env.prod.NPM_TOKEN }}
+          NPM_TOKEN: ${{ env.prod.NPM_TOKEN }}
+          token: ${{ env.prod.NPM_TOKEN }}
