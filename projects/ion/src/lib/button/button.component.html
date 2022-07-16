@@ -1,1 +1,6 @@
-<button>{{ label || 'configure uma label' }}</button>
+<button 
+    [class]="type"
+    (click)="handleClick()"
+>
+    {{ label || 'configure uma label' }}
+</button>

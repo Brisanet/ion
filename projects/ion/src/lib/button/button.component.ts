@@ -1,5 +1,8 @@
-import { Component, Input } from '@angular/core';
-
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+export interface IButton {
+  label: string;
+  type: 'primary' | 'danger';
+}
 @Component({
   selector: 'ion-button',
   templateUrl: './button.component.html',
@@ -7,4 +10,11 @@ import { Component, Input } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() label: string;
+  @Input() type: IButton['type'] = 'primary';
+
+  @Output() ionOnClick = new EventEmitter();
+
+  handleClick() {
+    this.ionOnClick.emit();
+  }
 }
