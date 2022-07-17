@@ -15,4 +15,22 @@ describe('ButtonComponent', () => {
     await render(ButtonComponent);
     expect(screen.getByText('configure uma label'));
   });
+
+  it('should render primary button', async () => {
+    await render(ButtonComponent);
+    const button = screen.findByRole('button');
+    const hasPrimaryClass = (await button).classList.contains('primary');
+    expect(hasPrimaryClass).toBeTruthy();
+  });
+
+  it('should render danger button', async () => {
+    await render(ButtonComponent, {
+      componentProperties: {
+        type: 'danger',
+      },
+    });
+    const button = screen.findByRole('button');
+    const hasDangerClass = (await button).classList.contains('danger');
+    expect(hasDangerClass).toBeTruthy();
+  });
 });
