@@ -13,5 +13,5 @@ const Template: Story<ButtonComponent> = (args: ButtonComponent) => ({
 
 export const CustomLabel = Template.bind({});
 CustomLabel.args = {
-  label: 'Custom labell',
+  label: 'Custom label',
 };

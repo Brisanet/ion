@@ -1,8 +1,7 @@
 {
-  "*/!(projects|stories)/**/*.{ts,html,less,mdx}": [
+  "(projects|stories)/**/*.{ts,html,less,mdx}": [
     "yarn lint",
     "yarn prettier",
-    "yarn test",
-    "git-cz"
+    "yarn test"
   ]
 }

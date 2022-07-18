@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --project=ion",
-    "test": "jest -i",
+    "test": "jest -i --passWithNoTests",
     "test:coverage": "jest -i --coverage",
     "test:watch": "jest -i --watchAll",
     "lint": "eslint .",
@@ -15,7 +15,8 @@
     "build-storybook": "npm run docs:json && build-storybook",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "commit": "git-cz"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +41,8 @@
     "@angular/compiler-cli": "~8.1.0",
     "@angular/language-service": "~8.1.0",
     "@babel/core": "^7.18.6",
+    "@commitlint/cli": "16.1.0",
+    "@commitlint/config-conventional": "^16.2.4",
     "@compodoc/compodoc": "^1.1.19",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
@@ -101,7 +104,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./workspace/node_modules/cz-conventional-changelog"
+      "path": "node_modules/cz-conventional-changelog"
     }
   }
 }
