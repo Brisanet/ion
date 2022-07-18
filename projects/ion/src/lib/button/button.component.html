@@ -1,6 +1,8 @@
-<button 
-    [class]="type"
-    (click)="handleClick()"
+<button
+  [class]="'ion-btn-' + type + ' ion-btn-' + size"
+  (click)="handleClick()"
+  [class.danger]="danger"
+  [disabled]="disabled"
 >
-    {{ label || 'configure uma label' }}
+  <span>{{ label || 'configure uma label' }}</span>
 </button>
