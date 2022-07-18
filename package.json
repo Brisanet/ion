@@ -14,7 +14,8 @@
     "storybook": "npm run docs:json && start-storybook -p 6006",
     "build-storybook": "npm run docs:json && build-storybook",
     "prettier": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "private": true,
   "dependencies": {
@@ -62,6 +63,7 @@
     "husky": "7.0.4",
     "jest": "^27.1.0",
     "jest-preset-angular": "^9.0.7",
+    "lint-staged": "12.5.0",
     "ng-packagr": "^5.1.0",
     "prettier": "^2.7.1",
     "protractor": "~5.4.0",
