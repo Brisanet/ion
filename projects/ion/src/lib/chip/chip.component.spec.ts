@@ -1,24 +1,38 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render, screen } from '@testing-library/angular';
 import { ChipComponent } from './chip.component';
 
 describe('ChipComponent', () => {
-  let component: ChipComponent;
-  let fixture: ComponentFixture<ChipComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ChipComponent],
-    }).compileComponents();
+  it('should render chip component with custom label', async () => {
+    await render(ChipComponent, {
+      componentProperties: {
+        label: 'chip',
+      },
+    });
+    expect(screen.getByText('chip')).toBeTruthy();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ChipComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it.each(['sm', 'md'])(
+    'should render chip component with size %s',
+    async (size: 'sm' | 'md') => {
+      await render(ChipComponent, {
+        componentProperties: {
+          label: 'custom-size',
+          size,
+        },
+      });
+      const element = screen.getByText('custom-size');
+      expect(element.classList.contains('chip-' + size)).toBeTruthy();
+    }
+  );
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should render chip component disabled', async () => {
+    await render(ChipComponent, {
+      componentProperties: {
+        label: 'chip',
+        disabled: true,
+      },
+    });
+    const element = screen.getByText('chip');
+    expect(element.getAttribute('disabled')).toBeTruthy();
   });
 });
