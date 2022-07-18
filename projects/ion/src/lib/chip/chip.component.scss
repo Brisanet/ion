@@ -28,10 +28,11 @@
     border: 1px solid #146ff5;
     outline: none;
   }
-  &:disabled {
+  &.chip-disabled {
     background-color: #e4e6eb;
     border: 1px solid #aeb2bd;
     color: #aeb2bd;
+    outline: none;
   }
 }
 .chip-selected {
@@ -63,7 +64,7 @@
     outline: none;
     color: #06439d;
   }
-  &:disabled {
+  &.chip-disabled {
     background-color: #e4e6eb;
     border: 2px solid #aeb2bd;
     color: #aeb2bd;
