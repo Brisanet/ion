@@ -1,10 +1,7 @@
-<button
-  (click)="select()"
-  [ngClass]="{
+<button (click)="select()" [ngClass]="{
     chip: !selected,
     'chip-selected': selected,
-    'chip-md': size === 'md'
-  }"
->
+    'chip-md': size === 'md',
+    'chip-disabled' : disabled}">
   {{ label }}
 </button>
