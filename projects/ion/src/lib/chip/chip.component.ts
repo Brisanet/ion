@@ -1,4 +1,13 @@
 import { Component, Input } from '@angular/core';
+
+export type Size = 'sm' | 'md';
+export interface IonChipProps {
+  label: string;
+  disabled?: boolean;
+  selected?: boolean;
+  size?: Size;
+}
+
 @Component({
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
@@ -8,7 +17,7 @@ export class ChipComponent {
   @Input('label') label!: string;
   @Input('disabled') disabled? = true;
   @Input('selected') selected? = false;
-  @Input('size') size: 'sm' | 'md' = 'md';
+  @Input('size') size?: Size = 'md';
 
   select() {
     this.selected = !this.selected;

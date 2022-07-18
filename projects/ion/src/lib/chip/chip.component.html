@@ -1,6 +1,18 @@
+<<<<<<< HEAD
 <button (click)="select()" [disabled]="disabled" [ngClass]="{
     chip: !selected,
     'chip-selected': selected,
     'chip-md': size === 'md'}">
+=======
+<button
+  (click)="select()"
+  [ngClass]="{
+    chip: !selected,
+    'chip-selected': selected,
+    'chip-md': size === 'md',
+    'chip-disabled': disabled
+  }"
+>
+>>>>>>> 0d0d4e76c8ab44ebe8fa55d32c9d773777575794
   {{ label }}
 </button>

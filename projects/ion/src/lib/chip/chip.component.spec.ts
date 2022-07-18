@@ -1,24 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
+import { ChipComponent, IonChipProps, Size } from './chip.component';
 
-import { ChipComponent } from './chip.component';
+const sut = async (customProps?: IonChipProps) => {
+  await render(ChipComponent, {
+    componentProperties: customProps || {
+      label: 'chip',
+    },
+  });
+};
 
 describe('ChipComponent', () => {
-  let component: ChipComponent;
-  let fixture: ComponentFixture<ChipComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ChipComponent],
-    }).compileComponents();
+  it('should render chip component with custom label', async () => {
+    await sut();
+    expect(screen.getByText('chip')).toBeTruthy();
   });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ChipComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  it.each(['sm', 'md'])(
+    'should render chip component with size %s',
+    async (size: Size) => {
+      await sut({ label: 'custom-size', size });
+      const element = screen.getByText('custom-size');
+      expect(element.classList.contains('chip-' + size)).toBeTruthy();
+    }
+  );
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should render chip component disabled', async () => {
+    await sut({ label: 'chip', disabled: true });
+    const element = screen.getByText('chip');
+    expect(element.getAttribute('disabled')).toBeTruthy();
   });
 });
