@@ -1,6 +1,57 @@
 {
   "pipes": [],
-  "interfaces": [],
+  "interfaces": [
+    {
+      "name": "IonChipProps",
+      "id": "interface-IonChipProps-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
+      "file": "projects/ion/src/lib/chip/chip.component.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
+      "properties": [
+        {
+          "name": "disabled",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": true,
+          "description": "",
+          "line": 6
+        },
+        {
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 5
+        },
+        {
+          "name": "selected",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": true,
+          "description": "",
+          "line": 7
+        },
+        {
+          "name": "size",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Size",
+          "optional": true,
+          "description": "",
+          "line": 8
+        }
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
+    }
+  ],
   "injectables": [
     {
       "name": "IonService",
@@ -68,7 +119,7 @@
     },
     {
       "name": "ChipComponent",
-      "id": "component-ChipComponent-716beb528f1c7649fdb295d37df0e3aa632011be0d0dd1618b5f9a3bd12f9ad27cf47763f53ca932f2e81a644d368d044bbb9f1662491a25a30d8078e1325acc",
+      "id": "component-ChipComponent-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
       "file": "projects/ion/src/lib/chip/chip.component.ts",
       "encapsulation": [],
       "entryComponents": [],
@@ -86,7 +137,7 @@
           "defaultValue": "false",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 9,
+          "line": 18,
           "type": "boolean",
           "decorators": []
         },
@@ -94,7 +145,7 @@
           "name": "label",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 8,
+          "line": 17,
           "type": "string",
           "decorators": []
         },
@@ -103,7 +154,7 @@
           "defaultValue": "false",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 10,
+          "line": 19,
           "type": "boolean",
           "decorators": []
         },
@@ -112,8 +163,8 @@
           "defaultValue": "'md'",
           "deprecated": false,
           "deprecationMessage": "",
-          "line": 11,
-          "type": "\"sm\" | \"md\"",
+          "line": 20,
+          "type": "Size",
           "decorators": []
         }
       ],
@@ -126,7 +177,7 @@
           "optional": false,
           "returnType": "void",
           "typeParameters": [],
-          "line": 13,
+          "line": 22,
           "deprecated": false,
           "deprecationMessage": ""
         }
@@ -138,16 +189,16 @@
       "description": "",
       "rawdescription": "\n",
       "type": "component",
-      "sourceCode": "import { Component, Input } from '@angular/core';\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size: 'sm' | 'md' = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
       "assetsDirs": [],
       "styleUrlsData": [
         {
-          "data": ".chip {\n  border: 1px solid #ced2db;\n  border-radius: 100px;\n  padding: 4px 8px;\n  background: white;\n  font-size: 12px;\n  line-height: 16px;\n  font-family: \"Source Sans Pro\", sans-serif;\n  font-style: normal;\n  font-weight: 600;\n  color: #0858ce;\n  cursor: pointer;\n  outline: none;\n}\n.chip:hover {\n  background-color: #ebf3fe;\n  border: 1px solid #84b4fa;\n}\n.chip:focus {\n  border: 1px solid #84b4fa;\n  outline: 2px solid #0858ce;\n  outline-offset: 2px;\n  background-color: #ebf3fe;\n}\n.chip:active {\n  background-color: #b5d2fc;\n  border: 1px solid #146ff5;\n  outline: none;\n}\n.disabled {\n  background-color: #e4e6eb;\n  border: 1px solid #aeb2bd;\n  color: #aeb2bd;\n}\n.chip-selected {\n  border: 1.5px solid #0858ce;\n  border-radius: 100px;\n  padding: 4px 8px;\n  background: #b5d2fc;\n  font-weight: 600;\n  font-size: 12px;\n  line-height: 16px;\n  font-family: \"Source Sans Pro\", sans-serif;\n  font-style: normal;\n  color: #0858ce;\n  cursor: pointer;\n}\n.chip-selected:hover {\n  border: 1.5px solid #146ff5;\n  color: #146ff5;\n}\n.chip-selected:focus {\n  border: 2px solid #84b4fa;\n  outline: 2px solid #0858ce;\n  outline-offset: 2px;\n  background-color: #ebf3fe;\n}\n.chip-selected:active {\n  background-color: #84b4fa;\n  border: 2px solid #06439d;\n  outline: none;\n  color: #06439d;\n}\n.disabled-selected {\n  background-color: #e4e6eb;\n  border: 2px solid #aeb2bd;\n  color: #aeb2bd;\n  outline: none;\n}\n.chip-md {\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 20px;\n}\n",
+          "data": ".chip {\n  border: 1px solid #ced2db;\n  border-radius: 100px;\n  background: white;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  font-weight: 600;\n  color: #0858ce;\n  cursor: pointer;\n  outline: none;\n\n  &:hover {\n    background-color: #ebf3fe;\n    border: 1px solid #84b4fa;\n  }\n  &:focus {\n    border: 1px solid #84b4fa;\n    outline: 2px solid #0858ce;\n    outline-offset: 2px;\n    background-color: #ebf3fe;\n  }\n  &:active {\n    background-color: #b5d2fc;\n    border: 1px solid #146ff5;\n    outline: none;\n  }\n  &:disabled {\n    background-color: #e4e6eb;\n    border: 1px solid #aeb2bd;\n    color: #aeb2bd;\n    outline: none;\n  }\n}\n.chip-selected {\n  border: 1.5px solid #0858ce;\n  border-radius: 100px;\n  background: #b5d2fc;\n  font-weight: 600;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  color: #0858ce;\n  cursor: pointer;\n\n  &:hover {\n    border: 1.5px solid #146ff5;\n    color: #146ff5;\n  }\n  &:focus {\n    border: 2px solid #84b4fa;\n    outline: 2px solid #0858ce;\n    outline-offset: 2px;\n    background-color: #ebf3fe;\n  }\n  &:active {\n    background-color: #84b4fa;\n    border: 2px solid #06439d;\n    outline: none;\n    color: #06439d;\n  }\n  &:disabled {\n    background-color: #e4e6eb;\n    border: 2px solid #aeb2bd;\n    color: #aeb2bd;\n    outline: none;\n    cursor: not-allowed;\n  }\n}\n.chip-md {\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 20px;\n}\n.chip-sm {\n  padding: 4px 8px;\n  font-size: 12px;\n  line-height: 16px;\n}\n",
           "styleUrl": "./chip.component.scss"
         }
       ],
       "stylesData": "",
-      "templateData": "<button\n  (click)=\"select()\"\n  [ngClass]=\"{\n    chip: !selected,\n    'chip-selected': selected,\n    'chip-md': size === 'md'\n  }\"\n>\n  {{ label }}\n</button>\n"
+      "templateData": "<button (click)=\"select()\" [disabled]=\"disabled\" [ngClass]=\"{\n    chip: !selected,\n    'chip-selected': selected\n  }\" [class]=\"'chip-' + size\">\n  {{ label }}\n</button>\n"
     },
     {
       "name": "IonComponent",
@@ -242,7 +293,17 @@
   "miscellaneous": {
     "variables": [
       {
-        "name": "CustomLabel",
+        "name": "Basic",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "ChipSmall",
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "stories/Chip.stories.ts",
@@ -262,14 +323,24 @@
         "defaultValue": "Template.bind({})"
       },
       {
-        "name": "Template",
+        "name": "Disabled",
         "ctype": "miscellaneous",
         "subtype": "variable",
         "file": "stories/Chip.stories.ts",
         "deprecated": false,
         "deprecationMessage": "",
-        "type": "Story<ChipComponent>",
-        "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Selected",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
       },
       {
         "name": "Template",
@@ -280,15 +351,67 @@
         "deprecationMessage": "",
         "type": "Story<ButtonComponent>",
         "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<ChipComponent>",
+        "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
       }
     ],
     "functions": [],
-    "typealiases": [],
+    "typealiases": [
+      {
+        "name": "Size",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "\"sm\" | \"md\"",
+        "file": "projects/ion/src/lib/chip/chip.component.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 186
+      }
+    ],
     "enumerations": [],
     "groupedVariables": {
       "stories/Chip.stories.ts": [
         {
-          "name": "CustomLabel",
+          "name": "Basic",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "ChipSmall",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Disabled",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Selected",
           "ctype": "miscellaneous",
           "subtype": "variable",
           "file": "stories/Chip.stories.ts",
@@ -333,7 +456,21 @@
     },
     "groupedFunctions": {},
     "groupedEnumerations": {},
-    "groupedTypeAliases": {}
+    "groupedTypeAliases": {
+      "projects/ion/src/lib/chip/chip.component.ts": [
+        {
+          "name": "Size",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "\"sm\" | \"md\"",
+          "file": "projects/ion/src/lib/chip/chip.component.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 186
+        }
+      ]
+    }
   },
   "routes": [],
   "coverage": {
@@ -356,6 +493,15 @@
         "name": "ChipComponent",
         "coveragePercent": 0,
         "coverageCount": "0/6",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/chip/chip.component.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "IonChipProps",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
         "status": "low"
       },
       {
@@ -401,7 +547,37 @@
         "type": "variable",
         "linktype": "miscellaneous",
         "linksubtype": "variable",
-        "name": "CustomLabel",
+        "name": "Basic",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "ChipSmall",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Disabled",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Selected",
         "coveragePercent": 0,
         "coverageCount": "0/1",
         "status": "low"

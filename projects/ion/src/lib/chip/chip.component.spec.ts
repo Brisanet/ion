@@ -24,7 +24,7 @@ describe('ChipComponent', () => {
     }
   );
 
-  it('should render chip component disabled', async () => {
+  it.skip('should render chip component disabled', async () => {
     await sut({ label: 'chip', disabled: true });
     const element = screen.getByText('chip');
     expect(element.getAttribute('disabled')).toBeTruthy();

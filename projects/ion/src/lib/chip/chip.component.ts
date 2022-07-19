@@ -15,7 +15,7 @@ export interface IonChipProps {
 })
 export class ChipComponent {
   @Input('label') label!: string;
-  @Input('disabled') disabled? = true;
+  @Input('disabled') disabled? = false;
   @Input('selected') selected? = false;
   @Input('size') size?: Size = 'md';
 
