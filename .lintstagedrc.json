@@ -1,5 +1,5 @@
 {
-  "(projects|stories)/**/*.{ts,html,less,mdx}": [
+  "(projects|stories)/**/*.{ts,html,scss,mdx}": [
     "yarn lint",
     "yarn prettier",
     "yarn test"

@@ -61,7 +61,7 @@
     "babel-loader": "^8.2.5",
     "codelyzer": "^5.0.0",
     "commitizen": "^4.2.5",
-    "cz-conventional-changelog": "^3.3.0",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.19.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -104,7 +104,79 @@
   },
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-conventional-changelog"
+      "path": "./node_modules/cz-conventional-changelog",
+      "format": "{type}: {emoji}{subject} #{issue}",
+      "disableScopeLowerCase": false,
+      "disableSubjectLowerCase": false,
+      "maxMessageLength": 64,
+      "minMessageLength": 3,
+      "questions": [
+        "type",
+        "subject",
+        "issues"
+      ],
+      "messages": {
+        "type": "Select the type of change that you're committing:",
+        "subject": "Write a short, imperative mood description of the change:\n",
+        "footer": "Issues this commit closes, e.g #123:"
+      },
+      "types": {
+        "feat": {
+          "description": "A new feature.",
+          "emoji": ":sparkles:",
+          "value": "feat"
+        },
+        "fix": {
+          "description": "A bug fix.",
+          "emoji": ":bug:",
+          "value": "fix"
+        },
+        "chore": {
+          "description": "Build process or auxiliary tool changes.",
+          "emoji": ":wrench:",
+          "value": "chore"
+        },
+        "docs": {
+          "description": "Documentation only changes.",
+          "emoji": ":memo:",
+          "value": "docs"
+        },
+        "refactor": {
+          "description": "A code change that neither fixes a bug or adds a feature.",
+          "emoji": ":recycle:",
+          "value": "refactor"
+        },
+        "style": {
+          "description": "Markup, white-space, formatting, missing semi-colons...",
+          "emoji": ":lipstick:",
+          "value": "style"
+        },
+        "ci": {
+          "description": "CI related changes.",
+          "emoji": ":construction_worker:",
+          "value": "ci"
+        },
+        "perf": {
+          "description": "A code change that improves performance.",
+          "emoji": ":zap:",
+          "value": "perf"
+        },
+        "build": {
+          "description": "Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm).",
+          "emoji": ":green_heart:",
+          "value": "build"
+        },
+        "temp": {
+          "description": "Temporary commits that won't be included in your CHANGELOG.",
+          "emoji": ":construction:",
+          "value": "temp"
+        },
+        "test": {
+          "description": "Adding missing tests or correcting existing ones.",
+          "emoji": ":white_check_mark:",
+          "value": "test"
+        }
+      }
     }
   }
 }

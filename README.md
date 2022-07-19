@@ -28,7 +28,7 @@ We have the following types:
 - chore: Changes to the build process or auxiliary tools and libraries such as documentation generation;
 - perf: A code that improves performance;
 - ci: Changes to the CI/CD process;
-- build: Changes that affect the build system or external dependencies (example scopes: gulp´ broccoli, npm);
+- build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm);
 - temp: Temporary commits that won't be included in your CHANGELOG.
 
 Example: `feat: Add feature #issue_id`
