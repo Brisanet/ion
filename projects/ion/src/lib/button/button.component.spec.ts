@@ -16,21 +16,84 @@ describe('ButtonComponent', () => {
     expect(screen.getByText('configure uma label'));
   });
 
-  it('should render primary button', async () => {
-    await render(ButtonComponent);
-    const button = screen.findByRole('button');
-    const hasPrimaryClass = (await button).classList.contains('primary');
-    expect(hasPrimaryClass).toBeTruthy();
-  });
-
-  it('should render danger button', async () => {
+  it('should render a button with the ion-btn-primary class when type="primary" is passed', async () => {
     await render(ButtonComponent, {
-      componentProperties: {
-        type: 'danger',
-      },
+      componentProperties: { type: 'primary' },
     });
     const button = screen.findByRole('button');
-    const hasDangerClass = (await button).classList.contains('danger');
-    expect(hasDangerClass).toBeTruthy();
+    const hasClass = (await button).classList.contains(`ion-btn-primary`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-secundary class when type="secundary" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { type: 'secundary' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-secundary`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-ghost class when type="ghost" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { type: 'ghost' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-ghost`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-dashed class when type="dashed" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { type: 'dashed' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-dashed`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-sm class when size="sm" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { size: 'sm' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-sm`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-md class when size="md" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { size: 'md' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-md`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-lg class when size="lg" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { size: 'lg' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-lg`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the ion-btn-xl class when size="xl" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { size: 'xl' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`ion-btn-xl`);
+    expect(hasClass).toBeTruthy();
+  });
+
+  it('should render a button with the danger class when danger="true" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { danger: 'true' },
+    });
+    const button = screen.findByRole('button');
+    const hasClass = (await button).classList.contains(`danger`);
+    expect(hasClass).toBeTruthy();
   });
 });
