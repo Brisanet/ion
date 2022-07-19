@@ -12,6 +12,7 @@
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": ["node_modules/@types"],
+    "types": ["jest", "@testing-library/jest-dom"],
     "lib": ["es2018", "dom"],
     "paths": {
       "ion": ["dist/ion"],
@@ -20,6 +21,7 @@
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "types": ["node"]
   }
 }

@@ -19,7 +19,7 @@ export interface IonIconProps {
 @Component({
   selector: 'ion-icon',
   templateUrl: './icon.component.html',
-  styleUrls: ['./icon.component.less'],
+  styleUrls: ['./icon.component.scss'],
 })
 export class IonIconComponent implements AfterViewInit {
   @Input() type: IconType;
