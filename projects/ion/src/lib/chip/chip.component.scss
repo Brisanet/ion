@@ -1,66 +1,67 @@
+@import '../../styles/index.scss';
 .chip {
-  border: 1px solid #ced2db;
+  border: 1px solid $neutral-4;
   border-radius: 100px;
-  background: white;
+  background: $neutral-1;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   font-weight: 600;
-  color: #0858ce;
+  color: $primary-6;
   cursor: pointer;
   outline: none;
 
   &:hover {
-    background-color: #ebf3fe;
-    border: 1px solid #84b4fa;
+    background-color: $primary-1;
+    border: 1px solid $primary-3;
   }
   &:focus {
-    border: 1px solid #84b4fa;
-    outline: 2px solid #0858ce;
+    border: 1px solid $primary-3;
+    outline: 2px solid $primary-6;
     outline-offset: 2px;
-    background-color: #ebf3fe;
+    background-color: $primary-1;
   }
   &:active {
-    background-color: #b5d2fc;
-    border: 1px solid #146ff5;
+    background-color: $primary-2;
+    border: 1px solid $primary-5;
     outline: none;
   }
   &:disabled {
-    background-color: #e4e6eb;
-    border: 1px solid #aeb2bd;
-    color: #aeb2bd;
+    background-color: $neutral-3;
+    border: 1px solid $neutral-4;
+    color: $neutral-4;
     outline: none;
   }
 }
 .chip-selected {
-  border: 1.5px solid #0858ce;
+  border: 1.5px solid $primary-6;
   border-radius: 100px;
-  background: #b5d2fc;
+  background: $primary-2;
   font-weight: 600;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
-  color: #0858ce;
+  color: $primary-6;
   cursor: pointer;
 
   &:hover {
-    border: 1.5px solid #146ff5;
-    color: #146ff5;
+    border: 1.5px solid $primary-5;
+    color: $primary-5;
   }
   &:focus {
-    border: 2px solid #84b4fa;
-    outline: 2px solid #0858ce;
+    border: 2px solid $primary-3;
+    outline: 2px solid $primary-6;
     outline-offset: 2px;
-    background-color: #ebf3fe;
+    background-color: $primary-1;
   }
   &:active {
-    background-color: #84b4fa;
-    border: 2px solid #06439d;
+    background-color: $primary-3;
+    border: 2px solid $primary-7;
     outline: none;
-    color: #06439d;
+    color: $primary-7;
   }
   &:disabled {
-    background-color: #e4e6eb;
-    border: 2px solid #aeb2bd;
-    color: #aeb2bd;
+    background-color: $neutral-3;
+    border: 2px solid $neutral-4;
+    color: $neutral-4;
     outline: none;
     cursor: not-allowed;
   }
