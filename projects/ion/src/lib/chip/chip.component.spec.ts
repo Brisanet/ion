@@ -20,20 +20,20 @@ describe('ChipComponent', () => {
     async (size: Size) => {
       await sut({ label: 'custom-size', size });
       const element = screen.getByText('custom-size');
-      expect(element.classList.contains('chip-' + size)).toBeTruthy();
+      expect(element).toHaveClass('chip-' + size);
     }
   );
 
-  it.skip('should render chip component disabled', async () => {
+  it('should render chip component disabled', async () => {
     await sut({ label: 'chip', disabled: true });
     const element = screen.getByText('chip');
-    expect(element.getAttribute('disabled')).toBeTruthy();
+    expect(element).toHaveAttribute('disabled');
   });
 
   it('should select chip', async () => {
     await sut();
     const element = screen.getByText('chip');
     fireEvent.click(element);
-    expect(element.classList.contains('chip-selected')).toBeTruthy();
+    expect(element).toHaveClass('chip-selected');
   });
 });
