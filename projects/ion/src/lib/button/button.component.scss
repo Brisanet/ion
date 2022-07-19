@@ -5,79 +5,82 @@ button {
   font-weight  : 600;
   border-radius: 0.625rem;
   border       : 0;
-  color        : #FCFCFD;
+  color        : $neutral-1;
   cursor: pointer;
   transition: all 300ms;
   
   &:focus {
-    box-shadow: 0rem 0rem 0rem 0.125rem #FCFCFD, 0rem 0rem 0rem 0.25rem #146FF5;
+    box-shadow: 0rem 0rem 0rem 0.125rem $neutral-1, 0rem 0rem 0rem 0.25rem $primary-5;
   }
 
   &:disabled,
   &:disabled:hover,
   &[disabled],
   &[disabled]:hover {
-    background-color: #E4E6EB !important;
-    color           : #AEB2BD !important;
+    background-color: $neutral-3 !important;
+    color           : $neutral-5 !important;
     cursor: not-allowed;
   }
 }
 
 .ion-btn-primary {
-  background-color: $primary-color;
+  background-color: $primary-6;
 }
 
 .ion-btn-primary:hover {
-  background: #146FF5;
+  background: $primary-5;
 }
 
 .ion-btn-primary.danger {
-  background-color: #D6293A;
+  background-color: $negative-6;
 }
 
 .ion-btn-primary.danger:hover {
-  background-color: #DE5462;
-  color: #FCFCFD;
+  background-color: $negative-5;
+  color: $neutral-1;
 }
 
 .ion-btn-secundary {
-  background-color: #FCFCFD;
-  border          : 1px solid #CED2DB;
-  color           : #0858CE;
+  background-color: $neutral-1;
+  border          : 1px solid $neutral-4;
+  color           : $primary-6;
 }
 
 .ion-btn-secundary:hover {
-  background-color: #EBF3FE;
-  border: 1px solid #84B4FA;
-  color: #146FF5;
+  background-color: $primary-1;
+  border: 1px solid $primary-4;
+  color: $primary-5;
 
   &:disabled {
-    border : 1px solid #CED2DB;
+    background-color: $neutral-3;
+    border : 1px solid $neutral-5;
+    color: $neutral-5;
   }
 }
 
 .ion-btn-secundary.danger {
-  color           : #D6293A;
+  color           : $negative-color;
 }
 
 .ion-btn-secundary.danger:hover {
-  background-color: #FAEAEC;
-  border: 1px solid #EFA9B0;
-  color: #DE5462;
+  background-color: $negative-1;
+  border: 1px solid $negative-3;
+  color: $negative-5;
 }
 
 .ion-btn-ghost {
   background-color: transparent;
-  color           : #0858CE;
+  color           : $primary-6;
 
   &:disabled {
     background-color: transparent !important;
+    color: $neutral-5;
   }
 }
 
 .ion-btn-ghost:hover {
-  background-color: #EBF3FE;
-  color           : #146FF5;
+  background-color: $primary-1;
+  color           : $primary-5;
 
   &:disabled {
     background-color: transparent !important;
@@ -85,40 +88,43 @@ button {
 }
 
 .ion-btn-ghost.danger {
-  color           : #D6293A;
+  color           : $negative-6;
 }
 
 .ion-btn-ghost.danger:hover {
-  background-color: #FAEAEC;
-  color           : #DE5462;
+  background-color: $negative-1;
+  color           : $negative-5;
 }
 
-.ion-btn-dashed {
+.ion-btn-dashed { 
   background-color: transparent;
-  color           : #0858CE;
-  border          : 1px #CED2DB;
+  color           : $primary-6;
+  border          : 1px $neutral-4;
   border-style    : dashed;
 }
 
 .ion-btn-dashed:hover {
-  background-color: #EBF3FE;
-  color           : #146FF5;;
-  border: 1px #84B4FA;
+  background-color: $primary-1;
+  color           : $primary-5;
+  border: 1px $primary-4;
   border-style    : dashed;
 
   &:disabled {
-    border : 1px dashed #CED2DB;
+    background-color: $neutral-3;
+    border : 1px dashed $neutral-5;
+    color: $neutral-5;
   }
 }
 
 .ion-btn-dashed.danger {
-  color: #D6293A;
+  border : 1px dashed $neutral-4;
+  color: $negative-6;
 }
 
 .ion-btn-dashed.danger:hover {
-  background: #FAEAEC;
-  border: 1px dashed #EFA9B0;
-  color: #DE5462;
+  background: $negative-1;
+  border: 1px dashed $negative-3;
+  color: $negative-5;
 }
 
 .ion-btn-sm {
