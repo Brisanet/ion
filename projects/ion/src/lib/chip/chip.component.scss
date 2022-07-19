@@ -1,10 +1,7 @@
 .chip {
   border: 1px solid #ced2db;
   border-radius: 100px;
-  padding: 4px 8px;
   background: white;
-  font-size: 12px;
-  line-height: 16px;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   font-weight: 600;
@@ -37,11 +34,8 @@
 .chip-selected {
   border: 1.5px solid #0858ce;
   border-radius: 100px;
-  padding: 4px 8px;
   background: #b5d2fc;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   color: #0858ce;
@@ -75,4 +69,9 @@
   padding: 6px 12px;
   font-size: 14px;
   line-height: 20px;
+}
+.chip-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 16px;
 }
