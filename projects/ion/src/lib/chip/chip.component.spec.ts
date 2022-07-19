@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { ChipComponent, IonChipProps, Size } from './chip.component';
 
 const sut = async (customProps?: IonChipProps) => {
@@ -28,5 +28,12 @@ describe('ChipComponent', () => {
     await sut({ label: 'chip', disabled: true });
     const element = screen.getByText('chip');
     expect(element.getAttribute('disabled')).toBeTruthy();
+  });
+
+  it('should select chip', async () => {
+    await sut();
+    const element = screen.getByText('chip');
+    fireEvent.click(element);
+    expect(element.classList.contains('chip-selected')).toBeTruthy();
   });
 });
