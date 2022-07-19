@@ -108,7 +108,7 @@ describe('Extra-large ButtonComponent', () => {
 describe('Danger ButtonComponent', () => {
   it('should render a button with the danger class when danger="true" is passed', async () => {
     await render(ButtonComponent, {
-      componentProperties: { danger: 'true' },
+      componentProperties: { danger: true },
     });
     const button = screen.findByRole('button');
     const hasClass = (await button).classList.contains(`danger`);
