@@ -98,8 +98,8 @@ button:disabled,
 button:disabled:hover,
 button[disabled],
 button[disabled]:hover {
-  background-color: #E4E6EB;
-  color           : #AEB2BD;
+  background-color: #E4E6EB !important;
+  color           : #AEB2BD !important;
 }
 
 .ion-btn-sm {

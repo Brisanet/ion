@@ -1,8 +1,8 @@
 <button
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   (click)="handleClick()"
-  [class.danger]="danger"
-  [disabled]="disabled"
+  [class.danger]="_danger"
+  [disabled]="_disabled"
 >
   <span>{{ label || 'configure uma label' }}</span>
 </button>
