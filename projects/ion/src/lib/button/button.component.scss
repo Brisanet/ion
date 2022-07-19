@@ -1,3 +1,5 @@
+@import '../../styles/index.scss';
+
 button {
   font-family  : 'Source Sans Pro', sans-serif;
   font-weight  : 600;
@@ -22,7 +24,7 @@ button {
 }
 
 .ion-btn-primary {
-  background-color: #0858CE;
+  background-color: $primary-color;
 }
 
 .ion-btn-primary:hover {
@@ -150,4 +152,3 @@ button {
   line-height: 1.5rem; //24px
   padding    : 0.75rem, 1.5rem
 }
-
