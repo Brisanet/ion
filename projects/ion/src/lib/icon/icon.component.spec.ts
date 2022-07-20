@@ -28,7 +28,7 @@ describe('IonIconComponent', () => {
   });
 
   it('should render icon with default color', async () => {
-    expect((await sut()).getAttribute('fill')).toBe('black');
+    expect((await sut()).getAttribute('fill')).toBe('#282b33');
   });
 
   it('should render icon with custom size', async () => {

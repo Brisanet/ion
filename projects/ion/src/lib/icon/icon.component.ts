@@ -24,7 +24,7 @@ export interface IonIconProps {
 export class IonIconComponent implements AfterViewInit {
   @Input() type: IconType;
   @Input() size = 24;
-  @Input() color = 'black';
+  @Input() color = '#282b33';
 
   @ViewChild('svg', { static: false }) svg: ElementRef;
 
