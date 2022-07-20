@@ -1,8 +1,9 @@
 <button
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
-  (click)="handleClick()"
+  [style.width]="expand ? '100%': 'fit-content'"
   [class.danger]="danger"
   [disabled]="disabled"
+  (click)="handleClick()"
 >
   <span>{{ label || 'configure uma label' }}</span>
 </button>
