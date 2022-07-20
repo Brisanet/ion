@@ -1,6 +1,6 @@
 {
   "(projects|stories)/**/*.{ts,html,scss,mdx}": [
-    "yarn lint",
+    "yarn lint --fix",
     "yarn prettier",
     "yarn test"
   ]
