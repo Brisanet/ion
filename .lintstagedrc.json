@@ -1,7 +1,4 @@
 {
-  "(projects|stories)/**/*.{ts,html,scss,mdx}": [
-    "yarn lint --fix",
-    "yarn prettier",
-    "yarn test"
-  ]
+  "(projects|stories)/**/*.ts": ["yarn lint", "yarn test"],
+  "(projects|stories)/**/*.{html,mdx}": ["yarn prettier"]
 }
