@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/angular';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from './button.component';
 
 describe('ButtonComponent', () => {
@@ -14,6 +15,21 @@ describe('ButtonComponent', () => {
   it('should render button with warning msg when label is not provided', async () => {
     await render(ButtonComponent);
     expect(screen.getByText('configure uma label'));
+  });
+
+  it('should emit an event when clicked', async () => {
+    const clickEvent = jest.fn();
+    await render(ButtonComponent, {
+      componentProperties: {
+        label: 'Clique aqui',
+        ionOnClick: {
+          emit: clickEvent,
+        } as any,
+      },
+    });
+    const button = screen.getByText('Clique aqui');
+    fireEvent.click(button);
+    expect(clickEvent).toHaveBeenCalled();
   });
 });
 
