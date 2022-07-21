@@ -1,760 +1,748 @@
 {
-    "pipes": [],
-    "interfaces": [
+  "pipes": [],
+  "interfaces": [
+    {
+      "name": "IonChipProps",
+      "id": "interface-IonChipProps-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
+      "file": "projects/ion/src/lib/chip/chip.component.ts",
+      "deprecated": false,
+      "deprecationMessage": "",
+      "type": "interface",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
+      "properties": [
         {
-            "name": "IonChipProps",
-            "id": "interface-IonChipProps-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
-            "file": "projects/ion/src/lib/chip/chip.component.ts",
-            "deprecated": false,
-            "deprecationMessage": "",
-            "type": "interface",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
-            "properties": [
-                {
-                    "name": "disabled",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": true,
-                    "description": "",
-                    "line": 6
-                },
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": false,
-                    "description": "",
-                    "line": 5
-                },
-                {
-                    "name": "selected",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": true,
-                    "description": "",
-                    "line": 7
-                },
-                {
-                    "name": "size",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Size",
-                    "optional": true,
-                    "description": "",
-                    "line": 8
-                }
-            ],
-            "indexSignatures": [],
-            "kind": 165,
-            "methods": []
-        }
-    ],
-    "injectables": [
-        {
-            "name": "IonService",
-            "id": "injectable-IonService-9319234982ce4aebc61f62e33ff1f4137f3ba8ee46ea2657290bbc0613bdc4de0311ca9735147ccc9a6028346225f2a65acb793ebc69a694173ee3f5119f86fc",
-            "file": "projects/ion/src/lib/ion.service.ts",
-            "properties": [],
-            "methods": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "description": "",
-            "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class IonService {}\n",
-            "type": "injectable"
-        }
-    ],
-    "guards": [],
-    "interceptors": [],
-    "classes": [],
-    "directives": [],
-    "components": [
-        {
-            "name": "ButtonComponent",
-            "id": "component-ButtonComponent-6e65f93cd5485700815711860c4f52de08e7550b8c6b2c3564635fcfd99283354666c01a38c53dd59aadaf0161f32f0608f0038c42c6ef8b194c5bffe753590b",
-            "file": "projects/ion/src/lib/button/button.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "ion-button",
-            "styleUrls": [
-                "./button.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./button.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 9,
-                    "type": "string",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label: string;\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../styles/index.scss';\n\nbutton {\n  background: $primary-color;\n}\n",
-                    "styleUrl": "./button.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "templateData": "<button>{{ label || 'configure uma label' }}</button>\n"
+          "name": "disabled",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": true,
+          "description": "",
+          "line": 6
         },
         {
-            "name": "ChipComponent",
-            "id": "component-ChipComponent-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
-            "file": "projects/ion/src/lib/chip/chip.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "ion-chip",
-            "styleUrls": [
-                "./chip.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./chip.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "disabled",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 18,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 17,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "selected",
-                    "defaultValue": "false",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 19,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "size",
-                    "defaultValue": "'md'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 20,
-                    "type": "Size",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "select",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 22,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../styles/index.scss';\n.chip {\n  border: 1px solid $neutral-4;\n  border-radius: 100px;\n  background: $neutral-1;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  font-weight: 600;\n  color: $primary-6;\n  cursor: pointer;\n  outline: none;\n\n  &:hover {\n    background-color: $primary-1;\n    border: 1px solid $primary-3;\n  }\n  &:focus {\n    border: 1px solid $primary-3;\n    outline: 2px solid $primary-6;\n    outline-offset: 2px;\n    background-color: $primary-1;\n  }\n  &:active {\n    background-color: $primary-2;\n    border: 1px solid $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    background-color: $neutral-3;\n    border: 1px solid $neutral-4;\n    color: $neutral-4;\n    outline: none;\n  }\n}\n.chip-selected {\n  border: 1.5px solid $primary-6;\n  border-radius: 100px;\n  background: $primary-2;\n  font-weight: 600;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  color: $primary-6;\n  cursor: pointer;\n\n  &:hover {\n    border: 1.5px solid $primary-5;\n    color: $primary-5;\n  }\n  &:focus {\n    border: 2px solid $primary-3;\n    outline: 2px solid $primary-6;\n    outline-offset: 2px;\n    background-color: $primary-1;\n  }\n  &:active {\n    background-color: $primary-3;\n    border: 2px solid $primary-7;\n    outline: none;\n    color: $primary-7;\n  }\n  &:disabled {\n    background-color: $neutral-3;\n    border: 2px solid $neutral-4;\n    color: $neutral-4;\n    outline: none;\n    cursor: not-allowed;\n  }\n}\n.chip-md {\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 20px;\n}\n.chip-sm {\n  padding: 4px 8px;\n  font-size: 12px;\n  line-height: 16px;\n}\n",
-                    "styleUrl": "./chip.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "templateData": "<button\n  (click)=\"select()\"\n  [disabled]=\"disabled\"\n  [ngClass]=\"{\n    chip: !selected,\n    'chip-selected': selected\n  }\"\n  [class]=\"'chip-' + size\"\n>\n  {{ label }}\n</button>\n"
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "string",
+          "optional": false,
+          "description": "",
+          "line": 5
         },
         {
-            "name": "IonComponent",
-            "id": "component-IonComponent-608496d3b0318fd80642ad9a57c1f20d6c13b2778902e8de0cb91bdad9708fe6f6cfdb53999be909bd1197efb644eed632176cf4a4fbf5e1659c8b725eb75a91",
-            "file": "projects/ion/src/lib/ion.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "lib-ion",
-            "styleUrls": [],
-            "styles": [],
-            "template": "<p>ion works!</p>",
-            "templateUrl": [],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'lib-ion',\n  template: ` <p>ion works!</p> `,\n  styles: [],\n})\nexport class IonComponent {}\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": ""
+          "name": "selected",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "boolean",
+          "optional": true,
+          "description": "",
+          "line": 7
         },
         {
-            "name": "TabComponent",
-            "id": "component-TabComponent-63f782e01fac5aac675069d7417595743ae64eb1e2eb7890cab3e8c2ac8170b4793982434a0b2f7d859b1b508d2c55acd1eb4f7686ed452cef7341add39830f5",
-            "file": "projects/ion/src/lib/tab/tab.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "ion-tab",
-            "styleUrls": [
-                "./tab.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./tab.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "direction",
-                    "defaultValue": "'bottom'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 15,
-                    "type": "Direction",
-                    "decorators": []
-                },
-                {
-                    "name": "disabled",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 13,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 12,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "selected",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 14,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "size",
-                    "defaultValue": "'sm'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 16,
-                    "type": "Size",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "select",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 18,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md' | 'lg';\nexport type Direction = 'bottom' | 'top' | 'right' | 'left';\n\n@Component({\n  selector: 'ion-tab',\n  templateUrl: './tab.component.html',\n  styleUrls: ['./tab.component.scss'],\n})\nexport class TabComponent {\n  @Input() label!: string;\n  @Input('disabled') disabled?: boolean;\n  @Input('selected') selected?: boolean;\n  @Input('direction') direction?: Direction = 'bottom';\n  @Input('size') size?: Size = 'sm';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../styles/index.scss';\n.tab {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 12px;\n  line-height: 16px;\n  color: $neutral-7;\n  padding: 8px 16px;\n  border: none;\n  border-color: $neutral-3;\n  background-color: $neutral-1;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n}\n\n.tab-selected {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 12px;\n  line-height: 16px;\n  color: $primary-6;\n  padding: 8px 16px;\n  border: none;\n  background-color: $neutral-1;\n  border-color: $primary-6;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n}\n\n.border-bottom {\n  border-bottom: 2px solid;\n  border-radius: 6px 6px 0px 0px;\n}\n.border-top {\n  border-top: 2px solid;\n  border-radius: 0px 0px 6px 6px;\n}\n.border-right {\n  border-right: 2px solid;\n}\n.border-left {\n  border-left: 2px solid;\n}\n",
-                    "styleUrl": "./tab.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "templateData": "<button\n  (click)=\"select()\"\n  [disabled]=\"false\"\n  [ngClass]=\"{ tab: !selected, 'tab-selected': selected }\"\n  [class]=\"'tab-' + size\"\n  [class]=\"'border-' + direction\"\n>\n  {{ label }}\n</button>\n"
+          "name": "size",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Size",
+          "optional": true,
+          "description": "",
+          "line": 8
         }
-    ],
-    "modules": [
-        {
-            "name": "IonModule",
-            "id": "module-IonModule-8ffc27818cb503d28ec71f2f366d03808b97edf90a515ab86ee7de62de7b9e841757fae6415306875ef7f1cbb615c6c9fffbfe714d86f6d440abf6e67ec37cfd",
-            "description": "",
-            "deprecationMessage": "",
-            "deprecated": false,
-            "file": "projects/ion/src/lib/ion.module.ts",
-            "methods": [],
-            "sourceCode": "import { TabComponent } from './tab/tab.component';\nimport { CommonModule } from '@angular/common';\nimport { ChipComponent } from './chip/chip.component';\nimport { NgModule } from '@angular/core';\nimport { ButtonComponent } from './button/button.component';\nimport { IonComponent } from './ion.component';\n\n@NgModule({\n  declarations: [IonComponent, ButtonComponent, ChipComponent, TabComponent],\n  imports: [CommonModule],\n  exports: [IonComponent, ButtonComponent, ChipComponent, TabComponent],\n})\nexport class IonModule {}\n",
-            "children": [
-                {
-                    "type": "providers",
-                    "elements": []
-                },
-                {
-                    "type": "declarations",
-                    "elements": [
-                        {
-                            "name": "ButtonComponent"
-                        },
-                        {
-                            "name": "ChipComponent"
-                        },
-                        {
-                            "name": "IonComponent"
-                        },
-                        {
-                            "name": "TabComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "imports",
-                    "elements": []
-                },
-                {
-                    "type": "exports",
-                    "elements": [
-                        {
-                            "name": "ButtonComponent"
-                        },
-                        {
-                            "name": "ChipComponent"
-                        },
-                        {
-                            "name": "IonComponent"
-                        },
-                        {
-                            "name": "TabComponent"
-                        }
-                    ]
-                },
-                {
-                    "type": "bootstrap",
-                    "elements": []
-                },
-                {
-                    "type": "classes",
-                    "elements": []
-                }
-            ]
-        }
-    ],
-    "miscellaneous": {
-        "variables": [
-            {
-                "name": "Basic",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Chip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "ChipSmall",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Chip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "CustomLabel",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Disabled",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Chip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Selected",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Chip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<ButtonComponent>",
-                "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "stories/Chip.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story<ChipComponent>",
-                "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
-            }
-        ],
-        "functions": [],
-        "typealiases": [
-            {
-                "name": "Direction",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
-                "file": "projects/ion/src/lib/tab/tab.component.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 186
-            },
-            {
-                "name": "Size",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "\"sm\" | \"md\"",
-                "file": "projects/ion/src/lib/chip/chip.component.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 186
-            },
-            {
-                "name": "Size",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "\"sm\" | \"md\" | \"lg\"",
-                "file": "projects/ion/src/lib/tab/tab.component.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 186
-            }
-        ],
-        "enumerations": [],
-        "groupedVariables": {
-            "stories/Chip.stories.ts": [
-                {
-                    "name": "Basic",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Chip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "ChipSmall",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Chip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Disabled",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Chip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Selected",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Chip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Chip.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<ChipComponent>",
-                    "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
-                }
-            ],
-            "stories/Button.stories.ts": [
-                {
-                    "name": "CustomLabel",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Button.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "stories/Button.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story<ButtonComponent>",
-                    "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
-                }
-            ]
-        },
-        "groupedFunctions": {},
-        "groupedEnumerations": {},
-        "groupedTypeAliases": {
-            "projects/ion/src/lib/tab/tab.component.ts": [
-                {
-                    "name": "Direction",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
-                    "file": "projects/ion/src/lib/tab/tab.component.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 186
-                },
-                {
-                    "name": "Size",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "\"sm\" | \"md\" | \"lg\"",
-                    "file": "projects/ion/src/lib/tab/tab.component.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 186
-                }
-            ],
-            "projects/ion/src/lib/chip/chip.component.ts": [
-                {
-                    "name": "Size",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "\"sm\" | \"md\"",
-                    "file": "projects/ion/src/lib/chip/chip.component.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 186
-                }
-            ]
-        }
-    },
-    "routes": [],
-    "coverage": {
-        "count": 0,
-        "status": "low",
-        "files": [
-            {
-                "filePath": "projects/ion/src/lib/button/button.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ButtonComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/2",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/chip/chip.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "ChipComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/6",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/chip/chip.component.ts",
-                "type": "interface",
-                "linktype": "interface",
-                "name": "IonChipProps",
-                "coveragePercent": 0,
-                "coverageCount": "0/5",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/ion.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "IonComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/ion.service.ts",
-                "type": "injectable",
-                "linktype": "injectable",
-                "name": "IonService",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/tab/tab.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "TabComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/7",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Button.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "CustomLabel",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Button.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Chip.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Basic",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Chip.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "ChipSmall",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Chip.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Disabled",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Chip.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Selected",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Chip.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            }
-        ]
+      ],
+      "indexSignatures": [],
+      "kind": 165,
+      "methods": []
     }
+  ],
+  "injectables": [
+    {
+      "name": "IonService",
+      "id": "injectable-IonService-9319234982ce4aebc61f62e33ff1f4137f3ba8ee46ea2657290bbc0613bdc4de0311ca9735147ccc9a6028346225f2a65acb793ebc69a694173ee3f5119f86fc",
+      "file": "projects/ion/src/lib/ion.service.ts",
+      "properties": [],
+      "methods": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "description": "",
+      "rawdescription": "\n",
+      "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class IonService {}\n",
+      "type": "injectable"
+    }
+  ],
+  "guards": [],
+  "interceptors": [],
+  "classes": [],
+  "directives": [],
+  "components": [
+    {
+      "name": "ButtonComponent",
+      "id": "component-ButtonComponent-6e65f93cd5485700815711860c4f52de08e7550b8c6b2c3564635fcfd99283354666c01a38c53dd59aadaf0161f32f0608f0038c42c6ef8b194c5bffe753590b",
+      "file": "projects/ion/src/lib/button/button.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "ion-button",
+      "styleUrls": ["./button.component.scss"],
+      "styles": [],
+      "templateUrl": ["./button.component.html"],
+      "viewProviders": [],
+      "inputsClass": [
+        {
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 9,
+          "type": "string",
+          "decorators": []
+        }
+      ],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label: string;\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "@import '../../styles/index.scss';\n\nbutton {\n  background: $primary-color;\n}\n",
+          "styleUrl": "./button.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "templateData": "<button>{{ label || 'configure uma label' }}</button>\n"
+    },
+    {
+      "name": "ChipComponent",
+      "id": "component-ChipComponent-f5be7c35cb4703d4efdb7df53b35331d6dc0c41962ebce2a7576d16a0f48fe84d3c28043a199ee9735695ccedd0c0de8705144cfaa4809c8ffff277786313137",
+      "file": "projects/ion/src/lib/chip/chip.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "ion-chip",
+      "styleUrls": ["./chip.component.scss"],
+      "styles": [],
+      "templateUrl": ["./chip.component.html"],
+      "viewProviders": [],
+      "inputsClass": [
+        {
+          "name": "disabled",
+          "defaultValue": "false",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 18,
+          "type": "boolean",
+          "decorators": []
+        },
+        {
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 17,
+          "type": "string",
+          "decorators": []
+        },
+        {
+          "name": "selected",
+          "defaultValue": "false",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 19,
+          "type": "boolean",
+          "decorators": []
+        },
+        {
+          "name": "size",
+          "defaultValue": "'md'",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 20,
+          "type": "Size",
+          "decorators": []
+        }
+      ],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "select",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 22,
+          "deprecated": false,
+          "deprecationMessage": ""
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md';\nexport interface IonChipProps {\n  label: string;\n  disabled?: boolean;\n  selected?: boolean;\n  size?: Size;\n}\n\n@Component({\n  selector: 'ion-chip',\n  templateUrl: './chip.component.html',\n  styleUrls: ['./chip.component.scss'],\n})\nexport class ChipComponent {\n  @Input('label') label!: string;\n  @Input('disabled') disabled? = false;\n  @Input('selected') selected? = false;\n  @Input('size') size?: Size = 'md';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "@import '../../styles/index.scss';\n.chip {\n  border: 1px solid $neutral-4;\n  border-radius: 100px;\n  background: $neutral-1;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  font-weight: 600;\n  color: $primary-6;\n  cursor: pointer;\n  outline: none;\n\n  &:hover {\n    background-color: $primary-1;\n    border: 1px solid $primary-3;\n  }\n  &:focus {\n    border: 1px solid $primary-3;\n    outline: 2px solid $primary-6;\n    outline-offset: 2px;\n    background-color: $primary-1;\n  }\n  &:active {\n    background-color: $primary-2;\n    border: 1px solid $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    background-color: $neutral-3;\n    border: 1px solid $neutral-4;\n    color: $neutral-4;\n    outline: none;\n  }\n}\n.chip-selected {\n  border: 1.5px solid $primary-6;\n  border-radius: 100px;\n  background: $primary-2;\n  font-weight: 600;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-style: normal;\n  color: $primary-6;\n  cursor: pointer;\n\n  &:hover {\n    border: 1.5px solid $primary-5;\n    color: $primary-5;\n  }\n  &:focus {\n    border: 2px solid $primary-3;\n    outline: 2px solid $primary-6;\n    outline-offset: 2px;\n    background-color: $primary-1;\n  }\n  &:active {\n    background-color: $primary-3;\n    border: 2px solid $primary-7;\n    outline: none;\n    color: $primary-7;\n  }\n  &:disabled {\n    background-color: $neutral-3;\n    border: 2px solid $neutral-4;\n    color: $neutral-4;\n    outline: none;\n    cursor: not-allowed;\n  }\n}\n.chip-md {\n  padding: 6px 12px;\n  font-size: 14px;\n  line-height: 20px;\n}\n.chip-sm {\n  padding: 4px 8px;\n  font-size: 12px;\n  line-height: 16px;\n}\n",
+          "styleUrl": "./chip.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "templateData": "<button\n  (click)=\"select()\"\n  [disabled]=\"disabled\"\n  [ngClass]=\"{\n    chip: !selected,\n    'chip-selected': selected\n  }\"\n  [class]=\"'chip-' + size\"\n>\n  {{ label }}\n</button>\n"
+    },
+    {
+      "name": "IonComponent",
+      "id": "component-IonComponent-608496d3b0318fd80642ad9a57c1f20d6c13b2778902e8de0cb91bdad9708fe6f6cfdb53999be909bd1197efb644eed632176cf4a4fbf5e1659c8b725eb75a91",
+      "file": "projects/ion/src/lib/ion.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "lib-ion",
+      "styleUrls": [],
+      "styles": [],
+      "template": "<p>ion works!</p>",
+      "templateUrl": [],
+      "viewProviders": [],
+      "inputsClass": [],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'lib-ion',\n  template: ` <p>ion works!</p> `,\n  styles: [],\n})\nexport class IonComponent {}\n",
+      "assetsDirs": [],
+      "styleUrlsData": "",
+      "stylesData": ""
+    },
+    {
+      "name": "TabComponent",
+      "id": "component-TabComponent-63f782e01fac5aac675069d7417595743ae64eb1e2eb7890cab3e8c2ac8170b4793982434a0b2f7d859b1b508d2c55acd1eb4f7686ed452cef7341add39830f5",
+      "file": "projects/ion/src/lib/tab/tab.component.ts",
+      "encapsulation": [],
+      "entryComponents": [],
+      "inputs": [],
+      "outputs": [],
+      "providers": [],
+      "selector": "ion-tab",
+      "styleUrls": ["./tab.component.scss"],
+      "styles": [],
+      "templateUrl": ["./tab.component.html"],
+      "viewProviders": [],
+      "inputsClass": [
+        {
+          "name": "direction",
+          "defaultValue": "'bottom'",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 15,
+          "type": "Direction",
+          "decorators": []
+        },
+        {
+          "name": "disabled",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 13,
+          "type": "boolean",
+          "decorators": []
+        },
+        {
+          "name": "label",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 12,
+          "type": "string",
+          "decorators": []
+        },
+        {
+          "name": "selected",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 14,
+          "type": "boolean",
+          "decorators": []
+        },
+        {
+          "name": "size",
+          "defaultValue": "'sm'",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "line": 16,
+          "type": "Size",
+          "decorators": []
+        }
+      ],
+      "outputsClass": [],
+      "propertiesClass": [],
+      "methodsClass": [
+        {
+          "name": "select",
+          "args": [],
+          "optional": false,
+          "returnType": "void",
+          "typeParameters": [],
+          "line": 18,
+          "deprecated": false,
+          "deprecationMessage": ""
+        }
+      ],
+      "deprecated": false,
+      "deprecationMessage": "",
+      "hostBindings": [],
+      "hostListeners": [],
+      "description": "",
+      "rawdescription": "\n",
+      "type": "component",
+      "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Size = 'sm' | 'md' | 'lg';\nexport type Direction = 'bottom' | 'top' | 'right' | 'left';\n\n@Component({\n  selector: 'ion-tab',\n  templateUrl: './tab.component.html',\n  styleUrls: ['./tab.component.scss'],\n})\nexport class TabComponent {\n  @Input() label!: string;\n  @Input('disabled') disabled?: boolean;\n  @Input('selected') selected?: boolean;\n  @Input('direction') direction?: Direction = 'bottom';\n  @Input('size') size?: Size = 'sm';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
+      "assetsDirs": [],
+      "styleUrlsData": [
+        {
+          "data": "@import '../../styles/index.scss';\n.tab {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 12px;\n  line-height: 16px;\n  color: $neutral-7;\n  padding: 8px 16px;\n  border: none;\n  border-color: $neutral-3;\n  background-color: $neutral-1;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n}\n\n.tab-selected {\n  font-style: normal;\n  font-weight: 600;\n  font-size: 12px;\n  line-height: 16px;\n  color: $primary-6;\n  padding: 8px 16px;\n  border: none;\n  background-color: $neutral-1;\n  border-color: $primary-6;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n}\n\n.border-bottom {\n  border-bottom: 2px solid;\n  border-radius: 6px 6px 0px 0px;\n}\n.border-top {\n  border-top: 2px solid;\n  border-radius: 0px 0px 6px 6px;\n}\n.border-right {\n  border-right: 2px solid;\n}\n.border-left {\n  border-left: 2px solid;\n}\n",
+          "styleUrl": "./tab.component.scss"
+        }
+      ],
+      "stylesData": "",
+      "templateData": "<button\n  (click)=\"select()\"\n  [disabled]=\"false\"\n  [ngClass]=\"{ tab: !selected, 'tab-selected': selected }\"\n  [class]=\"'tab-' + size\"\n  [class]=\"'border-' + direction\"\n>\n  {{ label }}\n</button>\n"
+    }
+  ],
+  "modules": [
+    {
+      "name": "IonModule",
+      "id": "module-IonModule-8ffc27818cb503d28ec71f2f366d03808b97edf90a515ab86ee7de62de7b9e841757fae6415306875ef7f1cbb615c6c9fffbfe714d86f6d440abf6e67ec37cfd",
+      "description": "",
+      "deprecationMessage": "",
+      "deprecated": false,
+      "file": "projects/ion/src/lib/ion.module.ts",
+      "methods": [],
+      "sourceCode": "import { TabComponent } from './tab/tab.component';\nimport { CommonModule } from '@angular/common';\nimport { ChipComponent } from './chip/chip.component';\nimport { NgModule } from '@angular/core';\nimport { ButtonComponent } from './button/button.component';\nimport { IonComponent } from './ion.component';\n\n@NgModule({\n  declarations: [IonComponent, ButtonComponent, ChipComponent, TabComponent],\n  imports: [CommonModule],\n  exports: [IonComponent, ButtonComponent, ChipComponent, TabComponent],\n})\nexport class IonModule {}\n",
+      "children": [
+        {
+          "type": "providers",
+          "elements": []
+        },
+        {
+          "type": "declarations",
+          "elements": [
+            {
+              "name": "ButtonComponent"
+            },
+            {
+              "name": "ChipComponent"
+            },
+            {
+              "name": "IonComponent"
+            },
+            {
+              "name": "TabComponent"
+            }
+          ]
+        },
+        {
+          "type": "imports",
+          "elements": []
+        },
+        {
+          "type": "exports",
+          "elements": [
+            {
+              "name": "ButtonComponent"
+            },
+            {
+              "name": "ChipComponent"
+            },
+            {
+              "name": "IonComponent"
+            },
+            {
+              "name": "TabComponent"
+            }
+          ]
+        },
+        {
+          "type": "bootstrap",
+          "elements": []
+        },
+        {
+          "type": "classes",
+          "elements": []
+        }
+      ]
+    }
+  ],
+  "miscellaneous": {
+    "variables": [
+      {
+        "name": "Basic",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "ChipSmall",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "CustomLabel",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Disabled",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Selected",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "",
+        "defaultValue": "Template.bind({})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Button.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<ButtonComponent>",
+        "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+      },
+      {
+        "name": "Template",
+        "ctype": "miscellaneous",
+        "subtype": "variable",
+        "file": "stories/Chip.stories.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "type": "Story<ChipComponent>",
+        "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
+      }
+    ],
+    "functions": [],
+    "typealiases": [
+      {
+        "name": "Direction",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
+        "file": "projects/ion/src/lib/tab/tab.component.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 186
+      },
+      {
+        "name": "Size",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "\"sm\" | \"md\"",
+        "file": "projects/ion/src/lib/chip/chip.component.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 186
+      },
+      {
+        "name": "Size",
+        "ctype": "miscellaneous",
+        "subtype": "typealias",
+        "rawtype": "\"sm\" | \"md\" | \"lg\"",
+        "file": "projects/ion/src/lib/tab/tab.component.ts",
+        "deprecated": false,
+        "deprecationMessage": "",
+        "description": "",
+        "kind": 186
+      }
+    ],
+    "enumerations": [],
+    "groupedVariables": {
+      "stories/Chip.stories.ts": [
+        {
+          "name": "Basic",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "ChipSmall",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Disabled",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Selected",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Chip.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<ChipComponent>",
+          "defaultValue": "(args: ChipComponent) => ({\n  component: ChipComponent,\n  props: args,\n})"
+        }
+      ],
+      "stories/Button.stories.ts": [
+        {
+          "name": "CustomLabel",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "",
+          "defaultValue": "Template.bind({})"
+        },
+        {
+          "name": "Template",
+          "ctype": "miscellaneous",
+          "subtype": "variable",
+          "file": "stories/Button.stories.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "type": "Story<ButtonComponent>",
+          "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+        }
+      ]
+    },
+    "groupedFunctions": {},
+    "groupedEnumerations": {},
+    "groupedTypeAliases": {
+      "projects/ion/src/lib/tab/tab.component.ts": [
+        {
+          "name": "Direction",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
+          "file": "projects/ion/src/lib/tab/tab.component.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 186
+        },
+        {
+          "name": "Size",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "\"sm\" | \"md\" | \"lg\"",
+          "file": "projects/ion/src/lib/tab/tab.component.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 186
+        }
+      ],
+      "projects/ion/src/lib/chip/chip.component.ts": [
+        {
+          "name": "Size",
+          "ctype": "miscellaneous",
+          "subtype": "typealias",
+          "rawtype": "\"sm\" | \"md\"",
+          "file": "projects/ion/src/lib/chip/chip.component.ts",
+          "deprecated": false,
+          "deprecationMessage": "",
+          "description": "",
+          "kind": 186
+        }
+      ]
+    }
+  },
+  "routes": [],
+  "coverage": {
+    "count": 0,
+    "status": "low",
+    "files": [
+      {
+        "filePath": "projects/ion/src/lib/button/button.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "ButtonComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/2",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/chip/chip.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "ChipComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/6",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/chip/chip.component.ts",
+        "type": "interface",
+        "linktype": "interface",
+        "name": "IonChipProps",
+        "coveragePercent": 0,
+        "coverageCount": "0/5",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/ion.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "IonComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/ion.service.ts",
+        "type": "injectable",
+        "linktype": "injectable",
+        "name": "IonService",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "projects/ion/src/lib/tab/tab.component.ts",
+        "type": "component",
+        "linktype": "component",
+        "name": "TabComponent",
+        "coveragePercent": 0,
+        "coverageCount": "0/7",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "CustomLabel",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Button.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Basic",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "ChipSmall",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Disabled",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Selected",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      },
+      {
+        "filePath": "stories/Chip.stories.ts",
+        "type": "variable",
+        "linktype": "miscellaneous",
+        "linksubtype": "variable",
+        "name": "Template",
+        "coveragePercent": 0,
+        "coverageCount": "0/1",
+        "status": "low"
+      }
+    ]
+  }
 }
