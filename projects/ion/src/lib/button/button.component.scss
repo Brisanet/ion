@@ -5,14 +5,14 @@ button {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-family  : 'Source Sans Pro', sans-serif;
-  font-weight  : 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
   border-radius: 10px;
-  border       : 0;
-  color        : $neutral-1;
+  border: 0;
+  color: $neutral-1;
   cursor: pointer;
   transition: all 300ms;
-  
+
   &:focus {
     box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px$primary-5;
   }
@@ -22,48 +22,48 @@ button {
   &[disabled],
   &[disabled]:hover {
     background-color: $neutral-3 !important;
-    color           : $neutral-5 !important;
+    color: $neutral-5 !important;
     cursor: not-allowed;
   }
 }
 
 .ion-btn-sm {
-  height     : 24px;
-  padding    : 4px 12px;
-  
+  height: 24px;
+  padding: 4px 12px;
+
   span {
-    font-size  : 12px;
+    font-size: 12px;
     line-height: 16px;
   }
 }
 
 .ion-btn-md {
-  height     : 32px; 
-  padding    : 6px, 16px;
-  
+  height: 32px;
+  padding: 6px, 16px;
+
   span {
-    font-size  : 14px;
+    font-size: 14px;
     line-height: 20px;
   }
 }
 
 .ion-btn-lg {
-  height     : 40px;
-  padding    : 8px, 20px;
-  
+  height: 40px;
+  padding: 8px, 20px;
+
   span {
-    font-size  : 16px;
+    font-size: 16px;
     line-height: 24px;
   }
 }
 
 .ion-btn-xl {
-  height     : 48px;
-  padding    : 12px, 24px;
-  
+  height: 48px;
+  padding: 12px, 24px;
+
   span {
-    font-size  : 16px;
-    line-height: 24px; 
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 
@@ -86,8 +86,8 @@ button {
 
 .ion-btn-secundary {
   background-color: $neutral-1;
-  border          : 1px solid $neutral-4;
-  color           : $primary-6;
+  border: 1px solid $neutral-4;
+  color: $primary-6;
 }
 
 .ion-btn-secundary:hover {
@@ -97,13 +97,13 @@ button {
 
   &:disabled {
     background-color: $neutral-3;
-    border : 1px solid $neutral-5;
+    border: 1px solid $neutral-5;
     color: $neutral-5;
   }
 }
 
 .ion-btn-secundary.danger {
-  color           : $negative-color;
+  color: $negative-color;
 }
 
 .ion-btn-secundary.danger:hover {
@@ -114,7 +114,7 @@ button {
 
 .ion-btn-ghost {
   background-color: transparent;
-  color           : $primary-6;
+  color: $primary-6;
 
   &:disabled {
     background-color: transparent !important;
@@ -124,7 +124,7 @@ button {
 
 .ion-btn-ghost:hover {
   background-color: $primary-1;
-  color           : $primary-5;
+  color: $primary-5;
 
   &:disabled {
     background-color: transparent !important;
@@ -132,36 +132,36 @@ button {
 }
 
 .ion-btn-ghost.danger {
-  color           : $negative-6;
+  color: $negative-6;
 }
 
 .ion-btn-ghost.danger:hover {
   background-color: $negative-1;
-  color           : $negative-5;
+  color: $negative-5;
 }
 
-.ion-btn-dashed { 
+.ion-btn-dashed {
   background-color: transparent;
-  color           : $primary-6;
-  border          : 1px $neutral-4;
-  border-style    : dashed;
+  color: $primary-6;
+  border: 1px $neutral-4;
+  border-style: dashed;
 }
 
 .ion-btn-dashed:hover {
   background-color: $primary-1;
-  color           : $primary-5;
+  color: $primary-5;
   border: 1px $primary-4;
-  border-style    : dashed;
+  border-style: dashed;
 
   &:disabled {
     background-color: $neutral-3;
-    border : 1px dashed $neutral-5;
+    border: 1px dashed $neutral-5;
     color: $neutral-5;
   }
 }
 
 .ion-btn-dashed.danger {
-  border : 1px dashed $neutral-4;
+  border: 1px dashed $neutral-4;
   color: $negative-6;
 }
 
