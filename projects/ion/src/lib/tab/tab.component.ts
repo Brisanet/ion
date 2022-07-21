@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export type Size = 'sm' | 'md' | 'lg';
+export type TabSize = 'sm' | 'md' | 'lg';
 export type Direction = 'bottom' | 'top' | 'right' | 'left';
 
 @Component({
@@ -10,10 +10,10 @@ export type Direction = 'bottom' | 'top' | 'right' | 'left';
 })
 export class TabComponent {
   @Input() label!: string;
+  @Input('tabSize') tabSize?: TabSize = 'sm';
   @Input('disabled') disabled?: boolean;
   @Input('selected') selected?: boolean;
   @Input('direction') direction?: Direction = 'bottom';
-  @Input('size') size?: Size = 'sm';
 
   select() {
     this.selected = !this.selected;
