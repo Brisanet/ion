@@ -50,6 +50,9 @@ jobs:
         run: |
           ./tmp/cc-test-reporter sum-coverage tmp/codeclimate.*.json -o tmp/codeclimate.total.json
           ./tmp/cc-test-reporter upload-coverage -i tmp/codeclimate.total.json
+        with:
+          codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
 
         # uses: aktions/codeclimate-test-reporter@v1
         # with:
