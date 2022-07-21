@@ -1,16 +1,13 @@
 import { render } from '@testing-library/angular';
 import { IonIconComponent, IonIconProps } from './icon.component';
 
-const sut = async (customProps?: IonIconProps): Promise<HTMLElement> => {
-  let type = 'trash';
-
+const sut = async (
+  customProps: IonIconProps = { type: 'trash' }
+): Promise<HTMLElement> => {
   await render(IonIconComponent, {
-    componentProperties: customProps || {
-      type: 'trash',
-    },
+    componentProperties: customProps,
   });
-  customProps && (type = customProps.type);
-  return document.getElementById('ion-icon-' + type);
+  return document.getElementById('ion-icon-' + customProps.type);
 };
 
 describe('IonIconComponent', () => {
@@ -28,7 +25,8 @@ describe('IonIconComponent', () => {
   });
 
   it('should render icon with default color', async () => {
-    expect((await sut()).getAttribute('fill')).toBe('#282b33');
+    const defaultColor = '#282b33';
+    expect((await sut()).getAttribute('fill')).toBe(defaultColor);
   });
 
   it('should render icon with custom size', async () => {
@@ -40,6 +38,6 @@ describe('IonIconComponent', () => {
   it('should render icon with custom color', async () => {
     const color = 'red';
     const svgElement = await sut({ type: 'trash', color });
-    expect(svgElement.getAttribute('fill')).toBe(`${color}`);
+    expect(svgElement.getAttribute('fill')).toBe(color);
   });
 });
