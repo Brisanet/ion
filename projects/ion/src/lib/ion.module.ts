@@ -6,7 +6,12 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 
 @NgModule({
-  declarations: [IonComponent, ButtonComponent, IonIconComponent],
+  declarations: [
+    IonComponent,
+    ButtonComponent,
+    IonIconComponent,
+    ChipComponent,
+  ],
   imports: [CommonModule],
   exports: [IonComponent, ButtonComponent, IonIconComponent, ChipComponent],
 })
