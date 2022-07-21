@@ -36,11 +36,10 @@ describe('ButtonComponent', () => {
 describe('Primary ButtonComponent', () => {
   it('should render a button with the ion-btn-primary class when type="primary" is passed', async () => {
     await render(ButtonComponent, {
-      componentProperties: { type: 'primary' },
+      componentProperties: { label: 'primary', type: 'primary' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-primary`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-primary');
   });
 });
 
@@ -50,8 +49,7 @@ describe('Secundary ButtonComponent', () => {
       componentProperties: { type: 'secundary' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-secundary`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-secundary');
   });
 });
 
@@ -61,8 +59,7 @@ describe('Ghost ButtonComponent', () => {
       componentProperties: { type: 'ghost' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-ghost`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-ghost');
   });
 });
 
@@ -72,8 +69,7 @@ describe('Dashed ButtonComponent', () => {
       componentProperties: { type: 'dashed' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-dashed`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-dashed');
   });
 });
 
@@ -83,8 +79,7 @@ describe('Small ButtonComponent', () => {
       componentProperties: { size: 'sm' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-sm`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-sm');
   });
 });
 
@@ -94,8 +89,7 @@ describe('Medium ButtonComponent', () => {
       componentProperties: { size: 'md' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-md`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-md');
   });
 });
 
@@ -105,8 +99,7 @@ describe('Large ButtonComponent', () => {
       componentProperties: { size: 'lg' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-lg`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-lg');
   });
 });
 
@@ -116,8 +109,7 @@ describe('Extra-large ButtonComponent', () => {
       componentProperties: { size: 'xl' },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`ion-btn-xl`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('ion-btn-xl');
   });
 });
 
@@ -127,7 +119,26 @@ describe('Danger ButtonComponent', () => {
       componentProperties: { danger: true },
     });
     const button = screen.findByRole('button');
-    const hasClass = (await button).classList.contains(`danger`);
-    expect(hasClass).toBeTruthy();
+    expect(await button).toHaveClass('danger');
+  });
+});
+
+describe('Disabled ButtonComponent', () => {
+  it('should render a disabled button when disabled="true" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { label: 'Disabled', disabled: true },
+    });
+    const button = screen.findByRole('button');
+    expect(await button).toHaveAttribute('disabled');
+  });
+});
+
+describe('Expand ButtonComponent', () => {
+  it('should render a expand button when expand="true" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { label: 'Expand', expand: true },
+    });
+    const button = screen.findByRole('button');
+    expect((await button).style.width).toBe('100%');
   });
 });
