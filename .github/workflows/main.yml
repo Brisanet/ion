@@ -35,6 +35,12 @@ jobs:
       - name: Run Tests
         run: yarn test:coverage
 
+      - uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: yarn test:coverage
+
       - name: Run Prettier
         run: yarn prettier
 
@@ -43,21 +49,3 @@ jobs:
 
       - name: Run Build
         run: yarn build
-
-  coverage:
-    needs: [ test-prettier-lint ]
-    name: coverage
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: '12'
-    - run: npm install -g yarn
-    - run: yarn install
-    - run: yarn build
-    - uses: paambaati/codeclimate-action@v3.0.0
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-      with:
-        coverageCommand: yarn test:coverage
