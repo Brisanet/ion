@@ -1,8 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+type Type = 'primary' | 'secundary' | 'ghost' | 'dashed';
+type Size = 'sm' | 'md' | 'lg' | 'xl';
 export interface IonButtonProps {
   label: string;
-  type: 'primary' | 'secundary' | 'ghost' | 'dashed';
-  size: 'sm' | 'md' | 'lg' | 'xl';
+  type: Type;
+  size: Size;
   expand: boolean;
   danger: boolean;
   disabled: boolean;
@@ -15,8 +18,8 @@ export interface IonButtonProps {
 })
 export class ButtonComponent {
   @Input() label: string;
-  @Input() type: IonButtonProps['type'] = 'primary';
-  @Input() size: IonButtonProps['size'] = 'md';
+  @Input() type: Type = 'primary';
+  @Input() size: Size = 'md';
   @Input() expand = false;
   @Input() danger = false;
   @Input() disabled = false;
