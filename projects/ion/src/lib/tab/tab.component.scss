@@ -1,0 +1,91 @@
+@import '../../styles/index.scss';
+.tab {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: $neutral-7;
+  padding: 8px 16px;
+  border: none;
+  border-color: $neutral-3;
+  background-color: $neutral-1;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-5;
+    background-color: $primary-1;
+    border-color: $primary-3;
+  }
+  &:focus {
+    color: $primary-5;
+    background-color: $primary-1;
+    border-color: $primary-3;
+    outline: 2px solid $primary-5;
+    outline-offset: 2px;
+  }
+  &:active {
+    color: $primary-7;
+    background-color: $primary-2;
+    border-color: $primary-5;
+    outline: none;
+  }
+  &:disabled {
+    color: $neutral-5;
+    background-color: $neutral-3;
+    border-color: $neutral-5;
+    cursor: not-allowed;
+  }
+}
+
+.tab-selected {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 16px;
+  color: $primary-6;
+  padding: 8px 16px;
+  border: none;
+  background-color: $neutral-1;
+  border-color: $primary-6;
+  cursor: pointer;
+
+  &:hover {
+    color: $primary-5;
+    background-color: $primary-1;
+    border-color: $primary-3;
+  }
+  &:focus {
+    color: $primary-5;
+    background-color: $primary-1;
+    border-color: $primary-3;
+    outline: 2px solid $primary-5;
+    outline-offset: 2px;
+  }
+  &:active {
+    color: $primary-7;
+    background-color: $primary-2;
+    border-color: $primary-5;
+    outline: none;
+  }
+  &:disabled {
+    color: $neutral-5;
+    background-color: $neutral-3;
+    border-color: $neutral-5;
+    cursor: not-allowed;
+  }
+}
+
+.border-bottom {
+  border-bottom: 2px solid;
+  border-radius: 6px 6px 0px 0px;
+}
+.border-top {
+  border-top: 2px solid;
+  border-radius: 0px 0px 6px 6px;
+}
+.border-right {
+  border-right: 2px solid;
+}
+.border-left {
+  border-left: 2px solid;
+}

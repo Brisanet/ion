@@ -1,0 +1,9 @@
+<button
+  (click)="select()"
+  [disabled]="false"
+  [ngClass]="{ tab: !selected, 'tab-selected': selected }"
+  [class]="'tab-' + size"
+  [class]="'border-' + direction"
+>
+  {{ label }}
+</button>
