@@ -45,7 +45,7 @@ jobs:
         run: yarn build
 
   coverage:
-    needs: [ test ]
+    needs: [ test-prettier-lint ]
     name: coverage
     runs-on: ubuntu-latest
     steps:
