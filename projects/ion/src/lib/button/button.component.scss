@@ -13,8 +13,9 @@ button {
   cursor: pointer;
   transition: all 300ms;
   
-  &:focus {
-    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px$primary-5;
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;
   }
 
   &:disabled,
@@ -69,48 +70,49 @@ button {
 
 .ion-btn-primary {
   background-color: $primary-6;
-}
+  
+  &:hover {
+    background: $primary-5;
+  }
 
-.ion-btn-primary:hover {
-  background: $primary-5;
-}
-
-.ion-btn-primary.danger {
-  background-color: $negative-6;
-}
-
-.ion-btn-primary.danger:hover {
-  background-color: $negative-5;
-  color: $neutral-1;
+  &.danger {
+    background-color: $negative-6;
+    
+    &:hover {
+      background-color: $negative-5;
+      color: $neutral-1;
+    }
+  }
 }
 
 .ion-btn-secundary {
   background-color: $neutral-1;
   border          : 1px solid $neutral-4;
   color           : $primary-6;
-}
+  
+  &:hover {
+    background-color: $primary-1;
+    border: 1px solid $primary-4;
+    color: $primary-5;
+  
+    &:disabled {
+      background-color: $neutral-3;
+      border : 1px solid $neutral-5;
+      color: $neutral-5;
+    }
+  }
 
-.ion-btn-secundary:hover {
-  background-color: $primary-1;
-  border: 1px solid $primary-4;
-  color: $primary-5;
-
-  &:disabled {
-    background-color: $neutral-3;
-    border : 1px solid $neutral-5;
-    color: $neutral-5;
+  &.danger {
+    color : $negative-color;
+  }
+  
+  &.danger:hover {
+    background-color: $negative-1;
+    border: 1px solid $negative-3;
+    color: $negative-5;
   }
 }
 
-.ion-btn-secundary.danger {
-  color           : $negative-color;
-}
-
-.ion-btn-secundary.danger:hover {
-  background-color: $negative-1;
-  border: 1px solid $negative-3;
-  color: $negative-5;
-}
 
 .ion-btn-ghost {
   background-color: transparent;
@@ -120,24 +122,24 @@ button {
     background-color: transparent !important;
     color: $neutral-5;
   }
-}
 
-.ion-btn-ghost:hover {
-  background-color: $primary-1;
-  color           : $primary-5;
-
-  &:disabled {
-    background-color: transparent !important;
+  &:hover {
+    background-color: $primary-1;
+    color           : $primary-5;
+  
+    &:disabled {
+      background-color: transparent !important;
+    }
   }
-}
-
-.ion-btn-ghost.danger {
-  color           : $negative-6;
-}
-
-.ion-btn-ghost.danger:hover {
-  background-color: $negative-1;
-  color           : $negative-5;
+  
+  &.danger {
+    color           : $negative-6;
+  
+    &:hover {
+      background-color: $negative-1;
+      color           : $negative-5;
+    }
+  }
 }
 
 .ion-btn-dashed { 
@@ -145,28 +147,28 @@ button {
   color           : $primary-6;
   border          : 1px $neutral-4;
   border-style    : dashed;
-}
 
-.ion-btn-dashed:hover {
-  background-color: $primary-1;
-  color           : $primary-5;
-  border: 1px $primary-4;
-  border-style    : dashed;
-
-  &:disabled {
-    background-color: $neutral-3;
-    border : 1px dashed $neutral-5;
-    color: $neutral-5;
+  &:hover {
+    background-color: $primary-1;
+    color           : $primary-5;
+    border: 1px $primary-4;
+    border-style    : dashed;
+  
+    &:disabled {
+      background-color: $neutral-3;
+      border : 1px dashed $neutral-5;
+      color: $neutral-5;
+    }
   }
-}
 
-.ion-btn-dashed.danger {
-  border : 1px dashed $neutral-4;
-  color: $negative-6;
-}
-
-.ion-btn-dashed.danger:hover {
-  background: $negative-1;
-  border: 1px dashed $negative-3;
-  color: $negative-5;
+  &.danger {
+    border : 1px dashed $neutral-4;
+    color: $negative-6;
+    
+    &:hover {
+      background: $negative-1;
+      border: 1px dashed $negative-3;
+      color: $negative-5;
+    }
+  }
 }
