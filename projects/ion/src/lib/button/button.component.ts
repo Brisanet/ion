@@ -9,7 +9,7 @@ export interface IonButtonProps {
   expand: boolean;
   danger: boolean;
   disabled: boolean;
-  load: boolean;
+  loading: boolean;
 }
 @Component({
   selector: 'ion-button',
@@ -23,9 +23,12 @@ export class ButtonComponent {
   @Input() expand = false;
   @Input() danger = false;
   @Input() disabled = false;
+  @Input() loading = false;
   @Output() ionOnClick = new EventEmitter();
 
   handleClick() {
-    this.ionOnClick.emit();
+    if (!this.loading) {
+      this.ionOnClick.emit();
+    }
   }
 }

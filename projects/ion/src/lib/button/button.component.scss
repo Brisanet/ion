@@ -25,6 +25,10 @@ button {
     background-color: $neutral-3 !important;
     color: $neutral-5 !important;
     cursor: not-allowed;
+
+    &:disabled.spinner {
+      border-left-color: $neutral-3;
+    }
   }
 }
 
@@ -35,6 +39,11 @@ button {
   span {
     font-size: 12px;
     line-height: 16px;
+  }
+
+  .spinner {
+    width: 10px;
+    height: 10px;
   }
 }
 
@@ -68,6 +77,34 @@ button {
   }
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  border: 2px solid rgba(59, 59, 59, 0.4);
+  border-left-color: $primary-6;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  cursor: not-allowed;
+}
+
+.danger {
+  span.spinner {
+    border-left-color: $negative-6;
+  }
+
+  &:hover {
+    span.spinner {
+      border-left-color: $negative-5;      
+    }
+  }
+}
+
 .ion-btn-primary {
   background-color: $primary-6;
 
@@ -82,6 +119,14 @@ button {
       background-color: $negative-5;
       color: $neutral-1;
     }
+    
+    span.spinner {
+      border-left-color: $neutral-1;
+    }
+  }
+
+  span.spinner {
+    border-left-color: $neutral-1;
   }
 }
 
