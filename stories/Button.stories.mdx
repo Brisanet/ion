@@ -10,7 +10,7 @@ export const Template = (args) => <ButtonComponent {...args} />;
 No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
 
 - `primary`. Indica a ação principal. Aconselhável usar no máximo um botão principal por seção.
-- `secundary`. Indica uma série de ações em prioridade.
+- `secundary`. Indica uma série de ações sem prioridade.
 - `ghost`. Usando em situações com fundo de difícil visualização.
 - `dashed`. Usado para ações comuns.
 
@@ -94,7 +94,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   </Story>
 </Canvas>
 
-E 5 outras propriedades adicionais.
+E 6 outras propriedades adicionais.
 
 - `label`. Configura o nome que será exibido no botão.
 
@@ -110,8 +110,7 @@ E 5 outras propriedades adicionais.
   </Story>
 </Canvas>
 
-- `danger`. Recomendado para ações de risco, como deletar ou autorização. É um boolean
-  e opcional. Por padrão é `[danger] = false`
+- `danger`. Recomendado para ações de risco, como deletar ou autorização. É um boolean e opcional. Por padrão é `[danger] = false`.
 
 <Canvas>
   <Story
@@ -156,7 +155,7 @@ E 5 outras propriedades adicionais.
   </Story>
 </Canvas>
 
-- `expand`. Ajusta a largura do botão relativa a largura do elemento pai. É um boolean e opcional. Por padrão é `[expand] = false`
+- `expand`. Ajusta a largura do botão relativa a largura do elemento pai. É um boolean e opcional. Por padrão é `[expand] = false`.
 
 <Canvas>
   <Story
@@ -170,7 +169,7 @@ E 5 outras propriedades adicionais.
   </Story>
 </Canvas>
 
-- `disabled`. Indica que as ações não estão disponíveis. É um boolean e opcional. Por padrão é `[disabled] = false`
+- `disabled`. Indica que as ações não estão disponíveis. É um boolean e opcional. Por padrão é `[disabled] = false`.
 
 <Canvas>
   <Story
@@ -209,6 +208,118 @@ E 5 outras propriedades adicionais.
       label: 'Dashed',
       type: 'dashed',
       disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `loading`. Indica que o botão não está preparado para disparar a ação. Como por exemplo, esperando uma resposta do servidor ou preparando e/ou processando algum recurso interno. O evento de clique do botão é desativado quando o load está ativo. É um boolean e opcional. Por padrão é `[loading] = false`.
+
+<Canvas>
+  <Story
+    name="Loading in primary button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secundary button"
+    args={{
+      label: 'Loading',
+      type: 'secundary',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in ghost button"
+    args={{
+      label: 'Loading',
+      type: 'ghost',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in dashed button"
+    args={{
+      label: 'Loading',
+      type: 'dashed',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in primary danger button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      danger: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in primary disabled button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secundary disabled button"
+    args={{
+      label: 'Loading',
+      type: 'secundary',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in ghost disabled button"
+    args={{
+      label: 'Loading',
+      type: 'ghost',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in dashed disabled button"
+    args={{
+      label: 'Loading',
+      type: 'dashed',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secundary danger disabled button"
+    args={{
+      label: 'Loading',
+      type: 'secundary',
+      danger: true,
+      disabled: true,
+      loading: true,
     }}
   >
     {Template.bind({})}
