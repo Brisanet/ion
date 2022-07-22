@@ -142,3 +142,14 @@ describe('Expand ButtonComponent', () => {
     expect((await button).style.width).toBe('100%');
   });
 });
+
+describe('load ButtonComponent', () => {
+  it('should render a loading button when loading="true" is passed', async () => {
+    await render(ButtonComponent, {
+      componentProperties: { label: 'Loading', loading: true },
+    });
+    const button = screen.findByRole('button');
+    expect((await button).children[0].className).toBe('spinner');
+    expect(screen.getByText('Carregando...'));
+  });
+});
