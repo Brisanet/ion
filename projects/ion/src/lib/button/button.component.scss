@@ -88,7 +88,7 @@ button {
 }
 
 .spinner {
-  border: 2px solid rgba(59, 59, 59, 0.4);
+  border: 2px solid transparent;
   border-left-color: $primary-6;
   border-radius: 50%;
   width: 16px;
