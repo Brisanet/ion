@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from '@testing-library/angular';
-import {
-  ButtonComponent,
-  IonButtonProps,
-  Size,
-  Type,
-} from './button.component';
+import { ButtonComponent, IonButtonProps } from './button.component';
 
 const defaultName = 'button';
 
@@ -46,12 +41,18 @@ describe('ButtonComponent', () => {
   });
 });
 
-const types: Type[] = ['primary', 'secondary', 'ghost', 'dashed'];
+const types: Array<IonButtonProps['type']> = [
+  'primary',
+  'secondary',
+  'ghost',
+  'dashed',
+];
+
 it.each(types)('should render correct types', async (type) => {
   expect(await sut({ label: 'button', type })).toHaveClass(`ion-btn-${type}`);
 });
 
-const sizes: Size[] = ['lg', 'md', 'sm', 'xl'];
+const sizes: Array<IonButtonProps['size']> = ['lg', 'md', 'sm', 'xl'];
 it.each(sizes)('should render correct sizes', async (size) => {
   expect(await sut({ label: defaultName, size })).toHaveClass(
     `ion-btn-${size}`
