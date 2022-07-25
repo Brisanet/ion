@@ -83,6 +83,10 @@ button {
   }
 }
 
+.loading {
+  cursor: not-allowed;
+}
+
 .spinner {
   border: 2px solid rgba(59, 59, 59, 0.4);
   border-left-color: $primary-6;
@@ -90,7 +94,6 @@ button {
   width: 16px;
   height: 16px;
   animation: spin 1s linear infinite;
-  cursor: not-allowed;
 }
 
 .danger {
@@ -100,7 +103,7 @@ button {
 
   &:hover {
     span.spinner {
-      border-left-color: $negative-5;      
+      border-left-color: $negative-5;
     }
   }
 }
@@ -119,7 +122,7 @@ button {
       background-color: $negative-5;
       color: $neutral-1;
     }
-    
+
     span.spinner {
       border-left-color: $neutral-1;
     }
