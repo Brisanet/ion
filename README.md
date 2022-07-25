@@ -8,7 +8,8 @@ Component library following a great Design System
 [![Automated Tests and Linting](https://github.com/iurynogueira/ion/actions/workflows/main.yml/badge.svg)](https://github.com/iurynogueira/ion/actions/workflows/main.yml)
 =======
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
->>>>>>> c497977328053cfb30bfc66a488ec7b3f1f1d35c
+
+> > > > > > > c497977328053cfb30bfc66a488ec7b3f1f1d35c
 
 ## Create a component
 
