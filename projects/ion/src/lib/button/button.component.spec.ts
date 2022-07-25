@@ -1,6 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonComponent, Size, Type } from './button.component';
+import {
+  ButtonComponent,
+  IonButtonProps,
+  Size,
+  Type,
+} from './button.component';
+
+const defaultName = 'button';
+
+const sut = async (
+  customProps: IonButtonProps = { label: 'button' }
+): Promise<HTMLElement> => {
+  await render(ButtonComponent, {
+    componentProperties: customProps,
+  });
+  return screen.findByRole('button');
+};
 
 describe('ButtonComponent', () => {
   it('should render button with custom label', async () => {
@@ -19,15 +35,12 @@ describe('ButtonComponent', () => {
 
   it('should emit an event when clicked', async () => {
     const clickEvent = jest.fn();
-    await render(ButtonComponent, {
-      componentProperties: {
-        label: 'Clique aqui',
-        ionOnClick: {
-          emit: clickEvent,
-        } as any,
-      },
+    const button = await sut({
+      label: defaultName,
+      ionOnClick: {
+        emit: clickEvent,
+      } as any,
     });
-    const button = screen.getByText('Clique aqui');
     fireEvent.click(button);
     expect(clickEvent).toHaveBeenCalled();
   });
@@ -35,59 +48,45 @@ describe('ButtonComponent', () => {
 
 const types: Type[] = ['primary', 'secondary', 'ghost', 'dashed'];
 it.each(types)('should render correct types', async (type) => {
-  await render(ButtonComponent, {
-    componentProperties: { type },
-  });
-  const button = screen.findByRole('button');
-  expect(await button).toHaveClass(`ion-btn-${type}`);
+  expect(await sut({ label: 'button', type })).toHaveClass(`ion-btn-${type}`);
 });
 
 const sizes: Size[] = ['lg', 'md', 'sm', 'xl'];
 it.each(sizes)('should render correct sizes', async (size) => {
-  await render(ButtonComponent, {
-    componentProperties: { size },
-  });
-  const button = screen.findByRole('button');
-  expect(await button).toHaveClass(`ion-btn-${size}`);
+  expect(await sut({ label: defaultName, size })).toHaveClass(
+    `ion-btn-${size}`
+  );
 });
 
 describe('Danger ButtonComponent', () => {
   it('should render a button with the danger class when danger="true" is passed', async () => {
-    await render(ButtonComponent, {
-      componentProperties: { danger: true },
-    });
-    const button = screen.findByRole('button');
-    expect(await button).toHaveClass('danger');
+    expect(await sut({ label: defaultName, danger: true })).toHaveClass(
+      'danger'
+    );
   });
 });
 
 describe('Disabled ButtonComponent', () => {
   it('should render a disabled button when disabled="true" is passed', async () => {
-    await render(ButtonComponent, {
-      componentProperties: { label: 'Disabled', disabled: true },
-    });
-    const button = screen.findByRole('button');
-    expect(await button).toHaveAttribute('disabled');
+    expect(await sut({ label: defaultName, disabled: true })).toHaveAttribute(
+      'disabled'
+    );
   });
 });
 
 describe('Expand ButtonComponent', () => {
   it('should render a expand button when expand="true" is passed', async () => {
-    await render(ButtonComponent, {
-      componentProperties: { label: 'Expand', expand: true },
-    });
-    const button = screen.findByRole('button');
-    expect((await button).style.width).toBe('100%');
+    expect((await sut({ label: defaultName, expand: true })).style.width).toBe(
+      '100%'
+    );
   });
 });
 
 describe('load ButtonComponent', () => {
   it('should render a loading button when loading="true" is passed', async () => {
-    await render(ButtonComponent, {
-      componentProperties: { label: 'Loading', loading: true },
-    });
-    const button = screen.findByRole('button');
-    expect((await button).children[0].className).toBe('spinner');
+    expect(
+      (await sut({ label: defaultName, loading: true })).children[0].className
+    ).toBe('spinner');
     expect(screen.getByText('Carregando...'));
   });
 });
