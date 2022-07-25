@@ -10,7 +10,7 @@ export const Template = (args) => <ButtonComponent {...args} />;
 No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
 
 - `primary`. Indica a ação principal. Aconselhável usar no máximo um botão principal por seção.
-- `secundary`. Indica uma série de ações sem prioridade.
+- `secondary`. Indica uma série de ações sem prioridade.
 - `ghost`. Usando em situações com fundo de difícil visualização.
 - `dashed`. Usado para ações comuns.
 
@@ -25,10 +25,10 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     {Template.bind({})}
   </Story>
   <Story
-    name="type: secundary"
+    name="type: secondary"
     args={{
-      label: 'Secundary',
-      type: 'secundary',
+      label: 'secondary',
+      type: 'secondary',
     }}
   >
     {Template.bind({})}
@@ -124,10 +124,10 @@ E 6 outras propriedades adicionais.
     {Template.bind({})}
   </Story>
   <Story
-    name="danger in secundary button"
+    name="danger in secondary button"
     args={{
-      label: 'Secundary',
-      type: 'secundary',
+      label: 'secondary',
+      type: 'secondary',
       danger: true,
     }}
   >
@@ -183,10 +183,10 @@ E 6 outras propriedades adicionais.
     {Template.bind({})}
   </Story>
   <Story
-    name="disabled in secundary button"
+    name="disabled in secondary button"
     args={{
-      label: 'Secundary',
-      type: 'secundary',
+      label: 'secondary',
+      type: 'secondary',
       disabled: true,
     }}
   >
@@ -228,10 +228,10 @@ E 6 outras propriedades adicionais.
     {Template.bind({})}
   </Story>
   <Story
-    name="Loading in secundary button"
+    name="Loading in secondary button"
     args={{
       label: 'Loading',
-      type: 'secundary',
+      type: 'secondary',
       loading: true,
     }}
   >
@@ -280,10 +280,10 @@ E 6 outras propriedades adicionais.
     {Template.bind({})}
   </Story>
   <Story
-    name="Loading in secundary disabled button"
+    name="Loading in secondary disabled button"
     args={{
       label: 'Loading',
-      type: 'secundary',
+      type: 'secondary',
       disabled: true,
       loading: true,
     }}
@@ -313,10 +313,10 @@ E 6 outras propriedades adicionais.
     {Template.bind({})}
   </Story>
   <Story
-    name="Loading in secundary danger disabled button"
+    name="Loading in secondary danger disabled button"
     args={{
       label: 'Loading',
-      type: 'secundary',
+      type: 'secondary',
       danger: true,
       disabled: true,
       loading: true,

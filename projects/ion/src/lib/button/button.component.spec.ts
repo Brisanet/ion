@@ -43,13 +43,13 @@ describe('Primary ButtonComponent', () => {
   });
 });
 
-describe('Secundary ButtonComponent', () => {
-  it('should render a button with the ion-btn-secundary class when type="secundary" is passed', async () => {
+describe('secondary ButtonComponent', () => {
+  it('should render a button with the ion-btn-secondary class when type="secondary" is passed', async () => {
     await render(ButtonComponent, {
-      componentProperties: { type: 'secundary' },
+      componentProperties: { type: 'secondary' },
     });
     const button = screen.findByRole('button');
-    expect(await button).toHaveClass('ion-btn-secundary');
+    expect(await button).toHaveClass('ion-btn-secondary');
   });
 });
 
