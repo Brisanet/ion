@@ -1,0 +1,11 @@
+<button
+  (click)="select()"
+  [disabled]="disabled"
+  [ngClass]="{
+    chip: !selected,
+    'chip-selected': selected
+  }"
+  [class]="'chip-' + size"
+>
+  {{ label }}
+</button>
