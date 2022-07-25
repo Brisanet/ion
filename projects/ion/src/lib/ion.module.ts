@@ -12,6 +12,7 @@ import { HeadingComponent } from './typograpry';
     ButtonComponent,
     IonIconComponent,
     ChipComponent,
+    TabComponent,
     HeadingComponent,
   ],
   imports: [CommonModule],
@@ -20,6 +21,7 @@ import { HeadingComponent } from './typograpry';
     ButtonComponent,
     IonIconComponent,
     ChipComponent,
+    TabComponent,
     HeadingComponent,
   ],
 })
