@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
-type Size = 'sm' | 'md' | 'lg' | 'xl';
+export type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
+export type Size = 'sm' | 'md' | 'lg' | 'xl';
 export interface IonButtonProps {
   label: string;
   type: Type;
