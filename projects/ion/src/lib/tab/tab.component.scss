@@ -2,10 +2,7 @@
 .tab {
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
   color: $neutral-7;
-  padding: 8px 16px;
   border: none;
   background-color: $neutral-1;
   cursor: pointer;
@@ -39,10 +36,7 @@
 .tab-selected {
   font-style: normal;
   font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
   color: $primary-6;
-  padding: 8px 16px;
   border: none;
   background-color: $neutral-1;
   border-color: $primary-6;
@@ -74,6 +68,11 @@
   }
 }
 
+.tab-sm {
+  padding: 8px 16px;
+  font-size: 12px;
+  line-height: 16px;
+}
 .tab-md {
   padding: 10px 24px;
   font-size: 14px;

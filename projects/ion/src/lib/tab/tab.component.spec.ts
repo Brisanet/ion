@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TabComponent, TabSize } from './tab.component';
+import { TabComponent, TabSize, Direction } from './tab.component';
 
 const defaultName = 'MinhaTab';
 
@@ -7,6 +7,7 @@ const sut = async (customProps?: {
   label: string;
   tabSize?: TabSize;
   disabled?: boolean;
+  direction?: Direction;
 }) => {
   await render(TabComponent, {
     componentProperties: customProps || {
@@ -32,7 +33,13 @@ describe('TabComponent', () => {
     }
   );
 
-  it.todo('should render with correct border direction');
+  it.each(['bottom', 'top', 'right', 'left'])(
+    'should render with correct border direction %s',
+    async (direction: Direction) => {
+      await sut({ label: 'Tab', direction: direction });
+      expect(screen.getByText('Tab')).toHaveClass('border-' + direction);
+    }
+  );
 
   it('should click on tab', async () => {
     await sut();
