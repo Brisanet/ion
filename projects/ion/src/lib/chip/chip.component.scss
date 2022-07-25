@@ -1,0 +1,79 @@
+@import '../../styles/index.scss';
+.chip {
+  border: 1px solid $neutral-4;
+  border-radius: 100px;
+  background: $neutral-1;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  color: $primary-6;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: $primary-1;
+    border: 1px solid $primary-3;
+  }
+  &:focus {
+    border: 1px solid $primary-3;
+    outline: 2px solid $primary-6;
+    outline-offset: 2px;
+    background-color: $primary-1;
+  }
+  &:active {
+    background-color: $primary-2;
+    border: 1px solid $primary-5;
+    outline: none;
+  }
+  &:disabled {
+    background-color: $neutral-3;
+    border: 1px solid $neutral-4;
+    color: $neutral-4;
+    outline: none;
+    cursor: not-allowed;
+  }
+}
+.chip-selected {
+  border: 1.5px solid $primary-6;
+  border-radius: 100px;
+  background: $primary-2;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  color: $primary-6;
+  cursor: pointer;
+
+  &:hover {
+    border: 1.5px solid $primary-5;
+    color: $primary-5;
+  }
+  &:focus {
+    border: 2px solid $primary-3;
+    outline: 2px solid $primary-6;
+    outline-offset: 2px;
+    background-color: $primary-1;
+  }
+  &:active {
+    background-color: $primary-3;
+    border: 2px solid $primary-7;
+    outline: none;
+    color: $primary-7;
+  }
+  &:disabled {
+    background-color: $neutral-3;
+    border: 2px solid $neutral-4;
+    color: $neutral-4;
+    outline: none;
+    cursor: not-allowed;
+  }
+}
+.chip-md {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+.chip-sm {
+  padding: 4px 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
