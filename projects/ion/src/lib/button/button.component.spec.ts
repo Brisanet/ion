@@ -39,6 +39,19 @@ describe('ButtonComponent', () => {
     fireEvent.click(button);
     expect(clickEvent).toHaveBeenCalled();
   });
+
+  it('should not call event when is loading', async () => {
+    const clickEvent = jest.fn();
+    const button = await sut({
+      label: defaultName,
+      loading: true,
+      ionOnClick: {
+        emit: clickEvent,
+      } as any,
+    });
+    fireEvent.click(button);
+    expect(clickEvent).not.toHaveBeenCalled();
+  });
 });
 
 const types: Array<IonButtonProps['type']> = [
@@ -85,9 +98,9 @@ describe('Expand ButtonComponent', () => {
 
 describe('load ButtonComponent', () => {
   it('should render a loading button when loading="true" is passed', async () => {
-    expect(
-      (await sut({ label: defaultName, loading: true })).children[0].className
-    ).toBe('spinner');
-    expect(screen.getByText('Carregando...'));
+    const button = await sut({ label: defaultName, loading: true });
+    expect(button).toHaveClass('loading');
+    expect(button.children[0]).toHaveClass('spinner');
+    expect(button.children[1].textContent).toContain('Carregando...');
   });
 });
