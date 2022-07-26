@@ -14,6 +14,12 @@ import { HeadingComponent } from './typograpry';
     HeadingComponent,
   ],
   imports: [CommonModule],
-  exports: [IonComponent, ButtonComponent, IonIconComponent, ChipComponent, HeadingComponent],
+  exports: [
+    IonComponent,
+    ButtonComponent,
+    IonIconComponent,
+    ChipComponent,
+    HeadingComponent,
+  ],
 })
 export class IonModule {}
