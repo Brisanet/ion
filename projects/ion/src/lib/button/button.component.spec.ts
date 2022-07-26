@@ -5,7 +5,7 @@ import { ButtonComponent, IonButtonProps } from './button.component';
 const defaultName = 'button';
 
 const sut = async (
-  customProps: IonButtonProps = { label: 'button' }
+  customProps: IonButtonProps = { label: defaultName }
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
