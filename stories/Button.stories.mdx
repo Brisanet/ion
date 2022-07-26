@@ -1,0 +1,341 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+
+<Meta title="Ion/Buttons/Button" component={ButtonComponent} />
+
+export const Template = (args) => <ButtonComponent {...args} />;
+
+# Button
+
+No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
+
+- `primary`. Indica a ação principal. Aconselhável usar no máximo um botão principal por seção.
+- `secondary`. Indica uma série de ações sem prioridade.
+- `ghost`. Usando em situações com fundo de difícil visualização.
+- `dashed`. Usado para ações comuns.
+
+<Canvas>
+  <Story
+    name="type: primary"
+    args={{
+      label: 'Primary',
+      type: 'primary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="type: secondary"
+    args={{
+      label: 'secondary',
+      type: 'secondary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="type: ghost"
+    args={{
+      label: 'Ghost',
+      type: 'ghost',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="type: dashed"
+    args={{
+      label: 'Dashed',
+      type: 'dashed',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade `size` com `sm`, `md`, `lg` ou `xl` pequeno, médio, grande ou muito grande, repectivamente. Por padão, a propriede size é configurada com médio, `size = 'md'`.
+
+<Canvas>
+  <Story
+    name="size: small"
+    args={{
+      label: 'Small',
+      size: 'sm',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="size: medium"
+    args={{
+      label: 'Medium',
+      size: 'md',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="size: large"
+    args={{
+      label: 'Large',
+      size: 'lg',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="size: extra-large"
+    args={{
+      label: 'Extra-large',
+      size: 'xl',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+E 6 outras propriedades adicionais.
+
+- `label`. Configura o nome que será exibido no botão.
+
+<Canvas>
+  <Story
+    name="label: name button"
+    args={{
+      label: 'Nome do botão',
+      type: 'primary',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `danger`. Recomendado para ações de risco, como deletar ou autorização. É um boolean e opcional. Por padrão é `[danger] = false`.
+
+<Canvas>
+  <Story
+    name="danger in primary button"
+    args={{
+      label: 'Primary',
+      type: 'primary',
+      danger: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="danger in secondary button"
+    args={{
+      label: 'secondary',
+      type: 'secondary',
+      danger: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="danger in ghost primary"
+    args={{
+      label: 'Ghost',
+      type: 'ghost',
+      danger: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="danger in dashed button"
+    args={{
+      label: 'Dashed',
+      type: 'dashed',
+      danger: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `expand`. Ajusta a largura do botão relativa a largura do elemento pai. É um boolean e opcional. Por padrão é `[expand] = false`.
+
+<Canvas>
+  <Story
+    name="expand: true"
+    args={{
+      label: 'primary',
+      expand: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `disabled`. Indica que as ações não estão disponíveis. É um boolean e opcional. Por padrão é `[disabled] = false`.
+
+<Canvas>
+  <Story
+    name="disabled in primary button"
+    args={{
+      label: 'Primary',
+      type: 'primary',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="disabled in secondary button"
+    args={{
+      label: 'secondary',
+      type: 'secondary',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="disabled in ghost button"
+    args={{
+      label: 'Ghost',
+      type: 'ghost',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="disabled in dashed button"
+    args={{
+      label: 'Dashed',
+      type: 'dashed',
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `loading`. Indica que o botão não está preparado para disparar a ação. Como por exemplo, esperando uma resposta do servidor ou preparando e/ou processando algum recurso interno. O evento de clique do botão é desativado quando o loading está ativo. É um boolean e opcional. Por padrão é `[loading] = false`.
+
+<Canvas>
+  <Story
+    name="Loading in primary button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secondary button"
+    args={{
+      label: 'Loading',
+      type: 'secondary',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in ghost button"
+    args={{
+      label: 'Loading',
+      type: 'ghost',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in dashed button"
+    args={{
+      label: 'Loading',
+      type: 'dashed',
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in primary danger button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      danger: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in primary disabled button"
+    args={{
+      label: 'Loading',
+      type: 'primary',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secondary disabled button"
+    args={{
+      label: 'Loading',
+      type: 'secondary',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in ghost disabled button"
+    args={{
+      label: 'Loading',
+      type: 'ghost',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in dashed disabled button"
+    args={{
+      label: 'Loading',
+      type: 'dashed',
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="Loading in secondary danger disabled button"
+    args={{
+      label: 'Loading',
+      type: 'secondary',
+      danger: true,
+      disabled: true,
+      loading: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+- `ionOnClick`. Emite um evento ao clicar no botão. Basta criar uma função no arquivo.ts e repassá-la no arquivo.html.
+  Exemplo: `<ion-button ... (ionOnClick)="funcaoCriada()">`;
+
+<Canvas>
+  <Story
+    name="ionOnClick"
+    args={{
+      label: 'Confirmar',
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
