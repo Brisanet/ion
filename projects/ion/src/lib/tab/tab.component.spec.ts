@@ -25,7 +25,7 @@ describe('TabComponent', () => {
     }
   );
 
-  it.each(['md', 'lg'])(
+  it.each(['sm', 'md', 'lg'])(
     'should render with correct size %s',
     async (size: TabSize) => {
       await sut({ label: 'Tab', tabSize: size });
