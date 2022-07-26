@@ -1,1 +1,11 @@
-<button>{{ label || 'configure uma label' }}</button>
+<button
+  [class]="'ion-btn-' + type + ' ion-btn-' + size"
+  [style.width]="expand ? '100%' : 'fit-content'"
+  [class.danger]="danger"
+  [class.loading]="loading"
+  [disabled]="disabled"
+  (click)="handleClick()"
+>
+  <span *ngIf="loading" class="spinner"></span>
+  <span>{{ loading ? 'Carregando...' : label || 'configure uma label' }}</span>
+</button>

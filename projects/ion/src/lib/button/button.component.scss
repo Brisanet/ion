@@ -1,5 +1,221 @@
 @import '../../styles/index.scss';
 
 button {
-  background: $primary-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 0;
+  color: $neutral-1;
+  cursor: pointer;
+  transition: all 300ms;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &[disabled],
+  &[disabled]:hover {
+    background-color: $neutral-3 !important;
+    color: $neutral-5 !important;
+    cursor: not-allowed;
+
+    &:disabled.spinner {
+      border-left-color: $neutral-3;
+    }
+  }
+}
+
+.ion-btn-sm {
+  height: 24px;
+  padding: 4px 12px;
+
+  span {
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  .spinner {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.ion-btn-md {
+  height: 32px;
+  padding: 6px 16px;
+
+  span {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.ion-btn-lg {
+  height: 40px;
+  padding: 8px 20px;
+
+  span {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.ion-btn-xl {
+  height: 48px;
+  padding: 12px 24px;
+
+  span {
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  cursor: not-allowed;
+}
+
+.spinner {
+  border: 2px solid transparent;
+  border-left-color: $primary-6;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+.danger {
+  span.spinner {
+    border-left-color: $negative-6;
+  }
+
+  &:hover {
+    span.spinner {
+      border-left-color: $negative-5;
+    }
+  }
+}
+
+.ion-btn-primary {
+  background-color: $primary-6;
+
+  &:hover {
+    background: $primary-5;
+  }
+
+  &.danger {
+    background-color: $negative-6;
+
+    &:hover {
+      background-color: $negative-5;
+      color: $neutral-1;
+    }
+
+    span.spinner {
+      border-left-color: $neutral-1;
+    }
+  }
+
+  span.spinner {
+    border-left-color: $neutral-1;
+  }
+}
+
+.ion-btn-secondary {
+  background-color: $neutral-1;
+  border: 1px solid $neutral-4;
+  color: $primary-6;
+
+  &:hover {
+    background-color: $primary-1;
+    border: 1px solid $primary-4;
+    color: $primary-5;
+
+    &:disabled {
+      background-color: $neutral-3;
+      border: 1px solid $neutral-5;
+      color: $neutral-5;
+    }
+  }
+
+  &.danger {
+    color: $negative-color;
+  }
+
+  &.danger:hover {
+    background-color: $negative-1;
+    border: 1px solid $negative-3;
+    color: $negative-5;
+  }
+}
+
+.ion-btn-ghost {
+  background-color: transparent;
+  color: $primary-6;
+
+  &:disabled {
+    background-color: transparent !important;
+    color: $neutral-5;
+  }
+
+  &:hover {
+    background-color: $primary-1;
+    color: $primary-5;
+
+    &:disabled {
+      background-color: transparent !important;
+    }
+  }
+
+  &.danger {
+    color: $negative-6;
+
+    &:hover {
+      background-color: $negative-1;
+      color: $negative-5;
+    }
+  }
+}
+
+.ion-btn-dashed {
+  background-color: transparent;
+  color: $primary-6;
+  border: 1px $neutral-4;
+  border-style: dashed;
+
+  &:hover {
+    background-color: $primary-1;
+    color: $primary-5;
+    border: 1px $primary-4;
+    border-style: dashed;
+
+    &:disabled {
+      background-color: $neutral-3;
+      border: 1px dashed $neutral-5;
+      color: $neutral-5;
+    }
+  }
+
+  &.danger {
+    border: 1px dashed $neutral-4;
+    color: $negative-6;
+
+    &:hover {
+      background: $negative-1;
+      border: 1px dashed $negative-3;
+      color: $negative-5;
+    }
+  }
 }
