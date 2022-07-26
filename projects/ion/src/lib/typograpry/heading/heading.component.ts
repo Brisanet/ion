@@ -5,6 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
+import { createElement } from '../../utils';
 
 export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4';
 export type HeadingWeight = 'medium' | 'bold';
@@ -30,10 +31,14 @@ export class HeadingComponent implements AfterViewInit {
   @ViewChild('heading', { static: false }) heading: ElementRef;
 
   private createElement(type: HeadingType, text: string): HTMLElement {
-    const element = document.createElement(type);
-    element.innerHTML = text;
-    element.setAttribute('data-testid', 'ion-heading');
-    element.setAttribute('id', type);
+    const element = createElement({
+      type,
+      text,
+      attributes: [
+        { key: 'data-testid', value: 'ion-heading' },
+        { key: 'id', value: type },
+      ],
+    });
     return element;
   }
 
