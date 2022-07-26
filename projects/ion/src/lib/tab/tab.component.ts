@@ -10,10 +10,10 @@ export type Direction = 'bottom' | 'top' | 'right' | 'left';
 })
 export class TabComponent {
   @Input() label!: string;
-  @Input('tabSize') tabSize?: TabSize = 'sm';
-  @Input('disabled') disabled?: boolean;
-  @Input('selected') selected?: boolean;
-  @Input('direction') direction?: Direction = 'bottom';
+  @Input() tabSize?: TabSize = 'sm';
+  @Input() disabled?: boolean;
+  @Input() selected?: boolean;
+  @Input() direction?: Direction = 'bottom';
 
   select() {
     this.selected = !this.selected;
