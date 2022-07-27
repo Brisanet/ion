@@ -1,0 +1,14 @@
+<button
+  (click)="select()"
+  [disabled]="disabled"
+  [ngClass]="{
+    tab: !selected,
+    'tab-selected': selected,
+    'tab-sm': tabSize === 'sm',
+    'tab-md': tabSize === 'md',
+    'tab-lg': tabSize === 'lg'
+  }"
+  [class]="'border-' + direction"
+>
+  {{ label || 'Configure uma label ' }}
+</button>
