@@ -1,11 +1,32 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
 
-<Meta title="Ion/Buttons/Button" component={ButtonComponent} />
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+
+<Meta title="Ion/Buttons/button" component={ButtonComponent} />
 
 export const Template = (args) => <ButtonComponent {...args} />;
 
 # Button
+
+<Canvas>
+  <Story
+    name="Change the properties button"
+    args={{
+      label: 'Changing the properties button',
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
 
@@ -17,39 +38,55 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
 <Canvas>
   <Story
     name="type: primary"
-    args={{
-      label: 'Primary',
-      type: 'primary',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary"></ion-button>`,
+    }}
   </Story>
   <Story
     name="type: secondary"
-    args={{
-      label: 'secondary',
-      type: 'secondary',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Secondary" type="secondary"></ion-button>`,
+    }}
   </Story>
   <Story
     name="type: ghost"
-    args={{
-      label: 'Ghost',
-      type: 'ghost',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Ghost" type="ghost"></ion-button>`,
+    }}
   </Story>
   <Story
     name="type: dashed"
-    args={{
-      label: 'Dashed',
-      type: 'dashed',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Dashed" type="dashed"></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -57,40 +94,56 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
 
 <Canvas>
   <Story
-    name="size: small"
-    args={{
-      label: 'Small',
-      size: 'sm',
-    }}
+    name="size: sm"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Small" size="sm"></ion-button>`,
+    }}
   </Story>
   <Story
-    name="size: medium"
-    args={{
-      label: 'Medium',
-      size: 'md',
-    }}
+    name="size: md"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Medium"></ion-button>`,
+    }}
   </Story>
   <Story
-    name="size: large"
-    args={{
-      label: 'Large',
-      size: 'lg',
-    }}
+    name="size: lg"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Large" size="lg"></ion-button>`,
+    }}
   </Story>
   <Story
-    name="size: extra-large"
-    args={{
-      label: 'Extra-large',
-      size: 'xl',
-    }}
+    name="type: xl"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Extra-large" size="xl"></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -101,12 +154,16 @@ E 6 outras propriedades adicionais.
 <Canvas>
   <Story
     name="label: name button"
-    args={{
-      label: 'Nome do botão',
-      type: 'primary',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Nome do botão"></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -115,43 +172,55 @@ E 6 outras propriedades adicionais.
 <Canvas>
   <Story
     name="danger in primary button"
-    args={{
-      label: 'Primary',
-      type: 'primary',
-      danger: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [danger]=true></ion-button>`,
+    }}
   </Story>
   <Story
     name="danger in secondary button"
-    args={{
-      label: 'secondary',
-      type: 'secondary',
-      danger: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Secondary" type="secondary" [danger]=true></ion-button>`,
+    }}
   </Story>
   <Story
-    name="danger in ghost primary"
-    args={{
-      label: 'Ghost',
-      type: 'ghost',
-      danger: true,
-    }}
+    name="danger in ghost button"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [danger]=true></ion-button>`,
+    }}
   </Story>
   <Story
     name="danger in dashed button"
-    args={{
-      label: 'Dashed',
-      type: 'dashed',
-      danger: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Dashed" type="dashed" [danger]=true></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -160,12 +229,16 @@ E 6 outras propriedades adicionais.
 <Canvas>
   <Story
     name="expand: true"
-    args={{
-      label: 'primary',
-      expand: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [expand]=true></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -174,43 +247,55 @@ E 6 outras propriedades adicionais.
 <Canvas>
   <Story
     name="disabled in primary button"
-    args={{
-      label: 'Primary',
-      type: 'primary',
-      disabled: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [disabled]=true></ion-button>`,
+    }}
   </Story>
   <Story
     name="disabled in secondary button"
-    args={{
-      label: 'secondary',
-      type: 'secondary',
-      disabled: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Secondary" type="secondary" [disabled]=true></ion-button>`,
+    }}
   </Story>
   <Story
     name="disabled in ghost button"
-    args={{
-      label: 'Ghost',
-      type: 'ghost',
-      disabled: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [disabled]=true></ion-button>`,
+    }}
   </Story>
   <Story
     name="disabled in dashed button"
-    args={{
-      label: 'Dashed',
-      type: 'dashed',
-      disabled: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Dashed" type="dashed" [disabled]=true></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
@@ -219,123 +304,150 @@ E 6 outras propriedades adicionais.
 <Canvas>
   <Story
     name="Loading in primary button"
-    args={{
-      label: 'Loading',
-      type: 'primary',
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in secondary button"
-    args={{
-      label: 'Loading',
-      type: 'secondary',
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Secondary" type="secondary" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in ghost button"
-    args={{
-      label: 'Loading',
-      type: 'ghost',
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in dashed button"
-    args={{
-      label: 'Loading',
-      type: 'dashed',
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Dashed" type="dashed" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
-    name="Loading in primary danger button"
-    args={{
-      label: 'Loading',
-      type: 'primary',
-      danger: true,
-      loading: true,
-    }}
+    name="Loading in primary danger"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [danger]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in primary disabled button"
-    args={{
-      label: 'Loading',
-      type: 'primary',
-      disabled: true,
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in secondary disabled button"
-    args={{
-      label: 'Loading',
-      type: 'secondary',
-      disabled: true,
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Secondary" type="secondary" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in ghost disabled button"
-    args={{
-      label: 'Loading',
-      type: 'ghost',
-      disabled: true,
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in dashed disabled button"
-    args={{
-      label: 'Loading',
-      type: 'dashed',
-      disabled: true,
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Dashed" type="dashed" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
   <Story
     name="Loading in secondary danger disabled button"
-    args={{
-      label: 'Loading',
-      type: 'secondary',
-      danger: true,
-      disabled: true,
-      loading: true,
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" type="secondary" [danger]="true" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
   </Story>
 </Canvas>
 
 - `ionOnClick`. Emite um evento ao clicar no botão. Basta criar uma função no arquivo.ts e repassá-la no arquivo.html.
-  Exemplo: `<ion-button ... (ionOnClick)="funcaoCriada()">`;
 
 <Canvas>
   <Story
     name="ionOnClick"
-    args={{
-      label: 'Confirmar',
-    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
   >
-    {Template.bind({})}
+    {{
+      template: `<ion-button label="Primary" (ionOnClick)="passAFunctionHere()"></ion-button>`,
+    }}
   </Story>
 </Canvas>
