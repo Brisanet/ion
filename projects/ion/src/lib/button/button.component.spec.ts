@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
+import { IonIconComponent } from '../icon/icon.component';
 
 const defaultName = 'button';
 
@@ -9,23 +10,15 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
+    declarations: [IonIconComponent],
   });
   return screen.findByRole('button');
 };
 
 describe('ButtonComponent', () => {
   it('should render button with custom label', async () => {
-    await render(ButtonComponent, {
-      componentProperties: {
-        label: 'Clique aqui',
-      },
-    });
-    expect(screen.getByText('Clique aqui'));
-  });
-
-  it('should render button with warning msg when label is not provided', async () => {
-    await render(ButtonComponent);
-    expect(screen.getByText('configure uma label'));
+    const button = await sut({ label: 'Clique aqui' });
+    expect(button.textContent).toContain('Clique aqui');
   });
 
   it('should emit an event when clicked', async () => {
