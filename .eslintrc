@@ -14,5 +14,5 @@
     "@typescript-eslint/no-explicit-any": "error",
     "no-console": 1
   },
-  "ignorePatterns": ["*.js", "*.mdx"]
+  "ignorePatterns": ["*.js", "*.mdx", "dist/*"]
 }
