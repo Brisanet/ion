@@ -11,6 +11,7 @@ export interface IonButtonProps {
   danger?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  typeIcon?: string;
   ionOnClick?: EventEmitter<any>;
 }
 @Component({
@@ -26,6 +27,7 @@ export class ButtonComponent {
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
+  @Input() typeIcon? = '';
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {
