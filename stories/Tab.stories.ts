@@ -22,6 +22,42 @@ TabSmall.args = {
   size: 'sm',
 };
 
+export const TabMedium = Template.bind({});
+TabMedium.args = {
+  label: 'Medium',
+  size: 'md',
+};
+
+export const TabLarge = Template.bind({});
+TabLarge.args = {
+  label: 'Large',
+  size: 'lg',
+};
+
+export const TabBottom = Template.bind({});
+TabBottom.args = {
+  label: 'Bottom',
+  size: 'bottom',
+};
+
+export const TabTop = Template.bind({});
+TabTop.args = {
+  label: 'Top',
+  size: 'top',
+};
+
+export const TabRight = Template.bind({});
+TabRight.args = {
+  label: 'Right',
+  size: 'right',
+};
+
+export const TabLeft = Template.bind({});
+TabLeft.args = {
+  label: 'Left',
+  size: 'left',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   label: 'Disabled',
