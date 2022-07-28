@@ -4,7 +4,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   border-radius: 10px;
@@ -30,6 +30,15 @@ button {
       border-left-color: $neutral-3;
     }
   }
+
+  ion-icon {
+    ::ng-deep svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      fill: $neutral-1;
+    }
+  }
 }
 
 .ion-btn-sm {
@@ -45,6 +54,13 @@ button {
     width: 10px;
     height: 10px;
   }
+
+  ion-icon {
+    ::ng-deep svg {
+      height: 13.33px;
+      width: 12px;
+    }
+  }
 }
 
 .ion-btn-md {
@@ -54,6 +70,13 @@ button {
   span {
     font-size: 14px;
     line-height: 20px;
+  }
+
+  ion-icon {
+    ::ng-deep svg {
+      height: 16.66px;
+      width: 15px;
+    }
   }
 }
 
@@ -65,6 +88,13 @@ button {
     font-size: 16px;
     line-height: 24px;
   }
+
+  ion-icon {
+    ::ng-deep svg {
+      height: 20px;
+      width: 18px;
+    }
+  }
 }
 
 .ion-btn-xl {
@@ -74,6 +104,13 @@ button {
   span {
     font-size: 16px;
     line-height: 24px;
+  }
+
+  ion-icon {
+    ::ng-deep svg {
+      height: 24px;
+      width: 18px;
+    }
   }
 }
 
