@@ -6,6 +6,7 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typograpry';
+import { DividerComponent } from './divider/divider.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HeadingComponent } from './typograpry';
     ChipComponent,
     TabComponent,
     HeadingComponent,
+    DividerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -24,6 +26,7 @@ import { HeadingComponent } from './typograpry';
     ChipComponent,
     TabComponent,
     HeadingComponent,
+    DividerComponent,
   ],
 })
 export class IonModule {}
