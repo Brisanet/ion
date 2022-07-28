@@ -7,6 +7,6 @@
   (click)="handleClick()"
 >
   <span *ngIf="loading" class="spinner"></span>
-  <ion-icon *ngIf="typeIcon" [type]="typeIcon"></ion-icon>
+  <ion-icon *ngIf="iconType" [type]="iconType" class="icon"></ion-icon>
   <span>{{ loading ? 'Carregando...' : label || 'configure uma label' }}</span>
 </button>

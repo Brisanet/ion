@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconType } from '../icon/icon.component';
 
 type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
@@ -11,7 +12,7 @@ export interface IonButtonProps {
   danger?: boolean;
   disabled?: boolean;
   loading?: boolean;
-  typeIcon?: string;
+  iconType?: IconType;
   ionOnClick?: EventEmitter<any>;
 }
 @Component({
@@ -27,7 +28,7 @@ export class ButtonComponent {
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
-  @Input() typeIcon? = '';
+  @Input() iconType? = '';
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {
