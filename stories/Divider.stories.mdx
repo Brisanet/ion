@@ -1,50 +1,117 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
 import { DividerComponent } from '../projects/ion/src/lib/divider/divider.component';
 
 <Meta title="Ion/Dividers" component={DividerComponent} />
 
-export const Divider = (args) => <DividerComponent {...args} />;
-
 # Divider
+
+<Canvas>
+  <Story name="type: default divider">
+    {{ template: `<ion-divider> </ion-divider>` }}
+  </Story>
+</Canvas>
 
 No Ion, a orientação padrão do divisor é `horizontal`. Mas fornecemos 2 tipos de orientação:
 
 - `horizontal`. Indica que o divisor está na orientação horizontal.
+
+<Canvas>
+  <Story name="type: div with horizontal divider">
+    {{
+      template: `<div style="width: 150px"><ion-divider orientation="horizontal"> </ion-divider></div>`,
+    }}
+  </Story>
+</Canvas>
+
+O tamanho do divisor `horizontal` será definido pelo elemento HTML em que o mesmo está contido.
+
+<Canvas>
+  <Story name="type: horizontal divider">
+    {{ template: `<ion-divider orientation="horizontal"> </ion-divider>` }}
+  </Story>
+</Canvas>
+
 - `vertical`. Indica que o divisor está na orientação vertical.
 
 <Canvas>
-  <Story name="type: horizontal divider" args={{}}>
-    {Divider.bind({})}
+  <Story name="type: vertical divider">
+    {{
+      template: `<ion-divider orientation="vertical"> </ion-divider>`,
+    }}
   </Story>
 </Canvas>
+
+O tamanho do divisor `vertical` será definido pelo elemento HTML em que o mesmo está contido.
 
 <Canvas>
-  <Story name="type: vertical divider">
-    {{ Divider: `<ion-divider orientation="vertical"></ion-divider>` }}
+  <Story name="type: div with vertical divider">
+    {{
+      template: `<div style="height: 150px"><ion-divider orientation="vertical"> </ion-divider></div>`,
+    }}
   </Story>
 </Canvas>
 
-O Ion, Suporta 2 tipos de linha para o divisor. A `continuous` e a `dashed`:
+No Ion, o divisor possui 3 tipos.
 
 - `continuous`. Divisor sólido.
-- `dashed`. Divisor tracejado.
 
 <Canvas>
   <Story name="type: continuous divider">
-    {{ Divider: `<ion-divider type="continuous"></ion-divider>` }}
+    {{ template: `<ion-divider type="continuous"></ion-divider>` }}
   </Story>
 </Canvas>
+
+- `dashed`. Divisor tracejado.
 
 <Canvas>
   <Story name="type: dashed divider">
-    {{ Divider: `<ion-divider type="dashed"></ion-divider>` }}
+    {{ template: `<ion-divider type="dashed"></ion-divider>` }}
   </Story>
 </Canvas>
 
-O Ion, também oferece suporte para o tipo `text`. Onde é possível inserir uma `string` ao divisor.
+- `text`. Divisor com uma `label` em seu centro.
+
+<Canvas>
+  <Story name="type: text divider">
+    {{ template: `<ion-divider type="text" label="Label"></ion-divider>` }}
+  </Story>
+</Canvas>
+
+Nota-se: Divisores do tipo `text` só estarão disponíveis na `orientation: horizontal`,
+porém não será necessário passar tipo `orientation`, pois `horizontal` será o tipo
+padrão desse divisor.
+
+- Todas as combinações possíveis do ion-divider:
+
+<Canvas>
+  <Story name="type: default">
+    {{ template: `<ion-divider> </ion-divider>` }}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="type: dashed">
+    {{ template: `<ion-divider type="dashed"> </ion-divider>` }}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="type: vertical">
+    {{ template: `<ion-divider orientation="vertical"> </ion-divider>` }}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="type: vertical dashed">
+    {{
+      template: `<ion-divider orientation="vertical" type="dashed"> </ion-divider>`,
+    }}
+  </Story>
+</Canvas>
 
 <Canvas>
   <Story name="type: text">
-    {{ Divider: `<ion-divider type="text" label="Label"></ion-divider>` }}
+    {{ template: `<ion-divider type="text" label="Label"></ion-divider>` }}
   </Story>
 </Canvas>
