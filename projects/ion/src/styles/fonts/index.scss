@@ -22,3 +22,38 @@
   src: url('./SourceSansPro-Bold.ttf');
   font-weight: 700;
 }
+
+@mixin font-size-12 {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+@mixin font-size-14 {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin font-size-16 {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@mixin font-size-20 {
+  font-size: 20px;
+  line-height: 28px;
+}
+
+@mixin font-size-24 {
+  font-size: 24px;
+  line-height: 32px;
+}
+
+@mixin font-size-32 {
+  font-size: 32px;
+  line-height: 40px;
+}
+
+@mixin font-size-40 {
+  font-size: 40px;
+  line-height: 48px;
+}

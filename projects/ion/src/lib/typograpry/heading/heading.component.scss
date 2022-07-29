@@ -39,58 +39,47 @@
 
   h1 {
     &.font-size-small {
-      font-size: 24px;
-      line-height: 32px;
+      @include font-size-24;
     }
 
     &.font-size-medium {
-      font-size: 32px;
-      line-height: 40px;
+      @include font-size-32;
     }
     &.font-size-normal {
-      font-size: 40px;
-      line-height: 48px;
+      @include font-size-40;
     }
   }
 
   h2 {
     &.font-size-small {
-      font-size: 20px;
-      line-height: 28px;
+      @include font-size-20;
     }
     &.font-size-medium {
-      font-size: 24px;
-      line-height: 32px;
+      @include font-size-24;
     }
     &.font-size-normal {
-      font-size: 32px;
-      line-height: 40px;
+      @include font-size-32;
     }
   }
 
   h3 {
     &.font-size-small {
-      font-size: 16px;
-      line-height: 24px;
+      @include font-size-16;
     }
     &.font-size-medium {
-      font-size: 20px;
-      line-height: 28px;
+      @include font-size-20;
     }
     &.font-size-normal {
-      font-size: 24px;
-      line-height: 32px;
+      @include font-size-24;
     }
   }
 
   h4 {
     &.font-size-medium {
-      font-size: 16px;
-      line-height: 24px;
+      @include font-size-16;
     }
     &.font-size-normal {
-      font-size: 20px;
-      line-height: 28px;
+      @include font-size-20;
     }
   }
 }

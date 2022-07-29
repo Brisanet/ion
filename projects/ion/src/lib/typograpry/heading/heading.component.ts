@@ -25,12 +25,12 @@ export class HeadingComponent implements AfterViewInit {
   @Input() public text: string;
   @Input() public type: HeadingType;
   @Input() public weight?: HeadingWeight = 'medium';
-  @Input() public colorScheme?: colorScheme = 'primary';
+  @Input() public ColorScheme?: colorScheme = 'primary';
   @Input() public size?: HeadingSize = 'normal';
 
   @ViewChild('heading', { static: false }) heading: ElementRef;
 
-  private createElement(type: HeadingType, text: string): HTMLElement {
+  private makeElement(type: HeadingType, text: string): HTMLElement {
     const element = createElement({
       type,
       text,
@@ -51,8 +51,8 @@ export class HeadingComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const heading = this.createElement(this.type, this.text);
-    this.addClass(heading, `color-${this.colorScheme}`);
+    const heading = this.makeElement(this.type, this.text);
+    this.addClass(heading, `color-${this.ColorScheme}`);
     this.addClass(heading, `font-weight-${this.weight}`);
     this.addClass(heading, `font-size-${this.size}`);
     this.appendElement(heading);
