@@ -11,28 +11,28 @@ type HeadingProps = {
   text: string;
   type: HeadingType;
   weight?: HeadingWeight;
-  colorScheme?: colorScheme;
+  ColorScheme?: colorScheme;
   size?: HeadingSize;
 };
 
-const sut = async (customProps: HeadingProps) => {
+const sut = async (customProps?: HeadingProps) => {
   await render(HeadingComponent, {
-    componentProperties: customProps,
+    componentProperties: customProps || { text: 'default', type: 'h1' },
   });
 };
 describe('HeadingComponent', () => {
   it('should render with default props', async () => {
-    await sut({ text: 'default', type: 'h1' });
+    await sut();
     const elementRendered = screen.getByTestId('ion-heading');
     expect(elementRendered).toBeTruthy();
   });
   it('should validate the text', async () => {
-    await sut({ text: 'default', type: 'h1' });
+    await sut();
     const elementRendered = screen.getByTestId('ion-heading');
     expect(elementRendered).toHaveTextContent('default');
   });
   it('should render with the default class', async () => {
-    await sut({ text: 'default', type: 'h1' });
+    await sut();
     const elementRendered = screen.getByTestId('ion-heading');
     expect(elementRendered).toHaveClass('color-primary');
     expect(elementRendered).toHaveClass('font-weight-medium');
@@ -45,7 +45,7 @@ describe('HeadingComponent', () => {
   });
 
   it('should validate custom color scheme', async () => {
-    await sut({ text: 'default', type: 'h2', colorScheme: 'secondary' });
+    await sut({ text: 'default', type: 'h2', ColorScheme: 'secondary' });
     const elementRendered = screen.getByTestId('ion-heading');
     expect(elementRendered).toHaveClass('color-secondary');
   });
