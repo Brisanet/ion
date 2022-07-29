@@ -351,25 +351,25 @@ button {
         fill: $negative-5;
       }
     }
-
-    .right-side-icon {
-      flex-direction: row-reverse;
-    }
-
-    .ion-btn-sm.ion-space {
-      padding: 4px 12px;
-    }
-
-    .ion-btn-md.ion-space {
-      padding: 6px 16px;
-    }
-
-    .ion-btn-lg.ion-space {
-      padding: 8px 20px;
-    }
-
-    .ion-btn-xl.ion-space {
-      padding: 12px 24px;
-    }
   }
+}
+
+.right-side-icon {
+  flex-direction: row-reverse;
+}
+
+.ion-btn-sm.ion-space {
+  padding: 4px 12px;
+}
+
+.ion-btn-md.ion-space {
+  padding: 6px 16px;
+}
+
+.ion-btn-lg.ion-space {
+  padding: 8px 20px;
+}
+
+.ion-btn-xl.ion-space {
+  padding: 12px 24px;
 }
