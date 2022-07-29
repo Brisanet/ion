@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { TabComponent } from 'projects/ion/src/lib/tab/tab.component';
+import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
   title: 'Ion/Tab',
@@ -19,43 +19,43 @@ Basic.args = {
 export const TabSmall = Template.bind({});
 TabSmall.args = {
   label: 'Small',
-  size: 'sm',
+  tabSize: 'sm',
 };
 
 export const TabMedium = Template.bind({});
 TabMedium.args = {
   label: 'Medium',
-  size: 'md',
+  tabSize: 'md',
 };
 
 export const TabLarge = Template.bind({});
 TabLarge.args = {
   label: 'Large',
-  size: 'lg',
+  tabSize: 'lg',
 };
 
 export const TabBottom = Template.bind({});
 TabBottom.args = {
   label: 'Bottom',
-  size: 'bottom',
+  direction: 'bottom',
 };
 
 export const TabTop = Template.bind({});
 TabTop.args = {
   label: 'Top',
-  size: 'top',
+  direction: 'top',
 };
 
 export const TabRight = Template.bind({});
 TabRight.args = {
   label: 'Right',
-  size: 'right',
+  direction: 'right',
 };
 
 export const TabLeft = Template.bind({});
 TabLeft.args = {
   label: 'Left',
-  size: 'left',
+  direction: 'left',
 };
 
 export const Disabled = Template.bind({});
