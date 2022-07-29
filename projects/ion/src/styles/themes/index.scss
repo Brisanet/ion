@@ -7,3 +7,14 @@ $success-color: $positive-6;
 $negative-color: $negative-6;
 $warning-color: $warning-6;
 $info-color: $info-6;
+
+// Spacing
+
+// Get the base spacing value.
+// @access public
+// @param {number} $level - Level of spacing.
+// @return {string} - Spacing value.
+// @example margin: spacing(1); // margin: '8px';
+@function spacing($level) {
+  @return $level * 8px;
+}
