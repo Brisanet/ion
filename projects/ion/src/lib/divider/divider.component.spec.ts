@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/angular';
 import { DividerComponent, IonDividerProps } from './divider.component';
 
 const ClassType = {
-  continuous: 'ion-divider-continuous',
+  solid: 'ion-divider-solid',
   dashed: 'ion-divider-dashed',
   text: 'ion-divider-text',
   vertical: 'ion-divider-vertical',
@@ -20,7 +20,7 @@ const sut = async (customProps?: IonDividerProps) => {
 describe('DividerComponent', () => {
   it('should render divider with default', async () => {
     const divider = await sut({});
-    expect(divider).toHaveClass(ClassType['continuous']);
+    expect(divider).toHaveClass(ClassType['solid']);
     expect(divider).toHaveClass(ClassType['horizontal']);
   });
 
