@@ -1,3 +1,4 @@
+import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 
 export type Size = 'sm' | 'md';
@@ -18,6 +19,7 @@ export class ChipComponent {
   @Input('disabled') disabled? = false;
   @Input('selected') selected? = false;
   @Input('size') size?: Size = 'md';
+  @Input() icon?: IconType;
 
   select() {
     this.selected = !this.selected;

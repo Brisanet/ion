@@ -77,3 +77,12 @@
   font-size: 12px;
   line-height: 16px;
 }
+button {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+ion-icon {
+  display: flex;
+  align-items: center;
+}
