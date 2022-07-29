@@ -29,6 +29,12 @@ button {
     &:disabled.spinner {
       border-left-color: $neutral-3;
     }
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $neutral-5;
+      }
+    }
   }
 
   ion-icon {
@@ -43,7 +49,7 @@ button {
 
 .ion-btn-sm {
   height: 24px;
-  padding: 4px 12px;
+  min-width: 24px;
 
   span {
     font-size: 12px;
@@ -57,15 +63,29 @@ button {
 
   ion-icon {
     ::ng-deep svg {
-      height: 13.33px;
+      height: 13px;
       width: 12px;
+    }
+  }
+
+  &.circle-border {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    padding: 0;
+
+    ion-icon {
+      ::ng-deep svg {
+        height: 13px;
+        width: 24px;
+      }
     }
   }
 }
 
 .ion-btn-md {
   height: 32px;
-  padding: 6px 16px;
+  min-width: 32px;
 
   span {
     font-size: 14px;
@@ -74,15 +94,28 @@ button {
 
   ion-icon {
     ::ng-deep svg {
-      height: 16.66px;
-      width: 15px;
+      height: 16px;
+    }
+  }
+
+  &.circle-border {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    padding: 0;
+
+    ion-icon {
+      ::ng-deep svg {
+        height: 16px;
+        width: 32px;
+      }
     }
   }
 }
 
 .ion-btn-lg {
   height: 40px;
-  padding: 8px 20px;
+  min-width: 40px;
 
   span {
     font-size: 16px;
@@ -92,14 +125,28 @@ button {
   ion-icon {
     ::ng-deep svg {
       height: 20px;
-      width: 18px;
+    }
+  }
+
+  &.circle-border {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    padding: 0;
+
+    ion-icon {
+      ::ng-deep svg {
+        height: 20px;
+        width: 40px;
+      }
     }
   }
 }
 
 .ion-btn-xl {
   height: 48px;
-  padding: 12px 24px;
+  min-width: 48px;
+  // padding: 12px 24px;
 
   span {
     font-size: 16px;
@@ -108,8 +155,22 @@ button {
 
   ion-icon {
     ::ng-deep svg {
-      height: 24px;
-      width: 18px;
+      height: 20px;
+      // min-width: 48px;
+    }
+  }
+
+  &.circle-border {
+    height: 48px;
+    width: 48px;
+    border-radius: 50%;
+    padding: 0;
+
+    ion-icon {
+      ::ng-deep svg {
+        height: 20px;
+        width: 48px;
+      }
     }
   }
 }
@@ -122,6 +183,7 @@ button {
 
 .loading {
   cursor: not-allowed;
+  padding: 0 24px;
 }
 
 .spinner {
@@ -131,6 +193,7 @@ button {
   width: 16px;
   height: 16px;
   animation: spin 1s linear infinite;
+  margin-right: 10px;
 }
 
 .danger {
@@ -253,6 +316,60 @@ button {
       background: $negative-1;
       border: 1px dashed $negative-3;
       color: $negative-5;
+    }
+  }
+}
+
+.ion-btn-secondary,
+.ion-btn-ghost,
+.ion-btn-dashed {
+  ion-icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+    }
+  }
+
+  &:hover {
+    ion-icon {
+      ::ng-deep svg {
+        fill: $primary-5;
+      }
+    }
+  }
+
+  &.danger {
+    ion-icon {
+      ::ng-deep svg {
+        fill: $negative-color;
+      }
+    }
+  }
+
+  &.danger:hover {
+    ion-icon {
+      ::ng-deep svg {
+        fill: $negative-5;
+      }
+    }
+
+    .right-side-icon {
+      flex-direction: row-reverse;
+    }
+
+    .ion-btn-sm.ion-space {
+      padding: 4px 12px;
+    }
+
+    .ion-btn-md.ion-space {
+      padding: 6px 16px;
+    }
+
+    .ion-btn-lg.ion-space {
+      padding: 8px 20px;
+    }
+
+    .ion-btn-xl.ion-space {
+      padding: 12px 24px;
     }
   }
 }
