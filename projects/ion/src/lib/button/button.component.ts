@@ -31,7 +31,7 @@ export class ButtonComponent {
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
-  @Input() loadingMessage: string;
+  @Input() loadingMessage = 'Carregando...';
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
   @Input() circularButton? = false;

@@ -4,7 +4,7 @@
   [class.danger]="danger"
   [class.loading]="loading"
   [class.circular-button]="!loading && circularButton"
-  [class.ion-remove-space]="!circularButton && !label"
+  [class.ion-remove-space]="!circularButton && !label && !loadingMessage"
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
@@ -16,6 +16,6 @@
     class="icon"
   ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
-    loading ? loadingMessage || 'Carregando...' : label
+    loading ? loadingMessage : label
   }}</span>
 </button>
