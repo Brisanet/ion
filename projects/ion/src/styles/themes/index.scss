@@ -11,3 +11,14 @@ $info-color: $info-6;
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
+
+// Spacing
+
+// Get the base spacing value.
+// @access public
+// @param {number} $level - Level of spacing.
+// @return {string} - Spacing value.
+// @example margin: spacing(1); // margin: '8px';
+@function spacing($level) {
+  @return $level * 8px;
+}
