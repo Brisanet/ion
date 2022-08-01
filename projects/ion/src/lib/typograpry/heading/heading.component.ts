@@ -9,7 +9,7 @@ import { createElement } from '../../utils';
 
 export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4';
 export type HeadingWeight = 'medium' | 'bold';
-export type colorScheme =
+export type ColorScheme =
   | 'primary'
   | 'secondary'
   | 'dark-primary'
@@ -25,7 +25,7 @@ export class HeadingComponent implements AfterViewInit {
   @Input() public text: string;
   @Input() public type: HeadingType;
   @Input() public weight?: HeadingWeight = 'medium';
-  @Input() public ColorScheme?: colorScheme = 'primary';
+  @Input() public colorScheme?: ColorScheme = 'primary';
   @Input() public size?: HeadingSize = 'normal';
 
   @ViewChild('heading', { static: false }) heading: ElementRef;
@@ -52,7 +52,7 @@ export class HeadingComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const heading = this.makeElement(this.type, this.text);
-    this.addClass(heading, `color-${this.ColorScheme}`);
+    this.addClass(heading, `color-${this.colorScheme}`);
     this.addClass(heading, `font-weight-${this.weight}`);
     this.addClass(heading, `font-size-${this.size}`);
     this.appendElement(heading);

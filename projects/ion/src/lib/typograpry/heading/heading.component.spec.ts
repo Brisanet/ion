@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import {
-  colorScheme,
+  ColorScheme,
   HeadingComponent,
   HeadingSize,
   HeadingType,
@@ -11,7 +11,7 @@ type HeadingProps = {
   text: string;
   type: HeadingType;
   weight?: HeadingWeight;
-  ColorScheme?: colorScheme;
+  colorScheme?: ColorScheme;
   size?: HeadingSize;
 };
 
@@ -45,7 +45,7 @@ describe('HeadingComponent', () => {
   });
 
   it('should validate custom color scheme', async () => {
-    await sut({ text: 'default', type: 'h2', ColorScheme: 'secondary' });
+    await sut({ text: 'default', type: 'h2', colorScheme: 'secondary' });
     const elementRendered = screen.getByTestId('ion-heading');
     expect(elementRendered).toHaveClass('color-secondary');
   });
