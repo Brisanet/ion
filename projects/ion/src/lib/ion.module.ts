@@ -5,7 +5,7 @@ import { ButtonComponent } from './button/button.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
-import { DividerComponent } from './divider/divider.component';
+import { IonDividerComponent } from './divider/divider.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { DividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
-    DividerComponent,
+    IonDividerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -23,7 +23,7 @@ import { DividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
-    DividerComponent,
+    IonDividerComponent,
   ],
 })
 export class IonModule {}

@@ -1,6 +1,6 @@
 /* tslint:disable:no-unused-variable */
 import { render, screen } from '@testing-library/angular';
-import { DividerComponent, IonDividerProps } from './divider.component';
+import { IonDividerComponent, IonDividerProps } from './divider.component';
 
 const ClassType = {
   solid: 'ion-divider-solid',
@@ -11,24 +11,24 @@ const ClassType = {
 };
 
 const sut = async (customProps?: IonDividerProps) => {
-  await render(DividerComponent, {
+  await render(IonDividerComponent, {
     componentProperties: customProps,
   });
   return screen.findByTestId('hr');
 };
 
-describe('DividerComponent', () => {
+describe('IonDividerComponent', () => {
   it('should render divider with default', async () => {
     const divider = await sut({});
-    expect(divider).toHaveClass(ClassType['solid']);
-    expect(divider).toHaveClass(ClassType['horizontal']);
+    expect(divider).toHaveClass(ClassType.solid);
+    expect(divider).toHaveClass(ClassType.horizontal);
   });
 
   it('should render vertical divider', async () => {
     const divider = await sut({
       orientation: 'vertical',
     });
-    expect(divider).toHaveClass(ClassType['vertical']);
+    expect(divider).toHaveClass(ClassType.vertical);
   });
 
   it('should render vertical divider and not show text', async () => {
@@ -45,8 +45,8 @@ describe('DividerComponent', () => {
       orientation: 'vertical',
       type: 'dashed',
     });
-    expect(divider).toHaveClass(ClassType['vertical']);
-    expect(divider).toHaveClass(ClassType['dashed']);
+    expect(divider).toHaveClass(ClassType.vertical);
+    expect(divider).toHaveClass(ClassType.dashed);
   });
 
   it('should render divider with Label', async () => {
@@ -54,7 +54,7 @@ describe('DividerComponent', () => {
       type: 'text',
       label: 'Label',
     });
-    expect(divider).toHaveClass(ClassType['text']);
+    expect(divider).toHaveClass(ClassType.text);
     expect(divider).toHaveAttribute('data-content', 'Label');
   });
 
@@ -62,7 +62,7 @@ describe('DividerComponent', () => {
     const divider = await sut({
       type: 'dashed',
     });
-    expect(divider).toHaveClass(ClassType['dashed']);
+    expect(divider).toHaveClass(ClassType.dashed);
   });
 
   it('should render horizontal divider dashed and not show text', async () => {
