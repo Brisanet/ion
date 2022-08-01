@@ -13,8 +13,8 @@ export interface IonButtonProps {
   disabled?: boolean;
   loading?: boolean;
   iconType?: IconType;
-  rightSideIcon: boolean;
-  circleBorder?: boolean;
+  rightSideIcon?: boolean;
+  circularButton?: boolean;
   ionOnClick?: EventEmitter<any>;
 }
 @Component({
@@ -33,7 +33,7 @@ export class ButtonComponent {
   @Input() loadingMessage;
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
-  @Input() circleBorder? = false;
+  @Input() circularButton? = false;
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {

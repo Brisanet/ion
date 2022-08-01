@@ -216,11 +216,11 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   </Story>
 </Canvas>
 
-- `circleBorder`. Transforma a bordas do botão em formato de círculo. Apenas o ícone será exibido.
+- `circularButton`. Transforma a bordas do botão em formato de círculo. Apenas o ícone será exibido.
 
 <Canvas>
   <Story
-    name="circleBorder"
+    name="circularButton"
     decorators={[
       moduleMetadata({
         declarations: [ButtonComponent, IonIconComponent],
@@ -229,11 +229,11 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     ]}
   >
     {{
-      template: `<ion-button label="Editar" iconType="pencil" [circleBorder]="true"></ion-button>`,
+      template: `<ion-button label="Editar" iconType="pencil" [circularButton]="true"></ion-button>`,
     }}
   </Story>
   <Story
-    name="circleBorder: trash danger"
+    name="circularButton: trash danger"
     decorators={[
       moduleMetadata({
         declarations: [ButtonComponent, IonIconComponent],
@@ -242,7 +242,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     ]}
   >
     {{
-      template: `<ion-button label="Deletar" iconType="trash" [danger]="true" [circleBorder]="true"></ion-button>`,
+      template: `<ion-button label="Deletar" iconType="trash" [danger]="true" [circularButton]="true"></ion-button>`,
     }}
   </Story>
 </Canvas>

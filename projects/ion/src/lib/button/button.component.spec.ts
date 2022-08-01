@@ -65,6 +65,29 @@ it.each(sizes)('should render correct sizes', async (size) => {
   );
 });
 
+describe('Icon on ButtonComponent', () => {
+  it('Icon pencil on button', async () => {
+    const button = await sut({ iconType: 'pencil' });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button.querySelector('ion-icon')).toHaveAttribute('ng-reflect-type');
+    expect(
+      button.querySelector('ion-icon').getAttribute('ng-reflect-type')
+    ).toContain('pencil');
+  });
+
+  it('Right side icon', async () => {
+    const button = await sut({ iconType: 'pencil', rightSideIcon: true });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button).toHaveClass('right-side-icon');
+  });
+
+  it('Button with circular icon', async () => {
+    const button = await sut({ iconType: 'pencil', circularButton: true });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button).toHaveClass('circular-button');
+  });
+});
+
 describe('Danger ButtonComponent', () => {
   it('should render a button with the danger class when danger="true" is passed', async () => {
     expect(await sut({ label: defaultName, danger: true })).toHaveClass(

@@ -1,10 +1,10 @@
 <button
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
-  [style.width]="!circleBorder && expand ? '100%' : ''"
+  [style.width]="!circularButton && expand ? '100%' : ''"
   [class.danger]="danger"
   [class.loading]="loading"
-  [class.circle-border]="!loading && circleBorder"
-  [class.ion-remove-space]="!circleBorder && !label"
+  [class.circular-button]="!loading && circularButton"
+  [class.ion-remove-space]="!circularButton && !label"
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
@@ -15,7 +15,7 @@
     [type]="iconType"
     class="icon"
   ></ion-icon>
-  <span *ngIf="(!circleBorder && label) || loading">{{
+  <span *ngIf="(!circularButton && label) || loading">{{
     loading ? loadingMessage || 'Carregando...' : label
   }}</span>
 </button>
