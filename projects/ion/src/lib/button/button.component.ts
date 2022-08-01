@@ -12,6 +12,7 @@ export interface IonButtonProps {
   danger?: boolean;
   disabled?: boolean;
   loading?: boolean;
+  loadingMessage?: string;
   iconType?: IconType;
   rightSideIcon?: boolean;
   circularButton?: boolean;
@@ -30,7 +31,7 @@ export class ButtonComponent {
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
-  @Input() loadingMessage;
+  @Input() loadingMessage: string;
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
   @Input() circularButton? = false;

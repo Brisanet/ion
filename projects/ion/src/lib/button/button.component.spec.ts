@@ -119,4 +119,15 @@ describe('load ButtonComponent', () => {
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain('Carregando...');
   });
+
+  it('should render a loading button with message "aguarde ..."', async () => {
+    const button = await sut({
+      label: defaultName,
+      loading: true,
+      loadingMessage: 'aguarde ...',
+    });
+    expect(button).toHaveClass('loading');
+    expect(button.children[0]).toHaveClass('spinner');
+    expect(button.children[1].textContent).toContain('aguarde ...');
+  });
 });
