@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonIconComponent } from '../icon/icon.component';
 import { ChipComponent, IonChipProps, Size } from './chip.component';
 
 const sut = async (customProps?: IonChipProps) => {
@@ -6,6 +7,7 @@ const sut = async (customProps?: IonChipProps) => {
     componentProperties: customProps || {
       label: 'chip',
     },
+    declarations: [IonIconComponent],
   });
 };
 

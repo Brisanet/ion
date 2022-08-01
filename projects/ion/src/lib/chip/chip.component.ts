@@ -18,7 +18,7 @@ export class ChipComponent {
   @Input('label') label!: string;
   @Input('disabled') disabled? = false;
   @Input('selected') selected? = false;
-  @Input('size') size?: Size = 'sm';
+  @Input() size?: Size = 'sm';
   @Input() icon?: IconType = 'pencil';
 
   select() {
