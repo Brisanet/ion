@@ -8,5 +8,10 @@
   [class]="'chip-' + size"
 >
   {{ label }}
-  <ion-icon *ngIf="icon" size="16" [type]="icon"></ion-icon>
+  <ng-container *ngIf="size === 'sm'">
+    <ion-icon color="#06439D" [type]="icon" size="16"></ion-icon>
+  </ng-container>
+  <ng-container *ngIf="size === 'md'">
+    <ion-icon color="#06439D" [type]="icon" size="20"></ion-icon>
+  </ng-container>
 </button>

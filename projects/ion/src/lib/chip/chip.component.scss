@@ -67,16 +67,17 @@
     cursor: not-allowed;
   }
 }
-.chip-md {
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 20px;
-}
 .chip-sm {
   padding: 4px 8px;
   font-size: 12px;
   line-height: 16px;
 }
+.chip-md {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 button {
   display: flex;
   gap: 8px;
@@ -85,4 +86,5 @@ button {
 ion-icon {
   display: flex;
   align-items: center;
+  color: $primary-6;
 }
