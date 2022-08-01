@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-type Orientation = 'horizontal' | 'vertical';
+export type Orientation = 'horizontal' | 'vertical';
 
 type DividerType = 'solid' | 'dashed' | 'text';
 
