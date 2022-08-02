@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+@mixin tab-colors($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border !important;
+}
+
 @mixin icon-color($color) {
   .tab-icon {
     ::ng-deep svg {
@@ -33,30 +39,22 @@
   @include icon-color($neutral-7);
 
   &:hover {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     @include icon-color($primary-5);
   }
   &:focus {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;
     @include icon-color($primary-5);
   }
   &:active {
-    color: $primary-7;
-    background-color: $primary-2;
-    border-color: $primary-5;
+    @include tab-colors($primary-7, $primary-2, $primary-5);
     outline: none;
     @include icon-color($primary-7);
   }
   &:disabled {
-    color: $neutral-5;
-    background-color: $neutral-3;
-    border-color: $neutral-5;
+    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
     cursor: not-allowed;
     @include icon-color($neutral-5);
   }
@@ -65,40 +63,30 @@
 .tab-selected {
   font-style: normal;
   font-weight: 600;
-  color: $primary-6;
   border: none;
-  background-color: $neutral-1;
-  border-color: $primary-6 !important;
+  @include tab-colors($primary-6, $neutral-1, $primary-6);
   cursor: pointer;
   display: flex;
   align-items: center;
   @include icon-color($primary-6);
 
   &:hover {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     @include icon-color($primary-5);
   }
   &:focus {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;
     @include icon-color($primary-5);
   }
   &:active {
-    color: $primary-7;
-    background-color: $primary-2;
-    border-color: $primary-5;
+    @include tab-colors($primary-7, $primary-2, $primary-5);
     outline: none;
     @include icon-color($primary-7);
   }
   &:disabled {
-    color: $neutral-5;
-    background-color: $neutral-3;
-    border-color: $neutral-5 !important;
+    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
     cursor: not-allowed;
     @include icon-color($neutral-5);
   }
