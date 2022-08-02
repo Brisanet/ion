@@ -3,24 +3,24 @@
     "interfaces": [
         {
             "name": "IonButtonProps",
-            "id": "interface-IonButtonProps-9c5161cc6954af5ef5010c7aed1ddf4471e056e643c4a7c52ce76e7dc87fe107faa4214ba8da436626f77cca08cb5f28f2d5375534a801e40743d72b8cb65654",
+            "id": "interface-IonButtonProps-d58d83f4123f333e6b752874752f26bbda18fbed6ef15bad59686d8611c88308c70f3f711288c2628b0b342d64df1253c9afa96a38c2c6d3a6b6650d097f0d58",
             "file": "projects/ion/src/lib/button/button.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\ntype Type = 'primary' | 'secondary' | 'ghost' | 'dashed';\ntype Size = 'sm' | 'md' | 'lg' | 'xl';\nexport interface IonButtonProps {\n  label?: string;\n  type?: Type;\n  size?: Size;\n  expand?: boolean;\n  danger?: boolean;\n  disabled?: boolean;\n  loading?: boolean;\n  ionOnClick?: EventEmitter<any>;\n}\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label?: string;\n  @Input() type?: Type = 'primary';\n  @Input() size?: Size = 'md';\n  @Input() expand? = false;\n  @Input() danger? = false;\n  @Input() disabled? = false;\n  @Input() loading? = false;\n  @Output() ionOnClick? = new EventEmitter();\n\n  handleClick() {\n    if (!this.loading) {\n      this.ionOnClick.emit();\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { IconType } from '../icon/icon.component';\n\ntype Type = 'primary' | 'secondary' | 'ghost' | 'dashed';\ntype Size = 'sm' | 'md' | 'lg' | 'xl';\nexport interface IonButtonProps {\n  label?: string;\n  type?: Type;\n  size?: Size;\n  expand?: boolean;\n  danger?: boolean;\n  disabled?: boolean;\n  loading?: boolean;\n  loadingMessage?: string;\n  iconType?: IconType;\n  rightSideIcon?: boolean;\n  circularButton?: boolean;\n  ionOnClick?: EventEmitter<any>;\n}\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label?: string;\n  @Input() type?: Type = 'primary';\n  @Input() size?: Size = 'md';\n  @Input() expand? = false;\n  @Input() danger? = false;\n  @Input() disabled? = false;\n  @Input() loading? = false;\n  @Input() loadingMessage = 'Carregando...';\n  @Input() iconType? = '';\n  @Input() rightSideIcon? = false;\n  @Input() circularButton? = false;\n  @Output() ionOnClick? = new EventEmitter();\n\n  handleClick() {\n    if (!this.loading) {\n      this.ionOnClick.emit();\n    }\n  }\n}\n",
             "properties": [
                 {
-                    "name": "danger",
+                    "name": "circularButton",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "boolean",
                     "optional": true,
                     "description": "",
-                    "line": 11
+                    "line": 18
                 },
                 {
-                    "name": "disabled",
+                    "name": "danger",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "boolean",
@@ -29,34 +29,7 @@
                     "line": 12
                 },
                 {
-                    "name": "expand",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "boolean",
-                    "optional": true,
-                    "description": "",
-                    "line": 10
-                },
-                {
-                    "name": "ionOnClick",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "EventEmitter<any>",
-                    "optional": true,
-                    "description": "",
-                    "line": 14
-                },
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "string",
-                    "optional": true,
-                    "description": "",
-                    "line": 7
-                },
-                {
-                    "name": "loading",
+                    "name": "disabled",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "boolean",
@@ -65,13 +38,76 @@
                     "line": 13
                 },
                 {
+                    "name": "expand",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "iconType",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IconType",
+                    "optional": true,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "ionOnClick",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "EventEmitter<any>",
+                    "optional": true,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "loading",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 14
+                },
+                {
+                    "name": "loadingMessage",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 15
+                },
+                {
+                    "name": "rightSideIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 17
+                },
+                {
                     "name": "size",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Size",
                     "optional": true,
                     "description": "",
-                    "line": 9
+                    "line": 10
                 },
                 {
                     "name": "type",
@@ -80,7 +116,7 @@
                     "type": "Type",
                     "optional": true,
                     "description": "",
-                    "line": 8
+                    "line": 9
                 }
             ],
             "indexSignatures": [],
@@ -131,6 +167,47 @@
                     "optional": true,
                     "description": "",
                     "line": 8
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "IonDividerProps",
+            "id": "interface-IonDividerProps-23c8e41a6137d506db700e3e260390578c9b97b45cf075eeb8faf4002760de43f5de5930dc5c98ace8393adaaa0fec60f892815e4c30c6816ee4bb1bfd530b84",
+            "file": "projects/ion/src/lib/divider/divider.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Orientation = 'horizontal' | 'vertical';\n\ntype DividerType = 'solid' | 'dashed' | 'text';\n\nexport interface IonDividerProps {\n  label?: string;\n  orientation?: Orientation;\n  type?: DividerType;\n}\n\n@Component({\n  selector: 'ion-divider',\n  templateUrl: './divider.component.html',\n  styleUrls: ['./divider.component.scss'],\n})\nexport class IonDividerComponent {\n  @Input() label = '';\n  @Input() orientation?: Orientation = 'horizontal';\n  @Input() type?: DividerType = 'solid';\n}\n",
+            "properties": [
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
+                },
+                {
+                    "name": "orientation",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Orientation",
+                    "optional": true,
+                    "description": "",
+                    "line": 9
+                },
+                {
+                    "name": "type",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "DividerType",
+                    "optional": true,
+                    "description": "",
+                    "line": 10
                 }
             ],
             "indexSignatures": [],
@@ -201,7 +278,7 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-9c5161cc6954af5ef5010c7aed1ddf4471e056e643c4a7c52ce76e7dc87fe107faa4214ba8da436626f77cca08cb5f28f2d5375534a801e40743d72b8cb65654",
+            "id": "component-ButtonComponent-d58d83f4123f333e6b752874752f26bbda18fbed6ef15bad59686d8611c88308c70f3f711288c2628b0b342d64df1253c9afa96a38c2c6d3a6b6650d097f0d58",
             "file": "projects/ion/src/lib/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -219,11 +296,20 @@
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "circularButton",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 37,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
                     "name": "danger",
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 26,
+                    "line": 31,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -232,7 +318,7 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 27,
+                    "line": 32,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -241,15 +327,24 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 25,
+                    "line": 30,
                     "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "iconType",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 35,
+                    "type": "string",
                     "decorators": []
                 },
                 {
                     "name": "label",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 22,
+                    "line": 27,
                     "type": "string",
                     "decorators": []
                 },
@@ -258,7 +353,25 @@
                     "defaultValue": "false",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 28,
+                    "line": 33,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "loadingMessage",
+                    "defaultValue": "'Carregando...'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 34,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "rightSideIcon",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 36,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -267,7 +380,7 @@
                     "defaultValue": "'md'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 24,
+                    "line": 29,
                     "type": "Size",
                     "decorators": []
                 },
@@ -276,7 +389,7 @@
                     "defaultValue": "'primary'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 23,
+                    "line": 28,
                     "type": "Type",
                     "decorators": []
                 }
@@ -287,7 +400,7 @@
                     "defaultValue": "new EventEmitter()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 29,
+                    "line": 38,
                     "type": "EventEmitter"
                 }
             ],
@@ -299,7 +412,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 31,
+                    "line": 40,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -311,16 +424,16 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\ntype Type = 'primary' | 'secondary' | 'ghost' | 'dashed';\ntype Size = 'sm' | 'md' | 'lg' | 'xl';\nexport interface IonButtonProps {\n  label?: string;\n  type?: Type;\n  size?: Size;\n  expand?: boolean;\n  danger?: boolean;\n  disabled?: boolean;\n  loading?: boolean;\n  ionOnClick?: EventEmitter<any>;\n}\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label?: string;\n  @Input() type?: Type = 'primary';\n  @Input() size?: Size = 'md';\n  @Input() expand? = false;\n  @Input() danger? = false;\n  @Input() disabled? = false;\n  @Input() loading? = false;\n  @Output() ionOnClick? = new EventEmitter();\n\n  handleClick() {\n    if (!this.loading) {\n      this.ionOnClick.emit();\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\nimport { IconType } from '../icon/icon.component';\n\ntype Type = 'primary' | 'secondary' | 'ghost' | 'dashed';\ntype Size = 'sm' | 'md' | 'lg' | 'xl';\nexport interface IonButtonProps {\n  label?: string;\n  type?: Type;\n  size?: Size;\n  expand?: boolean;\n  danger?: boolean;\n  disabled?: boolean;\n  loading?: boolean;\n  loadingMessage?: string;\n  iconType?: IconType;\n  rightSideIcon?: boolean;\n  circularButton?: boolean;\n  ionOnClick?: EventEmitter<any>;\n}\n@Component({\n  selector: 'ion-button',\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  @Input() label?: string;\n  @Input() type?: Type = 'primary';\n  @Input() size?: Size = 'md';\n  @Input() expand? = false;\n  @Input() danger? = false;\n  @Input() disabled? = false;\n  @Input() loading? = false;\n  @Input() loadingMessage = 'Carregando...';\n  @Input() iconType? = '';\n  @Input() rightSideIcon? = false;\n  @Input() circularButton? = false;\n  @Output() ionOnClick? = new EventEmitter();\n\n  handleClick() {\n    if (!this.loading) {\n      this.ionOnClick.emit();\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "@import '../../styles/index.scss';\n\nbutton {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 8px;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-weight: 600;\n  border-radius: 10px;\n  border: 0;\n  color: $neutral-1;\n  cursor: pointer;\n  transition: all 300ms;\n\n  &:focus-visible {\n    outline: none;\n    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;\n  }\n\n  &:disabled,\n  &:disabled:hover,\n  &[disabled],\n  &[disabled]:hover {\n    background-color: $neutral-3 !important;\n    color: $neutral-5 !important;\n    cursor: not-allowed;\n\n    &:disabled.spinner {\n      border-left-color: $neutral-3;\n    }\n  }\n}\n\n.ion-btn-sm {\n  height: 24px;\n  padding: 4px 12px;\n\n  span {\n    font-size: 12px;\n    line-height: 16px;\n  }\n\n  .spinner {\n    width: 10px;\n    height: 10px;\n  }\n}\n\n.ion-btn-md {\n  height: 32px;\n  padding: 6px 16px;\n\n  span {\n    font-size: 14px;\n    line-height: 20px;\n  }\n}\n\n.ion-btn-lg {\n  height: 40px;\n  padding: 8px 20px;\n\n  span {\n    font-size: 16px;\n    line-height: 24px;\n  }\n}\n\n.ion-btn-xl {\n  height: 48px;\n  padding: 12px 24px;\n\n  span {\n    font-size: 16px;\n    line-height: 24px;\n  }\n}\n\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n.loading {\n  cursor: not-allowed;\n}\n\n.spinner {\n  border: 2px solid transparent;\n  border-left-color: $primary-6;\n  border-radius: 50%;\n  width: 16px;\n  height: 16px;\n  animation: spin 1s linear infinite;\n}\n\n.danger {\n  span.spinner {\n    border-left-color: $negative-6;\n  }\n\n  &:hover {\n    span.spinner {\n      border-left-color: $negative-5;\n    }\n  }\n}\n\n.ion-btn-primary {\n  background-color: $primary-6;\n\n  &:hover {\n    background: $primary-5;\n  }\n\n  &.danger {\n    background-color: $negative-6;\n\n    &:hover {\n      background-color: $negative-5;\n      color: $neutral-1;\n    }\n\n    span.spinner {\n      border-left-color: $neutral-1;\n    }\n  }\n\n  span.spinner {\n    border-left-color: $neutral-1;\n  }\n}\n\n.ion-btn-secondary {\n  background-color: $neutral-1;\n  border: 1px solid $neutral-4;\n  color: $primary-6;\n\n  &:hover {\n    background-color: $primary-1;\n    border: 1px solid $primary-4;\n    color: $primary-5;\n\n    &:disabled {\n      background-color: $neutral-3;\n      border: 1px solid $neutral-5;\n      color: $neutral-5;\n    }\n  }\n\n  &.danger {\n    color: $negative-color;\n  }\n\n  &.danger:hover {\n    background-color: $negative-1;\n    border: 1px solid $negative-3;\n    color: $negative-5;\n  }\n}\n\n.ion-btn-ghost {\n  background-color: transparent;\n  color: $primary-6;\n\n  &:disabled {\n    background-color: transparent !important;\n    color: $neutral-5;\n  }\n\n  &:hover {\n    background-color: $primary-1;\n    color: $primary-5;\n\n    &:disabled {\n      background-color: transparent !important;\n    }\n  }\n\n  &.danger {\n    color: $negative-6;\n\n    &:hover {\n      background-color: $negative-1;\n      color: $negative-5;\n    }\n  }\n}\n\n.ion-btn-dashed {\n  background-color: transparent;\n  color: $primary-6;\n  border: 1px $neutral-4;\n  border-style: dashed;\n\n  &:hover {\n    background-color: $primary-1;\n    color: $primary-5;\n    border: 1px $primary-4;\n    border-style: dashed;\n\n    &:disabled {\n      background-color: $neutral-3;\n      border: 1px dashed $neutral-5;\n      color: $neutral-5;\n    }\n  }\n\n  &.danger {\n    border: 1px dashed $neutral-4;\n    color: $negative-6;\n\n    &:hover {\n      background: $negative-1;\n      border: 1px dashed $negative-3;\n      color: $negative-5;\n    }\n  }\n}\n",
+                    "data": "@import '../../styles/index.scss';\n\nbutton {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-weight: 600;\n  border-radius: 10px;\n  border: 0;\n  color: $neutral-1;\n  cursor: pointer;\n  transition: all 300ms;\n\n  &:focus-visible {\n    outline: none;\n    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;\n  }\n\n  &:disabled,\n  &:disabled:hover,\n  &[disabled],\n  &[disabled]:hover {\n    background-color: $neutral-3 !important;\n    color: $neutral-5 !important;\n    cursor: not-allowed;\n\n    &:disabled.spinner {\n      border-left-color: $neutral-3;\n    }\n\n    ion-icon {\n      ::ng-deep svg {\n        fill: $neutral-5;\n      }\n    }\n  }\n\n  ion-icon {\n    ::ng-deep svg {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      fill: $neutral-1;\n    }\n  }\n}\n\n.ion-btn-sm {\n  height: 24px;\n  min-width: 24px;\n  padding: 4px 12px;\n\n  span {\n    font-size: 12px;\n    line-height: 16px;\n  }\n\n  .spinner {\n    width: 10px;\n    height: 10px;\n  }\n\n  ion-icon {\n    ::ng-deep svg {\n      height: 13px;\n      width: 13px;\n    }\n  }\n\n  &.circular-button {\n    height: 24px;\n    width: 24px;\n    border-radius: 50%;\n    padding: 0;\n\n    ion-icon {\n      ::ng-deep svg {\n        height: 13px;\n        width: 13px;\n      }\n    }\n  }\n}\n\n.ion-btn-md {\n  height: 32px;\n  min-width: 32px;\n  padding: 6px 16px;\n\n  span {\n    font-size: 14px;\n    line-height: 20px;\n  }\n\n  ion-icon {\n    ::ng-deep svg {\n      height: 16px;\n      width: 16px;\n    }\n  }\n\n  &.circular-button {\n    height: 32px;\n    width: 32px;\n    border-radius: 50%;\n    padding: 0;\n\n    ion-icon {\n      ::ng-deep svg {\n        height: 16px;\n        width: 16px;\n      }\n    }\n  }\n}\n\n.ion-btn-lg {\n  height: 40px;\n  min-width: 40px;\n  padding: 8px 20px;\n\n  span {\n    font-size: 16px;\n    line-height: 24px;\n  }\n\n  ion-icon {\n    ::ng-deep svg {\n      height: 20px;\n      width: 20px;\n    }\n  }\n\n  &.circular-button {\n    height: 40px;\n    width: 40px;\n    border-radius: 50%;\n    padding: 0;\n\n    ion-icon {\n      ::ng-deep svg {\n        height: 20px;\n        width: 20px;\n      }\n    }\n  }\n}\n\n.ion-btn-xl {\n  height: 48px;\n  min-width: 48px;\n  padding: 12px 24px;\n\n  span {\n    font-size: 16px;\n    line-height: 24px;\n  }\n\n  ion-icon {\n    ::ng-deep svg {\n      height: 20px;\n      width: 20px;\n    }\n  }\n\n  &.circular-button {\n    height: 48px;\n    width: 48px;\n    border-radius: 50%;\n    padding: 0;\n\n    ion-icon {\n      ::ng-deep svg {\n        height: 20px;\n        width: 20px;\n      }\n    }\n  }\n}\n\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}\n\n.loading {\n  cursor: not-allowed;\n  padding: 0 24px;\n}\n\n.spinner {\n  border: 2px solid transparent;\n  border-left-color: $primary-6;\n  border-radius: 50%;\n  width: 16px;\n  height: 16px;\n  animation: spin 1s linear infinite;\n  margin-right: 10px;\n}\n\n.danger {\n  span.spinner {\n    border-left-color: $negative-6;\n  }\n\n  &:hover {\n    span.spinner {\n      border-left-color: $negative-5;\n    }\n  }\n}\n\n.ion-btn-primary {\n  background-color: $primary-6;\n\n  &:hover {\n    background: $primary-5;\n  }\n\n  &.danger {\n    background-color: $negative-6;\n\n    &:hover {\n      background-color: $negative-5;\n      color: $neutral-1;\n    }\n\n    span.spinner {\n      border-left-color: $neutral-1;\n    }\n  }\n\n  span.spinner {\n    border-left-color: $neutral-1;\n  }\n}\n\n.ion-btn-secondary {\n  background-color: $neutral-1;\n  border: 1px solid $neutral-4;\n  color: $primary-6;\n\n  &:hover {\n    background-color: $primary-1;\n    border: 1px solid $primary-4;\n    color: $primary-5;\n\n    &:disabled {\n      background-color: $neutral-3;\n      border: 1px solid $neutral-5;\n      color: $neutral-5;\n    }\n  }\n\n  &.danger {\n    color: $negative-color;\n  }\n\n  &.danger:hover {\n    background-color: $negative-1;\n    border: 1px solid $negative-3;\n    color: $negative-5;\n  }\n}\n\n.ion-btn-ghost {\n  background-color: transparent;\n  color: $primary-6;\n\n  &:disabled {\n    background-color: transparent !important;\n    color: $neutral-5;\n  }\n\n  &:hover {\n    background-color: $primary-1;\n    color: $primary-5;\n\n    &:disabled {\n      background-color: transparent !important;\n    }\n  }\n\n  &.danger {\n    color: $negative-6;\n\n    &:hover {\n      background-color: $negative-1;\n      color: $negative-5;\n    }\n  }\n}\n\n.ion-btn-dashed {\n  background-color: transparent;\n  color: $primary-6;\n  border: 1px $neutral-4;\n  border-style: dashed;\n\n  &:hover {\n    background-color: $primary-1;\n    color: $primary-5;\n    border: 1px $primary-4;\n    border-style: dashed;\n\n    &:disabled {\n      background-color: $neutral-3;\n      border: 1px dashed $neutral-5;\n      color: $neutral-5;\n    }\n  }\n\n  &.danger {\n    border: 1px dashed $neutral-4;\n    color: $negative-6;\n\n    &:hover {\n      background: $negative-1;\n      border: 1px dashed $negative-3;\n      color: $negative-5;\n    }\n  }\n}\n\n.ion-btn-secondary,\n.ion-btn-ghost,\n.ion-btn-dashed {\n  ion-icon {\n    ::ng-deep svg {\n      fill: $primary-6;\n    }\n  }\n\n  &:hover {\n    ion-icon {\n      ::ng-deep svg {\n        fill: $primary-5;\n      }\n    }\n  }\n\n  &.danger {\n    ion-icon {\n      ::ng-deep svg {\n        fill: $negative-color;\n      }\n    }\n  }\n\n  &.danger:hover {\n    ion-icon {\n      ::ng-deep svg {\n        fill: $negative-5;\n      }\n    }\n  }\n}\n\n.right-side-icon {\n  flex-direction: row-reverse;\n}\n\n.ion-remove-space {\n  padding: 0 !important;\n}\n",
                     "styleUrl": "./button.component.scss"
                 }
             ],
             "stylesData": "",
-            "templateData": "<button\n  [class]=\"'ion-btn-' + type + ' ion-btn-' + size\"\n  [style.width]=\"expand ? '100%' : 'fit-content'\"\n  [class.danger]=\"danger\"\n  [class.loading]=\"loading\"\n  [disabled]=\"disabled\"\n  (click)=\"handleClick()\"\n>\n  <span *ngIf=\"loading\" class=\"spinner\"></span>\n  <span>{{ loading ? 'Carregando...' : label || 'configure uma label' }}</span>\n</button>\n"
+            "templateData": "<button\n  [class]=\"'ion-btn-' + type + ' ion-btn-' + size\"\n  [style.width]=\"!circularButton && expand ? '100%' : ''\"\n  [class.danger]=\"danger\"\n  [class.loading]=\"loading\"\n  [class.circular-button]=\"!loading && circularButton\"\n  [class.ion-remove-space]=\"!circularButton && !label && !loadingMessage\"\n  [class.right-side-icon]=\"rightSideIcon\"\n  [disabled]=\"disabled\"\n  (click)=\"handleClick()\"\n>\n  <span *ngIf=\"loading\" class=\"spinner\"></span>\n  <ion-icon\n    *ngIf=\"iconType && !loading\"\n    [type]=\"iconType\"\n    class=\"icon\"\n  ></ion-icon>\n  <span *ngIf=\"(!circularButton && label) || loading\">{{\n    loading ? loadingMessage : label\n  }}</span>\n</button>\n"
         },
         {
             "name": "ChipComponent",
@@ -441,6 +554,74 @@
             "stylesData": ""
         },
         {
+            "name": "IonDividerComponent",
+            "id": "component-IonDividerComponent-23c8e41a6137d506db700e3e260390578c9b97b45cf075eeb8faf4002760de43f5de5930dc5c98ace8393adaaa0fec60f892815e4c30c6816ee4bb1bfd530b84",
+            "file": "projects/ion/src/lib/divider/divider.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ion-divider",
+            "styleUrls": [
+                "./divider.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./divider.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "label",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 19,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "orientation",
+                    "defaultValue": "'horizontal'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "Orientation",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'solid'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "DividerType",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type Orientation = 'horizontal' | 'vertical';\n\ntype DividerType = 'solid' | 'dashed' | 'text';\n\nexport interface IonDividerProps {\n  label?: string;\n  orientation?: Orientation;\n  type?: DividerType;\n}\n\n@Component({\n  selector: 'ion-divider',\n  templateUrl: './divider.component.html',\n  styleUrls: ['./divider.component.scss'],\n})\nexport class IonDividerComponent {\n  @Input() label = '';\n  @Input() orientation?: Orientation = 'horizontal';\n  @Input() type?: DividerType = 'solid';\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "@import '../../styles/index.scss';\n\nhr {\n  border: 0;\n  background: inherit;\n}\n\n.ion-divider-dashed {\n  border-style: dashed !important;\n}\n\n.ion-divider-horizontal {\n  border-top: 1px solid $neutral-4;\n  width: 100%;\n}\n\n.ion-divider-vertical {\n  border-left: 1px solid $neutral-4;\n  min-height: 15px;\n  height: 100%;\n}\n\n.ion-divider-text {\n  overflow: visible;\n  padding: 0;\n  color: $neutral-7;\n  text-align: center;\n  font-family: 'Source Sans Pro', sans-serif;\n  font-weight: 400;\n  line-height: 20px;\n  font-size: 14px;\n}\n\n.ion-divider-text::after {\n  content: attr(data-content);\n  display: inline-block;\n  position: relative;\n  top: -0.7em;\n  padding: 0 10px;\n  background: white;\n}\n",
+                    "styleUrl": "./divider.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<hr\n  data-testid=\"hr\"\n  [class]=\"'ion-divider-' + orientation + ' ion-divider-' + type\"\n  [attr.data-content]=\"\n    orientation === 'horizontal' ? (type === 'text' ? label : '') : ''\n  \"\n/>\n"
+        },
+        {
             "name": "IonIconComponent",
             "id": "component-IonIconComponent-2bf58a2a4e30e010e8ecb4c1354c92cf0c766b5d49b7d4804445a3f5491d502ddbe3321b59660cc8d1c37e3e757d723e479f5183e8e375e07acb68a23f57b002",
             "file": "projects/ion/src/lib/icon/icon.component.ts",
@@ -536,112 +717,18 @@
                 "AfterViewInit"
             ],
             "templateData": "<svg\n  attr.height.px=\"{{ size }}\"\n  attr.width.px=\"{{ size }}\"\n  attr.fill=\"{{ color }}\"\n  viewBox=\"0 0 24 24\"\n  xmlns=\"http://www.w3.org/2000/svg\"\n  [id]=\"'ion-icon-' + type\"\n  #svg\n></svg>\n"
-        },
-        {
-            "name": "TabComponent",
-            "id": "component-TabComponent-6d706e72627c575b161686bf208a53957f38c0bcf3fa671564e1cbc8699e864ecfd5d60b989aec50a8ff129c767fad2482902dc485ff9b393dbafd91e5b4929f",
-            "file": "projects/ion/src/lib/tab/tab.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "ion-tab",
-            "styleUrls": [
-                "./tab.component.scss"
-            ],
-            "styles": [],
-            "templateUrl": [
-                "./tab.component.html"
-            ],
-            "viewProviders": [],
-            "inputsClass": [
-                {
-                    "name": "direction",
-                    "defaultValue": "'bottom'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 16,
-                    "type": "Direction",
-                    "decorators": []
-                },
-                {
-                    "name": "disabled",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 14,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "label",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 12,
-                    "type": "string",
-                    "decorators": []
-                },
-                {
-                    "name": "selected",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 15,
-                    "type": "boolean",
-                    "decorators": []
-                },
-                {
-                    "name": "tabSize",
-                    "defaultValue": "'sm'",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "line": 13,
-                    "type": "TabSize",
-                    "decorators": []
-                }
-            ],
-            "outputsClass": [],
-            "propertiesClass": [],
-            "methodsClass": [
-                {
-                    "name": "select",
-                    "args": [],
-                    "optional": false,
-                    "returnType": "void",
-                    "typeParameters": [],
-                    "line": 18,
-                    "deprecated": false,
-                    "deprecationMessage": ""
-                }
-            ],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, Input } from '@angular/core';\n\nexport type TabSize = 'sm' | 'md' | 'lg';\nexport type Direction = 'bottom' | 'top' | 'right' | 'left';\n\n@Component({\n  selector: 'ion-tab',\n  templateUrl: './tab.component.html',\n  styleUrls: ['./tab.component.scss'],\n})\nexport class TabComponent {\n  @Input() label!: string;\n  @Input() tabSize?: TabSize = 'sm';\n  @Input() disabled?: boolean;\n  @Input() selected?: boolean;\n  @Input() direction?: Direction = 'bottom';\n\n  select() {\n    this.selected = !this.selected;\n  }\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "@import '../../styles/index.scss';\n.tab {\n  font-style: normal;\n  font-weight: 600;\n  color: $neutral-7;\n  border: none;\n  background-color: $neutral-1;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n  & border-bottom {\n    border-bottom: 2px solid $neutral-3;\n    border-radius: 6px 6px 0px 0px;\n  }\n}\n\n.tab-selected {\n  font-style: normal;\n  font-weight: 600;\n  color: $primary-6;\n  border: none;\n  background-color: $neutral-1;\n  border-color: $primary-6;\n  cursor: pointer;\n\n  &:hover {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n  }\n  &:focus {\n    color: $primary-5;\n    background-color: $primary-1;\n    border-color: $primary-3;\n    outline: 2px solid $primary-5;\n    outline-offset: 2px;\n  }\n  &:active {\n    color: $primary-7;\n    background-color: $primary-2;\n    border-color: $primary-5;\n    outline: none;\n  }\n  &:disabled {\n    color: $neutral-5;\n    background-color: $neutral-3;\n    border-color: $neutral-5;\n    cursor: not-allowed;\n  }\n}\n\n.tab-sm {\n  padding: 8px 16px;\n  font-size: 12px;\n  line-height: 16px;\n}\n.tab-md {\n  padding: 10px 24px;\n  font-size: 14px;\n  line-height: 20px;\n}\n.tab-lg {\n  padding: 12px 32px;\n  font-size: 16px;\n  line-height: 24px;\n}\n\n.border-top {\n  border-top: 2px solid $neutral-3;\n  border-radius: 0px 0px 6px 6px;\n}\n.border-right {\n  border-right: 2px solid $neutral-3;\n}\n.border-left {\n  border-left: 2px solid $neutral-3;\n}\n",
-                    "styleUrl": "./tab.component.scss"
-                }
-            ],
-            "stylesData": "",
-            "templateData": "<button (click)=\"select()\" [disabled]=\"disabled\" [ngClass]=\"{\n    'tab': !selected,\n    'tab-selected': selected,\n    'tab-sm': tabSize === 'sm',\n    'tab-md': tabSize === 'md',\n    'tab-lg': tabSize === 'lg'\n  }\" [class]=\"'border-' + direction\">\n  {{ label || 'Configure uma label ' }}\n</button>\n"
         }
     ],
     "modules": [
         {
             "name": "IonModule",
-            "id": "module-IonModule-95c4ef05e69ada44e6fb786f59c6803196372b892f5c4ce9649a5e006ca0464b825362546bf842bf13f5c70dd4504367e028e5778428c989353bf1d3e2a2745b",
+            "id": "module-IonModule-42ea43360cd6f812dc3d59ff401b743620e55d6ef9fe393c7e257a8236fb73aa616c92837ccc2151b57bad1bff8fd27323a67a079dc2e1dc51d3851eecc024e5",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "projects/ion/src/lib/ion.module.ts",
             "methods": [],
-            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChipComponent } from './chip/chip.component';\nimport { NgModule } from '@angular/core';\nimport { ButtonComponent } from './button/button.component';\nimport { IonIconComponent } from './icon/icon.component';\nimport { IonComponent } from './ion.component';\nimport { TabComponent } from './tab/tab.component';\n\n@NgModule({\n  declarations: [\n    IonComponent,\n    ButtonComponent,\n    IonIconComponent,\n    ChipComponent,\n    TabComponent,\n  ],\n  imports: [CommonModule],\n  exports: [\n    IonComponent,\n    ButtonComponent,\n    IonIconComponent,\n    ChipComponent,\n    TabComponent,\n  ],\n})\nexport class IonModule {}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common';\nimport { ChipComponent } from './chip/chip.component';\nimport { NgModule } from '@angular/core';\nimport { ButtonComponent } from './button/button.component';\nimport { IonIconComponent } from './icon/icon.component';\nimport { IonComponent } from './ion.component';\nimport { TabComponent } from './tab/tab.component';\nimport { IonDividerComponent } from './divider/divider.component';\n\n@NgModule({\n  declarations: [\n    IonComponent,\n    ButtonComponent,\n    IonIconComponent,\n    ChipComponent,\n    TabComponent,\n    IonDividerComponent,\n  ],\n  imports: [CommonModule],\n  exports: [\n    IonComponent,\n    ButtonComponent,\n    IonIconComponent,\n    ChipComponent,\n    TabComponent,\n    IonDividerComponent,\n  ],\n})\nexport class IonModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -660,10 +747,10 @@
                             "name": "IonComponent"
                         },
                         {
-                            "name": "IonIconComponent"
+                            "name": "IonDividerComponent"
                         },
                         {
-                            "name": "TabComponent"
+                            "name": "IonIconComponent"
                         }
                     ]
                 },
@@ -684,10 +771,10 @@
                             "name": "IonComponent"
                         },
                         {
-                            "name": "IonIconComponent"
+                            "name": "IonDividerComponent"
                         },
                         {
-                            "name": "TabComponent"
+                            "name": "IonIconComponent"
                         }
                     ]
                 },
@@ -928,11 +1015,11 @@
         "functions": [],
         "typealiases": [
             {
-                "name": "Direction",
+                "name": "DividerType",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
-                "file": "projects/ion/src/lib/tab/tab.component.ts",
+                "rawtype": "\"solid\" | \"dashed\" | \"text\"",
+                "file": "projects/ion/src/lib/divider/divider.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -948,6 +1035,28 @@
                 "deprecationMessage": "",
                 "description": "",
                 "kind": 192
+            },
+            {
+                "name": "Orientation",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"horizontal\" | \"vertical\"",
+                "file": "projects/ion/src/lib/divider/divider.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 186
+            },
+            {
+                "name": "SafeAny",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "any",
+                "file": "projects/ion/src/lib/utils/safe-any.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 130
             },
             {
                 "name": "Size",
@@ -981,17 +1090,6 @@
                 "deprecationMessage": "",
                 "description": "",
                 "kind": 199
-            },
-            {
-                "name": "TabSize",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "\"sm\" | \"md\" | \"lg\"",
-                "file": "projects/ion/src/lib/tab/tab.component.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 186
             },
             {
                 "name": "Type",
@@ -1243,24 +1341,24 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
-            "projects/ion/src/lib/tab/tab.component.ts": [
+            "projects/ion/src/lib/divider/divider.component.ts": [
                 {
-                    "name": "Direction",
+                    "name": "DividerType",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "\"bottom\" | \"top\" | \"right\" | \"left\"",
-                    "file": "projects/ion/src/lib/tab/tab.component.ts",
+                    "rawtype": "\"solid\" | \"dashed\" | \"text\"",
+                    "file": "projects/ion/src/lib/divider/divider.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 186
                 },
                 {
-                    "name": "TabSize",
+                    "name": "Orientation",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "\"sm\" | \"md\" | \"lg\"",
-                    "file": "projects/ion/src/lib/tab/tab.component.ts",
+                    "rawtype": "\"horizontal\" | \"vertical\"",
+                    "file": "projects/ion/src/lib/divider/divider.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1289,6 +1387,19 @@
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 199
+                }
+            ],
+            "projects/ion/src/lib/utils/safe-any.ts": [
+                {
+                    "name": "SafeAny",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "any",
+                    "file": "projects/ion/src/lib/utils/safe-any.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 130
                 }
             ],
             "projects/ion/src/lib/button/button.component.ts": [
@@ -1351,7 +1462,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/14",
                 "status": "low"
             },
             {
@@ -1360,7 +1471,7 @@
                 "linktype": "interface",
                 "name": "IonButtonProps",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/13",
                 "status": "low"
             },
             {
@@ -1379,6 +1490,24 @@
                 "name": "IonChipProps",
                 "coveragePercent": 0,
                 "coverageCount": "0/5",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/lib/divider/divider.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IonDividerComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/lib/divider/divider.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IonDividerProps",
+                "coveragePercent": 0,
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -1425,15 +1554,6 @@
                 "name": "IonService",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/ion/src/lib/tab/tab.component.ts",
-                "type": "component",
-                "linktype": "component",
-                "name": "TabComponent",
-                "coveragePercent": 0,
-                "coverageCount": "0/7",
                 "status": "low"
             },
             {
