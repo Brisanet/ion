@@ -83,17 +83,91 @@
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "danger",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 26,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "expand",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 25,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
                     "name": "label",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 9,
+                    "line": 22,
                     "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "loading",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 28,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'md'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 24,
+                    "type": "Size",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'primary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 23,
+                    "type": "Type",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
+            "outputsClass": [
+                {
+                    "name": "ionOnClick",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 29,
+                    "type": "EventEmitter"
+                }
+            ],
             "propertiesClass": [],
-            "methodsClass": [],
+            "methodsClass": [
+                {
+                    "name": "handleClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
             "deprecated": false,
             "deprecationMessage": "",
             "hostBindings": [],
@@ -110,7 +184,7 @@
                 }
             ],
             "stylesData": "",
-            "templateData": "<button>{{ label || 'configure uma label' }}</button>\n"
+            "templateData": "<button\n  [class]=\"'ion-btn-' + type + ' ion-btn-' + size\"\n  [style.width]=\"expand ? '100%' : 'fit-content'\"\n  [class.danger]=\"danger\"\n  [class.loading]=\"loading\"\n  [disabled]=\"disabled\"\n  (click)=\"handleClick()\"\n>\n  <span *ngIf=\"loading\" class=\"spinner\"></span>\n  <span>{{ loading ? 'Carregando...' : label || 'configure uma label' }}</span>\n</button>\n"
         },
         {
             "name": "IonComponent",
@@ -198,7 +272,7 @@
                 "name": "CustomLabel",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Button.stories.ts",
+                "file": "stories/Chip.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "",
@@ -235,14 +309,84 @@
                 "defaultValue": "Template.bind({})"
             },
             {
-                "name": "Template",
+                "name": "Selected",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "stories/Button.stories.ts",
+                "file": "stories/Tab.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Story<ButtonComponent>",
-                "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabBottom",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabLarge",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabLeft",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabMedium",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabRight",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabSmall",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "TabTop",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "Template",
@@ -253,6 +397,16 @@
                 "deprecationMessage": "",
                 "type": "Story<IonIconComponent>",
                 "defaultValue": "(args: IonIconComponent) => ({\n  component: IonIconComponent,\n  props: args,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Tab.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<TabComponent>",
+                "defaultValue": "(args: TabComponent) => ({\n  component: TabComponent,\n  props: args,\n})"
             },
             {
                 "name": "ToHaveAttribute",
@@ -294,10 +448,50 @@
         "groupedVariables": {
             "stories/Button.stories.ts": [
                 {
-                    "name": "CustomLabel",
+                    "name": "TabLeft",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Button.stories.ts",
+                    "file": "stories/Tab.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TabMedium",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Tab.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TabRight",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Tab.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TabSmall",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Tab.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "TabTop",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Tab.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -307,11 +501,23 @@
                     "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "stories/Button.stories.ts",
+                    "file": "stories/Tab.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Story<ButtonComponent>",
-                    "defaultValue": "(args: ButtonComponent) => ({\n  component: ButtonComponent,\n  props: args,\n})"
+                    "type": "Story<TabComponent>",
+                    "defaultValue": "(args: TabComponent) => ({\n  component: TabComponent,\n  props: args,\n})"
+                }
+            ],
+            "commitlint.config.ts": [
+                {
+                    "name": "Configuration",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "commitlint.config.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "UserConfig",
+                    "defaultValue": "{\n  extends: ['@commitlint/config-conventional'],\n  rules: {\n    'type-enum': [\n      2,\n      'always',\n      [\n        'feat',\n        'fix',\n        'docs',\n        'style',\n        'refactor',\n        'test',\n        'chore',\n        'ci',\n        'perf',\n        'build',\n        'temp',\n        'test',\n      ],\n    ],\n  },\n  skipQuestions: [\n    'header',\n    'scope',\n    'body',\n    'footer',\n    'isBreaking',\n    'breaking',\n    'breakingBody',\n  ],\n  defaultIgnores: true,\n  prompt: {\n    settings: {},\n    messages: {\n      skip: ':skip',\n      max: 'upper %d chars',\n      min: '%d chars at least',\n      emptyWarning: 'can not be empty',\n      upperLimitWarning: 'over limit',\n      lowerLimitWarning: 'below limit',\n    },\n\n    questions: {\n      type: {\n        description: \"Select the type of change that you're committing:\",\n        enum: {\n          feat: {\n            description: 'A new feature.',\n            title: 'Features',\n            emoji: ':sparkles:',\n          },\n          fix: {\n            description: 'A bug fix.',\n            title: 'Bug Fixes',\n            emoji: ':bug:',\n          },\n          chore: {\n            description: 'Build process or auxiliary tool changes.',\n            title: 'Chores',\n            emoji: ':wrench:',\n          },\n          docs: {\n            description: 'Documentation only changes.',\n            title: 'Documentation',\n            emoji: ':memo:',\n          },\n          refactor: {\n            description:\n              'A code change that neither fixes a bug or adds a feature.',\n            title: 'Refactors',\n            emoji: ':recycle:',\n          },\n          style: {\n            description:\n              'Markup, white-space, formatting, missing semi-colons...',\n            title: 'Style',\n            emoji: ':lipstick:',\n          },\n          ci: {\n            description: 'CI related changes.',\n            title: 'CI',\n            emoji: ':construction_worker:',\n          },\n          perf: {\n            description: 'A code change that improves performance.',\n            title: 'Performance',\n            emoji: ':zap:',\n          },\n          build: {\n            description:\n              'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm).',\n            title: 'Build',\n            emoji: ':green_heart:',\n          },\n          temp: {\n            description:\n              \"Temporary commits that won't be included in your CHANGELOG.\",\n            title: 'Temporary Commits',\n            emoji: ':construction:',\n          },\n          test: {\n            description: 'Adding missing tests or correcting existing ones.',\n            title: 'Tests',\n            emoji: ':white_check_mark:',\n          },\n        },\n      },\n      subject: {\n        description:\n          'Write a short, imperative tense description of the change',\n      },\n      issues: {\n        description: 'Add issue references (e.g. \"fix #123\", \"re #123\".)',\n      },\n    },\n  },\n}"
                 }
             ],
             "stories/Icon.stories.ts": [
@@ -411,7 +617,16 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/2",
+                "coverageCount": "0/10",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/lib/button/button.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IonButtonProps",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -471,31 +686,21 @@
                 "status": "low"
             },
             {
-                "filePath": "stories/Button.stories.ts",
+                "filePath": "stories/Chip.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "CustomLabel",
+                "name": "Basic",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "stories/Button.stories.ts",
+                "filePath": "stories/Chip.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Template",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "stories/Icon.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "IconDefault",
+                "name": "ChipSmall",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -505,13 +710,63 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "IconOtherSize",
+                "name": "TabLarge",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
             },
             {
-                "filePath": "stories/Icon.stories.ts",
+                "filePath": "stories/Tab.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TabLeft",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Tab.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TabMedium",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Tab.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TabRight",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Tab.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TabSmall",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Tab.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TabTop",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Tab.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",

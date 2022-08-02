@@ -39,7 +39,7 @@
   color: $primary-6;
   border: none;
   background-color: $neutral-1;
-  border-color: $primary-6;
+  border-color: $primary-6 !important;
   cursor: pointer;
 
   &:hover {
@@ -63,7 +63,7 @@
   &:disabled {
     color: $neutral-5;
     background-color: $neutral-3;
-    border-color: $neutral-5;
+    border-color: $neutral-5 !important;
     cursor: not-allowed;
   }
 }
