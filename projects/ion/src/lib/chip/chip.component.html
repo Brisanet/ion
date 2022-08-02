@@ -1,4 +1,5 @@
 <button
+  onmouseover=""
   (click)="select()"
   [disabled]="disabled"
   [ngClass]="{
@@ -9,8 +10,8 @@
 >
   {{ label }}
   <ion-icon
-    color="#06439D"
-    [type]="icon"
+    *ngIf="iconType"
+    [type]="iconType"
     [size]="size === 'sm' ? 16 : 20"
   ></ion-icon>
 </button>

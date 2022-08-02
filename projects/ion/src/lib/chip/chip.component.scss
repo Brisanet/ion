@@ -10,20 +10,44 @@
   cursor: pointer;
   outline: none;
 
+  ion-icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+    }
+  }
+
   &:hover {
     background-color: $primary-1;
     border: 1px solid $primary-3;
+
+    ion-icon {
+      ::ng-deep sgv {
+        fill: $primary-5;
+      }
+    }
   }
   &:focus {
     border: 1px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
     background-color: $primary-1;
+
+    ion-icon {
+      ::ng-deep sgv {
+        fill: $primary-5;
+      }
+    }
   }
   &:active {
     background-color: $primary-2;
     border: 1px solid $primary-5;
     outline: none;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $primary-7;
+      }
+    }
   }
   &:disabled {
     background-color: $neutral-3;
@@ -31,6 +55,12 @@
     color: $neutral-4;
     outline: none;
     cursor: not-allowed;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $neutral-4;
+      }
+    }
   }
 }
 .chip-selected {
@@ -43,21 +73,45 @@
   color: $primary-6;
   cursor: pointer;
 
+  ion-icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+    }
+  }
+
   &:hover {
     border: 1.5px solid $primary-5;
     color: $primary-5;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $primary-5;
+      }
+    }
   }
   &:focus {
     border: 2px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
     background-color: $primary-1;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $primary-5;
+      }
+    }
   }
   &:active {
     background-color: $primary-3;
     border: 2px solid $primary-7;
     outline: none;
     color: $primary-7;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $primary-7;
+      }
+    }
   }
   &:disabled {
     background-color: $neutral-3;
@@ -65,6 +119,12 @@
     color: $neutral-4;
     outline: none;
     cursor: not-allowed;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $neutral-5;
+      }
+    }
   }
 }
 .chip-sm {
