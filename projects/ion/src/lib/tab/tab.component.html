@@ -10,5 +10,6 @@
   }"
   [class]="'border-' + direction"
 >
+  <ion-icon *ngIf="iconType" class="tab-icon" [type]="iconType"></ion-icon>
   {{ label || 'Configure uma label ' }}
 </button>

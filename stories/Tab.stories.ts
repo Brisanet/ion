@@ -1,4 +1,6 @@
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { CommonModule } from '@angular/common';
+import { Meta, Story } from '@storybook/angular/types-6-0';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
@@ -9,6 +11,10 @@ export default {
 const Template: Story<TabComponent> = (args: TabComponent) => ({
   component: TabComponent,
   props: args,
+  moduleMetadata: {
+    declarations: [TabComponent, IonIconComponent],
+    imports: [CommonModule],
+  },
 });
 
 export const Basic = Template.bind({});
@@ -68,4 +74,10 @@ export const Selected = Template.bind({});
 Selected.args = {
   label: 'Selected',
   selected: true,
+};
+
+export const Icon = Template.bind({});
+Icon.args = {
+  label: 'Icon',
+  iconType: 'pencil',
 };
