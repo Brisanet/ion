@@ -1,0 +1,9 @@
+<div class="container">
+  <input
+    (click)="select()"
+    [disabled]="disabled"
+    type="radio"
+    [ngClass]="{ radio: !selected, 'radio-selected': selected }"
+  />
+  <span>{{ label || 'Custom label' }}</span>
+</div>

@@ -5,6 +5,7 @@ import { ButtonComponent } from './button/button.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
+import { RadioComponent } from './radio/radio.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { TabComponent } from './tab/tab.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    RadioComponent,
   ],
   imports: [CommonModule],
   exports: [

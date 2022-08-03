@@ -1,0 +1,110 @@
+@import '../../styles/index.scss';
+
+.container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: $neutral-5;
+}
+
+.radio {
+  cursor: pointer;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid $neutral-5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border: 1.5px solid $primary-2;
+    background-color: $primary-1;
+    outline: 4px solid $primary-1;
+
+    &::before {
+      content: '';
+      border: 1px solid $primary-2;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background-color: $primary-2;
+    }
+  }
+
+  &:focus {
+    border: 1px solid $primary-3;
+    outline: 2px solid $primary-6;
+    outline-offset: 2px;
+    background-color: $primary-1;
+  }
+
+  &:active {
+    outline: none;
+    content: '';
+    border: 1px solid $primary-6;
+    background-color: $primary-2;
+
+    &::before {
+      border: none;
+      width: 4px;
+      height: 4px;
+      background-color: $neutral-1;
+    }
+  }
+
+  &:disabled {
+    border: 1px solid $neutral-4;
+    background-color: $neutral-3;
+    cursor: not-allowed;
+    outline: none;
+  }
+}
+
+.radio-selected {
+  appearance: none;
+  outline: none;
+  border: 4px solid $primary-6;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    border: 4px solid $primary-5;
+    outline: 4px solid $primary-1;
+    background-color: $primary-1;
+  }
+
+  &:focus {
+    border: 4px solid $primary-6;
+    outline: 2px solid $primary-6;
+    outline-offset: 2px;
+    background-color: $neutral-1;
+  }
+
+  &:active {
+    outline: none;
+    border: 5px solid $primary-7;
+  }
+
+  &:disabled {
+    border: none;
+    background-color: $neutral-2;
+    cursor: not-allowed;
+    outline: none;
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border: 1px solid $neutral-4;
+      background-color: $neutral-4;
+      border-radius: 50%;
+    }
+  }
+}
