@@ -59,3 +59,19 @@ SelectedByDefault.args = {
   ],
   selected: action('selected'),
 };
+
+export const differentSizes = Template.bind({});
+differentSizes.args = {
+  tabs: [
+    {
+      name: 'Selected',
+      selected: true,
+    },
+    {
+      name: 'Not Selected',
+      selected: false,
+    },
+  ],
+  alignment: 'vertical',
+  selected: action('selected'),
+};

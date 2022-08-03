@@ -1,8 +1,17 @@
 .tab-group {
   display: flex;
-  align-items: flex-start;
 }
 
-.tab-group-column {
+.tab-group-column-inner {
+  display: flex;
   flex-direction: column;
+
+  ::ng-deep {
+    ion-tab {
+      button {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
 }
