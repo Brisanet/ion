@@ -43,7 +43,7 @@ describe('TabGroupComponent', () => {
     expect(screen.getByText(mockTabs[0].name)).toHaveClass('border-bottom');
   });
 
-  it('should render component in vertial', async () => {
+  it('should render component in vertical', async () => {
     const rendered = await sut({
       alignment: 'vertical',
       tabs: mockTabs,
