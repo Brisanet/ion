@@ -34,7 +34,7 @@ const sut = async (
 describe('TabGroupComponent', () => {
   it('should render component in horizontal by default', async () => {
     const rendered = await sut();
-    expect(rendered.element).not.toHaveClass('tab-group-column');
+    expect(rendered.element).not.toHaveClass('tab-group-column-inner');
     expect(screen.getByText(mockTabs[0].name)).toHaveClass('border-bottom');
   });
 
@@ -51,7 +51,9 @@ describe('TabGroupComponent', () => {
         emit: selectEvent,
       } as SafeAny,
     });
-    expect(rendered.element).toHaveClass('tab-group-column');
+    expect(rendered.element.childNodes[0]).toHaveClass(
+      'tab-group-column-inner'
+    );
   });
 
   it('should emit tab selected when clicked', async () => {
