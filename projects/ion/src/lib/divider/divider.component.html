@@ -1,0 +1,7 @@
+<hr
+  data-testid="hr"
+  [class]="'ion-divider-' + orientation + ' ion-divider-' + type"
+  [attr.data-content]="
+    orientation === 'horizontal' ? (type === 'text' ? label : '') : ''
+  "
+/>

@@ -1,0 +1,12 @@
+<div data-testid="ion-tab-group" class="tab-group">
+  <div [class.tab-group-column-inner]="alignment === 'vertical'">
+    <ion-tab
+      *ngFor="let tab of tabs"
+      [selected]="tab.selected"
+      [label]="tab.name"
+      (click)="selectTab(tab)"
+      [direction]="alignment === 'vertical' ? 'right' : 'bottom'"
+    >
+    </ion-tab>
+  </div>
+</div>
