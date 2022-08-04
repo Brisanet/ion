@@ -5,11 +5,11 @@ export interface TabInGroup extends IonTabProps {
   selected: boolean;
 }
 
-export type TabGroupAlignment = 'horizontal' | 'vertical';
+export type TabGroupDirection = 'horizontal' | 'vertical';
 
 export interface TabGroupProps {
   tabs: TabInGroup[];
-  alignment: TabGroupAlignment;
+  direction: TabGroupDirection;
   selected: EventEmitter<TabInGroup>;
 }
 
@@ -20,7 +20,7 @@ export interface TabGroupProps {
 })
 export class TabGroupComponent {
   @Input() tabs: TabInGroup[];
-  @Input() alignment: TabGroupAlignment = 'horizontal';
+  @Input() direction: TabGroupDirection = 'horizontal';
   @Output() selected = new EventEmitter<TabInGroup>();
 
   private clearTabs() {

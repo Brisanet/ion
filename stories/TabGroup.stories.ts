@@ -42,7 +42,7 @@ Horizontal.args = {
 export const Vertical = Template.bind({});
 Vertical.args = {
   tabs,
-  alignment: 'vertical',
+  direction: 'vertical',
   selected: action('selected'),
 };
 
@@ -73,7 +73,7 @@ differentSizes.args = {
       selected: false,
     },
   ],
-  alignment: 'vertical',
+  direction: 'vertical',
   selected: action('selected'),
 };
 
@@ -91,5 +91,5 @@ tabsWithIcons.args = {
       iconType: 'trash',
     },
   ],
-  alignment: 'vertical',
+  direction: 'vertical',
 };

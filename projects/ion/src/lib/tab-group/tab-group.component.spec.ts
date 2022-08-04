@@ -19,7 +19,7 @@ const mockTabs = [
 const sut = async (
   customProps: TabGroupProps = {
     tabs: mockTabs,
-    alignment: 'horizontal',
+    direction: 'horizontal',
     selected: {
       emit: selectEvent,
     } as SafeAny,
@@ -46,7 +46,7 @@ describe('TabGroupComponent', () => {
 
   it('should render component in vertical', async () => {
     const rendered = await sut({
-      alignment: 'vertical',
+      direction: 'vertical',
       tabs: mockTabs,
       selected: {
         emit: selectEvent,
@@ -66,9 +66,9 @@ describe('TabGroupComponent', () => {
     });
   });
 
-  it('should has border right when alignment is vertical', async () => {
+  it('should has border right when direction is vertical', async () => {
     await sut({
-      alignment: 'vertical',
+      direction: 'vertical',
       tabs: mockTabs,
       selected: {
         emit: selectEvent,
