@@ -1,12 +1,18 @@
 @import '../../styles/index.scss';
 
-@mixin button-parameters($buttonSize, $paddingTopBottom, $paddingLeftRight, $fontSize, $lineHeight) {
+@mixin button-parameters(
+  $buttonSize,
+  $paddingTopBottom,
+  $paddingLeftRight,
+  $fontSize,
+  $lineHeight
+) {
   height: $buttonSize;
   min-width: $buttonSize;
   padding: $paddingTopBottom $paddingLeftRight;
 
   span {
-    font-size: $fontSize,;
+    font-size: $fontSize;
     line-height: $lineHeight;
   }
 }
@@ -80,7 +86,7 @@ button {
 
 .ion-btn-sm {
   @include button-parameters(24px, 4px, 12px, 12px, 16px);
- 
+
   .spinner {
     width: 10px;
     height: 10px;
@@ -101,7 +107,7 @@ button {
 
 .ion-btn-lg {
   @include button-parameters(40px, 8px, 20px, 16px, 24px);
-  
+
   @include icon-size(20px);
 
   @include circular-button(40px, 20px);
@@ -112,7 +118,7 @@ button {
 
   @include icon-size(20px);
 
-  @include circular-button(48px, 20px)
+  @include circular-button(48px, 20px);
 }
 
 @keyframes spin {
