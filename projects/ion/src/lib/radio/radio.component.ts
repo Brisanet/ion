@@ -7,10 +7,10 @@ import { Component, Input } from '@angular/core';
 })
 export class RadioComponent {
   @Input() label?: string;
-  @Input() selected?: boolean = false;
+  @Input() checked?: boolean = false;
   @Input() disabled?: boolean = false;
 
   select() {
-    this.selected = !this.selected;
+    this.checked = !this.checked;
   }
 }

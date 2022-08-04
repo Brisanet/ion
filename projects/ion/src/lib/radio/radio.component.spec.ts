@@ -26,7 +26,7 @@ describe('RadioComponent', () => {
 
     it('should create input checked', async () => {
       const element = await sut({
-        selected: true,
+        checked: true,
       });
       expect(element).toBeChecked();
     });
@@ -36,7 +36,7 @@ describe('RadioComponent', () => {
       const element = screen.getByRole('radio');
       fireEvent.click(element);
       expect(element).toBeChecked();
-      expect(element).toHaveClass('radio-selected');
+      expect(element).toHaveClass('radio-checked');
     });
   });
 

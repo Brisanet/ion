@@ -4,8 +4,8 @@
     name="input-radio"
     [disabled]="disabled"
     type="radio"
-    checked
-    [ngClass]="{ radio: !selected, 'radio-selected': selected }"
+    [checked]="checked"
+    [ngClass]="{ radio: !checked, 'radio-checked': checked }"
   />
   <span *ngIf="label">{{ label }}</span>
 </div>
