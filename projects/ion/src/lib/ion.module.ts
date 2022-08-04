@@ -7,6 +7,8 @@ import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { IonDividerComponent } from './divider/divider.component';
+import { RowComponent } from './row/row.component';
+import { ColComponent } from './col/col.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { IonDividerComponent } from './divider/divider.component';
     TabComponent,
     TabGroupComponent,
     IonDividerComponent,
+    RowComponent,
+    ColComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -27,6 +31,8 @@ import { IonDividerComponent } from './divider/divider.component';
     TabComponent,
     TabGroupComponent,
     IonDividerComponent,
+    RowComponent,
+    ColComponent,
   ],
 })
 export class IonModule {}
