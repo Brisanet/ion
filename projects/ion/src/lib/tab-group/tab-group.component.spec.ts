@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonIconComponent } from '../icon/icon.component';
 import { TabComponent } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
 import { TabGroupComponent, TabGroupProps } from './tab-group.component';
@@ -26,7 +27,7 @@ const sut = async (
 ) => {
   await render(TabGroupComponent, {
     componentProperties: customProps,
-    declarations: [TabComponent],
+    declarations: [TabComponent, IonIconComponent],
   });
   return { element: screen.getByTestId('ion-tab-group'), event: selectEvent };
 };
