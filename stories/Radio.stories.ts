@@ -13,7 +13,7 @@ const Template: Story<RadioComponent> = (args: RadioComponent) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  label: 'Custom label',
+  label: '',
 };
 
 export const Disabled = Template.bind({});

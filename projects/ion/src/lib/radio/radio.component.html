@@ -1,9 +1,11 @@
-<div class="container">
+<div class="ion-input-radio">
   <input
     (click)="select()"
+    name="input-radio"
     [disabled]="disabled"
     type="radio"
+    checked
     [ngClass]="{ radio: !selected, 'radio-selected': selected }"
   />
-  <span>{{ label || 'Custom label' }}</span>
+  <span *ngIf="label">{{ label }}</span>
 </div>

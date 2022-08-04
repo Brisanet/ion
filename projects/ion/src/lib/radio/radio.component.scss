@@ -1,15 +1,16 @@
 @import '../../styles/index.scss';
 
-.container {
+.ion-input-radio {
   display: flex;
   gap: 10px;
   align-items: center;
-  color: $neutral-5;
+  color: $neutral-7;
 }
 
 .radio {
   cursor: pointer;
   appearance: none;
+  outline: none;
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -59,6 +60,14 @@
     background-color: $neutral-3;
     cursor: not-allowed;
     outline: none;
+  }
+}
+.radio:checked {
+  border: 4px solid $primary-6;
+  outline: none;
+
+  &:disabled {
+    border: 1px solid $neutral-4;
   }
 }
 
