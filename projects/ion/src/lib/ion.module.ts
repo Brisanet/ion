@@ -6,6 +6,8 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
 import { RadioComponent } from './radio/radio.component';
+import { TabGroupComponent } from './tab-group/tab-group.component';
+import { IonDividerComponent } from './divider/divider.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,8 @@ import { RadioComponent } from './radio/radio.component';
     ChipComponent,
     TabComponent,
     RadioComponent,
+    TabGroupComponent,
+    IonDividerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -23,6 +27,8 @@ import { RadioComponent } from './radio/radio.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    TabGroupComponent,
+    IonDividerComponent,
   ],
 })
 export class IonModule {}
