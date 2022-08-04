@@ -40,3 +40,7 @@ jobs:
 
       - name: Run chromatic - Publish Storybook
         run: yarn chromatic
+        with:
+          # 👇 Chromatic projectToken, refer to the manage page to obtain it.
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+
