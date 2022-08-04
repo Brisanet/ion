@@ -1,18 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TabComponent, TabSize, Direction } from './tab.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { IonTabProps, TabComponent } from './tab.component';
 
 const defaultName = 'MinhaTab';
 
-const sut = async (customProps?: {
-  label: string;
-  tabSize?: TabSize;
-  disabled?: boolean;
-  direction?: Direction;
-}) => {
+const sut = async (customProps?: IonTabProps) => {
   await render(TabComponent, {
     componentProperties: customProps || {
       label: defaultName,
     },
+    imports: [CommonModule],
+    declarations: [IonIconComponent],
   });
 };
 
@@ -27,7 +26,7 @@ describe('TabComponent', () => {
 
   it.each(['sm', 'md', 'lg'])(
     'should render with correct size %s',
-    async (size: TabSize) => {
+    async (size: IonTabProps['tabSize']) => {
       await sut({ label: 'Tab', tabSize: size });
       expect(screen.getByText('Tab')).toHaveClass('tab-' + size);
     }
@@ -35,8 +34,8 @@ describe('TabComponent', () => {
 
   it.each(['bottom', 'top', 'right', 'left'])(
     'should render with correct border direction %s',
-    async (direction: Direction) => {
-      await sut({ label: 'Tab', direction: direction });
+    async (direction: IonTabProps['direction']) => {
+      await sut({ label: 'Tab', direction });
       expect(screen.getByText('Tab')).toHaveClass('border-' + direction);
     }
   );
@@ -56,5 +55,11 @@ describe('TabComponent', () => {
   it('should render tab disabled', async () => {
     await sut({ label: defaultName, disabled: true });
     expect(screen.getByText(defaultName)).toBeDisabled();
+  });
+
+  it('should render icon on tab', async () => {
+    await sut({ label: defaultName, iconType: 'trash' });
+    const elementRendered = document.getElementById('ion-icon-trash');
+    expect(elementRendered).toBeTruthy();
   });
 });
