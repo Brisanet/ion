@@ -5,6 +5,7 @@ import { ButtonComponent } from './button/button.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
+import { TabGroupComponent } from './tab-group/tab-group.component';
 import { IonDividerComponent } from './divider/divider.component';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { IonDividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    TabGroupComponent,
     IonDividerComponent,
   ],
   imports: [CommonModule],
@@ -23,6 +25,7 @@ import { IonDividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    TabGroupComponent,
     IonDividerComponent,
   ],
 })
