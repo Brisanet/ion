@@ -17,8 +17,9 @@ const sut = async (
 
 describe('ButtonComponent', () => {
   it('should render button with custom label', async () => {
-    const button = await sut({ label: 'Clique aqui' });
-    expect(button.textContent).toContain('Clique aqui');
+    const textButton = 'Clique aqui';
+    const button = await sut({ label: textButton });
+    expect(button.textContent).toContain(textButton);
   });
 
   it('should emit an event when clicked', async () => {
@@ -113,7 +114,7 @@ describe('Expand ButtonComponent', () => {
 });
 
 describe('load ButtonComponent', () => {
-  it('should render a loading button when loading="true" is passed', async () => {
+  it('should render a loading button when loading="true" is passed and show default message "Carregando..."', async () => {
     const button = await sut({ label: defaultName, loading: true });
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
@@ -121,13 +122,14 @@ describe('load ButtonComponent', () => {
   });
 
   it('should render a loading button with message "aguarde ..."', async () => {
+    const loadingMessage = 'aguarde ...';
     const button = await sut({
       label: defaultName,
       loading: true,
-      loadingMessage: 'aguarde ...',
+      loadingMessage,
     });
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
-    expect(button.children[1].textContent).toContain('aguarde ...');
+    expect(button.children[1].textContent).toContain(loadingMessage);
   });
 });
