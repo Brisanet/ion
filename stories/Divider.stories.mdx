@@ -18,7 +18,7 @@ No Ion, a orientação padrão do divisor é `horizontal`. Mas fornecemos 2 tipo
 <Canvas>
   <Story name="type: div with horizontal divider">
     {{
-      template: `<div style="width: 150px"><ion-divider orientation="horizontal"> </ion-divider></div>`,
+      template: `<div style="width: 150px"><ion-divider direction="horizontal"> </ion-divider></div>`,
     }}
   </Story>
 </Canvas>
@@ -29,7 +29,7 @@ O tamanho do divisor `horizontal` será definido pelo elemento HTML em que o mes
   <Story
     name="type: horizontal divider"
     args={{
-      orientation: 'horizontal',
+      direction: 'horizontal',
     }}
   >
     {Template.bind({})}
@@ -42,7 +42,7 @@ O tamanho do divisor `horizontal` será definido pelo elemento HTML em que o mes
   <Story
     name="type: vertical divider"
     args={{
-      orientation: 'vertical',
+      direction: 'vertical',
     }}
   >
     {Template.bind({})}
@@ -54,7 +54,7 @@ O tamanho do divisor `vertical` será definido pelo elemento HTML em que o mesmo
 <Canvas>
   <Story name="type: div with vertical divider">
     {{
-      template: `<div style="height: 150px"><ion-divider orientation="vertical"> </ion-divider></div>`,
+      template: `<div style="height: 150px"><ion-divider direction="vertical"> </ion-divider></div>`,
     }}
   </Story>
 </Canvas>
@@ -101,8 +101,8 @@ No Ion, o divisor possui 3 tipos.
   </Story>
 </Canvas>
 
-Nota-se: Divisores do tipo `text` só estarão disponíveis na `orientation: horizontal`,
-porém não será necessário passar tipo `orientation`, pois `horizontal` será o tipo
+Nota-se: Divisores do tipo `text` só estarão disponíveis na `direction: horizontal`,
+porém não será necessário passar tipo `direction`, pois `horizontal` será o tipo
 padrão desse divisor.
 
 - Todas as combinações possíveis do ion-divider:
@@ -122,7 +122,7 @@ padrão desse divisor.
   <Story
     name="type: vertical"
     args={{
-      orientation: 'vertical',
+      direction: 'vertical',
     }}
   >
     {Template.bind({})}
@@ -130,7 +130,7 @@ padrão desse divisor.
   <Story
     name="type: vertical dashed"
     args={{
-      orientation: 'vertical',
+      direction: 'vertical',
       type: 'dashed',
     }}
   >
