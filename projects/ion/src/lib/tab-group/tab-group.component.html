@@ -3,7 +3,8 @@
     <ion-tab
       *ngFor="let tab of tabs"
       [selected]="tab.selected"
-      [label]="tab.name"
+      [label]="tab.label"
+      [iconType]="tab.iconType"
       (click)="selectTab(tab)"
       [direction]="alignment === 'vertical' ? 'right' : 'bottom'"
     >

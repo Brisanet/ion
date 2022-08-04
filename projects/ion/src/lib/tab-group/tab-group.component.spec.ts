@@ -7,11 +7,11 @@ import { TabGroupComponent, TabGroupProps } from './tab-group.component';
 const selectEvent = jest.fn();
 const mockTabs = [
   {
-    name: 'Tab 1',
+    label: 'Tab 1',
     selected: false,
   },
   {
-    name: 'Tab 2',
+    label: 'Tab 2',
     selected: false,
   },
 ];
@@ -36,12 +36,12 @@ describe('TabGroupComponent', () => {
   it('should render component in horizontal by default', async () => {
     const rendered = await sut();
     expect(rendered.element).not.toHaveClass('tab-group-column-inner');
-    expect(screen.getByText(mockTabs[0].name)).toHaveClass('border-bottom');
+    expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-bottom');
   });
 
   it('should render tabs with border bottom by default', async () => {
     await sut();
-    expect(screen.getByText(mockTabs[0].name)).toHaveClass('border-bottom');
+    expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-bottom');
   });
 
   it('should render component in vertical', async () => {
@@ -59,9 +59,9 @@ describe('TabGroupComponent', () => {
 
   it('should emit tab selected when clicked', async () => {
     const rendered = await sut();
-    fireEvent.click(screen.getByText(mockTabs[0].name));
+    fireEvent.click(screen.getByText(mockTabs[0].label));
     expect(rendered.event).toHaveBeenCalledWith({
-      name: mockTabs[0].name,
+      label: mockTabs[0].label,
       selected: true,
     });
   });
@@ -74,6 +74,6 @@ describe('TabGroupComponent', () => {
         emit: selectEvent,
       } as SafeAny,
     });
-    expect(screen.getByText(mockTabs[0].name)).toHaveClass('border-right');
+    expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-right');
   });
 });

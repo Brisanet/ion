@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IonTabProps } from '../tab/tab.component';
 
-export interface TabInGroup {
-  name: string;
+export interface TabInGroup extends IonTabProps {
   selected: boolean;
 }
 
