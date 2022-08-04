@@ -3,6 +3,7 @@ import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.c
 import { moduleMetadata } from '@storybook/angular';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 import { action } from '@storybook/addon-actions';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
   title: 'Ion/TabGroup',
@@ -10,7 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [TabComponent],
+      declarations: [TabComponent, IonIconComponent],
     }),
   ],
 } as Meta;
