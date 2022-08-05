@@ -1,15 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { DirectionType } from '../core/types';
+import { IonTabProps } from '../tab/tab.component';
 
-export interface TabInGroup {
-  name: string;
+export interface TabInGroup extends IonTabProps {
   selected: boolean;
 }
 
-export type TabGroupAlignment = 'horizontal' | 'vertical';
-
 export interface TabGroupProps {
   tabs: TabInGroup[];
-  alignment: TabGroupAlignment;
+  direction: DirectionType;
   selected: EventEmitter<TabInGroup>;
 }
 
@@ -20,7 +19,7 @@ export interface TabGroupProps {
 })
 export class TabGroupComponent {
   @Input() tabs: TabInGroup[];
-  @Input() alignment: TabGroupAlignment = 'horizontal';
+  @Input() direction: DirectionType = 'horizontal';
   @Output() selected = new EventEmitter<TabInGroup>();
 
   private clearTabs() {
