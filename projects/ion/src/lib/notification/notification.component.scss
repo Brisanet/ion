@@ -1,0 +1,49 @@
+@import '../../styles/index.scss';
+
+.notification-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 12px spacing(2);
+
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15), 0px 0px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+}
+
+.notification-inner {
+  display: flex;
+}
+
+.default-icon {
+  margin-right: spacing(1);
+
+  ::ng-deep svg {
+    fill: $neutral-6;
+  }
+}
+
+.notification-title {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: $neutral-8;
+}
+
+.notification-message {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $neutral-7;
+}
+
+.close-icon {
+  cursor: pointer;
+  ::ng-deep svg {
+    fill: $primary-color;
+  }
+}

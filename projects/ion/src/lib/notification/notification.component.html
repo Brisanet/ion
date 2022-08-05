@@ -1,0 +1,19 @@
+<div class="notification-container">
+  <div class="notification-inner">
+    <div>
+      <ion-icon class="default-icon" *ngIf="icon" [type]="icon"></ion-icon>
+    </div>
+    <div>
+      <div class="notification-title">
+        <span>{{ title }}</span>
+      </div>
+      <div class="notification-message">
+        <span>{{ message }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <ion-icon class="close-icon" size="16" type="trash"></ion-icon>
+  </div>
+</div>
