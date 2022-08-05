@@ -90,6 +90,46 @@ tabsWithIcons.args = {
       selected: false,
       iconType: 'trash',
     },
+    {
+      label: 'Close',
+      selected: false,
+      iconType: 'close',
+    },
+    {
+      label: 'Close Solid',
+      selected: false,
+      iconType: 'close-solid',
+    },
+    {
+      label: 'Plus Solid',
+      selected: false,
+      iconType: 'plus-solid',
+    },
+    {
+      label: 'Exclamation Solid',
+      selected: false,
+      iconType: 'exclamation-solid',
+    },
+    {
+      label: 'Info Solid',
+      selected: false,
+      iconType: 'info-solid',
+    },
+    {
+      label: 'Check Solid',
+      selected: false,
+      iconType: 'check-solid',
+    },
+    {
+      label: 'Clock Solid',
+      selected: false,
+      iconType: 'clock-solid',
+    },
+    {
+      label: 'Star Solid',
+      selected: false,
+      iconType: 'star-solid',
+    },
   ],
   direction: 'vertical',
 };
