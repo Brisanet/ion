@@ -1,12 +1,11 @@
 import { Component, Input } from '@angular/core';
-
-export type Orientation = 'horizontal' | 'vertical';
+import { DirectionType } from '../core/types';
 
 type DividerType = 'solid' | 'dashed' | 'text';
 
 export interface IonDividerProps {
   label?: string;
-  orientation?: Orientation;
+  direction?: DirectionType;
   type?: DividerType;
 }
 
@@ -17,6 +16,6 @@ export interface IonDividerProps {
 })
 export class IonDividerComponent {
   @Input() label = '';
-  @Input() orientation?: Orientation = 'horizontal';
+  @Input() direction?: DirectionType = 'horizontal';
   @Input() type?: DividerType = 'solid';
 }
