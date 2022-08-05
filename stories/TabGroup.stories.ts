@@ -1,6 +1,7 @@
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
@@ -78,58 +79,14 @@ differentSizes.args = {
 };
 
 export const tabsWithIcons = Template.bind({});
+const tabsIcons = Object.keys(iconsPaths).map((icon) => {
+  return {
+    label: icon,
+    selected: false,
+    iconType: icon,
+  };
+});
 tabsWithIcons.args = {
-  tabs: [
-    {
-      label: 'Pencil',
-      selected: true,
-      iconType: 'pencil',
-    },
-    {
-      label: 'Trash',
-      selected: false,
-      iconType: 'trash',
-    },
-    {
-      label: 'Close',
-      selected: false,
-      iconType: 'close',
-    },
-    {
-      label: 'Close Solid',
-      selected: false,
-      iconType: 'close-solid',
-    },
-    {
-      label: 'Plus Solid',
-      selected: false,
-      iconType: 'plus-solid',
-    },
-    {
-      label: 'Exclamation Solid',
-      selected: false,
-      iconType: 'exclamation-solid',
-    },
-    {
-      label: 'Info Solid',
-      selected: false,
-      iconType: 'info-solid',
-    },
-    {
-      label: 'Check Solid',
-      selected: false,
-      iconType: 'check-solid',
-    },
-    {
-      label: 'Clock Solid',
-      selected: false,
-      iconType: 'clock-solid',
-    },
-    {
-      label: 'Star Solid',
-      selected: false,
-      iconType: 'star-solid',
-    },
-  ],
+  tabs: tabsIcons,
   direction: 'vertical',
 };
