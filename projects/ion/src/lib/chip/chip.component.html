@@ -5,12 +5,13 @@
     chip: !selected,
     'chip-selected': selected
   }"
-  [class]="'chip-' + size"
+  [class]="'chip-' + chipSize"
 >
   {{ label }}
   <ion-icon
+    class="icon-color"
     *ngIf="iconType"
     [type]="iconType"
-    [size]="size === 'sm' ? 16 : 20"
+    [size]="chipSize === 'sm' ? 16 : 20"
   ></ion-icon>
 </button>

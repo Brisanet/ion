@@ -1,147 +1,119 @@
 @import '../../styles/index.scss';
+
+@mixin icon-icon($color) {
+  .icon-color {
+    ::ng-deep svg {
+      fill: $color;
+    }
+  }
+}
+
+@mixin icon-colors($background, $color) {
+  background-color: $background;
+  color: $color;
+}
+
 .chip {
   border: 1px solid $neutral-4;
   border-radius: 100px;
-  background: $neutral-1;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   font-weight: 600;
-  color: $primary-6;
   cursor: pointer;
   outline: none;
-
-  ion-icon {
-    ::ng-deep svg {
-      fill: $primary-6;
-    }
-  }
-
+  @include icon-colors($neutral-1, $primary-6);
+  @include icon-icon($primary-6);
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
   &:hover {
-    background-color: $primary-1;
     border: 1px solid $primary-3;
-
-    ion-icon {
-      ::ng-deep sgv {
-        fill: $primary-5;
-      }
-    }
+    @include icon-colors($primary-1, $primary-5);
+    @include icon-icon($primary-5);
   }
-  &:focus {
+
+  &:focus-visible {
     border: 1px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
-    background-color: $primary-1;
-
-    ion-icon {
-      ::ng-deep sgv {
-        fill: $primary-5;
-      }
-    }
+    @include icon-colors($primary-1, $primary-5);
+    @include icon-icon($primary-5);
   }
+
   &:active {
-    background-color: $primary-2;
     border: 1px solid $primary-5;
     outline: none;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-7;
-      }
-    }
+    @include icon-colors($primary-2, $primary-7);
+    @include icon-icon($primary-7);
   }
+
   &:disabled {
-    background-color: $neutral-3;
     border: 1px solid $neutral-4;
-    color: $neutral-4;
     outline: none;
     cursor: not-allowed;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $neutral-4;
-      }
-    }
+    @include icon-colors($neutral-3, $neutral-4);
+    @include icon-icon($neutral-4);
   }
 }
+
 .chip-selected {
   border: 1.5px solid $primary-6;
   border-radius: 100px;
-  background: $primary-2;
   font-weight: 600;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
-  color: $primary-6;
   cursor: pointer;
-
-  ion-icon {
-    ::ng-deep svg {
-      fill: $primary-6;
-    }
-  }
+  @include icon-colors($primary-2, $primary-6);
+  @include icon-icon($primary-6);
 
   &:hover {
     border: 1.5px solid $primary-5;
-    color: $primary-5;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-5;
-      }
-    }
+    @include icon-colors($primary-2, $primary-5);
+    @include icon-icon($primary-5);
   }
-  &:focus {
+
+  &:focus-visible {
     border: 2px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
-    background-color: $primary-1;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-5;
-      }
-    }
+    @include icon-colors($primary-1, $primary-5);
+    @include icon-icon($primary-5);
   }
+
   &:active {
-    background-color: $primary-3;
     border: 2px solid $primary-7;
     outline: none;
-    color: $primary-7;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-7;
-      }
-    }
+    @include icon-colors($primary-3, $primary-7);
+    @include icon-icon($primary-7);
   }
+
   &:disabled {
-    background-color: $neutral-3;
     border: 2px solid $neutral-4;
-    color: $neutral-4;
     outline: none;
     cursor: not-allowed;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $neutral-5;
-      }
-    }
+    @include icon-colors($neutral-3, $neutral-5);
+    @include icon-icon($neutral-5);
   }
 }
+
 .chip-sm {
   padding: 4px 8px;
   font-size: 12px;
   line-height: 16px;
 }
+
 .chip-md {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 20px;
 }
+
 button {
   display: flex;
   gap: 8px;
   align-items: center;
 }
+
 ion-icon {
   display: flex;
   align-items: center;

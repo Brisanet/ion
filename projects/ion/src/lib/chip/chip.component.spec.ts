@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
-import { ChipComponent, IonChipProps, Size } from './chip.component';
+import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
 
 const sut = async (customProps?: IonChipProps) => {
   await render(ChipComponent, {
@@ -19,10 +19,10 @@ describe('ChipComponent', () => {
 
   it.each(['sm', 'md'])(
     'should render chip component with size %s',
-    async (size: Size) => {
-      await sut({ label: 'custom-size', size });
+    async (chipSize: ChipSize) => {
+      await sut({ label: 'custom-size', chipSize });
       const element = screen.getByText('custom-size');
-      expect(element).toHaveClass('chip-' + size);
+      expect(element).toHaveClass('chip-' + chipSize);
     }
   );
 
