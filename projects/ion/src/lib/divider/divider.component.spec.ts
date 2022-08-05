@@ -1,10 +1,7 @@
 /* tslint:disable:no-unused-variable */
 import { render, screen } from '@testing-library/angular';
-import {
-  IonDividerComponent,
-  IonDividerProps,
-  Orientation,
-} from './divider.component';
+import { DirectionType } from '../core/types';
+import { IonDividerComponent, IonDividerProps } from './divider.component';
 
 const ClassType = {
   solid: 'ion-divider-solid',
@@ -16,7 +13,7 @@ const ClassType = {
 
 const defaultDivider: IonDividerProps = {
   type: 'solid',
-  orientation: 'horizontal',
+  direction: 'horizontal',
 };
 
 const sut = async (customProps?: IonDividerProps) => {
@@ -35,29 +32,29 @@ describe('IonDividerComponent', () => {
 
   it.each(['vertical', 'horizontal'])(
     'should render $s divider',
-    async (orientation: Orientation) => {
+    async (direction: DirectionType) => {
       const divider = await sut({
-        orientation: orientation,
+        direction: direction,
       });
-      expect(divider).toHaveClass(ClassType[orientation]);
+      expect(divider).toHaveClass(ClassType[direction]);
     }
   );
 
   it.each(['vertical', 'horizontal'])(
     'should render $s divider dashed',
-    async (orientation: Orientation) => {
+    async (direction: DirectionType) => {
       const divider = await sut({
-        orientation: orientation,
+        direction: direction,
         type: 'dashed',
       });
-      expect(divider).toHaveClass(ClassType[orientation]);
+      expect(divider).toHaveClass(ClassType[direction]);
       expect(divider).toHaveClass(ClassType.dashed);
     }
   );
 
   it('should render vertical divider and not show text', async () => {
     const divider = await sut({
-      orientation: 'vertical',
+      direction: 'vertical',
       type: 'text',
       label: 'Label',
     });
