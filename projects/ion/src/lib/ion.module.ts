@@ -7,6 +7,7 @@ import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { IonDividerComponent } from './divider/divider.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { IonDividerComponent } from './divider/divider.component';
     TabComponent,
     TabGroupComponent,
     IonDividerComponent,
+    MessageComponent,
   ],
   imports: [CommonModule],
   exports: [

@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  margin: 27px;
+  gap: 16px;
+  box-shadow: 0px 8px 6px -4px rgb(0 0 0 / 15%), 0px 0px 2px rgb(0 0 0 / 15%);
+  width: 168px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+img {
+  height: 20px;
+  width: 18px;
+}
+
+span {
+  font-size: 14px;
+  color: #505566;
+}
