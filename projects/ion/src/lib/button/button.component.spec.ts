@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
+import { IonIconComponent } from '../icon/icon.component';
 
 const defaultName = 'button';
 
@@ -9,23 +10,16 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
+    declarations: [IonIconComponent],
   });
   return screen.findByRole('button');
 };
 
 describe('ButtonComponent', () => {
   it('should render button with custom label', async () => {
-    await render(ButtonComponent, {
-      componentProperties: {
-        label: 'Clique aqui',
-      },
-    });
-    expect(screen.getByText('Clique aqui'));
-  });
-
-  it('should render button with warning msg when label is not provided', async () => {
-    await render(ButtonComponent);
-    expect(screen.getByText('configure uma label'));
+    const textButton = 'Clique aqui';
+    const button = await sut({ label: textButton });
+    expect(button.textContent).toContain(textButton);
   });
 
   it('should emit an event when clicked', async () => {
@@ -72,6 +66,29 @@ it.each(sizes)('should render correct sizes', async (size) => {
   );
 });
 
+describe('Icon on ButtonComponent', () => {
+  it('Icon pencil on button', async () => {
+    const button = await sut({ iconType: 'pencil' });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button.querySelector('ion-icon')).toHaveAttribute('ng-reflect-type');
+    expect(
+      button.querySelector('ion-icon').getAttribute('ng-reflect-type')
+    ).toContain('pencil');
+  });
+
+  it('Right side icon', async () => {
+    const button = await sut({ iconType: 'pencil', rightSideIcon: true });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button).toHaveClass('right-side-icon');
+  });
+
+  it('Button with circular icon', async () => {
+    const button = await sut({ iconType: 'pencil', circularButton: true });
+    expect(button.querySelector('ion-icon')).toBeTruthy();
+    expect(button).toHaveClass('circular-button');
+  });
+});
+
 describe('Danger ButtonComponent', () => {
   it('should render a button with the danger class when danger="true" is passed', async () => {
     expect(await sut({ label: defaultName, danger: true })).toHaveClass(
@@ -97,10 +114,22 @@ describe('Expand ButtonComponent', () => {
 });
 
 describe('load ButtonComponent', () => {
-  it('should render a loading button when loading="true" is passed', async () => {
+  it('should render a loading button when loading="true" is passed and show default message "Carregando..."', async () => {
     const button = await sut({ label: defaultName, loading: true });
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain('Carregando...');
+  });
+
+  it('should render a loading button with message "aguarde ..."', async () => {
+    const loadingMessage = 'aguarde ...';
+    const button = await sut({
+      label: defaultName,
+      loading: true,
+      loadingMessage,
+    });
+    expect(button).toHaveClass('loading');
+    expect(button.children[0]).toHaveClass('spinner');
+    expect(button.children[1].textContent).toContain(loadingMessage);
   });
 });
