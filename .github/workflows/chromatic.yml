@@ -1,11 +1,10 @@
 name: 'Chromatic'
 
-on: 
+on:
   push:
     branches: ['main']
   pull_request:
     branches: ['main']
-    
 
 jobs:
   chromatic-deployment:
@@ -21,6 +20,3 @@ jobs:
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-
-      
-          
