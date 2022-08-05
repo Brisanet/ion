@@ -7,8 +7,8 @@ import { Component, Input } from '@angular/core';
 })
 export class RadioComponent {
   @Input() label?: string;
-  @Input() checked?: boolean = false;
-  @Input() disabled?: boolean = false;
+  @Input() checked? = false;
+  @Input() disabled? = false;
 
   select() {
     this.checked = !this.checked;

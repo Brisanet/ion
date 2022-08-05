@@ -22,8 +22,8 @@ Disabled.args = {
   disabled: true,
 };
 
-export const Selected = Template.bind({});
-Selected.args = {
-  label: 'Selected',
-  selected: true,
+export const checked = Template.bind({});
+checked.args = {
+  label: 'Checked',
+  checked: true,
 };

@@ -4,7 +4,16 @@
   display: flex;
   gap: 10px;
   align-items: center;
-  color: $neutral-7;
+}
+
+.labelDisabled {
+  cursor: pointer;
+  color: #505566;
+}
+
+.labelDisabled-checked {
+  cursor: pointer;
+  color: #aeb2bd;
 }
 
 .radio {
@@ -34,7 +43,7 @@
     }
   }
 
-  &:focus {
+  &:focus-visible {
     border: 1px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
@@ -60,8 +69,10 @@
     background-color: $neutral-3;
     cursor: not-allowed;
     outline: none;
+    color: $primary-6;
   }
 }
+
 .radio:checked {
   border: 4px solid $primary-6;
   outline: none;
@@ -89,7 +100,7 @@
     background-color: $primary-1;
   }
 
-  &:focus {
+  &:focus-visible {
     border: 4px solid $primary-6;
     outline: 2px solid $primary-6;
     outline-offset: 2px;

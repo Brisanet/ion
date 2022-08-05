@@ -1,11 +1,17 @@
-<div class="ion-input-radio">
+<form class="ion-input-radio">
   <input
     (click)="select()"
-    name="input-radio"
+    name="label"
+    id="label"
+    value="label"
     [disabled]="disabled"
     type="radio"
     [checked]="checked"
     [ngClass]="{ radio: !checked, 'radio-checked': checked }"
   />
-  <span *ngIf="label">{{ label }}</span>
-</div>
+  <label
+    [ngClass]="{ labelDisabled: !disabled, 'labelDisabled-checked': disabled }"
+    for="label"
+    >{{ label }}</label
+  >
+</form>
