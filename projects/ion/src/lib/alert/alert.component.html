@@ -1,0 +1,16 @@
+<div
+  id="ion-alert"
+  data-testid="ion-alert"
+  [class]="'ion-alert ' + type + ' closable-' + closable"
+  [style.width]="width + 'px'"
+  [style.height]="height + 'px'"
+>
+  <ion-icon class="alert-icon" type="pencil"></ion-icon>
+  <span>{{ message }}</span>
+  <ion-icon
+    class="close-icon"
+    type="trash"
+    *ngIf="closable"
+    (click)="closeEvent()"
+  ></ion-icon>
+</div>
