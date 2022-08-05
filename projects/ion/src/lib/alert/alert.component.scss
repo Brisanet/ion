@@ -45,11 +45,11 @@
 }
 
 .closable-true {
-  padding: 8px 16px;
+  padding: spacing(1) spacing(2);
 }
 
 .closable-false {
-  padding: 8px 16px 8px 12px;
+  padding: spacing(1) spacing(2) spacing(1) spacing(1.5);
   border-left: 8px solid;
 }
 

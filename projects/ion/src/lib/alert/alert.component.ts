@@ -1,13 +1,11 @@
-import { Component, Input } from '@angular/core';
-
-export type AlertType = 'success' | 'info' | 'alert' | 'danger';
+import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { StatusType } from '../core/types/status';
+import { IconType } from '../icon/icon.component';
 
 export interface IonAlertProps {
   message: string;
-  type?: AlertType;
+  type?: StatusType;
   closable?: boolean;
-  width?: number;
-  height?: number;
 }
 
 @Component({
@@ -15,18 +13,35 @@ export interface IonAlertProps {
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
 })
-export class AlertComponent {
+export class AlertComponent implements OnInit {
   @Input() message!: string;
-  @Input() type?: AlertType = 'success';
+  @Input() type?: StatusType = 'success';
   @Input() closable? = false;
-  @Input() width? = 235;
-  @Input() height? = 30;
-  // Waiting for more type of icons to be implemented
-  // public icon: IconType;
+  public iconType: IconType;
+  @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
   closeEvent() {
-    document
-      .getElementById('ion-alert')
-      .setAttribute('style', 'display: none;');
+    this.ionAlert.nativeElement.remove();
+  }
+
+  setIcon() {
+    switch (this.type) {
+      case 'danger':
+        this.iconType = 'close-solid';
+        break;
+      case 'info':
+        this.iconType = 'info-solid';
+        break;
+      case 'alert':
+        this.iconType = 'exclamation-solid';
+        break;
+      case 'success':
+        this.iconType = 'check-solid';
+        break;
+    }
+  }
+
+  ngOnInit(): void {
+    this.setIcon();
   }
 }

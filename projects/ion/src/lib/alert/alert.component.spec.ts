@@ -1,10 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
-import { AlertComponent, IonAlertProps, AlertType } from './alert.component';
+import { AlertComponent, IonAlertProps } from './alert.component';
+import { StatusType } from '../core/types/status';
 
 const defaulValue: IonAlertProps = {
   message: 'Mensagem padrão',
+};
+
+const alertIDs = {
+  alert: 'ion-alert',
+  iconStatus: 'status-icon',
+  iconClose: 'close-icon',
 };
 
 const closableAlert = 'closable-true';
@@ -17,25 +24,21 @@ const sut = async (customProps?: IonAlertProps) => {
     declarations: [IonIconComponent],
     imports: [CommonModule],
   });
-  return screen.findByTestId('ion-alert');
+  return screen.findByTestId(alertIDs.alert);
 };
 
 describe('AlertComponent', () => {
   it('Should render alert', async () => {
-    const element = await sut();
-    expect(element).toHaveClass('ion-alert');
+    expect(await sut()).toHaveClass(alertIDs.alert);
   });
 
   it('Alert should have default message', async () => {
-    const element = await sut();
-    expect(element).toHaveTextContent(defaulValue.message);
+    expect(await sut()).toHaveTextContent(defaulValue.message);
   });
 
   it('Should render with icon', async () => {
-    const element = await sut();
-    const icon = element.querySelectorAll('ion-icon');
-    expect(icon.length).toEqual(1);
-    expect(icon[0]).toHaveClass('alert-icon');
+    await sut();
+    expect(await screen.findByTestId(alertIDs.iconStatus)).toBeInTheDocument();
   });
 
   it('Alert should show informed message', async () => {
@@ -44,60 +47,35 @@ describe('AlertComponent', () => {
     expect(element).toHaveTextContent(label);
   });
 
-  it.each(alertTypes)(
-    'Should render diferent types of alerts',
-    async (type: AlertType) => {
-      const element = await sut({ ...defaulValue, type: type });
-      expect(element).toHaveClass(type);
-    }
-  );
+  it.each(alertTypes)('Should render %s type', async (type: StatusType) => {
+    const element = await sut({ ...defaulValue, type: type });
+    expect(element).toHaveClass(type);
+  });
 
   it('Should render closable alert', async () => {
     const element = await sut({ ...defaulValue, closable: true });
     expect(element).toHaveClass(closableAlert);
   });
 
-  it('Closable alert should add close icon', async () => {
-    const element = await sut({ ...defaulValue, closable: true });
-    const icons = element.querySelectorAll('ion-icon');
-    expect(icons.length).toEqual(2);
-    expect(icons[1]).toHaveClass('close-icon');
+  it('should render close icon when is closable', async () => {
+    await sut({ ...defaulValue, closable: true });
+    expect(await screen.findByTestId(alertIDs.iconClose)).toBeInTheDocument();
   });
 
   it.each(alertTypes)(
-    'Should render closable alerts for each type',
-    async (type: AlertType) => {
+    'Should render closable %s type',
+    async (type: StatusType) => {
       const element = await sut({ ...defaulValue, type: type, closable: true });
-      const icons = element.querySelectorAll('ion-icon');
       expect(element).toHaveClass(type);
       expect(element).toHaveClass(closableAlert);
-      expect(icons.length).toEqual(2);
-      expect(icons[1]).toHaveClass('close-icon');
+      expect(await screen.findByTestId(alertIDs.iconClose)).toBeInTheDocument();
     }
   );
 
   it('Should close alert', async () => {
     const element = await sut({ ...defaulValue, closable: true });
-    const closeIcon = element.getElementsByClassName('close-icon')[0];
-    fireEvent.click(closeIcon);
-    expect(await screen.findByTestId('ion-alert')).toHaveStyle(
-      'display: none;'
-    );
-  });
-
-  it('Should render alert with custom width', async () => {
-    const element = await sut({ ...defaulValue, width: 500 });
-    expect(element).toHaveStyle('width: 500px;');
-  });
-
-  it('Should render alert with custom height', async () => {
-    const element = await sut({ ...defaulValue, height: 100 });
-    expect(element).toHaveStyle('height: 100px;');
-  });
-
-  it('Should render alert with both height and width custom', async () => {
-    const element = await sut({ ...defaulValue, height: 100, width: 500 });
-    expect(element).toHaveStyle('height: 100px;');
-    expect(element).toHaveStyle('width: 500px;');
+    const icon = await screen.findByTestId(alertIDs.iconClose);
+    fireEvent.click(icon);
+    expect(screen).not.toContain(element);
   });
 });
