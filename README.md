@@ -29,7 +29,7 @@ We have the following types:
 - build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm);
 - temp: Temporary commits that won't be included in your CHANGELOG.
 
-Example: `feat: Add feature #issue_id`
+Example: `feat: add feature #issue_id`
 
 ## Deploy 🚀
 
