@@ -1,9 +1,12 @@
 .tab-group {
   display: flex;
+
+  :first-child {
+    display: flex;
+  }
 }
 
 .tab-group-column-inner {
-  display: flex;
   flex-direction: column;
 
   ::ng-deep {
