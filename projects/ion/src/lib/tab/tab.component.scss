@@ -42,7 +42,7 @@
     @include tab-colors($primary-5, $primary-1, $primary-3);
     @include icon-color($primary-5);
   }
-  &:focus {
+  &:focus-visible {
     @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;
@@ -74,7 +74,7 @@
     @include tab-colors($primary-5, $primary-1, $primary-3);
     @include icon-color($primary-5);
   }
-  &:focus {
+  &:focus-visible {
     @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;

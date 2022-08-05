@@ -1,9 +1,9 @@
-import { Story, Meta } from '@storybook/angular/types-6-0';
-import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
-import { moduleMetadata } from '@storybook/angular';
-import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 import { action } from '@storybook/addon-actions';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
+import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
   title: 'Ion/TabGroup',
@@ -20,7 +20,7 @@ export default {
 const tabs = [];
 for (let index = 1; index <= 8; index++) {
   tabs.push({
-    name: 'Tab ' + index,
+    label: 'Tab ' + index,
     selected: false,
   });
 }
@@ -35,14 +35,14 @@ const Template: Story<TabGroupComponent> = (args: TabGroupComponent) => ({
 
 export const Horizontal = Template.bind({});
 Horizontal.args = {
-  tabs: tabs,
+  tabs,
   selected: action('selected'),
 };
 
 export const Vertical = Template.bind({});
 Vertical.args = {
-  tabs: tabs,
-  alignment: 'vertical',
+  tabs,
+  direction: 'vertical',
   selected: action('selected'),
 };
 
@@ -50,11 +50,11 @@ export const SelectedByDefault = Template.bind({});
 SelectedByDefault.args = {
   tabs: [
     {
-      name: 'Selected',
+      label: 'Selected',
       selected: true,
     },
     {
-      name: 'Not Selected',
+      label: 'Not Selected',
       selected: false,
     },
   ],
@@ -65,14 +65,31 @@ export const differentSizes = Template.bind({});
 differentSizes.args = {
   tabs: [
     {
-      name: 'Selected',
+      label: 'Selected',
       selected: true,
     },
     {
-      name: 'Not Selected',
+      label: 'Not Selected',
       selected: false,
     },
   ],
-  alignment: 'vertical',
+  direction: 'vertical',
   selected: action('selected'),
+};
+
+export const tabsWithIcons = Template.bind({});
+tabsWithIcons.args = {
+  tabs: [
+    {
+      label: 'Pencil',
+      selected: true,
+      iconType: 'pencil',
+    },
+    {
+      label: 'Trash',
+      selected: false,
+      iconType: 'trash',
+    },
+  ],
+  direction: 'vertical',
 };
