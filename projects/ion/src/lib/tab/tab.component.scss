@@ -1,4 +1,31 @@
 @import '../../styles/index.scss';
+
+@mixin tab-colors($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border !important;
+}
+
+@mixin icon-color($color) {
+  .tab-icon {
+    ::ng-deep svg {
+      fill: $color;
+    }
+  }
+}
+
+@mixin icon-size($size) {
+  .tab-icon {
+    ::ng-deep svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: $size;
+      height: $size;
+    }
+  }
+}
+
 .tab {
   font-style: normal;
   font-weight: 600;
@@ -7,65 +34,62 @@
   border: none;
   background-color: $neutral-1;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+  @include icon-color($neutral-7);
 
   &:hover {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
+    @include icon-color($primary-5);
   }
-  &:focus {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+  &:focus-visible {
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;
+    @include icon-color($primary-5);
   }
   &:active {
-    color: $primary-7;
-    background-color: $primary-2;
-    border-color: $primary-5;
+    @include tab-colors($primary-7, $primary-2, $primary-5);
     outline: none;
+    @include icon-color($primary-7);
   }
   &:disabled {
-    color: $neutral-5;
-    background-color: $neutral-3;
-    border-color: $neutral-5;
+    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
     cursor: not-allowed;
+    @include icon-color($neutral-5);
   }
 }
 
 .tab-selected {
   font-style: normal;
   font-weight: 600;
-  color: $primary-6;
   border: none;
-  background-color: $neutral-1;
-  border-color: $primary-6;
+  @include tab-colors($primary-6, $neutral-1, $primary-6);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  @include icon-color($primary-6);
 
   &:hover {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+    @include tab-colors($primary-5, $primary-1, $primary-3);
+    @include icon-color($primary-5);
   }
-  &:focus {
-    color: $primary-5;
-    background-color: $primary-1;
-    border-color: $primary-3;
+  &:focus-visible {
+    @include tab-colors($primary-5, $primary-1, $primary-3);
     outline: 2px solid $primary-5;
     outline-offset: 2px;
+    @include icon-color($primary-5);
   }
   &:active {
-    color: $primary-7;
-    background-color: $primary-2;
-    border-color: $primary-5;
+    @include tab-colors($primary-7, $primary-2, $primary-5);
     outline: none;
+    @include icon-color($primary-7);
   }
   &:disabled {
-    color: $neutral-5;
-    background-color: $neutral-3;
-    border-color: $neutral-5;
+    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
     cursor: not-allowed;
+    @include icon-color($neutral-5);
   }
 }
 
@@ -73,16 +97,22 @@
   padding: 8px 16px;
   font-size: 12px;
   line-height: 16px;
+  @include icon-size(16px);
+  gap: spacing(1);
 }
 .tab-md {
   padding: 10px 24px;
   font-size: 14px;
   line-height: 20px;
+  @include icon-size(20px);
+  gap: spacing(1.5);
 }
 .tab-lg {
   padding: 12px 32px;
   font-size: 16px;
   line-height: 24px;
+  @include icon-size(24px);
+  gap: spacing(2);
 }
 
 .border-bottom {
