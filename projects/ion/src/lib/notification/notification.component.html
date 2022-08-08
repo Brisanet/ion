@@ -1,7 +1,18 @@
-<div class="notification-container">
+<div
+  class="notification-container"
+  (mouseenter)="mouseEnter()"
+  (mouseleave)="mouseLeave()"
+  data-testid="ion-notification"
+  #notificationRef
+>
   <div class="notification-inner">
     <div>
-      <ion-icon class="default-icon" *ngIf="icon" [type]="icon"></ion-icon>
+      <ion-icon
+        data-testid="notification-icon"
+        [class]="getClass()"
+        [type]="icon || getIcon()"
+      >
+      </ion-icon>
     </div>
     <div>
       <div class="notification-title">
@@ -14,6 +25,12 @@
   </div>
 
   <div>
-    <ion-icon class="close-icon" size="16" type="trash"></ion-icon>
+    <ion-icon
+      data-testid="btn-remove"
+      (click)="closeNotification()"
+      class="close-icon"
+      size="16"
+      type="close"
+    ></ion-icon>
   </div>
 </div>

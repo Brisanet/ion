@@ -23,8 +23,29 @@ const Template: Story<NotificationComponent> = (
 
 export const Basic = Template.bind({});
 Basic.args = {
-  title: 'Parabéns!',
+  title: 'Parabéns',
   message: 'Seu cadastro foi realizado com sucesso!',
+};
+
+export const Info = Template.bind({});
+Info.args = {
+  title: 'Informação',
+  message: 'Seu cadastro está regular!',
+  type: 'info',
+};
+
+export const Warning = Template.bind({});
+Warning.args = {
+  title: 'Cuidado',
+  message: 'Seu cadastro será excluído em 5 dias!',
+  type: 'warning',
+};
+
+export const Negative = Template.bind({});
+Negative.args = {
+  title: 'Falha',
+  message: 'Houve um erro com seu login!',
+  type: 'negative',
 };
 
 export const CustomIcon = Template.bind({});

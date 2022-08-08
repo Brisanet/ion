@@ -48,3 +48,31 @@
     fill: $primary-color;
   }
 }
+
+@mixin icon-color($color) {
+  fill: $color;
+}
+
+.success-icon {
+  ::ng-deep svg {
+    @include icon-color($success-color);
+  }
+}
+
+.info-icon {
+  ::ng-deep svg {
+    @include icon-color($info-color);
+  }
+}
+
+.warning-icon {
+  ::ng-deep svg {
+    @include icon-color($warning-color);
+  }
+}
+
+.negative-icon {
+  ::ng-deep svg {
+    @include icon-color($negative-color);
+  }
+}
