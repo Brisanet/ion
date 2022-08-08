@@ -1,6 +1,6 @@
 @import '../../styles/index.scss';
 
-@mixin icon-icon($color) {
+@mixin icon-color($color) {
   .icon-color {
     ::ng-deep svg {
       fill: $color;
@@ -8,7 +8,7 @@
   }
 }
 
-@mixin icon-colors($background, $color) {
+@mixin add-colors($background, $color) {
   background-color: $background;
   color: $color;
 }
@@ -21,38 +21,38 @@
   font-weight: 600;
   cursor: pointer;
   outline: none;
-  @include icon-colors($neutral-1, $primary-6);
-  @include icon-icon($primary-6);
+  @include add-colors($neutral-1, $primary-6);
+  @include icon-color($primary-6);
   font-weight: 600;
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   &:hover {
     border: 1px solid $primary-3;
-    @include icon-colors($primary-1, $primary-5);
-    @include icon-icon($primary-5);
+    @include add-colors($primary-1, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:focus-visible {
     border: 1px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
-    @include icon-colors($primary-1, $primary-5);
-    @include icon-icon($primary-5);
+    @include add-colors($primary-1, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:active {
     border: 1px solid $primary-5;
     outline: none;
-    @include icon-colors($primary-2, $primary-7);
-    @include icon-icon($primary-7);
+    @include add-colors($primary-2, $primary-7);
+    @include icon-color($primary-7);
   }
 
   &:disabled {
     border: 1px solid $neutral-4;
     outline: none;
     cursor: not-allowed;
-    @include icon-colors($neutral-3, $neutral-4);
-    @include icon-icon($neutral-4);
+    @include add-colors($neutral-3, $neutral-4);
+    @include icon-color($neutral-4);
   }
 }
 
@@ -63,36 +63,36 @@
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   cursor: pointer;
-  @include icon-colors($primary-2, $primary-6);
-  @include icon-icon($primary-6);
+  @include add-colors($primary-2, $primary-6);
+  @include icon-color($primary-6);
 
   &:hover {
     border: 1.5px solid $primary-5;
-    @include icon-colors($primary-2, $primary-5);
-    @include icon-icon($primary-5);
+    @include add-colors($primary-2, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:focus-visible {
     border: 2px solid $primary-3;
     outline: 2px solid $primary-6;
     outline-offset: 2px;
-    @include icon-colors($primary-1, $primary-5);
-    @include icon-icon($primary-5);
+    @include add-colors($primary-1, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:active {
     border: 2px solid $primary-7;
     outline: none;
-    @include icon-colors($primary-3, $primary-7);
-    @include icon-icon($primary-7);
+    @include add-colors($primary-3, $primary-7);
+    @include icon-color($primary-7);
   }
 
   &:disabled {
     border: 2px solid $neutral-4;
     outline: none;
     cursor: not-allowed;
-    @include icon-colors($neutral-3, $neutral-5);
-    @include icon-icon($neutral-5);
+    @include add-colors($neutral-3, $neutral-5);
+    @include icon-color($neutral-5);
   }
 }
 
