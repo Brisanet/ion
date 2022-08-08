@@ -5,6 +5,7 @@ import { ButtonComponent } from './button/button.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { TabComponent } from './tab/tab.component';
+import { TabGroupComponent } from './tab-group/tab-group.component';
 import { HeadingComponent } from './typograpry';
 import { IonDividerComponent } from './divider/divider.component';
 
@@ -15,6 +16,7 @@ import { IonDividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
   ],
@@ -25,6 +27,7 @@ import { IonDividerComponent } from './divider/divider.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
   ],
