@@ -115,6 +115,18 @@ describe('NotificationComponent', () => {
         1
       );
     });
+
+    it('should not remove the component when on mouse leave by 500ms', async () => {
+      await sut();
+      const notificationIcon = screen.getByTestId('ion-notification');
+      fireEvent.mouseEnter(notificationIcon);
+      await sleep(1000);
+      fireEvent.mouseLeave(notificationIcon);
+      await sleep(500);
+      expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
+        1
+      );
+    });
   });
 });
 
