@@ -23,37 +23,37 @@
   font-weight: 700;
 }
 
-@mixin font-size-12 {
+@mixin font-size-xs {
   font-size: 12px;
   line-height: 16px;
 }
 
-@mixin font-size-14 {
+@mixin font-size-sm {
   font-size: 14px;
   line-height: 20px;
 }
 
-@mixin font-size-16 {
+@mixin font-size-md {
   font-size: 16px;
   line-height: 24px;
 }
 
-@mixin font-size-20 {
+@mixin font-size-lg {
   font-size: 20px;
   line-height: 28px;
 }
 
-@mixin font-size-24 {
+@mixin font-size-xl {
   font-size: 24px;
   line-height: 32px;
 }
 
-@mixin font-size-32 {
+@mixin font-size-2xl {
   font-size: 32px;
   line-height: 40px;
 }
 
-@mixin font-size-40 {
+@mixin font-size-3xl {
   font-size: 40px;
   line-height: 48px;
 }

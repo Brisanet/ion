@@ -39,47 +39,47 @@
 
   h1 {
     &.font-size-small {
-      @include font-size-24;
+      @include font-size-xl;
     }
 
     &.font-size-medium {
-      @include font-size-32;
+      @include font-size-2xl;
     }
     &.font-size-normal {
-      @include font-size-40;
+      @include font-size-3xl;
     }
   }
 
   h2 {
     &.font-size-small {
-      @include font-size-20;
+      @include font-size-lg;
     }
     &.font-size-medium {
-      @include font-size-24;
+      @include font-size-xl;
     }
     &.font-size-normal {
-      @include font-size-32;
+      @include font-size-2xl;
     }
   }
 
   h3 {
     &.font-size-small {
-      @include font-size-16;
+      @include font-size-md;
     }
     &.font-size-medium {
-      @include font-size-20;
+      @include font-size-lg;
     }
     &.font-size-normal {
-      @include font-size-24;
+      @include font-size-xl;
     }
   }
 
   h4 {
     &.font-size-medium {
-      @include font-size-16;
+      @include font-size-md;
     }
     &.font-size-normal {
-      @include font-size-20;
+      @include font-size-lg;
     }
   }
 }
