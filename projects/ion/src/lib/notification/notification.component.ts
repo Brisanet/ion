@@ -21,8 +21,6 @@ export class NotificationComponent {
   @Input() type?: NotificationProps['type'] = 'success';
   @ViewChild('notificationRef', { static: false }) notification: ElementRef;
 
-  public timeToClose: number;
-
   private timer: ReturnType<typeof setTimeout>;
 
   public getIcon(): IconType {
@@ -56,7 +54,7 @@ export class NotificationComponent {
     this.notification.nativeElement.remove();
   }
 
-  closeAuto(closeIn: number = this.timeToClose) {
+  closeAuto(closeIn: number = this.timeByWords(this.message)) {
     this.timer = setTimeout(() => {
       this.closeNotification();
     }, closeIn);
@@ -71,7 +69,6 @@ export class NotificationComponent {
   }
 
   ngOnInit() {
-    this.timeToClose = this.timeByWords(this.message);
     this.closeAuto();
   }
 }
