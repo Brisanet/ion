@@ -20,8 +20,8 @@
   cursor: pointer;
   appearance: none;
   outline: none;
-  width: 16px;
-  height: 16px;
+  width: spacing(2);
+  height: spacing(2);
   border-radius: 50%;
   border: 1px solid $neutral-5;
   display: flex;
@@ -87,8 +87,8 @@
   outline: none;
   border: 4px solid $primary-6;
   border-radius: 50%;
-  width: 16px;
-  height: 16px;
+  width: spacing(2);
+  height: spacing(2);
   cursor: pointer;
   display: flex;
   align-items: center;
