@@ -8,12 +8,12 @@
 
 .labelDisabled {
   cursor: pointer;
-  color: #505566;
+  color: $neutral-7;
 }
 
 .labelDisabled-checked {
-  cursor: pointer;
-  color: #aeb2bd;
+  cursor: not-allowed;
+  color: $neutral-5;
 }
 
 .radio {

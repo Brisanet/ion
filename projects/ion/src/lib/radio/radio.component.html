@@ -1,9 +1,9 @@
 <form class="ion-input-radio">
   <input
-    (click)="select()"
-    name="label"
+    (click)="check()"
+    [name]="label"
     id="label"
-    value="label"
+    [value]="label"
     [disabled]="disabled"
     type="radio"
     [checked]="checked"
