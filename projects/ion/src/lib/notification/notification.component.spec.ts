@@ -1,15 +1,15 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { StatusType } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 import {
   NotificationComponent,
   NotificationProps,
-  NotificationType,
 } from './notification.component';
 
 const defaultNotification = {
   title: 'Editado',
   message: 'cadastro',
-  type: 'success' as NotificationType,
+  type: 'success' as StatusType,
 };
 
 const sut = async (customProps: NotificationProps = defaultNotification) => {
@@ -81,7 +81,7 @@ describe('NotificationComponent', () => {
   ])('should render $type class and $icon icon', async ({ type, icon }) => {
     await sut({
       ...defaultNotification,
-      type: type as NotificationType,
+      type: type as StatusType,
     });
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
     expect(screen.getByTestId('notification-icon')).toHaveClass(`${type}-icon`);

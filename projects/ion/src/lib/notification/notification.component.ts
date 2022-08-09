@@ -1,11 +1,11 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
-export type NotificationType = 'success' | 'info' | 'warning' | 'negative';
 export interface NotificationProps {
   title: string;
   message: string;
-  type?: NotificationType;
+  type?: StatusType;
   icon?: IconType;
 }
 
