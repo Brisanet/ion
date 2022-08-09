@@ -16,7 +16,7 @@ const alertIDs = {
 
 const closableAlert = 'closable-true';
 
-const alertTypes = ['success', 'warning', 'info', 'danger'];
+const alertTypes = ['success', 'warning', 'info', 'negative'];
 
 const sut = async (customProps?: IonAlertProps) => {
   await render(AlertComponent, {

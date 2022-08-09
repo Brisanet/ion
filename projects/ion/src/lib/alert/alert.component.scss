@@ -5,6 +5,9 @@
   border-color: $borderColor !important;
 
   .alert-icon {
+    display: flex;
+    align-items: center;
+
     ::ng-deep svg {
       fill: $borderColor;
     }
@@ -36,11 +39,11 @@
   @include alert-style($info-1, $info-6);
 }
 
-.alert {
+.warning {
   @include alert-style($warning-1, $warning-6);
 }
 
-.danger {
+.negative {
   @include alert-style($negative-1, $negative-6);
 }
 
@@ -55,6 +58,9 @@
 
 .close-icon {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+
   ::ng-deep svg {
     height: 18px;
     width: 18px;

@@ -8,6 +8,13 @@ export interface IonAlertProps {
   closable?: boolean;
 }
 
+export const iconTypes = {
+  success: 'check-solid',
+  warning: 'exclamation-solid',
+  info: 'info-solid',
+  negative: 'close-solid',
+};
+
 @Component({
   selector: 'ion-alert',
   templateUrl: './alert.component.html',
@@ -18,6 +25,7 @@ export class AlertComponent implements OnInit {
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
   public iconType: IconType;
+
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
   closeEvent() {
@@ -25,20 +33,7 @@ export class AlertComponent implements OnInit {
   }
 
   setIcon() {
-    switch (this.type) {
-      case 'danger':
-        this.iconType = 'close-solid';
-        break;
-      case 'info':
-        this.iconType = 'info-solid';
-        break;
-      case 'alert':
-        this.iconType = 'exclamation-solid';
-        break;
-      case 'success':
-        this.iconType = 'check-solid';
-        break;
-    }
+    this.iconType = iconTypes[this.type];
   }
 
   ngOnInit(): void {

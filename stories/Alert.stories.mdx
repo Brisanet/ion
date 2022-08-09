@@ -46,7 +46,7 @@ O parâmetro `message` define qual será a mensagem exibida no alerta
 
 ## Type
 
-O ion-alert possui um total de 4 tipos: `success`, `alert`, `info`, `danger`
+O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
 
 - Por padrão, caso não seja informado o tipo pelo usuario, o alerta será do tipo `success`
 
@@ -69,13 +69,13 @@ O ion-alert possui um total de 4 tipos: `success`, `alert`, `info`, `danger`
   </Story>
 </Canvas>
 
-#### Aviso(alert)
+#### Aviso(warning)
 
 <Canvas>
   <Story
-    name="type: alert"
+    name="type: warning"
     args={{
-      type: 'alert',
+      type: 'warning',
       message: 'Example of alert message',
     }}
     decorators={[
@@ -109,13 +109,13 @@ O ion-alert possui um total de 4 tipos: `success`, `alert`, `info`, `danger`
   </Story>
 </Canvas>
 
-#### Erro(danger)
+#### Erro(negative)
 
 <Canvas>
   <Story
-    name="type: danger"
+    name="type: negative"
     args={{
-      type: 'danger',
+      type: 'negative',
       message: 'Example of alert message',
     }}
     decorators={[
