@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { StatusType } from '../core/types/status';
+import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
 export interface IonAlertProps {
