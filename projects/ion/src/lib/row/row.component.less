@@ -1,8 +1,27 @@
 :host {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 1024px;
-  min-width: 200px;
-  margin: 0 auto;
+  .ion-container {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 24px;
+    padding-left: 24px;
+    margin: 24px auto;
+
+    @media (min-width: 1441px) {
+      max-width: 1441px;
+    }
+  }
+
+  .ion-row {
+    display: flex;
+    flex-wrap: wrap;
+
+    & > * {
+      box-sizing: border-box;
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 100%;
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+  }
 }
