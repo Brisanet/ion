@@ -4,9 +4,11 @@ import { render, screen, fireEvent } from '@testing-library/angular';
 import { AlertComponent, IonAlertProps } from './alert.component';
 import { StatusType } from '../core/types/status';
 
-const defaulValue: IonAlertProps = {
+const defaultValue: IonAlertProps = {
   message: 'Mensagem padrão',
 };
+
+const alertDefaultCLass = 'ion-alert';
 
 const alertIDs = {
   alert: 'ion-alert',
@@ -18,9 +20,9 @@ const closableAlert = 'closable-true';
 
 const alertTypes = ['success', 'warning', 'info', 'negative'];
 
-const sut = async (customProps?: IonAlertProps) => {
+const sut = async (customProps: IonAlertProps = defaultValue) => {
   await render(AlertComponent, {
-    componentProperties: customProps || { ...defaulValue },
+    componentProperties: customProps,
     declarations: [IonIconComponent],
     imports: [CommonModule],
   });
@@ -29,14 +31,14 @@ const sut = async (customProps?: IonAlertProps) => {
 
 describe('AlertComponent', () => {
   it('Should render alert', async () => {
-    expect(await sut()).toHaveClass(alertIDs.alert);
+    expect(await sut()).toHaveClass(alertDefaultCLass);
   });
 
-  it('Alert should have default message', async () => {
-    expect(await sut()).toHaveTextContent(defaulValue.message);
+  it('Alert should have a message', async () => {
+    expect(await sut()).toHaveTextContent(defaultValue.message);
   });
 
-  it('Should render with icon', async () => {
+  it('Should render with success icon by default', async () => {
     await sut();
     expect(await screen.findByTestId(alertIDs.iconStatus)).toBeInTheDocument();
   });
@@ -48,24 +50,28 @@ describe('AlertComponent', () => {
   });
 
   it.each(alertTypes)('Should render %s type', async (type: StatusType) => {
-    const element = await sut({ ...defaulValue, type: type });
+    const element = await sut({ ...defaultValue, type: type });
     expect(element).toHaveClass(type);
   });
 
   it('Should render closable alert', async () => {
-    const element = await sut({ ...defaulValue, closable: true });
+    const element = await sut({ ...defaultValue, closable: true });
     expect(element).toHaveClass(closableAlert);
   });
 
   it('should render close icon when is closable', async () => {
-    await sut({ ...defaulValue, closable: true });
+    await sut({ ...defaultValue, closable: true });
     expect(await screen.findByTestId(alertIDs.iconClose)).toBeInTheDocument();
   });
 
   it.each(alertTypes)(
     'Should render closable %s type',
     async (type: StatusType) => {
-      const element = await sut({ ...defaulValue, type: type, closable: true });
+      const element = await sut({
+        ...defaultValue,
+        type: type,
+        closable: true,
+      });
       expect(element).toHaveClass(type);
       expect(element).toHaveClass(closableAlert);
       expect(await screen.findByTestId(alertIDs.iconClose)).toBeInTheDocument();
@@ -73,7 +79,7 @@ describe('AlertComponent', () => {
   );
 
   it('Should close alert', async () => {
-    const element = await sut({ ...defaulValue, closable: true });
+    const element = await sut({ ...defaultValue, closable: true });
     const icon = await screen.findByTestId(alertIDs.iconClose);
     fireEvent.click(icon);
     expect(screen).not.toContain(element);

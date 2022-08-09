@@ -24,9 +24,9 @@ export class AlertComponent implements OnInit {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
-  public iconType: IconType;
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
+  public iconType: IconType;
 
   closeEvent() {
     this.ionAlert.nativeElement.remove();
