@@ -26,6 +26,7 @@ export class AlertComponent implements OnInit {
   @Input() closable? = false;
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
+
   public iconType: IconType;
 
   closeEvent() {
