@@ -22,6 +22,7 @@ import { ColComponent } from './col/col.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
+    HeadingComponent,
     RowComponent,
     ColComponent,
   ],
