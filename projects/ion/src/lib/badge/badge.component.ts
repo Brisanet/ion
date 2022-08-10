@@ -23,7 +23,7 @@ export class BadgeComponent {
   public valueInBadge: string;
 
   private exists(value: number): boolean {
-    return value !== undefined && value !== null && !isNaN(value);
+    return value !== null && !isNaN(value);
   }
 
   private limitValue(value: number): string {
