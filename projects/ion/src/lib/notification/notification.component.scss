@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+@mixin icon-color($color) {
+  ::ng-deep svg {
+    fill: $color;
+  }
+}
+
 .notification-container {
   display: flex;
   flex-direction: row;
@@ -21,11 +27,8 @@
 }
 
 .default-icon {
+  @include icon-color($neutral-6);
   margin-right: spacing(1);
-
-  ::ng-deep svg {
-    fill: $neutral-6;
-  }
 }
 
 .notification-title {
@@ -43,36 +46,22 @@
 }
 
 .close-icon {
+  @include icon-color($primary-color);
   cursor: pointer;
-  ::ng-deep svg {
-    fill: $primary-color;
-  }
-}
-
-@mixin icon-color($color) {
-  fill: $color;
 }
 
 .success-icon {
-  ::ng-deep svg {
-    @include icon-color($success-color);
-  }
+  @include icon-color($success-color);
 }
 
 .info-icon {
-  ::ng-deep svg {
-    @include icon-color($info-color);
-  }
+  @include icon-color($info-color);
 }
 
 .warning-icon {
-  ::ng-deep svg {
-    @include icon-color($warning-color);
-  }
+  @include icon-color($warning-color);
 }
 
 .negative-icon {
-  ::ng-deep svg {
-    @include icon-color($negative-color);
-  }
+  @include icon-color($negative-color);
 }
