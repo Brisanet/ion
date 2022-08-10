@@ -35,6 +35,12 @@ BiggerValue.args = {
   label: 'Primary',
 };
 
+export const Primary = Template.bind({});
+Primary.args = {
+  type: 'primary',
+  value: 100,
+};
+
 export const Secondary = Template.bind({});
 Secondary.args = {
   type: 'secondary',
