@@ -44,5 +44,5 @@ Selected.args = {
 export const BasicIcon = Template.bind({});
 BasicIcon.args = {
   label: 'Custom label',
-  iconType: 'pencil',
+  icon: 'pencil',
 };

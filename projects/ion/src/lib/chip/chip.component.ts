@@ -6,7 +6,7 @@ export interface IonChipProps {
   label: string;
   disabled?: boolean;
   selected?: boolean;
-  chipSize?: ChipSize;
+  size?: ChipSize;
 }
 
 @Component({
@@ -18,8 +18,8 @@ export class ChipComponent {
   @Input('label') label!: string;
   @Input('disabled') disabled? = false;
   @Input('selected') selected? = false;
-  @Input() chipSize?: ChipSize = 'sm';
-  @Input() iconType?: IconType;
+  @Input() size?: ChipSize = 'sm';
+  @Input() icon?: IconType;
 
   select() {
     this.selected = !this.selected;
