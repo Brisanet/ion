@@ -32,29 +32,29 @@ WithLabel.args = {
 export const BiggerValue = Template.bind({});
 BiggerValue.args = {
   type: 'primary',
-  label: 'Primary',
+  value: 900,
 };
 
 export const Primary = Template.bind({});
 Primary.args = {
   type: 'primary',
-  value: 100,
+  label: 'Primary',
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   type: 'secondary',
-  value: 100,
+  label: 'Secondary',
 };
 
 export const Neutral = Template.bind({});
 Neutral.args = {
   type: 'neutral',
-  value: 100,
+  label: 'Neutral',
 };
 
 export const Negative = Template.bind({});
 Negative.args = {
   type: 'negative',
-  value: 100,
+  label: 'Negative',
 };
