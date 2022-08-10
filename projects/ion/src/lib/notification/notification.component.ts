@@ -7,6 +7,7 @@ export interface NotificationProps {
   message: string;
   type?: StatusType;
   icon?: IconType;
+  fixed?: boolean;
 }
 
 @Component({
@@ -19,6 +20,7 @@ export class NotificationComponent {
   @Input() message!: NotificationProps['message'];
   @Input() icon?: NotificationProps['icon'];
   @Input() type?: NotificationProps['type'] = 'success';
+  @Input() fixed?: NotificationProps['fixed'] = false;
   @ViewChild('notificationRef', { static: false }) notification: ElementRef;
 
   private timer: ReturnType<typeof setTimeout>;
@@ -55,6 +57,9 @@ export class NotificationComponent {
   }
 
   closeAuto(closeIn: number = this.timeByWords(this.message)) {
+    if (this.fixed) {
+      return;
+    }
     this.timer = setTimeout(() => {
       this.closeNotification();
     }, closeIn);

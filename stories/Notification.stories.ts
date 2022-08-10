@@ -27,6 +27,15 @@ Basic.args = {
   message: 'Seu cadastro foi realizado com sucesso!',
 };
 
+export const Fixed = Template.bind({});
+Fixed.args = {
+  title: 'Notificação Fixa',
+  message:
+    'Você precisa fechar essa notificação, ela não desaparece automaticamente.',
+  type: 'negative',
+  fixed: true,
+};
+
 export const Info = Template.bind({});
 Info.args = {
   title: 'Informação',

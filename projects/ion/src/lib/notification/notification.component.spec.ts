@@ -36,7 +36,7 @@ describe('NotificationComponent', () => {
   });
 
   it('should render success icon by default', async () => {
-    await sut();
+    await sut({ title: 'Editado', message: 'cadastro' });
     expect(document.getElementById('ion-icon-check-solid')).toBeInTheDocument();
   });
 
@@ -96,6 +96,12 @@ describe('NotificationComponent', () => {
       expect(screen.queryAllByText(defaultNotification[title])).toHaveLength(0);
     }
   );
+
+  it('should not auto close when is fixed', async () => {
+    await sut({ ...defaultNotification, fixed: true });
+    await sleep(2000);
+    expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(1);
+  });
 
   describe('Time by words', () => {
     it('should remove component after 2s', async () => {
