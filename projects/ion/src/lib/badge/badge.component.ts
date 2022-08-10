@@ -18,6 +18,7 @@ export interface BadgeProps {
 export class BadgeComponent {
   @Input() label?: string;
   @Input() value?: number;
+  @Input() type!: BadgeType;
 
   public valueInBadge: string;
 
