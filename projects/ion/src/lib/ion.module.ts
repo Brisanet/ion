@@ -5,6 +5,7 @@ import { ChipComponent } from './chip/chip.component';
 import { IonDividerComponent } from './divider/divider.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
+import { RadioComponent } from './radio/radio.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
@@ -17,6 +18,7 @@ import { BadgeComponent } from './badge/badge.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
