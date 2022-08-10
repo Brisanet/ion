@@ -1,54 +1,43 @@
+@import '../../styles/index.scss';
+@mixin icons-details($color) {
+  ::ng-deep svg {
+    fill: $color;
+  }
+}
+
 .ion-message {
   display: flex;
   gap: 16px;
   box-shadow: 0px 8px 6px -4px rgb(0 0 0 / 15%), 0px 0px 2px rgb(0 0 0 / 15%);
   height: 40px;
+  width: 100%;
   font-size: 14px;
-  color: #505566;
+  color: $neutral-7;
   align-items: center;
-  justify-content: center;
   border-radius: 8px;
   cursor: pointer;
 
   &.random {
-    ::ng-deep svg {
-      fill: #8d93a5;
-    }
+    @include icons-details($neutral-6);
   }
 
   &.positive {
-    width: 165px;
-    height: 40px;
-    ::ng-deep svg {
-      fill: #2d9f70;
-    }
+    @include icons-details($positive-6);
   }
 
   &.negative-1 {
-    width: 170px;
-    ::ng-deep svg {
-      fill: #d6293a;
-    }
+    @include icons-details($negative-6);
   }
 
   &.negative-2 {
-    width: 179px;
-    ::ng-deep svg {
-      fill: #d6293a;
-    }
+    @include icons-details($negative-6);
   }
 
   &.warning {
-    width: 167px;
-    ::ng-deep svg {
-      fill: #f9a915;
-    }
+    @include icons-details($warning-6);
   }
 
   &.info {
-    width: 141px;
-    ::ng-deep svg {
-      fill: #0bb2cb;
-    }
+    @include icons-details($info-6);
   }
 }

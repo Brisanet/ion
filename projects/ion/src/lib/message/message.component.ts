@@ -1,3 +1,4 @@
+import { StatusType } from './../core/types/status';
 import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 export type MenssageType =
@@ -7,6 +8,10 @@ export type MenssageType =
   | 'negative-2'
   | 'warning'
   | 'info';
+
+export const iconTypes = {
+  success: 'check-solid',
+};
 @Component({
   selector: 'ion-message',
   templateUrl: './message.component.html',
@@ -14,6 +19,11 @@ export type MenssageType =
 })
 export class MessageComponent {
   @Input() label!: string;
-  @Input() iconType?: IconType = 'pencil';
-  @Input() messageType?: MenssageType = 'info';
+  @Input() type?: StatusType;
+  @Input() iconType?: IconType;
+  @Input() messageType?: MenssageType;
+
+  setIcon() {
+    this.iconType = iconTypes[this.type];
+  }
 }

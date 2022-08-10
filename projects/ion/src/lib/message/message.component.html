@@ -1,4 +1,4 @@
-<div class="ion-message positive">
-  <ion-icon class="ion-color" [type]="iconType"></ion-icon>
-  <span label="label">{{ label }}</span>
+<div [class]="'ion-message ' + messageType">
+  <ion-icon [type]="iconType"></ion-icon>
+  <span>{{ label }}</span>
 </div>
