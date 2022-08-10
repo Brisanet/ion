@@ -1,29 +1,38 @@
-import { StatusType } from './../core/types/status';
 import { IconType } from './../icon/icon.component';
-import { Component, Input } from '@angular/core';
-export type MenssageType =
+import { Component, Input, OnInit } from '@angular/core';
+
+export type Statustype =
   | 'random'
   | 'positive'
-  | 'negative-1'
-  | 'negative-2'
+  | 'negative1'
+  | 'negative2'
   | 'warning'
   | 'info';
 
 export const iconTypes = {
-  success: 'check-solid',
+  random: 'plus-solid',
+  positive: 'check-solid',
+  negative1: 'exclamation-solid',
+  negative2: 'close-solid',
+  warning: 'exclamation-solid',
+  info: 'info-solid',
 };
+
 @Component({
   selector: 'ion-message',
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent {
+export class MessageComponent implements OnInit {
   @Input() label!: string;
-  @Input() type?: StatusType;
+  @Input() type?: Statustype = 'random';
   @Input() iconType?: IconType;
-  @Input() messageType?: MenssageType;
 
   setIcon() {
     this.iconType = iconTypes[this.type];
+  }
+
+  ngOnInit(): void {
+    this.setIcon();
   }
 }
