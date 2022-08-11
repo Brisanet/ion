@@ -1,11 +1,12 @@
+import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 
-export type Size = 'sm' | 'md';
+export type ChipSize = 'sm' | 'md';
 export interface IonChipProps {
   label: string;
   disabled?: boolean;
   selected?: boolean;
-  size?: Size;
+  size?: ChipSize;
 }
 
 @Component({
@@ -17,7 +18,8 @@ export class ChipComponent {
   @Input('label') label!: string;
   @Input('disabled') disabled? = false;
   @Input('selected') selected? = false;
-  @Input('size') size?: Size = 'md';
+  @Input() size?: ChipSize = 'sm';
+  @Input() icon?: IconType;
 
   select() {
     this.selected = !this.selected;
