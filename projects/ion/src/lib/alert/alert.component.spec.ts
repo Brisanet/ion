@@ -8,7 +8,7 @@ const defaultValue: IonAlertProps = {
   message: 'Mensagem padrão',
 };
 
-const alertDefaultCLass = 'ion-alert';
+const alertDefaultClass = 'ion-alert';
 
 const alertIDs = {
   alert: 'ion-alert',
@@ -31,10 +31,10 @@ const sut = async (customProps: IonAlertProps = defaultValue) => {
 
 describe('AlertComponent', () => {
   it('Should render alert', async () => {
-    expect(await sut()).toHaveClass(alertDefaultCLass);
+    expect(await sut()).toHaveClass(alertDefaultClass);
   });
 
-  it('Alert should have a message', async () => {
+  it('Should have an alert message', async () => {
     expect(await sut()).toHaveTextContent(defaultValue.message);
   });
 
@@ -43,7 +43,7 @@ describe('AlertComponent', () => {
     expect(await screen.findByTestId(alertIDs.iconStatus)).toBeInTheDocument();
   });
 
-  it('Alert should show informed message', async () => {
+  it('Should show the informed message', async () => {
     const label = 'Testing message in Alert';
     const element = await sut({ message: label });
     expect(element).toHaveTextContent(label);
