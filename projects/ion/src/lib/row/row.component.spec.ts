@@ -1,24 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render } from '@testing-library/angular';
 import { RowComponent } from './row.component';
 
-describe('RowComponent', () => {
-  let component: RowComponent;
-  let fixture: ComponentFixture<RowComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [RowComponent],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RowComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+const sut = async (customProps: RowComponent = {}): Promise<HTMLElement> => {
+  await render(RowComponent, {
+    componentProperties: customProps,
+    declarations: [],
   });
+  return document.getElementById('ion-container-row');
+};
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+describe('RowComponent', () => {
+  it('should render the row component containing the ion-container and ion-row classes', async () => {
+    const rowComponent = await sut({});
+    expect(rowComponent).toHaveClass('ion-container');
+    expect(rowComponent.children[0]).toHaveClass('ion-row');
   });
 });
