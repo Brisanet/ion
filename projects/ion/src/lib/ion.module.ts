@@ -9,6 +9,7 @@ import { RadioComponent } from './radio/radio.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { BadgeComponent } from './badge/badge.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HeadingComponent } from './typography';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
+    BadgeComponent,
   ],
   imports: [CommonModule],
   exports: [
