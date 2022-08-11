@@ -10,6 +10,7 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { AlertComponent } from './alert/alert.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { BadgeComponent } from './badge/badge.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { HeadingComponent } from './typography';
     IonDividerComponent,
     AlertComponent,
     HeadingComponent,
+    BadgeComponent,
   ],
   imports: [CommonModule],
   exports: [
