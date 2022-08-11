@@ -1,0 +1,32 @@
+@import '../../styles/index.scss';
+
+span {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+
+  padding: 5px;
+  color: white;
+  border-radius: 50px;
+}
+
+@mixin theme-badge($bgColor, $fontColor) {
+  background-color: $bgColor;
+  color: $fontColor;
+}
+
+.badge-primary {
+  @include theme-badge($primary-color, $neutral-1);
+}
+
+.badge-secondary {
+  @include theme-badge($secondary-color, $primary-color);
+}
+
+.badge-neutral {
+  @include theme-badge($neutral-4, $neutral-8);
+}
+
+.badge-negative {
+  @include theme-badge($negative-color, $positive-1);
+}

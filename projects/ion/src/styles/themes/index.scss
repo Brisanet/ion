@@ -2,11 +2,16 @@
 
 // Colors
 $primary-color: $primary-6;
+$secondary-color: $primary-1;
 $neutral-color: $neutral-7;
 $success-color: $positive-6;
 $negative-color: $negative-6;
 $warning-color: $warning-6;
 $info-color: $info-6;
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 
 // Spacing
 

@@ -1,6 +1,7 @@
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
@@ -78,18 +79,14 @@ differentSizes.args = {
 };
 
 export const tabsWithIcons = Template.bind({});
+const tabsIcons = Object.keys(iconsPaths).map((icon) => {
+  return {
+    label: icon,
+    selected: false,
+    iconType: icon,
+  };
+});
 tabsWithIcons.args = {
-  tabs: [
-    {
-      label: 'Pencil',
-      selected: true,
-      iconType: 'pencil',
-    },
-    {
-      label: 'Trash',
-      selected: false,
-      iconType: 'trash',
-    },
-  ],
+  tabs: tabsIcons,
   direction: 'vertical',
 };
