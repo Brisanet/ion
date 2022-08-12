@@ -1,0 +1,16 @@
+<div
+  data-testid="ion-tag"
+  [style.color]="!context && validateColor()"
+  [style.background]="!context && validateColor() + '1A'"
+  [class]="setTagType()"
+  #tagRef
+>
+  <ion-icon
+    data-testid="tag-icon"
+    class="tag-icon"
+    size="15"
+    [type]="icon"
+    [color]="!context && validateColor()"
+  ></ion-icon>
+  {{ label }}
+</div>

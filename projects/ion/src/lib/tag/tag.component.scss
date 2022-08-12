@@ -1,0 +1,59 @@
+@import '../../styles/index.scss';
+
+@mixin tag-context($backgroud, $color) {
+  background-color: $backgroud;
+  border-color: $color;
+  color: $color;
+
+  .tag-icon {
+    ::ng-deep svg {
+      fill: $color
+    }
+  }
+}
+
+.ion-tag {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  border-radius: 50px;
+  padding: 6px spacing(1.5);
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  height: max-content;
+  width: max-content;
+
+  .tag-icon {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.outline {
+  border: 1px solid;
+}
+
+.success {
+  @include tag-context($positive-1, $positive-7)
+}
+
+.warning {
+  @include tag-context($warning-1, $warning-7)
+}
+
+.info {
+  @include tag-context($info-1, $info-7)
+}
+
+.negative{
+  @include tag-context($negative-1, $negative-7)
+}
+
+.neutral {
+  @include tag-context($neutral-2, $neutral-7)
+}

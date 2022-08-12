@@ -1,4 +1,3 @@
-import { IonTagComponent } from './ion-tag/ion-tag.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ButtonComponent } from './button/button.component';
@@ -12,6 +11,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
 import { BadgeComponent } from './badge/badge.component';
+import { TagComponent } from './tag/tag.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { BadgeComponent } from './badge/badge.component';
     NotificationComponent,
     HeadingComponent,
     BadgeComponent,
-    IonTagComponent,
+    TagComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -38,7 +38,7 @@ import { BadgeComponent } from './badge/badge.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
-    IonTagComponent,
+    TagComponent,
   ],
 })
 export class IonModule {}
