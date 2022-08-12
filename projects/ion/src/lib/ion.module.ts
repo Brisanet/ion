@@ -1,3 +1,4 @@
+import { IonTagComponent } from './ion-tag/ion-tag.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ButtonComponent } from './button/button.component';
@@ -25,6 +26,7 @@ import { BadgeComponent } from './badge/badge.component';
     NotificationComponent,
     HeadingComponent,
     BadgeComponent,
+    IonTagComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -36,6 +38,7 @@ import { BadgeComponent } from './badge/badge.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
+    IonTagComponent,
   ],
 })
 export class IonModule {}
