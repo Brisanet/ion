@@ -39,7 +39,7 @@ describe('TagComponent', () => {
     expect(screen.getByTestId(IDs.tag)).toBeInTheDocument();
   });
 
-  it('should render without border for default', async () => {
+  it('should render with border', async () => {
     await sut();
     expect(screen.getByTestId(IDs.tag)).toHaveClass('outline');
   });
@@ -54,8 +54,14 @@ describe('TagComponent', () => {
     expect(screen.getByTestId(IDs.tag)).toHaveStyle(`color: ${defaultColor};`);
   });
 
-  it('should render outline tag', async () => {
-    await sut({ ...defaultValue, outline: true });
+  it('should render custom message', async () => {
+    const customMessage = 'Testing tag component';
+    await sut({ label: customMessage });
+    expect(screen.getByText(customMessage)).toBeInTheDocument();
+  });
+
+  it('should render tag without border', async () => {
+    await sut({ ...defaultValue, outline: false });
     expect(screen.getByTestId(IDs.tag)).not.toHaveClass('outline');
   });
 
@@ -88,4 +94,12 @@ describe('TagComponent', () => {
       );
     }
   );
+
+  it.each(tagTypes)('should render %s tag even with a color', async (type) => {
+    await sut({ ...defaultValue, context: type, color: '#be531c' });
+    expect(screen.getByTestId(IDs.tag)).toHaveClass(type);
+    expect(await screen.findByTestId(IDs.tag)).not.toHaveStyle(
+      'color: #be531c;'
+    );
+  });
 });

@@ -16,14 +16,14 @@ export interface IonTagProps {
   styleUrls: ['./tag.component.scss'],
 })
 export class TagComponent {
-  @Input() public outline = false;
+  @Input() public outline = true;
   @Input() public label!: string;
   @Input() public context?: Context;
   @Input() public color?: string = '#505566';
   @Input() public icon?: IconType = 'trash';
 
   setTagType() {
-    return `ion-tag ${!this.outline ? 'outline' : ''} ${
+    return `ion-tag ${this.outline ? 'outline' : ''} ${
       this.context ? this.context : ''
     }`;
   }

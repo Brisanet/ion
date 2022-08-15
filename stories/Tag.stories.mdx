@@ -14,7 +14,7 @@ export const Template = (args) => <TagComponent {...args} />;
 No Ion, o padrão de uma `tag` é sua estilização neutra com borda, mas o mesmo pode receber
 os seguintes parâmetros:
 
-- `outline` Um boolean que define se irá ter borda(por padrão vem falso)
+- `outline` Um boolean que define se irá ter borda(por padrão vem verdadeiro, trazendo a `tag` com borda)
 - `label` A mensagem que será mostrada na `tag`
 - `context` Que define tipos prioritários para a `tag`
 - `color` Que pode passar uma cor customizada para a `tag`
@@ -45,14 +45,14 @@ A partir do atributo label o usuário irá informar qual mensagem será mostrada
 
 ## Bordas(outline)
 
-Por padrão a `tag` é gerada com bordas, mas caso seja passado como verdadeiro o `outline` a tag será rederizada sem a borda
+Por padrão a `tag` é gerada com bordas mas com o parâmetro `outline` ela será mostrada sem bordas.
 
 <Canvas>
   <Story
     name="type: outline"
     args={{
       label: 'Example Message',
-      outline: true,
+      outline: false,
     }}
     decorators={[
       moduleMetadata({
