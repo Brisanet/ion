@@ -19,12 +19,6 @@ const Template: Story<MessageComponent> = (args: MessageComponent) => ({
   props: args,
 });
 
-export const Random = Template.bind({});
-Random.args = {
-  label: 'Custom label',
-  type: 'random',
-};
-
 export const Positive = Template.bind({});
 Positive.args = {
   label: 'Custom label',
@@ -53,4 +47,10 @@ export const Info = Template.bind({});
 Info.args = {
   label: 'Custom label',
   type: 'info',
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  label: 'Custom label',
+  type: 'custom',
 };

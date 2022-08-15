@@ -19,7 +19,7 @@ const messageIDs = {
 };
 
 const iconTypes = [
-  'random',
+  'custom',
   'positive',
   'negative_alert',
   'negative_erro',

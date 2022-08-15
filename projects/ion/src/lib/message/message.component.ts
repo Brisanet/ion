@@ -8,20 +8,20 @@ export interface IonMessageProps {
 }
 
 export type Statustype =
-  | 'random'
   | 'positive'
   | 'negative_alert'
   | 'negative_erro'
   | 'warning'
-  | 'info';
+  | 'info'
+  | 'custom';
 
 export const iconTypes = {
-  random: 'plus-solid',
   positive: 'check-solid',
   negative_alert: 'exclamation-solid',
   negative_erro: 'close-solid',
   warning: 'exclamation-solid',
   info: 'info-solid',
+  custom: 'plus-solid',
 };
 
 @Component({
@@ -31,7 +31,7 @@ export const iconTypes = {
 })
 export class MessageComponent implements OnInit {
   @Input() label!: string;
-  @Input() type = 'random';
+  @Input() type = 'positive';
   @Input() iconType;
 
   setIcon() {
