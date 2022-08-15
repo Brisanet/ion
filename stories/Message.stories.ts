@@ -31,16 +31,16 @@ Positive.args = {
   type: 'positive',
 };
 
-export const Negative1 = Template.bind({});
-Negative1.args = {
+export const Negative_alert = Template.bind({});
+Negative_alert.args = {
   label: 'Custom label',
-  type: 'negative1',
+  type: 'negative_alert',
 };
 
-export const Negative2 = Template.bind({});
-Negative2.args = {
+export const Negative_erro = Template.bind({});
+Negative_erro.args = {
   label: 'Custom label',
-  type: 'negative2',
+  type: 'negative_erro',
 };
 
 export const Warning = Template.bind({});

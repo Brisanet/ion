@@ -25,11 +25,8 @@
     @include icons-details($positive-6);
   }
 
-  &.negative1 {
-    @include icons-details($negative-6);
-  }
-
-  &.negative2 {
+  &.negative_alert,
+  &.negative_erro {
     @include icons-details($negative-6);
   }
 

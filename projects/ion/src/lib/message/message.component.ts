@@ -1,19 +1,25 @@
 import { IconType } from './../icon/icon.component';
 import { Component, Input, OnInit } from '@angular/core';
 
+export interface IonMessageProps {
+  label: string;
+  type?: Statustype;
+  iconType?: IconType;
+}
+
 export type Statustype =
   | 'random'
   | 'positive'
-  | 'negative1'
-  | 'negative2'
+  | 'negative_alert'
+  | 'negative_erro'
   | 'warning'
   | 'info';
 
 export const iconTypes = {
   random: 'plus-solid',
   positive: 'check-solid',
-  negative1: 'exclamation-solid',
-  negative2: 'close-solid',
+  negative_alert: 'exclamation-solid',
+  negative_erro: 'close-solid',
   warning: 'exclamation-solid',
   info: 'info-solid',
 };
@@ -25,8 +31,8 @@ export const iconTypes = {
 })
 export class MessageComponent implements OnInit {
   @Input() label!: string;
-  @Input() type?: Statustype = 'random';
-  @Input() iconType?: IconType;
+  @Input() type = 'random';
+  @Input() iconType;
 
   setIcon() {
     this.iconType = iconTypes[this.type];
