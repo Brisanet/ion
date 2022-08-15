@@ -1,0 +1,69 @@
+@import '../../styles/index.scss';
+
+@mixin alert-style($backgroud, $borderColor) {
+  background-color: $backgroud;
+  border-color: $borderColor !important;
+
+  .alert-icon {
+    display: flex;
+    align-items: center;
+
+    ::ng-deep svg {
+      fill: $borderColor;
+    }
+  }
+}
+
+.ion-alert {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 400;
+  line-height: 20px;
+  font-size: 14px;
+
+  span {
+    width: 95%;
+  }
+}
+
+.success {
+  @include alert-style($positive-1, $positive-6);
+}
+
+.info {
+  @include alert-style($info-1, $info-6);
+}
+
+.warning {
+  @include alert-style($warning-1, $warning-6);
+}
+
+.negative {
+  @include alert-style($negative-1, $negative-6);
+}
+
+.closable-true {
+  padding: spacing(1) spacing(2);
+}
+
+.closable-false {
+  padding: spacing(1) spacing(2) spacing(1) spacing(1.5);
+  border-left: 8px solid;
+}
+
+.close-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+
+  ::ng-deep svg {
+    height: 18px;
+    width: 18px;
+    fill: $primary-6;
+  }
+}

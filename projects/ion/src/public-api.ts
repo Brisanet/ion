@@ -17,3 +17,4 @@ export * from './lib/tab/tab.component';
 export * from './lib/tab-group/tab-group.component';
 export * from './lib/typography/';
 export * from './lib/tag/tag.component';
+export * from './lib/alert/alert.component';
