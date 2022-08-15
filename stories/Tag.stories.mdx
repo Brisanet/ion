@@ -45,7 +45,7 @@ A partir do atributo label o usuário irá informar qual mensagem será mostrada
 
 ## Bordas(outline)
 
-Por padrão a `tag` é gerada com bordas mas com o parâmetro `outline` ela será mostrada sem bordas.
+Por padrão a `tag` é gerada com bordas mas com o parâmetro `outline` sendo passado falso ela será mostrada sem bordas.
 
 <Canvas>
   <Story
@@ -175,6 +175,7 @@ Podendo aceitas os valores:
 Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
 
 - Esse atributo aceita cores em hexadecimal.
+- Caso seja passado juntamente com o `context` a tag irá priorizar o contexto e desconsiderará a cor passada
 
 <Canvas>
   <Story
