@@ -2,9 +2,9 @@
   .ion-container {
     box-sizing: border-box;
     width: 100%;
-    padding-right: 24px;
-    padding-left: 24px;
-    margin: 24px auto;
+    padding-right: spacing(3);
+    padding-left: spacing(3);
+    margin: spacing(3) auto;
 
     @media (min-width: 1441px) {
       max-width: 1441px;
@@ -20,8 +20,8 @@
       flex-shrink: 0;
       width: 100%;
       max-width: 100%;
-      padding-right: 8px;
-      padding-left: 8px;
+      padding-right: spacing(1);
+      padding-left: spacing(1);
     }
   }
 }
