@@ -20,8 +20,13 @@ export class ChipComponent {
   @Input('selected') selected? = false;
   @Input() size?: ChipSize = 'sm';
   @Input() icon?: IconType;
+  @Input() showDropDown = false;
 
   select() {
     this.selected = !this.selected;
+  }
+
+  dropDown() {
+    this.showDropDown = !this.showDropDown;
   }
 }

@@ -9,9 +9,14 @@
 >
   {{ label }}
   <ion-icon
+    (click)="dropDown()"
     class="icon-color"
     *ngIf="icon"
     [type]="icon"
     [size]="size === 'sm' ? 16 : 20"
-  ></ion-icon>
+  >
+  </ion-icon>
 </button>
+<div class="dropdown" *ngIf="showDropDown">
+  <span>teste</span>
+</div>
