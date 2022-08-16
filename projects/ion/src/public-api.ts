@@ -10,6 +10,7 @@ export * from './lib/badge/badge.component';
 export * from './lib/button/button.component';
 export * from './lib/chip/chip.component';
 export * from './lib/divider/divider.component';
+export * from './lib/dropdown/dropdown.component';
 export * from './lib/icon/icon.component';
 export * from './lib/notification/notification.component';
 export * from './lib/radio/radio.component';

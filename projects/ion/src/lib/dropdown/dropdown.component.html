@@ -1,0 +1,34 @@
+<div class="container-options" data-testid="ion-dropdown">
+  <div
+    [ngClass]="{
+      'dropdown-disabled': option.disabled,
+      'dropdown-disabled-selected': option.disabled && option.selected,
+      'dropdown-item-selected': option.selected && !option.disabled,
+      'dropdown-item': !option.selected && !option.disabled
+    }"
+    *ngFor="let option of options; let index = index"
+    (click)="select(option)"
+    (mouseenter)="mouseEnter(option)"
+    (mouseleave)="mouseLeave(option)"
+    [id]="'option-' + index"
+  >
+    <div class="container">
+      <span>{{ option.label }}</span>
+      <div>
+        <ion-icon
+          type="check"
+          *ngIf="option.selected && !option.hovered"
+          data-testid="ion-check-selected"
+          size="16"
+        ></ion-icon>
+
+        <ion-icon
+          type="close"
+          *ngIf="option.selected && option.hovered"
+          data-testid="ion-close-selected"
+          size="16"
+        ></ion-icon>
+      </div>
+    </div>
+  </div>
+</div>

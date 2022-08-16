@@ -11,6 +11,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
 import { BadgeComponent } from './badge/badge.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BadgeComponent } from './badge/badge.component';
     NotificationComponent,
     HeadingComponent,
     BadgeComponent,
+    DropdownComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -36,6 +38,7 @@ import { BadgeComponent } from './badge/badge.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
+    DropdownComponent,
   ],
 })
 export class IonModule {}
