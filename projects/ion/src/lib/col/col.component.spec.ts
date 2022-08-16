@@ -1,24 +1,21 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { render, screen } from '@testing-library/angular';
 import { ColComponent } from './col.component';
 
-describe('ColComponent', () => {
-  let component: ColComponent;
-  let fixture: ComponentFixture<ColComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ColComponent],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ColComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+const sut = async (customProps: ColComponent = {}): Promise<HTMLElement> => {
+  await render(ColComponent, {
+    componentProperties: customProps,
+    declarations: [],
   });
+  const body = document.body;
+  const col = document.createElement('ion-col');
+  col.appendChild(document.createTextNode('col-12'));
+  body.appendChild(col);
+  return screen.findByText('col-12');
+};
 
-  it('should create ', () => {
-    expect(component).toBeTruthy();
+describe('RowComponent', () => {
+  it('should render col component', async () => {
+    const colComponent = await sut({});
+    expect(colComponent).toBeTruthy();
   });
 });
