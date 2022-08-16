@@ -21,6 +21,7 @@ export class ChipComponent {
   @Input() size?: ChipSize = 'sm';
   @Input() icon?: IconType;
   @Input() showDropDown = false;
+  public isOpen = false;
 
   select() {
     this.selected = !this.selected;
@@ -28,5 +29,6 @@ export class ChipComponent {
 
   dropDown() {
     this.showDropDown = !this.showDropDown;
+    this.isOpen = !this.isOpen;
   }
 }

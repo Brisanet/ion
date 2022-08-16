@@ -7,10 +7,18 @@
   }"
   [class]="'chip-' + size"
 >
+  <ion-icon
+    class="icon-color"
+    *ngIf="icon"
+    [type]="icon"
+    [size]="size === 'sm' ? 16 : 20"
+  >
+  </ion-icon>
   {{ label }}
   <ion-icon
     (click)="dropDown()"
-    class="icon-color"
+    [class.rotate]="isOpen"
+    class="icon-color rotate"
     *ngIf="icon"
     [type]="icon"
     [size]="size === 'sm' ? 16 : 20"

@@ -41,6 +41,7 @@ Selected.args = {
   label: 'Selected',
   selected: true,
 };
+
 export const BasicIcon = Template.bind({});
 BasicIcon.args = {
   label: 'Custom label',
