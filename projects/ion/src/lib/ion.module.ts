@@ -2,14 +2,17 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ButtonComponent } from './button/button.component';
 import { ChipComponent } from './chip/chip.component';
-import { IonDividerComponent } from './divider/divider.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { RadioComponent } from './radio/radio.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
-import { HeadingComponent } from './typography';
-import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
+import { HeadingComponent } from './typography';
+import { AlertComponent } from './alert/alert.component';
+import { IonDividerComponent } from './divider/divider.component';
+import { NotificationComponent } from './notification/notification.component';
+import { BadgeComponent } from './badge/badge.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { TabComponent } from './tab/tab.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
-    MessageComponent,
+    HeadingComponent,
+    AlertComponent,
+    NotificationComponent,
+    BadgeComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -32,8 +38,12 @@ import { TabComponent } from './tab/tab.component';
     TabComponent,
     TabGroupComponent,
     IonDividerComponent,
+    AlertComponent,
     HeadingComponent,
+    AlertComponent,
     MessageComponent,
+    NotificationComponent,
+    BadgeComponent,
   ],
 })
 export class IonModule {}
