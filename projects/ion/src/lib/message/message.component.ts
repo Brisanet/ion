@@ -3,11 +3,11 @@ import { Component, Input, OnInit } from '@angular/core';
 
 export interface IonMessageProps {
   label: string;
-  type?: Statustype;
+  type?: MessageStatusType;
   iconType?: IconType;
 }
 
-export type Statustype =
+export type MessageStatusType =
   | 'positive'
   | 'negative_alert'
   | 'negative_erro'
@@ -32,7 +32,7 @@ export const iconTypes = {
 export class MessageComponent implements OnInit {
   @Input() label!: string;
   @Input() type = 'positive';
-  @Input() iconType;
+  @Input() iconType?;
 
   setIcon() {
     this.iconType = iconTypes[this.type];

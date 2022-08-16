@@ -4,14 +4,12 @@ import { render, screen } from '@testing-library/angular';
 import {
   IonMessageProps,
   MessageComponent,
-  Statustype,
+  MessageStatusType,
 } from './message.component';
 
 const defaultValue: IonMessageProps = {
   label: 'Message',
 };
-
-const messageDefaultClass = 'ion-message';
 
 const messageIDs = {
   message: 'ion-message',
@@ -37,23 +35,28 @@ const sut = async (customProps: IonMessageProps = defaultValue) => {
 };
 
 describe('MessageComponent', () => {
-  it('Should render message', async () => {
-    expect(await sut()).toHaveClass(messageDefaultClass);
+  beforeEach(async () => {
+    await sut();
+  });
+  it('Should render with default positive class', async () => {
+    expect(screen.getByTestId('ion-message')).toHaveClass('positive');
   });
 
   it('Should have an message', async () => {
-    expect(await sut()).toHaveTextContent(defaultValue.label);
+    expect(screen.getAllByText(defaultValue.label)).toHaveLength(1);
   });
 
   it('Should render with success icon by default', async () => {
-    await sut();
-    expect(
-      await screen.findByTestId(messageIDs.iconStatus)
-    ).toBeInTheDocument();
+    expect(document.getElementById('ion-icon-check-solid')).toBeInTheDocument();
   });
+});
 
-  it.each(iconTypes)('Should render %s type', async (type: Statustype) => {
-    const element = await sut({ ...defaultValue, type: type });
-    expect(element).toHaveClass(type);
-  });
+describe('MessageComponent / Types', () => {
+  it.each(iconTypes)(
+    'Should render %s type',
+    async (type: MessageStatusType) => {
+      const element = await sut({ ...defaultValue, type: type });
+      expect(element).toHaveClass(type);
+    }
+  );
 });
