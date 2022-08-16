@@ -16,7 +16,7 @@ const messageIDs = {
   iconStatus: 'message-ion',
 };
 
-const iconTypes = [
+export const icontypes = [
   'custom',
   'positive',
   'negative_alert',
@@ -52,7 +52,7 @@ describe('MessageComponent', () => {
 });
 
 describe('MessageComponent / Types', () => {
-  it.each(iconTypes)(
+  it.each(icontypes)(
     'Should render %s type',
     async (type: MessageStatusType) => {
       const element = await sut({ ...defaultValue, type: type });

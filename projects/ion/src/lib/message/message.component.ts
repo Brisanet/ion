@@ -15,7 +15,7 @@ export type MessageStatusType =
   | 'info'
   | 'custom';
 
-export const iconTypes = {
+export const icontypes = {
   positive: 'check-solid',
   negative_alert: 'exclamation-solid',
   negative_erro: 'close-solid',
@@ -35,7 +35,7 @@ export class MessageComponent implements OnInit {
   @Input() iconType?;
 
   setIcon() {
-    this.iconType = iconTypes[this.type];
+    this.iconType = icontypes[this.type];
   }
 
   ngOnInit(): void {
