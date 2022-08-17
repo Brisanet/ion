@@ -1,12 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarType } from '../core/types/avatar';
+import { SizeType } from '../core/types/size';
 import { IconType } from '../icon/icon.component';
-
-export type SizesType = 'lg' | 'md' | 'sm' | 'xs';
 
 export interface IonAvatarProps {
   type: AvatarType;
-  size: SizesType;
+  size: SizeType;
   value?: string;
   image?: string;
   onErrorImage?: string;
@@ -19,7 +18,7 @@ export interface IonAvatarProps {
 })
 export class AvatarComponent implements OnInit {
   @Input() type: AvatarType;
-  @Input() size: SizesType = 'md';
+  @Input() size: SizeType = 'md';
   @Input() value?: string;
   @Input() image?: string;
   @Input() onErrorImage?: string;
@@ -40,7 +39,7 @@ export class AvatarComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.type === 'initials') {
+    if (this.type === AvatarType.initials) {
       this.initials = this.getInitials(this.value) || '--';
       return;
     }

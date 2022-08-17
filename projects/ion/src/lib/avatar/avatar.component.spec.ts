@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/angular';
+import { AvatarType } from '../core/types/avatar';
+import { SizeType } from '../core/types/size';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
-import { AvatarComponent, SizesType } from './avatar.component';
+import { AvatarComponent } from './avatar.component';
 
 async function sut(props: Partial<AvatarComponent> = {}) {
   await render(AvatarComponent, {
@@ -15,7 +17,7 @@ async function sut(props: Partial<AvatarComponent> = {}) {
 describe('Avatar', () => {
   describe('Basics', () => {
     const sizes = ['lg', 'md', 'sm', 'xs'];
-    it.each(sizes)('should have size-%s class', async (size: SizesType) => {
+    it.each(sizes)('should have size-%s class', async (size: SizeType) => {
       expect(await sut({ size })).toHaveClass(`size-${size}`);
     });
     it('should have default size-md when no size is passed', async () => {
@@ -24,39 +26,40 @@ describe('Avatar', () => {
   });
   describe('Initials', () => {
     it('should render correct initials when type is initials', async () => {
-      await sut({ type: 'initials', value: 'Taylor Swift' });
+      await sut({ type: AvatarType.initials, value: 'Taylor Swift' });
       expect(screen.getByText('TS')).toBeInTheDocument();
     });
     it('should render initials in uppercase', async () => {
-      await sut({ type: 'initials', value: 'beyoncé knowles' });
+      await sut({ type: AvatarType.initials, value: 'beyoncé knowles' });
       expect(screen.getByText('BK')).toBeInTheDocument();
     });
     it('should render two first initials when value have more than two words', async () => {
       await sut({
-        type: 'initials',
+        type: AvatarType.initials,
         value: 'Stefanni Joanne Angelina Germanotta',
       });
       expect(screen.getByText('SJ')).toBeInTheDocument();
     });
     it('should render -- when no value is provided', async () => {
-      await sut({ type: 'initials' });
+      await sut({ type: AvatarType.initials });
       expect(screen.getByText('--')).toBeInTheDocument();
     });
     it('should only show initials', async () => {
-      await sut({ type: 'initials', value: 'Taylor Swift' });
+      await sut({ type: AvatarType.initials, value: 'Taylor Swift' });
       expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
       expect(screen.queryByRole('img')).not.toBeInTheDocument();
+      expect(screen.getByText('TS')).toBeInTheDocument();
     });
   });
   describe('Icon', () => {
     it('should render correct icon when type is icon', async () => {
-      await sut({ type: 'icon' });
+      await sut({ type: AvatarType.icon });
       expect(document.getElementById('ion-icon-union')).toBeInTheDocument();
     });
   });
   describe('Photo', () => {
     it('should render avatar with icon when type is icon', async () => {
-      await sut({ type: 'photo', image: 'assets/images/avatar.jpg' });
+      await sut({ type: AvatarType.photo, image: 'assets/images/avatar.jpg' });
       expect(screen.getByRole('img')).toHaveAttribute(
         'src',
         'assets/images/avatar.jpg'

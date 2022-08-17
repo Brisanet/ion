@@ -1,1 +1,5 @@
-export type AvatarType = 'initials' | 'icon' | 'photo';
+export enum AvatarType {
+  initials = 'initials',
+  icon = 'icon',
+  photo = 'photo',
+}

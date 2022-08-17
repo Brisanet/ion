@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/angular';
 import { DefaultImageDirective } from './defaultImage.directive';
 
-async function sut(src = 'test.png', defaultImage = 'default.png') {
+const defaultSrc = 'test.png';
+const defaultImageFile = 'default.png';
+async function sut(src = defaultSrc, defaultImage = defaultImageFile) {
   await render(`<img src="${src}" default="${defaultImage}">`, {
     declarations: [DefaultImageDirective],
   });
@@ -11,8 +13,8 @@ async function sut(src = 'test.png', defaultImage = 'default.png') {
 describe('Directive: DefaultImage', () => {
   it('should create an image with directive', async () => {
     const image = await sut();
-    expect(image).toHaveAttribute('src', 'test.png');
-    expect(image).toHaveAttribute('default', 'default.png');
+    expect(image).toHaveAttribute('src', defaultSrc);
+    expect(image).toHaveAttribute('default', defaultImageFile);
   });
   it('should set default image when error', async () => {
     const spy = jest.spyOn(DefaultImageDirective.prototype, 'updateUrl');
