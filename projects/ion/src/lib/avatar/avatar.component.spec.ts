@@ -55,7 +55,7 @@ describe('Avatar', () => {
     });
   });
   describe('Photo', () => {
-    it('should render avatar with icon when type is icon', async () => {
+    it('should render avatar with image when type is photo', async () => {
       await sut({ type: 'photo', image: 'assets/images/avatar.jpg' });
       expect(screen.getByRole('img')).toHaveAttribute(
         'src',
