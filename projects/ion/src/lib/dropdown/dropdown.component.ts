@@ -23,6 +23,8 @@ export class DropdownComponent {
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Output() selected = new EventEmitter<DropdownItem[]>();
 
+  public iconSize = 16;
+
   private isDisabled(option: DropdownItem) {
     return option.disabled;
   }

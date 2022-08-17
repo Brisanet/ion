@@ -14,21 +14,14 @@
   >
     <div class="container">
       <span>{{ option.label }}</span>
-      <div>
-        <ion-icon
-          type="check"
-          *ngIf="option.selected && !option.hovered"
-          data-testid="ion-check-selected"
-          size="16"
-        ></ion-icon>
-
-        <ion-icon
-          type="close"
-          *ngIf="option.selected && option.hovered"
-          data-testid="ion-close-selected"
-          size="16"
-        ></ion-icon>
-      </div>
+      <ion-icon
+        [type]="option.hovered ? 'close' : 'check'"
+        [attr.data-testid]="
+          'ion-' + (option.hovered ? 'close' : 'check') + '-selected'
+        "
+        [size]="iconSize"
+        *ngIf="option.selected"
+      ></ion-icon>
     </div>
   </div>
 </div>
