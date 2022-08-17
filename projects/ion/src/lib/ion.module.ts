@@ -6,6 +6,7 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { RadioComponent } from './radio/radio.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
+import { AlertComponent } from './alert/alert.component';
 import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
@@ -23,6 +24,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
+    AlertComponent,
     NotificationComponent,
     HeadingComponent,
     BadgeComponent,
@@ -37,6 +39,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     TabComponent,
     TabGroupComponent,
     IonDividerComponent,
+    AlertComponent,
     HeadingComponent,
     DropdownComponent,
   ],
