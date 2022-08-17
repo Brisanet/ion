@@ -1,4 +1,4 @@
-import { Context } from './../core/types/context';
+import { TagStatus } from './../core/types';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen } from '@testing-library/angular';
@@ -15,7 +15,7 @@ const IDs = {
 
 const defaultColor = '#505566';
 
-const tagTypes: Array<Context> = [
+const tagTypes: Array<TagStatus> = [
   'success',
   'neutral',
   'info',
@@ -34,24 +34,32 @@ const sut = async (customProps: IonTagProps = defaultValue) => {
 };
 
 describe('TagComponent', () => {
-  it('should render component', async () => {
-    await sut();
-    expect(screen.getByTestId(IDs.tag)).toBeInTheDocument();
-  });
+  describe('component basics', () => {
+    beforeEach(async () => {
+      await sut();
+    });
 
-  it('should render with border', async () => {
-    await sut();
-    expect(screen.getByTestId(IDs.tag)).toHaveClass('outline');
-  });
+    it('should render component', () => {
+      expect(screen.getByTestId(IDs.tag)).toBeInTheDocument();
+    });
 
-  it('should render default message', async () => {
-    await sut();
-    expect(screen.getByText(defaultValue.label)).toBeInTheDocument();
-  });
+    it('should render with border by default', () => {
+      expect(screen.getByTestId(IDs.tag)).toHaveClass('outline');
+    });
 
-  it('should render with default color', async () => {
-    await sut();
-    expect(screen.getByTestId(IDs.tag)).toHaveStyle(`color: ${defaultColor};`);
+    it('should render default message', () => {
+      expect(screen.getByText(defaultValue.label)).toBeInTheDocument();
+    });
+
+    it('should render with default color', () => {
+      expect(screen.getByTestId(IDs.tag)).toHaveStyle(
+        `color: ${defaultColor};`
+      );
+    });
+
+    it('should render icon', () => {
+      expect(screen.getByTestId(IDs.icon)).toBeInTheDocument();
+    });
   });
 
   it('should render custom message', async () => {
@@ -66,13 +74,8 @@ describe('TagComponent', () => {
   });
 
   it.each(tagTypes)('should render %s tag', async (type) => {
-    await sut({ ...defaultValue, context: type });
+    await sut({ ...defaultValue, status: type });
     expect(screen.getByTestId(IDs.tag)).toHaveClass(type);
-  });
-
-  it('should render icon', async () => {
-    await sut();
-    expect(screen.getByTestId(IDs.icon)).toBeInTheDocument();
   });
 
   it.each(customColors)(
@@ -96,7 +99,7 @@ describe('TagComponent', () => {
   );
 
   it.each(tagTypes)('should render %s tag even with a color', async (type) => {
-    await sut({ ...defaultValue, context: type, color: '#be531c' });
+    await sut({ ...defaultValue, status: type, color: '#be531c' });
     expect(screen.getByTestId(IDs.tag)).toHaveClass(type);
     expect(await screen.findByTestId(IDs.tag)).not.toHaveStyle(
       'color: #be531c;'

@@ -1,14 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { IconType } from '../icon/icon.component';
-import { Context } from '../core/types';
+import { TagStatus } from '../core/types';
+import { validateHexColor } from '../utils';
 
 export interface IonTagProps {
   outline?: boolean;
-  context?: Context;
+  status?: TagStatus;
   color?: string;
   label: string;
   icon?: string;
 }
+
+const defaultColor = '#505566';
 
 @Component({
   selector: 'ion-tag',
@@ -18,17 +21,17 @@ export interface IonTagProps {
 export class TagComponent {
   @Input() public outline = true;
   @Input() public label!: string;
-  @Input() public context?: Context;
-  @Input() public color?: string = '#505566';
+  @Input() public status?: TagStatus;
+  @Input() public color?: string = defaultColor;
   @Input() public icon?: IconType = 'trash';
 
   setTagType() {
     return `ion-tag ${this.outline ? 'outline' : ''} ${
-      this.context ? this.context : ''
+      this.status ? this.status : ''
     }`;
   }
 
-  validateColor() {
-    return /^#([0-f]{6})$/.test(this.color) ? this.color : '#505566';
+  validateHexColor() {
+    return validateHexColor(this.color) ? this.color : defaultColor;
   }
 }

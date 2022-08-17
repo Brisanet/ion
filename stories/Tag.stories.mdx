@@ -16,7 +16,7 @@ os seguintes parâmetros:
 
 - `outline` Um boolean que define se irá ter borda(por padrão vem verdadeiro, trazendo a `tag` com borda)
 - `label` A mensagem que será mostrada na `tag`
-- `context` Que define tipos prioritários para a `tag`
+- `status` Que define tipos prioritários para a `tag`
 - `color` Que pode passar uma cor customizada para a `tag`
 - `icon` Que passa um icone customizado
 
@@ -65,9 +65,9 @@ Por padrão a `tag` é gerada com bordas mas com o parâmetro `outline` sendo pa
   </Story>
 </Canvas>
 
-## Contextos(context)
+## Status(status)
 
-Por meio do parâmetro `context` pode ser repassado para a tag estilizações seguindo as regras do "informative color".
+Por meio do parâmetro `status` pode ser repassado para a tag estilizações seguindo as regras do "informative color".
 Podendo aceitas os valores:
 
 ### success
@@ -77,7 +77,7 @@ Podendo aceitas os valores:
     name="type: success"
     args={{
       label: 'Example Message',
-      context: 'success',
+      status: 'success',
     }}
     decorators={[
       moduleMetadata({
@@ -97,7 +97,7 @@ Podendo aceitas os valores:
     name="type: warning"
     args={{
       label: 'Example Message',
-      context: 'warning',
+      status: 'warning',
     }}
     decorators={[
       moduleMetadata({
@@ -117,7 +117,7 @@ Podendo aceitas os valores:
     name="type: info"
     args={{
       label: 'Example Message',
-      context: 'info',
+      status: 'info',
     }}
     decorators={[
       moduleMetadata({
@@ -137,7 +137,7 @@ Podendo aceitas os valores:
     name="type: negative"
     args={{
       label: 'Example Message',
-      context: 'negative',
+      status: 'negative',
     }}
     decorators={[
       moduleMetadata({
@@ -157,7 +157,7 @@ Podendo aceitas os valores:
     name="type: neutral"
     args={{
       label: 'Example Message',
-      context: 'neutral',
+      status: 'neutral',
     }}
     decorators={[
       moduleMetadata({
@@ -175,7 +175,7 @@ Podendo aceitas os valores:
 Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
 
 - Esse atributo aceita cores em hexadecimal.
-- Caso seja passado juntamente com o `context` a tag irá priorizar o contexto e desconsiderará a cor passada
+- Caso seja passado juntamente com o `status` a tag irá priorizar o status e desconsiderará a cor passada
 
 <Canvas>
   <Story
