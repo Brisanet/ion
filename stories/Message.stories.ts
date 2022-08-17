@@ -4,7 +4,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { MessageComponent } from '../projects/ion/src/lib/message/message.component';
 
 export default {
-  title: 'Ion/Message',
+  title: 'Ion/Feedback/Message',
   component: MessageComponent,
   decorators: [
     moduleMetadata({
