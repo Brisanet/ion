@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AvatarComponent } from './avatar/avatar.component';
+import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { ChipComponent } from './chip/chip.component';
+import { DefaultImageDirective } from './defaultImage.directive';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { RadioComponent } from './radio/radio.component';
@@ -11,7 +14,6 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
-import { BadgeComponent } from './badge/badge.component';
 import { TagComponent } from './tag/tag.component';
 
 @NgModule({
@@ -27,6 +29,8 @@ import { TagComponent } from './tag/tag.component';
     AlertComponent,
     NotificationComponent,
     HeadingComponent,
+    AvatarComponent,
+    DefaultImageDirective,
     BadgeComponent,
     TagComponent,
   ],
@@ -34,6 +38,7 @@ import { TagComponent } from './tag/tag.component';
   exports: [
     IonComponent,
     ButtonComponent,
+    BadgeComponent,
     IonIconComponent,
     ChipComponent,
     TabComponent,
@@ -42,6 +47,7 @@ import { TagComponent } from './tag/tag.component';
     AlertComponent,
     HeadingComponent,
     TagComponent,
+    AvatarComponent,
   ],
 })
 export class IonModule {}
