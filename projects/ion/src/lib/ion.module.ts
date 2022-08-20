@@ -14,6 +14,7 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { DatePickerComponent } from './date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { HeadingComponent } from './typography';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    DatePickerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -45,6 +47,7 @@ import { HeadingComponent } from './typography';
     AlertComponent,
     HeadingComponent,
     AvatarComponent,
+    DatePickerComponent,
   ],
 })
 export class IonModule {}
