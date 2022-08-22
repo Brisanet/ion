@@ -14,8 +14,9 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { RowComponent } from './row/row.component';
+import { ColComponent } from './col/col.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
-
 @NgModule({
   declarations: [
     IonComponent,
@@ -32,7 +33,6 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
-    DatePickerComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -47,6 +47,8 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     AlertComponent,
     HeadingComponent,
     AvatarComponent,
+    RowComponent,
+    ColComponent,
     DatePickerComponent,
   ],
 })
