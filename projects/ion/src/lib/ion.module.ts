@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { AvatarComponent } from './avatar/avatar.component';
+import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { ChipComponent } from './chip/chip.component';
+import { DefaultImageDirective } from './defaultImage.directive';
 import { IonIconComponent } from './icon/icon.component';
 import { IonComponent } from './ion.component';
 import { RadioComponent } from './radio/radio.component';
@@ -9,9 +12,12 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { AlertComponent } from './alert/alert.component';
 import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
-import { BadgeComponent } from './badge/badge.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { RowComponent } from './row/row.component';
+import { ColComponent } from './col/col.component';
 
 @NgModule({
   declarations: [
@@ -23,22 +29,38 @@ import { BadgeComponent } from './badge/badge.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
+    HeadingComponent,
     AlertComponent,
+    MessageComponent,
     NotificationComponent,
     HeadingComponent,
+    AvatarComponent,
+    DefaultImageDirective,
     BadgeComponent,
+    DropdownComponent,
+    RowComponent,
+    ColComponent,
   ],
   imports: [CommonModule],
   exports: [
     IonComponent,
     ButtonComponent,
+    BadgeComponent,
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
-    AlertComponent,
     HeadingComponent,
+    DropdownComponent,
+    AlertComponent,
+    MessageComponent,
+    NotificationComponent,
+    BadgeComponent,
+    AvatarComponent,
+    RowComponent,
+    ColComponent,
   ],
 })
 export class IonModule {}
