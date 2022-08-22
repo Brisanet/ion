@@ -1,0 +1,76 @@
+@import '../../styles/index.scss';
+
+$avatar-primary-color: $primary-7;
+$avatar-secondary-color: $primary-2;
+
+@mixin sizes($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin circle($size) {
+  border-radius: 50%;
+  @include sizes($size);
+}
+
+@mixin icon-size($size) {
+  ::ng-deep svg {
+    @include sizes($size);
+  }
+}
+
+.ion-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $avatar-secondary-color;
+  overflow: hidden;
+
+  span {
+    text-align: center;
+    font-weight: 600;
+    color: $avatar-primary-color;
+  }
+
+  ion-icon {
+    ::ng-deep svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      path {
+        fill: $avatar-primary-color;
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.size-xs {
+  @include circle(16px);
+  @include icon-size(12px);
+  font-size: 10px;
+}
+
+.size-sm {
+  @include circle(24px);
+  @include icon-size(16px);
+  font-size: 12px;
+}
+
+.size-md {
+  @include circle(32px);
+  @include icon-size(20px);
+  font-size: 14px;
+}
+
+.size-lg {
+  @include circle(40px);
+  @include icon-size(24px);
+  font-size: 16px;
+}
