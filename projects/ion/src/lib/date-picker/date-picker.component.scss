@@ -1,9 +1,14 @@
+@import '../../styles/index.scss';
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
 :host {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: sans-serif;
 }
 
 button {
@@ -27,11 +32,10 @@ button {
 }
 
 .calendar-dropdown {
-  width: 300px;
   margin: 10px 0 30px;
   padding: 20px;
-  background: #fff;
-  border-radius: 5px;
+  background: $neutral-1;
+  border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 
   & div.header {
@@ -47,14 +51,13 @@ button {
     }
 
     & button {
-      padding: 0;
       border: 8px solid transparent;
       width: 0;
       height: 0;
       border-radius: 2px;
       border-top-color: #222;
       transform: rotate(90deg);
-      cursor: pointer;
+      // cursor: pointer;
       background: none;
       position: relative;
     }
@@ -67,45 +70,62 @@ button {
   & div.week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 5px;
-    margin: 10px;
+    grid-gap: 16px;
+    margin: 28px 0px 10px 0px;
 
     span {
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 10px;
-      text-transform: capitalize;
+      width: 32px;
+      line-height: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $neutral-6;
     }
   }
 
   & ::ng-deep div.month-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 5px;
+    grid-gap: 16px;
+    margin: 8px 0;
 
     & button.month-day {
-      padding: 8px 5px;
-      background: #c7c9d3;
-      color: #fff;
       display: flex;
-      justify-content: center;
       align-items: center;
-      border-radius: 2px;
-      cursor: pointer;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      padding: 0px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $neutral-5;
+      background-color: transparent;
       border: none;
+      cursor: pointer;
 
       &.current {
-        background: #444857;
+        color: $neutral-7;
       }
 
       &.selected {
-        background: #28a5a7;
-        color: #ffffff;
+        background-color: $primary-2;
+        color: $primary-6;
+        border-radius: 999999px;
+        border: 1px solid $primary-6;        
       }
 
       &.month-day:hover {
-        background: #34bd61;
+        // background: #34bd61;
+        background-color: $primary-2;
+        color: $primary-6;
+        border-radius: 999999px;
+        border-color: $primary-6;
+        // width: 24px;
+
       }
     }
   }

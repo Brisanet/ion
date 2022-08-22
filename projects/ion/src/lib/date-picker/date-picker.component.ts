@@ -64,7 +64,7 @@ export class DatePickerComponent implements OnInit {
   }
 
   updatedMonthYear() {
-    this.monthYear = `${this.calendar.month.name}, ${this.calendar.year}`;
+    this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
   }
 
   isCurrentCalendarMonth() {
