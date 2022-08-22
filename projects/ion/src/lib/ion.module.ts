@@ -12,6 +12,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
 import { BadgeComponent } from './badge/badge.component';
+import { CardIonModule } from './card/card.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { BadgeComponent } from './badge/badge.component';
     HeadingComponent,
     BadgeComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, CardIonModule],
   exports: [
     IonComponent,
     ButtonComponent,

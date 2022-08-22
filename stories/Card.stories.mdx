@@ -1,0 +1,36 @@
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
+
+<Meta title="Ion/Card" component={CardIonComponent} />
+
+export const Template = (args) => <CardIonComponent {...args} />;
+
+# Card
+
+<Canvas>
+  <Story
+    name="card"
+    args={{
+      configuration: {
+        header: { titulo: 'Com risco de atraso' },
+        footer: {
+          buttons: {
+            primary: { label: 'Primary' },
+            secondary: { label: 'secondary' },
+            ghost: { label: 'ghost' },
+          },
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  ></Story>
+</Canvas>

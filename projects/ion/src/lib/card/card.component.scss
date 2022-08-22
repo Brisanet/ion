@@ -1,0 +1,52 @@
+@import '../../styles/index.scss';
+
+.card-ion {
+  min-width: fit-content;
+  min-height: 168px;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(101, 108, 129, 0.2);
+  border-radius: 8px;
+
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+
+  &-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #ced2db;
+    display: flex;
+    justify-content: space-between;
+    h4 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: #505566;
+    }
+
+    &-containerButtons {
+      display: flex;
+      gap: 28px;
+      justify-content: space-between;
+    }
+  }
+  &-container {
+    padding: 16px 20px;
+  }
+  &-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 12px;
+    border-top: 1px solid #ced2db;
+
+    &-containerButtons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
+
