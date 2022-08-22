@@ -101,9 +101,21 @@ export class DatePickerComponent implements OnInit {
     const totalLastMonthFinalDays = firstDayOfTheMonth.dayNumber - 1;
     const totalDays =
       this.calendar.month.numberOfDays + totalLastMonthFinalDays;
-    const monthList = Array.from({ length: totalDays });
+    // const totalDays = 42;
+    let accuracyTotalDays = 0;
 
-    for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
+    if (totalDays > 35) {
+      accuracyTotalDays = 42;
+    } else if (totalDays > 28) {
+      accuracyTotalDays = 35;
+    } else {
+      accuracyTotalDays = 28;
+    }
+    console.log(accuracyTotalDays);
+
+    const monthList = Array.from({ length: accuracyTotalDays });
+
+    for (let i = totalLastMonthFinalDays; i < accuracyTotalDays; i++) {
       monthList[i] = this.calendar.month.getDay(
         i + 1 - totalLastMonthFinalDays
       );
