@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
 import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
 
 const sut = async (customProps?: IonChipProps) => {
@@ -33,9 +34,20 @@ describe('ChipComponent', () => {
   });
 
   it('should select chip', async () => {
-    await sut();
-    const element = screen.getByText('chip');
+    const selectEvent = jest.fn();
+    const config = {
+      label: 'with event',
+      events: {
+        emit: selectEvent,
+      } as SafeAny,
+    };
+    await sut(config);
+    const element = screen.getByText(config.label);
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
+    expect(selectEvent).toHaveBeenCalledWith({
+      selected: true,
+      disabled: false,
+    });
   });
 });
