@@ -111,7 +111,6 @@ export class DatePickerComponent implements OnInit {
     } else {
       accuracyTotalDays = 28;
     }
-    console.log(accuracyTotalDays);
 
     const monthList = Array.from({ length: accuracyTotalDays });
 

@@ -120,4 +120,12 @@ button {
       }
     }
   }
+
+  & ::ng-deep div.footer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 28px;
+    margin-top: 26px;
+  }
 }
