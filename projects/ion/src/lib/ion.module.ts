@@ -33,6 +33,9 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    RowComponent,
+    ColComponent,
+    DatePickerComponent,
   ],
   imports: [CommonModule],
   exports: [
