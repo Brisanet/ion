@@ -63,6 +63,16 @@ export class DatePickerComponent implements OnInit {
     this.renderCalendarDays();
   }
 
+  previousYear() {
+    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
+    this.renderCalendarDays();
+  }
+
+  nextYear() {
+    this.calendar.goToNextYear(this.calendar.month.number - 1);
+    this.renderCalendarDays();
+  }
+
   updatedMonthYear() {
     this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
   }
