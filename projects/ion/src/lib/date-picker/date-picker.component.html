@@ -4,21 +4,29 @@
 <div id="calendar">
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">
-      <button
-        type="button"
-        class="prev-month"
-        aria-label="previous month"
-        (click)="previousMonth()"
-      ></button>
+      <ion-button
+        label="<<"
+        type="ghost"
+        (ionOnClick)="previousYear()"
+      ></ion-button>
+      <ion-button
+        label="<"
+        type="ghost"
+        (ionOnClick)="previousMonth()"
+      ></ion-button>
       <label>
         {{ monthYear }}
       </label>
-      <button
-        type="button"
-        class="next-month"
-        aria-label="previous month"
-        (click)="nextMonth()"
-      ></button>
+      <ion-button
+        label=">"
+        type="ghost"
+        (ionOnClick)="nextMonth()"
+      ></ion-button>
+      <ion-button
+        label=">>"
+        type="ghost"
+        (ionOnClick)="nextYear()"
+      ></ion-button>
     </div>
     <div class="week-days" id="week-days">
       <span *ngFor="let weeKDay of getWeekDaysElementStrings()">

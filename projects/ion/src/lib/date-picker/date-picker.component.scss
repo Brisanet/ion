@@ -32,8 +32,8 @@ button {
 }
 
 .calendar-dropdown {
-  margin: 10px 0 30px;
-  padding: 20px;
+  margin-top: 8px;
+  padding: 26px;
   background: $neutral-1;
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
@@ -45,25 +45,20 @@ button {
     justify-content: space-between;
 
     & label {
-      font-size: 21px;
-      font-weight: bold;
+      width: 140px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
       text-transform: capitalize;
+      text-align: center;
     }
 
-    & button {
-      border: 8px solid transparent;
-      width: 0;
-      height: 0;
-      border-radius: 2px;
-      border-top-color: #222;
-      transform: rotate(90deg);
-      // cursor: pointer;
-      background: none;
-      position: relative;
-    }
-
-    & button:last-of-type {
-      transform: rotate(-90deg);
+    & ion-button {
+      ::ng-deep button.ion-btn-md {
+        padding: 0;
+        border-radius: 9999999px;
+        border: 1px solid $neutral-5;
+      }
     }
   }
 
@@ -91,7 +86,6 @@ button {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-gap: 16px;
-    margin: 8px 0;
 
     & button.month-day {
       display: flex;
@@ -115,17 +109,14 @@ button {
         background-color: $primary-2;
         color: $primary-6;
         border-radius: 999999px;
-        border: 1px solid $primary-6;        
+        border: 1px solid $primary-6;
       }
 
       &.month-day:hover {
-        // background: #34bd61;
         background-color: $primary-2;
         color: $primary-6;
         border-radius: 999999px;
         border-color: $primary-6;
-        // width: 24px;
-
       }
     }
   }
