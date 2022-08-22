@@ -1,1 +1,37 @@
-<p>date-picker works!</p>
+<button class="date-toggle" (click)="toggle()">
+  {{ dateLabel }}
+</button>
+<div id="calendar">
+  <div class="calendar-dropdown" id="calendar-dropdown">
+    <div class="header">
+      <button
+        type="button"
+        class="prev-month"
+        aria-label="previous month"
+        (click)="previousMonth()"
+      ></button>
+      <label>
+        {{ monthYear }}
+      </label>
+      <button
+        type="button"
+        class="next-month"
+        aria-label="previous month"
+        (click)="nextMonth()"
+      ></button>
+    </div>
+
+    <div class="week-days" id="week-days">
+      <span *ngFor="let weeKDay of getWeekDaysElementStrings()">
+        {{ weeKDay }}
+      </span>
+    </div>
+    <div class="month-days" id="month-days">
+      <!-- <button 
+        class="month-day" 
+        *ngFor="let day of updateMonthDays()">
+        {{day['date']}}
+      </button> -->
+    </div>
+  </div>
+</div>
