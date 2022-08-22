@@ -14,6 +14,8 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { RowComponent } from './row/row.component';
+import { ColComponent } from './col/col.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { HeadingComponent } from './typography';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    RowComponent,
+    ColComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -45,6 +49,8 @@ import { HeadingComponent } from './typography';
     AlertComponent,
     HeadingComponent,
     AvatarComponent,
+    RowComponent,
+    ColComponent,
   ],
 })
 export class IonModule {}
