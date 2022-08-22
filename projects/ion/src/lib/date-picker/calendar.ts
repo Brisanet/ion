@@ -71,14 +71,14 @@ export class Calendar {
     this.year = year;
   }
 
-  goToPreviousYear() {
+  goToPreviousYear(monthNumber?: number) {
     this.year -= 1;
-    this.month = new Month(new Date(this.year, 11), this.lang);
+    this.month = new Month(new Date(this.year, monthNumber || 11), this.lang);
   }
 
-  goToNextYear() {
+  goToNextYear(monthNumber?: number) {
     this.year += 1;
-    this.month = new Month(new Date(this.year, 0), this.lang);
+    this.month = new Month(new Date(this.year, monthNumber || 0), this.lang);
   }
 
   goToNextMonth() {
