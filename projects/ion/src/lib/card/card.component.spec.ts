@@ -1,7 +1,7 @@
 import { IonIconComponent } from '../icon/icon.component';
 import { CardEvent, CardIonComponent, IonCard } from './card.component';
 import { ButtonComponent } from '../button/button.component';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -72,44 +72,41 @@ class CardTestComponent implements AfterViewInit {
 class TestModule {}
 
 describe('CardComponent', () => {
+  let cardComponent!: CardTestComponent;
+  let fixture!: ComponentFixture<CardTestComponent>;
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [TestModule],
     }).compileComponents();
+    fixture = TestBed.createComponent(CardTestComponent);
+    cardComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(async () => {
+    fixture.destroy();
   });
 
   it('should render cardComponent', async () => {
-    const fixture = TestBed.createComponent(CardTestComponent);
-    const cardComponent = fixture.componentInstance;
-    fixture.detectChanges();
     expect(cardComponent).toBeTruthy();
-    fixture.destroy();
   });
 
   it('should render body in cardComponent', async () => {
-    const fixture = TestBed.createComponent(CardTestComponent);
-    fixture.detectChanges();
     expect(screen.getByTestId('buttonBody')).toBeTruthy();
-    fixture.destroy();
   });
   it('should change the card header label when the event is triggered', async () => {
-    const fixture = TestBed.createComponent(CardTestComponent);
-    fixture.detectChanges();
-
     const header = screen.getByTestId('cardHeader');
     expect(header.textContent).toBe('Título do card');
 
     const buttonPrimary = screen.getByTestId('buttonPrimary');
     fireEvent.click(buttonPrimary);
     fixture.detectChanges();
-
     expect(header.textContent).toBe('Opa, eu fui clicado evento: primary');
-    fixture.destroy();
   });
 
   it('should render footer in cardComponent', async () => {
     renderFooter = true;
-    const fixture = TestBed.createComponent(CardTestComponent);
+    fixture = TestBed.createComponent(CardTestComponent);
     fixture.detectChanges();
     expect(screen.getByTestId('footerTest')).toBeInTheDocument();
   });
