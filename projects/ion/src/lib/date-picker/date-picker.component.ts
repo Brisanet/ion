@@ -11,6 +11,7 @@ export class DatePickerComponent implements OnInit {
   @Input() format = 'MMM DD, YYYY';
   @Input() visible = false;
   @Input() dateLabel: string;
+  @Input() isDateRanges = true;
   date: Day;
   monthYear: string;
   calendar: Calendar;

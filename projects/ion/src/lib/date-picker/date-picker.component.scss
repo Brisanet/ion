@@ -62,11 +62,36 @@ button {
     }
   }
 
+  & div.time-interval {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 16px;
+
+    & ion-divider {
+      width: 116%;
+      margin-left: -25px;
+    }
+
+    & div.content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      & label {
+        font-size: 14px;
+        line-height: 20px;
+      }
+    }
+  }
+
   & div.week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     grid-gap: 16px;
-    margin: 28px 0px 10px 0px;
+    margin-top: 16px;
 
     span {
       display: flex;
