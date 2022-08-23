@@ -99,10 +99,11 @@ describe('TagComponent', () => {
   );
 
   it.each(tagTypes)('should render %s tag even with a color', async (type) => {
-    await sut({ ...defaultValue, status: type, color: '#be531c' });
+    const color = '#be531c';
+    await sut({ ...defaultValue, status: type, color: color });
     expect(screen.getByTestId(IDs.tag)).toHaveClass(type);
     expect(await screen.findByTestId(IDs.tag)).not.toHaveStyle(
-      'color: #be531c;'
+      `color: ${color};`
     );
   });
 });

@@ -1,7 +1,7 @@
 <div
   data-testid="ion-tag"
-  [style.color]="!status && validateHexColor()"
-  [style.background]="!status && validateHexColor() + '1A'"
+  [style.color]="tagStyle()"
+  [style.background]="tagStyle() + '1A'"
   [class]="setTagType()"
 >
   <ion-icon
@@ -9,7 +9,7 @@
     class="tag-icon"
     size="12"
     [type]="icon"
-    [color]="!status && validateHexColor()"
+    [color]="tagStyle()"
   ></ion-icon>
   {{ label }}
 </div>

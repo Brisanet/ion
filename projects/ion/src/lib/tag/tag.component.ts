@@ -31,7 +31,11 @@ export class TagComponent {
     }`;
   }
 
-  validateHexColor() {
+  tagStyle() {
+    return !this.status && this.getTagColor();
+  }
+
+  getTagColor() {
     return validateHexColor(this.color) ? this.color : defaultColor;
   }
 }
