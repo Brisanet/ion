@@ -7,13 +7,9 @@
   box-shadow: 0px 4px 4px rgba(101, 108, 129, 0.2);
   border-radius: 8px;
 
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: space-between;
-
   &-header {
     padding: 16px 20px;
-    border-bottom: 1px solid #ced2db;
+    border-bottom: 1px solid $neutral-4;
     display: flex;
     justify-content: space-between;
     h4 {
@@ -21,7 +17,7 @@
       font-weight: 600;
       font-size: 20px;
       line-height: 28px;
-      color: #505566;
+      color: $neutral-7;
     }
 
     &-containerButtons {
@@ -40,7 +36,7 @@
     justify-content: space-between;
 
     padding: 16px 12px;
-    border-top: 1px solid #ced2db;
+    border-top: 1px solid $neutral-4;
 
     &-containerButtons {
       display: flex;
