@@ -18,15 +18,36 @@ O IonCard pode receber 3 parâmetros, sendo eles:
 - `body`. Aqui é onde vai receber o componente que será renderizado no body do card.
 - `footer`. Um objeto onde é passado os botões de ação do footer ou um componente.
 
-## header
+## Header
 
 No IonCard o paramêtro header, nele a unica coisa que é obrigatória é o `title`
+
+<Canvas>
+  <Story
+    name="card - title"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 Tendo também a opção de passa o paramêtro `buttons`
 
 <Canvas>
   <Story
-    name="card - title plus button "
+    name="card - title most button"
     args={{
       configuration: {
         header: {
@@ -48,10 +69,41 @@ Tendo também a opção de passa o paramêtro `buttons`
             },
           ],
         },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Body
+
+No `body` o IonCard recebe um componente a se renderizado.
+
+## Footer
+
+No `footer` o IonCard pode receber um componente ou as configurações de botões padrões. Todos os botões emitem um evento com o nome do seu tipo.
+
+<Canvas>
+  <Story
+    name="card - footer"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+        },
         body: TemplateButton,
         footer: {
           buttons: {
             primary: { label: 'Primary' },
+            secondary: { label: 'Secondary' },
+            ghost: { label: 'Ghost' },
           },
         },
       },
