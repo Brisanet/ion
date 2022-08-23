@@ -1,11 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { iconsPaths } from './svgs/icons';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export type SvgModule = typeof import('./svgs/icons');
 export type IconType = keyof typeof iconsPaths;
@@ -21,17 +16,14 @@ export interface IonIconProps {
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })
-export class IonIconComponent implements AfterViewInit {
+export class IonIconComponent {
   @Input() type: IconType;
   @Input() size = 24;
   @Input() color = '#282b33';
 
-  @ViewChild('svg', { static: false }) svg: ElementRef;
+  constructor(private sanitizer: DomSanitizer, private el: ElementRef) {}
 
-  ngAfterViewInit() {
-    this.svg.nativeElement.insertAdjacentHTML(
-      'beforeend',
-      iconsPaths[this.type]
-    );
+  getPath() {
+    return this.sanitizer.bypassSecurityTrustHtml(iconsPaths[this.type]);
   }
 }

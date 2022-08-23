@@ -1,0 +1,100 @@
+@import '../../styles/index.scss';
+
+@mixin set-colors($bgColor, $color) {
+  background-color: $bgColor;
+  color: $color;
+}
+
+@mixin set-icon-color($color) {
+  ::ng-deep {
+    ion-icon svg {
+      fill: $color;
+    }
+  }
+}
+
+@mixin set-theme($bgColor, $fontColor) {
+  @include set-colors($bgColor, $fontColor);
+  @include set-icon-color($fontColor);
+}
+
+@mixin dropdown-commons($fontColor) {
+  cursor: pointer;
+  padding: spacing(1) spacing(2);
+  background-color: $neutral-1;
+  border-radius: 8px;
+
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $fontColor;
+
+  :first-child {
+    display: flex;
+  }
+}
+
+.dropdown-item {
+  @include dropdown-commons($neutral-7);
+
+  &:hover {
+    @include set-colors($primary-1, $neutral-7);
+  }
+
+  &:active {
+    @include set-colors($primary-2, $primary-6);
+  }
+}
+
+.dropdown-item-selected {
+  @include dropdown-commons($primary-color);
+  @include set-colors($primary-1, $primary-color);
+
+  &:hover {
+    @include set-theme($primary-1, $primary-4);
+  }
+
+  &:active {
+    @include set-theme($primary-2, $primary-7);
+  }
+
+  @include set-icon-color($primary-color);
+}
+
+.dropdown-disabled {
+  @include dropdown-commons($neutral-5);
+  @include set-colors($neutral-1, $neutral-5);
+  cursor: not-allowed;
+}
+
+.dropdown-disabled-selected {
+  @include dropdown-commons($neutral-5);
+  @include set-theme($neutral-2, $neutral-5);
+  cursor: not-allowed;
+}
+
+.container {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.container-options {
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+  padding: spacing(1.5) spacing(1);
+  max-height: 244px;
+  overflow-y: auto;
+
+  background-color: $neutral-1;
+  box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15),
+    0px 0px 2px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+}
