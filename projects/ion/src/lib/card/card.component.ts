@@ -26,7 +26,7 @@ type ButtonBase = {
 };
 
 type Header = {
-  titulo: string;
+  title: string;
   buttons?: ButtonBase[];
 };
 
@@ -36,7 +36,7 @@ type FooterButton = {
 
 type Foote = {
   buttons?: FooterButton;
-  bodyFooter?: ComponentType<SafeAny> | SafeAny;
+  bodyFooter?: ComponentType<SafeAny>;
 };
 
 export type CardEvent = {
@@ -45,12 +45,12 @@ export type CardEvent = {
 
 export interface IonCard {
   header: Header;
-  body?: ComponentType<SafeAny>;
+  body: ComponentType<SafeAny>;
   footer?: Foote;
 }
 
 @Component({
-  selector: 'app-card-ion',
+  selector: 'ion-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
@@ -70,12 +70,10 @@ export class CardIonComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (this.configuration.body) {
-      const bodyFactory = this.resolverFactory.resolveComponentFactory(
-        this.configuration.body as SafeAny
-      );
-      this.body.createComponent(bodyFactory);
-    }
+    const bodyFactory = this.resolverFactory.resolveComponentFactory(
+      this.configuration.body as SafeAny
+    );
+    this.body.createComponent(bodyFactory);
 
     if (this.configuration.footer && this.configuration.footer.bodyFooter) {
       const footerFactory = this.resolverFactory.resolveComponentFactory(

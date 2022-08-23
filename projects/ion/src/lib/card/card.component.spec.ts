@@ -30,10 +30,10 @@ class ButtonTestComponent {
 class FooterTestComponent {}
 
 @Component({
-  template: `<app-card-ion
+  template: `<ion-card
     [configuration]="cardConfi"
     (events)="cardEvents($event)"
-  ></app-card-ion>`,
+  ></ion-card>`,
 })
 class CardTestComponent implements AfterViewInit {
   constructor(private cdr: ChangeDetectorRef) {}
@@ -42,14 +42,14 @@ class CardTestComponent implements AfterViewInit {
   }
   public cardConfi: IonCard = {
     body: ButtonTestComponent,
-    header: { titulo: 'opa' },
+    header: { title: 'opa' },
     footer: renderFooter
       ? { bodyFooter: FooterTestComponent }
       : { buttons: { primary: { label: 'iea' } } },
   };
 
   public cardEvents(event: CardEvent) {
-    this.cardConfi.header.titulo = `Opa, eu fui clicado evento: ${event.buttonAction}`;
+    this.cardConfi.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
   }
 }
 

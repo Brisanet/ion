@@ -8,20 +8,50 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts
 <Meta title="Ion/Card" component={CardIonComponent} />
 
 export const Template = (args) => <CardIonComponent {...args} />;
+export const TemplateButton = (args) => <ButtonComponent {...args} />;
 
 # Card
 
+O IonCard pode receber 3 parâmetros, sendo eles:
+
+- `header`. Um objeto onde é passado o titulo e os botões de ação do cabeçalho.
+- `body`. Aqui é onde vai receber o componente que será renderizado no body do card.
+- `footer`. Um objeto onde é passado os botões de ação do footer ou um componente.
+
+## header
+
+No IonCard o paramêtro header, nele a unica coisa que é obrigatória é o `title`
+
+Tendo também a opção de passa o paramêtro `buttons`
+
 <Canvas>
   <Story
-    name="card"
+    name="card - title plus button "
     args={{
       configuration: {
-        header: { titulo: 'Com risco de atraso' },
+        header: {
+          title: 'Com risco de atraso',
+          buttons: [
+            {
+              type: 'ghost',
+              label: '',
+              circular: true,
+              icon: 'refresh',
+              nameAction: 'refresh',
+            },
+            {
+              type: 'ghost',
+              label: '',
+              circular: true,
+              icon: 'trash',
+              nameAction: 'trash',
+            },
+          ],
+        },
+        body: TemplateButton,
         footer: {
           buttons: {
             primary: { label: 'Primary' },
-            secondary: { label: 'secondary' },
-            ghost: { label: 'ghost' },
           },
         },
       },
@@ -32,5 +62,7 @@ export const Template = (args) => <CardIonComponent {...args} />;
         imports: [CommonModule],
       }),
     ]}
-  ></Story>
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
