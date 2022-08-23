@@ -1,3 +1,4 @@
+import { DropdownComponent } from 'projects/ion/src/public-api';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
@@ -7,7 +8,7 @@ const sut = async (customProps?: IonChipProps) => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, DropdownComponent],
   });
 };
 
