@@ -12,9 +12,13 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { AlertComponent } from './alert/alert.component';
 import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
 import { TagComponent } from './tag/tag.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { RowComponent } from './row/row.component';
+import { ColComponent } from './col/col.component';
 
 @NgModule({
   declarations: [
@@ -26,13 +30,18 @@ import { TagComponent } from './tag/tag.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
+    HeadingComponent,
     AlertComponent,
+    MessageComponent,
     NotificationComponent,
     HeadingComponent,
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
     TagComponent,
+    DropdownComponent,
+    RowComponent,
+    ColComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -42,12 +51,19 @@ import { TagComponent } from './tag/tag.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
-    AlertComponent,
     HeadingComponent,
     TagComponent,
+    DropdownComponent,
+    AlertComponent,
+    MessageComponent,
+    NotificationComponent,
+    BadgeComponent,
     AvatarComponent,
+    RowComponent,
+    ColComponent,
   ],
 })
 export class IonModule {}
