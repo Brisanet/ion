@@ -12,8 +12,10 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { AlertComponent } from './alert/alert.component';
 import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
+import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
@@ -27,12 +29,15 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
+    HeadingComponent,
     AlertComponent,
+    MessageComponent,
     NotificationComponent,
     HeadingComponent,
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    DropdownComponent,
     RowComponent,
     ColComponent,
     DatePickerComponent,
@@ -45,10 +50,15 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
-    AlertComponent,
     HeadingComponent,
+    DropdownComponent,
+    AlertComponent,
+    MessageComponent,
+    NotificationComponent,
+    BadgeComponent,
     AvatarComponent,
     RowComponent,
     ColComponent,
