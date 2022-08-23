@@ -1,12 +1,18 @@
 import { IconType } from './../icon/icon.component';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type ChipSize = 'sm' | 'md';
+
+interface ChipEvent {
+  selected: boolean;
+  disabled: boolean;
+}
 export interface IonChipProps {
   label: string;
   disabled?: boolean;
   selected?: boolean;
   size?: ChipSize;
+  events?: EventEmitter<ChipEvent>;
 }
 
 @Component({
@@ -15,9 +21,9 @@ export interface IonChipProps {
   styleUrls: ['./chip.component.scss'],
 })
 export class ChipComponent {
-  @Input('label') label!: string;
-  @Input('disabled') disabled? = false;
-  @Input('selected') selected? = false;
+  @Input() label!: string;
+  @Input() disabled? = false;
+  @Input() selected? = false;
   @Input() size?: ChipSize = 'sm';
   @Input() icon?: IconType;
   @Input() showDropDown = false;
@@ -41,8 +47,14 @@ export class ChipComponent {
     },
   ];
 
+  @Output() events = new EventEmitter<ChipEvent>();
+
   select() {
     this.selected = !this.selected;
+    this.events.emit({
+      selected: this.selected,
+      disabled: this.disabled,
+    });
   }
 
   dropDown() {
