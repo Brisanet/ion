@@ -31,7 +31,7 @@ class FooterTestComponent {}
 
 @Component({
   template: `<ion-card
-    [configuration]="cardConfi"
+    [configuration]="cardConfig"
     (events)="cardEvents($event)"
   ></ion-card>`,
 })
@@ -40,16 +40,16 @@ class CardTestComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
   }
-  public cardConfi: IonCard = {
+  public cardConfig: IonCard = {
     body: ButtonTestComponent,
-    header: { title: 'opa' },
+    header: { title: 'Título do card' },
     footer: renderFooter
-      ? { bodyFooter: FooterTestComponent }
-      : { buttons: { primary: { label: 'iea' } } },
+      ? { body: FooterTestComponent }
+      : { buttons: { primary: { label: 'Confirmar' } } },
   };
 
   public cardEvents(event: CardEvent) {
-    this.cardConfi.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
+    this.cardConfig.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
   }
 }
 
@@ -97,7 +97,7 @@ describe('CardComponent', () => {
     fixture.detectChanges();
 
     const header = screen.getByTestId('cardHeader');
-    expect(header.textContent).toBe('opa');
+    expect(header.textContent).toBe('Título do card');
 
     const buttonPrimary = screen.getByTestId('buttonPrimary');
     fireEvent.click(buttonPrimary);
@@ -111,6 +111,6 @@ describe('CardComponent', () => {
     renderFooter = true;
     const fixture = TestBed.createComponent(CardTestComponent);
     fixture.detectChanges();
-    expect(screen.getByTestId('footerTest')).toBeTruthy();
+    expect(screen.getByTestId('footerTest')).toBeInTheDocument();
   });
 });

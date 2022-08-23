@@ -36,7 +36,7 @@ type FooterButton = {
 
 type Foote = {
   buttons?: FooterButton;
-  bodyFooter?: ComponentType<SafeAny>;
+  body?: ComponentType<SafeAny>;
 };
 
 export type CardEvent = {
@@ -75,9 +75,9 @@ export class CardIonComponent implements AfterViewInit {
     );
     this.body.createComponent(bodyFactory);
 
-    if (this.configuration.footer && this.configuration.footer.bodyFooter) {
+    if (this.configuration.footer && this.configuration.footer.body) {
       const footerFactory = this.resolverFactory.resolveComponentFactory(
-        this.configuration.footer.bodyFooter as SafeAny
+        this.configuration.footer.body as SafeAny
       );
       this.footer.createComponent(footerFactory);
     }
