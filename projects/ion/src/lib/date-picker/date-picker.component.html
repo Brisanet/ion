@@ -32,9 +32,21 @@
       <ion-divider></ion-divider>
       <div class="content">
         <label>Período:</label>
-        <ion-chip label="7 dias"></ion-chip>
-        <ion-chip label="15 dias"></ion-chip>
-        <ion-chip label="21 dias"></ion-chip>
+        <ion-chip
+          label="7 dias"
+          [disabled]="chips.sevenDays"
+          (events)="selectDateRanges(7)"
+        ></ion-chip>
+        <ion-chip
+          label="15 dias"
+          [disabled]="chips.fifteenDays"
+          (events)="selectDateRanges(15)"
+        ></ion-chip>
+        <ion-chip
+          label="21 dias"
+          [disabled]="chips.twentyOneDays"
+          (events)="selectDateRanges(21)"
+        ></ion-chip>
       </div>
       <ion-divider></ion-divider>
     </div>
@@ -45,7 +57,11 @@
     </div>
     <div class="month-days" id="month-days"></div>
     <div class="footer" *ngIf="isDateRanges">
-      <ion-button label="Cancelar" type="ghost"></ion-button>
+      <ion-button
+        label="Cancelar"
+        type="ghost"
+        (ionOnClick)="calendarInitialState()"
+      ></ion-button>
       <ion-button label="Pronto"></ion-button>
     </div>
   </div>

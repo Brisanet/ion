@@ -12,12 +12,18 @@ export class DatePickerComponent implements OnInit {
   @Input() visible = false;
   @Input() dateLabel: string;
   @Input() isDateRanges = true;
+  @Input() initialDate: string;
   date: Day;
   monthYear: string;
   calendar: Calendar;
-  lang: string = null;
+  lang: string;
   calendarElement: HTMLElement;
   selectedDayElement;
+  chips = {
+    sevenDays: false,
+    fifteenDays: false,
+    twentyOneDays: false,
+  };
 
   constructor() {
     this.lang = window.navigator.language;
@@ -37,7 +43,15 @@ export class DatePickerComponent implements OnInit {
   }
 
   ngOnInit() {
-    const date = this.dateLabel ? new Date(this.dateLabel) : new Date();
+    this.calendarInitialState();
+  }
+
+  calendarInitialState() {
+    if (this.initialDate) {
+      this.initialDate = this.initialDate.replace('-', ',');
+    }
+    const date = this.initialDate ? new Date(this.initialDate) : new Date();
+
     this.date = new Day(date, this.lang);
 
     this.calendar = new Calendar(
@@ -46,7 +60,9 @@ export class DatePickerComponent implements OnInit {
       this.lang
     );
 
-    this.dateLabel = this.date.format(this.format);
+    this.dateLabel = this.initialDate
+      ? this.date.format(this.format)
+      : 'Selecione uma data';
     this.renderCalendarDays();
 
     if (this.visible) {
@@ -100,9 +116,9 @@ export class DatePickerComponent implements OnInit {
     const firstDayOfTheMonth = this.calendar.month.getDay(1);
     const prevMonth = this.calendar.getPreviousMonth();
     const totalLastMonthFinalDays = firstDayOfTheMonth.dayNumber - 1;
+    // const totalDays = 42;
     const totalDays =
       this.calendar.month.numberOfDays + totalLastMonthFinalDays;
-    // const totalDays = 42;
     let accuracyTotalDays = 0;
 
     if (totalDays > 35) {
@@ -188,5 +204,22 @@ export class DatePickerComponent implements OnInit {
   renderCalendarDays() {
     this.updatedMonthYear();
     this.updateMonthDays();
+  }
+
+  selectDateRanges(numberOfDays: number) {
+    if (numberOfDays === 7) {
+      this.chips.fifteenDays = false;
+      this.chips.twentyOneDays = false;
+    }
+
+    if (numberOfDays === 15) {
+      this.chips.sevenDays = false;
+      this.chips.twentyOneDays = false;
+    }
+
+    if (numberOfDays === 21) {
+      this.chips.sevenDays = false;
+      this.chips.fifteenDays = false;
+    }
   }
 }
