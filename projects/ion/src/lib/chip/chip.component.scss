@@ -108,23 +108,13 @@
   line-height: 20px;
 }
 
-.flex-button {
+button {
   display: flex;
-  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
   margin-bottom: 4px;
 }
 
-button {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-ion-icon {
-  display: flex;
-  align-items: center;
-}
-
-.rotate {
-  transform: rotate(180deg);
+.container-options {
+  position: absolute;
 }

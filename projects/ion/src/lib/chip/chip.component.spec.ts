@@ -51,4 +51,31 @@ describe('ChipComponent', () => {
       disabled: false,
     });
   });
+
+  it('should render icon semi-down  when has options', async () => {
+    await sut({
+      label: 'dropdown',
+      options: [{ label: 'Cat' }, { label: 'Dog' }],
+    });
+    const icon = document.getElementById('ion-icon-semi-down');
+    expect(icon).toBeInTheDocument();
+  });
+
+  it('should render icon semi-down  when has options', async () => {
+    await sut({
+      label: 'dropdown',
+      options: [{ label: 'Cat' }, { label: 'Dog' }],
+    });
+    const element = screen.getByText('dropdown');
+    fireEvent.click(element);
+  });
+
+  it('should render icon semi-up  when has options', async () => {
+    await sut({
+      label: 'dropdown',
+      options: [{ label: 'Cat' }, { label: 'Dog' }],
+    });
+    const element = screen.getByText('dropdown');
+    fireEvent.click(element);
+  });
 });

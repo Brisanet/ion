@@ -1,25 +1,30 @@
-<div class="flex-button">
-  <button
-    (click)="select()"
-    [disabled]="disabled"
-    [ngClass]="{
-      chip: !selected,
-      'chip-selected': selected
-    }"
-    [class]="'chip-' + size"
+<button
+  (click)="select()"
+  [disabled]="disabled"
+  [ngClass]="{
+    chip: !selected,
+    'chip-selected': selected
+  }"
+  [class]="'chip-' + size"
+>
+  {{ label }}
+  <ion-icon
+    (click)="dropDown()"
+    class="icon-color"
+    *ngIf="icon"
+    [type]="icon"
+    [size]="size === 'sm' ? 16 : 20"
   >
-    {{ label }}
-    <ion-icon
-      (click)="dropDown()"
-      [class.rotate]="isOpen"
-      class="icon-color rotate"
-      *ngIf="icon"
-      [type]="icon"
-      [size]="size === 'sm' ? 16 : 20"
-    >
-    </ion-icon>
-  </button>
-</div>
+  </ion-icon>
+  <ion-icon
+    (click)="dropDown()"
+    class="icon-color"
+    *ngIf="options"
+    [type]="showDropDown ? 'semi-up' : 'semi-down'"
+    [size]="size === 'sm' ? 16 : 20"
+  >
+  </ion-icon>
+</button>
 <div *ngIf="showDropDown">
-  <ion-dropdown [options]="chipOptions"></ion-dropdown>
+  <ion-dropdown [options]="options"></ion-dropdown>
 </div>

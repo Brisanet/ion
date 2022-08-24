@@ -46,5 +46,11 @@ Selected.args = {
 export const BasicIcon = Template.bind({});
 BasicIcon.args = {
   label: 'Custom label',
-  icon: 'semi-down',
+  icon: 'close',
+};
+
+export const WithDropdown = Template.bind({});
+WithDropdown.args = {
+  label: 'Custom label',
+  options: [{ label: 'Cat' }, { label: 'Dog' }],
 };
