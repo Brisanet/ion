@@ -18,6 +18,7 @@ export * from './lib/radio/radio.component';
 export * from './lib/tab/tab.component';
 export * from './lib/tab-group/tab-group.component';
 export * from './lib/typography/';
+export * from './lib/tag/tag.component';
 export * from './lib/alert/alert.component';
 export * from './lib/message/message.component';
 export * from './lib/card/card.component';
