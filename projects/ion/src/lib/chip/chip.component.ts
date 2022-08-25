@@ -47,4 +47,10 @@ export class ChipComponent {
       this.showDropdown = !this.showDropdown;
     }
   }
+
+  handleSuccess(event: DropdownItem) {
+    console.log(event);
+    this.label = event[0].label;
+    this.toggleDropdown();
+  }
 }

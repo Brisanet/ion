@@ -24,5 +24,8 @@
   </ion-icon>
 </button>
 <div *ngIf="showDropdown">
-  <ion-dropdown [options]="options"></ion-dropdown>
+  <ion-dropdown
+    [options]="options"
+    (selected)="handleSuccess($event)"
+  ></ion-dropdown>
 </div>
