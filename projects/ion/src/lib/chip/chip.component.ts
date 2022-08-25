@@ -28,12 +28,13 @@ export class ChipComponent {
   @Input() selected? = false;
   @Input() size?: ChipSize = 'sm';
   @Input() icon?: IconType;
-  @Input() showDropDown = false;
+  @Input() showDropdown = false;
   @Input() options: DropdownItem[];
 
   @Output() events = new EventEmitter<ChipEvent>();
 
   select() {
+    this.toggleDropdown();
     this.selected = !this.selected;
     this.events.emit({
       selected: this.selected,
@@ -41,9 +42,9 @@ export class ChipComponent {
     });
   }
 
-  dropDown() {
+  toggleDropdown() {
     if (this.options) {
-      this.showDropDown = !this.showDropDown;
+      this.showDropdown = !this.showDropdown;
     }
   }
 }

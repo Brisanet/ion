@@ -9,7 +9,6 @@
 >
   {{ label }}
   <ion-icon
-    (click)="dropDown()"
     class="icon-color"
     *ngIf="icon"
     [type]="icon"
@@ -17,14 +16,13 @@
   >
   </ion-icon>
   <ion-icon
-    (click)="dropDown()"
     class="icon-color"
     *ngIf="options"
-    [type]="showDropDown ? 'semi-up' : 'semi-down'"
+    [type]="showDropdown ? 'semi-up' : 'semi-down'"
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>
 </button>
-<div *ngIf="showDropDown">
+<div *ngIf="showDropdown">
   <ion-dropdown [options]="options"></ion-dropdown>
 </div>

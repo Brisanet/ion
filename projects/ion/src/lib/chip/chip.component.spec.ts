@@ -4,6 +4,8 @@ import { IonIconComponent } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
 
+const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
+
 const sut = async (customProps?: IonChipProps) => {
   await render(ChipComponent, {
     componentProperties: customProps || {
@@ -52,30 +54,35 @@ describe('ChipComponent', () => {
     });
   });
 
-  it('should render icon semi-down  when has options', async () => {
-    await sut({
-      label: 'dropdown',
-      options: [{ label: 'Cat' }, { label: 'Dog' }],
+  describe('With Dropdown', () => {
+    beforeEach(async () => {
+      await sut({
+        label: 'dropdown',
+        options: defaultOptions,
+      });
     });
-    const icon = document.getElementById('ion-icon-semi-down');
-    expect(icon).toBeInTheDocument();
-  });
 
-  it('should render icon semi-down  when has options', async () => {
-    await sut({
-      label: 'dropdown',
-      options: [{ label: 'Cat' }, { label: 'Dog' }],
+    it('should render icon semi-down  when has options', async () => {
+      const icon = document.getElementById('ion-icon-semi-down');
+      expect(icon).toBeInTheDocument();
     });
-    const element = screen.getByText('dropdown');
-    fireEvent.click(element);
-  });
 
-  it('should render icon semi-up  when has options', async () => {
-    await sut({
-      label: 'dropdown',
-      options: [{ label: 'Cat' }, { label: 'Dog' }],
+    it('should render icon semi-down when has options', async () => {
+      expect(document.getElementById('ion-icon-semi-down')).toBeInTheDocument();
     });
-    const element = screen.getByText('dropdown');
-    fireEvent.click(element);
+
+    it('should render icon semi-up when has options and click in chip', async () => {
+      const element = screen.getByText('dropdown');
+      fireEvent.click(element);
+      expect(screen.getByText(defaultOptions[0].label)).toBeInTheDocument();
+    });
+
+    it('should show option label in chip label when selected', async () => {
+      const option = defaultOptions[0].label;
+      const element = screen.getByText('dropdown');
+      fireEvent.click(element);
+      fireEvent.click(screen.getByText(option));
+      expect(screen.getAllByText(option)).toHaveLength(1);
+    });
   });
 });
