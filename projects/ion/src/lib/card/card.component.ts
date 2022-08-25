@@ -1,9 +1,11 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ComponentFactoryResolver,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
   ViewChild,
   ViewContainerRef,
@@ -54,8 +56,11 @@ export interface IonCard {
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardIonComponent implements AfterViewInit {
-  constructor(private resolverFactory: ComponentFactoryResolver) {}
+export class CardIonComponent implements AfterViewInit, OnDestroy {
+  constructor(
+    private resolverFactory: ComponentFactoryResolver,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   @Input() configuration!: IonCard;
   @Output() events = new EventEmitter<CardEvent>();
@@ -70,16 +75,28 @@ export class CardIonComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.cdr.detectChanges();
+    this.ngOnDestroy();
     const bodyFactory = this.resolverFactory.resolveComponentFactory(
       this.configuration.body as SafeAny
     );
-    this.body.createComponent(bodyFactory);
-
+    this.body.createComponent(bodyFactory).changeDetectorRef.detectChanges();
     if (this.configuration.footer && this.configuration.footer.body) {
       const footerFactory = this.resolverFactory.resolveComponentFactory(
         this.configuration.footer.body as SafeAny
       );
-      this.footer.createComponent(footerFactory);
+      this.footer
+        .createComponent(footerFactory)
+        .changeDetectorRef.detectChanges();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.body) {
+      this.body.detach();
+    }
+    if (this.footer) {
+      this.footer.detach();
     }
   }
 }
