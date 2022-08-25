@@ -51,6 +51,6 @@ export const iconsPaths: Record<string, string> = {
   'semi-up': semiUp,
   'star-solid': starSolid,
   trash,
-  union: union,
+  union,
   up2,
 };
