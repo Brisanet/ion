@@ -15,6 +15,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
@@ -37,6 +38,7 @@ import { ColComponent } from './col/col.component';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    TagComponent,
     DropdownComponent,
     RowComponent,
     ColComponent,
@@ -53,6 +55,7 @@ import { ColComponent } from './col/col.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
+    TagComponent,
     DropdownComponent,
     AlertComponent,
     MessageComponent,
