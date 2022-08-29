@@ -1,6 +1,19 @@
-<button class="date-toggle" (click)="toggle()">
-  {{ dateLabel }}
-</button>
+<div class="date-container" (click)="toggle()">
+  <div class="date" tabindex="0" *ngIf="!isDateRanges">
+    <ion-icon type="pencil" color="#AEB2BD" size="16"></ion-icon>
+    <label class="selected-date" *ngIf="dateLabel">{{ dateLabel }}</label>
+    <label *ngIf="!dateLabel">Data</label>
+  </div>
+  <!-- <div class="date-ranges" *ngIf="isDateRanges">
+    <div class="date" tabindex="0">
+      <ion-icon type="pencil" color="#AEB2BD" size="16"></ion-icon>
+      <label>{{startDateLabel || 'Start date'}}</label>
+    </div>
+    <div class="date" tabindex="1">
+      <label>{{endDateLabel || 'End date'}}</label>
+    </div>
+  </div> -->
+</div>
 <div id="calendar">
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">

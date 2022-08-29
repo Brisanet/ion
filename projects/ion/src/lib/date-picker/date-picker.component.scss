@@ -11,6 +11,48 @@
   align-items: center;
 }
 
+.date-container {
+  display: flex;
+
+  .date {
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid #aeb2bd;
+    padding: 6px 12px;
+    color: #aeb2bd;
+
+    label {
+      font-size: 14px;
+
+      &.selected-date {
+        color: $neutral-7;
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-visible {
+      border-color: $primary-6;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
+
+  .date-ranges.date:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+
+  .date-ranges.date:last-child {
+    border-radius: 0px 8px 8px 0;
+  }
+}
+
 button {
   &.date-toggle {
     padding: 8px 15px;
