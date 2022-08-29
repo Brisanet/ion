@@ -1,19 +1,22 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Calendar } from './calendar';
 import { Day } from './day';
-
 @Component({
   selector: 'date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatePickerComponent implements OnInit {
-  @Input() format = 'MMM DD, YYYY';
+  @Input() format: string;
   @Input() visible = false;
-  @Input() dateLabel: string;
   @Input() isDateRanges = true;
   @Input() initialDate: string;
-  date: Day;
+  @Output() date = new EventEmitter<{
+    date?: string;
+    startDate?: string;
+    endDate?: string;
+  }>();
+  selectedDate: Day;
   monthYear: string;
   calendar: Calendar;
   lang: string;
@@ -24,6 +27,11 @@ export class DatePickerComponent implements OnInit {
     fifteenDays: false,
     twentyOneDays: false,
   };
+  dateLabel: string;
+  startDate: string;
+  startDateLabel: string;
+  endDate: string;
+  endDateLabel: string;
 
   constructor() {
     this.lang = window.navigator.language;
@@ -32,7 +40,10 @@ export class DatePickerComponent implements OnInit {
   toggle() {
     this.visible = !this.visible;
     this.isCurrentCalendarMonth();
-    this.calendar.goToDate(this.date.monthNumber, this.date.year);
+    this.calendar.goToDate(
+      this.selectedDate.monthNumber,
+      this.selectedDate.year
+    );
     this.renderCalendarDays();
 
     if (this.visible) {
@@ -52,17 +63,14 @@ export class DatePickerComponent implements OnInit {
     }
     const date = this.initialDate ? new Date(this.initialDate) : new Date();
 
-    this.date = new Day(date, this.lang);
+    this.selectedDate = new Day(date, this.lang);
 
     this.calendar = new Calendar(
-      this.date.year,
-      this.date.monthNumber,
+      this.selectedDate.year,
+      this.selectedDate.monthNumber,
       this.lang
     );
 
-    this.dateLabel = this.initialDate
-      ? this.date.format(this.format)
-      : 'Selecione uma data';
     this.renderCalendarDays();
 
     if (this.visible) {
@@ -96,14 +104,9 @@ export class DatePickerComponent implements OnInit {
 
   isCurrentCalendarMonth() {
     return (
-      this.calendar.month.number === this.date.monthNumber &&
-      this.calendar.year === this.date.year
+      this.calendar.month.number === this.selectedDate.monthNumber &&
+      this.calendar.year === this.selectedDate.year
     );
-  }
-
-  handleClickOut(e) {
-    // console.log(this);
-    // console.log(e.target);
   }
 
   getWeekDaysElementStrings() {
@@ -154,8 +157,11 @@ export class DatePickerComponent implements OnInit {
         const btnDay = document.createElement('button');
         btnDay.className = 'month-day';
         btnDay.textContent = day && day.date ? day.date : '';
-        btnDay.addEventListener('click', (e) => this.selectDay(btnDay, day));
-        btnDay.setAttribute('aria-label', day ? day.format(this.format) : '');
+        btnDay.addEventListener('click', () => this.selectDay(btnDay, day));
+        btnDay.setAttribute(
+          'aria-label',
+          day ? day.format(this.format || 'YYYY-MM-DD') : ''
+        );
 
         if (day) {
           if (day.monthNumber === this.calendar.month.number) {
@@ -178,7 +184,7 @@ export class DatePickerComponent implements OnInit {
   selectDay(el, day) {
     if (!day) return;
 
-    this.date = day;
+    this.selectedDate = day;
 
     if (day.monthNumber !== this.calendar.month.number) {
       this.previousMonth();
@@ -188,16 +194,17 @@ export class DatePickerComponent implements OnInit {
       this.selectedDayElement = el;
     }
 
-    this.dateLabel = day.format(this.format);
+    this.dateLabel = day.format(this.format || 'YYYY-MM-DD');
+    this.date.emit({ date: this.dateLabel });
     this.updateMonthDays();
     this.toggle();
   }
 
   isSelectedDate(date) {
     return (
-      date.date === this.date.date &&
-      date.monthNumber === this.date.monthNumber &&
-      date.year === this.date.year
+      date.date === this.selectedDate.date &&
+      date.monthNumber === this.selectedDate.monthNumber &&
+      date.year === this.selectedDate.year
     );
   }
 
