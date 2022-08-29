@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+} from '@angular/core';
+import { SafeAny } from '../utils/safe-any';
 import { Calendar } from './calendar';
 import { Day } from './day';
 @Component({
@@ -6,7 +14,7 @@ import { Day } from './day';
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatePickerComponent implements OnInit {
+export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() format: string;
   @Input() visible = false;
   @Input() isDateRanges = true;
@@ -32,9 +40,60 @@ export class DatePickerComponent implements OnInit {
   startDateLabel: string;
   endDate: string;
   endDateLabel: string;
+  isVisibleIconClose = false;
 
   constructor() {
     this.lang = window.navigator.language;
+  }
+
+  ngAfterViewInit(): void {
+    const el = document.getElementById('date');
+
+    if (el) {
+      el.addEventListener('mouseover', () => {
+        if (this.dateLabel) {
+          this.isVisibleIconClose = true;
+        }
+      });
+
+      el.addEventListener('mouseleave', () => {
+        this.isVisibleIconClose = false;
+      });
+
+      el.addEventListener('click', ($event) => {
+        const isIconTrash = ($event.target as SafeAny).id === 'ion-icon-trash';
+
+        if (isIconTrash) {
+          this.calendarInitialState();
+        }
+      });
+    }
+  }
+
+  ngOnInit() {
+    this.calendarInitialState();
+  }
+
+  calendarInitialState() {
+    if (this.initialDate) {
+      this.initialDate = this.initialDate.replace('-', ',');
+    }
+    this.dateLabel = '';
+    const date = this.initialDate ? new Date(this.initialDate) : new Date();
+
+    this.selectedDate = new Day(date, this.lang);
+
+    this.calendar = new Calendar(
+      this.selectedDate.year,
+      this.selectedDate.monthNumber,
+      this.lang
+    );
+
+    this.renderCalendarDays();
+
+    if (this.visible) {
+      document.getElementById('calendar').style.display = 'block';
+    }
   }
 
   toggle() {
@@ -50,31 +109,6 @@ export class DatePickerComponent implements OnInit {
       document.getElementById('calendar').style.display = 'block';
     } else {
       document.getElementById('calendar').style.display = 'none';
-    }
-  }
-
-  ngOnInit() {
-    this.calendarInitialState();
-  }
-
-  calendarInitialState() {
-    if (this.initialDate) {
-      this.initialDate = this.initialDate.replace('-', ',');
-    }
-    const date = this.initialDate ? new Date(this.initialDate) : new Date();
-
-    this.selectedDate = new Day(date, this.lang);
-
-    this.calendar = new Calendar(
-      this.selectedDate.year,
-      this.selectedDate.monthNumber,
-      this.lang
-    );
-
-    this.renderCalendarDays();
-
-    if (this.visible) {
-      document.getElementById('calendar').style.display = 'block';
     }
   }
 
