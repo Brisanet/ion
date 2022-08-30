@@ -19,6 +19,7 @@ import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ColComponent } from './col/col.component';
     DropdownComponent,
     RowComponent,
     ColComponent,
+    TableComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -64,6 +66,7 @@ import { ColComponent } from './col/col.component';
     AvatarComponent,
     RowComponent,
     ColComponent,
+    TableComponent,
   ],
 })
 export class IonModule {}

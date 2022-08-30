@@ -1,0 +1,52 @@
+<table data-testid="ion-table">
+  <tr>
+    <th *ngIf="config.check">
+      <input
+        type="checkbox"
+        name="check-all"
+        id="check-all"
+        data-testid="table-check-all"
+      />
+    </th>
+    <th *ngFor="let column of config.columns">
+      <span>{{ column.label }}</span>
+      <ion-icon
+        *ngIf="column.sort"
+        [attr.data-testid]="'sort-by-' + column.key"
+        type="semi-down"
+        (click)="sort(column.key)"
+      ></ion-icon>
+    </th>
+    <th *ngIf="config.actions && config.actions.length">Ações</th>
+  </tr>
+
+  <tr
+    *ngFor="let row of config.data; let index = index"
+    [attr.data-testid]="'row-' + index"
+  >
+    <td *ngIf="config.check">
+      <input
+        type="checkbox"
+        name="check-all"
+        id="check-all"
+        [attr.data-testid]="'row-' + index + '-check'"
+      />
+    </td>
+    <td
+      *ngFor="let column of config.columns"
+      [attr.data-testid]="'row-' + index + '-' + column.key"
+    >
+      {{ row[column.key] }}
+    </td>
+    <td>
+      <span *ngFor="let action of config.actions">
+        <ion-icon
+          *ngIf="action.show ? showAction(row, action) : true"
+          [type]="action.icon"
+          (click)="handleEvent(row, action)"
+          style="cursor: pointer"
+        ></ion-icon>
+      </span>
+    </td>
+  </tr>
+</table>
