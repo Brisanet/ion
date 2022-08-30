@@ -1,0 +1,121 @@
+@import '../../styles/colors/colors.scss';
+
+@mixin setCheck($color) {
+  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='%23000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath id='Union' d='M10.8839 2.28075C11.3721 1.79258 11.3721 1.00113 10.8839 0.512978C10.3957 0.0248294 9.60428 0.0248399 9.11613 0.513002L4.7939 4.83535L2.88385 2.9253C2.3957 2.43714 1.60424 2.43714 1.11609 2.9253C0.627931 3.41345 0.627931 4.20491 1.11609 4.69307L3.91003 7.48701C4.14445 7.72143 4.4624 7.85313 4.79392 7.85313C5.12545 7.85312 5.44339 7.72142 5.67781 7.487L10.8839 2.28075Z' fill='%23" + $color + "'/%3E%3C/svg%3E");
+}
+
+@mixin setDash($color) {
+  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1C0 0.447715 0.447715 0 1 0H9C9.55228 0 10 0.447715 10 1V3C10 3.55228 9.55228 4 9 4H1C0.447716 4 0 3.55228 0 3V1Z' fill='%23" + $color + "'/%3E%3C/svg%3E%0A");
+}
+
+$color-primary-2: 'b5d2fc';
+$color-primary-1: 'ebf3fe';
+$color-neutral-4: 'ced2db';
+
+input[type='checkbox']:enabled {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+}
+
+.ion-checkbox:enabled {
+  border: 1px solid $neutral-5;
+  border-radius: 4px;
+  background: $neutral-1;
+  cursor: pointer;
+}
+
+input[type='checkbox']:enabled:hover {
+  box-shadow: 0 0 2px 2px $primary-2;
+  border-color: $primary-3;
+}
+
+.ion-checkbox:enabled:hover:before {
+  position: relative;
+  top: 3px;
+  left: 1px;
+  @include setCheck($color-primary-2);
+}
+
+input[type='checkbox']:enabled:active {
+  box-shadow: none;
+  background-color: $primary-2;
+  border-color: $primary-5;
+}
+
+.ion-checkbox:enabled:active:before {
+  position: relative;
+  top: 3px;
+  left: 1px;
+  @include setCheck($color-primary-1);
+}
+
+input[type='checkbox']:enabled:checked {
+  border: none;
+  background-color: $primary-6;
+}
+
+input[type='checkbox']:enabled:checked:hover {
+  background-color: $primary-5;
+}
+
+.ion-checkbox:enabled:checked:before {
+  position: relative;
+  top: 3.5px;
+  left: 1.5px;
+  @include setCheck($color-primary-1);
+}
+
+input[type='checkbox']:enabled:checked:active {
+  background-color: $primary-7;
+}
+
+input[type='checkbox']:disabled {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background-color: $neutral-2;
+  border: 1px solid $neutral-4;
+  border-radius: 4px;
+  cursor: default;
+}
+
+input[type='checkbox']:disabled:checked {
+  background-color: $neutral-2;
+  border: none;
+}
+
+.ion-checkbox:disabled:checked:before {
+  position: relative;
+  top: 3.5px;
+  left: 1.5px;
+  @include setCheck($color-neutral-4);
+}
+
+input[type='checkbox']:enabled:focus {
+  outline-style: solid;
+  outline-width: 1.5px;
+  outline-color: $primary-5;
+  outline-offset: 2px;
+}
+
+.ion-indeterminate {
+  border: none;
+  background-color: $primary-6;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ion-indeterminate:before {
+  position: relative;
+  top: 5.5px;
+  left: 2.5px;
+  @include setDash($color-primary-1);
+}
+
+.ion-indeterminate:disabled:before {
+  position: relative;
+  top: 5px;
+  left: 2px;
+  @include setDash($color-neutral-4);
+}

@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -42,6 +43,7 @@ import { ColComponent } from './col/col.component';
     DropdownComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -64,6 +66,7 @@ import { ColComponent } from './col/col.component';
     AvatarComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
   ],
 })
 export class IonModule {}

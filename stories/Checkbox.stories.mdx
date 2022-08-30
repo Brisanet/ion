@@ -1,0 +1,58 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CheckboxComponent } from '../projects/ion/src/lib/checkbox/checkbox.component.ts';
+
+<Meta title="Ion/Checkbox" component={CheckboxComponent} />
+
+export const Template = (args) => <CheckboxComponent {...args} />;
+
+# Checkbox
+
+No Ion o `checkbox` pode receber os parametros `disabled`, `checked`, `indeterminate`
+
+<Canvas>
+  <Story name="type: enabled">{Template.bind({})}</Story>
+</Canvas>
+
+## Checked
+
+Caso o parametro `checked` seja passado como verdadeiro o `checkbox` será rederizado já selecionado
+
+<Canvas>
+  <Story name="type: checked" args={{ checked: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Indeterminate
+
+Caso o parametro `indeterminate` seja passado como verdadeiro o `checkbox` será rederizado com seu estilo indeterminado
+
+<Canvas>
+  <Story name="type: indeterminate" args={{ indeterminate: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Disabled
+
+Caso o parametro `disabled` seja passado como verdadeiro o `checkbox` será rederizado desabilitado
+
+<Canvas>
+  <Story name="type: disabled" args={{ disabled: true }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+O mesmo pode ser passado juntamente com os parametros `checked` e `indeterminate`
+
+<Canvas>
+  <Story name="type: disabled-checked" args={{ checked: true, disabled: true }}>
+    {Template.bind({})}
+  </Story>
+  <Story
+    name="type: disabled-indeterminate"
+    args={{ indeterminate: true, disabled: true }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
