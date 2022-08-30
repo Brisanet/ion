@@ -1,5 +1,5 @@
-<div class="date-container" (click)="toggle()">
-  <div class="date" tabindex="0" *ngIf="!isDateRanges" id="date">
+<div class="date-container" (click)="changeCalendarVisibility()">
+  <div class="field-date" tabindex="0" *ngIf="!isDateRanges" id="field-date">
     <ion-icon
       *ngIf="!isVisibleIconClose"
       id="icon"
@@ -13,6 +13,7 @@
       type="trash"
       color="#505566"
       size="16"
+      (click)="clearCalendar()"
     ></ion-icon>
     <label class="selected-date" *ngIf="dateLabel">{{ dateLabel }}</label>
     <label *ngIf="!dateLabel">Data</label>
@@ -49,21 +50,9 @@
       <ion-divider></ion-divider>
       <div class="content">
         <label>Período:</label>
-        <ion-chip
-          label="7 dias"
-          [disabled]="chips.sevenDays"
-          (events)="selectDateRanges(7)"
-        ></ion-chip>
-        <ion-chip
-          label="15 dias"
-          [disabled]="chips.fifteenDays"
-          (events)="selectDateRanges(15)"
-        ></ion-chip>
-        <ion-chip
-          label="21 dias"
-          [disabled]="chips.twentyOneDays"
-          (events)="selectDateRanges(21)"
-        ></ion-chip>
+        <ion-chip label="7 dias"></ion-chip>
+        <ion-chip label="15 dias"></ion-chip>
+        <ion-chip label="21 dias"></ion-chip>
       </div>
       <ion-divider></ion-divider>
     </div>

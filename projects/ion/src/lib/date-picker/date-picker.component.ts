@@ -9,6 +9,12 @@ import {
 import { SafeAny } from '../utils/safe-any';
 import { Calendar } from './calendar';
 import { Day } from './day';
+
+type Dates = {
+  date?: string;
+  startDate?: string;
+  endDate?: string;
+};
 @Component({
   selector: 'date-picker',
   templateUrl: './date-picker.component.html',
@@ -16,57 +22,30 @@ import { Day } from './day';
 })
 export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() format: string;
-  @Input() visible = false;
+  @Input() isCalendarVisible = false;
   @Input() isDateRanges = true;
   @Input() initialDate: string;
-  @Output() date = new EventEmitter<{
-    date?: string;
-    startDate?: string;
-    endDate?: string;
-  }>();
+  @Input() lang: string;
+  @Output() date = new EventEmitter<Dates>();
   selectedDate: Day;
   monthYear: string;
   calendar: Calendar;
-  lang: string;
   calendarElement: HTMLElement;
-  selectedDayElement;
-  chips = {
-    sevenDays: false,
-    fifteenDays: false,
-    twentyOneDays: false,
-  };
-  dateLabel: string;
+  selectedDayElement: HTMLButtonElement;
+  dateLabel = '';
+  isVisibleIconClose = false;
   startDate: string;
   startDateLabel: string;
   endDate: string;
   endDateLabel: string;
-  isVisibleIconClose = false;
 
   constructor() {
-    this.lang = window.navigator.language;
+    this.setLanguage();
   }
 
-  ngAfterViewInit(): void {
-    const el = document.getElementById('date');
-
-    if (el) {
-      el.addEventListener('mouseover', () => {
-        if (this.dateLabel) {
-          this.isVisibleIconClose = true;
-        }
-      });
-
-      el.addEventListener('mouseleave', () => {
-        this.isVisibleIconClose = false;
-      });
-
-      el.addEventListener('click', ($event) => {
-        const isIconTrash = ($event.target as SafeAny).id === 'ion-icon-trash';
-
-        if (isIconTrash) {
-          this.calendarInitialState();
-        }
-      });
+  setLanguage() {
+    if (!this.lang) {
+      this.lang = window.navigator.language;
     }
   }
 
@@ -75,111 +54,37 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   calendarInitialState() {
-    if (this.initialDate) {
-      this.initialDate = this.initialDate.replace('-', ',');
+    this.selectedDate = new Day(this.getInitialDate(), this.lang);
+    this.createCalendarInstance();
+    this.renderCalendarDays();
+
+    this.calendarElement = document.getElementById('calendar');
+
+    if (this.isCalendarVisible) {
+      this.openCalendar();
     }
-    this.dateLabel = '';
-    const date = this.initialDate ? new Date(this.initialDate) : new Date();
+  }
 
-    this.selectedDate = new Day(date, this.lang);
+  getInitialDate = () =>
+    this.initialDate
+      ? new Date(this.initialDate.replace('-', ','))
+      : new Date();
 
+  createCalendarInstance() {
     this.calendar = new Calendar(
       this.selectedDate.year,
       this.selectedDate.monthNumber,
       this.lang
     );
-
-    this.renderCalendarDays();
-
-    if (this.visible) {
-      document.getElementById('calendar').style.display = 'block';
-    }
   }
 
-  toggle() {
-    this.visible = !this.visible;
-    this.isCurrentCalendarMonth();
-    this.calendar.goToDate(
-      this.selectedDate.monthNumber,
-      this.selectedDate.year
-    );
-    this.renderCalendarDays();
-
-    if (this.visible) {
-      document.getElementById('calendar').style.display = 'block';
-    } else {
-      document.getElementById('calendar').style.display = 'none';
-    }
-  }
-
-  previousMonth() {
-    this.calendar.goToPreviousMonth();
-    this.renderCalendarDays();
-  }
-
-  nextMonth() {
-    this.calendar.goToNextMonth();
-    this.renderCalendarDays();
-  }
-
-  previousYear() {
-    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
-    this.renderCalendarDays();
-  }
-
-  nextYear() {
-    this.calendar.goToNextYear(this.calendar.month.number - 1);
-    this.renderCalendarDays();
+  renderCalendarDays() {
+    this.updatedMonthYear();
+    this.updateMonthDays();
   }
 
   updatedMonthYear() {
     this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
-  }
-
-  isCurrentCalendarMonth() {
-    return (
-      this.calendar.month.number === this.selectedDate.monthNumber &&
-      this.calendar.year === this.selectedDate.year
-    );
-  }
-
-  getWeekDaysElementStrings() {
-    return this.calendar.weekDays.map(
-      (weekDay) => `${(weekDay as string).substring(0, 3)}`
-    );
-  }
-
-  getMonthDaysGrid() {
-    const firstDayOfTheMonth = this.calendar.month.getDay(1);
-    const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays = firstDayOfTheMonth.dayNumber - 1;
-    // const totalDays = 42;
-    const totalDays =
-      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
-    let accuracyTotalDays = 0;
-
-    if (totalDays > 35) {
-      accuracyTotalDays = 42;
-    } else if (totalDays > 28) {
-      accuracyTotalDays = 35;
-    } else {
-      accuracyTotalDays = 28;
-    }
-
-    const monthList = Array.from({ length: accuracyTotalDays });
-
-    for (let i = totalLastMonthFinalDays; i < accuracyTotalDays; i++) {
-      monthList[i] = this.calendar.month.getDay(
-        i + 1 - totalLastMonthFinalDays
-      );
-    }
-
-    for (let i = 0; i < totalLastMonthFinalDays; i++) {
-      const inverted = totalLastMonthFinalDays - (i + 1);
-      monthList[i] = prevMonth.getDay(prevMonth.numberOfDays - inverted);
-    }
-
-    return monthList;
   }
 
   updateMonthDays() {
@@ -215,23 +120,55 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getMonthDaysGrid() {
+    const firstDayOfTheMonth = this.calendar.month.getDay(1);
+    const prevMonth = this.calendar.getPreviousMonth();
+    const totalLastMonthFinalDays = firstDayOfTheMonth.dayNumber - 1;
+    const totalDays =
+      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
+    let accuracyTotalDays = 0;
+
+    if (totalDays > 35) {
+      accuracyTotalDays = 42;
+    } else if (totalDays > 28) {
+      accuracyTotalDays = 35;
+    } else {
+      accuracyTotalDays = 28;
+    }
+
+    const monthList = Array.from({ length: accuracyTotalDays });
+
+    for (let i = totalLastMonthFinalDays; i < accuracyTotalDays; i++) {
+      monthList[i] = this.calendar.month.getDay(
+        i + 1 - totalLastMonthFinalDays
+      );
+    }
+
+    for (let i = 0; i < totalLastMonthFinalDays; i++) {
+      const inverted = totalLastMonthFinalDays - (i + 1);
+      monthList[i] = prevMonth.getDay(prevMonth.numberOfDays - inverted);
+    }
+
+    return monthList;
+  }
+
   selectDay(el, day) {
     if (!day) return;
 
     this.selectedDate = day;
 
-    if (day.monthNumber !== this.calendar.month.number) {
-      this.previousMonth();
-    } else {
-      el.classList.add('selected');
-      this.selectedDayElement.classList.remove('selected');
-      this.selectedDayElement = el;
-    }
+    // if (day.monthNumber !== this.calendar.month.number) {
+    //   this.previousMonth();
+    // } else {
+    el.classList.add('selected');
+    this.selectedDayElement.classList.remove('selected');
+    this.selectedDayElement = el;
+    // }
 
     this.dateLabel = day.format(this.format || 'YYYY-MM-DD');
     this.date.emit({ date: this.dateLabel });
     this.updateMonthDays();
-    this.toggle();
+    this.changeCalendarVisibility();
   }
 
   isSelectedDate(date) {
@@ -242,25 +179,90 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  renderCalendarDays() {
-    this.updatedMonthYear();
-    this.updateMonthDays();
+  ngAfterViewInit(): void {
+    this.addEvents();
   }
 
-  selectDateRanges(numberOfDays: number) {
-    if (numberOfDays === 7) {
-      this.chips.fifteenDays = false;
-      this.chips.twentyOneDays = false;
-    }
+  addEvents() {
+    const fieldDate = document.getElementById('field-date');
 
-    if (numberOfDays === 15) {
-      this.chips.sevenDays = false;
-      this.chips.twentyOneDays = false;
-    }
+    if (fieldDate) {
+      fieldDate.addEventListener(
+        'mouseover',
+        () => this.dateLabel && this.setVisibleIconClose(true)
+      );
 
-    if (numberOfDays === 21) {
-      this.chips.sevenDays = false;
-      this.chips.fifteenDays = false;
+      fieldDate.addEventListener('mouseleave', () =>
+        this.setVisibleIconClose(false)
+      );
     }
+  }
+
+  setVisibleIconClose(isVisible: boolean) {
+    this.isVisibleIconClose = isVisible;
+  }
+
+  clearCalendar() {
+    if (this.isVisibleIconClose) {
+      this.dateLabel = '';
+      this.selectedDate = new Day(this.getInitialDate(), this.lang);
+      this.setDate();
+      this.setVisibleIconClose(false);
+    }
+  }
+
+  changeCalendarVisibility() {
+    this.setDate();
+    this.isCalendarVisible = !this.isCalendarVisible;
+    this.isCalendarVisible ? this.openCalendar() : this.closeCalendar();
+  }
+
+  setDate() {
+    this.calendar.goToDate(
+      this.selectedDate.monthNumber,
+      this.selectedDate.year
+    );
+    this.renderCalendarDays();
+  }
+
+  openCalendar() {
+    this.calendarElement.style.display = 'block';
+  }
+
+  closeCalendar() {
+    this.calendarElement.style.display = 'none';
+  }
+
+  previousMonth() {
+    this.calendar.goToPreviousMonth();
+    this.renderCalendarDays();
+  }
+
+  nextMonth() {
+    this.calendar.goToNextMonth();
+    this.renderCalendarDays();
+  }
+
+  previousYear() {
+    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
+    this.renderCalendarDays();
+  }
+
+  nextYear() {
+    this.calendar.goToNextYear(this.calendar.month.number - 1);
+    this.renderCalendarDays();
+  }
+
+  isCurrentCalendarMonth() {
+    return (
+      this.calendar.month.number === this.selectedDate.monthNumber &&
+      this.calendar.year === this.selectedDate.year
+    );
+  }
+
+  getWeekDaysElementStrings() {
+    return this.calendar.weekDays.map(
+      (weekDay) => `${(weekDay as string).substring(0, 3)}`
+    );
   }
 }
