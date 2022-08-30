@@ -7,7 +7,7 @@ import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.c
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
-  title: 'Ion/TabGroup',
+  title: 'Ion/Navigation/TabGroup',
   component: TabGroupComponent,
   decorators: [
     moduleMetadata({

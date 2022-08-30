@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/angular/types-6-0';
 import { RadioComponent } from '../projects/ion/src/lib/radio/radio.component';
 
 export default {
-  title: 'Ion/Radio',
+  title: 'Ion/Data Entry/Radio',
   component: RadioComponent,
 } as Meta;
 

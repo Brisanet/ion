@@ -4,7 +4,7 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
-  title: 'Ion/Tab',
+  title: 'Ion/Navigation/Tab',
   component: TabComponent,
 } as Meta;
 
