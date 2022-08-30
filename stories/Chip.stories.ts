@@ -5,7 +5,7 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 
 export default {
-  title: 'Ion/Chips',
+  title: 'Ion/Navigation/Chips',
   component: ChipComponent,
   decorators: [
     moduleMetadata({
