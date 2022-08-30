@@ -30,6 +30,7 @@ const columns = [
   {
     key: 'id',
     label: 'Código',
+    sort: true,
   },
   {
     key: 'name',
@@ -69,5 +70,14 @@ WithActions.args = {
     data,
     columns,
     actions,
+  },
+};
+
+export const WithCheck = Template.bind({});
+WithCheck.args = {
+  config: {
+    data,
+    columns,
+    check: true,
   },
 };

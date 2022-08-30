@@ -6,6 +6,7 @@
         name="check-all"
         id="check-all"
         data-testid="table-check-all"
+        (click)="toggleAllRows()"
       />
     </th>
     <th *ngFor="let column of config.columns">
@@ -29,7 +30,9 @@
         type="checkbox"
         name="check-all"
         id="check-all"
+        [checked]="row.selected"
         [attr.data-testid]="'row-' + index + '-check'"
+        (click)="checkRow(row)"
       />
     </td>
     <td

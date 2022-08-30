@@ -12,6 +12,7 @@ const columns: Column[] = [
   {
     key: 'id',
     label: 'Código',
+    sort: true,
   },
   {
     key: 'name',
@@ -71,7 +72,6 @@ describe('TableComponent', () => {
   });
 
   it('should show icon sort when column is sortable', () => {
-    expect(screen.queryAllByTestId('sort-by-id')).toHaveLength(0);
     expect(screen.queryAllByTestId('sort-by-name')).toHaveLength(1);
   });
 
@@ -79,6 +79,14 @@ describe('TableComponent', () => {
     expect(screen.getByTestId('row-0-name')).toContainHTML('Meteora');
     fireEvent.click(screen.getByTestId('sort-by-name'));
     expect(screen.getByTestId('row-0-name')).toContainHTML('Hybrid Theory');
+  });
+
+  it('should sort the data of a column (number)', async () => {
+    fireEvent.click(screen.getByTestId('sort-by-name'));
+    expect(screen.getByTestId('row-0-name')).toContainHTML('Hybrid Theory');
+    fireEvent.click(screen.getByTestId('sort-by-id'));
+    expect(screen.getByTestId('row-0-name')).toContainHTML('Meteora');
+    expect(screen.getByTestId('row-1-name')).toContainHTML('One More Light');
   });
 });
 
@@ -136,36 +144,71 @@ describe('Table > Actions', () => {
     fireEvent.click(removeOption);
     expect(screen.getByText('editado!')).toBeInTheDocument();
   });
+});
+
+describe('Table > Checkbox', () => {
+  const eventSelect = jest.fn();
+  const tableWithSelect: IonTableProps = {
+    config: {
+      columns: JSON.parse(JSON.stringify(columns)),
+      data: JSON.parse(JSON.stringify(data)),
+      check: true,
+    },
+    events: {
+      emit: eventSelect,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    tableWithSelect.config.data = JSON.parse(JSON.stringify(data));
+    await sut(tableWithSelect);
+  });
 
   it('should show input check in header', async () => {
-    const withChecks = { ...tableWithActions };
-    withChecks.config.check = true;
-    await sut(tableWithActions);
     expect(screen.getByTestId('table-check-all')).toBeInTheDocument();
-
-    tableWithActions.config.data.forEach((row, index) => {
-      expect(screen.getByTestId(`row-${index}-check`)).toBeInTheDocument();
-    });
   });
 
   it('should show input check in all rows', async () => {
-    const withChecks = { ...tableWithActions };
-    withChecks.config.check = true;
-    tableWithActions.config.data.push({
-      id: 2,
-      name: 'iPhone',
-      deleted: false,
-    });
-    await sut(tableWithActions);
-    tableWithActions.config.data.forEach((row, index) => {
+    tableWithSelect.config.data.forEach((row, index) => {
       expect(screen.getByTestId(`row-${index}-check`)).toBeInTheDocument();
     });
   });
 
-  it.skip('should select a row', async () => {
-    const withChecks = { ...tableWithActions };
-    withChecks.config.check = true;
-    await sut(tableWithActions);
-    screen.debug();
+  it('should select all rows', async () => {
+    const checkFirstRow = screen.getByTestId('table-check-all');
+    fireEvent.click(checkFirstRow);
+
+    tableWithSelect.config.data.forEach((row, index) => {
+      expect(screen.getByTestId(`row-${index}-check`)).toBeChecked();
+    });
+
+    expect(eventSelect).toBeCalledWith({
+      rows_selected: tableWithSelect.config.data,
+    });
+  });
+
+  it('should select a row', async () => {
+    const indexToSelect = 0;
+    const checkFirstRow = screen.getByTestId(`row-${indexToSelect}-check`);
+    fireEvent.click(checkFirstRow);
+
+    expect(eventSelect).toBeCalledWith({
+      rows_selected: [{ ...data[indexToSelect], selected: true }],
+    });
+  });
+
+  it('should unchecked all rows when click and check all and has a or more rows selected', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+    fireEvent.click(screen.getByTestId('row-1-check'));
+
+    fireEvent.click(screen.getByTestId('table-check-all'));
+
+    tableWithSelect.config.data.forEach((row, index) => {
+      expect(screen.getByTestId(`row-${index}-check`)).not.toBeChecked();
+    });
+  });
+
+  afterEach(() => {
+    eventSelect.mockClear();
   });
 });

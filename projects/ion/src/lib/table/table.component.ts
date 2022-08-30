@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
 
 export interface Column {
@@ -14,6 +14,10 @@ export interface ActionTable {
   call?: (row: SafeAny) => void;
 }
 
+interface TableEvent {
+  rows_selected: SafeAny[];
+}
+
 export interface ConfigTable {
   data: SafeAny[];
   columns: Column[];
@@ -23,6 +27,7 @@ export interface ConfigTable {
 
 export interface IonTableProps {
   config: ConfigTable;
+  events?: EventEmitter<TableEvent>;
 }
 
 @Component({
@@ -32,6 +37,37 @@ export interface IonTableProps {
 })
 export class TableComponent {
   @Input() config: ConfigTable;
+  @Output() events = new EventEmitter<TableEvent>();
+
+  private getRowsSelected(): SafeAny[] {
+    return this.config.data.filter((rowInData) => rowInData.selected);
+  }
+
+  private hasRowSelected(): boolean {
+    return this.getRowsSelected().length > 0;
+  }
+
+  private emitRowsSelected() {
+    this.events.emit({
+      rows_selected: this.getRowsSelected(),
+    });
+  }
+
+  private selectAllLike(selected: boolean) {
+    this.config.data.forEach((row) => {
+      row.selected = selected;
+    });
+  }
+
+  checkRow(row: SafeAny) {
+    row.selected = !row.selected;
+    this.emitRowsSelected();
+  }
+
+  toggleAllRows() {
+    this.selectAllLike(!this.hasRowSelected());
+    this.emitRowsSelected();
+  }
 
   sort(key: string) {
     this.config.data.sort((rowA, rowB) =>
