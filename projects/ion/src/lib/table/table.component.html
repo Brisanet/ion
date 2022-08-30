@@ -39,7 +39,14 @@
       *ngFor="let column of config.columns"
       [attr.data-testid]="'row-' + index + '-' + column.key"
     >
-      {{ row[column.key] }}
+      <span *ngIf="!column.type">{{ row[column.key] }}</span>
+
+      <ion-tag
+        *ngIf="column.type === 'tag'"
+        [label]="row[column.key]"
+        status="neutral"
+        [icon]="column.tag ? column.tag.icon : 'close'"
+      ></ion-tag>
     </td>
     <td>
       <span *ngFor="let action of config.actions">

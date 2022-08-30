@@ -1,10 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
 
+interface TagRow {
+  icon?: string;
+}
 export interface Column {
   label: string;
   key: string;
   sort?: boolean;
+  type?: 'tag' | 'text';
+  tag?: TagRow;
 }
 
 export interface ActionTable {

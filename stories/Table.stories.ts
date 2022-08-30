@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
-import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
+import { TagComponent } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -14,16 +14,16 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
   component: TableComponent,
   props: args,
   moduleMetadata: {
-    declarations: [TableComponent, IonIconComponent, DefaultImageDirective],
+    declarations: [TableComponent, IonIconComponent, TagComponent],
     imports: [CommonModule],
   },
 });
 
 const data = [
-  { id: 1, name: 'Meteora', deleted: false },
-  { id: 2, name: 'One More Light', deleted: false },
-  { id: 3, name: 'Hybrid Theory', deleted: true },
-  { id: 4, name: 'Minutes to Midnight', deleted: false },
+  { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  { id: 2, name: 'One More Light', deleted: false, year: 2017 },
+  { id: 3, name: 'Hybrid Theory', deleted: true, year: 2000 },
+  { id: 4, name: 'Minutes to Midnight', deleted: false, year: 2007 },
 ];
 
 const columns = [
@@ -79,5 +79,24 @@ WithCheck.args = {
     data,
     columns,
     check: true,
+  },
+};
+
+export const WithTag = Template.bind({});
+WithTag.args = {
+  config: {
+    data,
+    columns: [
+      ...columns,
+      {
+        key: 'year',
+        label: 'Year',
+        sort: true,
+        type: 'tag',
+        tag: {
+          icon: 'check',
+        },
+      },
+    ],
   },
 };

@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
+import { TagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
 import {
   ActionTable,
@@ -22,10 +23,10 @@ const columns: Column[] = [
 ];
 
 const data = [
-  { id: 1, name: 'Meteora', deleted: false },
-  { id: 2, name: 'One More Light', deleted: false },
-  { id: 3, name: 'Hybrid Theory', deleted: true },
-  { id: 4, name: 'Minutes to Midnight', deleted: false },
+  { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  { id: 2, name: 'One More Light', deleted: false, year: 2017 },
+  { id: 3, name: 'Hybrid Theory', deleted: true, year: 2000 },
+  { id: 4, name: 'Minutes to Midnight', deleted: false, year: 2007 },
 ];
 
 const defaultProps: IonTableProps = {
@@ -38,7 +39,7 @@ const defaultProps: IonTableProps = {
 const sut = async (customProps: IonTableProps = defaultProps) => {
   await render(TableComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, TagComponent],
   });
 };
 
@@ -210,5 +211,41 @@ describe('Table > Checkbox', () => {
 
   afterEach(() => {
     eventSelect.mockClear();
+  });
+});
+
+describe('Table > Differents columns data type', () => {
+  const eventSelect = jest.fn();
+  const tableDifferentColumns: IonTableProps = {
+    config: {
+      columns: [
+        ...JSON.parse(JSON.stringify(columns)),
+        {
+          key: 'year',
+          label: 'Year',
+          type: 'tag',
+          sort: true,
+          tag: {
+            icon: 'check',
+          },
+        },
+      ],
+      data: JSON.parse(JSON.stringify(data)),
+    },
+    events: {
+      emit: eventSelect,
+    } as SafeAny,
+  };
+
+  describe('Tag', () => {
+    it('should show icon in tag', async () => {
+      await sut(tableDifferentColumns);
+      expect(document.getElementById('ion-icon-check')).toBeInTheDocument();
+    });
+
+    it.skip('should show icon in tag by row data', async () => {
+      await sut(tableDifferentColumns);
+      expect(document.getElementById('ion-icon-check')).toBeInTheDocument();
+    });
   });
 });
