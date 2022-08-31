@@ -65,16 +65,6 @@ export class TableComponent {
     });
   }
 
-  public getIconByCell(column: Column, row: SafeAny): string {
-    if (column.tag && column.tag.iconKey) {
-      return row[column.tag.iconKey];
-    }
-    if (column.tag && column.tag.icon) {
-      return column.tag.icon;
-    }
-    return '';
-  }
-
   checkRow(row: SafeAny) {
     row.selected = !row.selected;
     this.emitRowsSelected();
