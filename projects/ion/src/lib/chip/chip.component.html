@@ -7,15 +7,18 @@
   }"
   [class]="'chip-' + size"
 >
+  <!-- <ion-badge [type]="'primary'" [value]="badge.value" *ngIf="badge.show"></ion-badge> -->
   {{ label }}
   <ion-icon
+    data-testid="icon-dinamic"
     class="icon-color"
-    *ngIf="icon"
+    *ngIf="icon && !options"
     [type]="icon"
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>
   <ion-icon
+    data-testid="icon-default"
     class="icon-color"
     *ngIf="options"
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
@@ -26,6 +29,7 @@
 <div *ngIf="showDropdown">
   <ion-dropdown
     [options]="options"
+    [multiple]="multiple"
     (selected)="handleSuccess($event)"
   ></ion-dropdown>
 </div>

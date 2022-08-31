@@ -15,7 +15,13 @@ export interface IonChipProps {
   size?: ChipSize;
   events?: EventEmitter<ChipEvent>;
   options?: DropdownItem[];
+  icon?: string;
 }
+
+type Badge = {
+  value: number;
+  show: boolean;
+};
 
 @Component({
   selector: 'ion-chip',
@@ -30,8 +36,13 @@ export class ChipComponent {
   @Input() icon?: IconType;
   @Input() showDropdown = false;
   @Input() options: DropdownItem[];
+  @Input() multiple?: boolean = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
+  public badge: Badge = {
+    value: 0,
+    show: false,
+  };
 
   select() {
     this.toggleDropdown();
@@ -48,9 +59,17 @@ export class ChipComponent {
     }
   }
 
-  handleSuccess(event: DropdownItem) {
-    console.log(event);
-    this.label = event[0].label;
+  handleSuccess(event: DropdownItem[]) {
+    if (event) {
+      this.badge.show = false;
+      this.badge.value = event.length;
+      this.badge.show = true;
+    }
+
+    if (!this.multiple) {
+      this.label = event[0].label;
+    }
+
     this.toggleDropdown();
   }
 }

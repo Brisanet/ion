@@ -57,7 +57,6 @@ import { ColComponent } from './col/col.component';
     AlertComponent,
     MessageComponent,
     NotificationComponent,
-    BadgeComponent,
     AvatarComponent,
     RowComponent,
     ColComponent,

@@ -1,3 +1,4 @@
+import { BadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
@@ -10,7 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [DropdownComponent, IonIconComponent],
+      declarations: [DropdownComponent, IonIconComponent, BadgeComponent],
     }),
   ],
 } as Meta;
@@ -51,6 +52,8 @@ BasicIcon.args = {
 
 export const WithDropdown = Template.bind({});
 WithDropdown.args = {
-  label: 'Custom label',
+  label: 'Animais',
   options: [{ label: 'Cat' }, { label: 'Dog' }],
+  icon: 'close',
+  multiple: true,
 };

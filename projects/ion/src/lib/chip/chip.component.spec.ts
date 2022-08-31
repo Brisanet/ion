@@ -16,6 +16,18 @@ const sut = async (customProps?: IonChipProps) => {
 };
 
 describe('ChipComponent', () => {
+  it('', async () => {
+    await sut({
+      label: 'Custom label',
+      options: [{ label: 'Cat' }, { label: 'Dog' }],
+      icon: 'close',
+    });
+    const iconDinamic = screen.queryAllByTestId('icon-dinamic');
+    const iconDefault = screen.queryAllByTestId('icon-default');
+    expect(iconDinamic.length).not.toBe(1);
+    expect(iconDefault.length).toBe(1);
+  });
+
   it('should render chip component with custom label', async () => {
     await sut();
     expect(screen.getByText('chip')).toBeTruthy();
