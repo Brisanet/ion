@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/angular/types-6-0';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
-  title: 'Ion/Icons',
+  title: 'Ion/Design Tokens/Icons',
   component: IonIconComponent,
 } as Meta;
 

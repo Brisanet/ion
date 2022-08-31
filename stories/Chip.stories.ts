@@ -4,7 +4,7 @@ import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
-  title: 'Ion/Chips',
+  title: 'Ion/Navigation/Chips',
   component: ChipComponent,
   decorators: [
     moduleMetadata({
