@@ -57,8 +57,8 @@ describe('TagComponent', () => {
       );
     });
 
-    it('should render icon', () => {
-      expect(screen.getByTestId(IDs.icon)).toBeInTheDocument();
+    it('should render without icon by default', () => {
+      expect(screen.queryAllByTestId(IDs.icon)).toHaveLength(0);
     });
   });
 
@@ -98,6 +98,25 @@ describe('TagComponent', () => {
     }
   );
 
+  it('should render with icon', async () => {
+    await sut({ ...defaultValue, icon: 'pencil' });
+    expect(screen.getByTestId(IDs.icon)).toBeInTheDocument();
+  });
+
+  it('should not render icon when parameter is empty', async () => {
+    await sut({ ...defaultValue, icon: '' });
+    expect(screen.queryAllByTestId(IDs.icon)).toHaveLength(0);
+  });
+
+  it('should not render component and throw error when label is empty', async () => {
+    try {
+      await sut({ label: '' });
+    } catch (e) {
+      expect(screen.queryAllByTestId(IDs.tag)).toHaveLength(0);
+      expect(e.message).toBe('Invalid Tag label informed');
+    }
+  });
+
   it.each(tagTypes)('should render %s tag even with a color', async (type) => {
     const color = '#be531c';
     await sut({ ...defaultValue, status: type, color: color });
@@ -105,5 +124,11 @@ describe('TagComponent', () => {
     expect(await screen.findByTestId(IDs.tag)).not.toHaveStyle(
       `color: ${color};`
     );
+  });
+
+  it('should create tag whit default color when color parameter is invalid', async () => {
+    const invalid_color = '#GGGGGG';
+    await sut({ ...defaultValue, color: invalid_color });
+    expect(screen.getByTestId(IDs.tag)).toHaveStyle(`color: ${defaultColor};`);
   });
 });
