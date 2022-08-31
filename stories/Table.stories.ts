@@ -22,8 +22,20 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
 const data = [
   { id: 1, name: 'Meteora', deleted: false, year: 2003 },
   { id: 2, name: 'One More Light', deleted: false, year: 2017 },
-  { id: 3, name: 'Hybrid Theory', deleted: true, year: 2000 },
-  { id: 4, name: 'Minutes to Midnight', deleted: false, year: 2007 },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    icon: 'star-solid',
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    icon: 'union',
+  },
 ];
 
 const columns = [
@@ -82,8 +94,8 @@ WithCheck.args = {
   },
 };
 
-export const WithTag = Template.bind({});
-WithTag.args = {
+export const WithTagByColumn = Template.bind({});
+WithTagByColumn.args = {
   config: {
     data,
     columns: [
@@ -95,6 +107,28 @@ WithTag.args = {
         type: 'tag',
         tag: {
           icon: 'check',
+        },
+      },
+    ],
+  },
+};
+
+export const WithTagByRow = Template.bind({});
+const customDataWithIcon = JSON.parse(JSON.stringify(data));
+
+WithTagByRow.args = {
+  config: {
+    data: customDataWithIcon,
+    columns: [
+      ...columns,
+      {
+        key: 'year',
+        label: 'Year',
+        sort: true,
+        type: 'tag',
+        tag: {
+          icon: 'check',
+          iconKey: 'icon',
         },
       },
     ],

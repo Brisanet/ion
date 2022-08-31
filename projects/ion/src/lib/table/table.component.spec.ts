@@ -25,8 +25,20 @@ const columns: Column[] = [
 const data = [
   { id: 1, name: 'Meteora', deleted: false, year: 2003 },
   { id: 2, name: 'One More Light', deleted: false, year: 2017 },
-  { id: 3, name: 'Hybrid Theory', deleted: true, year: 2000 },
-  { id: 4, name: 'Minutes to Midnight', deleted: false, year: 2007 },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    icon: 'star-solid',
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    icon: 'union',
+  },
 ];
 
 const defaultProps: IonTableProps = {
@@ -216,6 +228,7 @@ describe('Table > Checkbox', () => {
 
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
+  const columnIcon = 'check';
   const tableDifferentColumns: IonTableProps = {
     config: {
       columns: [
@@ -226,7 +239,7 @@ describe('Table > Differents columns data type', () => {
           type: 'tag',
           sort: true,
           tag: {
-            icon: 'check',
+            icon: columnIcon,
           },
         },
       ],
@@ -238,14 +251,32 @@ describe('Table > Differents columns data type', () => {
   };
 
   describe('Tag', () => {
-    it('should show icon in tag', async () => {
+    it('should show icon in tag by column icon', async () => {
       await sut(tableDifferentColumns);
-      expect(document.getElementById('ion-icon-check')).toBeInTheDocument();
+      expect(
+        document.getElementById(`ion-icon-${columnIcon}`)
+      ).toBeInTheDocument();
+      expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
     });
 
-    it.skip('should show icon in tag by row data', async () => {
-      await sut(tableDifferentColumns);
-      expect(document.getElementById('ion-icon-check')).toBeInTheDocument();
-    });
+    it.each(['union', 'star-solid'])(
+      'should show %s icon in tag by row data',
+      async (iconRow: string) => {
+        const tableWithCustomIconInTag = JSON.parse(
+          JSON.stringify(tableDifferentColumns)
+        ) as IonTableProps;
+
+        const columns = tableWithCustomIconInTag.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          iconKey: 'icon',
+        };
+
+        await sut(tableWithCustomIconInTag);
+        expect(
+          document.getElementById(`ion-icon-${iconRow}`)
+        ).toBeInTheDocument();
+      }
+    );
   });
 });

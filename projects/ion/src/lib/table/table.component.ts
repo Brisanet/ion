@@ -3,6 +3,7 @@ import { SafeAny } from '../utils/safe-any';
 
 interface TagRow {
   icon?: string;
+  iconKey?: string;
 }
 export interface Column {
   label: string;
@@ -62,6 +63,16 @@ export class TableComponent {
     this.config.data.forEach((row) => {
       row.selected = selected;
     });
+  }
+
+  public getIconByCell(column: Column, row: SafeAny): string {
+    if (column.tag && column.tag.iconKey) {
+      return row[column.tag.iconKey];
+    }
+    if (column.tag && column.tag.icon) {
+      return column.tag.icon;
+    }
+    return '';
   }
 
   checkRow(row: SafeAny) {

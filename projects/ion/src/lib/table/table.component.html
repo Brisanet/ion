@@ -39,13 +39,14 @@
       *ngFor="let column of config.columns"
       [attr.data-testid]="'row-' + index + '-' + column.key"
     >
+      <!-- cell types -->
       <span *ngIf="!column.type">{{ row[column.key] }}</span>
 
       <ion-tag
         *ngIf="column.type === 'tag'"
         [label]="row[column.key]"
         status="neutral"
-        [icon]="column.tag ? column.tag.icon : 'close'"
+        [icon]="getIconByCell(column, row)"
       ></ion-tag>
     </td>
     <td>
