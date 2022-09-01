@@ -33,6 +33,7 @@
       }
     }
 
+    &.selected-field,
     &:hover,
     &:focus,
     &:focus-visible {
@@ -51,12 +52,18 @@
     }
   }
 
-  .date-ranges.date:first-child {
-    border-radius: 8px 0 0 8px;
-  }
+  .date-ranges {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  .date-ranges.date:last-child {
-    border-radius: 0px 8px 8px 0;
+    & div.field-date:first-child {
+      border-radius: 8px 0 0 8px;
+    }
+
+    & div.field-date:last-child {
+      border-radius: 0px 8px 8px 0;
+    }
   }
 }
 

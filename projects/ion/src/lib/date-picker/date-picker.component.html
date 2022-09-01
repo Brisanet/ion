@@ -1,5 +1,11 @@
-<div class="date-container" (click)="changeCalendarVisibility()">
-  <div class="field-date" tabindex="0" *ngIf="!isDateRanges" id="field-date">
+<div class="date-container">
+  <div
+    *ngIf="!isDateRanges"
+    class="field-date"
+    tabindex="0"
+    id="field-date"
+    (click)="openCalendar('dateField')"
+  >
     <ion-icon
       *ngIf="!isVisibleIconClose"
       id="icon"
@@ -15,8 +21,49 @@
       size="16"
       (click)="clearCalendar()"
     ></ion-icon>
-    <label class="selected-date" *ngIf="dateLabel">{{ dateLabel }}</label>
+    <label class="selected-date" *ngIf="dateLabel">{{
+      dateFields.dateField.date
+    }}</label>
     <label *ngIf="!dateLabel">Data</label>
+  </div>
+  <div class="date-ranges" *ngIf="isDateRanges">
+    <div
+      class="field-date"
+      tabindex="0"
+      id="field-start-date"
+      (click)="openCalendar('startDateField')"
+    >
+      <ion-icon
+        *ngIf="!isVisibleIconClose"
+        id="icon"
+        type="pencil"
+        color="#AEB2BD"
+        size="16"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="isVisibleIconClose"
+        id="icon"
+        type="trash"
+        color="#505566"
+        size="16"
+        (click)="clearCalendar()"
+      ></ion-icon>
+      <label class="selected-date" *ngIf="dateFields.startDateField.date">{{
+        dateFields.startDateField.date
+      }}</label>
+      <label *ngIf="!dateFields.startDateField.date">Data início</label>
+    </div>
+    <div
+      class="field-date"
+      tabindex="0"
+      id="field-end-date"
+      (click)="openCalendar('endDateField')"
+    >
+      <label class="selected-date" *ngIf="dateFields.endDateField.date">{{
+        dateFields.endDateField.date
+      }}</label>
+      <label *ngIf="!dateFields.endDateField.date">Data fim</label>
+    </div>
   </div>
 </div>
 <div id="calendar">
@@ -66,7 +113,7 @@
       <ion-button
         label="Cancelar"
         type="ghost"
-        (ionOnClick)="calendarInitialState()"
+        (ionOnClick)="clearCalendar()"
       ></ion-button>
       <ion-button label="Pronto"></ion-button>
     </div>

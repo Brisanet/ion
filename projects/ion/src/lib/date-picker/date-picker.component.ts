@@ -6,7 +6,6 @@ import {
   EventEmitter,
   AfterViewInit,
 } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import { Calendar } from './calendar';
 import { Day } from './day';
 
@@ -23,7 +22,7 @@ type Dates = {
 export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() format: string;
   @Input() isCalendarVisible = false;
-  @Input() isDateRanges = true;
+  @Input() isDateRanges = false;
   @Input() initialDate: string;
   @Input() lang: string;
   @Output() date = new EventEmitter<Dates>();
@@ -34,10 +33,25 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   selectedDayElement: HTMLButtonElement;
   dateLabel = '';
   isVisibleIconClose = false;
-  startDate: string;
-  startDateLabel: string;
-  endDate: string;
-  endDateLabel: string;
+  currentFieldDate: string;
+  hasDateInFields = false;
+  dateFields = {
+    dateField: {
+      element: null,
+      date: '',
+      seleceted: false,
+    },
+    startDateField: {
+      element: null,
+      date: '',
+      seleceted: false,
+    },
+    endDateField: {
+      element: null,
+      date: '',
+      seleceted: false,
+    },
+  };
 
   constructor() {
     this.setLanguage();
@@ -61,7 +75,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.calendarElement = document.getElementById('calendar');
 
     if (this.isCalendarVisible) {
-      this.openCalendar();
+      this.openCalendar(this.isDateRanges ? 'field-date' : 'field-start-date');
     }
   }
 
@@ -96,7 +110,11 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
         const btnDay = document.createElement('button');
         btnDay.className = 'month-day';
         btnDay.textContent = day && day.date ? day.date : '';
-        btnDay.addEventListener('click', () => this.selectDay(btnDay, day));
+        // btnDay.addEventListener('click', () => this.selectDay(btnDay, day));
+        btnDay.addEventListener('click', () =>
+          this.dispatchActions(btnDay, day)
+        );
+
         btnDay.setAttribute(
           'aria-label',
           day ? day.format(this.format || 'YYYY-MM-DD') : ''
@@ -152,23 +170,45 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return monthList;
   }
 
-  selectDay(el, day) {
+  dispatchActions(el: HTMLButtonElement, day: Day) {
     if (!day) return;
 
     this.selectedDate = day;
-
-    // if (day.monthNumber !== this.calendar.month.number) {
-    //   this.previousMonth();
-    // } else {
-    el.classList.add('selected');
-    this.selectedDayElement.classList.remove('selected');
+    this.addClassElement(el, 'selected');
+    this.removeClassElement(this.selectedDayElement, 'selected');
     this.selectedDayElement = el;
-    // }
 
-    this.dateLabel = day.format(this.format || 'YYYY-MM-DD');
-    this.date.emit({ date: this.dateLabel });
+    this.formatDateLabel();
+    this.updateDateInField();
+    this.hasDateInFields = true;
+    this.emmitEvent();
     this.updateMonthDays();
-    this.changeCalendarVisibility();
+
+    if (!this.isDateRanges) {
+      this.closeCalendar();
+    }
+  }
+
+  formatDateLabel() {
+    this.dateLabel = this.selectedDate.format(this.format || 'YYYY-MM-DD');
+  }
+
+  updateDateInField() {
+    this.dateFields[this.currentFieldDate].date = this.selectedDate.format(
+      this.format || 'YYYY-MM-DD'
+    );
+  }
+
+  emmitEvent() {
+    this.date.emit({ date: this.dateLabel });
+  }
+
+  addClassElement(el: HTMLElement, className) {
+    el.classList.add(className);
+  }
+
+  removeClassElement(el: HTMLElement, className) {
+    el.classList.remove(className);
   }
 
   isSelectedDate(date) {
@@ -180,19 +220,25 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    this.dateFields.dateField.element = document.getElementById('field-date');
+    this.dateFields.startDateField.element =
+      document.getElementById('field-start-date');
+    this.dateFields.endDateField.element =
+      document.getElementById('field-end-date');
+
     this.addEvents();
   }
 
   addEvents() {
-    const fieldDate = document.getElementById('field-date');
+    const fieldsDate = document.getElementsByClassName('field-date');
 
-    if (fieldDate) {
-      fieldDate.addEventListener(
+    for (let i = 0; i < fieldsDate.length; i++) {
+      fieldsDate[i].addEventListener(
         'mouseover',
-        () => this.dateLabel && this.setVisibleIconClose(true)
+        () => this.hasDateInFields && this.setVisibleIconClose(true)
       );
 
-      fieldDate.addEventListener('mouseleave', () =>
+      fieldsDate[i].addEventListener('mouseleave', () =>
         this.setVisibleIconClose(false)
       );
     }
@@ -203,18 +249,15 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   clearCalendar() {
-    if (this.isVisibleIconClose) {
-      this.dateLabel = '';
-      this.selectedDate = new Day(this.getInitialDate(), this.lang);
-      this.setDate();
-      this.setVisibleIconClose(false);
-    }
-  }
-
-  changeCalendarVisibility() {
+    this.dateLabel = '';
+    Object.keys(this.dateFields).forEach((item) => {
+      this.dateFields[item].date = '';
+    });
+    this.hasDateInFields = false;
+    this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDate();
-    this.isCalendarVisible = !this.isCalendarVisible;
-    this.isCalendarVisible ? this.openCalendar() : this.closeCalendar();
+    this.setVisibleIconClose(false);
+    this.closeCalendar();
   }
 
   setDate() {
@@ -225,7 +268,8 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.renderCalendarDays();
   }
 
-  openCalendar() {
+  openCalendar(fieldDate: string) {
+    this.currentFieldDate = fieldDate;
     this.calendarElement.style.display = 'block';
   }
 
