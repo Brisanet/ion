@@ -84,6 +84,15 @@ describe('TableComponent', () => {
     expect(screen.getByText(name)).toBeInTheDocument();
   });
 
+  it('should render with custom width', async () => {
+    const columnLg = defaultProps.config.columns[0];
+    const customSize = 90;
+    columnLg.width = customSize;
+    expect(await screen.findByTestId('column-' + columnLg.key)).toHaveStyle(
+      `width: ${customSize}%`
+    );
+  });
+
   it('should show icon sort when column is sortable', () => {
     expect(screen.queryAllByTestId('sort-by-name')).toHaveLength(1);
   });

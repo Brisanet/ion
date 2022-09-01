@@ -12,6 +12,7 @@ export interface Column {
   type?: 'tag' | 'text';
   tag?: TagRow;
   desc?: boolean;
+  width?: number;
 }
 
 export interface ActionTable {

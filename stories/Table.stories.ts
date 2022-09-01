@@ -94,6 +94,16 @@ WithCheck.args = {
   },
 };
 
+export const CustomWidthCell = Template.bind({});
+const customWidth = JSON.parse(JSON.stringify(columns));
+customWidth[1].width = 90;
+CustomWidthCell.args = {
+  config: {
+    data,
+    columns: customWidth,
+  },
+};
+
 export const WithTagByColumn = Template.bind({});
 WithTagByColumn.args = {
   config: {

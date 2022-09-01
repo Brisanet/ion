@@ -9,7 +9,11 @@
         (click)="toggleAllRows()"
       />
     </th>
-    <th *ngFor="let column of config.columns">
+    <th
+      *ngFor="let column of config.columns"
+      [attr.data-testid]="'column-' + column.key"
+      [ngStyle]="{ width: column.width + '%' }"
+    >
       <div class="header-style">
         <span>{{ column.label }}</span>
         <ion-icon
