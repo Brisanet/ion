@@ -88,18 +88,32 @@ describe('TableComponent', () => {
     expect(screen.queryAllByTestId('sort-by-name')).toHaveLength(1);
   });
 
-  it('should sort the data of a column (string)', async () => {
+  it('should sort asc the data of a column (string)', async () => {
     expect(screen.getByTestId('row-0-name')).toContainHTML('Meteora');
     fireEvent.click(screen.getByTestId('sort-by-name'));
     expect(screen.getByTestId('row-0-name')).toContainHTML('Hybrid Theory');
   });
 
-  it('should sort the data of a column (number)', async () => {
-    fireEvent.click(screen.getByTestId('sort-by-name'));
-    expect(screen.getByTestId('row-0-name')).toContainHTML('Hybrid Theory');
+  it('should sort desc the data of a column (number)', async () => {
     fireEvent.click(screen.getByTestId('sort-by-id'));
-    expect(screen.getByTestId('row-0-name')).toContainHTML('Meteora');
-    expect(screen.getByTestId('row-1-name')).toContainHTML('One More Light');
+    fireEvent.click(screen.getByTestId('sort-by-id'));
+    expect(screen.getByTestId('row-0-id')).toContainHTML('4');
+  });
+
+  it('should sort asc and desc the data of a column (number)', async () => {
+    const columnToClick = 'sort-by-id';
+    const cellToCheck = 'row-0-id';
+
+    fireEvent.click(screen.getByTestId(columnToClick));
+    expect(screen.getByTestId(cellToCheck)).toContainHTML('1');
+    fireEvent.click(screen.getByTestId(columnToClick));
+    expect(screen.getByTestId(cellToCheck)).toContainHTML('4');
+    fireEvent.click(screen.getByTestId(columnToClick));
+    expect(screen.getByTestId(cellToCheck)).toContainHTML('1');
+  });
+
+  afterEach(() => {
+    defaultProps.config.data = JSON.parse(JSON.stringify(data));
   });
 });
 

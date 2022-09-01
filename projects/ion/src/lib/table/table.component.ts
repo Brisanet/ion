@@ -11,6 +11,7 @@ export interface Column {
   sort?: boolean;
   type?: 'tag' | 'text';
   tag?: TagRow;
+  desc?: boolean;
 }
 
 export interface ActionTable {
@@ -34,11 +35,6 @@ export interface ConfigTable {
 export interface IonTableProps {
   config: ConfigTable;
   events?: EventEmitter<TableEvent>;
-}
-
-enum Order {
-  ASC = 'asc',
-  DESC = 'desc',
 }
 
 @Component({
@@ -80,17 +76,18 @@ export class TableComponent {
     this.emitRowsSelected();
   }
 
-  private order(by: Order, rowA: SafeAny, rowB: SafeAny, key: string) {
-    if (by === Order.ASC) {
-      return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+  private orderBy(desc: boolean, rowA: SafeAny, rowB: SafeAny, key: string) {
+    if (desc) {
+      return rowA[key] > rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
     }
-    return rowA[key] > rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+    return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
   }
 
-  sort(key: string) {
+  sort(column: Column) {
     this.config.data.sort((rowA, rowB) =>
-      this.order(Order.ASC, rowA, rowB, key)
+      this.orderBy(column.desc, rowA, rowB, column.key)
     );
+    column.desc = !column.desc;
   }
 
   handleEvent(row: SafeAny, action: ActionTable) {

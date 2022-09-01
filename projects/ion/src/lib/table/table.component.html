@@ -17,7 +17,7 @@
           *ngIf="column.sort"
           [attr.data-testid]="'sort-by-' + column.key"
           type="semi-down"
-          (click)="sort(column.key)"
+          (click)="sort(column)"
         ></ion-icon>
       </div>
     </th>
