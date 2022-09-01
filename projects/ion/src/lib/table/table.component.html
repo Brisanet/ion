@@ -1,5 +1,5 @@
 <table data-testid="ion-table">
-  <tr>
+  <tr class="border-header">
     <th *ngIf="config.check">
       <input
         type="checkbox"
@@ -11,8 +11,9 @@
     </th>
     <th *ngFor="let column of config.columns">
       <div class="header-style">
-        <span>{{ column.label }}</span>
+        <span class="th-span">{{ column.label }}</span>
         <ion-icon
+          class="semi-donw"
           *ngIf="column.sort"
           [attr.data-testid]="'sort-by-' + column.key"
           type="semi-down"
@@ -20,9 +21,10 @@
         ></ion-icon>
       </div>
     </th>
-    <th *ngIf="config.actions && config.actions.length">Ações</th>
+    <th class="th-actions" *ngIf="config.actions && config.actions.length">
+      Ações
+    </th>
   </tr>
-
   <tr
     *ngFor="let row of config.data; let index = index"
     [attr.data-testid]="'row-' + index"
@@ -43,8 +45,7 @@
       [attr.data-testid]="'row-' + index + '-' + column.key"
     >
       <!-- cell types -->
-      <span *ngIf="!column.type">{{ row[column.key] }}</span>
-
+      <span class="td-span" *ngIf="!column.type">{{ row[column.key] }}</span>
       <ion-tag
         *ngIf="column.type === 'tag'"
         [label]="row[column.key]"
@@ -53,14 +54,16 @@
       ></ion-tag>
     </td>
     <td>
-      <span *ngFor="let action of config.actions">
-        <ion-icon
-          *ngIf="action.show ? showAction(row, action) : true"
-          [type]="action.icon"
-          (click)="handleEvent(row, action)"
-          style="cursor: pointer"
-        ></ion-icon>
-      </span>
+      <div class="icons-td">
+        <span *ngFor="let action of config.actions">
+          <ion-icon
+            *ngIf="action.show ? showAction(row, action) : true"
+            [type]="action.icon"
+            (click)="handleEvent(row, action)"
+            style="cursor: pointer"
+          ></ion-icon>
+        </span>
+      </div>
     </td>
   </tr>
 </table>

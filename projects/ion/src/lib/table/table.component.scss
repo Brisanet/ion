@@ -1,15 +1,56 @@
 @import '../../styles/index.scss';
 
 table {
-  cursor: pointer;
   border-collapse: collapse;
 
-  th {
-    padding: spacing(2);
+  & .border-header {
     border-bottom: 1px solid $neutral-4;
   }
+
+  & th {
+    padding: spacing(2);
+
+    & .th-span {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 22px;
+      color: $neutral-8;
+    }
+
+    &.th-actions {
+      color: $neutral-8;
+    }
+
+    & ion-icon {
+      cursor: pointer;
+      ::ng-deep svg {
+        fill: $neutral-4;
+      }
+    }
+  }
+
   & td {
     padding: spacing(2);
+
+    & .td-span {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: $neutral-7;
+    }
+
+    & ion-icon {
+      width: 15px;
+      height: 16.66px;
+      ::ng-deep svg {
+        fill: $primary-6;
+      }
+    }
+
+    & .icons-td {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   & .header-style {
