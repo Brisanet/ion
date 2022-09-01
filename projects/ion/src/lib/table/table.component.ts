@@ -36,6 +36,11 @@ export interface IonTableProps {
   events?: EventEmitter<TableEvent>;
 }
 
+enum Order {
+  ASC = 'asc',
+  DESC = 'desc',
+}
+
 @Component({
   selector: 'ion-table',
   templateUrl: './table.component.html',
@@ -75,9 +80,16 @@ export class TableComponent {
     this.emitRowsSelected();
   }
 
+  private order(by: Order, rowA: SafeAny, rowB: SafeAny, key: string) {
+    if (by === Order.ASC) {
+      return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+    }
+    return rowA[key] > rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+  }
+
   sort(key: string) {
     this.config.data.sort((rowA, rowB) =>
-      rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0
+      this.order(Order.ASC, rowA, rowB, key)
     );
   }
 
