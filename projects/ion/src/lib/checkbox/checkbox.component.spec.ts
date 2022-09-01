@@ -83,7 +83,7 @@ describe('CehckBoxComponent', () => {
     }
   );
 
-  it('should not amit event when disabled', async () => {
+  it('should not emit event when disabled', async () => {
     const clickEvent = jest.fn();
     await sut({
       disabled: true,
