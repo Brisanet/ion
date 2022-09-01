@@ -2,16 +2,20 @@
 
 .card-ion {
   min-width: fit-content;
-  min-height: 168px;
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(101, 108, 129, 0.2);
   border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &-header {
     padding: spacing(2) spacing(2.5);
     border-bottom: 1px solid $neutral-4;
     display: flex;
     justify-content: space-between;
+    height: 25px;
     h4 {
       margin: 0;
       font-weight: 600;
