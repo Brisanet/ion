@@ -5,7 +5,7 @@ import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
 
-<Meta title="Ion/Card" component={CardIonComponent} />
+<Meta title="Ion/Data Display/Card" component={CardIonComponent} />
 
 export const Template = (args) => <CardIonComponent {...args} />;
 export const TemplateButton = (args) => <ButtonComponent {...args} />;
@@ -21,27 +21,6 @@ O IonCard pode receber 3 parâmetros, sendo eles:
 ## Header
 
 No IonCard o paramêtro header, nele a unica coisa que é obrigatória é o `title`
-
-<Canvas>
-  <Story
-    name="card - title"
-    args={{
-      configuration: {
-        header: {
-          title: 'Com risco de atraso',
-        },
-      },
-    }}
-    decorators={[
-      moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
 
 Tendo também a opção de passa o paramêtro `buttons`
 
