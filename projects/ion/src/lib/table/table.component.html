@@ -10,13 +10,15 @@
       />
     </th>
     <th *ngFor="let column of config.columns">
-      <span>{{ column.label }}</span>
-      <ion-icon
-        *ngIf="column.sort"
-        [attr.data-testid]="'sort-by-' + column.key"
-        type="semi-down"
-        (click)="sort(column.key)"
-      ></ion-icon>
+      <div class="header-style">
+        <span>{{ column.label }}</span>
+        <ion-icon
+          *ngIf="column.sort"
+          [attr.data-testid]="'sort-by-' + column.key"
+          type="semi-down"
+          (click)="sort(column.key)"
+        ></ion-icon>
+      </div>
     </th>
     <th *ngIf="config.actions && config.actions.length">Ações</th>
   </tr>
@@ -24,6 +26,7 @@
   <tr
     *ngFor="let row of config.data; let index = index"
     [attr.data-testid]="'row-' + index"
+    [ngClass]="index % 2 == 0 ? 'old' : 'even'"
   >
     <td *ngIf="config.check">
       <input
