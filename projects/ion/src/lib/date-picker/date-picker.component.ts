@@ -14,6 +14,18 @@ type Dates = {
   startDate?: string;
   endDate?: string;
 };
+
+type DateField = {
+  element: HTMLElement;
+  date: string;
+  selected: boolean;
+};
+
+interface DateFields {
+  dateField: DateField;
+  startDateField: DateField;
+  endDateField: DateField;
+}
 @Component({
   selector: 'date-picker',
   templateUrl: './date-picker.component.html',
@@ -35,23 +47,24 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   isVisibleIconClose = false;
   currentFieldDate: string;
   hasDateInFields = false;
-  dateFields = {
+  dateFields: DateFields = {
     dateField: {
       element: null,
       date: '',
-      seleceted: false,
+      selected: false,
     },
     startDateField: {
       element: null,
       date: '',
-      seleceted: false,
+      selected: false,
     },
     endDateField: {
       element: null,
       date: '',
-      seleceted: false,
+      selected: false,
     },
   };
+  isDisabledConfirmButton = true;
 
   constructor() {
     this.setLanguage();
@@ -179,12 +192,16 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.selectedDayElement = el;
 
     this.formatDateLabel();
+    this.removeClassElement(
+      this.dateFields[this.currentFieldDate].element,
+      'selected-field'
+    );
     this.updateDateInField();
     this.hasDateInFields = true;
-    this.emmitEvent();
     this.updateMonthDays();
 
     if (!this.isDateRanges) {
+      this.emmitEvent();
       this.closeCalendar();
     }
   }
@@ -197,9 +214,42 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.dateFields[this.currentFieldDate].date = this.selectedDate.format(
       this.format || 'YYYY-MM-DD'
     );
+
+    if (this.isDateRanges) {
+      if (
+        this.dateFields.startDateField.date &&
+        this.dateFields.endDateField.date
+      ) {
+        this.isDisabledConfirmButton = false;
+        return;
+      }
+      this.isDisabledConfirmButton = true;
+      if (this.currentFieldDate === 'startDateField') {
+        this.addClassElement(
+          this.dateFields.endDateField.element,
+          'selected-field'
+        );
+        this.currentFieldDate = 'endDateField';
+      } else {
+        this.addClassElement(
+          this.dateFields.startDateField.element,
+          'selected-field'
+        );
+        this.currentFieldDate = 'startDateField';
+      }
+    }
   }
 
   emmitEvent() {
+    if (this.isDateRanges) {
+      !this.isDisabledConfirmButton &&
+        this.date.emit({
+          startDate: this.dateFields.startDateField.date,
+          endDate: this.dateFields.endDateField.date,
+        });
+      return;
+    }
+
     this.date.emit({ date: this.dateLabel });
   }
 

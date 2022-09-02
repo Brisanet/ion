@@ -115,7 +115,11 @@
         type="ghost"
         (ionOnClick)="clearCalendar()"
       ></ion-button>
-      <ion-button label="Pronto"></ion-button>
+      <ion-button
+        label="Pronto"
+        [disabled]="isDisabledConfirmButton"
+        (ionOnClick)="emmitEvent()"
+      ></ion-button>
     </div>
   </div>
 </div>
