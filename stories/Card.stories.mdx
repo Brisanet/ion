@@ -1,0 +1,99 @@
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
+
+<Meta title="Ion/Data Display/Card" component={CardIonComponent} />
+
+export const Template = (args) => <CardIonComponent {...args} />;
+export const TemplateButton = (args) => <ButtonComponent {...args} />;
+
+# Card
+
+O IonCard pode receber 3 parâmetros, sendo eles:
+
+- `header`. Um objeto onde é passado o titulo e os botões de ação do cabeçalho.
+- `body`. Receberá o componente para renderizar no body do card.
+- `footer`. Um objeto onde é passado os botões de ação do footer ou um componente.
+
+## Header
+
+No IonCard o paramêtro header, nele a unica coisa que é obrigatória é o `title`
+
+Tendo também a opção de passa o paramêtro `buttons`
+
+<Canvas>
+  <Story
+    name="card - title most button"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+          buttons: [
+            {
+              type: 'ghost',
+              label: '',
+              circular: true,
+              icon: 'refresh',
+              nameAction: 'refresh',
+            },
+            {
+              type: 'ghost',
+              label: '',
+              circular: true,
+              icon: 'trash',
+              nameAction: 'trash',
+            },
+          ],
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Body
+
+No `body` o IonCard recebe um componente a se renderizado.
+
+## Footer
+
+No `footer` o IonCard pode receber um componente ou as configurações de botões padrões. Todos os botões emitem um evento com o nome do seu tipo.
+
+<Canvas>
+  <Story
+    name="card - footer"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+        },
+        body: TemplateButton,
+        footer: {
+          buttons: {
+            primary: { label: 'Primary' },
+            secondary: { label: 'Secondary' },
+            ghost: { label: 'Ghost' },
+          },
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

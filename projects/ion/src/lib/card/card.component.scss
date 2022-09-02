@@ -1,0 +1,48 @@
+@import '../../styles/index.scss';
+
+.card-ion {
+  min-width: fit-content;
+  background: #ffffff;
+  box-shadow: 0px 4px 4px rgba(101, 108, 129, 0.2);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &-header {
+    padding: spacing(2) spacing(2.5);
+    border-bottom: 1px solid $neutral-4;
+    display: flex;
+    justify-content: space-between;
+    height: 25px;
+    h4 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 28px;
+      color: $neutral-7;
+    }
+
+    &-container-buttons {
+      display: flex;
+      gap: 28px;
+      justify-content: space-between;
+    }
+  }
+  &-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: spacing(2) spacing(1.5);
+    border-top: 1px solid $neutral-4;
+
+    &-container-buttons {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+}
