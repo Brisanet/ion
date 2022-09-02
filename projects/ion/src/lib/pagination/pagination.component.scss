@@ -1,0 +1,15 @@
+@import '../../styles/index.scss';
+
+.pag-container {
+  display: flex;
+  gap: 8px;
+}
+
+.square-pag {
+  border: 1px solid $neutral-4;
+  padding: 8px 0px;
+}
+
+.selected {
+  border: 1px solid $primary-5;
+}

@@ -20,6 +20,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
+import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CardIonComponent } from './card/card.component';
     RowComponent,
     ColComponent,
     CardIonComponent,
+    PaginationComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -67,6 +69,7 @@ import { CardIonComponent } from './card/card.component';
     RowComponent,
     ColComponent,
     CardIonComponent,
+    PaginationComponent,
   ],
 })
 export class IonModule {}

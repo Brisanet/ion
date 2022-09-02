@@ -1,0 +1,23 @@
+<div class="pag-container">
+  <ion-button
+    circularButton="true"
+    type="pencil"
+    data-testid="arrow-left"
+    disabled="true"
+  ></ion-button>
+
+  <div
+    *ngFor="let page of pages"
+    [class.selected]="page.selected"
+    [attr.data-testid]="'page-' + page.index"
+  >
+    <span>{{ page.index }}</span>
+  </div>
+
+  <ion-button
+    circularButton="true"
+    type="pencil"
+    data-testid="arrow-right"
+    [disabled]="!hasNextPage()"
+  ></ion-button>
+</div>
