@@ -17,7 +17,7 @@ type Dates = {
 
 type DateField = {
   element: HTMLElement;
-  date: string;
+  date: string | undefined;
   selected: boolean;
 };
 
@@ -50,17 +50,17 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   dateFields: DateFields = {
     dateField: {
       element: null,
-      date: '',
+      date: undefined,
       selected: false,
     },
     startDateField: {
       element: null,
-      date: '',
+      date: undefined,
       selected: false,
     },
     endDateField: {
       element: null,
-      date: '',
+      date: undefined,
       selected: false,
     },
   };
@@ -301,8 +301,9 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   clearCalendar() {
     this.dateLabel = '';
     Object.keys(this.dateFields).forEach((item) => {
-      this.dateFields[item].date = '';
+      this.dateFields[item].date = undefined;
     });
+    this.isDisabledConfirmButton = true;
     this.hasDateInFields = false;
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDate();
