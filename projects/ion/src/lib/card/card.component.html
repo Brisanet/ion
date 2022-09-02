@@ -12,13 +12,16 @@
           [circularButton]="button.circular"
           [type]="button.type"
           (click)="cardEvent(button.nameAction)"
+          size="sm"
         ></ion-button>
       </div>
     </div>
   </div>
+
   <div class="card-ion-container">
     <div #body></div>
   </div>
+
   <div class="card-ion-footer" *ngIf="configuration.footer">
     <ng-container *ngIf="configuration.footer.buttons">
       <div class="card-ion-footer-container-buttons">
