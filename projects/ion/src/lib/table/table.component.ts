@@ -46,6 +46,8 @@ export interface IonTableProps {
 export class TableComponent {
   @Input() config: ConfigTable;
   @Output() events = new EventEmitter<TableEvent>();
+  public colorUp?: string = '#CED2DB';
+  public colorDown?: string = '#CED2DB';
 
   private getRowsSelected(): SafeAny[] {
     return this.config.data.filter((rowInData) => rowInData.selected);
@@ -84,10 +86,22 @@ export class TableComponent {
     return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
   }
 
-  sort(column: Column) {
+  public fillColor(desc: boolean) {
+    if (desc) {
+      this.colorUp = '#CED2DB';
+      this.colorDown = '#0858CE';
+    } else {
+      this.colorUp = '#0858CE';
+      this.colorDown = '#CED2DB';
+    }
+  }
+
+  sort(column: Column, desc: boolean) {
+    desc != desc;
     this.config.data.sort((rowA, rowB) =>
       this.orderBy(column.desc, rowA, rowB, column.key)
     );
+    this.fillColor(desc);
     column.desc = !column.desc;
   }
 
