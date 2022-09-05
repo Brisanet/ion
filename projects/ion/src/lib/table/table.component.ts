@@ -96,13 +96,12 @@ export class TableComponent {
     }
   }
 
-  sort(column: Column, desc: boolean) {
-    desc != desc;
+  sort(column: Column) {
     this.config.data.sort((rowA, rowB) =>
       this.orderBy(column.desc, rowA, rowB, column.key)
     );
-    this.fillColor(desc);
     column.desc = !column.desc;
+    this.fillColor(column.desc);
   }
 
   handleEvent(row: SafeAny, action: ActionTable) {
