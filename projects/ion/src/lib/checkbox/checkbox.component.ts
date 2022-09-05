@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnChanges,
+} from '@angular/core';
 
 export interface CheckBoxProps {
   disabled?: boolean;
@@ -7,8 +16,10 @@ export interface CheckBoxProps {
   ionClick?: EventEmitter<CheckBoxEvent>;
 }
 
-interface CheckBoxEvent {
-  checked?: boolean;
+enum CheckBoxEvent {
+  checked = 'checked',
+  unchecked = 'unchecked',
+  indeterminate = 'indeterminate',
 }
 
 @Component({
@@ -16,16 +27,47 @@ interface CheckBoxEvent {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })
-export class CheckboxComponent {
-  @Input() public disabled?: boolean = false;
-  @Input() public checked?: boolean = false;
-  @Input() public indeterminate?: boolean = false;
+export class CheckboxComponent implements AfterViewInit, OnChanges {
+  @Input() public disabled = false;
+  @Input() public checked = false;
+  @Input() public indeterminate = false;
+  @Output() public indeterminateChange = new EventEmitter();
   @Output() ionClick = new EventEmitter();
 
-  handleChange() {
+  @ViewChild('checkBox', { static: true }) public checkBox: ElementRef;
+
+  clickEvent() {
     if (this.disabled) return;
-    if (this.indeterminate) this.indeterminate = false;
-    this.checked = !this.checked;
-    this.ionClick.emit({ checked: this.checked });
+    const element = this.checkBox.nativeElement;
+    if (this.indeterminate) {
+      element.checked = false;
+      this.indeterminate = false;
+      this.emitEvent(CheckBoxEvent.unchecked);
+    } else if (element.checked) {
+      this.emitEvent(CheckBoxEvent.checked);
+    } else {
+      this.emitEvent(CheckBoxEvent.unchecked);
+    }
+  }
+
+  emitEvent(event: string) {
+    this.ionClick.emit({ state: event });
+  }
+
+  setIndeterminate() {
+    if (this.checkBox) {
+      this.checkBox.nativeElement.indeterminate = true;
+    }
+  }
+
+  ngAfterViewInit(): void {
+    if (this.indeterminate) this.setIndeterminate();
+  }
+
+  ngOnChanges() {
+    if (this.indeterminate) {
+      this.emitEvent(CheckBoxEvent.indeterminate);
+      this.setIndeterminate();
+    }
   }
 }

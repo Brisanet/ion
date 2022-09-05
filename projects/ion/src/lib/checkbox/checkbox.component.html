@@ -1,9 +1,10 @@
 <input
   data-testid="ion-checkbox"
-  [class]="indeterminate ? 'ion-indeterminate' : 'ion-checkbox'"
+  class="ion-checkbox"
   type="checkbox"
-  (click)="handleChange()"
-  [attr.disabled]="disabled ? true : null"
-  [attr.checked]="checked ? true : null"
+  (click)="clickEvent()"
+  [attr.disabled]="disabled || null"
+  [attr.indeterminate]="indeterminate || null"
+  [attr.checked]="checked || null"
   #checkBox
 />

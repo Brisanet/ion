@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { SafeAny } from './../utils/safe-any';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import { CheckboxComponent, CheckBoxProps } from './checkbox.component';
 
@@ -10,8 +10,15 @@ const box_classes = {
 };
 
 const box_states = {
+  enabled: {},
   checked: { checked: true },
   indeterminate: { indeterminate: true },
+};
+
+const StateEvents = {
+  enabled: { state: 'checked' },
+  checked: { state: 'unchecked' },
+  indeterminate: { state: 'indeterminate' },
 };
 
 const sut = async (customProps: CheckBoxProps = {}) => {
@@ -47,27 +54,14 @@ describe('CehckBoxComponent', () => {
 
   it('should render indeterminate checkbox', async () => {
     await sut({ indeterminate: true });
-    expect(screen.getByTestId(box_id)).toHaveClass(box_classes.indeterminate);
+    expect(screen.getByTestId(box_id)).toHaveProperty('indeterminate', true);
   });
 
   it('should check indeterminate box when clicked', async () => {
     await sut({ indeterminate: true });
     const element = screen.getByTestId(box_id);
     fireEvent.click(element);
-    expect(element).toBeChecked();
-    expect(element).toHaveProperty('indeterminate', false);
-  });
-
-  it('should emit event when clicked', async () => {
-    const clickEvent = jest.fn();
-    await sut({
-      ionClick: {
-        emit: clickEvent,
-      } as any,
-    });
-    const element = screen.getByTestId(box_id);
-    fireEvent.click(element);
-    expect(clickEvent).toHaveBeenCalled();
+    expect(element).not.toBeChecked();
   });
 
   it('should render disabled checkbox', async () => {
@@ -75,7 +69,7 @@ describe('CehckBoxComponent', () => {
     expect(screen.getByTestId(box_id)).toBeDisabled();
   });
 
-  it.each(['checked', 'indeterminate'])(
+  it.each(['enabled', 'checked', 'indeterminate'])(
     `should render %s disabled`,
     async (state) => {
       await sut({ ...box_states[state], disabled: true });
@@ -83,23 +77,67 @@ describe('CehckBoxComponent', () => {
     }
   );
 
-  it('should not amit event when disabled', async () => {
+  it('should not emit event when disabled', async () => {
     const clickEvent = jest.fn();
     await sut({
       disabled: true,
       ionClick: {
         emit: clickEvent,
-      } as any,
+      } as SafeAny,
     });
     const element = screen.getByTestId(box_id);
     fireEvent.click(element);
     expect(clickEvent).not.toHaveBeenCalled();
   });
 
-  it('should pass from checked to enabled when clicked', async () => {
+  it('should become unchecked when checked checkbox is clicked', async () => {
     await sut({ checked: true });
     const element = screen.getByTestId(box_id);
     fireEvent.click(element);
     expect(element).not.toBeChecked();
+  });
+
+  it('should become enabled when indeterminate checkbox is clicked', async () => {
+    await sut({ indeterminate: true });
+    const element = screen.getByTestId(box_id);
+    fireEvent.click(element);
+    expect(element).not.toBeChecked();
+  });
+
+  it.each(['checked', 'indeterminate'])(
+    'should change checkbox state when %s Input is changed',
+    async (state) => {
+      await sut();
+      const element = screen.getByTestId(box_id);
+      fireEvent.change(element, { target: { ...box_states[state] } });
+      expect(element).toHaveProperty(state, true);
+    }
+  );
+
+  it.each(['enabled', 'checked'])(
+    'should emit right event when %s is clicked',
+    async (state) => {
+      const clickEvent = jest.fn();
+      await sut({
+        ...box_states[state],
+        ionClick: {
+          emit: clickEvent,
+        } as SafeAny,
+      });
+      const element = screen.getByTestId(box_id);
+      fireEvent.click(element);
+      expect(clickEvent).toHaveBeenLastCalledWith(StateEvents[state]);
+    }
+  );
+
+  it('should emit indeterminate event', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      indeterminate: true,
+      ionClick: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    expect(clickEvent).toBeCalledWith(StateEvents.indeterminate);
   });
 });
