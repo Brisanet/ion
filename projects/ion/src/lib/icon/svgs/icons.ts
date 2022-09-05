@@ -7,7 +7,6 @@ import {
   clockSolid,
   close,
   closeSolid,
-  down2,
   exclamationSolid,
   expand,
   filter,
@@ -25,7 +24,6 @@ import {
   technical,
   trash,
   union,
-  up2,
   wait,
 } from './iconsText';
 
@@ -39,7 +37,6 @@ export const iconsPaths: Record<string, string> = {
   'clock-solid': clockSolid,
   close,
   'close-solid': closeSolid,
-  down2,
   'exclamation-solid': exclamationSolid,
   expand,
   filter,
@@ -57,6 +54,5 @@ export const iconsPaths: Record<string, string> = {
   technical,
   trash,
   union,
-  up2,
   wait,
 };
