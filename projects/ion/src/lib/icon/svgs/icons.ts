@@ -22,9 +22,11 @@ import {
   semiDown,
   semiUp,
   starSolid,
+  technical,
   trash,
   union,
   up2,
+  wait,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -52,7 +54,9 @@ export const iconsPaths: Record<string, string> = {
   'semi-down': semiDown,
   'semi-up': semiUp,
   'star-solid': starSolid,
+  technical,
   trash,
   union,
   up2,
+  wait,
 };

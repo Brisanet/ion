@@ -21,6 +21,8 @@ export { default as search } from './search';
 export { default as semiDown } from './semi-down';
 export { default as semiUp } from './semi-up';
 export { default as starSolid } from './star-solid';
+export { default as technical } from './technical';
 export { default as trash } from './trash';
 export { default as union } from './union';
 export { default as up2 } from './up2';
+export { default as wait } from './wait';
