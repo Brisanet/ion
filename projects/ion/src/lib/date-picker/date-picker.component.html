@@ -29,14 +29,36 @@
   <div class="date-ranges" *ngIf="isDateRanges">
     <div
       class="field-date"
-      tabindex="0"
       id="field-start-date"
-      (click)="openCalendar('startDateField')"
+      (click)="setSelectedInput('input-start-date')"
     >
+      <input
+        id="input-start-date"
+        type="text"
+        [value]="dateFields.startDateField.date || ''"
+        placeholder="Data de início"
+      />
+    </div>
+    <div class="separator" (click)="setSelectedInput('input-start-date')">
+      -
+    </div>
+    <div
+      class="field-date"
+      id="field-end-date"
+      (click)="setSelectedInput('input-end-date')"
+    >
+      <input
+        id="input-end-date"
+        type="text"
+        [value]="dateFields.endDateField.date || ''"
+        placeholder="Data de fim"
+      />
+    </div>
+    <div class="icons" (click)="actionClickIcon()">
       <ion-icon
         *ngIf="!isVisibleIconClose"
         id="icon"
-        type="pencil"
+        type="calendar"
         color="#AEB2BD"
         size="16"
       ></ion-icon>
@@ -46,26 +68,11 @@
         type="trash"
         color="#505566"
         size="16"
-        (click)="clearCalendar()"
       ></ion-icon>
-      <label class="selected-date" *ngIf="dateFields.startDateField.date">{{
-        dateFields.startDateField.date
-      }}</label>
-      <label *ngIf="!dateFields.startDateField.date">Data início</label>
-    </div>
-    <div
-      class="field-date"
-      tabindex="0"
-      id="field-end-date"
-      (click)="openCalendar('endDateField')"
-    >
-      <label class="selected-date" *ngIf="dateFields.endDateField.date">{{
-        dateFields.endDateField.date
-      }}</label>
-      <label *ngIf="!dateFields.endDateField.date">Data fim</label>
     </div>
   </div>
 </div>
+
 <div id="calendar">
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">

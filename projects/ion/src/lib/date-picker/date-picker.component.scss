@@ -14,56 +14,45 @@
 .date-container {
   display: flex;
 
-  .field-date {
-    width: 120px;
+  .field-date,
+  .date-ranges,
+  .icons,
+  .separator {
+    box-sizing: border-box !important;
+    height: 40px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    border-radius: 8px;
-    border: 1px solid #aeb2bd;
-    padding: 6px 12px;
-    color: #aeb2bd;
+    justify-content: center;
+  }
 
-    label {
-      font-size: 14px;
+  .field-date,
+  .icons,
+  .separator {
+    padding: 4px;
+  }
 
-      &.selected-date {
-        color: $neutral-7;
+  .field-date {
+    font-size: 14px;
+    line-height: 20px;
+    color: $neutral-7;
+
+    input {
+      width: 120px;
+      box-sizing: border-box;
+      background: transparent;
+      border: none;
+      padding: 8px;
+
+      &:focus-visible {
+        outline: none;
+        border-bottom: 1px solid $primary-6;
       }
-    }
-
-    &.selected-field,
-    &:hover,
-    &:focus,
-    &:focus-visible {
-      border-color: $primary-6;
-    }
-
-    &:focus-visible {
-      outline: none;
-    }
-
-    ion-icon {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
   }
 
   .date-ranges {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    & div.field-date:first-child {
-      border-radius: 8px 0 0 8px;
-    }
-
-    & div.field-date:last-child {
-      border-radius: 0px 8px 8px 0;
-    }
+    border-radius: 8px;
+    border: 1px solid $neutral-5;
   }
 }
 
