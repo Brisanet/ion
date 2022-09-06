@@ -20,13 +20,34 @@ O IonCard pode receber 3 parâmetros, sendo eles:
 
 ## Header
 
-No IonCard o paramêtro header, nele a unica coisa que é obrigatória é o `title`
-
-Tendo também a opção de passa o paramêtro `buttons`
+Neste parâmetro o único atributo obrigatório é o atributo `title`.
 
 <Canvas>
   <Story
-    name="card - title most button"
+    name="Without Buttons"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+Há também a possibilidade de passar o paramêtro `buttons` para adicionar ações no header do card.
+
+<Canvas>
+  <Story
+    name="With Buttons"
     args={{
       configuration: {
         header: {
@@ -71,7 +92,7 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
 
 <Canvas>
   <Story
-    name="card - footer"
+    name="With Footer"
     args={{
       configuration: {
         header: {
