@@ -1,0 +1,58 @@
+<div class="card-ion" *ngIf="configuration">
+  <div class="card-ion-header">
+    <h4 data-testid="cardHeader">{{ configuration.header.title }}</h4>
+    <div
+      *ngIf="configuration.header.buttons"
+      class="card-ion-header-container-buttons"
+    >
+      <div *ngFor="let button of configuration.header.buttons">
+        <ion-button
+          [label]="button.label"
+          [iconType]="button.icon"
+          [circularButton]="button.circular"
+          [type]="button.type"
+          (click)="cardEvent(button.nameAction)"
+          size="sm"
+        ></ion-button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-ion-container">
+    <div #body></div>
+  </div>
+
+  <div class="card-ion-footer" *ngIf="configuration.footer">
+    <ng-container *ngIf="configuration.footer.buttons">
+      <div class="card-ion-footer-container-buttons">
+        <ion-button
+          *ngIf="configuration.footer.buttons.secondary"
+          [label]="configuration.footer.buttons.secondary.label"
+          [iconType]="configuration.footer.buttons.secondary.icon"
+          [circularButton]="configuration.footer.buttons.secondary.circular"
+          [type]="'secondary'"
+          (click)="cardEvent('secondary')"
+        ></ion-button>
+        <ion-button
+          *ngIf="configuration.footer.buttons.ghost"
+          [label]="configuration.footer.buttons.ghost.label"
+          [iconType]="configuration.footer.buttons.ghost.icon"
+          [circularButton]="configuration.footer.buttons.ghost.circular"
+          [type]="'ghost'"
+          (click)="cardEvent('ghost')"
+        ></ion-button>
+        <ion-button
+          *ngIf="configuration.footer.buttons.primary"
+          [label]="configuration.footer.buttons.primary.label"
+          [iconType]="configuration.footer.buttons.primary.icon"
+          [circularButton]="configuration.footer.buttons.primary.circular"
+          [type]="'primary'"
+          data-testid="buttonPrimary"
+          (click)="cardEvent('primary')"
+        ></ion-button>
+      </div>
+    </ng-container>
+
+    <div *ngIf="configuration.footer.body" #footer></div>
+  </div>
+</div>
