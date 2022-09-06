@@ -39,8 +39,12 @@ export class TagComponent implements OnInit {
     return validateHexColor(this.color) ? this.color : defaultColor;
   }
 
+  hasLabel() {
+    return !this.label || this.label.trim() === '' ? true : false;
+  }
+
   validateLabel() {
-    if (!this.label || this.label.trim() === '') {
+    if (this.hasLabel()) {
       throw new Error('Invalid Tag label informed');
     }
   }

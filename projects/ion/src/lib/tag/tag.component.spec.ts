@@ -111,9 +111,9 @@ describe('TagComponent', () => {
   it('should not render component and throw error when label is empty', async () => {
     try {
       await sut({ label: '' });
-    } catch (e) {
+    } catch (error) {
       expect(screen.queryAllByTestId(IDs.tag)).toHaveLength(0);
-      expect(e.message).toBe('Invalid Tag label informed');
+      expect(error.message).toBe('Invalid Tag label informed');
     }
   });
 
