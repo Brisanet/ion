@@ -9,9 +9,10 @@
   <div
     *ngFor="let page of pages"
     [class.selected]="page.selected"
-    [attr.data-testid]="'page-' + page.index"
+    [attr.data-testid]="'page-' + page.page_number"
+    (click)="selectPage(page.page_number)"
   >
-    <span>{{ page.index }}</span>
+    <span>{{ page.page_number }}</span>
   </div>
 
   <ion-button

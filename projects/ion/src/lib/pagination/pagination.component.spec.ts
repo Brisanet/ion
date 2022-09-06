@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import {
@@ -17,6 +17,12 @@ const sut = async (customProps: IonPaginationProps = defaultComponent) => {
   });
 };
 
+const obj = {
+  'internet 100': {
+    cat: 'internet',
+  },
+};
+
 describe('PaginationComponent', () => {
   beforeEach(async () => {
     await sut();
@@ -30,7 +36,6 @@ describe('PaginationComponent', () => {
   );
 
   it('should be selected in fitst page by default', async () => {
-    screen.debug();
     expect(screen.getByTestId('page-1')).toHaveClass('selected');
   });
 
@@ -40,6 +45,14 @@ describe('PaginationComponent', () => {
       expect(screen.getByTestId(`arrow-${direction}`)).toBeInTheDocument();
     }
   );
+
+  it('should select a other page', async () => {
+    const pageTwo = screen.getByTestId('page-2');
+    fireEvent.click(pageTwo);
+    expect(pageTwo).toHaveClass('selected');
+    expect(screen.getByTestId('page-1')).not.toHaveClass('selected');
+    screen.debug();
+  });
 
   it('should render arrow left disabled when in first page', async () => {
     expect(screen.getByTestId('arrow-left')).toBeDisabled();

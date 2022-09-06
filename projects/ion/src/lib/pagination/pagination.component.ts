@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 interface Page {
-  index: number;
+  page_number: number;
   selected: boolean;
 }
 
@@ -21,22 +21,27 @@ export class PaginationComponent implements OnInit {
 
   private pages: Page[] = [];
 
-  private selectPage(index: number) {
-    this.pages[index].selected = true;
+  public selectPage(page: number) {
+    console.log('page ->', page);
+    this.pages &&
+      this.pages.forEach((pageEach) => {
+        pageEach.selected = false;
+      });
+    console.log('this.pages ->', this.pages);
+    this.pages[page - 1].selected = true;
   }
 
   private createPages(qtdOfPages: number) {
     for (let index = 0; index < qtdOfPages; index++) {
       this.pages.push({
         selected: false,
-        index: index + 1,
+        page_number: index + 1,
       });
     }
   }
 
   public totalPages(): number {
     const numberOfPages = Math.ceil(this.total / this.itemsPerPage);
-    this.createPages(numberOfPages);
     return numberOfPages;
   }
 
@@ -45,11 +50,11 @@ export class PaginationComponent implements OnInit {
   }
 
   public hasNextPage(): boolean {
-    return this.currentPage().index !== this.totalPages();
+    return this.currentPage().page_number !== this.totalPages();
   }
 
   ngOnInit() {
-    this.totalPages();
-    this.selectPage(0);
+    this.createPages(this.totalPages());
+    this.selectPage(1);
   }
 }
