@@ -15,9 +15,11 @@ import { NotificationComponent } from './notification/notification.component';
 import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
 import { HeadingComponent } from './typography';
+import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
+import { CardIonComponent } from './card/card.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 @NgModule({
   declarations: [
@@ -37,9 +39,11 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     AvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
+    TagComponent,
     DropdownComponent,
     RowComponent,
     ColComponent,
+    CardIonComponent,
     DatePickerComponent,
   ],
   imports: [CommonModule],
@@ -54,6 +58,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
+    TagComponent,
     DropdownComponent,
     AlertComponent,
     MessageComponent,
@@ -62,6 +67,7 @@ import { DatePickerComponent } from './date-picker/date-picker.component';
     AvatarComponent,
     RowComponent,
     ColComponent,
+    CardIonComponent,
     DatePickerComponent,
   ],
 })
