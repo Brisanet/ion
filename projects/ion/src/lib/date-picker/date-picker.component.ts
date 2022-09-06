@@ -223,6 +223,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
         this.dateFields.startDateField.date &&
         this.dateFields.endDateField.date
       ) {
+        this.isDisabledConfirmButton = false;
         this.currentFieldDate === 'startDateField'
           ? inputStartDate.focus()
           : inputEndDate.focus();
