@@ -5,6 +5,10 @@ table {
 
   & .border-header {
     border-bottom: 1px solid $neutral-4;
+
+    & svg {
+      cursor: pointer;
+    }
   }
 
   & th {
@@ -20,6 +24,10 @@ table {
     &.th-actions {
       color: $neutral-8;
     }
+
+    & input {
+      cursor: pointer;
+    }
   }
 
   & td {
@@ -30,6 +38,14 @@ table {
       font-weight: 400;
       line-height: 20px;
       color: $neutral-7;
+    }
+
+    & input {
+      cursor: pointer;
+    }
+
+    & ion-tag {
+      cursor: pointer;
     }
 
     & ion-icon {
