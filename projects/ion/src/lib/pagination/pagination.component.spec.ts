@@ -51,14 +51,14 @@ describe('PaginationComponent', () => {
     fireEvent.click(pageTwo);
     expect(pageTwo).toHaveClass('selected');
     expect(screen.getByTestId('page-1')).not.toHaveClass('selected');
-    screen.debug();
-  });
-
-  it('should render arrow left disabled when in first page', async () => {
-    expect(screen.getByTestId('arrow-left')).toBeDisabled();
   });
 
   it('should render arrow right enabled when have more pages', async () => {
     expect(screen.getByTestId('arrow-right')).toBeEnabled();
+  });
+
+  it('should render arrow left enabled when has previous page', async () => {
+    fireEvent.click(screen.getByTestId('page-2'));
+    expect(screen.getByTestId('arrow-left')).toBeEnabled();
   });
 });

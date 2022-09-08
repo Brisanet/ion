@@ -19,21 +19,20 @@ export class PaginationComponent implements OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] = 15;
 
-  private pages: Page[] = [];
+  public pageList: Page[] = [];
 
   public selectPage(page: number) {
-    console.log('page ->', page);
-    this.pages &&
-      this.pages.forEach((pageEach) => {
+    this.pageList &&
+      this.pageList.forEach((pageEach) => {
         pageEach.selected = false;
       });
-    console.log('this.pages ->', this.pages);
-    this.pages[page - 1].selected = true;
+
+    this.pageList[page - 1].selected = true;
   }
 
   private createPages(qtdOfPages: number) {
     for (let index = 0; index < qtdOfPages; index++) {
-      this.pages.push({
+      this.pageList.push({
         selected: false,
         page_number: index + 1,
       });
@@ -46,11 +45,24 @@ export class PaginationComponent implements OnInit {
   }
 
   private currentPage(): Page {
-    return this.pages.filter((page) => page.selected)[0];
+    return this.pageList.filter((page) => page.selected)[0];
   }
 
-  public hasNextPage(): boolean {
-    return this.currentPage().page_number !== this.totalPages();
+  private inLastPage() {
+    return this.currentPage().page_number === this.totalPages();
+  }
+
+  private inFirstPage() {
+    return this.currentPage().page_number === 1;
+  }
+
+  public hasPrevious() {
+    return !this.inFirstPage();
+  }
+
+  public hasNext() {
+    const selecteds = this.pageList.filter((page) => page.selected);
+    return selecteds.length > 0 && !this.inLastPage();
   }
 
   ngOnInit() {
