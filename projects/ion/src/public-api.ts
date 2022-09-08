@@ -22,3 +22,4 @@ export * from './lib/tag/tag.component';
 export * from './lib/alert/alert.component';
 export * from './lib/message/message.component';
 export * from './lib/checkbox/checkbox.component';
+export * from './lib/card/card.component';

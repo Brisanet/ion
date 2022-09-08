@@ -20,6 +20,7 @@ import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
+import { CardIonComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { ColComponent } from './col/col.component';
     RowComponent,
     ColComponent,
     CheckboxComponent,
+    CardIonComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -67,6 +69,7 @@ import { ColComponent } from './col/col.component';
     RowComponent,
     ColComponent,
     CheckboxComponent,
+    CardIonComponent,
   ],
 })
 export class IonModule {}
