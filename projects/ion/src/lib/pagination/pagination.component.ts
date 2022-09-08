@@ -1,13 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 interface Page {
   page_number: number;
   selected: boolean;
 }
 
+interface PageEvent {
+  actual: number;
+}
+
 export interface IonPaginationProps {
   total: number;
   itemsPerPage?: number;
+  events?: EventEmitter<PageEvent>;
 }
 
 @Component({
@@ -18,16 +23,22 @@ export interface IonPaginationProps {
 export class PaginationComponent implements OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] = 15;
+  @Output() events = new EventEmitter<PageEvent>();
 
   public pageList: Page[] = [];
 
-  public selectPage(page: number) {
+  public selectPage(pageNumber: number) {
     this.pageList &&
       this.pageList.forEach((pageEach) => {
         pageEach.selected = false;
       });
 
-    this.pageList[page - 1].selected = true;
+    const page = this.pageList[pageNumber - 1];
+    page.selected = true;
+
+    this.events.emit({
+      actual: page.page_number,
+    });
   }
 
   private createPages(qtdOfPages: number) {

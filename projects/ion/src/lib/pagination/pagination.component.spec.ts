@@ -1,13 +1,18 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
 import {
   IonPaginationProps,
   PaginationComponent,
 } from './pagination.component';
 
+const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
   total: 46,
+  events: {
+    emit: pageEvent,
+  } as SafeAny,
 };
 
 const sut = async (customProps: IonPaginationProps = defaultComponent) => {
@@ -15,12 +20,6 @@ const sut = async (customProps: IonPaginationProps = defaultComponent) => {
     componentProperties: customProps,
     declarations: [ButtonComponent, IonIconComponent],
   });
-};
-
-const obj = {
-  'internet 100': {
-    cat: 'internet',
-  },
 };
 
 describe('PaginationComponent', () => {
@@ -60,5 +59,23 @@ describe('PaginationComponent', () => {
   it('should render arrow left enabled when has previous page', async () => {
     fireEvent.click(screen.getByTestId('page-2'));
     expect(screen.getByTestId('arrow-left')).toBeEnabled();
+  });
+
+  afterEach(() => {
+    pageEvent.mockClear();
+  });
+});
+
+describe('Pagination > Events', () => {
+  it('should emit the page selected when selected page', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByTestId('page-2'));
+    expect(event).toBeCalledTimes(2);
   });
 });
