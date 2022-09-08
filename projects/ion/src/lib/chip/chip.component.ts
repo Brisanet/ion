@@ -16,11 +16,11 @@ export interface IonChipProps {
   events?: EventEmitter<ChipEvent>;
   options?: DropdownItem[];
   icon?: string;
+  multiple?: boolean;
 }
 
 type Badge = {
   value: number;
-  show: boolean;
 };
 
 @Component({
@@ -39,9 +39,9 @@ export class ChipComponent {
   @Input() multiple?: boolean = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
+
   public innerBadge: Badge = {
     value: 0,
-    show: false,
   };
 
   select() {
@@ -59,16 +59,13 @@ export class ChipComponent {
     }
   }
 
-  handleSuccess(event: DropdownItem[]) {
-    console.log(this.innerBadge);
-    if (event) {
-      this.innerBadge.show = false;
-      this.innerBadge.value = event.length;
-      this.innerBadge.show = true;
+  handleSuccess(selecteds: DropdownItem[]) {
+    if (selecteds) {
+      this.innerBadge.value = selecteds.length;
     }
 
     if (!this.multiple) {
-      this.label = event[0].label;
+      this.label = selecteds[0].label;
     }
 
     this.toggleDropdown();

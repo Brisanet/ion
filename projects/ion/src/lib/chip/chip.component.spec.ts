@@ -1,4 +1,4 @@
-import { DropdownComponent } from 'projects/ion/src/public-api';
+import { DropdownComponent, BadgeComponent } from 'projects/ion/src/public-api';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
@@ -11,7 +11,7 @@ const sut = async (customProps?: IonChipProps) => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [IonIconComponent, DropdownComponent],
+    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
   });
 };
 
@@ -96,5 +96,35 @@ describe('ChipComponent', () => {
       fireEvent.click(screen.getByText(option));
       expect(screen.getAllByText(option)).toHaveLength(1);
     });
+  });
+});
+
+describe('With Multiple Dropdown', () => {
+  beforeEach(async () => {
+    await sut({
+      label: 'dropdown',
+      options: [
+        {
+          label: 'Meteora',
+        },
+        {
+          label: 'One More Light',
+        },
+      ],
+      multiple: true,
+    });
+  });
+
+  it('should not show badge when dont have item selected', async () => {
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
+  });
+
+  it('should show badge with two results when selected two options', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText('Meteora'));
+
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText('One More Light'));
+    expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
   });
 });
