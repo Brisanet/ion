@@ -46,8 +46,8 @@ export interface IonTableProps {
 export class TableComponent {
   @Input() config: ConfigTable;
   @Output() events = new EventEmitter<TableEvent>();
-  public colorUp?: string = '#CED2DB';
-  public colorDown?: string = '#CED2DB';
+  public neutral_3?: string = '#CED2DB';
+  public primary_6?: string = '#0858CE';
 
   private getRowsSelected(): SafeAny[] {
     return this.config.data.filter((rowInData) => rowInData.selected);
@@ -88,13 +88,13 @@ export class TableComponent {
 
   public fillColor(column: Column, up: boolean) {
     if (column.desc == null) {
-      return '#CED2DB';
+      return this.neutral_3;
     }
     if (up) {
-      return column.desc ? '#CED2DB' : '#0858CE';
+      return column.desc ? this.neutral_3 : this.primary_6;
     }
     if (!up) {
-      return column.desc ? '#0858CE' : '#CED2DB';
+      return column.desc ? this.primary_6 : this.neutral_3;
     }
   }
 
