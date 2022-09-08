@@ -2,11 +2,12 @@
   <ion-button
     iconType="left2"
     data-testid="arrow-left"
+    (click)="previous()"
     [disabled]="!hasPrevious()"
   ></ion-button>
 
   <div
-    *ngFor="let page of pageList"
+    *ngFor="let page of pages"
     class="square-pag"
     [class.selected]="page.selected"
     [attr.data-testid]="'page-' + page.page_number"
@@ -18,6 +19,7 @@
   <ion-button
     iconType="right2"
     data-testid="arrow-right"
+    (click)="next()"
     [disabled]="!hasNext()"
   ></ion-button>
 </div>

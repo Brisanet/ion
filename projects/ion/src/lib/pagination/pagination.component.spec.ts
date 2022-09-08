@@ -61,6 +61,17 @@ describe('PaginationComponent', () => {
     expect(screen.getByTestId('arrow-left')).toBeEnabled();
   });
 
+  it('should go to the previous page when click in arrow left', async () => {
+    fireEvent.click(screen.getByTestId('page-3'));
+    fireEvent.click(screen.getByTestId('arrow-left'));
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
+  });
+
+  it('should go to the next page when click in arrow right', async () => {
+    fireEvent.click(screen.getByTestId('arrow-right'));
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
+  });
+
   afterEach(() => {
     pageEvent.mockClear();
   });

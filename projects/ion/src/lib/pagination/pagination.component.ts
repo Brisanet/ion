@@ -25,15 +25,15 @@ export class PaginationComponent implements OnInit {
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] = 15;
   @Output() events = new EventEmitter<PageEvent>();
 
-  public pageList: Page[] = [];
+  public pages: Page[] = [];
 
   public selectPage(pageNumber: number) {
-    this.pageList &&
-      this.pageList.forEach((pageEach) => {
+    this.pages &&
+      this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
 
-    const page = this.pageList[pageNumber - 1];
+    const page = this.pages[pageNumber - 1];
     page.selected = true;
 
     this.events.emit({
@@ -43,7 +43,7 @@ export class PaginationComponent implements OnInit {
 
   private createPages(qtdOfPages: number) {
     for (let index = 0; index < qtdOfPages; index++) {
-      this.pageList.push({
+      this.pages.push({
         selected: false,
         page_number: index + 1,
       });
@@ -56,7 +56,7 @@ export class PaginationComponent implements OnInit {
   }
 
   private currentPage(): Page {
-    return this.pageList.filter((page) => page.selected)[0];
+    return this.pages.filter((page) => page.selected)[0];
   }
 
   private inLastPage() {
@@ -72,8 +72,16 @@ export class PaginationComponent implements OnInit {
   }
 
   public hasNext() {
-    const selecteds = this.pageList.filter((page) => page.selected);
+    const selecteds = this.pages.filter((page) => page.selected);
     return selecteds.length > 0 && !this.inLastPage();
+  }
+
+  previous() {
+    this.selectPage(this.currentPage().page_number - 1);
+  }
+
+  next() {
+    this.selectPage(this.currentPage().page_number + 1);
   }
 
   ngOnInit() {
