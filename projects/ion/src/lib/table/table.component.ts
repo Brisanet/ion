@@ -86,11 +86,15 @@ export class TableComponent {
     return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
   }
 
-  public fillColor(column: Column) {
-    if (column.desc) {
-      return '#0858CE';
-    } else if (!column.desc) {
+  public fillColor(column: Column, up: boolean) {
+    if (column.desc == null) {
       return '#CED2DB';
+    }
+    if (up) {
+      return column.desc ? '#CED2DB' : '#0858CE';
+    }
+    if (!up) {
+      return column.desc ? '#0858CE' : '#CED2DB';
     }
   }
 
@@ -98,8 +102,12 @@ export class TableComponent {
     this.config.data.sort((rowA, rowB) =>
       this.orderBy(column.desc, rowA, rowB, column.key)
     );
+    this.config.columns.forEach((columnEach) => {
+      if (columnEach.key != column.key) {
+        columnEach.desc = null;
+      }
+    });
     column.desc = !column.desc;
-    this.fillColor(column);
   }
 
   handleEvent(row: SafeAny, action: ActionTable) {
