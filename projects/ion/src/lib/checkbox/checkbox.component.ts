@@ -55,9 +55,7 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
   }
 
   setIndeterminate() {
-    if (this.checkBox) {
-      this.checkBox.nativeElement.indeterminate = true;
-    }
+    if (this.checkBox) this.checkBox.nativeElement.indeterminate = true;
   }
 
   ngAfterViewInit(): void {
