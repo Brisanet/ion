@@ -14,8 +14,9 @@
 .date-container {
   display: flex;
 
-  .field-date,
+  .date-content,
   .date-ranges,
+  .field-date,
   .icons,
   .separator {
     box-sizing: border-box !important;
@@ -31,13 +32,21 @@
     padding: 4px;
   }
 
+  .icons {
+    padding-right: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   .field-date {
     font-size: 14px;
     line-height: 20px;
     color: $neutral-7;
 
     input {
-      width: 120px;
+      width: 104px;
       box-sizing: border-box;
       background: transparent;
       border: none;
@@ -50,7 +59,7 @@
     }
   }
 
-  .date-ranges {
+  .date-content {
     border-radius: 8px;
     border: 1px solid $neutral-5;
   }

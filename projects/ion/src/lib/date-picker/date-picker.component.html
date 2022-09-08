@@ -1,58 +1,46 @@
 <div class="date-container">
-  <div
-    *ngIf="!isDateRanges"
-    class="field-date"
-    tabindex="0"
-    id="field-date"
-    (click)="openCalendar('dateField')"
-  >
-    <ion-icon
-      *ngIf="!isVisibleIconClose"
-      id="icon"
-      type="pencil"
-      color="#AEB2BD"
-      size="16"
-    ></ion-icon>
-    <ion-icon
-      *ngIf="isVisibleIconClose"
-      id="icon"
-      type="trash"
-      color="#505566"
-      size="16"
-      (click)="clearCalendar()"
-    ></ion-icon>
-    <label class="selected-date" *ngIf="dateLabel">{{
-      dateFields.dateField.date
-    }}</label>
-    <label *ngIf="!dateLabel">Data</label>
-  </div>
-  <div class="date-ranges" *ngIf="isDateRanges">
+  <div class="date-content">
     <div
+      *ngIf="!isDateRanges"
       class="field-date"
-      id="field-start-date"
-      (click)="setSelectedInput('input-start-date')"
+      id="field-date"
+      (click)="setSelectedInput('input-date')"
     >
       <input
-        id="input-start-date"
+        id="input-date"
         type="text"
-        [value]="dateFields.startDateField.date || ''"
-        placeholder="Data de início"
+        [value]="dateFields.dateField.date || ''"
+        placeholder="Data"
       />
     </div>
-    <div class="separator" (click)="setSelectedInput('input-start-date')">
-      -
-    </div>
-    <div
-      class="field-date"
-      id="field-end-date"
-      (click)="setSelectedInput('input-end-date')"
-    >
-      <input
-        id="input-end-date"
-        type="text"
-        [value]="dateFields.endDateField.date || ''"
-        placeholder="Data de fim"
-      />
+    <div class="date-ranges" *ngIf="isDateRanges">
+      <div
+        class="field-date"
+        id="field-start-date"
+        (click)="setSelectedInput('input-start-date')"
+      >
+        <input
+          id="input-start-date"
+          type="text"
+          [value]="dateFields.startDateField.date || ''"
+          placeholder="Data de início"
+        />
+      </div>
+      <div class="separator" (click)="setSelectedInput('input-start-date')">
+        -
+      </div>
+      <div
+        class="field-date"
+        id="field-end-date"
+        (click)="setSelectedInput('input-end-date')"
+      >
+        <input
+          id="input-end-date"
+          type="text"
+          [value]="dateFields.endDateField.date || ''"
+          placeholder="Data de fim"
+        />
+      </div>
     </div>
     <div class="icons" (click)="actionClickIcon()">
       <ion-icon
@@ -65,7 +53,7 @@
       <ion-icon
         *ngIf="isVisibleIconClose"
         id="icon"
-        type="trash"
+        type="close"
         color="#505566"
         size="16"
       ></ion-icon>

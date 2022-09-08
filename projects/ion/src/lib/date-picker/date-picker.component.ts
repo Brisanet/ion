@@ -124,9 +124,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
         btnDay.className = 'month-day';
         btnDay.textContent = day && day.date ? day.date : '';
         // btnDay.addEventListener('click', () => this.selectDay(btnDay, day));
-        btnDay.addEventListener('click', () =>
-          this.dispatchActions(btnDay, day)
-        );
 
         btnDay.setAttribute(
           'aria-label',
@@ -143,6 +140,10 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
             this.selectedDayElement = btnDay;
           }
         }
+
+        btnDay.addEventListener('click', () =>
+          this.dispatchActions(btnDay, day)
+        );
 
         if (monthDaysElement) {
           monthDaysElement.appendChild(btnDay);
@@ -204,6 +205,8 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.emmitEvent();
       this.closeCalendar();
     }
+
+    this.setDate();
   }
 
   formatDateLabel() {
@@ -357,14 +360,22 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setSelectedInput(currentInput?: string) {
     this.calendarElement.style.display = 'block';
-    this.currentFieldDate =
-      currentInput === 'input-end-date' ? 'endDateField' : 'startDateField';
 
-    if (!currentInput) {
-      document.getElementById('input-start-date').focus();
+    if (this.isDateRanges) {
+      this.currentFieldDate =
+        currentInput === 'input-end-date' ? 'endDateField' : 'startDateField';
+
+      if (!currentInput) {
+        document.getElementById('input-start-date').focus();
+        return;
+      }
+      document.getElementById(currentInput).focus();
       return;
     }
-    document.getElementById(currentInput).focus();
+
+    this.currentFieldDate = 'dateField';
+    const inputDate = document.getElementById('input-date');
+    inputDate.focus();
   }
 
   actionClickIcon() {
