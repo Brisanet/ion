@@ -8,6 +8,11 @@
   [class]="'chip-' + size"
 >
   <!-- <ion-badge [type]="'primary'" [value]="badge.value" *ngIf="badge.show"></ion-badge> -->
+  <ion-badge
+    [value]="innerBadge.value"
+    type="primary"
+    *ngIf="innerBadge.show"
+  ></ion-badge>
   {{ label }}
   <ion-icon
     data-testid="icon-dinamic"

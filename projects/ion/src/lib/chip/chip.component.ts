@@ -39,7 +39,7 @@ export class ChipComponent {
   @Input() multiple?: boolean = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
-  public badge: Badge = {
+  public innerBadge: Badge = {
     value: 0,
     show: false,
   };
@@ -60,10 +60,11 @@ export class ChipComponent {
   }
 
   handleSuccess(event: DropdownItem[]) {
+    console.log(this.innerBadge);
     if (event) {
-      this.badge.show = false;
-      this.badge.value = event.length;
-      this.badge.show = true;
+      this.innerBadge.show = false;
+      this.innerBadge.value = event.length;
+      this.innerBadge.show = true;
     }
 
     if (!this.multiple) {
