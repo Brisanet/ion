@@ -1,5 +1,10 @@
 @import '../../styles/index.scss';
 
+@mixin add-colors($background, $color) {
+  background-color: $background;
+  color: $color;
+}
+
 button {
   display: flex;
   justify-content: center;
@@ -22,8 +27,7 @@ button {
   &:disabled:hover,
   &[disabled],
   &[disabled]:hover {
-    background-color: $neutral-3 !important;
-    color: $neutral-5 !important;
+    @include add-colors($neutral-3 !important, $neutral-5 !important);
     cursor: not-allowed;
 
     &:disabled.spinner {
@@ -149,19 +153,26 @@ button {
   background-color: $primary-6;
 
   &:hover {
-    background: $primary-5;
+    background-color: $primary-5;
+  }
+
+  &:active {
+    background-color: $primary-7;
   }
 
   &.danger {
     background-color: $negative-6;
 
     &:hover {
-      background-color: $negative-5;
-      color: $neutral-1;
+      @include add-colors($negative-5, $neutral-1);
     }
 
     span.spinner {
       border-left-color: $neutral-1;
+    }
+
+    &:active {
+      background-color: $negative-7;
     }
   }
 
@@ -171,78 +182,88 @@ button {
 }
 
 .ion-btn-secondary {
-  background-color: $neutral-1;
+  @include add-colors($neutral-1, $primary-6);
   border: 1px solid $neutral-4;
-  color: $primary-6;
 
   &:hover {
-    background-color: $primary-1;
+    @include add-colors($primary-1, $primary-5);
     border: 1px solid $primary-4;
-    color: $primary-5;
 
     &:disabled {
-      background-color: $neutral-3;
+      @include add-colors($neutral-3, $neutral-5);
       border: 1px solid $neutral-5;
-      color: $neutral-5;
+    }
+    &:active {
+      @include add-colors($primary-2, $primary-7);
+      border-color: $primary-5;
     }
   }
 
   &.danger {
     color: $negative-color;
-  }
 
-  &.danger:hover {
-    background-color: $negative-1;
-    border: 1px solid $negative-3;
-    color: $negative-5;
+    &.danger:hover {
+      @include add-colors($negative-1, $negative-5);
+      border: 1px solid $negative-3;
+    }
+
+    &:active {
+      @include add-colors($negative-2!important, $negative-7!important);
+    }
   }
 }
 
 .ion-btn-ghost {
-  background-color: transparent;
-  color: $primary-6;
+  @include add-colors(transparent, $primary-6);
 
   &:disabled {
-    background-color: transparent !important;
-    color: $neutral-5;
+    @include add-colors(transparent !important, $neutral-5);
   }
 
   &:hover {
-    background-color: $primary-1;
-    color: $primary-5;
+    @include add-colors($primary-1, $primary-5);
 
     &:disabled {
       background-color: transparent !important;
     }
   }
 
+  &:active {
+    @include add-colors($primary-2, $primary-7);
+  }
+
   &.danger {
     color: $negative-6;
 
     &:hover {
-      background-color: $negative-1;
-      color: $negative-5;
+      @include add-colors($negative-1, $negative-5);
+    }
+
+    &:active {
+      @include add-colors($negative-2, $negative-7);
     }
   }
 }
 
 .ion-btn-dashed {
-  background-color: transparent;
-  color: $primary-6;
+  @include add-colors(transparent, $primary-6);
   border: 1px $neutral-4;
   border-style: dashed;
 
   &:hover {
-    background-color: $primary-1;
-    color: $primary-5;
+    @include add-colors($primary-1, $primary-5);
     border: 1px $primary-4;
     border-style: dashed;
 
     &:disabled {
-      background-color: $neutral-3;
+      @include add-colors($neutral-3, $neutral-5);
       border: 1px dashed $neutral-5;
-      color: $neutral-5;
     }
+  }
+
+  &:active {
+    @include add-colors($primary-2, $primary-7);
+    border-color: $primary-5;
   }
 
   &.danger {
@@ -250,9 +271,13 @@ button {
     color: $negative-6;
 
     &:hover {
-      background: $negative-1;
+      @include add-colors($negative-1, $negative-5);
       border: 1px dashed $negative-3;
-      color: $negative-5;
+    }
+
+    &:active {
+      @include add-colors($negative-2, $negative-7);
+      border-color: #de5462;
     }
   }
 }
