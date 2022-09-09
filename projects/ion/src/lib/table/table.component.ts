@@ -80,11 +80,19 @@ export class TableComponent {
     this.emitRowsSelected();
   }
 
+  private orderDesc(itemA, itemB) {
+    return itemA > itemB ? -1 : itemA > itemB ? 1 : 0;
+  }
+
+  private orderAsc(itemA, itemB) {
+    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
+  }
+
   private orderBy(desc: boolean, rowA: SafeAny, rowB: SafeAny, key: string) {
     if (desc) {
-      return rowA[key] > rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+      return this.orderDesc(rowA[key], rowB[key]);
     }
-    return rowA[key] < rowB[key] ? -1 : rowA[key] > rowB[key] ? 1 : 0;
+    return this.orderAsc(rowA[key], rowB[key]);
   }
 
   public fillColor(column: Column, up: boolean) {
