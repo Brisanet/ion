@@ -46,8 +46,9 @@ export interface IonTableProps {
 export class TableComponent {
   @Input() config: ConfigTable;
   @Output() events = new EventEmitter<TableEvent>();
-  public neutral_3?: string = '#CED2DB';
-  public primary_6?: string = '#0858CE';
+
+  public neutral_3 = '#CED2DB';
+  public primary_6 = '#0858CE';
 
   private getRowsSelected(): SafeAny[] {
     return this.config.data.filter((rowInData) => rowInData.selected);

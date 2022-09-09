@@ -17,6 +17,8 @@
       <div class="header-style">
         <span class="th-span">{{ column.label }}</span>
         <svg
+          *ngIf="column.sort"
+          [attr.data-testid]="'sort-by-' + column.key"
           width="8"
           height="16"
           viewBox="0 0 8 16"

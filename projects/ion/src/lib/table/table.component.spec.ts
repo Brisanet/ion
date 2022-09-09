@@ -94,7 +94,7 @@ describe('TableComponent', () => {
   });
 
   it('should show icon sort when column is sortable', () => {
-    expect(screen.queryAllByTestId('sort-by-name')).toHaveLength(1);
+    expect(screen.queryAllByTestId('sort-by-id')).toHaveLength(1);
   });
 
   it('should sort asc the data of a column (string)', async () => {
@@ -260,7 +260,7 @@ describe('Table > Differents columns data type', () => {
           key: 'year',
           label: 'Year',
           type: 'tag',
-          sort: true,
+          sort: false,
           tag: {
             icon: columnIcon,
           },
@@ -301,5 +301,12 @@ describe('Table > Differents columns data type', () => {
         ).toBeInTheDocument();
       }
     );
+  });
+
+  describe('Sort', () => {
+    it('should not show icon sort when column not is sortable', async () => {
+      await sut(tableDifferentColumns);
+      expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
+    });
   });
 });
