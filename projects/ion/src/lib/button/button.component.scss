@@ -92,6 +92,8 @@ button {
     height: 10px;
   }
 
+  border-radius: 8px;
+
   @include icon-size(13px);
 
   @include circular-button(24px, 13px);

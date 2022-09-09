@@ -22,3 +22,9 @@ export const Basic = Template.bind({});
 Basic.args = {
   total: 46,
 };
+
+export const SmallSize = Template.bind({});
+SmallSize.args = {
+  total: 46,
+  size: 'sm',
+};

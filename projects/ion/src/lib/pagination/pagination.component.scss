@@ -12,6 +12,16 @@
   gap: 8px;
 }
 
+.page-md {
+  width: 30px;
+  height: 30px;
+}
+
+.page-sm {
+  width: 24px;
+  height: 24px;
+}
+
 .square-pag {
   @include setBorderBgColor($neutral-4, #fff, $primary-6);
 
@@ -27,8 +37,7 @@
   justify-content: center;
   border-radius: 8px;
   font-size: 14px;
-  width: 30px;
-  height: 30px;
+
   cursor: pointer;
 
   &:focus-visible {

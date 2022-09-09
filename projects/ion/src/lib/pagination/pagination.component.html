@@ -3,13 +3,14 @@
     iconType="left2"
     data-testid="arrow-left"
     type="secondary"
+    [size]="size"
     (click)="previous()"
     [disabled]="!hasPrevious()"
   ></ion-button>
 
   <button
     *ngFor="let page of pages"
-    class="square-pag"
+    [class]="'square-pag ' + 'page-' + size"
     [class.selected]="page.selected"
     [attr.data-testid]="'page-' + page.page_number"
     (click)="selectPage(page.page_number)"
@@ -21,6 +22,7 @@
     iconType="right2"
     data-testid="arrow-right"
     type="secondary"
+    [size]="size"
     (click)="next()"
     [disabled]="!hasNext()"
   ></ion-button>

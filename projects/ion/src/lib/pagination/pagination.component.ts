@@ -12,6 +12,7 @@ interface PageEvent {
 export interface IonPaginationProps {
   total: number;
   itemsPerPage?: number;
+  size?: string;
   events?: EventEmitter<PageEvent>;
 }
 
@@ -23,6 +24,7 @@ export interface IonPaginationProps {
 export class PaginationComponent implements OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] = 15;
+  @Input() size: IonPaginationProps['size'] = 'md';
   @Output() events = new EventEmitter<PageEvent>();
 
   public pages: Page[] = [];
@@ -77,11 +79,15 @@ export class PaginationComponent implements OnInit {
   }
 
   previous() {
-    this.selectPage(this.currentPage().page_number - 1);
+    if (!this.inFirstPage()) {
+      this.selectPage(this.currentPage().page_number - 1);
+    }
   }
 
   next() {
-    this.selectPage(this.currentPage().page_number + 1);
+    if (!this.inLastPage()) {
+      this.selectPage(this.currentPage().page_number + 1);
+    }
   }
 
   ngOnInit() {
