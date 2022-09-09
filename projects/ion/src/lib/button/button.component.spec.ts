@@ -46,6 +46,19 @@ describe('ButtonComponent', () => {
     fireEvent.click(button);
     expect(clickEvent).not.toHaveBeenCalled();
   });
+
+  it('should not call event when is disabled', async () => {
+    const clickEvent = jest.fn();
+    const button = await sut({
+      label: defaultName,
+      disabled: true,
+      ionOnClick: {
+        emit: clickEvent,
+      } as any,
+    });
+    fireEvent.click(button);
+    expect(clickEvent).not.toHaveBeenCalled();
+  });
 });
 
 const types: Array<IonButtonProps['type']> = [
