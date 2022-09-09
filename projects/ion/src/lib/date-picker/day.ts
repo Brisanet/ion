@@ -4,7 +4,7 @@ const FirstDayOfTheYear = 1;
 // const TotalDaysOfTheWeek = 7;
 export class Day {
   Date: Date;
-  date;
+  date: number;
   day: string;
   dayNumber: number;
   dayShort: string;
@@ -56,19 +56,19 @@ export class Day {
     );
   }
 
-  format(formatStr) {
+  format(formatStr: string): string {
     return formatStr
-      .replace(/\bYYYY\b/, this.year)
+      .replace(/\bYYYY\b/, this.year.toString())
       .replace(/\bYYY\b/, this.yearShort)
       .replace(/\bWW\b/, this.week.toString().padStart(2, '0'))
-      .replace(/\bW\b/, this.week)
+      .replace(/\bW\b/, this.week.toString())
       .replace(/\bDDDD\b/, this.day)
       .replace(/\bDDD\b/, this.dayShort)
       .replace(/\bDD\b/, this.date.toString().padStart(2, '0'))
-      .replace(/\bD\b/, this.date)
+      .replace(/\bD\b/, this.date.toString())
       .replace(/\bMMMM\b/, this.month)
       .replace(/\bMMM\b/, this.monthShort)
       .replace(/\bMM\b/, this.monthNumber.toString().padStart(2, '0'))
-      .replace(/\bM\b/, this.monthNumber);
+      .replace(/\bM\b/, this.monthNumber.toString());
   }
 }

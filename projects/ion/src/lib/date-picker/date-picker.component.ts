@@ -115,42 +115,41 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   updateMonthDays() {
-    setTimeout(() => {
-      const monthDaysElement = document.getElementById('month-days');
-      monthDaysElement.innerHTML = '';
+    const monthDaysContainer = document.getElementById('month-days');
+    monthDaysContainer.innerHTML = '';
 
-      (this.getMonthDaysGrid() as Day[]).forEach((day) => {
-        const btnDay = document.createElement('button');
-        btnDay.className = 'month-day';
-        btnDay.textContent = day && day.date ? day.date : '';
-        // btnDay.addEventListener('click', () => this.selectDay(btnDay, day));
-
-        btnDay.setAttribute(
-          'aria-label',
-          day ? day.format(this.format || 'YYYY-MM-DD') : ''
-        );
-
-        if (day) {
-          if (day.monthNumber === this.calendar.month.number) {
-            btnDay.classList.add('current');
-          }
-
-          if (this.isSelectedDate(day)) {
-            btnDay.classList.add('selected');
-            this.selectedDayElement = btnDay;
-          }
-        }
-
-        btnDay.addEventListener('click', () =>
-          this.dispatchActions(btnDay, day)
-        );
-
-        if (monthDaysElement) {
-          monthDaysElement.appendChild(btnDay);
-        }
-      });
+    this.getMonthDaysGrid().forEach((day) => {
+      monthDaysContainer.appendChild(this.createButtonElementOfTheDay(day));
     });
   }
+
+  createButtonElementOfTheDay(day: Day): HTMLButtonElement {
+    const buttonDay = document.createElement('button');
+    buttonDay.textContent = day.date.toString();
+
+    this.addClassElement(buttonDay, 'month-day');
+    this.setAriaLabelInDayElement(buttonDay, day);
+
+    this.isADayOfTheCurrentMonth(day) &&
+      this.addClassElement(buttonDay, 'current');
+
+    buttonDay.addEventListener('click', () =>
+      this.dispatchActions(buttonDay, day)
+    );
+
+    if (this.isSelectedDate(day)) {
+      this.addClassElement(buttonDay, 'selected');
+      this.selectedDayElement = buttonDay;
+    }
+
+    return buttonDay;
+  }
+
+  setAriaLabelInDayElement = (el: HTMLButtonElement, day: Day) =>
+    el.setAttribute('aria-label', day.format(this.format || 'YYYY-MM-DD'));
+
+  isADayOfTheCurrentMonth = (day: Day) =>
+    day.monthNumber === this.calendar.month.number;
 
   getMonthDaysGrid() {
     const firstDayOfTheMonth = this.calendar.month.getDay(1);
@@ -168,7 +167,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       accuracyTotalDays = 28;
     }
 
-    const monthList = Array.from({ length: accuracyTotalDays });
+    const monthList = Array.from<Day>({ length: accuracyTotalDays });
 
     for (let i = totalLastMonthFinalDays; i < accuracyTotalDays; i++) {
       monthList[i] = this.calendar.month.getDay(
