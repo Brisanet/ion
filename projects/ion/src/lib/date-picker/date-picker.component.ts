@@ -18,7 +18,6 @@ type Dates = {
 type DateField = {
   element: HTMLElement;
   date: string | undefined;
-  selected: boolean;
 };
 
 interface DateFields {
@@ -43,25 +42,22 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   calendar: Calendar;
   calendarElement: HTMLElement;
   selectedDayElement: HTMLButtonElement;
-  dateLabel = '';
   isVisibleIconClose = false;
   currentFieldDate: string;
   hasDateInFields = false;
+  dateContainer: HTMLElement;
   dateFields: DateFields = {
     dateField: {
       element: null,
       date: undefined,
-      selected: false,
     },
     startDateField: {
       element: null,
       date: undefined,
-      selected: false,
     },
     endDateField: {
       element: null,
       date: undefined,
-      selected: false,
     },
   };
   isDisabledConfirmButton = true;
@@ -86,10 +82,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.renderCalendarDays();
 
     this.calendarElement = document.getElementById('calendar');
-
-    if (this.isCalendarVisible) {
-      this.openCalendar(this.isDateRanges ? 'field-date' : 'field-start-date');
-    }
   }
 
   getInitialDate = () =>
@@ -203,8 +195,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.removeClassElement(this.selectedDayElement, 'selected');
     this.selectedDayElement = buttonDay;
 
-    this.formatDateLabel();
-    this.updateDateInField();
+    this.updateDateOnInput();
     this.hasDateInFields = true;
     this.updateMonthDays();
 
@@ -216,63 +207,36 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.setDate();
   }
 
-  formatDateLabel() {
-    this.dateLabel = this.selectedDate.format(this.format || 'YYYY-MM-DD');
-  }
-
-  updateDateInField() {
+  updateDateOnInput() {
     this.dateFields[this.currentFieldDate].date = this.selectedDate.format(
       this.format || 'YYYY-MM-DD'
     );
 
     if (this.isDateRanges) {
-      const inputStartDate = document.getElementById('input-start-date');
-      const inputEndDate = document.getElementById('input-end-date');
+      this.setFocusWhenUpdatingADate();
+    }
+  }
 
-      if (
-        this.dateFields.startDateField.date &&
-        this.dateFields.endDateField.date
-      ) {
-        this.isDisabledConfirmButton = false;
-        this.currentFieldDate === 'startDateField'
-          ? inputStartDate.focus()
-          : inputEndDate.focus();
-        return;
-      }
-
-      if (this.currentFieldDate === 'startDateField') {
-        inputEndDate.focus();
-        this.currentFieldDate = 'endDateField';
-        return;
-      }
-
-      inputStartDate.focus();
-      this.currentFieldDate = 'startDateField';
+  setFocusWhenUpdatingADate() {
+    if (
+      this.dateFields.startDateField.date &&
+      this.dateFields.endDateField.date
+    ) {
+      this.isDisabledConfirmButton = false;
+      this.currentFieldDate === 'startDateField'
+        ? this.dateFields.startDateField.element.focus()
+        : this.dateFields.endDateField.element.focus();
+      return;
     }
 
-    // if (this.isDateRanges) {
-    //   if (
-    //     this.dateFields.startDateField.date &&
-    //     this.dateFields.endDateField.date
-    //   ) {
-    //     this.isDisabledConfirmButton = false;
-    //     return;
-    //   }
-    //   this.isDisabledConfirmButton = true;
-    //   if (this.currentFieldDate === 'startDateField') {
-    //     this.addClassElement(
-    //       this.dateFields.endDateField.element,
-    //       'selected-field'
-    //     );
-    //     this.currentFieldDate = 'endDateField';
-    //   } else {
-    //     this.addClassElement(
-    //       this.dateFields.startDateField.element,
-    //       'selected-field'
-    //     );
-    //     this.currentFieldDate = 'startDateField';
-    //   }
-    // }
+    if (this.currentFieldDate === 'startDateField') {
+      this.dateFields.endDateField.element.focus();
+      this.currentFieldDate = 'endDateField';
+      return;
+    }
+
+    this.dateFields.startDateField.element.focus();
+    this.currentFieldDate = 'startDateField';
   }
 
   emmitEvent() {
@@ -285,7 +249,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.date.emit({ date: this.dateLabel });
+    this.date.emit({ date: this.dateFields.dateField.date });
   }
 
   addClassElement(el: HTMLElement, className) {
@@ -305,22 +269,38 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.dateFields.dateField.element = document.getElementById('field-date');
-    this.dateFields.startDateField.element =
-      document.getElementById('field-start-date');
-    this.dateFields.endDateField.element =
-      document.getElementById('field-end-date');
+    this.getHtmlElementsReferences();
+    this.addEventsInDateContainer();
 
-    this.addEvents();
+    if (this.isCalendarVisible) {
+      this.calendarElement.style.display = 'block';
+
+      if (this.isDateRanges) {
+        this.dateFields.startDateField.element.focus();
+        return;
+      }
+      this.dateFields.dateField.element.focus();
+    }
   }
 
-  addEvents() {
-    const dateContainer = document.getElementsByClassName('date-container');
-    dateContainer[0].addEventListener(
+  getHtmlElementsReferences() {
+    this.dateContainer = document.getElementById('date-container');
+    if (this.isDateRanges) {
+      this.dateFields.startDateField.element =
+        document.getElementById('input-start-date');
+      this.dateFields.endDateField.element =
+        document.getElementById('input-end-date');
+      return;
+    }
+    this.dateFields.dateField.element = document.getElementById('input-date');
+  }
+
+  addEventsInDateContainer() {
+    this.dateContainer.addEventListener(
       'mouseover',
       () => this.hasDateInFields && this.setVisibleIconClose(true)
     );
-    dateContainer[0].addEventListener('mouseleave', () =>
+    this.dateContainer.addEventListener('mouseleave', () =>
       this.setVisibleIconClose(false)
     );
   }
@@ -330,7 +310,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   clearCalendar() {
-    this.dateLabel = '';
     Object.keys(this.dateFields).forEach((item) => {
       this.dateFields[item].date = undefined;
     });
@@ -350,39 +329,23 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.renderCalendarDays();
   }
 
-  openCalendar(fieldDate?: string) {
-    // this.currentFieldDate = fieldDate;
-    // const inputStartDate = document.getElementById('input-start-date');
-    // const inputEndDate = document.getElementById('input-end-date');
-    // if(this.dateFields.startDateField.date){
-
-    // }
-    // inputStartDate.focus();
+  setFocusOnClickInput(currentInput?: string) {
     this.calendarElement.style.display = 'block';
-    // this.setFocus();
-    // const inputStartDate = document.getElementById('input-start-date');
-    // inputStartDate.focus();
-    this.setSelectedInput();
-  }
-
-  setSelectedInput(currentInput?: string) {
-    this.calendarElement.style.display = 'block';
-
     if (this.isDateRanges) {
       this.currentFieldDate =
         currentInput === 'input-end-date' ? 'endDateField' : 'startDateField';
 
       if (!currentInput) {
-        document.getElementById('input-start-date').focus();
+        this.dateFields.startDateField.element.focus();
         return;
       }
-      document.getElementById(currentInput).focus();
+
+      this.dateFields[this.currentFieldDate].element.focus();
       return;
     }
 
     this.currentFieldDate = 'dateField';
-    const inputDate = document.getElementById('input-date');
-    inputDate.focus();
+    this.dateFields.dateField.element.focus();
   }
 
   actionClickIcon() {
@@ -391,7 +354,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.setSelectedInput('input-end-date');
+    this.setFocusOnClickInput('input-end-date');
   }
 
   closeCalendar() {

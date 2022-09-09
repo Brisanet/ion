@@ -1,10 +1,9 @@
-<div class="date-container">
+<div class="date-container" id="date-container">
   <div class="date-content">
     <div
       *ngIf="!isDateRanges"
       class="field-date"
-      id="field-date"
-      (click)="setSelectedInput('input-date')"
+      (click)="setFocusOnClickInput('input-date')"
     >
       <input
         id="input-date"
@@ -16,8 +15,7 @@
     <div class="date-ranges" *ngIf="isDateRanges">
       <div
         class="field-date"
-        id="field-start-date"
-        (click)="setSelectedInput('input-start-date')"
+        (click)="setFocusOnClickInput('input-start-date')"
       >
         <input
           id="input-start-date"
@@ -26,14 +24,10 @@
           placeholder="Data de início"
         />
       </div>
-      <div class="separator" (click)="setSelectedInput('input-start-date')">
+      <div class="separator" (click)="setFocusOnClickInput('input-start-date')">
         -
       </div>
-      <div
-        class="field-date"
-        id="field-end-date"
-        (click)="setSelectedInput('input-end-date')"
-      >
+      <div class="field-date" (click)="setFocusOnClickInput('input-end-date')">
         <input
           id="input-end-date"
           type="text"
