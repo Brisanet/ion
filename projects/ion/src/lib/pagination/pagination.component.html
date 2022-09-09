@@ -2,11 +2,12 @@
   <ion-button
     iconType="left2"
     data-testid="arrow-left"
+    type="secondary"
     (click)="previous()"
     [disabled]="!hasPrevious()"
   ></ion-button>
 
-  <div
+  <button
     *ngFor="let page of pages"
     class="square-pag"
     [class.selected]="page.selected"
@@ -14,11 +15,12 @@
     (click)="selectPage(page.page_number)"
   >
     <span>{{ page.page_number }}</span>
-  </div>
+  </button>
 
   <ion-button
     iconType="right2"
     data-testid="arrow-right"
+    type="secondary"
     (click)="next()"
     [disabled]="!hasNext()"
   ></ion-button>

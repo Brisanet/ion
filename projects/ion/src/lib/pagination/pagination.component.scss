@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+@mixin setBorderBgColor($border, $bg, $color) {
+  border: 1px solid $border;
+  background-color: $bg;
+  color: $color;
+}
+
 .pag-container {
   display: flex;
   align-items: center;
@@ -7,12 +13,38 @@
 }
 
 .square-pag {
-  border: 1px solid $neutral-4;
-  padding: 8px;
-  border-radius: 10px;
+  @include setBorderBgColor($neutral-4, #fff, $primary-6);
+
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  transition: all 300ms;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
   cursor: pointer;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;
+  }
+
+  &:active {
+    @include setBorderBgColor($primary-5, $primary-2, $primary-7);
+  }
+
+  &:hover {
+    @include setBorderBgColor($primary-4, $primary-1, $primary-5);
+  }
 }
 
 .selected {
-  border: 1px solid $primary-5;
+  @include setBorderBgColor($primary-6, $primary-1, $primary-6);
 }

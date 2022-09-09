@@ -5,7 +5,7 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { ButtonComponent } from '../projects/ion/src/public-api';
 
 export default {
-  title: 'Ion/Data Display/Pagination',
+  title: 'Ion/Navigation/Pagination',
   component: PaginationComponent,
 } as Meta;
 
