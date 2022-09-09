@@ -128,7 +128,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     buttonDay.textContent = day.date.toString();
 
     this.addClassElement(buttonDay, 'month-day');
-    this.setAriaLabelInDayElement(buttonDay, day);
+    this.setAriaLabelInButtonElementDay(buttonDay, day);
 
     this.isADayOfTheCurrentMonth(day) &&
       this.addClassElement(buttonDay, 'current');
@@ -145,31 +145,25 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return buttonDay;
   }
 
-  setAriaLabelInDayElement = (el: HTMLButtonElement, day: Day) =>
-    el.setAttribute('aria-label', day.format(this.format || 'YYYY-MM-DD'));
+  setAriaLabelInButtonElementDay = (buttonDay: HTMLButtonElement, day: Day) =>
+    buttonDay.setAttribute(
+      'aria-label',
+      day.format(this.format || 'YYYY-MM-DD')
+    );
 
   isADayOfTheCurrentMonth = (day: Day) =>
     day.monthNumber === this.calendar.month.number;
 
   getMonthDaysGrid() {
-    const firstDayOfTheMonth = this.calendar.month.getDay(1);
     const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays = firstDayOfTheMonth.dayNumber - 1;
-    const totalDays =
-      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
-    let accuracyTotalDays = 0;
+    const totalLastMonthFinalDays =
+      this.getTheDayNumberOfTheWeekOfTheCurrentMonth();
+    const totalDays = this.calculateTotalDaysForCalendar(
+      totalLastMonthFinalDays
+    );
+    const monthList = Array.from<Day>({ length: totalDays });
 
-    if (totalDays > 35) {
-      accuracyTotalDays = 42;
-    } else if (totalDays > 28) {
-      accuracyTotalDays = 35;
-    } else {
-      accuracyTotalDays = 28;
-    }
-
-    const monthList = Array.from<Day>({ length: accuracyTotalDays });
-
-    for (let i = totalLastMonthFinalDays; i < accuracyTotalDays; i++) {
+    for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
       monthList[i] = this.calendar.month.getDay(
         i + 1 - totalLastMonthFinalDays
       );
@@ -183,19 +177,33 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return monthList;
   }
 
-  dispatchActions(el: HTMLButtonElement, day: Day) {
+  getTheDayNumberOfTheWeekOfTheCurrentMonth = (): number =>
+    this.calendar.month.getDay(1).dayNumber - 1;
+
+  calculateTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
+    const totalDays =
+      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
+
+    if (totalDays > 35) {
+      return 42;
+    }
+
+    if (totalDays > 28) {
+      return 35;
+    }
+
+    return 28;
+  }
+
+  dispatchActions(buttonDay: HTMLButtonElement, day: Day) {
     if (!day) return;
 
     this.selectedDate = day;
-    this.addClassElement(el, 'selected');
+    this.addClassElement(buttonDay, 'selected');
     this.removeClassElement(this.selectedDayElement, 'selected');
-    this.selectedDayElement = el;
+    this.selectedDayElement = buttonDay;
 
     this.formatDateLabel();
-    // this.removeClassElement(
-    //   this.dateFields[this.currentFieldDate].element,
-    //   'selected-field'
-    // );
     this.updateDateInField();
     this.hasDateInFields = true;
     this.updateMonthDays();
