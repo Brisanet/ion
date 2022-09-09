@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IconType } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
 
 type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
@@ -16,7 +16,7 @@ export interface IonButtonProps {
   iconType?: IconType;
   rightSideIcon?: boolean;
   circularButton?: boolean;
-  ionOnClick?: EventEmitter<any>;
+  ionOnClick?: EventEmitter<SafeAny>;
 }
 @Component({
   selector: 'ion-button',
@@ -38,7 +38,7 @@ export class ButtonComponent {
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {
-    if (!this.loading) {
+    if (!this.loading && !this.disabled) {
       this.ionOnClick.emit();
     }
   }
