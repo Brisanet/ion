@@ -36,12 +36,12 @@
     box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;
   }
 
-  &:active {
-    @include setBorderBgColor($primary-5, $primary-2, $primary-7);
-  }
-
   &:hover {
     @include setBorderBgColor($primary-4, $primary-1, $primary-5);
+  }
+
+  &:active {
+    @include setBorderBgColor($primary-5, $primary-2, $primary-7);
   }
 }
 
