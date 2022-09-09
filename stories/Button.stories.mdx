@@ -7,26 +7,7 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 <Meta title="Ion/Buttons/button" component={ButtonComponent} />
 
-export const Template = (args) => <ButtonComponent {...args} />;
-
 # Button
-
-<Canvas>
-  <Story
-    name="Change the properties button"
-    args={{
-      label: 'Changing the properties button',
-    }}
-    decorators={[
-      moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
 
 No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
 
@@ -143,6 +124,125 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   >
     {{
       template: `<ion-button label="Extra-large" size="xl"></ion-button>`,
+    }}
+  </Story>
+</Canvas>
+
+- `ìconType`. Adiciona um ícone referente ao ícone configurado na propriedade. Qualquer tipo diponível no componente de ícone, pode ser configurado no botão.
+
+<Canvas>
+  <Story
+    name="icontype"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button iconType="pencil"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="icontype in danger"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button iconType="pencil" [danger]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="iconetype: trash"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="trash"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="iconetype: trash danger"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="trash" [danger]="true"></ion-button>`,
+    }}
+  </Story>
+</Canvas>
+
+- `rightSideIcon`. Posiciona o ícone ao lado direito do texto.
+
+<Canvas>
+  <Story
+    name="rightSideIcon"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Editar" iconType="pencil" [rightSideIcon]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="rightSideIcon: trash danger"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="trash" [danger]="true" [rightSideIcon]="true"></ion-button>`,
+    }}
+  </Story>
+</Canvas>
+
+- `circularButton`. Transforma a bordas do botão em formato de círculo. Apenas o ícone será exibido.
+
+<Canvas>
+  <Story
+    name="circularButton"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Editar" iconType="pencil" [circularButton]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="circularButton: trash danger"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="trash" [danger]="true" [circularButton]="true"></ion-button>`,
     }}
   </Story>
 </Canvas>
@@ -430,6 +530,37 @@ E 6 outras propriedades adicionais.
   >
     {{
       template: `<ion-button label="Primary" type="secondary" [danger]="true" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+</Canvas>
+
+Ainda é possível configurar uma mensagem ser exibida no loading, caso não deseje a mensagem padrão 'Carregando...'. Basta configurar uma mensagem no `loadingMessage`.
+
+<Canvas>
+  <Story
+    name="Loading message default"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button [loading]=true></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="Loading message"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button [loading]=true loadingMessage="Aguarde..."></ion-button>`,
     }}
   </Story>
 </Canvas>

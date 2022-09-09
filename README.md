@@ -1,6 +1,4 @@
-![IonLogo](https://user-images.githubusercontent.com/6165180/177863336-9dcb9441-035d-4c2c-ad84-4e3734a99fab.png)
-
-Component library following a great Design System
+<img src="stories/assets/capa.svg">
 
 <a href="https://codeclimate.com/github/iurynogueira/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/maintainability" /></a>
 <a href="https://codeclimate.com/github/iurynogueira/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/test_coverage" /></a>
@@ -31,4 +29,8 @@ We have the following types:
 - build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm);
 - temp: Temporary commits that won't be included in your CHANGELOG.
 
-Example: `feat: Add feature #issue_id`
+Example: `feat: add feature #issue_id`
+
+## Deploy 🚀
+
+<a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>

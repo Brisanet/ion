@@ -1,11 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ChipComponent, IonChipProps, Size } from './chip.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
+import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
 
 const sut = async (customProps?: IonChipProps) => {
   await render(ChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },
+    declarations: [IonIconComponent],
   });
 };
 
@@ -17,7 +20,7 @@ describe('ChipComponent', () => {
 
   it.each(['sm', 'md'])(
     'should render chip component with size %s',
-    async (size: Size) => {
+    async (size: ChipSize) => {
       await sut({ label: 'custom-size', size });
       const element = screen.getByText('custom-size');
       expect(element).toHaveClass('chip-' + size);
@@ -31,9 +34,20 @@ describe('ChipComponent', () => {
   });
 
   it('should select chip', async () => {
-    await sut();
-    const element = screen.getByText('chip');
+    const selectEvent = jest.fn();
+    const config = {
+      label: 'with event',
+      events: {
+        emit: selectEvent,
+      } as SafeAny,
+    };
+    await sut(config);
+    const element = screen.getByText(config.label);
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
+    expect(selectEvent).toHaveBeenCalledWith({
+      selected: true,
+      disabled: false,
+    });
   });
 });

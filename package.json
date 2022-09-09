@@ -16,11 +16,13 @@
     "prettier": "prettier --write .",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-once-uploaded"
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.1.0",
+    "@angular/cdk": "8.1.0",
     "@angular/common": "~8.1.0",
     "@angular/compiler": "~8.1.0",
     "@angular/core": "~8.1.0",
@@ -61,6 +63,7 @@
     "@typescript-eslint/parser": "^5.30.5",
     "babel-jest": "^27.1.0",
     "babel-loader": "^8.2.5",
+    "chromatic": "^6.7.3",
     "codelyzer": "^5.0.0",
     "commitizen": "^4.2.5",
     "cz-conventional-changelog": "3.3.0",
