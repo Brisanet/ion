@@ -96,7 +96,7 @@ export class TableComponent {
   }
 
   public fillColor(column: Column, up: boolean) {
-    if (column.desc == null) {
+    if (column.desc === undefined) {
       return this.neutral_3;
     }
     if (up) {

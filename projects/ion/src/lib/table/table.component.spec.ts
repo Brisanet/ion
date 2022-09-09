@@ -308,5 +308,46 @@ describe('Table > Differents columns data type', () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });
+
+    it('should render arrow down blue when sort desc', async () => {
+      await sut(tableDifferentColumns);
+      fireEvent.click(screen.getByTestId('sort-by-id'));
+      const arrowUp = screen.getByTestId('sort-by-id').children[0];
+      const arrowDown = screen.getByTestId('sort-by-id').children[1];
+      expect(arrowUp).toHaveAttribute('fill', '#CED2DB');
+      expect(arrowDown).toHaveAttribute('fill', '#0858CE');
+    });
+
+    it('should render arrow down blue when sort desc', async () => {
+      tableDifferentColumns.config.columns = [
+        {
+          label: 'Albuns',
+          sort: true,
+          key: 'albuns',
+        },
+      ];
+      await sut(JSON.parse(JSON.stringify(tableDifferentColumns)));
+      fireEvent.click(screen.getByTestId('sort-by-albuns'));
+      fireEvent.click(screen.getByTestId('sort-by-albuns'));
+      const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
+      const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
+      expect(arrowUp).toHaveAttribute('fill', '#0858CE');
+      expect(arrowDown).toHaveAttribute('fill', '#CED2DB');
+    });
+
+    it('should render arrow up and arrow down gray when not sorted', async () => {
+      tableDifferentColumns.config.columns = [
+        {
+          label: 'Albuns',
+          sort: true,
+          key: 'albuns',
+        },
+      ];
+      await sut(JSON.parse(JSON.stringify(tableDifferentColumns)));
+      const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
+      const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
+      expect(arrowUp).toHaveAttribute('fill', '#CED2DB');
+      expect(arrowDown).toHaveAttribute('fill', '#CED2DB');
+    });
   });
 });
