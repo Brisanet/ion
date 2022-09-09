@@ -38,7 +38,7 @@ export class ButtonComponent {
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {
-    if (!this.loading) {
+    if (!this.loading && !this.disabled) {
       this.ionOnClick.emit();
     }
   }
