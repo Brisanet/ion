@@ -14,6 +14,7 @@ export interface IonPaginationProps {
   itemsPerPage?: number;
   size?: string;
   events?: EventEmitter<PageEvent>;
+  allowChangeQtdItems?: boolean;
 }
 
 @Component({

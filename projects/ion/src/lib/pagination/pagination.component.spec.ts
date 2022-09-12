@@ -72,6 +72,10 @@ describe('PaginationComponent', () => {
     expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 
+  it('should not show items per page by default', async () => {
+    expect(screen.queryAllByText('15 / página')).toHaveLength(0);
+  });
+
   afterEach(() => {
     pageEvent.mockClear();
   });
@@ -88,5 +92,13 @@ describe('Pagination > Events', () => {
     });
     fireEvent.click(screen.getByTestId('page-2'));
     expect(event).toBeCalledTimes(2);
+  });
+
+  it.skip('should show items per page 15 when params is informed', async () => {
+    await sut({
+      total: 16,
+      allowChangeQtdItems: true,
+    });
+    expect(screen.getByText('15 / página')).toBeInTheDocument();
   });
 });
