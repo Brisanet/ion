@@ -2,9 +2,6 @@
   data-testid="ion-checkbox"
   class="ion-checkbox"
   type="checkbox"
-  (click)="clickEvent()"
-  [attr.disabled]="disabled || null"
-  [attr.indeterminate]="indeterminate || null"
-  [attr.checked]="checked || null"
+  (click)="changeState()"
   #checkBox
 />

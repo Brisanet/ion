@@ -11,16 +11,23 @@ import {
 
 export interface CheckBoxProps {
   disabled?: boolean;
-  checked?: boolean;
-  indeterminate?: boolean;
+  state?: CheckBoxStates;
   ionClick?: EventEmitter<CheckBoxEvent>;
 }
 
 enum CheckBoxEvent {
   checked = 'checked',
-  unchecked = 'unchecked',
+  enabled = 'unchecked',
   indeterminate = 'indeterminate',
 }
+
+export type CheckBoxStates = 'checked' | 'enabled' | 'indeterminate';
+
+const stateChange = {
+  enabled: 'checked',
+  checked: 'enabled',
+  indeterminate: 'enabled',
+};
 
 @Component({
   selector: 'ion-checkbox',
@@ -28,44 +35,61 @@ enum CheckBoxEvent {
   styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent implements AfterViewInit, OnChanges {
+  @Input() public state: CheckBoxStates = 'enabled';
+  @Output() public stateChange = new EventEmitter<CheckBoxStates>();
+
   @Input() public disabled = false;
-  @Input() public checked = false;
-  @Input() public indeterminate = false;
-  @Output() public indeterminateChange = new EventEmitter();
+  @Output() public disabledChange = new EventEmitter<boolean>();
+
   @Output() ionClick = new EventEmitter();
 
   @ViewChild('checkBox', { static: true }) public checkBox: ElementRef;
 
-  clickEvent() {
-    if (this.disabled) return;
-    const element = this.checkBox.nativeElement;
-    if (this.indeterminate) {
-      element.checked = false;
-      this.indeterminate = false;
-      this.emitEvent(CheckBoxEvent.unchecked);
-    } else if (element.checked) {
-      this.emitEvent(CheckBoxEvent.checked);
-    } else {
-      this.emitEvent(CheckBoxEvent.unchecked);
-    }
+  setState() {
+    if (this.state === 'indeterminate') this.setIndeterminate();
+    if (this.state === 'checked') this.setChecked();
+    if (this.state === 'enabled') this.setEnabled();
   }
 
-  emitEvent(event: string) {
-    this.ionClick.emit({ state: event });
+  changeState() {
+    this.state = stateChange[this.state] as CheckBoxStates;
+    this.setState();
+  }
+
+  setEnabled() {
+    this.checkBox.nativeElement.checked = false;
+    this.checkBox.nativeElement.enabled = true;
+    this.emitEvent();
   }
 
   setIndeterminate() {
-    if (this.checkBox) this.checkBox.nativeElement.indeterminate = true;
+    this.checkBox.nativeElement.indeterminate = true;
+    this.emitEvent();
+  }
+
+  setChecked() {
+    this.checkBox.nativeElement.checked = true;
+    this.emitEvent();
+  }
+
+  emitEvent() {
+    this.ionClick.emit({ state: CheckBoxEvent[this.state] });
+  }
+
+  setDisabled() {
+    this.checkBox.nativeElement.disabled = this.disabled;
+  }
+
+  checkState() {
+    this.setState();
+    this.setDisabled();
   }
 
   ngAfterViewInit(): void {
-    if (this.indeterminate) this.setIndeterminate();
+    this.checkState();
   }
 
   ngOnChanges() {
-    if (this.indeterminate) {
-      this.emitEvent(CheckBoxEvent.indeterminate);
-      this.setIndeterminate();
-    }
+    this.checkState();
   }
 }

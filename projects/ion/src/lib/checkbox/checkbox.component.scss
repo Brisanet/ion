@@ -12,13 +12,13 @@ $color-primary-2: 'b5d2fc';
 $color-primary-1: 'ebf3fe';
 $color-neutral-4: 'ced2db';
 
-.ion-checkbox:enabled {
-  -webkit-appearance: none;
+.ion-checkbox {
   width: 16px;
   height: 16px;
 }
 
 .ion-checkbox:enabled {
+  -webkit-appearance: none;
   border: 1px solid $neutral-5;
   border-radius: 4px;
   background: $neutral-1;
@@ -62,7 +62,7 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:enabled:checked:before {
   position: relative;
   top: 3.5px;
-  left: 1.5px;
+  left: 2px;
   @include setCheck($color-primary-1);
 }
 
@@ -88,7 +88,7 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:disabled:checked:before {
   position: relative;
   top: 3.5px;
-  left: 1.5px;
+  left: 2px;
   @include setCheck($color-neutral-4);
 }
 
@@ -113,14 +113,14 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:indeterminate:enabled:hover:before {
   position: relative;
   top: 5.5px;
-  left: 2.5px;
+  left: 3px;
   @include setDash($color-primary-1);
 }
 
 .ion-checkbox:indeterminate:enabled:before {
   position: relative;
   top: 5.5px;
-  left: 2.5px;
+  left: 3px;
   @include setDash($color-primary-1);
 }
 
