@@ -23,12 +23,18 @@ export interface IonPaginationProps {
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
+  private defaultitemsPerPage = 15;
+
   @Input() total: IonPaginationProps['total'];
-  @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] = 15;
+  @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
+    this.defaultitemsPerPage;
   @Input() size: IonPaginationProps['size'] = 'md';
+  @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Output() events = new EventEmitter<PageEvent>();
 
   public pages: Page[] = [];
+
+  public optionsPage = [15, 30, 45];
 
   public selectPage(pageNumber: number) {
     this.pages &&
@@ -89,6 +95,12 @@ export class PaginationComponent implements OnInit {
     if (!this.inLastPage()) {
       this.selectPage(this.currentPage().page_number + 1);
     }
+  }
+
+  public remountPages() {
+    this.pages = [];
+    this.createPages(this.totalPages());
+    this.selectPage(1);
   }
 
   ngOnInit() {

@@ -21,6 +21,7 @@ import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
 import { PaginationComponent } from './pagination/pagination.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { PaginationComponent } from './pagination/pagination.component';
     CardIonComponent,
     PaginationComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
     ButtonComponent,

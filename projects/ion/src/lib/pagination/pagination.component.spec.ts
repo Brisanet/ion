@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
@@ -19,6 +20,7 @@ const sut = async (customProps: IonPaginationProps = defaultComponent) => {
   await render(PaginationComponent, {
     componentProperties: customProps,
     declarations: [ButtonComponent, IonIconComponent],
+    imports: [FormsModule],
   });
 };
 
@@ -94,11 +96,24 @@ describe('Pagination > Events', () => {
     expect(event).toBeCalledTimes(2);
   });
 
-  it.skip('should show items per page 15 when params is informed', async () => {
+  it('should show items per page 15 when params is informed', async () => {
     await sut({
       total: 16,
       allowChangeQtdItems: true,
     });
-    expect(screen.getByText('15 / página')).toBeInTheDocument();
+    expect(screen.queryAllByText('15 / página')).toHaveLength(1);
+  });
+
+  it('should change total pages when change items per page', async () => {
+    await sut({
+      total: 46,
+      allowChangeQtdItems: true,
+    });
+
+    fireEvent.change(screen.getByTestId('select-page-items'), {
+      target: { value: 30 },
+    });
+    expect(screen.queryAllByTestId('page-3')).toHaveLength(0);
+    expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });
 });

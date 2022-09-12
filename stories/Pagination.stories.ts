@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { ButtonComponent } from '../projects/ion/src/public-api';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/Pagination',
@@ -14,7 +15,7 @@ const Template: Story<PaginationComponent> = (args: PaginationComponent) => ({
   props: args,
   moduleMetadata: {
     declarations: [IonIconComponent, ButtonComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
   },
 });
 
@@ -27,4 +28,10 @@ export const SmallSize = Template.bind({});
 SmallSize.args = {
   total: 46,
   size: 'sm',
+};
+
+export const SelectItemPerPage = Template.bind({});
+SelectItemPerPage.args = {
+  total: 46,
+  allowChangeQtdItems: true,
 };
