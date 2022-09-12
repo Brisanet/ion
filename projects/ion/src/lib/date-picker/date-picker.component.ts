@@ -119,22 +119,39 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     const buttonDay = document.createElement('button');
     buttonDay.textContent = day.date.toString();
 
-    this.addClassElement(buttonDay, 'month-day');
+    this.setStyleButtonDay(buttonDay, day);
     this.setAriaLabelInButtonElementDay(buttonDay, day);
-
-    this.isADayOfTheCurrentMonth(day) &&
-      this.addClassElement(buttonDay, 'current');
 
     buttonDay.addEventListener('click', () =>
       this.dispatchActions(buttonDay, day)
     );
 
+    return buttonDay;
+  }
+
+  setStyleButtonDay(buttonDay: HTMLButtonElement, day: Day) {
+    this.addClassElement(buttonDay, 'month-day');
+
+    this.isADayOfTheCurrentMonth(day) &&
+      this.addClassElement(buttonDay, 'current');
+
     if (this.isSelectedDate(day)) {
-      this.addClassElement(buttonDay, 'selected');
+      this.addClassElement(
+        buttonDay,
+        this.isDateRanges ? 'selected-start-date' : 'selected'
+      );
       this.selectedDayElement = buttonDay;
     }
 
-    return buttonDay;
+    if (this.isDateRanges) {
+      if (day.format('YYYY-MM-DD') === this.dateFields.startDateField.date) {
+        this.addClassElement(buttonDay, 'selected-start-date');
+      }
+
+      if (day.format('YYYY-MM-DD') === this.dateFields.endDateField.date) {
+        this.addClassElement(buttonDay, 'selected-end-date');
+      }
+    }
   }
 
   setAriaLabelInButtonElementDay = (buttonDay: HTMLButtonElement, day: Day) =>
@@ -148,17 +165,12 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   getMonthDaysGrid() {
     const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays =
-      this.getTheDayNumberOfTheWeekOfTheCurrentMonth();
-    const totalDays = this.calculateTotalDaysForCalendar(
-      totalLastMonthFinalDays
-    );
+    const totalLastMonthFinalDays = this.getTotalLastMonthFinalDays();
+    const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
     const monthList = Array.from<Day>({ length: totalDays });
 
     for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
-      monthList[i] = this.calendar.month.getDay(
-        i + 1 - totalLastMonthFinalDays
-      );
+      monthList[i] = this.getCalendarDay(i + 1 - totalLastMonthFinalDays);
     }
 
     for (let i = 0; i < totalLastMonthFinalDays; i++) {
@@ -169,10 +181,14 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return monthList;
   }
 
-  getTheDayNumberOfTheWeekOfTheCurrentMonth = (): number =>
+  getCalendarDay(day: number) {
+    return this.calendar.month.getDay(day);
+  }
+
+  getTotalLastMonthFinalDays = (): number =>
     this.calendar.month.getDay(1).dayNumber - 1;
 
-  calculateTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
+  getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
     const totalDays =
       this.calendar.month.numberOfDays + totalLastMonthFinalDays;
 
@@ -191,10 +207,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     if (!day) return;
 
     this.selectedDate = day;
-    this.addClassElement(buttonDay, 'selected');
-    this.removeClassElement(this.selectedDayElement, 'selected');
     this.selectedDayElement = buttonDay;
-
     this.updateDateOnInput();
     this.hasDateInFields = true;
     this.updateMonthDays();

@@ -169,9 +169,16 @@
         color: $neutral-7;
       }
 
-      &.selected {
+      &.selected, &.selected-start-date {
         background-color: $primary-2;
         color: $primary-6;
+        border-radius: 999999px;
+        border: 1px solid $primary-6;
+      }
+
+      &.selected-end-date {
+        background-color: $primary-6;
+        color: $neutral-1;
         border-radius: 999999px;
         border: 1px solid $primary-6;
       }
