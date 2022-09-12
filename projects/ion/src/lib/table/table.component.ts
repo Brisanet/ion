@@ -47,8 +47,8 @@ export class TableComponent {
   @Input() config: ConfigTable;
   @Output() events = new EventEmitter<TableEvent>();
 
-  public neutral_3 = '#CED2DB';
-  public primary_6 = '#0858CE';
+  private disabledArrowColor = '#CED2DB';
+  private enabledArrowColor = '#0858CE';
 
   private getRowsSelected(): SafeAny[] {
     return this.config.data.filter((rowInData) => rowInData.selected);
@@ -95,16 +95,22 @@ export class TableComponent {
     return this.orderAsc(rowA[key], rowB[key]);
   }
 
-  public fillColor(column: Column, up: boolean) {
-    if (column.desc === undefined) {
-      return this.neutral_3;
+  public fillColorArrowUp(column: Column) {
+    return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
+  }
+
+  public fillColorArrowDown(column: Column) {
+    return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
+  }
+
+  public fillColor(column: Column, upArrow: boolean) {
+    if (column.desc === null || column.desc === undefined) {
+      return this.disabledArrowColor;
     }
-    if (up) {
-      return column.desc ? this.neutral_3 : this.primary_6;
-    }
-    if (!up) {
-      return column.desc ? this.primary_6 : this.neutral_3;
-    }
+
+    return upArrow
+      ? this.fillColorArrowUp(column)
+      : this.fillColorArrowDown(column);
   }
 
   sort(column: Column) {

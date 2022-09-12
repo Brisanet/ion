@@ -9,6 +9,9 @@ import {
   TableComponent,
 } from './table.component';
 
+const disabledArrowColor = '#CED2DB';
+const enabledArrowColor = '#0858CE';
+
 const columns: Column[] = [
   {
     key: 'id',
@@ -314,11 +317,11 @@ describe('Table > Differents columns data type', () => {
       fireEvent.click(screen.getByTestId('sort-by-id'));
       const arrowUp = screen.getByTestId('sort-by-id').children[0];
       const arrowDown = screen.getByTestId('sort-by-id').children[1];
-      expect(arrowUp).toHaveAttribute('fill', '#CED2DB');
-      expect(arrowDown).toHaveAttribute('fill', '#0858CE');
+      expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
+      expect(arrowDown).toHaveAttribute('fill', enabledArrowColor);
     });
 
-    it('should render arrow down blue when sort desc', async () => {
+    it('should render arrow up blue when sort asc', async () => {
       tableDifferentColumns.config.columns = [
         {
           label: 'Albuns',
@@ -331,8 +334,8 @@ describe('Table > Differents columns data type', () => {
       fireEvent.click(screen.getByTestId('sort-by-albuns'));
       const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
       const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
-      expect(arrowUp).toHaveAttribute('fill', '#0858CE');
-      expect(arrowDown).toHaveAttribute('fill', '#CED2DB');
+      expect(arrowUp).toHaveAttribute('fill', enabledArrowColor);
+      expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
 
     it('should render arrow up and arrow down gray when not sorted', async () => {
@@ -346,8 +349,8 @@ describe('Table > Differents columns data type', () => {
       await sut(JSON.parse(JSON.stringify(tableDifferentColumns)));
       const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
       const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
-      expect(arrowUp).toHaveAttribute('fill', '#CED2DB');
-      expect(arrowDown).toHaveAttribute('fill', '#CED2DB');
+      expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
+      expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
   });
 });
