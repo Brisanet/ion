@@ -9,7 +9,7 @@ import {
 import { Calendar } from './calendar';
 import { Day } from './day';
 
-type Dates = {
+type DateEmitter = {
   date?: string;
   startDate?: string;
   endDate?: string;
@@ -21,10 +21,10 @@ type DateField = {
   dateLabel: string;
 };
 
-interface DateFields {
-  dateField: DateField;
-  startDateField: DateField;
-  endDateField: DateField;
+interface Dates {
+  date: DateField;
+  startDate: DateField;
+  endDate: DateField;
 }
 @Component({
   selector: 'date-picker',
@@ -37,7 +37,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() isDateRanges = false;
   @Input() initialDate: string;
   @Input() lang: string;
-  @Output() date = new EventEmitter<Dates>();
+  @Output() date = new EventEmitter<DateEmitter>();
   selectedDate: Day;
   monthYear: string;
   calendar: Calendar;
@@ -47,18 +47,18 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   currentFieldDate: string;
   hasDateInFields = false;
   dateContainer: HTMLElement;
-  dateFields: DateFields = {
-    dateField: {
+  dates: Dates = {
+    date: {
       element: null,
       date: undefined,
       dateLabel: undefined,
     },
-    startDateField: {
+    startDate: {
       element: null,
       date: undefined,
       dateLabel: undefined,
     },
-    endDateField: {
+    endDate: {
       element: null,
       date: undefined,
       dateLabel: undefined,
@@ -121,11 +121,9 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   createButtonElementOfTheDay(day: Day): HTMLButtonElement {
     const buttonDay = document.createElement('button');
-    buttonDay.textContent = day.date.toString();
-
+    this.setTextButtonDay(buttonDay, day);
     this.setStyleButtonDay(buttonDay, day);
-    this.setAriaLabelInButtonElementDay(buttonDay, day);
-
+    this.setAriaLabelButtonDay(buttonDay, day);
     buttonDay.addEventListener('click', () =>
       this.dispatchActions(buttonDay, day)
     );
@@ -133,52 +131,68 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return buttonDay;
   }
 
+  setTextButtonDay(buttonDay: HTMLButtonElement, day: Day) {
+    buttonDay.textContent = day.date.toString();
+  }
+
   setStyleButtonDay(buttonDay: HTMLButtonElement, day: Day) {
     this.addClassElement(buttonDay, 'month-day');
 
-    this.isADayOfTheCurrentMonth(day) &&
-      this.addClassElement(buttonDay, 'current');
+    this.isDayCurrentMonth(day) && this.addClassElement(buttonDay, 'current');
 
     if (this.isSelectedDate(day)) {
-      this.addClassElement(
-        buttonDay,
-        this.isDateRanges ? 'selected-start-date' : 'selected'
-      );
+      this.addClassElement(buttonDay, 'selected');
       this.selectedDayElement = buttonDay;
     }
 
     if (this.isDateRanges) {
-      if (
-        day.format('YYYY-MM-DD') === this.dateFields.startDateField.dateLabel
-      ) {
+      if (day.format('YYYY-MM-DD') === this.dates.startDate.dateLabel) {
         this.addClassElement(buttonDay, 'selected-start-date');
+
+        if (this.dates.startDate.date && this.dates.endDate.date) {
+          this.addClassElement(buttonDay, 'first-ranged');
+        }
+
+        return;
       }
 
-      if (day.format('YYYY-MM-DD') === this.dateFields.endDateField.dateLabel) {
+      if (day.format('YYYY-MM-DD') === this.dates.endDate.dateLabel) {
         this.addClassElement(buttonDay, 'selected-end-date');
+
+        if (this.dates.startDate.date && this.dates.endDate.date) {
+          buttonDay.setAttribute('data-content', buttonDay.textContent);
+          this.addClassElement(buttonDay, 'end-ranged');
+        }
+
+        return;
       }
 
-      if (
-        this.dateFields.startDateField.date &&
-        this.dateFields.endDateField.date
-      ) {
+      if (this.dates.startDate.date && this.dates.endDate.date) {
         if (
-          day.timestamp > this.dateFields.startDateField.date.timestamp &&
-          day.timestamp < this.dateFields.endDateField.date.timestamp
+          day.timestamp > this.dates.startDate.date.timestamp &&
+          day.timestamp < this.dates.endDate.date.timestamp
         ) {
           this.addClassElement(buttonDay, 'in-ranged');
+
+          if (day.dayNumber === 1) {
+            this.addClassElement(buttonDay, 'sunday');
+          }
+
+          if (day.dayNumber === 7) {
+            this.addClassElement(buttonDay, 'saturday');
+          }
         }
       }
     }
   }
 
-  setAriaLabelInButtonElementDay = (buttonDay: HTMLButtonElement, day: Day) =>
+  setAriaLabelButtonDay = (buttonDay: HTMLButtonElement, day: Day) =>
     buttonDay.setAttribute(
       'aria-label',
       day.format(this.format || 'YYYY-MM-DD')
     );
 
-  isADayOfTheCurrentMonth = (day: Day) =>
+  isDayCurrentMonth = (day: Day) =>
     day.monthNumber === this.calendar.month.number;
 
   getMonthDaysGrid() {
@@ -235,53 +249,76 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.closeCalendar();
     }
 
-    this.setDate();
+    this.setDateInCalendar();
   }
 
   updateDateOnInput() {
-    this.dateFields[this.currentFieldDate].date = this.selectedDate;
-    this.dateFields[this.currentFieldDate].dateLabel = this.selectedDate.format(
+    if (this.isDateRanges) {
+      if (!this.isValidStartDate() || !this.isValidEndDate()) {
+        this.clearCurrentDate();
+        this.isDisabledConfirmButton = true;
+        return;
+      }
+    }
+
+    this.setCurrentDate();
+    this.setFocusWhenUpdatingADate();
+  }
+
+  isValidStartDate = () =>
+    !this.dates.endDate.date ||
+    (this.dates.endDate.date &&
+      this.dates.endDate.date.timestamp >= this.selectedDate.timestamp);
+
+  isValidEndDate = () =>
+    !this.dates.startDate.date ||
+    (this.dates.startDate.date &&
+      this.dates.startDate.date.timestamp <= this.selectedDate.timestamp);
+
+  setCurrentDate() {
+    this.dates[this.currentFieldDate].date = this.selectedDate;
+    this.dates[this.currentFieldDate].dateLabel = this.selectedDate.format(
       this.format || 'YYYY-MM-DD'
     );
+  }
 
-    if (this.isDateRanges) {
-      this.setFocusWhenUpdatingADate();
-    }
+  clearCurrentDate() {
+    this.dates[this.currentFieldDate].date = undefined;
+    this.dates[this.currentFieldDate].dateLabel = undefined;
   }
 
   setFocusWhenUpdatingADate() {
-    if (
-      this.dateFields.startDateField.date &&
-      this.dateFields.endDateField.date
-    ) {
+    if (!this.isDateRanges) return;
+
+    if (this.dates.startDate.date && this.dates.endDate.date) {
       this.isDisabledConfirmButton = false;
-      this.currentFieldDate === 'startDateField'
-        ? this.dateFields.startDateField.element.focus()
-        : this.dateFields.endDateField.element.focus();
+      this.currentFieldDate === 'startDate'
+        ? this.dates.startDate.element.focus()
+        : this.dates.endDate.element.focus();
       return;
     }
 
-    if (this.currentFieldDate === 'startDateField') {
-      this.dateFields.endDateField.element.focus();
-      this.currentFieldDate = 'endDateField';
+    if (this.currentFieldDate === 'startDate') {
+      this.dates.endDate.element.focus();
+      this.currentFieldDate = 'endDate';
       return;
     }
 
-    this.dateFields.startDateField.element.focus();
-    this.currentFieldDate = 'startDateField';
+    this.dates.startDate.element.focus();
+    this.currentFieldDate = 'startDate';
   }
 
   emmitEvent() {
     if (this.isDateRanges) {
       !this.isDisabledConfirmButton &&
         this.date.emit({
-          startDate: this.dateFields.startDateField.dateLabel,
-          endDate: this.dateFields.endDateField.dateLabel,
+          startDate: this.dates.startDate.dateLabel,
+          endDate: this.dates.endDate.dateLabel,
         });
       return;
     }
 
-    this.date.emit({ date: this.dateFields.dateField.dateLabel });
+    this.date.emit({ date: this.dates.date.dateLabel });
   }
 
   addClassElement(el: HTMLElement, className) {
@@ -308,23 +345,22 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.calendarElement.style.display = 'block';
 
       if (this.isDateRanges) {
-        this.dateFields.startDateField.element.focus();
+        this.dates.startDate.element.focus();
         return;
       }
-      this.dateFields.dateField.element.focus();
+      this.dates.date.element.focus();
     }
   }
 
   getHtmlElementsReferences() {
     this.dateContainer = document.getElementById('date-container');
     if (this.isDateRanges) {
-      this.dateFields.startDateField.element =
+      this.dates.startDate.element =
         document.getElementById('input-start-date');
-      this.dateFields.endDateField.element =
-        document.getElementById('input-end-date');
+      this.dates.endDate.element = document.getElementById('input-end-date');
       return;
     }
-    this.dateFields.dateField.element = document.getElementById('input-date');
+    this.dates.date.element = document.getElementById('input-date');
   }
 
   addEventsInDateContainer() {
@@ -342,19 +378,19 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   clearCalendar() {
-    Object.keys(this.dateFields).forEach((item) => {
-      this.dateFields[item].date = undefined;
-      this.dateFields[item].dateLabel = undefined;
+    Object.keys(this.dates).forEach((item) => {
+      this.dates[item].date = undefined;
+      this.dates[item].dateLabel = undefined;
     });
     this.isDisabledConfirmButton = true;
     this.hasDateInFields = false;
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
-    this.setDate();
+    this.setDateInCalendar();
     this.setVisibleIconClose(false);
     this.closeCalendar();
   }
 
-  setDate() {
+  setDateInCalendar() {
     this.calendar.goToDate(
       this.selectedDate.monthNumber,
       this.selectedDate.year
@@ -366,19 +402,19 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.calendarElement.style.display = 'block';
     if (this.isDateRanges) {
       this.currentFieldDate =
-        currentInput === 'input-end-date' ? 'endDateField' : 'startDateField';
+        currentInput === 'input-end-date' ? 'endDate' : 'startDate';
 
       if (!currentInput) {
-        this.dateFields.startDateField.element.focus();
+        this.dates.startDate.element.focus();
         return;
       }
 
-      this.dateFields[this.currentFieldDate].element.focus();
+      this.dates[this.currentFieldDate].element.focus();
       return;
     }
 
-    this.currentFieldDate = 'dateField';
-    this.dateFields.dateField.element.focus();
+    this.currentFieldDate = 'date';
+    this.dates.date.element.focus();
   }
 
   actionClickIcon() {

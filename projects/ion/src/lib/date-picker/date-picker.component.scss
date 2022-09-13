@@ -128,7 +128,6 @@
   & div.week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 16px;
     margin-top: 16px;
     margin-bottom: 8px;
 
@@ -136,7 +135,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 32px;
+      width: 44px;
       line-height: 16px;
       font-size: 12px;
       font-weight: 600;
@@ -149,14 +148,14 @@
   & ::ng-deep div.month-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-gap: 16px;
+    grid-row-gap: 8px;
 
     & button.month-day {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
+      width: 46px;
+      height: 46px;
       padding: 0px;
       font-size: 14px;
       font-weight: 400;
@@ -173,7 +172,7 @@
       &.selected-start-date {
         background-color: $primary-2;
         color: $primary-6;
-        border-radius: 999999px;
+        border-radius: 22px;
         border: 1px solid $primary-6;
       }
 
@@ -184,8 +183,55 @@
         border: 1px solid $primary-6;
       }
 
+      &.first-ranged {
+        background-color: #b5d2fc;
+        color: #0858ce;
+        border-radius: 22px 0 0 22px;
+        border: none;
+
+        &::after {
+          content: '';
+          border-radius: 24px;
+          width: 44px;
+          height: 44px;
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid;
+        }
+      }
+
       &.in-ranged {
         background-color: $primary-2;
+      }
+
+      &.end-ranged {
+        background-color: $primary-2;
+        border-radius: 0 22px 22px 0;
+        border: none;
+
+        &::after {
+          content: attr(data-content);
+          width: 44px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          background-color: #0858ce;
+          color: $neutral-1;
+          border-radius: 24px;
+          border: 1px solid;
+        }
+      }
+
+      &.sunday {
+        border-radius: 22px 0 0 22px;
+      }
+
+      &.saturday {
+        border-radius: 0 22px 22px 0;
       }
 
       &.month-day:hover {
