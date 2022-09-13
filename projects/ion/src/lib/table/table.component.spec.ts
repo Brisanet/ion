@@ -248,26 +248,23 @@ describe('Table > Checkbox', () => {
     });
   });
 
-  it('should add border-style when the selected row', async () => {
+  it('should add checked class when the selected row', async () => {
     fireEvent.click(screen.getByTestId('row-0-check'));
 
-    expect(screen.getByTestId(`row-0`)).toHaveStyle(selectedRowStyle);
+    expect(screen.getByTestId(`row-0-td`)).toHaveClass('checked');
   });
 
-  it('should add border-style only on the selected row', async () => {
+  it('should add checked class only on the selected row', async () => {
     fireEvent.click(screen.getByTestId('row-0-check'));
 
-    expect(screen.getByTestId(`row-2`)).not.toHaveProperty(
-      'border-left',
-      '2px solid $primary-6'
-    );
+    expect(screen.getByTestId(`row-1-td`)).not.toHaveClass('checked');
   });
 
-  it('should add the border-style to all rows', async () => {
+  it('should add the checked class to all rows', async () => {
     fireEvent.click(screen.getByTestId('table-check-all'));
 
     tableWithSelect.config.data.forEach((row, index) => {
-      expect(screen.getByTestId(`row-${index}`)).toHaveStyle(selectedRowStyle);
+      expect(screen.getByTestId(`row-${index}-td`)).toHaveClass('checked');
     });
   });
 

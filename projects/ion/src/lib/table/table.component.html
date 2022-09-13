@@ -7,7 +7,6 @@
         id="check-all"
         data-testid="table-check-all"
         (click)="toggleAllRows()"
-        (change)="checkValue($event)"
       />
     </th>
     <th
@@ -47,7 +46,11 @@
     [attr.data-testid]="'row-' + index"
     [ngClass]="index % 2 == 0 ? 'old' : 'even'"
   >
-    <td *ngIf="config.check" [attr.data-testid]="'row-' + index + '-td'">
+    <td
+      *ngIf="config.check"
+      [attr.data-testid]="'row-' + index + '-td'"
+      [ngClass]="{ checked: row.selected }"
+    >
       <input
         type="checkbox"
         name="check-all"
