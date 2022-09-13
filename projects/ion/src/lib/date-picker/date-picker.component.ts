@@ -17,7 +17,8 @@ type Dates = {
 
 type DateField = {
   element: HTMLElement;
-  date: string | undefined;
+  date: Day;
+  dateLabel: string;
 };
 
 interface DateFields {
@@ -50,14 +51,17 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     dateField: {
       element: null,
       date: undefined,
+      dateLabel: undefined,
     },
     startDateField: {
       element: null,
       date: undefined,
+      dateLabel: undefined,
     },
     endDateField: {
       element: null,
       date: undefined,
+      dateLabel: undefined,
     },
   };
   isDisabledConfirmButton = true;
@@ -144,12 +148,26 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     }
 
     if (this.isDateRanges) {
-      if (day.format('YYYY-MM-DD') === this.dateFields.startDateField.date) {
+      if (
+        day.format('YYYY-MM-DD') === this.dateFields.startDateField.dateLabel
+      ) {
         this.addClassElement(buttonDay, 'selected-start-date');
       }
 
-      if (day.format('YYYY-MM-DD') === this.dateFields.endDateField.date) {
+      if (day.format('YYYY-MM-DD') === this.dateFields.endDateField.dateLabel) {
         this.addClassElement(buttonDay, 'selected-end-date');
+      }
+
+      if (
+        this.dateFields.startDateField.date &&
+        this.dateFields.endDateField.date
+      ) {
+        if (
+          day.timestamp > this.dateFields.startDateField.date.timestamp &&
+          day.timestamp < this.dateFields.endDateField.date.timestamp
+        ) {
+          this.addClassElement(buttonDay, 'in-ranged');
+        }
       }
     }
   }
@@ -221,7 +239,8 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   updateDateOnInput() {
-    this.dateFields[this.currentFieldDate].date = this.selectedDate.format(
+    this.dateFields[this.currentFieldDate].date = this.selectedDate;
+    this.dateFields[this.currentFieldDate].dateLabel = this.selectedDate.format(
       this.format || 'YYYY-MM-DD'
     );
 
@@ -256,13 +275,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     if (this.isDateRanges) {
       !this.isDisabledConfirmButton &&
         this.date.emit({
-          startDate: this.dateFields.startDateField.date,
-          endDate: this.dateFields.endDateField.date,
+          startDate: this.dateFields.startDateField.dateLabel,
+          endDate: this.dateFields.endDateField.dateLabel,
         });
       return;
     }
 
-    this.date.emit({ date: this.dateFields.dateField.date });
+    this.date.emit({ date: this.dateFields.dateField.dateLabel });
   }
 
   addClassElement(el: HTMLElement, className) {
@@ -325,6 +344,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   clearCalendar() {
     Object.keys(this.dateFields).forEach((item) => {
       this.dateFields[item].date = undefined;
+      this.dateFields[item].dateLabel = undefined;
     });
     this.isDisabledConfirmButton = true;
     this.hasDateInFields = false;
