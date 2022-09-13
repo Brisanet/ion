@@ -48,7 +48,11 @@
     [attr.data-testid]="'row-' + index"
     [ngClass]="index % 2 == 0 ? 'old' : 'even'"
   >
-    <td *ngIf="config.check">
+    <td
+      *ngIf="config.check"
+      [attr.data-testid]="'row-' + index + '-td'"
+      [ngClass]="{ checked: row.selected }"
+    >
       <input
         type="checkbox"
         name="check-all"
@@ -63,6 +67,7 @@
       [attr.data-testid]="'row-' + index + '-' + column.key"
     >
       <!-- cell types -->
+
       <span class="td-span" *ngIf="!column.type">{{ row[column.key] }}</span>
       <ion-tag
         *ngIf="column.type === 'tag'"

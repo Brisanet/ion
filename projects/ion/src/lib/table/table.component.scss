@@ -95,4 +95,8 @@ table {
   & .even {
     background-color: $neutral-2;
   }
+
+  & .checked {
+    border-left: 2px solid $primary-6;
+  }
 }

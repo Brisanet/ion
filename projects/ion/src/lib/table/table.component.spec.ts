@@ -11,6 +11,7 @@ import {
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
+const selectedRowStyle = 'border-left: 2px solid $primary-6;';
 
 const columns: Column[] = [
   {
@@ -244,6 +245,26 @@ describe('Table > Checkbox', () => {
 
     tableWithSelect.config.data.forEach((row, index) => {
       expect(screen.getByTestId(`row-${index}-check`)).not.toBeChecked();
+    });
+  });
+
+  it('should add checked class when the selected row', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+
+    expect(screen.getByTestId(`row-0-td`)).toHaveClass('checked');
+  });
+
+  it('should add checked class only on the selected row', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+
+    expect(screen.getByTestId(`row-1-td`)).not.toHaveClass('checked');
+  });
+
+  it('should add the checked class to all rows', async () => {
+    fireEvent.click(screen.getByTestId('table-check-all'));
+
+    tableWithSelect.config.data.forEach((row, index) => {
+      expect(screen.getByTestId(`row-${index}-td`)).toHaveClass('checked');
     });
   });
 
