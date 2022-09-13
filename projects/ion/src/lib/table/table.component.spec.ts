@@ -11,6 +11,7 @@ import {
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
+const selectedRowStyle = 'border-left: 2px solid $primary-6;';
 
 const columns: Column[] = [
   {
@@ -244,6 +245,29 @@ describe('Table > Checkbox', () => {
 
     tableWithSelect.config.data.forEach((row, index) => {
       expect(screen.getByTestId(`row-${index}-check`)).not.toBeChecked();
+    });
+  });
+
+  it('should add border-style when the selected row', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+
+    expect(screen.getByTestId(`row-0`)).toHaveStyle(selectedRowStyle);
+  });
+
+  it('should add border-style only on the selected row', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+
+    expect(screen.getByTestId(`row-2`)).not.toHaveProperty(
+      'border-left',
+      '2px solid $primary-6'
+    );
+  });
+
+  it('should add the border-style to all rows', async () => {
+    fireEvent.click(screen.getByTestId('table-check-all'));
+
+    tableWithSelect.config.data.forEach((row, index) => {
+      expect(screen.getByTestId(`row-${index}`)).toHaveStyle(selectedRowStyle);
     });
   });
 

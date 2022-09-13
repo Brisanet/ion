@@ -72,4 +72,12 @@ table {
   & .even {
     background-color: $neutral-2;
   }
+
+  & tr:not(:first-child):has(input:checked) {
+    border-left: 2px solid $primary-6;
+  }
+
+  & tr:not(:first-child):hover {
+    background-color: $primary-2;
+  }
 }
