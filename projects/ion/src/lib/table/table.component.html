@@ -44,13 +44,13 @@
   <tr
     *ngFor="let row of config.data; let index = index"
     [attr.data-testid]="'row-' + index"
-    [ngClass]="index % 2 == 0 ? 'old' : 'even'"
+    [ngClass]="{
+      old: index % 2 === 0,
+      even: index % 2 !== 0,
+      checked: row.selected
+    }"
   >
-    <td
-      *ngIf="config.check"
-      [attr.data-testid]="'row-' + index + '-td'"
-      [ngClass]="{ checked: row.selected }"
-    >
+    <td *ngIf="config.check" [attr.data-testid]="'row-' + index + '-td'">
       <input
         type="checkbox"
         name="check-all"
