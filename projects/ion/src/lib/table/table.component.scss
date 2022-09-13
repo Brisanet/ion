@@ -5,9 +5,34 @@ table {
 
   & .border-header {
     border-bottom: 1px solid $neutral-4;
+  }
 
-    & svg {
+  .svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    background-color: white;
+
+    &:hover {
+      border-radius: 100%;
+      background-color: $primary-1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-6;
+      border-radius: 100%;
+      outline-offset: 2px;
+      background-color: $primary-1;
+    }
+
+    &:active {
       cursor: pointer;
+      background-color: $primary-3;
+      border-radius: 100%;
     }
   }
 
