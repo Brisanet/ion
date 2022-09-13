@@ -14,7 +14,7 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
-import { HeadingComponent } from './typography';
+import { HeadingComponent } from './typography/heading/heading.component';
 import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
