@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -43,6 +44,7 @@ import { CardIonComponent } from './card/card.component';
     DropdownComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
     CardIonComponent,
   ],
   imports: [CommonModule],
@@ -66,6 +68,7 @@ import { CardIonComponent } from './card/card.component';
     AvatarComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
     CardIonComponent,
   ],
 })
