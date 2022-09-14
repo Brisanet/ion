@@ -164,7 +164,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
           day.timestamp > this.dates.startDate.date.timestamp &&
           day.timestamp < this.dates.endDate.date.timestamp
         ) {
-          this.addClassElement(buttonDay, 'in-ranged');
+          this.addClassElement(buttonDay, 'in-range');
         }
       }
     }
@@ -197,7 +197,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
     this.hasSelectedDates() &&
       !this.isSaturday(day) &&
-      this.addClassElement(buttonDay, 'first-ranged');
+      this.addClassElement(buttonDay, 'first-range');
   }
 
   setStyleEndDateButton(buttonDay: HTMLButtonElement, day: Day) {
@@ -205,7 +205,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
     if (this.hasSelectedDates()) {
       buttonDay.setAttribute('data-content', buttonDay.textContent);
-      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-ranged');
+      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-range');
     }
   }
 

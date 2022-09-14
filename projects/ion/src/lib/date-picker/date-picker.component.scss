@@ -183,7 +183,7 @@
         border: 1px solid $primary-6;
       }
 
-      &.first-ranged {
+      &.first-range {
         background-color: #b5d2fc;
         color: #0858ce;
         border-radius: 22px 0 0 22px !important;
@@ -202,7 +202,7 @@
         }
       }
 
-      &.in-ranged {
+      &.in-range {
         background-color: $primary-2;
         border-radius: 0 !important;
 
@@ -217,7 +217,7 @@
         }
       }
 
-      &.end-ranged {
+      &.end-range {
         background-color: $primary-2;
         border-radius: 0 22px 22px 0 !important;
         border: none !important;
@@ -237,11 +237,11 @@
         }
       }
 
-      &.in-ranged.sunday {
+      &.in-range.sunday {
         border-radius: 22px 0 0 22px !important;
       }
 
-      &.in-ranged.saturday {
+      &.in-range.saturday {
         border-radius: 0 22px 22px 0 !important;
       }
 
