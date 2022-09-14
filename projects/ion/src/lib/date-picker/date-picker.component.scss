@@ -186,8 +186,8 @@
       &.first-ranged {
         background-color: #b5d2fc;
         color: #0858ce;
-        border-radius: 22px 0 0 22px;
-        border: none;
+        border-radius: 22px 0 0 22px !important;
+        border: none !important;
 
         &::after {
           content: '';
@@ -204,12 +204,23 @@
 
       &.in-ranged {
         background-color: $primary-2;
+        border-radius: 0 !important;
+        
+        &:hover::after {
+          content: "";
+          position: absolute;
+          width: 44px;
+          height: 44px;
+          border-radius: 22px;
+          background-color: transparent !important;
+          border: 1px solid $primary-6 !important;
+        }
       }
 
       &.end-ranged {
         background-color: $primary-2;
-        border-radius: 0 22px 22px 0;
-        border: none;
+        border-radius: 0 22px 22px 0 !important;
+        border: none !important;
 
         &::after {
           content: attr(data-content);
@@ -226,18 +237,18 @@
         }
       }
 
-      &.sunday {
-        border-radius: 22px 0 0 22px;
+      &.in-ranged.sunday {
+        border-radius: 22px 0 0 22px !important;
       }
 
-      &.saturday {
-        border-radius: 0 22px 22px 0;
+      &.in-ranged.saturday {
+        border-radius: 0 22px 22px 0 !important;
       }
 
-      &.month-day:hover {
+      &:not(.selected-end-date):hover {
         background-color: $primary-2;
         color: $primary-6;
-        border-radius: 999999px;
+        border-radius: 22px;
         border-color: $primary-6;
       }
     }
