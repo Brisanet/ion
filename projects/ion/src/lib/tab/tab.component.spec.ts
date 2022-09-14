@@ -64,7 +64,7 @@ describe('TabComponent', () => {
     expect(elementRendered).toBeTruthy();
   });
 
-  it('should not render badge when not is informed', async () => {
+  it('should not render badge when is not informed', async () => {
     await sut({ label: defaultName, iconType: 'trash' });
     expect(screen.queryAllByText('badge-tab')).toHaveLength(0);
   });
