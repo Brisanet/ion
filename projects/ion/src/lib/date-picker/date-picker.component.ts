@@ -26,6 +26,9 @@ interface Dates {
   startDate: DateField;
   endDate: DateField;
 }
+
+const sunday = 1;
+const saturday = 7;
 @Component({
   selector: 'date-picker',
   templateUrl: './date-picker.component.html',
@@ -34,7 +37,7 @@ interface Dates {
 export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() format: string;
   @Input() isCalendarVisible = false;
-  @Input() isDateRanges = false;
+  @Input() isDateRange = false;
   @Input() initialDate: string;
   @Input() lang: string;
   @Output() date = new EventEmitter<DateEmitter>();
@@ -137,7 +140,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setStyleButtonDay(buttonDay: HTMLButtonElement, day: Day) {
     this.addClassElement(buttonDay, 'month-day');
-
     this.isDayCurrentMonth(day) && this.addClassElement(buttonDay, 'current');
 
     if (this.isSelectedDate(day)) {
@@ -145,44 +147,65 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.selectedDayElement = buttonDay;
     }
 
-    if (this.isDateRanges) {
-      if (day.format('YYYY-MM-DD') === this.dates.startDate.dateLabel) {
-        this.addClassElement(buttonDay, 'selected-start-date');
+    if (this.hasSelectedDates()) {
+      if (
+        !this.isSelectedDateButton(day, 'startDate') ||
+        !this.isSelectedDateButton(day, 'endDate')
+      ) {
+        this.isSunday(day) &&
+          !this.isSelectedDateButton(day, 'endDate') &&
+          this.addClassElement(buttonDay, 'sunday');
 
-        if (this.dates.startDate.date && this.dates.endDate.date) {
-          this.addClassElement(buttonDay, 'first-ranged');
-        }
+        this.isSaturday(day) &&
+          !this.isSelectedDateButton(day, 'startDate') &&
+          this.addClassElement(buttonDay, 'saturday');
 
-        return;
-      }
-
-      if (day.format('YYYY-MM-DD') === this.dates.endDate.dateLabel) {
-        this.addClassElement(buttonDay, 'selected-end-date');
-
-        if (this.dates.startDate.date && this.dates.endDate.date) {
-          buttonDay.setAttribute('data-content', buttonDay.textContent);
-          this.addClassElement(buttonDay, 'end-ranged');
-        }
-
-        return;
-      }
-
-      if (this.dates.startDate.date && this.dates.endDate.date) {
         if (
           day.timestamp > this.dates.startDate.date.timestamp &&
           day.timestamp < this.dates.endDate.date.timestamp
         ) {
           this.addClassElement(buttonDay, 'in-ranged');
-
-          if (day.dayNumber === 1) {
-            this.addClassElement(buttonDay, 'sunday');
-          }
-
-          if (day.dayNumber === 7) {
-            this.addClassElement(buttonDay, 'saturday');
-          }
         }
       }
+    }
+
+    if (this.isDateRange) {
+      if (this.isSelectedDateButton(day, 'startDate')) {
+        this.setStyleStartDateButton(buttonDay, day);
+        return;
+      }
+
+      if (this.isSelectedDateButton(day, 'endDate')) {
+        this.setStyleEndDateButton(buttonDay, day);
+        return;
+      }
+    }
+  }
+
+  hasSelectedDates = () =>
+    !!this.dates.startDate.date && !!this.dates.endDate.date;
+
+  isSelectedDateButton = (day: Day, name: 'startDate' | 'endDate') =>
+    day.format('YYYY-MM-DD') === this.dates[name].dateLabel;
+
+  isSunday = (day: Day) => day.dayNumber === sunday;
+
+  isSaturday = (day: Day) => day.dayNumber === saturday;
+
+  setStyleStartDateButton(buttonDay: HTMLButtonElement, day: Day) {
+    this.addClassElement(buttonDay, 'selected-start-date');
+
+    this.hasSelectedDates() &&
+      !this.isSaturday(day) &&
+      this.addClassElement(buttonDay, 'first-ranged');
+  }
+
+  setStyleEndDateButton(buttonDay: HTMLButtonElement, day: Day) {
+    this.addClassElement(buttonDay, 'selected-end-date');
+
+    if (this.hasSelectedDates()) {
+      buttonDay.setAttribute('data-content', buttonDay.textContent);
+      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-ranged');
     }
   }
 
@@ -244,7 +267,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.hasDateInFields = true;
     this.updateMonthDays();
 
-    if (!this.isDateRanges) {
+    if (!this.isDateRange) {
       this.emmitEvent();
       this.closeCalendar();
     }
@@ -253,8 +276,14 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   updateDateOnInput() {
-    if (this.isDateRanges) {
-      if (!this.isValidStartDate() || !this.isValidEndDate()) {
+    if (this.isDateRange) {
+      if (this.currentFieldDate === 'startDate' && !this.isValidStartDate()) {
+        this.clearCurrentDate();
+        this.isDisabledConfirmButton = true;
+        return;
+      }
+
+      if (this.currentFieldDate === 'endDate' && !this.isValidEndDate()) {
         this.clearCurrentDate();
         this.isDisabledConfirmButton = true;
         return;
@@ -288,7 +317,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   setFocusWhenUpdatingADate() {
-    if (!this.isDateRanges) return;
+    if (!this.isDateRange) return;
 
     if (this.dates.startDate.date && this.dates.endDate.date) {
       this.isDisabledConfirmButton = false;
@@ -309,7 +338,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   emmitEvent() {
-    if (this.isDateRanges) {
+    if (this.isDateRange) {
       !this.isDisabledConfirmButton &&
         this.date.emit({
           startDate: this.dates.startDate.dateLabel,
@@ -344,7 +373,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     if (this.isCalendarVisible) {
       this.calendarElement.style.display = 'block';
 
-      if (this.isDateRanges) {
+      if (this.isDateRange) {
         this.dates.startDate.element.focus();
         return;
       }
@@ -354,7 +383,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   getHtmlElementsReferences() {
     this.dateContainer = document.getElementById('date-container');
-    if (this.isDateRanges) {
+    if (this.isDateRange) {
       this.dates.startDate.element =
         document.getElementById('input-start-date');
       this.dates.endDate.element = document.getElementById('input-end-date');
@@ -400,7 +429,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setFocusOnClickInput(currentInput?: string) {
     this.calendarElement.style.display = 'block';
-    if (this.isDateRanges) {
+    if (this.isDateRange) {
       this.currentFieldDate =
         currentInput === 'input-end-date' ? 'endDate' : 'startDate';
 

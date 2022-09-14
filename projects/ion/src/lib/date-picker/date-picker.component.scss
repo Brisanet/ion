@@ -205,9 +205,9 @@
       &.in-ranged {
         background-color: $primary-2;
         border-radius: 0 !important;
-        
+
         &:hover::after {
-          content: "";
+          content: '';
           position: absolute;
           width: 44px;
           height: 44px;

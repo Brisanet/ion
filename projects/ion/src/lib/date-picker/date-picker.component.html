@@ -1,7 +1,7 @@
 <div class="date-container" id="date-container">
   <div class="date-content">
     <div
-      *ngIf="!isDateRanges"
+      *ngIf="!isDateRange"
       class="field-date"
       (click)="setFocusOnClickInput('input-date')"
     >
@@ -12,7 +12,7 @@
         placeholder="Data"
       />
     </div>
-    <div class="date-ranges" *ngIf="isDateRanges">
+    <div class="date-ranges" *ngIf="isDateRange">
       <div
         class="field-date"
         (click)="setFocusOnClickInput('input-start-date')"
@@ -82,7 +82,7 @@
         (ionOnClick)="nextYear()"
       ></ion-button>
     </div>
-    <div class="time-interval" *ngIf="isDateRanges">
+    <div class="time-interval" *ngIf="isDateRange">
       <ion-divider></ion-divider>
       <div class="content">
         <label>Período:</label>
@@ -98,7 +98,7 @@
       </span>
     </div>
     <div class="month-days" id="month-days"></div>
-    <div class="footer" *ngIf="isDateRanges">
+    <div class="footer" *ngIf="isDateRange">
       <ion-button
         label="Cancelar"
         type="ghost"
