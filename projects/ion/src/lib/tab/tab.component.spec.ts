@@ -69,12 +69,12 @@ describe('TabComponent', () => {
     expect(screen.queryAllByText('badge-tab')).toHaveLength(0);
   });
 
-  it('should render the badge', async () => {
+  it('should render badge', async () => {
     await sut({ label: defaultName, iconType: 'trash', badge: { value: 2 } });
     expect(screen.queryAllByTestId('badge-tab')).toHaveLength(1);
   });
 
-  it('should render the badge with correct value', async () => {
+  it('should render badge with correct value', async () => {
     const badgeValue = 33;
     await sut({
       label: defaultName,
