@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
-import { TabComponent } from '../tab/tab.component';
+import { TabComponent, TabSize } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
 import { TabGroupComponent, TabGroupProps } from './tab-group.component';
 
@@ -76,4 +76,20 @@ describe('TabGroupComponent', () => {
     });
     expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-right');
   });
+
+  it.each(['sm', 'md', 'lg'])(
+    'should render tabs with %s size',
+    async (size: string) => {
+      await sut({
+        direction: 'vertical',
+        tabs: mockTabs,
+        size: size as TabSize,
+        selected: {
+          emit: selectEvent,
+        } as SafeAny,
+      });
+
+      expect(screen.getByText(mockTabs[0].label)).toHaveClass(`tab-${size}`);
+    }
+  );
 });
