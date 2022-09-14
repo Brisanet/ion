@@ -491,4 +491,26 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       (weekDay) => `${(weekDay as string).substring(0, 3)}`
     );
   }
+
+  chipEvents(event, days: number) {
+    if (!this.dates.startDate.date) {
+      this.dates.startDate.date = this.selectedDate;
+      this.dates.startDate.dateLabel = this.selectedDate.format('YYYY-MM-DD');
+    }
+
+    const newEndDate = new Day(
+      this.addDaysToDate(this.dates.startDate.date.format('YYYY,MM,DD'), days),
+      this.lang
+    );
+    this.dates.endDate.date = newEndDate;
+    this.dates.endDate.dateLabel = newEndDate.format('YYYY-MM-DD');
+    this.calendar.goToDate(newEndDate.monthNumber, newEndDate.year);
+    this.renderCalendarDays();
+  }
+
+  addDaysToDate(date, days) {
+    const res = new Date(date);
+    res.setDate(res.getDate() - 1 + days);
+    return res;
+  }
 }

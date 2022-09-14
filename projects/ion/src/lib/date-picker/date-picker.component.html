@@ -86,9 +86,9 @@
       <ion-divider></ion-divider>
       <div class="content">
         <label>Período:</label>
-        <ion-chip label="7 dias"></ion-chip>
-        <ion-chip label="15 dias"></ion-chip>
-        <ion-chip label="21 dias"></ion-chip>
+        <ion-chip label="7 dias" (events)="chipEvents($event, 7)"></ion-chip>
+        <ion-chip label="15 dias" (events)="chipEvents($event, 15)"></ion-chip>
+        <ion-chip label="21 dias" (events)="chipEvents($event, 21)"></ion-chip>
       </div>
       <ion-divider></ion-divider>
     </div>
