@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { BadgeComponent } from '../badge/badge.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonTabProps, TabComponent } from './tab.component';
 
@@ -11,7 +12,7 @@ const sut = async (customProps?: IonTabProps) => {
       label: defaultName,
     },
     imports: [CommonModule],
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, BadgeComponent],
   });
 };
 
@@ -61,5 +62,25 @@ describe('TabComponent', () => {
     await sut({ label: defaultName, iconType: 'trash' });
     const elementRendered = document.getElementById('ion-icon-trash');
     expect(elementRendered).toBeTruthy();
+  });
+
+  it('should not render badge when not is informed', async () => {
+    await sut({ label: defaultName, iconType: 'trash' });
+    expect(screen.queryAllByText('badge-tab')).toHaveLength(0);
+  });
+
+  it('should render the badge', async () => {
+    await sut({ label: defaultName, iconType: 'trash', badge: { value: 2 } });
+    expect(screen.queryAllByTestId('badge-tab')).toHaveLength(1);
+  });
+
+  it('should render the badge with correct value', async () => {
+    const badgeValue = 33;
+    await sut({
+      label: defaultName,
+      iconType: 'trash',
+      badge: { value: badgeValue },
+    });
+    expect(screen.getByText(badgeValue)).toBeInTheDocument();
   });
 });
