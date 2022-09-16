@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
@@ -14,7 +15,12 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
   component: TableComponent,
   props: args,
   moduleMetadata: {
-    declarations: [TableComponent, IonIconComponent, TagComponent],
+    declarations: [
+      TableComponent,
+      IonIconComponent,
+      TagComponent,
+      CheckboxComponent,
+    ],
     imports: [CommonModule],
   },
 });
