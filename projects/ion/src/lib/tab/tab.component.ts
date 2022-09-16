@@ -4,6 +4,10 @@ import { IconType } from '../icon/icon.component';
 export type TabSize = 'sm' | 'md' | 'lg';
 type Direction = 'bottom' | 'top' | 'right' | 'left';
 
+interface BadgeOptions {
+  value: number;
+}
+
 export interface IonTabProps {
   label: string;
   tabSize?: TabSize;
@@ -11,6 +15,7 @@ export interface IonTabProps {
   selected?: boolean;
   direction?: Direction;
   iconType?: IconType;
+  badge?: BadgeOptions;
 }
 
 @Component({
@@ -25,6 +30,7 @@ export class TabComponent {
   @Input() selected?: boolean;
   @Input() direction?: Direction = 'bottom';
   @Input() iconType?: IconType;
+  @Input() badge?: BadgeOptions;
 
   select() {
     this.selected = !this.selected;
