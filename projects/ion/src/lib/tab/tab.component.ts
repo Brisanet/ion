@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 
-type TabSize = 'sm' | 'md' | 'lg';
+export type TabSize = 'sm' | 'md' | 'lg';
 type Direction = 'bottom' | 'top' | 'right' | 'left';
 
 interface BadgeOptions {
