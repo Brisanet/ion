@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { TagComponent } from '../tag/tag.component';
@@ -11,7 +12,6 @@ import {
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
-const selectedRowStyle = 'border-left: 2px solid $primary-6;';
 
 const columns: Column[] = [
   {
@@ -55,7 +55,7 @@ const defaultProps: IonTableProps = {
 const sut = async (customProps: IonTableProps = defaultProps) => {
   await render(TableComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent, TagComponent],
+    declarations: [IonIconComponent, TagComponent, CheckboxComponent],
   });
 };
 
@@ -219,7 +219,10 @@ describe('Table > Checkbox', () => {
     fireEvent.click(checkFirstRow);
 
     tableWithSelect.config.data.forEach((row, index) => {
-      expect(screen.getByTestId(`row-${index}-check`)).toBeChecked();
+      expect(screen.getByTestId(`row-${index}-check`)).toHaveAttribute(
+        'ng-reflect-state',
+        'checked'
+      );
     });
 
     expect(eventSelect).toBeCalledWith({
@@ -266,6 +269,30 @@ describe('Table > Checkbox', () => {
     tableWithSelect.config.data.forEach((row, index) => {
       expect(screen.getByTestId(`row-${index}`)).toHaveClass('checked');
     });
+  });
+
+  it('should add undetermined state in the checkbox that marks all options', async () => {
+    fireEvent.click(screen.getByTestId('row-0-check'));
+
+    expect(screen.getByTestId(`table-check-all`)).toHaveAttribute(
+      'ng-reflect-state',
+      'indeterminate'
+    );
+  });
+
+  it('should add checked state in the checkbox that marks all options', async () => {
+    tableWithSelect.config.data.forEach((row, index) => {
+      fireEvent.click(screen.getByTestId(`row-${index}-check`));
+    });
+
+    expect(screen.getByTestId(`table-check-all`)).toHaveAttribute(
+      'ng-reflect-state',
+      'checked'
+    );
+  });
+
+  afterEach(() => {
+    eventSelect.mockClear();
   });
 
   afterEach(() => {
