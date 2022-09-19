@@ -12,4 +12,11 @@
 >
   <ion-icon *ngIf="iconType" class="tab-icon" [type]="iconType"></ion-icon>
   {{ label || 'Configure uma label ' }}
+
+  <ion-badge
+    data-testid="badge-tab"
+    *ngIf="badge"
+    [value]="badge.value"
+    type="primary"
+  ></ion-badge>
 </button>

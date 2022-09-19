@@ -62,20 +62,20 @@ SelectedByDefault.args = {
   selected: action('selected'),
 };
 
-export const differentSizes = Template.bind({});
-differentSizes.args = {
-  tabs: [
-    {
-      label: 'Selected',
-      selected: true,
-    },
-    {
-      label: 'Not Selected',
-      selected: false,
-    },
-  ],
+export const mediumSize = Template.bind({});
+mediumSize.args = {
+  tabs,
   direction: 'vertical',
   selected: action('selected'),
+  size: 'md',
+};
+
+export const largeSize = Template.bind({});
+largeSize.args = {
+  tabs,
+  direction: 'vertical',
+  selected: action('selected'),
+  size: 'lg',
 };
 
 export const tabsWithIcons = Template.bind({});
