@@ -39,6 +39,11 @@ export interface IonTableProps {
   events?: EventEmitter<TableEvent>;
 }
 
+const stateChange = {
+  checked: 'enabled',
+  enabled: 'checked',
+};
+
 @Component({
   selector: 'ion-table',
   templateUrl: './table.component.html',
@@ -54,12 +59,12 @@ export class TableComponent {
   public mainCheckBoxState: CheckBoxStates = 'enabled';
 
   public checkState() {
-    if (this.mainCheckBoxState !== 'indeterminate') {
-      this.toggleAllRows();
+    if (this.mainCheckBoxState === 'indeterminate') {
+      this.uncheckAllRows();
 
       return;
     }
-    this.uncheckAllRows();
+    this.toggleAllRows();
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {
@@ -72,7 +77,7 @@ export class TableComponent {
 
   public uncheckAllRows() {
     this.config.data.forEach((row) => (row.selected = false));
-    this.mainCheckBoxState = 'enabled';
+    this.setMainCheckboxState('enabled');
   }
 
   private getRowsSelected(): SafeAny[] {
@@ -93,17 +98,20 @@ export class TableComponent {
     this.config.data.forEach((row) => {
       row.selected = selected;
     });
-    this.mainCheckBoxState = 'checked';
+
+    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
   }
 
   checkRow(row: SafeAny) {
     row.selected = !row.selected;
 
-    this.isAllRowsSelected()
-      ? this.setMainCheckboxState('checked')
-      : this.hasRowSelected()
-      ? this.setMainCheckboxState('indeterminate')
-      : this.setMainCheckboxState('enabled');
+    if (this.isAllRowsSelected()) {
+      this.setMainCheckboxState('checked');
+    } else if (this.hasRowSelected()) {
+      this.setMainCheckboxState('indeterminate');
+    } else {
+      this.setMainCheckboxState('enabled');
+    }
 
     this.emitRowsSelected();
   }
