@@ -104,6 +104,18 @@ describe('CardComponent', () => {
     expect(header.textContent).toBe('Opa, eu fui clicado evento: primary');
   });
 
+  it('should render icon on title', () => {
+    cardComponent.cardConfig.header.icon = 'add';
+    fixture.detectChanges();
+    expect(screen.getByTestId('iconTitle')).toBeInTheDocument();
+  });
+
+  it('should not render icon on title when pass null', () => {
+    cardComponent.cardConfig.header.icon = undefined;
+    fixture.detectChanges();
+    expect(screen.queryByTestId('iconTitle')).toBeNull();
+  });
+
   it('should render footer in cardComponent', async () => {
     renderFooter = true;
     fixture = TestBed.createComponent(CardTestComponent);
