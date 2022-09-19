@@ -1,13 +1,14 @@
 <table data-testid="ion-table">
   <tr class="border-header">
     <th *ngIf="config.check">
-      <input
-        type="checkbox"
-        name="check-all"
-        id="check-all"
+      <ion-checkbox
         data-testid="table-check-all"
-        (click)="toggleAllRows()"
-      />
+        id="check-all"
+        name="check-all"
+        [state]="mainCheckBoxState"
+        (click)="checkState()"
+      >
+      </ion-checkbox>
     </th>
     <th
       *ngFor="let column of config.columns"
@@ -51,14 +52,14 @@
     }"
   >
     <td *ngIf="config.check" [attr.data-testid]="'row-' + index + '-td'">
-      <input
-        type="checkbox"
+      <ion-checkbox
         name="check-all"
         id="check-all"
-        [checked]="row.selected"
+        [state]="row.selected ? 'checked' : 'enabled'"
         [attr.data-testid]="'row-' + index + '-check'"
         (click)="checkRow(row)"
-      />
+      >
+      </ion-checkbox>
     </td>
     <td
       *ngFor="let column of config.columns"
