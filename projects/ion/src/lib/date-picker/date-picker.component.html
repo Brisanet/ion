@@ -10,6 +10,7 @@
         type="text"
         [value]="dates.date.dateLabel || ''"
         placeholder="Data"
+        readonly
       />
     </div>
     <div class="date-ranges" *ngIf="isDateRange">
@@ -22,6 +23,7 @@
           type="text"
           [value]="dates.startDate.dateLabel || ''"
           placeholder="Data de início"
+          readonly
         />
       </div>
       <div class="separator" (click)="setFocusOnClickInput('input-start-date')">
@@ -33,6 +35,7 @@
           type="text"
           [value]="dates.endDate.dateLabel || ''"
           placeholder="Data de fim"
+          readonly
         />
       </div>
     </div>
