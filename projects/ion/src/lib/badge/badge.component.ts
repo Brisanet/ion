@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 
 export type BadgeType = 'primary' | 'secondary' | 'neutral' | 'negative';
@@ -15,7 +15,7 @@ export interface BadgeProps {
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })
-export class BadgeComponent {
+export class BadgeComponent implements OnChanges {
   @Input() label?: string;
   @Input() value?: number;
   @Input() type!: BadgeType;
@@ -39,6 +39,10 @@ export class BadgeComponent {
   }
 
   ngOnInit() {
+    this.valueInBadge = this.formatValue();
+  }
+
+  ngOnChanges() {
     this.valueInBadge = this.formatValue();
   }
 }
