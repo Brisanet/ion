@@ -1,3 +1,4 @@
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
 
@@ -50,6 +51,30 @@ export class TableComponent {
   private disabledArrowColor = '#CED2DB';
   private enabledArrowColor = '#0858CE';
 
+  public mainCheckBoxState: CheckBoxStates = 'enabled';
+
+  public checkState() {
+    if (this.mainCheckBoxState !== 'indeterminate') {
+      this.toggleAllRows();
+
+      return;
+    }
+    this.uncheckAllRows();
+  }
+
+  private setMainCheckboxState(state: CheckBoxStates): void {
+    this.mainCheckBoxState = state;
+  }
+
+  public isAllRowsSelected() {
+    return this.getRowsSelected().length === this.config.data.length;
+  }
+
+  public uncheckAllRows() {
+    this.config.data.forEach((row) => (row.selected = false));
+    this.mainCheckBoxState = 'enabled';
+  }
+
   private getRowsSelected(): SafeAny[] {
     return this.config.data.filter((rowInData) => rowInData.selected);
   }
@@ -68,10 +93,18 @@ export class TableComponent {
     this.config.data.forEach((row) => {
       row.selected = selected;
     });
+    this.mainCheckBoxState = 'checked';
   }
 
   checkRow(row: SafeAny) {
     row.selected = !row.selected;
+
+    this.isAllRowsSelected()
+      ? this.setMainCheckboxState('checked')
+      : this.hasRowSelected()
+      ? this.setMainCheckboxState('indeterminate')
+      : this.setMainCheckboxState('enabled');
+
     this.emitRowsSelected();
   }
 
