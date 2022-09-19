@@ -269,7 +269,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
     if (!this.isDateRange) {
       this.emmitEvent();
-      this.closeCalendar();
     }
 
     this.setDateInCalendar();
@@ -344,10 +343,12 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
           startDate: this.dates.startDate.dateLabel,
           endDate: this.dates.endDate.dateLabel,
         });
+      this.closeCalendar();
       return;
     }
 
     this.date.emit({ date: this.dates.date.dateLabel });
+    this.closeCalendar();
   }
 
   addClassElement(el: HTMLElement, className) {
