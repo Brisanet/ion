@@ -1,7 +1,36 @@
-<div>
-  <ion-icon type="plus-solid" size="36" color="blue"></ion-icon>
-</div>
+<ion-icon
+  class="menu-icon"
+  type="sandwich"
+  size="40"
+  color="blue"
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+>
+</ion-icon>
 
-<div class="menu-container">
-  <ion-tab-group [tabs]="menus" direction="vertical"></ion-tab-group>
+<div
+  class="menu-container"
+  [class.menu-container-opened]="open"
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+>
+  <ion-tab-group
+    size="md"
+    [tabs]="options"
+    direction="vertical"
+  ></ion-tab-group>
+
+  <div class="menu-footer">
+    <div>
+      <ion-avatar type="photo" [image]="profile.imageUrl" size="md">
+      </ion-avatar>
+      <span>{{ profile.name }}</span>
+    </div>
+    <ion-button
+      label="Sair"
+      type="ghost"
+      iconType="right2"
+      rightSideIcon="true"
+    ></ion-button>
+  </div>
 </div>

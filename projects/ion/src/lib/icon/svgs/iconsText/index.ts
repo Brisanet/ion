@@ -16,6 +16,7 @@ export { default as option } from './option';
 export { default as plusSolid } from './plus-solid';
 export { default as refresh } from './refresh';
 export { default as right2 } from './right2';
+export { default as sandwich } from './sandwich';
 export { default as search } from './search';
 export { default as semiDown } from './semi-down';
 export { default as semiUp } from './semi-up';
