@@ -66,7 +66,6 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
     AlertComponent,
     MessageComponent,
     NotificationComponent,
-    BadgeComponent,
     AvatarComponent,
     RowComponent,
     ColComponent,
