@@ -38,14 +38,13 @@ const Template: Story<TabGroupComponent> = (args: TabGroupComponent) => ({
 export const Horizontal = Template.bind({});
 Horizontal.args = {
   tabs,
-  border: 'bottom',
+
   selected: action('selected'),
 };
 
 export const Vertical = Template.bind({});
 Vertical.args = {
   tabs,
-  border: 'right',
   direction: 'vertical',
   selected: action('selected'),
 };
@@ -62,7 +61,6 @@ SelectedByDefault.args = {
       selected: false,
     },
   ],
-  border: 'bottom',
   selected: action('selected'),
 };
 
@@ -78,7 +76,6 @@ differentSizes.args = {
       selected: false,
     },
   ],
-  border: 'right',
   direction: 'vertical',
   selected: action('selected'),
   size: 'lg',
@@ -94,6 +91,5 @@ const tabsIcons = Object.keys(iconsPaths).map((icon) => {
 });
 tabsWithIcons.args = {
   tabs: tabsIcons,
-  border: 'right',
   direction: 'vertical',
 };
