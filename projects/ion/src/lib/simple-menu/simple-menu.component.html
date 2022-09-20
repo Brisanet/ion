@@ -5,6 +5,7 @@
   color="blue"
   (mouseenter)="openMenu()"
   (mouseleave)="dismissMenu()"
+  data-testid="icon-sandwich"
 >
 </ion-icon>
 
@@ -13,11 +14,13 @@
   [class.menu-container-opened]="open"
   (mouseenter)="openMenu()"
   (mouseleave)="dismissMenu()"
+  data-testid="ion-simple-menu"
 >
   <ion-tab-group
     size="md"
     [tabs]="options"
     direction="vertical"
+    (selected)="changeTab($event)"
   ></ion-tab-group>
 
   <div class="menu-footer">

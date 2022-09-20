@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { TabInGroup } from 'ion/public-api';
 import { AvatarComponent } from '../avatar/avatar.component';
 import { ButtonComponent } from '../button/button.component';
@@ -6,11 +6,14 @@ import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
 import { TabGroupComponent } from '../tab-group/tab-group.component';
 import { TabComponent } from '../tab/tab.component';
+import { SafeAny } from '../utils/safe-any';
 import { SimpleMenuComponent, SimpleMenuProps } from './simple-menu.component';
+
+const classMenuOpen = 'menu-container-opened';
 
 const options: TabInGroup[] = [
   {
-    label: 'ssss',
+    label: 'Agendamentos',
     iconType: 'calendar',
     selected: false,
   },
@@ -21,6 +24,8 @@ const options: TabInGroup[] = [
   },
 ];
 
+const selectEvent = jest.fn();
+
 const defaultMenu: SimpleMenuProps = {
   options,
   profile: {
@@ -28,6 +33,9 @@ const defaultMenu: SimpleMenuProps = {
       'https://ovicio.com.br/wp-content/uploads/2022/01/20220123-rocket-raccoon-guardians-of-the-galaxy.jpeg',
     name: 'Rocket Raccoon',
   },
+  selected: {
+    emit: selectEvent,
+  } as SafeAny,
 };
 
 const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
@@ -45,30 +53,64 @@ const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
 };
 
 describe('SimpleMenu', () => {
-  it('should render menu icon to open', async () => {
+  beforeEach(async () => {
     await sut();
+  });
+
+  it('should render menu icon to open', async () => {
     expect(document.getElementById('ion-icon-sandwich')).toBeInTheDocument();
   });
   it.each(options)(
     'should render $label option in menu',
     async (option: TabInGroup) => {
-      await sut();
       expect(screen.getByText(option.label)).toBeInTheDocument();
     }
   );
 
   it('should render profile image', async () => {
-    await sut();
     expect(screen.getByTestId('ion-avatar')).toBeInTheDocument();
   });
 
   it('should render profile name', async () => {
-    await sut();
     expect(screen.getByText(defaultMenu.profile.name)).toBeInTheDocument();
   });
 
   it('should render logout button', async () => {
-    await sut();
     expect(screen.getByText('Sair')).toBeInTheDocument();
   });
+
+  it('should render the menu hiden by default', async () => {
+    expect(screen.getByTestId('ion-simple-menu')).not.toHaveClass(
+      classMenuOpen
+    );
+  });
+
+  it('should show menu when mouse enter in menu icon', async () => {
+    fireEvent.mouseEnter(screen.getByTestId('icon-sandwich'));
+    expect(screen.getByTestId('ion-simple-menu')).toHaveClass(classMenuOpen);
+  });
+
+  it('should hide menu when mouse leave', async () => {
+    fireEvent.mouseEnter(screen.getByTestId('icon-sandwich'));
+    await sleep(1000);
+
+    fireEvent.mouseLeave(screen.getByTestId('icon-sandwich'));
+    await sleep(2000);
+
+    expect(screen.getByTestId('ion-simple-menu')).toHaveClass('menu-container');
+  });
+
+  it('should emit event when option be selected', async () => {
+    const optionToSelect = options[0];
+    fireEvent.click(screen.getByText(optionToSelect.label));
+    expect(selectEvent).toHaveBeenCalledWith(optionToSelect);
+  });
+
+  afterEach(() => {
+    selectEvent.mockClear();
+  });
 });
+
+const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};

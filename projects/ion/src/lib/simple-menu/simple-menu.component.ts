@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TabInGroup } from '../tab-group/tab-group.component';
 
 interface MenuProfile {
@@ -8,6 +8,7 @@ interface MenuProfile {
 export interface SimpleMenuProps {
   options: TabInGroup[];
   profile: MenuProfile;
+  selected?: EventEmitter<TabInGroup>;
 }
 
 @Component({
@@ -19,10 +20,16 @@ export class SimpleMenuComponent {
   @Input() options: SimpleMenuProps['options'];
   @Input() profile: SimpleMenuProps['profile'];
 
+  @Output() selected = new EventEmitter<TabInGroup>();
+
   public open = false;
 
   private timeToAutoClose = 1000;
   private menuTimeout: ReturnType<typeof setTimeout>;
+
+  changeTab(tabSelected: TabInGroup) {
+    this.selected.emit(tabSelected);
+  }
 
   dismissMenu() {
     this.menuTimeout = setTimeout(() => {
