@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { DirectionType } from '../core/types';
 import { IonTabProps, TabSize } from '../tab/tab.component';
+import { DirectionType, BorderDirectionType } from '../core/types';
 
 export interface TabInGroup extends IonTabProps {
   selected: boolean;
@@ -8,6 +8,7 @@ export interface TabInGroup extends IonTabProps {
 
 export interface TabGroupProps {
   tabs: TabInGroup[];
+  border: BorderDirectionType;
   direction: DirectionType;
   size?: TabSize;
   selected: EventEmitter<TabInGroup>;
@@ -20,6 +21,7 @@ export interface TabGroupProps {
 })
 export class TabGroupComponent {
   @Input() tabs: TabInGroup[];
+  @Input() border: BorderDirectionType = 'right';
   @Input() direction: DirectionType = 'horizontal';
   @Input() size: TabSize = 'sm';
 
