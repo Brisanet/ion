@@ -17,7 +17,7 @@
     >
       <div class="header-style">
         <span class="th-span">{{ column.label }}</span>
-        <button class="svg">
+        <button class="svg" (click)="sort(column)">
           <svg
             *ngIf="column.sort"
             [attr.data-testid]="'sort-by-' + column.key"
@@ -26,7 +26,6 @@
             viewBox="0 0 8 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            (click)="sort(column)"
           >
             <path
               d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
