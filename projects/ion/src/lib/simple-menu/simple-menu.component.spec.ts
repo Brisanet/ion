@@ -1,10 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TabInGroup } from 'ion/public-api';
 import { AvatarComponent } from '../avatar/avatar.component';
+import { BadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
-import { TabGroupComponent } from '../tab-group/tab-group.component';
+import {
+  TabGroupComponent,
+  TabInGroup,
+} from '../tab-group/tab-group.component';
 import { TabComponent } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
 import { SimpleMenuComponent, SimpleMenuProps } from './simple-menu.component';
@@ -46,6 +49,7 @@ const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
       TabGroupComponent,
       TabComponent,
       ButtonComponent,
+      BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
     ],
