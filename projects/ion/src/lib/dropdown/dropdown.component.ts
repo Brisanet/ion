@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-interface DropdownItem {
+export interface DropdownItem {
   label: string;
   selected?: boolean;
   disabled?: boolean;

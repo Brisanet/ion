@@ -7,11 +7,35 @@
   }"
   [class]="'chip-' + size"
 >
+  <ion-badge
+    [value]="innerBadge.value"
+    type="primary"
+    *ngIf="innerBadge.value > 0"
+    data-testid="badge-multiple"
+  ></ion-badge>
+
   {{ label }}
   <ion-icon
+    data-testid="icon-dinamic"
     class="icon-color"
-    *ngIf="icon"
+    *ngIf="icon && !options"
     [type]="icon"
     [size]="size === 'sm' ? 16 : 20"
-  ></ion-icon>
+  >
+  </ion-icon>
+  <ion-icon
+    data-testid="icon-default"
+    class="icon-color"
+    *ngIf="options"
+    [type]="showDropdown ? 'semi-up' : 'semi-down'"
+    [size]="size === 'sm' ? 16 : 20"
+  >
+  </ion-icon>
 </button>
+<div *ngIf="showDropdown">
+  <ion-dropdown
+    [options]="options"
+    [multiple]="multiple"
+    (selected)="handleSuccess($event)"
+  ></ion-dropdown>
+</div>

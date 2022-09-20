@@ -64,7 +64,6 @@ import { CardIonComponent } from './card/card.component';
     AlertComponent,
     MessageComponent,
     NotificationComponent,
-    BadgeComponent,
     AvatarComponent,
     RowComponent,
     ColComponent,
