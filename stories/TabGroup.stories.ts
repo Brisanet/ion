@@ -49,6 +49,14 @@ Vertical.args = {
   selected: action('selected'),
 };
 
+export const VerticalWithBorderLeft = Template.bind({});
+VerticalWithBorderLeft.args = {
+  tabs,
+  border: 'left',
+  direction: 'vertical',
+  selected: action('selected'),
+};
+
 export const SelectedByDefault = Template.bind({});
 SelectedByDefault.args = {
   tabs: [

@@ -27,14 +27,17 @@ export class TabGroupComponent implements OnInit {
 
   @Output() selected = new EventEmitter<TabInGroup>();
 
-  ngOnInit(): void {
-    if (this.direction === 'vertical') {
-      this.border = 'right';
+  private getBorderByDirection(direction: DirectionType): BorderDirectionType {
+    const directions = {
+      horizontal: 'bottom',
+      vertical: 'right',
+    };
 
-      return;
+    if (this.border) {
+      return this.border;
     }
 
-    this.border = 'bottom';
+    return directions[direction] as BorderDirectionType;
   }
 
   private clearTabs() {
@@ -47,5 +50,9 @@ export class TabGroupComponent implements OnInit {
     this.clearTabs();
     tabSelected.selected = true;
     this.selected.emit(tabSelected);
+  }
+
+  ngOnInit(): void {
+    this.border = this.getBorderByDirection(this.direction);
   }
 }
