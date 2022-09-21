@@ -266,6 +266,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.updateDateOnInput();
     this.hasDateInFields = true;
     this.updateMonthDays();
+    this.unSelectedChip();
 
     if (!this.isDateRange) {
       this.emmitEvent();
@@ -407,17 +408,22 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.isVisibleIconClose = isVisible;
   }
 
-  clearCalendar() {
-    Object.keys(this.dates).forEach((item) => {
-      this.dates[item].date = undefined;
-      this.dates[item].dateLabel = undefined;
-    });
+  clearCalendar(closeCalendar = false) {
+    this.clearDatesObject();
     this.isDisabledConfirmButton = true;
     this.hasDateInFields = false;
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDateInCalendar();
     this.setVisibleIconClose(false);
-    this.closeCalendar();
+    this.unSelectedChip();
+    closeCalendar && this.closeCalendar();
+  }
+
+  clearDatesObject() {
+    Object.keys(this.dates).forEach((item) => {
+      this.dates[item].date = undefined;
+      this.dates[item].dateLabel = undefined;
+    });
   }
 
   setDateInCalendar() {
@@ -449,7 +455,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   actionClickIcon() {
     if (this.isVisibleIconClose) {
-      this.clearCalendar();
+      this.clearCalendar(true);
       return;
     }
 
@@ -493,11 +499,28 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     );
   }
 
+  selectedChips = {
+    sevenDays: false,
+    fifteenDays: false,
+    twentyOneDays: false,
+  };
+
   chipEvents(event, days: number) {
+    if (!event.selected) {
+      this.clearCalendar();
+      return;
+    }
+
+    this.unSelectedChip(
+      days === 7 ? 'sevenDays' : days === 15 ? 'fifteenDays' : 'twentyOneDays'
+    );
+
     if (!this.dates.startDate.date) {
       this.dates.startDate.date = this.selectedDate;
       this.dates.startDate.dateLabel = this.selectedDate.format('YYYY-MM-DD');
     }
+
+    this.selectedDate = this.dates.startDate.date;
 
     const newEndDate = new Day(
       this.addDaysToDate(this.dates.startDate.date.format('YYYY,MM,DD'), days),
@@ -513,5 +536,14 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     const res = new Date(date);
     res.setDate(res.getDate() - 1 + days);
     return res;
+  }
+
+  unSelectedChip(selectedChip?: 'sevenDays' | 'fifteenDays' | 'twentyOneDays') {
+    for (const chip in this.selectedChips) {
+      this.selectedChips[chip] = false;
+      selectedChip && selectedChip === chip
+        ? (this.selectedChips[selectedChip] = true)
+        : (this.selectedChips[chip] = false);
+    }
   }
 }

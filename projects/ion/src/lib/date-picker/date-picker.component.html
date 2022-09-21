@@ -89,9 +89,21 @@
       <ion-divider></ion-divider>
       <div class="content">
         <label>Período:</label>
-        <ion-chip label="7 dias" (events)="chipEvents($event, 7)"></ion-chip>
-        <ion-chip label="15 dias" (events)="chipEvents($event, 15)"></ion-chip>
-        <ion-chip label="21 dias" (events)="chipEvents($event, 21)"></ion-chip>
+        <ion-chip
+          label="7 dias"
+          [selected]="selectedChips.sevenDays"
+          (events)="chipEvents($event, 7)"
+        ></ion-chip>
+        <ion-chip
+          label="15 dias"
+          [selected]="selectedChips.fifteenDays"
+          (events)="chipEvents($event, 15)"
+        ></ion-chip>
+        <ion-chip
+          label="21 dias"
+          [selected]="selectedChips.twentyOneDays"
+          (events)="chipEvents($event, 21)"
+        ></ion-chip>
       </div>
       <ion-divider></ion-divider>
     </div>
@@ -105,7 +117,7 @@
       <ion-button
         label="Cancelar"
         type="ghost"
-        (ionOnClick)="clearCalendar()"
+        (ionOnClick)="clearCalendar(true)"
       ></ion-button>
       <ion-button
         label="Pronto"
