@@ -529,6 +529,8 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.dates.endDate.date = newEndDate;
     this.dates.endDate.dateLabel = newEndDate.format('YYYY-MM-DD');
     this.calendar.goToDate(newEndDate.monthNumber, newEndDate.year);
+    this.hasDateInFields = true;
+    this.isDisabledConfirmButton = false;
     this.renderCalendarDays();
   }
 
