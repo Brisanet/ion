@@ -107,13 +107,13 @@ describe('CardComponent', () => {
   it('should render icon on title', () => {
     cardComponent.cardConfig.header.icon = 'add';
     fixture.detectChanges();
-    expect(screen.getByTestId('iconTitle')).toBeInTheDocument();
+    expect(screen.getByTestId('icon-title')).toBeInTheDocument();
   });
 
   it('should not render icon on title when pass null', () => {
     cardComponent.cardConfig.header.icon = undefined;
     fixture.detectChanges();
-    expect(screen.queryByTestId('iconTitle')).toBeNull();
+    expect(screen.queryByTestId('icon-title')).toBeNull();
   });
 
   it('should render footer in cardComponent', async () => {
