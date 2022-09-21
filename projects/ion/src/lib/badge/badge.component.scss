@@ -10,6 +10,12 @@ span {
   border-radius: 50px;
 }
 
+span:empty {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+
 @mixin theme-badge($bgColor, $fontColor) {
   background-color: $bgColor;
   color: $fontColor;
