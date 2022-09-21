@@ -17,6 +17,11 @@ const Template: Story<BadgeComponent> = (args: BadgeComponent) => ({
   },
 });
 
+export const Empty = Template.bind({});
+Empty.args = {
+  type: 'primary',
+};
+
 export const WithValue = Template.bind({});
 WithValue.args = {
   type: 'primary',
