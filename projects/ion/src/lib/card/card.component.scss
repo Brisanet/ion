@@ -25,6 +25,17 @@
       color: $neutral-7;
     }
 
+    &-title {
+      display: flex;
+      flex-direction: row;
+      max-width: fit-content;
+      align-items: center;
+
+      .icon-title {
+        margin-right: 8px;
+      }
+    }
+
     &-container-buttons {
       display: flex;
       gap: 28px;
