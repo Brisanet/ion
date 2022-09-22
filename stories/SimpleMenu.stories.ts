@@ -4,6 +4,7 @@ import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import {
   AvatarComponent,
+  BadgeComponent,
   ButtonComponent,
   TabComponent,
   TabGroupComponent,
@@ -24,6 +25,7 @@ const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
       TabGroupComponent,
       TabComponent,
       ButtonComponent,
+      BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
     ],
