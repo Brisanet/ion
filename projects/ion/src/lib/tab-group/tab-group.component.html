@@ -6,7 +6,8 @@
       [label]="tab.label"
       [iconType]="tab.iconType"
       (click)="selectTab(tab)"
-      [direction]="direction === 'vertical' ? 'right' : 'bottom'"
+      [tabSize]="size"
+      [direction]="border"
     >
     </ion-tab>
   </div>
