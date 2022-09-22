@@ -1,3 +1,4 @@
+import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -14,7 +15,7 @@ import { IonDividerComponent } from './divider/divider.component';
 import { NotificationComponent } from './notification/notification.component';
 import { MessageComponent } from './message/message.component';
 import { TabComponent } from './tab/tab.component';
-import { HeadingComponent } from './typography';
+import { HeadingComponent } from './typography/heading/heading.component';
 import { TagComponent } from './tag/tag.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
@@ -45,6 +46,7 @@ import { FormsModule } from '@angular/forms';
     DropdownComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
     CardIonComponent,
     PaginationComponent,
   ],
@@ -65,10 +67,10 @@ import { FormsModule } from '@angular/forms';
     AlertComponent,
     MessageComponent,
     NotificationComponent,
-    BadgeComponent,
     AvatarComponent,
     RowComponent,
     ColComponent,
+    CheckboxComponent,
     CardIonComponent,
     PaginationComponent,
   ],
