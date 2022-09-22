@@ -78,6 +78,18 @@ describe('TabGroupComponent', () => {
     expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-right');
   });
 
+  it('should has border left when left is informed', async () => {
+    await sut({
+      direction: 'vertical',
+      border: 'left',
+      tabs: mockTabs,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    expect(screen.getByText(mockTabs[0].label)).toHaveClass('border-left');
+  });
+
   it.each(['sm', 'md', 'lg'])(
     'should render tabs with %s size',
     async (size: string) => {
