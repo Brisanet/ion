@@ -325,6 +325,26 @@ describe('Table > Checkbox', () => {
     );
   });
 
+  it('should add enabled state in the checkbox that marks all options', async () => {
+    tableWithSelect.config.data.forEach((row, index) => {
+      fireEvent.click(screen.getByTestId(`row-${index}-check`));
+    });
+
+    expect(screen.getByTestId(`table-check-all`)).toHaveAttribute(
+      'ng-reflect-state',
+      'checked'
+    );
+
+    tableWithSelect.config.data.forEach((row, index) => {
+      fireEvent.click(screen.getByTestId(`row-${index}-check`));
+    });
+
+    expect(screen.getByTestId(`table-check-all`)).toHaveAttribute(
+      'ng-reflect-state',
+      'enabled'
+    );
+  });
+
   afterEach(() => {
     eventSelect.mockClear();
   });
