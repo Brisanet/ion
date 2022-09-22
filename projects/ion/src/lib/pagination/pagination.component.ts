@@ -23,11 +23,11 @@ export interface IonPaginationProps {
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  private defaultitemsPerPage = 15;
+  private defaultItemsPerPage = 15;
 
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
-    this.defaultitemsPerPage;
+    this.defaultItemsPerPage;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Output() events = new EventEmitter<PageEvent>();
