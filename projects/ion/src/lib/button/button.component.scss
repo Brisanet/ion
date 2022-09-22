@@ -49,7 +49,7 @@ button {
   gap: 10px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: 8px;
   border: 0;
   color: $neutral-1;
   cursor: pointer;
@@ -96,7 +96,7 @@ button {
     height: 10px;
   }
 
-  border-radius: 8px;
+  border-radius: 6px;
 
   @include icon-size(13px);
 
@@ -117,6 +117,8 @@ button {
   @include icon-size(20px);
 
   @include circular-button(40px, 20px);
+
+  border-radius: 10px;
 }
 
 .ion-btn-xl {
@@ -125,6 +127,8 @@ button {
   @include icon-size(20px);
 
   @include circular-button(48px, 20px);
+
+  border-radius: 10px;
 }
 
 @keyframes spin {
