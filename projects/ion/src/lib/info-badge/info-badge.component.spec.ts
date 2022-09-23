@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
+import { InfoBadgeStatus } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 
 import { InfoBadgeComponent } from './info-badge.component';
@@ -39,11 +40,11 @@ describe('InfoBadgeComponent', () => {
 
   it.each(['primary', 'success', 'info', 'warning', 'negative'])(
     'Should render an info badge for each status',
-    async () => {
+    async (className: InfoBadgeStatus) => {
       const icon = 'check';
-      await sut({ icon, ...defaultInfoBadge });
+      await sut({ icon, variant: className });
 
-      expect(screen.getByTestId('info-badge-icon')).toBeInTheDocument();
+      expect(screen.getByTestId('info-badge')).toHaveClass(className);
     }
   );
 });
