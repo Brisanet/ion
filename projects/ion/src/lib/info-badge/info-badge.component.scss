@@ -1,8 +1,8 @@
 @import '../../styles/index.scss';
 
-@mixin set-size($width, $height, $padding) {
-  width: $width;
-  height: $height;
+@mixin set-size($size, $padding) {
+  width: $size;
+  height: $size;
   padding: $padding;
 }
 
@@ -30,7 +30,7 @@ div {
   }
 
   & span:empty {
-    @include set-size(8px, 8px, 0);
+    @include set-size(8px, 0);
   }
 
   .tab-icon {
@@ -41,11 +41,11 @@ div {
 }
 
 .info-badge-sm {
-  @include set-size(12px, 12px, 3px);
+  @include set-size(12px, 3px);
 }
 
 .info-badge-md {
-  @include set-size(16px, 16px, 4px);
+  @include set-size(16px, 4px);
 }
 
 .primary {
@@ -60,7 +60,7 @@ div {
   @include set-background($negative-6);
 }
 
-.positive {
+.success {
   @include set-background($positive-6);
 }
 
