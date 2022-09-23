@@ -36,4 +36,14 @@ describe('InfoBadgeComponent', () => {
 
     expect(screen.getByText(text)).toBeInTheDocument();
   });
+
+  it.each(['primary', 'success', 'info', 'warning', 'negative'])(
+    'Should render an info badge for each status',
+    async () => {
+      const icon = 'check';
+      await sut({ icon, ...defaultInfoBadge });
+
+      expect(screen.getByTestId('info-badge-icon')).toBeInTheDocument();
+    }
+  );
 });
