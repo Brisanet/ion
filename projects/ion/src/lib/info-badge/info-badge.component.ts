@@ -1,16 +1,13 @@
-import { Component, Input, OnChanges } from '@angular/core';
-import {
-  Sizes,
-  IconTypes,
-  VariantTypes,
-  IconSizeOptions,
-} from '../core/types/info-badge';
+import { Component, Input } from '@angular/core';
+import { IconSizeOptions } from '../core/types/info-badge';
+import { IconType } from '../icon/icon.component';
+import { InfoBadgeSize, InfoBadgeStatus } from '../core/types/info-badge';
 
 export interface InfoBadgeProps {
-  variant: VariantTypes;
-  icon?: IconTypes;
+  variant: InfoBadgeStatus;
+  icon?: IconType;
   text?: string;
-  size?: Sizes;
+  size?: InfoBadgeSize;
 }
 
 @Component({
@@ -18,15 +15,11 @@ export interface InfoBadgeProps {
   templateUrl: './info-badge.component.html',
   styleUrls: ['./info-badge.component.scss'],
 })
-export class InfoBadgeComponent implements OnChanges {
-  @Input() public variant: VariantTypes = 'primary';
-  @Input() public icon?: IconTypes;
+export class InfoBadgeComponent {
+  @Input() public variant: InfoBadgeStatus = 'primary';
+  @Input() public icon?: IconType;
   @Input() public text?: string;
-  @Input() public size?: Sizes = 'md';
+  @Input() public size?: InfoBadgeSize = 'md';
 
-  public iconSize: IconSizeOptions;
-
-  ngOnChanges() {
-    this.iconSize = IconSizeOptions[this.size];
-  }
+  public iconSize: IconSizeOptions = IconSizeOptions[this.size];
 }

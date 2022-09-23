@@ -1,13 +1,8 @@
-export type Sizes = 'sm' | 'md';
-export type IconTypes = 'check' | 'close' | 'info' | 'exclamation' | null;
-export type VariantTypes =
-  | 'primary'
-  | 'negative'
-  | 'positive'
-  | 'warning'
-  | 'info';
+import { StatusType } from './status';
 
 export enum IconSizeOptions {
   sm = 8,
   md = 12,
 }
+export type InfoBadgeStatus = StatusType | 'primary';
+export type InfoBadgeSize = 'sm' | 'md';
