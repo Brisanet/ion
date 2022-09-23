@@ -29,4 +29,11 @@ describe('InfoBadgeComponent', () => {
 
     expect(screen.getByTestId('info-badge-icon')).toBeInTheDocument();
   });
+
+  it('Should render an info badge with text', async () => {
+    const text = 'Lorem ipsum';
+    await sut({ text, ...defaultInfoBadge });
+
+    expect(screen.getByText(text)).toBeInTheDocument();
+  });
 });
