@@ -21,6 +21,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
+import { InfoBadgeComponent } from './info-badge/info-badge.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { CardIonComponent } from './card/card.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -69,6 +71,7 @@ import { CardIonComponent } from './card/card.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
   ],
 })
 export class IonModule {}
