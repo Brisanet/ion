@@ -38,7 +38,7 @@ WithIcon.args = {
 export const Positive = Template.bind({});
 Positive.args = {
   icon: 'check',
-  variant: 'positive',
+  variant: 'success',
 };
 
 export const Negative = Template.bind({});
@@ -62,5 +62,5 @@ Info.args = {
 export const WithText = Template.bind({});
 WithText.args = {
   text: 'Lorem ipsum',
-  variant: 'positive',
+  variant: 'success',
 };
