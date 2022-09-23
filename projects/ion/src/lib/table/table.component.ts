@@ -32,6 +32,7 @@ export interface ConfigTable {
   columns: Column[];
   actions?: ActionTable[];
   check?: boolean;
+  pagination?: boolean;
 }
 
 export interface IonTableProps {

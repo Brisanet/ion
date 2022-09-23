@@ -150,3 +150,12 @@ WithTagByRow.args = {
     ],
   },
 };
+
+export const WithPagination = Template.bind({});
+WithPagination.args = {
+  config: {
+    data,
+    columns,
+    pagination: true,
+  },
+};

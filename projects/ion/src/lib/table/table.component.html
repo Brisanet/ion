@@ -76,7 +76,7 @@
         [icon]="row[column.tag.iconKey] || column.tag.icon"
       ></ion-tag>
     </td>
-    <td>
+    <td *ngIf="config.actions">
       <div class="icons-td">
         <span *ngFor="let action of config.actions">
           <ion-icon
@@ -90,3 +90,12 @@
     </td>
   </tr>
 </table>
+
+<div
+  *ngIf="config.pagination"
+  data-testid="pagination-container"
+  class="footer-table"
+>
+  <span>1-10 de 2000</span>
+  <div>pagination-component here</div>
+</div>

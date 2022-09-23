@@ -68,6 +68,10 @@ describe('TableComponent', () => {
     expect(screen.getByTestId('ion-table'));
   });
 
+  it('should not render pagination by default', async () => {
+    expect(screen.queryAllByTestId('pagination-container')).toHaveLength(0);
+  });
+
   it('should not render actions column when not has', async () => {
     expect(screen.queryAllByText('Ações')).toHaveLength(0);
   });
@@ -454,5 +458,25 @@ describe('Table > Differents columns data type', () => {
       expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
       expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
+  });
+});
+
+describe('Table > Pagination', () => {
+  const tableWithPagination: IonTableProps = {
+    config: {
+      columns: [...JSON.parse(JSON.stringify(columns))],
+      data: JSON.parse(JSON.stringify(data)),
+      pagination: true,
+    },
+  };
+
+  it('should render the pagination', async () => {
+    await sut(tableWithPagination);
+    expect(screen.getByTestId('pagination-container')).toBeInTheDocument();
+  });
+
+  it.skip('should render items total in table', async () => {
+    await sut(tableWithPagination);
+    expect(screen.getByText('400')).toBeInTheDocument();
   });
 });
