@@ -48,6 +48,7 @@
     outline: 2px solid $primary-5;
     outline-offset: 2px;
     @include icon-color($primary-5);
+    position: relative;
   }
   &:active {
     @include tab-colors($primary-7, $primary-2, $primary-5);
@@ -80,6 +81,7 @@
     outline: 2px solid $primary-5;
     outline-offset: 2px;
     @include icon-color($primary-5);
+    position: relative;
   }
   &:active {
     @include tab-colors($primary-7, $primary-2, $primary-5);
