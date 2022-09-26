@@ -26,6 +26,14 @@
   }
 }
 
+@mixin tab-focus {
+  @include tab-colors($primary-5, $primary-1, $primary-3);
+  outline: 2px solid $primary-5;
+  outline-offset: 2px;
+  @include icon-color($primary-5);
+  position: relative;
+}
+
 .tab {
   font-style: normal;
   font-weight: 600;
@@ -44,10 +52,7 @@
     @include icon-color($primary-5);
   }
   &:focus-visible {
-    @include tab-colors($primary-5, $primary-1, $primary-3);
-    outline: 2px solid $primary-5;
-    outline-offset: 2px;
-    @include icon-color($primary-5);
+    @include tab-focus();
   }
   &:active {
     @include tab-colors($primary-7, $primary-2, $primary-5);
@@ -76,10 +81,7 @@
     @include icon-color($primary-5);
   }
   &:focus-visible {
-    @include tab-colors($primary-5, $primary-1, $primary-3);
-    outline: 2px solid $primary-5;
-    outline-offset: 2px;
-    @include icon-color($primary-5);
+    @include tab-focus();
   }
   &:active {
     @include tab-colors($primary-7, $primary-2, $primary-5);
