@@ -20,6 +20,23 @@ Run `ng generate component component-name --project=ion` to generate a new compo
 
 Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Install, Configure and Use Prettier
+
+Tips to install and configure Prettier in your local machine
+
+- Run `yarn add --dev --exact prettier` to install Prettier;
+- Create a empty file to let editors and other tools that you are using Prettier `echo {}> .prettierrc.json`;
+- Create a `.prettierignore` file to let Prettier CLI know which files to not format;
+- Run `yarn prettier --write .` to format all files with Prettier;
+- Run `npx prettier --check .` to make sure that everyone runs Prettier to avoid merge conflicts and other issues.
+
+Configure Prettier Extension by Vscode
+
+- Install Prettier - Code formatter extension;
+- Go to `Settings(JSON)` ;
+- Set `"editor.formatOnSave"` true;
+- Set `"prettier.eslintIntegration"` true.
+
 ## Commit pattern
 
 Commits should follow the [convention](https://conventionalcommits.org/).
@@ -42,3 +59,4 @@ Example: `feat: add feature #issue_id`
 ## Deploy 🚀
 
 <a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>
+
