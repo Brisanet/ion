@@ -82,6 +82,30 @@ Há também a possibilidade de passar o paramêtro `buttons` para adicionar aç�
   </Story>
 </Canvas>
 
+Assim como a possibilidade de definir um ícone para o título do card, enviando o nome do ion-icon com a chave `icon`.
+
+<Canvas>
+  <Story
+    name="With Icon Title"
+    args={{
+      configuration: {
+        header: {
+          title: 'Card de pesquisa',
+          icon: 'search',
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ## Body
 
 No `body` o IonCard recebe um componente a se renderizado.
