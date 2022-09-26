@@ -1,3 +1,4 @@
+import { BadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
@@ -12,7 +13,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [TabComponent, IonIconComponent],
+      declarations: [TabComponent, IonIconComponent, BadgeComponent],
     }),
   ],
 } as Meta;
@@ -37,12 +38,21 @@ const Template: Story<TabGroupComponent> = (args: TabGroupComponent) => ({
 export const Horizontal = Template.bind({});
 Horizontal.args = {
   tabs,
+
   selected: action('selected'),
 };
 
 export const Vertical = Template.bind({});
 Vertical.args = {
   tabs,
+  direction: 'vertical',
+  selected: action('selected'),
+};
+
+export const VerticalWithBorderLeft = Template.bind({});
+VerticalWithBorderLeft.args = {
+  tabs,
+  border: 'left',
   direction: 'vertical',
   selected: action('selected'),
 };
@@ -73,6 +83,23 @@ mediumSize.args = {
 export const largeSize = Template.bind({});
 largeSize.args = {
   tabs,
+  direction: 'vertical',
+  selected: action('selected'),
+  size: 'lg',
+};
+
+export const differentSizes = Template.bind({});
+differentSizes.args = {
+  tabs: [
+    {
+      label: 'Selected',
+      selected: true,
+    },
+    {
+      label: 'Not Selected',
+      selected: false,
+    },
+  ],
   direction: 'vertical',
   selected: action('selected'),
   size: 'lg',

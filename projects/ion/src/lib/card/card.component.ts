@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { ComponentType } from '@angular/cdk/overlay';
 import { SafeAny } from '../utils/safe-any';
+import { IconType } from '../icon/icon.component';
 
 type Pick<T, K extends keyof T> = {
   [Key in K]: T[Key];
@@ -30,6 +31,7 @@ type ButtonBase = {
 type Header = {
   title: string;
   buttons?: ButtonBase[];
+  icon?: IconType;
 };
 
 type FooterButton = {
