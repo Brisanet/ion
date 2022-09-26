@@ -8,7 +8,23 @@ export interface NotificationProps {
   type?: StatusType;
   icon?: IconType;
   fixed?: boolean;
+  fadeIn?: fadeInDirection;
+  fadeOut?: fadeOutDirection;
 }
+
+type fadeInDirection =
+  | 'fadeIn'
+  | 'fadeInUp'
+  | 'fadeInRigth'
+  | 'fadeInLeft'
+  | 'fadeInDown';
+
+type fadeOutDirection =
+  | 'fadeOutUp'
+  | 'fadeOutRigth'
+  | 'fadeOutLeft'
+  | 'fadeOutDown'
+  | 'fadeOut';
 
 @Component({
   selector: 'ion-notification',
@@ -21,6 +37,8 @@ export class NotificationComponent {
   @Input() icon?: NotificationProps['icon'];
   @Input() type?: NotificationProps['type'] = 'success';
   @Input() fixed?: NotificationProps['fixed'] = false;
+  @Input() fadeIn?: NotificationProps['fadeIn'] = 'fadeIn';
+  @Input() fadeOut?: NotificationProps['fadeOut'] = 'fadeOut';
   @ViewChild('notificationRef', { static: false }) notification: ElementRef;
 
   private timer: ReturnType<typeof setTimeout>;
@@ -53,7 +71,10 @@ export class NotificationComponent {
   }
 
   closeNotification() {
-    this.notification.nativeElement.remove();
+    this.notification.nativeElement.classList.add(this.fadeOut);
+    setTimeout(() => {
+      this.notification.nativeElement.remove();
+    }, 1000);
   }
 
   closeAuto(closeIn: number = this.timeByWords(this.message)) {
@@ -71,6 +92,10 @@ export class NotificationComponent {
 
   mouseLeave() {
     this.closeAuto();
+  }
+
+  setClass() {
+    return `notification-container ${this.fadeIn}`;
   }
 
   ngOnInit() {

@@ -93,6 +93,7 @@ describe('NotificationComponent', () => {
       await sut();
       const btnRemove = screen.getByTestId('btn-remove');
       fireEvent.click(btnRemove);
+      await sleep(1000);
       expect(screen.queryAllByText(defaultNotification[title])).toHaveLength(0);
     }
   );
@@ -106,7 +107,7 @@ describe('NotificationComponent', () => {
   describe('Time by words', () => {
     it('should remove component after 2s', async () => {
       await sut();
-      await sleep(1000);
+      await sleep(3000);
       expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
         0
       );
