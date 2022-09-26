@@ -12,6 +12,7 @@ export { default as filter } from './filter';
 export { default as infoSolid } from './info-solid';
 export { default as left2 } from './left2';
 export { default as pencil } from './pencil';
+export { default as out } from './out';
 export { default as option } from './option';
 export { default as plusSolid } from './plus-solid';
 export { default as refresh } from './refresh';
