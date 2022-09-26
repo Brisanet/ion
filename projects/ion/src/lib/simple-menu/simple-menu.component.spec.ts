@@ -28,6 +28,7 @@ const options: TabInGroup[] = [
 ];
 
 const selectEvent = jest.fn();
+const logoutEvent = jest.fn();
 
 const defaultMenu: SimpleMenuProps = {
   options,
@@ -38,6 +39,9 @@ const defaultMenu: SimpleMenuProps = {
   },
   selected: {
     emit: selectEvent,
+  } as SafeAny,
+  logoutClick: {
+    emit: logoutEvent,
   } as SafeAny,
 };
 
@@ -110,8 +114,14 @@ describe('SimpleMenu', () => {
     expect(selectEvent).toHaveBeenCalledWith(optionToSelect);
   });
 
+  it('should emit event when logout button is clicked', async () => {
+    fireEvent.click(screen.getByText('Sair'));
+    expect(logoutEvent).toHaveBeenCalled();
+  });
+
   afterEach(() => {
     selectEvent.mockClear();
+    logoutEvent.mockClear();
   });
 });
 

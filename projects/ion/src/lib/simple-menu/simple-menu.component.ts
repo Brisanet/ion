@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TabInGroup } from '../tab-group/tab-group.component';
+import { SafeAny } from '../utils/safe-any';
 
 interface MenuProfile {
   imageUrl: string;
@@ -9,6 +10,7 @@ export interface SimpleMenuProps {
   options: TabInGroup[];
   profile: MenuProfile;
   selected?: EventEmitter<TabInGroup>;
+  logoutClick?: EventEmitter<SafeAny>;
 }
 
 @Component({
@@ -21,6 +23,7 @@ export class SimpleMenuComponent {
   @Input() profile: SimpleMenuProps['profile'];
 
   @Output() selected = new EventEmitter<TabInGroup>();
+  @Output() logoutClick = new EventEmitter();
 
   public open = false;
 
@@ -40,5 +43,9 @@ export class SimpleMenuComponent {
   openMenu() {
     clearTimeout(this.menuTimeout);
     this.open = true;
+  }
+
+  logout() {
+    this.logoutClick.emit();
   }
 }

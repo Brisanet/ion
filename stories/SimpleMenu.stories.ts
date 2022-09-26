@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
@@ -18,7 +19,11 @@ export default {
 
 const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
   component: SimpleMenuComponent,
-  props: args,
+  props: {
+    ...args,
+    selected: action('selected'),
+    logoutClick: action('logoutClick'),
+  },
   moduleMetadata: {
     declarations: [
       IonIconComponent,
