@@ -462,11 +462,14 @@ describe('Table > Differents columns data type', () => {
 });
 
 describe('Table > Pagination', () => {
+  const totalItems = 46;
   const tableWithPagination: IonTableProps = {
     config: {
       columns: [...JSON.parse(JSON.stringify(columns))],
       data: JSON.parse(JSON.stringify(data)),
-      pagination: true,
+      pagination: {
+        total: totalItems,
+      },
     },
   };
 
@@ -475,8 +478,8 @@ describe('Table > Pagination', () => {
     expect(screen.getByTestId('pagination-container')).toBeInTheDocument();
   });
 
-  it.skip('should render items total in table', async () => {
+  it('should render items total in table', async () => {
     await sut(tableWithPagination);
-    expect(screen.getByText('400')).toBeInTheDocument();
+    expect(screen.queryAllByText(totalItems)).toHaveLength(1);
   });
 });

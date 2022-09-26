@@ -156,6 +156,8 @@ WithPagination.args = {
   config: {
     data,
     columns,
-    pagination: true,
+    pagination: {
+      total: 46,
+    },
   },
 };

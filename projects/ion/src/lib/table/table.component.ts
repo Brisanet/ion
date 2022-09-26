@@ -27,12 +27,16 @@ interface TableEvent {
   rows_selected: SafeAny[];
 }
 
+export interface PaginationConfig {
+  total: number;
+}
+
 export interface ConfigTable {
   data: SafeAny[];
   columns: Column[];
   actions?: ActionTable[];
   check?: boolean;
-  pagination?: boolean;
+  pagination?: PaginationConfig;
 }
 
 export interface IonTableProps {
