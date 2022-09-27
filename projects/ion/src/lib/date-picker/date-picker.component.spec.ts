@@ -33,4 +33,16 @@ describe('DatePickerComponent', () => {
     const calendar = await sut({});
     expect(calendar).toBeTruthy();
   });
+
+  it('deve configurar o calendário para a data 01-01-2022', async () => {
+    const calendar2 = await sut({ initialDate: '2022-01-01' });
+    fireEvent.click(calendar2);
+    expect(document.getElementById('calendar-dropdown'));
+    expect(document.getElementById('month-year')).toHaveTextContent(
+      'January - 2022'
+    );
+    expect(document.getElementsByClassName('selected')[0]).toHaveTextContent(
+      '1'
+    );
+  });
 });
