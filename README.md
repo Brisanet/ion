@@ -4,6 +4,14 @@
 <a href="https://codeclimate.com/github/iurynogueira/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/test_coverage" /></a>
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
 
+## Install and run project
+
+
+To run this project, You will need to use [node v.12](https://nodejs.org/en/)
+
+- Run `git clone https://github.com/iurynogueira/ion.git` to get a copy of the repository;
+- Run `yarn install` to install all dependencies for the project;
+- Run `yarn run storybook` to open the storybook in your localhost.
 ## Create a component
 
 Run `ng generate component component-name --project=ion` to generate a new component.
@@ -11,6 +19,15 @@ Run `ng generate component component-name --project=ion` to generate a new compo
 ## Build
 
 Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Install, Configure and Use Prettier
+
+Configure Prettier Extension by Vscode
+
+- Install Prettier - Code formatter extension;
+- Go to `Settings(JSON)` ;
+- Set `"editor.formatOnSave"` true;
+- Set `"prettier.eslintIntegration"` true.
 
 ## Commit pattern
 
@@ -34,3 +51,4 @@ Example: `feat: add feature #issue_id`
 ## Deploy 🚀
 
 <a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>
+
