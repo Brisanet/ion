@@ -1,3 +1,4 @@
+import { DropdownItem } from './../dropdown/dropdown.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
@@ -13,8 +14,11 @@ export interface IonButtonProps {
   disabled?: boolean;
   loading?: boolean;
   loadingMessage?: string;
+  multiple?: boolean;
   iconType?: IconType;
   rightSideIcon?: boolean;
+  options?: DropdownItem[];
+  showDropdown?: boolean;
   circularButton?: boolean;
   ionOnClick?: EventEmitter<SafeAny>;
 }
@@ -32,13 +36,18 @@ export class ButtonComponent {
   @Input() disabled? = false;
   @Input() loading? = false;
   @Input() loadingMessage = 'Carregando...';
+  @Input() multiple? = false;
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
   @Input() circularButton? = false;
+  @Input() options?: DropdownItem[];
+  @Input() showDropdown? = false;
   @Output() ionOnClick? = new EventEmitter();
 
   handleClick() {
     if (!this.loading && !this.disabled) {
+      this.showDropdown = !this.showDropdown;
+
       this.ionOnClick.emit();
     }
   }
