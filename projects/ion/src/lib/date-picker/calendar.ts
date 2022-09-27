@@ -11,11 +11,7 @@ export class Calendar {
   month: Month;
   year: number;
   weekDays = Array.from({ length: 7 });
-  constructor(
-    year = null,
-    private monthNumber = null,
-    private lang = 'default'
-  ) {
+  constructor(year = null, public monthNumber = null, public lang = 'default') {
     this.today = new Day(undefined, lang);
 
     this.year = year ? year : this.today.year;
@@ -63,11 +59,11 @@ export class Calendar {
       return new Month(new Date(this.year + 1, 0), this.lang);
     }
 
-    return new Month(new Date(this.year, this.month.number + 2), this.lang);
+    return new Month(new Date(this.year, this.month.number), this.lang);
   }
 
-  goToDate(monthNUmber, year) {
-    this.month = new Month(new Date(year, monthNUmber - 1), this.lang);
+  goToDate(monthNumber: number, year: number) {
+    this.month = new Month(new Date(year, monthNumber - 1), this.lang);
     this.year = year;
   }
 
