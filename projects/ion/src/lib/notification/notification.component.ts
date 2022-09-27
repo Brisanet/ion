@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
+import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
 
 export interface NotificationProps {
   title: string;
@@ -11,20 +12,6 @@ export interface NotificationProps {
   fadeIn?: fadeInDirection;
   fadeOut?: fadeOutDirection;
 }
-
-type fadeInDirection =
-  | 'fadeIn'
-  | 'fadeInUp'
-  | 'fadeInRigth'
-  | 'fadeInLeft'
-  | 'fadeInDown';
-
-type fadeOutDirection =
-  | 'fadeOutUp'
-  | 'fadeOutRigth'
-  | 'fadeOutLeft'
-  | 'fadeOutDown'
-  | 'fadeOut';
 
 @Component({
   selector: 'ion-notification',
