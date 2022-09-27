@@ -11,7 +11,7 @@ export class Month {
   year: number;
   numberOfDays: number;
 
-  constructor(private date?, private lang = 'default') {
+  constructor(private date?, public lang = 'default') {
     this.day = new Day(this.date, this.lang);
 
     this.name = this.day.month;
