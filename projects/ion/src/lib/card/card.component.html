@@ -1,6 +1,14 @@
 <div class="card-ion" *ngIf="configuration">
   <div class="card-ion-header">
-    <h4 data-testid="cardHeader">{{ configuration.header.title }}</h4>
+    <div class="card-ion-header-title">
+      <ion-icon
+        *ngIf="configuration.header.icon"
+        [type]="configuration.header.icon"
+        class="icon-title"
+        data-testid="icon-title"
+      ></ion-icon>
+      <h4 data-testid="cardHeader">{{ configuration.header.title }}</h4>
+    </div>
     <div
       *ngIf="configuration.header.buttons"
       class="card-ion-header-container-buttons"
