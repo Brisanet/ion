@@ -5,7 +5,7 @@
   [class.loading]="loading"
   [class.circular-button]="!loading && circularButton"
   [class.ion-remove-space]="iconType && !!!label"
-  [class.right-side-icon]="rightSideIcon"
+  [class.right-side-icon]="rightSideIcon || !!options"
   [disabled]="disabled"
   (click)="handleClick()"
 >
@@ -15,7 +15,15 @@
     [type]="iconType"
     class="icon"
   ></ion-icon>
+  <ion-icon
+    *ngIf="options"
+    [type]="showDropdown ? 'semi-up' : 'semi-down'"
+    class="icon"
+  ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
     loading ? loadingMessage : label
   }}</span>
 </button>
+<div *ngIf="!!options && showDropdown">
+  <ion-dropdown [options]="options" [multiple]="multiple"> </ion-dropdown>
+</div>
