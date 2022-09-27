@@ -22,14 +22,6 @@ Run `ng build --project=ion` to build the project. The build artifacts will be s
 
 ## Install, Configure and Use Prettier
 
-Tips to install and configure Prettier in your local machine
-
-- Run `yarn add --dev --exact prettier` to install Prettier;
-- Create a empty file to let editors and other tools that you are using Prettier `echo {}> .prettierrc.json`;
-- Create a `.prettierignore` file to let Prettier CLI know which files to not format;
-- Run `yarn prettier --write .` to format all files with Prettier;
-- Run `npx prettier --check .` to make sure that everyone runs Prettier to avoid merge conflicts and other issues.
-
 Configure Prettier Extension by Vscode
 
 - Install Prettier - Code formatter extension;
