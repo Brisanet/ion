@@ -2,6 +2,7 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 const defaultName = 'button';
 
@@ -10,7 +11,7 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, DropdownComponent],
   });
   return screen.findByRole('button');
 };
@@ -144,5 +145,35 @@ describe('load ButtonComponent', () => {
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain(loadingMessage);
+  });
+
+  it('should render a dropdown when button is clicked "', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+
+    expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
+    expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
+      options.length
+    );
+  });
+
+  it('should close the dropdown when the button is clicked "', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+    fireEvent.click(button);
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeNull();
   });
 });
