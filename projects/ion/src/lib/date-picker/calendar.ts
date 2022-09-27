@@ -4,7 +4,6 @@ import { Month } from './month';
 
 const totalMonths = 12;
 const december = 11;
-// const january = 1;
 
 export class Calendar {
   today: Day;

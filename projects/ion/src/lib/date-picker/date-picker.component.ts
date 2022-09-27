@@ -27,6 +27,15 @@ interface Dates {
   endDate: DateField;
 }
 
+export interface IonDatePickerProps {
+  format?: string;
+  isCalendarVisibel?: boolean;
+  isDateRange?: boolean;
+  initialDate?: string;
+  lang?: string;
+  date?: EventEmitter<DateEmitter>;
+}
+
 const sunday = 1;
 const saturday = 7;
 @Component({
