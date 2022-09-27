@@ -13,9 +13,13 @@ export interface IonInputProps {
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
-  @Input() label!: string;
+  @Input() label?: string;
   @Input() disabled? = false;
   @Input() icon?: IconType;
   public iconLeft = false;
   public iconInvalid = false;
+
+  public onKey(evento: KeyboardEvent) {
+    this.label = (<HTMLInputElement>evento.target).value;
+  }
 }

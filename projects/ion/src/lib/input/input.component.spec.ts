@@ -1,5 +1,5 @@
 import { IonIconComponent } from './../icon/icon.component';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, fireEvent } from '@testing-library/angular';
 
 import { InputComponent, IonInputProps } from './input.component';
 
@@ -13,23 +13,11 @@ const sut = async (customProps?: IonInputProps) => {
 };
 
 describe(InputComponent, () => {
-  it('', async () => {
-    await sut({ label: 'input', icon: 'trash' });
-  });
-
-  it('should render input component with custom label', async () => {
+  it('It should allow letters to be inputted', async () => {
     await sut();
-    expect(screen.getByText('input')).toBeTruthy();
-  });
-
-  it.skip('should render input component disabled', async () => {
-    await sut({ disabled: true });
-    const element = screen.getByText('input');
-    expect(element).toHaveAttribute('disabled');
-  });
-
-  it.skip('should render icon trash when has options', async () => {
-    const icon = document.getElementById('');
-    expect(icon).toBeInTheDocument();
+    fireEvent.change(screen.getByTestId('inputElement'), {
+      target: { value: 'input' },
+    });
+    expect(screen.getByTestId('inputElement')).toHaveValue('input');
   });
 });

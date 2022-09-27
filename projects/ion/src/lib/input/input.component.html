@@ -1,11 +1,12 @@
-<span>{{ label }}</span>
 <div class="input" [class.disabled]="disabled" [class.danger]="danger">
   <ion-icon *ngIf="iconLeft" type="trash" style="padding-right: 8px"></ion-icon>
   <input
+    (keyup)="onKey($event)"
     type="text"
     class="my-input"
     placeholder="Placeholder"
     [disabled]="disabled"
+    data-testid="inputElement"
   />
   <ion-icon
     *ngIf="iconInvalid"
@@ -13,3 +14,4 @@
     style="padding-right: 8px"
   ></ion-icon>
 </div>
+<div></div>
