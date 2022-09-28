@@ -20,6 +20,15 @@ Run `ng generate component component-name --project=ion` to generate a new compo
 
 Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
+## Install, Configure and Use Prettier
+
+Configure Prettier Extension by Vscode
+
+- Install Prettier - Code formatter extension;
+- Go to `Settings(JSON)` ;
+- Set `"editor.formatOnSave"` true;
+- Set `"prettier.eslintIntegration"` true.
+
 ## Commit pattern
 
 Commits should follow the [convention](https://conventionalcommits.org/).
@@ -42,3 +51,4 @@ Example: `feat: add feature #issue_id`
 ## Deploy 🚀
 
 <a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>
+
