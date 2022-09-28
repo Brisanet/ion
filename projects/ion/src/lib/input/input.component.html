@@ -1,4 +1,4 @@
-<div class="input" [class.disabled]="disabled" [class.danger]="danger">
+<div class="input" [class.disabled]="disabled" [class.invalid]="invalid">
   <ion-icon *ngIf="iconLeft" type="trash" style="padding-right: 8px"></ion-icon>
   <input
     (keyup)="onKey($event)"
@@ -9,7 +9,7 @@
     data-testid="inputElement"
   />
   <ion-icon
-    *ngIf="iconInvalid"
+    *ngIf="iconRight"
     type="close"
     style="padding-right: 8px"
   ></ion-icon>

@@ -38,15 +38,15 @@ IconLeft.args = {
   iconLeft: false,
 };
 
-export const IconIvalid = Template.bind({});
-IconIvalid.args = {
+export const iconRight = Template.bind({});
+iconRight.args = {
   label: '',
   icon: 'close',
-  IconIvalid: false,
+  iconRight: false,
 };
 
-export const Danger = Template.bind({});
-Danger.args = {
+export const Invalid = Template.bind({});
+Invalid.args = {
   label: '',
-  danger: false,
+  invalid: false,
 };
