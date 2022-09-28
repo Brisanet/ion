@@ -52,4 +52,8 @@ export class TagComponent implements OnInit {
   ngOnInit(): void {
     this.validateLabel();
   }
+
+  ngOnChanges() {
+    this.validateLabel();
+  }
 }
