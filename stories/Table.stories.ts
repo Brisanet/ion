@@ -154,7 +154,7 @@ WithTagByRow.args = {
 export const WithPagination = Template.bind({});
 WithPagination.args = {
   config: {
-    data,
+    data: [...data, ...data, ...data, ...data],
     columns,
     pagination: {
       total: 46,
