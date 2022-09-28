@@ -5,7 +5,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
-  title: 'Input',
+  title: 'Ion/Data Entry/Input',
   component: InputComponent,
   decorators: [
     moduleMetadata({
