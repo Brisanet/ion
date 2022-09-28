@@ -29,7 +29,7 @@ interface Dates {
 
 export interface IonDatePickerProps {
   format?: string;
-  isCalendarVisibel?: boolean;
+  isCalendarVisible?: boolean;
   isDateRange?: boolean;
   initialDate?: string;
   lang?: string;
@@ -268,8 +268,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   dispatchActions(buttonDay: HTMLButtonElement, day: Day) {
-    if (!day) return;
-
     this.selectedDate = day;
     this.selectedDayElement = buttonDay;
     this.updateDateOnInput();
