@@ -2,6 +2,7 @@
 
 table {
   border-collapse: collapse;
+  position: relative;
   width: 100%;
 
   & .border-header {
@@ -35,8 +36,15 @@ table {
     }
   }
 
+  & tr:not(:first-child):hover {
+    background-color: $primary-2;
+  }
+
   & th {
+    background-color: rgb(255, 255, 255);
     padding: spacing(2);
+    position: sticky;
+    top: 0;
 
     & .th-span {
       font-size: 16px;
