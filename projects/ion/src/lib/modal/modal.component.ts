@@ -1,4 +1,11 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 
 @Component({
   selector: 'ion-modal',
@@ -7,14 +14,33 @@ import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 })
 export class ModalComponent {
   @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
-  @Input() canCloseOutModal = true;
+  @Input() backdropDismiss = true;
   @Input() title: string | undefined = 'Teste de titulo';
+  @Input() primaryButtonLabel = 'Confirmar';
+  @Input() secondaryButtonLabel = 'Cancelar';
+
+  @Output() onClose = new EventEmitter();
 
   public showModal = true;
 
-  closeModal() {
-    if (this.canCloseOutModal) {
-      this.showModal = !this.showModal;
+  outsideClick() {
+    if (this.backdropDismiss) {
+      this.closeModal();
     }
+  }
+
+  closeModal(emitValue?: unknown | undefined) {
+    this.showModal = false;
+    this.onClose.emit(emitValue);
+  }
+
+  secondaryButtonClicked() {
+    console.log('secondaryButtonClicked btn');
+    this.closeModal(false);
+  }
+
+  primaryButtonClicked() {
+    console.log('primaryButtonClicked btn');
+    this.closeModal(true);
   }
 }

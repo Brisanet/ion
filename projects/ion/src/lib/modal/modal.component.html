@@ -1,4 +1,4 @@
-<div *ngIf="showModal" (click)="closeModal()" class="modal-overlay">
+<div *ngIf="showModal" (click)="outsideClick()" class="modal-overlay">
   <dialog
     tabindex="0"
     (click)="$event.stopPropagation()"
@@ -8,7 +8,29 @@
   >
     <header tabindex="0">
       <h4>{{ title }}</h4>
-      icon here
+      <ion-icon
+        tabindex="0"
+        class="close-icon"
+        data-testid="close-icon"
+        type="close"
+        color="#0858CE"
+        (click)="closeModal()"
+        (keypress)="closeModal()"
+      ></ion-icon>
     </header>
+
+    <div tabindex="0" #modalBody class="modal-body">Body here</div>
+
+    <footer tabindex="0">
+      <ion-button
+        type="ghost"
+        [label]="secondaryButtonLabel"
+        (ionOnClick)="secondaryButtonClicked()"
+      ></ion-button>
+      <ion-button
+        [label]="primaryButtonLabel"
+        (ionOnClick)="primaryButtonClicked()"
+      ></ion-button>
+    </footer>
   </dialog>
 </div>
