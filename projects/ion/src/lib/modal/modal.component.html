@@ -1,0 +1,7 @@
+<div *ngIf="showModal" (click)="closeModal()" class="modal-overlay">
+  <dialog #modalContainer open class="modal-container">
+    <header [class.border]="title">
+      <h1>{{ title }}</h1>
+    </header>
+  </dialog>
+</div>
