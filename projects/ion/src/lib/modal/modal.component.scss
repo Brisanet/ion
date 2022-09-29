@@ -10,9 +10,12 @@
   justify-content: center;
   align-items: center;
 
+  font-family: 'Source Sans Pro';
+
   .modal-container {
+    border: none;
     padding: 0;
-    position: absolute;
+    position: relative;
     min-width: 503px;
     min-height: 444px;
     border-radius: 12px;
@@ -22,8 +25,23 @@
 
     header {
       min-height: 64px;
-      &.border {
-        border-bottom: 1px solid #e4e6eb;
+      padding: 20px 30px 16px 24px;
+      border-bottom: 1px solid #e4e6eb;
+      box-sizing: border-box;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h4 {
+        margin: 0;
+
+        font-family: 'Source Sans Pro';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 28px;
+        color: #505566;
       }
     }
   }

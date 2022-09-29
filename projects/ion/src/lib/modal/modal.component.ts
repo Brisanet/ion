@@ -8,8 +8,9 @@ import { Component, ViewChild, ElementRef, Input } from '@angular/core';
 export class ModalComponent {
   @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
   @Input() canCloseOutModal = true;
-  @Input() title: string | undefined = undefined;
-  showModal = true;
+  @Input() title: string | undefined = 'Teste de titulo';
+
+  public showModal = true;
 
   closeModal() {
     if (this.canCloseOutModal) {

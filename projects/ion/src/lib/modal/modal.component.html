@@ -1,7 +1,14 @@
 <div *ngIf="showModal" (click)="closeModal()" class="modal-overlay">
-  <dialog #modalContainer open class="modal-container">
-    <header [class.border]="title">
-      <h1>{{ title }}</h1>
+  <dialog
+    tabindex="0"
+    (click)="$event.stopPropagation()"
+    #modalContainer
+    open
+    class="modal-container"
+  >
+    <header tabindex="0">
+      <h4>{{ title }}</h4>
+      icon here
     </header>
   </dialog>
 </div>
