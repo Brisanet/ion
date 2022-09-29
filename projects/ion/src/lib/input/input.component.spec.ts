@@ -1,6 +1,5 @@
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
-
 import { InputComponent, IonInputProps } from './input.component';
 
 const sut = async (customProps?: IonInputProps) => {
@@ -13,7 +12,7 @@ const sut = async (customProps?: IonInputProps) => {
 };
 
 describe(InputComponent, () => {
-  it('It should allow letters to be inputted', async () => {
+  it('Should allow letters to be inputted', async () => {
     await sut();
     fireEvent.change(screen.getByTestId('inputElement'), {
       target: { value: 'input' },

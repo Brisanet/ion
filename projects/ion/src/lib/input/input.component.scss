@@ -99,9 +99,37 @@
     outline: 2px solid $negative-1;
   }
 
-  & ion-icon {
+  & .colorInvalid {
     ::ng-deep svg {
       fill: $negative-6;
+    }
+  }
+
+  &.disabled {
+    border-color: $neutral-4;
+
+    &:active {
+      border-color: $neutral-4;
+      outline: none;
+    }
+  }
+}
+
+.valid {
+  border: 1px solid $neutral-5;
+
+  &:hover {
+    border-color: $neutral-5;
+  }
+
+  &:focus-within {
+    border-color: $neutral-5;
+    outline: none;
+  }
+
+  & .colorValid {
+    ::ng-deep svg {
+      fill: $positive-6;
     }
   }
 

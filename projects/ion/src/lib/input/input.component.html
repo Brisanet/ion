@@ -1,7 +1,12 @@
-<div class="input" [class.disabled]="disabled" [class.invalid]="invalid">
+<div
+  data-testid="inputDiv"
+  class="input"
+  [class.disabled]="disabled"
+  [class.invalid]="invalid"
+  [class.valid]="valid"
+>
   <ion-icon *ngIf="iconLeft" type="trash" style="padding-right: 8px"></ion-icon>
   <input
-    (keyup)="onKey($event)"
     type="text"
     class="my-input"
     placeholder="Placeholder"
@@ -10,7 +15,19 @@
   />
   <ion-icon
     *ngIf="iconRight"
+    type="trash"
+    style="padding-right: 8px"
+  ></ion-icon>
+  <ion-icon
+    class="colorInvalid"
+    *ngIf="invalid"
     type="close"
+    style="padding-right: 8px"
+  ></ion-icon>
+  <ion-icon
+    class="colorValid"
+    *ngIf="valid"
+    type="check"
     style="padding-right: 8px"
   ></ion-icon>
 </div>

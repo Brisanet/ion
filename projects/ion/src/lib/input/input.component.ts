@@ -16,10 +16,4 @@ export class InputComponent {
   @Input() label?: string;
   @Input() disabled? = false;
   @Input() icon?: IconType;
-  public iconLeft = false;
-  public iconRight = false;
-
-  public onKey(evento: KeyboardEvent) {
-    this.label = (<HTMLInputElement>evento.target).value;
-  }
 }

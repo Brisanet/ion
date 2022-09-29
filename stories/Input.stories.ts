@@ -45,8 +45,14 @@ iconRight.args = {
   iconRight: false,
 };
 
-export const Invalid = Template.bind({});
-Invalid.args = {
+export const iconInvalid = Template.bind({});
+iconInvalid.args = {
   label: '',
   invalid: false,
+};
+
+export const iconValid = Template.bind({});
+iconValid.args = {
+  label: '',
+  valid: false,
 };
