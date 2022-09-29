@@ -40,7 +40,7 @@ export class TagComponent implements OnInit {
   }
 
   hasLabel() {
-    return !this.label || this.label.trim() === '';
+    return !this.label || String(this.label).trim() === '';
   }
 
   validateLabel() {

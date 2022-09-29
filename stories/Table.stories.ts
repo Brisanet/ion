@@ -42,6 +42,27 @@ const data = [
     year: 2007,
     icon: 'union',
   },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+    icon: 'union',
+  },
+  {
+    id: 5,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+    icon: 'union',
+  },
+  {
+    id: 6,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+    icon: 'union',
+  },
 ];
 
 const columns = [
