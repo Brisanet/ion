@@ -176,4 +176,36 @@ describe('load ButtonComponent', () => {
 
     expect(screen.queryByTestId('ion-dropdown')).toBeNull();
   });
+
+  it('should change label when an  option is selected', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+    fireEvent.click(await screen.findByText(options[0].label));
+
+    expect(button).toHaveTextContent(options[0].label);
+  });
+
+  it('should emit an event when option is selected', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+    const clickEvent = jest.fn();
+
+    const button = await sut({
+      label: defaultName,
+      options,
+      selected: {
+        emit: clickEvent,
+      } as any,
+    });
+
+    fireEvent.click(button);
+    fireEvent.click(await screen.findByText(options[0].label));
+
+    expect(clickEvent).toHaveBeenCalled();
+  });
 });
