@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+.ion-table-wrapper {
+  max-height: 584px;
+  overflow-y: auto;
+  border-radius: 8px;
+}
+
 table {
   border-collapse: collapse;
   position: relative;
@@ -114,6 +120,9 @@ table {
   display: flex;
   justify-content: space-between;
   padding: 16px;
+
+  position: sticky;
+  bottom: 0;
 
   background: rgba(255, 255, 255, 0.45);
   border-top: 1px solid $neutral-4;
