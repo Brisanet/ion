@@ -54,6 +54,7 @@ button {
   color: $neutral-1;
   cursor: pointer;
   transition: all 300ms;
+  margin-bottom: 4px;
 
   &:focus-visible {
     outline: none;
