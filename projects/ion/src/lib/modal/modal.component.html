@@ -15,7 +15,8 @@
         type="close"
         color="#0858CE"
         (click)="closeModal()"
-        (keypress)="closeModal()"
+        (keydown.space)="closeModal()"
+        (keydown.enter)="closeModal()"
       ></ion-icon>
     </header>
 

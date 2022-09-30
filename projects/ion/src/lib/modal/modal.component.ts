@@ -1,10 +1,10 @@
 import {
   Component,
-  ViewChild,
   ElementRef,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
+  ViewChild,
 } from '@angular/core';
 
 @Component({
@@ -15,11 +15,11 @@ import {
 export class ModalComponent {
   @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
   @Input() backdropDismiss = true;
-  @Input() title: string | undefined = 'Teste de titulo';
-  @Input() primaryButtonLabel = 'Confirmar';
-  @Input() secondaryButtonLabel = 'Cancelar';
+  @Input() title: string | undefined = 'Title Test';
+  @Input() primaryButtonLabel = 'Confirm';
+  @Input() secondaryButtonLabel = 'Cancel';
 
-  @Output() onClose = new EventEmitter();
+  @Output() onClose = new EventEmitter<unknown | undefined>();
 
   public showModal = true;
 
