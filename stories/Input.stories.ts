@@ -28,31 +28,31 @@ Basic.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   label: '',
-  disabled: false,
+  disabled: true,
 };
 
 export const IconLeft = Template.bind({});
 IconLeft.args = {
   label: '',
   icon: 'trash',
-  iconLeft: false,
+  iconLeft: true,
 };
 
 export const iconRight = Template.bind({});
 iconRight.args = {
   label: '',
   icon: 'close',
-  iconRight: false,
+  iconRight: true,
 };
 
 export const iconInvalid = Template.bind({});
 iconInvalid.args = {
   label: '',
-  invalid: false,
+  invalid: true,
 };
 
 export const iconValid = Template.bind({});
 iconValid.args = {
   label: '',
-  valid: false,
+  valid: true,
 };

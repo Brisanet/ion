@@ -5,7 +5,12 @@
   [class.invalid]="invalid"
   [class.valid]="valid"
 >
-  <ion-icon *ngIf="iconLeft" type="trash" style="padding-right: 8px"></ion-icon>
+  <ion-icon
+    data-testid="icon-left"
+    *ngIf="iconLeft"
+    type="trash"
+    style="padding-right: 8px"
+  ></ion-icon>
   <input
     type="text"
     class="my-input"
@@ -14,21 +19,26 @@
     data-testid="inputElement"
   />
   <ion-icon
+    data-testid="icon-right"
     *ngIf="iconRight"
     type="trash"
     style="padding-right: 8px"
   ></ion-icon>
   <ion-icon
+    data-testid="icon-invalid"
     class="colorInvalid"
     *ngIf="invalid"
     type="close"
     style="padding-right: 8px"
-  ></ion-icon>
+  >
+  </ion-icon>
   <ion-icon
+    data-testid="icon-valid"
     class="colorValid"
     *ngIf="valid"
     type="check"
     style="padding-right: 8px"
-  ></ion-icon>
+  >
+  </ion-icon>
 </div>
 <div></div>

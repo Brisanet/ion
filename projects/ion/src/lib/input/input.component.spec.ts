@@ -19,4 +19,26 @@ describe(InputComponent, () => {
     });
     expect(screen.getByTestId('inputElement')).toHaveValue('input');
   });
+
+  it('should render input component disabled', async () => {
+    await sut({ disabled: true });
+    const element = screen.getByTestId('inputDiv');
+    expect(element).toHaveClass('disabled');
+  });
+
+  it('should render input icon left', async () => {
+    expect(document.getElementById('icon-left')).toBeTruthy;
+  });
+
+  it('should render input icon right', async () => {
+    expect(document.getElementById('icon-right')).toBeTruthy;
+  });
+
+  it('should render input icon invalid', async () => {
+    expect(document.getElementById('icon-right')).toBeTruthy;
+  });
+
+  it('should render input icon valid', async () => {
+    expect(document.getElementById('icon-valid')).toBeTruthy;
+  });
 });
