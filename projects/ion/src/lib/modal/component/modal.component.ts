@@ -19,7 +19,7 @@ export class ModalComponent {
   @Input() primaryButtonLabel = 'Confirm';
   @Input() secondaryButtonLabel = 'Cancel';
 
-  @Output() onClose = new EventEmitter<unknown | undefined>();
+  @Output() ionOnClose = new EventEmitter<unknown | undefined>();
 
   public showModal = true;
 
@@ -30,8 +30,7 @@ export class ModalComponent {
   }
 
   closeModal(emitValue?: unknown | undefined) {
-    this.showModal = false;
-    this.onClose.emit(emitValue);
+    this.ionOnClose.emit(emitValue);
   }
 
   secondaryButtonClicked() {
