@@ -363,10 +363,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     el.classList.add(className);
   }
 
-  removeClassElement(el: HTMLElement, className) {
-    el.classList.remove(className);
-  }
-
   isSelectedDate(date) {
     return (
       date.date === this.selectedDate.date &&
@@ -491,13 +487,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   nextYear() {
     this.calendar.goToNextYear(this.calendar.month.number - 1);
     this.renderCalendarDays();
-  }
-
-  isCurrentCalendarMonth() {
-    return (
-      this.calendar.month.number === this.selectedDate.monthNumber &&
-      this.calendar.year === this.selectedDate.year
-    );
   }
 
   getWeekDaysElementStrings() {

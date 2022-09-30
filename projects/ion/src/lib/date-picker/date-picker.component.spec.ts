@@ -11,8 +11,6 @@ import { BadgeComponent } from '../badge/badge.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonDividerComponent } from '../divider/divider.component';
 
-const datePicker = new DatePickerComponent();
-
 const sut = async (
   customProps: IonDatePickerProps = {}
 ): Promise<HTMLElement> => {
@@ -36,7 +34,7 @@ describe('DatePickerComponent', () => {
     expect(calendar).toBeTruthy();
   });
 
-  it('deve configurar o calendário para a data 01-01-2022', async () => {
+  it('should check if the calendar is set to 2022-01-01', async () => {
     const calendar2 = await sut({ initialDate: '2022-01-01' });
     fireEvent.click(calendar2);
     expect(document.getElementById('calendar-dropdown'));
@@ -48,22 +46,13 @@ describe('DatePickerComponent', () => {
     );
   });
 
-  it('deve ter o método dispatchActions', async () => {
-    const datePicker = await sut({ initialDate: '2015-02-01' });
-    const inputDate = document.getElementById('input-date');
-    fireEvent.click(inputDate);
-    const buttonDay = document.getElementsByClassName('month-day')[9];
-    fireEvent.click(buttonDay);
-    expect((inputDate as HTMLInputElement).value).toContain('2015-02-10');
-  });
-
-  it('deve retornar 28 dias', async () => {
+  it('should check if the calendar renders 28 days for the month of February 2015 has 28 days', async () => {
     const datePicker = await sut({ initialDate: '2015-02-01' });
     const buttonsDay = document.getElementsByClassName('month-day');
     expect(buttonsDay.length).toBe(28);
   });
 
-  it('deve verificar se a classe sunday foi aplicado quando a duas datas estão selecionadas e o dia não é a data de fim', async () => {
+  it('must check if the sunday class has been applied', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-09-01',
@@ -77,7 +66,7 @@ describe('DatePickerComponent', () => {
     expect(buttonDay).toHaveClass('sunday');
   });
 
-  it('deve verificar se a classe saturday foi aplicado quando a duas datas estão selecionadas e o dia não é a data de fim', async () => {
+  it('must check if the saturday class has been applied', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-09-01',
@@ -90,10 +79,8 @@ describe('DatePickerComponent', () => {
     const buttonDay = document.getElementsByClassName('saturday')[0];
     expect(buttonDay).toHaveClass('saturday');
   });
-});
 
-describe('Teste de botões do date-picker', () => {
-  it('deve exibir o agosto-2021 ao clicar no botão de ano anterior', async () => {
+  it('should display August-2021 when clicking previous year button', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-08-01',
@@ -107,7 +94,7 @@ describe('Teste de botões do date-picker', () => {
     );
   });
 
-  it('deve exibir o agosto-2022 ao clicar no botão de mês anterior', async () => {
+  it('should display August-2022 when clicking previous month button', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-09-01',
@@ -121,7 +108,7 @@ describe('Teste de botões do date-picker', () => {
     );
   });
 
-  it('deve exibir o setembro-2022 ao clicar no botão de próximo mês', async () => {
+  it('should display September-2022 when clicking next month button', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-08-01',
@@ -135,7 +122,7 @@ describe('Teste de botões do date-picker', () => {
     );
   });
 
-  it('deve exibir o agosto-2023 ao clicar no botão de próximo ano ', async () => {
+  it('should display August-2023 when clicking next year button', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-08-01',
@@ -148,10 +135,8 @@ describe('Teste de botões do date-picker', () => {
       'August - 2023'
     );
   });
-});
 
-describe('Teste de datas do date-picker', () => {
-  it('data de inicio maior que a data de fim', async () => {
+  it('should clear start input when start date is greater than end date', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-08-01',
@@ -169,7 +154,7 @@ describe('Teste de datas do date-picker', () => {
     expect((inputStartDate as HTMLInputElement).value).toContain('');
   });
 
-  it('data de fim maior que a data de inicio', async () => {
+  it('should clear the final input when the end date is less than the start date', async () => {
     const datePicker = await sut({
       isDateRange: true,
       initialDate: '2022-08-01',
@@ -186,10 +171,8 @@ describe('Teste de datas do date-picker', () => {
     fireEvent.click(buttonsDay[1]);
     expect((inputEndDate as HTMLInputElement).value).toContain('');
   });
-});
 
-describe('visibilidade do date-picker', () => {
-  it('deve rendezirar o calendário quando a isDateRange for true', async () => {
+  it('should show the calendar when isCalendarVisible attribute is true', async () => {
     const datePicker = await sut({
       isCalendarVisible: true,
       isDateRange: true,
@@ -199,10 +182,8 @@ describe('visibilidade do date-picker', () => {
     const inputStartDate = document.getElementById('input-start-date');
     expect(inputStartDate).toHaveFocus();
   });
-});
 
-describe('focus do date-picker', () => {
-  it('deve abir o calendário com o focus no primeiro campo ', async () => {
+  it('should set focus on input when opening calendar', async () => {
     const datePicker = await sut({
       isCalendarVisible: true,
     });
@@ -212,7 +193,7 @@ describe('focus do date-picker', () => {
     expect(inputDate).toHaveFocus();
   });
 
-  it('deve abir o calendário com o focus no primeiro campo ', async () => {
+  it('should set focus on first input when opening calendar in range mode', async () => {
     const datePicker = await sut({
       isCalendarVisible: true,
       isDateRange: true,
@@ -221,5 +202,142 @@ describe('focus do date-picker', () => {
     expect(calendarContainer).toHaveStyle({ display: 'block' });
     const inputStartDate = document.getElementById('input-start-date');
     expect(inputStartDate).toHaveFocus();
+  });
+
+  it('should show close icon when hovering over input when there is a date', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputEndDate);
+
+    const buttonsDay = document.getElementsByClassName('month-day');
+    fireEvent.click(buttonsDay[8]);
+    fireEvent.click(buttonsDay[5]);
+    fireEvent.mouseOver(inputEndDate);
+    expect(document.getElementById('icon')).toHaveAttribute('type', 'close');
+  });
+
+  it('should clear the dates in the inputs by clicking the close icon', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputStartDate = document.getElementById('input-end-date');
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputEndDate);
+
+    const buttonsDay = document.getElementsByClassName('month-day');
+    fireEvent.click(buttonsDay[8]);
+    fireEvent.click(buttonsDay[5]);
+    const icon = document.getElementsByClassName('icons')[0];
+    fireEvent.mouseOver(inputEndDate);
+    fireEvent.click(icon);
+    expect((inputStartDate as HTMLInputElement).value).toContain('');
+    expect((inputEndDate as HTMLInputElement).value).toContain('');
+  });
+
+  it('shpuld select a date range of 7 days when clicking on the 7 day chip', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputStartDate = document.getElementById('input-start-date');
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputStartDate);
+
+    const chipSevenDays = screen.findByRole('button', { name: '7 dias' });
+    fireEvent.click(await chipSevenDays);
+
+    expect((inputStartDate as HTMLInputElement).value).toContain('2022-08-01');
+    expect((inputEndDate as HTMLInputElement).value).toContain('2022-08-07');
+  });
+
+  it('should clear date entries when double click on same chip', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputStartDate = document.getElementById('input-start-date');
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputStartDate);
+
+    const chipSevenDays = screen.findByRole('button', { name: '7 dias' });
+    fireEvent.click(await chipSevenDays);
+
+    expect((inputStartDate as HTMLInputElement).value).toContain('2022-08-01');
+    expect((inputEndDate as HTMLInputElement).value).toContain('2022-08-07');
+
+    fireEvent.click(await chipSevenDays);
+
+    expect((inputStartDate as HTMLInputElement).value).toContain('');
+    expect((inputEndDate as HTMLInputElement).value).toContain('');
+  });
+
+  it('shpuld select a date range of 15 days when clicking on the 15 day chip', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputStartDate = document.getElementById('input-start-date');
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputStartDate);
+
+    const chipFifteenDays = screen.findByRole('button', { name: '15 dias' });
+    fireEvent.click(await chipFifteenDays);
+
+    expect((inputStartDate as HTMLInputElement).value).toContain('2022-08-01');
+    expect((inputEndDate as HTMLInputElement).value).toContain('2022-08-15');
+  });
+
+  it('shpuld select a date range of 21 days when clicking on the 21 day chip', async () => {
+    const datePicker = await sut({
+      isDateRange: true,
+      initialDate: '2022-08-01',
+    });
+    const inputStartDate = document.getElementById('input-start-date');
+    const inputEndDate = document.getElementById('input-end-date');
+    fireEvent.click(inputStartDate);
+
+    const chipTwentyOneDays = screen.findByRole('button', { name: '21 dias' });
+    fireEvent.click(await chipTwentyOneDays);
+
+    expect((inputStartDate as HTMLInputElement).value).toContain('2022-08-01');
+    expect((inputEndDate as HTMLInputElement).value).toContain('2022-08-21');
+  });
+
+  it('should emit an event when selecting a date', async () => {
+    const clickEvent = jest.fn();
+    const datePicker = await sut({
+      initialDate: '2022-08-01',
+      date: { clickEvent } as any,
+    });
+
+    const inputDate = document.getElementById('input-date');
+    fireEvent.click(inputDate);
+    const buttonDay = document.getElementsByClassName('month-day')[0];
+    fireEvent.click(buttonDay);
+    expect(clickEvent).not.toHaveBeenCalled();
+  });
+
+  it('should emit an event when clicking the ready button', async () => {
+    const clickEvent = jest.fn();
+    const datePicker = await sut({
+      initialDate: '2022-08-01',
+      isDateRange: true,
+      date: { clickEvent } as any,
+    });
+
+    const inputStartDate = document.getElementById('input-start-date');
+    fireEvent.click(inputStartDate);
+    const buttonsDay = document.getElementsByClassName('month-day');
+    fireEvent.click(buttonsDay[0]);
+    fireEvent.click(buttonsDay[5]);
+
+    const buttonConfirm = screen.getByRole('button', { name: 'Pronto' });
+    expect(buttonConfirm.getAttribute('disabled')).toContain('');
+    fireEvent.click(buttonConfirm);
+    expect(clickEvent).not.toHaveBeenCalled();
   });
 });
