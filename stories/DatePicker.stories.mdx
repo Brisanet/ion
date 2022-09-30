@@ -1,0 +1,67 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+
+import { DatePickerComponent } from '../projects/ion/src/lib/date-picker/date-picker.component';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
+import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
+import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
+
+<Meta
+  title="Ion/Data Entry/Date-picker: default"
+  component={DatePickerComponent}
+/>
+
+# Date-picker
+
+Componente que permite que o usuário selecione uma data ou um intervalo em uma calendário. O Date-picker oferece algumas opções:
+
+## isCalendarVisible
+
+Define se quando o componente exibirá o calendário ao ser renderizado na tela. Quando configurado para `true`
+o componente exibirá o calendário.
+
+## isDateRange
+
+Define se o componente poderá selecionar um data ou um intervalo de datas. Quando configurado para `true`
+o componente se comportará para selecionar um intervalo de datas.
+
+## initialDate
+
+Define em qual data o calendário deve inicializar. Por padrão o calendário inicializará com a data atual.
+Caso queira configurar uma data de inicialização, deve ser da seguinte forma: ano-mês-dia `[initialDate]: '2022-12-01'`.
+
+## lang
+
+Confiura a linguagem do calendário. Por padrão é configurado com a linguagem do navegador.
+
+## date
+
+Emite o evento ao selecionar uma data ou quando clicar no botão 'Pronto' no modo range. No modo padrão, o retorno será
+um objeto `{date: '2022-08-09'}` e no modo range será `{startDate: '2022-08-01', endDate: '2022-08-08'}`.
+
+<Canvas>
+  <Story
+    name="date-picker"
+    decorators={[
+      moduleMetadata({
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          ChipComponent,
+          BadgeComponent,
+          DropdownComponent,
+          IonDividerComponent,
+        ],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-date-picker></ion-date-picker>`,
+    }}
+  </Story>
+</Canvas>

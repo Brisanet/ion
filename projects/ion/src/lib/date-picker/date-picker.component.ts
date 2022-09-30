@@ -28,7 +28,6 @@ interface Dates {
 }
 
 export interface IonDatePickerProps {
-  format?: string;
   isCalendarVisible?: boolean;
   isDateRange?: boolean;
   initialDate?: string;
@@ -39,12 +38,11 @@ export interface IonDatePickerProps {
 const sunday = 1;
 const saturday = 7;
 @Component({
-  selector: 'date-picker',
+  selector: 'ion-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatePickerComponent implements OnInit, AfterViewInit {
-  @Input() format: string;
   @Input() isCalendarVisible = false;
   @Input() isDateRange = false;
   @Input() initialDate: string;
@@ -219,10 +217,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   setAriaLabelButtonDay = (buttonDay: HTMLButtonElement, day: Day) =>
-    buttonDay.setAttribute(
-      'aria-label',
-      day.format(this.format || 'YYYY-MM-DD')
-    );
+    buttonDay.setAttribute('aria-label', day.format('YYYY-MM-DD'));
 
   isDayCurrentMonth = (day: Day) =>
     day.monthNumber === this.calendar.month.number;
@@ -313,9 +308,8 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setCurrentDate() {
     this.dates[this.currentFieldDate].date = this.selectedDate;
-    this.dates[this.currentFieldDate].dateLabel = this.selectedDate.format(
-      this.format || 'YYYY-MM-DD'
-    );
+    this.dates[this.currentFieldDate].dateLabel =
+      this.selectedDate.format('YYYY-MM-DD');
   }
 
   clearCurrentDate() {

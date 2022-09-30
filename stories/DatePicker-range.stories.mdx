@@ -1,0 +1,41 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+
+import { DatePickerComponent } from '../projects/ion/src/lib/date-picker/date-picker.component';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
+import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
+import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
+
+<Meta
+  title="Ion/Data Entry/Date-picker: range"
+  component={DatePickerComponent}
+/>
+
+# Date-picker
+
+<Canvas>
+  <Story
+    name="date-picker: range"
+    decorators={[
+      moduleMetadata({
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          ChipComponent,
+          BadgeComponent,
+          DropdownComponent,
+          IonDividerComponent,
+        ],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-date-picker [isDateRange]="true"></ion-date-picker>`,
+    }}
+  </Story>
+</Canvas>
