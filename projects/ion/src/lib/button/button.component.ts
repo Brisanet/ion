@@ -1,3 +1,4 @@
+import { BadgeProps } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IconType } from '../icon/icon.component';
@@ -5,6 +6,7 @@ import { SafeAny } from '../utils/safe-any';
 
 type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
+
 export interface IonButtonProps {
   label?: string;
   type?: Type;
@@ -23,6 +25,9 @@ export interface IonButtonProps {
   selected?: EventEmitter<SafeAny>;
   ionOnClick?: EventEmitter<SafeAny>;
 }
+
+type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
+
 @Component({
   selector: 'ion-button',
   templateUrl: './button.component.html',
@@ -46,7 +51,16 @@ export class ButtonComponent {
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter();
 
+  public buttonBadge?: ButtonBadgeTypes = {
+    type: 'secondary',
+    value: 0,
+  };
+
   private defaultLabel?: string = this.label;
+
+  updateBadgeValue(items: DropdownItem[]) {
+    this.buttonBadge.value = items.length;
+  }
 
   handleClick() {
     if (!this.loading && !this.disabled) {
@@ -56,18 +70,22 @@ export class ButtonComponent {
     }
   }
 
-  handleSelect(items: DropdownItem[]) {
-    this.selected.emit(items);
+  handleSelect(selecteds: DropdownItem[]) {
+    this.selected.emit(selecteds);
 
-    if (!this.multiple) {
-      if (items.length === 0) {
-        this.label = this.defaultLabel;
+    if (this.multiple) {
+      this.updateBadgeValue(selecteds);
 
-        return;
-      }
-
-      const [item] = items;
-      this.label = item.label;
+      return;
     }
+
+    if (selecteds.length === 0) {
+      this.label = this.defaultLabel;
+
+      return;
+    }
+
+    const [item] = selecteds;
+    this.label = item.label;
   }
 }

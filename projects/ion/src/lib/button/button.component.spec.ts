@@ -3,6 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BadgeComponent } from './../badge/badge.component';
 
 const defaultName = 'button';
 
@@ -11,7 +12,7 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent, DropdownComponent],
+    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
   });
   return screen.findByRole('button');
 };
@@ -146,7 +147,9 @@ describe('load ButtonComponent', () => {
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain(loadingMessage);
   });
+});
 
+describe('ButtonComponent with badge', () => {
   it('should render a dropdown when button is clicked "', async () => {
     const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 
@@ -177,7 +180,7 @@ describe('load ButtonComponent', () => {
     expect(screen.queryByTestId('ion-dropdown')).toBeNull();
   });
 
-  it('should change label when an  option is selected', async () => {
+  it('should change label when an option is selected', async () => {
     const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 
     const button = await sut({
@@ -207,5 +210,38 @@ describe('load ButtonComponent', () => {
     fireEvent.click(await screen.findByText(options[0].label));
 
     expect(clickEvent).toHaveBeenCalled();
+  });
+
+  it('should render an ion-badge when multiple is true', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    await sut({
+      label: defaultName,
+      multiple: true,
+      options,
+    });
+
+    expect(screen.getByTestId('badge-multiple')).toBeInTheDocument();
+    expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
+  });
+
+  it('should update the badge value when selecting an option', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      multiple: true,
+      options,
+    });
+
+    fireEvent.click(button);
+
+    options.forEach(async (option) => {
+      fireEvent.click(await screen.findByText(option.label));
+    });
+
+    expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
+      String(options.length)
+    );
   });
 });
