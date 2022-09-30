@@ -25,5 +25,10 @@
   }}</span>
 </button>
 <div *ngIf="!!options && showDropdown">
-  <ion-dropdown [options]="options" [multiple]="multiple"> </ion-dropdown>
+  <ion-dropdown
+    [options]="options"
+    [multiple]="multiple"
+    (selected)="handleSelect($event)"
+  >
+  </ion-dropdown>
 </div>

@@ -20,6 +20,7 @@ export interface IonButtonProps {
   options?: DropdownItem[];
   showDropdown?: boolean;
   circularButton?: boolean;
+  selected?: EventEmitter<SafeAny>;
   ionOnClick?: EventEmitter<SafeAny>;
 }
 @Component({
@@ -43,12 +44,30 @@ export class ButtonComponent {
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
   @Output() ionOnClick? = new EventEmitter();
+  @Output() selected = new EventEmitter();
+
+  private defaultLabel?: string = this.label;
 
   handleClick() {
     if (!this.loading && !this.disabled) {
       this.showDropdown = !this.showDropdown;
 
       this.ionOnClick.emit();
+    }
+  }
+
+  handleSelect(items: DropdownItem[]) {
+    this.selected.emit(items);
+
+    if (!this.multiple) {
+      if (items.length === 0) {
+        this.label = this.defaultLabel;
+
+        return;
+      }
+
+      const [item] = items;
+      this.label = item.label;
     }
   }
 }
