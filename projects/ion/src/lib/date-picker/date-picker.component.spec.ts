@@ -32,7 +32,7 @@ const dtp = async (params: IonDatePickerProps) => await sut({ ...params });
 
 describe('DatePickerComponent', () => {
   it('should check if the calendar is set to 2015-02-01', async () => {
-    const datePicker = await sut({
+    const datePicker = await dtp({
       initialDate: '2015-02-01',
       isDateRange: true,
     });
@@ -66,7 +66,7 @@ describe('DatePickerComponent', () => {
   });
 
   it('should render month and year correctly when clicking control buttons', async () => {
-    const datePicker = await sut({
+    const datePicker = await dtp({
       initialDate: '2015-02-01',
       isDateRange: true,
     });
@@ -87,18 +87,16 @@ describe('DatePickerComponent', () => {
   });
 
   it('should clear start input when start date is greater than end date', async () => {
-    const datePicker = await sut({
+    const datePicker = await dtp({
       isDateRange: true,
       initialDate: '2022-08-01',
     });
     fireEvent.click(datePicker);
     const inputStartDate = document.getElementById('input-start-date');
     fireEvent.click(inputStartDate);
-
     const buttonsDay = document.getElementsByClassName('month-day');
     fireEvent.click(buttonsDay[8]);
     fireEvent.click(buttonsDay[10]);
-
     expect((inputStartDate as HTMLInputElement).value).toContain('2022-08-08');
     fireEvent.click(inputStartDate);
     fireEvent.click(buttonsDay[15]);
@@ -106,17 +104,12 @@ describe('DatePickerComponent', () => {
   });
 
   it('should clear the final input when the end date is less than the start date', async () => {
-    const datePicker = await sut({
-      isDateRange: true,
-      initialDate: '2022-08-01',
-    });
+    await dtp({ isDateRange: true, initialDate: '2022-08-01' });
     const inputEndDate = document.getElementById('input-end-date');
     const buttonsDay = document.getElementsByClassName('month-day');
     fireEvent.click(inputEndDate);
-
     fireEvent.click(buttonsDay[8]);
     fireEvent.click(buttonsDay[5]);
-
     fireEvent.click(inputEndDate);
     expect((inputEndDate as HTMLInputElement).value).toContain('2022-08-08');
     fireEvent.click(buttonsDay[1]);
