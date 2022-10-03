@@ -7,7 +7,7 @@
     class="modal-container"
   >
     <header tabindex="0">
-      <h4>{{ title }}</h4>
+      <h4>{{ config.title }}</h4>
       <ion-icon
         tabindex="0"
         class="close-icon"
@@ -20,9 +20,9 @@
       ></ion-icon>
     </header>
 
-    <div tabindex="0" #modalBody class="modal-body">Body here</div>
+    <div tabindex="0" #modalBody class="modal-body">Modal Body</div>
 
-    <footer tabindex="0">
+    <footer [class.divider]="config.footer.showDivider" tabindex="0">
       <ion-button
         type="ghost"
         [label]="secondaryButtonLabel"
@@ -30,6 +30,7 @@
       ></ion-button>
       <ion-button
         [label]="primaryButtonLabel"
+        [iconType]="config.footer.primaryButton.iconType"
         (ionOnClick)="primaryButtonClicked()"
       ></ion-button>
     </footer>

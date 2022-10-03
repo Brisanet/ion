@@ -6,6 +6,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
+import { IonModalProps } from '../classes/modal.interface';
 
 @Component({
   selector: 'ion-modal',
@@ -15,11 +16,11 @@ import {
 export class ModalComponent {
   @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
   @Input() backdropDismiss = true;
-  @Input() title: string | undefined = 'Title Test';
   @Input() primaryButtonLabel = 'Confirm';
   @Input() secondaryButtonLabel = 'Cancel';
-
-  @Output() ionOnClose = new EventEmitter<unknown | undefined>();
+  @Input() config: IonModalProps;
+  @Output()
+  ionOnClose = new EventEmitter<unknown | undefined>();
 
   public showModal = true;
 
