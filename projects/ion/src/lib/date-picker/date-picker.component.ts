@@ -199,8 +199,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.addClassElement(buttonDay, 'first-range');
+    !this.isDatesSame() && this.addClassElement(buttonDay, 'first-range');
   }
+
+  isDatesSame = () =>
+    this.dates.startDate.date &&
+    this.dates.endDate.date &&
+    this.dates.startDate.date.timestamp === this.dates.endDate.date.timestamp;
 
   setEndDateStyle(day: Day, buttonDay: HTMLButtonElement) {
     this.addClassElement(buttonDay, 'selected-end-date');
@@ -210,7 +215,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.addClassElement(buttonDay, 'end-range');
+    !this.isDatesSame() && this.addClassElement(buttonDay, 'end-range');
   }
 
   hasSelectedDates = () =>
@@ -285,23 +290,20 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   updateDateOnInput() {
-    if (this.isDateRange) {
-      if (this.currentFieldDate === 'startDate' && !this.isValidStartDate()) {
-        this.clearCurrentDate();
-        this.isDisabledConfirmButton = true;
-        return;
-      }
-
-      if (this.currentFieldDate === 'endDate' && !this.isValidEndDate()) {
-        this.clearCurrentDate();
-        this.isDisabledConfirmButton = true;
-        return;
-      }
+    if (this.isDateRange && !this.isDateValid()) {
+      this.clearCurrentDate();
+      this.isDisabledConfirmButton = true;
+      return;
     }
 
     this.setCurrentDate();
     this.setFocusWhenUpdatingADate();
   }
+
+  isDateValid = () =>
+    this.currentFieldDate === 'startDate'
+      ? this.isValidStartDate()
+      : this.isValidEndDate();
 
   isValidStartDate = () =>
     !this.dates.endDate.date ||
