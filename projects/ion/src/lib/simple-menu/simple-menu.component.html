@@ -1,0 +1,41 @@
+<ion-icon
+  class="menu-icon"
+  type="sandwich"
+  size="40"
+  color="blue"
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+  data-testid="icon-sandwich"
+>
+</ion-icon>
+
+<div
+  class="menu-container"
+  [class.menu-container-opened]="open"
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+  data-testid="ion-simple-menu"
+>
+  <ion-tab-group
+    size="md"
+    [tabs]="options"
+    border="left"
+    direction="vertical"
+    (selected)="changeTab($event)"
+  ></ion-tab-group>
+
+  <div class="menu-footer">
+    <div>
+      <ion-avatar type="photo" [image]="profile.imageUrl" size="md">
+      </ion-avatar>
+      <span>{{ profile.name }}</span>
+    </div>
+    <ion-button
+      label="Sair"
+      type="ghost"
+      iconType="out"
+      rightSideIcon="true"
+      (ionOnClick)="logout()"
+    ></ion-button>
+  </div>
+</div>
