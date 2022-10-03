@@ -10,7 +10,6 @@ import { ChipComponent } from '../chip/chip.component';
 import { BadgeComponent } from '../badge/badge.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { calendar } from '../icon/svgs/iconsText';
 
 const sut = async (
   customProps: IonDatePickerProps = {}

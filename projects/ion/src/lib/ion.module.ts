@@ -22,6 +22,7 @@ import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
+import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 
 @NgModule({
@@ -49,6 +50,7 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
     CheckboxComponent,
     CardIonComponent,
     DatePickerComponent,
+    InfoBadgeComponent,
     SimpleMenuComponent,
   ],
   imports: [CommonModule],
@@ -75,6 +77,7 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
     CardIonComponent,
     DatePickerComponent,
     SimpleMenuComponent,
+    InfoBadgeComponent,
   ],
 })
 export class IonModule {}
