@@ -21,6 +21,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
+import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 
 @NgModule({
@@ -47,6 +48,7 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
     SimpleMenuComponent,
   ],
   imports: [CommonModule],
@@ -71,6 +73,7 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
   ],
 })
 export class IonModule {}
