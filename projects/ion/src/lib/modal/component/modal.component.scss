@@ -19,6 +19,10 @@
 
   font-family: 'Source Sans Pro', sans-serif;
 
+  &.hide {
+    background-color: transparent;
+  }
+
   .modal-container {
     width: 500px;
     min-height: 200px;
@@ -27,7 +31,7 @@
     border: none;
     padding: 0;
     box-shadow: 0 8px 6px -4px rgba(0, 0, 0, 0.15),
-    0px 0px 2px rgba(0, 0, 0, 0.15);
+      0px 0px 2px rgba(0, 0, 0, 0.15);
 
     display: flex;
     flex-direction: column;
@@ -69,7 +73,7 @@
       overflow: scroll;
 
       scrollbar-width: thin;
-      scrollbar-color: $primary-6;
+      scrollbar-color: $primary-color;
 
       // Chrome, Edge, and Safari
       &::-webkit-scrollbar {
@@ -82,22 +86,23 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $primary-6;
+        background-color: $primary-color;
         border-radius: 20px;
-        border: 3px solid $primary-6;
+        border: 3px solid $primary-color;
       }
     }
-
 
     footer {
       display: flex;
       justify-content: flex-end;
 
-      & :first-child {
-        margin-right: 12px
+      &.divider {
+        border-top: 1px solid #e4e6eb;
       }
 
+      & :first-child {
+        margin-right: 12px;
+      }
     }
-
   }
 }

@@ -14,22 +14,29 @@ import { IonModalProps } from './classes/modal.interface';
 })
 export class IonModalService {
   private componentRef!: ComponentRef<ModalComponent>;
-  private componentSubscriber!: Subject<string>;
+  private componentSubscriber!: Subject<unknown>;
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
   open(
     containerRef: ViewContainerRef,
-    config?: IonModalProps,
-    modalBody?: Type<unknown>
+    // TODO: think in a better name
+    modalBody: Type<unknown>,
+    config?: IonModalProps
   ) {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.componentRef = containerRef.createComponent(factory);
     this.componentRef.instance.config = config;
-    this.componentRef.instance.ionOnClose.subscribe((valueFromModal) =>
-      this.closeModal()
-    );
-    this.componentSubscriber = new Subject<string>();
+    this.componentRef.instance.componentToBody = modalBody;
+    this.componentRef.instance.ionOnClose.subscribe((valueFromModal) => {
+      if (!valueFromModal) {
+        this.closeModal();
+        return;
+      }
+
+      this.confirm(valueFromModal);
+    });
+    this.componentSubscriber = new Subject<unknown>();
     return this.componentSubscriber.asObservable();
   }
 
@@ -38,8 +45,8 @@ export class IonModalService {
     this.componentRef.destroy();
   }
 
-  confirm() {
-    this.componentSubscriber.next('confirm');
+  confirm(valueToEmit: unknown) {
+    this.componentSubscriber.next(valueToEmit);
     this.closeModal();
   }
 }

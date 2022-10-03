@@ -1,10 +1,11 @@
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
-import { Meta, Story } from '@storybook/angular/types-6-0';
 import { CommonModule } from '@angular/common';
 import { Component, ViewContainerRef } from '@angular/core';
-import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
+import { Meta, Story } from '@storybook/angular/types-6-0';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { ModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
+import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
+import { IonModalProps } from './../projects/ion/src/lib/modal/classes/modal.interface';
 
 @Component({
   selector: 'test-component',
@@ -18,13 +19,26 @@ class TestComponent {
     private containerRef: ViewContainerRef
   ) {}
 
+  modalConfig: IonModalProps = {
+    title: 'Ion Modal',
+    footer: {
+      primaryButton: {
+        label: 'Save',
+      },
+      secondaryButton: {
+        label: 'Cancel',
+      },
+    },
+  };
+
   openModal() {
     this.ionModalService
-      .open(this.containerRef)
+      .open(this.containerRef, ButtonComponent)
       .subscribe((value) => console.log('value from modal service', value));
   }
 }
 
+// TODO: check use of Story from Card Stories, to let show code appear.
 export default {
   title: 'Ion/Data Display/Modal',
   component: TestComponent,

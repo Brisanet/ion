@@ -1,10 +1,13 @@
 import {
+  AfterViewInit,
   Component,
-  ElementRef,
+  ComponentFactoryResolver,
   EventEmitter,
   Input,
   Output,
+  Type,
   ViewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { IonModalProps } from '../classes/modal.interface';
 
@@ -13,19 +16,17 @@ import { IonModalProps } from '../classes/modal.interface';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent {
-  @ViewChild('modalContainer', { static: false }) modalContainer: ElementRef;
-  @Input() backdropDismiss = true;
-  @Input() primaryButtonLabel = 'Confirm';
-  @Input() secondaryButtonLabel = 'Cancel';
+export class ModalComponent implements AfterViewInit {
+  @ViewChild('modalBody', { static: false }) modalBody: ViewContainerRef;
+  @Input() componentToBody: Type<unknown>;
   @Input() config: IonModalProps;
   @Output()
   ionOnClose = new EventEmitter<unknown | undefined>();
 
-  public showModal = true;
+  constructor(private resolver: ComponentFactoryResolver) {}
 
   outsideClick() {
-    if (this.backdropDismiss) {
+    if (this.config.canDismiss) {
       this.closeModal();
     }
   }
@@ -35,12 +36,15 @@ export class ModalComponent {
   }
 
   secondaryButtonClicked() {
-    console.log('secondaryButtonClicked btn');
     this.closeModal(false);
   }
 
   primaryButtonClicked() {
-    console.log('primaryButtonClicked btn');
     this.closeModal(true);
+  }
+
+  ngAfterViewInit(): void {
+    const factory = this.resolver.resolveComponentFactory(this.componentToBody);
+    this.modalBody.createComponent(factory);
   }
 }
