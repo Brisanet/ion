@@ -183,26 +183,34 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setStartDateAndEndDateStyle(day: Day, buttonDay: HTMLButtonElement) {
     if (this.isSelectedDateButton(day, 'startDate')) {
-      this.addClassElement(buttonDay, 'selected-start-date');
-
-      if (!this.hasSelectedDates()) {
-        return;
-      }
-
-      !this.isSaturday(day) && this.addClassElement(buttonDay, 'first-range');
+      this.setStartDateStyle(day, buttonDay);
       return;
     }
 
     if (this.isSelectedDateButton(day, 'endDate')) {
-      this.addClassElement(buttonDay, 'selected-end-date');
-      buttonDay.setAttribute('data-content', buttonDay.textContent);
-
-      if (!this.hasSelectedDates()) {
-        return;
-      }
-
-      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-range');
+      this.setEndDateStyle(day, buttonDay);
     }
+  }
+
+  setStartDateStyle(day: Day, buttonDay: HTMLButtonElement) {
+    this.addClassElement(buttonDay, 'selected-start-date');
+
+    if (!this.hasSelectedDates() || this.isSaturday(day)) {
+      return;
+    }
+
+    this.addClassElement(buttonDay, 'first-range');
+  }
+
+  setEndDateStyle(day: Day, buttonDay: HTMLButtonElement) {
+    this.addClassElement(buttonDay, 'selected-end-date');
+    buttonDay.setAttribute('data-content', buttonDay.textContent);
+
+    if (!this.hasSelectedDates() || this.isSunday(day)) {
+      return;
+    }
+
+    this.addClassElement(buttonDay, 'end-range');
   }
 
   hasSelectedDates = () =>
