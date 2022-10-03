@@ -154,67 +154,66 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       this.selectedDayElement = buttonDay;
     }
 
-    if (this.hasSelectedDates()) {
-      if (
-        !this.isSelectedDateButton(day, 'startDate') ||
-        !this.isSelectedDateButton(day, 'endDate')
-      ) {
-        this.isSunday(day) &&
-          !this.isSelectedDateButton(day, 'endDate') &&
-          this.addClassElement(buttonDay, 'sunday');
+    this.setRangeDateStyle(day, buttonDay);
+    this.setSundayStyle(day, buttonDay);
+    this.setSaturdayStyle(day, buttonDay);
+    this.setStartDateAndEndDateStyle(day, buttonDay);
+  }
 
-        this.isSaturday(day) &&
-          !this.isSelectedDateButton(day, 'startDate') &&
-          this.addClassElement(buttonDay, 'saturday');
-
-        if (
-          day.timestamp > this.dates.startDate.date.timestamp &&
-          day.timestamp < this.dates.endDate.date.timestamp
-        ) {
-          this.addClassElement(buttonDay, 'in-range');
-        }
-      }
+  setRangeDateStyle(day: Day, buttonDay: HTMLButtonElement) {
+    if (!this.dates.startDate.date || !this.dates.endDate.date) {
+      return;
     }
 
-    if (this.isDateRange) {
-      if (this.isSelectedDateButton(day, 'startDate')) {
-        this.setStyleStartDateButton(buttonDay, day);
+    if (
+      day.timestamp > this.dates.startDate.date.timestamp &&
+      day.timestamp < this.dates.endDate.date.timestamp
+    ) {
+      this.addClassElement(buttonDay, 'in-range');
+    }
+  }
+
+  setSundayStyle(day: Day, buttonDay: HTMLButtonElement) {
+    day.dayNumber === sunday && this.addClassElement(buttonDay, 'sunday');
+  }
+
+  setSaturdayStyle(day: Day, buttonDay: HTMLButtonElement) {
+    day.dayNumber === saturday && this.addClassElement(buttonDay, 'saturday');
+  }
+
+  setStartDateAndEndDateStyle(day: Day, buttonDay: HTMLButtonElement) {
+    if (this.isSelectedDateButton(day, 'startDate')) {
+      this.addClassElement(buttonDay, 'selected-start-date');
+
+      if (!this.hasSelectedDates()) {
         return;
       }
 
-      if (this.isSelectedDateButton(day, 'endDate')) {
-        this.setStyleEndDateButton(buttonDay, day);
+      !this.isSaturday(day) && this.addClassElement(buttonDay, 'first-range');
+      return;
+    }
+
+    if (this.isSelectedDateButton(day, 'endDate')) {
+      this.addClassElement(buttonDay, 'selected-end-date');
+      buttonDay.setAttribute('data-content', buttonDay.textContent);
+
+      if (!this.hasSelectedDates()) {
         return;
       }
+
+      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-range');
     }
   }
 
   hasSelectedDates = () =>
     !!this.dates.startDate.date && !!this.dates.endDate.date;
 
-  isSelectedDateButton = (day: Day, name: 'startDate' | 'endDate') =>
-    day.format('YYYY-MM-DD') === this.dates[name].dateLabel;
+  isSelectedDateButton = (day: Day, key: 'startDate' | 'endDate') =>
+    day.format('YYYY-MM-DD') === this.dates[key].dateLabel;
 
   isSunday = (day: Day) => day.dayNumber === sunday;
 
   isSaturday = (day: Day) => day.dayNumber === saturday;
-
-  setStyleStartDateButton(buttonDay: HTMLButtonElement, day: Day) {
-    this.addClassElement(buttonDay, 'selected-start-date');
-
-    this.hasSelectedDates() &&
-      !this.isSaturday(day) &&
-      this.addClassElement(buttonDay, 'first-range');
-  }
-
-  setStyleEndDateButton(buttonDay: HTMLButtonElement, day: Day) {
-    this.addClassElement(buttonDay, 'selected-end-date');
-
-    if (this.hasSelectedDates()) {
-      buttonDay.setAttribute('data-content', buttonDay.textContent);
-      !this.isSunday(day) && this.addClassElement(buttonDay, 'end-range');
-    }
-  }
 
   setAriaLabelButtonDay = (buttonDay: HTMLButtonElement, day: Day) =>
     buttonDay.setAttribute('aria-label', day.format('YYYY-MM-DD'));
