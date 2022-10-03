@@ -1,8 +1,10 @@
 import { DropdownComponent, BadgeComponent } from 'projects/ion/src/public-api';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
+import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
+import { InfoBadgeStatus } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -11,12 +13,17 @@ const sut = async (customProps?: IonChipProps) => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
+    declarations: [
+      IonIconComponent,
+      DropdownComponent,
+      BadgeComponent,
+      InfoBadgeComponent,
+    ],
   });
 };
 
 describe('ChipComponent', () => {
-  it('', async () => {
+  it('should render chip with options', async () => {
     await sut({
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
@@ -26,6 +33,11 @@ describe('ChipComponent', () => {
     const iconDefault = screen.queryAllByTestId('icon-default');
     expect(iconDinamic.length).not.toBe(1);
     expect(iconDefault.length).toBe(1);
+  });
+
+  it('should not render with info badge by default', async () => {
+    await sut();
+    expect(screen.queryAllByTestId('info-badge')).toHaveLength(0);
   });
 
   it('should render chip component with custom label', async () => {
@@ -65,6 +77,14 @@ describe('ChipComponent', () => {
       disabled: false,
     });
   });
+
+  it.each(['primary', 'success', 'info', 'warning', 'negative'])(
+    'should render info badge with status %s',
+    async (badgeType: InfoBadgeStatus) => {
+      await sut({ label: 'chip', infoBadge: badgeType });
+      expect(screen.getByTestId('info-badge')).toHaveClass(badgeType);
+    }
+  );
 
   describe('With Dropdown', () => {
     beforeEach(async () => {
