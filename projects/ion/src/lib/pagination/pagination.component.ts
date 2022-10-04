@@ -23,7 +23,7 @@ export interface IonPaginationProps {
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  private defaultItemsPerPage = 15;
+  private defaultItemsPerPage = 10;
 
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
@@ -34,7 +34,7 @@ export class PaginationComponent implements OnInit {
 
   public pages: Page[] = [];
 
-  public optionsPage = [15, 30, 45];
+  public optionsPage = [this.defaultItemsPerPage, 30, 45];
 
   public selectPage(pageNumber: number) {
     this.pages &&
