@@ -4,9 +4,7 @@ import { InputComponent, IonInputProps } from './input.component';
 
 const sut = async (customProps?: IonInputProps) => {
   await render(InputComponent, {
-    componentProperties: customProps || {
-      label: 'input',
-    },
+    componentProperties: customProps,
     declarations: [IonIconComponent],
   });
 };
@@ -14,10 +12,11 @@ const sut = async (customProps?: IonInputProps) => {
 describe(InputComponent, () => {
   it('Should allow letters to be inputted', async () => {
     await sut();
+    const inputValue = 'input';
     fireEvent.change(screen.getByTestId('inputElement'), {
-      target: { value: 'input' },
+      target: { value: inputValue },
     });
-    expect(screen.getByTestId('inputElement')).toHaveValue('input');
+    expect(screen.getByTestId('inputElement')).toHaveValue(inputValue);
   });
 
   it('should render input component disabled', async () => {
@@ -27,13 +26,13 @@ describe(InputComponent, () => {
   });
 
   it('should render input icon left', async () => {
-    await sut({ iconDirection: 'left' });
+    await sut({ iconDirection: 'left', iconInput: 'trash' });
     expect(document.getElementById('ion-icon-trash')).toBeTruthy();
   });
 
   it('should render input icon right', async () => {
-    await sut({ iconDirection: 'right' });
-    expect(document.getElementById('ion-icon-trash')).toBeTruthy();
+    await sut({ iconDirection: 'right', iconInput: 'pencil' });
+    expect(document.getElementById('ion-icon-pencil')).toBeTruthy();
   });
 
   it.skip('should render input icon valid', async () => {

@@ -33,23 +33,27 @@ Disabled.args = {
 export const IconLeft = Template.bind({});
 IconLeft.args = {
   label: '',
+  iconInput: 'trash',
   iconDirection: 'left',
 };
 
 export const iconRight = Template.bind({});
 iconRight.args = {
   label: '',
+  iconInput: 'pencil',
   iconDirection: 'right',
-};
-
-export const iconInvalid = Template.bind({});
-iconInvalid.args = {
-  label: '',
-  invalid: true,
 };
 
 export const iconValid = Template.bind({});
 iconValid.args = {
   label: '',
+  iconInput: 'check',
   valid: true,
+};
+
+export const iconInvalid = Template.bind({});
+iconInvalid.args = {
+  label: '',
+  iconInput: 'close',
+  invalid: true,
 };

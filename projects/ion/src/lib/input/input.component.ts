@@ -1,9 +1,10 @@
+import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 
 export type IconDirection = 'left' | 'right';
 
 export interface IonInputProps {
-  label?: string;
+  iconInput?: string;
   disabled?: boolean;
   iconDirection?: IconDirection;
 }
@@ -14,7 +15,7 @@ export interface IonInputProps {
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
-  @Input() label?: string;
+  @Input() iconInput: IconType;
   @Input() disabled? = false;
   @Input() iconDirection?: IconDirection;
 }
