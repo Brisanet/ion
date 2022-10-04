@@ -6,12 +6,12 @@
 
 ## Install and run project
 
-
 To run this project, You will need to use [node v.12](https://nodejs.org/en/)
 
 - Run `git clone https://github.com/iurynogueira/ion.git` to get a copy of the repository;
 - Run `yarn install` to install all dependencies for the project;
 - Run `yarn run storybook` to open the storybook in your localhost.
+
 ## Create a component
 
 Run `ng generate component component-name --project=ion` to generate a new component.
@@ -51,4 +51,3 @@ Example: `feat: add feature #issue_id`
 ## Deploy 🚀
 
 <a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>
-
