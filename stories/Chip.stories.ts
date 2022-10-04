@@ -4,6 +4,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
+import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 
 export default {
   title: 'Ion/Navigation/Chips',
@@ -11,7 +12,12 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [DropdownComponent, IonIconComponent, BadgeComponent],
+      declarations: [
+        DropdownComponent,
+        IonIconComponent,
+        BadgeComponent,
+        InfoBadgeComponent,
+      ],
     }),
   ],
 } as Meta;
@@ -32,6 +38,12 @@ ChipSmall.args = {
   size: 'sm',
 };
 
+export const ChipMedium = Template.bind({});
+ChipMedium.args = {
+  label: 'Medium',
+  size: 'md',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   label: 'Disabled',
@@ -48,6 +60,12 @@ export const BasicIcon = Template.bind({});
 BasicIcon.args = {
   label: 'Custom label',
   icon: 'close',
+};
+
+export const ChipWithInfoBadge = Template.bind({});
+ChipWithInfoBadge.args = {
+  label: '09:00 - 12:00',
+  infoBadge: 'warning',
 };
 
 export const WithDropdown = Template.bind({});

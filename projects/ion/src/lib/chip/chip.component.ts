@@ -1,6 +1,7 @@
 import { IconType } from './../icon/icon.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DropdownItem } from '../dropdown/dropdown.component';
+import { InfoBadgeStatus } from '../core/types';
 
 export type ChipSize = 'sm' | 'md';
 
@@ -17,6 +18,7 @@ export interface IonChipProps {
   options?: DropdownItem[];
   icon?: string;
   multiple?: boolean;
+  infoBadge?: InfoBadgeStatus;
 }
 
 type Badge = {
@@ -37,6 +39,7 @@ export class ChipComponent {
   @Input() showDropdown = false;
   @Input() options: DropdownItem[];
   @Input() multiple?: boolean = false;
+  @Input() infoBadge?: IonChipProps['infoBadge'];
 
   @Output() events = new EventEmitter<ChipEvent>();
 
