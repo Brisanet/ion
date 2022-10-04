@@ -6,7 +6,7 @@
   color: $color;
 }
 
-@mixin setPageSizeBorder($size, $borderRadius){
+@mixin setPageSizeBorder($size, $borderRadius) {
   width: $size;
   height: $size;
   border-radius: $borderRadius;
