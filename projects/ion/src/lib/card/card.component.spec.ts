@@ -3,6 +3,7 @@ import { CardEvent, CardIonComponent, IonCard } from './card.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ButtonComponent } from '../button/button.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -64,6 +65,7 @@ class CardTestComponent implements AfterViewInit {
     ButtonTestComponent,
     FooterTestComponent,
     DropdownComponent,
+    BadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,
