@@ -23,16 +23,19 @@ const Template: Story<PaginationComponent> = (args: PaginationComponent) => ({
 export const Basic = Template.bind({});
 Basic.args = {
   total: 46,
+  itemsPerPage: 10,
 };
 
 export const SmallSize = Template.bind({});
 SmallSize.args = {
   total: 46,
   size: 'sm',
+  itemsPerPage: 10,
 };
 
 export const SelectItemPerPage = Template.bind({});
 SelectItemPerPage.args = {
   total: 46,
   allowChangeQtdItems: true,
+  itemsPerPage: 10,
 };
