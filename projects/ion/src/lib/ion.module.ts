@@ -23,6 +23,8 @@ import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { InfoBadgeComponent } from './info-badge/info-badge.component';
+import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { FormsModule } from '@angular/forms';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
+    SimpleMenuComponent,
     PaginationComponent,
   ],
   imports: [CommonModule, FormsModule],
@@ -72,6 +76,7 @@ import { FormsModule } from '@angular/forms';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
     PaginationComponent,
   ],
 })

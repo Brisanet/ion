@@ -6,12 +6,12 @@
 
 ## Install and run project
 
-
 To run this project, You will need to use [node v.12](https://nodejs.org/en/)
 
 - Run `git clone https://github.com/iurynogueira/ion.git` to get a copy of the repository;
 - Run `yarn install` to install all dependencies for the project;
 - Run `yarn run storybook` to open the storybook in your localhost.
+
 ## Create a component
 
 Run `ng generate component component-name --project=ion` to generate a new component.
@@ -19,6 +19,15 @@ Run `ng generate component component-name --project=ion` to generate a new compo
 ## Build
 
 Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+
+## Install, Configure and Use Prettier
+
+Configure Prettier Extension by Vscode
+
+- Install Prettier - Code formatter extension;
+- Go to `Settings(JSON)` ;
+- Set `"editor.formatOnSave"` true;
+- Set `"prettier.eslintIntegration"` true.
 
 ## Commit pattern
 

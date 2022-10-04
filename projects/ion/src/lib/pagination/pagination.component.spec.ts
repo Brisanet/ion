@@ -75,7 +75,7 @@ describe('PaginationComponent', () => {
   });
 
   it('should not show items per page by default', async () => {
-    expect(screen.queryAllByText('15 / página')).toHaveLength(0);
+    expect(screen.queryAllByText('10 / página')).toHaveLength(0);
   });
 
   afterEach(() => {
@@ -96,12 +96,12 @@ describe('Pagination > Events', () => {
     expect(event).toBeCalledTimes(2);
   });
 
-  it('should show items per page 15 when params is informed', async () => {
+  it('should show items per page 10 when params is informed', async () => {
     await sut({
       total: 16,
       allowChangeQtdItems: true,
     });
-    expect(screen.queryAllByText('15 / página')).toHaveLength(1);
+    expect(screen.queryAllByText('10 / página')).toHaveLength(1);
   });
 
   it('should change total pages when change items per page', async () => {
