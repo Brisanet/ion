@@ -56,8 +56,6 @@ export class ButtonComponent {
     value: 0,
   };
 
-  private defaultLabel?: string = this.label;
-
   updateBadgeValue(items: DropdownItem[]) {
     this.buttonBadge.value = items.length;
   }
@@ -75,12 +73,6 @@ export class ButtonComponent {
 
     if (this.multiple) {
       this.updateBadgeValue(selecteds);
-
-      return;
-    }
-
-    if (selecteds.length === 0) {
-      this.label = this.defaultLabel;
 
       return;
     }
