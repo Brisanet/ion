@@ -9,6 +9,9 @@ import {
   IonTableProps,
   TableComponent,
 } from './table.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { ButtonComponent } from '../button/button.component';
+import { FormsModule } from '@angular/forms';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -55,7 +58,14 @@ const defaultProps: IonTableProps = {
 const sut = async (customProps: IonTableProps = defaultProps) => {
   await render(TableComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent, TagComponent, CheckboxComponent],
+    declarations: [
+      IonIconComponent,
+      TagComponent,
+      CheckboxComponent,
+      PaginationComponent,
+      ButtonComponent,
+    ],
+    imports: [FormsModule],
   });
 };
 

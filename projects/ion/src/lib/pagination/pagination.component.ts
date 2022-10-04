@@ -5,8 +5,10 @@ interface Page {
   selected: boolean;
 }
 
-interface PageEvent {
+export interface PageEvent {
   actual: number;
+  itemsPerPage: number;
+  offset: number;
 }
 
 export interface IonPaginationProps {
@@ -47,6 +49,8 @@ export class PaginationComponent implements OnInit {
 
     this.events.emit({
       actual: page.page_number,
+      itemsPerPage: this.itemsPerPage,
+      offset: (page.page_number - 1) * this.itemsPerPage,
     });
   }
 

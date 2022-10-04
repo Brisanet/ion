@@ -4,7 +4,9 @@ import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { TagComponent } from '../projects/ion/src/public-api';
+import { ButtonComponent, TagComponent } from '../projects/ion/src/public-api';
+import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -20,8 +22,10 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
       IonIconComponent,
       TagComponent,
       CheckboxComponent,
+      PaginationComponent,
+      ButtonComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
   },
 });
 

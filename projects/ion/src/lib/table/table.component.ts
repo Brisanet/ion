@@ -1,6 +1,7 @@
 import { CheckBoxStates } from './../checkbox/checkbox.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
+import { PageEvent } from '../pagination/pagination.component';
 
 interface TagRow {
   icon?: string;
@@ -29,6 +30,8 @@ interface TableEvent {
 
 export interface PaginationConfig {
   total: number;
+  itemsPerPage?: number;
+  offset?: number;
 }
 
 export interface ConfigTable {
@@ -54,7 +57,7 @@ const stateChange = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
   @Input() config: ConfigTable;
   @Output() events = new EventEmitter<TableEvent>();
 
@@ -62,6 +65,7 @@ export class TableComponent {
   private enabledArrowColor = '#0858CE';
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
+  public smartData = [];
 
   public checkState() {
     if (this.mainCheckBoxState === 'indeterminate') {
@@ -179,5 +183,26 @@ export class TableComponent {
 
   showAction(row: SafeAny, action: ActionTable) {
     return action.show(row);
+  }
+
+  paginationEvents(event: PageEvent) {
+    this.smartData = this.config.data.slice(
+      event.offset,
+      event.offset + event.itemsPerPage
+    );
+  }
+
+  ngOnInit() {
+    if (this.config.pagination) {
+      const defaultItemsPerPage = 10;
+      this.config.pagination.itemsPerPage = defaultItemsPerPage;
+
+      this.smartData = this.config.data.slice(
+        this.config.pagination.offset,
+        this.config.pagination.itemsPerPage
+      );
+      return;
+    }
+    this.smartData = this.config.data;
   }
 }
