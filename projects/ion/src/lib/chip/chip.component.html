@@ -23,6 +23,13 @@
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>
+
+  <ion-info-badge
+    *ngIf="infoBadge"
+    [variant]="infoBadge"
+    size="md"
+  ></ion-info-badge>
+
   <ion-icon
     data-testid="icon-default"
     class="icon-color"
