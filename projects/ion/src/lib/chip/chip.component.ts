@@ -43,7 +43,7 @@ export class ChipComponent {
 
   @Output() events = new EventEmitter<ChipEvent>();
 
-  public innerBadge: Badge = {
+  public badge: Badge = {
     value: 0,
   };
 
@@ -64,7 +64,7 @@ export class ChipComponent {
 
   handleSuccess(selecteds: DropdownItem[]) {
     if (selecteds) {
-      this.innerBadge.value = selecteds.length;
+      this.badge.value = selecteds.length;
     }
 
     if (!this.multiple) {
