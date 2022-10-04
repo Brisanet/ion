@@ -1,6 +1,7 @@
 import {
   ComponentFactoryResolver,
   ComponentRef,
+  HostListener,
   Injectable,
   Type,
   ViewContainerRef,
@@ -26,7 +27,11 @@ export class IonModalService {
   ) {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.componentRef = containerRef.createComponent(factory);
-    this.componentRef.instance.config = config;
+
+    if (config) {
+      this.componentRef.instance.setConfig(config);
+    }
+
     this.componentRef.instance.componentToBody = modalBody;
     this.componentRef.instance.ionOnClose.subscribe((valueFromModal) => {
       if (!valueFromModal) {

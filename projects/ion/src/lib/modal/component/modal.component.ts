@@ -1,14 +1,17 @@
+import { ButtonComponent } from './../../button/button.component';
 import {
-  AfterViewInit,
   Component,
   ComponentFactoryResolver,
   EventEmitter,
+  HostListener,
   Input,
+  OnInit,
   Output,
   Type,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
+import { out } from '../../icon/svgs/iconsText';
 import { IonModalProps } from '../classes/modal.interface';
 
 @Component({
@@ -16,22 +19,46 @@ import { IonModalProps } from '../classes/modal.interface';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements AfterViewInit {
-  @ViewChild('modalBody', { static: false }) modalBody: ViewContainerRef;
+export class ModalComponent implements OnInit {
+  @ViewChild('modalBody', { read: ViewContainerRef, static: true })
+  modalBody: ViewContainerRef;
+
+  @Input() config: IonModalProps = {
+    title: 'Ion Modal',
+    canDismiss: true,
+    showOverlay: true,
+    footer: {
+      showDivider: true,
+      primaryButton: {
+        label: 'Confirm',
+      },
+      secondaryButton: {
+        label: 'Cancel',
+      },
+    },
+  };
+
   @Input() componentToBody: Type<unknown>;
-  @Input() config: IonModalProps;
   @Output()
-  ionOnClose = new EventEmitter<unknown | undefined>();
+  ionOnClose = new EventEmitter<unknown>();
+
+  @HostListener('document:keydown.Escape', ['$event']) onKeydownHandler() {
+    this.closeModal(false);
+  }
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
   outsideClick() {
-    if (this.config.canDismiss) {
-      this.closeModal();
+    this.closeModal(false);
+  }
+
+  setConfig(newConfig: IonModalProps) {
+    if (newConfig) {
+      Object.assign(this.config, newConfig);
     }
   }
 
-  closeModal(emitValue?: unknown | undefined) {
+  closeModal(emitValue?: unknown) {
     this.ionOnClose.emit(emitValue);
   }
 
@@ -43,7 +70,7 @@ export class ModalComponent implements AfterViewInit {
     this.closeModal(true);
   }
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.modalBody.createComponent(factory);
   }

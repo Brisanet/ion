@@ -1,10 +1,11 @@
 export interface IonModalProps {
   id?: string;
   title: string;
+  cssClass?: string;
   canDismiss?: boolean;
   showOverlay?: boolean;
 
-  footer: {
+  footer?: {
     showDivider?: boolean;
     primaryButton: ModalButton;
     secondaryButton: ModalButton;

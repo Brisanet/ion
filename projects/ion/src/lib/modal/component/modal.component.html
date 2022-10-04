@@ -1,6 +1,6 @@
 <div
-  [class.hide]="config?.showOverlay"
-  (click)="outsideClick()"
+  [class.hide]="!config.showOverlay"
+  (click)="config.canDismiss ? outsideClick() : ''"
   class="modal-overlay"
 >
   <dialog
@@ -10,7 +10,7 @@
     class="modal-container"
   >
     <header tabindex="0">
-      <h4>{{ config ? config.title : 'Modal' }}</h4>
+      <h4>{{ config.title }}</h4>
       <ion-icon
         tabindex="0"
         class="close-icon"
@@ -23,17 +23,17 @@
       ></ion-icon>
     </header>
 
-    <div tabindex="0" #modalBody class="modal-body">Modal Body</div>
+    <div tabindex="0" #modalBody class="modal-body"></div>
 
-    <footer [class.divider]="config?.footer.showDivider" tabindex="0">
+    <footer [class.divider]="config.footer.showDivider" tabindex="0">
       <ion-button
         type="ghost"
-        [label]="config ? config.footer.secondaryButtonClicked : 'Cancel'"
+        [label]="config.footer.secondaryButton.label"
         (ionOnClick)="secondaryButtonClicked()"
       ></ion-button>
       <ion-button
-        [label]="config ? config.footer.secondaryButtonClicked : 'Confirm'"
-        [iconType]="config?.footer.primaryButton.iconType"
+        [label]="config.footer.primaryButton.label"
+        [iconType]="config.footer.primaryButton.iconType"
         (ionOnClick)="primaryButtonClicked()"
       ></ion-button>
     </footer>
