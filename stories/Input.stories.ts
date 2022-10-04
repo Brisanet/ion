@@ -1,4 +1,3 @@
-import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
@@ -9,7 +8,7 @@ export default {
   component: InputComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
+      imports: [],
       declarations: [IonIconComponent],
     }),
   ],
@@ -34,15 +33,13 @@ Disabled.args = {
 export const IconLeft = Template.bind({});
 IconLeft.args = {
   label: '',
-  icon: 'trash',
-  iconLeft: true,
+  iconDirection: 'left',
 };
 
 export const iconRight = Template.bind({});
 iconRight.args = {
   label: '',
-  icon: 'close',
-  iconRight: true,
+  iconDirection: 'right',
 };
 
 export const iconInvalid = Template.bind({});

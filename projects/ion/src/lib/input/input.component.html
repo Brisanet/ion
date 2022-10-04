@@ -7,7 +7,7 @@
 >
   <ion-icon
     data-testid="icon-left"
-    *ngIf="iconLeft"
+    *ngIf="iconDirection === 'left'"
     type="trash"
     style="padding-right: 8px"
   ></ion-icon>
@@ -20,10 +20,11 @@
   />
   <ion-icon
     data-testid="icon-right"
-    *ngIf="iconRight"
+    *ngIf="iconDirection === 'right'"
     type="trash"
     style="padding-right: 8px"
-  ></ion-icon>
+  >
+  </ion-icon>
   <ion-icon
     data-testid="icon-invalid"
     class="colorInvalid"
@@ -41,4 +42,3 @@
   >
   </ion-icon>
 </div>
-<div></div>

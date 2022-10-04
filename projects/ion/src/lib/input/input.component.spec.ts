@@ -22,23 +22,27 @@ describe(InputComponent, () => {
 
   it('should render input component disabled', async () => {
     await sut({ disabled: true });
-    const element = screen.getByTestId('inputDiv');
-    expect(element).toHaveClass('disabled');
+    const element = screen.getByTestId('inputElement');
+    expect(element).toBeDisabled();
   });
 
   it('should render input icon left', async () => {
-    expect(document.getElementById('icon-left')).toBeTruthy;
+    await sut({ iconDirection: 'left' });
+    expect(document.getElementById('ion-icon-trash')).toBeTruthy();
   });
 
   it('should render input icon right', async () => {
-    expect(document.getElementById('icon-right')).toBeTruthy;
+    await sut({ iconDirection: 'right' });
+    expect(document.getElementById('ion-icon-trash')).toBeTruthy();
   });
 
-  it('should render input icon invalid', async () => {
-    expect(document.getElementById('icon-right')).toBeTruthy;
+  it.skip('should render input icon valid', async () => {
+    await sut();
+    expect(document.getElementById('icon-valid')).toBeTruthy();
   });
 
-  it('should render input icon valid', async () => {
-    expect(document.getElementById('icon-valid')).toBeTruthy;
+  it.skip('should render input icon invalid', async () => {
+    await sut();
+    expect(document.getElementById('icon-invalid')).toBeTruthy();
   });
 });
