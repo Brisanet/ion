@@ -36,7 +36,7 @@ export class PaginationComponent implements OnInit {
 
   public optionsPage = [this.defaultItemsPerPage, 30, 45];
 
-  public selectPage(pageNumber: number) {
+  selectPage(pageNumber: number) {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -59,7 +59,7 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  public totalPages(): number {
+  totalPages(): number {
     const numberOfPages = Math.ceil(this.total / this.itemsPerPage);
     return numberOfPages;
   }
@@ -76,11 +76,11 @@ export class PaginationComponent implements OnInit {
     return this.currentPage().page_number === 1;
   }
 
-  public hasPrevious() {
+  hasPrevious() {
     return !this.inFirstPage();
   }
 
-  public hasNext() {
+  hasNext() {
     const selecteds = this.pages.filter((page) => page.selected);
     return selecteds.length > 0 && !this.inLastPage();
   }
@@ -97,7 +97,7 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  public remountPages() {
+  remountPages() {
     this.pages = [];
     this.createPages(this.totalPages());
     this.selectPage(1);
