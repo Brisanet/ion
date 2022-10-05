@@ -22,4 +22,12 @@ export class InfoBadgeComponent {
   @Input() public size?: InfoBadgeSize = 'md';
 
   public iconSize: IconSizeOptions = IconSizeOptions[this.size];
+
+  fixIconSize() {
+    if (this.icon === 'exclamation' || this.icon === 'info') {
+      return this.size === 'md' ? (this.iconSize = 20) : (this.iconSize = 14);
+    } else {
+      return (this.iconSize = IconSizeOptions[this.size]);
+    }
+  }
 }
