@@ -34,16 +34,16 @@ export interface PaginationConfig {
   offset?: number;
 }
 
-export interface ConfigTable {
-  data: SafeAny[];
+export interface ConfigTable<T> {
+  data: T[];
   columns: Column[];
   actions?: ActionTable[];
   check?: boolean;
   pagination?: PaginationConfig;
 }
 
-export interface IonTableProps {
-  config: ConfigTable;
+export interface IonTableProps<T> {
+  config: ConfigTable<T>;
   events?: EventEmitter<TableEvent>;
 }
 
@@ -58,7 +58,7 @@ const stateChange = {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  @Input() config: ConfigTable;
+  @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
   private disabledArrowColor = '#CED2DB';

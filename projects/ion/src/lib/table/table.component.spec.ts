@@ -29,7 +29,15 @@ const columns: Column[] = [
   },
 ];
 
-const data = [
+interface Disco {
+  id: number;
+  name: string;
+  deleted: boolean;
+  year?: number;
+  icon?: string;
+}
+
+const data: Disco[] = [
   { id: 1, name: 'Meteora', deleted: false, year: 2003 },
   { id: 2, name: 'One More Light', deleted: false, year: 2017 },
   {
@@ -48,14 +56,14 @@ const data = [
   },
 ];
 
-const defaultProps: IonTableProps = {
+const defaultProps: IonTableProps<Disco> = {
   config: {
     data,
     columns,
   },
 };
 
-const sut = async (customProps: IonTableProps = defaultProps) => {
+const sut = async (customProps: IonTableProps<Disco> = defaultProps) => {
   await render(TableComponent, {
     componentProperties: customProps,
     declarations: [
@@ -167,7 +175,7 @@ describe('Table > Actions', () => {
       ...defaultProps.config,
       actions,
     },
-  } as IonTableProps;
+  } as IonTableProps<Disco>;
 
   it('should show actions column when has action', async () => {
     await sut(tableWithActions);
@@ -182,7 +190,7 @@ describe('Table > Actions', () => {
   it('should not render trash icon when the item is deleted', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
-    } as IonTableProps;
+    } as IonTableProps<Disco>;
 
     tableItemDeleted.config.data = [
       { id: 1, name: 'Item Deleted', deleted: true },
@@ -202,7 +210,7 @@ describe('Table > Actions', () => {
 
 describe('Table > Checkbox', () => {
   const eventSelect = jest.fn();
-  const tableWithSelect: IonTableProps = {
+  const tableWithSelect: IonTableProps<Disco> = {
     config: {
       columns: JSON.parse(JSON.stringify(columns)),
       data: JSON.parse(JSON.stringify(data)),
@@ -371,7 +379,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
-  const tableDifferentColumns: IonTableProps = {
+  const tableDifferentColumns: IonTableProps<Disco> = {
     config: {
       columns: [
         ...JSON.parse(JSON.stringify(columns)),
@@ -406,7 +414,7 @@ describe('Table > Differents columns data type', () => {
       async (iconRow: string) => {
         const tableWithCustomIconInTag = JSON.parse(
           JSON.stringify(tableDifferentColumns)
-        ) as IonTableProps;
+        ) as IonTableProps<Disco>;
 
         const columns = tableWithCustomIconInTag.config.columns;
         const lastColumn = columns.length - 1;
@@ -473,7 +481,7 @@ describe('Table > Differents columns data type', () => {
 
 describe('Table > Pagination', () => {
   const totalItems = 46;
-  const tableWithPagination: IonTableProps = {
+  const tableWithPagination: IonTableProps<Disco> = {
     config: {
       columns: [...JSON.parse(JSON.stringify(columns))],
       data: JSON.parse(JSON.stringify(data)),
