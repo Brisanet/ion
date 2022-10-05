@@ -70,7 +70,7 @@ $color-neutral-4: 'ced2db';
   @include setBackgroundChecked($color-neutral-4);
 }
 
-.ion-checkbox:enabled:focus {
+.ion-checkbox:enabled:focus-visible {
   outline-style: solid;
   outline-width: 1.5px;
   outline-color: $primary-5;
