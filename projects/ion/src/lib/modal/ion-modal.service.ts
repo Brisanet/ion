@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IonModalEvent, IonModalProps } from './classes/modal.interface';
+import { IonModalProps } from './classes/modal.interface';
 import { ModalComponent } from './component/modal.component';
 
 @Injectable({
@@ -32,26 +32,26 @@ export class IonModalService {
 
     this.componentRef.instance.componentToBody = modalBody;
     this.componentRef.instance.ionOnClose.subscribe(
-      (valueFromModal: IonModalEvent) => {
+      (valueFromModal: unknown) => {
         if (!valueFromModal) {
           this.closeModal();
           return;
         }
 
-        this.confirm(valueFromModal);
+        this.emitValueAndCloseModal(valueFromModal);
       }
     );
     this.componentSubscriber = new Subject<unknown>();
     return this.componentSubscriber.asObservable();
   }
 
+  emitValueAndCloseModal(valueToEmit: unknown) {
+    this.componentSubscriber.next(valueToEmit);
+    this.closeModal();
+  }
+
   closeModal() {
     this.componentSubscriber.complete();
     this.componentRef.destroy();
-  }
-
-  confirm(valueToEmit: unknown) {
-    this.componentSubscriber.next(valueToEmit);
-    this.closeModal();
   }
 }

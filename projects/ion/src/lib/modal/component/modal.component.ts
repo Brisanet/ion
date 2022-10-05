@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { IonModalEvent, IonModalProps } from '../classes/modal.interface';
+import { IonModalProps } from '../classes/modal.interface';
 
 @Component({
   selector: 'ion-modal',
@@ -24,8 +24,9 @@ export class ModalComponent implements OnInit {
 
   @Input() config: IonModalProps = {
     title: 'Ion Modal',
-    canDismiss: true,
     showOverlay: true,
+    overlayCanDismiss: true,
+
     footer: {
       showDivider: true,
       primaryButton: {
@@ -75,7 +76,7 @@ export class ModalComponent implements OnInit {
   }
 
   handleDynamicComponentDataToEmit(): unknown {
-    let data: unknown;
+    const data = {};
     this.componentInputs.forEach((input) => {
       data[input.propName] = this.componentFactory.instance[input.propName];
     });

@@ -1,22 +1,18 @@
 export interface IonModalProps {
   id?: string;
   title: string;
-  canDismiss?: boolean;
   showOverlay?: boolean;
+  overlayCanDismiss?: boolean;
 
   footer?: {
+    hide?: boolean; // 2 option
     showDivider?: boolean;
-    primaryButton: ModalButton;
-    secondaryButton: ModalButton;
+    primaryButton?: ModalButton;
+    secondaryButton?: ModalButton;
   };
 }
 
 export interface ModalButton {
   label: string;
   iconType?: string;
-}
-
-export interface IonModalEvent {
-  property: string;
-  value: unknown;
 }
