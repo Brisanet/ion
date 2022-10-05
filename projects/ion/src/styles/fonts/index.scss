@@ -2,25 +2,23 @@
 
 @font-face {
   font-family: 'Source Sans Pro';
-  src: url('./SourceSansPro-Regular.ttf') format('truetype');
-}
-
-@font-face {
-  font-family: 'Source Sans Pro';
-  src: url('./SourceSansPro-Regular.ttf');
+  font-style: normal;
   font-weight: 400;
+  src: url('https://fonts.gstatic.com/s/sourcesanspro/v21/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Source Sans Pro';
-  src: url('./SourceSansPro-SemiBold.ttf');
-  font-weight: 600;
-}
-
-@font-face {
-  font-family: 'Source Sans Pro';
-  src: url('./SourceSansPro-Bold.ttf');
+  font-style: normal;
   font-weight: 700;
+  src: url('https://fonts.gstatic.com/s/sourcesanspro/v21/6xKydSBYKcSV-LCoeQqfX1RYOo3ig4vwlxdu.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: url('https://fonts.gstatic.com/s/sourcesanspro/v21/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
 }
 
 @mixin font-size-xs {
