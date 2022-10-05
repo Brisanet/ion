@@ -121,7 +121,6 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0].label;
       const element = screen.getByText('dropdown');
       fireEvent.click(element);
-      expect(element).toHaveClass('chip-selected');
       fireEvent.click(screen.getByText(option));
       expect(element).toHaveClass('chip');
     });
