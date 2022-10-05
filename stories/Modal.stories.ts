@@ -22,7 +22,6 @@ class TestComponent {
   modalConfig: IonModalProps = {
     title: 'Ion Modal',
     canDismiss: false,
-    cssClass: 'modal-container',
     footer: {
       primaryButton: {
         label: 'Save',
@@ -34,7 +33,7 @@ class TestComponent {
   };
 
   openModal() {
-    const button = (ButtonComponent.prototype.label = 'Hello world');
+    ButtonComponent.prototype.label = 'Hello world';
     this.ionModalService
       .open(this.containerRef, ButtonComponent, this.modalConfig)
       .subscribe((value) => console.log('value from modal service', value));

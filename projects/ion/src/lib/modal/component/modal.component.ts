@@ -1,7 +1,7 @@
-import { ButtonComponent } from './../../button/button.component';
 import {
   Component,
   ComponentFactoryResolver,
+  ComponentRef,
   EventEmitter,
   HostListener,
   Input,
@@ -11,8 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { out } from '../../icon/svgs/iconsText';
-import { IonModalProps } from '../classes/modal.interface';
+import { IonModalEvent, IonModalProps } from '../classes/modal.interface';
 
 @Component({
   selector: 'ion-modal',
@@ -37,14 +36,19 @@ export class ModalComponent implements OnInit {
       },
     },
   };
-
   @Input() componentToBody: Type<unknown>;
   @Output()
-  ionOnClose = new EventEmitter<unknown>();
+  ionOnClose = new EventEmitter<unknown | boolean>();
 
   @HostListener('document:keydown.Escape', ['$event']) onKeydownHandler() {
     this.closeModal(false);
   }
+
+  private componentFactory: ComponentRef<unknown>;
+  private componentInputs: {
+    propName: string;
+    templateName: string;
+  }[];
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
@@ -58,7 +62,7 @@ export class ModalComponent implements OnInit {
     }
   }
 
-  closeModal(emitValue?: unknown) {
+  closeModal(emitValue?: unknown | boolean) {
     this.ionOnClose.emit(emitValue);
   }
 
@@ -67,11 +71,22 @@ export class ModalComponent implements OnInit {
   }
 
   primaryButtonClicked() {
-    this.closeModal(true);
+    this.closeModal(this.handleDynamicComponentDataToEmit());
+  }
+
+  handleDynamicComponentDataToEmit(): unknown {
+    let data: unknown;
+    this.componentInputs.forEach((input) => {
+      data[input.propName] = this.componentFactory.instance[input.propName];
+    });
+
+    return data;
   }
 
   ngOnInit(): void {
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
-    this.modalBody.createComponent(factory);
+
+    this.componentInputs = factory.inputs;
+    this.componentFactory = this.modalBody.createComponent(factory);
   }
 }
