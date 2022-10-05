@@ -1,11 +1,13 @@
 @import '../../styles/index.scss';
 
-@mixin setCheck($color) {
-  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='%23000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath id='Union' d='M10.8839 2.28075C11.3721 1.79258 11.3721 1.00113 10.8839 0.512978C10.3957 0.0248294 9.60428 0.0248399 9.11613 0.513002L4.7939 4.83535L2.88385 2.9253C2.3957 2.43714 1.60424 2.43714 1.11609 2.9253C0.627931 3.41345 0.627931 4.20491 1.11609 4.69307L3.91003 7.48701C4.14445 7.72143 4.4624 7.85313 4.79392 7.85313C5.12545 7.85312 5.44339 7.72142 5.67781 7.487L10.8839 2.28075Z' fill='%23" + $color + "'/%3E%3C/svg%3E");
+@mixin setBackgroundChecked($color) {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M12.8839 6.28075C13.3721 5.79258 13.3721 5.00113 12.8839 4.51298C12.3957 4.02483 11.6043 4.02484 11.1161 4.513L6.7939 8.83535L4.88385 6.9253C4.3957 6.43714 3.60424 6.43714 3.11609 6.9253C2.62793 7.41345 2.62793 8.20491 3.11609 8.69307L5.91003 11.487C6.14445 11.7214 6.4624 11.8531 6.79392 11.8531C7.12545 11.8531 7.44339 11.7214 7.67781 11.487L12.8839 6.28075Z' fill='%23" + $color + "'/%3E%3C/svg%3E%0A");
+  background-size: cover;
 }
 
-@mixin setDash($color) {
-  content: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1C0 0.447715 0.447715 0 1 0H9C9.55228 0 10 0.447715 10 1V3C10 3.55228 9.55228 4 9 4H1C0.447716 4 0 3.55228 0 3V1Z' fill='%23" + $color + "'/%3E%3C/svg%3E%0A");
+@mixin setBackgroundDash($color) {
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M3 7C3 6.44772 3.44772 6 4 6H12C12.5523 6 13 6.44772 13 7V9C13 9.55228 12.5523 10 12 10H4C3.44772 10 3 9.55228 3 9V7Z' fill='%23" + $color + "'/%3E%3C/svg%3E%0A");
+  background-size: cover;
 }
 
 $color-primary-2: 'b5d2fc';
@@ -28,42 +30,24 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:enabled:hover {
   box-shadow: 0 0 2px 2px $primary-2;
   border-color: $primary-3;
-}
-
-.ion-checkbox:enabled:hover:before {
-  position: relative;
-  top: 3px;
-  left: 1px;
-  @include setCheck($color-primary-2);
+  @include setBackgroundChecked($color-primary-2);
 }
 
 .ion-checkbox:enabled:active {
   box-shadow: none;
   background-color: $primary-2;
   border-color: $primary-5;
-}
-
-.ion-checkbox:enabled:active:before {
-  position: relative;
-  top: 3px;
-  left: 1px;
-  @include setCheck($color-primary-1);
+  @include setBackgroundChecked($color-primary-1);
 }
 
 .ion-checkbox:enabled:checked {
   border: none;
   background-color: $primary-6;
+  @include setBackgroundChecked($color-primary-1);
 }
 
 .ion-checkbox:enabled:checked:hover {
   background-color: $primary-5;
-}
-
-.ion-checkbox:enabled:checked:before {
-  position: relative;
-  top: 3.5px;
-  left: 2px;
-  @include setCheck($color-primary-1);
 }
 
 .ion-checkbox:enabled:checked:active {
@@ -83,13 +67,7 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:disabled:checked {
   background-color: $neutral-2;
   border: none;
-}
-
-.ion-checkbox:disabled:checked:before {
-  position: relative;
-  top: 3.5px;
-  left: 2px;
-  @include setCheck($color-neutral-4);
+  @include setBackgroundChecked($color-neutral-4);
 }
 
 .ion-checkbox:enabled:focus {
@@ -104,29 +82,14 @@ $color-neutral-4: 'ced2db';
   background-color: $primary-6;
   border-radius: 4px;
   cursor: pointer;
+  @include setBackgroundDash($color-primary-1);
 }
 
 .ion-checkbox:indeterminate:enabled:hover {
   background-color: $primary-5;
+  @include setBackgroundDash($color-primary-1);
 }
 
-.ion-checkbox:indeterminate:enabled:hover:before {
-  position: relative;
-  top: 5.5px;
-  left: 3px;
-  @include setDash($color-primary-1);
-}
-
-.ion-checkbox:indeterminate:enabled:before {
-  position: relative;
-  top: 5.5px;
-  left: 3px;
-  @include setDash($color-primary-1);
-}
-
-.ion-checkbox:indeterminate:disabled:before {
-  position: relative;
-  top: 5px;
-  left: 2px;
-  @include setDash($color-neutral-4);
+.ion-checkbox:indeterminate:disabled {
+  @include setBackgroundDash($color-neutral-4);
 }
