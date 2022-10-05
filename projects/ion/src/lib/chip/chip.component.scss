@@ -115,6 +115,10 @@ button {
   margin-bottom: 4px;
 }
 
+.positionIcon {
+  flex-direction: row-reverse;
+}
+
 .container-options {
   position: absolute;
 }

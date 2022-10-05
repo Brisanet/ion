@@ -3,10 +3,13 @@
   [disabled]="disabled"
   [ngClass]="{
     chip: !selected,
-    'chip-selected': selected
+    'chip-selected': selected,
+    positionIcon: iconPosition == 'right' ? '' : 'positionIcon'
   }"
   [class]="'chip-' + size"
 >
+  <!-- position: !iconPosition,
+'positionIcon': iconPosition -->
   <ion-badge
     [value]="badge.value"
     type="primary"

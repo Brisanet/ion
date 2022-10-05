@@ -3,7 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
-import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
+import {
+  ChipComponent,
+  IonChipProps,
+  ChipSize,
+  Direction,
+} from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
@@ -28,6 +33,7 @@ describe('ChipComponent', () => {
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
       icon: 'close',
+      iconPosition: 'right',
     });
     const iconDinamic = screen.queryAllByTestId('icon-dinamic');
     const iconDefault = screen.queryAllByTestId('icon-default');
@@ -51,6 +57,15 @@ describe('ChipComponent', () => {
       await sut({ label: 'custom-size', size });
       const element = screen.getByText('custom-size');
       expect(element).toHaveClass('chip-' + size);
+    }
+  );
+
+  it.each(['left'])(
+    'should render icon on left',
+    async (iconPosition: Direction = 'left') => {
+      await sut({ label: 'custom-position', iconPosition });
+      const element = screen.getByText('custom-position');
+      expect(element).toHaveClass('positionIcon');
     }
   );
 

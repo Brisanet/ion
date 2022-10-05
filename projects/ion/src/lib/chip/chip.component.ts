@@ -4,6 +4,7 @@ import { DropdownItem } from '../dropdown/dropdown.component';
 import { InfoBadgeStatus } from '../core/types';
 
 export type ChipSize = 'sm' | 'md';
+export type Direction = 'right' | 'left';
 
 interface ChipEvent {
   selected: boolean;
@@ -19,6 +20,7 @@ export interface IonChipProps {
   icon?: string;
   multiple?: boolean;
   infoBadge?: InfoBadgeStatus;
+  iconPosition?: Direction;
 }
 
 type Badge = {
@@ -40,6 +42,7 @@ export class ChipComponent {
   @Input() options: DropdownItem[];
   @Input() multiple?: boolean = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
+  @Input() iconPosition?: Direction = 'right';
 
   @Output() events = new EventEmitter<ChipEvent>();
 
