@@ -32,7 +32,7 @@ export const icontypes = {
 export class MessageComponent implements OnInit {
   @Input() label!: string;
   @Input() type = 'positive';
-  @Input() iconType?;
+  @Input() iconType?: IconType;
 
   setIcon() {
     this.iconType = icontypes[this.type];

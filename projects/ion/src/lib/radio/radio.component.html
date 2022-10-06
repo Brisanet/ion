@@ -2,7 +2,7 @@
   <input
     (click)="check()"
     [name]="label"
-    id="label"
+    [id]="label"
     [value]="label"
     [disabled]="disabled"
     type="radio"
@@ -11,7 +11,7 @@
   />
   <label
     [ngClass]="{ labelDisabled: !disabled, 'labelDisabled-checked': disabled }"
-    for="label"
+    [for]="label"
     >{{ label }}</label
   >
 </form>
