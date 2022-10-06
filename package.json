@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "e2e": "ng e2e",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
-    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "storybook": "npm run docs:json && start-storybook -p 6006 -s projects/ion/src",
     "build-storybook": "npm run docs:json && build-storybook",
     "prettier": "prettier --write .",
     "prepare": "husky install",
