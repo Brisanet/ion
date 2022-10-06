@@ -1,101 +1,110 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewContainerRef } from '@angular/core';
+import { Component, Type, ViewContainerRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { ModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
-import { IonModalProps } from './../projects/ion/src/lib/modal/classes/modal.interface';
+import { IonModalResponse } from './../projects/ion/src/lib/modal/classes/modal.interface';
 
-// TODO: check use of Story from Card Stories, to let show code appear.
 @Component({
-  selector: 'test-component',
+  selector: 'base-component',
   template: `
     <ion-button [label]="'Open Modal'" (ionOnClick)="openModal()"></ion-button>
   `,
 })
-class BasicExampleComponent {
+class BaseComponent {
   constructor(
     private ionModalService: IonModalService,
     private containerRef: ViewContainerRef
   ) {}
 
-  modalConfig: IonModalProps = {
-    title: 'Ion Modal',
-    overlayCanDismiss: true,
-  };
+  componentToBody: Type<unknown>;
 
   openModal() {
-    ButtonComponent.prototype.label = 'Hello world';
     this.ionModalService
-      .open(this.containerRef, ButtonComponent, this.modalConfig)
-      .subscribe((value) => console.log('value from modal service', value));
+      .open(this.containerRef, this.componentToBody)
+      .subscribe((response: IonModalResponse) => {
+        console.log('value from modal service', response);
+      });
   }
 }
 
-export default {
-  title: 'Ion/Data Display/Modal',
-  component: BasicExampleComponent,
-} as Meta<BasicExampleComponent>;
-
-const basicTemplate: Story<BasicExampleComponent> = () => ({
+@Component({
   template: `
-  <test-component> </test-component>
+    <h3>Choose one</h3>
+    <select [(ngModel)]="state">
+      <option>Ceará</option>
+      <option>Espirito Santo</option>
+    </select>
   `,
+})
+class SelectTemplateComponent {
+  state: string;
+}
 
+@Component({
+  template: `
+    <h4>Current Step: {{ step }}</h4>
+    <ion-button [label]="" [disabled]="step === 3"></ion-button>
+    <ion-button [label]="'next'" [disabled]="step === 3"></ion-button>
+    (ionOnClick)="closeModal()"
+  `,
+})
+class StepperTemplateComponent {
+  constructor(private ionModalService: IonModalService) {}
+  step;
+
+  closeModal() {
+    this.ionModalService.emitValueAndCloseModal({});
+  }
+}
+
+const basicTemplate: Story<BaseComponent> = () => ({
   moduleMetadata: {
     declarations: [
       ButtonComponent,
       IonIconComponent,
-      BasicExampleComponent,
+      BaseComponent,
       ModalComponent,
+      SelectTemplateComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     providers: [IonModalService],
-    entryComponents: [ModalComponent, ButtonComponent],
+    entryComponents: [ModalComponent, SelectTemplateComponent],
   },
 });
 
-export const Basic = basicTemplate.bind({});
-
-@Component({
-  selector: 'close-modal-example',
+const closeByComponentTemplate: Story<BaseComponent> = () => ({
   template: `
-    <ion-button [label]="'next'" (ionOnClick)="closeModal()"></ion-button>
+  <base-component></base-component>
   `,
-})
-class CloseModalExampleComponent {
-  constructor(private ionModalService: IonModalService) {}
-  @Input() testValue = 'Works!';
-  text: 'Yay!';
+  moduleMetadata: {
+    declarations: [
+      ButtonComponent,
+      IonIconComponent,
+      BaseComponent,
+      ModalComponent,
+      SelectTemplateComponent,
+    ],
+    imports: [CommonModule, FormsModule],
+    providers: [IonModalService],
+    entryComponents: [ModalComponent, SelectTemplateComponent],
+  },
+});
 
-  closeModal() {
-    this.ionModalService.emitValueAndCloseModal({
-      valueTest: this.testValue,
-      text: this.text,
-    });
-  }
-}
+export default {
+  title: 'Ion/Data Display/Modal',
+  component: BaseComponent,
+} as Meta<BaseComponent>;
 
-// const withoutFooterTemplate: Story<TestComponent> = (args: TestComponent) => ({
-//   component: TestComponent,
-//   args: args,
-//   moduleMetadata: {
-//     declarations: [
-//       ButtonComponent,
-//       IonIconComponent,
-//       TestComponent,
-//       ModalComponent,
-//       CloseModalExampleComponent,
-//     ],
-//     imports: [CommonModule],
-//     providers: [IonModalService],
-//     entryComponents: [
-//       ModalComponent,
-//       ButtonComponent,
-//       CloseModalExampleComponent,
-//     ],
-//   },
-// });
+export const basic = basicTemplate.bind({});
+basic.args = {
+  componentToBody: SelectTemplateComponent,
+};
 
-// export const WithoutFooter = withoutFooterTemplate.bind({}) as Meta;
+export const closeByComponent = closeByComponentTemplate.bind({});
+closeByComponent.args = {
+  componentToBody: StepperTemplateComponent,
+};

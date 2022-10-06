@@ -5,7 +5,7 @@ export interface IonModalProps {
   overlayCanDismiss?: boolean;
 
   footer?: {
-    hide?: boolean; // 2 option
+    hide?: boolean;
     showDivider?: boolean;
     primaryButton?: ModalButton;
     secondaryButton?: ModalButton;
@@ -15,4 +15,8 @@ export interface IonModalProps {
 export interface ModalButton {
   label: string;
   iconType?: string;
+}
+
+export interface IonModalResponse {
+  [key: string]: unknown;
 }

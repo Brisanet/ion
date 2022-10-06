@@ -6,14 +6,14 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IonModalProps } from './classes/modal.interface';
+import { IonModalProps, IonModalResponse } from './classes/modal.interface';
 import { ModalComponent } from './component/modal.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IonModalService {
-  private componentRef!: ComponentRef<ModalComponent>;
+  private modalComponentRef!: ComponentRef<ModalComponent>;
   private componentSubscriber!: Subject<unknown>;
 
   constructor(private resolver: ComponentFactoryResolver) {}
@@ -24,15 +24,15 @@ export class IonModalService {
     config?: IonModalProps
   ) {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
-    this.componentRef = containerRef.createComponent(factory);
+    this.modalComponentRef = containerRef.createComponent(factory);
 
     if (config) {
-      this.componentRef.instance.setConfig(config);
+      this.modalComponentRef.instance.setConfig(config);
     }
 
-    this.componentRef.instance.componentToBody = modalBody;
-    this.componentRef.instance.ionOnClose.subscribe(
-      (valueFromModal: unknown) => {
+    this.modalComponentRef.instance.componentToBody = modalBody;
+    this.modalComponentRef.instance.ionOnClose.subscribe(
+      (valueFromModal: IonModalResponse) => {
         if (!valueFromModal) {
           this.closeModal();
           return;
@@ -45,13 +45,13 @@ export class IonModalService {
     return this.componentSubscriber.asObservable();
   }
 
-  emitValueAndCloseModal(valueToEmit: unknown) {
+  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
     this.componentSubscriber.next(valueToEmit);
     this.closeModal();
   }
 
   closeModal() {
     this.componentSubscriber.complete();
-    this.componentRef.destroy();
+    this.modalComponentRef.destroy();
   }
 }
