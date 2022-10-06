@@ -1,0 +1,40 @@
+<div class="pag-container">
+  <select
+    *ngIf="allowChangeQtdItems"
+    [(ngModel)]="itemsPerPage"
+    (change)="remountPages()"
+    data-testid="select-page-items"
+  >
+    <option *ngFor="let option of optionsPage" [value]="option">
+      {{ option }} / página
+    </option>
+  </select>
+
+  <ion-button
+    iconType="left2"
+    data-testid="arrow-left"
+    type="secondary"
+    [size]="size"
+    (click)="previous()"
+    [disabled]="!hasPrevious()"
+  ></ion-button>
+
+  <button
+    *ngFor="let page of pages"
+    [class]="'square-pag ' + 'page-' + size"
+    [class.selected]="page.selected"
+    [attr.data-testid]="'page-' + page.page_number"
+    (click)="selectPage(page.page_number)"
+  >
+    <span>{{ page.page_number }}</span>
+  </button>
+
+  <ion-button
+    iconType="right2"
+    data-testid="arrow-right"
+    type="secondary"
+    [size]="size"
+    (click)="next()"
+    [disabled]="!hasNext()"
+  ></ion-button>
+</div>
