@@ -8,9 +8,9 @@
   [class]="'chip-' + size"
 >
   <ion-badge
-    [value]="innerBadge.value"
+    [value]="badge.value"
     type="primary"
-    *ngIf="innerBadge.value > 0"
+    *ngIf="badge.value > 0"
     data-testid="badge-multiple"
   ></ion-badge>
 
@@ -23,6 +23,13 @@
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>
+
+  <ion-info-badge
+    *ngIf="infoBadge"
+    [variant]="infoBadge"
+    size="md"
+  ></ion-info-badge>
+
   <ion-icon
     data-testid="icon-default"
     class="icon-color"
