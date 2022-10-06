@@ -1,3 +1,4 @@
+import { IconDirection } from './../projects/ion/src/lib/input/input.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
@@ -47,13 +48,27 @@ iconRight.args = {
 export const iconValid = Template.bind({});
 iconValid.args = {
   label: '',
-  iconInput: 'check',
   valid: true,
 };
 
 export const iconInvalid = Template.bind({});
 iconInvalid.args = {
   label: '',
-  iconInput: 'close',
   invalid: true,
+};
+
+export const rightWithIcon = Template.bind({});
+rightWithIcon.args = {
+  label: '',
+  valid: true,
+  iconDirection: 'right',
+  iconInput: 'filter',
+};
+
+export const leftWithIcon = Template.bind({});
+leftWithIcon.args = {
+  label: '',
+  valid: true,
+  iconDirection: 'left',
+  iconInput: 'filter',
 };

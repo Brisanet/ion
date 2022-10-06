@@ -9,6 +9,7 @@
     data-testid="icon-left"
     *ngIf="iconDirection === 'left'"
     [type]="iconInput"
+    size="16"
   ></ion-icon>
   <input
     type="text"
@@ -21,20 +22,23 @@
     data-testid="icon-right"
     *ngIf="iconDirection === 'right'"
     [type]="iconInput"
+    size="16"
   >
   </ion-icon>
   <ion-icon
     data-testid="icon-valid"
     class="colorValid"
     *ngIf="valid"
-    [type]="iconInput"
+    type="check-solid"
+    size="16"
   >
   </ion-icon>
   <ion-icon
     data-testid="icon-invalid"
     class="colorInvalid"
     *ngIf="invalid"
-    [type]="iconInput"
+    type="close-solid"
+    size="16"
   >
   </ion-icon>
 </div>

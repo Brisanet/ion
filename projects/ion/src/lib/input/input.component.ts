@@ -7,6 +7,8 @@ export interface IonInputProps {
   iconInput?: string;
   disabled?: boolean;
   iconDirection?: IconDirection;
+  valid?: boolean;
+  invalid?: boolean;
 }
 
 @Component({
@@ -18,4 +20,6 @@ export class InputComponent {
   @Input() iconInput: IconType;
   @Input() disabled? = false;
   @Input() iconDirection?: IconDirection;
+  @Input() valid: boolean;
+  @Input() invalid: boolean;
 }
