@@ -1,35 +1,14 @@
-import { IonModalConfig } from './../models/modal.interface';
-import { Component } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing'; // DO not forget to Import
 import { fireEvent, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../../button/button.component';
 import { IonIconComponent } from '../../icon/icon.component';
+import { SelectMockComponent } from '../mock/select-mock.component';
+import { IonModalConfig } from './../models/modal.interface';
 import { ModalComponent } from './modal.component';
 
-@Component({
-  template: `
-    <label>Choose one</label>
-    <select
-      style="padding: 5px;
-    border: none;
-    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 15%), 0px 0px 2px rgb(0 0 0 / 15%);
-    background: white;
-    margin-left: 16px
-    "
-      [(ngModel)]="state"
-    >
-      <option>Ceará</option>
-      <option>Espirito Santo</option>
-    </select>
-  `,
-})
-class SelectTemplateComponent {
-  state = 'Ceará';
-}
-
-fdescribe('ModalComponent', () => {
+describe('ModalComponent', () => {
   let component: ModalComponent;
   let fixture: ComponentFixture<ModalComponent>;
 
@@ -39,13 +18,13 @@ fdescribe('ModalComponent', () => {
         ModalComponent,
         IonIconComponent,
         ButtonComponent,
-        SelectTemplateComponent,
+        SelectMockComponent,
       ],
       imports: [FormsModule],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [SelectTemplateComponent],
+          entryComponents: [SelectMockComponent],
         },
       })
       .compileComponents();
@@ -54,7 +33,7 @@ fdescribe('ModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
-    component.componentToBody = SelectTemplateComponent;
+    component.componentToBody = SelectMockComponent;
     fixture.detectChanges();
   });
 

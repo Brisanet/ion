@@ -39,7 +39,7 @@ export class ButtonComponent {
 
   handleClick() {
     if (!this.loading && !this.disabled) {
-      this.ionOnClick.emit('olá');
+      this.ionOnClick.emit();
     }
   }
 }
