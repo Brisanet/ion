@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { IonModalProps } from '../classes/modal.interface';
+import { IonModalConfig } from '../classes/modal.interface';
 import { IonModalResponse } from './../classes/modal.interface';
 
 @Component({
@@ -23,12 +23,13 @@ export class ModalComponent implements OnInit {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody: ViewContainerRef;
 
-  @Input() config: IonModalProps = {
+  @Input() config: IonModalConfig = {
     title: 'Ion Modal',
     showOverlay: true,
     overlayCanDismiss: true,
 
     footer: {
+      hide: false,
       showDivider: true,
       primaryButton: {
         label: 'Confirm',
@@ -54,7 +55,7 @@ export class ModalComponent implements OnInit {
     this.closeModal();
   }
 
-  setConfig(newConfig: IonModalProps) {
+  setConfig(newConfig: IonModalConfig) {
     if (newConfig) {
       Object.assign(this.config, newConfig);
     }

@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IonModalProps, IonModalResponse } from './classes/modal.interface';
+import { IonModalConfig, IonModalResponse } from './classes/modal.interface';
 import { ModalComponent } from './component/modal.component';
 
 @Injectable({
@@ -21,7 +21,7 @@ export class IonModalService {
   open(
     containerRef: ViewContainerRef,
     modalBody: Type<unknown>,
-    config?: IonModalProps
+    config?: IonModalConfig
   ) {
     const factory = this.resolver.resolveComponentFactory(ModalComponent);
     this.modalComponentRef = containerRef.createComponent(factory);

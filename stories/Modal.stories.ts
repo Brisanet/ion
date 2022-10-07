@@ -6,7 +6,10 @@ import { ButtonComponent } from '../projects/ion/src/lib/button/button.component
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { ModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
-import { IonModalResponse } from './../projects/ion/src/lib/modal/classes/modal.interface';
+import {
+  IonModalResponse,
+  IonModalConfig,
+} from './../projects/ion/src/lib/modal/classes/modal.interface';
 
 @Component({
   selector: 'base-component',
@@ -20,11 +23,13 @@ class BaseComponent {
     private containerRef: ViewContainerRef
   ) {}
 
+  modalConfig: IonModalConfig;
+
   componentToBody: Type<unknown>;
 
   openModal() {
     this.ionModalService
-      .open(this.containerRef, this.componentToBody)
+      .open(this.containerRef, this.componentToBody, this.modalConfig)
       .subscribe((response: IonModalResponse) => {
         console.log('value from modal service', response);
       });
@@ -33,8 +38,16 @@ class BaseComponent {
 
 @Component({
   template: `
-    <h3>Choose one</h3>
-    <select [(ngModel)]="state">
+    <label>Choose one</label>
+    <select
+      style="padding: 5px;
+    border: none;
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 15%), 0px 0px 2px rgb(0 0 0 / 15%);
+    background: white;
+    margin-left: 16px
+    "
+      [(ngModel)]="state"
+    >
       <option>Ceará</option>
       <option>Espirito Santo</option>
     </select>
@@ -46,40 +59,35 @@ class SelectTemplateComponent {
 
 @Component({
   template: `
-    <h4>Current Step: {{ step }}</h4>
-    <ion-button [label]="" [disabled]="step === 3"></ion-button>
-    <ion-button [label]="'next'" [disabled]="step === 3"></ion-button>
-    (ionOnClick)="closeModal()"
+    <label for="name">Inform your name</label>
+    <input
+      style="margin: 8px 8px 16px"
+      [(ngModel)]="name"
+      type="text"
+      name="name"
+      id="name"
+    />
+    <ion-button
+      [label]="'Save my name'"
+      [disabled]="name?.length < 2"
+      (ionOnClick)="this.closeModal()"
+    ></ion-button>
   `,
 })
 class StepperTemplateComponent {
   constructor(private ionModalService: IonModalService) {}
-  step;
+  name: string;
 
   closeModal() {
-    this.ionModalService.emitValueAndCloseModal({});
+    this.ionModalService.emitValueAndCloseModal({ name: this.name });
   }
 }
 
-const basicTemplate: Story<BaseComponent> = () => ({
-  moduleMetadata: {
-    declarations: [
-      ButtonComponent,
-      IonIconComponent,
-      BaseComponent,
-      ModalComponent,
-      SelectTemplateComponent,
-    ],
-    imports: [CommonModule, FormsModule],
-    providers: [IonModalService],
-    entryComponents: [ModalComponent, SelectTemplateComponent],
+const basicTemplate: Story<BaseComponent> = (args: BaseComponent) => ({
+  component: BaseComponent,
+  props: {
+    ...args,
   },
-});
-
-const closeByComponentTemplate: Story<BaseComponent> = () => ({
-  template: `
-  <base-component></base-component>
-  `,
   moduleMetadata: {
     declarations: [
       ButtonComponent,
@@ -87,10 +95,15 @@ const closeByComponentTemplate: Story<BaseComponent> = () => ({
       BaseComponent,
       ModalComponent,
       SelectTemplateComponent,
+      StepperTemplateComponent,
     ],
     imports: [CommonModule, FormsModule],
     providers: [IonModalService],
-    entryComponents: [ModalComponent, SelectTemplateComponent],
+    entryComponents: [
+      ModalComponent,
+      SelectTemplateComponent,
+      StepperTemplateComponent,
+    ],
   },
 });
 
@@ -104,7 +117,12 @@ basic.args = {
   componentToBody: SelectTemplateComponent,
 };
 
-export const closeByComponent = closeByComponentTemplate.bind({});
+export const closeByComponent = basicTemplate.bind({});
 closeByComponent.args = {
   componentToBody: StepperTemplateComponent,
+  modalConfig: {
+    footer: {
+      hide: true,
+    },
+  },
 };
