@@ -11,8 +11,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { IonModalConfig } from '../classes/modal.interface';
-import { IonModalResponse } from './../classes/modal.interface';
+import { IonModalConfig } from '../models/modal.interface';
+import { IonModalResponse } from '../models/modal.interface';
 
 @Component({
   selector: 'ion-modal',
@@ -39,6 +39,7 @@ export class ModalComponent implements OnInit {
       },
     },
   };
+
   @Input() componentToBody: Type<unknown>;
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse>();

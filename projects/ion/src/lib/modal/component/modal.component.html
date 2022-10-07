@@ -2,15 +2,18 @@
   [class.hide]="!config.showOverlay"
   (click)="config.canDismiss ? outsideClick() : ''"
   class="modal-overlay"
+  data-testid="modalOverlay"
 >
   <dialog
+    data-testid="modal"
+    [id]="config.id"
     tabindex="0"
     (click)="$event.stopPropagation()"
     open
     class="modal-container"
   >
     <header tabindex="0">
-      <h4>{{ config.title }}</h4>
+      <h4 data-testid="modalTitle">{{ config.title }}</h4>
       <ion-icon
         tabindex="0"
         class="close-icon"
@@ -31,6 +34,7 @@
       *ngIf="!config.footer.hide"
       [class.divider]="config.footer.showDivider"
       tabindex="0"
+      data-testid="modalFooter"
     >
       <ion-button
         type="ghost"

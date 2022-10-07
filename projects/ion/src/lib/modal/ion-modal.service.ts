@@ -6,7 +6,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IonModalConfig, IonModalResponse } from './classes/modal.interface';
+import { IonModalConfig, IonModalResponse } from './models/modal.interface';
 import { ModalComponent } from './component/modal.component';
 
 @Injectable({

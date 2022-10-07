@@ -9,7 +9,7 @@ import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service
 import {
   IonModalResponse,
   IonModalConfig,
-} from './../projects/ion/src/lib/modal/classes/modal.interface';
+} from '../projects/ion/src/lib/modal/models/modal.interface';
 
 @Component({
   selector: 'base-component',
