@@ -42,7 +42,7 @@ export class ModalComponent implements OnInit {
 
   @Input() componentToBody: Type<unknown>;
   @Output()
-  ionOnClose = new EventEmitter<IonModalResponse>();
+  ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
   @HostListener('document:keydown.Escape', ['$event']) onKeydownHandler() {
     this.closeModal();
@@ -52,29 +52,17 @@ export class ModalComponent implements OnInit {
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
-  outsideClick() {
-    this.closeModal();
-  }
-
   setConfig(newConfig: IonModalConfig) {
     if (newConfig) {
       Object.assign(this.config, newConfig);
     }
   }
 
-  primaryButtonClicked() {
-    this.closeModal(this.handleDynamicComponentDataToEmit());
-  }
-
-  secondaryButtonClicked() {
-    this.closeModal();
-  }
-
   handleDynamicComponentDataToEmit(): IonModalResponse {
     return this.componentFactory.instance as { [key: string]: unknown };
   }
 
-  closeModal(valueToEmit?: IonModalResponse) {
+  closeModal(valueToEmit?: IonModalResponse | undefined) {
     this.ionOnClose.emit(valueToEmit);
   }
 

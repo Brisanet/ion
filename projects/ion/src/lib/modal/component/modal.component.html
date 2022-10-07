@@ -1,6 +1,6 @@
 <div
   [class.hide]="!config.showOverlay"
-  (click)="config.canDismiss ? outsideClick() : ''"
+  (click)="config.overlayCanDismiss ? closeModal() : ''"
   class="modal-overlay"
   data-testid="modalOverlay"
 >
@@ -39,12 +39,12 @@
       <ion-button
         type="ghost"
         [label]="config.footer.secondaryButton.label"
-        (ionOnClick)="secondaryButtonClicked()"
+        (ionOnClick)="closeModal()"
       ></ion-button>
       <ion-button
         [label]="config.footer.primaryButton.label"
         [iconType]="config.footer.primaryButton.iconType"
-        (ionOnClick)="primaryButtonClicked()"
+        (ionOnClick)="closeModal(this.handleDynamicComponentDataToEmit())"
       ></ion-button>
     </footer>
   </dialog>

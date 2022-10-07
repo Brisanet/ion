@@ -26,7 +26,7 @@ import { ModalComponent } from './modal.component';
   `,
 })
 class SelectTemplateComponent {
-  state: string;
+  state = 'Ceará';
 }
 
 fdescribe('ModalComponent', () => {
@@ -58,13 +58,15 @@ fdescribe('ModalComponent', () => {
     fixture.detectChanges();
   });
 
-  const footer = () => screen.getByTestId('modalTitle');
+  const footer = () => screen.getByTestId('modalFooter');
+  const overlay = () => screen.getByTestId('modalOverlay');
 
-  it('should create modal with default ', () => {
+  it('should create modal with custom component', () => {
     expect(component).toBeTruthy();
+    expect(screen.getByText('Choose one')).toBeTruthy();
   });
 
-  it('should render with custom labels and without footer divider by config', () => {
+  it('should render according to config with custom label, id, and without footer border', () => {
     const config: IonModalConfig = {
       id: '1',
       title: 'Ion Test',
@@ -86,11 +88,11 @@ fdescribe('ModalComponent', () => {
 
     fixture.detectChanges();
 
+    expect(screen.getByTestId('modal').id).toBe(config.id);
     expect(screen.getByText(config.title)).toBeTruthy();
-    expect(footer().classList.contains('divider')).toBe(false);
     expect(screen.getByText(config.footer.primaryButton.label)).toBeTruthy();
     expect(screen.getByText(config.footer.secondaryButton.label)).toBeTruthy();
-    expect(screen.getByTestId('modal').id).toBe(config.id);
+    expect(footer().classList.contains('divider')).toBe(false);
   });
 
   it('should close modal using esc key', () => {
@@ -103,5 +105,47 @@ fdescribe('ModalComponent', () => {
     });
 
     expect(component.closeModal).toHaveBeenCalled();
+  });
+
+  it('should close modal clicking in overlay when config allow it', () => {
+    jest.spyOn(component, 'closeModal');
+
+    component.config.overlayCanDismiss = false;
+
+    fireEvent(screen.getByTestId('modalOverlay'), new MouseEvent('click'));
+    expect(component.closeModal).not.toHaveBeenCalled();
+
+    component.config.overlayCanDismiss = true;
+
+    fireEvent(screen.getByTestId('modalOverlay'), new MouseEvent('click'));
+    expect(component.closeModal).toHaveBeenCalled();
+  });
+
+  it('should hide footer when its true on config', () => {
+    const modalFooter = footer();
+
+    expect(modalFooter).toBeInTheDocument();
+
+    component.config.footer.hide = true;
+    fixture.detectChanges();
+
+    expect(modalFooter).not.toBeInTheDocument();
+  });
+
+  it('should hide overlay when its true on config', () => {
+    expect(overlay().classList.contains('hide')).toBe(false);
+
+    component.config.showOverlay = false;
+    fixture.detectChanges();
+
+    expect(overlay().classList.contains('hide')).toBe(true);
+  });
+
+  it('should emit event when call closeModal function', () => {
+    jest.spyOn(component.ionOnClose, 'emit');
+
+    component.closeModal(component.handleDynamicComponentDataToEmit());
+
+    expect(component.ionOnClose.emit).toHaveBeenCalledWith({ state: 'Ceará' });
   });
 });
