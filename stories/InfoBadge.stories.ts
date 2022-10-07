@@ -31,31 +31,31 @@ Empty.args = {
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-  icon: 'check',
+  icon: 'check-solid',
   variant: 'primary',
 };
 
 export const Positive = Template.bind({});
 Positive.args = {
-  icon: 'check',
+  icon: 'check-solid',
   variant: 'success',
 };
 
 export const Negative = Template.bind({});
 Negative.args = {
-  icon: 'close',
+  icon: 'close-solid',
   variant: 'negative',
 };
 
 export const Warning = Template.bind({});
 Warning.args = {
-  icon: 'exclamation',
+  icon: 'exclamation-solid',
   variant: 'warning',
 };
 
 export const Info = Template.bind({});
 Info.args = {
-  icon: 'info',
+  icon: 'info-solid',
   variant: 'info',
 };
 
