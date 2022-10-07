@@ -11,6 +11,6 @@ export class RadioComponent {
   @Input() disabled? = false;
 
   check() {
-    this.checked = !this.checked;
+    this.checked = true;
   }
 }

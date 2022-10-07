@@ -33,3 +33,6 @@ export { default as serviceTv } from './service-tv';
 export { default as union } from './union';
 export { default as wait } from './wait';
 export { default as info } from './info';
+export { default as docClose } from './doc-close';
+export { default as docCheck } from './doc-check';
+export { default as docWarning } from './doc-warning';
