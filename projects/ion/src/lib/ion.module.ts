@@ -21,11 +21,11 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
-import { DatePickerComponent } from './date-picker/date-picker.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { DatePickerComponent } from './date-picker/date-picker-basic/date-picker.component';
 
 @NgModule({
   declarations: [

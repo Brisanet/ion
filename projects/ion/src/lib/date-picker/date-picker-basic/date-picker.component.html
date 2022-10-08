@@ -1,0 +1,65 @@
+<div class="date-container" id="date-container">
+  <div class="date-content">
+    <div class="field-date" (click)="setFocusOnClickInput()">
+      <input
+        id="input-date"
+        type="text"
+        [value]="dateField.label || ''"
+        placeholder="Data"
+        readonly
+      />
+    </div>
+    <div class="icons" (click)="actionClickIcon()">
+      <ion-icon
+        *ngIf="!isVisibleIconClose"
+        id="icon"
+        type="calendar"
+        color="#AEB2BD"
+        size="16"
+      ></ion-icon>
+      <ion-icon
+        *ngIf="isVisibleIconClose"
+        id="icon"
+        type="close"
+        color="#505566"
+        size="16"
+      ></ion-icon>
+    </div>
+  </div>
+</div>
+
+<div id="calendar">
+  <div class="calendar-dropdown" id="calendar-dropdown">
+    <div class="header">
+      <ion-button
+        label="<<"
+        type="ghost"
+        (ionOnClick)="previousYear()"
+      ></ion-button>
+      <ion-button
+        label="<"
+        type="ghost"
+        (ionOnClick)="previousMonth()"
+      ></ion-button>
+      <label id="month-year">
+        {{ monthYear }}
+      </label>
+      <ion-button
+        label=">"
+        type="ghost"
+        (ionOnClick)="nextMonth()"
+      ></ion-button>
+      <ion-button
+        label=">>"
+        type="ghost"
+        (ionOnClick)="nextYear()"
+      ></ion-button>
+    </div>
+    <div class="week-days" id="week-days">
+      <span *ngFor="let weeKDay of getWeekDaysElementStrings()">
+        {{ weeKDay }}
+      </span>
+    </div>
+    <div class="month-days" id="month-days"></div>
+  </div>
+</div>
