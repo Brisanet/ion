@@ -4,7 +4,7 @@
   [ngClass]="{
     chip: !selected,
     'chip-selected': selected,
-    positionIcon: iconPosition == 'right' ? '' : 'positionIcon'
+    positionIcon: iconPosition !== 'right' && icon && !options
   }"
   [class]="'chip-' + size"
 >

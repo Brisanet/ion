@@ -60,14 +60,12 @@ describe('ChipComponent', () => {
     }
   );
 
-  it.each(['left'])(
-    'should render icon on left',
-    async (iconPosition: Direction = 'left') => {
-      await sut({ label: 'custom-position', iconPosition });
-      const element = screen.getByText('custom-position');
-      expect(element).toHaveClass('positionIcon');
-    }
-  );
+  it('should render icon on left', async (iconPosition: Direction = 'left', icon = 'close') => {
+    await sut({ label: 'custom-position', iconPosition, icon });
+    const iconDinamic = screen.queryAllByTestId('icon-dinamic');
+    const element = screen.getByText('custom-position');
+    expect(element).toHaveClass('positionIcon');
+  });
 
   it('should render chip component disabled', async () => {
     await sut({ label: 'chip', disabled: true });
