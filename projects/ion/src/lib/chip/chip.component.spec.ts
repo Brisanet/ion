@@ -131,6 +131,15 @@ describe('ChipComponent', () => {
       fireEvent.click(screen.getByText(option));
       expect(screen.getAllByText(option)).toHaveLength(1);
     });
+
+    it('should close dropdown when is not multiple and selected an option', async () => {
+      const option = defaultOptions[0].label;
+      const element = screen.getByText('dropdown');
+      fireEvent.click(element);
+      fireEvent.click(screen.getByText(option));
+      expect(element).toHaveClass('chip');
+      expect(screen.queryAllByText(option)).toHaveLength(1);
+    });
   });
 });
 
@@ -157,9 +166,14 @@ describe('With Multiple Dropdown', () => {
   it('should show badge with two results when selected two options', async () => {
     fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText('Meteora'));
-
-    fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText('One More Light'));
     expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
+  });
+
+  it('should keep dropdown open when an option will be selected', async () => {
+    const dropdown = screen.getByText('dropdown');
+    fireEvent.click(dropdown);
+    fireEvent.click(screen.getByText('Meteora'));
+    expect(dropdown).toHaveClass('chip-selected');
   });
 });
