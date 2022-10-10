@@ -1,4 +1,4 @@
-export class IonModalConfiguration {
+export interface IonModalConfiguration {
   id?: string;
   title?: string;
   showOverlay?: boolean;

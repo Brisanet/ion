@@ -23,24 +23,9 @@ export class IonModalComponent implements OnInit {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody: ViewContainerRef;
 
-  @Input() config: IonModalConfiguration = {
-    title: 'Ion Modal',
-    showOverlay: true,
-    overlayCanDismiss: true,
-
-    footer: {
-      hide: false,
-      showDivider: true,
-      primaryButton: {
-        label: 'Confirm',
-      },
-      secondaryButton: {
-        label: 'Cancel',
-      },
-    },
-  };
-
+  @Input() config: IonModalConfiguration;
   @Input() componentToBody: Type<unknown>;
+
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
@@ -52,9 +37,9 @@ export class IonModalComponent implements OnInit {
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
-  setConfig(newConfig: IonModalConfiguration) {
-    if (newConfig) {
-      Object.assign(this.config, newConfig);
+  setConfig(config: IonModalConfiguration): void {
+    if (config) {
+      Object.assign(this.config, config);
     }
   }
 
@@ -66,7 +51,27 @@ export class IonModalComponent implements OnInit {
     this.ionOnClose.emit(valueToEmit);
   }
 
+  private setDefaultConfig(): void {
+    this.config = {
+      title: 'Ion Modal',
+      showOverlay: true,
+      overlayCanDismiss: true,
+
+      footer: {
+        hide: false,
+        showDivider: true,
+        primaryButton: {
+          label: 'Confirm',
+        },
+        secondaryButton: {
+          label: 'Cancel',
+        },
+      },
+    };
+  }
+
   ngOnInit(): void {
+    this.setDefaultConfig();
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
   }

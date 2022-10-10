@@ -7,7 +7,6 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
-import { IonDividerComponent } from './../projects/ion/src/lib/divider/divider.component';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   component: IonModalComponent,
@@ -19,9 +18,7 @@ const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
       ButtonComponent,
       IonIconComponent,
       IonModalComponent,
-      IonModalComponent,
       SelectMockComponent,
-      IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule],
     providers: [IonModalService],
@@ -34,7 +31,7 @@ export default {
   component: IonModalComponent,
 } as Meta<IonModalComponent>;
 
-export const ModalComponent = basicTemplate.bind({});
-ModalComponent.args = {
+export const Component = basicTemplate.bind({});
+Component.args = {
   componentToBody: SelectMockComponent,
 };

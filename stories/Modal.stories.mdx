@@ -24,7 +24,6 @@ Para facilitar a utilização de nosso IonModalComponent, foi desenvolvido o ser
 Esse serviço possui 3 funções:
 
 <br />
-<br />
 
 ## Open
 
@@ -78,7 +77,7 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
 
 ## EmitValueAndCloseModal
 
-Recebe como parâmetro um valor a ser emitido e faz o fechamento do modal.
+Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser emitido e faz o fechamento do modal.
 
 > Função ideal para casos onde precisamos emitir algum valor e fechar o modal a partir do componente renderizado no corpo do IonModalComponent, principalmente quando optamos por renderizar o modal sem footer
 
@@ -88,7 +87,7 @@ Recebe como parâmetro um valor a ser emitido e faz o fechamento do modal.
   format={false}
   code={dedent`
     save(): void {
-      this.ionModalService.emitValueAndCloseModal({ name: this.name });
+      this.ionModalService.emitValueAndCloseModal({ value: this.myValue });
     }
 `}
 />
