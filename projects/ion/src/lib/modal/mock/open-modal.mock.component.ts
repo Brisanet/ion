@@ -1,6 +1,9 @@
 import { Component, ViewContainerRef, Type } from '@angular/core';
 import { IonModalService } from '../ion-modal.service';
-import { IonModalConfig, IonModalResponse } from '../models/modal.interface';
+import {
+  IonModalConfiguration,
+  IonModalResponse,
+} from '../models/modal.interface';
 
 @Component({
   selector: 'open-modal-button',
@@ -14,8 +17,7 @@ export class OpenModalButtonComponent {
     private containerRef: ViewContainerRef
   ) {}
 
-  modalConfig: IonModalConfig;
-
+  modalConfig: IonModalConfiguration;
   componentToBody: Type<unknown>;
 
   openModal() {

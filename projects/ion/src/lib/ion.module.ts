@@ -22,7 +22,7 @@ import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { ModalComponent } from './modal/component/modal.component';
+import { IonModalComponent } from './modal/component/modal.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { ModalComponent } from './modal/component/modal.component';
     CheckboxComponent,
     CardIonComponent,
     SimpleMenuComponent,
-    ModalComponent,
+    IonModalComponent,
   ],
   imports: [CommonModule],
   exports: [

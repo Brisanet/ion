@@ -5,17 +5,17 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../../button/button.component';
 import { IonIconComponent } from '../../icon/icon.component';
 import { SelectMockComponent } from '../mock/select-mock.component';
-import { IonModalConfig } from './../models/modal.interface';
-import { ModalComponent } from './modal.component';
+import { IonModalConfiguration } from './../models/modal.interface';
+import { IonModalComponent } from './modal.component';
 
-describe('ModalComponent', () => {
-  let component: ModalComponent;
-  let fixture: ComponentFixture<ModalComponent>;
+describe('IonModalComponent', () => {
+  let component: IonModalComponent;
+  let fixture: ComponentFixture<IonModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        ModalComponent,
+        IonModalComponent,
         IonIconComponent,
         ButtonComponent,
         SelectMockComponent,
@@ -31,7 +31,7 @@ describe('ModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ModalComponent);
+    fixture = TestBed.createComponent(IonModalComponent);
     component = fixture.componentInstance;
     component.componentToBody = SelectMockComponent;
     fixture.detectChanges();
@@ -46,7 +46,7 @@ describe('ModalComponent', () => {
   });
 
   it('should render according to config with custom label, id, and without footer border', () => {
-    const config: IonModalConfig = {
+    const config: IonModalConfiguration = {
       id: '1',
       title: 'Ion Test',
 
@@ -123,7 +123,7 @@ describe('ModalComponent', () => {
   it('should emit event when call closeModal function', () => {
     jest.spyOn(component.ionOnClose, 'emit');
 
-    component.closeModal(component.handleDynamicComponentDataToEmit());
+    component.closeModal(component.getChildComponentPropertiesValue());
 
     expect(component.ionOnClose.emit).toHaveBeenCalledWith({ state: 'Ceará' });
   });

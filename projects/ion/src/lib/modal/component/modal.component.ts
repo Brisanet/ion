@@ -11,7 +11,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { IonModalConfig } from '../models/modal.interface';
+import { IonModalConfiguration } from '../models/modal.interface';
 import { IonModalResponse } from '../models/modal.interface';
 
 @Component({
@@ -19,11 +19,11 @@ import { IonModalResponse } from '../models/modal.interface';
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
+export class IonModalComponent implements OnInit {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody: ViewContainerRef;
 
-  @Input() config: IonModalConfig = {
+  @Input() config: IonModalConfiguration = {
     title: 'Ion Modal',
     showOverlay: true,
     overlayCanDismiss: true,
@@ -44,7 +44,7 @@ export class ModalComponent implements OnInit {
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
-  @HostListener('document:keydown.Escape', ['$event']) onKeydownHandler() {
+  @HostListener('document:keydown.Escape', ['$event']) closeOnEscapeKeyDown() {
     this.closeModal();
   }
 
@@ -52,13 +52,13 @@ export class ModalComponent implements OnInit {
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
-  setConfig(newConfig: IonModalConfig) {
+  setConfig(newConfig: IonModalConfiguration) {
     if (newConfig) {
       Object.assign(this.config, newConfig);
     }
   }
 
-  handleDynamicComponentDataToEmit(): IonModalResponse {
+  getChildComponentPropertiesValue(): IonModalResponse {
     return this.componentFactory.instance as { [key: string]: unknown };
   }
 

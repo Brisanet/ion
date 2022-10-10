@@ -1,13 +1,13 @@
-export class IonModalConfig {
+export class IonModalConfiguration {
   id?: string;
   title?: string;
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;
 
-  footer?: IonModalFooterConfig;
+  footer?: IonModalFooterConfiguration;
 }
 
-export interface IonModalFooterConfig {
+export interface IonModalFooterConfiguration {
   hide?: boolean;
   showDivider?: boolean;
 

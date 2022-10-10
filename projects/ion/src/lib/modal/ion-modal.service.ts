@@ -6,31 +6,34 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IonModalConfig, IonModalResponse } from './models/modal.interface';
-import { ModalComponent } from './component/modal.component';
+import {
+  IonModalConfiguration,
+  IonModalResponse,
+} from './models/modal.interface';
+import { IonModalComponent } from './component/modal.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IonModalService {
-  private modalComponentRef!: ComponentRef<ModalComponent>;
+  private modalComponentRef!: ComponentRef<IonModalComponent>;
   private componentSubscriber!: Subject<unknown>;
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
   open(
-    containerRef: ViewContainerRef,
-    modalBody: Type<unknown>,
-    config?: IonModalConfig
+    viewContainerRef: ViewContainerRef,
+    component: Type<unknown>,
+    configuration?: IonModalConfiguration
   ) {
-    const factory = this.resolver.resolveComponentFactory(ModalComponent);
-    this.modalComponentRef = containerRef.createComponent(factory);
+    const factory = this.resolver.resolveComponentFactory(IonModalComponent);
+    this.modalComponentRef = viewContainerRef.createComponent(factory);
 
-    if (config) {
-      this.modalComponentRef.instance.setConfig(config);
+    if (configuration) {
+      this.modalComponentRef.instance.setConfig(configuration);
     }
 
-    this.modalComponentRef.instance.componentToBody = modalBody;
+    this.modalComponentRef.instance.componentToBody = component;
     this.modalComponentRef.instance.ionOnClose.subscribe(
       (valueFromModal: IonModalResponse) => {
         if (!valueFromModal) {

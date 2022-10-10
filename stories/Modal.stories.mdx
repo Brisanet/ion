@@ -1,0 +1,113 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import dedent from 'ts-dedent';
+
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
+import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
+import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
+import { InputMockComponent } from '../projects/ion/src/lib/modal/mock/input-mock.component';
+import { OpenModalButtonComponent } from '../projects/ion/src/lib/modal/mock/open-modal.mock.component';
+import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
+
+<Meta title="Ion/Data Display/Modal" component={OpenModalButtonComponent} />
+
+export const template = (args) => <IonModalComponent {...args} />;
+export const selectComponent = (args) => <IonModalComponent {...args} />;
+export const inputComponent = (args) => <InputMockComponent {...args} />;
+
+# Ion Modal Service
+
+Para facilitar a utilização de nosso IonModalComponent, foi desenvolvido o serviço `IonModalService`.
+Esse serviço possui 3 funções:
+
+<br />
+<br />
+
+## Open
+
+Função responsável pela renderização do modal. Ela recebe como parâmetros:
+
+1. `viewContainerRef`: informamos o _ViewContainerRef_ onde será renderizado o modal.
+2. `component`: informamos o componente a ser renderizado no corpo do modal.
+3. `configuration`: parâmetro **opcional**, onde podemos fazer algumas alterações no modal, seguindo a interface _IonModalConfiguration_
+
+<Source
+  language="js"
+  dark
+  format={false}
+  code={dedent`
+    openModal(): void {
+      this.ionModalService
+        .open(this.myViewcontainerRef, this.componentToModalBody, this.customCodalConfiguration)
+        .subscribe((response: IonModalResponse) => {
+          console.log('value from modal service', response);
+        });
+    }
+`}
+/>
+
+<Canvas>
+  <Story
+    name="Service"
+    height="400px"
+    args={{
+      componentToBody: SelectMockComponent,
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          IonModalComponent,
+          SelectMockComponent,
+        ],
+        providers: [IonModalService],
+        imports: [CommonModule, FormsModule],
+        entryComponents: [IonModalComponent, SelectMockComponent],
+      }),
+    ]}
+  >
+    {template.bind({})}
+  </Story>
+</Canvas>
+
+<br />
+
+## EmitValueAndCloseModal
+
+Recebe como parâmetro um valor a ser emitido e faz o fechamento do modal.
+
+> Função ideal para casos onde precisamos emitir algum valor e fechar o modal a partir do componente renderizado no corpo do IonModalComponent, principalmente quando optamos por renderizar o modal sem footer
+
+<Source
+  language="js"
+  dark
+  format={false}
+  code={dedent`
+    save(): void {
+      this.ionModalService.emitValueAndCloseModal({ name: this.name });
+    }
+`}
+/>
+
+<br />
+
+## CloseModal
+
+Função para fazer o fechamento do modal, sem emissão de valor.
+
+> Como no exemplo anterior, ideal para fechar o modal a partir do componente renderizado no body do IonModalComponent, mas agora sem emitir valor
+
+<Source
+  language="js"
+  dark
+  format={false}
+  code={dedent`
+    cancel(): void {
+      this.ionModalService.closeModal();
+    }
+`}
+/>
