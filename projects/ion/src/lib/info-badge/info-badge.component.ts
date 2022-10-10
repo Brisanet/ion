@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconSizeOptions } from '../core/types/info-badge';
+import { IconSizeOptions, FixIconSizeOptions } from '../core/types/info-badge';
 import { IconType } from '../icon/icon.component';
 import { InfoBadgeSize, InfoBadgeStatus } from '../core/types/info-badge';
 
@@ -23,9 +23,11 @@ export class InfoBadgeComponent {
 
   public iconSize: IconSizeOptions = IconSizeOptions[this.size];
 
-  fixIconSize() {
+  public fixIconSize: FixIconSizeOptions = FixIconSizeOptions[this.size];
+
+  getIconSize() {
     if (this.icon === 'exclamation' || this.icon === 'info') {
-      return this.size === 'md' ? (this.iconSize = 20) : (this.iconSize = 14);
+      return (this.fixIconSize = FixIconSizeOptions[this.size]);
     } else {
       return (this.iconSize = IconSizeOptions[this.size]);
     }

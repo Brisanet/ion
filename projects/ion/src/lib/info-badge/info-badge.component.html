@@ -5,7 +5,7 @@
       *ngIf="icon"
       class="tab-icon"
       [type]="icon"
-      [size]="fixIconSize()"
+      [size]="getIconSize()"
     ></ion-icon>
   </span>
   {{ !icon ? text : '' }}
