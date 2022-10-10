@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --project=ion -s projects/ion/src",
+    "build": "ng build --project=ion",
     "test": "jest -i --passWithNoTests",
     "test:coverage": "jest -i --coverage",
     "test:watch": "jest -i --watchAll",
