@@ -117,7 +117,7 @@ describe('ChipComponent', () => {
       expect(screen.getAllByText(option)).toHaveLength(1);
     });
 
-    it('should close dropdown when not is multiple and selected an option', async () => {
+    it('should close dropdown when is not multiple and selected an option', async () => {
       const option = defaultOptions[0].label;
       const element = screen.getByText('dropdown');
       fireEvent.click(element);
