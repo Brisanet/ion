@@ -1,9 +1,15 @@
 @import '../../styles/index.scss';
 
-@mixin set-size($size, $padding) {
+@mixin set-size($size) {
   width: $size;
   height: $size;
-  padding: $padding;
+
+  .tab-icon {
+    ::ng-deep svg {
+      width: $size;
+      height: $size;
+    }
+  }
 }
 
 @mixin set-background($background) {
@@ -32,7 +38,7 @@ div {
   }
 
   & span:empty {
-    @include set-size(8px, 0);
+    @include set-size(8px);
   }
 
   .tab-icon {
@@ -43,11 +49,11 @@ div {
 }
 
 .info-badge-sm {
-  @include set-size(12px, 3px);
+  @include set-size(12px);
 }
 
 .info-badge-md {
-  @include set-size(16px, 4px);
+  @include set-size(16px);
 }
 
 .primary {
