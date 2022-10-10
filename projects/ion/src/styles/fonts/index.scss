@@ -10,7 +10,6 @@
        url(./styles/fonts/regular/SourceSansPro-Regular.woff2) format('woff2'),
        url(./styles/fonts/regular/SourceSansPro-Regular.woff) format('woff'),
        url(./styles/fonts/regular/SourceSansPro-Regular.ttf) format('truetype'),
-       url(./styles/fonts/regular/SourceSansPro-Regular.svg#SourceSansPro) format('svg');
 }
 
 @font-face {
@@ -23,7 +22,6 @@
        url(./styles/fonts/semibold/SourceSansPro-Semibold.woff2) format('woff2'),
        url(./styles/fonts/semibold/SourceSansPro-Semibold.woff) format('woff'),
        url(./styles/fonts/semibold/SourceSansPro-Semibold.ttf) format('truetype'),
-       url(./styles/fonts/semibold/SourceSansPro-Semibold.svg#SourceSansPro) format('svg');
 }
 
 @font-face {
@@ -36,7 +34,6 @@
        url(./styles/fonts/bold/SourceSansPro-Bold.woff2) format('woff2'),
        url(./styles/fonts/bold/SourceSansPro-Bold.woff) format('woff'),
        url(./styles/fonts/bold/SourceSansPro-Bold.ttf) format('truetype'),
-       url(./styles/fonts/bold/SourceSansPro-Bold.svg#SourceSansPro) format('svg');
 }
 
 @mixin font-size-xs {
