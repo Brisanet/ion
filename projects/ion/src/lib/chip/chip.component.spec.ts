@@ -123,7 +123,7 @@ describe('ChipComponent', () => {
       fireEvent.click(element);
       fireEvent.click(screen.getByText(option));
       expect(element).toHaveClass('chip');
-      expect(screen.queryAllByText(option)).toHaveLength(0);
+      expect(screen.queryAllByText(option)).toHaveLength(1);
     });
   });
 });
