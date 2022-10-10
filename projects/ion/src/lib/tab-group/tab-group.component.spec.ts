@@ -115,4 +115,12 @@ describe('TabGroupComponent', () => {
       selected: true,
     });
   });
+
+  it('should validate if the event was issued twice', async () => {
+    selectEvent.mockClear();
+    const tabs = await sut();
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    expect(tabs.event).toHaveBeenCalledTimes(2);
+  });
 });
