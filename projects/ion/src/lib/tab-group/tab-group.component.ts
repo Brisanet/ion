@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  OnInit,
-  ChangeDetectorRef,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { IonTabProps, TabSize } from '../tab/tab.component';
 import { DirectionType, BorderDirectionType } from '../core/types';
 
@@ -54,11 +47,9 @@ export class TabGroupComponent implements OnInit {
   }
 
   public selectTab(tabSelected: TabInGroup) {
-    if (!tabSelected.selected) {
-      this.clearTabs();
-      tabSelected.selected = true;
-      this.selected.emit(tabSelected);
-    }
+    this.clearTabs();
+    tabSelected.selected = true;
+    this.selected.emit(tabSelected);
   }
 
   ngOnInit(): void {

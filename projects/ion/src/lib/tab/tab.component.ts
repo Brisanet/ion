@@ -32,9 +32,7 @@ export class TabComponent {
   @Input() iconType?: IconType;
   @Input() badge?: BadgeOptions;
 
-  select() {
-    if (!this.selected) {
-      this.selected = !this.selected;
-    }
+  public select() {
+    this.selected = true;
   }
 }

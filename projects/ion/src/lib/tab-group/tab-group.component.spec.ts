@@ -105,4 +105,14 @@ describe('TabGroupComponent', () => {
       expect(screen.getByText(mockTabs[0].label)).toHaveClass(`tab-${size}`);
     }
   );
+
+  it('should emit selected tab when double clicked', async () => {
+    const rendered = await sut();
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    expect(rendered.event).toHaveBeenCalledWith({
+      label: mockTabs[1].label,
+      selected: true,
+    });
+  });
 });
