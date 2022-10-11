@@ -5,7 +5,7 @@ import {
   Type,
   ViewContainerRef,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   IonModalConfiguration,
   IonModalResponse,
@@ -25,15 +25,15 @@ export class IonModalService {
     viewContainerRef: ViewContainerRef,
     component: Type<unknown>,
     configuration?: IonModalConfiguration
-  ) {
+  ): Observable<unknown> {
     const factory = this.resolver.resolveComponentFactory(IonModalComponent);
     this.modalComponentRef = viewContainerRef.createComponent(factory);
+    this.modalComponentRef.instance.componentToBody = component;
 
     if (configuration) {
       this.modalComponentRef.instance.setConfig(configuration);
     }
 
-    this.modalComponentRef.instance.componentToBody = component;
     this.modalComponentRef.instance.ionOnClose.subscribe(
       (valueFromModal: IonModalResponse) => {
         if (!valueFromModal) {

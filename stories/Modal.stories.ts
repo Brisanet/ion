@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';

@@ -35,7 +35,9 @@ export class IonModalComponent implements OnInit {
 
   private componentFactory: ComponentRef<unknown>;
 
-  constructor(private resolver: ComponentFactoryResolver) {}
+  constructor(private resolver: ComponentFactoryResolver) {
+    this.setDefaultConfig();
+  }
 
   setConfig(config: IonModalConfiguration): void {
     if (config) {
@@ -71,7 +73,6 @@ export class IonModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setDefaultConfig();
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
   }
