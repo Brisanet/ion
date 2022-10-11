@@ -33,6 +33,6 @@ export class TabComponent {
   @Input() badge?: BadgeOptions;
 
   select(): void {
-    this.selected = !this.selected;
+    this.selected = true;
   }
 }
