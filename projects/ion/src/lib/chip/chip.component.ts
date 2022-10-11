@@ -1,7 +1,7 @@
-import { IconType } from './../icon/icon.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DropdownItem } from '../dropdown/dropdown.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InfoBadgeStatus } from '../core/types';
+import { DropdownItem } from '../dropdown/dropdown.component';
+import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
 
@@ -43,11 +43,11 @@ export class ChipComponent {
 
   @Output() events = new EventEmitter<ChipEvent>();
 
-  public badge: Badge = {
+  badge: Badge = {
     value: 0,
   };
 
-  select() {
+  select(): void {
     this.toggleDropdown();
     this.selected = !this.selected;
     this.events.emit({
@@ -56,13 +56,13 @@ export class ChipComponent {
     });
   }
 
-  toggleDropdown() {
+  toggleDropdown(): void {
     if (this.options) {
       this.showDropdown = !this.showDropdown;
     }
   }
 
-  handleSuccess(selecteds: DropdownItem[]) {
+  handleSuccess(selecteds: DropdownItem[]): void {
     if (selecteds && this.multiple) {
       this.badge.value = selecteds.length;
     }

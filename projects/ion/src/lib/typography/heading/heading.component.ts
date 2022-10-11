@@ -22,13 +22,21 @@ export type HeadingSize = 'small' | 'medium' | 'normal';
   styleUrls: ['./heading.component.scss'],
 })
 export class HeadingComponent implements AfterViewInit {
-  @Input() public text: string;
-  @Input() public type: HeadingType;
-  @Input() public weight?: HeadingWeight = 'medium';
-  @Input() public colorScheme?: ColorScheme = 'primary';
-  @Input() public size?: HeadingSize = 'normal';
+  @Input() text: string;
+  @Input() type: HeadingType;
+  @Input() weight?: HeadingWeight = 'medium';
+  @Input() colorScheme?: ColorScheme = 'primary';
+  @Input() size?: HeadingSize = 'normal';
 
   @ViewChild('heading', { static: false }) heading: ElementRef;
+
+  ngAfterViewInit(): void {
+    const heading = this.makeElement(this.type, this.text);
+    this.addClass(heading, `color-${this.colorScheme}`);
+    this.addClass(heading, `font-weight-${this.weight}`);
+    this.addClass(heading, `font-size-${this.size}`);
+    this.appendElement(heading);
+  }
 
   private makeElement(type: HeadingType, text: string): HTMLElement {
     const element = createElement({
@@ -48,13 +56,5 @@ export class HeadingComponent implements AfterViewInit {
 
   private appendElement(element: HTMLElement): void {
     this.heading.nativeElement.appendChild(element);
-  }
-
-  ngAfterViewInit(): void {
-    const heading = this.makeElement(this.type, this.text);
-    this.addClass(heading, `color-${this.colorScheme}`);
-    this.addClass(heading, `font-weight-${this.weight}`);
-    this.addClass(heading, `font-size-${this.size}`);
-    this.appendElement(heading);
   }
 }

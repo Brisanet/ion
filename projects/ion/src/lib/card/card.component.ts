@@ -1,3 +1,4 @@
+import { ComponentType } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
   ChangeDetectorRef,
@@ -10,9 +11,8 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { ComponentType } from '@angular/cdk/overlay';
-import { SafeAny } from '../utils/safe-any';
 import { IconType } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
 
 type Pick<T, K extends keyof T> = {
   [Key in K]: T[Key];
@@ -59,24 +59,20 @@ export interface IonCard {
   styleUrls: ['./card.component.scss'],
 })
 export class CardIonComponent implements AfterViewInit, OnDestroy {
+  @Input() configuration!: IonCard;
+  @Output() events = new EventEmitter<CardEvent>();
+
+  @ViewChild('body', { read: ViewContainerRef, static: false })
+  body!: ViewContainerRef;
+  @ViewChild('footer', { read: ViewContainerRef, static: false })
+  footer!: ViewContainerRef;
+
   constructor(
     private resolverFactory: ComponentFactoryResolver,
     private cdr: ChangeDetectorRef
   ) {}
 
-  @Input() configuration!: IonCard;
-  @Output() events = new EventEmitter<CardEvent>();
-
-  @ViewChild('body', { read: ViewContainerRef, static: false })
-  public body!: ViewContainerRef;
-  @ViewChild('footer', { read: ViewContainerRef, static: false })
-  public footer!: ViewContainerRef;
-
-  public cardEvent(type: ButtonType): void {
-    this.events.emit({ buttonAction: type });
-  }
-
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.cdr.detectChanges();
     this.ngOnDestroy();
     const bodyFactory = this.resolverFactory.resolveComponentFactory(
@@ -100,5 +96,9 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
     if (this.footer) {
       this.footer.detach();
     }
+  }
+
+  cardEvent(type: ButtonType): void {
+    this.events.emit({ buttonAction: type });
   }
 }

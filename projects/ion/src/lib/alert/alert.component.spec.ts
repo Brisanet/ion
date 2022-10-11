@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from './../icon/icon.component';
-import { render, screen, fireEvent } from '@testing-library/angular';
-import { AlertComponent, IonAlertProps } from './alert.component';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { StatusType } from '../core/types/status';
+import { IonIconComponent } from './../icon/icon.component';
+import { AlertComponent, IonAlertProps } from './alert.component';
 
 const defaultValue: IonAlertProps = {
   message: 'Mensagem padrão',
@@ -20,7 +20,9 @@ const closableAlert = 'closable-true';
 
 const alertTypes = ['success', 'warning', 'info', 'negative'];
 
-const sut = async (customProps: IonAlertProps = defaultValue) => {
+const sut = async (
+  customProps: IonAlertProps = defaultValue
+): Promise<HTMLElement> => {
   await render(AlertComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
@@ -50,7 +52,7 @@ describe('AlertComponent', () => {
   });
 
   it.each(alertTypes)('Should render %s type', async (type: StatusType) => {
-    const element = await sut({ ...defaultValue, type: type });
+    const element = await sut({ ...defaultValue, type });
     expect(element).toHaveClass(type);
   });
 
@@ -69,7 +71,7 @@ describe('AlertComponent', () => {
     async (type: StatusType) => {
       const element = await sut({
         ...defaultValue,
-        type: type,
+        type,
         closable: true,
       });
       expect(element).toHaveClass(type);

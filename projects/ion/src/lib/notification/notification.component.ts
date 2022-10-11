@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
@@ -15,7 +15,7 @@ export interface NotificationProps {
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit {
   @Input() title!: NotificationProps['title'];
   @Input() message!: NotificationProps['message'];
   @Input() icon?: NotificationProps['icon'];
@@ -25,7 +25,7 @@ export class NotificationComponent {
 
   private timer: ReturnType<typeof setTimeout>;
 
-  public getIcon(): IconType {
+  getIcon(): IconType {
     const icons = {
       success: 'check-solid',
       info: 'info-solid',
@@ -35,14 +35,14 @@ export class NotificationComponent {
     return icons[this.type];
   }
 
-  public getClass() {
+  getClass(): string {
     if (this.icon) {
       return 'default-icon';
     }
     return `default-icon ${this.type}-icon`;
   }
 
-  public timeByWords(message: string): number {
+  timeByWords(message: string): number {
     const wordsBySecond = 3;
 
     // margin is one second
@@ -52,11 +52,11 @@ export class NotificationComponent {
     return Number(result.toFixed(0)) * second;
   }
 
-  closeNotification() {
+  closeNotification(): void {
     this.notification.nativeElement.remove();
   }
 
-  closeAuto(closeIn: number = this.timeByWords(this.message)) {
+  closeAuto(closeIn: number = this.timeByWords(this.message)): void {
     if (this.fixed) {
       return;
     }
@@ -65,15 +65,15 @@ export class NotificationComponent {
     }, closeIn);
   }
 
-  mouseEnter() {
+  mouseEnter(): void {
     clearTimeout(this.timer);
   }
 
-  mouseLeave() {
+  mouseLeave(): void {
     this.closeAuto();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.closeAuto();
   }
 }

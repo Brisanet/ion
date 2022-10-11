@@ -45,7 +45,9 @@ const defaultMenu: SimpleMenuProps = {
   } as SafeAny,
 };
 
-const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
+const sut = async (
+  customProps: SimpleMenuProps = defaultMenu
+): Promise<void> => {
   await render(SimpleMenuComponent, {
     componentProperties: customProps,
     declarations: [
@@ -125,6 +127,6 @@ describe('SimpleMenu', () => {
   });
 });
 
-const sleep = (ms: number) => {
+const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

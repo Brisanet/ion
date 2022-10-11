@@ -3,14 +3,15 @@ import { render, screen } from '@testing-library/angular';
 import { InfoBadgeStatus } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 
-import { InfoBadgeComponent } from './info-badge.component';
-import { InfoBadgeProps } from './info-badge.component';
+import { InfoBadgeComponent, InfoBadgeProps } from './info-badge.component';
 
 const defaultInfoBadge: InfoBadgeProps = {
   variant: 'primary',
 };
 
-const sut = async (customProps: InfoBadgeProps = defaultInfoBadge) => {
+const sut = async (
+  customProps: InfoBadgeProps = defaultInfoBadge
+): Promise<void> => {
   await render(InfoBadgeComponent, {
     componentProperties: customProps,
     imports: [CommonModule],

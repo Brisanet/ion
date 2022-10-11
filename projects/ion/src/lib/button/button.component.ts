@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 
@@ -37,7 +37,7 @@ export class ButtonComponent {
   @Input() circularButton? = false;
   @Output() ionOnClick? = new EventEmitter();
 
-  handleClick() {
+  handleClick(): void {
     if (!this.loading && !this.disabled) {
       this.ionOnClick.emit();
     }
