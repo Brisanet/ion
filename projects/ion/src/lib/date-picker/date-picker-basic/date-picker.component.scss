@@ -16,7 +16,6 @@
   display: flex;
   width: 360px;
   .date-content,
-  .date-ranges,
   .field-date,
   .icons,
   .separator {
@@ -101,31 +100,6 @@
     }
   }
 
-  & div.time-interval {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 16px;
-
-    & ion-divider {
-      width: 116%;
-      margin-left: -25px;
-    }
-
-    & div.content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-
-      & label {
-        font-size: 14px;
-        line-height: 20px;
-      }
-    }
-  }
-
   & div.week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -169,81 +143,11 @@
         color: $neutral-7;
       }
 
-      &.selected,
-      &.selected-start-date {
+      &.selected {
         background-color: $primary-2;
         color: $primary-6;
         border-radius: 22px;
         border: 1px solid $primary-6;
-      }
-
-      &.selected-end-date {
-        background-color: $primary-6;
-        color: $neutral-1;
-        border-radius: 999999px;
-        border: 1px solid $primary-6;
-      }
-
-      &.first-range {
-        background-color: #b5d2fc;
-        color: #0858ce;
-        border-radius: 22px 0 0 22px !important;
-        border: none !important;
-
-        &::after {
-          content: '';
-          border-radius: 24px;
-          width: 44px;
-          height: 44px;
-          position: absolute;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid;
-        }
-      }
-
-      &.in-range {
-        background-color: $primary-2;
-        border-radius: 0 !important;
-
-        &:hover::after {
-          content: '';
-          position: absolute;
-          width: 44px;
-          height: 44px;
-          border-radius: 22px;
-          background-color: transparent !important;
-          border: 1px solid $primary-6 !important;
-        }
-      }
-
-      &.end-range {
-        background-color: $primary-2;
-        border-radius: 0 22px 22px 0 !important;
-        border: none !important;
-
-        &::after {
-          content: attr(data-content);
-          width: 44px;
-          height: 44px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: absolute;
-          background-color: #0858ce;
-          color: $neutral-1;
-          border-radius: 24px;
-          border: 1px solid;
-        }
-      }
-
-      &.in-range.sunday {
-        border-radius: 22px 0 0 22px !important;
-      }
-
-      &.in-range.saturday {
-        border-radius: 0 22px 22px 0 !important;
       }
 
       &:not(.selected-end-date):hover {
