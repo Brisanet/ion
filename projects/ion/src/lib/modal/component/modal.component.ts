@@ -29,7 +29,7 @@ export class IonModalComponent implements OnInit {
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
-  @HostListener('document:keydown.Escape', ['$event']) closeOnEscapeKeyDown() {
+  @HostListener('document:keydown.Escape') closeOnEscapeKeyDown() {
     this.closeModal();
   }
 

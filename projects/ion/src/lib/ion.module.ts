@@ -79,6 +79,7 @@ import { IonModalComponent } from './modal/component/modal.component';
     CheckboxComponent,
     CardIonComponent,
     InfoBadgeComponent,
+    IonModalComponent,
     PaginationComponent,
   ],
 })
