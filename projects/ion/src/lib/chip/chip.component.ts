@@ -63,14 +63,14 @@ export class ChipComponent {
   }
 
   handleSuccess(selecteds: DropdownItem[]) {
-    if (selecteds) {
+    if (selecteds && this.multiple) {
       this.badge.value = selecteds.length;
     }
 
     if (!this.multiple) {
       this.label = selecteds[0].label;
+      this.selected = false;
+      this.toggleDropdown();
     }
-
-    this.toggleDropdown();
   }
 }
