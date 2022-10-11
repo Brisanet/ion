@@ -1,4 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { ButtonIconSizeOptions } from '../core/types/button';
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 
@@ -23,7 +24,7 @@ export interface IonButtonProps {
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
   @Input() label?: string;
   @Input() type?: Type = 'primary';
   @Input() size?: Size = 'md';
@@ -37,9 +38,15 @@ export class ButtonComponent {
   @Input() circularButton? = false;
   @Output() ionOnClick? = new EventEmitter();
 
+  public iconSize!: ButtonIconSizeOptions;
+
   handleClick() {
     if (!this.loading && !this.disabled) {
       this.ionOnClick.emit();
     }
+  }
+
+  ngOnInit() {
+    this.iconSize = ButtonIconSizeOptions[this.size];
   }
 }
