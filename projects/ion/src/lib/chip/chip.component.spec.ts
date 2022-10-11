@@ -62,7 +62,6 @@ describe('ChipComponent', () => {
 
   it('should render icon on left', async (iconPosition: Direction = 'left', icon = 'close') => {
     await sut({ label: 'custom-position', iconPosition, icon });
-    const iconDinamic = screen.queryAllByTestId('icon-dinamic');
     const element = screen.getByText('custom-position');
     expect(element).toHaveClass('positionIcon');
   });
