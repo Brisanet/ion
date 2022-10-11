@@ -1,0 +1,12 @@
+<div data-testid="info-badge" [class]="variant">
+  <span [ngClass]="'info-badge-' + size">
+    <ion-icon
+      data-testid="info-badge-icon"
+      *ngIf="icon"
+      class="tab-icon"
+      [type]="icon"
+      [size]="iconSize"
+    ></ion-icon>
+  </span>
+  {{ !icon ? text : '' }}
+</div>

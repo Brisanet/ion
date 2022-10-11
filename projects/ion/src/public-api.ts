@@ -25,3 +25,4 @@ export * from './lib/checkbox/checkbox.component';
 export * from './lib/card/card.component';
 export * from './lib/simple-menu/simple-menu.component';
 export * from './lib/modal/component/modal.component';
+export * from './lib/info-badge/info-badge.component';

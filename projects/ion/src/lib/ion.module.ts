@@ -21,6 +21,9 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { FormsModule } from '@angular/forms';
+import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonModalComponent } from './modal/component/modal.component';
 
@@ -48,10 +51,12 @@ import { IonModalComponent } from './modal/component/modal.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
+    PaginationComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
     ButtonComponent,
@@ -73,6 +78,8 @@ import { IonModalComponent } from './modal/component/modal.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InfoBadgeComponent,
+    PaginationComponent,
   ],
 })
 export class IonModule {}
