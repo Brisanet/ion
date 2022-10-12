@@ -51,8 +51,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
   isVisibleIconClose = false;
-  currentFieldDate: string;
-  hasDateInFields = false;
   dateField: DateField = {
     element: null,
     date: undefined,
@@ -186,7 +184,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.selectedDate = day;
     this.selectedDayElement = buttonDay;
     this.setCurrentDate();
-    this.hasDateInFields = true;
     this.updateMonthDays();
     this.setDateInCalendar();
     this.emmitEvent();
@@ -220,7 +217,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getHtmlElementsReferences();
+    this.dateField.element = this.inputDate.nativeElement;
     this.addEventsInDateContainer();
 
     if (this.isCalendarVisible) {
@@ -240,7 +237,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   addEventsInDateContainer() {
     this.dateContainer.nativeElement.addEventListener(
       'mouseover',
-      () => this.hasDateInFields && this.setVisibleIconClose(true)
+      () => this.dateField.label && this.setVisibleIconClose(true)
     );
     this.dateContainer.nativeElement.addEventListener('mouseleave', () =>
       this.setVisibleIconClose(false)
@@ -252,15 +249,14 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   clearCalendar(closeCalendar = false) {
-    this.clearDatesObject();
-    this.hasDateInFields = false;
+    this.clearDateField();
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDateInCalendar();
     this.setVisibleIconClose(false);
     closeCalendar && this.closeCalendar();
   }
 
-  clearDatesObject() {
+  clearDateField() {
     this.dateField.date = undefined;
     this.dateField.label = undefined;
   }
@@ -275,7 +271,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   setFocusOnClickInput() {
     this.calendarContaiener.nativeElement.style.display = 'block';
-    this.currentFieldDate = 'date';
     this.dateField.element.focus();
   }
 
