@@ -5,6 +5,8 @@ import {
   Output,
   EventEmitter,
   AfterViewInit,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { Calendar } from '../core/calendar';
 import { Day } from '../core/day';
@@ -21,7 +23,6 @@ type DateField = {
 
 export interface IonDatePickerProps {
   isCalendarVisible?: boolean;
-  isDateRange?: boolean;
   initialDate?: string;
   lang?: string;
   events?: EventEmitter<DateEmitter>;
@@ -32,14 +33,16 @@ export interface IonDatePickerProps {
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatePickerComponent implements OnInit, AfterViewInit {
-  @Input() isCalendarVisible = false;
+  @ViewChild('calendarContainer', { static: true })
+  public calendarContaiener: ElementRef<HTMLElement>;
+  @Input()
+  isCalendarVisible = false;
   @Input() initialDate: string;
   @Input() lang: string;
   @Output() events = new EventEmitter<DateEmitter>();
   selectedDate: Day;
   monthYear: string;
   calendar: Calendar;
-  calendarElement: HTMLElement;
   selectedDayElement: HTMLButtonElement;
   isVisibleIconClose = false;
   currentFieldDate: string;
@@ -62,15 +65,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    this.calendarInitialState();
+    this.setCalendarInitialState();
   }
 
-  calendarInitialState() {
+  setCalendarInitialState() {
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
-    this.createCalendarInstance();
+    this.calendar = this.getCalendarInstance();
     this.renderCalendarDays();
-
-    this.calendarElement = document.getElementById('calendar');
   }
 
   getInitialDate = () =>
@@ -78,13 +79,12 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
       ? new Date(this.initialDate.replace('-', ','))
       : new Date();
 
-  createCalendarInstance() {
-    this.calendar = new Calendar(
+  getCalendarInstance = () =>
+    new Calendar(
       this.selectedDate.year,
       this.selectedDate.monthNumber,
       this.lang
     );
-  }
 
   renderCalendarDays() {
     this.updatedMonthYear();
@@ -218,10 +218,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.addEventsInDateContainer();
 
     if (this.isCalendarVisible) {
-      this.calendarElement.style.display = 'block';
+      this.calendarContaiener.nativeElement.style.display = 'block';
 
       this.dateField.element.focus();
+      return;
     }
+
+    this.calendarContaiener.nativeElement.style.display = 'none';
   }
 
   getHtmlElementsReferences() {
@@ -266,7 +269,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   setFocusOnClickInput() {
-    this.calendarElement.style.display = 'block';
+    this.calendarContaiener.nativeElement.style.display = 'block';
     this.currentFieldDate = 'date';
     this.dateField.element.focus();
   }
@@ -281,7 +284,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   closeCalendar() {
-    this.calendarElement.style.display = 'none';
+    this.calendarContaiener.nativeElement.style.display = 'none';
   }
 
   previousMonth() {
