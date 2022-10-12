@@ -26,6 +26,7 @@ export interface IonDatePickerProps {
   initialDate?: string;
   lang?: string;
   placeholder?: string;
+  isRequired: boolean;
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
@@ -47,6 +48,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input() initialDate: string;
   @Input() lang: string;
   @Input() placeholder = 'Data';
+  @Input() isRequired = false;
   @Output() events = new EventEmitter<DateEmitter>();
   selectedDate: Day;
   monthYear: string;

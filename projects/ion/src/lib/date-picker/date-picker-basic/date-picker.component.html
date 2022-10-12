@@ -1,5 +1,5 @@
 <div class="date-container" #dateContainer>
-  <div class="date-content">
+  <div class="date-content" [class.required]="!dateField.label && isRequired">
     <div class="field-date" (click)="setFocusOnClickInput()">
       <input
         #inputDate

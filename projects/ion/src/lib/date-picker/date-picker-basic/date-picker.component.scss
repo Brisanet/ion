@@ -59,6 +59,10 @@
     }
   }
 
+  .required {
+    border-color: $negative-6 !important;
+  }
+
   .date-content {
     border-radius: 8px;
     border: 1px solid $neutral-5;
