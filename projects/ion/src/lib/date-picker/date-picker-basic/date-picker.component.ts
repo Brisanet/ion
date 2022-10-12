@@ -35,6 +35,8 @@ export interface IonDatePickerProps {
 export class DatePickerComponent implements OnInit, AfterViewInit {
   @ViewChild('calendarContainer', { static: true })
   public calendarContaiener: ElementRef<HTMLElement>;
+  @ViewChild('monthDaysContainer', { static: true })
+  public monthDaysContainer: ElementRef<HTMLElement>;
   @Input()
   isCalendarVisible = false;
   @Input() initialDate: string;
@@ -96,11 +98,12 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   updateMonthDays() {
-    const monthDaysContainer = document.getElementById('month-days');
-    monthDaysContainer.innerHTML = '';
+    this.monthDaysContainer.nativeElement.innerHTML = '';
 
     this.getMonthDaysGrid().forEach((day) => {
-      monthDaysContainer.appendChild(this.createButtonElementOfTheDay(day));
+      this.monthDaysContainer.nativeElement.appendChild(
+        this.createButtonElementOfTheDay(day)
+      );
     });
   }
 
