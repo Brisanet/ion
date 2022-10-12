@@ -5,21 +5,19 @@
         #inputDate
         type="text"
         [value]="dateField.label || ''"
-        placeholder="Data"
+        [placeholder]="placeholder"
         readonly
       />
     </div>
     <div class="icons" (click)="actionClickIcon()">
       <ion-icon
         *ngIf="!isVisibleIconClose"
-        id="icon"
         type="calendar"
         color="#AEB2BD"
         size="16"
       ></ion-icon>
       <ion-icon
         *ngIf="isVisibleIconClose"
-        id="icon"
         type="close"
         color="#505566"
         size="16"
@@ -27,7 +25,6 @@
     </div>
   </div>
 </div>
-
 <div #calendarContainer>
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">
@@ -41,7 +38,7 @@
         type="ghost"
         (ionOnClick)="previousMonth()"
       ></ion-button>
-      <label id="month-year">
+      <label>
         {{ monthYear }}
       </label>
       <ion-button

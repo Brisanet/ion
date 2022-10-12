@@ -25,6 +25,7 @@ export interface IonDatePickerProps {
   isCalendarVisible?: boolean;
   initialDate?: string;
   lang?: string;
+  placeholder?: string;
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
@@ -45,6 +46,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   isCalendarVisible = false;
   @Input() initialDate: string;
   @Input() lang: string;
+  @Input() placeholder = 'Data';
   @Output() events = new EventEmitter<DateEmitter>();
   selectedDate: Day;
   monthYear: string;
@@ -228,10 +230,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     }
 
     this.calendarContaiener.nativeElement.style.display = 'none';
-  }
-
-  getHtmlElementsReferences() {
-    this.dateField.element = document.getElementById('input-date');
   }
 
   addEventsInDateContainer() {
