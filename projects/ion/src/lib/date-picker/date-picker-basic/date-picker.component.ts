@@ -37,6 +37,10 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   public calendarContaiener: ElementRef<HTMLElement>;
   @ViewChild('monthDaysContainer', { static: true })
   public monthDaysContainer: ElementRef<HTMLElement>;
+  @ViewChild('dateContainer', { static: true })
+  public dateContainer: ElementRef<HTMLElement>;
+  @ViewChild('inputDate', { static: true })
+  public inputDate: ElementRef<HTMLElement>;
   @Input()
   isCalendarVisible = false;
   @Input() initialDate: string;
@@ -49,7 +53,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   isVisibleIconClose = false;
   currentFieldDate: string;
   hasDateInFields = false;
-  dateContainer: HTMLElement;
   dateField: DateField = {
     element: null,
     date: undefined,
@@ -231,16 +234,15 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   getHtmlElementsReferences() {
-    this.dateContainer = document.getElementById('date-container');
     this.dateField.element = document.getElementById('input-date');
   }
 
   addEventsInDateContainer() {
-    this.dateContainer.addEventListener(
+    this.dateContainer.nativeElement.addEventListener(
       'mouseover',
       () => this.hasDateInFields && this.setVisibleIconClose(true)
     );
-    this.dateContainer.addEventListener('mouseleave', () =>
+    this.dateContainer.nativeElement.addEventListener('mouseleave', () =>
       this.setVisibleIconClose(false)
     );
   }
