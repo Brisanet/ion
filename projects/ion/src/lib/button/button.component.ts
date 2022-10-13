@@ -49,7 +49,7 @@ export class ButtonComponent {
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
   @Output() ionOnClick? = new EventEmitter();
-  @Output() selected = new EventEmitter();
+  @Output() selected = new EventEmitter<DropdownItem[]>();
 
   public buttonBadge?: ButtonBadgeTypes = {
     type: 'secondary',
@@ -73,7 +73,6 @@ export class ButtonComponent {
 
     if (this.multiple) {
       this.updateBadgeValue(selecteds);
-
       return;
     }
 
