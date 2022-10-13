@@ -25,7 +25,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { DatePickerComponent } from './date-picker/date-picker-basic/date-picker.component';
+import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [

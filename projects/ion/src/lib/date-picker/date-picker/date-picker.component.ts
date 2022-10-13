@@ -31,7 +31,7 @@ export interface IonDatePickerProps {
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
-  selector: 'ion-date-picker-basic',
+  selector: 'ion-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
