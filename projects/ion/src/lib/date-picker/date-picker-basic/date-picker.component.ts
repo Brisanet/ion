@@ -8,6 +8,7 @@ import {
   ViewChild,
   ElementRef,
 } from '@angular/core';
+import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
 import { Day } from '../core/day';
 
@@ -221,6 +222,11 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    document.addEventListener('mouseup', (e: SafeAny) => {
+      if (!this.calendarContaiener.nativeElement.contains(e.target)) {
+        this.closeCalendar();
+      }
+    });
     this.dateField.element = this.inputDate.nativeElement;
     this.addEventsInDateContainer();
 

@@ -10,6 +10,7 @@
   justify-content: center;
   align-items: center;
   width: 360px;
+  position: relative;
 }
 
 .date-container {
@@ -69,8 +70,10 @@
   }
 }
 
-.calendarContainer {
-  display: none;
+.calendar-container {
+  position: absolute;
+  top: 40px;
+  z-index: 1;
 }
 
 .calendar-dropdown {
