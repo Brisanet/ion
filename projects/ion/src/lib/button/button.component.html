@@ -13,6 +13,7 @@
   <ion-icon
     *ngIf="iconType && !loading"
     [type]="iconType"
+    [size]="iconSize"
     class="icon"
   ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
