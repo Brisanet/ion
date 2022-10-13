@@ -55,7 +55,7 @@ describe('ChipComponent', () => {
     'should render chip component with size %s',
     async (size: ChipSize) => {
       await sut({ label: 'custom-size', size });
-      const element = screen.getByText('custom-size');
+      const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass('chip-' + size);
     }
   );
@@ -68,7 +68,7 @@ describe('ChipComponent', () => {
 
   it('should render chip component disabled', async () => {
     await sut({ label: 'chip', disabled: true });
-    const element = screen.getByText('chip');
+    const element = screen.getByTestId('ion-chip');
     expect(element).toHaveAttribute('disabled');
   });
 
@@ -81,7 +81,7 @@ describe('ChipComponent', () => {
       } as SafeAny,
     };
     await sut(config);
-    const element = screen.getByText(config.label);
+    const element = screen.getByTestId('ion-chip');
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
     expect(selectEvent).toHaveBeenCalledWith({
@@ -131,7 +131,7 @@ describe('ChipComponent', () => {
 
     it('should close dropdown when is not multiple and selected an option', async () => {
       const option = defaultOptions[0].label;
-      const element = screen.getByText('dropdown');
+      const element = screen.getByTestId('ion-chip');
       fireEvent.click(element);
       fireEvent.click(screen.getByText(option));
       expect(element).toHaveClass('chip');
@@ -168,7 +168,7 @@ describe('With Multiple Dropdown', () => {
   });
 
   it('should keep dropdown open when an option will be selected', async () => {
-    const dropdown = screen.getByText('dropdown');
+    const dropdown = screen.getByTestId('ion-chip');
     fireEvent.click(dropdown);
     fireEvent.click(screen.getByText('Meteora'));
     expect(dropdown).toHaveClass('chip-selected');
