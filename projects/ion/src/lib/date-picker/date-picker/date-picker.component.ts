@@ -27,7 +27,7 @@ export interface IonDatePickerProps {
   initialDate?: string;
   lang?: string;
   placeholder?: string;
-  isRequired: boolean;
+  isRequired?: boolean;
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
@@ -46,11 +46,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   public inputDate: ElementRef<HTMLElement>;
   @Input()
   isCalendarVisible = false;
-  @Input() initialDate: string;
+  @Input() initialDate: IonDatePickerProps['initialDate'];
   @Input() lang: string;
   @Input() placeholder = 'Data';
   @Input() isRequired = false;
   @Output() events = new EventEmitter<DateEmitter>();
+  public showCalendar = false;
+  public days: Day[] = [];
   selectedDate: Day;
   monthYear: string;
   calendar: Calendar;
@@ -96,22 +98,24 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   renderCalendarDays() {
     this.updatedMonthYear();
-    this.updateMonthDays();
+    // this.updateMonthDays();
   }
 
   updatedMonthYear() {
     this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
   }
 
-  updateMonthDays() {
-    this.monthDaysContainer.nativeElement.innerHTML = '';
+  // updateMonthDays() {
+  //   if (this.monthDaysContainer) {
+  //     this.monthDaysContainer.nativeElement.innerHTML = '';
 
-    this.getMonthDaysGrid().forEach((day) => {
-      this.monthDaysContainer.nativeElement.appendChild(
-        this.createButtonElementOfTheDay(day)
-      );
-    });
-  }
+  //     this.getMonthDaysGrid().forEach((day) => {
+  //       this.monthDaysContainer.nativeElement.appendChild(
+  //         this.createButtonElementOfTheDay(day)
+  //       );
+  //     });
+  //   }
+  // }
 
   createButtonElementOfTheDay(day: Day): HTMLButtonElement {
     const buttonDay = document.createElement('button');
@@ -147,7 +151,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   getMonthDaysGrid() {
     const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays = this.getTotalLastMonthFinalDays();
+    const totalLastMonthFinalDays = this.getLastMonthFinalDays();
     const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
     const monthList = Array.from<Day>({ length: totalDays });
 
@@ -167,8 +171,13 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return this.calendar.month.getDay(day);
   }
 
-  getTotalLastMonthFinalDays = (): number =>
-    this.calendar.month.getDay(1).dayNumber - 1;
+  getTotalLastMonthFinalDays(): number {
+    return this.calendar.month.getDay(1).dayNumber - 1;
+  }
+
+  getLastMonthFinalDays(): number {
+    return this.calendar.month.getDay(1).dayNumber - 1;
+  }
 
   getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
     const totalDays =
@@ -189,7 +198,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.selectedDate = day;
     this.selectedDayElement = buttonDay;
     this.setCurrentDate();
-    this.updateMonthDays();
+    // this.updateMonthDays();
     this.setDateInCalendar();
     this.emmitEvent();
   }
@@ -222,22 +231,22 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    document.addEventListener('mouseup', (e: SafeAny) => {
-      if (!this.calendarContaiener.nativeElement.contains(e.target)) {
-        this.closeCalendar();
-      }
-    });
-    this.dateField.element = this.inputDate.nativeElement;
-    this.addEventsInDateContainer();
-
-    if (this.isCalendarVisible) {
-      this.calendarContaiener.nativeElement.style.display = 'block';
-
-      this.dateField.element.focus();
-      return;
-    }
-
-    this.calendarContaiener.nativeElement.style.display = 'none';
+    // document.addEventListener('mouseup', (e: SafeAny) => {
+    //   if (
+    //     this.calendarContaiener &&
+    //     !this.calendarContaiener.nativeElement.contains(e.target)
+    //   ) {
+    //     this.closeCalendar();
+    //   }
+    // });
+    // this.dateField.element = this.inputDate.nativeElement;
+    // this.addEventsInDateContainer();
+    // if (this.isCalendarVisible) {
+    //   this.calendarContaiener.nativeElement.style.display = 'block';
+    //   this.dateField.element.focus();
+    //   return;
+    // }
+    // this.calendarContaiener.nativeElement.style.display = 'none';
   }
 
   addEventsInDateContainer() {
@@ -275,9 +284,17 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.renderCalendarDays();
   }
 
+  tempRenderDays() {
+    this.days = this.getMonthDaysGrid();
+  }
+
   setFocusOnClickInput() {
-    this.calendarContaiener.nativeElement.style.display = 'block';
-    this.dateField.element.focus();
+    this.showCalendar = true;
+    this.renderCalendarDays();
+    this.tempRenderDays();
+    // console.log('showCalendar ->', this.showCalendar);
+    // this.calendarContaiener.nativeElement.style.display = 'block';
+    // this.dateField.element.focus();
   }
 
   actionClickIcon() {
@@ -299,8 +316,10 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   }
 
   nextMonth() {
+    console.log('nextMonth ->');
     this.calendar.goToNextMonth();
     this.renderCalendarDays();
+    this.tempRenderDays();
   }
 
   previousYear() {

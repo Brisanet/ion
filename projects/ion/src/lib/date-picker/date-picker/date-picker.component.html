@@ -1,6 +1,10 @@
 <div class="date-container" #dateContainer>
   <div class="date-content" [class.required]="!dateField.label && isRequired">
-    <div class="field-date" (click)="setFocusOnClickInput()">
+    <div
+      class="field-date"
+      data-testid="field-date"
+      (click)="setFocusOnClickInput()"
+    >
       <input
         #inputDate
         type="text"
@@ -25,7 +29,7 @@
     </div>
   </div>
 </div>
-<div #calendarContainer class="calendar-container">
+<div class="calendar-container" *ngIf="showCalendar">
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">
       <ion-button
@@ -42,9 +46,10 @@
         {{ monthYear }}
       </label>
       <ion-button
+        data-testid="btn-next-month"
         label=">"
         type="ghost"
-        (ionOnClick)="nextMonth()"
+        (click)="nextMonth()"
       ></ion-button>
       <ion-button
         label=">>"
@@ -57,6 +62,10 @@
         {{ weeKDay }}
       </span>
     </div>
-    <div class="month-days" #monthDaysContainer></div>
+    <div class="month-days">
+      <button class="month-day" *ngFor="let day of days">
+        {{ day.date }}
+      </button>
+    </div>
   </div>
 </div>
