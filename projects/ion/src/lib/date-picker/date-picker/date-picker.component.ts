@@ -4,7 +4,6 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  AfterViewInit,
   ViewChild,
   ElementRef,
 } from '@angular/core';
@@ -156,21 +155,10 @@ export class DatePickerComponent implements OnInit {
 
   dispatchActions(dayIndex: number) {
     this.selectedDate = this.days[dayIndex];
-    this.setCurrentDate();
-    this.setDateInCalendar();
-    this.closeCalendar();
-    this.emmitEvent();
-  }
-
-  setCurrentDate() {
-    const dateField = {
-      date: this.selectedDate,
-      label: this.selectedDate.format('YYYY-MM-DD'),
-    };
-
-    this.dateField = dateField;
     this.dateField.date = this.selectedDate;
     this.dateField.label = this.selectedDate.format('YYYY-MM-DD');
+    this.setDateInCalendar();
+    this.emmitEvent();
   }
 
   emmitEvent() {
