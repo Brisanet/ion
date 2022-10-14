@@ -22,23 +22,12 @@
   }
 }
 
-@mixin icon-size($size) {
-  ion-icon {
-    ::ng-deep svg {
-      width: $size;
-      height: $size;
-    }
-  }
-}
-
 @mixin circular-button($circleSize, $iconSize) {
   &.circular-button {
     height: $circleSize;
     width: $circleSize;
     border-radius: 50%;
     padding: 0;
-
-    @include icon-size($iconSize);
   }
 }
 
@@ -49,7 +38,7 @@ button {
   gap: 10px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: spacing(1);
   border: 0;
   color: $neutral-1;
   cursor: pointer;
@@ -96,7 +85,7 @@ button {
     height: 10px;
   }
 
-  @include icon-size(13px);
+  border-radius: 6px;
 
   @include circular-button(24px, 13px);
 }
@@ -104,25 +93,23 @@ button {
 .ion-btn-md {
   @include button-parameters(32px, 6px, 16px, 14px, 20px);
 
-  @include icon-size(16px);
-
   @include circular-button(32px, 16px);
 }
 
 .ion-btn-lg {
   @include button-parameters(40px, 8px, 20px, 16px, 24px);
 
-  @include icon-size(20px);
-
   @include circular-button(40px, 20px);
+
+  border-radius: 10px;
 }
 
 .ion-btn-xl {
   @include button-parameters(48px, 12px, 24px, 16px, 24px);
 
-  @include icon-size(20px);
-
   @include circular-button(48px, 20px);
+
+  border-radius: 10px;
 }
 
 @keyframes spin {

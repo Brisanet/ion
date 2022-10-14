@@ -42,6 +42,7 @@ A partir do atributo label o usuário irá informar qual mensagem será mostrada
 </Canvas>
 
 - Como pode ser visto a largura da tag se ajusta ao conteúdo dela.
+- A `label` é obrigatória e não pode ser passado um valor vazio.
 
 ## Bordas(outline)
 
@@ -225,9 +226,9 @@ Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
   </Story>
 </Canvas>
 
-## Icone Customizado(icon)
+## Icone(icon)
 
-Por meio do parâmetro `icon` pode ser passado tipos diferentes de icones(dentro do IonIconComponent)
+Por meio do parâmetro `icon` pode ser passado diferentes tipos de icones(dentro do IonIconComponent)
 para a tag
 
 <Canvas>
@@ -235,6 +236,24 @@ para a tag
     name="type: icon"
     args={{
       label: 'Example Message',
+      icon: 'pencil',
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="type: test"
+    args={{
+      label: '',
       icon: 'pencil',
     }}
     decorators={[

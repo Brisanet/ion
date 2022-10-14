@@ -1,0 +1,78 @@
+@import '../../styles/index.scss';
+
+@mixin set-size($size) {
+  width: $size;
+  height: $size;
+
+  .tab-icon {
+    ::ng-deep svg {
+      width: $size;
+      height: $size;
+    }
+  }
+}
+
+@mixin set-background($background) {
+  span:empty {
+    background-color: $background;
+  }
+
+  .tab-icon {
+    ::ng-deep svg {
+      fill: $background;
+      color: #fff;
+    }
+  }
+}
+
+div {
+  color: $neutral-7;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  font-style: normal;
+  font-family: 'Source Sans Pro', sans-serif;
+
+  & span {
+    display: flex;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+
+  & span:empty {
+    @include set-size(8px);
+  }
+}
+
+.info-badge-sm {
+  @include set-size(12px);
+}
+
+.info-badge-md {
+  @include set-size(16px);
+}
+
+.primary {
+  @include set-background($primary-6);
+}
+
+.warning {
+  @include set-background($warning-6);
+}
+
+.negative {
+  @include set-background($negative-6);
+}
+
+.success {
+  @include set-background($positive-6);
+}
+
+.info {
+  @include set-background($info-6);
+}

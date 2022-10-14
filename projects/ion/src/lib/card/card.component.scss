@@ -11,7 +11,7 @@
   justify-content: space-between;
 
   &-header {
-    padding: spacing(2) spacing(2.5);
+    padding: spacing(2) spacing(3);
     border-bottom: 1px solid $neutral-4;
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,17 @@
       font-size: 20px;
       line-height: 28px;
       color: $neutral-7;
+    }
+
+    &-title {
+      display: flex;
+      flex-direction: row;
+      max-width: fit-content;
+      align-items: center;
+
+      .icon-title {
+        margin-right: 8px;
+      }
     }
 
     &-container-buttons {
@@ -37,7 +48,7 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: spacing(2) spacing(1.5);
+    padding: spacing(2) spacing(3);
     border-top: 1px solid $neutral-4;
 
     &-container-buttons {

@@ -1,8 +1,10 @@
 import { DropdownComponent, BadgeComponent } from 'projects/ion/src/public-api';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
+import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
+import { InfoBadgeStatus } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -11,12 +13,17 @@ const sut = async (customProps?: IonChipProps) => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
+    declarations: [
+      IonIconComponent,
+      DropdownComponent,
+      BadgeComponent,
+      InfoBadgeComponent,
+    ],
   });
 };
 
 describe('ChipComponent', () => {
-  it('', async () => {
+  it('should render chip with options', async () => {
     await sut({
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
@@ -26,6 +33,11 @@ describe('ChipComponent', () => {
     const iconDefault = screen.queryAllByTestId('icon-default');
     expect(iconDinamic.length).not.toBe(1);
     expect(iconDefault.length).toBe(1);
+  });
+
+  it('should not render with info badge by default', async () => {
+    await sut();
+    expect(screen.queryAllByTestId('info-badge')).toHaveLength(0);
   });
 
   it('should render chip component with custom label', async () => {
@@ -66,6 +78,14 @@ describe('ChipComponent', () => {
     });
   });
 
+  it.each(['primary', 'success', 'info', 'warning', 'negative'])(
+    'should render info badge with status %s',
+    async (badgeType: InfoBadgeStatus) => {
+      await sut({ label: 'chip', infoBadge: badgeType });
+      expect(screen.getByTestId('info-badge')).toHaveClass(badgeType);
+    }
+  );
+
   describe('With Dropdown', () => {
     beforeEach(async () => {
       await sut({
@@ -96,6 +116,15 @@ describe('ChipComponent', () => {
       fireEvent.click(screen.getByText(option));
       expect(screen.getAllByText(option)).toHaveLength(1);
     });
+
+    it('should close dropdown when is not multiple and selected an option', async () => {
+      const option = defaultOptions[0].label;
+      const element = screen.getByText('dropdown');
+      fireEvent.click(element);
+      fireEvent.click(screen.getByText(option));
+      expect(element).toHaveClass('chip');
+      expect(screen.queryAllByText(option)).toHaveLength(1);
+    });
   });
 });
 
@@ -122,9 +151,14 @@ describe('With Multiple Dropdown', () => {
   it('should show badge with two results when selected two options', async () => {
     fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText('Meteora'));
-
-    fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText('One More Light'));
     expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
+  });
+
+  it('should keep dropdown open when an option will be selected', async () => {
+    const dropdown = screen.getByText('dropdown');
+    fireEvent.click(dropdown);
+    fireEvent.click(screen.getByText('Meteora'));
+    expect(dropdown).toHaveClass('chip-selected');
   });
 });
