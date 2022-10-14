@@ -1,7 +1,7 @@
 @import '../../../styles/index.scss';
 
 %defaultPadding {
-  padding: 16px 24px;
+  padding: spacing(2) spacing(3);
   box-sizing: border-box;
 }
 

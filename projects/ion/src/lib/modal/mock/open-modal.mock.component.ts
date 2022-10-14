@@ -17,6 +17,8 @@ export class OpenModalButtonComponent {
     private containerRef: ViewContainerRef
   ) {}
 
+  valueFromModal: { [key: string]: unknown };
+
   modalConfig: IonModalConfiguration;
   componentToBody: Type<unknown>;
 
@@ -24,7 +26,7 @@ export class OpenModalButtonComponent {
     this.ionModalService
       .open(this.containerRef, this.componentToBody, this.modalConfig)
       .subscribe((response: IonModalResponse) => {
-        console.log('value from modal service', response);
+        this.valueFromModal = response;
       });
   }
 }

@@ -60,15 +60,16 @@ describe('ModalService', () => {
   });
 
   it('should set title according to config in open function', () => {
+    const title = 'modal title';
+
     modalService.open(
       fixture.componentInstance.container,
       SelectMockComponent,
-      { title: 'test' }
+      { title: title }
     );
-
     fixture.detectChanges();
 
-    expect(screen.getByTestId('modalTitle').innerHTML).toBe('test');
+    expect(screen.getByTestId('modalTitle').innerHTML).toBe(title);
   });
 
   it('should call closeModal when ionOnClose fires without value', () => {
@@ -88,7 +89,7 @@ describe('ModalService', () => {
     modalService.open(fixture.componentInstance.container, SelectMockComponent);
     fixture.detectChanges();
 
-    fireEvent.click(screen.getByText('Confirm'));
+    fireEvent.click(screen.getByText('Confirmar'));
     fixture.detectChanges();
 
     expect(modalService.emitValueAndCloseModal).toHaveBeenCalledWith({

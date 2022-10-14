@@ -1,10 +1,11 @@
 <div
   [class.hide]="!config.showOverlay"
-  (click)="config.overlayCanDismiss ? closeModal() : ''"
+  (click)="config.overlayCanDismiss && closeModal()"
   class="modal-overlay"
   data-testid="modalOverlay"
 >
   <dialog
+    #dialogElement
     data-testid="modal"
     [id]="config.id"
     tabindex="0"

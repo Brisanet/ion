@@ -2,6 +2,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ComponentRef,
+  ElementRef,
   EventEmitter,
   HostListener,
   Input,
@@ -22,6 +23,8 @@ import { IonModalResponse } from '../models/modal.interface';
 export class IonModalComponent implements OnInit {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody: ViewContainerRef;
+  @ViewChild('dialogElement', { static: true })
+  dialogElement: ElementRef;
 
   @Input() config: IonModalConfiguration;
   @Input() componentToBody: Type<unknown>;
@@ -63,10 +66,10 @@ export class IonModalComponent implements OnInit {
         hide: false,
         showDivider: true,
         primaryButton: {
-          label: 'Confirm',
+          label: 'Confirmar',
         },
         secondaryButton: {
-          label: 'Cancel',
+          label: 'Cancelar',
         },
       },
     };
@@ -75,5 +78,6 @@ export class IonModalComponent implements OnInit {
   ngOnInit(): void {
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
+    this.dialogElement.nativeElement.focus();
   }
 }
