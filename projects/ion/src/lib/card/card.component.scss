@@ -30,10 +30,8 @@
       flex-direction: row;
       max-width: fit-content;
       align-items: center;
+      gap: spacing(1);
 
-      .icon-title {
-        margin-right: 8px;
-      }
     }
 
     &-container-buttons {
