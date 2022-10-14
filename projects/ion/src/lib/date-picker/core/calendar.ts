@@ -68,7 +68,7 @@ export class Calendar {
 
   goToPreviousYear(monthNumber?: number) {
     this.year -= 1;
-    this.month = new Month(new Date(this.year, monthNumber || 11), this.lang);
+    this.month = new Month(new Date(this.year, monthNumber || 12), this.lang);
   }
 
   goToNextYear(monthNumber?: number) {

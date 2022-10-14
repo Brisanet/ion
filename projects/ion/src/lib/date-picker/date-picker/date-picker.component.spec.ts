@@ -31,8 +31,8 @@ describe('DatePickerCompoenent', () => {
     await sut();
   });
 
-  it.skip('should check if the calendar is set to 2015-02-01', async () => {
-    fireEvent.click(screen.getByTestId('date-container'));
+  it('should check if the calendar is set to 2015-02-01', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
     expect(screen.getByTestId('month-year')).toHaveTextContent(
       'February - 2015'
     );
@@ -41,7 +41,8 @@ describe('DatePickerCompoenent', () => {
     );
   });
 
-  it.skip('should check if the calendar renders 28 days for the month of February 2015 ', async () => {
+  it('should check if the calendar renders 28 days for the month of February 2015 ', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
     const buttonsDay = document.getElementsByClassName('month-day');
     expect(buttonsDay.length).toBe(28);
   });
@@ -76,4 +77,72 @@ describe('DatePickerCompoenent', () => {
     fireEvent.click(nextBtn);
     expect(screen.queryAllByText('March - 2015')).toHaveLength(1);
   });
+
+  it('should render previous month when click in previous month', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    const previousMonthBtn = screen.getByTestId('btn-previous-month');
+    fireEvent.click(previousMonthBtn);
+    expect(screen.getByTestId('month-year')).toHaveTextContent(
+      'January - 2015'
+    );
+  });
+
+  it('should render previous year when click in previous year', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    const previousYearBtn = screen.getByTestId('btn-previous-year');
+    expect(previousYearBtn).toBeTruthy();
+    fireEvent.click(previousYearBtn);
+    expect(screen.getByTestId('month-year')).toHaveTextContent(
+      'February - 2014'
+    );
+  });
+
+  it('should render next year when click in next year', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    const nextYearBtn = screen.getByTestId('btn-next-year');
+    expect(nextYearBtn).toBeTruthy();
+    fireEvent.click(nextYearBtn);
+    expect(screen.getByTestId('month-year')).toHaveTextContent(
+      'February - 2016'
+    );
+  });
+
+  it('should render day button with a month-day class', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    expect(screen.getByText('1')).toHaveClass('current');
+  });
+
+  it('should not render day button with a current class', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    const previousMonthBtn = screen.getByTestId('btn-previous-month');
+    fireEvent.click(previousMonthBtn);
+
+    expect(screen.getAllByText('31')[0]).not.toHaveClass('current');
+  });
+
+  it('should render a day button with a class selected', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    expect(screen.getAllByText('1')[0]).toHaveClass('selected');
+  });
+
+  it('should render day with aria-label', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    const btnDay = screen.getAllByText('1')[0];
+    expect(btnDay).toHaveAttribute('aria-label', '2015-02-01');
+  });
+
+  // it('should click and select a day', async () => {
+  //   fireEvent.click(screen.getByTestId('field-date'));
+  //   fireEvent.click(screen.getByText('16'));
+
+  //   const input = document.getElementById('input-date');
+  //   expect((input as HTMLInputElement).value).toContain('2015-02-16');
+  // });
 });

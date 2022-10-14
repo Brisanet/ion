@@ -1,11 +1,12 @@
 <div class="date-container" #dateContainer>
   <div class="date-content" [class.required]="!dateField.label && isRequired">
     <div
-      class="field-date"
       data-testid="field-date"
+      class="field-date"
       (click)="setFocusOnClickInput()"
     >
       <input
+        id="input-date"
         #inputDate
         type="text"
         [value]="dateField.label || ''"
@@ -33,16 +34,18 @@
   <div class="calendar-dropdown" id="calendar-dropdown">
     <div class="header">
       <ion-button
+        data-testid="btn-previous-year"
         label="<<"
         type="ghost"
-        (ionOnClick)="previousYear()"
+        (click)="previousYear()"
       ></ion-button>
       <ion-button
+        data-testid="btn-previous-month"
         label="<"
         type="ghost"
-        (ionOnClick)="previousMonth()"
+        (click)="previousMonth()"
       ></ion-button>
-      <label>
+      <label data-testid="month-year">
         {{ monthYear }}
       </label>
       <ion-button
@@ -52,9 +55,10 @@
         (click)="nextMonth()"
       ></ion-button>
       <ion-button
+        data-testid="btn-next-year"
         label=">>"
         type="ghost"
-        (ionOnClick)="nextYear()"
+        (click)="nextYear()"
       ></ion-button>
     </div>
     <div class="week-days" id="week-days">
@@ -63,7 +67,14 @@
       </span>
     </div>
     <div class="month-days">
-      <button class="month-day" *ngFor="let day of days">
+      <button
+        *ngFor="let day of days; let i = index"
+        class="month-day"
+        [class.current]="day.isDayCurrentMonth"
+        [class.selected]="isSelectedDate(day)"
+        [attr.aria-label]="getAriaLabel(day)"
+        (click)="dispatchActions(i)"
+      >
         {{ day.date }}
       </button>
     </div>

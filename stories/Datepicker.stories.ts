@@ -30,6 +30,6 @@ const Template: Story<DatePickerComponent> = (args: DatePickerComponent) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  initialDate: '2022-01-04',
+  initialDate: '2015-02-01',
   lang: 'pt-BR',
 };
