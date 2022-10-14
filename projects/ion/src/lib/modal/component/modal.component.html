@@ -1,20 +1,20 @@
 <div
-  [class.hide]="!config.showOverlay"
-  (click)="config.overlayCanDismiss && closeModal()"
+  [class.hide]="!configuration.showOverlay"
   class="modal-overlay"
   data-testid="modalOverlay"
+  (click)="configuration.overlayCanDismiss && closeModal()"
 >
   <dialog
     #dialogElement
+    [id]="configuration.id"
     data-testid="modal"
-    [id]="config.id"
     tabindex="0"
-    (click)="$event.stopPropagation()"
     open
     class="modal-container"
+    (click)="$event.stopPropagation()"
   >
     <header tabindex="0">
-      <h4 data-testid="modalTitle">{{ config.title }}</h4>
+      <h4 data-testid="modalTitle">{{ configuration.title }}</h4>
       <ion-icon
         tabindex="0"
         class="close-icon"
@@ -32,19 +32,20 @@
     </div>
 
     <footer
-      *ngIf="!config.footer.hide"
-      [class.divider]="config.footer.showDivider"
+      *ngIf="!configuration.footer.hide"
+      [class.divider]="configuration.footer.showDivider"
       tabindex="0"
       data-testid="modalFooter"
     >
       <ion-button
         type="ghost"
-        [label]="config.footer?.secondaryButton?.label"
+        [label]="configuration.footer?.secondaryButton?.label"
+        [iconType]="configuration.footer?.secondaryButton?.iconType"
         (ionOnClick)="closeModal()"
       ></ion-button>
       <ion-button
-        [label]="config.footer?.primaryButton?.label"
-        [iconType]="config.footer?.primaryButton?.iconType"
+        [label]="configuration.footer?.primaryButton?.label"
+        [iconType]="configuration.footer?.primaryButton?.iconType"
         (ionOnClick)="closeModal(this.getChildComponentPropertiesValue())"
       ></ion-button>
     </footer>

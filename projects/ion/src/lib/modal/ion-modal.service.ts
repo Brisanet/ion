@@ -6,11 +6,12 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+
+import { IonModalComponent } from './component/modal.component';
 import {
   IonModalConfiguration,
   IonModalResponse,
 } from './models/modal.interface';
-import { IonModalComponent } from './component/modal.component';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,7 @@ export class IonModalService {
   ): Observable<unknown> {
     const factory = this.resolver.resolveComponentFactory(IonModalComponent);
     this.modalComponentRef = viewContainerRef.createComponent(factory);
+    this.modalComponentRef.instance.setDefaultConfig();
     this.modalComponentRef.instance.componentToBody = component;
 
     if (configuration) {

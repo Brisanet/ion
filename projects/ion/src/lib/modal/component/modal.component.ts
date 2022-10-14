@@ -12,8 +12,11 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-import { IonModalConfiguration } from '../models/modal.interface';
-import { IonModalResponse } from '../models/modal.interface';
+
+import {
+  IonModalConfiguration,
+  IonModalResponse,
+} from '../models/modal.interface';
 
 @Component({
   selector: 'ion-modal',
@@ -26,8 +29,8 @@ export class IonModalComponent implements OnInit {
   @ViewChild('dialogElement', { static: true })
   dialogElement: ElementRef;
 
-  @Input() config: IonModalConfiguration;
   @Input() componentToBody: Type<unknown>;
+  @Input() configuration: IonModalConfiguration = {};
 
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
@@ -37,15 +40,33 @@ export class IonModalComponent implements OnInit {
   }
 
   private componentFactory: ComponentRef<unknown>;
+  private _defaultModal: IonModalConfiguration = {
+    title: 'Ion Modal',
+    showOverlay: true,
+    overlayCanDismiss: true,
 
-  constructor(private resolver: ComponentFactoryResolver) {
-    this.setDefaultConfig();
-  }
+    footer: {
+      hide: false,
+      showDivider: true,
+      primaryButton: {
+        label: 'Confirmar',
+      },
+      secondaryButton: {
+        label: 'Cancelar',
+      },
+    },
+  };
+
+  constructor(private resolver: ComponentFactoryResolver) {}
 
   setConfig(config: IonModalConfiguration): void {
     if (config) {
-      Object.assign(this.config, config);
+      Object.assign(this.configuration, config);
     }
+  }
+
+  setDefaultConfig() {
+    this.configuration = this._defaultModal;
   }
 
   getChildComponentPropertiesValue(): IonModalResponse {
@@ -56,26 +77,9 @@ export class IonModalComponent implements OnInit {
     this.ionOnClose.emit(valueToEmit);
   }
 
-  private setDefaultConfig(): void {
-    this.config = {
-      title: 'Ion Modal',
-      showOverlay: true,
-      overlayCanDismiss: true,
-
-      footer: {
-        hide: false,
-        showDivider: true,
-        primaryButton: {
-          label: 'Confirmar',
-        },
-        secondaryButton: {
-          label: 'Cancelar',
-        },
-      },
-    };
-  }
-
   ngOnInit(): void {
+    this.setDefaultConfig();
+
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
     this.dialogElement.nativeElement.focus();

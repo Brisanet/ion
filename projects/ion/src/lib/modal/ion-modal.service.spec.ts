@@ -93,7 +93,7 @@ describe('ModalService', () => {
     fixture.detectChanges();
 
     expect(modalService.emitValueAndCloseModal).toHaveBeenCalledWith({
-      state: 'Ceará',
+      state: 'ceara',
     });
   });
 });

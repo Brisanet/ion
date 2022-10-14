@@ -12,11 +12,11 @@ import { Component } from '@angular/core';
     "
       [(ngModel)]="state"
     >
-      <option>Ceará</option>
-      <option>Espirito Santo</option>
+      <option value="ceara">Ceará</option>
+      <option value="espirito-santo">Espirito Santo</option>
     </select>
   `,
 })
 export class SelectMockComponent {
-  state = 'Ceará';
+  state = 'ceara';
 }
