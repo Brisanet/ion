@@ -9,7 +9,7 @@ const sut = async (customProps?: IonInputProps) => {
   });
 };
 
-describe(InputComponent, () => {
+describe('InputComponent', () => {
   it('Should allow letters to be inputted', async () => {
     await sut();
     const inputValue = 'input';

@@ -7,7 +7,7 @@
   background: #fcfcfd;
   border: 1px solid $neutral-5;
   border-radius: 8px;
-  padding: 6px 12px;
+  padding: spacing(0.75) spacing(1.5);
 
   & .my-input {
     border: none;
@@ -29,7 +29,7 @@
     color: $neutral-5;
     font-weight: 400;
     font-size: 14px;
-    padding-left: 20px;
+    padding-left: spacing(2.5);
   }
 
   &:hover {
