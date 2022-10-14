@@ -6,26 +6,21 @@
       (click)="setFocusOnClickInput()"
     >
       <input
-        id="input-date"
+        data-testid="input-date"
         #inputDate
         type="text"
         [value]="dateField.label || ''"
+        [ngModel]="dateField.label"
         [placeholder]="placeholder"
         readonly
       />
     </div>
-    <div class="icons" (click)="actionClickIcon()">
+    <div class="icons">
       <ion-icon
-        *ngIf="!isVisibleIconClose"
-        type="calendar"
+        [type]="dateField.label ? 'close' : 'calendar'"
         color="#AEB2BD"
         size="16"
-      ></ion-icon>
-      <ion-icon
-        *ngIf="isVisibleIconClose"
-        type="close"
-        color="#505566"
-        size="16"
+        (click)="dateField.label ? clearCalendar() : setFocusOnClickInput()"
       ></ion-icon>
     </div>
   </div>
@@ -68,6 +63,7 @@
     </div>
     <div class="month-days">
       <button
+        [attr.data-testid]="getAriaLabel(day)"
         *ngFor="let day of days; let i = index"
         class="month-day"
         [class.current]="day.isDayCurrentMonth"

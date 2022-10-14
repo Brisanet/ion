@@ -1,17 +1,24 @@
+import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../../button/button.component';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { DropdownComponent } from '../../dropdown/dropdown.component';
 import { IonIconComponent } from '../../icon/icon.component';
+import { SafeAny } from '../../utils/safe-any';
+import { Day } from '../core/day';
 
 import {
   DatePickerComponent,
   IonDatePickerProps,
 } from './date-picker.component';
 
+const events = jest.fn();
+
 const defaultComponent: IonDatePickerProps = {
-  initialDate: '2015-02-01',
   isRequired: true,
+  events: {
+    emit: events,
+  } as SafeAny,
 };
 
 const sut = async (customProps: IonDatePickerProps = defaultComponent) => {
@@ -23,12 +30,15 @@ const sut = async (customProps: IonDatePickerProps = defaultComponent) => {
       DropdownComponent,
       IonDividerComponent,
     ],
+    imports: [FormsModule],
   });
 };
 
 describe('DatePickerCompoenent', () => {
   beforeEach(async () => {
-    await sut();
+    events.mockClear();
+
+    await sut({ ...defaultComponent, initialDate: '2015-02-01' });
   });
 
   it('should check if the calendar is set to 2015-02-01', async () => {
@@ -138,11 +148,99 @@ describe('DatePickerCompoenent', () => {
     expect(btnDay).toHaveAttribute('aria-label', '2015-02-01');
   });
 
-  // it('should click and select a day', async () => {
-  //   fireEvent.click(screen.getByTestId('field-date'));
-  //   fireEvent.click(screen.getByText('16'));
+  it.each([
+    'btn-previous-year',
+    'btn-previous-month',
+    'btn-next-month',
+    'btn-next-year',
+  ])('should render action %s in calendar', async (action: string) => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    expect(screen.getByTestId(action)).toBeInTheDocument();
+  });
 
-  //   const input = document.getElementById('input-date');
-  //   expect((input as HTMLInputElement).value).toContain('2015-02-16');
-  // });
+  it('should select a day of month', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+    fireEvent.click(screen.getByTestId('field-date'));
+
+    expect(screen.getByTestId(dateToSelect)).toHaveClass('selected');
+  });
+
+  it('should close calendar when select a day of month', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+    expect(screen.queryAllByTestId(dateToSelect)).toHaveLength(0);
+  });
+
+  it('should close calendar when select a day of month', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+    expect(events).toHaveBeenCalledWith({ date: dateToSelect });
+  });
+
+  it('should render icon close when be a date selected', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+    expect(document.getElementById('ion-icon-close')).toBeInTheDocument();
+  });
+
+  it('should show input with date selected', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+
+    expect(screen.getByTestId('input-date')).toHaveAttribute(
+      'ng-reflect-model',
+      dateToSelect
+    );
+  });
+
+  it('should clear input when select in close', async () => {
+    fireEvent.click(screen.getByTestId('field-date'));
+    const dateToSelect = '2015-02-13';
+    const dayToSelect = screen.getByTestId(dateToSelect);
+
+    fireEvent.click(dayToSelect);
+    fireEvent.click(document.getElementById('ion-icon-close'));
+
+    expect(screen.getByTestId('input-date')).not.toHaveAttribute(
+      'ng-reflect-model',
+      dateToSelect
+    );
+  });
+});
+
+describe('Custom dates', () => {
+  it('should render month with 6 weeks', async () => {
+    await sut({
+      initialDate: '2018-09-01',
+    });
+
+    fireEvent.click(screen.getByTestId('field-date'));
+    const days = document.getElementsByClassName('month-day');
+    expect(days).toHaveLength(42);
+  });
+
+  it('should render today date when not informed', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('field-date'));
+    const today = new Day(new Date());
+    expect(
+      screen.getByText(`${today.format('MMMM - YYYY')}`)
+    ).toBeInTheDocument();
+  });
 });

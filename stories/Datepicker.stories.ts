@@ -8,6 +8,7 @@ import {
 } from '../projects/ion/src/public-api';
 import { DatePickerComponent } from '../projects/ion/src/lib/date-picker/date-picker/date-picker.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Data Entry/Datepicker',
@@ -24,7 +25,7 @@ const Template: Story<DatePickerComponent> = (args: DatePickerComponent) => ({
       DropdownComponent,
       IonDividerComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
   },
 });
 

@@ -34,7 +34,7 @@ export interface IonDatePickerProps {
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatePickerComponent implements OnInit, AfterViewInit {
+export class DatePickerComponent implements OnInit {
   @ViewChild('calendarContainer', { static: true })
   public calendarContaiener: ElementRef<HTMLElement>;
   @ViewChild('monthDaysContainer', { static: true })
@@ -46,7 +46,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input()
   isCalendarVisible = false;
   @Input() initialDate: IonDatePickerProps['initialDate'];
-  @Input() lang: string;
+  @Input() lang: IonDatePickerProps['lang'];
   @Input() placeholder = 'Data';
   @Input() isRequired = false;
   @Output() events = new EventEmitter<DateEmitter>();
@@ -56,7 +56,6 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
-  isVisibleIconClose = false;
   dateField: DateField = {
     date: undefined,
     label: undefined,
@@ -96,58 +95,17 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
 
   renderCalendarDays() {
     this.updatedMonthYear();
-    // this.updateMonthDays();
   }
 
   updatedMonthYear() {
     this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
   }
 
-  // updateMonthDays() {
-  //   if (this.monthDaysContainer) {
-  //     this.monthDaysContainer.nativeElement.innerHTML = '';
-
-  //     this.getMonthDaysGrid().forEach((day) => {
-  //       this.monthDaysContainer.nativeElement.appendChild(
-  //         this.createButtonElementOfTheDay(day)
-  //       );
-  //     });
-  //   }
-  // }
-
-  // createButtonElementOfTheDay(day: Day): HTMLButtonElement {
-  //   const buttonDay = document.createElement('button');
-  //   // this.setTextButtonDay(buttonDay, day);
-  //   // this.setStyleButtonDay(buttonDay, day);
-  //   // this.setAriaLabelButtonDay(buttonDay, day);
-  //   buttonDay.addEventListener('click', () =>
-  //     this.dispatchActions(buttonDay, day)
-  //   );
-
-  //   return buttonDay;
-  // }
-
-  // setTextButtonDay(buttonDay: HTMLButtonElement, day: Day) {
-  //   buttonDay.textContent = day.date.toString();
-  // }
-
-  // setStyleButtonDay(buttonDay: HTMLButtonElement, day: Day) {
-  //   // this.addClassElement(buttonDay, 'month-day');
-  //   // this.isDayCurrentMonth(day) && this.addClassElement(buttonDay, 'current');
-  //   // if (this.isSelectedDate(day)) {
-  //   //   // this.addClassElement(buttonDay, 'selected');
-  //   //   this.selectedDayElement = buttonDay;
-  //   // }
-  // }
-
-  // setAriaLabelButtonDay = (buttonDay: HTMLButtonElement, day: Day) =>
-  //   buttonDay.setAttribute('aria-label', day.format('YYYY-MM-DD'));
-
   getAriaLabel(day: Day) {
     return day.format('YYYY-MM-DD');
   }
 
-  isDayCurrentMonth(day: Day): boolean {
+  isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
   }
 
@@ -173,47 +131,35 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return this.calendar.month.getDay(day);
   }
 
-  getTotalLastMonthFinalDays(): number {
-    return this.calendar.month.getDay(1).dayNumber - 1;
-  }
-
   getLastMonthFinalDays(): number {
     return this.calendar.month.getDay(1).dayNumber - 1;
   }
 
   getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
+    const totalDaysWithSixWeeks = 42;
+    const totalDaysWithFiveWeeks = 35;
+    const totalDaysWithFourWeeks = 28;
+
     const totalDays =
       this.calendar.month.numberOfDays + totalLastMonthFinalDays;
 
-    if (totalDays > 35) {
-      return 42;
+    if (totalDays > totalDaysWithFiveWeeks) {
+      return totalDaysWithSixWeeks;
     }
 
-    if (totalDays > 28) {
-      return 35;
+    if (totalDays > totalDaysWithFourWeeks) {
+      return totalDaysWithFiveWeeks;
     }
 
-    return 28;
+    return totalDaysWithFourWeeks;
   }
 
-  // dispatchActions(buttonDay: HTMLButtonElement, day: Day) {
-  //   this.selectedDate = day;
-  //   this.selectedDayElement = buttonDay;
-  //   this.setCurrentDate();
-  //   // this.updateMonthDays();
-  //   this.setDateInCalendar();
-  //   this.emmitEvent();
-  // }
-
-  dispatchActions(i: number) {
-    this.selectedDate = this.days[i];
-    // this.dateField.date = this.selectedDate;
-    // this.dateField.label = this.selectedDate.format('YYYY-MM-DD');
+  dispatchActions(dayIndex: number) {
+    this.selectedDate = this.days[dayIndex];
     this.setCurrentDate();
-    // this.updateMonthDays();
     this.setDateInCalendar();
     this.closeCalendar();
-    // this.emmitEvent();
+    this.emmitEvent();
   }
 
   setCurrentDate() {
@@ -227,21 +173,12 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.dateField.label = this.selectedDate.format('YYYY-MM-DD');
   }
 
-  clearCurrentDate() {
-    this.dateField.date = undefined;
-    this.dateField.label = undefined;
-  }
-
   emmitEvent() {
     this.events.emit({ date: this.dateField.label });
     this.closeCalendar();
   }
 
-  addClassElement(el: HTMLElement, className) {
-    el.classList.add(className);
-  }
-
-  isSelectedDate(date) {
+  isSelectedDate(date: Day) {
     return (
       date.date === this.selectedDate.date &&
       date.monthNumber === this.selectedDate.monthNumber &&
@@ -249,45 +186,10 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    // document.addEventListener('mouseup', (e: SafeAny) => {
-    //   if (
-    //     this.calendarContaiener &&
-    //     !this.calendarContaiener.nativeElement.contains(e.target)
-    //   ) {
-    //     this.closeCalendar();
-    //   }
-    // });
-    // this.dateField.element = this.inputDate.nativeElement;
-    // this.addEventsInDateContainer();
-    // if (this.isCalendarVisible) {
-    //   this.calendarContaiener.nativeElement.style.display = 'block';
-    //   this.dateField.element.focus();
-    //   return;
-    // }
-    // this.calendarContaiener.nativeElement.style.display = 'none';
-  }
-
-  addEventsInDateContainer() {
-    this.dateContainer.nativeElement.addEventListener(
-      'mouseover',
-      () => this.dateField.label && this.setVisibleIconClose(true)
-    );
-    this.dateContainer.nativeElement.addEventListener('mouseleave', () =>
-      this.setVisibleIconClose(false)
-    );
-  }
-
-  setVisibleIconClose(isVisible: boolean) {
-    this.isVisibleIconClose = isVisible;
-  }
-
-  clearCalendar(closeCalendar = false) {
+  clearCalendar() {
     this.clearDateField();
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDateInCalendar();
-    this.setVisibleIconClose(false);
-    closeCalendar && this.closeCalendar();
   }
 
   clearDateField() {
@@ -306,7 +208,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
   tempRenderDays() {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
-      (day as SafeAny).isDayCurrentMonth = this.isDayCurrentMonth(day);
+      (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
     });
   }
 
@@ -314,22 +216,9 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.showCalendar = true;
     this.renderCalendarDays();
     this.tempRenderDays();
-    // console.log('showCalendar ->', this.showCalendar);
-    // this.calendarContaiener.nativeElement.style.display = 'block';
-    // this.dateField.element.focus();
-  }
-
-  actionClickIcon() {
-    if (this.isVisibleIconClose) {
-      this.clearCalendar(true);
-      return;
-    }
-
-    this.setFocusOnClickInput();
   }
 
   closeCalendar() {
-    // this.calendarContaiener.nativeElement.style.display = 'none';
     this.showCalendar = false;
   }
 
