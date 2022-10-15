@@ -6,32 +6,12 @@ describe('Day', () => {
 
   it('should set language as default', () => {
     const newDay = new Day(null);
-    newDay.setLang();
     expect(newDay.lang).toContain('default');
   });
 
   it('should set language as en-US', () => {
     const newDay = new Day(null, 'en-US');
     expect(newDay.lang).toContain('en-US');
-  });
-
-  it('should render true because the creation date is today date', () => {
-    const newDay = new Day(null);
-    expect(newDay.isToday).toBeTruthy();
-  });
-
-  it('should render false because the creation date is not today date', () => {
-    expect(day.isToday).not.toBeTruthy();
-  });
-
-  it('should render true for equal dates', () => {
-    const isSameDates = day.isEqualTo(day);
-    expect(isSameDates).toBeTruthy();
-  });
-
-  it('should render true for different dates', () => {
-    const isSameDates = day.isEqualTo(new Date());
-    expect(isSameDates).not.toBeTruthy();
   });
 
   /**

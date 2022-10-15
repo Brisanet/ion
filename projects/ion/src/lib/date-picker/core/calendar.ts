@@ -68,6 +68,10 @@ export class Calendar {
 
   goToPreviousYear(monthNumber?: number) {
     this.year -= 1;
+    if (monthNumber === 0) {
+      monthNumber = 12;
+    }
+
     this.month = new Month(new Date(this.year, monthNumber || 11), this.lang);
   }
 

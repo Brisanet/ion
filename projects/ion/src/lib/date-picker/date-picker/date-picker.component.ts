@@ -158,6 +158,7 @@ export class DatePickerComponent implements OnInit {
     this.dateField.date = this.selectedDate;
     this.dateField.label = this.selectedDate.format('YYYY-MM-DD');
     this.setDateInCalendar();
+    this.closeCalendar();
     this.emmitEvent();
   }
 

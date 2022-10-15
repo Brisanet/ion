@@ -21,8 +21,6 @@ export class Day {
       date = new Date();
     }
 
-    this.setLang(lang);
-
     this.Date = date;
     this.date = date.getDate();
     this.day = date.toLocaleString(this.lang, { weekday: 'long' });
@@ -37,14 +35,6 @@ export class Day {
     this.week = this.getWeekNumber(date);
   }
 
-  setLang(lang?: string) {
-    if (!lang) {
-      this.lang = 'default';
-      return;
-    }
-    this.lang = lang;
-  }
-
   getWeekNumber(date) {
     const firstDayOfTheYear = new Date(date.getFullYear(), january, oneDay);
     const pastDaysOfYear = (date - oneDay) / dayInMilliseconds;
@@ -52,20 +42,6 @@ export class Day {
     return Math.ceil(
       (pastDaysOfYear + firstDayOfTheYear.getDay() + oneDay) /
         totalDaysOfTheWeek
-    );
-  }
-
-  get isToday() {
-    return this.isEqualTo(new Date());
-  }
-
-  isEqualTo(date) {
-    date = date instanceof Day ? date.Date : date;
-
-    return (
-      date.getDate() === this.date &&
-      date.getMonth() === this.monthNumber - 1 &&
-      date.getFullYear() === this.year
     );
   }
 
