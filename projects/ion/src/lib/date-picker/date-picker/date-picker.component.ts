@@ -6,6 +6,7 @@ import {
   EventEmitter,
   ViewChild,
   ElementRef,
+  AfterViewInit,
 } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
@@ -33,15 +34,7 @@ export interface IonDatePickerProps {
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatePickerComponent implements OnInit {
-  @ViewChild('calendarContainer', { static: true })
-  public calendarContaiener: ElementRef<HTMLElement>;
-  @ViewChild('monthDaysContainer', { static: true })
-  public monthDaysContainer: ElementRef<HTMLElement>;
-  @ViewChild('dateContainer', { static: true })
-  public dateContainer: ElementRef<HTMLElement>;
-  @ViewChild('inputDate', { static: true })
-  public inputDate: ElementRef<HTMLElement>;
+export class DatePickerComponent implements OnInit, AfterViewInit {
   @Input()
   isCalendarVisible = false;
   @Input() initialDate: IonDatePickerProps['initialDate'];
@@ -64,6 +57,16 @@ export class DatePickerComponent implements OnInit {
     this.setLanguage();
   }
 
+  ngAfterViewInit(): void {
+    document.addEventListener('mouseup', (e: SafeAny) => {
+      const calendarContaiener =
+        document.getElementsByClassName('calendar-container')[0];
+      if (calendarContaiener && !calendarContaiener.contains(e.target)) {
+        this.closeCalendar();
+      }
+    });
+  }
+
   setLanguage() {
     if (!this.lang) {
       this.lang = window.navigator.language;
@@ -80,10 +83,11 @@ export class DatePickerComponent implements OnInit {
     this.renderCalendarDays();
   }
 
-  getInitialDate = () =>
-    this.initialDate
+  getInitialDate() {
+    return this.initialDate
       ? new Date(this.initialDate.replace('-', ','))
       : new Date();
+  }
 
   getCalendarInstance = () =>
     new Calendar(
@@ -155,16 +159,17 @@ export class DatePickerComponent implements OnInit {
 
   dispatchActions(dayIndex: number) {
     this.selectedDate = this.days[dayIndex];
-    this.dateField.date = this.selectedDate;
-    this.dateField.label = this.selectedDate.format('YYYY-MM-DD');
+    this.dateField = {
+      date: this.selectedDate,
+      label: this.selectedDate.format('YYYY-MM-DD'),
+    };
+    this.emmitEvent();
     this.setDateInCalendar();
     this.closeCalendar();
-    this.emmitEvent();
   }
 
   emmitEvent() {
     this.events.emit({ date: this.dateField.label });
-    this.closeCalendar();
   }
 
   isSelectedDate(date: Day) {
