@@ -35,7 +35,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   border-radius: spacing(1);
@@ -156,11 +156,19 @@ button {
     background-color: $primary-7;
   }
 
+  &.loading {
+    background-color: $primary-5;
+  }
+
   &.danger {
     background-color: $negative-6;
 
     &:hover {
       @include add-colors($negative-5, $neutral-1);
+    }
+
+    &.loading {
+      background-color: $negative-5;
     }
 
     span.spinner {
@@ -196,6 +204,11 @@ button {
     }
   }
 
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+    border-color: $primary-3;
+  }
+
   &.danger {
     color: $negative-color;
 
@@ -206,6 +219,11 @@ button {
 
     &:active {
       @include add-colors($negative-2 !important, $negative-7 !important);
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
+      border-color: $negative-3;
     }
   }
 }
@@ -229,6 +247,10 @@ button {
     @include add-colors($primary-2, $primary-7);
   }
 
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+  }
+
   &.danger {
     color: $negative-6;
 
@@ -238,6 +260,10 @@ button {
 
     &:active {
       @include add-colors($negative-2, $negative-7);
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
     }
   }
 }
@@ -263,6 +289,11 @@ button {
     border-color: $primary-5;
   }
 
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+    border-color: $primary-3;
+  }
+
   &.danger {
     border: 1px dashed $neutral-4;
     color: $negative-6;
@@ -275,6 +306,11 @@ button {
     &:active {
       @include add-colors($negative-2, $negative-7);
       border-color: #de5462;
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
+      border-color: $negative-3;
     }
   }
 }
