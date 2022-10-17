@@ -40,6 +40,7 @@ export interface ConfigTable<T> {
   actions?: ActionTable[];
   check?: boolean;
   pagination?: PaginationConfig;
+  loading?: boolean;
 }
 
 export interface IonTableProps<T> {

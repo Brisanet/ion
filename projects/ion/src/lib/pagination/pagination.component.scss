@@ -60,3 +60,7 @@
 .selected {
   @include setBorderBgColor($primary-6, $primary-1, $primary-6);
 }
+
+.disabled {
+  background: grey;
+}

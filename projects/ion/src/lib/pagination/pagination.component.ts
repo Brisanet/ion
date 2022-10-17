@@ -17,6 +17,7 @@ export interface IonPaginationProps {
   size?: string;
   events?: EventEmitter<PageEvent>;
   allowChangeQtdItems?: boolean;
+  loading?: boolean;
 }
 
 @Component({
@@ -32,6 +33,7 @@ export class PaginationComponent implements OnInit {
     this.defaultItemsPerPage;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
+  @Input() loading = false;
   @Output() events = new EventEmitter<PageEvent>();
 
   public pages: Page[] = [];

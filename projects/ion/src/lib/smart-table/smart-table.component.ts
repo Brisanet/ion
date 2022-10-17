@@ -153,9 +153,11 @@ export class SmartTableComponent {
 
   // refactor - emit event
   paginationEvents(event: PageEvent) {
-    console.log('event ->', event);
-    this.events.emit({
-      change_page: event,
-    });
+    if (!this.config.loading) {
+      console.log('event ->', event);
+      this.events.emit({
+        change_page: event,
+      });
+    }
   }
 }

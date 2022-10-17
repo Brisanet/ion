@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { SmartTableComponent } from './smart-table/smart-table.component';
     SimpleMenuComponent,
     PaginationComponent,
     SmartTableComponent,
+    TableComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -81,6 +83,7 @@ import { SmartTableComponent } from './smart-table/smart-table.component';
     InfoBadgeComponent,
     PaginationComponent,
     SmartTableComponent,
+    TableComponent,
   ],
 })
 export class IonModule {}
