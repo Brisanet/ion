@@ -33,7 +33,7 @@ describe('ChipComponent', () => {
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
       icon: 'close',
-      iconInLeft: 'right',
+      iconPosition: 'left',
     });
     const iconDinamic = screen.queryAllByTestId('icon-dinamic');
     const iconDefault = screen.queryAllByTestId('icon-default');
@@ -60,10 +60,10 @@ describe('ChipComponent', () => {
     }
   );
 
-  it('should render icon on left', async (iconInLeft: IconDirection = 'left', icon = 'close') => {
-    await sut({ label: 'custom-position', iconInLeft, icon });
+  it('should render icon on left', async (iconPosition: IconDirection = 'left', icon = 'close') => {
+    await sut({ label: 'custom-position', iconPosition, icon });
     const element = screen.getByText('custom-position');
-    expect(element).toHaveClass('iconInLeft');
+    expect(element).toHaveClass('iconPosition');
   });
 
   it('should render chip component disabled', async () => {

@@ -18,7 +18,7 @@
   <div
     class="container-icon-text"
     [ngClass]="{
-      positionIcon: iconInLeft !== 'right' && icon && !options
+      positionIcon: iconPosition === 'left' && icon && !options
     }"
   >
     {{ label }}

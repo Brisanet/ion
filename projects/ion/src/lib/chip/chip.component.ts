@@ -20,7 +20,7 @@ export interface IonChipProps {
   icon?: string;
   multiple?: boolean;
   infoBadge?: InfoBadgeStatus;
-  iconInLeft?: IconDirection;
+  iconPosition?: IconDirection;
 }
 
 type Badge = {
@@ -42,7 +42,7 @@ export class ChipComponent {
   @Input() options: DropdownItem[];
   @Input() multiple?: boolean = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
-  @Input() iconInLeft?: IconDirection = 'right';
+  @Input() iconPosition?: IconDirection = 'left';
 
   @Output() events = new EventEmitter<ChipEvent>();
 
