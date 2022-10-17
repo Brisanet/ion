@@ -7,7 +7,7 @@ import {
   ChipComponent,
   IonChipProps,
   ChipSize,
-  Direction,
+  IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
 
@@ -33,7 +33,7 @@ describe('ChipComponent', () => {
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
       icon: 'close',
-      iconPosition: 'right',
+      iconInLeft: 'right',
     });
     const iconDinamic = screen.queryAllByTestId('icon-dinamic');
     const iconDefault = screen.queryAllByTestId('icon-default');
@@ -55,15 +55,15 @@ describe('ChipComponent', () => {
     'should render chip component with size %s',
     async (size: ChipSize) => {
       await sut({ label: 'custom-size', size });
-      const element = screen.getByTestId('ion-chip');
+      const element = screen.getByText('custom-size')
       expect(element).toHaveClass('chip-' + size);
     }
   );
 
-  it('should render icon on left', async (iconPosition: Direction = 'left', icon = 'close') => {
-    await sut({ label: 'custom-position', iconPosition, icon });
+  it('should render icon on left', async (iconInLeft: IconDirection = 'left', icon = 'close') => {
+    await sut({ label: 'custom-position', iconInLeft, icon });
     const element = screen.getByText('custom-position');
-    expect(element).toHaveClass('positionIcon');
+    expect(element).toHaveClass('iconInLeft');
   });
 
   it('should render chip component disabled', async () => {
