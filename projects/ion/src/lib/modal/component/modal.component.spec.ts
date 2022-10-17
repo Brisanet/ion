@@ -64,7 +64,6 @@ describe('IonModalComponent', () => {
     };
 
     component.setConfig(configuration);
-
     fixture.detectChanges();
 
     expect(screen.getByTestId('modal').id).toBe(configuration.id);
@@ -79,56 +78,50 @@ describe('IonModalComponent', () => {
   });
 
   it('should close modal using esc key', () => {
+    const escapeKeyCode = 27;
+
     jest.spyOn(component, 'closeModal');
     fireEvent.keyDown(screen.getByTestId('modalOverlay'), {
       key: 'Escape',
       code: 'Escape',
-      keyCode: 27,
-      charCode: 27,
+      keyCode: escapeKeyCode,
+      charCode: escapeKeyCode,
     });
-
     expect(component.closeModal).toHaveBeenCalled();
   });
 
   it('should close modal clicking in overlay when configuration allow it', () => {
     jest.spyOn(component, 'closeModal');
-
-    component.configuration.overlayCanDismiss = false;
-
-    fireEvent(screen.getByTestId('modalOverlay'), new MouseEvent('click'));
-    expect(component.closeModal).not.toHaveBeenCalled();
-
     component.configuration.overlayCanDismiss = true;
-
     fireEvent(screen.getByTestId('modalOverlay'), new MouseEvent('click'));
     expect(component.closeModal).toHaveBeenCalled();
   });
 
+  it('should not close modal clicking in overlay when configuration disallow it', () => {
+    jest.spyOn(component, 'closeModal');
+    component.configuration.overlayCanDismiss = false;
+    fireEvent(screen.getByTestId('modalOverlay'), new MouseEvent('click'));
+    expect(component.closeModal).not.toHaveBeenCalled();
+  });
+
   it('should hide footer when its true on configuration', () => {
     const modalFooter = footer();
-
     expect(modalFooter).toBeInTheDocument();
-
     component.configuration.footer.hide = true;
     fixture.detectChanges();
-
     expect(modalFooter).not.toBeInTheDocument();
   });
 
   it('should hide overlay when its true on configuration', () => {
     expect(overlay().classList.contains('hide')).toBe(false);
-
     component.configuration.showOverlay = false;
     fixture.detectChanges();
-
     expect(overlay().classList.contains('hide')).toBe(true);
   });
 
   it('should emit event when call closeModal function', () => {
     jest.spyOn(component.ionOnClose, 'emit');
-
     component.closeModal(component.getChildComponentPropertiesValue());
-
     expect(component.ionOnClose.emit).toHaveBeenCalledWith({ state: 'ceara' });
   });
 });
