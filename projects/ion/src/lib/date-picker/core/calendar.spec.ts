@@ -1,24 +1,26 @@
 import { Calendar } from './calendar';
+import { Month } from './month';
+
+enum Months {
+  january = 1,
+  February,
+  march,
+  april,
+  may,
+  june,
+  july,
+  august,
+  september,
+  october,
+  november,
+  december,
+}
 
 describe('Calendar', () => {
   const today = new Date();
   const calendar = new Calendar();
-  enum Months {
-    january = 1,
-    February,
-    march,
-    april,
-    may,
-    june,
-    july,
-    august,
-    september,
-    october,
-    november,
-    december,
-  }
 
-  it('deve check if the calendar is set to the current month', () => {
+  it('should return a calendar with the current month and year', () => {
     expect(calendar.year).toBe(today.getFullYear());
     expect(calendar.month.number).toBe(today.getMonth() + 1);
   });
@@ -27,84 +29,107 @@ describe('Calendar', () => {
     expect(calendar.lang).toContain('default');
   });
 
-  it('deve retornar falso para o ano de 2022', () => {
+  it('the 2022 calendar will not be a leap year', () => {
     const calendar2022 = new Calendar(2022);
     expect(calendar2022.isLeapYear).not.toBeTruthy();
   });
 
-  it('deve retornar verdadeiro para o ano de 2024', () => {
+  it('the 2024 calendar will be a leap year', () => {
     const calendar2024 = new Calendar(2024);
     expect(calendar2024.isLeapYear).toBeTruthy();
   });
 
-  it('deve retornar o mês de maio de 2022', () => {
-    expect(calendar.getMonth(Months.may).number).toBe(5);
+  it('should return May', () => {
+    expect(calendar.getMonth(Months.may).number).toBe(Months.may);
   });
 
-  it('deve retornar o mês april', () => {
-    const calendarMay = new Calendar(null, Months.may);
-    const monthApril = calendarMay.getPreviousMonth();
-    expect(monthApril.number).toBe(Months.april);
+  it('should return December 2021 when executing getPreviousMonth function', () => {
+    calendar.goToDate(Months.may, 2021);
+    expect(calendar.getPreviousMonth().number).toBe(Months.april);
+    expect(calendar.getPreviousMonth().year).toBe(2021);
   });
 
-  it('deve retornar o mês de dezembro 2021', () => {
-    const calendarJanuary2022 = new Calendar(2022, Months.january);
-    const monthDecember2021 = calendarJanuary2022.getPreviousMonth();
-    expect(monthDecember2021.number).toBe(Months.december);
-    expect(monthDecember2021.year).toBe(2021);
+  it('should return December 2021 when executing getPreviousMonth function', () => {
+    calendar.goToDate(Months.january, 2022);
+    expect(calendar.getPreviousMonth().number).toBe(Months.december);
+    expect(calendar.getPreviousMonth().year).toBe(2021);
   });
 
-  it('deve retornar o mês fevereiro', () => {
-    const calendarJanuary = new Calendar(2022, Months.january);
-    expect(calendarJanuary.getNextMonth().number).toBe(Months.February);
+  it('should return February 2022 when executing getNextMonth function', () => {
+    calendar.goToDate(Months.january, 2022);
+    expect(calendar.getNextMonth().number).toBe(Months.February);
+    expect(calendar.getNextMonth().year).toBe(2022);
   });
 
-  it('deve retornar o mês de janeiro 2022', () => {
-    const calendarDecember2021 = new Calendar(2021, Months.december);
-    const calendarJanuary2022 = calendarDecember2021.getNextMonth();
-    expect(calendarJanuary2022.number).toBe(Months.january);
-    expect(calendarJanuary2022.year).toBe(2022);
+  it('should return January 2022 when executing getNextMonth function', () => {
+    calendar.goToDate(Months.december, 2021);
+    expect(calendar.getNextMonth().number).toBe(Months.january);
+    expect(calendar.getNextMonth().year).toBe(2022);
   });
 
-  it('deve retornar dezembro de 2022', () => {
-    calendar.goToDate(11, 2009);
-    expect(calendar.month.number).toBe(11);
+  it('should return date 11 of 2009 when executing goToDate function', () => {
+    calendar.goToDate(Months.november, 2009);
+    expect(calendar.month.number).toBe(Months.november);
     expect(calendar.year).toBe(2009);
   });
 
-  it('deve retornar o ano anterior', () => {
+  it('should return previous year when running goToPreviousYear function', () => {
     const previousYear = calendar.year - 1;
     calendar.goToPreviousYear();
     expect(calendar.year).toBe(previousYear);
   });
 
-  it('deve retornar o próximo ano ', () => {
+  it('should return next year when running goToNextYear function', () => {
     const nextYear = calendar.year + 1;
     calendar.goToNextYear();
     expect(calendar.year).toBe(nextYear);
   });
 
-  it('deve retornar o mes anterior ', () => {
+  it('should return the month of December when executing the goToPreviousMonth function', () => {
     calendar.goToDate(Months.january, 2022);
     calendar.goToPreviousMonth();
     expect(calendar.month.number).toBe(Months.december);
   });
 
-  it('deve retornar o mes anterior maio ', () => {
+  it('should return the month of May when executing the goToPreviousMonth function', () => {
     calendar.goToDate(Months.june, 2022);
     calendar.goToPreviousMonth();
     expect(calendar.month.number).toBe(Months.may);
   });
 
-  it('deve retornar o próximo mês - janeiro ', () => {
+  it('should return the month of January when executing the goToNextMonth function', () => {
     calendar.goToDate(Months.december, 2022);
     calendar.goToNextMonth();
     expect(calendar.month.number).toBe(Months.january);
   });
 
-  it('deve retornar o mes setembro ', () => {
+  it('should return the month of September when running goToNextMonth function', () => {
     calendar.goToDate(Months.august, 2022);
     calendar.goToNextMonth();
     expect(calendar.month.number).toBe(Months.september);
   });
+
+  it('should return January 2021 when running goToPreviousYear function', () => {
+    const calendar = new Calendar(2022, Months.january);
+    calendar.goToPreviousYear(calendar.month.number - 1);
+    expect(calendar.year).toBe(2021);
+    expect(calendar.monthNumber).toBe(Months.january);
+  });
+});
+
+describe('calendar months', () => {
+  const calendar = new Calendar();
+  const totalMonths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+  let months: Array<Month> = [];
+  for (const month of calendar[Symbol.iterator]()) {
+    months = [...months, month];
+  }
+
+  it.each([...totalMonths])(
+    'should render month %s in calendar',
+    async (numberMonth: number) => {
+      expect(months[numberMonth - 1].number).toBe(numberMonth);
+    }
+  );
 });
