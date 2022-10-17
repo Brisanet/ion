@@ -32,3 +32,28 @@ describe('Month', () => {
     expect(fifteenDay.year).toBe(2022);
   });
 });
+
+describe('days of the months 2022', () => {
+  const numberOfMonths = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+  const monthsSize = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  const Months = numberOfMonths.map(
+    (numberOfMonth) => new Month(new Date(2022, numberOfMonth))
+  );
+
+  const totalDaysPerMonth = Months.map((month) => {
+    let days = [];
+    for (const day of month[Symbol.iterator]()) {
+      days = [...days, day];
+    }
+
+    return days.length;
+  });
+
+  it.each([...numberOfMonths])(
+    'should correctly render the number of days for the month %s of 2022',
+    async (month) => {
+      expect(totalDaysPerMonth[month]).toBe(monthsSize[month]);
+    }
+  );
+});
