@@ -55,7 +55,7 @@ describe('ChipComponent', () => {
     'should render chip component with size %s',
     async (size: ChipSize) => {
       await sut({ label: 'custom-size', size });
-      const element = screen.getByText('custom-size')
+      const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass('chip-' + size);
     }
   );
