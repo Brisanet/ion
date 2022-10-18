@@ -68,6 +68,17 @@ describe('DatePickerCompoenent', () => {
     }
   );
 
+  it('should close the calendar when clicking outside of it', async () => {
+    const body = document.body;
+    const button = document.createElement('button');
+    button.setAttribute('id', 'button');
+    button.innerHTML = 'Button';
+    body.append(button);
+
+    fireEvent.mouseUp(document.getElementById('button'));
+    expect(screen.queryAllByText('February - 2015')).not.toHaveLength(1);
+  });
+
   it('should render next month when click in next', async () => {
     const nextBtn = screen.getByTestId('btn-next-month');
     fireEvent.click(nextBtn);
