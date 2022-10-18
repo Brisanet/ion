@@ -1,4 +1,3 @@
-
 import { BadgeProps } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
 
@@ -74,16 +73,17 @@ export class ButtonComponent implements OnInit {
     }
   }
 
-  handleSelect(selecteds: DropdownItem[]) {
-    this.selected.emit(selecteds);
+  handleSelect(selectedItems: DropdownItem[]) {
+    this.selected.emit(selectedItems);
 
     if (this.multiple) {
-      this.updateBadgeValue(selecteds);
+      this.updateBadgeValue(selectedItems);
       return;
     }
 
-    const [item] = selecteds;
+    const [item] = selectedItems;
     this.label = item.label;
+  }
 
   ngOnInit() {
     this.iconSize = ButtonIconSizeOptions[this.size];
