@@ -63,7 +63,7 @@ describe('ChipComponent', () => {
   it('should render icon on left', async (iconPosition: IconDirection = 'left', icon = 'close') => {
     await sut({ label: 'custom-position', iconPosition, icon });
     const element = screen.getByText('custom-position');
-    expect(element).toHaveClass('iconPosition');
+    expect(element).toHaveClass('container-icon-text positionIcon');
   });
 
   it('should render chip component disabled', async () => {
