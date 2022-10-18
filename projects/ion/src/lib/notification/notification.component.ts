@@ -3,6 +3,7 @@ import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
 import { setTimer } from '../utils';
+import { Subscription } from 'rxjs';
 
 export interface NotificationProps {
   title: string;
@@ -29,7 +30,7 @@ export class NotificationComponent {
   @Input() fadeOut?: NotificationProps['fadeOut'] = 'fadeOut';
   @ViewChild('notificationRef', { static: false }) notification: ElementRef;
 
-  private timer: ReturnType<typeof setTimeout>;
+  private timer$: Subscription;
 
   public getIcon(): IconType {
     const icons = {
@@ -69,13 +70,13 @@ export class NotificationComponent {
     if (this.fixed) {
       return;
     }
-    setTimer(closeIn).subscribe(() => {
+    this.timer$ = setTimer(closeIn).subscribe(() => {
       this.closeNotification();
     });
   }
 
   mouseEnter() {
-    clearTimeout(this.timer);
+    this.timer$.unsubscribe();
   }
 
   mouseLeave() {
