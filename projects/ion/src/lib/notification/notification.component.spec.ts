@@ -117,7 +117,7 @@ describe('NotificationComponent', () => {
       await sut();
       const notificationIcon = screen.getByTestId('ion-notification');
       fireEvent.mouseEnter(notificationIcon);
-      await sleep(1000);
+      await sleep(2000);
       expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
         1
       );
