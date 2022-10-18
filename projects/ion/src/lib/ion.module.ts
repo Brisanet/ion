@@ -1,3 +1,4 @@
+import { IonModalService } from './modal/modal.service';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -56,6 +57,7 @@ import { IonModalComponent } from './modal/component/modal.component';
     IonModalComponent,
     PaginationComponent,
   ],
+  providers: [IonModalService],
   imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,

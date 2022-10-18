@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
-import { IonModalService } from '../projects/ion/src/lib/modal/ion-modal.service';
+import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({

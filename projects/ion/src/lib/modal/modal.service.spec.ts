@@ -7,7 +7,7 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 import { IonModalComponent } from './component/modal.component';
-import { IonModalService } from './ion-modal.service';
+import { IonModalService } from './modal.service';
 import { SelectMockComponent } from './mock/select-mock.component';
 
 describe('ModalService', () => {

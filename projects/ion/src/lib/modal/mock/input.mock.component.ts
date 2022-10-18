@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonModalService } from '../ion-modal.service';
+import { IonModalService } from '../modal.service';
 
 @Component({
   template: `

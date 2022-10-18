@@ -1,5 +1,5 @@
 import { Component, ViewContainerRef, Type } from '@angular/core';
-import { IonModalService } from '../ion-modal.service';
+import { IonModalService } from '../modal.service';
 import {
   IonModalConfiguration,
   IonModalResponse,
