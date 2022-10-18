@@ -1,6 +1,10 @@
+
 import { BadgeProps } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { ButtonIconSizeOptions } from '../core/types/button';
+
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 
@@ -33,7 +37,7 @@ type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnInit {
   @Input() label?: string;
   @Input() type?: Type = 'primary';
   @Input() size?: Size = 'md';
@@ -60,6 +64,8 @@ export class ButtonComponent {
     this.buttonBadge.value = items.length;
   }
 
+  public iconSize!: ButtonIconSizeOptions;
+
   handleClick() {
     if (!this.loading && !this.disabled) {
       this.showDropdown = !this.showDropdown;
@@ -78,5 +84,8 @@ export class ButtonComponent {
 
     const [item] = selecteds;
     this.label = item.label;
+
+  ngOnInit() {
+    this.iconSize = ButtonIconSizeOptions[this.size];
   }
 }
