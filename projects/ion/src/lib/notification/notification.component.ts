@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
+import { setTimer } from '../utils';
 
 export interface NotificationProps {
   title: string;
@@ -59,18 +60,18 @@ export class NotificationComponent {
 
   closeNotification() {
     this.notification.nativeElement.classList.add(this.fadeOut);
-    setTimeout(() => {
+    setTimer().subscribe(() => {
       this.notification.nativeElement.remove();
-    }, 1000);
+    });
   }
 
   closeAuto(closeIn: number = this.timeByWords(this.message)) {
     if (this.fixed) {
       return;
     }
-    this.timer = setTimeout(() => {
+    setTimer(closeIn).subscribe(() => {
       this.closeNotification();
-    }, closeIn);
+    });
   }
 
   mouseEnter() {
