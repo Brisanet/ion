@@ -4,8 +4,6 @@ import {
   OnInit,
   Output,
   EventEmitter,
-  ViewChild,
-  ElementRef,
   AfterViewInit,
 } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
