@@ -35,11 +35,6 @@ export class IonModalService {
     this._document = document as Document;
   }
 
-  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
-    this.componentSubscriber.next(valueToEmit);
-    this.closeModal();
-  }
-
   open(
     component: Type<unknown>,
     configuration?: IonModalConfiguration
@@ -72,6 +67,11 @@ export class IonModalService {
     );
     this.componentSubscriber = new Subject<IonModalResponse>();
     return this.componentSubscriber.asObservable();
+  }
+
+  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
+    this.componentSubscriber.next(valueToEmit);
+    this.closeModal();
   }
 
   closeModal() {
