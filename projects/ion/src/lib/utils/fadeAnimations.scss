@@ -7,232 +7,153 @@
   animation-fill-mode: both;
 }
 
+@mixin simple-animation($type) {
+  $initial: 0;
+  $final: 0;
+
+  @if $type == "fadeIn" {
+    $final: 1;
+  }
+  @if $type == "fadeOut" {
+    $initial: 1;
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {opacity: $initial;}
+    100% {opacity: $final;}
+  }
+  @keyframes #{$type} {
+    0% {opacity: $initial;}
+    100% {opacity: $final;}
+  } 
+}
+
+
+@mixin directional-fadeIn($type) {
+  $transform: 0;
+  
+  @if $type == "fadeInLeft" {
+    $transform: translate3d(-100%, 0, 0);
+  }
+  @if $type == "fadeInUp" {
+    $transform: translate3d(0, 100%, 0);
+  }
+  @if $type == "fadeInRight" {
+    $transform: translate3d(100%, 0, 0);
+  }
+  @if $type == "fadeInDown" {
+    $transform: translate3d(0, -100%, 0);
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+  @keyframes #{$type} {
+    0% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+}
+
+@mixin directional-fadeOut($type) {
+  $transform: 0;
+
+  @if $type == "fadeOutDown" {
+    $transform: translate3d(0, 100%, 0);
+  }
+  @if $type == "fadeOutUp" {
+    $transform: translate3d(0, -100%, 0);
+  }
+  @if $type == "fadeOutLeft" {
+    $transform: translate3d(-100%, 0, 0);
+  }
+  @if $type == "fadeOutRight" {
+    $transform: translate3d(100%, 0, 0);
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {
+      opacity: 1; 
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+  }
+  @keyframes #{$type} {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+  }
+}
+
 .fadeIn {
   @include animation-config(fadeIn);
+  @include simple-animation(fadeIn);
 }
-@-webkit-keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-}
-@keyframes fadeIn {
-  0% {opacity: 0;}
-  100% {opacity: 1;}
-} 
 
 .fadeInLeft {
   @include animation-config(fadeInLeft);
-}
-@-webkit-keyframes fadeInLeft {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-}
-  @keyframes fadeInLeft {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
+  @include directional-fadeIn(fadeInLeft);
 }
 
 .fadeInRight {
   @include animation-config(fadeInRight);
+  @include directional-fadeIn(fadeInRight)
 }
-@-webkit-keyframes fadeInRight {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-}
-@keyframes fadeInRight {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-} 
+
 .fadeInUp {
   @include animation-config(fadeInUp);
+  @include directional-fadeIn(fadeInUp);
 }
-@-webkit-keyframes fadeInUp {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, 100%, 0);
-  transform: translate3d(0, 100%, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-}
-@keyframes fadeInUp {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, 100%, 0);
-  transform: translate3d(0, 100%, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-} 
+
 .fadeInDown {
   @include animation-config(fadeInDown);
+  @include directional-fadeIn(fadeInDown);
 }
-@-webkit-keyframes fadeInDown {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-}
-@keyframes fadeInDown {
-  0% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-  }
-  100% {
-  opacity: 1;
-  -webkit-transform: none;
-  transform: none;
-  }
-} 
 
 .fadeOut {
   @include animation-config(fadeOut);
+  @include simple-animation(fadeOut);
 }
-@-webkit-keyframes fadeOut {
-  0% {opacity: 1;}
-  100% {opacity: 0;}
-}
- @keyframes fadeOut {
-  0% {opacity: 1;}
-  100% {opacity: 0;}
-} 
 
 .fadeOutDown {
   @include animation-config(fadeOutDown);
-}
-@-webkit-keyframes fadeOutDown {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, 100%, 0);
-  transform: translate3d(0, 100%, 0);
-  }
-}
-@keyframes fadeOutDown {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, 100%, 0);
-  transform: translate3d(0, 100%, 0);
-  }
+  @include directional-fadeOut(fadeOutDown);
 }
 
 .fadeOutLeft {
   @include animation-config(fadeOutLeft);
-}
-@-webkit-keyframes fadeOutLeft {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  }
-}
-@keyframes fadeOutLeft {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
-  }
+  @include directional-fadeOut(fadeOutLeft);
 }
 
 .fadeOutRight {
   @include animation-config(fadeOutRight);
+  @include directional-fadeOut(fadeOutRight);
 }
-@-webkit-keyframes fadeOutRight {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-  }
-}
-@keyframes fadeOutRight {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
-  }
-}
-
 .fadeOutUp {
   @include animation-config(fadeOutUp);
+  @include directional-fadeOut(fadeOutUp);
 }
-@-webkit-keyframes fadeOutUp {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-  }
-}
-@keyframes fadeOutUp {
-  0% {
-  opacity: 1;
-  }
-  100% {
-  opacity: 0;
-  -webkit-transform: translate3d(0, -100%, 0);
-  transform: translate3d(0, -100%, 0);
-  }
-} 
