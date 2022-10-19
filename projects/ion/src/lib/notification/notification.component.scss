@@ -32,6 +32,12 @@
   margin-right: spacing(1);
 }
 
+.notification-text {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
 .notification-title {
   font-weight: 600;
   font-size: 16px;
