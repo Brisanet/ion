@@ -21,7 +21,7 @@ import {
 })
 export class IonModalService {
   private modalComponentRef!: ComponentRef<IonModalComponent>;
-  private componentSubscriber!: Subject<IonModalResponse>;
+  private componentSubscriber!: Subject<unknown>;
 
   constructor(
     // TODO: this is required due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9. change "any" to "Document";
@@ -35,7 +35,7 @@ export class IonModalService {
   open(
     component: Type<unknown>,
     configuration?: IonModalConfiguration
-  ): Observable<IonModalResponse> {
+  ): Observable<unknown> {
     const modal = this.componentFactoryResolver
       .resolveComponentFactory(IonModalComponent)
       .create(this.injector);
@@ -66,7 +66,7 @@ export class IonModalService {
     return this.componentSubscriber.asObservable();
   }
 
-  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
+  emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown) {
     this.componentSubscriber.next(valueToEmit);
     this.closeModal();
   }
