@@ -22,18 +22,15 @@ import {
 export class IonModalService {
   private modalComponentRef!: ComponentRef<IonModalComponent>;
   private componentSubscriber!: Subject<IonModalResponse>;
-  private _document?: Document;
 
   constructor(
-    // TODO: this is required due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9. change "any" to "Document" and remove _document property;
+    // TODO: this is required due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9. change "any" to "Document";
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private document: any,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector
-  ) {
-    this._document = document as Document;
-  }
+  ) {}
 
   open(
     component: Type<unknown>,
@@ -75,6 +72,7 @@ export class IonModalService {
   }
 
   closeModal() {
+    this.appRef.detachView(this.modalComponentRef.hostView);
     this.componentSubscriber.complete();
     this.modalComponentRef.destroy();
   }
