@@ -4,9 +4,14 @@ import { SafeAny } from '../utils/safe-any';
 import { PageEvent } from '../pagination/pagination.component';
 import { ActionTable, Column, ConfigTable } from '../table/table.component';
 
-interface TableEvent {
+export interface TableEvent {
+  event?: 'sort' | 'change_page' | 'row_select';
   rows_selected?: SafeAny[];
   change_page?: PageEvent;
+  order?: {
+    column: string;
+    desc: boolean;
+  };
 }
 
 const stateChange = {
@@ -17,7 +22,7 @@ const stateChange = {
 @Component({
   selector: 'ion-smart-table',
   templateUrl: './smart-table.component.html',
-  styleUrls: ['./smart-table.component.scss'],
+  styleUrls: ['../table/table.component.scss'],
 })
 export class SmartTableComponent {
   @Input() config: ConfigTable<SafeAny>;
@@ -27,7 +32,8 @@ export class SmartTableComponent {
   private enabledArrowColor = '#0858CE';
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
-  public smartData = [];
+  private firstLoad = true;
+  public pagination!: PageEvent;
 
   public checkState() {
     if (this.mainCheckBoxState === 'indeterminate') {
@@ -61,6 +67,7 @@ export class SmartTableComponent {
 
   private emitRowsSelected() {
     this.events.emit({
+      event: 'row_select',
       rows_selected: this.getRowsSelected(),
     });
   }
@@ -92,24 +99,6 @@ export class SmartTableComponent {
     this.emitRowsSelected();
   }
 
-  // refactor
-  private orderDesc(itemA, itemB) {
-    return itemA > itemB ? -1 : itemA > itemB ? 1 : 0;
-  }
-
-  // refactor
-  private orderAsc(itemA, itemB) {
-    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
-  }
-
-  // refactor
-  private orderBy(desc: boolean, rowA: SafeAny, rowB: SafeAny, key: string) {
-    if (desc) {
-      return this.orderDesc(rowA[key], rowB[key]);
-    }
-    return this.orderAsc(rowA[key], rowB[key]);
-  }
-
   public fillColorArrowUp(column: Column) {
     return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
   }
@@ -128,11 +117,16 @@ export class SmartTableComponent {
       : this.fillColorArrowDown(column);
   }
 
-  // refactor
   sort(column: Column) {
-    this.config.data.sort((rowA, rowB) =>
-      this.orderBy(column.desc, rowA, rowB, column.key)
-    );
+    this.events.emit({
+      event: 'sort',
+      change_page: this.pagination,
+      order: {
+        column: column.key,
+        desc: column.desc,
+      },
+    });
+
     this.config.columns.forEach((columnEach) => {
       if (columnEach.key != column.key) {
         columnEach.desc = null;
@@ -151,13 +145,14 @@ export class SmartTableComponent {
     return action.show(row);
   }
 
-  // refactor - emit event
   paginationEvents(event: PageEvent) {
-    if (!this.config.loading) {
-      console.log('event ->', event);
+    this.pagination = event;
+    if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
+        event: 'change_page',
         change_page: event,
       });
     }
+    this.firstLoad = false;
   }
 }

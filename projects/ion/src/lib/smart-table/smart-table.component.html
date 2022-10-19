@@ -94,7 +94,7 @@
   </table>
 
   <div
-    *ngIf="config.pagination"
+    *ngIf="config.pagination && config.data && config.data.length"
     data-testid="pagination-container"
     class="footer-table"
   >

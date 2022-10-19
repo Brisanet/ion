@@ -62,5 +62,10 @@
 }
 
 .disabled {
-  background: grey;
+  @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  cursor: not-allowed;
+
+  &:hover {
+    @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  }
 }

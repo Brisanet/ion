@@ -68,7 +68,7 @@ export const Basic = Template.bind({});
 Basic.args = {
   config: {
     check: true,
-    data: [...data],
+    data,
     columns,
     pagination: {
       total: 8,

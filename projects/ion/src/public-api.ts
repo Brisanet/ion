@@ -27,3 +27,4 @@ export * from './lib/card/card.component';
 export * from './lib/simple-menu/simple-menu.component';
 export * from './lib/smart-table/smart-table.component';
 export * from './lib/info-badge/info-badge.component';
+export * from './lib/pagination/pagination.component';
