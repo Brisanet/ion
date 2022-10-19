@@ -51,11 +51,11 @@
   }
 
   &:disabled {
-    border: 1px solid $neutral-4;
+    border: 1px solid $neutral-5;
     outline: none;
     cursor: not-allowed;
-    @include add-colors($neutral-3, $neutral-4);
-    @include icon-color($neutral-4);
+    @include add-colors($neutral-3, $neutral-5);
+    @include icon-color($neutral-5);
   }
 }
 
@@ -94,7 +94,7 @@
   }
 
   &:disabled {
-    border: 2px solid $neutral-4;
+    border: 1.5px solid $neutral-5;
     outline: none;
     cursor: not-allowed;
     @include add-colors($neutral-3, $neutral-5);
