@@ -27,9 +27,8 @@ Esse serviço possui 3 funções:
 
 Função responsável pela renderização do modal. Ela recebe como parâmetros:
 
-1. `viewContainerRef`: informamos o _ViewContainerRef_ onde será renderizado o modal.
-2. `component`: informamos o componente a ser renderizado no corpo do modal.
-3. `configuration`: parâmetro **opcional**, onde podemos fazer algumas alterações no modal, seguindo a interface _IonModalConfiguration_
+1. `component`: informamos o componente a ser renderizado no corpo do modal.
+2. `configuration`: parâmetro **opcional**, onde podemos fazer algumas alterações no modal, seguindo a interface _IonModalConfiguration_
 
 <Source
   language="js"
@@ -38,7 +37,7 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
   code={dedent`
     openModal(): void {
       this.ionModalService
-        .open(this.myViewcontainerRef, this.componentToModalBody, this.customCodalConfiguration)
+        .open(this.myComponent, this.customCodalConfiguration)
         .subscribe((response: IonModalResponse) => {});
     }
 `}

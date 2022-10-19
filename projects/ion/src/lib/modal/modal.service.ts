@@ -1,9 +1,12 @@
+import { DOCUMENT } from '@angular/common';
 import {
+  ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
+  Inject,
   Injectable,
+  Injector,
   Type,
-  ViewContainerRef,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
@@ -18,23 +21,44 @@ import {
 })
 export class IonModalService {
   private modalComponentRef!: ComponentRef<IonModalComponent>;
-  private componentSubscriber!: Subject<unknown>;
+  private componentSubscriber!: Subject<IonModalResponse>;
+  private _document?: Document;
 
-  constructor(private resolver: ComponentFactoryResolver) {}
+  constructor(
+    // TODO: this is required due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9. change "any" to "Document" and remove _document property;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @Inject(DOCUMENT) private document: any,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private appRef: ApplicationRef,
+    private injector: Injector
+  ) {
+    this._document = document as Document;
+  }
+
+  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
+    this.componentSubscriber.next(valueToEmit);
+    this.closeModal();
+  }
 
   open(
-    viewContainerRef: ViewContainerRef,
     component: Type<unknown>,
     configuration?: IonModalConfiguration
-  ): Observable<unknown> {
-    const factory = this.resolver.resolveComponentFactory(IonModalComponent);
-    this.modalComponentRef = viewContainerRef.createComponent(factory);
-    this.modalComponentRef.instance.setDefaultConfig();
-    this.modalComponentRef.instance.componentToBody = component;
+  ): Observable<IonModalResponse> {
+    const modal = this.componentFactoryResolver
+      .resolveComponentFactory(IonModalComponent)
+      .create(this.injector);
 
+    this.modalComponentRef = modal;
+    this.modalComponentRef.instance.componentToBody = component;
+    this.modalComponentRef.instance.setDefaultConfig();
     if (configuration) {
       this.modalComponentRef.instance.setConfig(configuration);
     }
+    this.appRef.attachView(this.modalComponentRef.hostView);
+    this.modalComponentRef.changeDetectorRef.detectChanges();
+
+    const modalElement = this.modalComponentRef.location.nativeElement;
+    this.document.body.appendChild(modalElement);
 
     this.modalComponentRef.instance.ionOnClose.subscribe(
       (valueFromModal: IonModalResponse) => {
@@ -46,13 +70,8 @@ export class IonModalService {
         this.emitValueAndCloseModal(valueFromModal);
       }
     );
-    this.componentSubscriber = new Subject<unknown>();
+    this.componentSubscriber = new Subject<IonModalResponse>();
     return this.componentSubscriber.asObservable();
-  }
-
-  emitValueAndCloseModal(valueToEmit: IonModalResponse) {
-    this.componentSubscriber.next(valueToEmit);
-    this.closeModal();
   }
 
   closeModal() {

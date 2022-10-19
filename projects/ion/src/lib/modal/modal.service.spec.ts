@@ -7,15 +7,15 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 import { IonModalComponent } from './component/modal.component';
-import { IonModalService } from './modal.service';
 import { SelectMockComponent } from './mock/select-mock.component';
+import { IonModalService } from './modal.service';
 
 describe('ModalService', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
   let modalService: IonModalService;
 
   @Component({
-    template: '<div #container></div>',
+    template: '<div></div>',
   })
   class ContainerRefTestComponent {
     @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -42,8 +42,12 @@ describe('ModalService', () => {
     modalService = TestBed.get(IonModalService);
   });
 
+  afterEach(() => {
+    modalService.closeModal();
+  });
+
   it('should be created with open', () => {
-    modalService.open(fixture.componentInstance.container, SelectMockComponent);
+    modalService.open(SelectMockComponent);
 
     expect(modalService).toBeTruthy();
     expect(screen.getByTestId('modalTitle')).toBeTruthy();
@@ -52,7 +56,7 @@ describe('ModalService', () => {
   it('should close modal when call emitAndCloseModal', () => {
     jest.spyOn(modalService, 'closeModal');
 
-    modalService.open(fixture.componentInstance.container, SelectMockComponent);
+    modalService.open(SelectMockComponent);
     modalService.emitValueAndCloseModal({ name: 'Fulano' });
     fixture.detectChanges();
 
@@ -62,11 +66,7 @@ describe('ModalService', () => {
   it('should set title according to config in open function', () => {
     const title = 'modal title';
 
-    modalService.open(
-      fixture.componentInstance.container,
-      SelectMockComponent,
-      { title: title }
-    );
+    modalService.open(SelectMockComponent, { title: title });
     fixture.detectChanges();
 
     expect(screen.getByTestId('modalTitle').innerHTML).toBe(title);
@@ -75,7 +75,7 @@ describe('ModalService', () => {
   it('should call closeModal when ionOnClose fires without value', () => {
     jest.spyOn(modalService, 'closeModal');
 
-    modalService.open(fixture.componentInstance.container, SelectMockComponent);
+    modalService.open(SelectMockComponent);
 
     fireEvent.click(screen.getByTestId('modalOverlay'));
     fixture.detectChanges();
@@ -86,8 +86,11 @@ describe('ModalService', () => {
   it('should call emitValueAndCloseModal when ionOnClose fires without value', () => {
     jest.spyOn(modalService, 'emitValueAndCloseModal');
 
-    modalService.open(fixture.componentInstance.container, SelectMockComponent);
-    fixture.detectChanges();
+    modalService.open(SelectMockComponent);
+
+    const c = screen.getAllByText('Confirmar');
+
+    expect(c.length).toBe(1);
 
     fireEvent.click(screen.getByText('Confirmar'));
     fixture.detectChanges();

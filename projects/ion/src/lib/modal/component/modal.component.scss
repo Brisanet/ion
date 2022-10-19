@@ -6,6 +6,7 @@
 }
 
 .modal-overlay {
+  z-index: 99;
   position: absolute;
   top: 0;
   left: 0;
@@ -94,7 +95,7 @@
       display: flex;
       justify-content: flex-end;
 
-      &.divider {
+      &.divider-line {
         border-top: 1px solid $neutral-3;
       }
 

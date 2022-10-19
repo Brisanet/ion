@@ -79,7 +79,6 @@ export class IonModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDefaultConfig();
-
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
     this.dialogElement.nativeElement.focus();
