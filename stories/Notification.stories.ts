@@ -63,3 +63,11 @@ CustomIcon.args = {
   message: 'Um item foi editado no seu inventário',
   icon: 'pencil',
 };
+
+export const CustomAnimation = Template.bind({});
+CustomAnimation.args = {
+  title: 'Editado',
+  message: 'Um item foi editado no seu inventário',
+  fadeIn: 'fadeInUp',
+  fadeOut: 'fadeOutDown',
+};
