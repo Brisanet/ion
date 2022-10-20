@@ -35,6 +35,8 @@ describe('InputComponent', () => {
     expect(document.getElementById('ion-icon-pencil')).toBeTruthy();
   });
 
+  //Falta condição de quando o input vai ser valido e invalido
+
   it.skip('should render input icon valid', async () => {
     await sut();
     expect(document.getElementById('icon-valid')).toBeTruthy();

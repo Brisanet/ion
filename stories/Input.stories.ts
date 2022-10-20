@@ -1,4 +1,3 @@
-import { IconDirection } from './../projects/ion/src/lib/input/input.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
@@ -19,11 +18,6 @@ const Template: Story<InputComponent> = (args: InputComponent) => ({
   component: InputComponent,
   props: args,
 });
-
-export const Basic = Template.bind({});
-Basic.args = {
-  label: '',
-};
 
 export const Disabled = Template.bind({});
 Disabled.args = {
