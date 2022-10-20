@@ -94,7 +94,7 @@
   }
 
   &:disabled {
-    border: 2px solid $neutral-4;
+    border: 1.5px solid $neutral-5;
     outline: none;
     cursor: not-allowed;
     @include add-colors($neutral-3, $neutral-5);
