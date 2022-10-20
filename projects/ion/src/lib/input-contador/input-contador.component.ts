@@ -13,8 +13,7 @@ export interface IonInputProps {
 })
 export class InputContadorComponent {
   @Input() size: 'sm';
-
-  cont = 0;
+  @Input() cont = 0;
 
   public contMenos() {
     if (this.cont > 0) {
