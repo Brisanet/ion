@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import { ButtonComponent, TagComponent } from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -47,23 +46,6 @@ const columns = [
   },
 ];
 
-const actions = [
-  {
-    label: 'Excluir',
-    icon: 'trash',
-    show: (row: SafeAny) => {
-      return !row.deleted;
-    },
-    call: (row: SafeAny) => {
-      row.name += ' DELETED';
-    },
-  },
-  {
-    label: 'Editar',
-    icon: 'pencil',
-  },
-];
-
 export const Basic = Template.bind({});
 Basic.args = {
   config: {
@@ -72,7 +54,6 @@ Basic.args = {
     columns,
     pagination: {
       total: 8,
-      itemsPerPage: 2,
     },
   },
 };

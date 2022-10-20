@@ -3,15 +3,11 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { TagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
-import {
-  ActionTable,
-  Column,
-  IonTableProps,
-  TableComponent,
-} from './table.component';
+import { IonTableProps, TableComponent } from './table.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
+import { ActionTable, Column, ColumnType } from './utilsTable';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -386,7 +382,7 @@ describe('Table > Differents columns data type', () => {
         {
           key: 'year',
           label: 'Year',
-          type: 'tag',
+          type: ColumnType.TAG,
           sort: false,
           tag: {
             icon: columnIcon,

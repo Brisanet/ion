@@ -2,45 +2,10 @@ import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
 import { PageEvent } from '../pagination/pagination.component';
-
-interface TagRow {
-  icon?: string;
-  iconKey?: string;
-}
-export interface Column {
-  label: string;
-  key: string;
-  sort?: boolean;
-  type?: 'tag' | 'text';
-  tag?: TagRow;
-  desc?: boolean;
-  width?: number;
-}
-
-export interface ActionTable {
-  label: string;
-  icon: string;
-  show?: (row: SafeAny) => boolean;
-  call?: (row: SafeAny) => void;
-}
+import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
 
 interface TableEvent {
   rows_selected: SafeAny[];
-}
-
-export interface PaginationConfig {
-  total: number;
-  itemsPerPage?: number;
-  offset?: number;
-}
-
-export interface ConfigTable<T> {
-  data: T[];
-  columns: Column[];
-  actions?: ActionTable[];
-  check?: boolean;
-  pagination?: PaginationConfig;
-  loading?: boolean;
 }
 
 export interface IonTableProps<T> {
@@ -62,9 +27,7 @@ export class TableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
-  private disabledArrowColor = '#CED2DB';
-  private enabledArrowColor = '#0858CE';
-
+  private tableUtils: TableUtils;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
 
@@ -81,26 +44,14 @@ export class TableComponent implements OnInit {
     this.mainCheckBoxState = state;
   }
 
-  public isAllRowsSelected() {
-    return this.getRowsSelected().length === this.config.data.length;
-  }
-
   public uncheckAllRows() {
     this.config.data.forEach((row) => (row.selected = false));
     this.setMainCheckboxState('enabled');
   }
 
-  private getRowsSelected(): SafeAny[] {
-    return this.config.data.filter((rowInData) => rowInData.selected);
-  }
-
-  private hasRowSelected(): boolean {
-    return this.getRowsSelected().length > 0;
-  }
-
   private emitRowsSelected() {
     this.events.emit({
-      rows_selected: this.getRowsSelected(),
+      rows_selected: this.tableUtils.getRowsSelected(),
     });
   }
 
@@ -115,9 +66,9 @@ export class TableComponent implements OnInit {
   checkRow(row: SafeAny) {
     row.selected = !row.selected;
 
-    if (this.isAllRowsSelected()) {
+    if (this.tableUtils.isAllRowsSelected()) {
       this.setMainCheckboxState('checked');
-    } else if (this.hasRowSelected()) {
+    } else if (this.tableUtils.hasRowSelected()) {
       this.setMainCheckboxState('indeterminate');
     } else {
       this.setMainCheckboxState('enabled');
@@ -127,7 +78,7 @@ export class TableComponent implements OnInit {
   }
 
   toggleAllRows() {
-    this.selectAllLike(!this.hasRowSelected());
+    this.selectAllLike(!this.tableUtils.hasRowSelected());
     this.emitRowsSelected();
   }
 
@@ -146,22 +97,8 @@ export class TableComponent implements OnInit {
     return this.orderAsc(rowA[key], rowB[key]);
   }
 
-  public fillColorArrowUp(column: Column) {
-    return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
-  }
-
-  public fillColorArrowDown(column: Column) {
-    return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
-  }
-
   public fillColor(column: Column, upArrow: boolean) {
-    if (column.desc === null || column.desc === undefined) {
-      return this.disabledArrowColor;
-    }
-
-    return upArrow
-      ? this.fillColorArrowUp(column)
-      : this.fillColorArrowDown(column);
+    return this.tableUtils.fillColor(column, upArrow);
   }
 
   sort(column: Column) {
@@ -194,6 +131,7 @@ export class TableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.tableUtils = new TableUtils(this.config);
     if (this.config.pagination) {
       const defaultItemsPerPage = 10;
       this.config.pagination.itemsPerPage = defaultItemsPerPage;

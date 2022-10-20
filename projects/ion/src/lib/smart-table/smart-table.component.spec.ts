@@ -6,8 +6,11 @@ import { SafeAny } from '../utils/safe-any';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
-import { ActionTable, Column, IonTableProps } from '../table/table.component';
-import { SmartTableComponent } from './smart-table.component';
+import {
+  IonSmartTableProps,
+  SmartTableComponent,
+} from './smart-table.component';
+import { ActionTable, Column, EventTable } from '../table/utilsTable';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -46,7 +49,7 @@ const data: Character[] = [
 
 const events = jest.fn();
 
-const defaultProps: IonTableProps<Character> = {
+const defaultProps: IonSmartTableProps<Character> = {
   config: {
     data,
     columns,
@@ -61,7 +64,9 @@ const defaultProps: IonTableProps<Character> = {
   } as SafeAny,
 };
 
-const sut = async (customProps: IonTableProps<Character> = defaultProps) => {
+const sut = async (
+  customProps: IonSmartTableProps<Character> = defaultProps
+) => {
   await render(SmartTableComponent, {
     componentProperties: customProps,
     declarations: [
@@ -86,6 +91,7 @@ describe('TableComponent', () => {
 
   it('should render pagination by default', async () => {
     expect(screen.queryAllByTestId('pagination-container')).toHaveLength(1);
+    expect(screen.getByTestId('page-1')).toBeInTheDocument();
   });
 
   it('should render total of items', async () => {
@@ -138,7 +144,7 @@ describe('TableComponent', () => {
         itemsPerPage: 10,
         offset: 0,
       },
-      event: 'sort',
+      event: EventTable.SORT,
       order: {
         column: orderBy,
         desc: undefined,
@@ -156,7 +162,7 @@ describe('TableComponent', () => {
         itemsPerPage: 10,
         offset: 0,
       },
-      event: 'sort',
+      event: EventTable.SORT,
       order: {
         column: orderBy,
         desc: true,
@@ -173,7 +179,7 @@ describe('TableComponent', () => {
         itemsPerPage: 10,
         offset: 10,
       },
-      event: 'change_page',
+      event: EventTable.CHANGE_PAGE,
     });
   });
 
@@ -206,7 +212,7 @@ describe('Table > Actions', () => {
       ...defaultProps.config,
       actions,
     },
-  } as IonTableProps<Character>;
+  } as IonSmartTableProps<Character>;
 
   it('should show actions column when has action', async () => {
     await sut(tableWithActions);
@@ -221,7 +227,7 @@ describe('Table > Actions', () => {
   it('should not render trash icon when he caracther is less than 160cm', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
-    } as IonTableProps<Character>;
+    } as IonSmartTableProps<Character>;
 
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
 
@@ -243,11 +249,15 @@ describe('Table > Actions', () => {
 
 describe('Table > Checkbox', () => {
   const eventSelect = jest.fn();
-  const tableWithSelect: IonTableProps<Character> = {
+  const tableWithSelect: IonSmartTableProps<Character> = {
     config: {
       columns: JSON.parse(JSON.stringify(columns)),
       data: JSON.parse(JSON.stringify(data)),
       check: true,
+      pagination: {
+        total: 82,
+        itemsPerPage: 10,
+      },
     },
     events: {
       emit: eventSelect,
@@ -281,7 +291,7 @@ describe('Table > Checkbox', () => {
     });
 
     expect(eventSelect).toBeCalledWith({
-      event: 'row_select',
+      event: EventTable.ROW_SELECT,
       rows_selected: tableWithSelect.config.data,
     });
   });
@@ -292,7 +302,7 @@ describe('Table > Checkbox', () => {
     fireEvent.click(checkFirstRow);
 
     expect(eventSelect).toBeCalledWith({
-      event: 'row_select',
+      event: EventTable.ROW_SELECT,
       rows_selected: [{ ...data[indexToSelect], selected: true }],
     });
   });
@@ -415,7 +425,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
-  const tableDifferentColumns: IonTableProps<Character> = {
+  const tableDifferentColumns: IonSmartTableProps<Character> = {
     config: {
       columns: [
         ...JSON.parse(JSON.stringify(columns)),
@@ -430,6 +440,10 @@ describe('Table > Differents columns data type', () => {
         },
       ],
       data: JSON.parse(JSON.stringify(data)),
+      pagination: {
+        total: 82,
+        itemsPerPage: 10,
+      },
     },
     events: {
       emit: eventSelect,
@@ -497,5 +511,19 @@ describe('Table > Differents columns data type', () => {
 
   afterAll(() => {
     eventSelect.mockClear();
+  });
+});
+
+describe('Table > Pagination', () => {
+  it('should render page without config of items per page', async () => {
+    const withoutConfigItemsPerPage = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withoutConfigItemsPerPage.config.pagination = {
+      total: 32,
+    };
+
+    await sut(withoutConfigItemsPerPage);
+    expect(screen.getByTestId('page-4')).toBeInTheDocument();
   });
 });

@@ -20,13 +20,15 @@ export interface IonPaginationProps {
   loading?: boolean;
 }
 
+export const ITEMS_PER_PAGE_DEFAULT = 10;
+
 @Component({
   selector: 'ion-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  private defaultItemsPerPage = 10;
+  private defaultItemsPerPage = ITEMS_PER_PAGE_DEFAULT;
 
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =

@@ -1,11 +1,21 @@
 import { CheckBoxStates } from './../checkbox/checkbox.component';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SafeAny } from '../utils/safe-any';
-import { PageEvent } from '../pagination/pagination.component';
-import { ActionTable, Column, ConfigTable } from '../table/table.component';
+import {
+  ITEMS_PER_PAGE_DEFAULT,
+  PageEvent,
+} from '../pagination/pagination.component';
+import {
+  ActionTable,
+  Column,
+  ConfigTable,
+  EventTable,
+  PaginationConfig,
+  TableUtils,
+} from '../table/utilsTable';
 
 export interface TableEvent {
-  event?: 'sort' | 'change_page' | 'row_select';
+  event?: EventTable;
   rows_selected?: SafeAny[];
   change_page?: PageEvent;
   order?: {
@@ -19,21 +29,29 @@ const stateChange = {
   enabled: 'checked',
 };
 
+export interface IonSmartTableProps<T> {
+  config: ConfigSmartTable<T>;
+  events?: EventEmitter<TableEvent>;
+}
+
+export interface ConfigSmartTable<T> extends ConfigTable<T> {
+  pagination: PaginationConfig;
+}
+
 @Component({
   selector: 'ion-smart-table',
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class SmartTableComponent {
-  @Input() config: ConfigTable<SafeAny>;
+export class SmartTableComponent implements OnInit {
+  @Input() config: ConfigSmartTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
-  private disabledArrowColor = '#CED2DB';
-  private enabledArrowColor = '#0858CE';
-
   public mainCheckBoxState: CheckBoxStates = 'enabled';
-  private firstLoad = true;
   public pagination!: PageEvent;
+
+  private firstLoad = true;
+  private tableUtils: TableUtils;
 
   public checkState() {
     if (this.mainCheckBoxState === 'indeterminate') {
@@ -48,27 +66,15 @@ export class SmartTableComponent {
     this.mainCheckBoxState = state;
   }
 
-  public isAllRowsSelected() {
-    return this.getRowsSelected().length === this.config.data.length;
-  }
-
   public uncheckAllRows() {
     this.config.data.forEach((row) => (row.selected = false));
     this.setMainCheckboxState('enabled');
   }
 
-  private getRowsSelected(): SafeAny[] {
-    return this.config.data.filter((rowInData) => rowInData.selected);
-  }
-
-  private hasRowSelected(): boolean {
-    return this.getRowsSelected().length > 0;
-  }
-
   private emitRowsSelected() {
     this.events.emit({
-      event: 'row_select',
-      rows_selected: this.getRowsSelected(),
+      event: EventTable.ROW_SELECT,
+      rows_selected: this.tableUtils.getRowsSelected(),
     });
   }
 
@@ -83,9 +89,9 @@ export class SmartTableComponent {
   checkRow(row: SafeAny) {
     row.selected = !row.selected;
 
-    if (this.isAllRowsSelected()) {
+    if (this.tableUtils.isAllRowsSelected()) {
       this.setMainCheckboxState('checked');
-    } else if (this.hasRowSelected()) {
+    } else if (this.tableUtils.hasRowSelected()) {
       this.setMainCheckboxState('indeterminate');
     } else {
       this.setMainCheckboxState('enabled');
@@ -95,31 +101,17 @@ export class SmartTableComponent {
   }
 
   toggleAllRows() {
-    this.selectAllLike(!this.hasRowSelected());
+    this.selectAllLike(!this.tableUtils.hasRowSelected());
     this.emitRowsSelected();
   }
 
-  public fillColorArrowUp(column: Column) {
-    return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
-  }
-
-  public fillColorArrowDown(column: Column) {
-    return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
-  }
-
   public fillColor(column: Column, upArrow: boolean) {
-    if (column.desc === null || column.desc === undefined) {
-      return this.disabledArrowColor;
-    }
-
-    return upArrow
-      ? this.fillColorArrowUp(column)
-      : this.fillColorArrowDown(column);
+    return this.tableUtils.fillColor(column, upArrow);
   }
 
   sort(column: Column) {
     this.events.emit({
-      event: 'sort',
+      event: EventTable.SORT,
       change_page: this.pagination,
       order: {
         column: column.key,
@@ -149,10 +141,17 @@ export class SmartTableComponent {
     this.pagination = event;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
-        event: 'change_page',
+        event: EventTable.CHANGE_PAGE,
         change_page: event,
       });
     }
     this.firstLoad = false;
+  }
+
+  ngOnInit() {
+    this.tableUtils = new TableUtils(this.config);
+    if (!this.config.pagination.itemsPerPage) {
+      this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
+    }
   }
 }
