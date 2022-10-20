@@ -1,3 +1,4 @@
+import { SafeAny } from './../utils/safe-any';
 import { DOCUMENT } from '@angular/common';
 import {
   ApplicationRef,
@@ -21,12 +22,11 @@ import {
 })
 export class IonModalService {
   private modalComponentRef!: ComponentRef<IonModalComponent>;
-  private componentSubscriber!: Subject<unknown>;
+  private componentSubscriber!: Subject<IonModalResponse | unknown>;
 
   constructor(
-    // TODO: this is required due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9. change "any" to "Document";
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    @Inject(DOCUMENT) private document: any,
+    // TODO: SafeAny used due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9, change "SafeAny" to "Document";
+    @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector
@@ -35,7 +35,7 @@ export class IonModalService {
   open(
     component: Type<unknown>,
     configuration?: IonModalConfiguration
-  ): Observable<unknown> {
+  ): Observable<IonModalResponse | unknown> {
     const modal = this.componentFactoryResolver
       .resolveComponentFactory(IonModalComponent)
       .create(this.injector);
@@ -62,7 +62,7 @@ export class IonModalService {
         this.emitValueAndCloseModal(valueFromModal);
       }
     );
-    this.componentSubscriber = new Subject<IonModalResponse>();
+    this.componentSubscriber = new Subject<IonModalResponse | unknown>();
     return this.componentSubscriber.asObservable();
   }
 
