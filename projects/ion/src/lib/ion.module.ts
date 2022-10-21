@@ -1,3 +1,4 @@
+import { IonModalService } from './modal/modal.service';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -25,6 +26,7 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 
 @NgModule({
@@ -54,8 +56,10 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     DatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
+    IonModalComponent,
     PaginationComponent,
   ],
+  providers: [IonModalService],
   imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
@@ -81,6 +85,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     DatePickerComponent,
     SimpleMenuComponent,
     InfoBadgeComponent,
+    IonModalComponent,
     PaginationComponent,
   ],
 })
