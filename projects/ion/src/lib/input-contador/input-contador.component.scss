@@ -1,37 +1,48 @@
+@import '../../styles/index.scss';
+
 div {
-  border: 1px solid #aeb2bd;
+  border: 1px solid $neutral-5;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  line-height: 16px;
   cursor: pointer;
 
   & input {
+    display: flex;
+    align-items: center;
     width: 23px;
     border: none;
     outline: none;
     text-align: center;
     font-size: 12px;
-    color: #aeb2bd;
+    color: $neutral-5;
   }
 }
 
-.svg-menos {
-  height: 20px;
+ion-icon {
+  display: flex;
+  align-items: center;
+
+  ::ng-deep svg {
+    fill: $primary-6;
+  }
+}
+
+.svg-down {
   border: none;
 }
 
-.svg-mais {
+.svg-plus {
   border: none;
 }
 
-.contador-sm {
+.counter-sm {
   width: 78px;
   height: 24px;
 }
 
-.contador-md {
+.counter-md {
   width: 78px;
   height: 32px;
 }

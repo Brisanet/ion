@@ -1,9 +1,12 @@
+import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 
 export type InputSize = 'sm' | 'md';
 
 export interface IonInputProps {
   size: InputSize;
+  iconDown: IconType;
+  iconPlus: IconType;
 }
 
 @Component({
@@ -13,15 +16,17 @@ export interface IonInputProps {
 })
 export class InputContadorComponent {
   @Input() size: 'sm';
-  @Input() cont = 0;
+  @Input() count = 0;
+  @Input() iconDown = 'semi-down';
+  @Input() iconPlus = 'semi-up';
 
-  public contMenos() {
-    if (this.cont > 0) {
-      this.cont--;
+  public countDown() {
+    if (this.count > 0) {
+      this.count--;
     }
   }
 
-  public contMais() {
-    this.cont++;
+  public countPlus() {
+    this.count++;
   }
 }

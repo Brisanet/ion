@@ -2,28 +2,28 @@ import { render } from '@testing-library/angular';
 import { IonInputProps } from './input-contador.component';
 
 const sut = async (customProps?: IonInputProps) => {
-  await render('InputContador', {
+  await render('InputCounter', {
     componentProperties: customProps,
     declarations: [],
   });
 };
 
-describe('InputContador', () => {
-  it('should render input contador', async () => {
+describe('InputCounter', () => {
+  it('should render input counter', async () => {
     await sut();
     const element = document.getElementById('input-test');
     expect(element);
   });
 
-  it('should render input contador icon menos', async () => {
+  it('should render input counter icon down', async () => {
     await sut();
-    const element = document.getElementById('svg-menos');
+    const element = document.getElementById('svg-down');
     expect(element).toBeInTheDocument;
   });
 
-  it('should render input contador icon mais', async () => {
+  it('should render input counter icon plus', async () => {
     await sut();
-    const element = document.getElementById('svg-mais');
+    const element = document.getElementById('svg-plus');
     expect(element).toBeInTheDocument;
   });
 });
