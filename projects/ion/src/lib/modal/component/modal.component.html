@@ -15,16 +15,16 @@
   >
     <header tabindex="0">
       <h4 data-testid="modalTitle">{{ configuration.title }}</h4>
-      <ion-icon
-        tabindex="0"
-        class="close-icon"
+      <ion-button
+        label="Deletar"
+        iconType="close"
+        type="ghost"
+        [circularButton]="true"
         data-testid="close-icon"
-        type="close"
-        color="#0858CE"
         (click)="closeModal()"
         (keydown.space)="closeModal()"
         (keydown.enter)="closeModal()"
-      ></ion-icon>
+      ></ion-button>
     </header>
 
     <div tabindex="0" class="modal-body">

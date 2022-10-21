@@ -124,4 +124,8 @@ describe('IonModalComponent', () => {
     component.closeModal(component.getChildComponentPropertiesValue());
     expect(component.ionOnClose.emit).toHaveBeenCalledWith({ state: 'ceara' });
   });
+
+  it('should have close button', () => {
+    expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+  });
 });
