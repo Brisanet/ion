@@ -1,6 +1,7 @@
 import {
   access,
   add,
+  sub,
   calendar,
   check,
   checkSolid,
@@ -43,6 +44,7 @@ import {
 export const iconsPaths: Record<string, string> = {
   access,
   add,
+  sub,
   calendar,
   check,
   'check-solid': checkSolid,

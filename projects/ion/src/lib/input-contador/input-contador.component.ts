@@ -17,10 +17,10 @@ export interface IonInputProps {
 export class InputContadorComponent {
   @Input() size: 'sm';
   @Input() count = 0;
-  @Input() iconDown = 'semi-down';
-  @Input() iconPlus = 'semi-up';
+  @Input() iconSub = 'sub';
+  @Input() iconPlus = 'add';
 
-  public countDown() {
+  public countSub() {
     if (this.count > 0) {
       this.count--;
     }
