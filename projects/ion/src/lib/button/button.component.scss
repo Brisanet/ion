@@ -197,6 +197,7 @@ button {
       @include add-colors($neutral-3, $neutral-5);
       border: 1px solid $neutral-5;
     }
+
     &:active {
       @include add-colors($primary-2, $primary-7);
       border-color: $primary-5;
@@ -217,7 +218,7 @@ button {
     }
 
     &:active {
-      @include add-colors($negative-2!important, $negative-7!important);
+      @include add-colors($negative-2 !important, $negative-7 !important);
     }
 
     &.loading {
