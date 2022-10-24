@@ -1,5 +1,15 @@
 @import '../../styles/index.scss';
 
+@mixin add-colors($border, $outline, $solid, $color) {
+  border-color: $border;
+  outline: $outline $solid $color;
+}
+
+@mixin outline-none($border, $outline) {
+  border-color: $border;
+  outline: $outline;
+}
+
 .input {
   display: flex;
   align-items: center;
@@ -37,13 +47,11 @@
   }
 
   &:focus-within {
-    border-color: $primary-5;
-    outline: 2px solid $primary-2;
+    @include add-colors($primary-5, 2px, solid, $primary-2);
   }
 
   &:active {
-    border-color: $primary-5;
-    outline: 2px solid $primary-2;
+    @include add-colors($primary-5, 2px, solid, $primary-2);
   }
 
   ion-icon {
@@ -90,13 +98,11 @@
   }
 
   &:focus-within {
-    border-color: $negative-6;
-    outline: none;
+    @include outline-none($negative-6, none);
   }
 
   &:active {
-    border-color: $negative-6;
-    outline: 2px solid $negative-1;
+    @include add-colors($negative-6, 2px, solid, $negative-1);
   }
 
   & .colorInvalid {
@@ -109,8 +115,7 @@
     border-color: $neutral-4;
 
     &:active {
-      border-color: $neutral-4;
-      outline: none;
+      @include outline-none($neutral-4, none);
     }
   }
 }
@@ -123,8 +128,7 @@
   }
 
   &:focus-within {
-    border-color: $neutral-5;
-    outline: none;
+    @include outline-none($neutral-5, none);
   }
 
   & .colorValid {
@@ -137,8 +141,7 @@
     border-color: $neutral-4;
 
     &:active {
-      border-color: $neutral-4;
-      outline: none;
+      @include outline-none($neutral-4, none);
     }
   }
 }

@@ -26,13 +26,15 @@ describe('InputComponent', () => {
   });
 
   it('should render input icon left', async () => {
-    await sut({ iconDirection: 'left', iconInput: 'trash' });
-    expect(document.getElementById('ion-icon-trash')).toBeTruthy();
+    const icon = 'trash';
+    await sut({ iconDirection: 'left', iconInput: icon });
+    expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
   it('should render input icon right', async () => {
-    await sut({ iconDirection: 'right', iconInput: 'pencil' });
-    expect(document.getElementById('ion-icon-pencil')).toBeTruthy();
+    const icon = 'pencil';
+    await sut({ iconDirection: 'right', iconInput: icon });
+    expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
   //Falta condição de quando o input vai ser valido e invalido
