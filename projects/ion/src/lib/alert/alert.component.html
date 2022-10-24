@@ -1,6 +1,10 @@
 <div
   data-testid="ion-alert"
   [class]="'ion-alert ' + type + ' closable-' + closable"
+  [ngClass]="{
+    'with-background': showBackground,
+    'without-background': !showBackground
+  }"
   #ionAlert
 >
   <ion-icon
