@@ -28,6 +28,11 @@ const columns: Column[] = [
   },
 ];
 
+const pagination = {
+  actual: 1,
+  itemsPerPage: 10,
+  offset: 0,
+};
 interface Character {
   name: string;
   height: number;
@@ -139,11 +144,7 @@ describe('TableComponent', () => {
     const orderBy = columns[0].key;
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(events).toHaveBeenCalledWith({
-      change_page: {
-        actual: 1,
-        itemsPerPage: 10,
-        offset: 0,
-      },
+      change_page: pagination,
       event: EventTable.SORT,
       order: {
         column: orderBy,
@@ -157,11 +158,7 @@ describe('TableComponent', () => {
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(events).toHaveBeenCalledWith({
-      change_page: {
-        actual: 1,
-        itemsPerPage: 10,
-        offset: 0,
-      },
+      change_page: pagination,
       event: EventTable.SORT,
       order: {
         column: orderBy,
@@ -291,6 +288,7 @@ describe('Table > Checkbox', () => {
     });
 
     expect(eventSelect).toBeCalledWith({
+      change_page: pagination,
       event: EventTable.ROW_SELECT,
       rows_selected: tableWithSelect.config.data,
     });
@@ -302,6 +300,7 @@ describe('Table > Checkbox', () => {
     fireEvent.click(checkFirstRow);
 
     expect(eventSelect).toBeCalledWith({
+      change_page: pagination,
       event: EventTable.ROW_SELECT,
       rows_selected: [{ ...data[indexToSelect], selected: true }],
     });

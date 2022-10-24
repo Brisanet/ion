@@ -15,9 +15,9 @@ import {
 } from '../table/utilsTable';
 
 export interface TableEvent {
-  event?: EventTable;
+  event: EventTable;
   rows_selected?: SafeAny[];
-  change_page?: PageEvent;
+  change_page: PageEvent;
   order?: {
     column: string;
     desc: boolean;
@@ -74,6 +74,7 @@ export class SmartTableComponent implements OnInit {
   private emitRowsSelected() {
     this.events.emit({
       event: EventTable.ROW_SELECT,
+      change_page: this.pagination,
       rows_selected: this.tableUtils.getRowsSelected(),
     });
   }
