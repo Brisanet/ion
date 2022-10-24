@@ -19,14 +19,12 @@ const Template: Story<InputComponent> = (args: InputComponent) => ({
   props: args,
 });
 
-export const Disabled = Template.bind({});
-Disabled.args = {
-  disabled: true,
-};
+export const Input = Template.bind({});
+Input.args = {};
 
 export const IconLeft = Template.bind({});
 IconLeft.args = {
-  iconInput: 'trash',
+  iconInput: 'pencil',
   iconDirection: 'left',
 };
 
@@ -58,4 +56,9 @@ leftWithIcon.args = {
   valid: true,
   iconDirection: 'left',
   iconInput: 'filter',
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
 };

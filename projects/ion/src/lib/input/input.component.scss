@@ -1,8 +1,9 @@
 @import '../../styles/index.scss';
 
-@mixin add-colors($border, $outline, $solid, $color) {
+@mixin add-colors($border, $outlineConfig, $color) {
   border-color: $border;
-  outline: $outline $solid $color;
+  outline: $outlineConfig;
+  outline-color: $color;
 }
 
 @mixin outline-none($border, $outline) {
@@ -35,11 +36,10 @@
     }
   }
 
-  &::placeholder {
+  ::placeholder {
     color: $neutral-5;
     font-weight: 400;
     font-size: 14px;
-    padding-left: spacing(2.5);
   }
 
   &:hover {
@@ -47,16 +47,14 @@
   }
 
   &:focus-within {
-    @include add-colors($primary-5, 2px, solid, $primary-2);
+    @include add-colors($primary-5, 2px solid, $primary-2);
   }
 
   &:active {
-    @include add-colors($primary-5, 2px, solid, $primary-2);
+    @include add-colors($primary-5, 2px solid, $primary-2);
   }
 
   ion-icon {
-    width: 15px;
-
     & ::ng-deep svg {
       fill: $neutral-6;
     }
@@ -102,7 +100,7 @@
   }
 
   &:active {
-    @include add-colors($negative-6, 2px, solid, $negative-1);
+    @include add-colors($negative-6, 2px solid, $negative-1);
   }
 
   & .colorInvalid {
