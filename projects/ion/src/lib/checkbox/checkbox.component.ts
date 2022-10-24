@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 
 export interface CheckBoxProps {
+  label?: string;
   disabled?: boolean;
   state?: CheckBoxStates;
   ionClick?: EventEmitter<CheckBoxEvent>;
@@ -36,6 +37,7 @@ const stateChange = {
 })
 export class CheckboxComponent implements AfterViewInit, OnChanges {
   @Input() public state: CheckBoxStates = 'enabled';
+  @Input() label!: string;
   @Output() public stateChange = new EventEmitter<CheckBoxStates>();
 
   @Input() public disabled = false;

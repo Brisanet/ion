@@ -18,14 +18,18 @@ const StateEvents = {
 
 const sut = async (customProps: CheckBoxProps = {}) => {
   await render(CheckboxComponent, {
-    componentProperties: customProps,
+    componentProperties: customProps || {
+      label: 'chip',
+    },
   });
 };
 
 describe('CehckBoxComponent', () => {
   describe('component basics', () => {
     beforeEach(async () => {
-      await sut();
+      await sut({
+        label: 'Custom label',
+      });
     });
     it('should render checkbox', async () => {
       expect(screen.getByTestId(box_id)).toBeInTheDocument();
@@ -116,5 +120,10 @@ describe('CehckBoxComponent', () => {
       } as SafeAny,
     });
     expect(clickEvent).toBeCalledWith(StateEvents.indeterminate);
+  });
+  it('should input label', async () => {
+    const labelText = 'Teste';
+    await sut({ label: labelText });
+    expect(screen.getAllByText(labelText)).toHaveLength(1);
   });
 });
