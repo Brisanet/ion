@@ -94,7 +94,7 @@ $color-neutral-4: 'ced2db';
   @include setBackgroundDash($color-neutral-4);
 }
 
-.ion-input-checkbox{
+.ion-input-checkbox {
   display: flex;
   gap: 10px;
   align-items: center;

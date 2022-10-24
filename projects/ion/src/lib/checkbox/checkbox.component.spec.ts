@@ -18,9 +18,7 @@ const StateEvents = {
 
 const sut = async (customProps: CheckBoxProps = {}) => {
   await render(CheckboxComponent, {
-    componentProperties: customProps || {
-      label: 'chip',
-    },
+    componentProperties: customProps,
   });
 };
 
