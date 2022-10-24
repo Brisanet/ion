@@ -123,6 +123,16 @@ button {
   margin-bottom: 4px;
 }
 
+.container-icon-text {
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+}
+
+.positionIcon {
+  flex-direction: row-reverse;
+}
+
 .container-options {
   position: absolute;
 }
