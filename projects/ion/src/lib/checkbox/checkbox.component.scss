@@ -100,12 +100,12 @@ $color-neutral-4: 'ced2db';
   align-items: center;
 }
 
-.labelDisabled {
+.labelEnabled {
   cursor: pointer;
   color: $neutral-7;
 }
 
-.labelDisabled-checked {
+.labelDisabled {
   cursor: not-allowed;
   color: $neutral-5;
 }

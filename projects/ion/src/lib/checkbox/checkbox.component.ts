@@ -37,7 +37,7 @@ const stateChange = {
 })
 export class CheckboxComponent implements AfterViewInit, OnChanges {
   @Input() public state: CheckBoxStates = 'enabled';
-  @Input() label!: string;
+  @Input() label?: string;
   @Output() public stateChange = new EventEmitter<CheckBoxStates>();
 
   @Input() public disabled = false;
