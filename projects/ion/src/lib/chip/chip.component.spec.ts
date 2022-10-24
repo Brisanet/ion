@@ -3,7 +3,12 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
-import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
+import {
+  ChipComponent,
+  IonChipProps,
+  ChipSize,
+  IconDirection,
+} from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
@@ -28,6 +33,7 @@ describe('ChipComponent', () => {
       label: 'Custom label',
       options: [{ label: 'Cat' }, { label: 'Dog' }],
       icon: 'close',
+      iconPosition: 'left',
     });
     const iconDinamic = screen.queryAllByTestId('icon-dinamic');
     const iconDefault = screen.queryAllByTestId('icon-default');
@@ -49,14 +55,20 @@ describe('ChipComponent', () => {
     'should render chip component with size %s',
     async (size: ChipSize) => {
       await sut({ label: 'custom-size', size });
-      const element = screen.getByText('custom-size');
+      const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass('chip-' + size);
     }
   );
 
+  it('should render icon on left', async (iconPosition: IconDirection = 'left', icon = 'close') => {
+    await sut({ label: 'custom-position', iconPosition, icon });
+    const element = screen.getByText('custom-position');
+    expect(element).toHaveClass('container-icon-text positionIcon');
+  });
+
   it('should render chip component disabled', async () => {
     await sut({ label: 'chip', disabled: true });
-    const element = screen.getByText('chip');
+    const element = screen.getByTestId('ion-chip');
     expect(element).toHaveAttribute('disabled');
   });
 
@@ -69,7 +81,7 @@ describe('ChipComponent', () => {
       } as SafeAny,
     };
     await sut(config);
-    const element = screen.getByText(config.label);
+    const element = screen.getByTestId('ion-chip');
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
     expect(selectEvent).toHaveBeenCalledWith({
@@ -119,7 +131,7 @@ describe('ChipComponent', () => {
 
     it('should close dropdown when is not multiple and selected an option', async () => {
       const option = defaultOptions[0].label;
-      const element = screen.getByText('dropdown');
+      const element = screen.getByTestId('ion-chip');
       fireEvent.click(element);
       fireEvent.click(screen.getByText(option));
       expect(element).toHaveClass('chip');
@@ -156,7 +168,7 @@ describe('With Multiple Dropdown', () => {
   });
 
   it('should keep dropdown open when an option will be selected', async () => {
-    const dropdown = screen.getByText('dropdown');
+    const dropdown = screen.getByTestId('ion-chip');
     fireEvent.click(dropdown);
     fireEvent.click(screen.getByText('Meteora'));
     expect(dropdown).toHaveClass('chip-selected');

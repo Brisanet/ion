@@ -1,6 +1,7 @@
 export { default as access } from './access';
 export { default as add } from './add';
 export { default as calendar } from './calendar';
+export { default as calendarAttention } from './calendar-attention';
 export { default as check } from './check';
 export { default as checkSolid } from './check-solid';
 export { default as clockSolid } from './clock-solid';
@@ -36,3 +37,5 @@ export { default as info } from './info';
 export { default as docClose } from './doc-close';
 export { default as docCheck } from './doc-check';
 export { default as docWarning } from './doc-warning';
+export { default as exclamationRounded } from './exclamation-rounded';
+export { default as working } from './working';
