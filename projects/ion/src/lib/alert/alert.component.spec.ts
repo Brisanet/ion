@@ -84,4 +84,14 @@ describe('AlertComponent', () => {
     fireEvent.click(icon);
     expect(screen).not.toContain(element);
   });
+
+  it('should render with a solid background color', async () => {
+    const element = await sut(defaultValue);
+    expect(element).toHaveClass('with-background');
+  });
+
+  it('should render without background', async () => {
+    const element = await sut({ ...defaultValue, hideBackground: true });
+    expect(element).toHaveClass('without-background');
+  });
 });

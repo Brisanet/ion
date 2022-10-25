@@ -4,8 +4,7 @@
   @if $transparent {
     background-color: transparent;
     border-color: transparent !important;
-  }
-  @else {
+  } @else {
     background-color: $backgroud;
     border-color: $borderColor !important;
   }
@@ -37,22 +36,40 @@
   }
 }
 
-$isTransparent: true;
+.with-background {
+  &.success {
+    @include alert-style($positive-1, $positive-6, false);
+  }
 
-.success {
-  @include alert-style($positive-1, $positive-6, $isTransparent);
+  &.info {
+    @include alert-style($info-1, $info-6, false);
+  }
+
+  &.warning {
+    @include alert-style($warning-1, $warning-6, false);
+  }
+
+  &.negative {
+    @include alert-style($negative-1, $negative-6, false);
+  }
 }
 
-.info {
-  @include alert-style($info-1, $info-6, $isTransparent);
-}
+.without-background {
+  &.success {
+    @include alert-style($positive-1, $positive-6, true);
+  }
 
-.warning {
-  @include alert-style($warning-1, $warning-6, $isTransparent);
-}
+  &.info {
+    @include alert-style($info-1, $info-6, true);
+  }
 
-.negative {
-  @include alert-style($negative-1, $negative-6, $isTransparent);
+  &.warning {
+    @include alert-style($warning-1, $warning-6, true);
+  }
+
+  &.negative {
+    @include alert-style($negative-1, $negative-6, true);
+  }
 }
 
 .closable-true {

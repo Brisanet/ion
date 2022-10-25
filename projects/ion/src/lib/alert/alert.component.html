@@ -2,8 +2,8 @@
   data-testid="ion-alert"
   [class]="'ion-alert ' + type + ' closable-' + closable"
   [ngClass]="{
-    'with-background': showBackground,
-    'without-background': !showBackground
+    'with-background': !hideBackground,
+    'without-background': hideBackground
   }"
   #ionAlert
 >
