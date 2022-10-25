@@ -1,13 +1,8 @@
 @import '../../styles/index.scss';
 
-@mixin alert-style($backgroud, $borderColor, $transparent: false) {
-  @if $transparent {
-    background-color: transparent;
-    border-color: transparent !important;
-  } @else {
-    background-color: $backgroud;
-    border-color: $borderColor !important;
-  }
+@mixin alert-style($background, $borderColor) {
+  background-color: $background;
+  border-color: $borderColor !important;
 
   .alert-icon {
     display: flex;
@@ -36,40 +31,25 @@
   }
 }
 
-.with-background {
-  &.success {
-    @include alert-style($positive-1, $positive-6, false);
-  }
+.success {
+  @include alert-style($positive-1, $positive-6);
+}
 
-  &.info {
-    @include alert-style($info-1, $info-6, false);
-  }
+.info {
+  @include alert-style($info-1, $info-6);
+}
 
-  &.warning {
-    @include alert-style($warning-1, $warning-6, false);
-  }
+.warning {
+  @include alert-style($warning-1, $warning-6);
+}
 
-  &.negative {
-    @include alert-style($negative-1, $negative-6, false);
-  }
+.negative {
+  @include alert-style($negative-1, $negative-6);
 }
 
 .without-background {
-  &.success {
-    @include alert-style($positive-1, $positive-6, true);
-  }
-
-  &.info {
-    @include alert-style($info-1, $info-6, true);
-  }
-
-  &.warning {
-    @include alert-style($warning-1, $warning-6, true);
-  }
-
-  &.negative {
-    @include alert-style($negative-1, $negative-6, true);
-  }
+  background-color: transparent;
+  border-color: transparent !important;
 }
 
 .closable-true {
