@@ -8,7 +8,7 @@
   />
   <label
     *ngIf="label"
-    [ngClass]="{ labelEnabled: !disabled, labelDisabled: disabled }"
+    [class.labelDisabled]="disabled"
     [for]="label"
     >{{ label }}</label
   >
