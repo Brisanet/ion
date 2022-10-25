@@ -87,7 +87,7 @@ describe('AlertComponent', () => {
 
   it('should render with a solid background color', async () => {
     const element = await sut(defaultValue);
-    expect(element).toHaveClass('with-background');
+    expect(element).not.toHaveClass('without-background');
   });
 
   it('should render without background', async () => {
