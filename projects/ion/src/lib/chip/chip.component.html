@@ -1,4 +1,5 @@
 <button
+  data-testid="ion-chip"
   (click)="select()"
   [disabled]="disabled"
   [ngClass]="{
@@ -14,18 +15,26 @@
     data-testid="badge-multiple"
   ></ion-badge>
 
-  {{ label }}
-  <ion-icon
-    data-testid="icon-dinamic"
-    class="icon-color"
-    *ngIf="icon && !options"
-    [type]="icon"
-    [size]="size === 'sm' ? 16 : 20"
+  <div
+    class="container-icon-text"
+    [ngClass]="{
+      positionIcon: iconPosition === 'left' && icon && !options
+    }"
   >
-  </ion-icon>
+    {{ label }}
+    <ion-icon
+      data-testid="icon-dinamic"
+      class="icon-color"
+      *ngIf="icon && !options"
+      [type]="icon"
+      [size]="size === 'sm' ? 16 : 20"
+    >
+    </ion-icon>
+  </div>
 
   <ion-info-badge
     *ngIf="infoBadge"
+    class="infoBadge"
     [variant]="infoBadge"
     size="md"
   ></ion-info-badge>
