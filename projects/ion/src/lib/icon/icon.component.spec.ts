@@ -19,7 +19,7 @@ describe('IonIconComponent', () => {
 
   it('should render icon with default size', async () => {
     const svgElement = await sut();
-    const defaultSize = '24';
+    const defaultSize = '24px';
     expect(svgElement.getAttribute('height')).toBe(defaultSize);
     expect(svgElement.getAttribute('width')).toBe(defaultSize);
   });
@@ -32,7 +32,7 @@ describe('IonIconComponent', () => {
   it('should render icon with custom size', async () => {
     const size = 60;
     const svgElement = await sut({ type: 'trash', size });
-    expect(svgElement.getAttribute('width')).toBe(`${size}`);
+    expect(svgElement.getAttribute('width')).toBe(`${size}px`);
   });
 
   it('should render icon with custom color', async () => {
