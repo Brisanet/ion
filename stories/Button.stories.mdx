@@ -245,6 +245,19 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
       template: `<ion-button label="Deletar" iconType="trash" [danger]="true" [circularButton]="true"></ion-button>`,
     }}
   </Story>
+  <Story
+    name="circularButton: trash ghost"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="close" type="ghost" [circularButton]="true"></ion-button>`,
+    }}
+  </Story>
 </Canvas>
 
 E 6 outras propriedades adicionais.
