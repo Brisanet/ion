@@ -1,3 +1,4 @@
+import { IonModalService } from './modal/modal.service';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -56,8 +57,10 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
     InputContadorComponent,
 
     InfoBadgeComponent,
+
     PaginationComponent,
   ],
+  providers: [IonModalService],
   imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
