@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 
 export type InputSize = 'sm' | 'md';
 
-export interface IonInputProps {
+export interface IonInputCount {
   size: InputSize;
   iconDown: IconType;
   iconPlus: IconType;

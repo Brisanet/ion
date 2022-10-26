@@ -1,10 +1,14 @@
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { IonIconComponent } from './../icon/icon.component';
 import { render } from '@testing-library/angular';
-import { IonInputProps } from './input-contador.component';
+import { InputContadorComponent } from './input-contador.component';
 
-const sut = async (customProps?: IonInputProps) => {
-  await render('InputCounter', {
+const sut = async (customProps = {}) => {
+  await render(InputContadorComponent, {
     componentProperties: customProps,
-    declarations: [],
+    imports: [CommonModule, FormsModule],
+    declarations: [IonIconComponent],
   });
 };
 
@@ -17,13 +21,13 @@ describe('InputCounter', () => {
 
   it('should render input counter icon down', async () => {
     await sut();
-    const element = document.getElementById('svg-down');
-    expect(element).toBeInTheDocument;
+    const element = document.getElementsByClassName('svg-sub');
+    expect(element).toBeTruthy();
   });
 
   it('should render input counter icon plus', async () => {
     await sut();
-    const element = document.getElementById('svg-plus');
-    expect(element).toBeInTheDocument;
+    const element = document.getElementsByClassName('svg-plus');
+    expect(element).toBeTruthy();
   });
 });
