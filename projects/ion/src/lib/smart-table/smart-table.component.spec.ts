@@ -525,4 +525,14 @@ describe('Table > Pagination', () => {
     await sut(withoutConfigItemsPerPage);
     expect(screen.getByTestId('page-4')).toBeInTheDocument();
   });
+
+  it('should render loading when table is loading', async () => {
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    tableWithLoading.config.loading = true;
+
+    await sut(tableWithLoading);
+    expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+  });
 });

@@ -98,7 +98,12 @@
     data-testid="pagination-container"
     class="footer-table"
   >
-    <span>{{ config.pagination.total }}</span>
+    <div>
+      <span>Total: {{ config.pagination.total }}</span>
+      <span *ngIf="config.loading" data-testid="loading-pagination">
+        Carregando página..
+      </span>
+    </div>
     <div>
       <ion-pagination
         [loading]="config.loading"
