@@ -6,7 +6,7 @@ export type InputSize = 'sm' | 'md';
 export interface IonInputCount {
   size: InputSize;
   iconDown: IconType;
-  iconPlus: IconType;
+  iconAdd: IconType;
 }
 
 @Component({
@@ -18,7 +18,7 @@ export class InputContadorComponent {
   @Input() size: 'sm';
   @Input() count = 0;
   @Input() iconSub = 'sub';
-  @Input() iconPlus = 'add';
+  @Input() iconAdd = 'add';
 
   public countSub() {
     if (this.count > 0) {
@@ -26,7 +26,7 @@ export class InputContadorComponent {
     }
   }
 
-  public countPlus() {
+  public countAdd() {
     this.count++;
   }
 }

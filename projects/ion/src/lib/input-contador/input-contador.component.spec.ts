@@ -19,15 +19,15 @@ describe('InputCounter', () => {
     expect(element);
   });
 
-  it('should render input counter icon down', async () => {
+  it('should render input counter icon sub', async () => {
     await sut();
-    const element = document.getElementsByClassName('svg-sub');
+    const element = document.getElementById('ion-icon-sub');
     expect(element).toBeTruthy();
   });
 
-  it('should render input counter icon plus', async () => {
+  it('should render input counter icon add', async () => {
     await sut();
-    const element = document.getElementsByClassName('svg-plus');
+    const element = document.getElementById('ion-icon-add');
     expect(element).toBeTruthy();
   });
 });

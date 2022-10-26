@@ -1,11 +1,11 @@
 <div [class]="'counter-' + size">
-  <div class="svg-sub" (click)="countSub()" data-testid="svg-sub">
+  <div class="svg-sub" (click)="countSub()">
     <ion-icon class="svg-sub" [type]="iconSub"></ion-icon>
   </div>
 
   <input type="text" [(ngModel)]="count" data-testid="input-test" />
 
-  <div class="svg-plus" (click)="countPlus()" data-testid="svg-plus">
-    <ion-icon class="svg-plus" [type]="iconPlus"></ion-icon>
+  <div class="svg-add" (click)="countAdd()">
+    <ion-icon class="svg-add" [type]="iconAdd"></ion-icon>
   </div>
 </div>
