@@ -41,6 +41,7 @@ import {
   docClose,
   docCheck,
   docWarning,
+  condominium,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -87,4 +88,5 @@ export const iconsPaths: Record<string, string> = {
   'doc-close': docClose,
   'doc-check': docCheck,
   'doc-warning': docWarning,
+  condominium,
 };

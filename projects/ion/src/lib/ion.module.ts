@@ -28,6 +28,8 @@ import { InputContadorComponent } from './input-contador/input-contador.componen
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
+import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { IonModalComponent } from './modal/component/modal.component';
 
 @NgModule({
   declarations: [
@@ -53,11 +55,10 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
-
     InputContadorComponent,
-
     InfoBadgeComponent,
-
+    SimpleMenuComponent,
+    IonModalComponent,
     PaginationComponent,
   ],
   providers: [IonModalService],
@@ -84,6 +85,8 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
     CheckboxComponent,
     CardIonComponent,
     InfoBadgeComponent,
+    SimpleMenuComponent,
+    IonModalComponent,
     PaginationComponent,
   ],
 })
