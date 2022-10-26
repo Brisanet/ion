@@ -40,3 +40,4 @@ export { default as docCheck } from './doc-check';
 export { default as docWarning } from './doc-warning';
 export { default as exclamationRounded } from './exclamation-rounded';
 export { default as working } from './working';
+export { default as condominium } from './condominium';
