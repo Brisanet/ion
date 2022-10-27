@@ -63,7 +63,8 @@
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  border: 1.5px solid $primary-5;
+  border: 0.1px solid $primary-5;
+  outline: 1.5px solid;
   border-radius: 100px;
   font-weight: 600;
   font-family: 'Source Sans Pro', sans-serif;
@@ -73,7 +74,8 @@
   @include icon-color($primary-6);
 
   &:hover {
-    border: 1.5px solid $primary-5;
+    border: 0.1px solid $primary-5;
+    outline: 1.5px solid;
     @include add-colors($primary-2, $primary-5);
     @include icon-color($primary-5);
   }
@@ -87,8 +89,8 @@
   }
 
   &:active {
-    border: 1.5px solid $primary-7;
-    outline: none;
+    border: 0.1px solid $primary-5;
+    outline: 1.5px solid;
     @include add-colors($primary-3, $primary-7);
     @include icon-color($primary-7);
   }
