@@ -3,7 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-
+import { BadgeComponent } from '../badge/badge.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 import { IonModalComponent } from './component/modal.component';
@@ -26,6 +27,8 @@ describe('ModalService', () => {
     TestBed.configureTestingModule({
       declarations: [
         ContainerRefTestComponent,
+        BadgeComponent,
+        DropdownComponent,
         IonModalComponent,
         ButtonComponent,
         IonIconComponent,

@@ -7,6 +7,7 @@ import {
   checkSolid,
   clockSolid,
   close,
+  closeRounded,
   closeSolid,
   doc,
   docAdd,
@@ -19,10 +20,12 @@ import {
   infoSolid,
   info,
   left2,
+  messageBallon,
   out,
   option,
   pencil,
   plusSolid,
+  questionRounded,
   refresh,
   right2,
   sandwich,
@@ -40,6 +43,7 @@ import {
   docClose,
   docCheck,
   docWarning,
+  condominium,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -52,6 +56,7 @@ export const iconsPaths: Record<string, string> = {
   'check-solid': checkSolid,
   'clock-solid': clockSolid,
   close,
+  'close-rounded': closeRounded,
   'close-solid': closeSolid,
   doc,
   'doc-add': docAdd,
@@ -63,7 +68,9 @@ export const iconsPaths: Record<string, string> = {
   info,
   'info-solid': infoSolid,
   left2,
+  'message-ballon': messageBallon,
   pencil,
+  'question-rounded': questionRounded,
   out,
   option,
   'plus-solid': plusSolid,
@@ -85,4 +92,5 @@ export const iconsPaths: Record<string, string> = {
   'doc-close': docClose,
   'doc-check': docCheck,
   'doc-warning': docWarning,
+  condominium,
 };
