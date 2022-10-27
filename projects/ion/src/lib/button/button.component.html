@@ -5,7 +5,7 @@
   [class.loading]="loading"
   [class.circular-button]="!loading && circularButton"
   [class.ion-remove-space]="iconType && !!!label"
-  [class.right-side-icon]="rightSideIcon"
+  [class.right-side-icon]="rightSideIcon || !options"
   [disabled]="disabled"
   (click)="handleClick()"
 >
@@ -16,7 +16,26 @@
     [size]="iconSize"
     class="icon"
   ></ion-icon>
+  <ion-icon
+    *ngIf="options"
+    [type]="showDropdown ? 'semi-up' : 'semi-down'"
+    class="icon"
+  ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
     loading ? loadingMessage : label
   }}</span>
+  <ion-badge
+    [value]="buttonBadge.value"
+    [type]="buttonBadge.type"
+    *ngIf="multiple && !loading"
+    data-testid="badge-multiple"
+  ></ion-badge>
 </button>
+<div *ngIf="!!options && showDropdown">
+  <ion-dropdown
+    [options]="options"
+    [multiple]="multiple"
+    (selected)="handleSelect($event)"
+  >
+  </ion-dropdown>
+</div>

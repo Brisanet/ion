@@ -4,6 +4,8 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts';
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
+import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component.ts';
+import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component.ts';
 
 <Meta title="Ion/Data Display/Card" component={CardIonComponent} />
 
@@ -34,7 +36,12 @@ Neste parâmetro o único atributo obrigatório é o atributo `title`.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          BadgeComponent,
+          DropdownComponent,
+        ],
         imports: [CommonModule],
       }),
     ]}
@@ -73,7 +80,12 @@ Há também a possibilidade de passar o paramêtro `buttons` para adicionar aç�
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          BadgeComponent,
+          DropdownComponent,
+        ],
         imports: [CommonModule],
       }),
     ]}
@@ -97,7 +109,12 @@ Assim como a possibilidade de definir um ícone para o título do card, enviando
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          BadgeComponent,
+          DropdownComponent,
+        ],
         imports: [CommonModule],
       }),
     ]}
@@ -134,7 +151,12 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
+        declarations: [
+          ButtonComponent,
+          IonIconComponent,
+          BadgeComponent,
+          DropdownComponent,
+        ],
         imports: [CommonModule],
       }),
     ]}

@@ -2,6 +2,8 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BadgeComponent } from './../badge/badge.component';
 
 const defaultName = 'button';
 
@@ -10,7 +12,7 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
   });
   return screen.findByRole('button');
 };
@@ -144,5 +146,127 @@ describe('load ButtonComponent', () => {
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain(loadingMessage);
+  });
+});
+
+describe('ButtonComponent with dropdown', () => {
+  describe('ButtonComponent with single selection dropdown', () => {
+    it('should render a single-selection dropdown when button is clicked', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+
+      expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
+      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
+        options.length
+      );
+    });
+
+    it('should close the dropdown when the button is clicked "', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+      fireEvent.click(button);
+
+      expect(screen.queryByTestId('ion-dropdown')).toBeNull();
+    });
+
+    it('should change label when an option is selected', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+      fireEvent.click(await screen.findByText(options[0].label));
+
+      expect(button).toHaveTextContent(options[0].label);
+    });
+  });
+
+  describe('ButtonComponent with multiple-selection dropdown', () => {
+    it('should render a multiple-selection dropdown when button is clicked', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+        multiple: true,
+      });
+
+      fireEvent.click(button);
+
+      expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
+      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
+        options.length
+      );
+    });
+
+    it('should render an ion-badge when multiple is true', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      await sut({
+        label: defaultName,
+        multiple: true,
+        options,
+      });
+
+      expect(screen.getByTestId('badge-multiple')).toBeInTheDocument();
+      expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
+    });
+
+    it('should update the badge value when selecting an option', async () => {
+      const options = [
+        { label: 'Option 1' },
+        { label: 'Option 2' },
+        { label: 'Option 3' },
+      ];
+
+      const button = await sut({
+        label: defaultName,
+        multiple: true,
+        options,
+      });
+
+      fireEvent.click(button);
+
+      options.forEach(async (option) => {
+        fireEvent.click(await screen.findByText(option.label));
+      });
+
+      expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
+        String(options.length)
+      );
+    });
+  });
+
+  it('should emit an event when option is selected', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+    const clickEvent = jest.fn();
+
+    const button = await sut({
+      label: defaultName,
+      options,
+      selected: {
+        emit: clickEvent,
+      } as any,
+    });
+
+    fireEvent.click(button);
+    fireEvent.click(await screen.findByText(options[0].label));
+
+    expect(clickEvent).toHaveBeenCalled();
   });
 });
