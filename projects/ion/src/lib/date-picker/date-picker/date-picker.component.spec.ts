@@ -1,5 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { BadgeComponent } from '../../badge/badge.component';
 import { ButtonComponent } from '../../button/button.component';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { DropdownComponent } from '../../dropdown/dropdown.component';
@@ -29,6 +30,7 @@ const sut = async (customProps: IonDatePickerProps = defaultComponent) => {
       IonIconComponent,
       DropdownComponent,
       IonDividerComponent,
+      BadgeComponent,
     ],
     imports: [FormsModule],
   });
