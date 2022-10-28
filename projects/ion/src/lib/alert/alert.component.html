@@ -1,6 +1,7 @@
 <div
   data-testid="ion-alert"
   [class]="'ion-alert ' + type + ' closable-' + closable"
+  [class.without-background]="hideBackground"
   #ionAlert
 >
   <ion-icon
