@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
-@mixin alert-style($backgroud, $borderColor) {
-  background-color: $backgroud;
+@mixin alert-style($background, $borderColor) {
+  background-color: $background;
   border-color: $borderColor !important;
 
   .alert-icon {
@@ -45,6 +45,11 @@
 
 .negative {
   @include alert-style($negative-1, $negative-6);
+}
+
+.without-background {
+  background-color: transparent;
+  border: none !important;
 }
 
 .closable-true {
