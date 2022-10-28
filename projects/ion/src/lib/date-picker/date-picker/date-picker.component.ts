@@ -61,6 +61,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
         document.getElementsByClassName('calendar-container')[0];
       if (calendarContaiener && !calendarContaiener.contains(e.target)) {
         this.closeCalendar();
+        this.setDateInCalendar();
       }
     });
   }

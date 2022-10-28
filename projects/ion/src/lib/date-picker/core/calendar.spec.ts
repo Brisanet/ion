@@ -3,7 +3,7 @@ import { Month } from './month';
 
 enum Months {
   january = 1,
-  February,
+  february,
   march,
   april,
   may,
@@ -30,13 +30,11 @@ describe('Calendar', () => {
   });
 
   it('the 2022 calendar will not be a leap year', () => {
-    const calendar2022 = new Calendar(2022);
-    expect(calendar2022.isLeapYear).not.toBeTruthy();
+    expect(new Calendar(2022).isLeapYear).not.toBeTruthy();
   });
 
   it('the 2024 calendar will be a leap year', () => {
-    const calendar2024 = new Calendar(2024);
-    expect(calendar2024.isLeapYear).toBeTruthy();
+    expect(new Calendar(2024).isLeapYear).toBeTruthy();
   });
 
   it('should return May', () => {
@@ -57,7 +55,7 @@ describe('Calendar', () => {
 
   it('should return February 2022 when executing getNextMonth function', () => {
     calendar.goToDate(Months.january, 2022);
-    expect(calendar.getNextMonth().number).toBe(Months.February);
+    expect(calendar.getNextMonth().number).toBe(Months.february);
     expect(calendar.getNextMonth().year).toBe(2022);
   });
 

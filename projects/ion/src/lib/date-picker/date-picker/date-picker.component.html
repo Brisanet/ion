@@ -36,7 +36,8 @@
       ></ion-button>
       <ion-button
         data-testid="btn-previous-month"
-        label="<"
+        iconType="left2"
+        [circularButton]="true"
         type="ghost"
         (click)="previousMonth()"
       ></ion-button>
@@ -45,7 +46,8 @@
       </label>
       <ion-button
         data-testid="btn-next-month"
-        label=">"
+        iconType="right2"
+        [circularButton]="true"
         type="ghost"
         (click)="nextMonth()"
       ></ion-button>

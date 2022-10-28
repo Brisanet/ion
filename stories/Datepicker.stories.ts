@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 import {
+  BadgeComponent,
   ButtonComponent,
   DropdownComponent,
   IonDividerComponent,
@@ -24,6 +25,7 @@ const Template: Story<DatePickerComponent> = (args: DatePickerComponent) => ({
       IonIconComponent,
       DropdownComponent,
       IonDividerComponent,
+      BadgeComponent,
     ],
     imports: [CommonModule, FormsModule],
   },
@@ -31,6 +33,6 @@ const Template: Story<DatePickerComponent> = (args: DatePickerComponent) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  initialDate: '2015-02-01',
+  initialDate: '2022-10-28',
   lang: 'pt-BR',
 };
