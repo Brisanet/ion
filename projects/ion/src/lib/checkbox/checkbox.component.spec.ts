@@ -1,5 +1,5 @@
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from './../utils/safe-any';
-import { render, screen, fireEvent } from '@testing-library/angular';
 import { CheckboxComponent, CheckBoxProps } from './checkbox.component';
 
 const box_id = 'ion-checkbox';
@@ -16,7 +16,7 @@ const StateEvents = {
   indeterminate: { state: 'indeterminate' },
 };
 
-const sut = async (customProps: CheckBoxProps = {}) => {
+const sut = async (customProps: CheckBoxProps = {}): Promise<void> => {
   await render(CheckboxComponent, {
     componentProperties: customProps,
   });

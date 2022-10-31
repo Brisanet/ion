@@ -1,12 +1,12 @@
 import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
   AfterViewInit,
-  ViewChild,
+  Component,
   ElementRef,
+  EventEmitter,
+  Input,
   OnChanges,
+  Output,
+  ViewChild,
 } from '@angular/core';
 
 export interface CheckBoxProps {
@@ -36,53 +36,53 @@ const stateChange = {
   styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent implements AfterViewInit, OnChanges {
-  @Input() public state: CheckBoxStates = 'enabled';
   @Input() label?: string;
-  @Output() public stateChange = new EventEmitter<CheckBoxStates>();
+  @Input() state: CheckBoxStates = 'enabled';
+  @Output() stateChange = new EventEmitter<CheckBoxStates>();
 
-  @Input() public disabled = false;
-  @Output() public disabledChange = new EventEmitter<boolean>();
+  @Input() disabled = false;
+  @Output() disabledChange = new EventEmitter<boolean>();
 
   @Output() ionClick = new EventEmitter();
 
-  @ViewChild('checkBox', { static: true }) public checkBox: ElementRef;
+  @ViewChild('checkBox', { static: true }) checkBox: ElementRef;
 
-  setState() {
+  setState(): void {
     if (this.state === 'indeterminate') this.setIndeterminate();
     if (this.state === 'checked') this.setChecked();
     if (this.state === 'enabled') this.setEnabled();
   }
 
-  changeState() {
+  changeState(): void {
     this.state = stateChange[this.state] as CheckBoxStates;
     this.setState();
   }
 
-  setEnabled() {
+  setEnabled(): void {
     this.checkBox.nativeElement.checked = false;
     this.checkBox.nativeElement.enabled = true;
     this.emitEvent();
   }
 
-  setIndeterminate() {
+  setIndeterminate(): void {
     this.checkBox.nativeElement.indeterminate = true;
     this.emitEvent();
   }
 
-  setChecked() {
+  setChecked(): void {
     this.checkBox.nativeElement.checked = true;
     this.emitEvent();
   }
 
-  emitEvent() {
+  emitEvent(): void {
     this.ionClick.emit({ state: CheckBoxEvent[this.state] });
   }
 
-  setDisabled() {
+  setDisabled(): void {
     this.checkBox.nativeElement.disabled = this.disabled;
   }
 
-  checkState() {
+  checkState(): void {
     this.setState();
     this.setDisabled();
   }
@@ -91,7 +91,7 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
     this.checkState();
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.checkState();
   }
 }

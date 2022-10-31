@@ -15,7 +15,7 @@ type HeadingProps = {
   size?: HeadingSize;
 };
 
-const sut = async (customProps?: HeadingProps) => {
+const sut = async (customProps?: HeadingProps): Promise<void> => {
   await render(HeadingComponent, {
     componentProperties: customProps || { text: 'default', type: 'h1' },
   });

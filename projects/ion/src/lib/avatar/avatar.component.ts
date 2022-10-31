@@ -23,8 +23,15 @@ export class AvatarComponent implements OnInit {
   @Input() image?: string;
   @Input() onErrorImage?: string;
 
-  public initials: string;
-  public icon: IconType = 'union';
+  initials: string;
+  icon: IconType = 'union';
+
+  ngOnInit(): void {
+    if (this.type === AvatarType.initials) {
+      this.initials = this.getInitials(this.value) || '--';
+      return;
+    }
+  }
 
   private getInitials(name: string): string {
     return (
@@ -36,12 +43,5 @@ export class AvatarComponent implements OnInit {
         .join('')
         .toUpperCase()
     );
-  }
-
-  ngOnInit() {
-    if (this.type === AvatarType.initials) {
-      this.initials = this.getInitials(this.value) || '--';
-      return;
-    }
   }
 }

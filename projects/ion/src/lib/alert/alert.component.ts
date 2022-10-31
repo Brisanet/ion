@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
@@ -29,13 +29,13 @@ export class AlertComponent implements OnInit {
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
-  public iconType: IconType;
+  iconType: IconType;
 
-  closeEvent() {
+  closeEvent(): void {
     this.ionAlert.nativeElement.remove();
   }
 
-  setIcon() {
+  setIcon(): void {
     this.iconType = iconTypes[this.type];
   }
 

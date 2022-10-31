@@ -25,7 +25,7 @@ const sut = async (
       emit: selectEvent,
     } as SafeAny,
   }
-) => {
+): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   await render(TabGroupComponent, {
     componentProperties: customProps,
     declarations: [TabComponent, IonIconComponent, BadgeComponent],

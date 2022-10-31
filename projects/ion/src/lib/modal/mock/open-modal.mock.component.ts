@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { IonModalService } from '../modal.service';
 import {
   IonModalConfiguration,
@@ -12,17 +12,14 @@ import {
   `,
 })
 export class OpenModalButtonComponent {
-  constructor(
-    private ionModalService: IonModalService,
-    private containerRef: ViewContainerRef
-  ) {}
-
   valueFromModal: { [key: string]: unknown };
 
   modalConfig: IonModalConfiguration;
   componentToBody: Type<unknown>;
 
-  openModal() {
+  constructor(private ionModalService: IonModalService) {}
+
+  openModal(): void {
     this.ionModalService
       .open(this.componentToBody, this.modalConfig)
       .subscribe((response: IonModalResponse) => {

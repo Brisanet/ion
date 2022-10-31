@@ -23,6 +23,7 @@ export class Month {
       this.numberOfDays += isLeapYear(this.year) ? 1 : 0;
     }
 
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     this[Symbol.iterator] = function* () {
       let number = 1;
       yield this.getDay(number);
@@ -33,7 +34,7 @@ export class Month {
     };
   }
 
-  getDay(date) {
+  getDay(date): Day {
     return new Day(new Date(this.year, this.number - 1, date), this.lang);
   }
 }

@@ -6,6 +6,10 @@ import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
+import {
+  BadgeComponent,
+  DropdownComponent,
+} from '../projects/ion/src/public-api';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   component: IonModalComponent,
@@ -18,6 +22,8 @@ const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
       IonIconComponent,
       IonModalComponent,
       SelectMockComponent,
+      BadgeComponent,
+      DropdownComponent,
     ],
     imports: [CommonModule, FormsModule],
     providers: [IonModalService],

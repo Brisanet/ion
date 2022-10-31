@@ -66,12 +66,12 @@ export class IonModalService {
     return this.componentSubscriber.asObservable();
   }
 
-  emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown) {
+  emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown): void {
     this.componentSubscriber.next(valueToEmit);
     this.closeModal();
   }
 
-  closeModal() {
+  closeModal(): void {
     this.appRef.detachView(this.modalComponentRef.hostView);
     this.componentSubscriber.complete();
     this.modalComponentRef.destroy();

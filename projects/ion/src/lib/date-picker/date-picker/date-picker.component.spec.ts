@@ -22,7 +22,9 @@ const defaultComponent: IonDatePickerProps = {
   } as SafeAny,
 };
 
-const sut = async (customProps: IonDatePickerProps = defaultComponent) => {
+const sut = async (
+  customProps: IonDatePickerProps = defaultComponent
+): Promise<void> => {
   await render(DatePickerComponent, {
     componentProperties: customProps,
     declarations: [

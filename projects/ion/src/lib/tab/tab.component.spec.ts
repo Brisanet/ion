@@ -6,7 +6,7 @@ import { IonTabProps, TabComponent } from './tab.component';
 
 const defaultName = 'MinhaTab';
 
-const sut = async (customProps?: IonTabProps) => {
+const sut = async (customProps?: IonTabProps): Promise<void> => {
   await render(TabComponent, {
     componentProperties: customProps || {
       label: defaultName,
