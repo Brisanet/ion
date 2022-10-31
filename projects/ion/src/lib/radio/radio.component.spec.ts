@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { RadioComponent } from './radio.component';
 
-const sut = async (customProps = {}) => {
+const sut = async (customProps = {}): Promise<HTMLElement> => {
   await render(RadioComponent, {
     componentProperties: customProps,
   });

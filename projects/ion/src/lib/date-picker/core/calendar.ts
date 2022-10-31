@@ -20,6 +20,7 @@ export class Calendar {
       this.lang
     );
 
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
     this[Symbol.iterator] = function* () {
       let number = 1;
       yield this.getMonth(number);
@@ -37,15 +38,15 @@ export class Calendar {
     });
   }
 
-  get isLeapYear() {
+  get isLeapYear(): boolean {
     return isLeapYear(this.year);
   }
 
-  getMonth(monthNumber) {
+  getMonth(monthNumber): Month {
     return new Month(new Date(this.year, monthNumber - 1), this.lang);
   }
 
-  getPreviousMonth() {
+  getPreviousMonth(): Month {
     if (this.month.number === 1) {
       return new Month(new Date(this.year - 1, december), this.lang);
     }
@@ -53,7 +54,7 @@ export class Calendar {
     return new Month(new Date(this.year, this.month.number - 2), this.lang);
   }
 
-  getNextMonth() {
+  getNextMonth(): Month {
     if (this.month.number === 12) {
       return new Month(new Date(this.year + 1, 0), this.lang);
     }
@@ -61,12 +62,12 @@ export class Calendar {
     return new Month(new Date(this.year, this.month.number), this.lang);
   }
 
-  goToDate(monthNumber: number, year: number) {
+  goToDate(monthNumber: number, year: number): void {
     this.month = new Month(new Date(year, monthNumber - 1), this.lang);
     this.year = year;
   }
 
-  goToPreviousYear(monthNumber?: number) {
+  goToPreviousYear(monthNumber?: number): void {
     this.year -= 1;
     if (monthNumber === 0) {
       monthNumber = 12;
@@ -75,12 +76,12 @@ export class Calendar {
     this.month = new Month(new Date(this.year, monthNumber || 11), this.lang);
   }
 
-  goToNextYear(monthNumber?: number) {
+  goToNextYear(monthNumber?: number): void {
     this.year += 1;
     this.month = new Month(new Date(this.year, monthNumber || 0), this.lang);
   }
 
-  goToNextMonth() {
+  goToNextMonth(): void {
     if (this.month.number === 12) {
       return this.goToNextYear();
     }
@@ -91,7 +92,7 @@ export class Calendar {
     );
   }
 
-  goToPreviousMonth() {
+  goToPreviousMonth(): void {
     if (this.month.number === 1) {
       return this.goToPreviousYear();
     }

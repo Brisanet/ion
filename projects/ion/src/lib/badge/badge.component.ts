@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 
 export type BadgeType = 'primary' | 'secondary' | 'neutral' | 'negative';
@@ -15,12 +15,24 @@ export interface BadgeProps {
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })
-export class BadgeComponent implements OnChanges {
+export class BadgeComponent implements OnChanges, OnInit {
   @Input() label?: string;
   @Input() value?: number;
   @Input() type!: BadgeType;
 
-  public valueInBadge: string;
+  valueInBadge: string;
+
+  ngOnInit(): void {
+    this.valueInBadge = this.formatValue();
+  }
+
+  ngOnChanges(): void {
+    this.valueInBadge = this.formatValue();
+  }
+
+  formatValue(): string {
+    return this.exists(this.value) ? this.limitValue(this.value) : this.label;
+  }
 
   private exists(value: number): boolean {
     return value !== null && !isNaN(value);
@@ -32,17 +44,5 @@ export class BadgeComponent implements OnChanges {
       return `${maxValue}+`;
     }
     return value && value.toString();
-  }
-
-  formatValue(): string {
-    return this.exists(this.value) ? this.limitValue(this.value) : this.label;
-  }
-
-  ngOnInit() {
-    this.valueInBadge = this.formatValue();
-  }
-
-  ngOnChanges() {
-    this.valueInBadge = this.formatValue();
   }
 }

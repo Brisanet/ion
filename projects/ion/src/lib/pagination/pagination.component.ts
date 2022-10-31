@@ -17,26 +17,31 @@ export interface IonPaginationProps {
   allowChangeQtdItems?: boolean;
 }
 
+const defaultItemsPerPage = 10;
+
 @Component({
   selector: 'ion-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent implements OnInit {
-  private defaultItemsPerPage = 10;
-
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
-    this.defaultItemsPerPage;
+    defaultItemsPerPage;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Output() events = new EventEmitter<PageEvent>();
 
-  public pages: Page[] = [];
+  pages: Page[] = [];
 
-  public optionsPage = [this.defaultItemsPerPage, 30, 45];
+  optionsPage = [defaultItemsPerPage, 30, 45];
 
-  selectPage(pageNumber: number) {
+  ngOnInit(): void {
+    this.createPages(this.totalPages());
+    this.selectPage(1);
+  }
+
+  selectPage(pageNumber: number): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -50,7 +55,39 @@ export class PaginationComponent implements OnInit {
     });
   }
 
-  private createPages(qtdOfPages: number) {
+  hasPrevious(): boolean {
+    return !this.inFirstPage();
+  }
+
+  hasNext(): boolean {
+    const selecteds = this.pages.filter((page) => page.selected);
+    return selecteds.length > 0 && !this.inLastPage();
+  }
+
+  previous(): void {
+    if (!this.inFirstPage()) {
+      this.selectPage(this.currentPage().page_number - 1);
+    }
+  }
+
+  next(): void {
+    if (!this.inLastPage()) {
+      this.selectPage(this.currentPage().page_number + 1);
+    }
+  }
+
+  remountPages(): void {
+    this.pages = [];
+    this.createPages(this.totalPages());
+    this.selectPage(1);
+  }
+
+  totalPages(): number {
+    const numberOfPages = Math.ceil(this.total / this.itemsPerPage);
+    return numberOfPages;
+  }
+
+  private createPages(qtdOfPages: number): void {
     for (let index = 0; index < qtdOfPages; index++) {
       this.pages.push({
         selected: false,
@@ -59,52 +96,15 @@ export class PaginationComponent implements OnInit {
     }
   }
 
-  totalPages(): number {
-    const numberOfPages = Math.ceil(this.total / this.itemsPerPage);
-    return numberOfPages;
-  }
-
   private currentPage(): Page {
     return this.pages.filter((page) => page.selected)[0];
   }
 
-  private inLastPage() {
+  private inLastPage(): boolean {
     return this.currentPage().page_number === this.totalPages();
   }
 
-  private inFirstPage() {
+  private inFirstPage(): boolean {
     return this.currentPage().page_number === 1;
-  }
-
-  hasPrevious() {
-    return !this.inFirstPage();
-  }
-
-  hasNext() {
-    const selecteds = this.pages.filter((page) => page.selected);
-    return selecteds.length > 0 && !this.inLastPage();
-  }
-
-  previous() {
-    if (!this.inFirstPage()) {
-      this.selectPage(this.currentPage().page_number - 1);
-    }
-  }
-
-  next() {
-    if (!this.inLastPage()) {
-      this.selectPage(this.currentPage().page_number + 1);
-    }
-  }
-
-  remountPages() {
-    this.pages = [];
-    this.createPages(this.totalPages());
-    this.selectPage(1);
-  }
-
-  ngOnInit() {
-    this.createPages(this.totalPages());
-    this.selectPage(1);
   }
 }

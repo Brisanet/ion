@@ -16,7 +16,7 @@ const defaultDivider: IonDividerProps = {
   direction: 'horizontal',
 };
 
-const sut = async (customProps?: IonDividerProps) => {
+const sut = async (customProps?: IonDividerProps): Promise<HTMLElement> => {
   await render(IonDividerComponent, {
     componentProperties: customProps || { ...defaultDivider },
   });

@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { iconsPaths } from './svgs/icons';
-import { DomSanitizer } from '@angular/platform-browser';
 
 export type SvgModule = typeof import('./svgs/icons');
 export type IconType = keyof typeof iconsPaths;
@@ -23,7 +23,7 @@ export class IonIconComponent {
 
   constructor(private sanitizer: DomSanitizer, private el: ElementRef) {}
 
-  getPath() {
+  getPath(): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(iconsPaths[this.type]);
   }
 }

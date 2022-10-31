@@ -35,7 +35,7 @@ export class Day {
     this.week = this.getWeekNumber(date);
   }
 
-  getWeekNumber(date: Date) {
+  getWeekNumber(date: Date): number {
     const firstDayOfTheYear = new Date(date.getFullYear(), january, oneDay);
     const pastDaysOfYear = (date.getTime() - oneDay) / dayInMilliseconds;
 

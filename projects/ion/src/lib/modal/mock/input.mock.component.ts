@@ -19,10 +19,11 @@ import { IonModalService } from '../modal.service';
   `,
 })
 export class InputMockComponent {
-  constructor(private ionModalService: IonModalService) {}
   name: string;
 
-  save() {
+  constructor(private ionModalService: IonModalService) {}
+
+  save(): void {
     this.ionModalService.emitValueAndCloseModal({ name: this.name });
   }
 }

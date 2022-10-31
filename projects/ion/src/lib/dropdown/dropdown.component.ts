@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface DropdownItem {
   label: string;
@@ -23,31 +23,23 @@ export class DropdownComponent {
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Output() selected = new EventEmitter<DropdownItem[]>();
 
-  public iconSize = 16;
+  iconSize = 16;
 
-  private isDisabled(option: DropdownItem) {
-    return option.disabled;
-  }
-
-  private isSingle() {
-    return !this.multiple;
-  }
-
-  mouseEnter(option: DropdownItem) {
+  mouseEnter(option: DropdownItem): void {
     option.selected && !option.disabled && (option.hovered = true);
   }
 
-  mouseLeave(option: DropdownItem) {
+  mouseLeave(option: DropdownItem): void {
     option.selected && !option.disabled && (option.hovered = false);
   }
 
-  clearOptions() {
+  clearOptions(): void {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
   }
 
-  select(option: DropdownItem) {
+  select(option: DropdownItem): void {
     if (this.isDisabled(option)) {
       return;
     }
@@ -58,5 +50,13 @@ export class DropdownComponent {
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );
+  }
+
+  private isDisabled(option: DropdownItem): boolean {
+    return option.disabled;
+  }
+
+  private isSingle(): boolean {
+    return !this.multiple;
   }
 }

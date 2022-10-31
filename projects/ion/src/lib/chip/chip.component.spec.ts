@@ -1,5 +1,5 @@
-import { DropdownComponent, BadgeComponent } from 'projects/ion/src/public-api';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { BadgeComponent, DropdownComponent } from 'projects/ion/src/public-api';
 import { IonIconComponent } from '../icon/icon.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
@@ -13,7 +13,7 @@ import { InfoBadgeStatus } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
-const sut = async (customProps?: IonChipProps) => {
+const sut = async (customProps?: IonChipProps): Promise<void> => {
   await render(ChipComponent, {
     componentProperties: customProps || {
       label: 'chip',

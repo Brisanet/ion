@@ -66,44 +66,44 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     });
   }
 
-  setLanguage() {
+  setLanguage(): void {
     if (!this.lang) {
       this.lang = window.navigator.language;
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.setCalendarInitialState();
   }
 
-  setCalendarInitialState() {
+  setCalendarInitialState(): void {
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.calendar = this.getCalendarInstance();
     this.renderCalendarDays();
   }
 
-  getInitialDate() {
+  getInitialDate(): Date {
     return this.initialDate
       ? new Date(this.initialDate.replace('-', ','))
       : new Date();
   }
 
-  getCalendarInstance = () =>
+  getCalendarInstance = (): Calendar =>
     new Calendar(
       this.selectedDate.year,
       this.selectedDate.monthNumber,
       this.lang
     );
 
-  renderCalendarDays() {
+  renderCalendarDays(): void {
     this.updatedMonthYear();
   }
 
-  updatedMonthYear() {
+  updatedMonthYear(): void {
     this.monthYear = `${this.calendar.month.name} - ${this.calendar.year}`;
   }
 
-  getAriaLabel(day: Day) {
+  getAriaLabel(day: Day): string {
     return day.format('YYYY-MM-DD');
   }
 
@@ -111,7 +111,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return day.monthNumber === this.calendar.month.number;
   }
 
-  getMonthDaysGrid() {
+  getMonthDaysGrid(): Day[] {
     const prevMonth = this.calendar.getPreviousMonth();
     const totalLastMonthFinalDays = this.getLastMonthFinalDays();
     const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
@@ -129,7 +129,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return monthList;
   }
 
-  getCalendarDay(day: number) {
+  getCalendarDay(day: number): Day {
     return this.calendar.month.getDay(day);
   }
 
@@ -156,7 +156,7 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     return totalDaysWithFourWeeks;
   }
 
-  dispatchActions(dayIndex: number) {
+  dispatchActions(dayIndex: number): void {
     this.selectedDate = this.days[dayIndex];
     this.dateField = {
       date: this.selectedDate,
@@ -167,11 +167,11 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.closeCalendar();
   }
 
-  emmitEvent() {
+  emmitEvent(): void {
     this.events.emit({ date: this.dateField.label });
   }
 
-  isSelectedDate(date: Day) {
+  isSelectedDate(date: Day): boolean {
     return (
       date.date === this.selectedDate.date &&
       date.monthNumber === this.selectedDate.monthNumber &&
@@ -179,18 +179,18 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     );
   }
 
-  clearCalendar() {
+  clearCalendar(): void {
     this.clearDateField();
     this.selectedDate = new Day(this.getInitialDate(), this.lang);
     this.setDateInCalendar();
   }
 
-  clearDateField() {
+  clearDateField(): void {
     this.dateField.date = undefined;
     this.dateField.label = undefined;
   }
 
-  setDateInCalendar() {
+  setDateInCalendar(): void {
     this.calendar.goToDate(
       this.selectedDate.monthNumber,
       this.selectedDate.year
@@ -198,48 +198,48 @@ export class DatePickerComponent implements OnInit, AfterViewInit {
     this.renderCalendarDays();
   }
 
-  tempRenderDays() {
+  tempRenderDays(): void {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
     });
   }
 
-  setFocusOnClickInput() {
+  setFocusOnClickInput(): void {
     this.showCalendar = true;
     this.renderCalendarDays();
     this.tempRenderDays();
   }
 
-  closeCalendar() {
+  closeCalendar(): void {
     this.showCalendar = false;
   }
 
-  previousMonth() {
+  previousMonth(): void {
     this.calendar.goToPreviousMonth();
     this.renderCalendarDays();
     this.tempRenderDays();
   }
 
-  nextMonth() {
+  nextMonth(): void {
     this.calendar.goToNextMonth();
     this.renderCalendarDays();
     this.tempRenderDays();
   }
 
-  previousYear() {
+  previousYear(): void {
     this.calendar.goToPreviousYear(this.calendar.month.number - 1);
     this.renderCalendarDays();
     this.tempRenderDays();
   }
 
-  nextYear() {
+  nextYear(): void {
     this.calendar.goToNextYear(this.calendar.month.number - 1);
     this.renderCalendarDays();
     this.tempRenderDays();
   }
 
-  getWeekDaysElementStrings() {
+  getWeekDaysElementStrings(): string[] {
     return this.calendar.weekDays.map(
       (weekDay) => `${(weekDay as string).substring(0, 3)}`
     );
