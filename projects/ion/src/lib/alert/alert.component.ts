@@ -6,6 +6,7 @@ export interface IonAlertProps {
   message: string;
   type?: StatusType;
   closable?: boolean;
+  hideBackground?: boolean;
 }
 
 export const iconTypes = {
@@ -24,6 +25,7 @@ export class AlertComponent implements OnInit {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
+  @Input() hideBackground? = false;
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
