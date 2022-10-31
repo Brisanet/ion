@@ -124,4 +124,11 @@ describe('CehckBoxComponent', () => {
     await sut({ label: labelText });
     expect(screen.getAllByText(labelText)).toHaveLength(1);
   });
+  it('should is marked when clicked input label', async () => {
+    const labelText = 'Teste';
+    await sut({ label: labelText });
+    const element = screen.getByLabelText(labelText);
+    fireEvent.click(element);
+    expect(element).toBeChecked();
+  });
 });
