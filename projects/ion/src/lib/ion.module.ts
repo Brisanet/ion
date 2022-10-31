@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonModalComponent } from './modal/component/modal.component';
+import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { IonModalComponent } from './modal/component/modal.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    DatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
@@ -80,6 +82,8 @@ import { IonModalComponent } from './modal/component/modal.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    DatePickerComponent,
+    SimpleMenuComponent,
     InfoBadgeComponent,
     IonModalComponent,
     PaginationComponent,
