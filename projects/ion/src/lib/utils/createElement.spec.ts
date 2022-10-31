@@ -1,6 +1,6 @@
 import { createElement, CreateElementProps } from './createElement';
 
-const sut = (props?: CreateElementProps) => {
+const sut = (props?: CreateElementProps): HTMLElement => {
   return createElement(
     props || {
       type: 'span',

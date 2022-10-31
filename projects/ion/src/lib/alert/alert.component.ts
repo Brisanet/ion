@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
@@ -6,6 +6,7 @@ export interface IonAlertProps {
   message: string;
   type?: StatusType;
   closable?: boolean;
+  hideBackground?: boolean;
 }
 
 export const iconTypes = {
@@ -24,16 +25,17 @@ export class AlertComponent implements OnInit {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
+  @Input() hideBackground? = false;
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
-  public iconType: IconType;
+  iconType: IconType;
 
-  closeEvent() {
+  closeEvent(): void {
     this.ionAlert.nativeElement.remove();
   }
 
-  setIcon() {
+  setIcon(): void {
     this.iconType = iconTypes[this.type];
   }
 

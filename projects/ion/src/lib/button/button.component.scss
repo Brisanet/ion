@@ -22,23 +22,12 @@
   }
 }
 
-@mixin icon-size($size) {
-  ion-icon {
-    ::ng-deep svg {
-      width: $size;
-      height: $size;
-    }
-  }
-}
-
 @mixin circular-button($circleSize, $iconSize) {
   &.circular-button {
     height: $circleSize;
     width: $circleSize;
     border-radius: 50%;
     padding: 0;
-
-    @include icon-size($iconSize);
   }
 }
 
@@ -46,7 +35,7 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 600;
   border-radius: spacing(1);
@@ -98,23 +87,17 @@ button {
 
   border-radius: 6px;
 
-  @include icon-size(13px);
-
   @include circular-button(24px, 13px);
 }
 
 .ion-btn-md {
   @include button-parameters(32px, 6px, 16px, 14px, 20px);
 
-  @include icon-size(16px);
-
   @include circular-button(32px, 16px);
 }
 
 .ion-btn-lg {
   @include button-parameters(40px, 8px, 20px, 16px, 24px);
-
-  @include icon-size(20px);
 
   @include circular-button(40px, 20px);
 
@@ -123,8 +106,6 @@ button {
 
 .ion-btn-xl {
   @include button-parameters(48px, 12px, 24px, 16px, 24px);
-
-  @include icon-size(20px);
 
   @include circular-button(48px, 20px);
 
@@ -175,11 +156,19 @@ button {
     background-color: $primary-7;
   }
 
+  &.loading {
+    background-color: $primary-5;
+  }
+
   &.danger {
     background-color: $negative-6;
 
     &:hover {
       @include add-colors($negative-5, $neutral-1);
+    }
+
+    &.loading {
+      background-color: $negative-5;
     }
 
     span.spinner {
@@ -208,10 +197,16 @@ button {
       @include add-colors($neutral-3, $neutral-5);
       border: 1px solid $neutral-5;
     }
+
     &:active {
       @include add-colors($primary-2, $primary-7);
       border-color: $primary-5;
     }
+  }
+
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+    border-color: $primary-3;
   }
 
   &.danger {
@@ -223,7 +218,12 @@ button {
     }
 
     &:active {
-      @include add-colors($negative-2!important, $negative-7!important);
+      @include add-colors($negative-2 !important, $negative-7 !important);
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
+      border-color: $negative-3;
     }
   }
 }
@@ -247,6 +247,10 @@ button {
     @include add-colors($primary-2, $primary-7);
   }
 
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+  }
+
   &.danger {
     color: $negative-6;
 
@@ -256,6 +260,10 @@ button {
 
     &:active {
       @include add-colors($negative-2, $negative-7);
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
     }
   }
 }
@@ -281,6 +289,11 @@ button {
     border-color: $primary-5;
   }
 
+  &.loading {
+    @include add-colors($primary-1, $primary-6);
+    border-color: $primary-3;
+  }
+
   &.danger {
     border: 1px dashed $neutral-4;
     color: $negative-6;
@@ -293,6 +306,11 @@ button {
     &:active {
       @include add-colors($negative-2, $negative-7);
       border-color: #de5462;
+    }
+
+    &.loading {
+      @include add-colors($negative-1, $negative-6);
+      border-color: $negative-3;
     }
   }
 }

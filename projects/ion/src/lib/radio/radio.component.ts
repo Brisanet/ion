@@ -10,7 +10,7 @@ export class RadioComponent {
   @Input() checked? = false;
   @Input() disabled? = false;
 
-  check() {
-    this.checked = !this.checked;
+  check(): void {
+    this.checked = true;
   }
 }

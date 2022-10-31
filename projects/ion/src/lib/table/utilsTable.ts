@@ -61,7 +61,7 @@ export class TableUtils<T = SafeAny> {
     return this.getRowsSelected().length > 0;
   }
 
-  public isAllRowsSelected() {
+  public isAllRowsSelected(): boolean {
     return this.getRowsSelected().length === this.config.data.length;
   }
 
@@ -69,15 +69,15 @@ export class TableUtils<T = SafeAny> {
     return this.config.data.filter((rowInData: SafeAny) => rowInData.selected);
   }
 
-  public fillColorArrowUp(column: Column) {
+  public fillColorArrowUp(column: Column): string {
     return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
   }
 
-  public fillColorArrowDown(column: Column) {
+  public fillColorArrowDown(column: Column): string {
     return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
   }
 
-  public fillColor(column: Column, upArrow: boolean) {
+  public fillColor(column: Column, upArrow: boolean): string {
     if (column.desc === null || column.desc === undefined) {
       return this.disabledArrowColor;
     }

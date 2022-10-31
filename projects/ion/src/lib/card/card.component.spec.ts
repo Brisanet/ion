@@ -1,7 +1,5 @@
-import { IonIconComponent } from '../icon/icon.component';
-import { CardEvent, CardIonComponent, IonCard } from './card.component';
-import { ButtonComponent } from '../button/button.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -9,7 +7,11 @@ import {
   Component,
   NgModule,
 } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
+import { ButtonComponent } from '../button/button.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { CardEvent, CardIonComponent, IonCard } from './card.component';
 
 let renderFooter = false;
 
@@ -21,7 +23,7 @@ let renderFooter = false;
   ></ion-button>`,
 })
 class ButtonTestComponent {
-  public label = 'Botão no body';
+  label = 'Botão no body';
 }
 
 @Component({
@@ -36,11 +38,7 @@ class FooterTestComponent {}
   ></ion-card>`,
 })
 class CardTestComponent implements AfterViewInit {
-  constructor(private cdr: ChangeDetectorRef) {}
-  ngAfterViewInit(): void {
-    this.cdr.detectChanges();
-  }
-  public cardConfig: IonCard = {
+  cardConfig: IonCard = {
     body: ButtonTestComponent,
     header: { title: 'Título do card' },
     footer: renderFooter
@@ -48,7 +46,13 @@ class CardTestComponent implements AfterViewInit {
       : { buttons: { primary: { label: 'Confirmar' } } },
   };
 
-  public cardEvents(event: CardEvent) {
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewInit(): void {
+    this.cdr.detectChanges();
+  }
+
+  cardEvents(event: CardEvent): void {
     this.cardConfig.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
   }
 }
@@ -62,6 +66,8 @@ class CardTestComponent implements AfterViewInit {
     IonIconComponent,
     ButtonTestComponent,
     FooterTestComponent,
+    DropdownComponent,
+    BadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,

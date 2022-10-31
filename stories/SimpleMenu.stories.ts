@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { DropdownComponent } from '../projects/ion/src/public-api';
 import {
   AvatarComponent,
   BadgeComponent,
@@ -33,6 +34,7 @@ const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
       BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
+      DropdownComponent,
     ],
     imports: [CommonModule],
   },

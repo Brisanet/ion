@@ -3,7 +3,12 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { ButtonComponent, TagComponent } from '../projects/ion/src/public-api';
+import {
+  BadgeComponent,
+  ButtonComponent,
+  DropdownComponent,
+  TagComponent,
+} from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
@@ -23,6 +28,8 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
       CheckboxComponent,
       PaginationComponent,
       ButtonComponent,
+      BadgeComponent,
+      DropdownComponent,
     ],
     imports: [CommonModule, FormsModule],
   },

@@ -12,7 +12,9 @@ const defaultNotification = {
   type: 'success' as StatusType,
 };
 
-const sut = async (customProps: NotificationProps = defaultNotification) => {
+const sut = async (
+  customProps: NotificationProps = defaultNotification
+): Promise<void> => {
   await render(NotificationComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
@@ -93,6 +95,7 @@ describe('NotificationComponent', () => {
       await sut();
       const btnRemove = screen.getByTestId('btn-remove');
       fireEvent.click(btnRemove);
+      await sleep(1000);
       expect(screen.queryAllByText(defaultNotification[title])).toHaveLength(0);
     }
   );
@@ -106,7 +109,7 @@ describe('NotificationComponent', () => {
   describe('Time by words', () => {
     it('should remove component after 2s', async () => {
       await sut();
-      await sleep(1000);
+      await sleep(3000);
       expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
         0
       );
@@ -116,7 +119,7 @@ describe('NotificationComponent', () => {
       await sut();
       const notificationIcon = screen.getByTestId('ion-notification');
       fireEvent.mouseEnter(notificationIcon);
-      await sleep(1000);
+      await sleep(2000);
       expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
         1
       );
@@ -136,6 +139,6 @@ describe('NotificationComponent', () => {
   });
 });
 
-const sleep = (ms: number) => {
+const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

@@ -25,7 +25,7 @@ const sut = async (
       emit: selectEvent,
     } as SafeAny,
   }
-) => {
+): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   await render(TabGroupComponent, {
     componentProperties: customProps,
     declarations: [TabComponent, IonIconComponent, BadgeComponent],
@@ -105,4 +105,22 @@ describe('TabGroupComponent', () => {
       expect(screen.getByText(mockTabs[0].label)).toHaveClass(`tab-${size}`);
     }
   );
+
+  it('should emit selected tab when double clicked', async () => {
+    const rendered = await sut();
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    expect(rendered.event).toHaveBeenCalledWith({
+      label: mockTabs[1].label,
+      selected: true,
+    });
+  });
+
+  it('should validate if the event was issued twice', async () => {
+    selectEvent.mockClear();
+    const tabs = await sut();
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    fireEvent.click(screen.getByText(mockTabs[1].label));
+    expect(tabs.event).toHaveBeenCalledTimes(2);
+  });
 });

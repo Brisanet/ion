@@ -1,9 +1,10 @@
-import { IconType } from './../icon/icon.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { DropdownItem } from '../dropdown/dropdown.component';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { InfoBadgeStatus } from '../core/types';
+import { DropdownItem } from '../dropdown/dropdown.component';
+import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
+export type IconDirection = 'right' | 'left';
 
 interface ChipEvent {
   selected: boolean;
@@ -19,6 +20,7 @@ export interface IonChipProps {
   icon?: string;
   multiple?: boolean;
   infoBadge?: InfoBadgeStatus;
+  iconPosition?: IconDirection;
 }
 
 type Badge = {
@@ -40,14 +42,15 @@ export class ChipComponent {
   @Input() options: DropdownItem[];
   @Input() multiple?: boolean = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
+  @Input() iconPosition?: IconDirection = 'left';
 
   @Output() events = new EventEmitter<ChipEvent>();
 
-  public badge: Badge = {
+  badge: Badge = {
     value: 0,
   };
 
-  select() {
+  select(): void {
     this.toggleDropdown();
     this.selected = !this.selected;
     this.events.emit({
@@ -56,21 +59,21 @@ export class ChipComponent {
     });
   }
 
-  toggleDropdown() {
+  toggleDropdown(): void {
     if (this.options) {
       this.showDropdown = !this.showDropdown;
     }
   }
 
-  handleSuccess(selecteds: DropdownItem[]) {
-    if (selecteds) {
+  handleSuccess(selecteds: DropdownItem[]): void {
+    if (selecteds && this.multiple) {
       this.badge.value = selecteds.length;
     }
 
     if (!this.multiple) {
       this.label = selecteds[0].label;
+      this.selected = false;
+      this.toggleDropdown();
     }
-
-    this.toggleDropdown();
   }
 }

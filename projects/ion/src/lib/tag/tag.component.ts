@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { IconType } from '../icon/icon.component';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { TagStatus } from '../core/types';
+import { IconType } from '../icon/icon.component';
 import { validateHexColor } from '../utils';
 
 export interface IonTagProps {
@@ -18,42 +18,42 @@ const defaultColor = '#505566';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
 })
-export class TagComponent implements OnInit {
-  @Input() public outline = true;
-  @Input() public label!: string;
-  @Input() public status?: TagStatus;
-  @Input() public color?: string = defaultColor;
-  @Input() public icon?: IconType;
-
-  setTagType() {
-    return `ion-tag ${this.outline ? 'outline' : ''} ${
-      this.status ? this.status : ''
-    }`;
-  }
-
-  tagStyle() {
-    return !this.status && this.getTagColor();
-  }
-
-  getTagColor() {
-    return validateHexColor(this.color) ? this.color : defaultColor;
-  }
-
-  hasLabel() {
-    return !this.label || String(this.label).trim() === '';
-  }
-
-  validateLabel() {
-    if (this.hasLabel()) {
-      throw new Error('Invalid Tag label informed');
-    }
-  }
+export class TagComponent implements OnInit, OnChanges {
+  @Input() outline = true;
+  @Input() label!: string;
+  @Input() status?: TagStatus;
+  @Input() color?: string = defaultColor;
+  @Input() icon?: IconType;
 
   ngOnInit(): void {
     this.validateLabel();
   }
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     this.validateLabel();
+  }
+
+  setTagType(): string {
+    return `ion-tag ${this.outline ? 'outline' : ''} ${
+      this.status ? this.status : ''
+    }`;
+  }
+
+  tagStyle(): string {
+    return !this.status && this.getTagColor();
+  }
+
+  getTagColor(): string {
+    return validateHexColor(this.color) ? this.color : defaultColor;
+  }
+
+  hasLabel(): boolean {
+    return !this.label || String(this.label).trim() === '';
+  }
+
+  validateLabel(): void {
+    if (this.hasLabel()) {
+      throw new Error('Invalid Tag label informed');
+    }
   }
 }

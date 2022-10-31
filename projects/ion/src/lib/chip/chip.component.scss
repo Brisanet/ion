@@ -14,6 +14,9 @@
 }
 
 .chip {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   border: 1px solid $neutral-4;
   border-radius: 100px;
   font-family: 'Source Sans Pro', sans-serif;
@@ -48,16 +51,19 @@
   }
 
   &:disabled {
-    border: 1px solid $neutral-4;
+    border: 1px solid $neutral-5;
     outline: none;
     cursor: not-allowed;
-    @include add-colors($neutral-3, $neutral-4);
-    @include icon-color($neutral-4);
+    @include add-colors($neutral-3, $neutral-5);
+    @include icon-color($neutral-5);
   }
 }
 
 .chip-selected {
-  border: 1.5px solid $primary-6;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 1.5px solid $primary-5;
   border-radius: 100px;
   font-weight: 600;
   font-family: 'Source Sans Pro', sans-serif;
@@ -81,14 +87,14 @@
   }
 
   &:active {
-    border: 2px solid $primary-7;
+    border: 1.5px solid $primary-5;
     outline: none;
-    @include add-colors($primary-3, $primary-7);
-    @include icon-color($primary-7);
+    @include add-colors($primary-2, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:disabled {
-    border: 2px solid $neutral-4;
+    border: 1.5px solid $neutral-5;
     outline: none;
     cursor: not-allowed;
     @include add-colors($neutral-3, $neutral-5);
@@ -100,12 +106,14 @@
   padding: 4px 8px;
   font-size: 12px;
   line-height: 16px;
+  height: 24px;
 }
 
 .chip-md {
   padding: 6px 12px;
   font-size: 14px;
   line-height: 20px;
+  height: 32px;
 }
 
 button {
@@ -113,6 +121,16 @@ button {
   align-items: center;
   gap: 8px;
   margin-bottom: 4px;
+}
+
+.container-icon-text {
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+}
+
+.positionIcon {
+  flex-direction: row-reverse;
 }
 
 .container-options {

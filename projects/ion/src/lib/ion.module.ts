@@ -1,3 +1,4 @@
+import { IonModalService } from './modal/modal.service';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -27,6 +28,8 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { TableComponent } from './table/table.component';
+import { IonModalComponent } from './modal/component/modal.component';
+import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -52,12 +55,15 @@ import { TableComponent } from './table/table.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    DatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
+    IonModalComponent,
     PaginationComponent,
     SmartTableComponent,
     TableComponent,
   ],
+  providers: [IonModalService],
   imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
@@ -80,7 +86,10 @@ import { TableComponent } from './table/table.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    DatePickerComponent,
+    SimpleMenuComponent,
     InfoBadgeComponent,
+    IonModalComponent,
     PaginationComponent,
     SmartTableComponent,
     TableComponent,

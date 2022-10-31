@@ -53,7 +53,14 @@ export class SmartTableComponent implements OnInit {
   private firstLoad = true;
   private tableUtils: TableUtils;
 
-  public checkState() {
+  ngOnInit(): void {
+    this.tableUtils = new TableUtils(this.config);
+    if (!this.config.pagination.itemsPerPage) {
+      this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
+    }
+  }
+
+  public checkState(): void {
     if (this.mainCheckBoxState === 'indeterminate') {
       this.uncheckAllRows();
 
@@ -62,32 +69,12 @@ export class SmartTableComponent implements OnInit {
     this.toggleAllRows();
   }
 
-  private setMainCheckboxState(state: CheckBoxStates): void {
-    this.mainCheckBoxState = state;
-  }
-
-  public uncheckAllRows() {
+  public uncheckAllRows(): void {
     this.config.data.forEach((row) => (row.selected = false));
     this.setMainCheckboxState('enabled');
   }
 
-  private emitRowsSelected() {
-    this.events.emit({
-      event: EventTable.ROW_SELECT,
-      change_page: this.pagination,
-      rows_selected: this.tableUtils.getRowsSelected(),
-    });
-  }
-
-  private selectAllLike(selected: boolean) {
-    this.config.data.forEach((row) => {
-      row.selected = selected;
-    });
-
-    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
-  }
-
-  checkRow(row: SafeAny) {
+  public checkRow(row: SafeAny): void {
     row.selected = !row.selected;
 
     if (this.tableUtils.isAllRowsSelected()) {
@@ -101,16 +88,16 @@ export class SmartTableComponent implements OnInit {
     this.emitRowsSelected();
   }
 
-  toggleAllRows() {
+  public toggleAllRows(): void {
     this.selectAllLike(!this.tableUtils.hasRowSelected());
     this.emitRowsSelected();
   }
 
-  public fillColor(column: Column, upArrow: boolean) {
+  public fillColor(column: Column, upArrow: boolean): string {
     return this.tableUtils.fillColor(column, upArrow);
   }
 
-  sort(column: Column) {
+  public sort(column: Column): void {
     this.events.emit({
       event: EventTable.SORT,
       change_page: this.pagination,
@@ -128,17 +115,17 @@ export class SmartTableComponent implements OnInit {
     column.desc = !column.desc;
   }
 
-  handleEvent(row: SafeAny, action: ActionTable) {
+  public handleEvent(row: SafeAny, action: ActionTable): void {
     if (action.call) {
       action.call(row);
     }
   }
 
-  showAction(row: SafeAny, action: ActionTable) {
+  public showAction(row: SafeAny, action: ActionTable): boolean {
     return action.show(row);
   }
 
-  paginationEvents(event: PageEvent) {
+  public paginationEvents(event: PageEvent): void {
     this.pagination = event;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
@@ -149,10 +136,23 @@ export class SmartTableComponent implements OnInit {
     this.firstLoad = false;
   }
 
-  ngOnInit() {
-    this.tableUtils = new TableUtils(this.config);
-    if (!this.config.pagination.itemsPerPage) {
-      this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
-    }
+  private setMainCheckboxState(state: CheckBoxStates): void {
+    this.mainCheckBoxState = state;
+  }
+
+  private emitRowsSelected(): void {
+    this.events.emit({
+      event: EventTable.ROW_SELECT,
+      change_page: this.pagination,
+      rows_selected: this.tableUtils.getRowsSelected(),
+    });
+  }
+
+  private selectAllLike(selected: boolean): void {
+    this.config.data.forEach((row) => {
+      row.selected = selected;
+    });
+
+    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
   }
 }

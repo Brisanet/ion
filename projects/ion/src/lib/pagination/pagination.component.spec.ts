@@ -1,6 +1,8 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent } from '../button/button.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BadgeComponent } from '../badge/badge.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 import {
@@ -16,10 +18,17 @@ const defaultComponent: IonPaginationProps = {
   } as SafeAny,
 };
 
-const sut = async (customProps: IonPaginationProps = defaultComponent) => {
+const sut = async (
+  customProps: IonPaginationProps = defaultComponent
+): Promise<void> => {
   await render(PaginationComponent, {
     componentProperties: customProps,
-    declarations: [ButtonComponent, IonIconComponent],
+    declarations: [
+      ButtonComponent,
+      IonIconComponent,
+      DropdownComponent,
+      BadgeComponent,
+    ],
     imports: [FormsModule],
   });
 };

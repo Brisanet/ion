@@ -3,7 +3,11 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { ButtonComponent } from '../projects/ion/src/public-api';
+import {
+  BadgeComponent,
+  ButtonComponent,
+  DropdownComponent,
+} from '../projects/ion/src/public-api';
 import { FormsModule } from '@angular/forms';
 
 export default {
@@ -15,7 +19,12 @@ const Template: Story<PaginationComponent> = (args: PaginationComponent) => ({
   component: PaginationComponent,
   props: { ...args, events: action('selected') },
   moduleMetadata: {
-    declarations: [IonIconComponent, ButtonComponent],
+    declarations: [
+      IonIconComponent,
+      ButtonComponent,
+      BadgeComponent,
+      DropdownComponent,
+    ],
     imports: [CommonModule, FormsModule],
   },
 });

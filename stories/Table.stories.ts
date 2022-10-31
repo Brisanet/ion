@@ -4,7 +4,12 @@ import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { ButtonComponent, TagComponent } from '../projects/ion/src/public-api';
+import {
+  BadgeComponent,
+  ButtonComponent,
+  DropdownComponent,
+  TagComponent,
+} from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 
@@ -24,6 +29,8 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
       CheckboxComponent,
       PaginationComponent,
       ButtonComponent,
+      BadgeComponent,
+      DropdownComponent,
     ],
     imports: [CommonModule, FormsModule],
   },
@@ -121,10 +128,10 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-    show: (row: SafeAny) => {
+    show: (row: SafeAny): boolean => {
       return !row.deleted;
     },
-    call: (row: SafeAny) => {
+    call: (row: SafeAny): void => {
       row.name += ' DELETED';
     },
   },

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { BorderDirectionType, DirectionType } from '../core/types';
 import { IonTabProps, TabSize } from '../tab/tab.component';
-import { DirectionType, BorderDirectionType } from '../core/types';
 
 export interface TabInGroup extends IonTabProps {
   selected: boolean;
@@ -27,6 +27,16 @@ export class TabGroupComponent implements OnInit {
 
   @Output() selected = new EventEmitter<TabInGroup>();
 
+  ngOnInit(): void {
+    this.border = this.getBorderByDirection(this.direction);
+  }
+
+  selectTab(tabSelected: TabInGroup): void {
+    this.clearTabs();
+    tabSelected.selected = true;
+    this.selected.emit(tabSelected);
+  }
+
   private getBorderByDirection(direction: DirectionType): BorderDirectionType {
     const directions = {
       horizontal: 'bottom',
@@ -40,19 +50,9 @@ export class TabGroupComponent implements OnInit {
     return directions[direction] as BorderDirectionType;
   }
 
-  private clearTabs() {
+  private clearTabs(): void {
     this.tabs.forEach((tab) => {
       tab.selected = false;
     });
-  }
-
-  public selectTab(tabSelected: TabInGroup) {
-    this.clearTabs();
-    tabSelected.selected = true;
-    this.selected.emit(tabSelected);
-  }
-
-  ngOnInit(): void {
-    this.border = this.getBorderByDirection(this.direction);
   }
 }

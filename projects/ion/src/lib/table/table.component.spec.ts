@@ -8,6 +8,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
+import { BadgeComponent } from '../badge/badge.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -59,7 +61,9 @@ const defaultProps: IonTableProps<Disco> = {
   },
 };
 
-const sut = async (customProps: IonTableProps<Disco> = defaultProps) => {
+const sut = async (
+  customProps: IonTableProps<Disco> = defaultProps
+): Promise<SafeAny> => {
   await render(TableComponent, {
     componentProperties: customProps,
     declarations: [
@@ -68,6 +72,8 @@ const sut = async (customProps: IonTableProps<Disco> = defaultProps) => {
       CheckboxComponent,
       PaginationComponent,
       ButtonComponent,
+      BadgeComponent,
+      DropdownComponent,
     ],
     imports: [FormsModule],
   });
@@ -153,14 +159,14 @@ describe('Table > Actions', () => {
     {
       label: 'Excluir',
       icon: 'trash',
-      show: (row: SafeAny) => {
+      show: (row: SafeAny): boolean => {
         return !row.deleted;
       },
     },
     {
       label: 'Editar',
       icon: 'pencil',
-      call: (row: SafeAny) => {
+      call: (row: SafeAny): void => {
         row.name = 'editado!';
       },
     },

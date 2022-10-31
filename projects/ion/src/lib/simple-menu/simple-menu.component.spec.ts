@@ -4,6 +4,7 @@ import { BadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   TabGroupComponent,
   TabInGroup,
@@ -45,7 +46,9 @@ const defaultMenu: SimpleMenuProps = {
   } as SafeAny,
 };
 
-const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
+const sut = async (
+  customProps: SimpleMenuProps = defaultMenu
+): Promise<void> => {
   await render(SimpleMenuComponent, {
     componentProperties: customProps,
     declarations: [
@@ -56,6 +59,7 @@ const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
       BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
+      DropdownComponent,
     ],
   });
 };
@@ -125,6 +129,6 @@ describe('SimpleMenu', () => {
   });
 });
 
-const sleep = (ms: number) => {
+const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

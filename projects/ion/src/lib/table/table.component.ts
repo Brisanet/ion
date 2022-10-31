@@ -27,11 +27,26 @@ export class TableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
-  private tableUtils: TableUtils;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
+  private tableUtils: TableUtils;
 
-  public checkState() {
+  ngOnInit(): void {
+    this.tableUtils = new TableUtils(this.config);
+    if (this.config.pagination) {
+      const defaultItemsPerPage = 10;
+      this.config.pagination.itemsPerPage = defaultItemsPerPage;
+
+      this.smartData = this.config.data.slice(
+        this.config.pagination.offset,
+        this.config.pagination.itemsPerPage
+      );
+      return;
+    }
+    this.smartData = this.config.data;
+  }
+
+  public checkState(): void {
     if (this.mainCheckBoxState === 'indeterminate') {
       this.uncheckAllRows();
 
@@ -40,30 +55,12 @@ export class TableComponent implements OnInit {
     this.toggleAllRows();
   }
 
-  private setMainCheckboxState(state: CheckBoxStates): void {
-    this.mainCheckBoxState = state;
-  }
-
-  public uncheckAllRows() {
+  public uncheckAllRows(): void {
     this.config.data.forEach((row) => (row.selected = false));
     this.setMainCheckboxState('enabled');
   }
 
-  private emitRowsSelected() {
-    this.events.emit({
-      rows_selected: this.tableUtils.getRowsSelected(),
-    });
-  }
-
-  private selectAllLike(selected: boolean) {
-    this.config.data.forEach((row) => {
-      row.selected = selected;
-    });
-
-    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
-  }
-
-  checkRow(row: SafeAny) {
+  public checkRow(row: SafeAny): void {
     row.selected = !row.selected;
 
     if (this.tableUtils.isAllRowsSelected()) {
@@ -77,31 +74,16 @@ export class TableComponent implements OnInit {
     this.emitRowsSelected();
   }
 
-  toggleAllRows() {
+  public toggleAllRows(): void {
     this.selectAllLike(!this.tableUtils.hasRowSelected());
     this.emitRowsSelected();
   }
 
-  private orderDesc(itemA, itemB) {
-    return itemA > itemB ? -1 : itemA > itemB ? 1 : 0;
-  }
-
-  private orderAsc(itemA, itemB) {
-    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
-  }
-
-  private orderBy(desc: boolean, rowA: SafeAny, rowB: SafeAny, key: string) {
-    if (desc) {
-      return this.orderDesc(rowA[key], rowB[key]);
-    }
-    return this.orderAsc(rowA[key], rowB[key]);
-  }
-
-  public fillColor(column: Column, upArrow: boolean) {
+  public fillColor(column: Column, upArrow: boolean): string {
     return this.tableUtils.fillColor(column, upArrow);
   }
 
-  sort(column: Column) {
+  public sort(column: Column): void {
     this.config.data.sort((rowA, rowB) =>
       this.orderBy(column.desc, rowA, rowB, column.key)
     );
@@ -113,35 +95,58 @@ export class TableComponent implements OnInit {
     column.desc = !column.desc;
   }
 
-  handleEvent(row: SafeAny, action: ActionTable) {
+  public handleEvent(row: SafeAny, action: ActionTable): void {
     if (action.call) {
       action.call(row);
     }
   }
 
-  showAction(row: SafeAny, action: ActionTable) {
+  public showAction(row: SafeAny, action: ActionTable): boolean {
     return action.show(row);
   }
 
-  paginationEvents(event: PageEvent) {
+  public paginationEvents(event: PageEvent): void {
     this.smartData = this.config.data.slice(
       event.offset,
       event.offset + event.itemsPerPage
     );
   }
 
-  ngOnInit() {
-    this.tableUtils = new TableUtils(this.config);
-    if (this.config.pagination) {
-      const defaultItemsPerPage = 10;
-      this.config.pagination.itemsPerPage = defaultItemsPerPage;
+  private setMainCheckboxState(state: CheckBoxStates): void {
+    this.mainCheckBoxState = state;
+  }
 
-      this.smartData = this.config.data.slice(
-        this.config.pagination.offset,
-        this.config.pagination.itemsPerPage
-      );
-      return;
+  private emitRowsSelected(): void {
+    this.events.emit({
+      rows_selected: this.tableUtils.getRowsSelected(),
+    });
+  }
+
+  private selectAllLike(selected: boolean): void {
+    this.config.data.forEach((row) => {
+      row.selected = selected;
+    });
+
+    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
+  }
+
+  private orderDesc(itemA, itemB): number {
+    return itemA > itemB ? -1 : itemA > itemB ? 1 : 0;
+  }
+
+  private orderAsc(itemA, itemB): number {
+    return itemA < itemB ? -1 : itemA > itemB ? 1 : 0;
+  }
+
+  private orderBy(
+    desc: boolean,
+    rowA: SafeAny,
+    rowB: SafeAny,
+    key: string
+  ): number {
+    if (desc) {
+      return this.orderDesc(rowA[key], rowB[key]);
     }
-    this.smartData = this.config.data;
+    return this.orderAsc(rowA[key], rowB[key]);
   }
 }

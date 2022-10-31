@@ -1,5 +1,5 @@
 <div
-  class="notification-container"
+  [class]="setClass()"
   (mouseenter)="mouseEnter()"
   (mouseleave)="mouseLeave()"
   data-testid="ion-notification"
@@ -14,7 +14,7 @@
       >
       </ion-icon>
     </div>
-    <div>
+    <div class="notification-text">
       <div class="notification-title">
         <span>{{ title }}</span>
       </div>

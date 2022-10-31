@@ -11,6 +11,8 @@ import {
   SmartTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
+import { BadgeComponent } from '../badge/badge.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -71,7 +73,7 @@ const defaultProps: IonSmartTableProps<Character> = {
 
 const sut = async (
   customProps: IonSmartTableProps<Character> = defaultProps
-) => {
+): Promise<SafeAny> => {
   await render(SmartTableComponent, {
     componentProperties: customProps,
     declarations: [
@@ -80,6 +82,8 @@ const sut = async (
       CheckboxComponent,
       PaginationComponent,
       ButtonComponent,
+      BadgeComponent,
+      DropdownComponent,
     ],
     imports: [FormsModule],
   });
@@ -191,14 +195,14 @@ describe('Table > Actions', () => {
     {
       label: 'Excluir',
       icon: 'trash',
-      show: (row: Character) => {
+      show: (row: Character): boolean => {
         return row.height > 160;
       },
     },
     {
       label: 'Editar',
       icon: 'pencil',
-      call: (row: Character) => {
+      call: (row: Character): void => {
         row.name = 'editado!';
       },
     },
