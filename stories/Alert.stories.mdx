@@ -131,7 +131,7 @@ O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
 
 ## Closable
 
-A partir do paramêtro `closable` pode ser definido se o usuárario poderá fechar, ou não, o alerta.
+A partir do paramêtro `closable` pode ser definido se o usuário poderá fechar, ou não, o alerta.
 
 - `closable` aceita os valores `true` ou `false`. E o mesmo por padrão traz `false`
 
@@ -141,6 +141,30 @@ A partir do paramêtro `closable` pode ser definido se o usuárario poderá fech
     args={{
       message: 'Example of alert message',
       closable: true,
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Without Background
+
+A partir do paramêtro `hideBackground` pode ser definido se o usuário quer mostrar o alerta com ou sem background.
+
+- `hideBackground` aceita os valores `true` ou `false`. E o mesmo por padrão traz `false`
+
+<Canvas>
+  <Story
+    name="type: without background"
+    args={{
+      message: 'Example of alert message',
+      hideBackground: true,
     }}
     decorators={[
       moduleMetadata({

@@ -4,6 +4,7 @@ import { BadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   TabGroupComponent,
   TabInGroup,
@@ -56,6 +57,7 @@ const sut = async (customProps: SimpleMenuProps = defaultMenu) => {
       BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
+      DropdownComponent,
     ],
   });
 };
