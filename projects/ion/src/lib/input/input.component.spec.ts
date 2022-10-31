@@ -2,7 +2,7 @@ import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import { InputComponent, IonInputProps } from './input.component';
 
-const sut = async (customProps?: IonInputProps) => {
+const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(InputComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],

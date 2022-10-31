@@ -87,10 +87,10 @@
   }
 
   &:active {
-    border: 1.5px solid $primary-7;
+    border: 1.5px solid $primary-5;
     outline: none;
-    @include add-colors($primary-3, $primary-7);
-    @include icon-color($primary-7);
+    @include add-colors($primary-2, $primary-5);
+    @include icon-color($primary-5);
   }
 
   &:disabled {

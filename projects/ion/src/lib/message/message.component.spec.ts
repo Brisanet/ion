@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from './../icon/icon.component';
 import { render, screen } from '@testing-library/angular';
+import { IonIconComponent } from './../icon/icon.component';
 import {
   IonMessageProps,
   MessageComponent,
@@ -25,7 +25,9 @@ export const icontypes = [
   'info',
 ];
 
-const sut = async (customProps: IonMessageProps = defaultValue) => {
+const sut = async (
+  customProps: IonMessageProps = defaultValue
+): Promise<HTMLElement> => {
   await render(MessageComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],

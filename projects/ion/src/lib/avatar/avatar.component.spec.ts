@@ -5,7 +5,7 @@ import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconComponent } from '../icon/icon.component';
 import { AvatarComponent } from './avatar.component';
 
-async function sut(props: Partial<AvatarComponent> = {}) {
+async function sut(props: Partial<AvatarComponent> = {}): Promise<HTMLElement> {
   await render(AvatarComponent, {
     componentProperties: props,
     providers: [DefaultImageDirective],

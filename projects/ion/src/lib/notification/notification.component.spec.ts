@@ -12,7 +12,9 @@ const defaultNotification = {
   type: 'success' as StatusType,
 };
 
-const sut = async (customProps: NotificationProps = defaultNotification) => {
+const sut = async (
+  customProps: NotificationProps = defaultNotification
+): Promise<void> => {
   await render(NotificationComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
@@ -137,6 +139,6 @@ describe('NotificationComponent', () => {
   });
 });
 
-const sleep = (ms: number) => {
+const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

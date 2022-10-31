@@ -5,7 +5,7 @@ const defaultBadge: BadgeProps = {
   type: 'primary' as BadgeType,
 };
 
-const sut = async (customProps: BadgeProps = defaultBadge) => {
+const sut = async (customProps: BadgeProps = defaultBadge): Promise<void> => {
   await render(BadgeComponent, {
     componentProperties: customProps,
   });

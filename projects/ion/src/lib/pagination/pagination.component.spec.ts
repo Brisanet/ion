@@ -18,7 +18,9 @@ const defaultComponent: IonPaginationProps = {
   } as SafeAny,
 };
 
-const sut = async (customProps: IonPaginationProps = defaultComponent) => {
+const sut = async (
+  customProps: IonPaginationProps = defaultComponent
+): Promise<void> => {
   await render(PaginationComponent, {
     componentProperties: customProps,
     declarations: [

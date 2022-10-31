@@ -3,7 +3,10 @@ import { DefaultImageDirective } from './defaultImage.directive';
 
 const defaultSrc = 'test.png';
 const defaultImageFile = 'default.png';
-async function sut(src = defaultSrc, defaultImage = defaultImageFile) {
+async function sut(
+  src = defaultSrc,
+  defaultImage = defaultImageFile
+): Promise<HTMLElement> {
   await render(`<img src="${src}" default="${defaultImage}">`, {
     declarations: [DefaultImageDirective],
   });

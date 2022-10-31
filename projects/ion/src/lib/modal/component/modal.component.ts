@@ -35,10 +35,6 @@ export class IonModalComponent implements OnInit {
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
-  @HostListener('document:keydown.Escape') closeOnEscapeKeyDown() {
-    this.closeModal();
-  }
-
   private componentFactory: ComponentRef<unknown>;
   private _defaultModal: IonModalConfiguration = {
     title: 'Ion Modal',
@@ -59,13 +55,17 @@ export class IonModalComponent implements OnInit {
 
   constructor(private resolver: ComponentFactoryResolver) {}
 
+  @HostListener('document:keydown.Escape') closeOnEscapeKeyDown(): void {
+    this.closeModal();
+  }
+
   setConfig(config: IonModalConfiguration): void {
     if (config) {
       Object.assign(this.configuration, config);
     }
   }
 
-  setDefaultConfig() {
+  setDefaultConfig(): void {
     this.configuration = this._defaultModal;
   }
 
@@ -73,7 +73,7 @@ export class IonModalComponent implements OnInit {
     return this.componentFactory.instance as { [key: string]: unknown };
   }
 
-  closeModal(valueToEmit?: IonModalResponse | undefined) {
+  closeModal(valueToEmit?: IonModalResponse | undefined): void {
     this.ionOnClose.emit(valueToEmit);
   }
 

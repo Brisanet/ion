@@ -59,13 +59,13 @@ export class ButtonComponent implements OnInit {
     value: 0,
   };
 
-  updateBadgeValue(items: DropdownItem[]) {
+  public iconSize!: ButtonIconSizeOptions;
+
+  updateBadgeValue(items: DropdownItem[]): void {
     this.buttonBadge.value = items.length;
   }
 
-  public iconSize!: ButtonIconSizeOptions;
-
-  handleClick() {
+  handleClick(): void {
     if (!this.loading && !this.disabled) {
       this.showDropdown = !this.showDropdown;
 
@@ -73,7 +73,7 @@ export class ButtonComponent implements OnInit {
     }
   }
 
-  handleSelect(selectedItems: DropdownItem[]) {
+  handleSelect(selectedItems: DropdownItem[]): void {
     this.selected.emit(selectedItems);
 
     if (this.multiple) {
@@ -85,7 +85,7 @@ export class ButtonComponent implements OnInit {
     this.label = item.label;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
   }
 }

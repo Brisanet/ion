@@ -41,8 +41,8 @@ describe('IonModalComponent', () => {
     fixture.detectChanges();
   });
 
-  const footer = () => screen.getByTestId('modalFooter');
-  const overlay = () => screen.getByTestId('modalOverlay');
+  const footer = (): HTMLElement => screen.getByTestId('modalFooter');
+  const overlay = (): HTMLElement => screen.getByTestId('modalOverlay');
 
   it('should create modal with custom component', () => {
     expect(component).toBeTruthy();
