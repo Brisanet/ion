@@ -1,0 +1,183 @@
+@import '../../../styles/index.scss';
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 360px;
+  position: relative;
+}
+
+.date-container {
+  display: flex;
+  width: 360px;
+  .date-content,
+  .field-date,
+  .icons,
+  .separator {
+    box-sizing: border-box !important;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .field-date,
+  .icons,
+  .separator {
+    padding: 4px;
+  }
+
+  .icons {
+    padding-right: 8px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .field-date {
+    font-size: 14px;
+    line-height: 20px;
+    color: $neutral-7;
+
+    input {
+      width: 104px;
+      box-sizing: border-box;
+      background: transparent;
+      border: none;
+      padding: 8px;
+
+      &:focus-visible {
+        outline: none;
+        border-bottom: 1px solid $primary-6;
+      }
+    }
+  }
+
+  .required {
+    border-color: $negative-6 !important;
+  }
+
+  .date-content {
+    border-radius: 8px;
+    border: 1px solid $neutral-5;
+  }
+}
+
+.calendar-container {
+  position: absolute;
+  top: 40px;
+  z-index: 1;
+}
+
+.calendar-dropdown {
+  margin-top: 8px;
+  padding: 24px 22px;
+  background: $neutral-1;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+  & div.header {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 8px;
+    justify-items: center;
+    margin-bottom: 24px;
+
+    & label {
+      width: 140px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      text-transform: capitalize;
+      text-align: center;
+    }
+
+    & ion-button {
+      ::ng-deep button.ion-btn-md {
+        padding: 0;
+        border-radius: 12px;
+        height: 24px;
+        width: 24px !important;
+        min-width: 24px !important;
+        border: 1px solid $neutral-5;
+      }
+    }
+  }
+
+  & div.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
+    margin-bottom: 8px;
+
+    span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 24px;
+      line-height: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: $neutral-6;
+    }
+  }
+
+  & ::ng-deep div.month-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-row-gap: 16px;
+    justify-items: center;
+    align-items: center;
+
+    & button.month-day {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      padding: 0px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $neutral-5;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+
+      &.current {
+        color: $neutral-7;
+      }
+
+      &.selected {
+        background-color: $primary-2;
+        color: $primary-6;
+        border-radius: 22px;
+        border: 1px solid $primary-6;
+      }
+
+      &:not(.selected-end-date):hover {
+        background-color: $primary-2;
+        color: $primary-6;
+        border-radius: 22px;
+        border-color: $primary-6;
+      }
+    }
+  }
+
+  & ::ng-deep div.footer {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 28px;
+    margin-top: 26px;
+  }
+}
