@@ -1,5 +1,5 @@
-import { action } from '@storybook/addon-actions';
 import { CommonModule } from '@angular/common';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
@@ -19,7 +19,7 @@ const Template: Story<DropdownComponent> = (args: DropdownComponent) => ({
 });
 
 const options = [];
-const createOptions = () => {
+const createOptions = (): void => {
   for (let index = 1; index <= 4; index++) {
     options.push({
       label: `Option ${index}`,

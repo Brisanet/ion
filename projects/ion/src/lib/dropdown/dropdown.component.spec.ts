@@ -4,7 +4,7 @@ import { SafeAny } from '../utils/safe-any';
 import { DropdownComponent, DropdownParams } from './dropdown.component';
 
 const options = [];
-const createOptions = () => {
+const createOptions = (): void => {
   for (let index = 0; index < 3; index++) {
     options.push({
       label: `Option ${index}`,
@@ -23,7 +23,11 @@ const defaultDropdown: DropdownParams = {
   } as SafeAny,
 };
 
-const sut = async (customParams: DropdownParams = defaultDropdown) => {
+const sut = async (
+  customParams: DropdownParams = defaultDropdown
+): Promise<{
+  element: HTMLElement;
+}> => {
   await render(DropdownComponent, {
     componentProperties: customParams,
     declarations: [IonIconComponent],

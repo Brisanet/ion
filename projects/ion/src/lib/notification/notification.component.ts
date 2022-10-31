@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
-import { setTimer } from '../utils';
 import { Subscription } from 'rxjs';
+import { setTimer } from '../utils/setTimer';
 
 export interface NotificationProps {
   title: string;
@@ -20,7 +20,7 @@ export interface NotificationProps {
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent {
+export class NotificationComponent implements OnInit {
   @Input() title!: NotificationProps['title'];
   @Input() message!: NotificationProps['message'];
   @Input() icon?: NotificationProps['icon'];
@@ -32,7 +32,7 @@ export class NotificationComponent {
 
   private timer$: Subscription;
 
-  public getIcon(): IconType {
+  getIcon(): IconType {
     const icons = {
       success: 'check-solid',
       info: 'info-solid',
@@ -42,14 +42,14 @@ export class NotificationComponent {
     return icons[this.type];
   }
 
-  public getClass() {
+  getClass(): string {
     if (this.icon) {
       return 'default-icon';
     }
     return `default-icon ${this.type}-icon`;
   }
 
-  public timeByWords(message: string): number {
+  timeByWords(message: string): number {
     const wordsBySecond = 3;
 
     // margin is one second
@@ -59,14 +59,14 @@ export class NotificationComponent {
     return Number(result.toFixed(0)) * second;
   }
 
-  closeNotification() {
+  closeNotification(): void {
     this.notification.nativeElement.classList.add(this.fadeOut);
     setTimer().subscribe(() => {
       this.notification.nativeElement.remove();
     });
   }
 
-  closeAuto(closeIn: number = this.timeByWords(this.message)) {
+  closeAuto(closeIn: number = this.timeByWords(this.message)): void {
     if (this.fixed) {
       return;
     }
@@ -75,19 +75,19 @@ export class NotificationComponent {
     });
   }
 
-  mouseEnter() {
+  mouseEnter(): void {
     this.timer$.unsubscribe();
   }
 
-  mouseLeave() {
+  mouseLeave(): void {
     this.closeAuto();
   }
 
-  setClass() {
+  setClass(): string {
     return `notification-container ${this.fadeIn}`;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.closeAuto();
   }
 }

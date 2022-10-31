@@ -11,6 +11,10 @@ import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { OpenModalButtonComponent } from '../projects/ion/src/lib/modal/mock/open-modal.mock.component';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
 import { InputMockComponent } from '../projects/ion/src/lib/modal/mock/input.mock.component.ts';
+import {
+  BadgeComponent,
+  DropdownComponent,
+} from '../projects/ion/src/public-api';
 
 <Meta title="Ion/Data Display/Modal" component={OpenModalButtonComponent} />
 
@@ -57,6 +61,8 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
           IonIconComponent,
           IonModalComponent,
           SelectMockComponent,
+          BadgeComponent,
+          DropdownComponent,
         ],
         providers: [IonModalService],
         imports: [CommonModule, FormsModule],
@@ -106,6 +112,8 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
           IonIconComponent,
           IonModalComponent,
           InputMockComponent,
+          BadgeComponent,
+          DropdownComponent,
         ],
         providers: [IonModalService],
         imports: [CommonModule, FormsModule],

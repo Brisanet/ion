@@ -25,27 +25,27 @@ export class SimpleMenuComponent {
   @Output() selected = new EventEmitter<TabInGroup>();
   @Output() logoutClick = new EventEmitter();
 
-  public open = false;
+  open = false;
 
   private timeToAutoClose = 1000;
   private menuTimeout: ReturnType<typeof setTimeout>;
 
-  changeTab(tabSelected: TabInGroup) {
+  changeTab(tabSelected: TabInGroup): void {
     this.selected.emit(tabSelected);
   }
 
-  dismissMenu() {
+  dismissMenu(): void {
     this.menuTimeout = setTimeout(() => {
       this.open = false;
     }, this.timeToAutoClose);
   }
 
-  openMenu() {
+  openMenu(): void {
     clearTimeout(this.menuTimeout);
     this.open = true;
   }
 
-  logout() {
+  logout(): void {
     this.logoutClick.emit();
   }
 }

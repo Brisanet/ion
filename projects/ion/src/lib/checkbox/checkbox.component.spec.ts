@@ -1,5 +1,5 @@
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from './../utils/safe-any';
-import { render, screen, fireEvent } from '@testing-library/angular';
 import { CheckboxComponent, CheckBoxProps } from './checkbox.component';
 
 const box_id = 'ion-checkbox';
@@ -16,7 +16,7 @@ const StateEvents = {
   indeterminate: { state: 'indeterminate' },
 };
 
-const sut = async (customProps: CheckBoxProps = {}) => {
+const sut = async (customProps: CheckBoxProps = {}): Promise<void> => {
   await render(CheckboxComponent, {
     componentProperties: customProps,
   });
@@ -25,7 +25,9 @@ const sut = async (customProps: CheckBoxProps = {}) => {
 describe('CehckBoxComponent', () => {
   describe('component basics', () => {
     beforeEach(async () => {
-      await sut();
+      await sut({
+        label: 'Custom label',
+      });
     });
     it('should render checkbox', async () => {
       expect(screen.getByTestId(box_id)).toBeInTheDocument();
@@ -116,5 +118,17 @@ describe('CehckBoxComponent', () => {
       } as SafeAny,
     });
     expect(clickEvent).toBeCalledWith(StateEvents.indeterminate);
+  });
+  it('should input label', async () => {
+    const labelText = 'Teste';
+    await sut({ label: labelText });
+    expect(screen.getAllByText(labelText)).toHaveLength(1);
+  });
+  it('should is marked when clicked input label', async () => {
+    const labelText = 'Teste';
+    await sut({ label: labelText });
+    const element = screen.getByLabelText(labelText);
+    fireEvent.click(element);
+    expect(element).toBeChecked();
   });
 });

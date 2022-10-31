@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { BadgeComponent } from './../badge/badge.component';
+import { SafeAny } from '../utils/safe-any';
 
 const defaultName = 'button';
 
@@ -30,7 +30,7 @@ describe('ButtonComponent', () => {
       label: defaultName,
       ionOnClick: {
         emit: clickEvent,
-      } as any,
+      } as SafeAny,
     });
     fireEvent.click(button);
     expect(clickEvent).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe('ButtonComponent', () => {
       loading: true,
       ionOnClick: {
         emit: clickEvent,
-      } as any,
+      } as SafeAny,
     });
     fireEvent.click(button);
     expect(clickEvent).not.toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe('ButtonComponent', () => {
       disabled: true,
       ionOnClick: {
         emit: clickEvent,
-      } as any,
+      } as SafeAny,
     });
     fireEvent.click(button);
     expect(clickEvent).not.toHaveBeenCalled();
@@ -261,7 +261,7 @@ describe('ButtonComponent with dropdown', () => {
       options,
       selected: {
         emit: clickEvent,
-      } as any,
+      } as SafeAny,
     });
 
     fireEvent.click(button);

@@ -1,0 +1,80 @@
+<div class="date-container" #dateContainer>
+  <div class="date-content" [class.required]="!dateField.label && isRequired">
+    <div
+      data-testid="field-date"
+      class="field-date"
+      (click)="setFocusOnClickInput()"
+    >
+      <input
+        data-testid="input-date"
+        #inputDate
+        type="text"
+        [value]="dateField.label || ''"
+        [ngModel]="dateField.label"
+        [placeholder]="placeholder"
+        readonly
+      />
+    </div>
+    <div class="icons">
+      <ion-icon
+        [type]="dateField.label ? 'close' : 'calendar'"
+        color="#AEB2BD"
+        size="16"
+        (click)="dateField.label ? clearCalendar() : setFocusOnClickInput()"
+      ></ion-icon>
+    </div>
+  </div>
+</div>
+<div class="calendar-container" *ngIf="showCalendar">
+  <div class="calendar-dropdown" id="calendar-dropdown">
+    <div class="header">
+      <ion-button
+        data-testid="btn-previous-year"
+        label="<<"
+        type="ghost"
+        (click)="previousYear()"
+      ></ion-button>
+      <ion-button
+        data-testid="btn-previous-month"
+        iconType="left2"
+        [circularButton]="true"
+        type="ghost"
+        (click)="previousMonth()"
+      ></ion-button>
+      <label data-testid="month-year">
+        {{ monthYear }}
+      </label>
+      <ion-button
+        data-testid="btn-next-month"
+        iconType="right2"
+        [circularButton]="true"
+        type="ghost"
+        (click)="nextMonth()"
+      ></ion-button>
+      <ion-button
+        data-testid="btn-next-year"
+        label=">>"
+        type="ghost"
+        (click)="nextYear()"
+      ></ion-button>
+    </div>
+    <div class="week-days" id="week-days">
+      <span *ngFor="let weeKDay of getWeekDaysElementStrings()">
+        {{ weeKDay }}
+      </span>
+    </div>
+    <div class="month-days">
+      <button
+        [attr.data-testid]="getAriaLabel(day)"
+        *ngFor="let day of days; let i = index"
+        class="month-day"
+        [class.current]="day.isDayCurrentMonth"
+        [class.selected]="isSelectedDate(day)"
+        [attr.aria-label]="getAriaLabel(day)"
+        (click)="dispatchActions(i)"
+      >
+        {{ day.date }}
+      </button>
+    </div>
+  </div>
+</div>
