@@ -41,23 +41,25 @@
           [type]="'secondary'"
           (click)="cardEvent('secondary')"
         ></ion-button>
-        <ion-button
-          *ngIf="configuration.footer.buttons.ghost"
-          [label]="configuration.footer.buttons.ghost.label"
-          [iconType]="configuration.footer.buttons.ghost.icon"
-          [circularButton]="configuration.footer.buttons.ghost.circular"
-          [type]="'ghost'"
-          (click)="cardEvent('ghost')"
-        ></ion-button>
-        <ion-button
-          *ngIf="configuration.footer.buttons.primary"
-          [label]="configuration.footer.buttons.primary.label"
-          [iconType]="configuration.footer.buttons.primary.icon"
-          [circularButton]="configuration.footer.buttons.primary.circular"
-          [type]="'primary'"
-          data-testid="buttonPrimary"
-          (click)="cardEvent('primary')"
-        ></ion-button>
+        <div class="footer-buttons"> 
+          <ion-button
+            *ngIf="configuration.footer.buttons.ghost"
+            [label]="configuration.footer.buttons.ghost.label"
+            [iconType]="configuration.footer.buttons.ghost.icon"
+            [circularButton]="configuration.footer.buttons.ghost.circular"
+            [type]="'ghost'"
+            (click)="cardEvent('ghost')"
+          ></ion-button>
+          <ion-button
+            *ngIf="configuration.footer.buttons.primary"
+            [label]="configuration.footer.buttons.primary.label"
+            [iconType]="configuration.footer.buttons.primary.icon"
+            [circularButton]="configuration.footer.buttons.primary.circular"
+            [type]="'primary'"
+            data-testid="buttonPrimary"
+            (click)="cardEvent('primary')"
+          ></ion-button>
+        </div>
       </div>
     </ng-container>
 
