@@ -120,7 +120,6 @@ button {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
 }
 
 .container-icon-text {
@@ -135,4 +134,8 @@ button {
 
 .container-options {
   position: absolute;
+}
+
+.ion-chip-dropdown {
+  margin-top: 4px;
 }
