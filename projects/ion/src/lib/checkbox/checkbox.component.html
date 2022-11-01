@@ -1,7 +1,14 @@
-<input
-  data-testid="ion-checkbox"
-  class="ion-checkbox"
-  type="checkbox"
-  (click)="changeState()"
-  #checkBox
-/>
+<div class="ion-input-checkbox">
+  <input
+    data-testid="ion-checkbox"
+    [id]="label"
+    [name]="label"
+    class="ion-checkbox"
+    type="checkbox"
+    (click)="changeState()"
+    #checkBox
+  />
+  <label *ngIf="label" [class.labelDisabled]="disabled" [for]="label">{{
+    label
+  }}</label>
+</div>

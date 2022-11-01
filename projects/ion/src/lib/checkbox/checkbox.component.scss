@@ -96,3 +96,19 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox:indeterminate:disabled {
   @include setBackgroundDash($color-neutral-4);
 }
+
+.ion-input-checkbox {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+label {
+  cursor: pointer;
+  color: $neutral-7;
+}
+
+.labelDisabled {
+  cursor: not-allowed;
+  color: $neutral-5;
+}
