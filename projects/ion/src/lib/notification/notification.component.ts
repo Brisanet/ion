@@ -76,6 +76,9 @@ export class NotificationComponent implements OnInit {
   }
 
   mouseEnter(): void {
+    if (this.fixed) {
+      return;
+    }
     this.timer$.unsubscribe();
   }
 
