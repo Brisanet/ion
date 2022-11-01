@@ -80,14 +80,17 @@
       </td>
       <td *ngIf="config.actions">
         <div class="icons-td">
-          <span *ngFor="let action of config.actions">
-            <ion-icon
-              *ngIf="action.show ? showAction(row, action) : true"
-              [type]="action.icon"
-              (click)="handleEvent(row, action)"
-              style="cursor: pointer"
-            ></ion-icon>
-          </span>
+          <ion-button
+            *ngFor="let action of config.actions"
+            [title]="action.label"
+            [attr.data-testid]="'row-' + index + '-' + action.label"
+            type="ghost"
+            size="sm"
+            [iconType]="action.icon"
+            [circularButton]="true"
+            (ionOnClick)="handleEvent(row, action)"
+            [disabled]="action.show ? !showAction(row, action) : false"
+          ></ion-button>
         </div>
       </td>
     </tr>

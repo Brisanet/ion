@@ -189,7 +189,7 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
-  it('should not render trash icon when the item is deleted', async () => {
+  it('should render trash button disabled when the item is deleted', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
     } as IonTableProps<Disco>;
@@ -199,7 +199,10 @@ describe('Table > Actions', () => {
     ];
 
     await sut(tableItemDeleted);
-    expect(document.getElementById('ion-icon-trash')).not.toBeInTheDocument();
+    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'true'
+    );
   });
 
   it('should call action when clicked in action', async () => {

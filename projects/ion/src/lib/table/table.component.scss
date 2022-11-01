@@ -64,6 +64,7 @@ table {
 
     &.th-actions {
       color: $neutral-8;
+      text-align: left;
     }
 
     & input {
@@ -99,7 +100,8 @@ table {
 
     & .icons-td {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: spacing(2);
     }
   }
 

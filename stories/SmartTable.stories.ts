@@ -12,6 +12,7 @@ import {
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
+import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -53,12 +54,31 @@ const columns = [
   },
 ];
 
+const actions = [
+  {
+    label: 'Excluir',
+    icon: 'trash',
+    show: (row: SafeAny): boolean => {
+      return !row.deleted;
+    },
+    call: (row: SafeAny): void => {
+      row.name = 'ITEM DELETED';
+      row.deleted = true;
+    },
+  },
+  {
+    label: 'Editar',
+    icon: 'pencil',
+  },
+];
+
 export const Basic = Template.bind({});
 Basic.args = {
   config: {
     check: true,
     data,
     columns,
+    actions,
     pagination: {
       total: 8,
     },

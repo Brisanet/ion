@@ -225,7 +225,7 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
-  it('should not render trash icon when he caracther is less than 160cm', async () => {
+  it('should render trash button disabled when he caracther is less than 160cm', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
     } as IonSmartTableProps<Character>;
@@ -233,7 +233,10 @@ describe('Table > Actions', () => {
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
-    expect(document.getElementById('ion-icon-trash')).not.toBeInTheDocument();
+    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'true'
+    );
   });
 
   it('should call action when clicked in action', async () => {
