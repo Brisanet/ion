@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
@@ -13,12 +14,21 @@ const sut = async (customProps = {}) => {
 };
 
 describe('InputCounter', () => {
-  it('', async () => {
+  it('should render icon add increment', async () => {
     await sut();
     fireEvent.click(screen.getByTestId('iconAdd'));
     expect(screen.getByTestId('input')).toHaveAttribute(
       'ng-reflect-model',
       '1'
+    );
+  });
+
+  it('should render icon sub decrement', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('iconSub'));
+    expect(screen.getByTestId('input')).toHaveAttribute(
+      'ng-reflect-model',
+      '0'
     );
   });
 

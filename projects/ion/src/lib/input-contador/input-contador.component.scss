@@ -50,4 +50,9 @@ ion-icon {
 .counter-md {
   width: 78px;
   height: 32px;
+
+  & ion-icon {
+    width: 20px;
+    height: 20px;
+  }
 }

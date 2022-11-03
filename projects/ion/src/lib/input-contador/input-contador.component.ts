@@ -20,13 +20,13 @@ export class InputContadorComponent {
   @Input() iconSub = 'sub';
   @Input() iconAdd = 'add';
 
-  public countSub(): void {
+  public countDecrement(): void {
     if (this.count > 0) {
       this.count--;
     }
   }
 
-  public countAdd(): void {
+  public countIncrement(): void {
     this.count++;
   }
 }
