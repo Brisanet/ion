@@ -167,6 +167,20 @@ describe('ButtonComponent with dropdown', () => {
       );
     });
 
+    it('should render a single-selection dropdown that close when a option is clicked', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+      fireEvent.click(button);
+
+      expect(screen.queryByTestId('Option 1')).toBeNull();
+    });
+
     it('should close the dropdown when the button is clicked "', async () => {
       const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 
