@@ -1,4 +1,5 @@
 <button
+  [attr.title]="title ? title : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
   [class.danger]="danger"
