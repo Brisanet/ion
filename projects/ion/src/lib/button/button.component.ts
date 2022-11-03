@@ -12,7 +12,7 @@ type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface IonButtonProps {
   label?: string;
-  title?: string;
+  tooltip?: string;
   type?: Type;
   size?: Size;
   expand?: boolean;
@@ -39,7 +39,7 @@ type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
 })
 export class ButtonComponent implements OnInit {
   @Input() label?: string;
-  @Input() title?: string;
+  @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
   @Input() size?: Size = 'md';
   @Input() expand? = false;
