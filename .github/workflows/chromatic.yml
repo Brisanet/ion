@@ -13,9 +13,12 @@ jobs:
       matrix:
         node-version: [12.22.1]
     steps:
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+        node-version: ${{ matrix.node-version }}
       - uses: actions/checkout@v1
       - name: Install dependencies
-        node-version: [12.22.1]
         run: yarn
       - name: Publish to Chromatic
         uses: chromaui/action@v1
