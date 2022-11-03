@@ -14,21 +14,31 @@ const sut = async (customProps = {}) => {
 };
 
 describe('InputCounter', () => {
-  it('should render icon add increment', async () => {
-    await sut();
-    fireEvent.click(screen.getByTestId('iconAdd'));
-    expect(screen.getByTestId('input')).toHaveAttribute(
-      'ng-reflect-model',
-      '1'
-    );
-  });
-
-  it('should render icon sub decrement', async () => {
+  it('should increment to 1 when click in decrement', async () => {
     await sut();
     fireEvent.click(screen.getByTestId('iconSub'));
     expect(screen.getByTestId('input')).toHaveAttribute(
       'ng-reflect-model',
       '0'
+    );
+  });
+
+  it('should keep 0 when click to decrement and is 0', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('iconAdd'));
+    fireEvent.click(screen.getByTestId('iconSub'));
+    expect(screen.getByTestId('input')).toHaveAttribute(
+      'ng-reflect-model',
+      '0'
+    );
+  });
+
+  it('should increment to 1 when click in increment', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('iconAdd'));
+    expect(screen.getByTestId('input')).toHaveAttribute(
+      'ng-reflect-model',
+      '1'
     );
   });
 
