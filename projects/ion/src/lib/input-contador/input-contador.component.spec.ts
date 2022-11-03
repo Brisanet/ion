@@ -13,10 +13,13 @@ const sut = async (customProps = {}) => {
 };
 
 describe('InputCounter', () => {
-  it.skip('', async () => {
+  it('', async () => {
     await sut();
     fireEvent.click(screen.getByTestId('iconAdd'));
-    expect(screen.getByTestId('input')).toHaveValue(1);
+    expect(screen.getByTestId('input')).toHaveAttribute(
+      'ng-reflect-model',
+      '1'
+    );
   });
 
   it('should render input counter', async () => {
