@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
-import { render } from '@testing-library/angular';
+import { render, fireEvent, screen } from '@testing-library/angular';
 import { InputContadorComponent } from './input-contador.component';
 
 const sut = async (customProps = {}) => {
@@ -13,6 +13,12 @@ const sut = async (customProps = {}) => {
 };
 
 describe('InputCounter', () => {
+  it.skip('', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('iconAdd'));
+    expect(screen.getByTestId('input')).toHaveValue(1);
+  });
+
   it('should render input counter', async () => {
     await sut();
     const element = document.getElementById('input-test');
