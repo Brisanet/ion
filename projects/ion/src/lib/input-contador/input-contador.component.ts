@@ -15,13 +15,15 @@ export interface IonInputCount {
   styleUrls: ['./input-contador.component.scss'],
 })
 export class InputContadorComponent {
-  @Input() size: 'sm';
+  @Input() size = 'md';
   @Input() count = 0;
   @Input() iconSub = 'sub';
   @Input() iconAdd = 'add';
 
+  private minValue = 0;
+
   public countDecrement(): void {
-    if (this.count > 0) {
+    if (this.count > this.minValue) {
       this.count--;
     }
   }

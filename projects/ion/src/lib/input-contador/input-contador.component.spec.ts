@@ -4,12 +4,22 @@ import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, fireEvent, screen } from '@testing-library/angular';
 import { InputContadorComponent } from './input-contador.component';
+import { ButtonComponent } from '../button/button.component';
+import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { BadgeComponent } from '../badge/badge.component';
 
 const sut = async (customProps = {}) => {
   await render(InputContadorComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule],
-    declarations: [IonIconComponent],
+    declarations: [
+      IonIconComponent,
+      ButtonComponent,
+      BadgeComponent,
+      InfoBadgeComponent,
+      DropdownComponent,
+    ],
   });
 };
 
@@ -58,5 +68,22 @@ describe('InputCounter', () => {
     await sut();
     const element = document.getElementById('ion-icon-add');
     expect(element).toBeTruthy();
+  });
+
+  it('should render with md size by default', async () => {
+    await sut();
+    screen.debug();
+    expect(screen.getByTestId('iconAdd')).toHaveAttribute(
+      'ng-reflect-size',
+      'md'
+    );
+  });
+
+  it('should render with small size', async () => {
+    await sut({ size: 'sm' });
+    expect(screen.getByTestId('iconAdd')).toHaveAttribute(
+      'ng-reflect-size',
+      'sm'
+    );
   });
 });

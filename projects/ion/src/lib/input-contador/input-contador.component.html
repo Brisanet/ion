@@ -1,4 +1,4 @@
-<div [class]="'counter-' + size">
+<!-- <div [class]="'counter-' + size">
   <div class="svg-sub" (click)="countDecrement()" data-testid="iconSub">
     <ion-icon class="svg-sub" [type]="iconSub"></ion-icon>
   </div>
@@ -8,4 +8,24 @@
   <div class="svg-add" (click)="countIncrement()" data-testid="iconAdd">
     <ion-icon class="svg-add" [type]="iconAdd"></ion-icon>
   </div>
+</div> -->
+
+<div class="counter">
+  <ion-button
+    data-testid="iconSub"
+    iconType="sub"
+    type="ghost"
+    [size]="size"
+    (click)="countDecrement()"
+  ></ion-button>
+
+  <input type="text" [(ngModel)]="count" data-testid="input" />
+
+  <ion-button
+    data-testid="iconAdd"
+    iconType="add"
+    type="ghost"
+    [size]="size"
+    (click)="countIncrement()"
+  ></ion-button>
 </div>
