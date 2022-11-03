@@ -86,7 +86,7 @@
     "typescript": "~3.4.3"
   },
   "engines": {
-    "node": "12.22.0"
+    "node": "12.22.x"
   },
   "jest": {
     "preset": "jest-preset-angular",
