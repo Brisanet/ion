@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
@@ -13,6 +21,7 @@ export interface NotificationProps {
   fixed?: boolean;
   fadeIn?: fadeInDirection;
   fadeOut?: fadeOutDirection;
+  ionOnClose?: EventEmitter<void>;
 }
 
 @Component({
@@ -29,6 +38,7 @@ export class NotificationComponent implements OnInit {
   @Input() fadeIn?: NotificationProps['fadeIn'] = 'fadeIn';
   @Input() fadeOut?: NotificationProps['fadeOut'] = 'fadeOut';
   @ViewChild('notificationRef', { static: false }) notification: ElementRef;
+  @Output() ionOnClose = new EventEmitter<void>();
 
   private timer$: Subscription;
 
@@ -61,6 +71,7 @@ export class NotificationComponent implements OnInit {
 
   closeNotification(): void {
     this.notification.nativeElement.classList.add(this.fadeOut);
+    this.ionOnClose.emit();
     setTimer().subscribe(() => {
       this.notification.nativeElement.remove();
     });
@@ -76,6 +87,9 @@ export class NotificationComponent implements OnInit {
   }
 
   mouseEnter(): void {
+    if (this.fixed) {
+      return;
+    }
     this.timer$.unsubscribe();
   }
 
