@@ -28,7 +28,10 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
-import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
+import {
+  PopConfirmComponent,
+  PopConfirmDirective,
+} from './popconfirm/popconfirm.directive';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
+    PopConfirmComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -89,6 +93,7 @@ import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
     InfoBadgeComponent,
     IonModalComponent,
     PaginationComponent,
+    PopConfirmComponent,
   ],
 })
 export class IonModule {}
