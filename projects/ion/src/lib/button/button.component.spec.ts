@@ -177,7 +177,7 @@ describe('ButtonComponent with dropdown', () => {
 
       fireEvent.click(button);
 
-      expect(screen.queryByTestId('Option 1')).toBeNull();
+      expect(screen.queryByTestId(options[0].label)).toBeNull();
     });
 
     it('should close the dropdown when the button is clicked "', async () => {
