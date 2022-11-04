@@ -9,7 +9,7 @@ import {
   IonIconComponent,
 } from '../projects/ion/src/public-api';
 export default {
-  title: 'Ion/Data Entry/Input-Cont',
+  title: 'Ion/Data Entry/Input-Counter',
   component: InputContadorComponent,
   decorators: [
     moduleMetadata({
@@ -33,10 +33,10 @@ const Template: Story<InputContadorComponent> = (
 
 export const Small = Template.bind({});
 Small.args = {
-  size: 'sm',
+  InputSize: 'sm',
 };
 
 export const Medium = Template.bind({});
 Medium.args = {
-  size: 'md',
+  InputSize: 'md',
 };

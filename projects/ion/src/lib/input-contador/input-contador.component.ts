@@ -1,12 +1,9 @@
-import { IconType } from './../icon/icon.component';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-export type InputSize = 'sm' | 'md';
+export type InputCountSize = 'sm' | 'md';
 
 export interface IonInputCount {
-  size: InputSize;
-  iconDown: IconType;
-  iconAdd: IconType;
+  InputSize: InputCountSize;
 }
 
 @Component({
@@ -15,20 +12,21 @@ export interface IonInputCount {
   styleUrls: ['./input-contador.component.scss'],
 })
 export class InputContadorComponent {
-  @Input() size = 'md';
+  @Input() InputSize = 'md';
   @Input() count = 0;
-  @Input() iconSub = 'sub';
-  @Input() iconAdd = 'add';
+  @Output() changedValue = new EventEmitter();
 
   private minValue = 0;
 
   public countDecrement(): void {
     if (this.count > this.minValue) {
       this.count--;
+      this.changedValue.emit({ newValue: this.count });
     }
   }
 
   public countIncrement(): void {
     this.count++;
+    this.changedValue.emit({ newValue: this.count });
   }
 }

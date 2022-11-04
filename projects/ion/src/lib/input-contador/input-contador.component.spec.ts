@@ -1,4 +1,3 @@
-import { async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
@@ -9,7 +8,7 @@ import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { BadgeComponent } from '../badge/badge.component';
 
-const sut = async (customProps = {}) => {
+const sut = async (customProps = {}): Promise<void> => {
   await render(InputContadorComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule],
@@ -24,63 +23,58 @@ const sut = async (customProps = {}) => {
 };
 
 describe('InputCounter', () => {
-  it('should increment to 1 when click in decrement', async () => {
+  beforeEach(async () => {
     await sut();
+  });
+
+  it('should increment to 1 when click in decrement', async () => {
     fireEvent.click(screen.getByTestId('iconSub'));
-    expect(screen.getByTestId('input')).toHaveAttribute(
+    expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '0'
     );
   });
 
   it('should keep 0 when click to decrement and is 0', async () => {
-    await sut();
     fireEvent.click(screen.getByTestId('iconAdd'));
     fireEvent.click(screen.getByTestId('iconSub'));
-    expect(screen.getByTestId('input')).toHaveAttribute(
+    expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '0'
     );
   });
 
   it('should increment to 1 when click in increment', async () => {
-    await sut();
     fireEvent.click(screen.getByTestId('iconAdd'));
-    expect(screen.getByTestId('input')).toHaveAttribute(
+    expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '1'
     );
   });
 
   it('should render input counter', async () => {
-    await sut();
-    const element = document.getElementById('input-test');
-    expect(element);
+    expect(document.getElementById('input-count'));
   });
 
   it('should render input counter icon sub', async () => {
-    await sut();
-    const element = document.getElementById('ion-icon-sub');
-    expect(element).toBeTruthy();
+    expect(document.getElementById('ion-icon-sub')).toBeTruthy();
   });
 
   it('should render input counter icon add', async () => {
-    await sut();
-    const element = document.getElementById('ion-icon-add');
-    expect(element).toBeTruthy();
+    expect(document.getElementById('ion-icon-add')).toBeTruthy();
   });
 
   it('should render with md size by default', async () => {
-    await sut();
-    screen.debug();
     expect(screen.getByTestId('iconAdd')).toHaveAttribute(
       'ng-reflect-size',
       'md'
     );
   });
+});
 
+describe('InputCounter / Size', () => {
   it('should render with small size', async () => {
-    await sut({ size: 'sm' });
+    await sut({ InputSize: 'sm' });
     expect(screen.getByTestId('iconAdd')).toHaveAttribute(
       'ng-reflect-size',
       'sm'
