@@ -49,6 +49,34 @@ describe('IonModalComponent', () => {
     expect(screen.getByText('Choose one')).toBeTruthy();
   });
 
+  it('should render primary button enable by default', () => {
+    expect(screen.getByTestId('modal-primary-btn')).not.toHaveAttribute(
+      'ng-reflect-disabled'
+    );
+  });
+
+  it('should render primary button disabled when informed', () => {
+    const modalPrimaryDisabled: IonModalConfiguration = {
+      id: '1',
+      title: 'Modal primary disabled',
+      footer: {
+        showDivider: false,
+        primaryButton: {
+          label: 'Confirmar',
+          disabled: true,
+        },
+      },
+    };
+
+    component.setConfig(modalPrimaryDisabled);
+    fixture.detectChanges();
+
+    expect(screen.getByTestId('modal-primary-btn')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'true'
+    );
+  });
+
   it('should render according to configuration with custom label, id, and without footer border', () => {
     const configuration: IonModalConfiguration = {
       id: '1',
