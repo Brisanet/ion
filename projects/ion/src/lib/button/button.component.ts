@@ -75,11 +75,11 @@ export class ButtonComponent implements OnInit {
 
   handleSelect(selectedItems: DropdownItem[]): void {
     this.selected.emit(selectedItems);
-    this.showDropdown === false;
+    this.showDropdown = false;
 
     if (this.multiple) {
       this.updateBadgeValue(selectedItems);
-      this.showDropdown === true;
+      this.showDropdown = true;
       return;
     }
 

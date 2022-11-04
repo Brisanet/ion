@@ -176,7 +176,6 @@ describe('ButtonComponent with dropdown', () => {
       });
 
       fireEvent.click(button);
-      fireEvent.click(button);
 
       expect(screen.queryByTestId('Option 1')).toBeNull();
     });
