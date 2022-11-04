@@ -1,3 +1,4 @@
+// import { DropdownItem } from './../dropdown/dropdown.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 interface Page {
@@ -30,11 +31,18 @@ export class PaginationComponent implements OnInit {
     defaultItemsPerPage;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
+  @Input() showDropdown? = false;
   @Output() events = new EventEmitter<PageEvent>();
 
   pages: Page[] = [];
 
-  optionsPage = [defaultItemsPerPage, 30, 45];
+  // optionsPage: DropdownItem[] = [
+  //   { label: `${defaultItemsPerPage}` },
+  //   { label: '30' },
+  //   { label: '45' },
+  // ];
+
+  optionsPage = [`${defaultItemsPerPage}`, '30', '45', '26'];
 
   ngOnInit(): void {
     this.createPages(this.totalPages());
