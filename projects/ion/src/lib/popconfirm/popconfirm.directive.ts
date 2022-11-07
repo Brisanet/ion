@@ -7,6 +7,8 @@ import {
   Inject,
   ComponentRef,
   ApplicationRef,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -17,10 +19,11 @@ import { PopConfirmComponent } from './popconfirm.component';
 })
 export class PopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
+  @Output() ionOnConfirm = new EventEmitter<void>();
+
   private popconfirmComponentRef!: ComponentRef<PopConfirmComponent>;
 
   constructor(
-    // TODO: SafeAny used due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9, change "SafeAny" to "Document";
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
@@ -40,6 +43,10 @@ export class PopConfirmDirective {
     const popconfirmElement =
       this.popconfirmComponentRef.location.nativeElement;
     this.document.body.appendChild(popconfirmElement);
+
+    this.popconfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
+      this.ionOnConfirm.emit();
+    });
   }
 
   @HostListener('click') onClick(): void {

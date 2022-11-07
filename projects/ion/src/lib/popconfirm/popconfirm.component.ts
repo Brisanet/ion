@@ -1,4 +1,5 @@
 import { Component, ElementRef } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'ion-popconfirm',
@@ -7,7 +8,13 @@ import { Component, ElementRef } from '@angular/core';
   exportAs: 'PopConfirmComponent',
 })
 export class PopConfirmComponent {
+  readonly ionOnConfirm = new Subject<void>();
+
   constructor(private host: ElementRef<HTMLElement>) {}
+
+  handleConfirm(): void {
+    this.ionOnConfirm.next();
+  }
 
   close(): void {
     this.host.nativeElement.remove();
