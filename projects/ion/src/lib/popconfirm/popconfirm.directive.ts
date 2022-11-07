@@ -2,7 +2,6 @@ import {
   Directive,
   Input,
   HostListener,
-  Component,
   ComponentFactoryResolver,
   Injector,
   Inject,
@@ -11,6 +10,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
+import { PopConfirmComponent } from './popconfirm.component';
 
 @Directive({
   selector: '[ionPopConfirm]',
@@ -42,23 +42,7 @@ export class PopConfirmDirective {
     this.document.body.appendChild(popconfirmElement);
   }
 
-  @HostListener('mouseenter') onMouseEnter(): void {
+  @HostListener('click') onClick(): void {
     this.open();
   }
-
-  @HostListener('mouseleave') onMouseLeave(): void {
-    this.appRef.detachView(this.popconfirmComponentRef.hostView);
-    this.popconfirmComponentRef.destroy();
-  }
 }
-
-@Component({
-  selector: 'ion-popconfirm',
-  template: `
-    <div>
-      <h2>OLLAAA!</h2>
-    </div>
-  `,
-  exportAs: 'PopConfirmComponent',
-})
-export class PopConfirmComponent {}

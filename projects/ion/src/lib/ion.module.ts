@@ -28,10 +28,8 @@ import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
-import {
-  PopConfirmComponent,
-  PopConfirmDirective,
-} from './popconfirm/popconfirm.directive';
+import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
+import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 
 @NgModule({
   declarations: [
