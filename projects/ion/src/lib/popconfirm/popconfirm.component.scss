@@ -1,4 +1,27 @@
-.title {
-  background: black;
-  color: red;
+@import '../../styles/index.scss';
+
+.containter {
+  background: #fff;
+  display: inline-block;
+
+  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
+  border-radius: spacing(1);
+  z-index: 1000;
+}
+
+.msg-container {
+  padding: spacing(2) 24px;
+
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $neutral-7;
+}
+
+.footer {
+  display: flex;
+  gap: spacing(2);
+  padding: 12px 24px;
 }

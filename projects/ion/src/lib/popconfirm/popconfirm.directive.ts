@@ -9,6 +9,7 @@ import {
   ApplicationRef,
   Output,
   EventEmitter,
+  ViewContainerRef,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -28,7 +29,8 @@ export class PopConfirmDirective {
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector
+    private injector: Injector,
+    private readonly viewRef: ViewContainerRef
   ) {}
 
   open(): void {
@@ -62,12 +64,23 @@ export class PopConfirmDirective {
   }
 
   closePopConfirm(): void {
-    this.appRef.detachView(this.popconfirmComponentRef.hostView);
-    this.popconfirmComponentRef.destroy();
-    this.popconfirmComponentRef = null;
+    if (this.popconfirmComponentRef) {
+      this.appRef.detachView(this.popconfirmComponentRef.hostView);
+      this.popconfirmComponentRef.destroy();
+      this.popconfirmComponentRef = null;
+    }
   }
 
   @HostListener('click') onClick(): void {
+    const marginBetweenComponents = 10;
+    const position = this.viewRef.element.nativeElement.getBoundingClientRect();
+
+    const absolutePosition = {
+      top: position.top + position.height + marginBetweenComponents,
+      left: position.left + position.width / 2,
+    };
+
+    console.log('absolutePosition -> ', absolutePosition);
     this.open();
   }
 }

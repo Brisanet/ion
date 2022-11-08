@@ -12,8 +12,6 @@ export class PopConfirmComponent {
   readonly ionOnConfirm = new Subject<void>();
   readonly ionOnClose = new Subject<void>();
 
-  constructor(private host: ElementRef<HTMLElement>) {}
-
   handleConfirm(): void {
     this.ionOnConfirm.next();
   }

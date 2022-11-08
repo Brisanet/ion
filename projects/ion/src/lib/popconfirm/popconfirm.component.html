@@ -1,6 +1,23 @@
-<div class="title">
-  <h2>{{ ionPopConfirmTitle }}</h2>
+<div class="containter">
+  <div class="msg-container">
+    <span>{{ ionPopConfirmTitle }}</span>
+  </div>
 
-  <button (click)="handleConfirm()">handleConfirm</button>
-  <button (click)="close()">close</button>
+  <ion-divider></ion-divider>
+
+  <div class="footer">
+    <ion-button
+      data-testid="pop-cancel-btn"
+      (click)="close()"
+      label="Cancelar"
+      type="ghost"
+      size="sm"
+    ></ion-button>
+    <ion-button
+      data-testid="pop-confirm-btn"
+      (click)="handleConfirm()"
+      label="Confirmar"
+      size="sm"
+    ></ion-button>
+  </div>
 </div>
