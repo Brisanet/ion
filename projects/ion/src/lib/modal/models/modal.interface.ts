@@ -18,6 +18,7 @@ export interface IonModalFooterConfiguration {
 export interface ModalButton {
   label?: string;
   iconType?: string;
+  disabled?: boolean;
 }
 
 export interface IonModalResponse {
