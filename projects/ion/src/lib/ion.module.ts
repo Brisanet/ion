@@ -22,9 +22,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
-
-import { InputContadorComponent } from './input-counter/input-counter.component';
-
+import { InputCounterComponent } from './input-counter/input-counter.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
@@ -56,7 +54,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
-    InputContadorComponent,
+    InputCounterComponent,
     DatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
@@ -92,7 +90,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
-    InputContadorComponent,
+    InputCounterComponent,
   ],
 })
 export class IonModule {}

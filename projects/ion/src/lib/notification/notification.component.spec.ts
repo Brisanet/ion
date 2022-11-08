@@ -81,8 +81,7 @@ describe('NotificationComponent', () => {
       type: 'negative',
       icon: 'close-solid',
     },
-  ])
-  ('should render $type class and $icon icon', async ({ type, icon }) => {
+  ])('should render $type class and $icon icon', async ({ type, icon }) => {
     await sut({
       ...defaultNotification,
       type: type as StatusType,
@@ -107,16 +106,15 @@ describe('NotificationComponent', () => {
     await sleep(2000);
     expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(1);
   });
+});
 
-  describe('Time by words', () => {
-    it('should not has timer when is fixed and mouse enter', async () => {
-      await sut({ ...defaultNotification, fixed: true });
-      const notificationIcon = screen.getByTestId('ion-notification');
-      fireEvent.mouseEnter(notificationIcon);
-      expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
-        1
-      );
-    });
+describe('Time by words', () => {
+  it('should not has timer when is fixed and mouse enter', async () => {
+    await sut({ ...defaultNotification, fixed: true });
+    const notificationIcon = screen.getByTestId('ion-notification');
+    fireEvent.mouseEnter(notificationIcon);
+    expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(1);
+  });
 
   it('should emit event when call closeNotification function', async () => {
     const onCloseFunction = new EventEmitter<void>();
