@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata, Story } from '@storybook/angular';
-import { InputContadorComponent } from '../projects/ion/src/lib/input-contador/input-counter.component';
+import { InputCounterComponent } from '../projects/ion/src/lib/input-counter/input-counter.component';
 import { FormsModule } from '@angular/forms';
 import {
   BadgeComponent,
@@ -10,7 +10,7 @@ import {
 } from '../projects/ion/src/public-api';
 export default {
   title: 'Ion/Data Entry/Input-Counter',
-  component: InputContadorComponent,
+  component: InputCounterComponent,
   decorators: [
     moduleMetadata({
       imports: [FormsModule],
@@ -24,10 +24,10 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<InputContadorComponent> = (
-  args: InputContadorComponent
+const Template: Story<InputCounterComponent> = (
+  args: InputCounterComponent
 ) => ({
-  component: InputContadorComponent,
+  component: InputCounterComponent,
   props: args,
 });
 

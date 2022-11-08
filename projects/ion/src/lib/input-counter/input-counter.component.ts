@@ -7,11 +7,11 @@ export interface IonInputCount {
 }
 
 @Component({
-  selector: 'ion-input-contador',
-  templateUrl: './input-contador.component.html',
-  styleUrls: ['./input-contador.component.scss'],
+  selector: 'ion-input-counter',
+  templateUrl: './input-counter.component.html',
+  styleUrls: ['./input-counter.component.scss'],
 })
-export class InputContadorComponent {
+export class InputCounterComponent {
   @Input() InputSize = 'md';
   @Input() count = 0;
   @Output() changedValue = new EventEmitter();
