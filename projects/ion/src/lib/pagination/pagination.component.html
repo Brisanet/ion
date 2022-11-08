@@ -1,27 +1,23 @@
 <div class="pag-container">
-  <select
+  <div
+    class="ion-button-dropdown"
     *ngIf="allowChangeQtdItems"
-    [(ngModel)]="itemsPerPage"
-    (change)="remountPages()"
     data-testid="select-page-items"
   >
-    <option *ngFor="let option of optionsPage" [value]="option">
-      {{ option }} / página
-    </option>
-  </select>
-
-  <!-- <div *ngIf="allowChangeQtdItems" class="ion-button-dropdown">
     <ion-button
-     [type]="secondary" 
       rightSideIcon="true"
-      [(ngModel)]="itemsPerPage"
-      (click)="remountPages()"
-      data-testid="select-page-items"
-      [label]="optionsPage[0].label"
-      [options]="optionsPage"
-    >
-    </ion-button>
-  </div> -->
+      [label]="labelSelect"
+      [options]="[
+        { label: '10', selected: true },
+        { label: '30' },
+        { label: '40' },
+        { label: '46' }
+      ]"
+      (click)="onClickSelect()"
+      [showDropdown]="false"
+      (selected)="SelectDropdown($event)"
+    ></ion-button>
+  </div>
 
   <ion-button
     iconType="left2"
