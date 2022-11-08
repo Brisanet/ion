@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { StatusType } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
@@ -80,7 +81,8 @@ describe('NotificationComponent', () => {
       type: 'negative',
       icon: 'close-solid',
     },
-  ])('should render $type class and $icon icon', async ({ type, icon }) => {
+  ])
+  ('should render $type class and $icon icon', async ({ type, icon }) => {
     await sut({
       ...defaultNotification,
       type: type as StatusType,
@@ -104,6 +106,28 @@ describe('NotificationComponent', () => {
     await sut({ ...defaultNotification, fixed: true });
     await sleep(2000);
     expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(1);
+  });
+
+  describe('Time by words', () => {
+    it('should not has timer when is fixed and mouse enter', async () => {
+      await sut({ ...defaultNotification, fixed: true });
+      const notificationIcon = screen.getByTestId('ion-notification');
+      fireEvent.mouseEnter(notificationIcon);
+      expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(
+        1
+      );
+    });
+
+  it('should emit event when call closeNotification function', async () => {
+    const onCloseFunction = new EventEmitter<void>();
+    await sut({
+      ...defaultNotification,
+      fixed: true,
+      ionOnClose: onCloseFunction,
+    });
+    jest.spyOn(onCloseFunction, 'emit');
+    fireEvent.click(document.getElementById(`ion-icon-close`));
+    expect(onCloseFunction.emit).toHaveBeenCalledTimes(1);
   });
 
   describe('Time by words', () => {

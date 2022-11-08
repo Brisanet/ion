@@ -23,7 +23,7 @@ import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
 
-import { InputContadorComponent } from './input-contador/input-contador.component';
+import { InputContadorComponent } from './input-contador/input-counter.component';
 
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';

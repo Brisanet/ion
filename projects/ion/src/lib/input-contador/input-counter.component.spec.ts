@@ -1,8 +1,8 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from './../icon/icon.component';
+import { IonIconComponent } from '../icon/icon.component';
 import { render, fireEvent, screen } from '@testing-library/angular';
-import { InputContadorComponent } from './input-contador.component';
+import { InputContadorComponent } from './input-counter.component';
 import { ButtonComponent } from '../button/button.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
