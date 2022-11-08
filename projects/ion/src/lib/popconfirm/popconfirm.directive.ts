@@ -20,6 +20,7 @@ import { PopConfirmComponent } from './popconfirm.component';
 export class PopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Output() ionOnConfirm = new EventEmitter<void>();
+  @Output() ionOnClose = new EventEmitter<void>();
 
   private popconfirmComponentRef!: ComponentRef<PopConfirmComponent>;
 
@@ -31,6 +32,9 @@ export class PopConfirmDirective {
   ) {}
 
   open(): void {
+    if (this.popconfirmComponentRef) {
+      return;
+    }
     const popover = this.componentFactoryResolver
       .resolveComponentFactory(PopConfirmComponent)
       .create(this.injector);
@@ -44,9 +48,23 @@ export class PopConfirmDirective {
       this.popconfirmComponentRef.location.nativeElement;
     this.document.body.appendChild(popconfirmElement);
 
+    this.popconfirmComponentRef.instance.ionPopConfirmTitle =
+      this.ionPopConfirmTitle;
+
     this.popconfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.ionOnConfirm.emit();
     });
+
+    this.popconfirmComponentRef.instance.ionOnClose.subscribe(() => {
+      this.closePopConfirm();
+      this.ionOnClose.emit();
+    });
+  }
+
+  closePopConfirm(): void {
+    this.appRef.detachView(this.popconfirmComponentRef.hostView);
+    this.popconfirmComponentRef.destroy();
+    this.popconfirmComponentRef = null;
   }
 
   @HostListener('click') onClick(): void {
