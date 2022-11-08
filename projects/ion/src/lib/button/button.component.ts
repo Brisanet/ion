@@ -83,6 +83,8 @@ export class ButtonComponent implements OnInit {
 
     const [item] = selectedItems;
     this.label = item.label;
+
+    this.showDropdown = false;
   }
 
   ngOnInit(): void {
