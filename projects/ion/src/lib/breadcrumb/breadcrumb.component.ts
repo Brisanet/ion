@@ -13,11 +13,4 @@ export interface BreadCrumbProps {
 })
 export class BreadcrumbComponent {
   @Input() breadcrumbs: Array<BreadCrumbProps>;
-  constructor() {
-    this.breadcrumbs = [
-      { label: 'Home', link: '/home' },
-      { label: 'Recursos', link: '/recursos' },
-      { label: 'Técnico', link: '/recursos/1' },
-    ];
-  }
 }

@@ -19,5 +19,9 @@ const Template: Story<BreadcrumbComponent> = (args: BreadcrumbComponent) => ({
 
 export const Initials = Template.bind({});
 Initials.args = {
-  Array: ['recursos'],
+  breadcrumbs: [
+    { label: 'Home', link: '/home' },
+    { label: 'Recursos', link: '/recursos' },
+    { label: 'Técnico', link: '/recursos/1' },
+  ],
 };
