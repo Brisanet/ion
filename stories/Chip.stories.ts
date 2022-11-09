@@ -68,6 +68,15 @@ ChipWithInfoBadge.args = {
   infoBadge: 'warning',
 };
 
+export const ChipWithRightBadge = Template.bind({});
+ChipWithRightBadge.args = {
+  label: 'With Right Badge',
+  rightBadge: {
+    label: 'novo',
+    type: 'negative',
+  },
+};
+
 export const WithDropdown = Template.bind({});
 WithDropdown.args = {
   label: 'Animais',

@@ -32,6 +32,12 @@
     </ion-icon>
   </div>
 
+  <ion-badge
+    *ngIf="rightBadge"
+    [label]="rightBadge.label"
+    [type]="rightBadge.type"
+  ></ion-badge>
+
   <ion-info-badge
     *ngIf="infoBadge"
     class="infoBadge"
