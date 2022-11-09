@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { BadgeType } from '../badge/badge.component';
 import { InfoBadgeStatus } from '../core/types';
 import { DropdownItem } from '../dropdown/dropdown.component';
 import { IconType } from './../icon/icon.component';
@@ -21,11 +22,17 @@ export interface IonChipProps {
   multiple?: boolean;
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
+  rightBadge?: RightBadge;
 }
 
 type Badge = {
   value: number;
 };
+
+interface RightBadge {
+  label: string;
+  type: BadgeType;
+}
 
 @Component({
   selector: 'ion-chip',
@@ -43,6 +50,7 @@ export class ChipComponent {
   @Input() multiple?: boolean = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
+  @Input() rightBadge?: RightBadge;
 
   @Output() events = new EventEmitter<ChipEvent>();
 
