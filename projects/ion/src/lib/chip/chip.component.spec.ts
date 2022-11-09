@@ -98,6 +98,15 @@ describe('ChipComponent', () => {
     }
   );
 
+  it('should render chip with right badge', async () => {
+    const labelBadge = 'novo';
+    await sut({
+      label: 'right badge',
+      rightBadge: { label: labelBadge, type: 'negative' },
+    });
+    expect(screen.getByText(labelBadge)).toBeInTheDocument();
+  });
+
   describe('With Dropdown', () => {
     beforeEach(async () => {
       await sut({
