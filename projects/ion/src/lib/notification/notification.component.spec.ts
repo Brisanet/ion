@@ -109,13 +109,6 @@ describe('NotificationComponent', () => {
 });
 
 describe('Time by words', () => {
-  it('should not has timer when is fixed and mouse enter', async () => {
-    await sut({ ...defaultNotification, fixed: true });
-    const notificationIcon = screen.getByTestId('ion-notification');
-    fireEvent.mouseEnter(notificationIcon);
-    expect(screen.queryAllByText(defaultNotification.message)).toHaveLength(1);
-  });
-
   it('should emit event when call closeNotification function', async () => {
     const onCloseFunction = new EventEmitter<void>();
     await sut({
