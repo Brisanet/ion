@@ -39,7 +39,6 @@ Photo.args = {
 export const PhotoDefault = Template.bind({});
 PhotoDefault.args = {
   type: 'photo',
-  image: 'not_found.png',
-  onErrorImage:
-    'https://gw.alipayobjects.com/zos/antfincdn/4zAaozCvUH/unexpand.svg',
+  image: 'default.svg',
+  onErrorImage: 'http://127.0.0.1:5500/stories/assets/default.svg',
 };

@@ -59,10 +59,26 @@ describe('Avatar', () => {
   });
   describe('Photo', () => {
     it('should render avatar with image when type is photo', async () => {
-      await sut({ type: AvatarType.photo, image: 'assets/images/avatar.jpg' });
+      await sut({
+        type: AvatarType.photo,
+        image:
+          'https://64.media.tumblr.com/40e2174ab5e68b1eabbc3dfc78607cef/c1effc67d5c3a1fd-20/s540x810/9d6ce72fcddf97841e7410a0652dd9d5f018b35d.pnj',
+      });
       expect(screen.getByRole('img')).toHaveAttribute(
         'src',
-        'assets/images/avatar.jpg'
+        'https://64.media.tumblr.com/40e2174ab5e68b1eabbc3dfc78607cef/c1effc67d5c3a1fd-20/s540x810/9d6ce72fcddf97841e7410a0652dd9d5f018b35d.pnj'
+      );
+    });
+  });
+  describe('Photo Default', () => {
+    it('should render avatar with onErrorImage when type is photo default', async () => {
+      await sut({
+        type: AvatarType.photo,
+        image: 'http://127.0.0.1:5500/stories/assets/default.svg',
+      });
+      expect(screen.getByRole('img')).toHaveAttribute(
+        'src',
+        'http://127.0.0.1:5500/stories/assets/default.svg'
       );
     });
   });
