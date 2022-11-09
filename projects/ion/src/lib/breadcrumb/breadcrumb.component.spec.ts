@@ -1,22 +1,45 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { render, screen } from '@testing-library/angular';
+import { BreadcrumbComponent, BreadCrumbProps } from './breadcrumb.component';
 
-import { BreadcrumbComponent } from './breadcrumb.component';
+const options = [
+  {
+    label: 'Inicio',
+    link: '/home',
+  },
+  {
+    label: 'Recursos',
+    link: '/recursos',
+  },
+];
 
-describe('BreadcrumbComponent', () => {
-  let component: BreadcrumbComponent;
-  let fixture: ComponentFixture<BreadcrumbComponent>;
+const sut = async (): Promise<void> => {
+  await render(BreadcrumbComponent, {
+    componentProperties: {
+      breadcrumbs: options,
+    },
+  });
+};
 
+describe('Breadcrumb', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BreadcrumbComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(BreadcrumbComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    await sut();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it.each(options)(
+    'should render %s in breadcrumb',
+    async (link: BreadCrumbProps) => {
+      expect(screen.getByText(link.label)).toBeInTheDocument();
+    }
+  );
+
+  it('should render recursos in breadcrumb', async () => {
+    expect(screen.getByText('Recursos')).toHaveClass('breacrumbs-link');
   });
+
+  it.each(options)(
+    'should have correct link',
+    async (link: BreadCrumbProps) => {
+      expect(screen.getByText(link.label)).toHaveAttribute('href', link.link);
+    }
+  );
 });
