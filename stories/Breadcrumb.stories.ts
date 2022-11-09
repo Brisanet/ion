@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
+import { link } from 'fs';
 import { BreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
 
 export default {
@@ -18,6 +19,5 @@ const Template: Story<BreadcrumbComponent> = (args: BreadcrumbComponent) => ({
 
 export const Initials = Template.bind({});
 Initials.args = {
-  type: 'initials',
-  value: 'Taylor Swift',
+  Array: ['recursos'],
 };

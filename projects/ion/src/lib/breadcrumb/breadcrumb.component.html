@@ -1,1 +1,9 @@
-<div>BREADCRUMBS!</div>
+<nav class="breadcrumbs-nav">
+  <ol class="ol-navigator">
+    <li *ngFor="let breadcrumb of breadcrumbs">
+      <a href="breadcrumb.link" class="breacrumbs-link">{{
+        breadcrumb.label
+      }}</a>
+    </li>
+  </ol>
+</nav>
