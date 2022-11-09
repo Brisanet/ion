@@ -33,32 +33,19 @@ export class PaginationComponent implements OnInit {
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Output() events = new EventEmitter<PageEvent>();
 
-  pages: Page[] = [];
-
-  optionsPage = [
-    { label: '10', selected: true },
-    { label: '30' },
-    { label: '40' },
-    { label: '46' },
+  public optionsPage = [
+    { label: `${defaultItemsPerPage} / página`, selected: true },
+    { label: '20 / página' },
+    { label: '30 / página' },
+    { label: '40 / página' },
+    { label: '46 / página' },
   ];
 
-  labelSelect = '10';
+  pages: Page[] = [];
 
-  showDropdown = false;
-  onClickSelect(): void {
-    this.showDropdown = !this.showDropdown;
-  }
-
-  remountPages(pagina: number): void {
-    this.pages = [];
-    this.createPages(this.totalPages());
-    this.selectPage(pagina);
-  }
-
-  SelectDropdown(selectedItems: DropdownItem[]): void {
-    this.remountPages(
-      Math.ceil(parseInt(selectedItems[0].label) / this.itemsPerPage)
-    );
+  changeItemsPerPage(itemsSelected: DropdownItem[]): void {
+    this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
+    this.remountPages();
   }
 
   ngOnInit(): void {
@@ -99,6 +86,12 @@ export class PaginationComponent implements OnInit {
     if (!this.inLastPage()) {
       this.selectPage(this.currentPage().page_number + 1);
     }
+  }
+
+  remountPages(): void {
+    this.pages = [];
+    this.createPages(this.totalPages());
+    this.selectPage(1);
   }
 
   totalPages(): number {

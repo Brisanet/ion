@@ -1,23 +1,12 @@
 <div class="pag-container">
-  <div
-    class="ion-button-dropdown"
+  <ion-button
+    rightSideIcon="true"
     *ngIf="allowChangeQtdItems"
-    data-testid="select-page-items"
-  >
-    <ion-button
-      rightSideIcon="true"
-      [label]="labelSelect"
-      [options]="[
-        { label: '10', selected: true },
-        { label: '30' },
-        { label: '40' },
-        { label: '46' }
-      ]"
-      (click)="onClickSelect()"
-      [showDropdown]="false"
-      (selected)="SelectDropdown($event)"
-    ></ion-button>
-  </div>
+    [label]="optionsPage[0].label"
+    [options]="optionsPage"
+    customId="btn-select"
+    (selected)="changeItemsPerPage($event)"
+  ></ion-button>
 
   <ion-button
     iconType="left2"

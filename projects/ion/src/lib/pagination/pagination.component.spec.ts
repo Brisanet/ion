@@ -110,7 +110,7 @@ describe('Pagination > Events', () => {
       total: 16,
       allowChangeQtdItems: true,
     });
-    expect(screen.queryAllByText('10')).toHaveLength(1);
+    expect(screen.queryAllByText('10 / página')).toHaveLength(1);
   });
 
   it('should change total pages when change items per page', async () => {
@@ -119,9 +119,9 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
 
-    fireEvent.click(screen.getByTestId('select-page-items'));
-    fireEvent.click(screen.getByText('10'));
-    expect(screen.queryAllByTestId('page-3')).toHaveLength(1);
-    expect(screen.queryAllByTestId('page-4')).toHaveLength(1);
+    fireEvent.click(screen.getByTestId('btn-select'));
+    fireEvent.click(screen.getByText('20 / página'));
+
+    expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });
 });

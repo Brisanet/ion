@@ -8,6 +8,7 @@
   [class.right-side-icon]="rightSideIcon || !options"
   [disabled]="disabled"
   (click)="handleClick()"
+  [attr.data-testid]="customId"
 >
   <span *ngIf="loading" class="spinner"></span>
   <ion-icon

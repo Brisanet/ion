@@ -51,6 +51,7 @@ export class ButtonComponent implements OnInit {
   @Input() circularButton? = false;
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
+  @Input() customId?: string;
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();
 
