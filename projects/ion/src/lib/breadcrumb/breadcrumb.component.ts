@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export interface BreadCrumbProps {
+export interface BreadcrumbItem {
   label: string;
   link: string;
 }
@@ -11,5 +11,5 @@ export interface BreadCrumbProps {
   styleUrls: ['./breadcrumb.component.scss'],
 })
 export class BreadcrumbComponent {
-  @Input() breadcrumbs: Array<BreadCrumbProps>;
+  @Input() breadcrumbs: Array<BreadcrumbItem>;
 }

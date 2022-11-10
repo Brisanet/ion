@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { link } from 'fs';
 import { BreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
 
 export default {
-  title: 'Ion/Data Display/Breadcrumb',
+  title: 'Ion/Navigation/Breadcrumb',
   component: BreadcrumbComponent,
 } as Meta;
 

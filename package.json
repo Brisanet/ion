@@ -30,7 +30,6 @@
     "@angular/platform-browser": "~8.1.0",
     "@angular/platform-browser-dynamic": "~8.1.0",
     "@angular/router": "~8.1.0",
-    "ng-zorro-antd": "^14.1.1",
     "rxjs": "~6.4.0",
     "sass": "^1.53.0",
     "tslib": "^1.9.0",
