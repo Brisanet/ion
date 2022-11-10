@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/angular';
-import { BreadcrumbComponent, BreadCrumbProps } from './breadcrumb.component';
+import { BreadcrumbComponent, BreadcrumbItem } from './breadcrumb.component';
 
 const options = [
   {
@@ -27,7 +27,7 @@ describe('Breadcrumb', () => {
 
   it.each(options)(
     'should render %s in breadcrumb',
-    async (link: BreadCrumbProps) => {
+    async (link: BreadcrumbItem) => {
       expect(screen.getByText(link.label)).toBeInTheDocument();
     }
   );
@@ -36,10 +36,7 @@ describe('Breadcrumb', () => {
     expect(screen.getByText('Recursos')).toHaveClass('breacrumbs-link');
   });
 
-  it.each(options)(
-    'should have correct link',
-    async (link: BreadCrumbProps) => {
-      expect(screen.getByText(link.label)).toHaveAttribute('href', link.link);
-    }
-  );
+  it.each(options)('should have correct link', async (link: BreadcrumbItem) => {
+    expect(screen.getByText(link.label)).toHaveAttribute('href', link.link);
+  });
 });
