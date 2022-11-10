@@ -5,10 +5,5 @@
 >
   <span *ngSwitchCase="'initials'">{{ initials }}</span>
   <ion-icon *ngSwitchCase="'icon'" [type]="icon"></ion-icon>
-  <img
-    *ngSwitchCase="'photo'"
-    [ngClass]="{ defaultImg: image === 'default.svg' }"
-    [src]="image"
-    [default]="onErrorImage"
-  />
+  <img *ngSwitchCase="'photo'" [src]="image" [default]="onErrorImage" />
 </div>

@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/angular';
 import { AvatarComponent } from '../projects/ion/src/lib/avatar/avatar.component';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+// import AvatarDefault from './assets/default.svg';
 
 export default {
   title: 'Ion/Data Display/Avatar',
@@ -34,11 +35,12 @@ Photo.args = {
   type: 'photo',
   image:
     'https://64.media.tumblr.com/40e2174ab5e68b1eabbc3dfc78607cef/c1effc67d5c3a1fd-20/s540x810/9d6ce72fcddf97841e7410a0652dd9d5f018b35d.pnj',
+  onErrorImage: require('./assets/default.svg'),
 };
 
 export const PhotoDefault = Template.bind({});
 PhotoDefault.args = {
   type: 'photo',
   image: 'default.svg',
-  onErrorImage: 'http://127.0.0.1:5500/stories/assets/default.svg',
+  onErrorImage: require('./assets/default.svg'),
 };

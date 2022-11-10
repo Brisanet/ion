@@ -47,21 +47,9 @@ $avatar-secondary-color: $primary-2;
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover; 
   }
-
-  .defaultImg {
-    width: 75%;
-    height: 75%;
-    object-fit: contain;
-    display: flex;
-    flex-direction: center;
-    align-items: center;
-  }
-  
-
 }
-
 
 .size-xs {
   @include circle(16px);
