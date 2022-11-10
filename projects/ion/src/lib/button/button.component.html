@@ -23,7 +23,7 @@
     class="icon"
   ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
-    loading ? loadingMessage : label
+    loadingMessage || label
   }}</span>
   <ion-badge
     [value]="buttonBadge.value"
