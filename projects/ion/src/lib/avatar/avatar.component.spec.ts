@@ -74,11 +74,11 @@ describe('Avatar', () => {
     it('should render avatar with onErrorImage when type is photo default', async () => {
       await sut({
         type: AvatarType.photo,
-        image: 'http://127.0.0.1:5500/stories/assets/default.svg',
+        image: 'assets/default.svg',
       });
       expect(screen.getByRole('img')).toHaveAttribute(
         'src',
-        'http://127.0.0.1:5500/stories/assets/default.svg'
+        'assets/default.svg'
       );
     });
   });
