@@ -210,7 +210,6 @@ WithTagByRow.args = {
         sort: true,
         type: 'tag',
         tag: {
-          // icon: 'check',
           iconKey: 'icon',
         },
       },
