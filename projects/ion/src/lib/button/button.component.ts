@@ -46,7 +46,7 @@ export class ButtonComponent implements OnInit {
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
-  @Input() loadingMessage = 'Carregando...';
+  @Input() loadingMessage?: string;
   @Input() multiple? = false;
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
