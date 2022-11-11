@@ -1,5 +1,14 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
+import { StatusType } from '../core/types';
+
+export interface PopConfirmProps {
+  ionPopConfirmTitle: string;
+  ionPopConfirmType?: StatusType;
+  ionPopConfirmDesc?: string;
+  ionConfirmText?: string;
+  ionCancelText?: string;
+}
 
 @Component({
   selector: 'ion-popconfirm',
@@ -9,6 +18,11 @@ import { Subject } from 'rxjs';
 })
 export class PopConfirmComponent {
   @Input() ionPopConfirmTitle: string;
+  @Input() ionPopConfirmDesc: string;
+  @Input() ionPopConfirmType: PopConfirmProps['ionPopConfirmType'] = 'warning';
+  @Input() ionConfirmText: PopConfirmProps['ionConfirmText'] = 'Confirmar';
+  @Input() ionCancelText: PopConfirmProps['ionCancelText'] = 'Cancelar';
+
   readonly ionOnConfirm = new Subject<void>();
   readonly ionOnClose = new Subject<void>();
 

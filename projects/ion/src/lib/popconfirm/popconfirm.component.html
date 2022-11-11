@@ -1,6 +1,15 @@
 <div class="containter">
   <div class="msg-container">
-    <span>{{ ionPopConfirmTitle }}</span>
+    <ion-alert
+      [message]="ionPopConfirmTitle"
+      [type]="ionPopConfirmType"
+      [closable]="false"
+      [hideBackground]="true"
+    ></ion-alert>
+
+    <div class="description" *ngIf="ionPopConfirmDesc">
+      <span>{{ ionPopConfirmDesc }}</span>
+    </div>
   </div>
 
   <ion-divider></ion-divider>
@@ -9,14 +18,14 @@
     <ion-button
       data-testid="pop-cancel-btn"
       (click)="close()"
-      label="Cancelar"
+      [label]="ionCancelText"
       type="ghost"
       size="sm"
     ></ion-button>
     <ion-button
       data-testid="pop-confirm-btn"
       (click)="handleConfirm()"
-      label="Confirmar"
+      [label]="ionConfirmText"
       size="sm"
     ></ion-button>
   </div>
