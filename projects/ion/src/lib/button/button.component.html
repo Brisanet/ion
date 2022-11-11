@@ -1,4 +1,5 @@
 <button
+  [attr.id]="'btn-' + label"
   [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
@@ -9,7 +10,6 @@
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
-  [attr.data-testid]="customId"
 >
   <span *ngIf="loading" class="spinner"></span>
   <ion-icon

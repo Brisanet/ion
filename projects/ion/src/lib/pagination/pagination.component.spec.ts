@@ -118,10 +118,9 @@ describe('Pagination > Events', () => {
       total: 46,
       allowChangeQtdItems: true,
     });
-
-    fireEvent.click(screen.getByTestId('btn-select'));
+    const label = '10 / página';
+    fireEvent.click(document.getElementById(`btn-${label}`));
     fireEvent.click(screen.getByText('20 / página'));
-
     expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });
 });
