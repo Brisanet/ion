@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/angular';
 import { AvatarComponent } from '../projects/ion/src/lib/avatar/avatar.component';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-// import AvatarDefault from './assets/default.svg';
 
 export default {
   title: 'Ion/Data Display/Avatar',
