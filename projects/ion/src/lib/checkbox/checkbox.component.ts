@@ -58,9 +58,14 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
     this.setState();
   }
 
+  clearIndeterminate(): void {
+    this.checkBox.nativeElement.indeterminate = false;
+  }
+
   setEnabled(): void {
     this.checkBox.nativeElement.checked = false;
     this.checkBox.nativeElement.enabled = true;
+    this.clearIndeterminate();
     this.emitEvent();
   }
 
@@ -71,6 +76,7 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
 
   setChecked(): void {
     this.checkBox.nativeElement.checked = true;
+    this.clearIndeterminate();
     this.emitEvent();
   }
 
