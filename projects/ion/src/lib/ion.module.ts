@@ -26,6 +26,8 @@ import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { SmartTableComponent } from './smart-table/smart-table.component';
+import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 
@@ -58,6 +60,8 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
+    SmartTableComponent,
+    TableComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -87,6 +91,8 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     InfoBadgeComponent,
     IonModalComponent,
     PaginationComponent,
+    SmartTableComponent,
+    TableComponent,
   ],
 })
 export class IonModule {}

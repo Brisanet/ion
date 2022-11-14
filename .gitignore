@@ -50,4 +50,4 @@ package-lock.json
 #storybook documentation
 documentation.json
 build-storybook.log
-
+storybook-static
