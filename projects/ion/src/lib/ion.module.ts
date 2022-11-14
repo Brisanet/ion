@@ -94,6 +94,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
+    InputCounterComponent,
     SmartTableComponent,
     TableComponent,
     InputCounterComponent,
