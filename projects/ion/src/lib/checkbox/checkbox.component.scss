@@ -20,6 +20,7 @@ $color-neutral-4: 'ced2db';
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .ion-checkbox:enabled {

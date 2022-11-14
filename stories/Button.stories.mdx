@@ -768,47 +768,6 @@ E 6 outras propriedades adicionais.
   </Story>
 </Canvas>
 
-Ainda é possível configurar uma mensagem ser exibida no loading, caso não deseje a mensagem padrão 'Carregando...'. Basta configurar uma mensagem no `loadingMessage`.
-
-<Canvas>
-  <Story
-    name="Loading message default"
-    decorators={[
-      moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          DropdownComponent,
-          BadgeComponent,
-        ],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {{
-      template: `<ion-button [loading]=true></ion-button>`,
-    }}
-  </Story>
-  <Story
-    name="Loading message"
-    decorators={[
-      moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          DropdownComponent,
-          BadgeComponent,
-        ],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {{
-      template: `<ion-button [loading]=true loadingMessage="Aguarde..."></ion-button>`,
-    }}
-  </Story>
-</Canvas>
-
 - `ionOnClick`. Emite um evento ao clicar no botão. Basta criar uma função no arquivo.ts e repassá-la no arquivo.html.
 
 <Canvas>
