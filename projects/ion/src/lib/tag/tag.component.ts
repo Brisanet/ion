@@ -48,7 +48,7 @@ export class TagComponent implements OnInit, OnChanges {
   }
 
   hasLabel(): boolean {
-    return !this.label || this.label.trim() === '';
+    return !this.label || String(this.label).trim() === '';
   }
 
   validateLabel(): void {
