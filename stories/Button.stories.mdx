@@ -366,6 +366,19 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
       template: `<ion-button label="Deletar" iconType="trash" tooltip="trash" [danger]="true" [circularButton]="true"></ion-button>`,
     }}
   </Story>
+  <Story
+    name="circularButton: trash ghost"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, IonIconComponent],
+        imports: [CommonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Deletar" iconType="close" type="ghost" [circularButton]="true"></ion-button>`,
+    }}
+  </Story>
 </Canvas>
 
 E 6 outras propriedades adicionais.
@@ -751,47 +764,6 @@ E 6 outras propriedades adicionais.
   >
     {{
       template: `<ion-button label="Primary" type="secondary" [danger]="true" [disabled]="true" [loading]="true"></ion-button>`,
-    }}
-  </Story>
-</Canvas>
-
-Ainda é possível configurar uma mensagem ser exibida no loading, caso não deseje a mensagem padrão 'Carregando...'. Basta configurar uma mensagem no `loadingMessage`.
-
-<Canvas>
-  <Story
-    name="Loading message default"
-    decorators={[
-      moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          DropdownComponent,
-          BadgeComponent,
-        ],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {{
-      template: `<ion-button [loading]=true></ion-button>`,
-    }}
-  </Story>
-  <Story
-    name="Loading message"
-    decorators={[
-      moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          DropdownComponent,
-          BadgeComponent,
-        ],
-        imports: [CommonModule],
-      }),
-    ]}
-  >
-    {{
-      template: `<ion-button [loading]=true loadingMessage="Aguarde..."></ion-button>`,
     }}
   </Story>
 </Canvas>
