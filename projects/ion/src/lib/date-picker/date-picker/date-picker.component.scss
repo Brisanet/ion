@@ -55,7 +55,7 @@
 
       &:focus-visible {
         outline: none;
-        border-bottom: 1px solid $primary-6;
+        border-bottom: 1px solid $primary-color;
       }
     }
   }
@@ -159,16 +159,16 @@
 
       &.selected {
         background-color: $primary-2;
-        color: $primary-6;
+        color: $primary-color;
         border-radius: 22px;
-        border: 1px solid $primary-6;
+        border: 1px solid $primary-color;
       }
 
       &:not(.selected-end-date):hover {
         background-color: $primary-2;
-        color: $primary-6;
+        color: $primary-color;
         border-radius: 22px;
-        border-color: $primary-6;
+        border-color: $primary-color;
       }
     }
   }
