@@ -20,10 +20,12 @@ import { PopConfirmComponent } from './popconfirm.component';
 })
 export class PopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
+  @Input() ionPopConfirmDesc = '';
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
   private popconfirmComponentRef!: ComponentRef<PopConfirmComponent>;
+  private absolutePosition: { top: number; left: number };
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -46,12 +48,18 @@ export class PopConfirmDirective {
     this.appRef.attachView(this.popconfirmComponentRef.hostView);
     this.popconfirmComponentRef.changeDetectorRef.detectChanges();
 
-    const popconfirmElement =
-      this.popconfirmComponentRef.location.nativeElement;
+    const popconfirmElement = this.popconfirmComponentRef.location
+      .nativeElement as HTMLElement;
+
+    this.setStyle(popconfirmElement);
+
     this.document.body.appendChild(popconfirmElement);
 
     this.popconfirmComponentRef.instance.ionPopConfirmTitle =
       this.ionPopConfirmTitle;
+
+    this.popconfirmComponentRef.instance.ionPopConfirmDesc =
+      this.ionPopConfirmDesc;
 
     this.popconfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.ionOnConfirm.emit();
@@ -71,16 +79,21 @@ export class PopConfirmDirective {
     }
   }
 
+  setStyle(element: HTMLElement): void {
+    element.style.position = 'absolute';
+    element.style.left = this.absolutePosition.left + 'px';
+    element.style.top = this.absolutePosition.top + 'px';
+  }
+
   @HostListener('click') onClick(): void {
     const marginBetweenComponents = 10;
     const position = this.viewRef.element.nativeElement.getBoundingClientRect();
 
-    const absolutePosition = {
+    this.absolutePosition = {
       top: position.top + position.height + marginBetweenComponents,
-      left: position.left + position.width / 2,
+      left: position.left,
     };
 
-    console.log('absolutePosition -> ', absolutePosition);
     this.open();
   }
 }
