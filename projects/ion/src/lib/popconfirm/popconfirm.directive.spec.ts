@@ -65,8 +65,6 @@ describe('Directive: Popconfirm', () => {
 
     fixture.detectChanges();
     directive = fixture.debugElement.injector.get(PopConfirmDirective);
-    // input = fixture.debugElement.query(By.directive(PopConfirmDirective));
-    // console.log('input -> ', input);
   });
 
   afterEach(() => {
