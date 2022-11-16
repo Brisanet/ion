@@ -16,7 +16,7 @@
     type="secondary"
     [size]="size"
     (click)="previous()"
-    [disabled]="!hasPrevious()"
+    [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
   <button
@@ -24,7 +24,8 @@
     [class]="'square-pag ' + 'page-' + size"
     [class.selected]="page.selected"
     [attr.data-testid]="'page-' + page.page_number"
-    (click)="selectPage(page.page_number)"
+    (click)="!loading && selectPage(page.page_number)"
+    [class.disabled]="loading"
   >
     <span>{{ page.page_number }}</span>
   </button>
@@ -35,6 +36,6 @@
     type="secondary"
     [size]="size"
     (click)="next()"
-    [disabled]="!hasNext()"
+    [disabled]="loading || !hasNext()"
   ></ion-button>
 </div>

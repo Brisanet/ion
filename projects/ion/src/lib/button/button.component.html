@@ -1,11 +1,12 @@
 <button
+  [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
   [class.danger]="danger"
   [class.loading]="loading"
   [class.circular-button]="!loading && circularButton"
   [class.ion-remove-space]="iconType && !!!label"
-  [class.right-side-icon]="rightSideIcon || !options"
+  [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
 >
@@ -22,7 +23,7 @@
     class="icon"
   ></ion-icon>
   <span *ngIf="(!circularButton && label) || loading">{{
-    loading ? loadingMessage : label
+    loadingMessage || label
   }}</span>
   <ion-badge
     [value]="buttonBadge.value"

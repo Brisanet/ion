@@ -12,6 +12,7 @@ type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 export interface IonButtonProps {
   label?: string;
+  tooltip?: string;
   type?: Type;
   size?: Size;
   expand?: boolean;
@@ -38,13 +39,14 @@ type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
 })
 export class ButtonComponent implements OnInit {
   @Input() label?: string;
+  @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
   @Input() size?: Size = 'md';
   @Input() expand? = false;
   @Input() danger? = false;
   @Input() disabled? = false;
   @Input() loading? = false;
-  @Input() loadingMessage = 'Carregando...';
+  @Input() loadingMessage?: string;
   @Input() multiple? = false;
   @Input() iconType? = '';
   @Input() rightSideIcon? = false;
@@ -83,6 +85,8 @@ export class ButtonComponent implements OnInit {
 
     const [item] = selectedItems;
     this.label = item.label;
+
+    this.showDropdown = false;
   }
 
   ngOnInit(): void {

@@ -129,11 +129,11 @@ describe('Expand ButtonComponent', () => {
 });
 
 describe('load ButtonComponent', () => {
-  it('should render a loading button when loading="true" is passed and show default message "Carregando..."', async () => {
+  it('should render a loading button when loading="true" is passed and keep label', async () => {
     const button = await sut({ label: defaultName, loading: true });
     expect(button).toHaveClass('loading');
     expect(button.children[0]).toHaveClass('spinner');
-    expect(button.children[1].textContent).toContain('Carregando...');
+    expect(button.children[1].textContent).toContain(defaultName);
   });
 
   it('should render a loading button with message "aguarde ..."', async () => {
@@ -165,6 +165,19 @@ describe('ButtonComponent with dropdown', () => {
       expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
         options.length
       );
+    });
+
+    it('should render a single-selection dropdown that close when a option is clicked', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+
+      expect(screen.queryByTestId(options[0].label)).toBeNull();
     });
 
     it('should close the dropdown when the button is clicked "', async () => {

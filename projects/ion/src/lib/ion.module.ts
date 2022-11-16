@@ -22,10 +22,13 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { RowComponent } from './row/row.component';
 import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
+import { InputCounterComponent } from './input-counter/input-counter.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { SmartTableComponent } from './smart-table/smart-table.component';
+import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
@@ -56,12 +59,15 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
+    InputCounterComponent,
     DatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
     PopConfirmComponent,
+    SmartTableComponent,
+    TableComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -89,9 +95,13 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
     DatePickerComponent,
     SimpleMenuComponent,
     InfoBadgeComponent,
+    SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
     PopConfirmComponent,
+    SmartTableComponent,
+    TableComponent,
+    InputCounterComponent,
   ],
 })
 export class IonModule {}
