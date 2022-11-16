@@ -4,7 +4,6 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -35,7 +34,7 @@ const stateChange = {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })
-export class CheckboxComponent implements AfterViewInit, OnChanges {
+export class CheckboxComponent implements AfterViewInit {
   @Input() label?: string;
   @Input() state: CheckBoxStates = 'enabled';
   @Output() stateChange = new EventEmitter<CheckBoxStates>();
@@ -47,10 +46,14 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
 
   @ViewChild('checkBox', { static: true }) checkBox: ElementRef;
 
+  private inited = false;
+
   setState(): void {
     if (this.state === 'indeterminate') this.setIndeterminate();
     if (this.state === 'checked') this.setChecked();
     if (this.state === 'enabled') this.setEnabled();
+
+    this.inited = true;
   }
 
   changeState(): void {
@@ -81,7 +84,7 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
   }
 
   emitEvent(): void {
-    this.ionClick.emit({ state: CheckBoxEvent[this.state] });
+    this.inited && this.ionClick.emit({ state: CheckBoxEvent[this.state] });
   }
 
   setDisabled(): void {
@@ -94,10 +97,6 @@ export class CheckboxComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.checkState();
-  }
-
-  ngOnChanges(): void {
     this.checkState();
   }
 }
