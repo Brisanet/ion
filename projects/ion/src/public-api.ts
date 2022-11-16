@@ -31,3 +31,4 @@ export * from './lib/pagination/pagination.component';
 export * from './lib/modal/component/modal.component';
 export * from './lib/modal/modal.service';
 export * from './lib/date-picker/date-picker/date-picker.component';
+export * from './lib/input-counter/input-counter.component';

@@ -1,0 +1,19 @@
+<div class="counter">
+  <ion-button
+    data-testid="iconSub"
+    iconType="sub"
+    type="ghost"
+    [size]="InputSize"
+    (click)="countDecrement()"
+  ></ion-button>
+
+  <input type="number" [(ngModel)]="count" data-testid="input-count" />
+
+  <ion-button
+    data-testid="iconAdd"
+    iconType="add"
+    type="ghost"
+    [size]="InputSize"
+    (click)="countIncrement()"
+  ></ion-button>
+</div>
