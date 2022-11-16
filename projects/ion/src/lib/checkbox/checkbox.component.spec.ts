@@ -24,9 +24,14 @@ const sut = async (customProps: CheckBoxProps = {}): Promise<void> => {
 
 describe('CehckBoxComponent', () => {
   describe('component basics', () => {
+    const checkEvent = jest.fn();
+
     beforeEach(async () => {
       await sut({
         label: 'Custom label',
+        ionClick: {
+          emit: checkEvent,
+        } as SafeAny,
       });
     });
     it('should render checkbox', async () => {
@@ -42,6 +47,28 @@ describe('CehckBoxComponent', () => {
       const element = screen.getByTestId(box_id);
       fireEvent.click(element);
       expect(element).toBeChecked();
+    });
+
+    it('should have the attribute name defined with label value', async () => {
+      expect(screen.getByTestId(box_id)).toHaveAttribute(
+        'name',
+        'Custom label'
+      );
+    });
+
+    it('should not call event when render', async () => {
+      expect(checkEvent).toHaveBeenCalledTimes(0);
+    });
+
+    it('should call event when check', async () => {
+      fireEvent.click(screen.getByTestId(box_id));
+      expect(checkEvent).toHaveBeenCalledWith({
+        state: 'checked',
+      });
+    });
+
+    afterEach(() => {
+      checkEvent.mockClear();
     });
   });
   it('should render indeterminate checkbox', async () => {
@@ -109,16 +136,7 @@ describe('CehckBoxComponent', () => {
       expect(clickEvent).toHaveBeenLastCalledWith(StateEvents[state]);
     }
   );
-  it('should emit indeterminate event', async () => {
-    const clickEvent = jest.fn();
-    await sut({
-      state: 'indeterminate',
-      ionClick: {
-        emit: clickEvent,
-      } as SafeAny,
-    });
-    expect(clickEvent).toBeCalledWith(StateEvents.indeterminate);
-  });
+
   it('should input label', async () => {
     const labelText = 'Teste';
     await sut({ label: labelText });
