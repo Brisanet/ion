@@ -1,6 +1,7 @@
 import {
   access,
   add,
+  sub,
   calendar,
   calendarAttention,
   check,
@@ -52,6 +53,7 @@ import {
 export const iconsPaths: Record<string, string> = {
   access,
   add,
+  sub,
   calendar,
   'calendar-attention': calendarAttention,
   check,

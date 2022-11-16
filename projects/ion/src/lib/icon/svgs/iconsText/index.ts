@@ -1,5 +1,6 @@
 export { default as access } from './access';
 export { default as add } from './add';
+export { default as sub } from './sub';
 export { default as calendar } from './calendar';
 export { default as calendarAttention } from './calendar-attention';
 export { default as check } from './check';

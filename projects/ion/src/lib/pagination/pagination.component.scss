@@ -60,3 +60,12 @@
 .selected {
   @include setBorderBgColor($primary-6, $primary-1, $primary-6);
 }
+
+.disabled {
+  @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  cursor: not-allowed;
+
+  &:hover {
+    @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  }
+}

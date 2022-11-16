@@ -6,8 +6,10 @@ interface Page {
   selected: boolean;
 }
 
-interface PageEvent {
+export interface PageEvent {
   actual: number;
+  itemsPerPage: number;
+  offset: number;
 }
 
 export interface IonPaginationProps {
@@ -16,9 +18,10 @@ export interface IonPaginationProps {
   size?: string;
   events?: EventEmitter<PageEvent>;
   allowChangeQtdItems?: boolean;
+  loading?: boolean;
 }
 
-const defaultItemsPerPage = 10;
+export const ITEMS_PER_PAGE_DEFAULT = 10;
 
 @Component({
   selector: 'ion-pagination',
@@ -28,13 +31,14 @@ const defaultItemsPerPage = 10;
 export class PaginationComponent implements OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
-    defaultItemsPerPage;
+    ITEMS_PER_PAGE_DEFAULT;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
+  @Input() loading = false;
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage = [
-    { label: `${defaultItemsPerPage} / página`, selected: true },
+    { label: `${ITEMS_PER_PAGE_DEFAULT} / página`, selected: true },
     { label: '20 / página' },
     { label: '30 / página' },
     { label: '40 / página' },
@@ -64,6 +68,8 @@ export class PaginationComponent implements OnInit {
 
     this.events.emit({
       actual: page.page_number,
+      itemsPerPage: this.itemsPerPage,
+      offset: (page.page_number - 1) * this.itemsPerPage,
     });
   }
 
