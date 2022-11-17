@@ -58,7 +58,7 @@ div {
 }
 
 .primary {
-  @include set-background($primary-6);
+  @include set-background($primary-color);
 }
 
 .warning {

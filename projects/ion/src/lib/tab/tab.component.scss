@@ -70,11 +70,11 @@
   font-style: normal;
   font-weight: 600;
   border: none;
-  @include tab-colors($primary-6, $neutral-1, $primary-6);
+  @include tab-colors($primary-color, $neutral-1, $primary-color);
   cursor: pointer;
   display: flex;
   align-items: center;
-  @include icon-color($primary-6);
+  @include icon-color($primary-color);
 
   &:hover {
     @include tab-colors($primary-5, $primary-1, $primary-3);

@@ -34,7 +34,7 @@ table {
     }
 
     &:focus-visible {
-      outline: 2px solid $primary-6;
+      outline: 2px solid $primary-color;
       outline-offset: 2px;
       background-color: $primary-1;
     }
@@ -94,7 +94,7 @@ table {
       width: 15px;
       height: 16.66px;
       ::ng-deep svg {
-        fill: $primary-6;
+        fill: $primary-color;
       }
     }
 
@@ -117,7 +117,7 @@ table {
   }
 
   & .checked {
-    box-shadow: -2px 0 0 0 $primary-6;
+    box-shadow: -2px 0 0 0 $primary-color;
   }
 }
 
