@@ -43,7 +43,7 @@
   }
 
   &:active {
-    @include set-colors($primary-2, $primary-6);
+    @include set-colors($primary-2, $primary-color);
   }
 }
 

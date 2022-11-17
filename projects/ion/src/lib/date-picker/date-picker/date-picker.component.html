@@ -15,12 +15,14 @@
         readonly
       />
     </div>
-    <div class="icons">
+    <div
+      class="icons"
+      (click)="dateField.label ? clearCalendar() : setFocusOnClickInput()"
+    >
       <ion-icon
         [type]="dateField.label ? 'close' : 'calendar'"
         color="#AEB2BD"
         size="16"
-        (click)="dateField.label ? clearCalendar() : setFocusOnClickInput()"
       ></ion-icon>
     </div>
   </div>
