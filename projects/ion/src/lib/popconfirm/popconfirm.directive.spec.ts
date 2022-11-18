@@ -15,11 +15,13 @@ import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
 import { PopConfirmComponent } from './popconfirm.component';
-import { PopConfirmDirective } from './popconfirm.directive';
+import { PopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
 
 const textButton = 'Teste';
 const confirmText = 'Confirmar';
+const elementPosition: PopPosition = { top: 10, left: 40 };
+
 @Component({
   template: `
     <button
@@ -72,16 +74,16 @@ describe('Directive: Popconfirm', () => {
   });
 
   it('should create element with the directive', () => {
-    directive.open();
+    directive.open(elementPosition);
     expect(screen.getByText(textButton)).toHaveAttribute('ionpopconfirm', '');
   });
 
   it('should open the popconfirm when clicked', () => {
-    directive.open();
+    directive.open(elementPosition);
   });
 
   it('should open the popconfirm when clicked', () => {
-    directive.open();
+    directive.open(elementPosition);
     fireEvent.click(screen.getByText(textButton));
     expect(screen.getByText(confirmText)).toBeInTheDocument();
   });
@@ -89,21 +91,21 @@ describe('Directive: Popconfirm', () => {
   it('should close pop when click in cancel', () => {
     jest.spyOn(directive, 'closePopConfirm');
 
-    directive.open();
+    directive.open(elementPosition);
     fireEvent.click(screen.getByTestId('pop-cancel-btn'));
 
     expect(directive.closePopConfirm).toHaveBeenCalled();
   });
 
   it('should click in confirm button', () => {
-    directive.open();
+    directive.open(elementPosition);
     fireEvent.click(screen.getByTestId('pop-confirm-btn'));
     expect(screen.getByTestId('pop-confirm-btn')).toBeInTheDocument();
   });
 
   it('should not open new popconfirm when be opened', () => {
-    directive.open();
-    directive.open();
+    directive.open(elementPosition);
+    directive.open(elementPosition);
     expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(1);
   });
 });

@@ -15,6 +15,11 @@ import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
 import { PopConfirmComponent } from './popconfirm.component';
 
+export interface PopPosition {
+  top: number;
+  left: number;
+}
+
 @Directive({
   selector: '[ionPopConfirm]',
 })
@@ -25,7 +30,6 @@ export class PopConfirmDirective {
   @Output() ionOnClose = new EventEmitter<void>();
 
   private popconfirmComponentRef!: ComponentRef<PopConfirmComponent>;
-  private absolutePosition: { top: number; left: number };
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -35,7 +39,7 @@ export class PopConfirmDirective {
     private readonly viewRef: ViewContainerRef
   ) {}
 
-  open(): void {
+  open(position: PopPosition): void {
     if (this.popconfirmComponentRef) {
       return;
     }
@@ -51,7 +55,7 @@ export class PopConfirmDirective {
     const popconfirmElement = this.popconfirmComponentRef.location
       .nativeElement as HTMLElement;
 
-    this.setStyle(popconfirmElement);
+    this.setStyle(popconfirmElement, position);
 
     this.document.body.appendChild(popconfirmElement);
 
@@ -79,21 +83,19 @@ export class PopConfirmDirective {
     }
   }
 
-  setStyle(element: HTMLElement): void {
+  setStyle(element: HTMLElement, position: PopPosition): void {
     element.style.position = 'absolute';
-    element.style.left = this.absolutePosition.left + 'px';
-    element.style.top = this.absolutePosition.top + 'px';
+    element.style.left = position.left + 'px';
+    element.style.top = position.top + 'px';
   }
 
   @HostListener('click') onClick(): void {
     const marginBetweenComponents = 10;
     const position = this.viewRef.element.nativeElement.getBoundingClientRect();
 
-    this.absolutePosition = {
+    this.open({
       top: position.top + position.height + marginBetweenComponents,
       left: position.left,
-    };
-
-    this.open();
+    });
   }
 }
