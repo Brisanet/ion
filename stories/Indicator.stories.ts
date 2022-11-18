@@ -19,8 +19,7 @@ const Template: Story<IndicatorComponent> = (args: IndicatorComponent) => ({
 export const Initials = Template.bind({});
 Initials.args = {
   label: 'Recuperável',
-  icon: 'technical',
-  iconbody: 'close',
+  icontechnical: 'technical',
   type: 'info-solid',
   value: '2.800',
   valueicon: 'right2',
@@ -32,7 +31,6 @@ export const withoutPercent = Template.bind({});
 withoutPercent.args = {
   label: 'Recuperável',
   icon: 'technical',
-  iconbody: 'close',
   type: 'info-solid',
   value: '2.800',
   valueicon: 'right2',
