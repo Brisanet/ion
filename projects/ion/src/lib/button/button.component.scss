@@ -125,7 +125,7 @@ button {
 
 .spinner {
   border: 2px solid transparent;
-  border-left-color: $primary-6;
+  border-left-color: $primary-color;
   border-radius: 50%;
   width: 16px;
   height: 16px;
@@ -146,7 +146,7 @@ button {
 }
 
 .ion-btn-primary {
-  background-color: $primary-6;
+  background-color: $primary-color;
 
   &:hover {
     background-color: $primary-5;
@@ -186,7 +186,7 @@ button {
 }
 
 .ion-btn-secondary {
-  @include add-colors($neutral-1, $primary-6);
+  @include add-colors($neutral-1, $primary-color);
   border: 1px solid $neutral-4;
 
   &:hover {
@@ -205,7 +205,7 @@ button {
   }
 
   &.loading {
-    @include add-colors($primary-1, $primary-6);
+    @include add-colors($primary-1, $primary-color);
     border-color: $primary-3;
   }
 
@@ -229,7 +229,7 @@ button {
 }
 
 .ion-btn-ghost {
-  @include add-colors(transparent, $primary-6);
+  @include add-colors(transparent, $primary-color);
 
   &:disabled {
     @include add-colors(transparent !important, $neutral-5);
@@ -248,7 +248,7 @@ button {
   }
 
   &.loading {
-    @include add-colors($primary-1, $primary-6);
+    @include add-colors($primary-1, $primary-color);
   }
 
   &.danger {
@@ -269,7 +269,7 @@ button {
 }
 
 .ion-btn-dashed {
-  @include add-colors(transparent, $primary-6);
+  @include add-colors(transparent, $primary-color);
   border: 1px $neutral-4;
   border-style: dashed;
 
@@ -290,7 +290,7 @@ button {
   }
 
   &.loading {
-    @include add-colors($primary-1, $primary-6);
+    @include add-colors($primary-1, $primary-color);
     border-color: $primary-3;
   }
 
@@ -320,7 +320,7 @@ button {
 .ion-btn-dashed {
   ion-icon {
     ::ng-deep svg {
-      fill: $primary-6;
+      fill: $primary-color;
     }
   }
 
