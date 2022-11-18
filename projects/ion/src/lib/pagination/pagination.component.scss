@@ -27,7 +27,7 @@
 }
 
 .square-pag {
-  @include setBorderBgColor($neutral-4, #fff, $primary-6);
+  @include setBorderBgColor($neutral-4, #fff, $primary-color);
 
   font-family: 'Source Sans Pro';
   font-style: normal;
@@ -58,5 +58,14 @@
 }
 
 .selected {
-  @include setBorderBgColor($primary-6, $primary-1, $primary-6);
+  @include setBorderBgColor($primary-color, $primary-1, $primary-color);
+}
+
+.disabled {
+  @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  cursor: not-allowed;
+
+  &:hover {
+    @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+  }
 }
