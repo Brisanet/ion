@@ -5,11 +5,9 @@ import { IndicatorComponent, IndicatorProps } from './indicator.component';
 
 const defaultProps = {
   label: 'Recuperável',
-  icon: 'technical',
-  iconbody: 'close',
+  iconbody: 'technical',
   type: 'info-solid',
   value: '2.800',
-  valueicon: 'right2',
   color: '#6e7192',
   percent: '30',
 };
@@ -33,7 +31,7 @@ describe('IndicatorComponent', () => {
 
     it('should render component with technical icon', async () => {
       expect(
-        document.getElementById(`ion-icon-${defaultProps.icon}`)
+        document.getElementById(`ion-icon-${defaultProps.iconbody}`)
       ).toBeInTheDocument();
     });
 
