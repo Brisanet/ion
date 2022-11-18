@@ -1,13 +1,41 @@
 @import '../../styles/index.scss';
 
-.containter {
+.sup-container {
+  margin-top: 8px;
+  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   background: #fff;
   display: inline-block;
   max-width: 346px;
   justify-content: flex-end;
-
-  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   border-radius: spacing(1);
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 13px;
+    height: 13px;
+    background-color: #ffffff;
+    position: absolute;
+    top: -6px;
+    left: 16px;
+    transform: rotate(45deg);
+    box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
+  }
+}
+
+.arrow {
+  background-color: #fff;
+  width: spacing(2);
+  height: spacing(2);
+  transform: translateY(-8px) rotate(45deg);
+  position: absolute;
+  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
+  margin-left: 26px;
+  z-index: -1;
+}
+
+.containter {
   z-index: 1000;
 }
 
