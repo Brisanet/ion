@@ -1,0 +1,38 @@
+<div class="indicator-content">
+  <div class="indicator-header">
+    <div class="label">
+      {{ label }}
+    </div>
+    <div class="icon-info">
+      <ion-icon
+        data-testid="info-badge-icon"
+        class="info-icon"
+        [type]="type"
+      ></ion-icon>
+    </div>
+  </div>
+  <div class="indicator-body">
+    <div class="value">
+      {{ value }}
+    </div>
+    <div classe="right-icon">
+      <ion-icon
+        data-testid="right-icon"
+        *ngIf="percent"
+        class="right-icon"
+        type="right2"
+        [color]="color"
+      ></ion-icon>
+    </div>
+    <div class="percent" *ngIf="percent">{{ percent }}%</div>
+    <div classe="icon-technical">
+      <ion-icon
+        data-testid="icon-technical"
+        *ngIf="icon"
+        class="icon-technical"
+        [type]="icon"
+        [color]="color"
+      ></ion-icon>
+    </div>
+  </div>
+</div>
