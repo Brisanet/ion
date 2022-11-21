@@ -1,5 +1,5 @@
 import { IconType } from './../icon/icon.component';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type IconDirection = 'left' | 'right';
 
@@ -9,6 +9,7 @@ export interface IonInputProps {
   iconDirection?: IconDirection;
   valid?: boolean;
   invalid?: boolean;
+  inputButton?: boolean;
 }
 
 @Component({
@@ -22,4 +23,10 @@ export class InputComponent {
   @Input() iconDirection?: IconDirection;
   @Input() valid: boolean;
   @Input() invalid: boolean;
+  @Input() inputButton? = false;
+  @Output() clickButton = new EventEmitter();
+
+  public handleClick(): void {
+    this.clickButton.emit();
+  }
 }

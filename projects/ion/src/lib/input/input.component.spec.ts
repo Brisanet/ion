@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import { InputComponent, IonInputProps } from './input.component';
@@ -5,6 +6,7 @@ import { InputComponent, IonInputProps } from './input.component';
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(InputComponent, {
     componentProperties: customProps,
+    imports: [CommonModule],
     declarations: [IonIconComponent],
   });
 };
@@ -37,7 +39,14 @@ describe('InputComponent', () => {
     expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
-  //Falta condição de quando o input vai ser valido e invalido
+  it('should render button when clicked', async () => {
+    await sut({ inputButton: true });
+    const button = screen.getByTestId('input-button');
+    fireEvent.click(button);
+    expect(button).toBeTruthy();
+  });
+
+  //Falta condição de quando o input vai ser valido ou invalido
 
   it.skip('should render input icon valid', async () => {
     await sut();
