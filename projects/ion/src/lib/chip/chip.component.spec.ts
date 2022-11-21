@@ -108,10 +108,14 @@ describe('ChipComponent', () => {
   });
 
   describe('With Dropdown', () => {
+    const dropdownEvent = jest.fn();
     beforeEach(async () => {
       await sut({
         label: 'dropdown',
         options: defaultOptions,
+        dropdownEvents: {
+          emit: dropdownEvent,
+        } as SafeAny,
       });
     });
 
@@ -146,22 +150,43 @@ describe('ChipComponent', () => {
       expect(element).toHaveClass('chip');
       expect(screen.queryAllByText(option)).toHaveLength(1);
     });
+
+    it('should emit options selected when select in chip', async () => {
+      const option = defaultOptions[0];
+      const chipToOpen = screen.getByTestId('ion-chip');
+      fireEvent.click(chipToOpen);
+      fireEvent.click(screen.getByText(option.label));
+      expect(dropdownEvent).toBeCalledWith([option]);
+    });
+
+    afterEach(() => {
+      dropdownEvent.mockClear();
+    });
   });
 });
 
 describe('With Multiple Dropdown', () => {
+  const dropdownEvent = jest.fn();
+  const options = [
+    {
+      label: 'Meteora',
+      selected: false,
+      key: 'meteora',
+    },
+    {
+      label: 'One More Light',
+      selected: false,
+      key: 'one_more_light',
+    },
+  ];
   beforeEach(async () => {
     await sut({
       label: 'dropdown',
-      options: [
-        {
-          label: 'Meteora',
-        },
-        {
-          label: 'One More Light',
-        },
-      ],
+      options: JSON.parse(JSON.stringify(options)),
       multiple: true,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
     });
   });
 
@@ -171,15 +196,22 @@ describe('With Multiple Dropdown', () => {
 
   it('should show badge with two results when selected two options', async () => {
     fireEvent.click(screen.getByText('dropdown'));
-    fireEvent.click(screen.getByText('Meteora'));
-    fireEvent.click(screen.getByText('One More Light'));
+    fireEvent.click(screen.getByText(options[0].label));
+    fireEvent.click(screen.getByText(options[1].label));
+    options[0].selected = true;
+    options[1].selected = true;
+    expect(dropdownEvent).toBeCalledWith(options);
     expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
   });
 
   it('should keep dropdown open when an option will be selected', async () => {
     const dropdown = screen.getByTestId('ion-chip');
     fireEvent.click(dropdown);
-    fireEvent.click(screen.getByText('Meteora'));
+    fireEvent.click(screen.getByText(options[0].label));
     expect(dropdown).toHaveClass('chip-selected');
+  });
+
+  afterEach(() => {
+    dropdownEvent.mockClear();
   });
 });

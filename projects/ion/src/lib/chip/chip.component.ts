@@ -23,6 +23,7 @@ export interface IonChipProps {
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
+  dropdownEvents?: EventEmitter<DropdownItem[]>;
 }
 
 type Badge = {
@@ -53,6 +54,7 @@ export class ChipComponent {
   @Input() rightBadge?: RightBadge;
 
   @Output() events = new EventEmitter<ChipEvent>();
+  @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
 
   badge: Badge = {
     value: 0,
@@ -73,7 +75,9 @@ export class ChipComponent {
     }
   }
 
-  handleSuccess(selecteds: DropdownItem[]): void {
+  selectDropdownItem(selecteds: DropdownItem[]): void {
+    this.dropdownEvents.emit(selecteds);
+
     if (selecteds && this.multiple) {
       this.badge.value = selecteds.length;
     }
