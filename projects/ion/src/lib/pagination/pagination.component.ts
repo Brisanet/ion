@@ -1,3 +1,4 @@
+import { DropdownItem } from './../dropdown/dropdown.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 interface Page {
@@ -36,9 +37,20 @@ export class PaginationComponent implements OnInit {
   @Input() loading = false;
   @Output() events = new EventEmitter<PageEvent>();
 
+  public optionsPage = [
+    { label: `${ITEMS_PER_PAGE_DEFAULT} / página`, selected: true },
+    { label: '20 / página' },
+    { label: '30 / página' },
+    { label: '40 / página' },
+    { label: '46 / página' },
+  ];
+
   pages: Page[] = [];
 
-  optionsPage = [ITEMS_PER_PAGE_DEFAULT, 30, 45];
+  changeItemsPerPage(itemsSelected: DropdownItem[]): void {
+    this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
+    this.remountPages();
+  }
 
   ngOnInit(): void {
     this.createPages(this.totalPages());
