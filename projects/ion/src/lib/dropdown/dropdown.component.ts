@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 export interface DropdownItem {
   label: string;
+  key?: string;
   selected?: boolean;
   disabled?: boolean;
   hovered?: boolean;
