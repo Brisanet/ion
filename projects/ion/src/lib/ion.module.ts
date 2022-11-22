@@ -32,6 +32,8 @@ import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { IndicatorComponent } from './indicator/indicator.component';
+import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
+import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 @NgModule({
   declarations: [
     IonComponent,
@@ -39,6 +41,7 @@ import { IndicatorComponent } from './indicator/indicator.component';
     IonIconComponent,
     ChipComponent,
     TabComponent,
+    PopConfirmDirective,
     RadioComponent,
     TabGroupComponent,
     IonDividerComponent,
@@ -62,6 +65,7 @@ import { IndicatorComponent } from './indicator/indicator.component';
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
+    PopConfirmComponent,
     SmartTableComponent,
     TableComponent,
     IndicatorComponent,
@@ -95,7 +99,7 @@ import { IndicatorComponent } from './indicator/indicator.component';
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
-    InputCounterComponent,
+    PopConfirmComponent,
     SmartTableComponent,
     TableComponent,
     InputCounterComponent,
