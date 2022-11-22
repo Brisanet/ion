@@ -2,13 +2,14 @@ import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Data Entry/Input',
   component: InputComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [FormsModule],
       declarations: [IonIconComponent],
     }),
   ],

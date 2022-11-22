@@ -1,3 +1,4 @@
+import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
@@ -39,14 +40,43 @@ describe('InputComponent', () => {
     expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
-  it('should render button when clicked', async () => {
+  it('should render button when informed', async () => {
     await sut({ inputButton: true });
     const button = screen.getByTestId('input-button');
     fireEvent.click(button);
-    expect(button).toBeTruthy();
+    expect(button).toBeInTheDocument();
   });
 
-  //Falta condição de quando o input vai ser valido ou invalido
+  it('should render input icon button when informed', async () => {
+    await sut({ inputIconButton: true });
+    const button = screen.getByTestId('inputIcon-button');
+    fireEvent.click(button);
+    expect(button).toBeInTheDocument();
+  });
+
+  it('should emit an event when clicked input button', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      inputButton: true,
+      clickButton: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByTestId('input-button'));
+    expect(clickEvent).toHaveBeenCalled();
+  });
+
+  it('should emit an event when clicked input icon button', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      inputIconButton: true,
+      clickButton: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByTestId('inputIcon-button'));
+    expect(clickEvent).toHaveBeenCalled();
+  });
 
   it.skip('should render input icon valid', async () => {
     await sut();

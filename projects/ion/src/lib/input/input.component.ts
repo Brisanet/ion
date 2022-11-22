@@ -1,3 +1,4 @@
+import { SafeAny } from './../utils/safe-any';
 import { IconType } from './../icon/icon.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
@@ -10,6 +11,8 @@ export interface IonInputProps {
   valid?: boolean;
   invalid?: boolean;
   inputButton?: boolean;
+  inputIconButton?: boolean;
+  clickButton?: EventEmitter<SafeAny>;
 }
 
 @Component({
@@ -24,6 +27,7 @@ export class InputComponent {
   @Input() valid: boolean;
   @Input() invalid: boolean;
   @Input() inputButton? = false;
+  @Input() inputIconButton? = false;
   @Output() clickButton = new EventEmitter();
 
   public handleClick(): void {
