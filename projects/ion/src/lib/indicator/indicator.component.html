@@ -13,12 +13,7 @@
     <div class="value">
       {{ value }}
     </div>
-    <ion-icon
-      data-testid="right-icon"
-      *ngIf="percent"
-      type="right2"
-      [color]="color"
-    ></ion-icon>
+    <ion-icon data-testid="right-icon" *ngIf="percent" type="right2"></ion-icon>
     <div class="percent" *ngIf="percent">{{ percent }}%</div>
     <ion-icon
       data-testid="icon-technical"

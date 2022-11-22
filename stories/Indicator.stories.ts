@@ -28,5 +28,4 @@ withoutPercent.args = {
   label: 'Recuperável',
   type: 'info-solid',
   value: '2.800',
-  color: '#6e7192',
 };
