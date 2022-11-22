@@ -4,22 +4,20 @@
   max-width: 250px;
   text-align: center;
   border-radius: 15px;
-  border: 1px solid #6e7192;
+  border: 1px solid $neutral-6;
 
   .indicator-header {
     padding: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #6e7192;
+    background-color: $neutral-7;
     border-radius: 15px;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 
     .label {
-      color: #fff;
+      color: $neutral-1;
       font-size: 20px;
       font-weight: 600;
       padding: 0;
@@ -31,8 +29,8 @@
     .icon-info {
       margin-right: 5px;
       font-weight: 300;
-      color: #b2b4c9;
-      font-size: 19px;
+      color: $neutral-7;
+      font-size: 18px;
     }
   }
 
@@ -41,9 +39,7 @@
     align-items: center;
     position: relative;
     padding: 18px;
-    padding-left: 20px;
-    padding-right: 20px;
-    color: #151515;
+    color: $neutral-8;
 
     .value {
       font-size: 35px;
@@ -59,14 +55,14 @@
     }
 
     .percent {
-      font-weight: 400;
+      font-weight: 500;
       font-size: 20.8px;
-      color: #6e7192;
+      color: $neutral-6;
     }
     .icon-technical {
-      position: absolute;
-      right: 15px;
-      top: 40%;
+      display: flex;
+      margin-left: 60px;
+      color: $neutral-6;
     }
   }
 }

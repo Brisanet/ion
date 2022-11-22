@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { link } from 'fs';
 import { IndicatorComponent } from '../projects/ion/src/lib/indicator/indicator.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 export default {
@@ -20,7 +19,7 @@ export const Initials = Template.bind({});
 Initials.args = {
   label: 'Recuperável',
   type: 'info-solid',
-  iconbody: 'technical',
+  iconBody: 'technical',
   value: '2.800',
   color: '#6e7192',
   percent: '30',

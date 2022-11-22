@@ -4,7 +4,6 @@ export interface IndicatorProps {
   type: string;
   label: string;
   value?: string;
-  color?: string;
   percent?: string;
 }
 @Component({
@@ -16,6 +15,5 @@ export class IndicatorComponent {
   @Input() label: string;
   @Input() type: string;
   @Input() value?: string;
-  @Input() color?: string;
   @Input() percent?: string;
 }

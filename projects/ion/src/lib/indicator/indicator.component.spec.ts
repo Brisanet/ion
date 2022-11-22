@@ -5,14 +5,13 @@ import { IndicatorComponent, IndicatorProps } from './indicator.component';
 
 const defaultProps = {
   label: 'Recuperável',
-  iconbody: 'technical',
   type: 'info-solid',
   value: '2.800',
   color: '#6e7192',
   percent: '30',
 };
 
-const sut = async (props: IndicatorProps = defaultProps) => {
+const sut = async (props: IndicatorProps = defaultProps): Promise<void> => {
   await render(IndicatorComponent, {
     declarations: [IndicatorComponent, IonIconComponent],
     componentProperties: props,
@@ -27,12 +26,6 @@ describe('IndicatorComponent', () => {
 
     it('should render component with label ' + defaultProps.label, async () => {
       expect(screen.getByText(defaultProps.label)).toBeInTheDocument();
-    });
-
-    it('should render component with technical icon', async () => {
-      expect(
-        document.getElementById(`ion-icon-${defaultProps.iconbody}`)
-      ).toBeInTheDocument();
     });
 
     it('should render info badge icon', async () => {
