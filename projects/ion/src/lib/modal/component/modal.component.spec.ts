@@ -55,6 +55,30 @@ describe('IonModalComponent', () => {
     );
   });
 
+  it('should show custom label from ionParams of modal service', () => {
+    const label = 'Matheusis';
+    const modalPrimaryDisabled: IonModalConfiguration = {
+      id: '1',
+      title: 'Modal primary disabled',
+      ionParams: {
+        label,
+      },
+      footer: {
+        showDivider: false,
+        primaryButton: {
+          label: 'Confirmar',
+          disabled: true,
+        },
+      },
+    };
+
+    component.setConfig(modalPrimaryDisabled);
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(screen.getByText(label)).toBeInTheDocument();
+  });
+
   it('should render primary button disabled when informed', () => {
     const modalPrimaryDisabled: IonModalConfiguration = {
       id: '1',

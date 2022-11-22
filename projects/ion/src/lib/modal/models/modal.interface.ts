@@ -1,8 +1,11 @@
+import { SafeAny } from 'ion/lib/utils/safe-any';
+
 export interface IonModalConfiguration {
   id?: string;
   title?: string;
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;
+  ionParams?: SafeAny;
 
   footer?: IonModalFooterConfiguration;
 }
