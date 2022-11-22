@@ -19,16 +19,13 @@ export const Initials = Template.bind({});
 Initials.args = {
   label: 'Recuperável',
   type: 'info-solid',
-  iconBody: 'technical',
   value: '2.800',
-  color: '#6e7192',
   percent: '30',
 };
 
 export const withoutPercent = Template.bind({});
 withoutPercent.args = {
   label: 'Recuperável',
-  iconbody: 'technical',
   type: 'info-solid',
   value: '2.800',
   color: '#6e7192',

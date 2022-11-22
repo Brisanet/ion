@@ -31,7 +31,7 @@ import { SmartTableComponent } from './smart-table/smart-table.component';
 import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
-
+import { IndicatorComponent } from './indicator/indicator.component';
 @NgModule({
   declarations: [
     IonComponent,
@@ -64,6 +64,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     PaginationComponent,
     SmartTableComponent,
     TableComponent,
+    IndicatorComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -98,6 +99,7 @@ import { DatePickerComponent } from './date-picker/date-picker/date-picker.compo
     SmartTableComponent,
     TableComponent,
     InputCounterComponent,
+    IndicatorComponent,
   ],
 })
 export class IonModule {}

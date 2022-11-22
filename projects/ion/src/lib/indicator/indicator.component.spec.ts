@@ -1,13 +1,11 @@
 import { render, screen } from '@testing-library/angular';
 import { IonIconComponent } from './../icon/icon.component';
-
 import { IndicatorComponent, IndicatorProps } from './indicator.component';
 
 const defaultProps = {
   label: 'Recuperável',
   type: 'info-solid',
   value: '2.800',
-  color: '#6e7192',
   percent: '30',
 };
 
