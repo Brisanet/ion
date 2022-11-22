@@ -1,14 +1,12 @@
 <div class="pag-container">
-  <select
+  <ion-button
+    rightSideIcon="true"
     *ngIf="allowChangeQtdItems"
-    [(ngModel)]="itemsPerPage"
-    (change)="remountPages()"
-    data-testid="select-page-items"
-  >
-    <option *ngFor="let option of optionsPage" [value]="option">
-      {{ option }} / página
-    </option>
-  </select>
+    [label]="optionsPage[0].label"
+    [options]="optionsPage"
+    customId="btn-select"
+    (selected)="changeItemsPerPage($event)"
+  ></ion-button>
 
   <ion-button
     iconType="left2"
