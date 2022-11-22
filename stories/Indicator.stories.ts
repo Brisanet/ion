@@ -15,8 +15,8 @@ const Template: Story<IndicatorComponent> = (args: IndicatorComponent) => ({
   },
 });
 
-export const Initials = Template.bind({});
-Initials.args = {
+export const WithPercent = Template.bind({});
+WithPercent.args = {
   label: 'Recuperável',
   type: 'info-solid',
   value: '2.800',
