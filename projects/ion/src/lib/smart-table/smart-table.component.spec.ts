@@ -10,6 +10,7 @@ import {
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { ButtonModule } from '../button/button.module';
+import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -17,7 +18,7 @@ const enabledArrowColor = '#0858CE';
 const columns: Column[] = [
   {
     key: 'name',
-    label: 'Name',
+    label: 'Nome',
     sort: true,
   },
   {
@@ -73,7 +74,12 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(SmartTableComponent, {
     componentProperties: customProps,
-    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    declarations: [
+      TagComponent,
+      CheckboxComponent,
+      PaginationComponent,
+      PopConfirmDirective,
+    ],
     imports: [FormsModule, ButtonModule],
   });
 };
@@ -212,6 +218,13 @@ describe('Table > Actions', () => {
   it.each(actions)('should render icon action', async ({ icon }) => {
     await sut(tableWithActions);
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
+  });
+
+  it('should not render popconfirm when action dont has confirm config', async () => {
+    await sut(tableWithActions);
+    expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title'
+    );
   });
 
   it('should render trash button disabled when he caracther is less than 160cm', async () => {
@@ -530,5 +543,30 @@ describe('Table > Pagination', () => {
 
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+  });
+});
+
+describe('Table > Action with confirm', () => {
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title',
+      actionConfig.confirm.title
+    );
   });
 });

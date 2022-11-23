@@ -92,10 +92,11 @@ export class PopConfirmDirective {
   @HostListener('click') onClick(): void {
     const marginBetweenComponents = 10;
     const position = this.viewRef.element.nativeElement.getBoundingClientRect();
+    const midHostElementInView = position.left - position.width / 2;
 
     this.open({
       top: position.top + position.height + marginBetweenComponents,
-      left: position.left,
+      left: midHostElementInView,
     });
   }
 }

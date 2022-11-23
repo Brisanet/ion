@@ -2,12 +2,18 @@ import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.c
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import { TagComponent } from '../projects/ion/src/public-api';
+import {
+  AlertComponent,
+  IonDividerComponent,
+  PopConfirmDirective,
+  TagComponent,
+} from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -18,7 +24,16 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
   component: SmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    entryComponents: [PopConfirmComponent],
+    declarations: [
+      TagComponent,
+      CheckboxComponent,
+      PaginationComponent,
+      PopConfirmDirective,
+      PopConfirmComponent,
+      AlertComponent,
+      IonDividerComponent,
+    ],
     imports: [CommonModule, FormsModule, ButtonModule],
   },
 });
@@ -51,6 +66,9 @@ const actions = [
     call: (row: SafeAny): void => {
       row.name = 'ITEM DELETED';
       row.deleted = true;
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
     },
   },
   {

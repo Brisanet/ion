@@ -26,11 +26,16 @@ export interface Column {
   width?: number;
 }
 
+export interface ActionConfirm {
+  title: string;
+}
+
 export interface ActionTable {
   label: string;
   icon: string;
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
+  confirm?: ActionConfirm;
 }
 
 export interface PaginationConfig {
