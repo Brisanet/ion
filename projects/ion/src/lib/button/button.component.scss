@@ -28,6 +28,10 @@
     width: $circleSize;
     border-radius: 50%;
     padding: 0;
+
+    .spinner {
+      margin-right: 0;
+    }
   }
 }
 
