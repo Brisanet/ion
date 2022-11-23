@@ -5,8 +5,8 @@ span {
   font-weight: 600;
   font-size: 12px;
 
-  padding: 0.5px 4.8px;
-  color: white;
+  padding: spacing(0.5) spacing(0.6);
+  color: $neutral-1;
   border-radius: 50px;
 }
 
