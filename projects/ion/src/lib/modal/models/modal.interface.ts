@@ -1,4 +1,4 @@
-import { SafeAny } from 'ion/lib/utils/safe-any';
+import { SafeAny } from '../../utils/safe-any';
 
 export interface IonModalConfiguration {
   id?: string;
