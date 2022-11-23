@@ -1,10 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../../badge/badge.component';
-import { ButtonComponent } from '../../button/button.component';
+import { ButtonModule } from '../../button/button.module';
 import { IonDividerComponent } from '../../divider/divider.component';
-import { DropdownComponent } from '../../dropdown/dropdown.component';
-import { IonIconComponent } from '../../icon/icon.component';
 import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
 
@@ -27,14 +24,8 @@ const sut = async (
 ): Promise<void> => {
   await render(DatePickerComponent, {
     componentProperties: customProps,
-    declarations: [
-      ButtonComponent,
-      IonIconComponent,
-      DropdownComponent,
-      IonDividerComponent,
-      BadgeComponent,
-    ],
-    imports: [FormsModule],
+    declarations: [IonDividerComponent],
+    imports: [FormsModule, ButtonModule],
   });
 };
 

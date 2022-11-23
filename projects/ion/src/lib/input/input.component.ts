@@ -21,6 +21,7 @@ export interface IonInputProps {
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
+  @Input() placeholderInput = 'Placeholder';
   @Input() iconInput: IconType;
   @Input() disabled? = false;
   @Input() iconDirection?: IconDirection;

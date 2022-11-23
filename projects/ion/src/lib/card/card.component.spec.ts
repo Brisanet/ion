@@ -1,5 +1,3 @@
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from '../badge/badge.component';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -9,9 +7,8 @@ import {
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { ButtonComponent } from '../button/button.component';
-import { IonIconComponent } from '../icon/icon.component';
 import { CardEvent, CardIonComponent, IonCard } from './card.component';
+import { ButtonModule } from '../button/button.module';
 
 let renderFooter = false;
 
@@ -58,16 +55,12 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   declarations: [
     CardTestComponent,
     CardIonComponent,
-    ButtonComponent,
-    IonIconComponent,
     ButtonTestComponent,
     FooterTestComponent,
-    DropdownComponent,
-    BadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,
