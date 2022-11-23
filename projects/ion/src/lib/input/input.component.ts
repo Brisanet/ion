@@ -27,7 +27,7 @@ export class InputComponent {
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
 
-  onChange(value: string) {
+  onChange(value: string): void {
     this.valueChange.emit(value);
   }
 }
