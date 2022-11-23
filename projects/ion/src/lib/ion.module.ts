@@ -33,6 +33,7 @@ import { IonModalComponent } from './modal/component/modal.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { PopConfirmComponent } from './popconfirm/popconfirm.component';
+import { RadioGroupComponent } from './radio-group/radio-group.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
     PopConfirmComponent,
     SmartTableComponent,
     TableComponent,
+    RadioGroupComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -102,6 +104,7 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
     SmartTableComponent,
     TableComponent,
     InputCounterComponent,
+    RadioGroupComponent,
   ],
 })
 export class IonModule {}

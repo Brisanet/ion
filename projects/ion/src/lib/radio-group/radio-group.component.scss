@@ -1,0 +1,134 @@
+@import '../../styles/index.scss';
+
+.ion-input-radio {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.labelDisabled {
+  cursor: pointer;
+  color: $neutral-7;
+}
+
+.labelDisabled-checked {
+  cursor: not-allowed;
+  color: $neutral-5;
+}
+
+.radio {
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+  width: spacing(2);
+  height: spacing(2);
+  border-radius: 50%;
+  border: 1px solid $neutral-5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  flex-shrink: 0;
+
+  &:hover {
+    border: 1.5px solid $primary-2;
+    background-color: $primary-1;
+    outline: 4px solid $primary-1;
+
+    &::before {
+      content: '';
+      border: 1px solid $primary-2;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background-color: $primary-2;
+    }
+  }
+
+  &:focus-visible {
+    border: 1px solid $primary-3;
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+    background-color: $primary-1;
+  }
+
+  &:active {
+    outline: none;
+    content: '';
+    border: 1px solid $primary-color;
+    background-color: $primary-2;
+
+    &::before {
+      border: none;
+      width: 4px;
+      height: 4px;
+      background-color: $neutral-1;
+    }
+  }
+
+  &:disabled {
+    border: 1px solid $neutral-4;
+    background-color: $neutral-3;
+    cursor: not-allowed;
+    outline: none;
+    color: $primary-color;
+  }
+}
+
+.radio:checked {
+  border: 4px solid $primary-color;
+  outline: none;
+
+  &:disabled {
+    border: 1px solid $neutral-4;
+  }
+}
+
+.radio-checked {
+  appearance: none;
+  outline: none;
+  border: 4px solid $primary-color;
+  border-radius: 50%;
+  width: spacing(2);
+  height: spacing(2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  flex-shrink: 0;
+
+  &:hover {
+    border: 4px solid $primary-5;
+    outline: 4px solid $primary-1;
+    background-color: $primary-1;
+  }
+
+  &:focus-visible {
+    border: 4px solid $primary-color;
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+    background-color: $neutral-1;
+  }
+
+  &:active {
+    outline: none;
+    border: 5px solid $primary-7;
+  }
+
+  &:disabled {
+    border: none;
+    background-color: $neutral-2;
+    cursor: not-allowed;
+    outline: none;
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border: 1px solid $neutral-4;
+      background-color: $neutral-4;
+      border-radius: 50%;
+    }
+  }
+}
