@@ -1,13 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+import { AlertModule } from 'projects/ion/src/lib/alert/alert.module';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
-  AlertComponent,
   BadgeComponent,
   ButtonComponent,
   DropdownComponent,
   IonDividerComponent,
-  IonIconComponent,
 } from '../projects/ion/src/public-api';
 
 export default {
@@ -22,12 +21,10 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
     declarations: [
       IonDividerComponent,
       ButtonComponent,
-      IonIconComponent,
       BadgeComponent,
       DropdownComponent,
-      AlertComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, AlertModule],
   },
 });
 
