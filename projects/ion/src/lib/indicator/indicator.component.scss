@@ -39,9 +39,9 @@
       fill: $neutral-6;
     }
     display: flex;
+    text-align: start;
     align-items: center;
-    position: relative;
-    padding: 18px;
+    padding: 15px 10px ;
 
     .value {
       font-size: 35px;
@@ -65,8 +65,11 @@
     .icon-technical {
       ::ng-deep svg {
         fill: $neutral-6;
-        margin-left: 55px;
       }
+        font-size: 26px;
+        text-align: end;
+        display: block;
+        flex: auto;
     }
   }
 }
