@@ -1,18 +1,15 @@
 import { CheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonIconComponent } from '../icon/icon.component';
 import { TagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
 import { PaginationComponent } from '../pagination/pagination.component';
-import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
 import {
   IonSmartTableProps,
   SmartTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { BadgeComponent } from '../badge/badge.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { ButtonModule } from '../button/button.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -76,16 +73,8 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(SmartTableComponent, {
     componentProperties: customProps,
-    declarations: [
-      IonIconComponent,
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
-      ButtonComponent,
-      BadgeComponent,
-      DropdownComponent,
-    ],
-    imports: [FormsModule],
+    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    imports: [FormsModule, ButtonModule],
   });
 };
 
