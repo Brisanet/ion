@@ -2,16 +2,11 @@ import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.c
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import {
-  BadgeComponent,
-  ButtonComponent,
-  DropdownComponent,
-  TagComponent,
-} from '../projects/ion/src/public-api';
+import { TagComponent } from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -24,15 +19,11 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
   moduleMetadata: {
     declarations: [
       TableComponent,
-      IonIconComponent,
       TagComponent,
       CheckboxComponent,
       PaginationComponent,
-      ButtonComponent,
-      BadgeComponent,
-      DropdownComponent,
     ],
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ButtonModule],
   },
 });
 
