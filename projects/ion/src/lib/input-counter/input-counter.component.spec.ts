@@ -1,24 +1,14 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from '../icon/icon.component';
 import { render, fireEvent, screen } from '@testing-library/angular';
 import { InputCounterComponent } from './input-counter.component';
-import { ButtonComponent } from '../button/button.component';
-import { InfoBadgeComponent } from '../info-badge/info-badge.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from '../badge/badge.component';
+import { ButtonModule } from '../button/button.module';
 
 const sut = async (customProps = {}): Promise<void> => {
   await render(InputCounterComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, FormsModule],
-    declarations: [
-      IonIconComponent,
-      ButtonComponent,
-      BadgeComponent,
-      InfoBadgeComponent,
-      DropdownComponent,
-    ],
+    imports: [CommonModule, FormsModule, ButtonModule],
+    declarations: [],
   });
 };
 

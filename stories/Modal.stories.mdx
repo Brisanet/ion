@@ -4,7 +4,6 @@ import { Canvas, Meta, Source, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
 import dedent from 'ts-dedent';
 
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
@@ -15,6 +14,7 @@ import {
   BadgeComponent,
   DropdownComponent,
 } from '../projects/ion/src/public-api';
+import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 <Meta title="Ion/Data Display/Modal" component={OpenModalButtonComponent} />
 
@@ -56,16 +56,9 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          IonModalComponent,
-          SelectMockComponent,
-          BadgeComponent,
-          DropdownComponent,
-        ],
+        declarations: [IonModalComponent, SelectMockComponent],
         providers: [IonModalService],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, FormsModule, ButtonModule],
         entryComponents: [IonModalComponent, SelectMockComponent],
       }),
     ]}
@@ -107,16 +100,9 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ButtonComponent,
-          IonIconComponent,
-          IonModalComponent,
-          InputMockComponent,
-          BadgeComponent,
-          DropdownComponent,
-        ],
+        declarations: [IonModalComponent, InputMockComponent],
         providers: [IonModalService],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, FormsModule, ButtonModule],
         entryComponents: [IonModalComponent, InputMockComponent],
       }),
     ]}

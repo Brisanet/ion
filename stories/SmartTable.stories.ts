@@ -2,17 +2,12 @@ import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.c
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import {
-  BadgeComponent,
-  ButtonComponent,
-  DropdownComponent,
-  TagComponent,
-} from '../projects/ion/src/public-api';
+import { TagComponent } from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
+import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -23,16 +18,8 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
   component: SmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    declarations: [
-      IonIconComponent,
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
-      ButtonComponent,
-      BadgeComponent,
-      DropdownComponent,
-    ],
-    imports: [CommonModule, FormsModule],
+    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    imports: [CommonModule, FormsModule, ButtonModule],
   },
 });
 

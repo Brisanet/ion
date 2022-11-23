@@ -1,15 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
-import {
-  BadgeComponent,
-  DropdownComponent,
-} from '../projects/ion/src/public-api';
+import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   component: IonModalComponent,
@@ -17,15 +12,8 @@ const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
     ...args,
   },
   moduleMetadata: {
-    declarations: [
-      ButtonComponent,
-      IonIconComponent,
-      IonModalComponent,
-      SelectMockComponent,
-      BadgeComponent,
-      DropdownComponent,
-    ],
-    imports: [CommonModule, FormsModule],
+    declarations: [IonModalComponent, SelectMockComponent],
+    imports: [CommonModule, FormsModule, ButtonModule],
     providers: [IonModalService],
     entryComponents: [IonModalComponent, SelectMockComponent],
   },
