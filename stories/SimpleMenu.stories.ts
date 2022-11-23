@@ -2,16 +2,13 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { DropdownComponent } from '../projects/ion/src/public-api';
 import {
   AvatarComponent,
-  BadgeComponent,
-  ButtonComponent,
   TabComponent,
   TabGroupComponent,
 } from '../projects/ion/src/public-api';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
+import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/SimpleMenu',
@@ -27,16 +24,12 @@ const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
   },
   moduleMetadata: {
     declarations: [
-      IonIconComponent,
       TabGroupComponent,
       TabComponent,
-      ButtonComponent,
-      BadgeComponent,
       AvatarComponent,
       DefaultImageDirective,
-      DropdownComponent,
     ],
-    imports: [CommonModule],
+    imports: [CommonModule, ButtonModule],
   },
 });
 
