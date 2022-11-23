@@ -5,6 +5,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export type IconDirection = 'left' | 'right';
 
 export interface IonInputProps {
+  placeholder?: string;
   iconInput?: string;
   disabled?: boolean;
   iconDirection?: IconDirection;
@@ -21,7 +22,7 @@ export interface IonInputProps {
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent {
-  @Input() placeholderInput = 'Placeholder';
+  @Input() placeholder?: string;
   @Input() iconInput: IconType;
   @Input() disabled? = false;
   @Input() iconDirection?: IconDirection;
