@@ -66,6 +66,7 @@ export class PopConfirmDirective {
       this.ionPopConfirmDesc;
 
     this.popconfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
+      this.closePopConfirm();
       this.ionOnConfirm.emit();
     });
 
