@@ -10,6 +10,8 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
+import { InputComponent } from '../input/input.component';
+import { FormsModule } from '@angular/forms';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -23,7 +25,9 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
       DropdownComponent,
       BadgeComponent,
       InfoBadgeComponent,
+      InputComponent,
     ],
+    imports: [FormsModule],
   });
 };
 

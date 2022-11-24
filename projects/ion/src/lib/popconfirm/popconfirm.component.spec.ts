@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import { AlertComponent } from '../alert/alert.component';
 import { BadgeComponent } from '../badge/badge.component';
@@ -5,6 +6,7 @@ import { ButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { InputComponent } from '../input/input.component';
 import { PopConfirmComponent, PopConfirmProps } from './popconfirm.component';
 
 const defaultProps: PopConfirmProps = {
@@ -21,7 +23,9 @@ const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
       DropdownComponent,
       IonIconComponent,
       AlertComponent,
+      InputComponent,
     ],
+    imports: [FormsModule],
   });
 };
 

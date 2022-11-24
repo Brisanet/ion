@@ -5,18 +5,21 @@ import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
+import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/Chips',
   component: ChipComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [FormsModule],
       declarations: [
         DropdownComponent,
         IonIconComponent,
         BadgeComponent,
         InfoBadgeComponent,
+        InputComponent,
       ],
     }),
   ],

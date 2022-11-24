@@ -1,5 +1,8 @@
+import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { IonIconComponent } from '../icon/icon.component';
+import { InputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
 import { DropdownComponent, DropdownParams } from './dropdown.component';
 
@@ -30,7 +33,8 @@ const sut = async (
 }> => {
   await render(DropdownComponent, {
     componentProperties: customParams,
-    declarations: [IonIconComponent],
+    declarations: [IonIconComponent, InputComponent],
+    imports: [FormsModule],
   });
   return { element: screen.getByTestId('ion-dropdown') };
 };
@@ -148,7 +152,7 @@ describe('DropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
 
-  it('should deslected a option', async () => {
+  it('should deselected a option', async () => {
     await sut(defaultMultiple);
     const elementToSelect = document.getElementById('option-0');
     fireEvent.click(elementToSelect);
@@ -169,5 +173,71 @@ describe('DropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length - 1
     );
+  });
+});
+
+describe('DropdownComponent / With Search', () => {
+  const searchEvent = jest.fn();
+
+  const defaultWithSearch = {
+    options,
+    multiple: true,
+    enableSearch: true,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+    searchChange: {
+      emit: searchEvent,
+    } as SafeAny,
+  };
+
+  beforeEach(() => {
+    selectEvent.mockClear();
+  });
+
+  it('should show search input', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId('inputElement')).toBeInTheDocument();
+  });
+
+  it('should emit event when searching', async () => {
+    const search = 'Apple';
+    await sut(defaultWithSearch);
+    const searchInput = screen.getByTestId('inputElement');
+    userEvent.type(searchInput, search);
+    expect(searchEvent).toHaveBeenLastCalledWith(search);
+  });
+
+  it('should show default search input when searchOptions is not provided', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId('inputElement')).toHaveAttribute(
+      'placeholder',
+      ''
+    );
+    expect(document.getElementById('ion-icon-search')).toBeTruthy();
+    expect(screen.getByTestId(`icon-right`)).toBeInTheDocument();
+  });
+
+  it('should be able to customize search input', async () => {
+    const searchOptions: IonInputProps = {
+      placeholder: 'Buscar',
+      iconInput: 'pencil',
+      iconDirection: 'left',
+    };
+    await sut({
+      ...defaultWithSearch,
+      searchOptions,
+    });
+    const searchInput = screen.getByTestId('inputElement');
+    expect(searchInput).toHaveAttribute(
+      'placeholder',
+      searchOptions.placeholder
+    );
+    expect(
+      document.getElementById('ion-icon-' + searchOptions.iconInput)
+    ).toBeTruthy();
+    expect(
+      screen.getByTestId(`icon-${searchOptions.iconDirection}`)
+    ).toBeInTheDocument();
   });
 });

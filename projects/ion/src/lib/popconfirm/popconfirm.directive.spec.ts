@@ -17,6 +17,8 @@ import { IonIconComponent } from './../icon/icon.component';
 import { PopConfirmComponent } from './popconfirm.component';
 import { PopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
+import { InputComponent } from '../input/input.component';
+import { FormsModule } from '@angular/forms';
 
 const textButton = 'Teste';
 const confirmText = 'Confirmar';
@@ -127,7 +129,9 @@ describe('Popconfirm host tests', () => {
         PopConfirmComponent,
         IonDividerComponent,
         PopConfirmDirective,
+        InputComponent,
       ],
+      imports: [FormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {

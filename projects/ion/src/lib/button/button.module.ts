@@ -4,6 +4,8 @@ import { ButtonComponent } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { BadgeComponent } from '../badge/badge.component';
+import { InputComponent } from '../input/input.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,8 +13,9 @@ import { BadgeComponent } from '../badge/badge.component';
     IonIconComponent,
     DropdownComponent,
     BadgeComponent,
+    InputComponent,
   ],
-  exports: [ButtonComponent, IonIconComponent, BadgeComponent],
-  imports: [CommonModule],
+  exports: [ButtonComponent, IonIconComponent, BadgeComponent, InputComponent],
+  imports: [CommonModule, FormsModule],
 })
 export class ButtonModule {}
