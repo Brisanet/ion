@@ -11,6 +11,7 @@ export interface IonInputProps {
   invalid?: boolean;
   value?: string;
   valueChange?: EventEmitter<string>;
+  placeholder?: string;
 }
 
 @Component({
@@ -24,6 +25,7 @@ export class InputComponent {
   @Input() iconDirection?: IconDirection;
   @Input() valid: boolean;
   @Input() invalid: boolean;
+  @Input() placeholder = '';
   @Input() value = '';
   @Output() valueChange = new EventEmitter<string>();
 
