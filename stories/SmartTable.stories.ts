@@ -51,7 +51,7 @@ const columns = [
   },
   {
     key: 'name',
-    label: 'Name',
+    label: 'Nome',
     sort: true,
   },
 ];
@@ -69,6 +69,7 @@ const actions = [
     },
     confirm: {
       title: 'Você realmente deseja deletar?',
+      description: 'você estará excluindo um disco da sua base de dados!',
     },
   },
   {

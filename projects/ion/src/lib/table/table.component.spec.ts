@@ -527,9 +527,34 @@ describe('Table > Action with confirm', () => {
     await sut(withPopconfirm);
     const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
 
+    expect(actionBtn).not.toHaveAttribute('ng-reflect-ion-pop-confirm-desc');
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-pop-confirm-title',
       actionConfig.confirm.title
+    );
+  });
+
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonTableProps<Disco>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        description: 'você estará excluindo um disco',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-desc',
+      actionConfig.confirm.description
     );
   });
 });

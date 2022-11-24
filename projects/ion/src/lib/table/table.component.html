@@ -85,6 +85,7 @@
               *ngIf="action.confirm"
               ionPopConfirm
               [ionPopConfirmTitle]="action.confirm.title"
+              [ionPopConfirmDesc]="action.confirm.description"
               (ionOnConfirm)="handleEvent(row, action)"
               [title]="action.label"
               [attr.data-testid]="'row-' + index + '-' + action.label"

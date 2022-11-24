@@ -28,6 +28,7 @@ export interface Column {
 
 export interface ActionConfirm {
   title: string;
+  description?: string;
 }
 
 export interface ActionTable {
