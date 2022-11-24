@@ -115,10 +115,19 @@ describe('Directive: Popconfirm', () => {
     expect(directive.closePopConfirm).toHaveBeenCalled();
   });
 
+  it('should close pop when click in confirm', () => {
+    jest.spyOn(directive, 'closePopConfirm');
+
+    directive.open(elementPosition);
+    fireEvent.click(screen.getByTestId('pop-confirm-btn'));
+
+    expect(directive.closePopConfirm).toHaveBeenCalled();
+  });
+
   it('should click in confirm button', () => {
     directive.open(elementPosition);
     fireEvent.click(screen.getByTestId('pop-confirm-btn'));
-    expect(screen.getByTestId('pop-confirm-btn')).toBeInTheDocument();
+    expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
 
   it('should not open new popconfirm when be opened', () => {
