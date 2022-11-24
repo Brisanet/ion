@@ -47,12 +47,18 @@ import {
   docCheck,
   docWarning,
   condominium,
+  sortAsc,
+  sortDesc,
+  arrowsDownUp,
+  arrowsUpDown,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
 export const iconsPaths: Record<string, string> = {
   access,
   add,
+  'arrows-down-up': arrowsDownUp,
+  'arrows-up-down': arrowsUpDown,
   sub,
   calendar,
   'calendar-attention': calendarAttention,
@@ -89,6 +95,8 @@ export const iconsPaths: Record<string, string> = {
   'service-phone': servicePhone,
   'service-tv': serviceTv,
   'service-internet': serviceInternet,
+  'sort-asc': sortAsc,
+  'sort-desc': sortDesc,
   'star-solid': starSolid,
   technical,
   trash,
