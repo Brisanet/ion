@@ -103,14 +103,14 @@
 }
 
 .chip-sm {
-  padding: 4px 8px;
+  padding: spacing(0.5) spacing(1);
   font-size: 12px;
   line-height: 16px;
   height: 24px;
 }
 
 .chip-md {
-  padding: 6px 12px;
+  padding: spacing(0.75) spacing(1.5);
   font-size: 14px;
   line-height: 20px;
   height: 32px;
@@ -119,7 +119,7 @@
 button {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: spacing(1);
 }
 
 .container-icon-text {
@@ -138,8 +138,4 @@ button {
 
 .ion-chip-dropdown {
   margin-top: 4px;
-}
-
-.ionBadge {
-  display: flex;
 }
