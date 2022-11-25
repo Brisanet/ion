@@ -1,6 +1,6 @@
+import { DropdownModule } from './../dropdown/dropdown.module';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent, DropdownComponent } from 'projects/ion/src/public-api';
-import { IonIconComponent } from '../icon/icon.component';
+import { BadgeComponent } from 'projects/ion/src/public-api';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import {
@@ -18,12 +18,8 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [
-      IonIconComponent,
-      DropdownComponent,
-      BadgeComponent,
-      InfoBadgeComponent,
-    ],
+    declarations: [BadgeComponent, InfoBadgeComponent],
+    imports: [DropdownModule],
   });
 };
 
