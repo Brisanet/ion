@@ -18,38 +18,32 @@ export default {
 
 const Template: Story<InputComponent> = (args: InputComponent) => ({
   component: InputComponent,
-  props: args,
+  props: { ...args, valueChange: action('valueChange') },
 });
 
 export const Input = Template.bind({});
-Input.args = {
-  valueChange: action('valueChange'),
-};
+Input.args = {};
 
 export const IconLeft = Template.bind({});
 IconLeft.args = {
   iconInput: 'pencil',
   iconDirection: 'left',
-  valueChange: action('valueChange'),
 };
 
 export const iconRight = Template.bind({});
 iconRight.args = {
   iconInput: 'pencil',
   iconDirection: 'right',
-  valueChange: action('valueChange'),
 };
 
 export const iconValid = Template.bind({});
 iconValid.args = {
   valid: true,
-  valueChange: action('valueChange'),
 };
 
 export const iconInvalid = Template.bind({});
 iconInvalid.args = {
   invalid: true,
-  valueChange: action('valueChange'),
 };
 
 export const rightWithIcon = Template.bind({});
@@ -57,7 +51,6 @@ rightWithIcon.args = {
   valid: true,
   iconDirection: 'right',
   iconInput: 'filter',
-  valueChange: action('valueChange'),
 };
 
 export const leftWithIcon = Template.bind({});
@@ -65,11 +58,9 @@ leftWithIcon.args = {
   valid: true,
   iconDirection: 'left',
   iconInput: 'filter',
-  valueChange: action('valueChange'),
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
-  valueChange: action('valueChange'),
 };
