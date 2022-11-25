@@ -58,6 +58,9 @@
   <ion-dropdown
     [options]="options"
     [multiple]="multiple"
+    [enableSearch]="dropdownSearchConfig?.enableSearch || false"
+    [searchOptions]="dropdownSearchConfig?.searchOptions"
+    (searchChange)="dropdownSearchChange($event)"
     (selected)="selectDropdownItem($event)"
   ></ion-dropdown>
 </div>

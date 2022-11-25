@@ -87,3 +87,16 @@ WithDropdown.args = {
   icon: 'close',
   multiple: true,
 };
+
+export const WithDropdownWithSearch = Template.bind({});
+WithDropdownWithSearch.args = {
+  label: 'Animais',
+  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  icon: 'close',
+  dropdownSearchConfig: {
+    enableSearch: true,
+    searchOptions: {
+      placeholder: 'Busque um animal',
+    },
+  },
+};

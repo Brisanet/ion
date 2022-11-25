@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { BadgeComponent, DropdownComponent } from 'projects/ion/src/public-api';
 import { IonIconComponent } from '../icon/icon.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
@@ -217,5 +218,44 @@ describe('With Multiple Dropdown', () => {
 
   afterEach(() => {
     dropdownEvent.mockClear();
+  });
+});
+
+describe('With Dropdown with search input', () => {
+  const searchEvent = jest.fn();
+
+  beforeEach(async () => {
+    await sut({
+      label: 'dropdown',
+      options: defaultOptions,
+      dropdownEvents: {
+        emit: jest.fn(),
+      } as SafeAny,
+      dropdownSearchConfig: {
+        enableSearch: true,
+        searchOptions: {
+          placeholder: 'Busca',
+        },
+      },
+      dropdownSearchEvents: {
+        emit: searchEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByText('dropdown'));
+  });
+
+  it('should render search input when enableSearch is true', async () => {
+    expect(screen.getByPlaceholderText('Busca')).toBeInTheDocument();
+  });
+
+  it('should emit search event when search input change', async () => {
+    const input = 'folklore';
+    userEvent.type(screen.getByTestId('inputElement'), input);
+    expect(screen.getByTestId('inputElement')).toHaveValue(input);
+    expect(searchEvent).toHaveBeenCalledWith(input);
+  });
+
+  afterEach(() => {
+    searchEvent.mockClear();
   });
 });
