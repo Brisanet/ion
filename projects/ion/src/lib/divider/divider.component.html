@@ -1,5 +1,6 @@
 <hr
   data-testid="hr"
+  [style.margin]="margin ? '0' : ''"
   [class]="'ion-divider-' + direction + ' ion-divider-' + type"
   [attr.data-content]="
     direction === 'horizontal' ? (type === 'text' ? label : '') : ''
