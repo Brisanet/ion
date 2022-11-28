@@ -23,7 +23,7 @@
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     class="icon"
   ></ion-icon>
-  <span *ngIf="!circularButton && (label || loading)">{{
+  <span *ngIf="!circularButton && (label || (loading && !iconType))">{{
     loadingMessage || label
   }}</span>
   <ion-badge
