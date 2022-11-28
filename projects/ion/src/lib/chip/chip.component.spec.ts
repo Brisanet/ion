@@ -1,6 +1,6 @@
-import { DropdownModule } from './../dropdown/dropdown.module';
+import { DropdownModule } from '../dropdown/dropdown.module';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from 'projects/ion/src/public-api';
+import { BadgeComponent } from '../badge/badge.component';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import {
