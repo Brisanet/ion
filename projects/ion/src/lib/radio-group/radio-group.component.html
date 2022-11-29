@@ -1,10 +1,10 @@
 <div class="radio-group" *ngIf="radioGroup">
   <div class="column-group" *ngFor="let radiogroup of radioGroup; index as i">
-    <div class="rows" *ngFor="let radioGroup of radioGroup[i]">
+    <div class="rows" *ngFor="let RadioGroup of RadioGroup[i]">
       <input
-        name="radioGroup"
-        id="{{ radioGroup.id }}"
-        value="{{ radioGroup.label }}"
+        name="RadioGroup"
+        id="{{ RadioGroup.id }}"
+        value="{{ RadioGroup.label }}"
         type="radio"
         [ngClass]="{ radio: !checked, 'radio-checked': checked }"
       />
