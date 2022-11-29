@@ -1,10 +1,12 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
+  OnInit,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 
@@ -21,7 +23,7 @@ enum CheckBoxEvent {
   indeterminate = 'indeterminate',
 }
 
-export type CheckBoxStates = 'checked' | 'enabled' | 'indeterminate';
+export type CheckBoxStates = keyof typeof CheckBoxEvent;
 
 const stateChange = {
   enabled: 'checked',
@@ -34,7 +36,7 @@ const stateChange = {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })
-export class CheckboxComponent implements AfterViewInit {
+export class CheckboxComponent implements OnInit, OnChanges {
   @Input() label?: string;
   @Input() state: CheckBoxStates = 'enabled';
   @Output() stateChange = new EventEmitter<CheckBoxStates>();
@@ -46,14 +48,14 @@ export class CheckboxComponent implements AfterViewInit {
 
   @ViewChild('checkBox', { static: true }) checkBox: ElementRef;
 
-  private inited = false;
+  private action = {
+    indeterminate: this.setIndeterminate.bind(this),
+    checked: this.setChecked.bind(this),
+    enabled: this.setEnabled.bind(this),
+  };
 
-  setState(): void {
-    if (this.state === 'indeterminate') this.setIndeterminate();
-    if (this.state === 'checked') this.setChecked();
-    if (this.state === 'enabled') this.setEnabled();
-
-    this.inited = true;
+  setState(options = { emitEvent: true }): void {
+    this.action[this.state](options);
   }
 
   changeState(): void {
@@ -65,38 +67,53 @@ export class CheckboxComponent implements AfterViewInit {
     this.checkBox.nativeElement.indeterminate = false;
   }
 
-  setEnabled(): void {
+  setEnabled(options: { emitEvent: boolean }): void {
     this.checkBox.nativeElement.checked = false;
     this.checkBox.nativeElement.enabled = true;
     this.clearIndeterminate();
-    this.emitEvent();
+    if (options.emitEvent) this.emitEvent();
   }
 
-  setIndeterminate(): void {
+  setIndeterminate(options: { emitEvent: boolean }): void {
     this.checkBox.nativeElement.indeterminate = true;
-    this.emitEvent();
+    if (options.emitEvent) this.emitEvent();
   }
 
-  setChecked(): void {
+  setChecked(options: { emitEvent: boolean }): void {
     this.checkBox.nativeElement.checked = true;
     this.clearIndeterminate();
-    this.emitEvent();
+    if (options.emitEvent) this.emitEvent();
   }
 
   emitEvent(): void {
-    this.inited && this.ionClick.emit({ state: CheckBoxEvent[this.state] });
+    this.ionClick.emit({ state: CheckBoxEvent[this.state] });
   }
 
   setDisabled(): void {
     this.checkBox.nativeElement.disabled = this.disabled;
   }
 
-  checkState(): void {
-    this.setState();
+  ngOnInit(): void {
+    this.setState({ emitEvent: false });
     this.setDisabled();
   }
 
-  ngAfterViewInit(): void {
-    this.checkState();
+  ngOnChanges(changes: SimpleChanges): void {
+    const { state, disabled } = changes;
+
+    if (
+      state &&
+      !state.firstChange &&
+      state.previousValue !== state.currentValue
+    ) {
+      this.setState();
+    }
+    if (
+      disabled &&
+      !disabled.firstChange &&
+      disabled.previousValue !== disabled.currentValue
+    ) {
+      this.setDisabled();
+    }
   }
 }

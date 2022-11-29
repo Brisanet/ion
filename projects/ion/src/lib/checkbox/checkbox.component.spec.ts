@@ -2,9 +2,9 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from './../utils/safe-any';
 import { CheckboxComponent, CheckBoxProps } from './checkbox.component';
 
-const box_id = 'ion-checkbox';
+const boxId = 'ion-checkbox';
 
-const box_states = {
+const boxStates = {
   enabled: { state: 'enabled' },
   checked: { state: 'checked' },
   indeterminate: { state: 'indeterminate' },
@@ -22,7 +22,7 @@ const sut = async (customProps: CheckBoxProps = {}): Promise<void> => {
   });
 };
 
-describe('CehckBoxComponent', () => {
+describe('CheckboxComponent', () => {
   describe('component basics', () => {
     const checkEvent = jest.fn();
 
@@ -35,33 +35,31 @@ describe('CehckBoxComponent', () => {
       });
     });
     it('should render checkbox', async () => {
-      expect(screen.getByTestId(box_id)).toBeInTheDocument();
+      expect(screen.getByTestId(boxId)).toBeInTheDocument();
     });
     it('should render enabled checkbox', async () => {
-      expect(screen.getByTestId(box_id)).toHaveProperty('enabled', true);
+      expect(screen.getByTestId(boxId)).toHaveProperty('enabled', true);
     });
     it('should render unchecked element', async () => {
-      expect(screen.getByTestId(box_id)).not.toBeChecked();
+      expect(screen.getByTestId(boxId)).not.toBeChecked();
     });
     it('should check when clicked', async () => {
-      const element = screen.getByTestId(box_id);
+      const element = screen.getByTestId(boxId);
       fireEvent.click(element);
       expect(element).toBeChecked();
     });
 
     it('should have the attribute name defined with label value', async () => {
-      expect(screen.getByTestId(box_id)).toHaveAttribute(
-        'name',
-        'Custom label'
-      );
+      expect(screen.getByTestId(boxId)).toHaveAttribute('name', 'Custom label');
     });
 
     it('should not call event when render', async () => {
-      expect(checkEvent).toHaveBeenCalledTimes(0);
+      expect(checkEvent).not.toHaveBeenCalled();
     });
 
     it('should call event when check', async () => {
-      fireEvent.click(screen.getByTestId(box_id));
+      expect(checkEvent).not.toHaveBeenCalled();
+      fireEvent.click(screen.getByTestId(boxId));
       expect(checkEvent).toHaveBeenCalledWith({
         state: 'checked',
       });
@@ -73,17 +71,17 @@ describe('CehckBoxComponent', () => {
   });
   it('should render indeterminate checkbox', async () => {
     await sut({ state: 'indeterminate' });
-    expect(screen.getByTestId(box_id)).toHaveProperty('indeterminate', true);
+    expect(screen.getByTestId(boxId)).toHaveProperty('indeterminate', true);
   });
   it('should render disabled checkbox', async () => {
     await sut({ disabled: true });
-    expect(screen.getByTestId(box_id)).toBeDisabled();
+    expect(screen.getByTestId(boxId)).toBeDisabled();
   });
   it.each(['enabled', 'checked', 'indeterminate'])(
     `should render %s disabled`,
     async (state) => {
-      await sut({ ...box_states[state], disabled: true });
-      expect(screen.getByTestId(box_id)).toBeDisabled();
+      await sut({ ...boxStates[state], disabled: true });
+      expect(screen.getByTestId(boxId)).toBeDisabled();
     }
   );
   it('should not emit event when disabled', async () => {
@@ -94,19 +92,19 @@ describe('CehckBoxComponent', () => {
         emit: clickEvent,
       } as SafeAny,
     });
-    const element = screen.getByTestId(box_id);
+    const element = screen.getByTestId(boxId);
     fireEvent.click(element);
     expect(clickEvent).not.toHaveBeenCalledWith({ state: 'disabled' });
   });
   it('should become unchecked when checked checkbox is clicked', async () => {
     await sut({ state: 'checked' });
-    const element = screen.getByTestId(box_id);
+    const element = screen.getByTestId(boxId);
     fireEvent.click(element);
     expect(element).not.toBeChecked();
   });
   it('should become enabled when indeterminate checkbox is clicked', async () => {
     await sut({ state: 'indeterminate' });
-    const element = screen.getByTestId(box_id);
+    const element = screen.getByTestId(boxId);
     fireEvent.click(element);
     expect(element).not.toBeChecked();
   });
@@ -115,28 +113,43 @@ describe('CehckBoxComponent', () => {
     'should change checkbox state when state is changed to %s',
     async (state) => {
       await sut();
-      const element = screen.getByTestId(box_id);
-      fireEvent.change(element, { target: { state: state } });
+      const element = screen.getByTestId(boxId);
+      fireEvent.change(element, { target: { state } });
       expect(element).toHaveProperty('state', state);
     }
   );
-
   it.each(['enabled', 'checked'])(
     'should emit right event when %s is clicked',
     async (state) => {
       const clickEvent = jest.fn();
       await sut({
-        ...box_states[state],
+        ...boxStates[state],
         ionClick: {
           emit: clickEvent,
         } as SafeAny,
       });
-      const element = screen.getByTestId(box_id);
+      const element = screen.getByTestId(boxId);
       fireEvent.click(element);
       expect(clickEvent).toHaveBeenLastCalledWith(StateEvents[state]);
     }
   );
+  it('should emit a event in every click', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      state: 'enabled',
+      ionClick: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    const amount = 5;
+    const element = screen.getByTestId(boxId);
 
+    for (let i = 0; i < amount; i++) {
+      fireEvent.click(element);
+    }
+
+    expect(clickEvent).toHaveBeenCalledTimes(amount);
+  });
   it('should input label', async () => {
     const labelText = 'Teste';
     await sut({ label: labelText });
