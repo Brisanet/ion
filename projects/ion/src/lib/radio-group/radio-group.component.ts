@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 export interface RadioGroupItem {
   label: string;
-  id: number;
 }
 
 @Component({
@@ -11,5 +10,7 @@ export interface RadioGroupItem {
   styleUrls: ['./radio-group.component.scss'],
 })
 export class RadioGroupComponent {
-  @Input() radiogroup: Array<RadioGroupItem>;
+  @Input() RadioGroup: Array<RadioGroupItem>;
+  @Input() label?: string;
+  @Input() checked? = false;
 }
