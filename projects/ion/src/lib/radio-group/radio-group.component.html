@@ -1,17 +1,14 @@
-<form class="ion-input-radio">
-  <input
-    (click)="check()"
-    [name]="label"
-    [id]="label"
-    [value]="label"
-    [disabled]="disabled"
-    type="radio"
-    [checked]="checked"
-    [ngClass]="{ radio: !checked, 'radio-checked': checked }"
-  />
-  <label
-    [ngClass]="{ labelDisabled: !disabled, 'labelDisabled-checked': disabled }"
-    [for]="label"
-    >{{ label }}</label
-  >
-</form>
+<div class="radio-group" *ngIf="radioGroup">
+  <div class="column-group" *ngFor="let radiogroup of radioGroup; index as i">
+    <div class="rows" *ngFor="let radioGroup of radioGroup[i]">
+      <input
+        name="radioGroup"
+        id="{{ radioGroup.id }}"
+        value="{{ radioGroup.label }}"
+        type="radio"
+        [ngClass]="{ radio: !checked, 'radio-checked': checked }"
+      />
+      <label for="{{ radioGroup.id }}">{{ radioGroup.label }}</label>
+    </div>
+  </div>
+</div>

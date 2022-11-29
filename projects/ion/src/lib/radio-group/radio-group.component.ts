@@ -1,16 +1,15 @@
 import { Component, Input } from '@angular/core';
 
+export interface RadioGroupItem {
+  label: string;
+  id: number;
+}
+
 @Component({
-  selector: 'ion-radio-group',
+  selector: 'app-radio-group',
   templateUrl: './radio-group.component.html',
   styleUrls: ['./radio-group.component.scss'],
 })
 export class RadioGroupComponent {
-  @Input() label?: string;
-  @Input() checked? = false;
-  @Input() disabled? = false;
-
-  check(): void {
-    this.checked = true;
-  }
+  @Input() radiogroup: Array<RadioGroupItem>;
 }
