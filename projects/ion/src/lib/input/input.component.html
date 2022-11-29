@@ -1,6 +1,6 @@
 <div class="input-container">
   <div
-    data-testid="inputDiv"
+    data-testid="input-div"
     class="input"
     [class.disabled]="disabled"
     [class.invalid]="invalid"
@@ -19,7 +19,7 @@
       [attr.placeholder]="placeholder"
       class="my-input"
       [disabled]="disabled"
-      data-testid="inputElement"
+      data-testid="input-element"
     />
 
     <ion-icon
@@ -51,7 +51,7 @@
     *ngIf="inputButton"
     (click)="handleClick()"
   >
-    Button
+    {{ button }}
   </button>
   <button
     data-testid="inputIcon-button"

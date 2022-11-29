@@ -16,27 +16,28 @@ describe('InputComponent', () => {
   it('Should allow letters to be inputted', async () => {
     await sut();
     const inputValue = 'input';
-    fireEvent.change(screen.getByTestId('inputElement'), {
+    fireEvent.change(screen.getByTestId('input-element'), {
       target: { value: inputValue },
     });
-    expect(screen.getByTestId('inputElement')).toHaveValue(inputValue);
+    expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
   it('should render input with an empty placeholder if none is passed', async () => {
     await sut();
-    const input = screen.getByTestId('inputElement');
+    const input = screen.getByTestId('input-element');
     expect(input).not.toHaveAttribute('placeholder');
   });
+
   it('should render input with a given placeholder', async () => {
     const placeholder = 'Search';
     await sut({ placeholder });
-    const input = screen.getByTestId('inputElement');
+    const input = screen.getByTestId('input-element');
     expect(input).toHaveAttribute('placeholder', placeholder);
   });
 
   it('should render input component disabled', async () => {
     await sut({ disabled: true });
-    const element = screen.getByTestId('inputElement');
+    const element = screen.getByTestId('input-element');
     expect(element).toBeDisabled();
   });
 

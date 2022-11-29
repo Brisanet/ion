@@ -6,6 +6,7 @@ export type IconDirection = 'left' | 'right';
 
 export interface IonInputProps {
   placeholder?: string;
+  button?: string;
   iconInput?: string;
   disabled?: boolean;
   iconDirection?: IconDirection;
@@ -23,6 +24,7 @@ export interface IonInputProps {
 })
 export class InputComponent {
   @Input() placeholder?: string;
+  @Input() button = 'Button';
   @Input() iconInput: IconType;
   @Input() disabled? = false;
   @Input() iconDirection?: IconDirection;
