@@ -1,11 +1,11 @@
+import { AvatarComponent } from './../../../../../storybook-static/lib/avatar/avatar.component';
 import { IonIconComponent } from './../icon/icon.component';
-import { AlertComponent } from './../alert/alert.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AlertComponent, IonIconComponent],
+  declarations: [AvatarComponent, IonIconComponent],
   imports: [CommonModule],
-  exports: [AlertComponent, IonIconComponent],
+  exports: [AvatarComponent, IonIconComponent],
 })
 export class AvatarModule {}
