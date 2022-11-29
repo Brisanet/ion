@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   template: `
     <label>Choose one</label>
+    <span>{{ label }}</span>
     <select
       style="padding: 5px;
     border: none;
