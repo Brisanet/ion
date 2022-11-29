@@ -2,16 +2,15 @@
 
 .ion-badge {
   display: flex;
-}
 
-span {
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 16px;
-  padding: spacing(0) spacing(0.5);
-  color: $neutral-1;
-  border-radius: 50px;
+  span {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    padding: spacing(0) spacing(0.5);
+    border-radius: 50px;
+  }
 }
 
 @mixin theme-badge($bgColor, $fontColor) {
