@@ -7,6 +7,7 @@ export interface IonDividerProps {
   label?: string;
   direction?: DirectionType;
   type?: DividerType;
+  margin?: boolean;
 }
 
 @Component({
@@ -18,4 +19,5 @@ export class IonDividerComponent {
   @Input() label = '';
   @Input() direction?: DirectionType = 'horizontal';
   @Input() type?: DividerType = 'solid';
+  @Input() margin? = false;
 }
