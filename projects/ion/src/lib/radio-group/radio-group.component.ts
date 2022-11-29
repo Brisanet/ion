@@ -10,7 +10,7 @@ export interface RadioGroupItem {
   styleUrls: ['./radio-group.component.scss'],
 })
 export class RadioGroupComponent {
-  @Input() RadioGroup: Array<RadioGroupItem>;
+  @Input() radioGroup: Array<RadioGroupItem>;
   @Input() label?: string;
   @Input() checked? = false;
 }
