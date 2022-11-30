@@ -8,6 +8,7 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
+  SimpleChange,
 } from '@angular/core';
 
 export interface CheckBoxProps {
@@ -86,6 +87,16 @@ export class CheckboxComponent implements OnInit, OnChanges {
     this.ionClick.emit({ state: CheckBoxEvent[this.state] });
   }
 
+  stateInputChanged(state: SimpleChange): boolean {
+    return (
+      state && !state.firstChange && state.previousValue !== state.currentValue
+    );
+  }
+
+  disabledInputChanged(disabled: SimpleChange): boolean {
+    return disabled && disabled.previousValue !== disabled.currentValue;
+  }
+
   setDisabled(): void {
     this.checkBox.nativeElement.disabled = this.disabled;
   }
@@ -98,14 +109,10 @@ export class CheckboxComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const { state, disabled } = changes;
 
-    if (
-      state &&
-      !state.firstChange &&
-      state.previousValue !== state.currentValue
-    ) {
+    if (this.stateInputChanged(state)) {
       this.setState();
     }
-    if (disabled && disabled.previousValue !== disabled.currentValue) {
+    if (this.disabledInputChanged(disabled)) {
       this.setDisabled();
     }
   }
