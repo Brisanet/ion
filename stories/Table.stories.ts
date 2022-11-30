@@ -3,10 +3,16 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { TagComponent } from '../projects/ion/src/public-api';
+import {
+  AlertComponent,
+  IonDividerComponent,
+  PopConfirmDirective,
+  TagComponent,
+} from '../projects/ion/src/public-api';
 import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -17,11 +23,16 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
   component: TableComponent,
   props: args,
   moduleMetadata: {
+    entryComponents: [PopConfirmComponent],
     declarations: [
       TableComponent,
       TagComponent,
       CheckboxComponent,
       PaginationComponent,
+      PopConfirmDirective,
+      PopConfirmComponent,
+      AlertComponent,
+      IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule, ButtonModule],
   },
@@ -124,6 +135,9 @@ const actions = [
     },
     call: (row: SafeAny): void => {
       row.name += ' DELETED';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
     },
   },
   {
