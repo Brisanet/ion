@@ -1,6 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from './../utils/safe-any';
-import { CheckboxComponent, CheckBoxProps } from './checkbox.component';
+import {
+  CheckboxComponent,
+  CheckBoxProps,
+  CheckBoxStates,
+} from './checkbox.component';
+import { Component } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
 const boxId = 'ion-checkbox';
 
@@ -161,5 +167,70 @@ describe('CheckboxComponent', () => {
     const element = screen.getByLabelText(labelText);
     fireEvent.click(element);
     expect(element).toBeChecked();
+  });
+});
+
+@Component({
+  template: `
+    <ion-checkbox
+      [label]="'Checkbox'"
+      [state]="state"
+      [disabled]="disabled"
+      (ionClick)="changedState($event)"
+    ></ion-checkbox>
+  `,
+})
+class CheckboxHostComponent {
+  state: CheckBoxStates = 'enabled';
+  disabled = false;
+  changedState = (event: string): string => {
+    return event;
+  };
+}
+describe('Checkbox controlled by a parent component', () => {
+  let fixture, checkboxHost;
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [CheckboxHostComponent, CheckboxComponent],
+    });
+    fixture = TestBed.createComponent(CheckboxHostComponent);
+    checkboxHost = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+  it('should render checkbox in default state', () => {
+    expect(screen.getByTestId('ion-checkbox')).not.toBeChecked();
+    expect(checkboxHost.state).toBe('enabled');
+  });
+  it('should not emit event when render checkbox for the first time', () => {
+    jest.spyOn(checkboxHost, 'changedState');
+    expect(checkboxHost.changedState).not.toHaveBeenCalled();
+  });
+  it('should emit event when checkbox is clicked', () => {
+    jest.spyOn(checkboxHost, 'changedState');
+    fireEvent(screen.getByTestId('ion-checkbox'), new Event('click'));
+    expect(checkboxHost.changedState).toHaveBeenCalledWith({
+      state: 'checked',
+    });
+  });
+  it('should emit event when changing state directly on host component', () => {
+    jest.spyOn(checkboxHost, 'changedState');
+    checkboxHost.state = 'checked';
+    fixture.detectChanges();
+    expect(checkboxHost.changedState).toHaveBeenCalledWith({
+      state: 'checked',
+    });
+  });
+  it('should emit event when changing state to indeterminate directly on host component', () => {
+    jest.spyOn(checkboxHost, 'changedState');
+    checkboxHost.state = 'indeterminate';
+    fixture.detectChanges();
+    expect(checkboxHost.changedState).toHaveBeenCalledWith({
+      state: 'indeterminate',
+    });
+  });
+  it('should disable checkbox when changing disable input on host component', () => {
+    checkboxHost.disabled = true;
+    fixture.detectChanges();
+    expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
   });
 });

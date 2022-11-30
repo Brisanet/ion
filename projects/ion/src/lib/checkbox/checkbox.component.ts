@@ -39,23 +39,20 @@ const stateChange = {
 export class CheckboxComponent implements OnInit, OnChanges {
   @Input() label?: string;
   @Input() state: CheckBoxStates = 'enabled';
-  @Output() stateChange = new EventEmitter<CheckBoxStates>();
-
   @Input() disabled = false;
-  @Output() disabledChange = new EventEmitter<boolean>();
 
   @Output() ionClick = new EventEmitter();
 
   @ViewChild('checkBox', { static: true }) checkBox: ElementRef;
 
-  private action = {
+  private actions = {
     indeterminate: this.setIndeterminate.bind(this),
     checked: this.setChecked.bind(this),
     enabled: this.setEnabled.bind(this),
   };
 
   setState(options = { emitEvent: true }): void {
-    this.action[this.state](options);
+    this.actions[this.state](options);
   }
 
   changeState(): void {
@@ -108,11 +105,7 @@ export class CheckboxComponent implements OnInit, OnChanges {
     ) {
       this.setState();
     }
-    if (
-      disabled &&
-      !disabled.firstChange &&
-      disabled.previousValue !== disabled.currentValue
-    ) {
+    if (disabled && disabled.previousValue !== disabled.currentValue) {
       this.setDisabled();
     }
   }
