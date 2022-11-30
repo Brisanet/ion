@@ -18,7 +18,7 @@ export default {
 
 const Template: Story<InputComponent> = (args: InputComponent) => ({
   component: InputComponent,
-  props: args,
+  props: { ...args, valueChange: action('valueChange') },
 });
 
 export const Input = Template.bind({});

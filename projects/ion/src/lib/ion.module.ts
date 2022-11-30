@@ -106,5 +106,6 @@ import { InputComponent } from './input/input.component';
     InputCounterComponent,
     InputComponent,
   ],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}
