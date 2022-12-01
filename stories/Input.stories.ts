@@ -24,7 +24,6 @@ const Template: Story<InputComponent> = (args: InputComponent) => ({
 export const Input = Template.bind({});
 Input.args = {
   placeholder: 'Placeholder',
-  valueChange: action('valueChange'),
 };
 
 export const IconLeft = Template.bind({});
@@ -32,7 +31,6 @@ IconLeft.args = {
   placeholder: 'Placeholder',
   iconInput: 'pencil',
   iconDirection: 'left',
-  valueChange: action('valueChange'),
 };
 
 export const iconRight = Template.bind({});
@@ -40,20 +38,17 @@ iconRight.args = {
   placeholder: 'Placeholder',
   iconInput: 'pencil',
   iconDirection: 'right',
-  valueChange: action('valueChange'),
 };
 
 export const iconValid = Template.bind({});
 iconValid.args = {
   placeholder: 'Placeholder',
   valid: true,
-  valueChange: action('valueChange'),
 };
 
 export const iconInvalid = Template.bind({});
 iconInvalid.args = {
   invalid: true,
-  valueChange: action('valueChange'),
 };
 
 export const rightWithIcon = Template.bind({});
@@ -61,7 +56,6 @@ rightWithIcon.args = {
   valid: true,
   iconDirection: 'right',
   iconInput: 'filter',
-  valueChange: action('valueChange'),
 };
 
 export const leftWithIcon = Template.bind({});
@@ -69,11 +63,9 @@ leftWithIcon.args = {
   valid: true,
   iconDirection: 'left',
   iconInput: 'filter',
-  valueChange: action('valueChange'),
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
-  valueChange: action('valueChange'),
 };
