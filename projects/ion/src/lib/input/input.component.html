@@ -7,6 +7,34 @@
     [class.valid]="valid"
     [class.inputButton]="inputButton"
     [class.IconButton]="inputIconButton"
+
+<div
+  data-testid="inputDiv"
+  class="input"
+  [class.disabled]="disabled"
+  [class.invalid]="invalid"
+  [class.valid]="valid"
+>
+  <ion-icon
+    data-testid="icon-left"
+    *ngIf="iconDirection === 'left'"
+    [type]="iconInput"
+    size="20"
+  ></ion-icon>
+  <input
+    type="text"
+    class="my-input"
+    placeholder="Placeholder"
+    [disabled]="disabled"
+    data-testid="inputElement"
+    [ngModel]="value"
+    (ngModelChange)="onChange($event)"
+  />
+  <ion-icon
+    data-testid="icon-right"
+    *ngIf="iconDirection === 'right'"
+    [type]="iconInput"
+    size="20"
   >
     <ion-icon
       data-testid="icon-left"
