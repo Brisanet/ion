@@ -47,7 +47,7 @@ type Foote = {
 
 export type CardEvent = {
   buttonAction?: ButtonType;
-  chipSelected?: IonChipProps;
+  chipSelected?: { chip: IonChipProps; index: number };
 };
 
 export interface IonCard {
