@@ -1,3 +1,4 @@
+import { IonChipProps } from './../chip/chip.component';
 import { ComponentType } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
@@ -31,6 +32,7 @@ type ButtonBase = {
 type Header = {
   title: string;
   buttons?: ButtonBase[];
+  chips?: IonChipProps[];
   icon?: IconType;
 };
 

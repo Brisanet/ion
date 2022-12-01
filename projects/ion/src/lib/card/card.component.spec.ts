@@ -1,3 +1,5 @@
+import { BadgeComponent } from 'projects/ion/src/public-api';
+import { ChipComponent } from './../chip/chip.component';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -9,6 +11,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 import { CardEvent, CardIonComponent, IonCard } from './card.component';
 import { ButtonModule } from '../button/button.module';
+import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { ButtonComponent } from '../button/button.component';
 
 let renderFooter = false;
 
@@ -55,12 +61,18 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, ButtonModule],
+  imports: [CommonModule],
   declarations: [
     CardTestComponent,
     CardIonComponent,
     ButtonTestComponent,
     FooterTestComponent,
+    ChipComponent,
+    InfoBadgeComponent,
+    DropdownComponent,
+    IonIconComponent,
+    ButtonComponent,
+    BadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,
@@ -120,5 +132,22 @@ describe('CardComponent', () => {
     fixture = TestBed.createComponent(CardTestComponent);
     fixture.detectChanges();
     expect(screen.getByTestId('footerTest')).toBeInTheDocument();
+  });
+
+  it('should not render chips by default', async () => {
+    cardComponent.cardConfig.header.chips = undefined;
+    fixture.detectChanges();
+    const chipsContainer = screen.queryByTestId('chips-container');
+    expect(chipsContainer).toBeNull();
+  });
+
+  it('should render chips', async () => {
+    cardComponent.cardConfig.header.chips = [
+      { label: 'first' },
+      { label: 'second' },
+    ];
+    fixture.detectChanges();
+    const chipsContainer = await screen.findByTestId('chips-container');
+    expect(chipsContainer).toBeTruthy();
   });
 });

@@ -24,6 +24,15 @@
         ></ion-button>
       </div>
     </div>
+    <div
+      *ngIf="configuration.header.chips"
+      class="card-ion-header-container-chips"
+      data-testid="chips-container"
+    >
+      <div *ngFor="let chip of configuration.header.chips">
+        <ion-chip [label]="chip.label"></ion-chip>
+      </div>
+    </div>
   </div>
 
   <div class="card-ion-container">
