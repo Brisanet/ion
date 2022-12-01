@@ -114,7 +114,9 @@ describe('CardComponent', () => {
     const buttonPrimary = screen.getByTestId('buttonPrimary');
     fireEvent.click(buttonPrimary);
     fixture.detectChanges();
-    expect(header.textContent).toBe('Opa, eu fui clicado evento: "primary"');
+    expect(header.textContent).toBe(
+      'Opa, eu fui clicado evento: {"buttonAction":"primary"}'
+    );
   });
 
   it('should render icon on title', () => {
