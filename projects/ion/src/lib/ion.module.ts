@@ -106,5 +106,6 @@ import { RadioGroupComponent } from './radio-group/radio-group.component';
     InputCounterComponent,
     RadioGroupComponent,
   ],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}

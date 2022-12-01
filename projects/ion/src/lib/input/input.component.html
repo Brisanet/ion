@@ -17,6 +17,8 @@
     placeholder="Placeholder"
     [disabled]="disabled"
     data-testid="inputElement"
+    [ngModel]="value"
+    (ngModelChange)="onChange($event)"
   />
   <ion-icon
     data-testid="icon-right"

@@ -77,10 +77,24 @@ export class IonModalComponent implements OnInit {
     this.ionOnClose.emit(valueToEmit);
   }
 
+  setContentInstanceParams<T>(
+    instance: T,
+    params: Partial<T> | undefined
+  ): void {
+    Object.assign(instance, params);
+  }
+
   ngOnInit(): void {
     this.setDefaultConfig();
     const factory = this.resolver.resolveComponentFactory(this.componentToBody);
     this.componentFactory = this.modalBody.createComponent(factory);
+
+    if (this.configuration.ionParams) {
+      this.setContentInstanceParams(
+        this.getChildComponentPropertiesValue(),
+        this.configuration.ionParams
+      );
+    }
     this.dialogElement.nativeElement.focus();
   }
 }
