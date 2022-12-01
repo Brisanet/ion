@@ -30,7 +30,18 @@
       data-testid="chips-container"
     >
       <div *ngFor="let chip of configuration.header.chips">
-        <ion-chip [label]="chip.label"></ion-chip>
+        <ion-chip
+          [label]="chip.label"
+          [disabled]="chip.disabled"
+          [selected]="chip.selected"
+          [size]="chip.size"
+          [options]="chip.options"
+          [icon]="chip.icon"
+          [multiple]="chip.multiple"
+          [infoBadge]="chip.infoBadge"
+          [iconPosition]="chip.iconPosition"
+          [rightBadge]="chip.rightBadge"
+        ></ion-chip>
       </div>
     </div>
   </div>
