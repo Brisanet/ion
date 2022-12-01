@@ -1,5 +1,5 @@
 import { BadgeComponent } from 'projects/ion/src/public-api';
-import { ChipComponent } from './../chip/chip.component';
+import { ChipComponent, IonChipProps } from './../chip/chip.component';
 import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
@@ -140,13 +140,13 @@ describe('CardComponent', () => {
     expect(chipsContainer).toBeNull();
   });
 
-  it('should render chips', async () => {
-    cardComponent.cardConfig.header.chips = [
-      { label: 'first' },
-      { label: 'second' },
-    ];
-    fixture.detectChanges();
-    const chipsContainer = await screen.findByTestId('chips-container');
-    expect(chipsContainer).toBeTruthy();
-  });
+  const testChips = [{ label: 'first' }, { label: 'second' }];
+  it.each(testChips)(
+    'should render chip with label %i',
+    async (chip: IonChipProps) => {
+      cardComponent.cardConfig.header.chips = testChips;
+      fixture.detectChanges();
+      expect(screen.getByText(chip.label)).toBeTruthy();
+    }
+  );
 });
