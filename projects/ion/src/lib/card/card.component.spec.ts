@@ -10,7 +10,6 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 import { CardEvent, CardIonComponent, IonCard } from './card.component';
-import { ButtonModule } from '../button/button.module';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
