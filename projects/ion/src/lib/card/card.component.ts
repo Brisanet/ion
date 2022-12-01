@@ -46,7 +46,8 @@ type Foote = {
 };
 
 export type CardEvent = {
-  buttonAction: ButtonType;
+  buttonAction?: ButtonType;
+  chipSelected?: IonChipProps;
 };
 
 export interface IonCard {
@@ -68,6 +69,8 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
   body!: ViewContainerRef;
   @ViewChild('footer', { read: ViewContainerRef, static: false })
   footer!: ViewContainerRef;
+
+  private indexOfChipSelected = 0;
 
   constructor(
     private resolverFactory: ComponentFactoryResolver,
@@ -100,7 +103,13 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  cardEvent(type: ButtonType): void {
-    this.events.emit({ buttonAction: type });
+  cardEvent(event: CardEvent): void {
+    this.events.emit(event);
+    if (event['chipSelected'])
+      this.indexOfChipSelected = event.chipSelected['index'];
+  }
+
+  isChipSelected(chipIndex: number): boolean {
+    return this.indexOfChipSelected === chipIndex;
   }
 }

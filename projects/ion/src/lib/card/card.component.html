@@ -19,7 +19,7 @@
           [iconType]="button.icon"
           [circularButton]="button.circular"
           [type]="button.type"
-          (click)="cardEvent(button.nameAction)"
+          (click)="cardEvent({ buttonAction: button.nameAction })"
           size="sm"
         ></ion-button>
       </div>
@@ -29,11 +29,11 @@
       class="card-ion-header-container-chips"
       data-testid="chips-container"
     >
-      <div *ngFor="let chip of configuration.header.chips">
+      <div *ngFor="let chip of configuration.header.chips; index as i">
         <ion-chip
           [label]="chip.label"
           [disabled]="chip.disabled"
-          [selected]="chip.selected"
+          [selected]="isChipSelected(i)"
           [size]="chip.size"
           [options]="chip.options"
           [icon]="chip.icon"
@@ -41,6 +41,7 @@
           [infoBadge]="chip.infoBadge"
           [iconPosition]="chip.iconPosition"
           [rightBadge]="chip.rightBadge"
+          (click)="cardEvent({ chipSelected: { chip: chip, index: i } })"
         ></ion-chip>
       </div>
     </div>

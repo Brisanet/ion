@@ -55,7 +55,10 @@ class CardTestComponent implements AfterViewInit {
   }
 
   cardEvents(event: CardEvent): void {
-    this.cardConfig.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
+    const newTitle = `Opa, eu fui clicado evento: ${JSON.stringify(
+      event
+    ).replace('\\"', '')}`;
+    this.cardConfig.header.title = newTitle;
   }
 }
 
@@ -111,7 +114,7 @@ describe('CardComponent', () => {
     const buttonPrimary = screen.getByTestId('buttonPrimary');
     fireEvent.click(buttonPrimary);
     fixture.detectChanges();
-    expect(header.textContent).toBe('Opa, eu fui clicado evento: primary');
+    expect(header.textContent).toBe('Opa, eu fui clicado evento: "primary"');
   });
 
   it('should render icon on title', () => {
@@ -149,4 +152,15 @@ describe('CardComponent', () => {
       expect(screen.getByText(chip.label)).toBeTruthy();
     }
   );
+
+  it('should emit an event when a chip is clicked', async () => {
+    const header = screen.getByTestId('cardHeader');
+    cardComponent.cardConfig.header.chips = testChips;
+    fixture.detectChanges();
+    fireEvent.click(screen.getByText(testChips[0].label));
+    fixture.detectChanges();
+    expect(header.textContent).toBe(
+      'Opa, eu fui clicado evento: {"chipSelected":{"chip":{"label":"first"},"index":0}}'
+    );
+  });
 });
