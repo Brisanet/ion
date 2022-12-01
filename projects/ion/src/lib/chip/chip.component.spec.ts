@@ -223,10 +223,12 @@ describe('With Multiple Dropdown', () => {
 
 describe('With Dropdown with search input', () => {
   const searchEvent = jest.fn();
+  const label = 'dropdown';
+  const placeholder = 'Busca';
 
   beforeEach(async () => {
     await sut({
-      label: 'dropdown',
+      label,
       options: defaultOptions,
       dropdownEvents: {
         emit: jest.fn(),
@@ -234,7 +236,7 @@ describe('With Dropdown with search input', () => {
       dropdownSearchConfig: {
         enableSearch: true,
         searchOptions: {
-          placeholder: 'Busca',
+          placeholder,
         },
       },
       dropdownSearchEvents: {
@@ -244,8 +246,8 @@ describe('With Dropdown with search input', () => {
     fireEvent.click(screen.getByText('dropdown'));
   });
 
-  it('should render search input when enableSearch is true', async () => {
-    expect(screen.getByPlaceholderText('Busca')).toBeInTheDocument();
+  it('should render search with correct placeholder input when enableSearch is true', async () => {
+    expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
   });
 
   it('should emit search event when search input change', async () => {

@@ -207,35 +207,58 @@ describe('DropdownComponent / With Search', () => {
     userEvent.type(searchInput, search);
     expect(searchEvent).toHaveBeenLastCalledWith(search);
   });
-
-  it('should show default search input when searchOptions is not provided', async () => {
+  it('should show empty placeholder when a placeholder is not provided', async () => {
     await sut(defaultWithSearch);
     expect(screen.getByTestId('inputElement')).toHaveAttribute(
       'placeholder',
       ''
     );
+  });
+  it('should show search icon when an icon is not provided', async () => {
+    await sut(defaultWithSearch);
     expect(document.getElementById('ion-icon-search')).toBeTruthy();
-    expect(screen.getByTestId(`icon-right`)).toBeInTheDocument();
   });
 
-  it('should be able to customize search input', async () => {
-    const searchOptions: IonInputProps = {
-      placeholder: 'Buscar',
-      iconInput: 'pencil',
-      iconDirection: 'left',
-    };
+  it('should show icon on right when a direction is not provided', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId(`icon-right`)).toBeInTheDocument();
+  });
+});
+
+describe('DropdownComponent / With Search / Custom Search', () => {
+  const searchOptions: IonInputProps = {
+    placeholder: 'Buscar',
+    iconInput: 'pencil',
+    iconDirection: 'left',
+  };
+  let searchInput;
+  beforeEach(async () => {
     await sut({
-      ...defaultWithSearch,
+      options,
+      multiple: true,
+      enableSearch: true,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+      searchChange: {
+        emit: jest.fn(),
+      } as SafeAny,
       searchOptions,
     });
-    const searchInput = screen.getByTestId('inputElement');
+    searchInput = screen.getByTestId('inputElement');
+  });
+  it('should show provided placeholder', async () => {
     expect(searchInput).toHaveAttribute(
       'placeholder',
       searchOptions.placeholder
     );
+  });
+  it('should show provided icon', async () => {
     expect(
       document.getElementById('ion-icon-' + searchOptions.iconInput)
     ).toBeTruthy();
+  });
+  it('should show icon in provided direction', async () => {
     expect(
       screen.getByTestId(`icon-${searchOptions.iconDirection}`)
     ).toBeInTheDocument();
