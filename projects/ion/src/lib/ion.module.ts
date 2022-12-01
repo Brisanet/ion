@@ -105,5 +105,6 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
     InputCounterComponent,
     IndicatorComponent,
   ],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}

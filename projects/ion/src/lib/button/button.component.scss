@@ -28,6 +28,10 @@
     width: $circleSize;
     border-radius: 50%;
     padding: 0;
+
+    .spinner {
+      margin-right: 0;
+    }
   }
 }
 
@@ -355,6 +359,10 @@ button {
 
 .ion-remove-space {
   padding: 0 !important;
+
+  .spinner {
+    margin-right: 0;
+  }
 }
 
 .ion-btn-dropdown {

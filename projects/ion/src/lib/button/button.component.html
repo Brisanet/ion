@@ -5,7 +5,7 @@
   [style.width]="!circularButton && expand ? '100%' : ''"
   [class.danger]="danger"
   [class.loading]="loading"
-  [class.circular-button]="!loading && circularButton"
+  [class.circular-button]="circularButton"
   [class.ion-remove-space]="iconType && !!!label"
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
@@ -23,7 +23,7 @@
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     class="icon"
   ></ion-icon>
-  <span *ngIf="(!circularButton && label) || loading">{{
+  <span *ngIf="!circularButton && (label || (loading && !iconType))">{{
     loadingMessage || label
   }}</span>
   <ion-badge
