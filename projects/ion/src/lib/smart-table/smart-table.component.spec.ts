@@ -120,7 +120,7 @@ describe('TableComponent', () => {
   });
 
   it('should not render a no data message', async () => {
-    expect(screen.queryByTestId('withoutData')).toBeNull();
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(0);
   });
 
   it.each(data)('should render data in table', async ({ name }) => {
