@@ -7,6 +7,7 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
 import { ButtonModule } from '../button/button.module';
+import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -63,7 +64,12 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(TableComponent, {
     componentProperties: customProps,
-    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    declarations: [
+      TagComponent,
+      CheckboxComponent,
+      PaginationComponent,
+      PopConfirmDirective,
+    ],
     imports: [FormsModule, ButtonModule],
   });
 };
@@ -199,6 +205,13 @@ describe('Table > Actions', () => {
     const removeOption = document.getElementById('ion-icon-pencil');
     fireEvent.click(removeOption);
     expect(screen.getByText('editado!')).toBeInTheDocument();
+  });
+
+  it('should not render popconfirm when action dont has confirm config', async () => {
+    await sut(tableWithActions);
+    expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title'
+    );
   });
 });
 
@@ -493,5 +506,55 @@ describe('Table > Pagination', () => {
   it('should render items total in table', async () => {
     await sut(tableWithPagination);
     expect(screen.queryAllByText(totalItems)).toHaveLength(1);
+  });
+});
+
+describe('Table > Action with confirm', () => {
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonTableProps<Disco>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).not.toHaveAttribute('ng-reflect-ion-pop-confirm-desc');
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title',
+      actionConfig.confirm.title
+    );
+  });
+
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonTableProps<Disco>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        description: 'você estará excluindo um disco',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-desc',
+      actionConfig.confirm.description
+    );
   });
 });
