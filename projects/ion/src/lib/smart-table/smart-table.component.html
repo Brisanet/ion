@@ -113,7 +113,7 @@
     </tr>
   </table>
 
-  <div data-testid="withoutData" *ngIf="!config.data" class="noData">
+  <div *ngIf="config.data && config.data.length === 0" class="noData">
     <ion-icon color="gray" type="exclamation-rounded"></ion-icon>
     Não há dados
   </div>

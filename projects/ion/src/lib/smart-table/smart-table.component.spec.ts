@@ -600,21 +600,20 @@ describe('Table > Action with confirm', () => {
 });
 
 describe('Table without Data', () => {
-  it.skip('should render a no data message', async () => {
-    const tableWithoutData: IonSmartTableProps<Character> = {
-      config: {
-        columns: JSON.parse(JSON.stringify(columns)),
-        data: [],
-        check: true,
-        pagination: {
-          total: 82,
-          itemsPerPage: 10,
-        },
+  const tableWithoutData: IonSmartTableProps<Character> = {
+    config: {
+      columns: JSON.parse(JSON.stringify(columns)),
+      data: [],
+      check: true,
+      pagination: {
+        total: 0,
+        itemsPerPage: 10,
       },
-    };
+    },
+  };
+
+  it('should render a no data message', async () => {
     await sut(tableWithoutData);
-    expect(data).toHaveLength(0);
-    expect(screen.getByTestId('withoutData')).toBeInTheDocument();
-    screen.debug(screen.getByTestId('withoutData'));
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
   });
 });
