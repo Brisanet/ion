@@ -113,6 +113,11 @@
     </tr>
   </table>
 
+  <div data-testid="withoutData" *ngIf="!config.data" class="noData">
+    <ion-icon color="gray" type="exclamation-rounded"></ion-icon>
+    Não há dados
+  </div>
+
   <div
     *ngIf="config.pagination && config.data && config.data.length"
     data-testid="pagination-container"

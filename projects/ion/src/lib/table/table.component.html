@@ -44,6 +44,7 @@
         Ações
       </th>
     </tr>
+
     <tr
       *ngFor="let row of smartData; let index = index; let last = last"
       [attr.data-testid]="'row-' + index"
@@ -110,8 +111,17 @@
           </div>
         </div>
       </td>
+      <div *ngIf="!config.data" class="noData">
+        <ion-icon type="exclamation-rounded"></ion-icon>
+        Não tem dados
+      </div>
     </tr>
   </table>
+
+  <div *ngIf="!config.data" class="noData">
+    <ion-icon color="gray" type="exclamation-rounded"></ion-icon>
+    Não há dados
+  </div>
 
   <div
     *ngIf="config.pagination"
