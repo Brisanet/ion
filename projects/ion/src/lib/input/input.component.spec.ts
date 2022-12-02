@@ -1,11 +1,15 @@
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { InputComponent, IonInputProps } from './input.component';
+import { FormsModule } from '@angular/forms';
+import { SafeAny } from '../utils/safe-any';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(InputComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
+    imports: [FormsModule],
   });
 };
 
@@ -47,5 +51,33 @@ describe('InputComponent', () => {
   it.skip('should render input icon invalid', async () => {
     await sut();
     expect(document.getElementById('icon-invalid')).toBeTruthy();
+  });
+
+  describe('valueChange', () => {
+    const mockFn = jest.fn();
+    const value = 'input';
+
+    beforeEach(async () => {
+      await sut({ valueChange: { emit: mockFn } as SafeAny });
+    });
+
+    afterEach(async () => {
+      mockFn.mockClear();
+    });
+
+    it('should change value when something is typed on input', async () => {
+      userEvent.type(screen.getByTestId('inputElement'), value);
+      expect(screen.getByTestId('inputElement')).toHaveValue(value);
+    });
+
+    it('should emit valueChange everytime a key is typed on input', async () => {
+      userEvent.type(screen.getByTestId('inputElement'), value);
+      expect(mockFn).toHaveBeenCalledTimes(value.length);
+    });
+
+    it('should emit the value on the last emit', async () => {
+      userEvent.type(screen.getByTestId('inputElement'), value);
+      expect(mockFn).toHaveBeenLastCalledWith(value);
+    });
   });
 });
