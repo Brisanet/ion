@@ -7,8 +7,11 @@ import {
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
+
+import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { ButtonModule } from './../button/button.module';
+import { ChipComponent, IonChipProps } from './../chip/chip.component';
 import { CardEvent, CardIonComponent, IonCard } from './card.component';
-import { ButtonModule } from '../button/button.module';
 
 let renderFooter = false;
 
@@ -50,7 +53,10 @@ class CardTestComponent implements AfterViewInit {
   }
 
   cardEvents(event: CardEvent): void {
-    this.cardConfig.header.title = `Opa, eu fui clicado evento: ${event.buttonAction}`;
+    const newTitle = `Opa, eu fui clicado evento: ${JSON.stringify(
+      event
+    ).replace('\\"', '')}`;
+    this.cardConfig.header.title = newTitle;
   }
 }
 
@@ -61,6 +67,8 @@ class CardTestComponent implements AfterViewInit {
     CardIonComponent,
     ButtonTestComponent,
     FooterTestComponent,
+    ChipComponent,
+    InfoBadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,
@@ -100,7 +108,9 @@ describe('CardComponent', () => {
     const buttonPrimary = screen.getByTestId('buttonPrimary');
     fireEvent.click(buttonPrimary);
     fixture.detectChanges();
-    expect(header.textContent).toBe('Opa, eu fui clicado evento: primary');
+    expect(header.textContent).toBe(
+      'Opa, eu fui clicado evento: {"buttonAction":"primary"}'
+    );
   });
 
   it('should render icon on title', () => {
@@ -120,5 +130,33 @@ describe('CardComponent', () => {
     fixture = TestBed.createComponent(CardTestComponent);
     fixture.detectChanges();
     expect(screen.getByTestId('footerTest')).toBeInTheDocument();
+  });
+
+  it('should not render chips by default', async () => {
+    cardComponent.cardConfig.header.chips = undefined;
+    fixture.detectChanges();
+    const chipsContainer = screen.queryByTestId('chips-container');
+    expect(chipsContainer).toBeNull();
+  });
+
+  const testChips = [{ label: 'first' }, { label: 'second' }];
+  it.each(testChips)(
+    'should render chip with label %i',
+    async (chip: IonChipProps) => {
+      cardComponent.cardConfig.header.chips = testChips;
+      fixture.detectChanges();
+      expect(screen.getByText(chip.label)).toBeTruthy();
+    }
+  );
+
+  it('should emit an event when a chip is clicked', async () => {
+    const header = screen.getByTestId('cardHeader');
+    cardComponent.cardConfig.header.chips = testChips;
+    fixture.detectChanges();
+    fireEvent.click(screen.getByText(testChips[0].label));
+    fixture.detectChanges();
+    expect(header.textContent).toBe(
+      'Opa, eu fui clicado evento: {"chipSelected":{"chip":{"label":"first"},"index":0}}'
+    );
   });
 });
