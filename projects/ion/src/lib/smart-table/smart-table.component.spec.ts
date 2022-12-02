@@ -38,7 +38,6 @@ interface Character {
   height: number;
   mass: number;
 }
-
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
@@ -118,6 +117,10 @@ describe('TableComponent', () => {
 
   it.each(columns)('should render table with column', async ({ label }) => {
     expect(screen.getByText(label)).toBeInTheDocument();
+  });
+
+  it('should not render a no data message', async () => {
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(0);
   });
 
   it.each(data)('should render data in table', async ({ name }) => {
@@ -593,5 +596,24 @@ describe('Table > Action with confirm', () => {
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
     );
+  });
+});
+
+describe('Table without Data', () => {
+  const tableWithoutData: IonSmartTableProps<Character> = {
+    config: {
+      columns: JSON.parse(JSON.stringify(columns)),
+      data: [],
+      check: true,
+      pagination: {
+        total: 0,
+        itemsPerPage: 10,
+      },
+    },
+  };
+
+  it('should render a no data message', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
   });
 });
