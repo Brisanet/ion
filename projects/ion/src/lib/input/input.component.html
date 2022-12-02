@@ -19,6 +19,8 @@
       [attr.placeholder]="placeholder"
       class="my-input"
       [disabled]="disabled"
+      [ngModel]="value"
+      (ngModelChange)="onChange($event)"
       data-testid="input-element"
     />
 

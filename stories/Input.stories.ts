@@ -3,6 +3,7 @@ import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { FormsModule } from '@angular/forms';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Ion/Data Entry/Input',
@@ -17,7 +18,7 @@ export default {
 
 const Template: Story<InputComponent> = (args: InputComponent) => ({
   component: InputComponent,
-  props: args,
+  props: { ...args, valueChange: action('valueChange') },
 });
 
 export const Input = Template.bind({});

@@ -1,7 +1,7 @@
 <div class="ion-table">
   <table data-testid="ion-table">
     <tr class="border-header">
-      <th *ngIf="config.check">
+      <th *ngIf="config.check" width="16">
         <ion-checkbox
           data-testid="table-check-all"
           id="check-all"
@@ -44,6 +44,7 @@
         Ações
       </th>
     </tr>
+
     <tr
       *ngFor="let row of smartData; let index = index; let last = last"
       [attr.data-testid]="'row-' + index"
@@ -80,22 +81,42 @@
       </td>
       <td *ngIf="config.actions">
         <div class="icons-td">
-          <ion-button
-            *ngFor="let action of config.actions"
-            [title]="action.label"
-            [attr.data-testid]="'row-' + index + '-' + action.label"
-            type="ghost"
-            size="sm"
-            [iconType]="action.icon"
-            [circularButton]="true"
-            (ionOnClick)="handleEvent(row, action)"
-            [disabled]="action.show ? !showAction(row, action) : false"
-          ></ion-button>
+          <div *ngFor="let action of config.actions">
+            <ion-button
+              *ngIf="action.confirm"
+              ionPopConfirm
+              [ionPopConfirmTitle]="action.confirm.title"
+              [ionPopConfirmDesc]="action.confirm.description"
+              (ionOnConfirm)="handleEvent(row, action)"
+              [title]="action.label"
+              [attr.data-testid]="'row-' + index + '-' + action.label"
+              type="ghost"
+              size="sm"
+              [iconType]="action.icon"
+              [circularButton]="true"
+              [disabled]="action.show ? !showAction(row, action) : false"
+            ></ion-button>
+
+            <ion-button
+              *ngIf="!action.confirm"
+              [title]="action.label"
+              [attr.data-testid]="'row-' + index + '-' + action.label"
+              type="ghost"
+              size="sm"
+              [iconType]="action.icon"
+              [circularButton]="true"
+              (ionOnClick)="handleEvent(row, action)"
+              [disabled]="action.show ? !showAction(row, action) : false"
+            ></ion-button>
+          </div>
         </div>
       </td>
     </tr>
   </table>
-
+  <div *ngIf="config.data && config.data.length === 0" class="noData">
+    <ion-icon size="40" type="exclamation-rounded"></ion-icon>
+    <span>Não há dados</span>
+  </div>
   <div
     *ngIf="config.pagination"
     data-testid="pagination-container"
