@@ -38,6 +38,12 @@
       gap: 28px;
       justify-content: space-between;
     }
+
+    &-container-chips {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
   }
   &-footer {
     display: flex;
