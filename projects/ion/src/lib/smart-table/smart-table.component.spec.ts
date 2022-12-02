@@ -472,7 +472,7 @@ describe('Table > Differents columns data type', () => {
   });
 
   describe('Sort', () => {
-    it('should not show icon sort when column not is sortable', async () => {
+    it('should not show button sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });

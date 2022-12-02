@@ -52,7 +52,7 @@ const columns = [
   {
     key: 'name',
     label: 'Nome',
-    sort: true,
+    sort: false,
   },
 ];
 
