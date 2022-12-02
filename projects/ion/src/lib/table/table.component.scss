@@ -154,16 +154,24 @@ table {
 
 .noData {
   width: 100%;
-  height: 70vh;
+  height: 60vh;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  color: gray;
-  font-weight: 700;
+  color: $neutral-6;
+  font-weight: 600;
   line-height: 17px;
   font-size: medium;
+  gap: spacing(1);
 
+  span {
+    font-size: 24px;
+  }
+
+  ::ng-deep ion-icon svg {
+    fill: $neutral-6;
+  }
 }
