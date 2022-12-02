@@ -5,9 +5,6 @@ import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component.ts';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component.ts';
 
 <Meta title="Ion/Data Display/Card" component={CardIonComponent} />
@@ -39,15 +36,8 @@ Neste parâmetro o único atributo obrigatório é o atributo `title`.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ChipComponent,
-          DropdownComponent,
-          BadgeComponent,
-          IonIconComponent,
-          ButtonComponent,
-          InfoBadgeComponent,
-        ],
-        imports: [CommonModule],
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
       }),
     ]}
   >
@@ -85,15 +75,8 @@ Há também a possibilidade de passar o paramêtro `buttons` para adicionar aç�
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ChipComponent,
-          DropdownComponent,
-          BadgeComponent,
-          IonIconComponent,
-          ButtonComponent,
-          InfoBadgeComponent,
-        ],
-        imports: [CommonModule],
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
       }),
     ]}
   >
@@ -116,15 +99,8 @@ Assim como a possibilidade de definir um ícone para o título do card, enviando
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ChipComponent,
-          DropdownComponent,
-          BadgeComponent,
-          IonIconComponent,
-          ButtonComponent,
-          InfoBadgeComponent,
-        ],
-        imports: [CommonModule],
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
       }),
     ]}
   >
@@ -160,15 +136,8 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ChipComponent,
-          DropdownComponent,
-          BadgeComponent,
-          IonIconComponent,
-          ButtonComponent,
-          InfoBadgeComponent,
-        ],
-        imports: [CommonModule],
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
       }),
     ]}
   >
@@ -193,15 +162,8 @@ Neste parâmetro, enviamos uma lista de chips.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [
-          ChipComponent,
-          DropdownComponent,
-          BadgeComponent,
-          IonIconComponent,
-          ButtonComponent,
-          InfoBadgeComponent,
-        ],
-        imports: [CommonModule],
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
       }),
     ]}
   >

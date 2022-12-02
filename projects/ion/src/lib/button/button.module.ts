@@ -12,7 +12,12 @@ import { BadgeComponent } from '../badge/badge.component';
     DropdownComponent,
     BadgeComponent,
   ],
-  exports: [ButtonComponent, IonIconComponent, BadgeComponent],
+  exports: [
+    ButtonComponent,
+    IonIconComponent,
+    BadgeComponent,
+    DropdownComponent,
+  ],
   imports: [CommonModule],
 })
 export class ButtonModule {}
