@@ -105,8 +105,7 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
 
   cardEvent(event: CardEvent): void {
     this.events.emit(event);
-    if (event['chipSelected'])
-      this.indexOfChipSelected = event.chipSelected['index'];
+    if (event.chipSelected) this.indexOfChipSelected = event.chipSelected.index;
   }
 
   isChipSelected(chipIndex: number): boolean {
