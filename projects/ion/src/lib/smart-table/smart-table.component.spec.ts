@@ -616,4 +616,9 @@ describe('Table without Data', () => {
     await sut(tableWithoutData);
     expect(screen.getByText('Não há dados')).toBeInTheDocument();
   });
+
+  it('should the checkbox be disabled, when there is no data', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
 });
