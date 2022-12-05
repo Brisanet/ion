@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { AlertModule } from 'projects/ion/src/lib/alert/alert.module';
+import { AlertModule } from '../projects/ion/src/lib/alert/alert.module';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
   BadgeComponent,
