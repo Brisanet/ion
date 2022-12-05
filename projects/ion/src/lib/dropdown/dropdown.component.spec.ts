@@ -7,6 +7,7 @@ import { SafeAny } from '../utils/safe-any';
 import { DropdownComponent, DropdownParams } from './dropdown.component';
 
 const options = [];
+const inputElement = 'input-element';
 const createOptions = (): void => {
   for (let index = 0; index < 3; index++) {
     options.push({
@@ -197,22 +198,19 @@ describe('DropdownComponent / With Search', () => {
 
   it('should show search input', async () => {
     await sut(defaultWithSearch);
-    expect(screen.getByTestId('input-element')).toBeInTheDocument();
+    expect(screen.getByTestId(inputElement)).toBeInTheDocument();
   });
 
   it('should emit event when searching', async () => {
     const search = 'Apple';
     await sut(defaultWithSearch);
-    const searchInput = screen.getByTestId('input-element');
+    const searchInput = screen.getByTestId(inputElement);
     userEvent.type(searchInput, search);
     expect(searchEvent).toHaveBeenLastCalledWith(search);
   });
   it('should show empty placeholder when a placeholder is not provided', async () => {
     await sut(defaultWithSearch);
-    expect(screen.getByTestId('input-element')).toHaveAttribute(
-      'placeholder',
-      ''
-    );
+    expect(screen.getByTestId(inputElement)).toHaveAttribute('placeholder', '');
   });
   it('should show search icon when an icon is not provided', async () => {
     await sut(defaultWithSearch);
@@ -245,7 +243,7 @@ describe('DropdownComponent / With Search / Custom Search', () => {
       } as SafeAny,
       searchOptions,
     });
-    searchInput = screen.getByTestId('input-element');
+    searchInput = screen.getByTestId(inputElement);
   });
   it('should show provided placeholder', async () => {
     expect(searchInput).toHaveAttribute(
