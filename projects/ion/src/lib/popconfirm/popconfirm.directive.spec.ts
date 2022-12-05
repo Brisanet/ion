@@ -40,6 +40,24 @@ class ContainerRefTestComponent {
   container!: ViewContainerRef;
 }
 
+@Component({
+  template: `
+    <ion-button
+      ionPopConfirm
+      ionPopConfirmTitle="teste demais"
+      type="ghost"
+      size="sm"
+      [disabled]="true"
+    ></ion-button>
+  `,
+})
+class ButtonTestDisabledComponent {
+  @ViewChild('container', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+
+  public disabled = true;
+}
+
 describe('Directive: Popconfirm', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
   let directive: PopConfirmDirective;
@@ -161,5 +179,56 @@ describe('Popconfirm host tests', () => {
     input.triggerEventHandler('click', event);
 
     expect(screen.getByText(confirmText)).toBeInTheDocument();
+  });
+});
+
+describe('Popconfirm disabled host component', () => {
+  let fixtureDisabledBtn: ComponentFixture<ButtonTestDisabledComponent>;
+  let directive: PopConfirmDirective;
+  let input: DebugElement;
+
+  beforeEach(() => {
+    fixtureDisabledBtn = TestBed.configureTestingModule({
+      providers: [PopConfirmDirective, ViewContainerRef],
+      declarations: [
+        ButtonTestDisabledComponent,
+        BadgeComponent,
+        DropdownComponent,
+        ButtonComponent,
+        IonIconComponent,
+        PopConfirmComponent,
+        IonDividerComponent,
+        PopConfirmDirective,
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [PopConfirmComponent],
+        },
+      })
+      .createComponent(ButtonTestDisabledComponent);
+
+    fixtureDisabledBtn.detectChanges();
+    directive =
+      fixtureDisabledBtn.debugElement.injector.get(PopConfirmDirective);
+    input = fixtureDisabledBtn.debugElement.query(
+      By.directive(PopConfirmDirective)
+    );
+  });
+
+  afterEach(() => {
+    directive.closePopConfirm();
+  });
+
+  it('should not open popconfirm when the button is disabled', () => {
+    setTimeout(() => {
+      fixtureDisabledBtn.detectChanges();
+      const event = new Event('click');
+      input.triggerEventHandler('click', event);
+
+      expect(event).not.toBeCalled();
+      expect(screen.queryAllByText(confirmText)).toHaveLength(0);
+    });
   });
 });
