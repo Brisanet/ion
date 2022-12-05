@@ -52,7 +52,7 @@ const columns = [
   {
     key: 'name',
     label: 'Nome',
-    sort: true,
+    sort: false,
   },
 ];
 
@@ -87,6 +87,19 @@ Basic.args = {
     actions,
     pagination: {
       total: 8,
+    },
+  },
+};
+
+export const NoData = Template.bind({});
+NoData.args = {
+  config: {
+    check: true,
+    data: [],
+    columns,
+    actions,
+    pagination: {
+      total: 0,
     },
   },
 };

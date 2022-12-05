@@ -38,7 +38,6 @@ interface Character {
   height: number;
   mass: number;
 }
-
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
@@ -118,6 +117,10 @@ describe('TableComponent', () => {
 
   it.each(columns)('should render table with column', async ({ label }) => {
     expect(screen.getByText(label)).toBeInTheDocument();
+  });
+
+  it('should not render a no data message', async () => {
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(0);
   });
 
   it.each(data)('should render data in table', async ({ name }) => {
@@ -469,7 +472,7 @@ describe('Table > Differents columns data type', () => {
   });
 
   describe('Sort', () => {
-    it('should not show icon sort when column not is sortable', async () => {
+    it('should not show button sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });
@@ -593,5 +596,29 @@ describe('Table > Action with confirm', () => {
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
     );
+  });
+});
+
+describe('Table without Data', () => {
+  const tableWithoutData: IonSmartTableProps<Character> = {
+    config: {
+      columns: JSON.parse(JSON.stringify(columns)),
+      data: [],
+      check: true,
+      pagination: {
+        total: 0,
+        itemsPerPage: 10,
+      },
+    },
+  };
+
+  it('should render a no data message', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
+  });
+
+  it('checkbox should be disabled when there is no data', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
   });
 });

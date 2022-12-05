@@ -15,7 +15,13 @@ import { FormsModule } from '@angular/forms';
     BadgeComponent,
     InputComponent,
   ],
-  exports: [ButtonComponent, IonIconComponent, BadgeComponent, InputComponent],
+  exports: [
+    ButtonComponent,
+    IonIconComponent,
+    BadgeComponent,
+    DropdownComponent,
+    InputComponent,
+  ],
   imports: [CommonModule, FormsModule],
 })
 export class ButtonModule {}

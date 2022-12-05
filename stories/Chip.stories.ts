@@ -1,9 +1,8 @@
+import { DropdownModule } from './../projects/ion/src/lib/dropdown/dropdown.module';
 import { BadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { FormsModule } from '@angular/forms';
@@ -13,9 +12,8 @@ export default {
   component: ChipComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
+      imports: [FormsModule, DropdownModule],
       declarations: [
-        DropdownComponent,
         IonIconComponent,
         BadgeComponent,
         InfoBadgeComponent,

@@ -65,6 +65,20 @@ leftWithIcon.args = {
   iconInput: 'filter',
 };
 
+export const inputButton = Template.bind({});
+inputButton.args = {
+  inputButton: true,
+  iconDirection: 'left',
+  iconInput: 'filter',
+};
+
+export const inputIconButton = Template.bind({});
+inputIconButton.args = {
+  inputIconButton: true,
+  iconDirection: 'left',
+  iconInput: 'filter',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,

@@ -8,6 +8,7 @@
           name="check-all"
           [state]="mainCheckBoxState"
           (click)="checkState()"
+          [disabled]="!config?.data?.length"
         >
         </ion-checkbox>
       </th>
@@ -44,6 +45,7 @@
         Ações
       </th>
     </tr>
+
     <tr
       *ngFor="let row of smartData; let index = index; let last = last"
       [attr.data-testid]="'row-' + index"
@@ -112,7 +114,10 @@
       </td>
     </tr>
   </table>
-
+  <div *ngIf="config.data && config.data.length === 0" class="noData">
+    <ion-icon size="40" type="exclamation-rounded"></ion-icon>
+    <span>Não há dados</span>
+  </div>
   <div
     *ngIf="config.pagination"
     data-testid="pagination-container"

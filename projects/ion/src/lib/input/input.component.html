@@ -1,46 +1,65 @@
-<div
-  data-testid="inputDiv"
-  class="input"
-  [class.disabled]="disabled"
-  [class.invalid]="invalid"
-  [class.valid]="valid"
->
-  <ion-icon
-    data-testid="icon-left"
-    *ngIf="iconDirection === 'left'"
-    [type]="iconInput"
-    size="20"
-  ></ion-icon>
-  <input
-    type="text"
-    class="my-input"
-    [placeholder]="placeholder"
-    [disabled]="disabled"
-    data-testid="inputElement"
-    [ngModel]="value"
-    (ngModelChange)="onChange($event)"
-  />
-  <ion-icon
-    data-testid="icon-right"
-    *ngIf="iconDirection === 'right'"
-    [type]="iconInput"
-    size="20"
+<div class="input-container">
+  <div
+    data-testid="input-div"
+    class="input"
+    [class.disabled]="disabled"
+    [class.invalid]="invalid"
+    [class.valid]="valid"
+    [class.inputButton]="inputButton"
+    [class.IconButton]="inputIconButton"
   >
-  </ion-icon>
-  <ion-icon
-    data-testid="icon-valid"
-    class="colorValid"
-    *ngIf="valid"
-    type="check-solid"
-    size="16"
+    <ion-icon
+      data-testid="icon-left"
+      *ngIf="iconDirection === 'left'"
+      [type]="iconInput"
+      size="20"
+    ></ion-icon>
+    <input
+      type="text"
+      [attr.placeholder]="placeholder"
+      class="my-input"
+      [disabled]="disabled"
+      [ngModel]="value"
+      (ngModelChange)="onChange($event)"
+      data-testid="input-element"
+    />
+
+    <ion-icon
+      data-testid="icon-right"
+      *ngIf="iconDirection === 'right'"
+      [type]="iconInput"
+      size="20"
+    >
+    </ion-icon>
+    <ion-icon
+      data-testid="icon-valid"
+      class="colorValid"
+      *ngIf="valid"
+      type="check-solid"
+      size="16"
+    >
+    </ion-icon>
+    <ion-icon
+      data-testid="icon-invalid"
+      class="colorInvalid"
+      *ngIf="invalid"
+      type="close-solid"
+      size="16"
+    >
+    </ion-icon>
+  </div>
+  <button
+    data-testid="input-button"
+    *ngIf="inputButton"
+    (click)="handleClick()"
   >
-  </ion-icon>
-  <ion-icon
-    data-testid="icon-invalid"
-    class="colorInvalid"
-    *ngIf="invalid"
-    type="close-solid"
-    size="16"
+    {{ button }}
+  </button>
+  <button
+    data-testid="inputIcon-button"
+    *ngIf="inputIconButton"
+    (click)="handleClick()"
   >
-  </ion-icon>
+    <ion-icon type="close-solid"></ion-icon>
+  </button>
 </div>

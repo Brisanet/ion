@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { BadgeComponent, DropdownComponent } from 'projects/ion/src/public-api';
-import { IonIconComponent } from '../icon/icon.component';
+import { BadgeComponent } from 'projects/ion/src/public-api';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import {
@@ -11,8 +10,8 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
+import { DropdownModule } from '../dropdown/dropdown.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -21,14 +20,8 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [
-      IonIconComponent,
-      DropdownComponent,
-      BadgeComponent,
-      InfoBadgeComponent,
-      InputComponent,
-    ],
-    imports: [FormsModule],
+    declarations: [BadgeComponent, InfoBadgeComponent],
+    imports: [FormsModule, DropdownModule],
   });
 };
 
@@ -252,8 +245,8 @@ describe('With Dropdown with search input', () => {
 
   it('should emit search event when search input change', async () => {
     const input = 'folklore';
-    userEvent.type(screen.getByTestId('inputElement'), input);
-    expect(screen.getByTestId('inputElement')).toHaveValue(input);
+    userEvent.type(screen.getByTestId('input-element'), input);
+    expect(screen.getByTestId('input-element')).toHaveValue(input);
     expect(searchEvent).toHaveBeenCalledWith(input);
   });
 

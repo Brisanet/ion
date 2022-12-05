@@ -197,19 +197,19 @@ describe('DropdownComponent / With Search', () => {
 
   it('should show search input', async () => {
     await sut(defaultWithSearch);
-    expect(screen.getByTestId('inputElement')).toBeInTheDocument();
+    expect(screen.getByTestId('input-element')).toBeInTheDocument();
   });
 
   it('should emit event when searching', async () => {
     const search = 'Apple';
     await sut(defaultWithSearch);
-    const searchInput = screen.getByTestId('inputElement');
+    const searchInput = screen.getByTestId('input-element');
     userEvent.type(searchInput, search);
     expect(searchEvent).toHaveBeenLastCalledWith(search);
   });
   it('should show empty placeholder when a placeholder is not provided', async () => {
     await sut(defaultWithSearch);
-    expect(screen.getByTestId('inputElement')).toHaveAttribute(
+    expect(screen.getByTestId('input-element')).toHaveAttribute(
       'placeholder',
       ''
     );
@@ -245,7 +245,7 @@ describe('DropdownComponent / With Search / Custom Search', () => {
       } as SafeAny,
       searchOptions,
     });
-    searchInput = screen.getByTestId('inputElement');
+    searchInput = screen.getByTestId('input-element');
   });
   it('should show provided placeholder', async () => {
     expect(searchInput).toHaveAttribute(
