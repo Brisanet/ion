@@ -90,14 +90,26 @@ export class PopConfirmDirective {
     element.style.top = position.top + 'px';
   }
 
+  elementIsEnabled(element: HTMLElement): boolean {
+    return (
+      !element.getAttribute('ng-reflect-disabled') ||
+      (element.getAttribute('ng-reflect-disabled') &&
+        element.getAttribute('ng-reflect-disabled') == 'false')
+    );
+  }
+
   @HostListener('click') onClick(): void {
     const marginBetweenComponents = 10;
-    const position = this.viewRef.element.nativeElement.getBoundingClientRect();
+    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+
+    const position = hostElement.getBoundingClientRect();
     const midHostElementInView = position.left - position.width / 2;
 
-    this.open({
-      top: position.top + position.height + marginBetweenComponents,
-      left: midHostElementInView,
-    });
+    if (this.elementIsEnabled(hostElement)) {
+      this.open({
+        top: position.top + position.height + marginBetweenComponents,
+        left: midHostElementInView,
+      });
+    }
   }
 }
