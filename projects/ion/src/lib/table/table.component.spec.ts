@@ -558,3 +558,17 @@ describe('Table > Action with confirm', () => {
     );
   });
 });
+
+describe('Table without Data', () => {
+  const tableWithoutData: IonTableProps<Disco> = {
+    config: {
+      data: [],
+      columns,
+    },
+  };
+
+  it('should render a no data message', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
+  });
+});

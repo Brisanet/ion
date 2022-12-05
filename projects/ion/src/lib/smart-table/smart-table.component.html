@@ -1,7 +1,7 @@
 <div class="ion-table">
   <table data-testid="ion-table">
     <tr class="border-header">
-      <th *ngIf="config.check">
+      <th *ngIf="config.check" width="16">
         <ion-checkbox
           data-testid="table-check-all"
           id="check-all"
@@ -18,9 +18,8 @@
       >
         <div class="header-style">
           <span class="th-span">{{ column.label }}</span>
-          <button class="svg" (click)="sort(column)">
+          <button class="svg" (click)="sort(column)" *ngIf="column.sort">
             <svg
-              *ngIf="column.sort"
               [attr.data-testid]="'sort-by-' + column.key"
               width="8"
               height="16"
@@ -112,6 +111,11 @@
       </td>
     </tr>
   </table>
+
+  <div *ngIf="config.data && config.data.length === 0" class="noData">
+    <ion-icon size="40" type="exclamation-rounded"></ion-icon>
+    <span>Não há dados</span>
+  </div>
 
   <div
     *ngIf="config.pagination && config.data && config.data.length"
