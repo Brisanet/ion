@@ -1,5 +1,5 @@
 import { AvatarComponent } from './avatar.component';
-import { IonIconComponent } from './../icon/icon.component';
+import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DefaultImageDirective } from '../defaultImage.directive';
