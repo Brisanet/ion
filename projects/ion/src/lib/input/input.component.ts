@@ -2,6 +2,7 @@ import { IconType } from './../icon/icon.component';
 import { Component, Input } from '@angular/core';
 
 export type IconDirection = 'left' | 'right';
+export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
   iconInput?: string;
@@ -22,4 +23,5 @@ export class InputComponent {
   @Input() iconDirection?: IconDirection;
   @Input() valid: boolean;
   @Input() invalid: boolean;
+  @Input() inputType: InputType = 'text';
 }
