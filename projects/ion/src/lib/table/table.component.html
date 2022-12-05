@@ -1,7 +1,7 @@
 <div class="ion-table">
   <table data-testid="ion-table">
     <tr class="border-header">
-      <th *ngIf="config.check">
+      <th *ngIf="config.check" width="16">
         <ion-checkbox
           data-testid="table-check-all"
           id="check-all"
@@ -44,6 +44,7 @@
         Ações
       </th>
     </tr>
+
     <tr
       *ngFor="let row of smartData; let index = index; let last = last"
       [attr.data-testid]="'row-' + index"
@@ -112,7 +113,10 @@
       </td>
     </tr>
   </table>
-
+  <div *ngIf="config.data && config.data.length === 0" class="noData">
+    <ion-icon size="40" type="exclamation-rounded"></ion-icon>
+    <span>Não há dados</span>
+  </div>
   <div
     *ngIf="config.pagination"
     data-testid="pagination-container"
