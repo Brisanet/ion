@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigSmartTable } from 'ion/public-api';
+import { ConfigSmartTable } from '../smart-table/smart-table.component';
 import { SafeAny } from '../utils/safe-any';
 import { IconType } from './../icon/icon.component';
 
