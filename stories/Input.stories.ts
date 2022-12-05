@@ -74,6 +74,16 @@ inputIconButton.args = {
   iconInput: 'filter',
 };
 
+export const InputText = Template.bind({});
+InputText.args = {
+  inputType: 'text',
+};
+
+export const InputPassword = Template.bind({});
+InputPassword.args = {
+  inputType: 'password',
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
