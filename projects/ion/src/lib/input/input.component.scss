@@ -10,6 +10,9 @@
   border-color: $border;
   outline: $outline;
 }
+.input-container {
+  display: flex;
+}
 
 .input {
   display: flex;
@@ -18,7 +21,7 @@
   background: $neutral-1;
   border: 1px solid $neutral-5;
   border-radius: 8px;
-  padding: spacing(0.75) spacing(1.5);
+  padding: spacing(1) spacing(1.5);
 
   & .my-input {
     border: none;
@@ -27,7 +30,6 @@
     color: $neutral-7;
     background: $neutral-1;
     font-size: 14px;
-    cursor: pointer;
 
     &:disabled {
       background: $neutral-2;
@@ -142,4 +144,42 @@
       @include outline-none($neutral-4, none);
     }
   }
+}
+
+.inputButton {
+  border-radius: 8px 0px 0px 8px;
+  padding: spacing(1) spacing(1.5);
+}
+
+button {
+  display: flex;
+  align-items: center;
+  border: 1px solid $neutral-5;
+  border-radius: 0px 8px 8px 0px;
+  background-color: $neutral-1;
+  padding: spacing(0.75) spacing(1.5);
+  margin-left: -1px;
+  color: $primary-6;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary-4;
+  }
+
+  &:focus-within {
+    @include add-colors($primary-5, 2px solid, $primary-2);
+  }
+
+  &:active {
+    @include add-colors($primary-5, 2px solid, $primary-2);
+  }
+
+  ::ng-deep svg {
+    fill: $primary-6;
+  }
+}
+
+.IconButton {
+  border-radius: 8px 0px 0px 8px;
 }

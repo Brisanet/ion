@@ -90,3 +90,16 @@ Basic.args = {
     },
   },
 };
+
+export const NoData = Template.bind({});
+NoData.args = {
+  config: {
+    check: true,
+    data: [],
+    columns,
+    actions,
+    pagination: {
+      total: 0,
+    },
+  },
+};
