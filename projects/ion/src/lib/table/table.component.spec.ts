@@ -572,3 +572,18 @@ describe('Table without Data', () => {
     expect(screen.getByText('Não há dados')).toBeInTheDocument();
   });
 });
+
+describe('Table without Data and with checkBox', () => {
+  const tableWithoutData: IonTableProps<Disco> = {
+    config: {
+      data: [],
+      columns,
+      check: true,
+    },
+  };
+
+  it('checkbox should be disabled when there is no data', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+});
