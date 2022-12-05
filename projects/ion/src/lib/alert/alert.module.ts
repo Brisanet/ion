@@ -1,4 +1,4 @@
-import { IonIconComponent } from './../icon/icon.component';
+import { IonIconComponent } from '../icon/icon.component';
 import { AlertComponent } from './alert.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
