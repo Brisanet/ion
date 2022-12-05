@@ -8,7 +8,7 @@
           name="check-all"
           [state]="mainCheckBoxState"
           (click)="checkState()"
-          [disabled]="config.data && config.data.length === 0"
+          [disabled]="!config?.data?.length"
         >
         </ion-checkbox>
       </th>
