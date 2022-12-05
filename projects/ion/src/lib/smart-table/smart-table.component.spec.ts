@@ -10,6 +10,7 @@ import {
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { ButtonModule } from '../button/button.module';
+import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -17,7 +18,7 @@ const enabledArrowColor = '#0858CE';
 const columns: Column[] = [
   {
     key: 'name',
-    label: 'Name',
+    label: 'Nome',
     sort: true,
   },
   {
@@ -37,7 +38,6 @@ interface Character {
   height: number;
   mass: number;
 }
-
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
@@ -73,7 +73,12 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(SmartTableComponent, {
     componentProperties: customProps,
-    declarations: [TagComponent, CheckboxComponent, PaginationComponent],
+    declarations: [
+      TagComponent,
+      CheckboxComponent,
+      PaginationComponent,
+      PopConfirmDirective,
+    ],
     imports: [FormsModule, ButtonModule],
   });
 };
@@ -112,6 +117,10 @@ describe('TableComponent', () => {
 
   it.each(columns)('should render table with column', async ({ label }) => {
     expect(screen.getByText(label)).toBeInTheDocument();
+  });
+
+  it('should not render a no data message', async () => {
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(0);
   });
 
   it.each(data)('should render data in table', async ({ name }) => {
@@ -212,6 +221,13 @@ describe('Table > Actions', () => {
   it.each(actions)('should render icon action', async ({ icon }) => {
     await sut(tableWithActions);
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
+  });
+
+  it('should not render popconfirm when action dont has confirm config', async () => {
+    await sut(tableWithActions);
+    expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title'
+    );
   });
 
   it('should render trash button disabled when he caracther is less than 160cm', async () => {
@@ -456,7 +472,7 @@ describe('Table > Differents columns data type', () => {
   });
 
   describe('Sort', () => {
-    it('should not show icon sort when column not is sortable', async () => {
+    it('should not show button sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });
@@ -530,5 +546,74 @@ describe('Table > Pagination', () => {
 
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+  });
+});
+
+describe('Table > Action with confirm', () => {
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).not.toHaveAttribute('ng-reflect-ion-pop-confirm-desc');
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-title',
+      actionConfig.confirm.title
+    );
+  });
+
+  it('should render popconfirm in action', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        description: 'você estará excluindo um disco',
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-pop-confirm-desc',
+      actionConfig.confirm.description
+    );
+  });
+});
+
+describe('Table without Data', () => {
+  const tableWithoutData: IonSmartTableProps<Character> = {
+    config: {
+      columns: JSON.parse(JSON.stringify(columns)),
+      data: [],
+      check: true,
+      pagination: {
+        total: 0,
+        itemsPerPage: 10,
+      },
+    },
+  };
+
+  it('should render a no data message', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
   });
 });

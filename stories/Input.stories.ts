@@ -2,13 +2,15 @@ import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { FormsModule } from '@angular/forms';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Ion/Data Entry/Input',
   component: InputComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [FormsModule],
       declarations: [IonIconComponent],
     }),
   ],
@@ -16,7 +18,7 @@ export default {
 
 const Template: Story<InputComponent> = (args: InputComponent) => ({
   component: InputComponent,
-  props: args,
+  props: { ...args, valueChange: action('valueChange') },
 });
 
 export const Input = Template.bind({});
@@ -54,6 +56,20 @@ rightWithIcon.args = {
 export const leftWithIcon = Template.bind({});
 leftWithIcon.args = {
   valid: true,
+  iconDirection: 'left',
+  iconInput: 'filter',
+};
+
+export const inputButton = Template.bind({});
+inputButton.args = {
+  inputButton: true,
+  iconDirection: 'left',
+  iconInput: 'filter',
+};
+
+export const inputIconButton = Template.bind({});
+inputIconButton.args = {
+  inputIconButton: true,
   iconDirection: 'left',
   iconInput: 'filter',
 };

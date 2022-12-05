@@ -46,3 +46,7 @@ export { default as docWarning } from './doc-warning';
 export { default as exclamationRounded } from './exclamation-rounded';
 export { default as working } from './working';
 export { default as condominium } from './condominium';
+export { default as sortAsc } from './sort-asc';
+export { default as sortDesc } from './sort-desc';
+export { default as arrowsDownUp } from './arrows-down-up';
+export { default as arrowsUpDown } from './arrows-up-down';
