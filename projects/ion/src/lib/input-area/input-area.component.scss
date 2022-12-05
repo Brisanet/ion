@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+@mixin add-colors($border, $outlineConfig, $color) {
+  border-color: $border;
+  outline: $outlineConfig;
+  outline-color: $color;
+}
+
 textarea {
   color: $neutral-7;
   padding: spacing(1.3) spacing(1.5);
@@ -8,12 +14,26 @@ textarea {
   background-color: $neutral-1;
   resize: none;
   outline: none;
-  cursor: pointer;
-  overflow-y: scroll;
+  cursor: text;
+  overflow-y: auto;
+
+  &:hover {
+    border-color: $primary-4;
+  }
+
+  &:focus {
+    @include add-colors($primary-5, 2px solid, $primary-2);
+  }
+
+  &:active {
+    @include add-colors($primary-5, 2px solid, $primary-2);
+  }
 }
 
 ::placeholder {
   color: $neutral-5;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 textarea::-webkit-scrollbar {
