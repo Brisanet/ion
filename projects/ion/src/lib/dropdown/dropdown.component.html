@@ -1,4 +1,13 @@
 <div class="container-options" data-testid="ion-dropdown">
+  <ion-input
+    class="dropdown-search"
+    *ngIf="enableSearch"
+    [iconInput]="searchOptions?.iconInput || 'search'"
+    [iconDirection]="searchOptions?.iconDirection || 'right'"
+    [placeholder]="searchOptions?.placeholder || ''"
+    [disabled]="searchOptions?.disabled || false"
+    (valueChange)="inputChange($event)"
+  ></ion-input>
   <div
     [ngClass]="{
       'dropdown-disabled': option.disabled,
