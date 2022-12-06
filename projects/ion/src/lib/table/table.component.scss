@@ -135,6 +135,8 @@ table {
   display: flex;
   justify-content: space-between;
   padding: 16px;
+  overflow-x: auto;
+  gap: spacing(2);
 
   position: sticky;
   bottom: 0;

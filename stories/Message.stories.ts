@@ -1,10 +1,8 @@
-import { IonIconComponent } from './../projects/ion/src/lib/icon/icon.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { MessageComponent } from '../projects/ion/src/lib/message/message.component';
 import {
   AlertComponent,
-  ButtonComponent,
   CheckboxComponent,
   IonDividerComponent,
   PaginationComponent,

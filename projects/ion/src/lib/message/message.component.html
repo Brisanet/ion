@@ -1,10 +1,4 @@
-<div
-  data-testid="ion-message"
-  [class]="'ion-message ' + type"
-  style="margin-bottom: 50px"
->
+<div data-testid="ion-message" [class]="'ion-message ' + type">
   <ion-icon data-testid="message-ion" [type]="iconType"></ion-icon>
   <span>{{ label }}</span>
 </div>
-
-<ion-smart-table [config]="table" (events)="events($event)"></ion-smart-table>
