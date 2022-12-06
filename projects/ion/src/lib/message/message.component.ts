@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConfigSmartTable } from '../smart-table/smart-table.component';
 import { IconType } from './../icon/icon.component';
 
 export interface IonMessageProps {
@@ -25,11 +24,6 @@ export const icontypes = {
   custom: 'plus-solid',
 };
 
-interface Char {
-  id: number;
-  name: string;
-}
-
 @Component({
   selector: 'ion-message',
   templateUrl: './message.component.html',
@@ -39,26 +33,6 @@ export class MessageComponent implements OnInit {
   @Input() label!: string;
   @Input() type = 'positive';
   @Input() iconType?: IconType;
-
-  public table: ConfigSmartTable<Char> = {
-    data: [],
-    columns: [
-      {
-        key: 'id',
-        label: 'Código',
-        sort: true,
-      },
-      {
-        key: 'name',
-        label: 'Nome',
-        sort: false,
-      },
-    ],
-    pagination: {
-      total: 0,
-      itemsPerPage: 15,
-    },
-  };
 
   setIcon(): void {
     this.iconType = icontypes[this.type];
