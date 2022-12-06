@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IonInputProps } from '../input/input.component';
 
 export interface DropdownItem {
   label: string;
@@ -12,6 +13,9 @@ export interface DropdownParams {
   options: DropdownItem[];
   selected: EventEmitter<DropdownItem[]>;
   multiple?: boolean;
+  enableSearch?: boolean;
+  searchOptions?: IonInputProps;
+  searchChange?: EventEmitter<string>;
 }
 
 @Component({
@@ -22,7 +26,10 @@ export interface DropdownParams {
 export class DropdownComponent {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
+  @Input() enableSearch = false;
+  @Input() searchOptions?: DropdownParams['searchOptions'];
   @Output() selected = new EventEmitter<DropdownItem[]>();
+  @Output() searchChange = new EventEmitter<string>();
 
   iconSize = 16;
 
@@ -51,6 +58,10 @@ export class DropdownComponent {
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );
+  }
+
+  inputChange(value: string): void {
+    this.searchChange.emit(value);
   }
 
   private isDisabled(option: DropdownItem): boolean {
