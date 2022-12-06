@@ -15,7 +15,18 @@ const sut = async (customProps?: IonInputProps): Promise<void> => {
 };
 
 describe('InputComponent', () => {
-  it('Should allow letters to be inputted', async () => {
+  it('should render input with an empty placeholder if none is passed', async () => {
+    await sut();
+    const input = screen.getByTestId('input-element');
+    expect(input).not.toHaveAttribute('placeholder');
+  });
+  it('should render input with a given placeholder', async () => {
+    const placeholder = 'Search';
+    await sut({ placeholder });
+    const input = screen.getByTestId('input-element');
+    expect(input).toHaveAttribute('placeholder', placeholder);
+  });
+  it('should allow letters to be inputted', async () => {
     await sut();
     const inputValue = 'input';
     fireEvent.change(screen.getByTestId('input-element'), {
