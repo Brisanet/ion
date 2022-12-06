@@ -4,14 +4,21 @@ import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
+import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/Chips',
   component: ChipComponent,
   decorators: [
     moduleMetadata({
-      imports: [DropdownModule],
-      declarations: [BadgeComponent, InfoBadgeComponent],
+      imports: [FormsModule, DropdownModule],
+      declarations: [
+        IonIconComponent,
+        BadgeComponent,
+        InfoBadgeComponent,
+        InputComponent,
+      ],
     }),
   ],
 } as Meta;
@@ -77,4 +84,17 @@ WithDropdown.args = {
   options: [{ label: 'Cat' }, { label: 'Dog' }],
   icon: 'close',
   multiple: true,
+};
+
+export const WithDropdownWithSearch = Template.bind({});
+WithDropdownWithSearch.args = {
+  label: 'Animais',
+  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  icon: 'close',
+  dropdownSearchConfig: {
+    enableSearch: true,
+    searchOptions: {
+      placeholder: 'Busque um animal',
+    },
+  },
 };

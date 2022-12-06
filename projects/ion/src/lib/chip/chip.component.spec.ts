@@ -1,6 +1,6 @@
-import { DropdownModule } from '../dropdown/dropdown.module';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
+import userEvent from '@testing-library/user-event';
+import { BadgeComponent } from 'projects/ion/src/public-api';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
 import {
@@ -10,6 +10,8 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
+import { FormsModule } from '@angular/forms';
+import { DropdownModule } from '../dropdown/dropdown.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -19,7 +21,7 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
       label: 'chip',
     },
     declarations: [BadgeComponent, InfoBadgeComponent],
-    imports: [DropdownModule],
+    imports: [FormsModule, DropdownModule],
   });
 };
 
@@ -209,5 +211,46 @@ describe('With Multiple Dropdown', () => {
 
   afterEach(() => {
     dropdownEvent.mockClear();
+  });
+});
+
+describe('With Dropdown with search input', () => {
+  const searchEvent = jest.fn();
+  const label = 'dropdown';
+  const placeholder = 'Busca';
+
+  beforeEach(async () => {
+    await sut({
+      label,
+      options: defaultOptions,
+      dropdownEvents: {
+        emit: jest.fn(),
+      } as SafeAny,
+      dropdownSearchConfig: {
+        enableSearch: true,
+        searchOptions: {
+          placeholder,
+        },
+      },
+      dropdownSearchEvents: {
+        emit: searchEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByText('dropdown'));
+  });
+
+  it('should render search with correct placeholder input when enableSearch is true', async () => {
+    expect(screen.getByPlaceholderText(placeholder)).toBeInTheDocument();
+  });
+
+  it('should emit search event when search input change', async () => {
+    const input = 'folklore';
+    userEvent.type(screen.getByTestId('input-element'), input);
+    expect(screen.getByTestId('input-element')).toHaveValue(input);
+    expect(searchEvent).toHaveBeenCalledWith(input);
+  });
+
+  afterEach(() => {
+    searchEvent.mockClear();
   });
 });
