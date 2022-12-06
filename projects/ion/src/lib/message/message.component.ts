@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ConfigSmartTable } from '../smart-table/smart-table.component';
-import { SafeAny } from '../utils/safe-any';
 import { IconType } from './../icon/icon.component';
 
 export interface IonMessageProps {
@@ -61,32 +60,11 @@ export class MessageComponent implements OnInit {
     },
   };
 
-  mountData(qtd: number): Char[] {
-    const data = [];
-    for (let index = 1; index < qtd; index++) {
-      data.push({ id: index, name: `Luke ${index}` });
-    }
-    return data;
-  }
-
-  loadData(): void {
-    const totalData = 15;
-    setTimeout(() => {
-      this.table.data = this.mountData(totalData);
-      this.table.pagination.total = totalData + 5;
-    }, 2000);
-  }
-
-  events(events: SafeAny): void {
-    console.log('events -> ', events);
-  }
-
   setIcon(): void {
     this.iconType = icontypes[this.type];
   }
 
   ngOnInit(): void {
     this.setIcon();
-    this.loadData();
   }
 }
