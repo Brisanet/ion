@@ -4,6 +4,8 @@ import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { BadgeComponent } from './../badge/badge.component';
 import { SafeAny } from '../utils/safe-any';
+import { InputComponent } from '../input/input.component';
+import { FormsModule } from '@angular/forms';
 
 const defaultName = 'button';
 
@@ -12,7 +14,13 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(ButtonComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent, DropdownComponent, BadgeComponent],
+    declarations: [
+      IonIconComponent,
+      DropdownComponent,
+      BadgeComponent,
+      InputComponent,
+    ],
+    imports: [FormsModule],
   });
   return screen.findByRole('button');
 };

@@ -2,10 +2,9 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { DropdownModule } from '../projects/ion/src/lib/dropdown/dropdown.module.ts';
+import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component.ts';
-import { BadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
+import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
 
 <Meta title="Ion/Buttons/button" component={ButtonComponent} />
 
@@ -280,8 +279,8 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="circularButton: trash ghost"
     decorators={[
       moduleMetadata({
-        declarations: [ButtonComponent, IonIconComponent],
-        imports: [CommonModule],
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
       }),
     ]}
   >
