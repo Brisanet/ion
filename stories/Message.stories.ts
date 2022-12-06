@@ -1,35 +1,15 @@
+import { IonIconComponent } from './../projects/ion/src/lib/icon/icon.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { MessageComponent } from '../projects/ion/src/lib/message/message.component';
-import {
-  AlertComponent,
-  CheckboxComponent,
-  IonDividerComponent,
-  PaginationComponent,
-  PopConfirmDirective,
-  SmartTableComponent,
-  TagComponent,
-} from '../projects/ion/src/public-api';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Feedback/Message',
   component: MessageComponent,
   decorators: [
     moduleMetadata({
-      entryComponents: [PopConfirmComponent],
-      imports: [ButtonModule],
-      declarations: [
-        SmartTableComponent,
-        CheckboxComponent,
-        TagComponent,
-        PopConfirmComponent,
-        PopConfirmDirective,
-        PaginationComponent,
-        AlertComponent,
-        IonDividerComponent,
-      ],
+      imports: [],
+      declarations: [IonIconComponent],
     }),
   ],
 } as Meta;
