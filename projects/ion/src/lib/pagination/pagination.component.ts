@@ -65,12 +65,6 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.total && !changes.total.firstChange) {
-      this.remountPages();
-    }
-  }
-
   selectPage(pageNumber: number): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
