@@ -4,7 +4,6 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -36,7 +35,7 @@ export const ITEMS_PER_PAGE_DEFAULT = 10;
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit, OnChanges {
+export class PaginationComponent implements OnChanges {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
@@ -60,9 +59,10 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.remountPages();
   }
 
-  ngOnInit(): void {
-    this.createPages(this.totalPages());
-    this.selectPage(1);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.total) {
+      this.remountPages();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
