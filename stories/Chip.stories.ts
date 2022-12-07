@@ -4,9 +4,7 @@ import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { FormsModule } from '@angular/forms';
-import { IonIconComponent } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Chips',
@@ -14,12 +12,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [FormsModule, DropdownModule],
-      declarations: [
-        IonIconComponent,
-        BadgeComponent,
-        InfoBadgeComponent,
-        InputComponent,
-      ],
+      declarations: [BadgeComponent, InfoBadgeComponent],
     }),
   ],
 } as Meta;
