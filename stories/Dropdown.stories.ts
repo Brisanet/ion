@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/Dropdown',
@@ -11,10 +13,14 @@ export default {
 
 const Template: Story<DropdownComponent> = (args: DropdownComponent) => ({
   component: DropdownComponent,
-  props: { ...args, selected: action('selected') },
+  props: {
+    ...args,
+    selected: action('selected'),
+    searchChange: action('searchChange'),
+  },
   moduleMetadata: {
-    declarations: [IonIconComponent],
-    imports: [CommonModule],
+    declarations: [IonIconComponent, InputComponent],
+    imports: [CommonModule, FormsModule],
   },
 });
 
@@ -57,4 +63,20 @@ MultipleSelect.args = {
   options: optionsWithMultiple,
   multiple: true,
   selected: action('selected'),
+};
+
+export const WithSearch = Template.bind({});
+WithSearch.args = {
+  enableSearch: true,
+  options,
+};
+
+export const WithCustomSearch = Template.bind({});
+WithCustomSearch.args = {
+  enableSearch: true,
+  options,
+  searchOptions: {
+    iconDirection: 'left',
+    placeholder: 'Busque por algo...',
+  },
 };

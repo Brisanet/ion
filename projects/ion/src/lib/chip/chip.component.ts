@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeType } from '../badge/badge.component';
 import { InfoBadgeStatus } from '../core/types';
-import { DropdownItem } from '../dropdown/dropdown.component';
+import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
 import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
@@ -24,6 +24,8 @@ export interface IonChipProps {
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
+  dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
+  dropdownSearchEvents?: EventEmitter<string>;
 }
 
 type Badge = {
@@ -42,19 +44,21 @@ interface RightBadge {
 })
 export class ChipComponent {
   @Input() label!: string;
-  @Input() disabled? = false;
-  @Input() selected? = false;
+  @Input() disabled = false;
+  @Input() selected = false;
   @Input() size?: ChipSize = 'sm';
   @Input() icon?: IconType;
   @Input() showDropdown = false;
+  @Input() dropdownSearchConfig: IonChipProps['dropdownSearchConfig'];
   @Input() options: DropdownItem[];
-  @Input() multiple?: boolean = false;
+  @Input() multiple = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
+  @Output() dropdownSearchEvents = new EventEmitter<string>();
 
   badge: Badge = {
     value: 0,
@@ -87,5 +91,9 @@ export class ChipComponent {
       this.selected = false;
       this.toggleDropdown();
     }
+  }
+
+  dropdownSearchChange(value: string): void {
+    this.dropdownSearchEvents.emit(value);
   }
 }
