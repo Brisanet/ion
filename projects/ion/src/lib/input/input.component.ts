@@ -37,7 +37,7 @@ export class InputComponent {
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
   @Input() value = '';
-  @Input() inputType: InputType;
+  @Input() inputType: InputType = 'text';
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
