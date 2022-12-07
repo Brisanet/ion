@@ -22,27 +22,22 @@ const Template: Story<InputComponent> = (args: InputComponent) => ({
 });
 
 export const Input = Template.bind({});
-Input.args = {
-  placeholder: 'Placeholder',
-};
+Input.args = {};
 
 export const IconLeft = Template.bind({});
 IconLeft.args = {
-  placeholder: 'Placeholder',
   iconInput: 'pencil',
   iconDirection: 'left',
 };
 
 export const iconRight = Template.bind({});
 iconRight.args = {
-  placeholder: 'Placeholder',
   iconInput: 'pencil',
   iconDirection: 'right',
 };
 
 export const iconValid = Template.bind({});
 iconValid.args = {
-  placeholder: 'Placeholder',
   valid: true,
 };
 
