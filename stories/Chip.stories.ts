@@ -6,6 +6,7 @@ import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { FormsModule } from '@angular/forms';
+import { IonIconComponent } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Chips',
