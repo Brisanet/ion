@@ -3,6 +3,7 @@ import { IconType } from './../icon/icon.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type IconDirection = 'left' | 'right';
+export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
   placeholder?: string;
@@ -16,6 +17,7 @@ export interface IonInputProps {
   inputIconButton?: boolean;
   clickButton?: EventEmitter<SafeAny>;
   value?: string;
+  inputType?: InputType;
   valueChange?: EventEmitter<string>;
 }
 
@@ -35,6 +37,7 @@ export class InputComponent {
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
   @Input() value = '';
+  @Input() inputType: InputType = 'text';
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
