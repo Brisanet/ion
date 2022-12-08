@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { InputComponent, IonInputProps } from './input.component';
+import { InputComponent, InputType, IonInputProps } from './input.component';
 import { FormsModule } from '@angular/forms';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
@@ -47,6 +47,14 @@ describe('InputComponent', () => {
     const input = screen.getByTestId('input-element');
     expect(input).toHaveAttribute('placeholder', placeholder);
   });
+
+  it.each(['text', 'password'])(
+    'should render type %s on input component',
+    async (type: InputType) => {
+      await sut({ inputType: type });
+      expect(screen.getByTestId('input-element')).toHaveAttribute('type', type);
+    }
+  );
 
   it('should render input component disabled', async () => {
     await sut({ disabled: true });
