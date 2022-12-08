@@ -1,5 +1,12 @@
 import { DropdownItem } from './../dropdown/dropdown.component';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 interface Page {
   page_number: number;
@@ -28,7 +35,7 @@ export const ITEMS_PER_PAGE_DEFAULT = 10;
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnChanges {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
@@ -52,9 +59,10 @@ export class PaginationComponent implements OnInit {
     this.remountPages();
   }
 
-  ngOnInit(): void {
-    this.createPages(this.totalPages());
-    this.selectPage(1);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.total) {
+      this.remountPages();
+    }
   }
 
   selectPage(pageNumber: number): void {
@@ -95,7 +103,6 @@ export class PaginationComponent implements OnInit {
   }
 
   remountPages(): void {
-    this.pages = [];
     this.createPages(this.totalPages());
     this.selectPage(1);
   }
@@ -106,6 +113,7 @@ export class PaginationComponent implements OnInit {
   }
 
   private createPages(qtdOfPages: number): void {
+    this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
       this.pages.push({
         selected: false,

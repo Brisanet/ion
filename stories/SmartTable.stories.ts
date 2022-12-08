@@ -86,7 +86,7 @@ Basic.args = {
     columns,
     actions,
     pagination: {
-      total: 8,
+      total: 2,
     },
   },
 };
