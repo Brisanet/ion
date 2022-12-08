@@ -229,6 +229,19 @@ WithPagination.args = {
     columns,
     pagination: {
       total: 46,
+      itemsPerPage: 2,
+    },
+  },
+};
+
+export const CustomItemsPerPage = Template.bind({});
+CustomItemsPerPage.args = {
+  config: {
+    data: [...data, ...data, ...data, ...data],
+    columns,
+    pagination: {
+      total: 46,
+      itemsPerPage: 7,
     },
   },
 };
