@@ -7,7 +7,9 @@ const debounce = <T extends (...args: SafeAny[]) => ReturnType<T>>(
   let timer: ReturnType<typeof setTimeout>;
 
   return (...args: Parameters<T>) => {
-    clearTimeout(timer);
+    if (timer) {
+      clearTimeout(timer);
+    }
     timer = setTimeout(() => {
       callback(...args);
     }, timeout);
