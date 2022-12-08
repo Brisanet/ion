@@ -1,9 +1,9 @@
 @import '../../styles/index.scss';
 
-@mixin add-colors($border, $outlineConfig, $color) {
-  border-color: $border;
-  outline: $outlineConfig;
-  outline-color: $color;
+@mixin add-colors() {
+  border-color: $primary-5;
+  outline: 2px solid;
+  outline-color: $primary-2;
 }
 
 textarea {
@@ -22,11 +22,11 @@ textarea {
   }
 
   &:focus {
-    @include add-colors($primary-5, 2px solid, $primary-2);
+    @include add-colors();
   }
 
   &:active {
-    @include add-colors($primary-5, 2px solid, $primary-2);
+    @include add-colors();
   }
 }
 

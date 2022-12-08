@@ -20,3 +20,8 @@ const Template: Story<InputAreaComponent> = (args: InputAreaComponent) => ({
 
 export const InputArea = Template.bind({});
 InputArea.args = {};
+
+export const InputCustomPlaceholder = Template.bind({});
+InputCustomPlaceholder.args = {
+  placeholder: 'Digite algo aqui...',
+};

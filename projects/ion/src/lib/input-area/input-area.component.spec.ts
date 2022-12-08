@@ -23,4 +23,30 @@ describe('InputAreaCompoenent', () => {
     const input = screen.getByTestId('input-area');
     expect(input).not.toHaveAttribute('placeholder');
   });
+
+  it('should render input columns default', async () => {
+    await sut();
+    const input = screen.getByTestId('input-area');
+    expect(input).toHaveAttribute('cols', '30');
+  });
+
+  it('should render input colunms when changed', async () => {
+    const cols = '31';
+    await sut({ cols });
+    const input = screen.getByTestId('input-area');
+    expect(input).toHaveAttribute('cols', cols);
+  });
+
+  it('should render input rows default', async () => {
+    await sut();
+    const input = screen.getByTestId('input-area');
+    expect(input).toHaveAttribute('rows', '5');
+  });
+
+  it('should render input rows when changed', async () => {
+    const rows = '6';
+    await sut({ rows });
+    const input = screen.getByTestId('input-area');
+    expect(input).toHaveAttribute('rows', rows);
+  });
 });
