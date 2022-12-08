@@ -155,6 +155,15 @@ describe('TableComponent', () => {
     });
   });
 
+  it('should be defined the value of order when sort column', async () => {
+    const orderBy = columns[0].key;
+    fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+    expect(defaultProps.config.order).toStrictEqual({
+      column: orderBy,
+      desc: true,
+    });
+  });
+
   it('should emit event sort with desc true when click in sort icon two times', async () => {
     const orderBy = columns[0].key;
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));

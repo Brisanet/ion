@@ -52,6 +52,10 @@ export interface ConfigTable<T> {
   check?: boolean;
   pagination?: PaginationConfig;
   loading?: boolean;
+  order?: {
+    column: string;
+    desc: boolean | undefined;
+  };
 }
 
 export class TableUtils<T = SafeAny> {

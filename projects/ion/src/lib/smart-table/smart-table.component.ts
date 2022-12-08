@@ -98,6 +98,10 @@ export class SmartTableComponent implements OnInit {
   }
 
   public sort(column: Column): void {
+    this.config.order = {
+      column: column.key,
+      desc: column.desc,
+    };
     this.events.emit({
       event: EventTable.SORT,
       change_page: this.pagination,
