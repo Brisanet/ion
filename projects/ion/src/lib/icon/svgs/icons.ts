@@ -51,6 +51,8 @@ import {
   sortDesc,
   arrowsDownUp,
   arrowsUpDown,
+  alert,
+  config,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -107,4 +109,6 @@ export const iconsPaths: Record<string, string> = {
   'doc-check': docCheck,
   'doc-warning': docWarning,
   condominium,
+  config,
+  alert,
 };
