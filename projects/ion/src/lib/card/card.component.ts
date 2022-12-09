@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
+import { DropdownItem } from 'ion/public-api';
 
 type Pick<T, K extends keyof T> = {
   [Key in K]: T[Key];
@@ -48,6 +49,7 @@ type Foote = {
 export type CardEvent = {
   buttonAction?: ButtonType;
   chipSelected?: { chip: IonChipProps; index: number };
+  selectedFromDropdown?: DropdownItem[];
 };
 
 export interface IonCard {

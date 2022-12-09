@@ -140,6 +140,19 @@ describe('CardComponent', () => {
   });
 
   const testChips = [{ label: 'first' }, { label: 'second' }];
+  const chipWithOptions = [
+    {
+      label: 'Choose one',
+      options: [{ label: 'first' }, { label: 'second' }],
+      dropdownSearchConfig: {
+        enableSearch: true,
+        searchOptions: {
+          placeholder: 'Busque um animal',
+        },
+      },
+    },
+  ];
+
   it.each(testChips)(
     'should render chip with label %i',
     async (chip: IonChipProps) => {
@@ -150,6 +163,17 @@ describe('CardComponent', () => {
   );
 
   it('should emit an event when a chip is clicked', async () => {
+    const header = screen.getByTestId('cardHeader');
+    cardComponent.cardConfig.header.chips = testChips;
+    fixture.detectChanges();
+    fireEvent.click(screen.getByText(testChips[0].label));
+    fixture.detectChanges();
+    expect(header.textContent).toBe(
+      'Opa, eu fui clicado evento: {"chipSelected":{"chip":{"label":"first"},"index":0}}'
+    );
+  });
+
+  it('should emit an event when a option is selected from chip dropdown', async () => {
     const header = screen.getByTestId('cardHeader');
     cardComponent.cardConfig.header.chips = testChips;
     fixture.detectChanges();

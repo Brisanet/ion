@@ -6,6 +6,7 @@ import { ButtonComponent } from '../projects/ion/src/lib/button/button.component
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component.ts';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component.ts';
+import { DropdownModule } from './../projects/ion/src/lib/dropdown/dropdown.module';
 
 <Meta title="Ion/Data Display/Card" component={CardIonComponent} />
 
@@ -157,6 +158,44 @@ Neste parâmetro, enviamos uma lista de chips.
         header: {
           title: 'Com risco de atraso',
           chips: [{ label: 'first' }, { label: 'second' }],
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ChipComponent, InfoBadgeComponent],
+        imports: [CommonModule, ButtonModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Chip with dropdown
+
+Neste parâmetro, enviamo o chip com as opções para o dropdown.
+
+<Canvas>
+  <Story
+    name="With Options In Chip Dropdown"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+          chips: [
+            {
+              label: 'Animais',
+              options: [{ label: 'Cat' }, { label: 'Dog' }],
+              icon: 'close',
+              dropdownSearchConfig: {
+                enableSearch: true,
+                searchOptions: {
+                  placeholder: 'Busque um animal',
+                },
+              },
+            },
+          ],
         },
       },
     }}
