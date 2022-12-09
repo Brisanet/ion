@@ -59,5 +59,11 @@
       justify-content: space-between;
       width: 100%;
     }
+
+    &-buttons {
+      display: flex;
+      gap: spacing(2);
+      align-items: center;
+    }
   }
 }
