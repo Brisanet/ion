@@ -17,6 +17,12 @@ textarea {
   cursor: text;
   overflow-y: auto;
 
+  &::placeholder {
+    color: $neutral-5;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
   &:hover {
     border-color: $primary-4;
   }
@@ -28,12 +34,6 @@ textarea {
   &:active {
     @include add-colors();
   }
-}
-
-::placeholder {
-  color: $neutral-5;
-  font-weight: 400;
-  font-size: 14px;
 }
 
 textarea::-webkit-scrollbar {

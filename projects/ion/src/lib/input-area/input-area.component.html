@@ -2,5 +2,7 @@
   data-testid="input-area"
   [cols]="cols"
   [rows]="rows"
+  [ngModel]="value"
+  (ngModelChange)="onChange($event)"
   [attr.placeholder]="placeholder"
 ></textarea>

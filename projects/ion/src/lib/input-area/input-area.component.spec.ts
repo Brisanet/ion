@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
 import { IonInputAreaProps, InputAreaComponent } from './input-area.component';
@@ -5,12 +6,12 @@ import { IonInputAreaProps, InputAreaComponent } from './input-area.component';
 const sut = async (customProps?: IonInputAreaProps): Promise<void> => {
   await render(InputAreaComponent, {
     componentProperties: customProps,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     declarations: [],
   });
 };
 
-describe('InputAreaCompoenent', () => {
+describe('InputAreaComponent', () => {
   it('should render input with a given placeholder', async () => {
     const placeholder = 'Search';
     await sut({ placeholder });

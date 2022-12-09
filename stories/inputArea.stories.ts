@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata, Story } from '@storybook/angular';
 import { InputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
@@ -7,7 +8,7 @@ export default {
   component: InputAreaComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
+      imports: [FormsModule],
       declarations: [],
     }),
   ],
