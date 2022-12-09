@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { IonInputProps } from '../input/input.component';
 
 export interface DropdownItem {
@@ -23,7 +29,7 @@ export interface DropdownParams {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent {
+export class DropdownComponent implements AfterViewInit {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() enableSearch = false;
@@ -32,6 +38,16 @@ export class DropdownComponent {
   @Output() searchChange = new EventEmitter<string>();
 
   iconSize = 16;
+
+  public ngAfterViewInit(): void {
+    const widthContainer = window.innerWidth;
+    const element = document.getElementsByClassName('container-options')[0];
+    const elementProps = element.getBoundingClientRect();
+    const elementRight = elementProps.right;
+    if (elementRight > widthContainer) {
+      element.classList.add('to-right');
+    }
+  }
 
   mouseEnter(option: DropdownItem): void {
     option.selected && !option.disabled && (option.hovered = true);
