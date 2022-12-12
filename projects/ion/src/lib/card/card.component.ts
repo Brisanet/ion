@@ -49,7 +49,7 @@ type Foote = {
 export type CardEvent = {
   buttonAction?: ButtonType;
   chipSelected?: { chip: IonChipProps; index: number };
-  selectedFromDropdown?: DropdownItem[];
+  selectedFromChipDropdown?: DropdownItem[];
 };
 
 export interface IonCard {
