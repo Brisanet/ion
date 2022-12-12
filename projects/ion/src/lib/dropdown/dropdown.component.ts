@@ -44,9 +44,7 @@ export class DropdownComponent implements AfterViewInit {
     const element = document.getElementById('ion-dropdown');
     const elementProps = element.getBoundingClientRect();
     const elementRight = elementProps.right;
-    if (elementRight > widthContainer) {
-      element.style.right = '0';
-    }
+    elementRight > widthContainer && (element.style.right = '0');
   }
 
   mouseEnter(option: DropdownItem): void {
