@@ -1,6 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/angular';
 import { IonInputAreaProps, InputAreaComponent } from './input-area.component';
 
 const sut = async (customProps?: IonInputAreaProps): Promise<void> => {
@@ -28,9 +29,7 @@ describe('InputAreaComponent', () => {
   it('should allow letters to be inputted', async () => {
     await sut();
     const inputValue = 'input';
-    fireEvent.change(screen.getByTestId('input-area'), {
-      target: { value: inputValue },
-    });
+    userEvent.type(screen.getByTestId('input-area'), inputValue);
     expect(screen.getByTestId('input-area')).toHaveValue(inputValue);
   });
 
