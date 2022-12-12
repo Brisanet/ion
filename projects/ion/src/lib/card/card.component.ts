@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
+import { DropdownItem } from '../dropdown/dropdown.component';
 
 type Pick<T, K extends keyof T> = {
   [Key in K]: T[Key];
@@ -48,6 +49,7 @@ type Foote = {
 export type CardEvent = {
   buttonAction?: ButtonType;
   chipSelected?: { chip: IonChipProps; index: number };
+  selectedFromChipDropdown?: DropdownItem[];
 };
 
 export interface IonCard {
@@ -70,7 +72,7 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
   @ViewChild('footer', { read: ViewContainerRef, static: false })
   footer!: ViewContainerRef;
 
-  private indexOfChipSelected = 0;
+  private indexOfChipSelected: number | null = null;
 
   constructor(
     private resolverFactory: ComponentFactoryResolver,
@@ -80,10 +82,12 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
     this.ngOnDestroy();
-    const bodyFactory = this.resolverFactory.resolveComponentFactory(
-      this.configuration.body as SafeAny
-    );
-    this.body.createComponent(bodyFactory).changeDetectorRef.detectChanges();
+    if (this.configuration.body) {
+      const bodyFactory = this.resolverFactory.resolveComponentFactory(
+        this.configuration.body as SafeAny
+      );
+      this.body.createComponent(bodyFactory).changeDetectorRef.detectChanges();
+    }
     if (this.configuration.footer && this.configuration.footer.body) {
       const footerFactory = this.resolverFactory.resolveComponentFactory(
         this.configuration.footer.body as SafeAny
