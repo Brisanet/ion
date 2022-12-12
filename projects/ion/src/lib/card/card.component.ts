@@ -72,7 +72,7 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
   @ViewChild('footer', { read: ViewContainerRef, static: false })
   footer!: ViewContainerRef;
 
-  private indexOfChipSelected = 0;
+  private indexOfChipSelected: number | null = null;
 
   constructor(
     private resolverFactory: ComponentFactoryResolver,
