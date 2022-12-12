@@ -35,13 +35,13 @@
 
     &-container-buttons {
       display: flex;
-      gap: 28px;
+      gap: spacing(2);
       justify-content: space-between;
     }
 
     &-container-chips {
       display: flex;
-      gap: 8px;
+      gap: spacing(1);
       justify-content: space-between;
     }
   }
@@ -58,6 +58,12 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+    }
+
+    &-buttons {
+      display: flex;
+      gap: spacing(2);
+      align-items: center;
     }
   }
 }
