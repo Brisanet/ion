@@ -1,4 +1,4 @@
 exclude_patterns:
-- "../src/test.ts"
-- "../src/**/*.spec.ts"
-- "../projects/**/*.spec.ts"
+  - "../src/test.ts"
+  - "../src/**/*.spec.ts"
+  - "../projects/**/*.spec.ts"
