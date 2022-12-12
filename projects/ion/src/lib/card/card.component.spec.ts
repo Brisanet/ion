@@ -154,11 +154,19 @@ describe('CardComponent', () => {
   ];
 
   it.each(testChips)(
-    'should render chip with label %i',
+    'should render chip with label $label',
     async (chip: IonChipProps) => {
       cardComponent.cardConfig.header.chips = testChips;
       fixture.detectChanges();
       expect(screen.getByText(chip.label)).toBeTruthy();
+    }
+  );
+  it.each(testChips)(
+    'chip with label $label should not be selected',
+    async (chip: IonChipProps) => {
+      cardComponent.cardConfig.header.chips = testChips;
+      fixture.detectChanges();
+      expect(screen.getByText(chip.label)).not.toHaveClass('chip-selected');
     }
   );
 
