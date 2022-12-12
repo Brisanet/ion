@@ -175,12 +175,17 @@ describe('CardComponent', () => {
 
   it('should emit an event when a option is selected from chip dropdown', async () => {
     const header = screen.getByTestId('cardHeader');
-    cardComponent.cardConfig.header.chips = testChips;
+    cardComponent.cardConfig.header.chips = chipWithOptions;
     fixture.detectChanges();
-    fireEvent.click(screen.getByText(testChips[0].label));
+    const chip = screen.getByText('Choose one');
+    fireEvent.click(chip);
     fixture.detectChanges();
+    const firstOption = screen.getByText('first');
+    fireEvent.click(firstOption);
+    fixture.detectChanges();
+
     expect(header.textContent).toBe(
-      'Opa, eu fui clicado evento: {"chipSelected":{"chip":{"label":"first"},"index":0}}'
+      'Opa, eu fui clicado evento: {"selectedFromChipDropdown":[{"label":"first","selected":true}]}'
     );
   });
 });
