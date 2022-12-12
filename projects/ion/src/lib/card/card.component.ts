@@ -82,10 +82,12 @@ export class CardIonComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.cdr.detectChanges();
     this.ngOnDestroy();
-    const bodyFactory = this.resolverFactory.resolveComponentFactory(
-      this.configuration.body as SafeAny
-    );
-    this.body.createComponent(bodyFactory).changeDetectorRef.detectChanges();
+    if (this.configuration.body) {
+      const bodyFactory = this.resolverFactory.resolveComponentFactory(
+        this.configuration.body as SafeAny
+      );
+      this.body.createComponent(bodyFactory).changeDetectorRef.detectChanges();
+    }
     if (this.configuration.footer && this.configuration.footer.body) {
       const footerFactory = this.resolverFactory.resolveComponentFactory(
         this.configuration.footer.body as SafeAny
