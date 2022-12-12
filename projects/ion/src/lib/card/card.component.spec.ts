@@ -180,12 +180,12 @@ describe('CardComponent', () => {
     const chip = screen.getByText('Choose one');
     fireEvent.click(chip);
     fixture.detectChanges();
-    const firstOption = screen.getByText('first');
+    const firstOption = screen.getByText(chipWithOptions[0].options[0].label);
     fireEvent.click(firstOption);
     fixture.detectChanges();
 
     expect(header.textContent).toBe(
-      'Opa, eu fui clicado evento: {"selectedFromChipDropdown":[{"label":"first","selected":true}]}'
+      `Opa, eu fui clicado evento: {"selectedFromChipDropdown":[{"label":"${chipWithOptions[0].options[0].label}","selected":true}]}`
     );
   });
 });
