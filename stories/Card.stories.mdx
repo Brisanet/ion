@@ -11,7 +11,6 @@ import { DropdownModule } from './../projects/ion/src/lib/dropdown/dropdown.modu
 <Meta title="Ion/Data Display/Card" component={CardIonComponent} />
 
 export const Template = (args) => <CardIonComponent {...args} />;
-export const TemplateButton = (args) => <ButtonComponent {...args} />;
 
 # Card
 
@@ -125,7 +124,6 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
         header: {
           title: 'Com risco de atraso',
         },
-        body: TemplateButton,
         footer: {
           buttons: {
             primary: { label: 'Primary' },
