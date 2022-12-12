@@ -155,6 +155,18 @@ describe('load ButtonComponent', () => {
     expect(button.children[0]).toHaveClass('spinner');
     expect(button.children[1].textContent).toContain(loadingMessage);
   });
+
+  it('should not show loading message when button is not loading', async () => {
+    const loadingMessage = "I'm loading";
+    const button = await sut({
+      label: defaultName,
+      loading: false,
+      loadingMessage,
+    });
+    expect(button).not.toHaveClass('loading');
+    expect(button.children[0]).not.toHaveClass('spinner');
+    expect(screen.queryByText(loadingMessage)).not.toBeInTheDocument();
+  });
 });
 
 describe('ButtonComponent with dropdown', () => {
