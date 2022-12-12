@@ -41,11 +41,11 @@ export class DropdownComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     const widthContainer = window.innerWidth;
-    const element = document.getElementsByClassName('container-options')[0];
+    const element = document.getElementById('ion-dropdown');
     const elementProps = element.getBoundingClientRect();
     const elementRight = elementProps.right;
     if (elementRight > widthContainer) {
-      element.classList.add('to-right');
+      element.style.right = '0';
     }
   }
 
