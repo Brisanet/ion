@@ -41,7 +41,14 @@
           [infoBadge]="chip.infoBadge"
           [iconPosition]="chip.iconPosition"
           [rightBadge]="chip.rightBadge"
-          (click)="cardEvent({ chipSelected: { chip: chip, index: i } })"
+          (click)="
+            !chip.options &&
+              cardEvent({ chipSelected: { chip: chip, index: i } })
+          "
+          (dropdownEvents)="cardEvent({ selectedFromChipDropdown: $event })"
+          (dropdownSearchEvents)="
+            cardEvent({ selectedFromChipDropdown: $event })
+          "
         ></ion-chip>
       </div>
     </div>

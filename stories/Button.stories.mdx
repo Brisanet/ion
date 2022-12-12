@@ -159,7 +159,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     }}
   </Story>
   <Story
-    name="iconetype: trash"
+    name="icontype: trash"
     decorators={[
       moduleMetadata({
         declarations: [ButtonComponent, BadgeComponent],
@@ -169,6 +169,45 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   >
     {{
       template: `<ion-button label="Deletar" iconType="trash" size="lg"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="icontype: loading"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="" iconType="pencil" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="icontype: loading with label"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Editar" iconType="pencil" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="icontype: loading with custom loading message"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Editar" iconType="pencil" [loading]="true" loadingMessage="I'm loading"></ion-button>`,
     }}
   </Story>
   <Story
@@ -286,6 +325,19 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   >
     {{
       template: `<ion-button label="Deletar" iconType="close" type="ghost" [circularButton]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="circularButton: loading state"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Editar" iconType="pencil" [circularButton]="true" [loading]="true"></ion-button>`,
     }}
   </Story>
 </Canvas>
@@ -573,6 +625,19 @@ E 6 outras propriedades adicionais.
   >
     {{
       template: `<ion-button label="Primary" type="secondary" [danger]="true" [disabled]="true" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="Loading with custom message"
+    decorators={[
+      moduleMetadata({
+        declarations: [ButtonComponent, BadgeComponent],
+        imports: [CommonModule, DropdownModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Primary" [loading]="true" loadingMessage="I'm loading"></ion-button>`,
     }}
   </Story>
 </Canvas>
