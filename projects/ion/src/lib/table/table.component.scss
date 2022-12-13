@@ -5,8 +5,6 @@ $radius: 8px;
 .ion-table {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   border-radius: $radius;
-  max-height: 660px;
-  overflow-y: auto;
 }
 
 table {
@@ -135,7 +133,6 @@ table {
   display: flex;
   justify-content: space-between;
   padding: 16px;
-  overflow-x: auto;
   gap: spacing(2);
 
   position: sticky;
