@@ -12,7 +12,6 @@
 
   &-header {
     padding: spacing(2) spacing(3);
-    border-bottom: 1px solid $neutral-4;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -45,6 +44,11 @@
       justify-content: space-between;
     }
   }
+
+  &-container {
+    border-top: 1px solid $neutral-4;
+  }
+
   &-footer {
     display: flex;
     flex-direction: row-reverse;

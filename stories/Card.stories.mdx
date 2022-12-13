@@ -7,11 +7,11 @@ import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component.ts';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component.ts';
 import { DropdownModule } from './../projects/ion/src/lib/dropdown/dropdown.module';
+import { BodyMockComponent } from '../projects/ion/src/lib/card/mock/body-mock.component.ts';
 
 <Meta title="Ion/Data Display/Card" component={CardIonComponent} />
 
 export const Template = (args) => <CardIonComponent {...args} />;
-export const TemplateButton = (args) => <ButtonComponent {...args} />;
 
 # Card
 
@@ -113,6 +113,29 @@ Assim como a possibilidade de definir um ícone para o título do card, enviando
 
 No `body` o IonCard recebe um componente a se renderizado.
 
+<Canvas>
+  <Story
+    name="With Body"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+        },
+        body: BodyMockComponent,
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [ChipComponent, InfoBadgeComponent, BodyMockComponent],
+        imports: [CommonModule, ButtonModule],
+        entryComponents: [BodyMockComponent],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ## Footer
 
 No `footer` o IonCard pode receber um componente ou as configurações de botões padrões. Todos os botões emitem um evento com o nome do seu tipo.
@@ -125,7 +148,7 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
         header: {
           title: 'Com risco de atraso',
         },
-        body: TemplateButton,
+        body: BodyMockComponent,
         footer: {
           buttons: {
             primary: { label: 'Primary' },
@@ -137,8 +160,9 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
+        declarations: [ChipComponent, InfoBadgeComponent, BodyMockComponent],
         imports: [CommonModule, ButtonModule],
+        entryComponents: [BodyMockComponent],
       }),
     ]}
   >
