@@ -150,7 +150,7 @@ describe('TableComponent', () => {
       event: EventTable.SORT,
       order: {
         column: orderBy,
-        desc: undefined,
+        desc: false,
       },
     });
   });
