@@ -45,6 +45,10 @@ export class DropdownComponent implements AfterViewInit {
     const elementProps = element.getBoundingClientRect();
     const elementRight = elementProps.right;
     elementRight > widthContainer && (element.style.right = '0');
+
+    const heightContainer = window.innerHeight;
+    const elementBottom = elementProps.bottom;
+    elementBottom > heightContainer && (element.style.bottom = '42px');
   }
 
   mouseEnter(option: DropdownItem): void {
