@@ -1,7 +1,7 @@
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import { PageEvent } from '../pagination/pagination.component';
+import { SafeAny } from '../utils/safe-any';
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
 
 interface TableEvent {
@@ -95,6 +95,9 @@ export class TableComponent implements OnInit {
       }
     });
     column.desc = !column.desc;
+    if (!this.config.pagination.page) {
+      this.config.pagination.page = 1;
+    }
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {
@@ -112,6 +115,7 @@ export class TableComponent implements OnInit {
       event.offset,
       event.offset + event.itemsPerPage
     );
+    this.config.pagination.page = 0;
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {

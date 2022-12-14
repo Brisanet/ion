@@ -1,4 +1,3 @@
-import { DropdownItem } from './../dropdown/dropdown.component';
 import {
   Component,
   EventEmitter,
@@ -7,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { DropdownItem } from './../dropdown/dropdown.component';
 
 interface Page {
   page_number: number;
@@ -42,6 +42,7 @@ export class PaginationComponent implements OnChanges {
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
+  @Input() page = 0;
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage = [
@@ -62,6 +63,13 @@ export class PaginationComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.total) {
       this.remountPages();
+    }
+    if (changes.page.currentValue) {
+      if (changes.page.currentValue === 1) {
+        this.remountPages();
+      } else {
+        this.selectPage(changes.page.currentValue);
+      }
     }
   }
 

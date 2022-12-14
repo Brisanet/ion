@@ -43,6 +43,7 @@ export interface PaginationConfig {
   total: number;
   itemsPerPage?: number;
   offset?: number;
+  page?: number;
 }
 
 export interface ConfigTable<T> {
