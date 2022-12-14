@@ -26,3 +26,8 @@ export const InputCustomPlaceholder = Template.bind({});
 InputCustomPlaceholder.args = {
   placeholder: 'Digite algo aqui...',
 };
+
+export const InputDisabled = Template.bind({});
+InputDisabled.args = {
+  disabled: true,
+};

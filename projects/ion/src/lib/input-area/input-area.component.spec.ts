@@ -58,4 +58,10 @@ describe('InputAreaComponent', () => {
     const input = screen.getByTestId('input-area');
     expect(input).toHaveAttribute('rows', rows);
   });
+
+  it('should render input component disabled', async () => {
+    await sut({ disabled: true });
+    const element = screen.getByTestId('input-area');
+    expect(element).toBeDisabled();
+  });
 });

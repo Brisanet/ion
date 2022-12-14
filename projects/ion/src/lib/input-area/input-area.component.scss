@@ -34,6 +34,14 @@ textarea {
   &:active {
     @include add-colors();
   }
+
+  &:disabled {
+    background: $neutral-2;
+    color: $neutral-4;
+    border-color: $neutral-5;
+    outline: none;
+    cursor: not-allowed;
+  }
 }
 
 textarea::-webkit-scrollbar {
