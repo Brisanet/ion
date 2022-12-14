@@ -11,6 +11,8 @@ table {
   border-collapse: collapse;
   position: relative;
   width: 100%;
+  max-height: 592px;
+  overflow-y: auto;
 
   & .border-header {
     border-bottom: 1px solid $neutral-4;
@@ -149,6 +151,7 @@ table {
   font-size: 14px;
   line-height: 20px;
   color: $neutral-7;
+
 }
 
 .noData {
