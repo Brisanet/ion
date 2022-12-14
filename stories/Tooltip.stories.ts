@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular/dist/ts3.9/client';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { TooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
+import { TooltipPosition } from '../projects/ion/src/lib/core/types';
+import {
+  TooltipComponent,
+  TooltipProps,
+} from '../projects/ion/src/lib/tooltip/tooltip.component';
 import { TooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
 
 export default {
@@ -13,24 +17,28 @@ export default {
       entryComponents: [TooltipComponent],
     }),
   ],
+  argTypes: {
+    ionTooltipTitle: {
+      name: 'ionTooltipTitle',
+      type: { name: 'string' },
+      defaultValue: '',
+    },
+    ionTooltipColorScheme: {
+      name: 'ionTooltipColorScheme',
+      control: 'radio',
+      options: ['light', 'dark'],
+      defaultValue: 'dark',
+    },
+    ionTooltipPosition: {
+      name: 'ionTooltipPosition',
+      control: 'select',
+      options: [...Object.values(TooltipPosition)],
+    },
+  },
 } as Meta;
 
-const Template: Story<TooltipComponent> = (args: TooltipComponent) => ({
-  component: TooltipComponent,
+const Template: Story = (args) => ({
   props: args,
-  moduleMetadata: {
-    declarations: [TooltipComponent],
-    imports: [CommonModule],
-  },
-});
-
-export const Default = Template.bind({});
-Default.args = {
-  ionTooltipTitle: 'Eu sou um tooltip.',
-  ionTooltipColorScheme: 'dark',
-};
-
-export const Button: Story = () => ({
   template: `
     <style>
         div {
@@ -41,8 +49,21 @@ export const Button: Story = () => ({
         }
     </style>
     <div>
-        <span ionTooltip ionTooltipTitle="Eu sou um tooltip" ionTooltipPosition="centerRight">Hover me</span>
+      <span
+        ionTooltip
+        ionTooltipTitle="${args.ionTooltipTitle}"
+        ionTooltipPosition="${args.ionTooltipPosition}"
+        ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      >
+        Hover me
+      </span>
     </div>
   `,
 });
-Button.storyName = 'Tooltip on text';
+
+export const Default = Template.bind({});
+Default.args = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+} as TooltipProps;
+Default.storyName = 'Tooltip';

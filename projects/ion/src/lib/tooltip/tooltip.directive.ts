@@ -13,6 +13,7 @@ import {
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TooltipComponent } from './tooltip.component';
+import { getPositions } from './utilsTooltip';
 
 @Directive({
   selector: '[ionTooltip]',
@@ -46,6 +47,8 @@ export class TooltipDirective implements OnDestroy {
   setComponentProperties(): void {
     if (this.componentRef !== null) {
       this.componentRef.instance.ionTooltipTitle = this.ionTooltipTitle;
+      this.componentRef.instance.ionTooltipColorScheme =
+        this.ionTooltipColorScheme;
       this.componentRef.instance.ionTooltipPosition = this.ionTooltipPosition;
 
       this.setComponentPosition();
@@ -56,42 +59,7 @@ export class TooltipDirective implements OnDestroy {
     const { left, right, top, bottom } =
       this.elementRef.nativeElement.getBoundingClientRect();
 
-    const positions: {
-      [key in TooltipPosition]?: { left: number; top: number };
-    } = {
-      bottomRight: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(top),
-      },
-      bottomCenter: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(top),
-      },
-      bottomLeft: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(top),
-      },
-      topRight: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(bottom),
-      },
-      topCenter: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(bottom),
-      },
-      topLeft: {
-        left: Math.round((right - left) / 2 + left),
-        top: Math.round(bottom),
-      },
-      centerRight: {
-        left: Math.round(left),
-        top: Math.round(top + (bottom - top) / 2),
-      },
-      centerLeft: {
-        left: Math.round(right),
-        top: Math.round(top + (bottom - top) / 2),
-      },
-    };
+    const positions = getPositions({ left, right, top, bottom });
 
     this.componentRef.instance.left = positions[this.ionTooltipPosition].left;
     this.componentRef.instance.top = positions[this.ionTooltipPosition].top;

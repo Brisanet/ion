@@ -4,6 +4,7 @@ import { TooltipColorScheme, TooltipPosition } from '../core/types';
 export interface TooltipProps {
   ionTooltipTitle: string;
   ionTooltipColorScheme?: TooltipColorScheme;
+  ionTooltipPosition?: TooltipPosition;
 }
 
 @Component({
