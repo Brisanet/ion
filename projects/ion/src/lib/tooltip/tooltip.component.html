@@ -1,0 +1,12 @@
+<div
+  data-testid="ion-tooltip"
+  class="ion-tooltip"
+  [ngClass]="[
+    'ion-tooltip-' + ionTooltipColorScheme,
+    'ion-tooltip-position--' + ionTooltipPosition
+  ]"
+  [style.top]="top + 'px'"
+  [style.left]="left + 'px'"
+>
+  {{ ionTooltipTitle }}
+</div>
