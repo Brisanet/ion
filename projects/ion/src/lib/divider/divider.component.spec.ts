@@ -34,7 +34,7 @@ describe('IonDividerComponent', () => {
     'should render $s divider',
     async (direction: DirectionType) => {
       const divider = await sut({
-        direction: direction,
+        direction,
       });
       expect(divider).toHaveClass(ClassType[direction]);
     }
@@ -44,7 +44,7 @@ describe('IonDividerComponent', () => {
     'should render $s divider dashed',
     async (direction: DirectionType) => {
       const divider = await sut({
-        direction: direction,
+        direction,
         type: 'dashed',
       });
       expect(divider).toHaveClass(ClassType[direction]);
@@ -62,12 +62,13 @@ describe('IonDividerComponent', () => {
   });
 
   it('should render divider with Label', async () => {
-    const divider = await sut({
+    const label = 'I am a divider';
+    await sut({
       type: 'text',
-      label: 'Label',
+      label,
     });
-    expect(divider).toHaveClass(ClassType.text);
-    expect(divider).toHaveAttribute('data-content', 'Label');
+    expect(screen.getByTestId('hr')).toHaveClass(ClassType.text);
+    expect(screen.getByText(label)).toBeInTheDocument();
   });
 
   it('should render horizontal divider dashed and not show text', async () => {

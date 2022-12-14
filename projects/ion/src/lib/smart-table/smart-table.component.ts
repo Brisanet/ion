@@ -107,7 +107,7 @@ export class SmartTableComponent implements OnInit {
       change_page: this.pagination,
       order: {
         column: column.key,
-        desc: column.desc,
+        desc: !!column.desc,
       },
     });
 
