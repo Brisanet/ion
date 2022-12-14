@@ -12,7 +12,6 @@
 
   &-header {
     padding: spacing(2) spacing(3);
-    border-bottom: 1px solid $neutral-4;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -35,16 +34,21 @@
 
     &-container-buttons {
       display: flex;
-      gap: 28px;
+      gap: spacing(2);
       justify-content: space-between;
     }
 
     &-container-chips {
       display: flex;
-      gap: 8px;
+      gap: spacing(1);
       justify-content: space-between;
     }
   }
+
+  &-container {
+    border-top: 1px solid $neutral-4;
+  }
+
   &-footer {
     display: flex;
     flex-direction: row-reverse;
@@ -58,6 +62,12 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+    }
+
+    &-buttons {
+      display: flex;
+      gap: spacing(2);
+      align-items: center;
     }
   }
 }

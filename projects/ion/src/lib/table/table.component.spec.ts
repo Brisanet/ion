@@ -507,6 +507,14 @@ describe('Table > Pagination', () => {
     await sut(tableWithPagination);
     expect(screen.queryAllByText(totalItems)).toHaveLength(1);
   });
+
+  it('should render 7 pages when itemsPerPage is 7', async () => {
+    const customPerPage = { ...tableWithPagination };
+    customPerPage.config.pagination.itemsPerPage = 7;
+    await sut(customPerPage);
+    expect(screen.getByTestId('page-7')).toBeInTheDocument();
+    expect(screen.queryAllByTestId('page-8')).toHaveLength(0);
+  });
 });
 
 describe('Table > Action with confirm', () => {

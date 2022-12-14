@@ -150,8 +150,17 @@ describe('TableComponent', () => {
       event: EventTable.SORT,
       order: {
         column: orderBy,
-        desc: undefined,
+        desc: false,
       },
+    });
+  });
+
+  it('should be defined the value of order when sort column', async () => {
+    const orderBy = columns[0].key;
+    fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+    expect(defaultProps.config.order).toStrictEqual({
+      column: orderBy,
+      desc: true,
     });
   });
 

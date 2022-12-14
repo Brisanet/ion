@@ -35,7 +35,9 @@ export class TableComponent implements OnInit {
     this.tableUtils = new TableUtils(this.config);
     if (this.config.pagination) {
       const defaultItemsPerPage = 10;
-      this.config.pagination.itemsPerPage = defaultItemsPerPage;
+
+      this.config.pagination.itemsPerPage =
+        this.config.pagination.itemsPerPage || defaultItemsPerPage;
 
       this.smartData = this.config.data.slice(
         this.config.pagination.offset,
