@@ -66,11 +66,15 @@ export class PaginationComponent implements OnChanges {
       this.remountPages();
     }
     if (changes.page && changes.page.currentValue) {
-      if (changes.page.currentValue === 1) {
-        this.remountPages();
-      } else {
-        this.selectPage(changes.page.currentValue);
-      }
+      this.setPage(changes.page.currentValue);
+    }
+  }
+
+  setPage(page = 1): void {
+    if (page === 1) {
+      this.remountPages();
+    } else {
+      this.selectPage(page);
     }
   }
 
