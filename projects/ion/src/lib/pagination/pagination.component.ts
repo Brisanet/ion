@@ -64,7 +64,7 @@ export class PaginationComponent implements OnChanges {
     if (changes.total) {
       this.remountPages();
     }
-    if (changes.page.currentValue) {
+    if (changes.page && changes.page.currentValue) {
       if (changes.page.currentValue === 1) {
         this.remountPages();
       } else {
