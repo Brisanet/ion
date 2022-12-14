@@ -26,6 +26,7 @@ export interface IonPaginationProps {
   events?: EventEmitter<PageEvent>;
   allowChangeQtdItems?: boolean;
   loading?: boolean;
+  page?: number;
 }
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
@@ -73,7 +74,7 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
-  selectPage(pageNumber: number): void {
+  selectPage(pageNumber = 1): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -87,6 +88,7 @@ export class PaginationComponent implements OnChanges {
       itemsPerPage: this.itemsPerPage,
       offset: (page.page_number - 1) * this.itemsPerPage,
     });
+    this.page = page.page_number;
   }
 
   hasPrevious(): boolean {

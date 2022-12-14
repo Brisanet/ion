@@ -117,10 +117,6 @@ export class SmartTableComponent implements OnInit {
       }
     });
     column.desc = !column.desc;
-
-    if (!this.config.pagination.page) {
-      this.config.pagination.page = 1;
-    }
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {
@@ -135,6 +131,7 @@ export class SmartTableComponent implements OnInit {
 
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
+    this.config.pagination.page = this.pagination.actual;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
         event: EventTable.CHANGE_PAGE,
@@ -142,7 +139,6 @@ export class SmartTableComponent implements OnInit {
       });
     }
     this.firstLoad = false;
-    this.config.pagination.page = 0;
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {

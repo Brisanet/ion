@@ -95,9 +95,6 @@ export class TableComponent implements OnInit {
       }
     });
     column.desc = !column.desc;
-    if (!this.config.pagination.page) {
-      this.config.pagination.page = 1;
-    }
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {
@@ -115,7 +112,6 @@ export class TableComponent implements OnInit {
       event.offset,
       event.offset + event.itemsPerPage
     );
-    this.config.pagination.page = 0;
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {
