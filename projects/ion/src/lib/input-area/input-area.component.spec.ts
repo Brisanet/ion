@@ -1,3 +1,4 @@
+import { SafeAny } from './../utils/safe-any';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import userEvent from '@testing-library/user-event';
@@ -63,5 +64,20 @@ describe('InputAreaComponent', () => {
     await sut({ disabled: true });
     const element = screen.getByTestId('input-area');
     expect(element).toBeDisabled();
+  });
+
+  it('should event output', async () => {
+    const selectEvent = jest.fn();
+    const config = {
+      value: '',
+      valueChange: {
+        emit: selectEvent,
+      } as SafeAny,
+    };
+    await sut(config);
+    const element = screen.getByTestId('input-area');
+    const input = 'input';
+    userEvent.type(element, input);
+    expect(selectEvent).toHaveBeenLastCalledWith(input);
   });
 });

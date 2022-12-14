@@ -18,7 +18,7 @@ export class InputAreaComponent {
   @Input() cols = '30';
   @Input() rows = '5';
   @Input() disabled = false;
-  @Input() value = '';
+  @Input() value: string;
   @Input() placeholder?: string;
   @Output() valueChange = new EventEmitter<string>();
 

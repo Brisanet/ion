@@ -4,7 +4,7 @@ import { moduleMetadata, Story } from '@storybook/angular';
 import { InputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
 
 export default {
-  title: 'Ion/Data Entry/ Input-Area',
+  title: 'Ion/Data Entry/Input-Area',
   component: InputAreaComponent,
   decorators: [
     moduleMetadata({
