@@ -56,6 +56,7 @@ import {
   user,
   motorcycle,
   localization,
+  auditForwarded,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -117,4 +118,5 @@ export const iconsPaths: Record<string, string> = {
   user,
   motorcycle,
   localization,
+  auditForwarded,
 };

@@ -55,3 +55,4 @@ export { default as config } from './config';
 export { default as user } from './user';
 export { default as motorcycle } from './motorcycle';
 export { default as localization } from './localization';
+export { default as auditForwarded } from './audit-forwarded';
