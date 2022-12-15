@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular/dist/ts3.9/client';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { TooltipPosition } from '../projects/ion/src/lib/core/types';
+import {
+  TooltipPosition,
+  TooltipTrigger,
+} from '../projects/ion/src/lib/core/types';
 import {
   TooltipComponent,
   TooltipProps,
@@ -34,6 +37,11 @@ export default {
       control: 'select',
       options: [...Object.values(TooltipPosition)],
     },
+    ionTooltipTrigger: {
+      name: 'ionTooltipTrigger',
+      control: 'radio',
+      options: [...Object.values(TooltipTrigger)],
+    },
   },
 } as Meta;
 
@@ -54,6 +62,7 @@ const Template: Story = (args) => ({
         ionTooltipTitle="${args.ionTooltipTitle}"
         ionTooltipPosition="${args.ionTooltipPosition}"
         ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+        ionTooltipTrigger="${args.ionTooltipTrigger}"
       >
         Hover me
       </span>

@@ -10,7 +10,11 @@ import {
   Input,
   OnDestroy,
 } from '@angular/core';
-import { TooltipColorScheme, TooltipPosition } from '../core/types';
+import {
+  TooltipColorScheme,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TooltipComponent } from './tooltip.component';
 import { getPositions } from './utilsTooltip';
@@ -22,6 +26,7 @@ export class TooltipDirective implements OnDestroy {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
+  @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
 
   private componentRef: ComponentRef<TooltipComponent> = null;
 
@@ -65,6 +70,11 @@ export class TooltipDirective implements OnDestroy {
     this.componentRef.instance.top = positions[this.ionTooltipPosition].top;
   }
 
+  attachComponentToView(): void {
+    document.body.appendChild(this.createComponent());
+    this.setComponentProperties();
+  }
+
   destroyComponent(): void {
     if (this.componentRef !== null) {
       this.appRef.detachView(this.componentRef.hostView);
@@ -74,14 +84,23 @@ export class TooltipDirective implements OnDestroy {
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    if (this.componentRef === null) {
-      document.body.appendChild(this.createComponent());
-      this.setComponentProperties();
+    if (this.componentRef === null && this.ionTooltipTrigger === 'hover') {
+      this.attachComponentToView();
+    }
+  }
+
+  @HostListener('click') onclick(): void {
+    if (this.ionTooltipTrigger === 'click') {
+      this.componentRef === null
+        ? this.attachComponentToView()
+        : this.destroyComponent();
     }
   }
 
   @HostListener('mouseleave') onMouseLeave(): void {
-    this.destroyComponent();
+    if (this.ionTooltipTrigger === 'hover') {
+      this.destroyComponent();
+    }
   }
 
   ngOnDestroy(): void {

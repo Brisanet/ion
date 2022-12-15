@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TooltipColorScheme, TooltipPosition } from '../core/types';
+import {
+  TooltipColorScheme,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../core/types';
 import { TooltipModule } from './tooltip.module';
 
 @Component({
@@ -12,6 +16,7 @@ import { TooltipModule } from './tooltip.module';
       [ionTooltipTitle]="ionTooltipTitle"
       [ionTooltipColorScheme]="ionTooltipColorScheme"
       [ionTooltipPosition]="ionTooltipPosition"
+      [ionTooltipTrigger]="ionTooltipTrigger"
     >
       Hover me
     </p>
@@ -21,6 +26,7 @@ class HostTestComponent {
   ionTooltipTitle = 'Tooltip';
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
+  ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
 }
 
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
@@ -46,7 +52,7 @@ describe('Directive: Tooltip', () => {
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
   });
 
-  it('should create tooltip and destroy tooltip', async () => {
+  it('should destroy tooltip', async () => {
     await sut();
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
@@ -84,4 +90,27 @@ describe('Directive: Tooltip', () => {
       );
     }
   );
+
+  describe('trigger: click', () => {
+    afterEach(async () => {
+      fireEvent.click(screen.getByTestId('hostTooltip'));
+    });
+
+    it('should activate tooltip when clicking when trigger is click', async () => {
+      await sut({ ionTooltipTrigger: TooltipTrigger.CLICK });
+
+      fireEvent.click(screen.getByTestId('hostTooltip'));
+      expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
+    });
+
+    it('should remove tooltip when clicking again on element when trigger is click', async () => {
+      await sut({ ionTooltipTrigger: TooltipTrigger.CLICK });
+
+      fireEvent.click(screen.getByTestId('hostTooltip'));
+      expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId('hostTooltip'));
+      expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+    });
+  });
 });

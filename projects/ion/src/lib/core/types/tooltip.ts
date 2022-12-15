@@ -11,3 +11,9 @@ export enum TooltipPosition {
   BOTTOM_LEFT = 'bottomLeft',
   DEFAULT = 'topCenter',
 }
+
+export enum TooltipTrigger {
+  CLICK = 'click',
+  HOVER = 'hover',
+  DEFAULT = 'hover',
+}
