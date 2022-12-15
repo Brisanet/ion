@@ -1,14 +1,14 @@
 @import '../../styles/index.scss';
 
 $tooltip-spacing: spacing(1);
-$arrow-size: 4px;
+$arrow-size: 4.2px;
 
 @mixin arrow-bottom($left) {
   border-left-color: transparent;
   border-right-color: transparent;
   border-bottom: none;
   left: $left;
-  bottom: -$arrow-size;
+  bottom: -$arrow-size + 0.2px;
 }
 
 @mixin arrow-top($left) {
@@ -16,7 +16,15 @@ $arrow-size: 4px;
   border-right-color: transparent;
   border-top: none;
   left: $left;
-  top: -$arrow-size;
+  top: -$arrow-size + 0.2px;
+}
+
+@mixin lateral-arrow($side) {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-#{$side}: none;
+  #{$side}: -$arrow-size + 0.2px;
+  top: calc(50% - $arrow-size);
 }
 
 .ion-tooltip {
@@ -110,11 +118,7 @@ $arrow-size: 4px;
       transform: translate(calc(-100% - $tooltip-spacing), -50%);
 
       &::before {
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        border-right: none;
-        right: -$arrow-size;
-        top: calc(50% - $arrow-size);
+        @include lateral-arrow(right);
       }
     }
 
@@ -123,11 +127,7 @@ $arrow-size: 4px;
       margin-left: $tooltip-spacing;
 
       &::before {
-        border-top-color: transparent;
-        border-bottom-color: transparent;
-        border-left: none;
-        left: -$arrow-size;
-        top: calc(50% - $arrow-size);
+        @include lateral-arrow(left);
       }
     }
   }
