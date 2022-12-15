@@ -66,18 +66,18 @@ describe('InputAreaComponent', () => {
     expect(element).toBeDisabled();
   });
 
-  it('should event output', async () => {
-    const selectEvent = jest.fn();
+  it('should emit an event output', async () => {
+    const valueChangeEvent = jest.fn();
     const config = {
       value: '',
       valueChange: {
-        emit: selectEvent,
+        emit: valueChangeEvent,
       } as SafeAny,
     };
     await sut(config);
     const element = screen.getByTestId('input-area');
     const input = 'input';
     userEvent.type(element, input);
-    expect(selectEvent).toHaveBeenLastCalledWith(input);
+    expect(valueChangeEvent).toHaveBeenLastCalledWith(input);
   });
 });
