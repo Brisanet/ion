@@ -52,3 +52,7 @@ export { default as arrowsDownUp } from './arrows-down-up';
 export { default as arrowsUpDown } from './arrows-up-down';
 export { default as alert } from './alert';
 export { default as config } from './config';
+export { default as user } from './user';
+export { default as motorcycle } from './motorcycle';
+export { default as localization } from './localization';
+export { default as auditForwarded } from './audit-forwarded';
