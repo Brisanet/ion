@@ -49,8 +49,8 @@ export default {
     },
     ionTooltipArrowPointAtCenter: {
       name: 'ionTooltipArrowPointAtCenter',
-      control: 'radio',
-      options: [true, false],
+      control: 'boolean',
+      defaultValue: true,
     },
   },
 } as Meta;
@@ -74,7 +74,7 @@ const Template: Story = (args) => ({
         [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
         ionTooltipColorScheme="${args.ionTooltipColorScheme}"
         ionTooltipTrigger="${args.ionTooltipTrigger}"
-        [ionTooltipShowDelay]="${args.ionTooltipShowDelay}"
+        ionTooltipShowDelay="${args.ionTooltipShowDelay}"
       >
         Hover me
       </span>
@@ -87,6 +87,5 @@ Default.args = {
   ionTooltipTitle: 'Eu sou um tooltip',
   ionTooltipPosition: TooltipPosition.DEFAULT,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
-  ionTooltipArrowPointAtCenter: true,
 } as TooltipProps;
 Default.storyName = 'Tooltip';
