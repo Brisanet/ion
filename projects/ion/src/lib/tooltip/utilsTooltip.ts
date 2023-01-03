@@ -7,19 +7,19 @@ interface HostPositions {
   bottom: number;
 }
 
-type Positions = {
+export type Positions = {
   [key in TooltipPosition]: Pick<HostPositions, 'left' | 'top'>;
 };
 
-export function getPositions({
-  left,
-  right,
-  top,
-  bottom,
-}: HostPositions): Positions {
+export function getPositions(
+  { left, right, top, bottom }: HostPositions,
+  arrowAtCenter: boolean
+): Positions {
   return {
     bottomRight: {
-      left: Math.round((right - left) / 2 + left),
+      left: arrowAtCenter
+        ? Math.round((right - left) / 2 + left)
+        : Math.round(right),
       top: Math.round(top),
     },
     bottomCenter: {
@@ -27,11 +27,15 @@ export function getPositions({
       top: Math.round(top),
     },
     bottomLeft: {
-      left: Math.round((right - left) / 2 + left),
+      left: arrowAtCenter
+        ? Math.round((right - left) / 2 + left)
+        : Math.round(left),
       top: Math.round(top),
     },
     topRight: {
-      left: Math.round((right - left) / 2 + left),
+      left: arrowAtCenter
+        ? Math.round((right - left) / 2 + left)
+        : Math.round(right),
       top: Math.round(bottom),
     },
     topCenter: {
@@ -39,7 +43,9 @@ export function getPositions({
       top: Math.round(bottom),
     },
     topLeft: {
-      left: Math.round((right - left) / 2 + left),
+      left: arrowAtCenter
+        ? Math.round((right - left) / 2 + left)
+        : Math.round(left),
       top: Math.round(bottom),
     },
     centerRight: {

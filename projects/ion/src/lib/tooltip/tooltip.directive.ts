@@ -26,6 +26,7 @@ export class TooltipDirective implements OnDestroy {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
+  @Input() ionTooltipArrowPointAtCenter = true;
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
 
@@ -71,7 +72,11 @@ export class TooltipDirective implements OnDestroy {
     const { left, right, top, bottom } =
       this.elementRef.nativeElement.getBoundingClientRect();
 
-    const positions = getPositions({ left, right, top, bottom });
+    const hostPositions = { left, right, top, bottom };
+    const positions = getPositions(
+      hostPositions,
+      this.ionTooltipArrowPointAtCenter
+    );
 
     this.componentRef.instance.left = positions[this.ionTooltipPosition].left;
     this.componentRef.instance.top = positions[this.ionTooltipPosition].top;
