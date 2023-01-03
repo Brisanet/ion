@@ -15,37 +15,30 @@ export function getPositions(
   { left, right, top, bottom }: HostPositions,
   arrowAtCenter: boolean
 ): Positions {
+  const horizontalCenter = Math.round((right - left) / 2 + left);
   return {
     bottomRight: {
-      left: arrowAtCenter
-        ? Math.round((right - left) / 2 + left)
-        : Math.round(right),
+      left: arrowAtCenter ? horizontalCenter : Math.round(right),
       top: Math.round(top),
     },
     bottomCenter: {
-      left: Math.round((right - left) / 2 + left),
+      left: horizontalCenter,
       top: Math.round(top),
     },
     bottomLeft: {
-      left: arrowAtCenter
-        ? Math.round((right - left) / 2 + left)
-        : Math.round(left),
+      left: arrowAtCenter ? horizontalCenter : Math.round(left),
       top: Math.round(top),
     },
     topRight: {
-      left: arrowAtCenter
-        ? Math.round((right - left) / 2 + left)
-        : Math.round(right),
+      left: arrowAtCenter ? horizontalCenter : Math.round(right),
       top: Math.round(bottom),
     },
     topCenter: {
-      left: Math.round((right - left) / 2 + left),
+      left: horizontalCenter,
       top: Math.round(bottom),
     },
     topLeft: {
-      left: arrowAtCenter
-        ? Math.round((right - left) / 2 + left)
-        : Math.round(left),
+      left: arrowAtCenter ? horizontalCenter : Math.round(left),
       top: Math.round(bottom),
     },
     centerRight: {
