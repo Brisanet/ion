@@ -45,4 +45,18 @@ describe('TooltipComponent', () => {
       );
     }
   );
+  it('should not have visible class when visibility is false', async () => {
+    await sut();
+    expect(screen.getByTestId('ion-tooltip')).not.toHaveClass(
+      'ion-tooltip--visible'
+    );
+  });
+  it('should have visible class when visibility is true', async () => {
+    await sut({
+      ionTooltipVisible: true,
+    });
+    expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+      'ion-tooltip--visible'
+    );
+  });
 });

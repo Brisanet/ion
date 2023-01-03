@@ -27,8 +27,10 @@ export class TooltipDirective implements OnDestroy {
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
+  @Input() ionTooltipShowDelay = 0;
 
   private componentRef: ComponentRef<TooltipComponent> = null;
+  private delayTimeout: number;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -56,6 +58,11 @@ export class TooltipDirective implements OnDestroy {
         this.ionTooltipColorScheme;
       this.componentRef.instance.ionTooltipPosition = this.ionTooltipPosition;
 
+      this.delayTimeout = window.setTimeout(
+        this.showTooltip.bind(this),
+        this.ionTooltipShowDelay
+      );
+
       this.setComponentPosition();
     }
   }
@@ -75,8 +82,15 @@ export class TooltipDirective implements OnDestroy {
     this.setComponentProperties();
   }
 
+  showTooltip(): void {
+    if (this.componentRef !== null) {
+      this.componentRef.instance.ionTooltipVisible = true;
+    }
+  }
+
   destroyComponent(): void {
     if (this.componentRef !== null) {
+      window.clearTimeout(this.delayTimeout);
       this.appRef.detachView(this.componentRef.hostView);
       this.componentRef.destroy();
       this.componentRef = null;

@@ -42,6 +42,11 @@ export default {
       control: 'radio',
       options: [...Object.values(TooltipTrigger)],
     },
+    ionTooltipShowDelay: {
+      name: 'ionTooltipShowDelay',
+      control: 'number',
+      defaultValue: 0,
+    },
   },
 } as Meta;
 
@@ -63,6 +68,7 @@ const Template: Story = (args) => ({
         ionTooltipPosition="${args.ionTooltipPosition}"
         ionTooltipColorScheme="${args.ionTooltipColorScheme}"
         ionTooltipTrigger="${args.ionTooltipTrigger}"
+        ionTooltipShowDelay="${args.ionTooltipShowDelay}"
       >
         Hover me
       </span>
@@ -74,5 +80,6 @@ export const Default = Template.bind({});
 Default.args = {
   ionTooltipTitle: 'Eu sou um tooltip',
   ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
 Default.storyName = 'Tooltip';

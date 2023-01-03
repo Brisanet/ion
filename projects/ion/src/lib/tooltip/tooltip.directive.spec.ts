@@ -17,6 +17,7 @@ import { TooltipModule } from './tooltip.module';
       [ionTooltipColorScheme]="ionTooltipColorScheme"
       [ionTooltipPosition]="ionTooltipPosition"
       [ionTooltipTrigger]="ionTooltipTrigger"
+      [ionTooltipShowDelay]="ionTooltipShowDelay"
     >
       Hover me
     </p>
@@ -27,6 +28,7 @@ class HostTestComponent {
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
   ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
+  ionTooltipShowDelay = 0;
 }
 
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
@@ -56,7 +58,6 @@ describe('Directive: Tooltip', () => {
     await sut();
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
-
     fireEvent.mouseLeave(screen.getByTestId('hostTooltip'));
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
@@ -90,6 +91,28 @@ describe('Directive: Tooltip', () => {
       );
     }
   );
+
+  it('should show tooltip after delay time setted', async () => {
+    jest.useFakeTimers();
+    const timeDelay = 300;
+    const { detectChanges } = await render(HostTestComponent, {
+      componentProperties: {
+        ionTooltipShowDelay: timeDelay,
+      },
+      imports: [CommonModule, TooltipModule],
+    });
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByTestId('ion-tooltip')).not.toHaveClass(
+      'ion-tooltip--visible'
+    );
+
+    jest.advanceTimersByTime(timeDelay);
+    detectChanges();
+    expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+      'ion-tooltip--visible'
+    );
+  });
 
   describe('trigger: click', () => {
     afterEach(async () => {

@@ -16,6 +16,7 @@ export class TooltipComponent {
   ionTooltipTitle: string;
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
+  ionTooltipVisible = false;
   left = 0;
   top = 0;
 }
