@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/angular';
 import { TooltipPosition } from '../core/types';
 import { TooltipComponent, TooltipProps } from './tooltip.component';
 
+const tooltipTestId = 'ion-tooltip';
+
 const positions = Object.values(TooltipPosition) as TooltipPosition[];
 
 const defaultProps: TooltipProps = {
@@ -24,30 +26,30 @@ describe('TooltipComponent', () => {
   it('should render title', async () => {
     const ionTooltipTitle = 'Eu sou um tooltip.';
     await sut({ ionTooltipTitle });
-    expect(screen.getByTestId('ion-tooltip')).toHaveTextContent(
+    expect(screen.getByTestId(tooltipTestId)).toHaveTextContent(
       ionTooltipTitle
     );
   });
   it('should render dark color scheme by default', async () => {
     await sut();
-    expect(screen.getByTestId('ion-tooltip')).toHaveClass('ion-tooltip-dark');
+    expect(screen.getByTestId(tooltipTestId)).toHaveClass('ion-tooltip-dark');
   });
   it('should render light color scheme', async () => {
     await sut({ ionTooltipColorScheme: 'light' });
-    expect(screen.getByTestId('ion-tooltip')).toHaveClass('ion-tooltip-light');
+    expect(screen.getByTestId(tooltipTestId)).toHaveClass('ion-tooltip-light');
   });
   it.each(positions)(
     'should render tooltip on position %s',
     async (position) => {
       await sut({ ionTooltipPosition: position });
-      expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+      expect(screen.getByTestId(tooltipTestId)).toHaveClass(
         `ion-tooltip-position--${position}`
       );
     }
   );
   it('should not have visible class when visibility is false', async () => {
     await sut();
-    expect(screen.getByTestId('ion-tooltip')).not.toHaveClass(
+    expect(screen.getByTestId(tooltipTestId)).not.toHaveClass(
       'ion-tooltip--visible'
     );
   });
@@ -55,7 +57,7 @@ describe('TooltipComponent', () => {
     await sut({
       ionTooltipVisible: true,
     });
-    expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+    expect(screen.getByTestId(tooltipTestId)).toHaveClass(
       'ion-tooltip--visible'
     );
   });

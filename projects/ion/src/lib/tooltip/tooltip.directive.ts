@@ -40,6 +40,14 @@ export class TooltipDirective implements OnDestroy {
     private elementRef: ElementRef
   ) {}
 
+  isComponentRefNull(): boolean {
+    return this.componentRef === null;
+  }
+
+  isTooltipTrigger(trigger: TooltipTrigger): boolean {
+    return this.ionTooltipTrigger === trigger;
+  }
+
   createComponent(): HTMLElement {
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
@@ -53,7 +61,7 @@ export class TooltipDirective implements OnDestroy {
   }
 
   setComponentProperties(): void {
-    if (this.componentRef !== null) {
+    if (!this.isComponentRefNull()) {
       this.componentRef.instance.ionTooltipTitle = this.ionTooltipTitle;
       this.componentRef.instance.ionTooltipColorScheme =
         this.ionTooltipColorScheme;
@@ -88,13 +96,13 @@ export class TooltipDirective implements OnDestroy {
   }
 
   showTooltip(): void {
-    if (this.componentRef !== null) {
+    if (!this.isComponentRefNull()) {
       this.componentRef.instance.ionTooltipVisible = true;
     }
   }
 
   destroyComponent(): void {
-    if (this.componentRef !== null) {
+    if (!this.isComponentRefNull()) {
       window.clearTimeout(this.delayTimeout);
       this.appRef.detachView(this.componentRef.hostView);
       this.componentRef.destroy();
@@ -103,21 +111,24 @@ export class TooltipDirective implements OnDestroy {
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    if (this.componentRef === null && this.ionTooltipTrigger === 'hover') {
+    if (
+      this.isComponentRefNull() &&
+      this.isTooltipTrigger(TooltipTrigger.HOVER)
+    ) {
       this.attachComponentToView();
     }
   }
 
   @HostListener('click') onclick(): void {
-    if (this.ionTooltipTrigger === 'click') {
-      this.componentRef === null
+    if (this.isTooltipTrigger(TooltipTrigger.CLICK)) {
+      this.isComponentRefNull()
         ? this.attachComponentToView()
         : this.destroyComponent();
     }
   }
 
   @HostListener('mouseleave') onMouseLeave(): void {
-    if (this.ionTooltipTrigger === 'hover') {
+    if (this.isTooltipTrigger(TooltipTrigger.HOVER)) {
       this.destroyComponent();
     }
   }
