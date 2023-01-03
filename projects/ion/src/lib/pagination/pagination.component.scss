@@ -18,6 +18,10 @@
   gap: 8px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .page-md {
   @include setPageSizeBorder(32px, 8px);
 }

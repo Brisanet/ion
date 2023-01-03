@@ -65,14 +65,28 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
+  private skipEllipsis(pageNumber: number): number {
+    if (pageNumber === 1) {
+      return pageNumber - 1;
+    } else if (pageNumber === this.pages.length - 2) {
+      return pageNumber + 1;
+    } else if (pageNumber === 0 || pageNumber === -1) {
+      return;
+    } else {
+      return pageNumber;
+    }
+  }
+
   selectPage(pageNumber: number): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
 
-    const page = this.pages[pageNumber - 1];
-    page.selected = true;
+    const page = this.pages[this.skipEllipsis(pageNumber)];
+    pageNumber == 0 || pageNumber == -1
+      ? (page.selected = false)
+      : (page.selected = true);
 
     this.events.emit({
       actual: page.page_number,
@@ -93,6 +107,7 @@ export class PaginationComponent implements OnChanges {
   previous(): void {
     if (!this.inFirstPage()) {
       this.selectPage(this.currentPage().page_number - 1);
+      // }
     }
   }
 
@@ -114,12 +129,37 @@ export class PaginationComponent implements OnChanges {
 
   private createPages(qtdOfPages: number): void {
     this.pages = [];
-    for (let index = 0; index < qtdOfPages; index++) {
-      this.pages.push({
-        selected: false,
-        page_number: index + 1,
-      });
+    if (qtdOfPages >= 20) {
+      for (let index = 0; index < qtdOfPages; index++) {
+        if (index == 1) {
+          this.pages.push({
+            selected: false,
+            page_number: -1,
+          });
+        } else if (index == qtdOfPages - 1) {
+          this.pages.push({
+            selected: false,
+            page_number: 0,
+          });
+        }
+        this.pages.push({
+          selected: false,
+          page_number: index + 1,
+        });
+      }
+    } else {
+      for (let index = 0; index < qtdOfPages; index++) {
+        this.pages.push({
+          selected: false,
+          page_number: index + 1,
+        });
+      }
     }
+    console.log(this.pages);
+  }
+
+  private ellipsis(): boolean {
+    return this.currentPage().page_number == 0;
   }
 
   private currentPage(): Page {
@@ -133,4 +173,31 @@ export class PaginationComponent implements OnChanges {
   private inFirstPage(): boolean {
     return this.currentPage().page_number === 1;
   }
+
+  hidePages(pageNumber: number): boolean {
+    if (this.totalPages() >= 20) {
+      if (pageNumber === -1 && this.currentPage().page_number < 5) {
+        return true;
+      } else if (
+        pageNumber === 0 &&
+        this.currentPage().page_number > this.totalPages() - 4
+      ) {
+        return true;
+      } else {
+        return (
+          (pageNumber < this.currentPage().page_number - 2 ||
+            pageNumber > this.currentPage().page_number + 2) &&
+          pageNumber !== this.totalPages() &&
+          pageNumber !== 1 &&
+          pageNumber !== 0 &&
+          pageNumber !== -1
+        );
+      }
+    }
+  }
+
+  // teste(): boolean{
+  //   const teste = document.querySelector(".page-number-2.hidden");
+  //   return teste ? true : false;
+  // }
 }
