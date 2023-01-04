@@ -58,18 +58,13 @@ export const withoutImage = Template.bind({});
 withoutImage.args = {
   options: [
     {
-      label: 'Agendamentos',
-      iconType: 'calendar',
-      selected: false,
-    },
-    {
-      label: 'Recursos',
-      iconType: 'pencil',
+      label: 'Gerenciamento',
+      iconType: 'docAdd',
       selected: false,
     },
   ],
   profile: {
     imageUrl: '',
-    name: 'Rocket Raccoon',
+    name: 'Taylor Swift',
   },
 };
