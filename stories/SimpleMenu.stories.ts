@@ -53,3 +53,23 @@ Basic.args = {
     name: 'Rocket Raccoon',
   },
 };
+
+export const withoutImage = Template.bind({});
+withoutImage.args = {
+  options: [
+    {
+      label: 'Agendamentos',
+      iconType: 'calendar',
+      selected: false,
+    },
+    {
+      label: 'Recursos',
+      iconType: 'pencil',
+      selected: false,
+    },
+  ],
+  profile: {
+    imageUrl: '',
+    name: 'Rocket Raccoon',
+  },
+};
