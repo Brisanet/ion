@@ -1,3 +1,4 @@
 export * from './direction';
-export * from './status';
 export * from './info-badge';
+export * from './status';
+export * from './tooltip';
