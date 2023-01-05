@@ -59,7 +59,7 @@ withoutImage.args = {
   options: [
     {
       label: 'Gerenciamento',
-      iconType: 'docAdd',
+      iconType: 'doc-add',
       selected: false,
     },
   ],
