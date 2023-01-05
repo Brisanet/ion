@@ -1,6 +1,4 @@
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import {
   ITEMS_PER_PAGE_DEFAULT,
   PageEvent,
@@ -13,6 +11,8 @@ import {
   PaginationConfig,
   TableUtils,
 } from '../table/utilsTable';
+import { SafeAny } from '../utils/safe-any';
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 
 export interface TableEvent {
   event: EventTable;
@@ -131,6 +131,7 @@ export class SmartTableComponent implements OnInit {
 
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
+    this.config.pagination.page = this.pagination.actual;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
         event: EventTable.CHANGE_PAGE,

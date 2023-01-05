@@ -1,7 +1,7 @@
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import { PageEvent } from '../pagination/pagination.component';
+import { SafeAny } from '../utils/safe-any';
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
 
 interface TableEvent {
