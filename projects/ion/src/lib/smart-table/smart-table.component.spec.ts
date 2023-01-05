@@ -60,6 +60,7 @@ const defaultProps: IonSmartTableProps<Character> = {
     pagination: {
       total: 32,
       itemsPerPage: 10,
+      page: 1,
     },
     loading: false,
   },
@@ -275,6 +276,7 @@ describe('Table > Checkbox', () => {
       pagination: {
         total: 82,
         itemsPerPage: 10,
+        page: 1,
       },
     },
     events: {
@@ -463,6 +465,7 @@ describe('Table > Differents columns data type', () => {
       pagination: {
         total: 82,
         itemsPerPage: 10,
+        page: 1,
       },
     },
     events: {
@@ -541,6 +544,7 @@ describe('Table > Pagination', () => {
     ) as IonSmartTableProps<Character>;
     withoutConfigItemsPerPage.config.pagination = {
       total: 32,
+      page: 1,
     };
 
     await sut(withoutConfigItemsPerPage);
