@@ -53,3 +53,18 @@ Basic.args = {
     name: 'Rocket Raccoon',
   },
 };
+
+export const withoutImage = Template.bind({});
+withoutImage.args = {
+  options: [
+    {
+      label: 'Gerenciamento',
+      iconType: 'doc-add',
+      selected: false,
+    },
+  ],
+  profile: {
+    imageUrl: '',
+    name: 'Taylor Swift',
+  },
+};

@@ -26,7 +26,13 @@
 
   <div class="menu-footer">
     <div>
-      <ion-avatar type="photo" [image]="profile.imageUrl" size="md">
+      <ion-avatar
+        data-testid="avatarPhoto"
+        type="photo"
+        *ngIf="profile.imageUrl; else avatarInitials"
+        [image]="profile.imageUrl"
+        size="md"
+      >
       </ion-avatar>
       <span>{{ profile.name }}</span>
     </div>
@@ -39,3 +45,13 @@
     ></ion-button>
   </div>
 </div>
+
+<ng-template #avatarInitials>
+  <ion-avatar
+    data-testid="avatarInitials"
+    type="initials"
+    [value]="profile.name"
+    size="md"
+  >
+  </ion-avatar>
+</ng-template>
