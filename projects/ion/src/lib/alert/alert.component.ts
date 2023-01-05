@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
+import { Field, TextField } from '../form/core/field';
 import { IconType } from '../icon/icon.component';
+import { SafeAny } from '../utils/safe-any';
 
 export interface IonAlertProps {
   message: string;
@@ -28,6 +30,21 @@ export class AlertComponent implements OnInit {
   @Input() hideBackground? = false;
 
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
+
+  public formConfig = {
+    fields: [
+      new TextField({
+        key: 'nome',
+        label: 'Nome',
+        requerid: true,
+        placeholder: 'Digite um nome',
+        // icon: 'check',
+      }),
+    ],
+    model: {
+      select: [1, 4, 1230],
+    },
+  };
 
   iconType: IconType;
 
