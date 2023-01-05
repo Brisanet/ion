@@ -117,7 +117,6 @@
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
   </div>
-
   <div
     *ngIf="config.pagination && config.data && config.data.length"
     data-testid="pagination-container"
@@ -137,6 +136,7 @@
         [page]="config.pagination.page"
         size="md"
         (events)="paginationEvents($event)"
+        [allowChangeQtdItems]="true"
       ></ion-pagination>
     </div>
   </div>
