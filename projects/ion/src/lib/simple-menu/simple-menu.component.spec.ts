@@ -123,6 +123,27 @@ describe('SimpleMenu', () => {
   });
 });
 
+describe('Without Image', () => {
+  it('should render avatar initials when the photo is not passed', async () => {
+    const withoutImage: SimpleMenuProps = {
+      options,
+      profile: {
+        imageUrl: '',
+        name: 'Rocket Raccoon',
+      },
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+      logoutClick: {
+        emit: logoutEvent,
+      } as SafeAny,
+    };
+    await sut(withoutImage);
+    expect(screen.queryByTestId('avatarPhoto')).not.toBeInTheDocument();
+    expect(screen.getByTestId('avatarInitials')).toBeTruthy();
+  });
+});
+
 const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
