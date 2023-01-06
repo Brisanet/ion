@@ -7,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { SafeAny } from '../utils/safe-any';
 
 interface Page {
   page_number: number;
@@ -131,31 +132,43 @@ export class PaginationComponent implements OnChanges {
     this.pages = [];
     if (qtdOfPages >= 20) {
       for (let index = 0; index < qtdOfPages; index++) {
-        if (index == 1) {
-          this.pages.push({
-            selected: false,
-            page_number: -1,
-          });
-        } else if (index == qtdOfPages - 1) {
-          this.pages.push({
-            selected: false,
-            page_number: 0,
-          });
-        }
-        this.pages.push({
-          selected: false,
-          page_number: index + 1,
-        });
+        this.createEllipsis(index, qtdOfPages);
       }
     } else {
       for (let index = 0; index < qtdOfPages; index++) {
-        this.pages.push({
-          selected: false,
-          page_number: index + 1,
-        });
+        this.defaultPagesCreation(index);
       }
     }
-    console.log(this.pages);
+  }
+
+  private createEllipsis(index: number, qtdOfPages: number): void {
+    if (index == 1) {
+      this.createFirstEllipsis();
+    } else if (index == qtdOfPages - 1) {
+      this.createSecondEllipsis();
+    }
+    this.defaultPagesCreation(index);
+  }
+
+  private defaultPagesCreation(index: number): number {
+    return this.pages.push({
+      selected: false,
+      page_number: index + 1,
+    });
+  }
+
+  private createSecondEllipsis(): number {
+    return this.pages.push({
+      selected: false,
+      page_number: 0,
+    });
+  }
+
+  private createFirstEllipsis(): number {
+    return this.pages.push({
+      selected: false,
+      page_number: -1,
+    });
   }
 
   private ellipsis(): boolean {
@@ -184,20 +197,41 @@ export class PaginationComponent implements OnChanges {
       ) {
         return true;
       } else {
-        return (
-          (pageNumber < this.currentPage().page_number - 2 ||
-            pageNumber > this.currentPage().page_number + 2) &&
-          pageNumber !== this.totalPages() &&
-          pageNumber !== 1 &&
-          pageNumber !== 0 &&
-          pageNumber !== -1
-        );
+        return this.hidePageNumber(pageNumber);
       }
     }
+  }
+
+  hidePageNumber(pageNumber: number): boolean {
+    return (
+      this.isLimit(pageNumber) &&
+      pageNumber !== this.totalPages() &&
+      pageNumber !== 1 &&
+      !this.isFirstEllipsis(pageNumber) &&
+      !this.isLastEllipsis(pageNumber)
+    );
+  }
+
+  isLimit(pageNumber: number): boolean {
+    return (
+      pageNumber < this.currentPage().page_number - 2 ||
+      pageNumber > this.currentPage().page_number + 2
+    );
+  }
+
+  isFirstEllipsis(pageNumber: number) {
+    return pageNumber === -1;
+  }
+
+  isLastEllipsis(pageNumber: number) {
+    return pageNumber === 0;
   }
 
   // teste(): boolean{
   //   const teste = document.querySelector(".page-number-2.hidden");
   //   return teste ? true : false;
   // }
+  /*teste():number {
+    return this.currentPage().page_number + 5;
+  }*/
 }

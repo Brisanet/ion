@@ -17,12 +17,6 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <!-- <button
-    [class]="'square-pag ' + 'page-' + size + ' previous-ellipsis'"
-  >
-    <span>...</span>
-  </button> -->
-
   <button
     *ngFor="let page of pages"
     [class]="
@@ -34,19 +28,12 @@
     (click)="!loading && selectPage(page.page_number)"
     [class.disabled]="loading"
   >
-    <span>{{
+    <span (click)="teste()">{{
       page.page_number === -1 || page.page_number === 0
         ? '...'
         : page.page_number
     }}</span>
   </button>
-
-  <!-- <button
-    [class]="'square-pag ' + 'page-' + size + ' next-ellipsis'"
-
-  >
-    <span>...</span>
-  </button> -->
 
   <ion-button
     iconType="right2"
