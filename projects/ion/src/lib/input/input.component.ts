@@ -1,6 +1,6 @@
-import { SafeAny } from './../utils/safe-any';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconType } from './../icon/icon.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { SafeAny } from './../utils/safe-any';
 
 export type IconDirection = 'left' | 'right';
 export type InputType = 'text' | 'password';
@@ -31,7 +31,7 @@ export class InputComponent {
   @Input() button = 'Button';
   @Input() iconInput: IconType;
   @Input() disabled = false;
-  @Input() iconDirection?: IconDirection;
+  @Input() iconDirection?: IconDirection = 'left';
   @Input() valid: boolean;
   @Input() invalid: boolean;
   @Input() inputButton? = false;

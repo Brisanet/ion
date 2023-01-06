@@ -2,8 +2,9 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
 import { AlertComponent } from '../projects/ion/src/lib/alert/alert.component.ts';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
-import { FormComponent } from '../projects/ion/src/lib/form/form.component.ts';
+import { IonFormModule } from '../projects/ion/src/lib/form/form.module.ts';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 <Meta title="Ion/Feedback/Alert" component={AlertComponent} />
 
@@ -36,7 +37,7 @@ O parâmetro `message` define qual será a mensagem exibida no alerta
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent, FormComponent],
+        declarations: [IonIconComponent],
         imports: [CommonModule],
       }),
     ]}
