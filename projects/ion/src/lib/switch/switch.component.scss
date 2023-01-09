@@ -31,7 +31,8 @@
 
   &--active {
     background: $primary-color;
-    animation: animation-box-shadow 300ms ease-out;
+    animation: shadow--1 3ms ease-out, shadow--2 30ms ease-out 4ms,
+      shadow--3 50ms ease-out 34ms, shadow-4 50ms ease-out 84ms;
     transition: all ease-in-out 100ms;
 
     &:hover {
@@ -45,23 +46,43 @@
   }
 }
 
-@keyframes animation-box-shadow {
+@keyframes shadow--1 {
   from {
     box-shadow: none;
     background: $primary-2;
   }
-  25% {
+  to {
     box-shadow: 0 0 0 2px $primary-2;
     background: $primary-4;
   }
-  50% {
+}
+
+@keyframes shadow--2 {
+  from {
+    box-shadow: 0 0 0 2px $primary-2;
+    background: $primary-4;
+  }
+  to {
     box-shadow: 0 0 0 4px hsla(215, 92%, 85%, 0.5);
   }
-  75% {
+}
+
+@keyframes shadow--3 {
+  from {
+    box-shadow: 0 0 0 4px hsla(215, 92%, 85%, 0.5);
+  }
+  to {
+    box-shadow: 0 0 0 6px rgba(181, 210, 252, 0.2);
+    background: $primary-color;
+  }
+}
+
+@keyframes shadow--4 {
+  from {
     box-shadow: 0 0 0 6px rgba(181, 210, 252, 0.2);
     background: $primary-color;
   }
   to {
-    box-shadow: none;
+    box-shadow: initial;
   }
 }
