@@ -13,6 +13,7 @@ const defaultComponent: IonPaginationProps = {
   events: {
     emit: pageEvent,
   } as SafeAny,
+  page: 1,
 };
 
 const sut = async (
@@ -82,6 +83,19 @@ describe('PaginationComponent', () => {
   afterEach(() => {
     pageEvent.mockClear();
   });
+});
+
+describe('Pagination > Page', () => {
+  it.each([1, 2, 3, 4])(
+    'should select a page %s from the table',
+    async (page) => {
+      await sut({
+        total: page * 10,
+        page: page,
+      });
+      expect(screen.getByTestId(`page-${page}`)).toHaveClass('selected');
+    }
+  );
 });
 
 describe('Pagination > Events', () => {
