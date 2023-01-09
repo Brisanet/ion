@@ -7,7 +7,6 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 
 interface Page {
   page_number: number;
@@ -108,7 +107,6 @@ export class PaginationComponent implements OnChanges {
   previous(): void {
     if (!this.inFirstPage()) {
       this.selectPage(this.currentPage().page_number - 1);
-      // }
     }
   }
 
@@ -134,18 +132,16 @@ export class PaginationComponent implements OnChanges {
       for (let index = 0; index < qtdOfPages; index++) {
         this.createEllipsis(index, qtdOfPages);
       }
-    } else {
-      for (let index = 0; index < qtdOfPages; index++) {
-        this.defaultPagesCreation(index);
-      }
+      return;
     }
+    this.defaultPagesCreation(1);
   }
 
   private createEllipsis(index: number, qtdOfPages: number): void {
     if (index == 1) {
-      this.createFirstEllipsis();
+      this.createBothEllipsis(-1);
     } else if (index == qtdOfPages - 1) {
-      this.createSecondEllipsis();
+      this.createBothEllipsis(0);
     }
     this.defaultPagesCreation(index);
   }
@@ -157,22 +153,11 @@ export class PaginationComponent implements OnChanges {
     });
   }
 
-  private createSecondEllipsis(): number {
+  createBothEllipsis(number: number): number {
     return this.pages.push({
       selected: false,
-      page_number: 0,
+      page_number: number,
     });
-  }
-
-  private createFirstEllipsis(): number {
-    return this.pages.push({
-      selected: false,
-      page_number: -1,
-    });
-  }
-
-  private ellipsis(): boolean {
-    return this.currentPage().page_number == 0;
   }
 
   private currentPage(): Page {
@@ -196,42 +181,25 @@ export class PaginationComponent implements OnChanges {
         this.currentPage().page_number > this.totalPages() - 4
       ) {
         return true;
-      } else {
-        return this.hidePageNumber(pageNumber);
       }
+      return this.hidePageNumber(pageNumber);
     }
   }
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      this.isLimit(pageNumber) &&
+      this.isInLimit(pageNumber) &&
       pageNumber !== this.totalPages() &&
       pageNumber !== 1 &&
-      !this.isFirstEllipsis(pageNumber) &&
-      !this.isLastEllipsis(pageNumber)
+      pageNumber !== -1 &&
+      pageNumber !== 0
     );
   }
 
-  isLimit(pageNumber: number): boolean {
+  isInLimit(pageNumber: number): boolean {
     return (
       pageNumber < this.currentPage().page_number - 2 ||
       pageNumber > this.currentPage().page_number + 2
     );
   }
-
-  isFirstEllipsis(pageNumber: number) {
-    return pageNumber === -1;
-  }
-
-  isLastEllipsis(pageNumber: number) {
-    return pageNumber === 0;
-  }
-
-  // teste(): boolean{
-  //   const teste = document.querySelector(".page-number-2.hidden");
-  //   return teste ? true : false;
-  // }
-  /*teste():number {
-    return this.currentPage().page_number + 5;
-  }*/
 }

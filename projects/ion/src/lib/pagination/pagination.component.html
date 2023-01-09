@@ -28,7 +28,7 @@
     (click)="!loading && selectPage(page.page_number)"
     [class.disabled]="loading"
   >
-    <span (click)="teste()">{{
+    <span>{{
       page.page_number === -1 || page.page_number === 0
         ? '...'
         : page.page_number
