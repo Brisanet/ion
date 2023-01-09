@@ -1,0 +1,67 @@
+@import '../../styles/index.scss';
+
+.ion-switch {
+  background: #a9adbc;
+  width: 24px;
+  height: 16px;
+  border: none;
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: all ease-in-out 100ms;
+
+  &:hover {
+    transition: all ease-in-out 100ms;
+    background: $primary-2;
+  }
+
+  &::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #ffffff;
+    position: absolute;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    right: initial;
+    transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+
+  &--active {
+    background: $primary-color;
+    animation: animation-box-shadow 300ms ease-out;
+    transition: all ease-in-out 100ms;
+
+    &:hover {
+      background: $primary-color;
+    }
+
+    &::before {
+      transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+      transform: translateX(8px);
+    }
+  }
+}
+
+@keyframes animation-box-shadow {
+  from {
+    box-shadow: none;
+    background: $primary-2;
+  }
+  25% {
+    box-shadow: 0 0 0 2px $primary-2;
+    background: $primary-4;
+  }
+  50% {
+    box-shadow: 0 0 0 4px hsla(215, 92%, 85%, 0.5);
+  }
+  75% {
+    box-shadow: 0 0 0 6px rgba(181, 210, 252, 0.2);
+    background: $primary-color;
+  }
+  to {
+    box-shadow: none;
+  }
+}
