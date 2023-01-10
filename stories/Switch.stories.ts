@@ -1,4 +1,3 @@
-import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SwitchComponent } from '../projects/ion/src/lib/switch/switch.component';
 
@@ -9,7 +8,7 @@ export default {
 
 const Template: Story<SwitchComponent> = (args: SwitchComponent) => ({
   component: SwitchComponent,
-  props: { ...args, atValueChange: action('atValueChange') },
+  props: args,
 });
 
 export const Basic = Template.bind({});
