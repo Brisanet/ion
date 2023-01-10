@@ -18,9 +18,9 @@ export interface IFormField {
 export abstract class FormField<T> {
   public componentRef: ComponentRef<T> = null;
 
-  private show: boolean;
-  private disabled: boolean;
-  private size: number;
+  show: boolean;
+  disabled: boolean;
+  size: number;
 
   constructor(readonly key: string, disabled = false, show = true, size = 4) {
     this.show = show;

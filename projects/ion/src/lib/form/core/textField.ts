@@ -24,6 +24,14 @@ export class TextField extends FormField<InputComponent> {
     return this.key;
   }
 
+  public setDisabled(value: boolean): void {
+    this.disabled = value;
+
+    if (this.componentRef !== null) {
+      this.componentRef.instance.disabled = value;
+    }
+  }
+
   getComponentFactory(
     componentFactoryResolver: ComponentFactoryResolver
   ): ComponentFactory<InputComponent> {

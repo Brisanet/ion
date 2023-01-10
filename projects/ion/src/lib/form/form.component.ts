@@ -8,6 +8,7 @@ import {
   Input,
   OnChanges,
   Renderer2,
+  SimpleChange,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -52,23 +53,20 @@ export class FormComponent implements AfterViewInit, OnChanges {
     });
   }
 
+  checkAndRenderNewFields(config: SimpleChange): void {
+    config.currentValue.forEach((currentField) => {
+      if (!Object.keys(this.model).includes(currentField.key)) {
+        this.renderField(
+          this.config.find((field) => field.key === currentField.key)
+        );
+      }
+    });
+  }
+
   ngOnChanges(change: SimpleChanges): void {
-    if (!change.firstChange) {
-      const { config } = change;
-      config.currentValue.forEach((currentField) => {
-        if (!Object.keys(this.model).includes(currentField.key)) {
-          this.renderer.appendChild(
-            this.container.nativeElement,
-            this.config
-              .find((field) => field.key === currentField.key)
-              .generateComponent(
-                this.componentFactoryResolver,
-                this.injector,
-                this.appRef
-              )
-          );
-        }
-      });
+    const { config } = change;
+    if (!config.firstChange) {
+      this.checkAndRenderNewFields(config);
     }
   }
 

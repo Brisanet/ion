@@ -12,14 +12,18 @@ import { TextField } from '../core/textField';
   `,
 })
 export class FormStoryComponent implements AfterViewInit {
+  // if you generate your field this way, you can access the methods directly (and change properties)
+  fieldName = new TextField({
+    key: 'name',
+    label: 'Nome',
+    required: true,
+    placeholder: 'Insira seu nome...',
+    icon: 'user',
+  });
+
   public formConfig: FormField<SafeAny>[] = [
-    new TextField({
-      key: 'name',
-      label: 'Nome',
-      required: true,
-      placeholder: 'Insira seu nome...',
-      icon: 'user',
-    }),
+    this.fieldName,
+    // generating this way, you'll not be able to change properties
     new TextField({
       key: 'email',
       label: 'E-mail',
@@ -44,6 +48,12 @@ export class FormStoryComponent implements AfterViewInit {
           disabled: true,
         }),
       ];
+    }, 2500);
+    setTimeout(() => {
+      this.fieldName.setDisabled(true);
     }, 5000);
+    setTimeout(() => {
+      this.fieldName.setDisabled(false);
+    }, 7000);
   }
 }
