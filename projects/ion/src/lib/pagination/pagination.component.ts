@@ -1,4 +1,3 @@
-import { DropdownItem } from './../dropdown/dropdown.component';
 import {
   Component,
   EventEmitter,
@@ -7,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { DropdownItem } from './../dropdown/dropdown.component';
 
 interface Page {
   page_number: number;
@@ -26,6 +26,7 @@ export interface IonPaginationProps {
   events?: EventEmitter<PageEvent>;
   allowChangeQtdItems?: boolean;
   loading?: boolean;
+  page?: number;
 }
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
@@ -42,6 +43,7 @@ export class PaginationComponent implements OnChanges {
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
+  @Input() page = 0;
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage = [
@@ -63,6 +65,17 @@ export class PaginationComponent implements OnChanges {
     if (changes.total) {
       this.remountPages();
     }
+    if (changes.page && changes.page.currentValue) {
+      this.setPage(changes.page.currentValue);
+    }
+  }
+
+  setPage(page = 1): void {
+    if (page === 1) {
+      this.remountPages();
+    } else {
+      this.selectPage(page);
+    }
   }
 
   private skipEllipsis(pageNumber: number): number {
@@ -77,7 +90,7 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
-  selectPage(pageNumber: number): void {
+  selectPage(pageNumber = 1): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -93,6 +106,7 @@ export class PaginationComponent implements OnChanges {
       itemsPerPage: this.itemsPerPage,
       offset: (page.page_number - 1) * this.itemsPerPage,
     });
+    this.page = page.page_number;
   }
 
   hasPrevious(): boolean {
@@ -188,18 +202,12 @@ export class PaginationComponent implements OnChanges {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      this.isInLimit(pageNumber) &&
-      pageNumber !== this.totalPages() &&
-      pageNumber !== 1 &&
-      pageNumber !== -1 &&
-      pageNumber !== 0
-    );
-  }
-
-  isInLimit(pageNumber: number): boolean {
-    return (
       pageNumber < this.currentPage().page_number - 2 ||
-      pageNumber > this.currentPage().page_number + 2
+      (pageNumber > this.currentPage().page_number + 2 &&
+        pageNumber !== this.totalPages() &&
+        pageNumber !== 1 &&
+        pageNumber !== -1 &&
+        pageNumber !== 0)
     );
   }
 }
