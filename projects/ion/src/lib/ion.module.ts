@@ -36,6 +36,7 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { InputComponent } from './input/input.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { ChipGroupComponent } from './chip-group/chip-group.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     InputComponent,
     TooltipDirective,
     TooltipComponent,
+    ChipGroupComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -110,6 +112,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     InputCounterComponent,
     InputComponent,
     TooltipComponent,
+    ChipGroupComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })

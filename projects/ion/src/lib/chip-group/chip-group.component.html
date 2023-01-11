@@ -1,0 +1,21 @@
+<div
+  data-testid="ion-chip-group"
+  class="chip-group"
+  [class.chip-group-column-inner]="direction === 'vertical'"
+>
+  <ion-chip
+    *ngFor="let chip of chips; index as i"
+    [label]="chip.label"
+    [disabled]="chip.disabled || disabled"
+    [selected]="chip.selected"
+    [showDropdown]="chip.selected"
+    [size]="chip.size || size"
+    [options]="chip.options"
+    [icon]="chip.icon"
+    [multiple]="chip.multiple"
+    [infoBadge]="chip.infoBadge || infoBadge"
+    [iconPosition]="chip.iconPosition || iconPosition"
+    [rightBadge]="chip.rightBadge || rightBadge"
+    (click)="selectChip(chip)"
+  ></ion-chip>
+</div>
