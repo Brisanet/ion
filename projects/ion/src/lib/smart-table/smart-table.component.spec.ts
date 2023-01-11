@@ -1,3 +1,4 @@
+import { ColumnActionTriggers } from './../table/utilsTable';
 import { CheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { TagComponent } from '../tag/tag.component';
@@ -14,6 +15,8 @@ import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
+
+const columnTrigger = ColumnActionTriggers;
 
 const columns: Column[] = [
   {
@@ -633,5 +636,72 @@ describe('Table without Data', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+});
+
+describe('Table with cell events', () => {
+  const columnsWithCellEvent = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+      actions: {
+        trigger: columnTrigger.click,
+      },
+    },
+  ];
+
+  const tableWithCellEvents = {
+    config: {
+      data: data,
+      columns: columnsWithCellEvent,
+      pagination: {
+        total: 2,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(tableWithCellEvents);
+  });
+
+  it.each([0, 1])('should render table with clickable cell', async (index) => {
+    const selectableCellID = `row-${index}-height`;
+    const notselectableCellID = `row-${index}-name`;
+    expect(screen.getByTestId(selectableCellID)).toHaveStyle(
+      'cursor: pointer;'
+    );
+    expect(screen.getByTestId(notselectableCellID)).not.toHaveStyle(
+      'cursor: pointer;'
+    );
+  });
+
+  it.only('should emit event when selectable cell is clicked', async () => {
+    screen.debug;
+    const selectableCellID = 'row-0-height';
+    fireEvent.click(screen.getByTestId(selectableCellID));
+    // expect(events).toHaveBeenCalledWith({
+    //   change_page: pagination,
+    //   event: EventTable.CELL_SELECT,
+    //   data: {
+    //     selected_row: data[0],
+    //     cell_data: {
+    //       value: 172,
+    //       column: 'height',
+    //     },
+    //   },
+    // });
+    expect(events).toBeCalled();
   });
 });

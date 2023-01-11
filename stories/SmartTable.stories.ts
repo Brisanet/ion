@@ -56,6 +56,25 @@ const columns = [
   },
 ];
 
+const selectableColumns = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    actions: {
+      trigger: 'click',
+    },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    actions: {
+      trigger: 'click',
+    },
+  },
+];
+
 const actions = [
   {
     label: 'Excluir',
@@ -97,6 +116,19 @@ NoData.args = {
     check: true,
     data: [],
     columns,
+    actions,
+    pagination: {
+      total: 0,
+    },
+  },
+};
+
+export const SelectableCells = Template.bind({});
+SelectableCells.args = {
+  config: {
+    check: true,
+    data,
+    columns: selectableColumns,
     actions,
     pagination: {
       total: 0,

@@ -17,11 +17,12 @@ import { CheckBoxStates } from './../checkbox/checkbox.component';
 export interface TableEvent {
   event: EventTable;
   rows_selected?: SafeAny[];
-  change_page: PageEvent;
+  change_page?: PageEvent;
   order?: {
     column: string;
     desc: boolean;
   };
+  data?: SafeAny;
 }
 
 const stateChange = {
@@ -159,5 +160,22 @@ export class SmartTableComponent implements OnInit {
     });
 
     this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
+  }
+
+  public cellEventEmmiter(
+    selectedRow: SafeAny,
+    selectedColumn: Column,
+    selectedCell: SafeAny
+  ) {
+    this.events.emit({
+      event: EventTable.CELL_SELECT,
+      data: {
+        selected_row: selectedRow,
+        cell_data: {
+          value: selectedCell,
+          column: selectedColumn.key,
+        },
+      },
+    });
   }
 }
