@@ -142,6 +142,20 @@ export class SmartTableComponent implements OnInit {
     this.firstLoad = false;
   }
 
+  public cellEvents(row: SafeAny, column: Column, cell: SafeAny): void {
+    this.events.emit({
+      event: EventTable.CELL_SELECT,
+      change_page: this.pagination,
+      data: {
+        selected_row: row,
+        cell_data: {
+          value: cell,
+          column: column.key,
+        },
+      },
+    });
+  }
+
   private setMainCheckboxState(state: CheckBoxStates): void {
     this.mainCheckBoxState = state;
   }
@@ -160,22 +174,5 @@ export class SmartTableComponent implements OnInit {
     });
 
     this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
-  }
-
-  public cellEventEmmiter(
-    selectedRow: SafeAny,
-    selectedColumn: Column,
-    selectedCell: SafeAny
-  ) {
-    this.events.emit({
-      event: EventTable.CELL_SELECT,
-      data: {
-        selected_row: selectedRow,
-        cell_data: {
-          value: selectedCell,
-          column: selectedColumn.key,
-        },
-      },
-    });
   }
 }

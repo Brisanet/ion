@@ -62,11 +62,7 @@ export interface ConfigTable<T> {
 }
 
 export interface ColumnActions {
-  trigger: ColumnActionTriggers;
-}
-
-export enum ColumnActionTriggers {
-  click,
+  trigger: 'click';
 }
 
 export class TableUtils<T = SafeAny> {

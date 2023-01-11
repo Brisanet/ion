@@ -71,7 +71,7 @@
         (click)="
           column.actions &&
             column.actions.trigger === 'click' &&
-            cellEventEmmiter(row, column, row[column.key])
+            cellEvents(row, column, row[column.key])
         "
       >
         <!-- cell types -->

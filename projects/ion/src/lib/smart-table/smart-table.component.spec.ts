@@ -1,4 +1,3 @@
-import { ColumnActionTriggers } from './../table/utilsTable';
 import { CheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { TagComponent } from '../tag/tag.component';
@@ -16,7 +15,7 @@ import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
 
-const columnTrigger = ColumnActionTriggers;
+const columnTrigger = 'click';
 
 const columns: Column[] = [
   {
@@ -640,7 +639,7 @@ describe('Table without Data', () => {
 });
 
 describe('Table with cell events', () => {
-  const columnsWithCellEvent = [
+  const columnsWithCellEvent: Column[] = [
     {
       key: 'name',
       label: 'Nome',
@@ -651,7 +650,7 @@ describe('Table with cell events', () => {
       label: 'Altura',
       sort: true,
       actions: {
-        trigger: columnTrigger.click,
+        trigger: columnTrigger,
       },
     },
   ];
@@ -687,21 +686,19 @@ describe('Table with cell events', () => {
     );
   });
 
-  it.only('should emit event when selectable cell is clicked', async () => {
-    screen.debug;
+  it('should emit event when selectable cell is clicked', async () => {
     const selectableCellID = 'row-0-height';
     fireEvent.click(screen.getByTestId(selectableCellID));
-    // expect(events).toHaveBeenCalledWith({
-    //   change_page: pagination,
-    //   event: EventTable.CELL_SELECT,
-    //   data: {
-    //     selected_row: data[0],
-    //     cell_data: {
-    //       value: 172,
-    //       column: 'height',
-    //     },
-    //   },
-    // });
-    expect(events).toBeCalled();
+    expect(events).toHaveBeenCalledWith({
+      change_page: pagination,
+      event: EventTable.CELL_SELECT,
+      data: {
+        selected_row: data[0],
+        cell_data: {
+          value: 172,
+          column: 'height',
+        },
+      },
+    });
   });
 });
