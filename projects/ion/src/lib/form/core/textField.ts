@@ -12,7 +12,6 @@ export interface ITextField extends IFormField {
 export class TextField extends FormField<InputComponent> {
   placeholder: string;
   icon: string;
-  value = '';
 
   constructor({ placeholder, icon, ...props }: ITextField) {
     super(props.key, props.disabled, props.show, props.size);
@@ -44,12 +43,14 @@ export class TextField extends FormField<InputComponent> {
       this.componentRef.instance.iconInput = this.icon;
       this.componentRef.instance.placeholder = this.placeholder;
       this.componentRef.instance.disabled = this.isDisabled();
+      this.componentRef.instance.formControlName = 'name';
       if (this.value) {
         this.componentRef.instance.value = this.value;
       }
       this.componentRef.instance.valueChange.subscribe((value) => {
         this.value = value;
       });
+      this.valueChange = this.componentRef.instance.valueChange;
     }
   }
 }

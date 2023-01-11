@@ -4,6 +4,7 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   EmbeddedViewRef,
+  EventEmitter,
   Injector,
 } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
@@ -21,6 +22,8 @@ export abstract class FormField<T> {
   show: boolean;
   disabled: boolean;
   size: number;
+  value: SafeAny;
+  valueChange: EventEmitter<SafeAny>;
 
   constructor(readonly key: string, disabled = false, show = true, size = 4) {
     this.show = show;
@@ -76,5 +79,13 @@ export abstract class FormField<T> {
 
   public isDisabled(): boolean {
     return this.disabled;
+  }
+
+  public getValue(): SafeAny {
+    return this.value;
+  }
+
+  public onValueChange(): EventEmitter<SafeAny> {
+    return this.valueChange;
   }
 }

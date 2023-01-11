@@ -1,2 +1,6 @@
 <h1>Formulário</h1>
-<div #formContainer></div>
+<form [formGroup]="formulary" #formContainer>
+  <ion-input model="name"></ion-input>
+</form>
+
+<span>{{ formulary.value.name }} </span>

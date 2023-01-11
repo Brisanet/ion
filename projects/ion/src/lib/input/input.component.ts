@@ -19,6 +19,7 @@ export interface IonInputProps {
   value?: string;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
+  formControlName?: string;
 }
 
 @Component({
@@ -40,6 +41,8 @@ export class InputComponent {
   @Input() inputType: InputType = 'text';
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
+
+  formControlName = 'name';
 
   onChange(value: string): void {
     this.valueChange.emit(value);

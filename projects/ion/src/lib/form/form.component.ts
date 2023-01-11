@@ -12,6 +12,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SafeAny } from '../utils/safe-any';
 import { FormField } from './core/baseField';
 
@@ -25,11 +26,17 @@ export class FormComponent implements AfterViewInit, OnChanges {
   @Input() model: SafeAny;
   @ViewChild('formContainer', { static: false }) container: ElementRef;
 
+  formulary = new FormGroup({
+    name: new FormControl('aaaaaa'),
+    email: new FormControl(null),
+  });
+
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private formBuilder: FormBuilder
   ) {}
 
   renderField(field: FormField<SafeAny>): void {
@@ -41,6 +48,12 @@ export class FormComponent implements AfterViewInit, OnChanges {
         this.appRef
       )
     );
+    field.onValueChange().subscribe((value) => {
+      this.model = {
+        ...this.model,
+        [field.key]: value,
+      };
+    });
   }
 
   renderFields(): void {
@@ -64,13 +77,18 @@ export class FormComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges): void {
-    const { config } = change;
-    if (!config.firstChange) {
-      this.checkAndRenderNewFields(config);
-    }
+    // const { config, model } = change;
+    // if (!config.firstChange) {
+    //   this.checkAndRenderNewFields(config);
+    // }
+    // if (model && model.currentValue) {
+    //   console.log(model.currentValue);
+    // }
   }
 
   ngAfterViewInit(): void {
-    this.renderFields();
+    // setTimeout(() => {
+    //   this.renderFields();
+    // }, 5000);
   }
 }
