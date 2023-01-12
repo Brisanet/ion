@@ -1,7 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from '@angular/core';
 import { BadgeType } from '../badge/badge.component';
 import { InfoBadgeStatus } from '../core/types';
 import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
+import { generateIDs } from '../utils';
 import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
@@ -41,8 +51,9 @@ interface RightBadge {
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent {
+export class ChipComponent implements AfterViewInit, OnDestroy {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -60,9 +71,17 @@ export class ChipComponent {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  public id: string;
+
   badge: Badge = {
     value: 0,
   };
+
+  previusSelectedStatus = false;
+
+  constructor(private ref: ChangeDetectorRef) {
+    this.ref.markForCheck();
+  }
 
   select(): void {
     this.toggleDropdown();
@@ -95,5 +114,45 @@ export class ChipComponent {
 
   dropdownSearchChange(value: string): void {
     this.dropdownSearchEvents.emit(value);
+  }
+
+  checkTargetClick = (event): void => {
+    if (event.target instanceof EventTarget) {
+      const target = event.target as HTMLInputElement;
+      const elementChip = target.closest('#' + this.id);
+      const elementChipDropdown = target.closest('#dropdown-' + this.id);
+      const elementChipSearch = target.closest(
+        '#dropdown-' + this.id + ' .dropdown-search'
+      );
+
+      if (elementChipSearch || (elementChipDropdown && this.multiple)) {
+        return;
+      }
+
+      if (!elementChip) {
+        if ((this.previusSelectedStatus && this.selected) || !this.selected) {
+          this.showDropdown = false;
+          this.selected = false;
+          this.events.emit({
+            selected: this.selected,
+            disabled: this.disabled,
+          });
+        }
+      }
+      this.previusSelectedStatus = this.selected;
+    }
+  };
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.id = generateIDs('chip-', 'ion-chip');
+      this.ref.markForCheck();
+    }, 400);
+
+    document.body.addEventListener('click', this.checkTargetClick);
+  }
+
+  ngOnDestroy(): void {
+    document.body.removeEventListener('click', this.checkTargetClick);
   }
 }
