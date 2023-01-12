@@ -1,41 +1,42 @@
-import { IonModalService } from './modal/modal.service';
-import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { AlertComponent } from './alert/alert.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
-import { ChipComponent } from './chip/chip.component';
-import { DefaultImageDirective } from './defaultImage.directive';
-import { IonIconComponent } from './icon/icon.component';
-import { IonComponent } from './ion.component';
-import { RadioComponent } from './radio/radio.component';
-import { TabGroupComponent } from './tab-group/tab-group.component';
-import { AlertComponent } from './alert/alert.component';
-import { IonDividerComponent } from './divider/divider.component';
-import { NotificationComponent } from './notification/notification.component';
-import { MessageComponent } from './message/message.component';
-import { TabComponent } from './tab/tab.component';
-import { HeadingComponent } from './typography/heading/heading.component';
-import { TagComponent } from './tag/tag.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
-import { RowComponent } from './row/row.component';
-import { ColComponent } from './col/col.component';
 import { CardIonComponent } from './card/card.component';
-import { InputCounterComponent } from './input-counter/input-counter.component';
-import { PaginationComponent } from './pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { ChipComponent } from './chip/chip.component';
+import { ColComponent } from './col/col.component';
+import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
+import { DefaultImageDirective } from './defaultImage.directive';
+import { IonDividerComponent } from './divider/divider.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { IonIconComponent } from './icon/icon.component';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
+import { InputCounterComponent } from './input-counter/input-counter.component';
+import { InputComponent } from './input/input.component';
+import { IonComponent } from './ion.component';
+import { MessageComponent } from './message/message.component';
+import { IonModalComponent } from './modal/component/modal.component';
+import { IonModalService } from './modal/modal.service';
+import { NotificationComponent } from './notification/notification.component';
+import { PaginationComponent } from './pagination/pagination.component';
+import { PopConfirmComponent } from './popconfirm/popconfirm.component';
+import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
+import { RadioComponent } from './radio/radio.component';
+import { RowComponent } from './row/row.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
+import { SwitchComponent } from './switch/switch.component';
+import { TabGroupComponent } from './tab-group/tab-group.component';
+import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
-import { IonModalComponent } from './modal/component/modal.component';
-import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
-import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
-import { PopConfirmComponent } from './popconfirm/popconfirm.component';
-import { InputComponent } from './input/input.component';
-import { TooltipDirective } from './tooltip/tooltip.directive';
+import { TagComponent } from './tag/tag.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { TooltipDirective } from './tooltip/tooltip.directive';
+import { HeadingComponent } from './typography/heading/heading.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     PaginationComponent,
     PopConfirmComponent,
     SmartTableComponent,
+    SwitchComponent,
     TableComponent,
     InputComponent,
     TooltipDirective,
@@ -110,6 +112,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     InputCounterComponent,
     InputComponent,
     TooltipComponent,
+    SwitchComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })
