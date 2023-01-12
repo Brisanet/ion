@@ -1,4 +1,4 @@
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { FormComponent } from '../projects/ion/src/lib/form/form.component';
 import { FormStoryComponent } from '../projects/ion/src/lib/form/mock/formStory.component';
@@ -15,7 +15,7 @@ export default {
         FormComponent,
         FormStoryComponent,
       ],
-      imports: [ReactiveFormsModule],
+      imports: [FormsModule, ReactiveFormsModule],
       entryComponents: [InputComponent],
     }),
   ],

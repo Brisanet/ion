@@ -1,13 +1,4 @@
-import {
-  ApplicationRef,
-  ComponentFactory,
-  ComponentFactoryResolver,
-  ComponentRef,
-  EmbeddedViewRef,
-  EventEmitter,
-  Injector,
-} from '@angular/core';
-import { SafeAny } from '../../utils/safe-any';
+import { AbstractControl } from '@angular/forms';
 
 export interface IFormField {
   key: string;
@@ -16,14 +7,12 @@ export interface IFormField {
   size?: number;
 }
 
-export abstract class FormField<T> {
-  public componentRef: ComponentRef<T> = null;
-
+export abstract class FormField {
   show: boolean;
   disabled: boolean;
   size: number;
-  value: SafeAny;
-  valueChange: EventEmitter<SafeAny>;
+
+  formControl: AbstractControl;
 
   constructor(readonly key: string, disabled = false, show = true, size = 4) {
     this.show = show;
@@ -31,61 +20,17 @@ export abstract class FormField<T> {
     this.size = size;
   }
 
-  getComponentRef(): ComponentRef<T> {
-    return this.componentRef;
+  getKey(): string {
+    return this.key;
   }
 
-  createComponent(
-    componentFactoryResolver: ComponentFactoryResolver,
-    injector: Injector,
-    appRef: ApplicationRef
-  ): HTMLElement {
-    this.componentRef = this.getComponentFactory(
-      componentFactoryResolver
-    ).create(injector);
-
-    appRef.attachView(this.componentRef.hostView);
-
-    return (this.componentRef.hostView as EmbeddedViewRef<SafeAny>)
-      .rootNodes[0];
+  setFormControl(control: AbstractControl): void {
+    this.formControl = control;
   }
 
-  abstract setComponentProperties(): void;
-  abstract getComponentFactory(
-    componentFactoryResolver: ComponentFactoryResolver
-  ): ComponentFactory<T>;
-
-  generateComponent(
-    componentFactoryResolver: ComponentFactoryResolver,
-    injector: Injector,
-    appRef: ApplicationRef
-  ): HTMLElement {
-    const component = this.createComponent(
-      componentFactoryResolver,
-      injector,
-      appRef
-    );
-    this.setComponentProperties();
-    return component;
-  }
-
-  public isValid(): boolean {
-    return true;
-  }
-
-  public isShowing(): boolean {
-    return this.show;
-  }
-
-  public isDisabled(): boolean {
-    return this.disabled;
-  }
-
-  public getValue(): SafeAny {
-    return this.value;
-  }
-
-  public onValueChange(): EventEmitter<SafeAny> {
-    return this.valueChange;
+  setDisable(value: boolean): void {
+    value && this.formControl
+      ? this.formControl.disable()
+      : this.formControl.enable();
   }
 }

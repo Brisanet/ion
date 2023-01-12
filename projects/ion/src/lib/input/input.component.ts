@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { IconType } from './../icon/icon.component';
 import { SafeAny } from './../utils/safe-any';
 
@@ -26,8 +28,15 @@ export interface IonInputProps {
   selector: 'ion-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputComponent,
+      multi: true,
+    },
+  ],
 })
-export class InputComponent {
+export class InputComponent implements ControlValueAccessor {
   @Input() placeholder?: string;
   @Input() button = 'Button';
   @Input() iconInput: IconType;
@@ -42,13 +51,39 @@ export class InputComponent {
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
-  formControlName = 'name';
+  onTouch = () => {};
+  onChange = (value: string) => {};
 
-  onChange(value: string): void {
-    this.valueChange.emit(value);
+  setValue(value: string): void {
+    this.writeValue(value);
+    this.onTouch();
   }
 
   public handleClick(): void {
     this.clickButton.emit();
+  }
+
+  // Allow Angular to set the value on the component
+  writeValue(value: string): void {
+    this.onChange(value);
+    this.valueChange.emit(value);
+    this.value = value;
+  }
+
+  // Save a reference to the change function passed to us by
+  // the Angular form control
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+
+  // Save a reference to the touched function passed to us by
+  // the Angular form control
+  registerOnTouched(fn: () => void): void {
+    this.onTouch = fn;
+  }
+
+  // Allow the Angular form control to disable this input
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
   }
 }

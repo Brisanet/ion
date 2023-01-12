@@ -1,10 +1,16 @@
-import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from './../icon/icon.component';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
+import { IonIconComponent } from './../icon/icon.component';
+import { SafeAny } from './../utils/safe-any';
 import { InputComponent, InputType, IonInputProps } from './input.component';
-import { FormsModule } from '@angular/forms';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(InputComponent, {
@@ -148,5 +154,46 @@ describe('InputComponent', () => {
       userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenLastCalledWith(value);
     });
+  });
+});
+
+@Component({
+  template: `
+    <form [formGroup]="formGroup">
+      <ion-input formControlName="name"></ion-input>
+    </form>
+  `,
+})
+class HostInputComponent {
+  formGroup = new FormGroup({
+    name: new FormControl(''),
+  });
+}
+
+const sutHost = async (
+  props: Partial<HostInputComponent> = {}
+): Promise<void> => {
+  await render(HostInputComponent, {
+    componentProperties: props,
+    declarations: [InputComponent, IonIconComponent],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  });
+};
+
+describe('InputComponent - Angular Forms', () => {
+  let input;
+
+  beforeEach(async () => {
+    await sutHost({});
+    input = screen.getByRole('textbox');
+  });
+
+  it('should render input', () => {
+    expect(input).toBeInTheDocument();
+  });
+  it('should change value when typing', () => {
+    const value = 'Beyoncé';
+    userEvent.type(input, value);
+    expect(input).toHaveValue(value);
   });
 });
