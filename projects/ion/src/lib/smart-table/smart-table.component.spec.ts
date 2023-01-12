@@ -675,16 +675,25 @@ describe('Table with cell events', () => {
     await sut(tableWithCellEvents);
   });
 
-  it.each([0, 1])('should render table with clickable cell', async (index) => {
-    const selectableCellID = `row-${index}-height`;
-    const notselectableCellID = `row-${index}-name`;
-    expect(screen.getByTestId(selectableCellID)).toHaveStyle(
-      'cursor: pointer;'
-    );
-    expect(screen.getByTestId(notselectableCellID)).not.toHaveStyle(
-      'cursor: pointer;'
-    );
-  });
+  it.each([0, 1])(
+    'should render table with clickable cell style',
+    async (index) => {
+      const selectableCellID = `row-${index}-height`;
+      expect(screen.getByTestId(selectableCellID)).toHaveStyle(
+        'cursor: pointer;'
+      );
+    }
+  );
+
+  it.each([0, 1])(
+    'should render default column even with a clickable cell',
+    async (index) => {
+      const selectableCellID = `row-${index}-name`;
+      expect(screen.getByTestId(selectableCellID)).not.toHaveStyle(
+        'cursor: pointer;'
+      );
+    }
+  );
 
   it('should emit event when selectable cell is clicked', async () => {
     const selectableCellID = 'row-0-height';
@@ -697,6 +706,22 @@ describe('Table with cell events', () => {
         cell_data: {
           value: 172,
           column: 'height',
+        },
+      },
+    });
+  });
+
+  it('should not emit event when not selectable cell is clicked', async () => {
+    const selectableCellID = 'row-0-name';
+    fireEvent.click(screen.getByTestId(selectableCellID));
+    expect(events).not.toHaveBeenCalledWith({
+      change_page: pagination,
+      event: EventTable.CELL_SELECT,
+      data: {
+        selected_row: data[0],
+        cell_data: {
+          value: 'Luke Skywalker',
+          column: 'name',
         },
       },
     });

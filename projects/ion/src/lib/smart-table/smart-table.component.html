@@ -67,7 +67,7 @@
       <td
         *ngFor="let column of config.columns"
         [attr.data-testid]="'row-' + index + '-' + column.key"
-        [ngStyle]="{ cursor: column.actions && 'pointer' }"
+        [style.cursor]="column.actions && 'pointer'"
         (click)="
           column.actions &&
             column.actions.trigger === 'click' &&
