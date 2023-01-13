@@ -16,6 +16,10 @@
       (controlPickerEvent)="events($event)"
     ></ion-control-picker>
   </div>
-  <div class="content">datepicker</div>
-  <footer>botoes</footer>
+  <div class="content">
+    <!-- <date-picker 
+      *ngIf="pickerMode==='datepicker'"
+    ></date-picker> -->
+  </div>
+  <footer *ngIf="pickerMode === 'rangepicker'">botoes</footer>
 </div>

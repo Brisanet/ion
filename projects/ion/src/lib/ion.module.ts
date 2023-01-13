@@ -30,13 +30,13 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
-import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
+import { DatePickerComponent } from './date-picker/picker/date-picker/date-picker.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { InputComponent } from './input/input.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
-import { DatepickerComponent } from './date-picker/datepicker/datepicker.component';
+import { DatepickerComponent } from './date-picker/picker/datepicker.component';
 import { ControlPickerComponent } from './date-picker/control-picker/control-picker.component';
 
 @NgModule({
@@ -114,7 +114,6 @@ import { ControlPickerComponent } from './date-picker/control-picker/control-pic
     InputCounterComponent,
     InputComponent,
     TooltipComponent,
-    DatePickerComponent,
     DatepickerComponent,
     ControlPickerComponent,
   ],

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
 
@@ -8,11 +8,12 @@ import { ControlEvent } from '../control-picker/control-picker.component';
   styleUrls: ['./datepicker.component.scss'],
 })
 export class DatepickerComponent implements OnInit, AfterViewInit {
-  showDatepicker = false;
+  @Input() pickerMode: 'datepicker' | 'rangepicker' = 'datepicker';
 
+  showDatepicker = false;
   currentMonth = '';
   currentYear = '2022';
-
+  currentDate: string;
   months = [
     'Janeiro',
     'Fevereiro',

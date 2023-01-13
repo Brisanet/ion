@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonModule } from '../../button/button.module';
+import { IonDividerComponent } from '../../divider/divider.component';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlPickerComponent } from '../control-picker/control-picker.component';
 import { DatepickerComponent } from './datepicker.component';
@@ -17,7 +18,7 @@ const defaultComponent: SafeAny = {
 const sut = async (customProps: SafeAny = defaultComponent): Promise<void> => {
   await render(DatepickerComponent, {
     componentProperties: customProps,
-    declarations: [ControlPickerComponent],
+    declarations: [ControlPickerComponent, IonDividerComponent],
     imports: [ButtonModule],
   });
 };
