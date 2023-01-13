@@ -137,6 +137,7 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
             selected: this.selected,
             disabled: this.disabled,
           });
+          this.ref.detectChanges();
         }
       }
       this.previusSelectedStatus = this.selected;
