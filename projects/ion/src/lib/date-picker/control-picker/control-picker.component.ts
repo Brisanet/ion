@@ -6,7 +6,7 @@ type TypeEvents =
   | 'nextMonth'
   | 'nextYear'
   | 'changeMonth'
-  | 'ChangeYear';
+  | 'changeYear';
 
 type Events = {
   type: TypeEvents;
@@ -34,7 +34,6 @@ export class ControlPickerComponent {
   @Output() controlPickerEvent: EventEmitter<ControlEvent> =
     new EventEmitter<ControlEvent>();
 
-  showContainerToChooseTheMonth = false;
   months = [
     'Jan',
     'Fev',
@@ -49,6 +48,9 @@ export class ControlPickerComponent {
     'Nov',
     'Dez',
   ];
+  showContainerToChooseTheMonth = false;
+  showContainerToChooseTheYear = false;
+  rangeYear: number[] = [];
 
   constructor() {
     //
@@ -70,6 +72,10 @@ export class ControlPickerComponent {
     this.controlPickerEvent.emit({ event: { type: 'nextYear' } });
   }
 
+  toogleVisibleContainerToChooseTheMonth(visible: boolean): void {
+    this.showContainerToChooseTheMonth = visible;
+  }
+
   handleChangeMonth(monthNumber: string): void {
     this.controlPickerEvent.emit({
       event: { type: 'changeMonth', value: monthNumber },
@@ -78,7 +84,35 @@ export class ControlPickerComponent {
     this.toogleVisibleContainerToChooseTheMonth(false);
   }
 
-  toogleVisibleContainerToChooseTheMonth(visible: boolean): void {
-    this.showContainerToChooseTheMonth = visible;
+  toogleVisibleContainerToChooseTheYear(visible: boolean): void {
+    this.setRangeYear();
+    this.showContainerToChooseTheYear = visible;
+  }
+
+  handleChangeYear(year: string): void {
+    this.controlPickerEvent.emit({
+      event: { type: 'changeYear', value: year },
+    });
+
+    this.toogleVisibleContainerToChooseTheYear(false);
+  }
+
+  setRangeYear(currentyear?: number): void {
+    const year = currentyear ? currentyear : this.year;
+    this.rangeYear = [];
+    const InitialYear = Number(year) - 7;
+    const finalYear = Number(year) + 7;
+
+    for (let newYear = InitialYear; newYear <= finalYear; newYear++) {
+      this.rangeYear.push(newYear);
+    }
+  }
+
+  handleShowPreviousYears(): void {
+    this.setRangeYear(this.rangeYear[0]);
+  }
+
+  handleShowNextYears(): void {
+    this.setRangeYear(this.rangeYear[this.rangeYear.length - 1]);
   }
 }

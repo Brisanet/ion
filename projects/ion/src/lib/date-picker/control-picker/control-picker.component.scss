@@ -47,9 +47,8 @@
   }
 }
 
-.container-choose-month {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+.container-choose-month,
+.container-choose-year {
   position: absolute;
   height: 400px;
   border-radius: 8px;
@@ -58,10 +57,55 @@
   top: -24px;
   right: -24px;
   z-index: 1;
+}
+
+.container-choose-month {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
   ion-button {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+.container-choose-year {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    padding: 0 24px;
+    margin-top: 4px;
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      color: $neutral-8;
+    }
+
+    & ion-button {
+      ::ng-deep button.ion-btn-md {
+        border: 1px solid $neutral-5;
+      }
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+
+    ion-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

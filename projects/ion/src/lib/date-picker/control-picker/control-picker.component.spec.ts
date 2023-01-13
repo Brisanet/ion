@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonModule } from '../../button/button.module';
+import { IonDividerComponent } from '../../divider/divider.component';
 import { TooltipComponent } from '../../tooltip/tooltip.component';
 import { SafeAny } from '../../utils/safe-any';
 import {
@@ -12,7 +13,7 @@ import {
 const events = jest.fn();
 
 const defaultComponent: ControlPickerComponentProps = {
-  month: 'janeiro',
+  month: 'Janeiro',
   year: '2022',
   controlPickerEvent: {
     emit: events,
@@ -24,7 +25,7 @@ const sut = async (
 ): Promise<void> => {
   await render(ControlPickerComponent, {
     componentProperties: customProps,
-    declarations: [TooltipComponent],
+    declarations: [TooltipComponent, IonDividerComponent],
     imports: [ButtonModule],
   });
 };
@@ -75,5 +76,36 @@ describe('ControlPickerComponent', () => {
     const button = screen.getByTestId('btn-month-2');
     fireEvent.click(button);
     expect(onChangeMonth.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('should emit an event on clicking the year button', async () => {
+    const onChangeYear = new EventEmitter<ControlEvent>();
+    await sut({ ...defaultComponent, controlPickerEvent: onChangeYear });
+    const labelYear = screen.getByTestId('label-year');
+    jest.spyOn(onChangeYear, 'emit');
+    fireEvent.click(labelYear);
+    const button = screen.getByTestId('btn-year-2025');
+    fireEvent.click(button);
+    expect(onChangeYear.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('should show previous years when clicking on previous years button', async () => {
+    await sut({ ...defaultComponent });
+    const labelYear = screen.getByTestId('label-year');
+    fireEvent.click(labelYear);
+    const button = screen.getByTestId('btn-show-previous-years');
+    fireEvent.click(button);
+    const button2015 = screen.getByTestId('btn-year-2015');
+    expect(button2015.textContent).toBe('2015');
+  });
+
+  it('should show previous years when clicking on previous years button', async () => {
+    await sut({ ...defaultComponent });
+    const labelYear = screen.getByTestId('label-year');
+    fireEvent.click(labelYear);
+    const button = screen.getByTestId('btn-show-next-years');
+    fireEvent.click(button);
+    const button2029 = screen.getByTestId('btn-year-2029');
+    expect(button2029.textContent).toBe('2029');
   });
 });

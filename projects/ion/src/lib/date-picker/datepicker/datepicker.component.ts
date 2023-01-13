@@ -55,5 +55,9 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
     if (event.type === 'changeMonth') {
       this.currentMonth = this.months[event.value];
     }
+
+    if (event.type === 'changeYear') {
+      this.currentYear = event.value;
+    }
   }
 }
