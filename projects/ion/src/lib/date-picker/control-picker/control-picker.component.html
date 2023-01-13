@@ -1,0 +1,78 @@
+<div class="container-controls">
+  <div class="container-buttons">
+    <ion-button
+      data-testid="btn-previous-year"
+      type="ghost"
+      iconType="left3"
+      [circularButton]="true"
+      ionTooltip
+      ionTooltipTitle="Ano anterior"
+      ionTooltipPosition="bottomCenter"
+      (click)="handlePreviousYear()"
+    ></ion-button>
+    <ion-button
+      data-testid="btn-previous-month"
+      iconType="left2"
+      [circularButton]="true"
+      type="ghost"
+      ionTooltip
+      ionTooltipTitle="Mês anterior"
+      ionTooltipPosition="bottomCenter"
+      (click)="handlePreviousMonth()"
+    ></ion-button>
+  </div>
+  <div class="container-labels">
+    <label
+      data-testid="label-month"
+      (click)="toogleVisibleContainerToChooseTheMonth(true)"
+      ionTooltip
+      ionTooltipTitle="Alterar mês"
+      ionTooltipPosition="bottomCenter"
+    >
+      {{ month }}
+    </label>
+    -
+    <label
+      data-testid="label-year"
+      ionTooltip
+      ionTooltipTitle="Alterar ano"
+      ionTooltipPosition="bottomCenter"
+    >
+      {{ year }}
+    </label>
+  </div>
+  <div class="container-buttons">
+    <ion-button
+      data-testid="btn-next-month"
+      iconType="right2"
+      [circularButton]="true"
+      type="ghost"
+      ionTooltip
+      ionTooltipTitle="Próximo mês"
+      ionTooltipPosition="bottomCenter"
+      (click)="handleNextMonth()"
+    ></ion-button>
+    <ion-button
+      data-testid="btn-next-year"
+      type="ghost"
+      iconType="right3"
+      [circularButton]="true"
+      ionTooltip
+      ionTooltipTitle="Próximo ano"
+      ionTooltipPosition="bottomCenter"
+      (click)="handleNextYear()"
+    ></ion-button>
+  </div>
+</div>
+
+<ng-container *ngIf="showContainerToChooseTheMonth">
+  <div class="container-choose-month">
+    <ion-button
+      *ngFor="let month of months; let i = index"
+      [label]="month"
+      type="dashed"
+      (click)="handleChangeMonth(i)"
+      [attr.data-testid]="'btn-month-' + i"
+    ></ion-button>
+  </div>
+</ng-container>

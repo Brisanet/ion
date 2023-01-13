@@ -36,6 +36,8 @@ import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { InputComponent } from './input/input.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
+import { DatepickerComponent } from './date-picker/datepicker/datepicker.component';
+import { ControlPickerComponent } from './date-picker/control-picker/control-picker.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +76,8 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     InputComponent,
     TooltipDirective,
     TooltipComponent,
+    DatepickerComponent,
+    ControlPickerComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -110,6 +114,9 @@ import { TooltipComponent } from './tooltip/tooltip.component';
     InputCounterComponent,
     InputComponent,
     TooltipComponent,
+    DatePickerComponent,
+    DatepickerComponent,
+    ControlPickerComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })

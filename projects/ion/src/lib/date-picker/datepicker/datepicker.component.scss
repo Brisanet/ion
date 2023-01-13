@@ -1,0 +1,9 @@
+@import '../../../styles/index.scss';
+
+.container-calendar {
+  max-width: 312px;
+  min-height: 304px;
+  background-color: $neutral-1;
+  padding: 24px;
+  border-radius: 8px;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<ion-icon
+  type="calendar"
+  size="16"
+  (click)="toggleVisibleCalendar(true)"
+></ion-icon>
+<div
+  class="container-calendar"
+  *ngIf="showDatepicker"
+  data-testid="container-calendar"
+>
+  <div class="header">
+    <ion-control-picker
+      [month]="currentMonth"
+      [year]="currentYear"
+      (controlPickerEvent)="events($event)"
+    ></ion-control-picker>
+  </div>
+  <div class="content">datepicker</div>
+  <footer>botoes</footer>
+</div>
