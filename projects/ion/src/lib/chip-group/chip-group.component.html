@@ -8,7 +8,7 @@
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
     [selected]="chip.selected"
-    [showDropdown]="chip.selected"
+    [showDropdown]="chip.selected && chip.options"
     [size]="chip.size || size"
     [options]="chip.options"
     [icon]="chip.icon"

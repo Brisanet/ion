@@ -12,6 +12,7 @@ export interface ChipGroupProps {
   disabled?: boolean;
   size?: ChipSize;
   events?: EventEmitter<ChipEvent>;
+  selected: EventEmitter<ChipInGroup>;
   direction?: DirectionType;
 }
 
@@ -26,7 +27,7 @@ interface RightBadge {
 }
 
 @Component({
-  selector: 'ion-tab-group',
+  selector: 'ion-chip-group',
   templateUrl: './chip-group.component.html',
   styleUrls: ['./chip-group.component.scss'],
 })

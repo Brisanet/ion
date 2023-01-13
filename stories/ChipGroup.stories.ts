@@ -22,7 +22,16 @@ for (let index = 1; index <= 8; index++) {
   chips.push({
     label: 'Chip ' + index,
     selected: false,
+  });
+}
+
+const chipsWithOptions = [];
+for (let index = 1; index <= 8; index++) {
+  chipsWithOptions.push({
+    label: 'Chip ' + index,
+    selected: false,
     options: [{ label: 'item ' + index }, { label: 'item ' + (index + 1) }],
+    multiple: index % 2 === 0 ? true : false,
   });
 }
 
@@ -38,6 +47,30 @@ Basic.args = {
   chips,
 };
 
+export const SelectedByDefault = Template.bind({});
+SelectedByDefault.args = {
+  chips: [
+    {
+      label: 'Chip 1',
+      selected: true,
+    },
+    {
+      label: 'Chip 2',
+      selected: false,
+    },
+    {
+      label: 'Chip 2',
+      selected: false,
+    },
+  ],
+};
+
+export const disableDefault = Template.bind({});
+disableDefault.args = {
+  chips,
+  disabled: true,
+};
+
 export const smallSize = Template.bind({});
 smallSize.args = {
   chips,
@@ -48,4 +81,30 @@ export const mediumSize = Template.bind({});
 mediumSize.args = {
   chips,
   size: 'md',
+};
+
+export const differentSizes = Template.bind({});
+differentSizes.args = {
+  chips: [
+    {
+      label: 'Chip 1',
+      selected: false,
+      size: 'sm',
+    },
+    {
+      label: 'Chip 2',
+      selected: false,
+      size: 'md',
+    },
+    {
+      label: 'Chip 2',
+      selected: false,
+      size: 'sm',
+    },
+  ],
+};
+
+export const WithDropdownWithMultiple = Template.bind({});
+WithDropdownWithMultiple.args = {
+  chips: chipsWithOptions,
 };
