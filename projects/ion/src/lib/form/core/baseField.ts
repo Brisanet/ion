@@ -11,6 +11,7 @@ export abstract class FormField {
   show: boolean;
   disabled: boolean;
   size: number;
+  type: string;
 
   formControl: AbstractControl;
 

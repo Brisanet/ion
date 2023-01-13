@@ -1,12 +1,17 @@
 <h1>Formulário</h1>
 <form [formGroup]="formGroup" #formContainer>
   <ng-container *ngFor="let field of config">
-    <ion-input
-      *ngIf="formGroup.controls[field.key]"
-      [placeholder]="field.placeholder"
-      [iconInput]="field.icon"
-      [formControlName]="field.key"
-    ></ion-input>
+    <div *ngIf="field.type === 'text' && formGroup.controls[field.key]">
+      <label [for]="field.key">
+        {{ field.label }}
+      </label>
+      <ion-input
+        [key]="field.key"
+        [placeholder]="field.placeholder"
+        [iconInput]="field.icon"
+        [formControlName]="field.key"
+      ></ion-input>
+    </div>
     <span>Value: {{ formGroup.controls[field.key]?.value }} | </span>
     <span>Valid: {{ formGroup.controls[field.key]?.valid }} | </span>
     <span>Disabled: {{ formGroup.controls[field.key]?.disabled }}</span>

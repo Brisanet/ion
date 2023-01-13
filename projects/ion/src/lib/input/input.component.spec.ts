@@ -157,43 +157,49 @@ describe('InputComponent', () => {
   });
 });
 
+// ! tests below needs improvements!!!
 @Component({
   template: `
     <form [formGroup]="formGroup">
-      <ion-input formControlName="name"></ion-input>
+      <ion-input formControlName="name" key="name"></ion-input>
+      <ion-input formControlName="email" key="email"></ion-input>
     </form>
   `,
 })
 class HostInputComponent {
   formGroup = new FormGroup({
     name: new FormControl(''),
+    email: new FormControl({ value: '', disabled: true }),
   });
 }
 
 const sutHost = async (
   props: Partial<HostInputComponent> = {}
-): Promise<void> => {
-  await render(HostInputComponent, {
+): Promise<Element> => {
+  const { container } = await render(HostInputComponent, {
     componentProperties: props,
     declarations: [InputComponent, IonIconComponent],
     imports: [CommonModule, FormsModule, ReactiveFormsModule],
   });
+  return container;
 };
 
 describe('InputComponent - Angular Forms', () => {
-  let input;
+  let container;
 
   beforeEach(async () => {
-    await sutHost({});
-    input = screen.getByRole('textbox');
+    container = await sutHost({});
   });
 
   it('should render input', () => {
-    expect(input).toBeInTheDocument();
+    expect(container.querySelector('#name')).toBeInTheDocument();
   });
   it('should change value when typing', () => {
     const value = 'Beyoncé';
-    userEvent.type(input, value);
-    expect(input).toHaveValue(value);
+    userEvent.type(container.querySelector('#name'), value);
+    expect(container.querySelector('#name')).toHaveValue(value);
+  });
+  it('should render component disabled', () => {
+    expect(container.querySelector('#email')).toBeDisabled();
   });
 });

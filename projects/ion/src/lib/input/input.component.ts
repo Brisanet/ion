@@ -8,6 +8,7 @@ export type IconDirection = 'left' | 'right';
 export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
+  key?: string;
   placeholder?: string;
   button?: string;
   iconInput?: string;
@@ -37,6 +38,7 @@ export interface IonInputProps {
   ],
 })
 export class InputComponent implements ControlValueAccessor {
+  @Input() key = '';
   @Input() placeholder?: string;
   @Input() button = 'Button';
   @Input() iconInput: IconType;
