@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeType } from '../badge/badge.component';
 import { ChipSize, IconDirection, IonChipProps } from '../chip/chip.component';
-import { DirectionType } from '../core/types';
 
 export interface ChipInGroup extends IonChipProps {
   selected?: boolean;
@@ -13,7 +12,6 @@ export interface ChipGroupProps {
   size?: ChipSize;
   events?: EventEmitter<ChipEvent>;
   selected: EventEmitter<ChipInGroup>;
-  direction?: DirectionType;
 }
 
 interface ChipEvent {
@@ -33,7 +31,6 @@ interface RightBadge {
 })
 export class ChipGroupComponent {
   @Input() chips: ChipInGroup[];
-  @Input() direction: DirectionType = 'horizontal';
   @Input() size?: ChipSize = 'sm';
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';

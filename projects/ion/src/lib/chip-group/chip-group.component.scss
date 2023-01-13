@@ -2,12 +2,3 @@
   display: flex;
   gap: 6px;
 }
-
-.chip-group-column-inner {
-  flex-direction: column;
-
-  ion-chip {
-    display: flex !important;
-    flex-direction: row !important;
-  }
-}

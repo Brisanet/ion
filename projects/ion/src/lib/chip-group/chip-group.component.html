@@ -1,8 +1,4 @@
-<div
-  data-testid="ion-chip-group"
-  class="chip-group"
-  [class.chip-group-column-inner]="direction === 'vertical'"
->
+<div data-testid="ion-chip-group" class="chip-group">
   <ion-chip
     *ngFor="let chip of chips; index as i"
     [label]="chip.label"
