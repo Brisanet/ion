@@ -33,4 +33,12 @@
       ></ion-icon>
     </div>
   </div>
+  <ion-button
+    *ngIf="clearSelectedOp"
+    (click)="clearOptions()"
+    label="Limpar"
+    type="secondary"
+    expand="true"
+    iconType="trash"
+  ></ion-button>
 </div>

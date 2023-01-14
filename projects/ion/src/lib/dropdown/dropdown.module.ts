@@ -4,10 +4,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
-  declarations: [DropdownComponent, IonIconComponent, InputComponent],
-  imports: [CommonModule, FormsModule],
+  declarations: [],
+  imports: [CommonModule, FormsModule, ButtonModule],
   exports: [DropdownComponent, IonIconComponent, InputComponent],
 })
 export class DropdownModule {}
