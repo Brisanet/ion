@@ -9,6 +9,7 @@ import { TextField } from '../core/textField';
   template: `
     <div>
       <ion-form [formGroup]="formGroup" [config]="formConfig"></ion-form>
+      <button (click)="consoleModel()">Consolar model</button>
     </div>
   `,
 })
@@ -44,7 +45,9 @@ export class FormStoryComponent implements AfterViewInit {
     }),
   ];
 
-  public model = {};
+  consoleModel(): void {
+    console.log(this.formGroup.value);
+  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
