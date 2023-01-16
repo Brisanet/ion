@@ -20,14 +20,16 @@
       [attr.placeholder]="placeholder"
       class="my-input"
       [disabled]="disabled"
-      [ngModel]="value"
+      [(ngModel)]="value"
       (ngModelChange)="onChange($event)"
       data-testid="input-element"
+      (focus)="setIsInFocus(true)"
+      (blur)="setIsInFocus(false)"
     />
 
     <ion-icon
       data-testid="icon-right"
-      *ngIf="iconDirection === 'right'"
+      *ngIf="!isClearButtonVisible()"
       [type]="iconInput"
       size="20"
     >
@@ -49,7 +51,7 @@
     >
     </ion-icon>
     <button
-      *ngIf="clearButton"
+      *ngIf="isClearButtonVisible()"
       data-testid="clear-button"
       class="clearButton"
       (click)="clearInput(); input.value = ''"
