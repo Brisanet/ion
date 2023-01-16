@@ -1,17 +1,33 @@
 <h1>Formulário</h1>
 <form [formGroup]="formGroup" #formContainer>
   <ng-container *ngFor="let field of config">
-    <div *ngIf="field.type === 'text' && formGroup.controls[field.getKey()]">
-      <label [for]="field.getKey()">
-        {{ field.label }}
-      </label>
-      <ion-input
-        [key]="field.getKey()"
-        [placeholder]="field.placeholder"
-        [iconInput]="field.icon"
-        [formControlName]="field.getKey()"
-      ></ion-input>
-    </div>
+    <span [ngSwitch]="field.type">
+      <div *ngSwitchCase="'text'">
+        <div *ngIf="formGroup.controls[field.getKey()]">
+          <label [for]="field.getKey()">
+            {{ field.label }}
+          </label>
+          <ion-input
+            [key]="field.getKey()"
+            [placeholder]="field.placeholder"
+            [iconInput]="field.icon"
+            [formControlName]="field.getKey()"
+          ></ion-input>
+        </div>
+      </div>
+      <div *ngSwitchCase="'textarea'">
+        <div *ngIf="formGroup.controls[field.getKey()]">
+          <label [for]="field.getKey()">
+            {{ field.label }}
+          </label>
+          <ion-input-area
+            [key]="field.getKey()"
+            [placeholder]="field.placeholder"
+            [formControlName]="field.getKey()"
+          ></ion-input-area>
+        </div>
+      </div>
+    </span>
 
     <div
       *ngIf="

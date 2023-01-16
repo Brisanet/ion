@@ -22,7 +22,6 @@ export interface IonInputProps {
   value?: string;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
-  formControlName?: string;
 }
 
 @Component({

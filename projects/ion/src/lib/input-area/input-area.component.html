@@ -1,9 +1,11 @@
 <textarea
   data-testid="input-area"
+  [id]="key"
+  [attr.name]="key"
   [cols]="cols"
   [rows]="rows"
   [disabled]="disabled"
   [ngModel]="value"
-  (ngModelChange)="onChange($event)"
+  (ngModelChange)="writeValue($event)"
   [attr.placeholder]="placeholder"
 ></textarea>

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
 import { FormField } from '../core/baseField';
+import { TextAreaField } from '../core/textAreaField';
 import { TextField } from '../core/textField';
 
 @Component({
@@ -23,8 +24,15 @@ export class FormStoryComponent implements AfterViewInit {
     validators: [Validators.minLength(3)],
   });
 
+  description = new TextAreaField({
+    key: 'description',
+    label: 'Descrição',
+    placeholder: 'Escreva algo...',
+  });
+
   public formConfig: FormField[] = [
     this.fieldName,
+    this.description,
     // generating this way, you'll not be able to change properties
     new TextField({
       key: 'email',

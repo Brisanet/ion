@@ -1,6 +1,9 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface IonInputAreaProps {
+  key?: string;
   cols?: string;
   rows?: string;
   disabled?: boolean;
@@ -13,8 +16,16 @@ export interface IonInputAreaProps {
   selector: 'ion-input-area',
   templateUrl: './input-area.component.html',
   styleUrls: ['./input-area.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputAreaComponent,
+      multi: true,
+    },
+  ],
 })
-export class InputAreaComponent {
+export class InputAreaComponent implements ControlValueAccessor {
+  @Input() key!: string;
   @Input() cols = '30';
   @Input() rows = '5';
   @Input() disabled = false;
@@ -22,7 +33,24 @@ export class InputAreaComponent {
   @Input() placeholder?: string;
   @Output() valueChange = new EventEmitter<string>();
 
-  onChange(value: string): void {
+  onTouch = () => {};
+
+  onChange = (value: string) => {};
+
+  writeValue(value: string): void {
+    this.onChange(value);
     this.valueChange.emit(value);
+  }
+
+  registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn: () => void): void {
+    this.onTouch = fn;
+  }
+
+  setDisabledState(disabled: boolean): void {
+    this.disabled = disabled;
   }
 }

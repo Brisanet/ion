@@ -2,6 +2,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { FormComponent } from '../projects/ion/src/lib/form/form.component';
 import { FormStoryComponent } from '../projects/ion/src/lib/form/mock/formStory.component';
+import { InputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { IonIconComponent } from '../projects/ion/src/public-api';
 
@@ -11,6 +12,7 @@ export default {
     moduleMetadata({
       declarations: [
         InputComponent,
+        InputAreaComponent,
         IonIconComponent,
         FormComponent,
         FormStoryComponent,
