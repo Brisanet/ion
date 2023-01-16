@@ -9,18 +9,20 @@ import { FormField } from './core/baseField';
 })
 export class FormComponent implements OnInit {
   @Input() config: FormField[];
-
-  public formGroup = this.fb.group({});
+  @Input() formGroup = this.fb.group({});
 
   constructor(private fb: FormBuilder) {}
 
   createForm(): void {
     this.config.forEach((field) => {
       this.formGroup.addControl(
-        field.key,
-        this.fb.control({ value: '', disabled: field.disabled })
+        field.getKey(),
+        this.fb.control(
+          { value: '', disabled: field.getDisabled() },
+          field.getValidators()
+        )
       );
-      field.setFormControl(this.formGroup.controls[field.key]);
+      field.setFormControl(this.formGroup.controls[field.getKey()]);
     });
   }
 

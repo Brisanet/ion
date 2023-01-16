@@ -1,28 +1,33 @@
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
 export interface IFormField {
   key: string;
   disabled?: boolean;
   show?: boolean;
   size?: number;
+  required?: boolean;
+  validators?: ValidatorFn[];
 }
 
 export abstract class FormField {
   show: boolean;
-  disabled: boolean;
   size: number;
   type: string;
-
+  required: boolean;
   formControl: AbstractControl;
 
-  constructor(readonly key: string, disabled = false, show = true, size = 4) {
+  constructor(
+    private readonly key: string,
+    private readonly disabled = false,
+    show = true,
+    size = 4,
+    required = false,
+    private readonly validators = []
+  ) {
     this.show = show;
-    this.disabled = disabled;
     this.size = size;
-  }
-
-  getKey(): string {
-    return this.key;
+    this.required = required;
+    this.validators = validators;
   }
 
   setFormControl(control: AbstractControl): void {
@@ -33,5 +38,21 @@ export abstract class FormField {
     value && this.formControl
       ? this.formControl.disable()
       : this.formControl.enable();
+    this.formControl.updateValueAndValidity();
+  }
+
+  getKey(): string {
+    return this.key;
+  }
+
+  getDisabled(): boolean {
+    return this.disabled;
+  }
+
+  getValidators(): ValidatorFn[] {
+    if (this.required) {
+      this.validators.push(Validators.required);
+    }
+    return this.validators;
   }
 }

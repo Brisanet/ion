@@ -1,4 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
+import { FormGroup, Validators } from '@angular/forms';
 import { FormField } from '../core/baseField';
 import { TextField } from '../core/textField';
 
@@ -6,17 +7,20 @@ import { TextField } from '../core/textField';
   selector: 'form-story',
   template: `
     <div>
-      <ion-form [config]="formConfig"></ion-form>
+      <ion-form [formGroup]="formGroup" [config]="formConfig"></ion-form>
     </div>
   `,
 })
 export class FormStoryComponent implements AfterViewInit {
+  formGroup = new FormGroup({});
+
   // if you generate your field this way, you can access the methods directly (and change properties)
   fieldName = new TextField({
     key: 'name',
     label: 'Nome',
     required: true,
     placeholder: 'Insira seu nome...',
+    validators: [Validators.minLength(3)],
   });
 
   public formConfig: FormField[] = [
@@ -25,9 +29,10 @@ export class FormStoryComponent implements AfterViewInit {
     new TextField({
       key: 'email',
       label: 'E-mail',
-      required: true,
+      required: false,
       placeholder: 'Insira seu e-mail',
       icon: 'pencil',
+      validators: [Validators.email],
     }),
   ];
 
@@ -37,5 +42,8 @@ export class FormStoryComponent implements AfterViewInit {
     setTimeout(() => {
       this.fieldName.setDisable(true);
     }, 3000);
+    setTimeout(() => {
+      this.formGroup.controls.name.enable();
+    }, 5000);
   }
 }
