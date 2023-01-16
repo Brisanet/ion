@@ -15,6 +15,7 @@
       size="20"
     ></ion-icon>
     <input
+      #input
       [type]="inputType"
       [attr.placeholder]="placeholder"
       class="my-input"
@@ -47,7 +48,16 @@
       size="16"
     >
     </ion-icon>
+    <button
+      *ngIf="clearButton"
+      data-testid="clear-button"
+      class="clearButton"
+      (click)="clearInput(); input.value = ''"
+    >
+      <ion-icon type="close-rounded" size="18"></ion-icon>
+    </button>
   </div>
+
   <button
     data-testid="input-button"
     *ngIf="inputButton"

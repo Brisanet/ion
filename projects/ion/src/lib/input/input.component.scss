@@ -183,6 +183,22 @@ button {
   }
 }
 
+.clearButton {
+  border: none;
+  border-radius: 8px;
+  padding: 4px;
+
+  &:hover {
+    background-color: $primary-1;
+  }
+
+  & ion-icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+    }
+  }
+}
+
 .IconButton {
   border-radius: 8px 0px 0px 8px;
 }

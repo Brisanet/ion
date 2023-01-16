@@ -17,6 +17,7 @@ export interface IonInputProps {
   inputIconButton?: boolean;
   clickButton?: EventEmitter<SafeAny>;
   value?: string;
+  clearButton?: boolean;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
 }
@@ -38,6 +39,7 @@ export class InputComponent {
   @Input() inputIconButton? = false;
   @Input() value = '';
   @Input() inputType: InputType = 'text';
+  @Input() clearButton = false;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
@@ -47,5 +49,9 @@ export class InputComponent {
 
   public handleClick(): void {
     this.clickButton.emit();
+  }
+
+  public clearInput(): void {
+    this.onChange(this.value);
   }
 }

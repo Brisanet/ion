@@ -1,3 +1,4 @@
+import { IconType } from './../projects/ion/src/lib/icon/icon.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
@@ -82,6 +83,22 @@ InputText.args = {
 export const InputPassword = Template.bind({});
 InputPassword.args = {
   inputType: 'password',
+  clearButton: true,
+};
+
+export const InputWithSearch = Template.bind({});
+InputWithSearch.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'right',
+};
+
+export const InputSearchWithClearButton = Template.bind({});
+InputSearchWithClearButton.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'left',
+  clearButton: true,
 };
 
 export const Disabled = Template.bind({});
