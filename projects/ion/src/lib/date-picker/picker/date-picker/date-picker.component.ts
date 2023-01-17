@@ -1,4 +1,11 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  DoCheck,
+} from '@angular/core';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import { Day } from '../../core/day';
@@ -12,6 +19,11 @@ type DateField = {
   label: string;
 };
 
+export type UpdateLabelCalendar = {
+  month: string;
+  year: string;
+};
+
 export interface IonDatePickerProps {
   currentDate?: string;
   lang?: string;
@@ -22,10 +34,28 @@ export interface IonDatePickerProps {
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatePickerComponent implements OnInit {
+export class DatePickerComponent implements OnInit, DoCheck {
   @Input() currentDate: IonDatePickerProps['currentDate'];
   @Input() lang: IonDatePickerProps['lang'];
+  @Input() set goToMonthInCalendar(month: string) {
+    if (this.calendar) {
+      this.calendar.goToDate(Number(month) + 1, this.calendar.year);
+      this.tempRenderDays();
+    }
+  }
+  @Input() set goToYearInCalendar(year: string) {
+    if (this.calendar) {
+      this.calendar.goToDate(this.calendar.monthNumber, Number(year));
+      this.tempRenderDays();
+    }
+  }
+  @Input() calendarControlAction:
+    | 'previousYear'
+    | 'previousMonth'
+    | 'nextMonth'
+    | 'nextYear';
   @Output() events = new EventEmitter<DateEmitter>();
+  @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
   selectedDate: Day;
   monthYear: string;
@@ -74,6 +104,13 @@ export class DatePickerComponent implements OnInit {
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
     });
+
+    setTimeout(() => {
+      this.updateLabelCalendar.emit({
+        month: this.calendar.month.name,
+        year: String(this.calendar.year),
+      });
+    }, 200);
   }
 
   isDayMonthCurrent(day: Day): boolean {
@@ -149,11 +186,11 @@ export class DatePickerComponent implements OnInit {
       date: this.selectedDate,
       label: this.selectedDate.format('YYYY-MM-DD'),
     };
-    this.emmitEvent();
+    this.emitEvent();
     this.setDateInCalendar();
   }
 
-  emmitEvent(): void {
+  emitEvent(): void {
     this.events.emit({ date: this.dateField.label });
   }
 
@@ -173,5 +210,43 @@ export class DatePickerComponent implements OnInit {
       this.selectedDate.monthNumber,
       this.selectedDate.year
     );
+  }
+
+  previousYear(): void {
+    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
+    this.tempRenderDays();
+  }
+
+  previousMonth(): void {
+    this.calendar.goToPreviousMonth();
+    this.tempRenderDays();
+  }
+
+  nextMonth(): void {
+    this.calendar.goToNextMonth();
+    this.tempRenderDays();
+  }
+
+  nextYear(): void {
+    this.calendar.goToNextYear(this.calendar.month.number - 1);
+    this.tempRenderDays();
+  }
+
+  ngDoCheck(): void {
+    if (this.calendarControlAction === 'previousYear') {
+      this.previousYear();
+    }
+
+    if (this.calendarControlAction === 'previousMonth') {
+      this.previousMonth();
+    }
+
+    if (this.calendarControlAction === 'nextMonth') {
+      this.nextMonth();
+    }
+
+    if (this.calendarControlAction === 'nextYear') {
+      this.nextYear();
+    }
   }
 }

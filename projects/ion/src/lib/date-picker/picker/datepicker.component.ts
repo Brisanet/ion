@@ -1,18 +1,22 @@
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { UpdateLabelCalendar } from './date-picker/date-picker.component';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'ion-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
 })
-export class DatepickerComponent implements OnInit, AfterViewInit {
+export class DatepickerComponent implements AfterViewInit {
   @Input() pickerMode: 'datepicker' | 'rangepicker' = 'datepicker';
 
   showDatepicker = false;
-  currentMonth = '';
-  currentYear = '2022';
+  calendarMonth: string;
+  calendarYear: string;
+  currentMonth: string;
+  currentYear: string;
   currentDate: string;
   months = [
     'Janeiro',
@@ -28,14 +32,11 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
     'Novembro',
     'Dezembro',
   ];
-
+  calendarControlAction: string;
+  goToMonth: string;
+  goToYear: string;
   constructor() {
     //
-  }
-
-  ngOnInit(): void {
-    this.currentMonth = this.months[0];
-    this.currentYear = '2022';
   }
 
   toggleVisibleCalendar(visible: boolean): void {
@@ -44,9 +45,9 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     document.addEventListener('mouseup', (e: SafeAny) => {
-      const calendarContaiener =
+      const calendarContainer =
         document.getElementsByClassName('container-calendar')[0];
-      if (calendarContaiener && !calendarContaiener.contains(e.target)) {
+      if (calendarContainer && !calendarContainer.contains(e.target)) {
         this.toggleVisibleCalendar(false);
       }
     });
@@ -55,10 +56,23 @@ export class DatepickerComponent implements OnInit, AfterViewInit {
   events({ event }: ControlEvent): void {
     if (event.type === 'changeMonth') {
       this.currentMonth = this.months[event.value];
+      this.goToMonth = event.value;
     }
 
     if (event.type === 'changeYear') {
-      this.currentYear = event.value;
+      this.goToYear = event.value;
     }
+
+    if (event.type !== 'changeYear' && event.type !== 'changeMonth') {
+      this.calendarControlAction = event.type;
+      setTimeout(() => {
+        this.calendarControlAction = undefined;
+      }, 200);
+    }
+  }
+
+  updateLabelCalendar({ month, year }: UpdateLabelCalendar): void {
+    this.calendarMonth = month[0].toLocaleUpperCase() + month.substring(1);
+    this.calendarYear = year;
   }
 }

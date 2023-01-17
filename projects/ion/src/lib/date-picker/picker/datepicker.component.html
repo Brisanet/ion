@@ -11,15 +11,20 @@
 >
   <div class="header">
     <ion-control-picker
-      [month]="currentMonth"
-      [year]="currentYear"
+      [month]="calendarMonth"
+      [year]="calendarYear"
       (controlPickerEvent)="events($event)"
     ></ion-control-picker>
   </div>
   <div class="content">
-    <!-- <date-picker 
-      *ngIf="pickerMode==='datepicker'"
-    ></date-picker> -->
+    <date-picker
+      *ngIf="pickerMode === 'datepicker'"
+      [currentDate]="currentDate"
+      [calendarControlAction]="calendarControlAction"
+      [goToMonthInCalendar]="goToMonth"
+      [goToYearInCalendar]="goToYear"
+      (updateLabelCalendar)="updateLabelCalendar($event)"
+    ></date-picker>
   </div>
   <footer *ngIf="pickerMode === 'rangepicker'">botoes</footer>
 </div>

@@ -29,7 +29,7 @@
       ionTooltipPosition="bottomCenter"
       (click)="toogleVisibleContainerToChooseTheMonth(true)"
     >
-      {{ month }}
+      {{ month || '' }}
     </label>
     -
     <label
@@ -39,7 +39,7 @@
       ionTooltipPosition="bottomCenter"
       (click)="toogleVisibleContainerToChooseTheYear(true)"
     >
-      {{ year }}
+      {{ year || '' }}
     </label>
   </div>
   <div class="container-buttons">
