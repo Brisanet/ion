@@ -150,45 +150,55 @@ describe('InputComponent', () => {
     });
   });
 
-  // describe('Clear Button events', () => {
-  //   const mockFn = jest.fn();
-  //   const value = 'input-with-clear-button';
+  describe('Clear Button events', () => {
+    const mockFn = jest.fn();
+    const value = 'input-with-clear-button';
 
-  //   beforeEach(async () => {
-  //     await sut({
-  //       valueChange: { emit: mockFn } as SafeAny,
-  //       clearButton: true,
-  //     });
-  //   });
+    beforeEach(async () => {
+      await sut({
+        valueChange: { emit: mockFn } as SafeAny,
+        clearButton: true,
+      });
+    });
 
-  //   afterEach(async () => {
-  //     mockFn.mockClear();
-  //   });
+    afterEach(async () => {
+      mockFn.mockClear();
+    });
 
-  //   it('should render a clear button when informed and input is in focus', async () => {
-  //     const clearButton = screen.getByTestId('clear-button');
-  //     expect(clearButton).toBeInTheDocument();
-  //   });
+    it('should render the clear button when informed and input is in focus', async () => {
+      fireEvent.focus(screen.getByTestId('input-element'));
+      const clearButton = screen.getByTestId('clear-button');
+      expect(clearButton).toBeInTheDocument();
+    });
 
-  //   it('should change value to empty when clear button press', async () => {
-  //     const clearButton = screen.getByTestId('clear-button');
-  //     userEvent.type(screen.getByTestId('input-element'), value);
-  //     fireEvent.click(clearButton);
-  //     expect(screen.getByTestId('input-element')).toHaveValue('');
-  //   });
+    it('should render the clear button when informed and input have value', async () => {
+      userEvent.type(screen.getByTestId('input-element'), value);
+      fireEvent.blur(screen.getByTestId('input-element'));
+      const clearButton = screen.getByTestId('clear-button');
+      expect(clearButton).toBeInTheDocument();
+    });
 
-  //   it('should emit valueChange when clear button press', async () => {
-  //     const clearButton = screen.getByTestId('clear-button');
-  //     userEvent.type(screen.getByTestId('input-element'), value);
-  //     fireEvent.click(clearButton);
-  //     expect(mockFn).toHaveBeenCalled();
-  //   });
+    it('should not render the clear button when input does not have value and is not in focus', async () => {
+      const clearButton = screen.queryByTestId('clear-button');
+      expect(clearButton).toBeNull();
+    });
 
-  //   it('should emit empty value when clear button press', async () => {
-  //     const clearButton = screen.getByTestId('clear-button');
-  //     userEvent.type(screen.getByTestId('input-element'), value);
-  //     fireEvent.click(clearButton);
-  //     expect(mockFn).toHaveBeenLastCalledWith('');
-  //   });
-  // });
+    it('should change value to empty when clear button press', async () => {
+      userEvent.type(screen.getByTestId('input-element'), value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(screen.getByTestId('input-element')).toHaveValue('');
+    });
+
+    it('should emit valueChange when clear button press', async () => {
+      userEvent.type(screen.getByTestId('input-element'), value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenCalled();
+    });
+
+    it('should emit empty value when clear button press', async () => {
+      userEvent.type(screen.getByTestId('input-element'), value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenLastCalledWith('');
+    });
+  });
 });
