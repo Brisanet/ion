@@ -40,8 +40,6 @@ export class DropdownComponent implements AfterViewInit {
   iconSize = 16;
   clearFiltersSelected = false;
 
-  clearSelectedOp = false;
-
   public ngAfterViewInit(): void {
     const widthContainer = window.innerWidth;
     const element = document.getElementById('ion-dropdown');
@@ -81,7 +79,7 @@ export class DropdownComponent implements AfterViewInit {
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );
-    this.clearSelectedOp = true;
+    this.clearFiltersSelected = true;
   }
 
   inputChange(value: string): void {
