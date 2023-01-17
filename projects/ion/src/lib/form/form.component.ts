@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { FormField } from './core/baseField';
+
+export interface FormComponentProps {
+  fields: FormField[];
+  formGroup?: FormGroup;
+}
 
 @Component({
   selector: 'ion-form',
@@ -8,16 +13,14 @@ import { FormField } from './core/baseField';
   styleUrls: ['./form.component.scss'],
 })
 export class FormComponent implements OnInit {
-  @Input() config: FormField[];
-  @Input() formGroup = this.fb.group({});
-
-  constructor(private fb: FormBuilder) {}
+  @Input() fields: FormField[];
+  @Input() formGroup = new FormGroup({});
 
   createForm(): void {
-    this.config.forEach((field) => {
+    this.fields.forEach((field) => {
       this.formGroup.addControl(
         field.getKey(),
-        this.fb.control(
+        new FormControl(
           { value: '', disabled: field.getDisabled() },
           field.getValidators()
         )

@@ -14,7 +14,7 @@ export abstract class FormField {
   size: number;
   type: string;
   required: boolean;
-  formControl: AbstractControl;
+  private formControl: AbstractControl;
 
   constructor(
     private readonly key: string,
@@ -27,7 +27,6 @@ export abstract class FormField {
     this.show = show;
     this.size = size;
     this.required = required;
-    this.validators = validators;
   }
 
   setFormControl(control: AbstractControl): void {

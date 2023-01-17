@@ -3,6 +3,8 @@ import { FormField, IFormField } from './baseField';
 export interface ITextField extends IFormField {
   label: string;
   placeholder: string;
+  cols?: string;
+  rows?: string;
 }
 
 export class TextAreaField extends FormField {

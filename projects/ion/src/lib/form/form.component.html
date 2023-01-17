@@ -1,6 +1,6 @@
 <h1>Formulário</h1>
-<form [formGroup]="formGroup" #formContainer>
-  <ng-container *ngFor="let field of config">
+<form [formGroup]="formGroup" name="form">
+  <ng-container *ngFor="let field of fields">
     <span [ngSwitch]="field.type">
       <div *ngSwitchCase="'text'">
         <div *ngIf="formGroup.controls[field.getKey()]">

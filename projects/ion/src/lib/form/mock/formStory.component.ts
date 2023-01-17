@@ -8,7 +8,7 @@ import { TextField } from '../core/textField';
   selector: 'form-story',
   template: `
     <div>
-      <ion-form [formGroup]="formGroup" [config]="formConfig"></ion-form>
+      <ion-form [formGroup]="formGroup" [fields]="formConfig"></ion-form>
       <button (click)="consoleModel()">Consolar model</button>
     </div>
   `,
@@ -55,6 +55,7 @@ export class FormStoryComponent implements AfterViewInit {
     }, 3000);
     setTimeout(() => {
       this.formGroup.controls.name.enable();
+      this.formGroup.controls.name.setValue('renaissance');
     }, 5000);
   }
 }
