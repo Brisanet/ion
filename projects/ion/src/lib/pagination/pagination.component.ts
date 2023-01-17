@@ -95,18 +95,21 @@ export class PaginationComponent implements OnChanges {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
-
-    const page = this.pages[this.skipEllipsis(pageNumber)];
-    pageNumber == 0 || pageNumber == -1
-      ? (page.selected = false)
-      : (page.selected = true);
-
+    let page: Page;
+    if (this.totalPages() >= 20) {
+      page = this.pages[this.skipEllipsis(pageNumber)];
+      pageNumber === 0 || pageNumber === -1
+        ? (page.selected = false)
+        : (page.selected = true);
+    } else {
+      page = this.pages[pageNumber - 1];
+      page.selected = true;
+    }
     this.events.emit({
       actual: page.page_number,
       itemsPerPage: this.itemsPerPage,
       offset: (page.page_number - 1) * this.itemsPerPage,
     });
-    this.page = page.page_number;
   }
 
   hasPrevious(): boolean {
@@ -142,15 +145,14 @@ export class PaginationComponent implements OnChanges {
 
   private createPages(qtdOfPages: number): void {
     this.pages = [];
-    if (qtdOfPages >= 20) {
-      for (let index = 0; index < qtdOfPages; index++) {
+    for (let index = 0; index < qtdOfPages; index++) {
+      if (qtdOfPages >= 20) {
         this.createEllipsis(index, qtdOfPages);
+      } else {
+        this.defaultPagesCreation(index);
       }
-      return;
     }
-    this.defaultPagesCreation(1);
   }
-
   private createEllipsis(index: number, qtdOfPages: number): void {
     if (index == 1) {
       this.createBothEllipsis(-1);
@@ -202,12 +204,12 @@ export class PaginationComponent implements OnChanges {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      pageNumber < this.currentPage().page_number - 2 ||
-      (pageNumber > this.currentPage().page_number + 2 &&
-        pageNumber !== this.totalPages() &&
-        pageNumber !== 1 &&
-        pageNumber !== -1 &&
-        pageNumber !== 0)
+      (pageNumber < this.currentPage().page_number - 2 ||
+        pageNumber > this.currentPage().page_number + 2) &&
+      pageNumber !== this.totalPages() &&
+      pageNumber !== 1 &&
+      pageNumber !== -1 &&
+      pageNumber !== 0
     );
   }
 }

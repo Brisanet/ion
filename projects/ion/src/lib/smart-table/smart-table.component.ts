@@ -17,11 +17,12 @@ import {
 export interface TableEvent {
   event: EventTable;
   rows_selected?: SafeAny[];
-  change_page: PageEvent;
+  change_page?: PageEvent;
   order?: {
     column: string;
     desc: boolean;
   };
+  data?: SafeAny;
 }
 
 const stateChange = {
@@ -138,6 +139,20 @@ export class SmartTableComponent implements OnInit {
       });
     }
     this.firstLoad = false;
+  }
+
+  public cellEvents(row: SafeAny, column: Column, cell: SafeAny): void {
+    this.events.emit({
+      event: EventTable.CELL_SELECT,
+      change_page: this.pagination,
+      data: {
+        selected_row: row,
+        cell_data: {
+          value: cell,
+          column: column.key,
+        },
+      },
+    });
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {
