@@ -31,7 +31,6 @@ for (let index = 1; index <= 8; index++) {
     label: 'Chip ' + index,
     selected: false,
     options: [{ label: 'item ' + index }, { label: 'item ' + (index + 1) }],
-    multiple: index % 2 === 0 ? true : false,
   });
 }
 
@@ -104,7 +103,13 @@ differentSizes.args = {
   ],
 };
 
+export const WithDropdown = Template.bind({});
+WithDropdown.args = {
+  chips: chipsWithOptions,
+};
+
 export const WithDropdownWithMultiple = Template.bind({});
 WithDropdownWithMultiple.args = {
   chips: chipsWithOptions,
+  multiple: true,
 };
