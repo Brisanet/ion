@@ -42,7 +42,6 @@ export class InputComponent {
   @Input() clearButton = false;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
-  isInFocus = false;
 
   onChange(value: string): void {
     this.valueChange.emit(value);
@@ -57,12 +56,8 @@ export class InputComponent {
     this.onChange(this.value);
   }
 
-  public setIsInFocus(value: boolean): void {
-    this.isInFocus = value;
-  }
-
   public isClearButtonVisible(): boolean {
     if (!this.clearButton) return false;
-    return this.isInFocus || this.value.length > 0;
+    return this.value.length > 0;
   }
 }

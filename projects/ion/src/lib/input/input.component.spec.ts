@@ -152,22 +152,11 @@ describe('InputComponent', () => {
       mockFn.mockClear();
     });
 
-    it('should render the clear button when informed and input is in focus', async () => {
-      fireEvent.focus(screen.getByTestId('input-element'));
-      const clearButton = screen.getByTestId('clear-button');
-      expect(clearButton).toBeInTheDocument();
-    });
-
     it('should render the clear button when informed and input have value', async () => {
       userEvent.type(screen.getByTestId('input-element'), value);
       fireEvent.blur(screen.getByTestId('input-element'));
       const clearButton = screen.getByTestId('clear-button');
       expect(clearButton).toBeInTheDocument();
-    });
-
-    it('should not render the clear button when input does not have value and is not in focus', async () => {
-      const clearButton = screen.queryByTestId('clear-button');
-      expect(clearButton).toBeNull();
     });
 
     it('should change value to empty when clear button press', async () => {
