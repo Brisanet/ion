@@ -29,7 +29,7 @@
 
     <ion-icon
       data-testid="icon-right"
-      *ngIf="!isClearButtonVisible()"
+      *ngIf="!isClearButtonVisible() && iconDirection === 'right'"
       [type]="iconInput"
       size="20"
     >
