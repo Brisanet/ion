@@ -81,27 +81,14 @@ WithCustomSearch.args = {
   },
 };
 
-export const WithCleanSearchInRight = Template.bind({});
-WithCleanSearchInRight.args = {
+export const WithCleanSearch = Template.bind({});
+WithCleanSearch.args = {
   enableSearch: true,
   options,
   searchOptions: {
     inputType: 'text',
     iconInput: 'search',
     iconDirection: 'right',
-    clearButton: true,
-    placeholder: 'Busque por algo...',
-  },
-};
-
-export const WithCleanSearchInLeft = Template.bind({});
-WithCleanSearchInLeft.args = {
-  enableSearch: true,
-  options,
-  searchOptions: {
-    inputType: 'text',
-    iconInput: 'search',
-    iconDirection: 'left',
     clearButton: true,
     placeholder: 'Busque por algo...',
   },
