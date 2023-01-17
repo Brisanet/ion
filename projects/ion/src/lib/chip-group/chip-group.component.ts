@@ -36,6 +36,7 @@ export class ChipGroupComponent {
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() disabled = false;
+  @Input() multiple = false;
 
   @Output() selected = new EventEmitter<ChipInGroup>();
 
