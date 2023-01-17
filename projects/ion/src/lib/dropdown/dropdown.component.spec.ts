@@ -1,6 +1,8 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
+import { BadgeComponent } from '../badge/badge.component';
+import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
@@ -34,7 +36,13 @@ const sut = async (
 }> => {
   await render(DropdownComponent, {
     componentProperties: customParams,
-    declarations: [IonIconComponent, InputComponent],
+    declarations: [
+      ButtonComponent,
+      IonIconComponent,
+      BadgeComponent,
+      InputComponent,
+      ButtonComponent,
+    ],
     imports: [FormsModule],
   });
   return { element: screen.getByTestId('ion-dropdown') };
@@ -74,6 +82,35 @@ describe('DropdownComponent', () => {
     fireEvent.mouseLeave(elementToHover);
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
+  });
+
+  it('should render', async () => {
+    selectEvent.mockClear();
+    const optionToSelect = 0;
+    const elementToSelect = document.getElementById('option-' + optionToSelect);
+    fireEvent.click(elementToSelect);
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+    expect(screen.getAllByTestId('ion-check-selected')).toHaveLength(1);
+    expect(selectEvent).toHaveBeenCalledWith([options[optionToSelect]]);
+  });
+
+  it('should render button to clear filters selected in dropdown', async () => {
+    selectEvent.mockClear();
+    const optionToSelect = 0;
+    const elementToSelect = document.getElementById('option-' + optionToSelect);
+    fireEvent.click(elementToSelect);
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+    expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
+  });
+
+  it('should clear filters selected in dropdown', async () => {
+    selectEvent.mockClear();
+    const optionToSelect = 0;
+    const elementToSelect = document.getElementById('option-' + optionToSelect);
+    fireEvent.click(elementToSelect);
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+    fireEvent.click(screen.getByTestId('buttonClear'));
+    expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
   });
 });
 
