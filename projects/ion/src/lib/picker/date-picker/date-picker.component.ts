@@ -9,28 +9,11 @@ import { ControlEvent } from '../control-picker/control-picker.component';
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatepickerComponent implements AfterViewInit {
-  @Input() pickerMode: 'datepicker' | 'rangepicker' = 'datepicker';
-
+  @Input() currentDate: string;
   showDatepicker = false;
   calendarMonth: string;
   calendarYear: string;
-  currentMonth: string;
-  currentYear: string;
-  currentDate: string;
-  months = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'Julho',
-    'Agosto',
-    'Setembro',
-    'Outubro',
-    'Novembro',
-    'Dezembro',
-  ];
+
   calendarControlAction: string;
   goToMonth: string;
   goToYear: string;
@@ -54,7 +37,6 @@ export class DatepickerComponent implements AfterViewInit {
 
   events({ event }: ControlEvent): void {
     if (event.type === 'changeMonth') {
-      this.currentMonth = this.months[event.value];
       this.goToMonth = event.value;
     }
 

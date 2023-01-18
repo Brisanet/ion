@@ -45,7 +45,7 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
   }
   @Input() set goToYearInCalendar(year: string) {
     if (this.calendar) {
-      this.calendar.goToDate(this.calendar.monthNumber, Number(year));
+      this.calendar.goToDate(this.calendar.month.number, Number(year));
       this.tempRenderDays();
     }
   }
