@@ -57,7 +57,6 @@ export class InputComponent {
   }
 
   public isClearButtonVisible(): boolean {
-    if (!this.clearButton) return false;
-    return this.value.length > 0;
+    return this.clearButton && this.value.length > 0;
   }
 }
