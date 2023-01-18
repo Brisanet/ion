@@ -153,7 +153,7 @@ describe('InputComponent', () => {
     });
 
     it('should render the clear button when informed and input have value', async () => {
-      let input = screen.getByTestId('input-element');
+      const input = screen.getByTestId('input-element');
       userEvent.type(input, value);
       fireEvent.blur(screen.getByTestId('input-element'));
       const clearButton = screen.getByTestId('clear-button');
