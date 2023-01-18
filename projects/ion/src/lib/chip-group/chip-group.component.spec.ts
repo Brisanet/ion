@@ -93,6 +93,16 @@ describe('ChipGroupComponent', () => {
     const element = screen.getByTestId('ion-chip');
     expect(element).toHaveAttribute('disabled');
   });
+});
+
+describe('With Dropdown', () => {
+  it('should selected an item when chip has dropdown', async () => {
+    await sut();
+    const option = mockChips[1].options[0].label;
+    fireEvent.click(screen.getByText(mockChips[1].label));
+    fireEvent.click(screen.getByText(option));
+    expect(screen.queryAllByText(option)).toHaveLength(1);
+  });
 
   it('should keep open only one dropdown per chip-group', async () => {
     const rendered = await sut();
@@ -107,11 +117,25 @@ describe('ChipGroupComponent', () => {
       selected: false,
     });
   });
+});
 
-  it('should selected an item when chip has dropdown', async () => {
-    const option = mockChips[1].options[0].label;
-    fireEvent.click(screen.getByText(mockChips[1].label));
-    fireEvent.click(screen.getByText(option));
-    expect(screen.queryAllByText(option)).toHaveLength(1);
+describe('With Multiple Dropdown', () => {
+  it('should not show badge when dont have item selected', async () => {
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
   });
+  it('should show badge with two results when selected two options', async () => {
+    const rendered = await sut();
+    fireEvent.click(screen.getByText(mockChips[2].label));
+    fireEvent.click(screen.getByText(mockChips[2].options[0].label));
+    fireEvent.click(screen.getByText(mockChips[2].options[1].label));
+    expect(rendered.event).toBeCalledWith(mockChips[2]);
+    expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
+  });
+
+  // it('should keep dropdown open when an option will be selected', async () => {
+  //   const dropdown = screen.getByText(mockChips[2].label);
+  //   fireEvent.click(dropdown);
+  //   fireEvent.click(screen.getByText(mockChips[2].options[0].label));
+  //   expect(dropdown).toHaveClass('chip-selected');
+  // });
 });
