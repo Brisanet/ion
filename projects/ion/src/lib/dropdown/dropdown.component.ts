@@ -38,7 +38,14 @@ export class DropdownComponent implements AfterViewInit {
   @Output() searchChange = new EventEmitter<string>();
 
   iconSize = 16;
-  clearFiltersSelected = false;
+
+  clearFiltersSelected(): boolean {
+    const optionsSelected = [];
+    this.options.forEach((item: DropdownItem) =>
+      item.selected === true ? optionsSelected.push(item.selected) : ''
+    );
+    return optionsSelected.length > 0;
+  }
 
   public ngAfterViewInit(): void {
     const widthContainer = window.innerWidth;
@@ -64,7 +71,7 @@ export class DropdownComponent implements AfterViewInit {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
-    this.clearFiltersSelected = !this.clearFiltersSelected;
+    this.clearFiltersSelected();
   }
 
   select(option: DropdownItem): void {
@@ -75,11 +82,10 @@ export class DropdownComponent implements AfterViewInit {
       this.clearOptions();
     }
     option.selected = !option.selected;
-    this.clearFiltersSelected = option.selected;
+    this.clearFiltersSelected();
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );
-    this.clearFiltersSelected = true;
   }
 
   inputChange(value: string): void {

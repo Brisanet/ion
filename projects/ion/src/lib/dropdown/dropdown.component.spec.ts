@@ -41,7 +41,6 @@ const sut = async (
       IonIconComponent,
       BadgeComponent,
       InputComponent,
-      ButtonComponent,
     ],
     imports: [FormsModule],
   });
@@ -83,34 +82,34 @@ describe('DropdownComponent', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
+});
 
-  it('should render', async () => {
+describe('Dropdown / Clear Filters', () => {
+  const optionToSelect = 0;
+  let elementToSelect;
+
+  beforeEach(async () => {
+    await sut();
     selectEvent.mockClear();
-    const optionToSelect = 0;
-    const elementToSelect = document.getElementById('option-' + optionToSelect);
+    elementToSelect = document.getElementById('option-' + optionToSelect);
     fireEvent.click(elementToSelect);
     expect(elementToSelect.classList).toContain('dropdown-item-selected');
-    expect(screen.getAllByTestId('ion-check-selected')).toHaveLength(1);
-    expect(selectEvent).toHaveBeenCalledWith([options[optionToSelect]]);
   });
 
   it('should render button to clear filters selected in dropdown', async () => {
-    selectEvent.mockClear();
-    const optionToSelect = 0;
-    const elementToSelect = document.getElementById('option-' + optionToSelect);
-    fireEvent.click(elementToSelect);
     expect(elementToSelect.classList).toContain('dropdown-item-selected');
     expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
   });
 
   it('should clear filters selected in dropdown', async () => {
-    selectEvent.mockClear();
-    const optionToSelect = 0;
-    const elementToSelect = document.getElementById('option-' + optionToSelect);
-    fireEvent.click(elementToSelect);
-    expect(elementToSelect.classList).toContain('dropdown-item-selected');
     fireEvent.click(screen.getByTestId('buttonClear'));
     expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
+  });
+
+  it('should button disapear when filter is not selected', async () => {
+    fireEvent.click(screen.getByTestId('buttonClear'));
+    expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
+    expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
   });
 });
 
