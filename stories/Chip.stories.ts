@@ -8,7 +8,6 @@ import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badg
 import { FormsModule } from '@angular/forms';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { DropdownModule } from 'projects/ion/src/lib/dropdown/dropdown.module';
 
 export default {
   title: 'Ion/Navigation/Chips',
