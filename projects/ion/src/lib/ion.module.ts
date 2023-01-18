@@ -37,7 +37,7 @@ import { InputComponent } from './input/input.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { ControlPickerComponent } from './picker/control-picker/control-picker.component';
-import { DatepickerComponent } from './picker/date-picker/datepicker.component';
+import { DatepickerComponent } from './picker/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [

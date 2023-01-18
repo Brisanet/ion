@@ -4,9 +4,9 @@ import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
 
 @Component({
-  selector: 'ion-datepicker',
-  templateUrl: './datepicker.component.html',
-  styleUrls: ['./datepicker.component.scss'],
+  selector: 'ion-date-picker',
+  templateUrl: './date-picker.component.html',
+  styleUrls: ['./date-picker.component.scss'],
 })
 export class DatepickerComponent implements AfterViewInit {
   @Input() pickerMode: 'datepicker' | 'rangepicker' = 'datepicker';
