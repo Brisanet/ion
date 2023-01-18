@@ -95,6 +95,10 @@ export class PaginationComponent implements OnChanges {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
+     this.selectedPageCondition(pageNumber)
+  }
+
+  selectedPageCondition(pageNumber: number) {
     let page: Page;
     if (this.totalPages() >= 20) {
       page = this.pages[this.skipEllipsis(pageNumber)];
@@ -149,26 +153,26 @@ export class PaginationComponent implements OnChanges {
       if (qtdOfPages >= 20) {
         this.createEllipsis(index, qtdOfPages);
       } else {
-        this.defaultPagesCreation(index);
+        this.pages.push({
+          selected: false,
+          page_number: index + 1,
+        });
       }
     }
   }
+
   private createEllipsis(index: number, qtdOfPages: number): void {
     if (index == 1) {
       this.createBothEllipsis(-1);
     } else if (index == qtdOfPages - 1) {
       this.createBothEllipsis(0);
     }
-    this.defaultPagesCreation(index);
-  }
-
-  private defaultPagesCreation(index: number): number {
-    return this.pages.push({
+    this.pages.push({
       selected: false,
       page_number: index + 1,
     });
   }
-
+ 
   createBothEllipsis(number: number): number {
     return this.pages.push({
       selected: false,
