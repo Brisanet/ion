@@ -1,8 +1,7 @@
-import { UpdateLabelCalendar } from './date-picker/date-picker.component';
+import { UpdateLabelCalendar } from './calendar/date-picker.component';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
-import { from } from 'rxjs';
 
 @Component({
   selector: 'ion-datepicker',
@@ -67,7 +66,7 @@ export class DatepickerComponent implements AfterViewInit {
       this.calendarControlAction = event.type;
       setTimeout(() => {
         this.calendarControlAction = undefined;
-      }, 200);
+      }, 0);
     }
   }
 

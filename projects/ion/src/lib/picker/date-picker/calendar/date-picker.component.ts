@@ -110,7 +110,7 @@ export class DatePickerComponent implements OnInit, DoCheck {
         month: this.calendar.month.name,
         year: String(this.calendar.year),
       });
-    }, 200);
+    }, 100);
   }
 
   isDayMonthCurrent(day: Day): boolean {
