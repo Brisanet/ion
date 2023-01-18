@@ -17,13 +17,13 @@
     ></ion-control-picker>
   </div>
   <div class="content">
-    <date-picker
+    <date-picker-calendar
       [currentDate]="currentDate"
       [calendarControlAction]="calendarControlAction"
       [goToMonthInCalendar]="goToMonth"
       [goToYearInCalendar]="goToYear"
       (updateLabelCalendar)="updateLabelCalendar($event)"
-    ></date-picker>
+    ></date-picker-calendar>
   </div>
   <footer *ngIf="pickerMode === 'rangepicker'">botoes</footer>
 </div>

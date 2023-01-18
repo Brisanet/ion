@@ -30,6 +30,6 @@ export * from './lib/info-badge/info-badge.component';
 export * from './lib/pagination/pagination.component';
 export * from './lib/modal/component/modal.component';
 export * from './lib/modal/modal.service';
-export * from './lib/picker/date-picker/calendar/date-picker.component';
+export * from './lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 export * from './lib/popconfirm/popconfirm.directive';
 export * from './lib/input-counter/input-counter.component';

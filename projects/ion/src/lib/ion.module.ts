@@ -30,7 +30,7 @@ import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { TableComponent } from './table/table.component';
 import { IonModalComponent } from './modal/component/modal.component';
-import { DatePickerComponent } from './picker/date-picker/calendar/date-picker.component';
+import { DatePickerCalendarComponent } from './picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { InputComponent } from './input/input.component';
@@ -65,7 +65,7 @@ import { DatepickerComponent } from './picker/date-picker/datepicker.component';
     CheckboxComponent,
     CardIonComponent,
     InputCounterComponent,
-    DatePickerComponent,
+    DatePickerCalendarComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
@@ -102,7 +102,7 @@ import { DatepickerComponent } from './picker/date-picker/datepicker.component';
     ColComponent,
     CheckboxComponent,
     CardIonComponent,
-    DatePickerComponent,
+    DatePickerCalendarComponent,
     SimpleMenuComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,

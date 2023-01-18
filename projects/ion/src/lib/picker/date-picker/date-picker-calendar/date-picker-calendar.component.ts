@@ -30,11 +30,11 @@ export interface IonDatePickerProps {
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
-  selector: 'date-picker',
-  templateUrl: './date-picker.component.html',
-  styleUrls: ['./date-picker.component.scss'],
+  selector: 'date-picker-calendar',
+  templateUrl: './date-picker-calendar.component.html',
+  styleUrls: ['./date-picker-calendar.component.scss'],
 })
-export class DatePickerComponent implements OnInit, DoCheck {
+export class DatePickerCalendarComponent implements OnInit, DoCheck {
   @Input() currentDate: IonDatePickerProps['currentDate'];
   @Input() lang: IonDatePickerProps['lang'];
   @Input() set goToMonthInCalendar(month: string) {

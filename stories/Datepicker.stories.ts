@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 import { IonDividerComponent } from '../projects/ion/src/public-api';
-import { DatePicker } from '../projects/ion/src/lib/picker/date-picker/calendar/date-picker.component';
+import { DatePicker } from '../projects/ion/src/lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 

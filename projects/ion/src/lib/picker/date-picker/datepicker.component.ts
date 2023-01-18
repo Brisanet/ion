@@ -1,4 +1,4 @@
-import { UpdateLabelCalendar } from './calendar/date-picker.component';
+import { UpdateLabelCalendar } from './date-picker-calendar/date-picker-calendar.component';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
