@@ -5,6 +5,7 @@ export enum EventTable {
   SORT = 'sort',
   CHANGE_PAGE = 'change_page',
   ROW_SELECT = 'row_select',
+  CELL_SELECT = 'cell_select',
 }
 
 export enum ColumnType {
@@ -24,6 +25,7 @@ export interface Column {
   tag?: TagRow;
   desc?: boolean;
   width?: number;
+  actions?: ColumnActions;
 }
 
 export interface ActionConfirm {
@@ -57,6 +59,10 @@ export interface ConfigTable<T> {
     column: string;
     desc: boolean | undefined;
   };
+}
+
+export interface ColumnActions {
+  trigger: 'click';
 }
 
 export class TableUtils<T = SafeAny> {
