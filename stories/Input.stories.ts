@@ -1,4 +1,3 @@
-import { IconType } from './../projects/ion/src/lib/icon/icon.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
