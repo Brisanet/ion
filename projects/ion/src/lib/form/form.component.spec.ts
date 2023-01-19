@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputAreaComponent } from '../input-area/input-area.component';
 import { InputComponent } from '../input/input.component';
+import { SwitchComponent } from '../switch/switch.component';
 import { TextField } from './core/textField';
 import { FormComponent, FormComponentProps } from './form.component';
 
@@ -22,7 +23,12 @@ const sut = async (
   return await render(FormComponent, {
     componentProperties: props,
     imports: [FormsModule, ReactiveFormsModule],
-    declarations: [InputComponent, IonIconComponent, InputAreaComponent],
+    declarations: [
+      InputComponent,
+      IonIconComponent,
+      InputAreaComponent,
+      SwitchComponent,
+    ],
   });
 };
 
