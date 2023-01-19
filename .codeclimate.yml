@@ -16,3 +16,7 @@ exclude_patterns:
   - "**/*_test.go"
   - "**/*.d.ts"
   - "**/*.spec.ts"
+
+checks:
+  similar-code:
+    enabled: false
