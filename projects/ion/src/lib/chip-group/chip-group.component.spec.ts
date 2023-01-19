@@ -17,12 +17,6 @@ const mockChips = [
     selected: false,
     options: [{ label: 'item 3' }, { label: 'item 4' }],
   },
-  {
-    label: 'Chip 3',
-    selected: false,
-    options: [{ label: 'item 4' }, { label: 'item 5' }],
-    multiple: true,
-  },
 ];
 
 const sut = async (
@@ -120,22 +114,42 @@ describe('With Dropdown', () => {
 });
 
 describe('With Multiple Dropdown', () => {
+  const chips = [
+    {
+      label: 'Chip 3',
+      selected: false,
+      options: [{ label: 'item 4' }, { label: 'item 5' }],
+      multiple: true,
+    },
+  ];
+
   it('should not show badge when dont have item selected', async () => {
     expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
   });
+
   it('should show badge with two results when selected two options', async () => {
-    const rendered = await sut();
-    fireEvent.click(screen.getByText(mockChips[2].label));
-    fireEvent.click(screen.getByText(mockChips[2].options[0].label));
-    fireEvent.click(screen.getByText(mockChips[2].options[1].label));
-    expect(rendered.event).toBeCalledWith(mockChips[2]);
+    const rendered = await sut({
+      chips: chips,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByText(chips[0].label));
+    fireEvent.click(screen.getByText(chips[0].options[0].label));
+    fireEvent.click(screen.getByText(chips[0].options[1].label));
+    expect(rendered.event).toBeCalledWith(chips[0]);
     expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
   });
 
-  // it('should keep dropdown open when an option will be selected', async () => {
-  //   const dropdown = screen.getByText(mockChips[2].label);
-  //   fireEvent.click(dropdown);
-  //   fireEvent.click(screen.getByText(mockChips[2].options[0].label));
-  //   expect(dropdown).toHaveClass('chip-selected');
-  // });
+  it('should keep dropdown open when an option will be selected', async () => {
+    await sut({
+      chips: chips,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    const dropdown = screen.getByTestId('ion-chip');
+    fireEvent.click(screen.getByText(chips[0].options[0].label));
+    expect(dropdown).toHaveClass('chip-selected');
+  });
 });
