@@ -17,7 +17,7 @@ const textFieldConfig = {
 const textField = new TextField(textFieldConfig);
 
 const sut = async (
-  props: FormComponentProps = { fields: [] }
+  props: FormComponentProps = { fields: {} }
 ): Promise<RenderResult<FormComponent, FormComponent>> => {
   return await render(FormComponent, {
     componentProperties: props,
@@ -36,7 +36,7 @@ describe('IonForm', () => {
     beforeEach(async () => {
       formGroup = new FormGroup({});
       const { detectChanges: changes } = await sut({
-        fields: [textField],
+        fields: { title: textField },
         formGroup,
       });
       detectChanges = changes;

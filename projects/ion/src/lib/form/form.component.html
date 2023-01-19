@@ -1,29 +1,34 @@
 <h1>Formulário</h1>
 <form [formGroup]="formGroup" name="form">
-  <ng-container *ngFor="let field of fields">
+  <ng-container *ngFor="let field of formFields">
     <span [ngSwitch]="field.type">
       <div *ngSwitchCase="'text'">
-        <div *ngIf="formGroup.controls[field.getKey()]">
-          <label [for]="field.getKey()">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
             {{ field.label }}
           </label>
           <ion-input
-            [key]="field.getKey()"
+            [key]="field.key"
             [placeholder]="field.placeholder"
             [iconInput]="field.icon"
-            [formControlName]="field.getKey()"
+            [formControlName]="field.key"
+            [invalid]="
+              formGroup.controls[field.key]?.invalid &&
+              (formGroup.controls[field.key]?.dirty ||
+                formGroup.controls[field.key]?.touched)
+            "
           ></ion-input>
         </div>
       </div>
       <div *ngSwitchCase="'textarea'">
-        <div *ngIf="formGroup.controls[field.getKey()]">
-          <label [for]="field.getKey()">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
             {{ field.label }}
           </label>
           <ion-input-area
-            [key]="field.getKey()"
+            [key]="field.key"
             [placeholder]="field.placeholder"
-            [formControlName]="field.getKey()"
+            [formControlName]="field.key"
           ></ion-input-area>
         </div>
       </div>
@@ -31,21 +36,21 @@
 
     <div
       *ngIf="
-        formGroup.controls[field.getKey()]?.invalid &&
-        (formGroup.controls[field.getKey()]?.dirty ||
-          formGroup.controls[field.getKey()]?.touched)
+        formGroup.controls[field.key]?.invalid &&
+        (formGroup.controls[field.key]?.dirty ||
+          formGroup.controls[field.key]?.touched)
       "
     >
-      <span *ngIf="formGroup.controls[field.getKey()]?.errors?.required">
+      <span *ngIf="formGroup.controls[field.key]?.errors?.required">
         Campo obrigatório!
       </span>
-      <span *ngIf="formGroup.controls[field.getKey()]?.errors?.email">
+      <span *ngIf="formGroup.controls[field.key]?.errors?.email">
         E-mail inválido.
       </span>
     </div>
 
-    <span>Value: {{ formGroup.controls[field.getKey()]?.value }} | </span>
-    <span>Valid: {{ formGroup.controls[field.getKey()]?.valid }} | </span>
-    <span>Disabled: {{ formGroup.controls[field.getKey()]?.disabled }}</span>
+    <span>Value: {{ formGroup.controls[field.key]?.value }} | </span>
+    <span>Valid: {{ formGroup.controls[field.key]?.valid }} | </span>
+    <span>Disabled: {{ formGroup.controls[field.key]?.disabled }}</span>
   </ng-container>
 </form>

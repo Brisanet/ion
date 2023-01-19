@@ -14,7 +14,6 @@ export class TextField extends FormField {
 
   constructor({ placeholder, icon, label, ...props }: ITextField) {
     super(
-      props.key,
       props.disabled,
       props.show,
       props.size,

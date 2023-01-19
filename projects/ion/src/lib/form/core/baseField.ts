@@ -1,7 +1,6 @@
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
 export interface IFormField {
-  key: string;
   disabled?: boolean;
   show?: boolean;
   size?: number;
@@ -14,10 +13,10 @@ export abstract class FormField {
   size: number;
   type: string;
   required: boolean;
+  private _key: string;
   private formControl: AbstractControl;
 
   constructor(
-    private readonly key: string,
     private readonly disabled = false,
     show = true,
     size = 4,
@@ -38,6 +37,14 @@ export abstract class FormField {
       ? this.formControl.disable()
       : this.formControl.enable();
     this.formControl.updateValueAndValidity();
+  }
+
+  set key(key: string) {
+    this._key = key;
+  }
+
+  get key(): string {
+    return this._key;
   }
 
   getKey(): string {
