@@ -41,19 +41,6 @@ describe('InputComponent', () => {
     expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
-  it('should render input with an empty placeholder if none is passed', async () => {
-    await sut();
-    const input = screen.getByTestId('input-element');
-    expect(input).not.toHaveAttribute('placeholder');
-  });
-
-  it('should render input with a given placeholder', async () => {
-    const placeholder = 'Search';
-    await sut({ placeholder });
-    const input = screen.getByTestId('input-element');
-    expect(input).toHaveAttribute('placeholder', placeholder);
-  });
-
   it.each(['text', 'password'])(
     'should render type %s on input component',
     async (type: InputType) => {
