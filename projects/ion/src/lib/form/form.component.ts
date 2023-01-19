@@ -30,6 +30,7 @@ export class FormComponent implements OnInit {
         )
       );
       field.setFormControl(this.formGroup.controls[field.key]);
+      console.log(this.formGroup.controls.name);
     });
   }
 

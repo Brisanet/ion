@@ -1,8 +1,9 @@
 <h1>Formulário</h1>
 <form [formGroup]="formGroup" name="form">
   <ng-container *ngFor="let field of formFields">
-    <span [ngSwitch]="field.type">
-      <div *ngSwitchCase="'text'">
+    <ng-container [ngSwitch]="field.type">
+      <!-- InputText -->
+      <ng-container *ngSwitchCase="'text'">
         <div *ngIf="formGroup.controls[field.key]">
           <label [for]="field.key">
             {{ field.label }}
@@ -19,8 +20,9 @@
             "
           ></ion-input>
         </div>
-      </div>
-      <div *ngSwitchCase="'textarea'">
+      </ng-container>
+      <!-- TextArea -->
+      <ng-container *ngSwitchCase="'textarea'">
         <div *ngIf="formGroup.controls[field.key]">
           <label [for]="field.key">
             {{ field.label }}
@@ -31,8 +33,20 @@
             [formControlName]="field.key"
           ></ion-input-area>
         </div>
-      </div>
-    </span>
+      </ng-container>
+      <!-- SwitchField -->
+      <ng-container *ngSwitchCase="'switch'">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
+            {{ field.label }}
+          </label>
+          <ion-switch
+            [key]="field.key"
+            [formControlName]="field.key"
+          ></ion-switch>
+        </div>
+      </ng-container>
+    </ng-container>
 
     <div
       *ngIf="
@@ -46,6 +60,10 @@
       </span>
       <span *ngIf="formGroup.controls[field.key]?.errors?.email">
         E-mail inválido.
+      </span>
+      <span *ngIf="formGroup.controls[field.key]?.errors?.minlength">
+        Pequeno demais (tamanho mínimo:
+        {{ formGroup.controls[field.key]?.errors?.minlength.requiredLength }})
       </span>
     </div>
 

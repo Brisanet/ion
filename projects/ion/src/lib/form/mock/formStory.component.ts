@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FormGroup, Validators } from '@angular/forms';
+import { SwitchField } from '../core/switchField';
 import { TextAreaField } from '../core/textAreaField';
 import { TextField } from '../core/textField';
 
@@ -38,6 +39,9 @@ export class FormStoryComponent implements AfterViewInit {
       placeholder: 'Insira seu e-mail',
       icon: 'pencil',
       validators: [Validators.email],
+    }),
+    desabilitar: new SwitchField({
+      label: 'Desabilitar:',
     }),
   };
 

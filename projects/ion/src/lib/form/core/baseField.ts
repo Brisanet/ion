@@ -47,10 +47,6 @@ export abstract class FormField {
     return this._key;
   }
 
-  getKey(): string {
-    return this.key;
-  }
-
   getDisabled(): boolean {
     return this.disabled;
   }

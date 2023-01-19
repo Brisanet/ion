@@ -1,6 +1,8 @@
 <button
+  [id]="key"
+  [attr.name]="key"
   data-testid="ion-switch"
   class="ion-switch"
   [class.ion-switch--active]="value"
-  (click)="handleClick(value)"
+  (click)="writeValue(value)"
 ></button>

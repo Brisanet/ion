@@ -4,6 +4,7 @@ import { FormComponent } from '../projects/ion/src/lib/form/form.component';
 import { FormStoryComponent } from '../projects/ion/src/lib/form/mock/formStory.component';
 import { InputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { SwitchComponent } from '../projects/ion/src/lib/switch/switch.component';
 import { IonIconComponent } from '../projects/ion/src/public-api';
 
 export default {
@@ -13,6 +14,7 @@ export default {
       declarations: [
         InputComponent,
         InputAreaComponent,
+        SwitchComponent,
         IonIconComponent,
         FormComponent,
         FormStoryComponent,
