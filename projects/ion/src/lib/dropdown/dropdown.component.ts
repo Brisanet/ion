@@ -39,12 +39,12 @@ export class DropdownComponent implements AfterViewInit {
 
   iconSize = 16;
 
-  clearFiltersSelected(): boolean {
-    const optionsSelected = [];
-    this.options.forEach((item: DropdownItem) =>
-      item.selected === true ? optionsSelected.push(item.selected) : ''
+  clearButtonIsVisible: boolean;
+
+  setVisibleClearButton() {
+    this.clearButtonIsVisible = this.options.some(
+      (option) => option.selected == true
     );
-    return optionsSelected.length > 0;
   }
 
   public ngAfterViewInit(): void {
@@ -71,7 +71,7 @@ export class DropdownComponent implements AfterViewInit {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
-    this.clearFiltersSelected();
+    this.clearButtonIsVisible = false;
   }
 
   select(option: DropdownItem): void {
@@ -82,7 +82,7 @@ export class DropdownComponent implements AfterViewInit {
       this.clearOptions();
     }
     option.selected = !option.selected;
-    this.clearFiltersSelected();
+    this.setVisibleClearButton();
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );

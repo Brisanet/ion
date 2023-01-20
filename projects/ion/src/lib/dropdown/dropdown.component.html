@@ -40,7 +40,7 @@
     size="sm"
     rightSideIcon="true"
     expand="true"
-    *ngIf="clearFiltersSelected()"
+    *ngIf="clearButtonIsVisible"
     (click)="clearOptions()"
     data-testid="buttonClear"
   ></ion-button>
