@@ -13,6 +13,7 @@ const defaultComponent: IonPaginationProps = {
   events: {
     emit: pageEvent,
   } as SafeAny,
+  page: 1,
 };
 
 const sut = async (
@@ -51,7 +52,7 @@ describe('PaginationComponent', () => {
   it('should select a other page', async () => {
     const pageTwo = screen.getByTestId('page-2');
     fireEvent.click(pageTwo);
-    expect(pageTwo).toHaveClass(' square-pag page-md page-number-2');
+    expect(pageTwo).toHaveClass('selected');
     expect(screen.getByTestId('page-1')).not.toHaveClass('selected');
   });
 
@@ -67,12 +68,12 @@ describe('PaginationComponent', () => {
   it('should go to the previous page when click in arrow left', async () => {
     fireEvent.click(screen.getByTestId('page-3'));
     fireEvent.click(screen.getByTestId('arrow-left'));
-    expect(screen.getByTestId('page-2')).toBeEnabled();
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 
   it('should go to the next page when click in arrow right', async () => {
     fireEvent.click(screen.getByTestId('arrow-right'));
-    expect(screen.getByTestId('page-2')).toBeEnabled();
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 
   it('should not show items per page by default', async () => {
@@ -84,11 +85,24 @@ describe('PaginationComponent', () => {
   });
 });
 
+describe('Pagination > Page', () => {
+  it.each([1, 2, 3, 4])(
+    'should select a page %s from the table',
+    async (page) => {
+      await sut({
+        total: page * 10,
+        page: page,
+      });
+      expect(screen.getByTestId(`page-${page}`)).toHaveClass('selected');
+    }
+  );
+});
+
 describe('Pagination > Events', () => {
   it('should emit the page selected when selected page', async () => {
     const event = jest.fn();
     await sut({
-      total: 21,
+      total: 16,
       events: {
         emit: event,
       } as SafeAny,

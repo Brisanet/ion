@@ -55,6 +55,9 @@ export class PaginationComponent implements OnChanges {
   ];
 
   pages: Page[] = [];
+  hidePreviousQuantity = 2;
+  hideNextQuantity = 2;
+  currentPageNumber: number;
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
@@ -91,11 +94,15 @@ export class PaginationComponent implements OnChanges {
   }
 
   selectPage(pageNumber = 1): void {
-    this.pages &&
-      this.pages.forEach((pageEach) => {
-        pageEach.selected = false;
-      });
-     this.selectedPageCondition(pageNumber)
+    if (pageNumber == -1) this.hidePreviousQuantity += 5;
+    else if (pageNumber == 0) this.hideNextQuantity += 5;
+    else {
+      this.pages &&
+        this.pages.forEach((pageEach) => {
+          pageEach.selected = false;
+        });
+      this.selectedPageCondition(pageNumber);
+    }
   }
 
   selectedPageCondition(pageNumber: number) {
@@ -114,6 +121,7 @@ export class PaginationComponent implements OnChanges {
       itemsPerPage: this.itemsPerPage,
       offset: (page.page_number - 1) * this.itemsPerPage,
     });
+    this.currentPageNumber = page.page_number;
   }
 
   hasPrevious(): boolean {
@@ -127,13 +135,13 @@ export class PaginationComponent implements OnChanges {
 
   previous(): void {
     if (!this.inFirstPage()) {
-      this.selectPage(this.currentPage().page_number - 1);
+      this.selectPage(this.currentPageNumber - 1);
     }
   }
 
   next(): void {
     if (!this.inLastPage()) {
-      this.selectPage(this.currentPage().page_number + 1);
+      this.selectPage(this.currentPageNumber + 1);
     }
   }
 
@@ -153,10 +161,7 @@ export class PaginationComponent implements OnChanges {
       if (qtdOfPages >= 20) {
         this.createEllipsis(index, qtdOfPages);
       } else {
-        this.pages.push({
-          selected: false,
-          page_number: index + 1,
-        });
+        this.defaultPagesCreation(index);
       }
     }
   }
@@ -167,12 +172,16 @@ export class PaginationComponent implements OnChanges {
     } else if (index == qtdOfPages - 1) {
       this.createBothEllipsis(0);
     }
-    this.pages.push({
+    this.defaultPagesCreation(index);
+  }
+
+  defaultPagesCreation(index: number): number {
+    return this.pages.push({
       selected: false,
       page_number: index + 1,
     });
   }
- 
+
   createBothEllipsis(number: number): number {
     return this.pages.push({
       selected: false,
@@ -180,25 +189,21 @@ export class PaginationComponent implements OnChanges {
     });
   }
 
-  private currentPage(): Page {
-    return this.pages.filter((page) => page.selected)[0];
-  }
-
   private inLastPage(): boolean {
-    return this.currentPage().page_number === this.totalPages();
+    return this.currentPageNumber === this.totalPages();
   }
 
   private inFirstPage(): boolean {
-    return this.currentPage().page_number === 1;
+    return this.currentPageNumber === 1;
   }
 
   hidePages(pageNumber: number): boolean {
     if (this.totalPages() >= 20) {
-      if (pageNumber === -1 && this.currentPage().page_number < 5) {
+      if (pageNumber === -1 && this.currentPageNumber < 5) {
         return true;
       } else if (
         pageNumber === 0 &&
-        this.currentPage().page_number > this.totalPages() - 4
+        this.currentPageNumber > this.totalPages() - 4
       ) {
         return true;
       }
@@ -208,8 +213,8 @@ export class PaginationComponent implements OnChanges {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      (pageNumber < this.currentPage().page_number - 2 ||
-        pageNumber > this.currentPage().page_number + 2) &&
+      (pageNumber < this.currentPageNumber - this.hidePreviousQuantity ||
+        pageNumber > this.currentPageNumber + this.hideNextQuantity) &&
       pageNumber !== this.totalPages() &&
       pageNumber !== 1 &&
       pageNumber !== -1 &&

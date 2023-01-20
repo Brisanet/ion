@@ -18,23 +18,24 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <button
-    *ngFor="let page of pages"
-    [class]="
-      'square-pag ' + 'page-' + size + ' page-number-' + page.page_number
-    "
-    [class.hidden]="hidePages(page.page_number)"
-    [class.selected]="page.selected"
-    [attr.data-testid]="'page-' + page.page_number"
-    (click)="!loading && selectPage(page.page_number)"
-    [class.disabled]="loading"
-  >
-    <span>{{
-      page.page_number === -1 || page.page_number === 0
-        ? '...'
-        : page.page_number
-    }}</span>
-  </button>
+  <ng-container *ngFor="let page of pages">
+    <button
+      [class]="
+        'square-pag ' + 'page-' + size + ' page-number-' + page.page_number
+      "
+      *ngIf="!hidePages(page.page_number)"
+      [class.selected]="page.selected"
+      [attr.data-testid]="'page-' + page.page_number"
+      (click)="!loading && selectPage(page.page_number)"
+      [class.disabled]="loading"
+    >
+      <span>{{
+        page.page_number === -1 || page.page_number === 0
+          ? '...'
+          : page.page_number
+      }}</span>
+    </button>
+  </ng-container>
 
   <ion-button
     iconType="right2"
