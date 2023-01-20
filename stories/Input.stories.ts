@@ -82,6 +82,22 @@ InputText.args = {
 export const InputPassword = Template.bind({});
 InputPassword.args = {
   inputType: 'password',
+  clearButton: true,
+};
+
+export const InputWithSearch = Template.bind({});
+InputWithSearch.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'right',
+};
+
+export const InputSearchWithClearButton = Template.bind({});
+InputSearchWithClearButton.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'left',
+  clearButton: true,
 };
 
 export const Disabled = Template.bind({});
