@@ -97,7 +97,7 @@ describe('Dropdown / Clear Filters', () => {
   });
 
   it('should render button to clear filters selected in dropdown', async () => {
-    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
     expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
   });
 
