@@ -4,6 +4,7 @@
     *ngIf="enableSearch"
     [iconInput]="searchOptions?.iconInput || 'search'"
     [iconDirection]="searchOptions?.iconDirection || 'right'"
+    [clearButton]="searchOptions?.clearButton || false"
     [placeholder]="searchOptions?.placeholder || ''"
     [disabled]="searchOptions?.disabled || false"
     (valueChange)="inputChange($event)"

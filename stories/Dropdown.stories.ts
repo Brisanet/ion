@@ -87,3 +87,16 @@ WithCustomSearch.args = {
     placeholder: 'Busque por algo...',
   },
 };
+
+export const WithCleanSearch = Template.bind({});
+WithCleanSearch.args = {
+  enableSearch: true,
+  options,
+  searchOptions: {
+    inputType: 'text',
+    iconInput: 'search',
+    iconDirection: 'right',
+    clearButton: true,
+    placeholder: 'Busque por algo...',
+  },
+};
