@@ -1,6 +1,6 @@
 import { FormField, IFormField } from './baseField';
 
-export interface ITextField extends IFormField {
+export interface ITextAreaField extends IFormField {
   label: string;
   placeholder: string;
   cols?: string;
@@ -12,7 +12,7 @@ export class TextAreaField extends FormField {
   placeholder: string;
   type = 'textarea';
 
-  constructor({ placeholder, label, ...props }: ITextField) {
+  constructor({ placeholder, label, ...props }: ITextAreaField) {
     super(
       props.disabled,
       props.show,
