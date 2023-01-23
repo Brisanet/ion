@@ -17,7 +17,7 @@ export abstract class FormField {
   private formControl: AbstractControl;
 
   constructor(
-    private readonly disabled = false,
+    private disabled = false,
     show = true,
     size = 4,
     required = false,
@@ -33,6 +33,7 @@ export abstract class FormField {
   }
 
   setDisable(value: boolean): void {
+    this.disabled = value;
     value && this.formControl
       ? this.formControl.disable()
       : this.formControl.enable();
