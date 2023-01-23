@@ -25,12 +25,14 @@ export class FormComponent implements OnInit {
       this.formGroup.addControl(
         field.key,
         new FormControl(
-          { value: '', disabled: field.getDisabled() },
+          {
+            value: '',
+            disabled: field.getDisabled(),
+          },
           field.getValidators()
         )
       );
       field.setFormControl(this.formGroup.controls[field.key]);
-      console.log(this.formGroup.controls.name);
     });
   }
 

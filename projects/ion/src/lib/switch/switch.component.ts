@@ -17,6 +17,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class SwitchComponent implements ControlValueAccessor {
   @Input() key!: string;
   @Input() value = false;
+  @Input() disabled = false;
   @Output() atValueChange = new EventEmitter<boolean>();
 
   onTouch = () => {};
@@ -24,9 +25,10 @@ export class SwitchComponent implements ControlValueAccessor {
   onChange = (value: boolean) => {};
 
   writeValue(value: boolean): void {
+    this.value = value;
+    this.onTouch();
     this.onChange(value);
-    this.value = !this.value;
-    this.atValueChange.emit(this.value);
+    this.atValueChange.emit(value);
   }
 
   registerOnChange(fn: () => void): void {
@@ -38,6 +40,6 @@ export class SwitchComponent implements ControlValueAccessor {
   }
 
   setDisabledState(disabled: boolean): void {
-    // this.disabled = disabled;
+    this.disabled = disabled;
   }
 }
