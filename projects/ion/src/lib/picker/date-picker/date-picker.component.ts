@@ -1,15 +1,25 @@
 import { UpdateLabelCalendar } from './date-picker-calendar/date-picker-calendar.component';
-import { AfterViewInit, Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
 
+type DateEmitter = {
+  date?: string;
+};
 @Component({
   selector: 'ion-date-picker',
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatepickerComponent implements AfterViewInit {
-  @Input() currentDate: string;
+  @Input() initialDate: string;
+  @Output() event = new EventEmitter<DateEmitter>();
   showDatepicker = false;
   calendarMonth: string;
   calendarYear: string;
@@ -55,5 +65,11 @@ export class DatepickerComponent implements AfterViewInit {
   updateLabelCalendar({ month, year }: UpdateLabelCalendar): void {
     this.calendarMonth = month[0].toLocaleUpperCase() + month.substring(1);
     this.calendarYear = year;
+  }
+
+  dateSelected(date: DateEmitter): void {
+    this.event.emit(date);
+    this.initialDate = date.date;
+    this.showDatepicker = false;
   }
 }
