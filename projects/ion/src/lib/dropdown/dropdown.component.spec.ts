@@ -93,7 +93,6 @@ describe('Dropdown / Clear Filters', () => {
     selectEvent.mockClear();
     elementToSelect = document.getElementById('option-' + optionToSelect);
     fireEvent.click(elementToSelect);
-    expect(elementToSelect.classList).toContain('dropdown-item-selected');
   });
 
   it('should render button to clear filters selected in dropdown', async () => {
@@ -102,11 +101,13 @@ describe('Dropdown / Clear Filters', () => {
   });
 
   it('should clear filters selected in dropdown', async () => {
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
     fireEvent.click(screen.getByTestId('buttonClear'));
     expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
   });
 
   it('should button disapear when filter is not selected', async () => {
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
     fireEvent.click(screen.getByTestId('buttonClear'));
     expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
     expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
