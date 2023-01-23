@@ -142,6 +142,49 @@ describe('InputComponent', () => {
       expect(mockFn).toHaveBeenLastCalledWith(value);
     });
   });
+
+  describe('Clear Button events', () => {
+    const mockFn = jest.fn();
+    const value = 'input-with-clear-button';
+    let input;
+
+    beforeEach(async () => {
+      await sut({
+        valueChange: { emit: mockFn } as SafeAny,
+        clearButton: true,
+      });
+      input = screen.getByTestId('input-element');
+    });
+
+    afterEach(async () => {
+      mockFn.mockClear();
+    });
+
+    it('should render the clear button when informed and input have value', async () => {
+      userEvent.type(input, value);
+      fireEvent.blur(input);
+      const clearButton = screen.getByTestId('clear-button');
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    it('should change value to empty when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(input).toHaveValue('');
+    });
+
+    it('should emit valueChange when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenCalled();
+    });
+
+    it('should emit empty value when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenLastCalledWith('');
+    });
+  });
 });
 
 // ! tests below needs improvements!!!

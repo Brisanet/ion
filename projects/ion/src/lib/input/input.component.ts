@@ -20,6 +20,7 @@ export interface IonInputProps {
   inputIconButton?: boolean;
   clickButton?: EventEmitter<SafeAny>;
   value?: string;
+  clearButton?: boolean;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
 }
@@ -49,6 +50,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() inputIconButton? = false;
   @Input() value = '';
   @Input() inputType: InputType = 'text';
+  @Input() clearButton = false;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
@@ -86,5 +88,13 @@ export class InputComponent implements ControlValueAccessor {
   // Allow the Angular form control to disable this input
   setDisabledState(disabled: boolean): void {
     this.disabled = disabled;
+  }
+
+  public clearInput(): void {
+    this.writeValue('');
+  }
+
+  public isClearButtonVisible(): boolean {
+    return this.clearButton && this.value.length > 0;
   }
 }
