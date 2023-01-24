@@ -6,7 +6,6 @@ export const generateIDs = (prefix: string, testeid: string): string => {
     '*[data-testid="' + testeid + '"]'
   );
   const arrayElements = Array.from(allElements);
-  console.log(arrayElements);
   arrayElements.map((element) => {
     const startID = prefix.length;
     const elementID = parseInt(element.id.substring(startID, MAX_LENGTH));
