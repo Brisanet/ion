@@ -157,7 +157,7 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
       this.ref.markForCheck();
     }, COOLDOWN_TIME);
 
-    this.clickReference = (event) => {
+    this.clickReference = (event: MouseEvent): void => {
       this.checkTargetClick(event);
     };
 
