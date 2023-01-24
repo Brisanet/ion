@@ -41,7 +41,7 @@ export class DropdownComponent implements AfterViewInit {
 
   clearButtonIsVisible: boolean;
 
-  setClearButtonIsVisible() {
+  setClearButtonIsVisible(): void {
     this.clearButtonIsVisible = this.options.some(
       (option) => option.selected === true
     );
