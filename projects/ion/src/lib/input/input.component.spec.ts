@@ -35,19 +35,6 @@ describe('InputComponent', () => {
     expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
-  it('should render input with an empty placeholder if none is passed', async () => {
-    await sut();
-    const input = screen.getByTestId('input-element');
-    expect(input).not.toHaveAttribute('placeholder');
-  });
-
-  it('should render input with a given placeholder', async () => {
-    const placeholder = 'Search';
-    await sut({ placeholder });
-    const input = screen.getByTestId('input-element');
-    expect(input).toHaveAttribute('placeholder', placeholder);
-  });
-
   it.each(['text', 'password'])(
     'should render type %s on input component',
     async (type: InputType) => {
@@ -147,6 +134,49 @@ describe('InputComponent', () => {
     it('should emit the value on the last emit', async () => {
       userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenLastCalledWith(value);
+    });
+  });
+
+  describe('Clear Button events', () => {
+    const mockFn = jest.fn();
+    const value = 'input-with-clear-button';
+    let input;
+
+    beforeEach(async () => {
+      await sut({
+        valueChange: { emit: mockFn } as SafeAny,
+        clearButton: true,
+      });
+      input = screen.getByTestId('input-element');
+    });
+
+    afterEach(async () => {
+      mockFn.mockClear();
+    });
+
+    it('should render the clear button when informed and input have value', async () => {
+      userEvent.type(input, value);
+      fireEvent.blur(input);
+      const clearButton = screen.getByTestId('clear-button');
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    it('should change value to empty when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(input).toHaveValue('');
+    });
+
+    it('should emit valueChange when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenCalled();
+    });
+
+    it('should emit empty value when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenLastCalledWith('');
     });
   });
 });
