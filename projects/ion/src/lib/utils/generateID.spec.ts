@@ -1,42 +1,26 @@
-import { Component } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { generateIDs } from './generateID';
 
-const prefix = 'prefix-';
-const generatedId = prefix + 1;
-const dataTestid = 'element';
-
-const sut = (): string => {
-  return generateIDs(prefix, dataTestid);
-};
-
-describe('Generate IDs', () => {
-  let fixture: ComponentFixture<MockComponent>;
-
-  @Component({
-    template: ` <div data-testid="element"></div> `,
-  })
-  class MockComponent {}
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [MockComponent],
-    });
-
-    fixture = TestBed.createComponent(MockComponent);
+describe('generateIDs', () => {
+  it('should return the prefix if no elements with the specified testid exist', () => {
+    const generetedID = generateIDs('prefix', 'testeid');
+    expect(generetedID).toBe('prefix1');
   });
 
-  afterEach(() => {
-    fixture.detectChanges();
-  });
+  it('should generate unique IDs with the specified prefix and testid', () => {
+    document.body.innerHTML = `
+      <div data-testid="testeid" id="prefix1"></div>
+      <div data-testid="testeid" id="prefix2"></div>
+    `;
 
-  it('should create instance', () => {
-    const element = sut();
+    const generetedID1 = generateIDs('prefix', 'testeid');
+    expect(generetedID1).toBe('prefix3');
 
-    expect(element).toBeTruthy();
-  });
-  it('should contain id 1', () => {
-    const element = sut();
-    expect(element).toEqual(generatedId);
+    const newDiv = document.createElement('div');
+    newDiv.setAttribute('data-testid', 'testeid');
+    newDiv.setAttribute('id', generetedID1);
+    document.body.appendChild(newDiv);
+
+    const generatedID2 = generateIDs('prefix', 'testeid');
+    expect(generatedID2).toBe('prefix4');
   });
 });

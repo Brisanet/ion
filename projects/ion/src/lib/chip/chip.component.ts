@@ -11,7 +11,7 @@ import {
 import { BadgeType } from '../badge/badge.component';
 import { InfoBadgeStatus } from '../core/types';
 import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
-import { generateIDs } from '../utils';
+import { generateIDs, COOLDOWN_TIME } from '../utils';
 import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
@@ -148,7 +148,7 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.id = generateIDs('chip-', 'ion-chip');
       this.ref.markForCheck();
-    }, 400);
+    }, COOLDOWN_TIME);
 
     document.body.addEventListener('click', this.checkTargetClick);
   }

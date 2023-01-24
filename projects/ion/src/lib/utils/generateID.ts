@@ -1,5 +1,7 @@
 const MAX_LENGTH = 9999;
 
+export const COOLDOWN_TIME = 400;
+
 export const generateIDs = (prefix: string, testeid: string): string => {
   let id = 1;
   const allElements = document.querySelectorAll(
@@ -9,9 +11,6 @@ export const generateIDs = (prefix: string, testeid: string): string => {
   arrayElements.map((element) => {
     const startID = prefix.length;
     const elementID = parseInt(element.id.substring(startID, MAX_LENGTH));
-    // if (elementID >= id) {
-    //   id = elementID + 1;
-    // }
     id = elementID >= id ? elementID + 1 : id;
   });
   return prefix + id;
