@@ -11,7 +11,14 @@ import {
 import { BadgeType } from '../badge/badge.component';
 import { InfoBadgeStatus } from '../core/types';
 import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
-import { generateIDs, COOLDOWN_TIME } from '../utils';
+import {
+  COOLDOWN_TIME,
+  DROPDOWN_SEARCH_SELECTOR,
+  DROPDOWN_SELECTOR,
+  generateIDs,
+  ID_SELECTOR,
+} from '../utils';
+import { SafeAny } from '../utils/safe-any';
 import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
@@ -79,6 +86,8 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
 
   previusSelectedStatus = false;
 
+  clickReference!: SafeAny;
+
   constructor(private ref: ChangeDetectorRef) {
     this.ref.markForCheck();
   }
@@ -116,32 +125,30 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
     this.dropdownSearchEvents.emit(value);
   }
 
-  checkTargetClick = (event): void => {
-    if (event.target instanceof EventTarget) {
-      const target = event.target as HTMLInputElement;
-      const elementChip = target.closest('#' + this.id);
-      const elementChipDropdown = target.closest('#dropdown-' + this.id);
-      const elementChipSearch = target.closest(
-        '#dropdown-' + this.id + ' .dropdown-search'
-      );
+  checkTargetClick = (event: MouseEvent): void => {
+    const target = event.target as HTMLInputElement;
+    const elementChip = target.closest(ID_SELECTOR + this.id);
+    const elementChipDropdown = target.closest(DROPDOWN_SELECTOR + this.id);
+    const elementChipSearch = target.closest(
+      DROPDOWN_SELECTOR + this.id + DROPDOWN_SEARCH_SELECTOR
+    );
 
-      if (elementChipSearch || (elementChipDropdown && this.multiple)) {
-        return;
-      }
-
-      if (!elementChip) {
-        if ((this.previusSelectedStatus && this.selected) || !this.selected) {
-          this.showDropdown = false;
-          this.selected = false;
-          this.events.emit({
-            selected: this.selected,
-            disabled: this.disabled,
-          });
-          this.ref.detectChanges();
-        }
-      }
-      this.previusSelectedStatus = this.selected;
+    if (elementChipSearch || (elementChipDropdown && this.multiple)) {
+      return;
     }
+
+    if (!elementChip) {
+      if ((this.previusSelectedStatus && this.selected) || !this.selected) {
+        this.showDropdown = false;
+        this.selected = false;
+        this.events.emit({
+          selected: this.selected,
+          disabled: this.disabled,
+        });
+        this.ref.detectChanges();
+      }
+    }
+    this.previusSelectedStatus = this.selected;
   };
 
   ngAfterViewInit(): void {
@@ -150,10 +157,14 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
       this.ref.markForCheck();
     }, COOLDOWN_TIME);
 
-    document.body.addEventListener('click', this.checkTargetClick);
+    this.clickReference = (event) => {
+      this.checkTargetClick(event);
+    };
+
+    document.body.addEventListener('click', this.clickReference);
   }
 
   ngOnDestroy(): void {
-    document.body.removeEventListener('click', this.checkTargetClick);
+    document.body.removeEventListener('click', this.clickReference);
   }
 }

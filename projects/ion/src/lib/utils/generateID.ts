@@ -1,5 +1,7 @@
 const MAX_LENGTH = 9999;
 
+export const ID_SELECTOR = '#';
+
 export const COOLDOWN_TIME = 400;
 
 export const generateIDs = (prefix: string, testeid: string): string => {
