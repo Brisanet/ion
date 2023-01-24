@@ -103,7 +103,7 @@ describe('Dropdown / Clear Filters', () => {
   it('should clear filters selected in dropdown', async () => {
     expect(elementToSelect).toHaveClass('dropdown-item-selected');
     fireEvent.click(screen.getByTestId('buttonClear'));
-    expect(elementToSelect.classList).not.toContain('dropdown-item-selected');
+    expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
   });
 
   it('should button disapear when filter is not selected', async () => {
