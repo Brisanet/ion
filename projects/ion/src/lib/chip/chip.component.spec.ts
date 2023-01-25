@@ -1,7 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { BadgeComponent } from 'projects/ion/src/public-api';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { BadgeComponent } from './../badge/badge.component';
+import { DropdownComponent } from './../dropdown/dropdown.component';
+import { IonIconComponent } from './../icon/icon.component';
+import { ButtonComponent } from '../button/button.component';
 import { SafeAny } from '../utils/safe-any';
 import {
   ChipComponent,
@@ -11,9 +14,9 @@ import {
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
 import { FormsModule } from '@angular/forms';
-import { DropdownModule } from '../dropdown/dropdown.module';
 import { ChangeDetectorRef } from '@angular/core';
 import { COOLDOWN_TIME } from '../utils';
+import { InputComponent } from '../input/input.component';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -22,8 +25,15 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [BadgeComponent, InfoBadgeComponent],
-    imports: [FormsModule, DropdownModule],
+    declarations: [
+      BadgeComponent,
+      InfoBadgeComponent,
+      IonIconComponent,
+      DropdownComponent,
+      InputComponent,
+      ButtonComponent,
+    ],
+    imports: [FormsModule],
   });
 };
 
