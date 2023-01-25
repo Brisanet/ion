@@ -99,6 +99,24 @@ describe('InputComponent', () => {
     expect(clickEvent).toHaveBeenCalled();
   });
 
+  it.each(['4', 4])(
+    'should render input component with maxLength 4',
+    async (maxLength) => {
+      await sut({ maxLength });
+      const element: HTMLInputElement = screen.getByTestId('input-element');
+      userEvent.type(element, 'values');
+      expect(element.value).toHaveLength(Number(maxLength));
+    }
+  );
+
+  it("should render input component without maxLength when don't sent this prop", async () => {
+    const text = 'text for input element test';
+    await sut({});
+    const element: HTMLInputElement = screen.getByTestId('input-element');
+    userEvent.type(element, text);
+    expect(element.value).toHaveLength(text.length);
+  });
+
   it.skip('should render input icon valid', async () => {
     await sut();
     expect(document.getElementById('icon-valid')).toBeTruthy();
