@@ -3,8 +3,12 @@ import { BadgeComponent } from '../badge/badge.component';
 import { ChipComponent, ChipSize } from '../chip/chip.component';
 import { SafeAny } from '../utils/safe-any';
 import { ChipGroupComponent, ChipGroupProps } from './chip-group.component';
-import { DropdownModule } from '../dropdown/dropdown.module';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import { InputComponent } from '../input/input.component';
+import { ButtonComponent } from '../button/button.component';
+import { FormsModule } from '@angular/forms';
 
 const selectEvent = jest.fn();
 const mockChips = [
@@ -29,8 +33,16 @@ const sut = async (
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   await render(ChipGroupComponent, {
     componentProperties: customProps,
-    imports: [DropdownModule],
-    declarations: [ChipComponent, BadgeComponent, InfoBadgeComponent],
+    imports: [FormsModule],
+    declarations: [
+      ChipComponent,
+      BadgeComponent,
+      IonIconComponent,
+      DropdownComponent,
+      InputComponent,
+      ButtonComponent,
+      InfoBadgeComponent,
+    ],
   });
   return { element: screen.getByTestId('ion-chip-group'), event: selectEvent };
 };

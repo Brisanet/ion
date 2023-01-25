@@ -3,16 +3,28 @@ import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { DropdownModule } from '../projects/ion/src/lib/dropdown/dropdown.module';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
+import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
+import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/ChipGroup',
   component: ChipGroupComponent,
   decorators: [
     moduleMetadata({
-      imports: [DropdownModule],
-      declarations: [ChipComponent, BadgeComponent, InfoBadgeComponent],
+      imports: [FormsModule],
+      declarations: [
+        ChipComponent,
+        BadgeComponent,
+        IonIconComponent,
+        DropdownComponent,
+        InputComponent,
+        ButtonComponent,
+        InfoBadgeComponent,
+      ],
     }),
   ],
 } as Meta;
