@@ -10,6 +10,7 @@ export interface ChipGroupProps {
   chips?: Array<IonChipProps>;
   disabled?: boolean;
   size?: ChipSize;
+  multiple?: boolean;
   events?: EventEmitter<ChipEvent>;
   selected: EventEmitter<ChipInGroup>;
 }
@@ -37,11 +38,15 @@ export class ChipGroupComponent {
   @Input() rightBadge?: RightBadge;
   @Input() disabled = false;
   @Input() multiple = false;
-
   @Output() selected = new EventEmitter<ChipInGroup>();
 
   selectChip(chipSelected: ChipInGroup): void {
-    this.clearChips();
+    if (chipSelected.options) {
+      this.clearChipsWithDropdown();
+    }
+    if (!this.multiple) {
+      this.clearChips();
+    }
     chipSelected.selected = true;
     this.selected.emit(chipSelected);
   }
@@ -49,6 +54,12 @@ export class ChipGroupComponent {
   private clearChips(): void {
     this.chips.forEach((chip) => {
       chip.selected = false;
+    });
+  }
+
+  private clearChipsWithDropdown(): void {
+    this.chips.forEach((chip) => {
+      chip.selected && chip.options ? (chip.selected = false) : '';
     });
   }
 }

@@ -64,6 +64,12 @@ SelectedByDefault.args = {
   ],
 };
 
+export const Multiple = Template.bind({});
+Multiple.args = {
+  chips,
+  multiple: true,
+};
+
 export const disableDefault = Template.bind({});
 disableDefault.args = {
   chips,
@@ -106,10 +112,4 @@ differentSizes.args = {
 export const WithDropdown = Template.bind({});
 WithDropdown.args = {
   chips: chipsWithOptions,
-};
-
-export const WithDropdownWithMultiple = Template.bind({});
-WithDropdownWithMultiple.args = {
-  chips: chipsWithOptions,
-  multiple: true,
 };

@@ -60,7 +60,6 @@ describe('ChipGroupComponent', () => {
           emit: selectEvent,
         } as SafeAny,
       });
-
       const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass(`chip-${size}`);
     }
@@ -70,6 +69,26 @@ describe('ChipGroupComponent', () => {
     const rendered = await sut();
     fireEvent.click(screen.getByText(mockChips[0].label));
     fireEvent.click(screen.getByText(mockChips[0].label));
+    expect(rendered.event).toHaveBeenCalledWith({
+      label: mockChips[0].label,
+      selected: true,
+    });
+  });
+
+  it('when chipgroup is multiple chip basic should remain selected when other is clicked', async () => {
+    const rendered = await sut({
+      chips: mockChips,
+      multiple: true,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByText(mockChips[0].label));
+    expect(rendered.event).toHaveBeenCalledWith({
+      label: mockChips[0].label,
+      selected: true,
+    });
+    fireEvent.click(screen.getByText(mockChips[1].label));
     expect(rendered.event).toHaveBeenCalledWith({
       label: mockChips[0].label,
       selected: true,
@@ -93,7 +112,6 @@ describe('With Dropdown', () => {
   it('should selected an item when chip has dropdown', async () => {
     await sut();
     const option = mockChips[1].options[0].label;
-    fireEvent.click(screen.getByText(mockChips[1].label));
     fireEvent.click(screen.getByText(option));
     expect(screen.queryAllByText(option)).toHaveLength(1);
   });
