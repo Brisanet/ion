@@ -91,6 +91,7 @@
   gap: spacing(0.5);
   padding: 12px 8px;
   max-height: 244px;
+  min-width: 182px;
   width: max-content;
   overflow-y: auto;
 
@@ -106,4 +107,8 @@
 
 .to-right {
   right: 0;
+}
+
+ion-button {
+  margin-top: 12px;
 }
