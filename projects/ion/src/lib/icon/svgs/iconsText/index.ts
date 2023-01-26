@@ -4,6 +4,7 @@ export { default as alert } from './alert';
 export { default as arrowsDownUp } from './arrows-down-up';
 export { default as arrowsUpDown } from './arrows-up-down';
 export { default as auditForwarded } from './audit-forwarded';
+export { default as block } from './block';
 export { default as calendar } from './calendar';
 export { default as calendarAttention } from './calendar-attention';
 export { default as calendarMoney } from './calendar-money';

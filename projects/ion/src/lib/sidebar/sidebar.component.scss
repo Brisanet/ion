@@ -1,0 +1,31 @@
+@import '../../styles/index.scss';
+
+@mixin icon-color($color) {
+  .ion-sidebar-item__icon {
+    ::ng-deep svg {
+      fill: $color;
+    }
+  }
+}
+
+.ion-sidebar {
+  margin: 0;
+  padding-left: 0;
+  line-height: 0;
+  list-style: none;
+  outline: none;
+
+  position: absolute;
+  width: 256px;
+  height: 100vh;
+  left: 0px;
+  top: 0px;
+  background: $neutral-1;
+  box-shadow: 4px 0px 8px rgba(4, 42, 98, 0.15);
+  padding: spacing(2);
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
