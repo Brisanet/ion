@@ -86,22 +86,27 @@ export class PaginationComponent implements OnChanges {
       return pageNumber - 1;
     } else if (pageNumber === this.pages.length - 2) {
       return pageNumber + 1;
-    } else if (pageNumber === 0 || pageNumber === -1) {
-      return;
     } else {
       return pageNumber;
     }
   }
 
   selectPage(pageNumber = 1): void {
-    if (pageNumber == -1) this.hidePreviousQuantity += 5;
-    else if (pageNumber == 0) this.hideNextQuantity += 5;
-    else {
+    if (pageNumber == -1) {
+      this.hidePreviousQuantity += 5;
+      this.selectedPageCondition(this.currentPageNumber);
+    } else if (pageNumber == 0) {
+      this.hideNextQuantity += 5;
+      this.selectedPageCondition(this.currentPageNumber);
+    } else {
       this.pages &&
         this.pages.forEach((pageEach) => {
           pageEach.selected = false;
         });
       this.selectedPageCondition(pageNumber);
+      if (this.totalPages() === this.currentPageNumber)
+        this.hideNextQuantity = 2;
+      if (this.currentPageNumber === 1) this.hidePreviousQuantity = 2;
     }
   }
 
@@ -198,14 +203,17 @@ export class PaginationComponent implements OnChanges {
   }
 
   hidePages(pageNumber: number): boolean {
-    if (this.totalPages() >= 20) {
-      if (pageNumber === -1 && this.currentPageNumber < 5) {
-        return true;
-      } else if (
-        pageNumber === 0 &&
-        this.currentPageNumber > this.totalPages() - 4
-      ) {
-        return true;
+    if (this.totalPages() <= 20) {
+      return false;
+    } else {
+      if (pageNumber === -1) {
+        const pagesInLeft = this.currentPageNumber - 1;
+        const showLeftElipsis = pagesInLeft > this.hidePreviousQuantity + 1;
+        return !showLeftElipsis;
+      } else if (pageNumber === 0) {
+        const pagesInRight = this.totalPages() - this.currentPageNumber - 1;
+        const showRightElipsis = pagesInRight > this.hideNextQuantity + 1;
+        return !showRightElipsis;
       }
       return this.hidePageNumber(pageNumber);
     }
