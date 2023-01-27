@@ -39,6 +39,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
 import { DatepickerComponent } from './picker/date-picker/date-picker.component';
 import { DatePickerCalendarComponent } from '../lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 import { ControlPickerComponent } from './picker/control-picker/control-picker.component';
+import { DatePickerInputComponent } from './picker/date-picker/date-picker-input/date-picker-input.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ControlPickerComponent } from './picker/control-picker/control-picker.c
     DatepickerComponent,
     DatePickerCalendarComponent,
     ControlPickerComponent,
+    DatePickerInputComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -119,6 +121,7 @@ import { ControlPickerComponent } from './picker/control-picker/control-picker.c
     DatepickerComponent,
     DatePickerCalendarComponent,
     ControlPickerComponent,
+    DatePickerInputComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })
