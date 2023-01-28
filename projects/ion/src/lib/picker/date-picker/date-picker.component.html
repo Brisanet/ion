@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <date-picker-input
-  [date]="initialDate"
+  [date]="inputDate"
   (click)="toggleVisibleCalendar(true)"
+  (clearDate)="clearDate()"
 ></date-picker-input>
 <div
   class="container-calendar"
@@ -20,7 +21,7 @@
       [calendarControlAction]="calendarControlAction"
       [goToMonthInCalendar]="goToMonth"
       [goToYearInCalendar]="goToYear"
-      [currentDate]="initialDate"
+      [currentDate]="currentDate"
       (updateLabelCalendar)="updateLabelCalendar($event)"
       (events)="dateSelected($event)"
     ></date-picker-calendar>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'date-picker-input',
@@ -8,8 +8,10 @@ import { Component, Input } from '@angular/core';
 export class DatePickerInputComponent {
   @Input() date = '';
   @Input() placeholder = 'Selecione a data';
+  @Output() clearDate = new EventEmitter();
 
   clearDateValue(): void {
     this.date = '';
+    this.clearDate.emit();
   }
 }

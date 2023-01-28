@@ -8,9 +8,14 @@ import {
 } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
+import { Day } from '../core/day';
 
 type DateEmitter = {
-  date?: string;
+  day?: Day;
+};
+
+type DateEvent = {
+  date: string;
 };
 @Component({
   selector: 'ion-date-picker',
@@ -18,8 +23,11 @@ type DateEmitter = {
   styleUrls: ['./date-picker.component.scss'],
 })
 export class DatepickerComponent implements AfterViewInit {
-  @Input() initialDate: string;
-  @Output() event = new EventEmitter<DateEmitter>();
+  @Input() format = 'YYYY-MM-DD';
+  @Output() event = new EventEmitter<DateEvent>();
+  currentDate: string;
+  inputDate: string;
+  formatInDateInput: 'YYYY-MM-DD' | 'DD/MM/YYYY' = 'DD/MM/YYYY';
   showDatepicker = false;
   calendarMonth: string;
   calendarYear: string;
@@ -67,9 +75,16 @@ export class DatepickerComponent implements AfterViewInit {
     this.calendarYear = year;
   }
 
-  dateSelected(date: DateEmitter): void {
-    this.event.emit(date);
-    this.initialDate = date.date;
+  dateSelected({ day }: DateEmitter): void {
+    this.event.emit({
+      date: day.format(this.format),
+    });
+    this.currentDate = day.format('YYYY-MM-DD');
+    this.inputDate = day.format(this.formatInDateInput);
     this.showDatepicker = false;
+  }
+
+  clearDate(): void {
+    this.currentDate = '';
   }
 }

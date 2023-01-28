@@ -11,12 +11,7 @@ import { Calendar } from '../../core/calendar';
 import { Day } from '../../core/day';
 
 type DateEmitter = {
-  date: string;
-};
-
-type DateField = {
-  date: Day;
-  label: string;
+  day: Day;
 };
 
 export type UpdateLabelCalendar = {
@@ -57,14 +52,10 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
   @Output() events = new EventEmitter<DateEmitter>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
-  selectedDate: Day;
+  selectedDay: Day;
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
-  dateField: DateField = {
-    date: undefined,
-    label: undefined,
-  };
 
   constructor() {
     this.setLanguage();
@@ -82,7 +73,7 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
   }
 
   setCalendarInitialState(): void {
-    this.selectedDate = new Day(this.getInitialDate(), this.lang);
+    this.selectedDay = new Day(this.getInitialDate(), this.lang);
     this.calendar = this.getCalendarInstance();
   }
 
@@ -94,8 +85,8 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
 
   getCalendarInstance = (): Calendar =>
     new Calendar(
-      this.selectedDate.year,
-      this.selectedDate.monthNumber,
+      this.selectedDay.year,
+      this.selectedDay.monthNumber,
       this.lang
     );
 
@@ -174,42 +165,29 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
 
   isSelectedDate(date: Day): boolean {
     return (
-      date.date === this.selectedDate.date &&
-      date.monthNumber === this.selectedDate.monthNumber &&
-      date.year === this.selectedDate.year
+      date.date === this.selectedDay.date &&
+      date.monthNumber === this.selectedDay.monthNumber &&
+      date.year === this.selectedDay.year
     );
   }
 
   dispatchActions(dayIndex: number): void {
-    this.selectedDate = this.days[dayIndex];
-    this.dateField = {
-      date: this.selectedDate,
-      label: this.selectedDate.format('YYYY-MM-DD'),
-    };
+    this.selectedDay = this.days[dayIndex];
     this.emitEvent();
     this.setDateInCalendar();
   }
 
   emitEvent(): void {
-    this.events.emit({ date: this.dateField.label });
+    this.events.emit({ day: this.selectedDay });
   }
 
   clearCalendar(): void {
-    this.clearDateField();
-    this.selectedDate = new Day(this.getInitialDate(), this.lang);
+    this.selectedDay = new Day(this.getInitialDate(), this.lang);
     this.setDateInCalendar();
   }
 
-  clearDateField(): void {
-    this.dateField.date = undefined;
-    this.dateField.label = undefined;
-  }
-
   setDateInCalendar(): void {
-    this.calendar.goToDate(
-      this.selectedDate.monthNumber,
-      this.selectedDate.year
-    );
+    this.calendar.goToDate(this.selectedDay.monthNumber, this.selectedDay.year);
   }
 
   previousYear(): void {
