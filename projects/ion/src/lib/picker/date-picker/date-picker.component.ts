@@ -86,5 +86,6 @@ export class DatepickerComponent implements AfterViewInit {
 
   clearDate(): void {
     this.currentDate = '';
+    this.inputDate = '';
   }
 }
