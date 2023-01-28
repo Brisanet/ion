@@ -40,6 +40,7 @@ export class InputComponent {
   @Input() value = '';
   @Input() inputType: InputType = 'text';
   @Input() clearButton = false;
+  @Input() readonly = false;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 

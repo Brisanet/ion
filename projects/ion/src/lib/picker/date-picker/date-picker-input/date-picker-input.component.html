@@ -1,1 +1,11 @@
-<p>date-picker-input works!</p>
+<div class="container-input">
+  <ion-input
+    [value]="date"
+    [placeholder]="placeholder"
+    [iconInput]="date ? '' : 'calendar'"
+    iconDirection="right"
+    [inputIconButton]="!date ? false : true"
+    [readonly]="true"
+    (clickButton)="clearDateValue()"
+  ></ion-input>
+</div>

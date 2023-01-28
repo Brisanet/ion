@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<date-picker-input></date-picker-input>
-<ion-icon
-  type="calendar"
-  size="16"
+<date-picker-input
+  [date]="initialDate"
   (click)="toggleVisibleCalendar(true)"
-></ion-icon>
+></date-picker-input>
 <div
   class="container-calendar"
   *ngIf="showDatepicker"
