@@ -19,9 +19,11 @@ export type UpdateLabelCalendar = {
   year: string;
 };
 
-export interface IonDatePickerProps {
+export interface DatePickerCalendarComponentProps {
   currentDate?: string;
   lang?: string;
+  goToMonthInCalendar?: string;
+  goToYearInCalendar?: string;
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
@@ -30,8 +32,8 @@ export interface IonDatePickerProps {
   styleUrls: ['./date-picker-calendar.component.scss'],
 })
 export class DatePickerCalendarComponent implements OnInit, DoCheck {
-  @Input() currentDate: IonDatePickerProps['currentDate'];
-  @Input() lang: IonDatePickerProps['lang'];
+  @Input() currentDate: DatePickerCalendarComponentProps['currentDate'];
+  @Input() lang: DatePickerCalendarComponentProps['lang'];
   @Input() set goToMonthInCalendar(month: string) {
     if (this.calendar) {
       this.calendar.goToDate(Number(month) + 1, this.calendar.year);
