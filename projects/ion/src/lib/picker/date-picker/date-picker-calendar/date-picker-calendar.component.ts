@@ -19,11 +19,17 @@ export type UpdateLabelCalendar = {
   year: string;
 };
 
+type CalendarControlActions =
+  | 'previousYear'
+  | 'previousMonth'
+  | 'nextMonth'
+  | 'nextYear';
 export interface DatePickerCalendarComponentProps {
   currentDate?: string;
   lang?: string;
   goToMonthInCalendar?: string;
   goToYearInCalendar?: string;
+  calendarControlAction?: CalendarControlActions;
   events?: EventEmitter<DateEmitter>;
 }
 @Component({
@@ -46,11 +52,7 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
       this.tempRenderDays();
     }
   }
-  @Input() calendarControlAction:
-    | 'previousYear'
-    | 'previousMonth'
-    | 'nextMonth'
-    | 'nextYear';
+  @Input() calendarControlAction: CalendarControlActions;
   @Output() events = new EventEmitter<DateEmitter>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
@@ -181,11 +183,6 @@ export class DatePickerCalendarComponent implements OnInit, DoCheck {
 
   emitEvent(): void {
     this.events.emit({ day: this.selectedDay });
-  }
-
-  clearCalendar(): void {
-    this.selectedDay = new Day(this.getInitialDate(), this.lang);
-    this.setDateInCalendar();
   }
 
   setDateInCalendar(): void {

@@ -1,11 +1,12 @@
-import { Calendar } from './../../core/calendar';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonModule } from '../../../button/button.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SafeAny } from '../../../utils/safe-any';
 import {
   DatePickerCalendarComponent,
   DatePickerCalendarComponentProps,
 } from './date-picker-calendar.component';
+import { Calendar } from './../../core/calendar';
+import { ButtonModule } from '../../../button/button.module';
 
 const events = jest.fn();
 
@@ -81,5 +82,64 @@ describe('DatePickerCalendarComponent', () => {
       (day) => day.format('YYYY-MM-DD') === '2030-01-01'
     );
     expect(firstDayOf2030).toBeTruthy();
+  });
+
+  it('should fire an event when clicking the day button', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      events: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    const buttonsDay = document.getElementsByClassName('month-day');
+    fireEvent.click(buttonsDay[0]);
+    expect(clickEvent).toHaveBeenCalled();
+  });
+});
+
+describe('DatePickerCalendar: calendarControlAction', () => {
+  let component: DatePickerCalendarComponent;
+  let fixture: ComponentFixture<DatePickerCalendarComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [DatePickerCalendarComponent],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(DatePickerCalendarComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should call ngDoCheck', () => {
+    jest.spyOn(component, 'ngDoCheck').mockImplementation();
+    fixture.detectChanges();
+    expect(component.ngDoCheck).toHaveBeenCalled();
+  });
+
+  it.each(['previousYear', 'previousMonth', 'nextMonth', 'nextYear'])(
+    'should call (%s)',
+    (
+      controlAction: 'previousYear' | 'previousMonth' | 'nextMonth' | 'nextYear'
+    ) => {
+      component.calendarControlAction = controlAction;
+      const spy = jest.spyOn(component, controlAction);
+      fixture.detectChanges();
+      expect(spy).toHaveBeenCalled();
+    }
+  );
+
+  it('should emit updateLabelCalendar', (done) => {
+    const spy = jest.spyOn(component.updateLabelCalendar, 'emit');
+    component.calendar = new Calendar(2023, 1);
+    component.tempRenderDays();
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledWith({
+        month: component.calendar.month.name,
+        year: String(component.calendar.year),
+      });
+      done();
+    }, 200);
   });
 });
