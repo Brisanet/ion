@@ -37,6 +37,7 @@ import { TagComponent } from './tag/tag.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { HeadingComponent } from './typography/heading/heading.component';
+import { PopoverComponent } from './popover/popover.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     InputComponent,
     TooltipDirective,
     TooltipComponent,
+    PopoverComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -113,6 +115,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     InputComponent,
     TooltipComponent,
     SwitchComponent,
+    PopoverComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })
