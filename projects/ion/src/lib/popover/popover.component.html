@@ -14,6 +14,7 @@
         class="header_iconClose"
         type="ghost"
         [circularButton]="true"
+        (click)="close()"
       ></ion-button>
     </div>
 
@@ -24,46 +25,28 @@
     <ion-divider *ngIf="actions"></ion-divider>
 
     <div *ngIf="actions" class="footer">
-      <ion-button
-        *ngIf="actions[1]"
-        data-testid="popover-second-action"
-        [label]="actions[1].label"
-        [tooltip]="actions[1].tooltip"
-        type="ghost"
-        size="sm"
-        [expand]="actions[1].expand"
-        [danger]="actions[1].danger"
-        [disabled]="actions[1].disabled"
-        [loading]="actions[1].loading"
-        [loadingMessage]="actions[1].loadingMessage"
-        [multiple]="actions[1].multiple"
-        [iconType]="actions[1].iconType"
-        [rightSideIcon]="actions[1].rightSideIcon"
-        [circularButton]="actions[1].circularButton"
-        [options]="actions[1].options"
-        [showDropdown]="actions[1].showDropdown"
-        (click)="secondAction()"
-      ></ion-button>
-      <ion-button
-        *ngIf="actions[0]"
-        data-testid="popover-first-action"
-        [label]="actions[0].label"
-        [tooltip]="actions[0].tooltip"
-        type="primary"
-        size="sm"
-        [expand]="actions[0].expand"
-        [danger]="actions[0].danger"
-        [disabled]="actions[0].disabled"
-        [loading]="actions[0].loading"
-        [loadingMessage]="actions[0].loadingMessage"
-        [multiple]="actions[0].multiple"
-        [iconType]="actions[0].iconType"
-        [rightSideIcon]="actions[0].rightSideIcon"
-        [circularButton]="actions[0].circularButton"
-        [options]="actions[0].options"
-        [showDropdown]="actions[0].showDropdown"
-        (click)="firstAction()"
-      ></ion-button>
+      <ng-container *ngFor="let action of actions; let i = index">
+        <ion-button
+          *ngIf="action"
+          data-testid="popover-second-action"
+          [label]="action.label"
+          [tooltip]="action.tooltip"
+          [type]="i == 0 ? 'ghost' : 'primary'"
+          size="sm"
+          [expand]="action.expand"
+          [danger]="action.danger"
+          [disabled]="action.disabled"
+          [loading]="action.loading"
+          [loadingMessage]="action.loadingMessage"
+          [multiple]="action.multiple"
+          [iconType]="action.iconType"
+          [rightSideIcon]="action.rightSideIcon"
+          [circularButton]="action.circularButton"
+          [options]="action.options"
+          [showDropdown]="action.showDropdown"
+          (click)="secondAction()"
+        ></ion-button>
+      </ng-container>
     </div>
   </div>
 </div>

@@ -39,8 +39,13 @@ export class PopoverComponent {
   @Input() iconClose?: IconType = '';
   @Input() arrowPosition?: PopoverArrow = 'arrow-2';
 
+  readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();
   readonly ionOnSecondAction = new Subject<void>();
+
+  close(): void {
+    this.ionOnClose.next();
+  }
 
   firstAction(): void {
     this.ionOnFirstAction.next();
