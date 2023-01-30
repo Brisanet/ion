@@ -17,6 +17,14 @@ type DateEmitter = {
 type DateEvent = {
   date: string;
 };
+
+type FormatDateInput = 'YYYY-MM-DD' | 'DD/MM/YYYY';
+
+export interface DatePickerComponentProps {
+  format?: string;
+  formatInDateInput?: FormatDateInput;
+  event?: EventEmitter<DateEvent>;
+}
 @Component({
   selector: 'ion-date-picker',
   templateUrl: './date-picker.component.html',
@@ -24,10 +32,10 @@ type DateEvent = {
 })
 export class DatepickerComponent implements AfterViewInit {
   @Input() format = 'YYYY-MM-DD';
+  @Input() formatInDateInput: FormatDateInput = 'DD/MM/YYYY';
   @Output() event = new EventEmitter<DateEvent>();
   currentDate: string;
   inputDate: string;
-  formatInDateInput: 'YYYY-MM-DD' | 'DD/MM/YYYY' = 'DD/MM/YYYY';
   showDatepicker = false;
   calendarMonth: string;
   calendarYear: string;
@@ -35,9 +43,6 @@ export class DatepickerComponent implements AfterViewInit {
   calendarControlAction: string;
   goToMonth: string;
   goToYear: string;
-  constructor() {
-    //
-  }
 
   toggleVisibleCalendar(visible: boolean): void {
     this.showDatepicker = visible;

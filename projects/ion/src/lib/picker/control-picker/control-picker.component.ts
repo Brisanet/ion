@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-type TypeEvents =
+export type TypeEvents =
   | 'previousYear'
   | 'previousMonth'
   | 'nextMonth'
@@ -51,10 +51,6 @@ export class ControlPickerComponent {
   showContainerToChooseTheMonth = false;
   showContainerToChooseTheYear = false;
   rangeYear: number[] = [];
-
-  constructor() {
-    //
-  }
 
   handlePreviousYear(): void {
     this.controlPickerEvent.emit({ event: { type: 'previousYear' } });
