@@ -29,6 +29,7 @@ export interface PopoverProps {
   selector: 'ion-popover',
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss'],
+  exportAs: 'PopoverComponent',
 })
 export class PopoverComponent {
   @Input() ionPopoverTitle: string;

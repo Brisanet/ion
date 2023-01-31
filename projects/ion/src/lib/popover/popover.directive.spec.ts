@@ -21,7 +21,7 @@ import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
 
 const textButton = 'Teste';
-const confirmText = 'Confirmar';
+const confirmText = 'Você tem certeza?';
 const elementPosition: PopoverPosition = { top: 10, left: 40 };
 const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
 
