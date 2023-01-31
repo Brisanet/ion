@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
-import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
+import {
+  IonIndicatorButtonConfig,
+  IonIndicatorComponent,
+} from './../projects/ion/src/lib/indicator/indicator.component';
 import { TooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
 
 export default {
@@ -22,8 +25,28 @@ const Template: Story<IonIndicatorComponent> = (
 
 export const Default = Template.bind({});
 Default.args = {
-  title: 'Título do Indicator',
+  title: 'Título personalizado via atributo title',
   value: 1500,
   secondValue: '5%',
-  buttonLabel: 'Detalhes',
+};
+
+export const WithTooltip = Template.bind({});
+WithTooltip.args = {
+  title: 'Título do Indicator',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  value: 1500,
+  secondValue: '5%',
+};
+
+const buttonEmitter: IonIndicatorButtonConfig = {
+  label: 'Detalhes',
+  type: 'emitter',
+};
+export const WithEmitterButton = Template.bind({});
+WithEmitterButton.args = {
+  title: 'Título do Indicator',
+  tooltipText: 'Texto do tooltip',
+  value: 1500,
+  secondValue: '5%',
+  buttonConfig: buttonEmitter,
 };

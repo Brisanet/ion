@@ -2,14 +2,15 @@
   <header class="title">
     <h1 data-testid="ion-indicator-title">{{ title }}</h1>
     <ion-icon
+      *ngIf="tooltipText"
       type="exclamation-rounded"
       size="16"
       ionTooltip
-      ionTooltipTitle="Tooltip do Indicator"
       ionTooltipPosition="bottomLeft"
-      [ionTooltipArrowPointAtCenter]="true"
       ionTooltipColorScheme="dark"
       ionTooltipTrigger="hover"
+      [ionTooltipTitle]="tooltipText"
+      [ionTooltipArrowPointAtCenter]="true"
     >
     </ion-icon>
   </header>
@@ -17,14 +18,16 @@
     <h4>{{ value }}</h4>
     <p>{{ secondValue }}</p>
   </div>
-  <footer>
+  <footer *ngIf="buttonConfig">
     <ion-button
-      data-testid="ion-indicator-button"
+      data-testid="ion-indicator-button-emitter"
+      *ngIf="buttonConfig.type === 'emitter'"
       type="ghost"
-      iconType="right2"
       size="sm"
+      iconType="right2"
       rightSideIcon="true"
-      [label]="buttonLabel"
+      [label]="buttonConfig.label"
+      (ionOnClick)="ionButtonClicked()"
     ></ion-button>
   </footer>
 </div>
