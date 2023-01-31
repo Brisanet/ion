@@ -6,6 +6,8 @@ import { Component, Input, Type } from '@angular/core';
   styleUrls: ['./indicator.component.scss'],
 })
 export class IonIndicatorComponent {
+  // TODO: pensar melhor em como aplicar as configurações de botão, popover, redirect e modal
+
   @Input() title = 'Título';
   @Input() buttonLabel = 'Ação';
   @Input() value: number | string | undefined;

@@ -1,7 +1,8 @@
-import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
-import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
+import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
+import { TooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
 
 export default {
   title: 'Ion/Data Display/Indicator',
@@ -15,7 +16,7 @@ const Template: Story<IonIndicatorComponent> = (
   props: args,
   moduleMetadata: {
     declarations: [IonIndicatorComponent],
-    imports: [CommonModule, ButtonModule],
+    imports: [CommonModule, ButtonModule, TooltipModule],
   },
 });
 

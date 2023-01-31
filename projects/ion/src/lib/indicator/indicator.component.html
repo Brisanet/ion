@@ -5,7 +5,11 @@
       type="exclamation-rounded"
       size="16"
       ionTooltip
-      ionTooltipTitle="'teste'"
+      ionTooltipTitle="Tooltip do Indicator"
+      ionTooltipPosition="bottomLeft"
+      [ionTooltipArrowPointAtCenter]="true"
+      ionTooltipColorScheme="dark"
+      ionTooltipTrigger="hover"
     >
     </ion-icon>
   </header>
@@ -18,6 +22,7 @@
       data-testid="ion-indicator-button"
       type="ghost"
       iconType="right2"
+      size="sm"
       rightSideIcon="true"
       [label]="buttonLabel"
     ></ion-button>
