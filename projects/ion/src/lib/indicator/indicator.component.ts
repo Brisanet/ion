@@ -28,6 +28,8 @@ export class IonIndicatorComponent {
   @Input() buttonConfig?: IonIndicatorButtonConfig;
   @Output() ionClick = new EventEmitter<void>();
 
+  private buttonType = IonIndicatorButtonType;
+
   onButtonClick(): void {
     this.ionClick.emit();
   }
