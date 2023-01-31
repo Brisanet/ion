@@ -19,10 +19,10 @@ export type PopoverArrow =
 export interface PopoverProps {
   ionPopoverTitle: string;
   ionPopoverBody: SafeAny;
-  actions?: IonButtonProps[];
-  icon?: IconType;
-  iconClose?: IconType;
-  arrowPosition?: PopoverArrow;
+  ionPopoverActions?: IonButtonProps[];
+  ionPopoverIcon?: IconType;
+  ionPopoverIconClose?: IconType;
+  ionPopoverArrowPosition?: PopoverArrow;
 }
 
 @Component({
@@ -33,11 +33,11 @@ export interface PopoverProps {
 export class PopoverComponent {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: SafeAny;
-  @Input() actions?: IonButtonProps[];
+  @Input() ionPopoverActions?: IonButtonProps[];
 
-  @Input() icon?: IconType = '';
-  @Input() iconClose?: IconType = '';
-  @Input() arrowPosition?: PopoverArrow = 'arrow-2';
+  @Input() ionPopoverIcon?: IconType = '';
+  @Input() ionPopoverIconClose?: IconType = '';
+  @Input() ionPopoverArrowPosition?: PopoverArrow = 'arrow-2';
 
   readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();

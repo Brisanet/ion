@@ -40,8 +40,8 @@ Default.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
-  icon: 'left2',
-  iconClose: 'close',
+  ionPopoverIcon: 'left2',
+  ionPopoverIconClose: 'close',
 };
 
 export const withActions = Template.bind({});
@@ -49,7 +49,7 @@ withActions.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
-  icon: 'condominium',
-  iconClose: 'close',
-  actions: [{ label: 'action 1' }, { label: 'action 2' }],
+  ionPopoverIcon: 'condominium',
+  ionPopoverIconClose: 'close',
+  ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
 };

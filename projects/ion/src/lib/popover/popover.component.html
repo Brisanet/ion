@@ -1,13 +1,21 @@
-<div [class]="'sup-container-' + arrowPosition" data-testid="sup-container">
+<div
+  [class]="'sup-container-' + ionPopoverArrowPosition"
+  data-testid="sup-container"
+>
   <div class="containter">
     <div class="header">
       <div>
-        <ion-icon *ngIf="icon" class="header_icon" [type]="icon"></ion-icon>
+        <ion-icon
+          *ngIf="ionPopoverIcon"
+          class="header_icon"
+          [type]="ionPopoverIcon"
+        ></ion-icon>
+
         <h4 class="header_title">{{ ionPopoverTitle }}</h4>
       </div>
 
       <ion-button
-        *ngIf="iconClose"
+        *ngIf="ionPopoverIconClose"
         data-testid="popover-icon-close"
         label="Deletar"
         iconType="close"
@@ -22,13 +30,13 @@
       <span>{{ ionPopoverBody }}</span>
     </div>
 
-    <ion-divider *ngIf="actions"></ion-divider>
+    <ion-divider *ngIf="ionPopoverActions"></ion-divider>
 
-    <div *ngIf="actions" class="footer">
-      <ng-container *ngFor="let action of actions; let i = index">
+    <div *ngIf="ionPopoverActions" class="footer">
+      <ng-container *ngFor="let action of ionPopoverActions; let i = index">
         <ion-button
           *ngIf="action"
-          data-testid="popover-second-action"
+          [attr.data-testid]="'popover-action-' + (i + 1)"
           [label]="action.label"
           [tooltip]="action.tooltip"
           [type]="i == 0 ? 'ghost' : 'primary'"
@@ -44,7 +52,7 @@
           [circularButton]="action.circularButton"
           [options]="action.options"
           [showDropdown]="action.showDropdown"
-          (click)="secondAction()"
+          (click)="i == 0 ? firstAction() : secondAction()"
         ></ion-button>
       </ng-container>
     </div>

@@ -38,6 +38,7 @@ import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { HeadingComponent } from './typography/heading/heading.component';
 import { PopoverComponent } from './popover/popover.component';
+import { PopoverDirective } from './popover/popover.directive';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { PopoverComponent } from './popover/popover.component';
     TooltipDirective,
     TooltipComponent,
     PopoverComponent,
+    PopoverDirective,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -117,6 +119,6 @@ import { PopoverComponent } from './popover/popover.component';
     SwitchComponent,
     PopoverComponent,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent],
+  entryComponents: [PopConfirmComponent, TooltipComponent, PopoverComponent],
 })
 export class IonModule {}

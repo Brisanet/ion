@@ -18,10 +18,10 @@
       height: 13px;
       position: absolute;
       box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
-      transform: rotate($rotate);
       background-color: $background;
       top: $arrowPosition;
       left: $left;
+      transform: rotate($rotate);
     }
   }
 
@@ -33,10 +33,10 @@
       height: 13px;
       position: absolute;
       box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
-      transform: rotate($rotate);
       background-color: $background;
       bottom: $arrowPosition;
       left: $left;
+      transform: rotate($rotate);
     }
   }
 }
