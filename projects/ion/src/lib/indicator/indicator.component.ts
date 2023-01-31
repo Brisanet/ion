@@ -1,16 +1,18 @@
-import { Component, Input, Output, Type, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-export type IonIndicatorButtonType =
-  | 'redirect'
-  | 'popover'
-  | 'modal'
-  | 'emitter';
+export enum IonIndicatorButtonType {
+  Redirect = 'redirect',
+  Popover = 'popover',
+  Modal = 'modal',
+  Emitter = 'emitter',
+}
+
 export interface IonIndicatorButtonConfig {
   label: string;
   redirectLink?: string;
   popoverMessage?: string;
   type: IonIndicatorButtonType;
-  componentToModal?: Type<unknown>;
+  componentToModal?: unknown;
 }
 
 @Component({
@@ -19,15 +21,14 @@ export interface IonIndicatorButtonConfig {
   styleUrls: ['./indicator.component.scss'],
 })
 export class IonIndicatorComponent {
-  // TODO: pensar melhor em como aplicar as configurações de botão, popover, redirect e modal
-  @Input() title = 'Titulo do indicator';
-  @Input() tooltipText: string;
-  @Input() value: number | string | undefined;
-  @Input() secondValue: number | string | undefined;
-  @Input() buttonConfig: undefined | IonIndicatorButtonConfig;
-  @Output() ionClick = new EventEmitter<boolean>();
+  @Input() title = 'Título do Indicador';
+  @Input() tooltipText?: string;
+  @Input() value?: number | string;
+  @Input() secondValue?: number | string;
+  @Input() buttonConfig?: IonIndicatorButtonConfig;
+  @Output() ionClick = new EventEmitter<void>();
 
-  ionButtonClicked(): void {
-    this.ionClick.emit(true);
+  onButtonClick(): void {
+    this.ionClick.emit();
   }
 }
