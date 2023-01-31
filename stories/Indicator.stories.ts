@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
 import {
   IonIndicatorButtonConfig,
+  IonIndicatorButtonType,
   IonIndicatorComponent,
 } from './../projects/ion/src/lib/indicator/indicator.component';
 import { TooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
@@ -40,7 +41,7 @@ WithTooltip.args = {
 
 const buttonEmitter: IonIndicatorButtonConfig = {
   label: 'Detalhes',
-  type: 'emitter',
+  type: IonIndicatorButtonType.Emitter,
 };
 export const WithEmitterButton = Template.bind({});
 WithEmitterButton.args = {
