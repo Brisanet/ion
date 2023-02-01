@@ -4,7 +4,10 @@ import { IonAlertComponent } from '../alert/alert.component';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { PopConfirmComponent, PopConfirmProps } from './popconfirm.component';
+import {
+  IonPopConfirmComponent,
+  PopConfirmProps,
+} from './popconfirm.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonInputComponent } from '../input/input.component';
@@ -14,7 +17,7 @@ const defaultProps: PopConfirmProps = {
 };
 
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
-  await render(PopConfirmComponent, {
+  await render(IonPopConfirmComponent, {
     componentProperties: props,
     declarations: [
       IonDividerComponent,
@@ -30,7 +33,7 @@ const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
   });
 };
 
-describe('PopconfirmComponent', () => {
+describe('IonPopConfirmComponent', () => {
   describe('Check default fields', () => {
     beforeEach(async () => {
       await sut();

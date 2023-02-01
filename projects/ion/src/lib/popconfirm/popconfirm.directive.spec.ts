@@ -14,7 +14,7 @@ import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
-import { PopConfirmComponent } from './popconfirm.component';
+import { IonPopConfirmComponent } from './popconfirm.component';
 import { PopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
 import { IonInputComponent } from '../input/input.component';
@@ -73,14 +73,14 @@ describe('Directive: Popconfirm', () => {
         IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
@@ -153,7 +153,7 @@ describe('Popconfirm host tests', () => {
         IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
         PopConfirmDirective,
         IonInputComponent,
@@ -163,7 +163,7 @@ describe('Popconfirm host tests', () => {
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
@@ -200,7 +200,7 @@ describe('Popconfirm disabled host component', () => {
         IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
         PopConfirmDirective,
       ],
@@ -208,7 +208,7 @@ describe('Popconfirm disabled host component', () => {
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ButtonTestDisabledComponent);

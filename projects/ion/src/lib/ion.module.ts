@@ -24,7 +24,7 @@ import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
 import { IonNotificationComponent } from './notification/notification.component';
 import { IonPaginationComponent } from './pagination/pagination.component';
-import { PopConfirmComponent } from './popconfirm/popconfirm.component';
+import { IonPopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { RadioComponent } from './radio/radio.component';
 import { RowComponent } from './row/row.component';
@@ -70,7 +70,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
-    PopConfirmComponent,
+    IonPopConfirmComponent,
     SmartTableComponent,
     SwitchComponent,
     TableComponent,
@@ -108,7 +108,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
-    PopConfirmComponent,
+    IonPopConfirmComponent,
     SmartTableComponent,
     TableComponent,
     IonInputCounterComponent,
@@ -117,6 +117,6 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SwitchComponent,
     IonBreadcrumbComponent,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent],
+  entryComponents: [IonPopConfirmComponent, TooltipComponent],
 })
 export class IonModule {}

@@ -14,9 +14,9 @@ export interface PopConfirmProps {
   selector: 'ion-popconfirm',
   templateUrl: './popconfirm.component.html',
   styleUrls: ['./popconfirm.component.scss'],
-  exportAs: 'PopConfirmComponent',
+  exportAs: 'IonPopConfirmComponent',
 })
-export class PopConfirmComponent {
+export class IonPopConfirmComponent {
   @Input() ionPopConfirmTitle: string;
   @Input() ionPopConfirmDesc: string;
   @Input() ionPopConfirmType: PopConfirmProps['ionPopConfirmType'] = 'warning';

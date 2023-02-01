@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
   IonAlertComponent,
   IonBadgeComponent,
@@ -14,11 +14,13 @@ import {
 
 export default {
   title: 'Ion/Data Display/PopConfirm',
-  component: PopConfirmComponent,
+  component: IonPopConfirmComponent,
 } as Meta;
 
-const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
-  component: PopConfirmComponent,
+const Template: Story<IonPopConfirmComponent> = (
+  args: IonPopConfirmComponent
+) => ({
+  component: IonPopConfirmComponent,
   props: args,
   moduleMetadata: {
     declarations: [

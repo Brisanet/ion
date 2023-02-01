@@ -12,7 +12,7 @@ import {
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -23,14 +23,14 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
   component: TableComponent,
   props: args,
   moduleMetadata: {
-    entryComponents: [PopConfirmComponent],
+    entryComponents: [IonPopConfirmComponent],
     declarations: [
       TableComponent,
       TagComponent,
       IonCheckboxComponent,
       IonPaginationComponent,
       PopConfirmDirective,
-      PopConfirmComponent,
+      IonPopConfirmComponent,
       IonAlertComponent,
       IonDividerComponent,
     ],
