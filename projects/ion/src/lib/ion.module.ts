@@ -16,7 +16,7 @@ import { IonDividerComponent } from './divider/divider.component';
 import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
-import { InputCounterComponent } from './input-counter/input-counter.component';
+import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonInputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
 import { MessageComponent } from './message/message.component';
@@ -64,7 +64,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonColComponent,
     IonCheckboxComponent,
     IonCardComponent,
-    InputCounterComponent,
+    IonInputCounterComponent,
     IonDatePickerComponent,
     IonInfoBadgeComponent,
     SimpleMenuComponent,
@@ -111,7 +111,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     PopConfirmComponent,
     SmartTableComponent,
     TableComponent,
-    InputCounterComponent,
+    IonInputCounterComponent,
     IonInputComponent,
     TooltipComponent,
     SwitchComponent,
