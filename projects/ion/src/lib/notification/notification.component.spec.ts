@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { StatusType } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 import {
-  NotificationComponent,
+  IonNotificationComponent,
   NotificationProps,
 } from './notification.component';
 
@@ -16,13 +16,13 @@ const defaultNotification = {
 const sut = async (
   customProps: NotificationProps = defaultNotification
 ): Promise<void> => {
-  await render(NotificationComponent, {
+  await render(IonNotificationComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
   });
 };
 
-describe('NotificationComponent', () => {
+describe('IonNotificationComponent', () => {
   it('should show title', async () => {
     await sut();
     expect(screen.getByText(defaultNotification.title)).toBeInTheDocument();

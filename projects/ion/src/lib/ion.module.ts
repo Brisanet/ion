@@ -22,7 +22,7 @@ import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
-import { NotificationComponent } from './notification/notification.component';
+import { IonNotificationComponent } from './notification/notification.component';
 import { PaginationComponent } from './pagination/pagination.component';
 import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
@@ -53,7 +53,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     HeadingComponent,
     IonAlertComponent,
     IonMessageComponent,
-    NotificationComponent,
+    IonNotificationComponent,
     HeadingComponent,
     IonAvatarComponent,
     DefaultImageDirective,
@@ -96,7 +96,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonDropdownComponent,
     IonAlertComponent,
     IonMessageComponent,
-    NotificationComponent,
+    IonNotificationComponent,
     IonAvatarComponent,
     RowComponent,
     IonColComponent,

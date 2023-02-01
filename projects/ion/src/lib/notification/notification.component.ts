@@ -29,7 +29,7 @@ export interface NotificationProps {
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent implements OnInit {
+export class IonNotificationComponent implements OnInit {
   @Input() title!: NotificationProps['title'];
   @Input() message!: NotificationProps['message'];
   @Input() icon?: NotificationProps['icon'];
