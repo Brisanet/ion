@@ -17,7 +17,7 @@ import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { InputCounterComponent } from './input-counter/input-counter.component';
-import { InputComponent } from './input/input.component';
+import { IonInputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
 import { MessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
@@ -74,7 +74,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SmartTableComponent,
     SwitchComponent,
     TableComponent,
-    InputComponent,
+    IonInputComponent,
     TooltipDirective,
     TooltipComponent,
     IonBreadcrumbComponent,
@@ -112,7 +112,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SmartTableComponent,
     TableComponent,
     InputCounterComponent,
-    InputComponent,
+    IonInputComponent,
     TooltipComponent,
     SwitchComponent,
     IonBreadcrumbComponent,

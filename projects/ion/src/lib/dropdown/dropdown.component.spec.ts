@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { InputComponent, IonInputProps } from '../input/input.component';
+import { IonInputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
 import { IonDropdownComponent, DropdownParams } from './dropdown.component';
 
@@ -40,7 +40,7 @@ const sut = async (
       IonButtonComponent,
       IonIconComponent,
       IonBadgeComponent,
-      InputComponent,
+      IonInputComponent,
     ],
     imports: [FormsModule],
   });

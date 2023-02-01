@@ -3,18 +3,18 @@ import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { InputComponent, InputType, IonInputProps } from './input.component';
+import { IonInputComponent, InputType, IonInputProps } from './input.component';
 import { FormsModule } from '@angular/forms';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
-  await render(InputComponent, {
+  await render(IonInputComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule],
     declarations: [IonIconComponent],
   });
 };
 
-describe('InputComponent', () => {
+describe('IonInputComponent', () => {
   it('should render input with an empty placeholder if none is passed', async () => {
     await sut();
     const input = screen.getByTestId('input-element');

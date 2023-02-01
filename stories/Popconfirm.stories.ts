@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
   IonAlertComponent,
@@ -28,7 +28,7 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
       IonBadgeComponent,
       IonDropdownComponent,
       IonAlertComponent,
-      InputComponent,
+      IonInputComponent,
     ],
     imports: [CommonModule, FormsModule],
   },

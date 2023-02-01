@@ -1,4 +1,4 @@
-import { InputComponent } from './../input/input.component';
+import { IonInputComponent } from './../input/input.component';
 import { IonButtonComponent } from './../button/button.component';
 import { IonDropdownComponent } from './dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
@@ -12,14 +12,14 @@ import { IonBadgeComponent } from '../badge/badge.component';
     IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
-    InputComponent,
+    IonInputComponent,
     IonDropdownComponent,
   ],
   exports: [
     IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
-    InputComponent,
+    IonInputComponent,
     IonDropdownComponent,
   ],
   imports: [CommonModule, FormsModule],

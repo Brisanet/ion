@@ -4,7 +4,7 @@ import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonBadgeComponent } from './../badge/badge.component';
 import { SafeAny } from '../utils/safe-any';
-import { InputComponent } from '../input/input.component';
+import { IonInputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
 
 const defaultName = 'button';
@@ -18,7 +18,7 @@ const sut = async (
       IonIconComponent,
       IonDropdownComponent,
       IonBadgeComponent,
-      InputComponent,
+      IonInputComponent,
     ],
     imports: [FormsModule],
   });

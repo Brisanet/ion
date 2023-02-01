@@ -1,4 +1,4 @@
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { IonButtonComponent } from '../projects/ion/src/public-api';
 import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
@@ -20,7 +20,7 @@ export default {
         IonInfoBadgeComponent,
         IonIconComponent,
         IonDropdownComponent,
-        InputComponent,
+        IonInputComponent,
         IonButtonComponent,
       ],
     }),
