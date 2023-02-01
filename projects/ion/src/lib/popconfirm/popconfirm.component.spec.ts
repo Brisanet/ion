@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import { IonAlertComponent } from '../alert/alert.component';
 import { IonBadgeComponent } from '../badge/badge.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { PopConfirmComponent, PopConfirmProps } from './popconfirm.component';
 import { IonIconComponent } from '../icon/icon.component';
@@ -18,13 +18,13 @@ const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
     componentProperties: props,
     declarations: [
       IonDividerComponent,
-      ButtonComponent,
+      IonButtonComponent,
       IonBadgeComponent,
       IonAlertComponent,
       IonIconComponent,
       DropdownComponent,
       InputComponent,
-      ButtonComponent,
+      IonButtonComponent,
     ],
     imports: [FormsModule],
   });

@@ -1,5 +1,5 @@
 import { InputComponent } from './../input/input.component';
-import { ButtonComponent } from './../button/button.component';
+import { IonButtonComponent } from './../button/button.component';
 import { DropdownComponent } from './dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
@@ -9,14 +9,14 @@ import { IonBadgeComponent } from '../badge/badge.component';
 
 @NgModule({
   declarations: [
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
     InputComponent,
     DropdownComponent,
   ],
   exports: [
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
     InputComponent,

@@ -1,5 +1,5 @@
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
-import { ButtonComponent } from '../projects/ion/src/public-api';
+import { IonButtonComponent } from '../projects/ion/src/public-api';
 import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
@@ -21,7 +21,7 @@ export default {
         IonIconComponent,
         DropdownComponent,
         InputComponent,
-        ButtonComponent,
+        IonButtonComponent,
       ],
     }),
   ],

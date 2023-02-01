@@ -4,7 +4,7 @@ import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { IonBadgeComponent } from './../badge/badge.component';
 import { DropdownComponent } from './../dropdown/dropdown.component';
 import { IonIconComponent } from './../icon/icon.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonButtonComponent } from '../button/button.component';
 import { SafeAny } from '../utils/safe-any';
 import {
   ChipComponent,
@@ -29,7 +29,7 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
       IonIconComponent,
       DropdownComponent,
       InputComponent,
-      ButtonComponent,
+      IonButtonComponent,
     ],
     imports: [FormsModule],
   });

@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonComponent, IonButtonProps } from './button.component';
+import { IonButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonBadgeComponent } from './../badge/badge.component';
@@ -12,7 +12,7 @@ const defaultName = 'button';
 const sut = async (
   customProps: IonButtonProps = { label: defaultName }
 ): Promise<HTMLElement> => {
-  await render(ButtonComponent, {
+  await render(IonButtonComponent, {
     componentProperties: customProps,
     declarations: [
       IonIconComponent,

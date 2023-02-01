@@ -1,4 +1,4 @@
-import { ButtonComponent } from './../projects/ion/src/lib/button/button.component';
+import { IonButtonComponent } from './../projects/ion/src/lib/button/button.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
@@ -24,7 +24,7 @@ const Template: Story<DropdownComponent> = (args: DropdownComponent) => ({
     declarations: [
       IonIconComponent,
       InputComponent,
-      ButtonComponent,
+      IonButtonComponent,
       IonBadgeComponent,
     ],
     imports: [CommonModule, FormsModule],

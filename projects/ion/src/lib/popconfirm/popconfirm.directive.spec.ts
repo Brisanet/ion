@@ -11,7 +11,7 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
-import { ButtonComponent } from './../button/button.component';
+import { IonButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
 import { PopConfirmComponent } from './popconfirm.component';
@@ -71,7 +71,7 @@ describe('Directive: Popconfirm', () => {
         ContainerRefTestComponent,
         IonBadgeComponent,
         DropdownComponent,
-        ButtonComponent,
+        IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,
         IonDividerComponent,
@@ -151,7 +151,7 @@ describe('Popconfirm host tests', () => {
         ContainerRefTestComponent,
         IonBadgeComponent,
         DropdownComponent,
-        ButtonComponent,
+        IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,
         IonDividerComponent,
@@ -198,7 +198,7 @@ describe('Popconfirm disabled host component', () => {
         ButtonTestDisabledComponent,
         IonBadgeComponent,
         DropdownComponent,
-        ButtonComponent,
+        IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,
         IonDividerComponent,

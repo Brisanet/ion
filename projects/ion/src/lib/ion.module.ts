@@ -5,7 +5,7 @@ import { IonAlertComponent } from './alert/alert.component';
 import { IonAvatarComponent } from './avatar/avatar.component';
 import { IonBadgeComponent } from './badge/badge.component';
 import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { ButtonComponent } from './button/button.component';
+import { IonButtonComponent } from './button/button.component';
 import { CardIonComponent } from './card/card.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ChipComponent } from './chip/chip.component';
@@ -42,7 +42,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
 @NgModule({
   declarations: [
     IonComponent,
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
     ChipComponent,
     TabComponent,
@@ -83,7 +83,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
   imports: [CommonModule, FormsModule],
   exports: [
     IonComponent,
-    ButtonComponent,
+    IonButtonComponent,
     IonBadgeComponent,
     IonIconComponent,
     ChipComponent,

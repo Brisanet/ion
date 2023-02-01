@@ -6,7 +6,7 @@ import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfi
 import {
   IonAlertComponent,
   IonBadgeComponent,
-  ButtonComponent,
+  IonButtonComponent,
   DropdownComponent,
   IonDividerComponent,
   IonIconComponent,
@@ -23,7 +23,7 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
   moduleMetadata: {
     declarations: [
       IonDividerComponent,
-      ButtonComponent,
+      IonButtonComponent,
       IonIconComponent,
       IonBadgeComponent,
       DropdownComponent,

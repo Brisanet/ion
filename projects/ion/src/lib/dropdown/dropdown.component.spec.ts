@@ -2,7 +2,7 @@ import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonBadgeComponent } from '../badge/badge.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
@@ -37,7 +37,7 @@ const sut = async (
   await render(DropdownComponent, {
     componentProperties: customParams,
     declarations: [
-      ButtonComponent,
+      IonButtonComponent,
       IonIconComponent,
       IonBadgeComponent,
       InputComponent,
