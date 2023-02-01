@@ -95,12 +95,12 @@ describe('ChipGroupComponent', () => {
         emit: selectEvent,
       } as SafeAny,
     });
-    fireEvent.click(screen.getByText(mockChips[0].label));
     expect(rendered.event).toHaveBeenCalledWith({
       label: mockChips[0].label,
       selected: true,
     });
     fireEvent.click(screen.getByText(mockChips[1].label));
+    expect(screen.getAllByTestId('ion-chip')[0]).toHaveClass('chip-selected');
     expect(rendered.event).toHaveBeenCalledWith({
       label: mockChips[0].label,
       selected: true,
@@ -136,6 +136,9 @@ describe('With Dropdown', () => {
       selected: true,
     });
     fireEvent.click(screen.getByText(mockChips[1].label));
+    expect(screen.getAllByTestId('ion-chip')[0]).not.toHaveClass(
+      'chip-selected'
+    );
     expect(rendered.event).toHaveBeenCalledWith({
       label: mockChips[0].label,
       selected: false,
