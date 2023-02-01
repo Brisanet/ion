@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertComponent } from './alert/alert.component';
-import { AvatarComponent } from './avatar/avatar.component';
+import { IonAvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { CardIonComponent } from './card/card.component';
@@ -54,7 +54,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     MessageComponent,
     NotificationComponent,
     HeadingComponent,
-    AvatarComponent,
+    IonAvatarComponent,
     DefaultImageDirective,
     BadgeComponent,
     TagComponent,
@@ -95,7 +95,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonAlertComponent,
     MessageComponent,
     NotificationComponent,
-    AvatarComponent,
+    IonAvatarComponent,
     RowComponent,
     ColComponent,
     CheckboxComponent,

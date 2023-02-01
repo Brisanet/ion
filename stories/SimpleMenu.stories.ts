@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import {
-  AvatarComponent,
+  IonAvatarComponent,
   TabComponent,
   TabGroupComponent,
 } from '../projects/ion/src/public-api';
@@ -26,7 +26,7 @@ const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
     declarations: [
       TabGroupComponent,
       TabComponent,
-      AvatarComponent,
+      IonAvatarComponent,
       DefaultImageDirective,
     ],
     imports: [CommonModule, ButtonModule],

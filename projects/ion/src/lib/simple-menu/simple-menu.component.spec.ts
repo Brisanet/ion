@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { IonAvatarComponent } from '../avatar/avatar.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import {
   TabGroupComponent,
@@ -51,7 +51,7 @@ const sut = async (
     declarations: [
       TabGroupComponent,
       TabComponent,
-      AvatarComponent,
+      IonAvatarComponent,
       DefaultImageDirective,
     ],
     imports: [ButtonModule],
