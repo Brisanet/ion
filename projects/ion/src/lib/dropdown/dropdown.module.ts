@@ -1,6 +1,6 @@
 import { InputComponent } from './../input/input.component';
 import { IonButtonComponent } from './../button/button.component';
-import { DropdownComponent } from './dropdown.component';
+import { IonDropdownComponent } from './dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,14 +13,14 @@ import { IonBadgeComponent } from '../badge/badge.component';
     IonIconComponent,
     IonBadgeComponent,
     InputComponent,
-    DropdownComponent,
+    IonDropdownComponent,
   ],
   exports: [
     IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
     InputComponent,
-    DropdownComponent,
+    IonDropdownComponent,
   ],
   imports: [CommonModule, FormsModule],
 })

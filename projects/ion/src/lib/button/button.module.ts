@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButtonComponent } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     IonButtonComponent,
     IonIconComponent,
-    DropdownComponent,
+    IonDropdownComponent,
     IonBadgeComponent,
     InputComponent,
   ],
@@ -19,7 +19,7 @@ import { FormsModule } from '@angular/forms';
     IonButtonComponent,
     IonIconComponent,
     IonBadgeComponent,
-    DropdownComponent,
+    IonDropdownComponent,
     InputComponent,
   ],
   imports: [CommonModule, FormsModule],

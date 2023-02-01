@@ -6,7 +6,7 @@ import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { PopConfirmComponent, PopConfirmProps } from './popconfirm.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { InputComponent } from '../input/input.component';
 
 const defaultProps: PopConfirmProps = {
@@ -22,7 +22,7 @@ const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
       IonBadgeComponent,
       IonAlertComponent,
       IonIconComponent,
-      DropdownComponent,
+      IonDropdownComponent,
       InputComponent,
       IonButtonComponent,
     ],

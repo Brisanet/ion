@@ -10,7 +10,7 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { fireEvent, screen } from '@testing-library/angular';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
@@ -70,7 +70,7 @@ describe('Directive: Popconfirm', () => {
       declarations: [
         ContainerRefTestComponent,
         IonBadgeComponent,
-        DropdownComponent,
+        IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,
@@ -150,7 +150,7 @@ describe('Popconfirm host tests', () => {
       declarations: [
         ContainerRefTestComponent,
         IonBadgeComponent,
-        DropdownComponent,
+        IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,
@@ -197,7 +197,7 @@ describe('Popconfirm disabled host component', () => {
       declarations: [
         ButtonTestDisabledComponent,
         IonBadgeComponent,
-        DropdownComponent,
+        IonDropdownComponent,
         IonButtonComponent,
         IonIconComponent,
         PopConfirmComponent,

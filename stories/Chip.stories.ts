@@ -6,7 +6,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { IonChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { FormsModule } from '@angular/forms';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
+import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
@@ -19,7 +19,7 @@ export default {
         IonBadgeComponent,
         InfoBadgeComponent,
         IonIconComponent,
-        DropdownComponent,
+        IonDropdownComponent,
         InputComponent,
         IonButtonComponent,
       ],

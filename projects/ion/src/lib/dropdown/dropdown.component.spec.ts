@@ -6,7 +6,7 @@ import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
-import { DropdownComponent, DropdownParams } from './dropdown.component';
+import { IonDropdownComponent, DropdownParams } from './dropdown.component';
 
 const options = [];
 const inputElement = 'input-element';
@@ -34,7 +34,7 @@ const sut = async (
 ): Promise<{
   element: HTMLElement;
 }> => {
-  await render(DropdownComponent, {
+  await render(IonDropdownComponent, {
     componentProperties: customParams,
     declarations: [
       IonButtonComponent,
@@ -47,7 +47,7 @@ const sut = async (
   return { element: screen.getByTestId('ion-dropdown') };
 };
 
-describe('DropdownComponent', () => {
+describe('IonDropdownComponent', () => {
   beforeEach(async () => {
     await sut();
   });
@@ -114,7 +114,7 @@ describe('Dropdown / Clear Filters', () => {
   });
 });
 
-describe('DropdownComponent / Disabled', () => {
+describe('IonDropdownComponent / Disabled', () => {
   const optionsWithDisabled = [
     { label: 'Disabled', disabled: true },
     { label: 'Enabled', disabled: false },
@@ -163,7 +163,7 @@ describe('DropdownComponent / Disabled', () => {
   });
 });
 
-describe('DropdownComponent / Multiple', () => {
+describe('IonDropdownComponent / Multiple', () => {
   const optionsWithMultiple = [
     { label: 'Dog', selected: true },
     { label: 'Cat', selected: true },
@@ -214,7 +214,7 @@ describe('DropdownComponent / Multiple', () => {
   });
 });
 
-describe('DropdownComponent / With Search', () => {
+describe('IonDropdownComponent / With Search', () => {
   const searchEvent = jest.fn();
 
   const defaultWithSearch = {
@@ -260,7 +260,7 @@ describe('DropdownComponent / With Search', () => {
   });
 });
 
-describe('DropdownComponent / With Search / Custom Search', () => {
+describe('IonDropdownComponent / With Search / Custom Search', () => {
   const searchOptions: IonInputProps = {
     placeholder: 'Buscar',
     iconInput: 'pencil',

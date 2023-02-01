@@ -13,7 +13,7 @@ import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { InputCounterComponent } from './input-counter/input-counter.component';
@@ -59,7 +59,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     DefaultImageDirective,
     IonBadgeComponent,
     TagComponent,
-    DropdownComponent,
+    IonDropdownComponent,
     RowComponent,
     IonColComponent,
     IonCheckboxComponent,
@@ -93,7 +93,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonDividerComponent,
     HeadingComponent,
     TagComponent,
-    DropdownComponent,
+    IonDropdownComponent,
     IonAlertComponent,
     MessageComponent,
     NotificationComponent,

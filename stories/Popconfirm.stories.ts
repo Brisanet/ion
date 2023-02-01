@@ -7,7 +7,7 @@ import {
   IonAlertComponent,
   IonBadgeComponent,
   IonButtonComponent,
-  DropdownComponent,
+  IonDropdownComponent,
   IonDividerComponent,
   IonIconComponent,
 } from '../projects/ion/src/public-api';
@@ -26,7 +26,7 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
       IonButtonComponent,
       IonIconComponent,
       IonBadgeComponent,
-      DropdownComponent,
+      IonDropdownComponent,
       IonAlertComponent,
       InputComponent,
     ],
