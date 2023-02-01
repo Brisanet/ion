@@ -3,6 +3,7 @@ import { IconType } from './../icon/icon.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 export type IconDirection = 'left' | 'right';
+export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
   placeholder?: string;
@@ -16,7 +17,10 @@ export interface IonInputProps {
   inputIconButton?: boolean;
   clickButton?: EventEmitter<SafeAny>;
   value?: string;
+  clearButton?: boolean;
+  inputType?: InputType;
   valueChange?: EventEmitter<string>;
+  maxLength?: string | number | null;
 }
 
 @Component({
@@ -35,6 +39,9 @@ export class InputComponent {
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
   @Input() value = '';
+  @Input() inputType: InputType = 'text';
+  @Input() clearButton = false;
+  @Input() maxLength?: string | number | null = null;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
@@ -44,5 +51,14 @@ export class InputComponent {
 
   public handleClick(): void {
     this.clickButton.emit();
+  }
+
+  public clearInput(): void {
+    this.value = '';
+    this.onChange(this.value);
+  }
+
+  public isClearButtonVisible(): boolean {
+    return this.clearButton && this.value.length > 0;
   }
 }

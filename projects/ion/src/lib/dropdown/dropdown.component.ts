@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
+import { IonInputProps } from '../input/input.component';
 
 export interface DropdownItem {
   label: string;
@@ -12,6 +19,9 @@ export interface DropdownParams {
   options: DropdownItem[];
   selected: EventEmitter<DropdownItem[]>;
   multiple?: boolean;
+  enableSearch?: boolean;
+  searchOptions?: IonInputProps;
+  searchChange?: EventEmitter<string>;
 }
 
 @Component({
@@ -19,12 +29,35 @@ export interface DropdownParams {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent {
+export class DropdownComponent implements AfterViewInit {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
+  @Input() enableSearch = false;
+  @Input() searchOptions?: DropdownParams['searchOptions'];
   @Output() selected = new EventEmitter<DropdownItem[]>();
+  @Output() searchChange = new EventEmitter<string>();
 
   iconSize = 16;
+
+  clearButtonIsVisible: boolean;
+
+  setClearButtonIsVisible(): void {
+    this.clearButtonIsVisible = this.options.some(
+      (option) => option.selected === true
+    );
+  }
+
+  public ngAfterViewInit(): void {
+    const widthContainer = window.innerWidth;
+    const element = document.getElementById('ion-dropdown');
+    const elementProps = element.getBoundingClientRect();
+    const elementRight = elementProps.right;
+    elementRight > widthContainer && (element.style.right = '0');
+
+    const heightContainer = window.innerHeight;
+    const elementBottom = elementProps.bottom;
+    elementBottom > heightContainer && (element.style.bottom = '42px');
+  }
 
   mouseEnter(option: DropdownItem): void {
     option.selected && !option.disabled && (option.hovered = true);
@@ -38,6 +71,7 @@ export class DropdownComponent {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
+    this.clearButtonIsVisible = false;
   }
 
   select(option: DropdownItem): void {
@@ -48,9 +82,14 @@ export class DropdownComponent {
       this.clearOptions();
     }
     option.selected = !option.selected;
+    this.setClearButtonIsVisible();
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
     );
+  }
+
+  inputChange(value: string): void {
+    this.searchChange.emit(value);
   }
 
   private isDisabled(option: DropdownItem): boolean {

@@ -5,14 +5,14 @@ $radius: 8px;
 .ion-table {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   border-radius: $radius;
-  max-height: 660px;
-  overflow-y: auto;
 }
 
 table {
   border-collapse: collapse;
   position: relative;
   width: 100%;
+  max-height: 592px;
+  overflow-y: auto;
 
   & .border-header {
     border-bottom: 1px solid $neutral-4;
@@ -135,6 +135,7 @@ table {
   display: flex;
   justify-content: space-between;
   padding: 16px;
+  gap: spacing(2);
 
   position: sticky;
   bottom: 0;

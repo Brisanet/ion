@@ -1,6 +1,4 @@
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import {
   ITEMS_PER_PAGE_DEFAULT,
   PageEvent,
@@ -13,15 +11,18 @@ import {
   PaginationConfig,
   TableUtils,
 } from '../table/utilsTable';
+import { SafeAny } from '../utils/safe-any';
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 
 export interface TableEvent {
   event: EventTable;
   rows_selected?: SafeAny[];
-  change_page: PageEvent;
+  change_page?: PageEvent;
   order?: {
     column: string;
     desc: boolean;
   };
+  data?: SafeAny;
 }
 
 const stateChange = {
@@ -98,12 +99,16 @@ export class SmartTableComponent implements OnInit {
   }
 
   public sort(column: Column): void {
+    this.config.order = {
+      column: column.key,
+      desc: column.desc,
+    };
     this.events.emit({
       event: EventTable.SORT,
       change_page: this.pagination,
       order: {
         column: column.key,
-        desc: column.desc,
+        desc: !!column.desc,
       },
     });
 
@@ -127,6 +132,7 @@ export class SmartTableComponent implements OnInit {
 
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
+    this.config.pagination.page = this.pagination.actual;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
         event: EventTable.CHANGE_PAGE,
@@ -134,6 +140,20 @@ export class SmartTableComponent implements OnInit {
       });
     }
     this.firstLoad = false;
+  }
+
+  public cellEvents(row: SafeAny, column: Column, cell: SafeAny): void {
+    this.events.emit({
+      event: EventTable.CELL_SELECT,
+      change_page: this.pagination,
+      data: {
+        selected_row: row,
+        cell_data: {
+          value: cell,
+          column: column.key,
+        },
+      },
+    });
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {

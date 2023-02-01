@@ -12,6 +12,8 @@
 }
 .input-container {
   display: flex;
+  line-height: 0;
+  width: 100%;
 }
 
 .input {
@@ -22,6 +24,7 @@
   border: 1px solid $neutral-5;
   border-radius: 8px;
   padding: spacing(1) spacing(1.5);
+  width: 100%;
 
   & .my-input {
     border: none;
@@ -177,6 +180,22 @@ button {
 
   ::ng-deep svg {
     fill: $primary-6;
+  }
+}
+
+.clearButton {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+
+  &:hover {
+    background-color: $primary-1;
+  }
+
+  & ion-icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 <button
-  [attr.id]="'btn-' + label"
+  [attr.data-testid]="'btn-' + label"
   [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
@@ -23,9 +23,12 @@
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     class="icon"
   ></ion-icon>
-  <span *ngIf="!circularButton && (label || (loading && !iconType))">{{
-    loadingMessage || label
-  }}</span>
+  <ng-container *ngIf="!circularButton && label">
+    <span *ngIf="!loading || (loading && !loadingMessage)">{{ label }}</span>
+    <span *ngIf="loading && loadingMessage">
+      {{ loadingMessage }}
+    </span>
+  </ng-container>
   <ion-badge
     [value]="buttonBadge.value"
     [type]="buttonBadge.type"

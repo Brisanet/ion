@@ -1,5 +1,12 @@
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { DropdownItem } from './../dropdown/dropdown.component';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 interface Page {
   page_number: number;
@@ -19,6 +26,7 @@ export interface IonPaginationProps {
   events?: EventEmitter<PageEvent>;
   allowChangeQtdItems?: boolean;
   loading?: boolean;
+  page?: number;
 }
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
@@ -28,13 +36,14 @@ export const ITEMS_PER_PAGE_DEFAULT = 10;
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnChanges {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
+  @Input() page = 0;
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage = [
@@ -52,12 +61,24 @@ export class PaginationComponent implements OnInit {
     this.remountPages();
   }
 
-  ngOnInit(): void {
-    this.createPages(this.totalPages());
-    this.selectPage(1);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.total) {
+      this.remountPages();
+    }
+    if (changes.page && changes.page.currentValue) {
+      this.setPage(changes.page.currentValue);
+    }
   }
 
-  selectPage(pageNumber: number): void {
+  setPage(page = 1): void {
+    if (page === 1) {
+      this.remountPages();
+    } else {
+      this.selectPage(page);
+    }
+  }
+
+  selectPage(pageNumber = 1): void {
     this.pages &&
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -71,6 +92,7 @@ export class PaginationComponent implements OnInit {
       itemsPerPage: this.itemsPerPage,
       offset: (page.page_number - 1) * this.itemsPerPage,
     });
+    this.page = page.page_number;
   }
 
   hasPrevious(): boolean {
@@ -95,7 +117,6 @@ export class PaginationComponent implements OnInit {
   }
 
   remountPages(): void {
-    this.pages = [];
     this.createPages(this.totalPages());
     this.selectPage(1);
   }
@@ -106,6 +127,7 @@ export class PaginationComponent implements OnInit {
   }
 
   private createPages(qtdOfPages: number): void {
+    this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
       this.pages.push({
         selected: false,

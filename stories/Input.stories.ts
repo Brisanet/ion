@@ -74,7 +74,38 @@ inputIconButton.args = {
   iconInput: 'filter',
 };
 
+export const InputText = Template.bind({});
+InputText.args = {
+  inputType: 'text',
+};
+
+export const InputPassword = Template.bind({});
+InputPassword.args = {
+  inputType: 'password',
+  clearButton: true,
+};
+
+export const InputWithSearch = Template.bind({});
+InputWithSearch.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'right',
+};
+
+export const InputSearchWithClearButton = Template.bind({});
+InputSearchWithClearButton.args = {
+  inputType: 'text',
+  iconInput: 'search',
+  iconDirection: 'left',
+  clearButton: true,
+};
+
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const MaxLength = Template.bind({});
+MaxLength.args = {
+  maxLength: 3,
 };

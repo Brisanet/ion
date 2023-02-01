@@ -1,9 +1,15 @@
+import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { BadgeComponent } from '../badge/badge.component';
+import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { InputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
 import { DropdownComponent, DropdownParams } from './dropdown.component';
 
 const options = [];
+const inputElement = 'input-element';
 const createOptions = (): void => {
   for (let index = 0; index < 3; index++) {
     options.push({
@@ -30,7 +36,13 @@ const sut = async (
 }> => {
   await render(DropdownComponent, {
     componentProperties: customParams,
-    declarations: [IonIconComponent],
+    declarations: [
+      ButtonComponent,
+      IonIconComponent,
+      BadgeComponent,
+      InputComponent,
+    ],
+    imports: [FormsModule],
   });
   return { element: screen.getByTestId('ion-dropdown') };
 };
@@ -69,6 +81,36 @@ describe('DropdownComponent', () => {
     fireEvent.mouseLeave(elementToHover);
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
+  });
+});
+
+describe('Dropdown / Clear Filters', () => {
+  const optionToSelect = 0;
+  let elementToSelect;
+
+  beforeEach(async () => {
+    await sut();
+    selectEvent.mockClear();
+    elementToSelect = document.getElementById('option-' + optionToSelect);
+    fireEvent.click(elementToSelect);
+  });
+
+  it('should render button to clear filters selected in dropdown', async () => {
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
+    expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
+  });
+
+  it('should clear filters selected in dropdown', async () => {
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
+    fireEvent.click(screen.getByTestId('buttonClear'));
+    expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
+  });
+
+  it('should button disapear when filter is not selected', async () => {
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
+    fireEvent.click(screen.getByTestId('buttonClear'));
+    expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
+    expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
   });
 });
 
@@ -148,7 +190,7 @@ describe('DropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
 
-  it('should deslected a option', async () => {
+  it('should deselected a option', async () => {
     await sut(defaultMultiple);
     const elementToSelect = document.getElementById('option-0');
     fireEvent.click(elementToSelect);
@@ -169,5 +211,91 @@ describe('DropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length - 1
     );
+  });
+});
+
+describe('DropdownComponent / With Search', () => {
+  const searchEvent = jest.fn();
+
+  const defaultWithSearch = {
+    options,
+    multiple: true,
+    enableSearch: true,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+    searchChange: {
+      emit: searchEvent,
+    } as SafeAny,
+  };
+
+  beforeEach(() => {
+    selectEvent.mockClear();
+  });
+
+  it('should show search input', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId(inputElement)).toBeInTheDocument();
+  });
+
+  it('should emit event when searching', async () => {
+    const search = 'Apple';
+    await sut(defaultWithSearch);
+    const searchInput = screen.getByTestId(inputElement);
+    userEvent.type(searchInput, search);
+    expect(searchEvent).toHaveBeenLastCalledWith(search);
+  });
+  it('should show empty placeholder when a placeholder is not provided', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId(inputElement)).toHaveAttribute('placeholder', '');
+  });
+  it('should show search icon when an icon is not provided', async () => {
+    await sut(defaultWithSearch);
+    expect(document.getElementById('ion-icon-search')).toBeTruthy();
+  });
+
+  it('should show icon on right when a direction is not provided', async () => {
+    await sut(defaultWithSearch);
+    expect(screen.getByTestId(`icon-right`)).toBeInTheDocument();
+  });
+});
+
+describe('DropdownComponent / With Search / Custom Search', () => {
+  const searchOptions: IonInputProps = {
+    placeholder: 'Buscar',
+    iconInput: 'pencil',
+    iconDirection: 'left',
+  };
+  let searchInput;
+  beforeEach(async () => {
+    await sut({
+      options,
+      multiple: true,
+      enableSearch: true,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+      searchChange: {
+        emit: jest.fn(),
+      } as SafeAny,
+      searchOptions,
+    });
+    searchInput = screen.getByTestId(inputElement);
+  });
+  it('should show provided placeholder', async () => {
+    expect(searchInput).toHaveAttribute(
+      'placeholder',
+      searchOptions.placeholder
+    );
+  });
+  it('should show provided icon', async () => {
+    expect(
+      document.getElementById('ion-icon-' + searchOptions.iconInput)
+    ).toBeTruthy();
+  });
+  it('should show icon in provided direction', async () => {
+    expect(
+      screen.getByTestId(`icon-${searchOptions.iconDirection}`)
+    ).toBeInTheDocument();
   });
 });

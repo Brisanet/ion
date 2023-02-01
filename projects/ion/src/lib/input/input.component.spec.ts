@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { InputComponent, IonInputProps } from './input.component';
+import { InputComponent, InputType, IonInputProps } from './input.component';
 import { FormsModule } from '@angular/forms';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
@@ -15,7 +15,18 @@ const sut = async (customProps?: IonInputProps): Promise<void> => {
 };
 
 describe('InputComponent', () => {
-  it('Should allow letters to be inputted', async () => {
+  it('should render input with an empty placeholder if none is passed', async () => {
+    await sut();
+    const input = screen.getByTestId('input-element');
+    expect(input).not.toHaveAttribute('placeholder');
+  });
+  it('should render input with a given placeholder', async () => {
+    const placeholder = 'Search';
+    await sut({ placeholder });
+    const input = screen.getByTestId('input-element');
+    expect(input).toHaveAttribute('placeholder', placeholder);
+  });
+  it('should allow letters to be inputted', async () => {
     await sut();
     const inputValue = 'input';
     fireEvent.change(screen.getByTestId('input-element'), {
@@ -24,18 +35,13 @@ describe('InputComponent', () => {
     expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
-  it('should render input with an empty placeholder if none is passed', async () => {
-    await sut();
-    const input = screen.getByTestId('input-element');
-    expect(input).not.toHaveAttribute('placeholder');
-  });
-
-  it('should render input with a given placeholder', async () => {
-    const placeholder = 'Search';
-    await sut({ placeholder });
-    const input = screen.getByTestId('input-element');
-    expect(input).toHaveAttribute('placeholder', placeholder);
-  });
+  it.each(['text', 'password'])(
+    'should render type %s on input component',
+    async (type: InputType) => {
+      await sut({ inputType: type });
+      expect(screen.getByTestId('input-element')).toHaveAttribute('type', type);
+    }
+  );
 
   it('should render input component disabled', async () => {
     await sut({ disabled: true });
@@ -93,6 +99,25 @@ describe('InputComponent', () => {
     expect(clickEvent).toHaveBeenCalled();
   });
 
+  it.each(['4', 4])(
+    'should render input component with text "valu" when the typed "values" and maxLength = 4',
+    async (maxLength) => {
+      const exampleText = 'values';
+      await sut({ maxLength });
+      const element: HTMLInputElement = screen.getByTestId('input-element');
+      userEvent.type(element, exampleText);
+      expect(element.value).toBe(exampleText.substring(0, Number(maxLength)));
+    }
+  );
+
+  it("should render input component without maxLength when don't sent this prop", async () => {
+    const text = 'text for input element test';
+    await sut({});
+    const element: HTMLInputElement = screen.getByTestId('input-element');
+    userEvent.type(element, text);
+    expect(element.value).toBe(text);
+  });
+
   it.skip('should render input icon valid', async () => {
     await sut();
     expect(document.getElementById('icon-valid')).toBeTruthy();
@@ -128,6 +153,49 @@ describe('InputComponent', () => {
     it('should emit the value on the last emit', async () => {
       userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenLastCalledWith(value);
+    });
+  });
+
+  describe('Clear Button events', () => {
+    const mockFn = jest.fn();
+    const value = 'input-with-clear-button';
+    let input;
+
+    beforeEach(async () => {
+      await sut({
+        valueChange: { emit: mockFn } as SafeAny,
+        clearButton: true,
+      });
+      input = screen.getByTestId('input-element');
+    });
+
+    afterEach(async () => {
+      mockFn.mockClear();
+    });
+
+    it('should render the clear button when informed and input have value', async () => {
+      userEvent.type(input, value);
+      fireEvent.blur(input);
+      const clearButton = screen.getByTestId('clear-button');
+      expect(clearButton).toBeInTheDocument();
+    });
+
+    it('should change value to empty when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(input).toHaveValue('');
+    });
+
+    it('should emit valueChange when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenCalled();
+    });
+
+    it('should emit empty value when clear button press', async () => {
+      userEvent.type(input, value);
+      fireEvent.click(screen.getByTestId('clear-button'));
+      expect(mockFn).toHaveBeenLastCalledWith('');
     });
   });
 });

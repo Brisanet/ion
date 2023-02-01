@@ -13,6 +13,7 @@ const defaultComponent: IonPaginationProps = {
   events: {
     emit: pageEvent,
   } as SafeAny,
+  page: 1,
 };
 
 const sut = async (
@@ -84,6 +85,19 @@ describe('PaginationComponent', () => {
   });
 });
 
+describe('Pagination > Page', () => {
+  it.each([1, 2, 3, 4])(
+    'should select a page %s from the table',
+    async (page) => {
+      await sut({
+        total: page * 10,
+        page: page,
+      });
+      expect(screen.getByTestId(`page-${page}`)).toHaveClass('selected');
+    }
+  );
+});
+
 describe('Pagination > Events', () => {
   it('should emit the page selected when selected page', async () => {
     const event = jest.fn();
@@ -111,7 +125,7 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
     const label = '10 / página';
-    fireEvent.click(document.getElementById(`btn-${label}`));
+    fireEvent.click(await screen.getByTestId(`btn-${label}`));
     fireEvent.click(screen.getByText('20 / página'));
     expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });

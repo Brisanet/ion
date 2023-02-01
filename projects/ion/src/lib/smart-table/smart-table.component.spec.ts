@@ -15,6 +15,8 @@ import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
 
+const columnTrigger = 'click';
+
 const columns: Column[] = [
   {
     key: 'name',
@@ -60,6 +62,7 @@ const defaultProps: IonSmartTableProps<Character> = {
     pagination: {
       total: 32,
       itemsPerPage: 10,
+      page: 1,
     },
     loading: false,
   },
@@ -150,8 +153,17 @@ describe('TableComponent', () => {
       event: EventTable.SORT,
       order: {
         column: orderBy,
-        desc: undefined,
+        desc: false,
       },
+    });
+  });
+
+  it('should be defined the value of order when sort column', async () => {
+    const orderBy = columns[0].key;
+    fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+    expect(defaultProps.config.order).toStrictEqual({
+      column: orderBy,
+      desc: true,
     });
   });
 
@@ -266,6 +278,7 @@ describe('Table > Checkbox', () => {
       pagination: {
         total: 82,
         itemsPerPage: 10,
+        page: 1,
       },
     },
     events: {
@@ -454,6 +467,7 @@ describe('Table > Differents columns data type', () => {
       pagination: {
         total: 82,
         itemsPerPage: 10,
+        page: 1,
       },
     },
     events: {
@@ -532,6 +546,7 @@ describe('Table > Pagination', () => {
     ) as IonSmartTableProps<Character>;
     withoutConfigItemsPerPage.config.pagination = {
       total: 32,
+      page: 1,
     };
 
     await sut(withoutConfigItemsPerPage);
@@ -615,5 +630,100 @@ describe('Table without Data', () => {
   it('should render a no data message', async () => {
     await sut(tableWithoutData);
     expect(screen.getByText('Não há dados')).toBeInTheDocument();
+  });
+
+  it('checkbox should be disabled when there is no data', async () => {
+    await sut(tableWithoutData);
+    expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+});
+
+describe('Table with cell events', () => {
+  const columnsWithCellEvent: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+      actions: {
+        trigger: columnTrigger,
+      },
+    },
+  ];
+
+  const tableWithCellEvents = {
+    config: {
+      data: data,
+      columns: columnsWithCellEvent,
+      pagination: {
+        total: 2,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(tableWithCellEvents);
+  });
+
+  it.each([0, 1])(
+    'should render table with clickable cell style',
+    async (index) => {
+      const selectableCellID = `row-${index}-height`;
+      expect(screen.getByTestId(selectableCellID)).toHaveStyle(
+        'cursor: pointer;'
+      );
+    }
+  );
+
+  it.each([0, 1])(
+    'should render default column even with a clickable cell',
+    async (index) => {
+      const selectableCellID = `row-${index}-name`;
+      expect(screen.getByTestId(selectableCellID)).not.toHaveStyle(
+        'cursor: pointer;'
+      );
+    }
+  );
+
+  it('should emit event when selectable cell is clicked', async () => {
+    const selectableCellID = 'row-0-height';
+    fireEvent.click(screen.getByTestId(selectableCellID));
+    expect(events).toHaveBeenCalledWith({
+      change_page: pagination,
+      event: EventTable.CELL_SELECT,
+      data: {
+        selected_row: data[0],
+        cell_data: {
+          value: 172,
+          column: 'height',
+        },
+      },
+    });
+  });
+
+  it('should not emit event when not selectable cell is clicked', async () => {
+    const selectableCellID = 'row-0-name';
+    fireEvent.click(screen.getByTestId(selectableCellID));
+    expect(events).not.toHaveBeenCalledWith({
+      change_page: pagination,
+      event: EventTable.CELL_SELECT,
+      data: {
+        selected_row: data[0],
+        cell_data: {
+          value: 'Luke Skywalker',
+          column: 'name',
+        },
+      },
+    });
   });
 });

@@ -1,7 +1,7 @@
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import { PageEvent } from '../pagination/pagination.component';
+import { SafeAny } from '../utils/safe-any';
+import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
 
 interface TableEvent {
@@ -35,7 +35,9 @@ export class TableComponent implements OnInit {
     this.tableUtils = new TableUtils(this.config);
     if (this.config.pagination) {
       const defaultItemsPerPage = 10;
-      this.config.pagination.itemsPerPage = defaultItemsPerPage;
+
+      this.config.pagination.itemsPerPage =
+        this.config.pagination.itemsPerPage || defaultItemsPerPage;
 
       this.smartData = this.config.data.slice(
         this.config.pagination.offset,

@@ -56,6 +56,25 @@ const columns = [
   },
 ];
 
+const selectableColumns = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    actions: {
+      trigger: 'click',
+    },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    actions: {
+      trigger: 'click',
+    },
+  },
+];
+
 const actions = [
   {
     label: 'Excluir',
@@ -78,28 +97,30 @@ const actions = [
   },
 ];
 
-export const Basic = Template.bind({});
-Basic.args = {
-  config: {
-    check: true,
-    data,
-    columns,
-    actions,
-    pagination: {
-      total: 8,
+function returnTableConfig(
+  tableData,
+  tableColumns,
+  tableActions,
+  paginationTotal
+): SafeAny {
+  return {
+    config: {
+      check: true,
+      data: tableData,
+      columns: tableColumns,
+      actions: tableActions,
+      pagination: {
+        total: paginationTotal,
+      },
     },
-  },
-};
+  };
+}
+
+export const Basic = Template.bind({});
+Basic.args = returnTableConfig(data, columns, actions, 2);
 
 export const NoData = Template.bind({});
-NoData.args = {
-  config: {
-    check: true,
-    data: [],
-    columns,
-    actions,
-    pagination: {
-      total: 0,
-    },
-  },
-};
+NoData.args = returnTableConfig([], columns, actions, 0);
+
+export const SelectableCells = Template.bind({});
+SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);

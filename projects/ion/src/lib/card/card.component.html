@@ -41,13 +41,20 @@
           [infoBadge]="chip.infoBadge"
           [iconPosition]="chip.iconPosition"
           [rightBadge]="chip.rightBadge"
-          (click)="cardEvent({ chipSelected: { chip: chip, index: i } })"
+          (click)="
+            !chip.options &&
+              cardEvent({ chipSelected: { chip: chip, index: i } })
+          "
+          (dropdownEvents)="cardEvent({ selectedFromChipDropdown: $event })"
+          (dropdownSearchEvents)="
+            cardEvent({ selectedFromChipDropdown: $event })
+          "
         ></ion-chip>
       </div>
     </div>
   </div>
 
-  <div class="card-ion-container">
+  <div *ngIf="configuration.body" class="card-ion-container">
     <div #body></div>
   </div>
 
@@ -62,7 +69,7 @@
           [type]="'secondary'"
           (click)="cardEvent({ buttonAction: 'secondary' })"
         ></ion-button>
-        <div class="footer-buttons">
+        <div class="card-ion-footer-buttons">
           <ion-button
             *ngIf="configuration.footer.buttons.ghost"
             [label]="configuration.footer.buttons.ghost.label"

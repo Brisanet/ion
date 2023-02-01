@@ -1,4 +1,14 @@
-<div class="container-options" data-testid="ion-dropdown">
+<div class="container-options" id="ion-dropdown" data-testid="ion-dropdown">
+  <ion-input
+    class="dropdown-search"
+    *ngIf="enableSearch"
+    [iconInput]="searchOptions?.iconInput || 'search'"
+    [iconDirection]="searchOptions?.iconDirection || 'right'"
+    [clearButton]="searchOptions?.clearButton || false"
+    [placeholder]="searchOptions?.placeholder || ''"
+    [disabled]="searchOptions?.disabled || false"
+    (valueChange)="inputChange($event)"
+  ></ion-input>
   <div
     [ngClass]="{
       'dropdown-disabled': option.disabled,
@@ -24,4 +34,15 @@
       ></ion-icon>
     </div>
   </div>
+  <ion-button
+    label="Limpar"
+    iconType="trash"
+    type="secondary"
+    size="sm"
+    rightSideIcon="true"
+    expand="true"
+    *ngIf="clearButtonIsVisible"
+    (click)="clearOptions()"
+    data-testid="buttonClear"
+  ></ion-button>
 </div>
