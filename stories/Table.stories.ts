@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/angular';
 import { TableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
-  AlertComponent,
+  IonAlertComponent,
   IonDividerComponent,
   PopConfirmDirective,
   TagComponent,
@@ -31,7 +31,7 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
       PaginationComponent,
       PopConfirmDirective,
       PopConfirmComponent,
-      AlertComponent,
+      IonAlertComponent,
       IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule, ButtonModule],

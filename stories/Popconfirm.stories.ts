@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
-  AlertComponent,
+  IonAlertComponent,
   BadgeComponent,
   ButtonComponent,
   DropdownComponent,
@@ -27,7 +27,7 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
       IonIconComponent,
       BadgeComponent,
       DropdownComponent,
-      AlertComponent,
+      IonAlertComponent,
       InputComponent,
     ],
     imports: [CommonModule, FormsModule],

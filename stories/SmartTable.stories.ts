@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import {
-  AlertComponent,
+  IonAlertComponent,
   IonDividerComponent,
   PopConfirmDirective,
   TagComponent,
@@ -31,7 +31,7 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
       PaginationComponent,
       PopConfirmDirective,
       PopConfirmComponent,
-      AlertComponent,
+      IonAlertComponent,
       IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule, ButtonModule],

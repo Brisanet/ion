@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AlertComponent } from './alert/alert.component';
+import { IonAlertComponent } from './alert/alert.component';
 import { AvatarComponent } from './avatar/avatar.component';
 import { BadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
@@ -50,7 +50,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     TabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
-    AlertComponent,
+    IonAlertComponent,
     MessageComponent,
     NotificationComponent,
     HeadingComponent,
@@ -92,7 +92,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     HeadingComponent,
     TagComponent,
     DropdownComponent,
-    AlertComponent,
+    IonAlertComponent,
     MessageComponent,
     NotificationComponent,
     AvatarComponent,
