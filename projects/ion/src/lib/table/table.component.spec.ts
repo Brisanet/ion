@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { TagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
 import { IonTableProps, TableComponent } from './table.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { IonPaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
 import { ButtonModule } from '../button/button.module';
@@ -67,7 +67,7 @@ const sut = async (
     declarations: [
       TagComponent,
       IonCheckboxComponent,
-      PaginationComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
     ],
     imports: [FormsModule, ButtonModule],

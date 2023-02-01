@@ -8,7 +8,7 @@ import {
   PopConfirmDirective,
   TagComponent,
 } from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
@@ -28,7 +28,7 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
     declarations: [
       TagComponent,
       IonCheckboxComponent,
-      PaginationComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
       PopConfirmComponent,
       IonAlertComponent,

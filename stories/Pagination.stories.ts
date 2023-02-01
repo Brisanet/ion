@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Navigation/Pagination',
-  component: PaginationComponent,
+  component: IonPaginationComponent,
 } as Meta;
 
-const Template: Story<PaginationComponent> = (args: PaginationComponent) => ({
-  component: PaginationComponent,
+const Template: Story<IonPaginationComponent> = (
+  args: IonPaginationComponent
+) => ({
+  component: IonPaginationComponent,
   props: { ...args, events: action('selected') },
   moduleMetadata: {
     declarations: [],

@@ -23,7 +23,7 @@ import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
 import { IonNotificationComponent } from './notification/notification.component';
-import { PaginationComponent } from './pagination/pagination.component';
+import { IonPaginationComponent } from './pagination/pagination.component';
 import { PopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { RadioComponent } from './radio/radio.component';
@@ -69,7 +69,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonInfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
-    PaginationComponent,
+    IonPaginationComponent,
     PopConfirmComponent,
     SmartTableComponent,
     SwitchComponent,
@@ -107,7 +107,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonInfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
-    PaginationComponent,
+    IonPaginationComponent,
     PopConfirmComponent,
     SmartTableComponent,
     TableComponent,

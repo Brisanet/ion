@@ -9,7 +9,7 @@ import {
   PopConfirmDirective,
   TagComponent,
 } from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
@@ -28,7 +28,7 @@ const Template: Story<TableComponent> = (args: TableComponent) => ({
       TableComponent,
       TagComponent,
       IonCheckboxComponent,
-      PaginationComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
       PopConfirmComponent,
       IonAlertComponent,
