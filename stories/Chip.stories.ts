@@ -4,7 +4,7 @@ import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
+import { IonInfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { FormsModule } from '@angular/forms';
 import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
@@ -17,7 +17,7 @@ export default {
       imports: [FormsModule],
       declarations: [
         IonBadgeComponent,
-        InfoBadgeComponent,
+        IonInfoBadgeComponent,
         IonIconComponent,
         IonDropdownComponent,
         InputComponent,

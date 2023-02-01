@@ -8,7 +8,7 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 
-import { InfoBadgeComponent } from '../info-badge/info-badge.component';
+import { IonInfoBadgeComponent } from '../info-badge/info-badge.component';
 import { ButtonModule } from './../button/button.module';
 import { IonChipComponent, IonChipProps } from './../chip/chip.component';
 import { CardEvent, IonCardComponent, IonCard } from './card.component';
@@ -68,7 +68,7 @@ class CardTestComponent implements AfterViewInit {
     ButtonTestComponent,
     FooterTestComponent,
     IonChipComponent,
-    InfoBadgeComponent,
+    IonInfoBadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,

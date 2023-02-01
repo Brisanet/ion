@@ -15,7 +15,7 @@ import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
-import { InfoBadgeComponent } from './info-badge/info-badge.component';
+import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { InputCounterComponent } from './input-counter/input-counter.component';
 import { InputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
@@ -66,7 +66,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonCardComponent,
     InputCounterComponent,
     IonDatePickerComponent,
-    InfoBadgeComponent,
+    IonInfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
@@ -104,7 +104,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonCardComponent,
     IonDatePickerComponent,
     SimpleMenuComponent,
-    InfoBadgeComponent,
+    IonInfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
     PaginationComponent,
