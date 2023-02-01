@@ -10,7 +10,7 @@ import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
 import { IonChipComponent } from './chip/chip.component';
 import { IonColComponent } from './col/col.component';
-import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
+import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
@@ -65,7 +65,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonCheckboxComponent,
     IonCardComponent,
     InputCounterComponent,
-    DatePickerComponent,
+    IonDatePickerComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
     IonModalComponent,
@@ -102,7 +102,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonColComponent,
     IonCheckboxComponent,
     IonCardComponent,
-    DatePickerComponent,
+    IonDatePickerComponent,
     SimpleMenuComponent,
     InfoBadgeComponent,
     SimpleMenuComponent,
