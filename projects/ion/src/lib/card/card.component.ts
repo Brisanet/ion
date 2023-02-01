@@ -63,7 +63,7 @@ export interface IonCard {
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardIonComponent implements AfterViewInit, OnDestroy {
+export class IonCardComponent implements AfterViewInit, OnDestroy {
   @Input() configuration!: IonCard;
   @Output() events = new EventEmitter<CardEvent>();
 

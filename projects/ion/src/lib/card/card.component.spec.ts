@@ -11,7 +11,7 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
 import { ButtonModule } from './../button/button.module';
 import { ChipComponent, IonChipProps } from './../chip/chip.component';
-import { CardEvent, CardIonComponent, IonCard } from './card.component';
+import { CardEvent, IonCardComponent, IonCard } from './card.component';
 
 let renderFooter = false;
 
@@ -64,7 +64,7 @@ class CardTestComponent implements AfterViewInit {
   imports: [CommonModule, ButtonModule],
   declarations: [
     CardTestComponent,
-    CardIonComponent,
+    IonCardComponent,
     ButtonTestComponent,
     FooterTestComponent,
     ChipComponent,

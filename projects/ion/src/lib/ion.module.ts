@@ -6,7 +6,7 @@ import { IonAvatarComponent } from './avatar/avatar.component';
 import { IonBadgeComponent } from './badge/badge.component';
 import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { IonButtonComponent } from './button/button.component';
-import { CardIonComponent } from './card/card.component';
+import { IonCardComponent } from './card/card.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { ChipComponent } from './chip/chip.component';
 import { ColComponent } from './col/col.component';
@@ -63,7 +63,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     RowComponent,
     ColComponent,
     CheckboxComponent,
-    CardIonComponent,
+    IonCardComponent,
     InputCounterComponent,
     DatePickerComponent,
     InfoBadgeComponent,
@@ -101,7 +101,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     RowComponent,
     ColComponent,
     CheckboxComponent,
-    CardIonComponent,
+    IonCardComponent,
     DatePickerComponent,
     SimpleMenuComponent,
     InfoBadgeComponent,
