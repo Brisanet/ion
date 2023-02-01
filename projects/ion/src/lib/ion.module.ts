@@ -8,7 +8,7 @@ import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { IonButtonComponent } from './button/button.component';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
-import { ChipComponent } from './chip/chip.component';
+import { IonChipComponent } from './chip/chip.component';
 import { ColComponent } from './col/col.component';
 import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { DefaultImageDirective } from './defaultImage.directive';
@@ -44,7 +44,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonComponent,
     IonButtonComponent,
     IonIconComponent,
-    ChipComponent,
+    IonChipComponent,
     TabComponent,
     PopConfirmDirective,
     RadioComponent,
@@ -86,7 +86,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonButtonComponent,
     IonBadgeComponent,
     IonIconComponent,
-    ChipComponent,
+    IonChipComponent,
     TabComponent,
     RadioComponent,
     TabGroupComponent,

@@ -7,7 +7,7 @@ import { IonIconComponent } from './../icon/icon.component';
 import { IonButtonComponent } from '../button/button.component';
 import { SafeAny } from '../utils/safe-any';
 import {
-  ChipComponent,
+  IonChipComponent,
   IonChipProps,
   ChipSize,
   IconDirection,
@@ -19,7 +19,7 @@ import { InputComponent } from '../input/input.component';
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
 const sut = async (customProps?: IonChipProps): Promise<void> => {
-  await render(ChipComponent, {
+  await render(IonChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },

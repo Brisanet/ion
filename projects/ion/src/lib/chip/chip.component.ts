@@ -42,7 +42,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent {
+export class IonChipComponent {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
