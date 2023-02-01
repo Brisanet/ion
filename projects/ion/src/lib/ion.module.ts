@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonAlertComponent } from './alert/alert.component';
 import { IonAvatarComponent } from './avatar/avatar.component';
 import { IonBadgeComponent } from './badge/badge.component';
+import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { ButtonComponent } from './button/button.component';
 import { CardIonComponent } from './card/card.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -76,6 +77,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     InputComponent,
     TooltipDirective,
     TooltipComponent,
+    IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -113,6 +115,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     InputComponent,
     TooltipComponent,
     SwitchComponent,
+    IonBreadcrumbComponent,
   ],
   entryComponents: [PopConfirmComponent, TooltipComponent],
 })
