@@ -1,4 +1,4 @@
-import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
+import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
@@ -27,7 +27,7 @@ const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
     entryComponents: [PopConfirmComponent],
     declarations: [
       TagComponent,
-      CheckboxComponent,
+      IonCheckboxComponent,
       PaginationComponent,
       PopConfirmDirective,
       PopConfirmComponent,

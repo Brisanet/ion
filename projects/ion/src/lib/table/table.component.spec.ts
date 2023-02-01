@@ -1,4 +1,4 @@
-import { CheckboxComponent } from './../checkbox/checkbox.component';
+import { IonCheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { TagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
@@ -66,7 +66,7 @@ const sut = async (
     componentProperties: customProps,
     declarations: [
       TagComponent,
-      CheckboxComponent,
+      IonCheckboxComponent,
       PaginationComponent,
       PopConfirmDirective,
     ],
