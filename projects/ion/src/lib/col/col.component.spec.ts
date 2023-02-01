@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/angular';
-import { ColComponent } from './col.component';
+import { IonColComponent } from './col.component';
 
-const sut = async (customProps: ColComponent = {}): Promise<HTMLElement> => {
-  await render(ColComponent, {
+const sut = async (customProps: IonColComponent = {}): Promise<HTMLElement> => {
+  await render(IonColComponent, {
     componentProperties: customProps,
     declarations: [],
   });
@@ -15,7 +15,7 @@ const sut = async (customProps: ColComponent = {}): Promise<HTMLElement> => {
 
 describe('RowComponent', () => {
   it('should render col component', async () => {
-    const colComponent = await sut({});
-    expect(colComponent).toBeTruthy();
+    const IonColComponent = await sut({});
+    expect(IonColComponent).toBeTruthy();
   });
 });
