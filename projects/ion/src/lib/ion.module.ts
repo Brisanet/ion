@@ -19,7 +19,7 @@ import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonInputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
-import { MessageComponent } from './message/message.component';
+import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
 import { NotificationComponent } from './notification/notification.component';
@@ -52,7 +52,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonDividerComponent,
     HeadingComponent,
     IonAlertComponent,
-    MessageComponent,
+    IonMessageComponent,
     NotificationComponent,
     HeadingComponent,
     IonAvatarComponent,
@@ -95,7 +95,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     TagComponent,
     IonDropdownComponent,
     IonAlertComponent,
-    MessageComponent,
+    IonMessageComponent,
     NotificationComponent,
     IonAvatarComponent,
     RowComponent,
