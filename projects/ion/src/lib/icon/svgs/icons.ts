@@ -26,6 +26,7 @@ import {
   exclamationRounded,
   expand,
   filter,
+  headset,
   info,
   infoSolid,
   left2,
@@ -61,6 +62,8 @@ import {
   working,
   checkOutlined,
   arrowsLeftRight,
+  download,
+  upload,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -88,6 +91,7 @@ export const iconsPaths: Record<string, string> = {
   exclamation,
   expand,
   filter,
+  headset,
   info,
   'info-solid': infoSolid,
   left2,
@@ -127,4 +131,6 @@ export const iconsPaths: Record<string, string> = {
   motorcycle,
   localization,
   auditForwarded,
+  download,
+  upload,
 };

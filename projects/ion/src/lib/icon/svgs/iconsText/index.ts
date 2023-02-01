@@ -60,3 +60,6 @@ export { default as wait } from './wait';
 export { default as working } from './working';
 export { default as arrowsLeftRight } from './arrows-left-right';
 export { default as onu } from './onu';
+export { default as headset } from './headset';
+export { default as download } from './download';
+export { default as upload } from './upload';
