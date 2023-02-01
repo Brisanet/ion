@@ -78,7 +78,7 @@ describe('PopoverComponent', () => {
       await sut({
         ...defaultProps,
         ionPopoverIcon: 'condominium',
-        ionPopoverIconClose: 'close',
+        ionPopoverIconClose: true,
       });
     });
 

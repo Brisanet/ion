@@ -28,9 +28,9 @@ export interface PopoverPosition {
 export class PopoverDirective {
   @Input() ionPopoverTitle = 'Tem certeza?';
   @Input() ionPopoverBody = '';
-  @Input() ionPopoverActions?: [] = [];
+  @Input() ionPopoverActions?: IonButtonProps[] = [];
   @Input() ionPopoverIcon?: IconType = '';
-  @Input() ionPopoverIconClose?: IconType = '';
+  @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverArrowPosition?: PopoverArrow = 'arrow-2';
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();

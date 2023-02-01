@@ -21,7 +21,7 @@ export interface PopoverProps {
   ionPopoverBody: SafeAny;
   ionPopoverActions?: IonButtonProps[];
   ionPopoverIcon?: IconType;
-  ionPopoverIconClose?: IconType;
+  ionPopoverIconClose?: boolean;
   ionPopoverArrowPosition?: PopoverArrow;
 }
 
@@ -37,7 +37,7 @@ export class PopoverComponent {
   @Input() ionPopoverActions?: IonButtonProps[];
 
   @Input() ionPopoverIcon?: IconType = '';
-  @Input() ionPopoverIconClose?: IconType = '';
+  @Input() ionPopoverIconClose?: boolean = false;
   @Input() ionPopoverArrowPosition?: PopoverArrow = 'arrow-2';
 
   readonly ionOnClose = new Subject<void>();

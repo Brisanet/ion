@@ -41,7 +41,7 @@ Default.args = {
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIcon: 'left2',
-  ionPopoverIconClose: 'close',
+  ionPopoverIconClose: true,
 };
 
 export const withActions = Template.bind({});
@@ -50,6 +50,6 @@ withActions.args = {
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIcon: 'condominium',
-  ionPopoverIconClose: 'close',
+  ionPopoverIconClose: true,
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
 };

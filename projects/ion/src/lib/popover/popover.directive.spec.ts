@@ -107,4 +107,10 @@ describe('Directive: Popover', () => {
   it('should open the popover when clicked', () => {
     directive.open(elementPosition);
   });
+
+  // it('should open the popconfirm when clicked', () => {
+  //   directive.open(elementPosition);
+  //   fireEvent.click(screen.getByText(textButton));
+  //   expect(screen.getByText(confirmText)).toBeInTheDocument();
+  // });
 });
