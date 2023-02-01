@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { BadgeComponent } from '../projects/ion/src/public-api';
+import { IonBadgeComponent } from '../projects/ion/src/public-api';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
@@ -13,7 +13,7 @@ const Template: Story<TabComponent> = (args: TabComponent) => ({
   component: TabComponent,
   props: args,
   moduleMetadata: {
-    declarations: [TabComponent, IonIconComponent, BadgeComponent],
+    declarations: [TabComponent, IonIconComponent, IonBadgeComponent],
     imports: [CommonModule],
   },
 });

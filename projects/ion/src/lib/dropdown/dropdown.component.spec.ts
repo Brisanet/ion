@@ -1,7 +1,7 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { ButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent, IonInputProps } from '../input/input.component';
@@ -39,7 +39,7 @@ const sut = async (
     declarations: [
       ButtonComponent,
       IonIconComponent,
-      BadgeComponent,
+      IonBadgeComponent,
       InputComponent,
     ],
     imports: [FormsModule],

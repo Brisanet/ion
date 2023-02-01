@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { InfoBadgeComponent } from '../info-badge/info-badge.component';
-import { BadgeComponent } from './../badge/badge.component';
+import { IonBadgeComponent } from './../badge/badge.component';
 import { DropdownComponent } from './../dropdown/dropdown.component';
 import { IonIconComponent } from './../icon/icon.component';
 import { ButtonComponent } from '../button/button.component';
@@ -24,7 +24,7 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
       label: 'chip',
     },
     declarations: [
-      BadgeComponent,
+      IonBadgeComponent,
       InfoBadgeComponent,
       IonIconComponent,
       DropdownComponent,

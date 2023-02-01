@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { TabComponent, TabSize } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
@@ -28,7 +28,7 @@ const sut = async (
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   await render(TabGroupComponent, {
     componentProperties: customProps,
-    declarations: [TabComponent, IonIconComponent, BadgeComponent],
+    declarations: [TabComponent, IonIconComponent, IonBadgeComponent],
   });
   return { element: screen.getByTestId('ion-tab-group'), event: selectEvent };
 };

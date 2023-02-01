@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
 
@@ -12,13 +12,13 @@ import { FormsModule } from '@angular/forms';
     ButtonComponent,
     IonIconComponent,
     DropdownComponent,
-    BadgeComponent,
+    IonBadgeComponent,
     InputComponent,
   ],
   exports: [
     ButtonComponent,
     IonIconComponent,
-    BadgeComponent,
+    IonBadgeComponent,
     DropdownComponent,
     InputComponent,
   ],

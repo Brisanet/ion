@@ -5,7 +5,7 @@ import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
   IonAlertComponent,
-  BadgeComponent,
+  IonBadgeComponent,
   ButtonComponent,
   DropdownComponent,
   IonDividerComponent,
@@ -25,7 +25,7 @@ const Template: Story<PopConfirmComponent> = (args: PopConfirmComponent) => ({
       IonDividerComponent,
       ButtonComponent,
       IonIconComponent,
-      BadgeComponent,
+      IonBadgeComponent,
       DropdownComponent,
       IonAlertComponent,
       InputComponent,

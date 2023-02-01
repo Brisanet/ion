@@ -8,7 +8,7 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ButtonComponent } from './../button/button.component';
@@ -69,7 +69,7 @@ describe('Directive: Popconfirm', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
+        IonBadgeComponent,
         DropdownComponent,
         ButtonComponent,
         IonIconComponent,
@@ -149,7 +149,7 @@ describe('Popconfirm host tests', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
+        IonBadgeComponent,
         DropdownComponent,
         ButtonComponent,
         IonIconComponent,
@@ -196,7 +196,7 @@ describe('Popconfirm disabled host component', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ButtonTestDisabledComponent,
-        BadgeComponent,
+        IonBadgeComponent,
         DropdownComponent,
         ButtonComponent,
         IonIconComponent,

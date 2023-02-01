@@ -1,6 +1,6 @@
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { ButtonComponent } from '../projects/ion/src/public-api';
-import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
+import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
@@ -16,7 +16,7 @@ export default {
     moduleMetadata({
       imports: [FormsModule],
       declarations: [
-        BadgeComponent,
+        IonBadgeComponent,
         InfoBadgeComponent,
         IonIconComponent,
         DropdownComponent,

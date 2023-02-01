@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonTabProps, TabComponent } from './tab.component';
 
@@ -12,7 +12,7 @@ const sut = async (customProps?: IonTabProps): Promise<void> => {
       label: defaultName,
     },
     imports: [CommonModule],
-    declarations: [IonIconComponent, BadgeComponent],
+    declarations: [IonIconComponent, IonBadgeComponent],
   });
 };
 

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertComponent } from './alert/alert.component';
 import { IonAvatarComponent } from './avatar/avatar.component';
-import { BadgeComponent } from './badge/badge.component';
+import { IonBadgeComponent } from './badge/badge.component';
 import { ButtonComponent } from './button/button.component';
 import { CardIonComponent } from './card/card.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
@@ -56,7 +56,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     HeadingComponent,
     IonAvatarComponent,
     DefaultImageDirective,
-    BadgeComponent,
+    IonBadgeComponent,
     TagComponent,
     DropdownComponent,
     RowComponent,
@@ -82,7 +82,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
   exports: [
     IonComponent,
     ButtonComponent,
-    BadgeComponent,
+    IonBadgeComponent,
     IonIconComponent,
     ChipComponent,
     TabComponent,

@@ -5,20 +5,20 @@ import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 
 @NgModule({
   declarations: [
     ButtonComponent,
     IonIconComponent,
-    BadgeComponent,
+    IonBadgeComponent,
     InputComponent,
     DropdownComponent,
   ],
   exports: [
     ButtonComponent,
     IonIconComponent,
-    BadgeComponent,
+    IonBadgeComponent,
     InputComponent,
     DropdownComponent,
   ],

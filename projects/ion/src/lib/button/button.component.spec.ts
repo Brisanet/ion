@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { ButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from './../badge/badge.component';
+import { IonBadgeComponent } from './../badge/badge.component';
 import { SafeAny } from '../utils/safe-any';
 import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
@@ -17,7 +17,7 @@ const sut = async (
     declarations: [
       IonIconComponent,
       DropdownComponent,
-      BadgeComponent,
+      IonBadgeComponent,
       InputComponent,
     ],
     imports: [FormsModule],

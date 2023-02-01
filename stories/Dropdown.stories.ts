@@ -6,7 +6,7 @@ import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { FormsModule } from '@angular/forms';
-import { BadgeComponent } from '../projects/ion/src/public-api';
+import { IonBadgeComponent } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Dropdown',
@@ -25,7 +25,7 @@ const Template: Story<DropdownComponent> = (args: DropdownComponent) => ({
       IonIconComponent,
       InputComponent,
       ButtonComponent,
-      BadgeComponent,
+      IonBadgeComponent,
     ],
     imports: [CommonModule, FormsModule],
   },
