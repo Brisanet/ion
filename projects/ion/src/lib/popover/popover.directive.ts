@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
-import { PopoverArrow, PopoverComponent } from './popover.component';
+import { PopoverArrow, IonPopoverComponent } from './popover.component';
 import { IonButtonProps } from '../button/button.component';
 import { IconType } from '../icon/icon.component';
 
@@ -36,7 +36,7 @@ export class PopoverDirective {
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
-  private popoverComponentRef!: ComponentRef<PopoverComponent>;
+  private popoverComponentRef!: ComponentRef<IonPopoverComponent>;
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -51,7 +51,7 @@ export class PopoverDirective {
       return;
     }
     const popover = this.componentFactoryResolver
-      .resolveComponentFactory(PopoverComponent)
+      .resolveComponentFactory(IonPopoverComponent)
       .create(this.injector);
 
     this.popoverComponentRef = popover;

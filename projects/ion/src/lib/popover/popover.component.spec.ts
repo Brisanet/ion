@@ -8,7 +8,7 @@ import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent } from '../input/input.component';
 import {
   PopoverArrow,
-  PopoverComponent,
+  IonPopoverComponent,
   PopoverProps,
 } from './popover.component';
 
@@ -18,7 +18,7 @@ const defaultProps: PopoverProps = {
 };
 
 const sut = async (props: PopoverProps = defaultProps): Promise<void> => {
-  await render(PopoverComponent, {
+  await render(IonPopoverComponent, {
     componentProperties: props,
     declarations: [
       IonDividerComponent,

@@ -31,7 +31,7 @@ export interface PopoverProps {
   styleUrls: ['./popover.component.scss'],
   exportAs: 'PopoverComponent',
 })
-export class PopoverComponent {
+export class IonPopoverComponent {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: SafeAny;
   @Input() ionPopoverActions?: IonButtonProps[];

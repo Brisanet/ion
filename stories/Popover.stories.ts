@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { PopoverComponent } from '../projects/ion/src/lib/popover/popover.component';
+import { IonPopoverComponent } from '../projects/ion/src/lib/popover/popover.component';
 import { InputComponent } from '../projects/ion/src/lib/input/input.component';
 
 import {
@@ -15,11 +15,11 @@ import {
 
 export default {
   title: 'Ion/Data Display/Popover',
-  component: PopoverComponent,
+  component: IonPopoverComponent,
 } as Meta;
 
-const Template: Story<PopoverComponent> = (args: PopoverComponent) => ({
-  component: PopoverComponent,
+const Template: Story<IonPopoverComponent> = (args: IonPopoverComponent) => ({
+  component: IonPopoverComponent,
   props: args,
   moduleMetadata: {
     declarations: [

@@ -2,14 +2,14 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
 import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { screen } from '@testing-library/angular';
+import { fireEvent, screen } from '@testing-library/angular';
 import { BadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
-import { PopoverComponent } from './popover.component';
+import { IonPopoverComponent } from './popover.component';
 import { PopoverDirective, PopoverPosition } from './popover.directive';
 
 const textButton = 'Teste';
@@ -71,14 +71,14 @@ describe('Directive: Popover', () => {
         DropdownComponent,
         ButtonComponent,
         IonIconComponent,
-        PopoverComponent,
+        IonPopoverComponent,
         IonDividerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopoverComponent],
+          entryComponents: [IonPopoverComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
