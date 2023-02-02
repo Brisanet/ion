@@ -1,12 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { BadgeType } from '../badge/badge.component';
-import { InfoBadgeStatus } from '../core/types';
+import { IconDirection, InfoBadgeStatus } from '../core/types';
 import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
 import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
-export type IconDirection = 'right' | 'left';
-
 interface ChipEvent {
   selected: boolean;
   disabled: boolean;

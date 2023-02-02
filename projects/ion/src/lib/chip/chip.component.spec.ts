@@ -6,13 +6,8 @@ import { DropdownComponent } from './../dropdown/dropdown.component';
 import { IonIconComponent } from './../icon/icon.component';
 import { ButtonComponent } from '../button/button.component';
 import { SafeAny } from '../utils/safe-any';
-import {
-  ChipComponent,
-  IonChipProps,
-  ChipSize,
-  IconDirection,
-} from './chip.component';
-import { InfoBadgeStatus } from '../core/types';
+import { ChipComponent, IonChipProps, ChipSize } from './chip.component';
+import { IconDirection, InfoBadgeStatus } from '../core/types';
 import { FormsModule } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 

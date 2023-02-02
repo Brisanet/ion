@@ -1,8 +1,8 @@
 import { SafeAny } from './../utils/safe-any';
 import { IconType } from './../icon/icon.component';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { IconDirection } from '../core/types';
 
-export type IconDirection = 'left' | 'right';
 export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
