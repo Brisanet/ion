@@ -32,7 +32,7 @@ import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonSmartTableComponent } from './smart-table/smart-table.component';
 import { IonSwitchComponent } from './switch/switch.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
-import { TabComponent } from './tab/tab.component';
+import { IonTabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
@@ -45,7 +45,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonButtonComponent,
     IonIconComponent,
     IonChipComponent,
-    TabComponent,
+    IonTabComponent,
     PopConfirmDirective,
     IonRadioComponent,
     TabGroupComponent,
@@ -87,7 +87,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonBadgeComponent,
     IonIconComponent,
     IonChipComponent,
-    TabComponent,
+    IonTabComponent,
     IonRadioComponent,
     TabGroupComponent,
     IonDividerComponent,

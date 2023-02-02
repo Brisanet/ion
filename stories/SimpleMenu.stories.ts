@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonSimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import {
   IonAvatarComponent,
-  TabComponent,
+  IonTabComponent,
   TabGroupComponent,
 } from '../projects/ion/src/public-api';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
@@ -27,7 +27,7 @@ const Template: Story<IonSimpleMenuComponent> = (
   moduleMetadata: {
     declarations: [
       TabGroupComponent,
-      TabComponent,
+      IonTabComponent,
       IonAvatarComponent,
       DefaultImageDirective,
     ],

@@ -5,7 +5,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
-import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
+import { IonTabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
   title: 'Ion/Navigation/TabGroup',
@@ -13,7 +13,7 @@ export default {
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [TabComponent, IonIconComponent, IonBadgeComponent],
+      declarations: [IonTabComponent, IonIconComponent, IonBadgeComponent],
     }),
   ],
 } as Meta;

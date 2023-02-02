@@ -5,7 +5,7 @@ import {
   TabGroupComponent,
   TabInGroup,
 } from '../tab-group/tab-group.component';
-import { TabComponent } from '../tab/tab.component';
+import { IonTabComponent } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
 import {
   IonSimpleMenuComponent,
@@ -53,7 +53,7 @@ const sut = async (
     componentProperties: customProps,
     declarations: [
       TabGroupComponent,
-      TabComponent,
+      IonTabComponent,
       IonAvatarComponent,
       DefaultImageDirective,
     ],

@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { IonTabProps, TabComponent } from './tab.component';
+import { IonTabProps, IonTabComponent } from './tab.component';
 
 const defaultName = 'MinhaTab';
 
 const sut = async (customProps?: IonTabProps): Promise<void> => {
-  await render(TabComponent, {
+  await render(IonTabComponent, {
     componentProperties: customProps || {
       label: defaultName,
     },
@@ -16,7 +16,7 @@ const sut = async (customProps?: IonTabProps): Promise<void> => {
   });
 };
 
-describe('TabComponent', () => {
+describe('IonTabComponent', () => {
   it.each(['about', 'profile'])(
     'should render label %s',
     async (tabName: string) => {
