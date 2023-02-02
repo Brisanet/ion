@@ -30,7 +30,7 @@ import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonSmartTableComponent } from './smart-table/smart-table.component';
-import { SwitchComponent } from './switch/switch.component';
+import { IonSwitchComponent } from './switch/switch.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
@@ -72,7 +72,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonPaginationComponent,
     IonPopConfirmComponent,
     IonSmartTableComponent,
-    SwitchComponent,
+    IonSwitchComponent,
     TableComponent,
     IonInputComponent,
     TooltipDirective,
@@ -114,7 +114,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonInputCounterComponent,
     IonInputComponent,
     TooltipComponent,
-    SwitchComponent,
+    IonSwitchComponent,
     IonBreadcrumbComponent,
   ],
   entryComponents: [IonPopConfirmComponent, TooltipComponent],
