@@ -20,14 +20,32 @@
   </div>
   <footer *ngIf="buttonConfig">
     <ion-button
+      *ngIf="buttonConfig.type === 'emitter'"
       data-testid="ion-indicator-button-emitter"
-      *ngIf="buttonConfig.type === buttonType.Emitter"
+      type="ghost"
+      size="sm"
+      iconType="right2"
+      rightSideIcon="true"
+      (ionOnClick)="emitButtonClick()"
+      [label]="buttonConfig.label"
+    ></ion-button>
+    <ion-button
+      *ngIf="buttonConfig.type == 'redirect'"
+      data-testid="ion-indicator-button-emitter"
       type="ghost"
       size="sm"
       iconType="right2"
       rightSideIcon="true"
       [label]="buttonConfig.label"
-      (ionOnClick)="ionButtonClicked()"
+    ></ion-button>
+    <ion-button
+      *ngIf="buttonConfig.type == 'modal'"
+      data-testid="ion-indicator-button-emitter"
+      type="ghost"
+      size="sm"
+      iconType="right2"
+      rightSideIcon="true"
+      [label]="buttonConfig.label"
     ></ion-button>
   </footer>
 </div>

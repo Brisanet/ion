@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',
@@ -9,9 +9,9 @@ export enum IonIndicatorButtonType {
 
 export interface IonIndicatorButtonConfig {
   label: string;
+  type: IonIndicatorButtonType;
   redirectLink?: string;
   popoverMessage?: string;
-  type: IonIndicatorButtonType;
   componentToModal?: unknown;
 }
 
@@ -26,11 +26,9 @@ export class IonIndicatorComponent {
   @Input() value?: number | string;
   @Input() secondValue?: number | string;
   @Input() buttonConfig?: IonIndicatorButtonConfig;
-  @Output() ionClick = new EventEmitter<void>();
+  @Output() ionClick = new EventEmitter();
 
-  private buttonType = IonIndicatorButtonType;
-
-  onButtonClick(): void {
+  emitButtonClick(): void {
     this.ionClick.emit();
   }
 }

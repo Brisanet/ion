@@ -17,7 +17,7 @@ const Template: Story<IonIndicatorComponent> = (
   args: IonIndicatorComponent
 ) => ({
   component: IonIndicatorComponent,
-  props: args,
+  props: { ...args },
   moduleMetadata: {
     declarations: [IonIndicatorComponent],
     imports: [CommonModule, ButtonModule, TooltipModule],
@@ -45,9 +45,32 @@ const buttonEmitter: IonIndicatorButtonConfig = {
 };
 export const WithEmitterButton = Template.bind({});
 WithEmitterButton.args = {
-  title: 'Título do Indicator',
-  tooltipText: 'Texto do tooltip',
+  title: 'Com botão emitter',
   value: 1500,
   secondValue: '5%',
   buttonConfig: buttonEmitter,
+};
+
+const buttonRedirect: IonIndicatorButtonConfig = {
+  label: 'Link',
+  type: IonIndicatorButtonType.Redirect,
+};
+export const withRedirect = Template.bind({});
+withRedirect.args = {
+  title: 'Com botão que redireciona para link',
+  value: 1500,
+  secondValue: '5%',
+  buttonConfig: buttonRedirect,
+};
+
+const buttonModal: IonIndicatorButtonConfig = {
+  label: 'Detalhes',
+  type: IonIndicatorButtonType.Modal,
+};
+export const withOpenModal = Template.bind({});
+withOpenModal.args = {
+  title: 'Com botão que abre modal',
+  value: 1500,
+  secondValue: '5%',
+  buttonConfig: buttonModal,
 };
