@@ -28,7 +28,7 @@ import { IonPopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
-import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
 import { SwitchComponent } from './switch/switch.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
@@ -67,7 +67,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonInputCounterComponent,
     IonDatePickerComponent,
     IonInfoBadgeComponent,
-    SimpleMenuComponent,
+    IonSimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
@@ -103,9 +103,9 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonCheckboxComponent,
     IonCardComponent,
     IonDatePickerComponent,
-    SimpleMenuComponent,
+    IonSimpleMenuComponent,
     IonInfoBadgeComponent,
-    SimpleMenuComponent,
+    IonSimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,

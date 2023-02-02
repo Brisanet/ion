@@ -7,7 +7,10 @@ import {
 } from '../tab-group/tab-group.component';
 import { TabComponent } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
-import { SimpleMenuComponent, SimpleMenuProps } from './simple-menu.component';
+import {
+  IonSimpleMenuComponent,
+  SimpleMenuProps,
+} from './simple-menu.component';
 import { ButtonModule } from '../button/button.module';
 
 const classMenuOpen = 'menu-container-opened';
@@ -46,7 +49,7 @@ const defaultMenu: SimpleMenuProps = {
 const sut = async (
   customProps: SimpleMenuProps = defaultMenu
 ): Promise<void> => {
-  await render(SimpleMenuComponent, {
+  await render(IonSimpleMenuComponent, {
     componentProperties: customProps,
     declarations: [
       TabGroupComponent,

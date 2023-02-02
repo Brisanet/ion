@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { SimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
+import { IonSimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import {
   IonAvatarComponent,
   TabComponent,
@@ -12,11 +12,13 @@ import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/SimpleMenu',
-  component: SimpleMenuComponent,
+  component: IonSimpleMenuComponent,
 } as Meta;
 
-const Template: Story<SimpleMenuComponent> = (args: SimpleMenuComponent) => ({
-  component: SimpleMenuComponent,
+const Template: Story<IonSimpleMenuComponent> = (
+  args: IonSimpleMenuComponent
+) => ({
+  component: IonSimpleMenuComponent,
   props: {
     ...args,
     selected: action('selected'),
