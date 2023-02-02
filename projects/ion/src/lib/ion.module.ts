@@ -35,7 +35,7 @@ import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
 import { IonTableComponent } from './table/table.component';
 import { IonTagComponent } from './tag/tag.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
+import { IonTooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { HeadingComponent } from './typography/heading/heading.component';
 
@@ -76,7 +76,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonTableComponent,
     IonInputComponent,
     TooltipDirective,
-    TooltipComponent,
+    IonTooltipComponent,
     IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
@@ -113,10 +113,10 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonTableComponent,
     IonInputCounterComponent,
     IonInputComponent,
-    TooltipComponent,
+    IonTooltipComponent,
     IonSwitchComponent,
     IonBreadcrumbComponent,
   ],
-  entryComponents: [IonPopConfirmComponent, TooltipComponent],
+  entryComponents: [IonPopConfirmComponent, IonTooltipComponent],
 })
 export class IonModule {}

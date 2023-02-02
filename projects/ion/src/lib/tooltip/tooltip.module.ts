@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TooltipComponent } from './tooltip.component';
+import { IonTooltipComponent } from './tooltip.component';
 import { TooltipDirective } from './tooltip.directive';
 
 @NgModule({
-  declarations: [TooltipComponent, TooltipDirective],
+  declarations: [IonTooltipComponent, TooltipDirective],
   imports: [CommonModule],
   exports: [TooltipDirective],
-  entryComponents: [TooltipComponent],
+  entryComponents: [IonTooltipComponent],
 })
 export class TooltipModule {}
