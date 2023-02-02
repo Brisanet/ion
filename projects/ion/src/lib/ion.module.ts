@@ -37,7 +37,7 @@ import { IonTableComponent } from './table/table.component';
 import { IonTagComponent } from './tag/tag.component';
 import { IonTooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
-import { HeadingComponent } from './typography/heading/heading.component';
+import { IonHeadingComponent } from './typography/heading/heading.component';
 
 @NgModule({
   declarations: [
@@ -50,11 +50,11 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    HeadingComponent,
+    IonHeadingComponent,
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
-    HeadingComponent,
+    IonHeadingComponent,
     IonAvatarComponent,
     DefaultImageDirective,
     IonBadgeComponent,
@@ -91,7 +91,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    HeadingComponent,
+    IonHeadingComponent,
     IonTagComponent,
     IonDropdownComponent,
     IonAlertComponent,
