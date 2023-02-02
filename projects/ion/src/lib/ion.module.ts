@@ -14,7 +14,6 @@ import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.co
 import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { IonDropdownComponent } from './dropdown/dropdown.component';
-import { IonIconComponent } from './icon/icon.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonInputComponent } from './input/input.component';
@@ -37,12 +36,12 @@ import { IonTableComponent } from './table/table.component';
 import { IonTagComponent } from './tag/tag.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
+import { IonIconModule } from './icon/icon.module';
 
 @NgModule({
   declarations: [
     IonComponent,
     IonButtonComponent,
-    IonIconComponent,
     IonChipComponent,
     IonTabComponent,
     PopConfirmDirective,
@@ -75,12 +74,11 @@ import { IonTypographyModule } from './typography/typography.module';
     IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule, IonTypographyModule],
+  imports: [CommonModule, FormsModule, IonTypographyModule, IonIconModule],
   exports: [
     IonComponent,
     IonButtonComponent,
     IonBadgeComponent,
-    IonIconComponent,
     IonChipComponent,
     IonTabComponent,
     IonRadioComponent,
@@ -111,6 +109,7 @@ import { IonTypographyModule } from './typography/typography.module';
     IonBreadcrumbComponent,
     IonTooltipModule,
     IonTypographyModule,
+    IonIconModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
