@@ -1,13 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
-import {
-  Component,
-  ViewChild,
-  ViewContainerRef,
-  DebugElement,
-} from '@angular/core';
+import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { fireEvent, screen } from '@testing-library/angular';
+import { screen } from '@testing-library/angular';
 import { BadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
@@ -16,9 +11,6 @@ import { IonIconComponent } from './../icon/icon.component';
 
 import { PopoverComponent } from './popover.component';
 import { PopoverDirective, PopoverPosition } from './popover.directive';
-import { By } from '@angular/platform-browser';
-import { InputComponent } from '../input/input.component';
-import { FormsModule } from '@angular/forms';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
@@ -29,7 +21,7 @@ const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
   template: `
     <button
       ionPopover
-      ionPopoverTitle="Você tem certeza?"
+      ionPopoverTitle="${confirmText}"
       ionPopoverBody="Você tem certeza"
       ionPopoverIcon="condominium"
       ionPopoverIconClose="close"
