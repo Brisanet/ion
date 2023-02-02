@@ -29,7 +29,7 @@ import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { SmartTableComponent } from './smart-table/smart-table.component';
+import { IonSmartTableComponent } from './smart-table/smart-table.component';
 import { SwitchComponent } from './switch/switch.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
@@ -71,7 +71,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    SmartTableComponent,
+    IonSmartTableComponent,
     SwitchComponent,
     TableComponent,
     IonInputComponent,
@@ -109,7 +109,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    SmartTableComponent,
+    IonSmartTableComponent,
     TableComponent,
     IonInputCounterComponent,
     IonInputComponent,
