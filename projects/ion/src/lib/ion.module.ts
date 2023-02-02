@@ -29,11 +29,11 @@ import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { IonSmartTableComponent } from './smart-table/smart-table.component';
+import { IonSmartIonTableComponent } from './smart-table/smart-table.component';
 import { IonSwitchComponent } from './switch/switch.component';
 import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
-import { TableComponent } from './table/table.component';
+import { IonTableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
@@ -71,9 +71,9 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    IonSmartTableComponent,
+    IonSmartIonTableComponent,
     IonSwitchComponent,
-    TableComponent,
+    IonTableComponent,
     IonInputComponent,
     TooltipDirective,
     TooltipComponent,
@@ -109,8 +109,8 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    IonSmartTableComponent,
-    TableComponent,
+    IonSmartIonTableComponent,
+    IonTableComponent,
     IonInputCounterComponent,
     IonInputComponent,
     TooltipComponent,

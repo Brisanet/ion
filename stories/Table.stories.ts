@@ -1,7 +1,7 @@
 import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { TableComponent } from '../projects/ion/src/lib/table/table.component';
+import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
   IonAlertComponent,
@@ -16,16 +16,16 @@ import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popco
 
 export default {
   title: 'Ion/Data Display/Table',
-  component: TableComponent,
+  component: IonTableComponent,
 } as Meta;
 
-const Template: Story<TableComponent> = (args: TableComponent) => ({
-  component: TableComponent,
+const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
+  component: IonTableComponent,
   props: args,
   moduleMetadata: {
     entryComponents: [IonPopConfirmComponent],
     declarations: [
-      TableComponent,
+      IonTableComponent,
       TagComponent,
       IonCheckboxComponent,
       IonPaginationComponent,

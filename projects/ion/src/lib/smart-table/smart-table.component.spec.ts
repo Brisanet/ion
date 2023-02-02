@@ -6,7 +6,7 @@ import { IonPaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import {
   IonSmartTableProps,
-  IonSmartTableComponent,
+  IonSmartIonTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { ButtonModule } from '../button/button.module';
@@ -74,7 +74,7 @@ const defaultProps: IonSmartTableProps<Character> = {
 const sut = async (
   customProps: IonSmartTableProps<Character> = defaultProps
 ): Promise<SafeAny> => {
-  await render(IonSmartTableComponent, {
+  await render(IonSmartIonTableComponent, {
     componentProperties: customProps,
     declarations: [
       TagComponent,
@@ -86,7 +86,7 @@ const sut = async (
   });
 };
 
-describe('TableComponent', () => {
+describe('IonTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });

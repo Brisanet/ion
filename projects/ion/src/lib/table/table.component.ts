@@ -23,7 +23,7 @@ const stateChange = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
