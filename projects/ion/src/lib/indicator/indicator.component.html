@@ -37,6 +37,7 @@
       iconType="right2"
       rightSideIcon="true"
       [label]="buttonConfig.label"
+      (ionOnClick)="redirectTo()"
     ></ion-button>
     <ion-button
       *ngIf="buttonConfig.type == 'modal'"

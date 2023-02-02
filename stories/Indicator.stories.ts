@@ -54,6 +54,7 @@ WithEmitterButton.args = {
 const buttonRedirect: IonIndicatorButtonConfig = {
   label: 'Link',
   type: IonIndicatorButtonType.Redirect,
+  redirectLink: 'https://github.com/Brisanet/ion',
 };
 export const withRedirect = Template.bind({});
 withRedirect.args = {
@@ -64,7 +65,7 @@ withRedirect.args = {
 };
 
 const buttonModal: IonIndicatorButtonConfig = {
-  label: 'Detalhes',
+  label: 'Abrir modal',
   type: IonIndicatorButtonType.Modal,
 };
 export const withOpenModal = Template.bind({});

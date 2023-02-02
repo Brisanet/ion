@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SecurityContext,
+} from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',
@@ -10,6 +17,10 @@ export enum IonIndicatorButtonType {
 export interface IonIndicatorButtonConfig {
   label: string;
   type: IonIndicatorButtonType;
+  /**
+   * @Link
+   * Para funcionar corretamente, o link informado deve ser em protocolo HTTPS.
+   */
   redirectLink?: string;
   popoverMessage?: string;
   componentToModal?: unknown;
@@ -27,8 +38,28 @@ export class IonIndicatorComponent {
   @Input() secondValue?: number | string;
   @Input() buttonConfig?: IonIndicatorButtonConfig;
   @Output() ionClick = new EventEmitter();
+  private safeUrl: SafeResourceUrl;
+
+  constructor(private sanitizer: DomSanitizer) {}
 
   emitButtonClick(): void {
     this.ionClick.emit();
+  }
+
+  redirectTo(): void {
+    this.safeUrl = this.sanitizeUrl();
+    window.open(this.safeUrl as string, '_blank');
+  }
+
+  sanitizeUrl(): SafeResourceUrl {
+    if (
+      this.buttonConfig.type === IonIndicatorButtonType.Redirect &&
+      this.buttonConfig.redirectLink
+    ) {
+      return this.sanitizer.sanitize(
+        SecurityContext.URL,
+        this.buttonConfig.redirectLink
+      );
+    }
   }
 }
