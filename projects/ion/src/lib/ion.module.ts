@@ -35,8 +35,8 @@ import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
 import { IonTableComponent } from './table/table.component';
 import { IonTagComponent } from './tag/tag.component';
-import { IonHeadingComponent } from './typography/heading/heading.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
+import { IonTypographyModule } from './typography/typography.module';
 
 @NgModule({
   declarations: [
@@ -49,11 +49,9 @@ import { IonTooltipModule } from './tooltip/tooltip.module';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    IonHeadingComponent,
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
-    IonHeadingComponent,
     IonAvatarComponent,
     DefaultImageDirective,
     IonBadgeComponent,
@@ -77,7 +75,7 @@ import { IonTooltipModule } from './tooltip/tooltip.module';
     IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IonTypographyModule],
   exports: [
     IonComponent,
     IonButtonComponent,
@@ -88,7 +86,6 @@ import { IonTooltipModule } from './tooltip/tooltip.module';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    IonHeadingComponent,
     IonTagComponent,
     IonDropdownComponent,
     IonAlertComponent,
@@ -113,6 +110,7 @@ import { IonTooltipModule } from './tooltip/tooltip.module';
     IonSwitchComponent,
     IonBreadcrumbComponent,
     IonTooltipModule,
+    IonTypographyModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
