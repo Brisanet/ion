@@ -13,7 +13,7 @@ const sut = async (customProps: IonColComponent = {}): Promise<HTMLElement> => {
   return screen.findByText('col-12');
 };
 
-describe('RowComponent', () => {
+describe('IonRowComponent', () => {
   it('should render col component', async () => {
     const IonColComponent = await sut({});
     expect(IonColComponent).toBeTruthy();
