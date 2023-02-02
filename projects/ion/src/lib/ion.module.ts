@@ -31,7 +31,7 @@ import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonSmartTableComponent } from './smart-table/smart-table.component';
 import { IonSwitchComponent } from './switch/switch.component';
-import { TabGroupComponent } from './tab-group/tab-group.component';
+import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
@@ -48,7 +48,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonTabComponent,
     PopConfirmDirective,
     IonRadioComponent,
-    TabGroupComponent,
+    IonTabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
     IonAlertComponent,
@@ -89,7 +89,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonChipComponent,
     IonTabComponent,
     IonRadioComponent,
-    TabGroupComponent,
+    IonTabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
     TagComponent,

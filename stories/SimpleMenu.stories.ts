@@ -5,7 +5,7 @@ import { IonSimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simp
 import {
   IonAvatarComponent,
   IonTabComponent,
-  TabGroupComponent,
+  IonTabGroupComponent,
 } from '../projects/ion/src/public-api';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
@@ -26,7 +26,7 @@ const Template: Story<IonSimpleMenuComponent> = (
   },
   moduleMetadata: {
     declarations: [
-      TabGroupComponent,
+      IonTabGroupComponent,
       IonTabComponent,
       IonAvatarComponent,
       DefaultImageDirective,

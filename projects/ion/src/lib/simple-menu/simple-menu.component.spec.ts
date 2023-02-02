@@ -2,7 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonAvatarComponent } from '../avatar/avatar.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import {
-  TabGroupComponent,
+  IonTabGroupComponent,
   TabInGroup,
 } from '../tab-group/tab-group.component';
 import { IonTabComponent } from '../tab/tab.component';
@@ -52,7 +52,7 @@ const sut = async (
   await render(IonSimpleMenuComponent, {
     componentProperties: customProps,
     declarations: [
-      TabGroupComponent,
+      IonTabGroupComponent,
       IonTabComponent,
       IonAvatarComponent,
       DefaultImageDirective,
