@@ -25,6 +25,7 @@
       [(ngModel)]="value"
       (ngModelChange)="setValue($event)"
       data-testid="input-element"
+      [maxlength]="maxLength"
     />
 
     <ion-icon
