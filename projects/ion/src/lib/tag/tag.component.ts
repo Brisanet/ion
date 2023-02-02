@@ -18,7 +18,7 @@ const defaultColor = '#505566';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
 })
-export class TagComponent implements OnInit, OnChanges {
+export class IonTagComponent implements OnInit, OnChanges {
   @Input() outline = true;
   @Input() label!: string;
   @Input() status?: TagStatus;

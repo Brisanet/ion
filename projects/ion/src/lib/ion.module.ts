@@ -34,7 +34,7 @@ import { IonSwitchComponent } from './switch/switch.component';
 import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
 import { IonTableComponent } from './table/table.component';
-import { TagComponent } from './tag/tag.component';
+import { IonTagComponent } from './tag/tag.component';
 import { TooltipComponent } from './tooltip/tooltip.component';
 import { TooltipDirective } from './tooltip/tooltip.directive';
 import { HeadingComponent } from './typography/heading/heading.component';
@@ -58,7 +58,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonAvatarComponent,
     DefaultImageDirective,
     IonBadgeComponent,
-    TagComponent,
+    IonTagComponent,
     IonDropdownComponent,
     IonRowComponent,
     IonColComponent,
@@ -92,7 +92,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     IonTabGroupComponent,
     IonDividerComponent,
     HeadingComponent,
-    TagComponent,
+    IonTagComponent,
     IonDropdownComponent,
     IonAlertComponent,
     IonMessageComponent,

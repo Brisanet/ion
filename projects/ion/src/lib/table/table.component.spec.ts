@@ -1,6 +1,6 @@
 import { IonCheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TagComponent } from '../tag/tag.component';
+import { IonTagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
 import { IonTableProps, IonTableComponent } from './table.component';
 import { IonPaginationComponent } from '../pagination/pagination.component';
@@ -65,7 +65,7 @@ const sut = async (
   await render(IonTableComponent, {
     componentProperties: customProps,
     declarations: [
-      TagComponent,
+      IonTagComponent,
       IonCheckboxComponent,
       IonPaginationComponent,
       PopConfirmDirective,
