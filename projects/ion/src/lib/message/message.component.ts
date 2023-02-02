@@ -29,7 +29,7 @@ export const icontypes = {
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.scss'],
 })
-export class MessageComponent implements OnInit {
+export class IonMessageComponent implements OnInit {
   @Input() label!: string;
   @Input() type = 'positive';
   @Input() iconType?: IconType;

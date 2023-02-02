@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
 import { TagStatus } from './../core/types';
 import { IonIconComponent } from './../icon/icon.component';
-import { IonTagProps, TagComponent } from './tag.component';
+import { IonTagProps, IonTagComponent } from './tag.component';
 
 const defaultValue: IonTagProps = {
   label: 'Default Message',
@@ -26,14 +26,14 @@ const tagTypes: Array<TagStatus> = [
 const customColors = ['#be531c', '#ab2328', '#572d2d', '#6666ff', '#cc66ff'];
 
 const sut = async (customProps: IonTagProps = defaultValue): Promise<void> => {
-  await render(TagComponent, {
+  await render(IonTagComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
     imports: [CommonModule],
   });
 };
 
-describe('TagComponent', () => {
+describe('IonTagComponent', () => {
   describe('component basics', () => {
     beforeEach(async () => {
       await sut();

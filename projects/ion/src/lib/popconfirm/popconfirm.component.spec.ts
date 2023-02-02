@@ -1,36 +1,39 @@
 import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
-import { AlertComponent } from '../alert/alert.component';
-import { BadgeComponent } from '../badge/badge.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonAlertComponent } from '../alert/alert.component';
+import { IonBadgeComponent } from '../badge/badge.component';
+import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { PopConfirmComponent, PopConfirmProps } from './popconfirm.component';
+import {
+  IonPopConfirmComponent,
+  PopConfirmProps,
+} from './popconfirm.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { InputComponent } from '../input/input.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { IonInputComponent } from '../input/input.component';
 
 const defaultProps: PopConfirmProps = {
   ionPopConfirmTitle: 'Title',
 };
 
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
-  await render(PopConfirmComponent, {
+  await render(IonPopConfirmComponent, {
     componentProperties: props,
     declarations: [
       IonDividerComponent,
-      ButtonComponent,
-      BadgeComponent,
-      AlertComponent,
+      IonButtonComponent,
+      IonBadgeComponent,
+      IonAlertComponent,
       IonIconComponent,
-      DropdownComponent,
-      InputComponent,
-      ButtonComponent,
+      IonDropdownComponent,
+      IonInputComponent,
+      IonButtonComponent,
     ],
     imports: [FormsModule],
   });
 };
 
-describe('PopconfirmComponent', () => {
+describe('IonPopConfirmComponent', () => {
   describe('Check default fields', () => {
     beforeEach(async () => {
       await sut();

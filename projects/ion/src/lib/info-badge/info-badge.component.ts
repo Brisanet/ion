@@ -14,7 +14,7 @@ export interface InfoBadgeProps {
   templateUrl: './info-badge.component.html',
   styleUrls: ['./info-badge.component.scss'],
 })
-export class InfoBadgeComponent {
+export class IonInfoBadgeComponent {
   @Input() public variant: InfoBadgeStatus = 'primary';
   @Input() public icon?: IconType;
   @Input() public text?: string;

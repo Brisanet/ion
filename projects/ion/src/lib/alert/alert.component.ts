@@ -21,7 +21,7 @@ export const iconTypes = {
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
 })
-export class AlertComponent implements OnInit {
+export class IonAlertComponent implements OnInit {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;

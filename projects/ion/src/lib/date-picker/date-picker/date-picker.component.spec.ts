@@ -6,7 +6,7 @@ import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
 
 import {
-  DatePickerComponent,
+  IonDatePickerComponent,
   IonDatePickerProps,
 } from './date-picker.component';
 
@@ -22,7 +22,7 @@ const defaultComponent: IonDatePickerProps = {
 const sut = async (
   customProps: IonDatePickerProps = defaultComponent
 ): Promise<void> => {
-  await render(DatePickerComponent, {
+  await render(IonDatePickerComponent, {
     componentProperties: customProps,
     declarations: [IonDividerComponent],
     imports: [FormsModule, ButtonModule],

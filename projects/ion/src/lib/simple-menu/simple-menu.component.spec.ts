@@ -1,13 +1,16 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { AvatarComponent } from '../avatar/avatar.component';
+import { IonAvatarComponent } from '../avatar/avatar.component';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import {
-  TabGroupComponent,
+  IonTabGroupComponent,
   TabInGroup,
 } from '../tab-group/tab-group.component';
-import { TabComponent } from '../tab/tab.component';
+import { IonTabComponent } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
-import { SimpleMenuComponent, SimpleMenuProps } from './simple-menu.component';
+import {
+  IonSimpleMenuComponent,
+  SimpleMenuProps,
+} from './simple-menu.component';
 import { ButtonModule } from '../button/button.module';
 
 const classMenuOpen = 'menu-container-opened';
@@ -46,12 +49,12 @@ const defaultMenu: SimpleMenuProps = {
 const sut = async (
   customProps: SimpleMenuProps = defaultMenu
 ): Promise<void> => {
-  await render(SimpleMenuComponent, {
+  await render(IonSimpleMenuComponent, {
     componentProperties: customProps,
     declarations: [
-      TabGroupComponent,
-      TabComponent,
-      AvatarComponent,
+      IonTabGroupComponent,
+      IonTabComponent,
+      IonAvatarComponent,
       DefaultImageDirective,
     ],
     imports: [ButtonModule],

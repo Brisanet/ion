@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
+import { IonInfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 
 export default {
   title: 'Ion/Data Display/Info Badge',
-  component: InfoBadgeComponent,
+  component: IonInfoBadgeComponent,
   argTypes: {
     iconSize: {
       table: {
@@ -15,8 +15,10 @@ export default {
   },
 } as Meta;
 
-const Template: Story<InfoBadgeComponent> = (args: InfoBadgeComponent) => ({
-  component: InfoBadgeComponent,
+const Template: Story<IonInfoBadgeComponent> = (
+  args: IonInfoBadgeComponent
+) => ({
+  component: IonInfoBadgeComponent,
   props: args,
   moduleMetadata: {
     declarations: [IonIconComponent],

@@ -1,19 +1,19 @@
-import { BadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
+import { IonBadgeComponent } from './../projects/ion/src/lib/badge/badge.component';
 import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { TabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
-import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
+import { IonTabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
+import { IonTabComponent } from '../projects/ion/src/lib/tab/tab.component';
 
 export default {
   title: 'Ion/Navigation/TabGroup',
-  component: TabGroupComponent,
+  component: IonTabGroupComponent,
   decorators: [
     moduleMetadata({
       imports: [],
-      declarations: [TabComponent, IonIconComponent, BadgeComponent],
+      declarations: [IonTabComponent, IonIconComponent, IonBadgeComponent],
     }),
   ],
 } as Meta;
@@ -27,8 +27,8 @@ for (let index = 1; index <= 8; index++) {
   });
 }
 
-const Template: Story<TabGroupComponent> = (args: TabGroupComponent) => ({
-  component: TabGroupComponent,
+const Template: Story<IonTabGroupComponent> = (args: IonTabGroupComponent) => ({
+  component: IonTabGroupComponent,
   props: {
     ...args,
     selected: action('selected'),

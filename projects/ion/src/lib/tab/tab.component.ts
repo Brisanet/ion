@@ -23,7 +23,7 @@ export interface IonTabProps {
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
 })
-export class TabComponent {
+export class IonTabComponent {
   @Input() label!: string;
   @Input() tabSize?: TabSize = 'sm';
   @Input() disabled?: boolean;

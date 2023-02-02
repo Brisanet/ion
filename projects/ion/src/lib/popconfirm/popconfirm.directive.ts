@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
-import { PopConfirmComponent } from './popconfirm.component';
+import { IonPopConfirmComponent } from './popconfirm.component';
 
 export interface PopPosition {
   top: number;
@@ -29,7 +29,7 @@ export class PopConfirmDirective {
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
-  private popconfirmComponentRef!: ComponentRef<PopConfirmComponent>;
+  private IonPopConfirmComponentRef!: ComponentRef<IonPopConfirmComponent>;
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -40,47 +40,47 @@ export class PopConfirmDirective {
   ) {}
 
   open(position: PopPosition): void {
-    if (this.popconfirmComponentRef) {
+    if (this.IonPopConfirmComponentRef) {
       return;
     }
     const popover = this.componentFactoryResolver
-      .resolveComponentFactory(PopConfirmComponent)
+      .resolveComponentFactory(IonPopConfirmComponent)
       .create(this.injector);
 
-    this.popconfirmComponentRef = popover;
+    this.IonPopConfirmComponentRef = popover;
 
-    this.appRef.attachView(this.popconfirmComponentRef.hostView);
-    this.popconfirmComponentRef.changeDetectorRef.detectChanges();
+    this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
+    this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
 
-    const popconfirmElement = this.popconfirmComponentRef.location
+    const popconfirmElement = this.IonPopConfirmComponentRef.location
       .nativeElement as HTMLElement;
 
     this.setStyle(popconfirmElement, position);
 
     this.document.body.appendChild(popconfirmElement);
 
-    this.popconfirmComponentRef.instance.ionPopConfirmTitle =
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
       this.ionPopConfirmTitle;
 
-    this.popconfirmComponentRef.instance.ionPopConfirmDesc =
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
       this.ionPopConfirmDesc;
 
-    this.popconfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
+    this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.closePopConfirm();
       this.ionOnConfirm.emit();
     });
 
-    this.popconfirmComponentRef.instance.ionOnClose.subscribe(() => {
+    this.IonPopConfirmComponentRef.instance.ionOnClose.subscribe(() => {
       this.closePopConfirm();
       this.ionOnClose.emit();
     });
   }
 
   closePopConfirm(): void {
-    if (this.popconfirmComponentRef) {
-      this.appRef.detachView(this.popconfirmComponentRef.hostView);
-      this.popconfirmComponentRef.destroy();
-      this.popconfirmComponentRef = null;
+    if (this.IonPopConfirmComponentRef) {
+      this.appRef.detachView(this.IonPopConfirmComponentRef.hostView);
+      this.IonPopConfirmComponentRef.destroy();
+      this.IonPopConfirmComponentRef = null;
     }
   }
 

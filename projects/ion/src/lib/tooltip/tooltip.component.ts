@@ -12,7 +12,7 @@ export interface TooltipProps {
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
 })
-export class TooltipComponent {
+export class IonTooltipComponent {
   ionTooltipTitle: string;
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;

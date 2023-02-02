@@ -1,37 +1,39 @@
-import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
+import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import {
-  AlertComponent,
+  IonAlertComponent,
   IonDividerComponent,
   PopConfirmDirective,
-  TagComponent,
+  IonTagComponent,
 } from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
-import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
+import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
-  component: SmartTableComponent,
+  component: IonSmartIonTableComponent,
 } as Meta;
 
-const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
-  component: SmartTableComponent,
+const Template: Story<IonSmartIonTableComponent> = (
+  args: IonSmartIonTableComponent
+) => ({
+  component: IonSmartIonTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    entryComponents: [PopConfirmComponent],
+    entryComponents: [IonPopConfirmComponent],
     declarations: [
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
+      IonTagComponent,
+      IonCheckboxComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
-      PopConfirmComponent,
-      AlertComponent,
+      IonPopConfirmComponent,
+      IonAlertComponent,
       IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule, ButtonModule],

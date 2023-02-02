@@ -37,7 +37,7 @@ type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements OnInit {
+export class IonButtonComponent implements OnInit {
   @Input() label?: string;
   @Input() tooltip?: string;
   @Input() type?: Type = 'primary';

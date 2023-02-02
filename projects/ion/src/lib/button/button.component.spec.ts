@@ -1,10 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonComponent, IonButtonProps } from './button.component';
+import { IonButtonComponent, IonButtonProps } from './button.component';
 import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from './../badge/badge.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { IonBadgeComponent } from './../badge/badge.component';
 import { SafeAny } from '../utils/safe-any';
-import { InputComponent } from '../input/input.component';
+import { IonInputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
 
 const defaultName = 'button';
@@ -12,13 +12,13 @@ const defaultName = 'button';
 const sut = async (
   customProps: IonButtonProps = { label: defaultName }
 ): Promise<HTMLElement> => {
-  await render(ButtonComponent, {
+  await render(IonButtonComponent, {
     componentProperties: customProps,
     declarations: [
       IonIconComponent,
-      DropdownComponent,
-      BadgeComponent,
-      InputComponent,
+      IonDropdownComponent,
+      IonBadgeComponent,
+      IonInputComponent,
     ],
     imports: [FormsModule],
   });

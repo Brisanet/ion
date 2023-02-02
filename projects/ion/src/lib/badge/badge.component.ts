@@ -15,7 +15,7 @@ export interface BadgeProps {
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })
-export class BadgeComponent implements OnChanges, OnInit {
+export class IonBadgeComponent implements OnChanges, OnInit {
   @Input() label?: string;
   @Input() value?: number;
   @Input() type!: BadgeType;

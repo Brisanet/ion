@@ -16,7 +16,7 @@ export interface IonAvatarProps {
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
 })
-export class AvatarComponent implements OnInit {
+export class IonAvatarComponent implements OnInit {
   @Input() type: AvatarType;
   @Input() size: SizeType = 'md';
   @Input() value?: string;

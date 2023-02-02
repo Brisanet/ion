@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './switch.component.html',
   styleUrls: ['./switch.component.scss'],
 })
-export class SwitchComponent {
+export class IonSwitchComponent {
   @Input() value = false;
   @Output() atValueChange = new EventEmitter<boolean>();
 

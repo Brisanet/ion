@@ -1,18 +1,18 @@
 import { render } from '@testing-library/angular';
-import { RowComponent } from './row.component';
+import { IonRowComponent } from './row.component';
 
-const sut = async (customProps: RowComponent = {}): Promise<HTMLElement> => {
-  await render(RowComponent, {
+const sut = async (customProps: IonRowComponent = {}): Promise<HTMLElement> => {
+  await render(IonRowComponent, {
     componentProperties: customProps,
     declarations: [],
   });
   return document.getElementById('ion-container-row');
 };
 
-describe('RowComponent', () => {
+describe('IonRowComponent', () => {
   it('should render the row component containing the ion-container and ion-row classes', async () => {
-    const rowComponent = await sut({});
-    expect(rowComponent).toHaveClass('ion-container');
-    expect(rowComponent.children[0]).toHaveClass('ion-row');
+    const IonRowComponent = await sut({});
+    expect(IonRowComponent).toHaveClass('ion-container');
+    expect(IonRowComponent.children[0]).toHaveClass('ion-row');
   });
 });

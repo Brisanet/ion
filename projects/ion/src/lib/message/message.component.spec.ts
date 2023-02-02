@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/angular';
 import { IonIconComponent } from './../icon/icon.component';
 import {
   IonMessageProps,
-  MessageComponent,
+  IonMessageComponent,
   MessageStatusType,
 } from './message.component';
 
@@ -28,7 +28,7 @@ export const icontypes = [
 const sut = async (
   customProps: IonMessageProps = defaultValue
 ): Promise<HTMLElement> => {
-  await render(MessageComponent, {
+  await render(IonMessageComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
     imports: [CommonModule],
@@ -36,7 +36,7 @@ const sut = async (
   return screen.findByTestId(messageIDs.message);
 };
 
-describe('MessageComponent', () => {
+describe('IonMessageComponent', () => {
   beforeEach(async () => {
     await sut();
   });
@@ -53,7 +53,7 @@ describe('MessageComponent', () => {
   });
 });
 
-describe('MessageComponent / Types', () => {
+describe('IonMessageComponent / Types', () => {
   it.each(icontypes)(
     'Should render %s type',
     async (type: MessageStatusType) => {

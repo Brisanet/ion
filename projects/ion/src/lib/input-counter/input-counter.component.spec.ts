@@ -1,11 +1,11 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { render, fireEvent, screen } from '@testing-library/angular';
-import { InputCounterComponent } from './input-counter.component';
+import { IonInputCounterComponent } from './input-counter.component';
 import { ButtonModule } from '../button/button.module';
 
 const sut = async (customProps = {}): Promise<void> => {
-  await render(InputCounterComponent, {
+  await render(IonInputCounterComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule, ButtonModule],
     declarations: [],

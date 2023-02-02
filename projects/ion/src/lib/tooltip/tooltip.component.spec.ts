@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
 import { TooltipPosition } from '../core/types';
-import { TooltipComponent, TooltipProps } from './tooltip.component';
+import { IonTooltipComponent, TooltipProps } from './tooltip.component';
 
 const tooltipTestId = 'ion-tooltip';
 
@@ -12,9 +12,9 @@ const defaultProps: TooltipProps = {
 };
 
 const sut = async (
-  props: Partial<TooltipComponent> = defaultProps
+  props: Partial<IonTooltipComponent> = defaultProps
 ): Promise<void> => {
-  await render(TooltipComponent, {
+  await render(IonTooltipComponent, {
     componentProperties: {
       ...props,
     },
@@ -22,7 +22,7 @@ const sut = async (
   });
 };
 
-describe('TooltipComponent', () => {
+describe('IonTooltipComponent', () => {
   it('should render title', async () => {
     const ionTooltipTitle = 'Eu sou um tooltip.';
     await sut({ ionTooltipTitle });
