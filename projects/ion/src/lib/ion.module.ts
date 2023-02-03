@@ -7,7 +7,6 @@ import { IonChipComponent } from './chip/chip.component';
 import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { IonDividerComponent } from './divider/divider.component';
-import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
@@ -36,6 +35,7 @@ import { IonTagModule } from './tag/tag.module';
 import { IonAvatarModule } from './avatar/avatar.module';
 import { IonAlertModule } from './alert/alert.module';
 import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
+import { IonInfoBadgeModule } from './info-badge/info-badge.module';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,6 @@ import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
     IonCardComponent,
     IonInputCounterComponent,
     IonDatePickerComponent,
-    IonInfoBadgeComponent,
     IonSimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
@@ -77,6 +76,7 @@ import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
     IonAvatarModule,
     IonAlertModule,
     IonBreadcrumbModule,
+    IonInfoBadgeModule,
   ],
   exports: [
     IonComponent,
@@ -93,7 +93,6 @@ import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
     IonCardComponent,
     IonDatePickerComponent,
     IonSimpleMenuComponent,
-    IonInfoBadgeComponent,
     IonSimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
@@ -113,6 +112,7 @@ import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
     IonAvatarModule,
     IonAlertModule,
     IonBreadcrumbModule,
+    IonInfoBadgeModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
