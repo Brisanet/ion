@@ -8,11 +8,10 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 
-import { IonInfoBadgeComponent } from '../info-badge/info-badge.component';
-import { IonButtonModule } from './../button/button.module';
-import { IonChipComponent, IonChipProps } from './../chip/chip.component';
+import { IonChipProps } from './../chip/chip.component';
 import { CardEvent, IonCardComponent, IonCard } from './card.component';
 import { IonSharedModule } from '../shared.module';
+import { IonChipModule } from '../chip/chip.module';
 
 let renderFooter = false;
 
@@ -62,14 +61,12 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, IonSharedModule],
+  imports: [CommonModule, IonSharedModule, IonChipModule],
   declarations: [
     CardTestComponent,
     IonCardComponent,
     ButtonTestComponent,
     FooterTestComponent,
-    IonChipComponent,
-    IonInfoBadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,

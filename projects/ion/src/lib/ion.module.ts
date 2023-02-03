@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
 import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
@@ -36,6 +35,7 @@ import { IonAlertModule } from './alert/alert.module';
 import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
 import { IonInfoBadgeModule } from './info-badge/info-badge.module';
 import { IonChipModule } from './chip/chip.module';
+import { IonCardModule } from './card/card.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,6 @@ import { IonChipModule } from './chip/chip.module';
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
-    IonCardComponent,
     IonInputCounterComponent,
     IonDatePickerComponent,
     IonSimpleMenuComponent,
@@ -77,6 +76,7 @@ import { IonChipModule } from './chip/chip.module';
     IonBreadcrumbModule,
     IonInfoBadgeModule,
     IonChipModule,
+    IonCardModule,
   ],
   exports: [
     IonComponent,
@@ -89,7 +89,6 @@ import { IonChipModule } from './chip/chip.module';
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
-    IonCardComponent,
     IonDatePickerComponent,
     IonSimpleMenuComponent,
     IonSimpleMenuComponent,
@@ -113,6 +112,7 @@ import { IonChipModule } from './chip/chip.module';
     IonBreadcrumbModule,
     IonInfoBadgeModule,
     IonChipModule,
+    IonCardModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
