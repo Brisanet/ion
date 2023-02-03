@@ -38,4 +38,5 @@ export * from './lib/switch/switch.module';
 export * from './lib/popconfirm/popconfirm.module';
 export * from './lib/table/table.module';
 export * from './lib/smart-table/smart-table.module';
+export * from './lib/col/col.module';
 export { default as debounce } from './lib/utils/debounce';
