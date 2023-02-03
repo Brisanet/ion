@@ -8,10 +8,10 @@ import {
   IonDividerComponent,
   PopConfirmDirective,
   IonTagComponent,
+  IonSharedModule,
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
@@ -34,7 +34,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
       IonAlertComponent,
       IonDividerComponent,
     ],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [CommonModule, FormsModule, IonSharedModule],
   },
 });
 

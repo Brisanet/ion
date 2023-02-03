@@ -2,14 +2,14 @@ import { Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata, Story } from '@storybook/angular';
 import { IonInputCounterComponent } from '../projects/ion/src/lib/input-counter/input-counter.component';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Entry/Input-Counter',
   component: IonInputCounterComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule, ButtonModule],
+      imports: [FormsModule, IonButtonModule],
       declarations: [],
     }),
   ],

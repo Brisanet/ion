@@ -6,9 +6,9 @@ import {
   IonAvatarComponent,
   IonTabComponent,
   IonTabGroupComponent,
+  IonSharedModule,
 } from '../projects/ion/src/public-api';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/SimpleMenu',
@@ -31,7 +31,7 @@ const Template: Story<IonSimpleMenuComponent> = (
       IonAvatarComponent,
       DefaultImageDirective,
     ],
-    imports: [CommonModule, ButtonModule],
+    imports: [CommonModule, IonSharedModule],
   },
 });
 

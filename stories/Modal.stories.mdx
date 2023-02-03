@@ -4,17 +4,12 @@ import { Canvas, Meta, Source, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
 import dedent from 'ts-dedent';
 
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { OpenModalButtonComponent } from '../projects/ion/src/lib/modal/mock/open-modal.mock.component';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
 import { InputMockComponent } from '../projects/ion/src/lib/modal/mock/input.mock.component.ts';
-import {
-  BadgeComponent,
-  IonDropdownComponent,
-} from '../projects/ion/src/public-api';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 <Meta title="Ion/Data Display/Modal" component={OpenModalButtonComponent} />
 
@@ -58,7 +53,7 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
       moduleMetadata({
         declarations: [IonModalComponent, SelectMockComponent],
         providers: [IonModalService],
-        imports: [CommonModule, FormsModule, ButtonModule],
+        imports: [CommonModule, FormsModule, IonSharedModule],
         entryComponents: [IonModalComponent, SelectMockComponent],
       }),
     ]}
@@ -102,7 +97,7 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
       moduleMetadata({
         declarations: [IonModalComponent, InputMockComponent],
         providers: [IonModalService],
-        imports: [CommonModule, FormsModule, ButtonModule],
+        imports: [CommonModule, FormsModule, IonSharedModule],
         entryComponents: [IonModalComponent, InputMockComponent],
       }),
     ]}

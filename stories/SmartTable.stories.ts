@@ -7,12 +7,12 @@ import {
   IonDividerComponent,
   PopConfirmDirective,
   IonTagComponent,
+  IonSharedModule,
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
@@ -36,7 +36,7 @@ const Template: Story<IonSmartIonTableComponent> = (
       IonAlertComponent,
       IonDividerComponent,
     ],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [CommonModule, FormsModule, IonSharedModule],
   },
 });
 

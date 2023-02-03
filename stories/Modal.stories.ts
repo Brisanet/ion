@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonModalComponent } from '../projects/ion/src/lib/modal/component/modal.component';
 import { IonModalService } from '../projects/ion/src/lib/modal/modal.service';
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   component: IonModalComponent,
@@ -13,7 +13,7 @@ const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   },
   moduleMetadata: {
     declarations: [IonModalComponent, SelectMockComponent],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [CommonModule, FormsModule, IonSharedModule],
     providers: [IonModalService],
     entryComponents: [IonModalComponent, SelectMockComponent],
   },

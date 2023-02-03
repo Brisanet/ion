@@ -5,11 +5,8 @@ import { IonInputComponent } from '../projects/ion/src/lib/input/input.component
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
   IonAlertComponent,
-  IonBadgeComponent,
-  IonButtonComponent,
-  IonDropdownComponent,
   IonDividerComponent,
-  IonIconComponent,
+  IonSharedModule,
 } from '../projects/ion/src/public-api';
 
 export default {
@@ -23,16 +20,8 @@ const Template: Story<IonPopConfirmComponent> = (
   component: IonPopConfirmComponent,
   props: args,
   moduleMetadata: {
-    declarations: [
-      IonDividerComponent,
-      IonButtonComponent,
-      IonIconComponent,
-      IonBadgeComponent,
-      IonDropdownComponent,
-      IonAlertComponent,
-      IonInputComponent,
-    ],
-    imports: [CommonModule, FormsModule],
+    declarations: [IonDividerComponent, IonAlertComponent],
+    imports: [CommonModule, FormsModule, IonSharedModule],
   },
 });
 
