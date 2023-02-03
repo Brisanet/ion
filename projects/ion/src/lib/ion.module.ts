@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertComponent } from './alert/alert.component';
 import { IonAvatarComponent } from './avatar/avatar.component';
-import { IonBadgeComponent } from './badge/badge.component';
 import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
-import { IonButtonComponent } from './button/button.component';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
 import { IonChipComponent } from './chip/chip.component';
@@ -13,10 +11,8 @@ import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
-import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
-import { IonInputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
@@ -37,11 +33,14 @@ import { IonTagComponent } from './tag/tag.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIconModule } from './icon/icon.module';
+import { IonButtonModule } from './button/button.module';
+import { IonBadgeModule } from './badge/badge.module';
+import { IonDropdownModule } from './dropdown/dropdown.module';
+import { IonInputModule } from './input/input.module';
 
 @NgModule({
   declarations: [
     IonComponent,
-    IonButtonComponent,
     IonChipComponent,
     IonTabComponent,
     PopConfirmDirective,
@@ -53,9 +52,7 @@ import { IonIconModule } from './icon/icon.module';
     IonNotificationComponent,
     IonAvatarComponent,
     DefaultImageDirective,
-    IonBadgeComponent,
     IonTagComponent,
-    IonDropdownComponent,
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
@@ -70,22 +67,27 @@ import { IonIconModule } from './icon/icon.module';
     IonSmartIonTableComponent,
     IonSwitchComponent,
     IonTableComponent,
-    IonInputComponent,
     IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule, IonTypographyModule, IonIconModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonTypographyModule,
+    IonIconModule,
+    IonButtonModule,
+    IonBadgeModule,
+    IonDropdownModule,
+    IonInputModule,
+  ],
   exports: [
     IonComponent,
-    IonButtonComponent,
-    IonBadgeComponent,
     IonChipComponent,
     IonTabComponent,
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
     IonTagComponent,
-    IonDropdownComponent,
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
@@ -104,12 +106,15 @@ import { IonIconModule } from './icon/icon.module';
     IonSmartIonTableComponent,
     IonTableComponent,
     IonInputCounterComponent,
-    IonInputComponent,
     IonSwitchComponent,
     IonBreadcrumbComponent,
     IonTooltipModule,
     IonTypographyModule,
     IonIconModule,
+    IonButtonModule,
+    IonBadgeModule,
+    IonDropdownModule,
+    IonInputModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

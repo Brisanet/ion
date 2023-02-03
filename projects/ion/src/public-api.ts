@@ -5,14 +5,11 @@
 export * from './lib/ion.service';
 export * from './lib/ion.component';
 export * from './lib/ion.module';
+export * from './lib/shared.module';
 
 export * from './lib/avatar/avatar.component';
-export * from './lib/badge/badge.component';
-export * from './lib/button/button.component';
 export * from './lib/chip/chip.component';
 export * from './lib/divider/divider.component';
-export * from './lib/dropdown/dropdown.component';
-export * from './lib/icon/icon.component';
 export * from './lib/notification/notification.component';
 export * from './lib/radio/radio.component';
 export * from './lib/tab/tab.component';
@@ -34,4 +31,8 @@ export * from './lib/date-picker/date-picker/date-picker.component';
 export * from './lib/popconfirm/popconfirm.directive';
 export * from './lib/input-counter/input-counter.component';
 export * from './lib/tooltip/tooltip.module';
+export * from './lib/button/button.module';
+export * from './lib/badge/badge.module';
+export * from './lib/dropdown/dropdown.module';
+export * from './lib/icon/icon.module';
 export { default as debounce } from './lib/utils/debounce';
