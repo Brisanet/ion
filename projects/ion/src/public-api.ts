@@ -9,7 +9,6 @@ export * from './lib/shared.module';
 
 export * from './lib/table/table.component';
 export * from './lib/typography/';
-export * from './lib/simple-menu/simple-menu.component';
 export * from './lib/smart-table/smart-table.component';
 export * from './lib/modal/component/modal.component';
 export * from './lib/modal/modal.service';
@@ -37,4 +36,5 @@ export * from './lib/pagination/pagination.module';
 export * from './lib/radio/radio.module';
 export * from './lib/tab/tab.module';
 export * from './lib/tab-group/tab-group.module';
+export * from './lib/simple-menu/simple-menu.module';
 export { default as debounce } from './lib/utils/debounce';

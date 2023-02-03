@@ -5,9 +5,10 @@ import {
   IonSimpleMenuComponent,
   SimpleMenuProps,
 } from './simple-menu.component';
-import { IonSharedModule } from '../shared.module';
 import { IonTabGroupModule } from '../tab-group/tab-group.module';
 import { IonAvatarModule } from '../avatar/avatar.module';
+import { IonIconModule } from '../icon/icon.module';
+import { IonButtonModule } from '../button/button.module';
 
 const classMenuOpen = 'menu-container-opened';
 
@@ -47,7 +48,12 @@ const sut = async (
 ): Promise<void> => {
   await render(IonSimpleMenuComponent, {
     componentProperties: customProps,
-    imports: [IonSharedModule, IonTabGroupModule, IonAvatarModule],
+    imports: [
+      IonIconModule,
+      IonButtonModule,
+      IonTabGroupModule,
+      IonAvatarModule,
+    ],
   });
 };
 
