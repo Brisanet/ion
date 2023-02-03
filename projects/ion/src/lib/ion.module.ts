@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonColComponent } from './col/col.component';
-import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
@@ -37,6 +36,7 @@ import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
 import { InputAreaModule } from './input-area/input-area.module';
+import { IonInputCounterModule } from './input-counter/input-counter.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,6 @@ import { InputAreaModule } from './input-area/input-area.module';
     IonNotificationComponent,
     IonRowComponent,
     IonColComponent,
-    IonInputCounterComponent,
     IonSimpleMenuComponent,
     IonModalComponent,
     IonPaginationComponent,
@@ -79,6 +78,7 @@ import { InputAreaModule } from './input-area/input-area.module';
     IonDatePickerModule,
     IonDividerModule,
     InputAreaModule,
+    IonInputCounterModule,
   ],
   exports: [
     IonComponent,
@@ -96,7 +96,6 @@ import { InputAreaModule } from './input-area/input-area.module';
     IonPopConfirmComponent,
     IonSmartIonTableComponent,
     IonTableComponent,
-    IonInputCounterComponent,
     IonSwitchComponent,
     IonTooltipModule,
     IonTypographyModule,
@@ -116,6 +115,7 @@ import { InputAreaModule } from './input-area/input-area.module';
     IonDatePickerModule,
     IonDividerModule,
     InputAreaModule,
+    IonInputCounterModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
