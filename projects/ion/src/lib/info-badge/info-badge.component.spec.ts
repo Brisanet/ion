@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
 import { InfoBadgeStatus } from '../core/types';
 import { IonInfoBadgeComponent, InfoBadgeProps } from './info-badge.component';
-import { IonSharedModule } from '../shared.module';
+import { IonIconModule } from '../icon/icon.module';
 
 const defaultInfoBadge: InfoBadgeProps = {
   variant: 'primary',
@@ -13,7 +13,7 @@ const sut = async (
 ): Promise<void> => {
   await render(IonInfoBadgeComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, IonSharedModule],
+    imports: [CommonModule, IonIconModule],
   });
 };
 
