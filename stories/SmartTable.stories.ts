@@ -2,12 +2,12 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import {
-  IonDividerComponent,
   PopConfirmDirective,
   IonSharedModule,
   IonTagModule,
   IonAlertModule,
   IonCheckboxModule,
+  IonDividerModule,
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -31,7 +31,6 @@ const Template: Story<IonSmartIonTableComponent> = (
       IonPaginationComponent,
       PopConfirmDirective,
       IonPopConfirmComponent,
-      IonDividerComponent,
     ],
     imports: [
       CommonModule,
@@ -40,6 +39,7 @@ const Template: Story<IonSmartIonTableComponent> = (
       IonTagModule,
       IonAlertModule,
       IonCheckboxModule,
+      IonDividerModule,
     ],
   },
 });

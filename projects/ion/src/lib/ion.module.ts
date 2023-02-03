@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonColComponent } from './col/col.component';
-import { IonDividerComponent } from './divider/divider.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
@@ -36,6 +35,7 @@ import { IonChipModule } from './chip/chip.module';
 import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
+import { IonDividerModule } from './divider/divider.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { IonDatePickerModule } from './date-picker/date-picker/date-picker.modul
     PopConfirmDirective,
     IonRadioComponent,
     IonTabGroupComponent,
-    IonDividerComponent,
     IonMessageComponent,
     IonNotificationComponent,
     IonRowComponent,
@@ -77,13 +76,13 @@ import { IonDatePickerModule } from './date-picker/date-picker/date-picker.modul
     IonCardModule,
     IonCheckboxModule,
     IonDatePickerModule,
+    IonDividerModule,
   ],
   exports: [
     IonComponent,
     IonTabComponent,
     IonRadioComponent,
     IonTabGroupComponent,
-    IonDividerComponent,
     IonMessageComponent,
     IonNotificationComponent,
     IonRowComponent,
@@ -113,6 +112,7 @@ import { IonDatePickerModule } from './date-picker/date-picker/date-picker.modul
     IonCardModule,
     IonCheckboxModule,
     IonDatePickerModule,
+    IonDividerModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

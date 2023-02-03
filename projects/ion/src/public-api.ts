@@ -7,7 +7,6 @@ export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
 
-export * from './lib/divider/divider.component';
 export * from './lib/notification/notification.component';
 export * from './lib/radio/radio.component';
 export * from './lib/tab/tab.component';
@@ -36,4 +35,5 @@ export * from './lib/chip/chip.module';
 export * from './lib/card/card.module';
 export * from './lib/checkbox/checkbox.module';
 export * from './lib/date-picker/date-picker/date-picker.module';
+export * from './lib/divider/divider.module';
 export { default as debounce } from './lib/utils/debounce';

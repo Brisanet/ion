@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 import {
-  IonDividerComponent,
   IonSharedModule,
+  IonDividerModule,
 } from '../projects/ion/src/public-api';
 import { IonDatePickerComponent } from '../projects/ion/src/lib/date-picker/date-picker/date-picker.component';
 import { FormsModule } from '@angular/forms';
@@ -19,8 +19,7 @@ const Template: Story<IonDatePickerComponent> = (
   component: IonDatePickerComponent,
   props: { ...args, ionOnClick: action('ionOnClick') },
   moduleMetadata: {
-    declarations: [IonDividerComponent],
-    imports: [CommonModule, FormsModule, IonSharedModule],
+    imports: [CommonModule, FormsModule, IonSharedModule, IonDividerModule],
   },
 });
 

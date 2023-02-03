@@ -3,12 +3,12 @@ import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
-  IonDividerComponent,
   PopConfirmDirective,
   IonSharedModule,
   IonCheckboxModule,
   IonTagModule,
   IonAlertModule,
+  IonDividerModule,
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -29,7 +29,6 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
       IonPaginationComponent,
       PopConfirmDirective,
       IonPopConfirmComponent,
-      IonDividerComponent,
     ],
     imports: [
       CommonModule,
@@ -38,6 +37,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
       IonCheckboxModule,
       IonTagModule,
       IonAlertModule,
+      IonDividerModule,
     ],
   },
 });
