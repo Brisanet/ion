@@ -7,7 +7,6 @@ export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
 
-export * from './lib/notification/notification.component';
 export * from './lib/radio/radio.component';
 export * from './lib/tab/tab.component';
 export * from './lib/table/table.component';
@@ -37,4 +36,5 @@ export * from './lib/divider/divider.module';
 export * from './lib/input-area/input-area.module';
 export * from './lib/input-counter/input-counter.module';
 export * from './lib/message/message.module';
+export * from './lib/notification/notification.module';
 export { default as debounce } from './lib/utils/debounce';
