@@ -3,7 +3,7 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { IonTagComponent } from '../projects/ion/src/lib/tag/tag.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 <Meta title="Ion/Data Display/Tag" component={IonTagComponent} />
 
@@ -32,8 +32,7 @@ A partir do atributo label o usuário irá informar qual mensagem será mostrada
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -57,8 +56,7 @@ Por padrão a `tag` é gerada com bordas mas com o parâmetro `outline` sendo pa
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -82,8 +80,7 @@ Podendo aceitas os valores:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -102,8 +99,7 @@ Podendo aceitas os valores:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -122,8 +118,7 @@ Podendo aceitas os valores:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -142,8 +137,7 @@ Podendo aceitas os valores:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -162,8 +156,7 @@ Podendo aceitas os valores:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -187,8 +180,7 @@ Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -202,8 +194,7 @@ Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -217,8 +208,7 @@ Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -240,8 +230,7 @@ para a tag
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -258,8 +247,7 @@ para a tag
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >

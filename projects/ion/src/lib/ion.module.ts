@@ -29,7 +29,6 @@ import { IonSwitchComponent } from './switch/switch.component';
 import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
 import { IonTableComponent } from './table/table.component';
-import { IonTagComponent } from './tag/tag.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIconModule } from './icon/icon.module';
@@ -37,6 +36,7 @@ import { IonButtonModule } from './button/button.module';
 import { IonBadgeModule } from './badge/badge.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonInputModule } from './input/input.module';
+import { IonTagModule } from './tag/tag.module';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,6 @@ import { IonInputModule } from './input/input.module';
     IonNotificationComponent,
     IonAvatarComponent,
     DefaultImageDirective,
-    IonTagComponent,
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
@@ -79,6 +78,7 @@ import { IonInputModule } from './input/input.module';
     IonBadgeModule,
     IonDropdownModule,
     IonInputModule,
+    IonTagModule,
   ],
   exports: [
     IonComponent,
@@ -87,7 +87,6 @@ import { IonInputModule } from './input/input.module';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    IonTagComponent,
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
@@ -115,6 +114,7 @@ import { IonInputModule } from './input/input.module';
     IonBadgeModule,
     IonDropdownModule,
     IonInputModule,
+    IonTagModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

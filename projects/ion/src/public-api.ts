@@ -35,4 +35,5 @@ export * from './lib/button/button.module';
 export * from './lib/badge/badge.module';
 export * from './lib/dropdown/dropdown.module';
 export * from './lib/icon/icon.module';
+export * from './lib/tag/tag.module';
 export { default as debounce } from './lib/utils/debounce';
