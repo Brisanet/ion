@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonAlertComponent } from './alert/alert.component';
 import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
@@ -36,6 +35,7 @@ import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonInputModule } from './input/input.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonAvatarModule } from './avatar/avatar.module';
+import { IonAlertModule } from './alert/alert.module';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,6 @@ import { IonAvatarModule } from './avatar/avatar.module';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
     IonRowComponent,
@@ -77,6 +76,7 @@ import { IonAvatarModule } from './avatar/avatar.module';
     IonInputModule,
     IonTagModule,
     IonAvatarModule,
+    IonAlertModule,
   ],
   exports: [
     IonComponent,
@@ -85,7 +85,6 @@ import { IonAvatarModule } from './avatar/avatar.module';
     IonRadioComponent,
     IonTabGroupComponent,
     IonDividerComponent,
-    IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
     IonRowComponent,
@@ -113,6 +112,7 @@ import { IonAvatarModule } from './avatar/avatar.module';
     IonInputModule,
     IonTagModule,
     IonAvatarModule,
+    IonAlertModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
