@@ -36,4 +36,5 @@ export * from './lib/card/card.module';
 export * from './lib/checkbox/checkbox.module';
 export * from './lib/date-picker/date-picker/date-picker.module';
 export * from './lib/divider/divider.module';
+export * from './lib/input-area/input-area.module';
 export { default as debounce } from './lib/utils/debounce';

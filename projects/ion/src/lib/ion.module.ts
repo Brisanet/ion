@@ -36,6 +36,7 @@ import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
+import { InputAreaModule } from './input-area/input-area.module';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { IonDividerModule } from './divider/divider.module';
     IonCheckboxModule,
     IonDatePickerModule,
     IonDividerModule,
+    InputAreaModule,
   ],
   exports: [
     IonComponent,
@@ -113,6 +115,7 @@ import { IonDividerModule } from './divider/divider.module';
     IonCheckboxModule,
     IonDatePickerModule,
     IonDividerModule,
+    InputAreaModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
