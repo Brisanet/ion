@@ -1,11 +1,14 @@
+import { IonModalComponent } from './../projects/ion/src/lib/modal/component/modal.component';
+import { IonModalService } from './../projects/ion/src/lib/modal/modal.service';
+import { BodyMockComponent } from './../projects/ion/src/lib/card/mock/body-mock.component';
+import {
+  IonIndicatorButtonConfiguration,
+  IonIndicatorButtonType,
+} from './../projects/ion/src/lib/indicator/models/indicator';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
-import {
-  IonIndicatorButtonConfig,
-  IonIndicatorButtonType,
-  IonIndicatorComponent,
-} from './../projects/ion/src/lib/indicator/indicator.component';
+import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
 import { TooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
 
 export default {
@@ -19,8 +22,10 @@ const Template: Story<IonIndicatorComponent> = (
   component: IonIndicatorComponent,
   props: { ...args },
   moduleMetadata: {
-    declarations: [IonIndicatorComponent],
+    declarations: [IonIndicatorComponent, IonModalComponent, BodyMockComponent],
     imports: [CommonModule, ButtonModule, TooltipModule],
+    providers: [IonModalService],
+    entryComponents: [IonModalComponent, BodyMockComponent],
   },
 });
 
@@ -39,7 +44,7 @@ WithTooltip.args = {
   secondValue: '5%',
 };
 
-const buttonEmitter: IonIndicatorButtonConfig = {
+const buttonEmitter: IonIndicatorButtonConfiguration = {
   label: 'Detalhes',
   type: IonIndicatorButtonType.Emitter,
 };
@@ -51,7 +56,7 @@ WithEmitterButton.args = {
   buttonConfig: buttonEmitter,
 };
 
-const buttonRedirect: IonIndicatorButtonConfig = {
+const buttonRedirect: IonIndicatorButtonConfiguration = {
   label: 'Link',
   type: IonIndicatorButtonType.Redirect,
   redirectLink: 'https://github.com/Brisanet/ion',
@@ -59,14 +64,15 @@ const buttonRedirect: IonIndicatorButtonConfig = {
 export const withRedirect = Template.bind({});
 withRedirect.args = {
   title: 'Com botão que redireciona para link',
-  value: 1500,
-  secondValue: '5%',
+  value: 'Rayanne',
+  secondValue: 200,
   buttonConfig: buttonRedirect,
 };
 
-const buttonModal: IonIndicatorButtonConfig = {
+const buttonModal: IonIndicatorButtonConfiguration = {
   label: 'Abrir modal',
   type: IonIndicatorButtonType.Modal,
+  componentToModal: BodyMockComponent,
 };
 export const withOpenModal = Template.bind({});
 withOpenModal.args = {

@@ -6,25 +6,12 @@ import {
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
-export enum IonIndicatorButtonType {
-  Redirect = 'redirect',
-  Popover = 'popover',
-  Modal = 'modal',
-  Emitter = 'emitter',
-}
-
-export interface IonIndicatorButtonConfig {
-  label: string;
-  type: IonIndicatorButtonType;
-  /**
-   * @Link
-   * Para funcionar corretamente, o link informado deve ser em protocolo HTTPS.
-   */
-  redirectLink?: string;
-  popoverMessage?: string;
-  componentToModal?: unknown;
-}
+import { IonModalResponse } from '../modal/models/modal.interface';
+import { IonModalService } from './../modal/modal.service';
+import {
+  IonIndicatorButtonConfiguration,
+  IonIndicatorButtonType,
+} from './models/indicator';
 
 @Component({
   selector: 'ion-indicator',
@@ -32,15 +19,19 @@ export interface IonIndicatorButtonConfig {
   styleUrls: ['./indicator.component.scss'],
 })
 export class IonIndicatorComponent {
-  @Input() title = 'Título do Indicador';
+  @Input() title = 'Ion Indicator';
   @Input() tooltipText?: string;
   @Input() value?: number | string;
   @Input() secondValue?: number | string;
-  @Input() buttonConfig?: IonIndicatorButtonConfig;
+  @Input() buttonConfig?: IonIndicatorButtonConfiguration;
   @Output() ionClick = new EventEmitter();
+  @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
   private safeUrl: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {}
+  constructor(
+    private sanitizer: DomSanitizer,
+    private ionModalService: IonModalService
+  ) {}
 
   emitButtonClick(): void {
     this.ionClick.emit();
@@ -49,6 +40,14 @@ export class IonIndicatorComponent {
   redirectTo(): void {
     this.safeUrl = this.sanitizeUrl();
     window.open(this.safeUrl as string, '_blank');
+  }
+
+  openModal(): void {
+    this.ionModalService
+      .open(this.buttonConfig.componentToModal, this.buttonConfig.modalConfig)
+      .subscribe((responseFromModal) => {
+        this.modalEvent.emit(responseFromModal);
+      });
   }
 
   sanitizeUrl(): SafeResourceUrl {
