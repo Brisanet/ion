@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
 import { IonChipComponent } from './chip/chip.component';
@@ -36,6 +35,7 @@ import { IonInputModule } from './input/input.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonAvatarModule } from './avatar/avatar.module';
 import { IonAlertModule } from './alert/alert.module';
+import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
 
 @NgModule({
   declarations: [
@@ -62,7 +62,6 @@ import { IonAlertModule } from './alert/alert.module';
     IonSmartIonTableComponent,
     IonSwitchComponent,
     IonTableComponent,
-    IonBreadcrumbComponent,
   ],
   providers: [IonModalService],
   imports: [
@@ -77,6 +76,7 @@ import { IonAlertModule } from './alert/alert.module';
     IonTagModule,
     IonAvatarModule,
     IonAlertModule,
+    IonBreadcrumbModule,
   ],
   exports: [
     IonComponent,
@@ -102,7 +102,6 @@ import { IonAlertModule } from './alert/alert.module';
     IonTableComponent,
     IonInputCounterComponent,
     IonSwitchComponent,
-    IonBreadcrumbComponent,
     IonTooltipModule,
     IonTypographyModule,
     IonIconModule,
@@ -113,6 +112,7 @@ import { IonAlertModule } from './alert/alert.module';
     IonTagModule,
     IonAvatarModule,
     IonAlertModule,
+    IonBreadcrumbModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

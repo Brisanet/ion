@@ -35,4 +35,5 @@ export * from './lib/icon/icon.module';
 export * from './lib/tag/tag.module';
 export * from './lib/avatar/avatar.module';
 export * from './lib/alert/alert.module';
+export * from './lib/breadcrumb/breadcrumb.module';
 export { default as debounce } from './lib/utils/debounce';
