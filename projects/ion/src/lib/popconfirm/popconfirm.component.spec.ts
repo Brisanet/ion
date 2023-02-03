@@ -4,9 +4,9 @@ import {
   IonPopConfirmComponent,
   PopConfirmProps,
 } from './popconfirm.component';
-import { IonSharedModule } from '../shared.module';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonAlertModule } from '../alert/alert.module';
+import { IonButtonModule } from '../button/button.module';
 
 const defaultProps: PopConfirmProps = {
   ionPopConfirmTitle: 'Title',
@@ -15,7 +15,7 @@ const defaultProps: PopConfirmProps = {
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
   await render(IonPopConfirmComponent, {
     componentProperties: props,
-    imports: [FormsModule, IonSharedModule, IonDividerModule, IonAlertModule],
+    imports: [FormsModule, IonButtonModule, IonDividerModule, IonAlertModule],
   });
 };
 

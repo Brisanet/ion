@@ -9,8 +9,10 @@ import {
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
 import { FormsModule } from '@angular/forms';
-import { IonSharedModule } from '../shared.module';
 import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
+import { IonBadgeModule } from '../badge/badge.module';
+import { IonIconModule } from '../icon/icon.module';
+import { IonDropdownModule } from '../dropdown/dropdown.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -19,7 +21,12 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    imports: [FormsModule, IonSharedModule, IonInfoBadgeModule],
+    imports: [
+      IonBadgeModule,
+      IonIconModule,
+      IonDropdownModule,
+      IonInfoBadgeModule,
+    ],
   });
 };
 

@@ -12,8 +12,8 @@ import { IonPopConfirmComponent } from './popconfirm.component';
 import { IonPopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { IonSharedModule } from '../shared.module';
 import { IonDividerModule } from '../divider/divider.module';
+import { IonButtonModule } from '../button/button.module';
 
 const textButton = 'Teste';
 const confirmText = 'Confirmar';
@@ -63,7 +63,7 @@ describe('Directive: Popconfirm', () => {
     fixture = TestBed.configureTestingModule({
       providers: [IonPopConfirmDirective, ViewContainerRef],
       declarations: [ContainerRefTestComponent, IonPopConfirmComponent],
-      imports: [IonSharedModule, IonDividerModule],
+      imports: [IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
@@ -140,7 +140,7 @@ describe('Popconfirm host tests', () => {
         IonPopConfirmComponent,
         IonPopConfirmDirective,
       ],
-      imports: [FormsModule, IonSharedModule, IonDividerModule],
+      imports: [FormsModule, IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
@@ -181,7 +181,7 @@ describe('Popconfirm disabled host component', () => {
         IonPopConfirmComponent,
         IonPopConfirmDirective,
       ],
-      imports: [IonSharedModule, IonDividerModule],
+      imports: [IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {

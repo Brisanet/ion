@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonSharedModule } from '../shared.module';
 import { IonTagComponent } from './tag.component';
+import { IonIconModule } from '../icon/icon.module';
 
 @NgModule({
   declarations: [IonTagComponent],
-  imports: [CommonModule, IonSharedModule],
+  imports: [CommonModule, IonIconModule],
   exports: [IonTagComponent],
 })
 export class IonTagModule {}

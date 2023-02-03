@@ -3,7 +3,7 @@ import { AvatarType } from '../core/types/avatar';
 import { SizeType } from '../core/types/size';
 import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonAvatarComponent } from './avatar.component';
-import { IonSharedModule } from '../shared.module';
+import { IonIconModule } from '../icon/icon.module';
 
 async function sut(
   props: Partial<IonAvatarComponent> = {}
@@ -12,7 +12,7 @@ async function sut(
     componentProperties: props,
     providers: [DefaultImageDirective],
     declarations: [DefaultImageDirective],
-    imports: [IonSharedModule],
+    imports: [IonIconModule],
   });
   return screen.getByTestId('ion-avatar');
 }

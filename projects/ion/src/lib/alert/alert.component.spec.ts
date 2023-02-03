@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { StatusType } from '../core/types/status';
 import { IonAlertComponent, IonAlertProps } from './alert.component';
-import { IonSharedModule } from '../shared.module';
+import { IonIconModule } from '../icon/icon.module';
 
 const defaultValue: IonAlertProps = {
   message: 'Mensagem padrão',
@@ -25,7 +25,7 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(IonAlertComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, IonSharedModule],
+    imports: [CommonModule, IonIconModule],
   });
   return screen.findByTestId(alertIDs.alert);
 };
