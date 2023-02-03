@@ -2,14 +2,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertComponent } from './alert/alert.component';
-import { IonAvatarComponent } from './avatar/avatar.component';
 import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
 import { IonChipComponent } from './chip/chip.component';
 import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
-import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
@@ -37,6 +35,7 @@ import { IonBadgeModule } from './badge/badge.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonInputModule } from './input/input.module';
 import { IonTagModule } from './tag/tag.module';
+import { IonAvatarModule } from './avatar/avatar.module';
 
 @NgModule({
   declarations: [
@@ -50,8 +49,6 @@ import { IonTagModule } from './tag/tag.module';
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
-    IonAvatarComponent,
-    DefaultImageDirective,
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
@@ -79,6 +76,7 @@ import { IonTagModule } from './tag/tag.module';
     IonDropdownModule,
     IonInputModule,
     IonTagModule,
+    IonAvatarModule,
   ],
   exports: [
     IonComponent,
@@ -90,7 +88,6 @@ import { IonTagModule } from './tag/tag.module';
     IonAlertComponent,
     IonMessageComponent,
     IonNotificationComponent,
-    IonAvatarComponent,
     IonRowComponent,
     IonColComponent,
     IonCheckboxComponent,
@@ -115,6 +112,7 @@ import { IonTagModule } from './tag/tag.module';
     IonDropdownModule,
     IonInputModule,
     IonTagModule,
+    IonAvatarModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
