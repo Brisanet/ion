@@ -1,13 +1,13 @@
-import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import {
-  IonAlertComponent,
   IonDividerComponent,
   PopConfirmDirective,
-  IonTagComponent,
   IonSharedModule,
+  IonTagModule,
+  IonAlertModule,
+  IonCheckboxModule,
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
@@ -28,15 +28,19 @@ const Template: Story<IonSmartIonTableComponent> = (
   moduleMetadata: {
     entryComponents: [IonPopConfirmComponent],
     declarations: [
-      IonTagComponent,
-      IonCheckboxComponent,
       IonPaginationComponent,
       PopConfirmDirective,
       IonPopConfirmComponent,
-      IonAlertComponent,
       IonDividerComponent,
     ],
-    imports: [CommonModule, FormsModule, IonSharedModule],
+    imports: [
+      CommonModule,
+      FormsModule,
+      IonSharedModule,
+      IonTagModule,
+      IonAlertModule,
+      IonCheckboxModule,
+    ],
   },
 });
 
