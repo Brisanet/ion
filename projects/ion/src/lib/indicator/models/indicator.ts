@@ -10,6 +10,7 @@ export enum IonIndicatorButtonType {
 
 export interface IonIndicatorButtonConfiguration {
   label: string;
+  icon?: string;
   /**
    * Determina o tipo de ação que o botão do Indicator realizará ao ser clicado seguindo o enum IonIndicatorButtonType
    * @example

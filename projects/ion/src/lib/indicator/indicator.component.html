@@ -2,6 +2,7 @@
   <header class="title">
     <h1 data-testid="ion-indicator-title">{{ title }}</h1>
     <ion-icon
+      data-testid="ion-indicator-tooltip"
       *ngIf="tooltipText"
       type="exclamation-rounded"
       size="16"
@@ -15,40 +16,39 @@
     </ion-icon>
   </header>
   <div class="content">
-    <h4>{{ value }}</h4>
-    <p>{{ secondValue }}</p>
+    <h4 data-testid="ion-indicator-value">{{ value }}</h4>
+    <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
   </div>
-  <footer *ngIf="buttonConfig">
+  <footer data-testid="ion-indicator-footer" *ngIf="buttonConfig">
     <ion-button
-      *ngIf="buttonConfig.type === 'emitter'"
       data-testid="ion-indicator-button-emitter"
+      *ngIf="buttonConfig.type === 'emitter'"
       type="ghost"
       size="sm"
-      iconType="right2"
       rightSideIcon="true"
-      (ionOnClick)="emitButtonClick()"
       [label]="buttonConfig.label"
+      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
+      (ionOnClick)="emitButtonClick()"
     ></ion-button>
     <ion-button
+      data-testid="ion-indicator-button-redirect"
       *ngIf="buttonConfig.type == 'redirect'"
-      data-testid="ion-indicator-button-emitter"
       type="ghost"
       size="sm"
-      iconType="right2"
       rightSideIcon="true"
       [label]="buttonConfig.label"
+      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
       (ionOnClick)="redirectTo()"
     ></ion-button>
     <ion-button
+      data-testid="ion-indicator-button-modal"
       *ngIf="buttonConfig.type == 'modal'"
-      data-testid="ion-indicator-button-emitter"
       type="ghost"
       size="sm"
-      iconType="right2"
       rightSideIcon="true"
       [label]="buttonConfig.label"
+      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
       (ionOnClick)="openModal()"
     ></ion-button>
-    <!-- TODO: Implementar popover quando o componente estiver concluído -->
   </footer>
 </div>

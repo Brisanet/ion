@@ -20,10 +20,10 @@ import {
 })
 export class IonIndicatorComponent {
   @Input() title = 'Ion Indicator';
-  @Input() tooltipText?: string;
-  @Input() value?: number | string;
-  @Input() secondValue?: number | string;
-  @Input() buttonConfig?: IonIndicatorButtonConfiguration;
+  @Input() tooltipText: string;
+  @Input() value: number | string;
+  @Input() secondValue: number | string;
+  @Input() buttonConfig: IonIndicatorButtonConfiguration;
   @Output() ionClick = new EventEmitter();
   @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
   private safeUrl: SafeResourceUrl;
