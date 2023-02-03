@@ -2,18 +2,17 @@ import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
 import {
-  PopConfirmDirective,
   IonSharedModule,
   IonTagModule,
   IonAlertModule,
   IonCheckboxModule,
   IonDividerModule,
   IonPaginationModule,
+  IonPopConfirmModule,
 } from '../projects/ion/src/public-api';
 import { FormsModule } from '@angular/forms';
 import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -26,8 +25,6 @@ const Template: Story<IonSmartIonTableComponent> = (
   component: IonSmartIonTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    entryComponents: [IonPopConfirmComponent],
-    declarations: [PopConfirmDirective, IonPopConfirmComponent],
     imports: [
       CommonModule,
       FormsModule,
@@ -37,6 +34,7 @@ const Template: Story<IonSmartIonTableComponent> = (
       IonCheckboxModule,
       IonDividerModule,
       IonPaginationModule,
+      IonPopConfirmModule,
     ],
   },
 });

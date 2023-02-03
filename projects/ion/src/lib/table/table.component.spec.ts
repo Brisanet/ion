@@ -3,7 +3,7 @@ import { SafeAny } from '../utils/safe-any';
 import { IonTableProps, IonTableComponent } from './table.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
-import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
+import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
 import { IonSharedModule } from '../shared.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
@@ -64,7 +64,7 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(IonTableComponent, {
     componentProperties: customProps,
-    declarations: [PopConfirmDirective],
+    declarations: [IonPopConfirmDirective],
     imports: [
       FormsModule,
       IonSharedModule,

@@ -6,7 +6,7 @@ import {
   IonSmartIonTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
+import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
 import { IonSharedModule } from '../shared.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
@@ -76,7 +76,7 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(IonSmartIonTableComponent, {
     componentProperties: customProps,
-    declarations: [PopConfirmDirective],
+    declarations: [IonPopConfirmDirective],
     imports: [
       FormsModule,
       IonSharedModule,

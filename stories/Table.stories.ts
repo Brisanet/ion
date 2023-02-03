@@ -3,16 +3,15 @@ import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
-  PopConfirmDirective,
   IonSharedModule,
   IonCheckboxModule,
   IonTagModule,
   IonAlertModule,
   IonDividerModule,
   IonPaginationModule,
+  IonPopConfirmModule,
 } from '../projects/ion/src/public-api';
 import { FormsModule } from '@angular/forms';
-import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -23,12 +22,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
   component: IonTableComponent,
   props: args,
   moduleMetadata: {
-    entryComponents: [IonPopConfirmComponent],
-    declarations: [
-      IonTableComponent,
-      PopConfirmDirective,
-      IonPopConfirmComponent,
-    ],
+    declarations: [IonTableComponent],
     imports: [
       CommonModule,
       FormsModule,
@@ -38,6 +32,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
       IonAlertModule,
       IonDividerModule,
       IonPaginationModule,
+      IonPopConfirmModule,
     ],
   },
 });
