@@ -1,11 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonButtonComponent, IonButtonProps } from './button.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { IonDropdownComponent } from '../dropdown/dropdown.component';
-import { IonBadgeComponent } from './../badge/badge.component';
 import { SafeAny } from '../utils/safe-any';
-import { IonInputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
+import { IonSharedModule } from '../shared.module';
 
 const defaultName = 'button';
 
@@ -14,13 +11,8 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(IonButtonComponent, {
     componentProperties: customProps,
-    declarations: [
-      IonIconComponent,
-      IonDropdownComponent,
-      IonBadgeComponent,
-      IonInputComponent,
-    ],
-    imports: [FormsModule],
+    imports: [FormsModule, IonSharedModule],
+    excludeComponentDeclaration: true,
   });
   return screen.findByRole('button');
 };
