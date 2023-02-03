@@ -34,8 +34,7 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { TooltipDirective } from './tooltip/tooltip.directive';
+import { TooltipModule } from './tooltip/tooltip.module';
 import { HeadingComponent } from './typography/heading/heading.component';
 import { IonPopoverComponent } from './popover/popover.component';
 import { PopoverDirective } from './popover/popover.directive';
@@ -76,8 +75,6 @@ import { PopoverDirective } from './popover/popover.directive';
     SwitchComponent,
     TableComponent,
     InputComponent,
-    TooltipDirective,
-    TooltipComponent,
     IonPopoverComponent,
     PopoverDirective,
   ],
@@ -115,10 +112,9 @@ import { PopoverDirective } from './popover/popover.directive';
     TableComponent,
     InputCounterComponent,
     InputComponent,
-    TooltipComponent,
     SwitchComponent,
-    IonPopoverComponent,
+    TooltipModule,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent, IonPopoverComponent],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}
