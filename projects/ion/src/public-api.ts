@@ -8,7 +8,6 @@ export * from './lib/ion.module';
 export * from './lib/shared.module';
 
 export * from './lib/typography/';
-export * from './lib/smart-table/smart-table.component';
 export * from './lib/modal/component/modal.component';
 export * from './lib/modal/modal.service';
 export * from './lib/tooltip/tooltip.module';
@@ -38,4 +37,5 @@ export * from './lib/simple-menu/simple-menu.module';
 export * from './lib/switch/switch.module';
 export * from './lib/popconfirm/popconfirm.module';
 export * from './lib/table/table.module';
+export * from './lib/smart-table/smart-table.module';
 export { default as debounce } from './lib/utils/debounce';

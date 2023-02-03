@@ -1,41 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import {
-  IonSharedModule,
-  IonTagModule,
-  IonAlertModule,
-  IonCheckboxModule,
-  IonDividerModule,
-  IonPaginationModule,
-  IonPopConfirmModule,
-} from '../projects/ion/src/public-api';
-import { FormsModule } from '@angular/forms';
-import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
+import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
-  component: IonSmartIonTableComponent,
+  component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<IonSmartIonTableComponent> = (
-  args: IonSmartIonTableComponent
+const Template: Story<IonSmartTableComponent> = (
+  args: IonSmartTableComponent
 ) => ({
-  component: IonSmartIonTableComponent,
+  component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    imports: [
-      CommonModule,
-      FormsModule,
-      IonSharedModule,
-      IonTagModule,
-      IonAlertModule,
-      IonCheckboxModule,
-      IonDividerModule,
-      IonPaginationModule,
-      IonPopConfirmModule,
-    ],
+    imports: [IonSmartTableModule],
   },
 });
 
