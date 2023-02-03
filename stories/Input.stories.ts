@@ -104,3 +104,8 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
 };
+
+export const MaxLength = Template.bind({});
+MaxLength.args = {
+  maxLength: 3,
+};
