@@ -7,7 +7,6 @@ import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
 import { IonPopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
-import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { IonSmartIonTableComponent } from './smart-table/smart-table.component';
@@ -37,13 +36,13 @@ import { IonInputCounterModule } from './input-counter/input-counter.module';
 import { IonMessageModule } from './message/message.module';
 import { IonNotificationModule } from './notification/notification.module';
 import { IonPaginationModule } from './pagination/pagination.module';
+import { IonRadioModule } from './radio/radio.module';
 
 @NgModule({
   declarations: [
     IonComponent,
     IonTabComponent,
     PopConfirmDirective,
-    IonRadioComponent,
     IonTabGroupComponent,
     IonRowComponent,
     IonColComponent,
@@ -79,11 +78,11 @@ import { IonPaginationModule } from './pagination/pagination.module';
     IonMessageModule,
     IonNotificationModule,
     IonPaginationModule,
+    IonRadioModule,
   ],
   exports: [
     IonComponent,
     IonTabComponent,
-    IonRadioComponent,
     IonTabGroupComponent,
     IonRowComponent,
     IonColComponent,
@@ -116,6 +115,7 @@ import { IonPaginationModule } from './pagination/pagination.module';
     IonMessageModule,
     IonNotificationModule,
     IonPaginationModule,
+    IonRadioModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })
