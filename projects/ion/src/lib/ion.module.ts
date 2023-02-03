@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonCardComponent } from './card/card.component';
 import { IonCheckboxComponent } from './checkbox/checkbox.component';
-import { IonChipComponent } from './chip/chip.component';
 import { IonColComponent } from './col/col.component';
 import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { IonDividerComponent } from './divider/divider.component';
@@ -36,11 +35,11 @@ import { IonAvatarModule } from './avatar/avatar.module';
 import { IonAlertModule } from './alert/alert.module';
 import { IonBreadcrumbModule } from './breadcrumb/breadcrumb.module';
 import { IonInfoBadgeModule } from './info-badge/info-badge.module';
+import { IonChipModule } from './chip/chip.module';
 
 @NgModule({
   declarations: [
     IonComponent,
-    IonChipComponent,
     IonTabComponent,
     PopConfirmDirective,
     IonRadioComponent,
@@ -77,10 +76,10 @@ import { IonInfoBadgeModule } from './info-badge/info-badge.module';
     IonAlertModule,
     IonBreadcrumbModule,
     IonInfoBadgeModule,
+    IonChipModule,
   ],
   exports: [
     IonComponent,
-    IonChipComponent,
     IonTabComponent,
     IonRadioComponent,
     IonTabGroupComponent,
@@ -113,6 +112,7 @@ import { IonInfoBadgeModule } from './info-badge/info-badge.module';
     IonAlertModule,
     IonBreadcrumbModule,
     IonInfoBadgeModule,
+    IonChipModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

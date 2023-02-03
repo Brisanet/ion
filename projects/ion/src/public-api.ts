@@ -7,7 +7,6 @@ export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
 
-export * from './lib/chip/chip.component';
 export * from './lib/divider/divider.component';
 export * from './lib/notification/notification.component';
 export * from './lib/radio/radio.component';
@@ -36,4 +35,5 @@ export * from './lib/avatar/avatar.module';
 export * from './lib/alert/alert.module';
 export * from './lib/breadcrumb/breadcrumb.module';
 export * from './lib/info-badge/info-badge.module';
+export * from './lib/chip/chip.module';
 export { default as debounce } from './lib/utils/debounce';

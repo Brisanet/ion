@@ -1,8 +1,10 @@
-import { IonSharedModule } from '../projects/ion/src/public-api';
+import {
+  IonSharedModule,
+  IonInfoBadgeModule,
+} from '../projects/ion/src/public-api';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { IonInfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { FormsModule } from '@angular/forms';
 
 export default {
@@ -10,8 +12,7 @@ export default {
   component: IonChipComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule, IonSharedModule],
-      declarations: [IonInfoBadgeComponent],
+      imports: [FormsModule, IonSharedModule, IonInfoBadgeModule],
     }),
   ],
 } as Meta;
