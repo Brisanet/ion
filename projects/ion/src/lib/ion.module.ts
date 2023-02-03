@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonComponent } from './ion.component';
-import { IonModalComponent } from './modal/component/modal.component';
-import { IonModalService } from './modal/modal.service';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIconModule } from './icon/icon.module';
@@ -36,10 +34,10 @@ import { IonTableModule } from './table/table.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
 import { IonColModule } from './col/col.module';
 import { IonRowModule } from './row/row.module';
+import { IonModalModule } from './modal/modal.module';
 
 @NgModule({
-  declarations: [IonComponent, IonModalComponent],
-  providers: [IonModalService],
+  declarations: [IonComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -74,10 +72,10 @@ import { IonRowModule } from './row/row.module';
     IonSmartTableModule,
     IonColModule,
     IonRowModule,
+    IonModalModule,
   ],
   exports: [
     IonComponent,
-    IonModalComponent,
     IonTooltipModule,
     IonTypographyModule,
     IonIconModule,
@@ -110,6 +108,7 @@ import { IonRowModule } from './row/row.module';
     IonSmartTableModule,
     IonColModule,
     IonRowModule,
+    IonModalModule,
   ],
 })
 export class IonModule {}

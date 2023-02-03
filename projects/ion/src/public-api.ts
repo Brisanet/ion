@@ -8,8 +8,6 @@ export * from './lib/ion.module';
 export * from './lib/shared.module';
 
 export * from './lib/typography/';
-export * from './lib/modal/component/modal.component';
-export * from './lib/modal/modal.service';
 export * from './lib/tooltip/tooltip.module';
 export * from './lib/button/button.module';
 export * from './lib/badge/badge.module';
@@ -40,4 +38,5 @@ export * from './lib/table/table.module';
 export * from './lib/smart-table/smart-table.module';
 export * from './lib/col/col.module';
 export * from './lib/row/row.module';
+export * from './lib/modal/modal.module';
 export { default as debounce } from './lib/utils/debounce';

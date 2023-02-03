@@ -10,6 +10,7 @@ import { OpenModalButtonComponent } from '../projects/ion/src/lib/modal/mock/ope
 import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-mock.component';
 import { InputMockComponent } from '../projects/ion/src/lib/modal/mock/input.mock.component.ts';
 import { IonSharedModule } from '../projects/ion/src/public-api';
+import { IonModalModule } from '../projects/ion/src/lib/modal/modal.module';
 
 <Meta title="Ion/Data Display/Modal" component={OpenModalButtonComponent} />
 
@@ -51,10 +52,9 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonModalComponent, SelectMockComponent],
-        providers: [IonModalService],
-        imports: [CommonModule, FormsModule, IonSharedModule],
-        entryComponents: [IonModalComponent, SelectMockComponent],
+        declarations: [SelectMockComponent],
+        imports: [CommonModule, FormsModule, IonSharedModule, IonModalModule],
+        entryComponents: [SelectMockComponent],
       }),
     ]}
   >
@@ -95,10 +95,9 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonModalComponent, InputMockComponent],
-        providers: [IonModalService],
-        imports: [CommonModule, FormsModule, IonSharedModule],
-        entryComponents: [IonModalComponent, InputMockComponent],
+        declarations: [InputMockComponent],
+        imports: [CommonModule, FormsModule, IonSharedModule, IonModalModule],
+        entryComponents: [InputMockComponent],
       }),
     ]}
   >
