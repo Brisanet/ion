@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { IonComponent } from './ion.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
-import { IonRowComponent } from './row/row.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIconModule } from './icon/icon.module';
@@ -36,9 +35,10 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
 import { IonTableModule } from './table/table.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
 import { IonColModule } from './col/col.module';
+import { IonRowModule } from './row/row.module';
 
 @NgModule({
-  declarations: [IonComponent, IonRowComponent, IonModalComponent],
+  declarations: [IonComponent, IonModalComponent],
   providers: [IonModalService],
   imports: [
     CommonModule,
@@ -73,10 +73,10 @@ import { IonColModule } from './col/col.module';
     IonTableModule,
     IonSmartTableModule,
     IonColModule,
+    IonRowModule,
   ],
   exports: [
     IonComponent,
-    IonRowComponent,
     IonModalComponent,
     IonTooltipModule,
     IonTypographyModule,
@@ -109,6 +109,7 @@ import { IonColModule } from './col/col.module';
     IonTableModule,
     IonSmartTableModule,
     IonColModule,
+    IonRowModule,
   ],
 })
 export class IonModule {}
