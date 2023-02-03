@@ -9,8 +9,8 @@ import {
   IonTagModule,
   IonAlertModule,
   IonDividerModule,
+  IonPaginationModule,
 } from '../projects/ion/src/public-api';
-import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
@@ -26,7 +26,6 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
     entryComponents: [IonPopConfirmComponent],
     declarations: [
       IonTableComponent,
-      IonPaginationComponent,
       PopConfirmDirective,
       IonPopConfirmComponent,
     ],
@@ -38,6 +37,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
       IonTagModule,
       IonAlertModule,
       IonDividerModule,
+      IonPaginationModule,
     ],
   },
 });

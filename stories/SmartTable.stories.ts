@@ -8,8 +8,8 @@ import {
   IonAlertModule,
   IonCheckboxModule,
   IonDividerModule,
+  IonPaginationModule,
 } from '../projects/ion/src/public-api';
-import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
@@ -27,11 +27,7 @@ const Template: Story<IonSmartIonTableComponent> = (
   props: { ...args, events: action('events') },
   moduleMetadata: {
     entryComponents: [IonPopConfirmComponent],
-    declarations: [
-      IonPaginationComponent,
-      PopConfirmDirective,
-      IonPopConfirmComponent,
-    ],
+    declarations: [PopConfirmDirective, IonPopConfirmComponent],
     imports: [
       CommonModule,
       FormsModule,
@@ -40,6 +36,7 @@ const Template: Story<IonSmartIonTableComponent> = (
       IonAlertModule,
       IonCheckboxModule,
       IonDividerModule,
+      IonPaginationModule,
     ],
   },
 });
