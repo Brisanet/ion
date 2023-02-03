@@ -3,10 +3,10 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonSimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import {
-  IonTabGroupComponent,
   IonSharedModule,
   IonAvatarModule,
   IonTabModule,
+  IonTabGroupModule,
 } from '../projects/ion/src/public-api';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
 
@@ -25,8 +25,13 @@ const Template: Story<IonSimpleMenuComponent> = (
     logoutClick: action('logoutClick'),
   },
   moduleMetadata: {
-    declarations: [IonTabGroupComponent, DefaultImageDirective],
-    imports: [CommonModule, IonSharedModule, IonAvatarModule, IonTabModule],
+    imports: [
+      CommonModule,
+      IonSharedModule,
+      IonAvatarModule,
+      IonTabModule,
+      IonTabGroupModule,
+    ],
   },
 });
 
