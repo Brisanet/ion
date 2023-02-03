@@ -6,8 +6,9 @@ import { IonTableProps, IonTableComponent } from './table.component';
 import { IonPaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
-import { ButtonModule } from '../button/button.module';
+import { IonButtonModule } from '../button/button.module';
 import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
+import { IonSharedModule } from '../shared.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -70,7 +71,7 @@ const sut = async (
       IonPaginationComponent,
       PopConfirmDirective,
     ],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonSharedModule],
   });
 };
 

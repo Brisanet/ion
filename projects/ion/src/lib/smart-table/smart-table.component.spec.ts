@@ -9,8 +9,9 @@ import {
   IonSmartIonTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { ButtonModule } from '../button/button.module';
+import { IonButtonModule } from '../button/button.module';
 import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
+import { IonSharedModule } from '../shared.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -82,7 +83,7 @@ const sut = async (
       IonPaginationComponent,
       PopConfirmDirective,
     ],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonSharedModule],
   });
 };
 

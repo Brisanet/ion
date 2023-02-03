@@ -5,7 +5,7 @@ import {
   IonPaginationProps,
   IonPaginationComponent,
 } from './pagination.component';
-import { ButtonModule } from '../button/button.module';
+import { IonButtonModule } from '../button/button.module';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -22,7 +22,7 @@ const sut = async (
   await render(IonPaginationComponent, {
     componentProperties: customProps,
     declarations: [],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonButtonModule],
   });
 };
 

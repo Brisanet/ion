@@ -1,10 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonModule } from '../../button/button.module';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
-
+import { IonSharedModule } from '../../shared.module';
 import {
   IonDatePickerComponent,
   IonDatePickerProps,
@@ -25,7 +24,7 @@ const sut = async (
   await render(IonDatePickerComponent, {
     componentProperties: customProps,
     declarations: [IonDividerComponent],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonSharedModule],
   });
 };
 

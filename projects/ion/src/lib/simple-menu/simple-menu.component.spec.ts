@@ -11,7 +11,8 @@ import {
   IonSimpleMenuComponent,
   SimpleMenuProps,
 } from './simple-menu.component';
-import { ButtonModule } from '../button/button.module';
+import { IonButtonModule } from '../button/button.module';
+import { IonSharedModule } from '../shared.module';
 
 const classMenuOpen = 'menu-container-opened';
 
@@ -57,7 +58,7 @@ const sut = async (
       IonAvatarComponent,
       DefaultImageDirective,
     ],
-    imports: [ButtonModule],
+    imports: [IonSharedModule],
   });
 };
 
