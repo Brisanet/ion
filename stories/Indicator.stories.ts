@@ -1,15 +1,12 @@
-import { IonModalComponent } from './../projects/ion/src/lib/modal/component/modal.component';
-import { IonModalService } from './../projects/ion/src/lib/modal/modal.service';
+import { CommonModule } from '@angular/common';
+import { Meta, Story } from '@storybook/angular/types-6-0';
 import { BodyMockComponent } from './../projects/ion/src/lib/card/mock/body-mock.component';
+import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
+import { IonIndicatorModule } from './../projects/ion/src/lib/indicator/indicator.module';
 import {
   IonIndicatorButtonConfiguration,
   IonIndicatorButtonType,
 } from './../projects/ion/src/lib/indicator/models/indicator';
-import { CommonModule } from '@angular/common';
-import { Meta, Story } from '@storybook/angular/types-6-0';
-import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
-import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
-import { TooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
 
 export default {
   title: 'Ion/Data Display/Indicator',
@@ -22,10 +19,9 @@ const Template: Story<IonIndicatorComponent> = (
   component: IonIndicatorComponent,
   props: { ...args },
   moduleMetadata: {
-    declarations: [IonIndicatorComponent, IonModalComponent, BodyMockComponent],
-    imports: [CommonModule, ButtonModule, TooltipModule],
-    providers: [IonModalService],
-    entryComponents: [IonModalComponent, BodyMockComponent],
+    declarations: [BodyMockComponent],
+    imports: [CommonModule, IonIndicatorModule],
+    entryComponents: [BodyMockComponent],
   },
 });
 

@@ -1,5 +1,11 @@
 @import '../../styles/index.scss';
 
+.ellipsis-in-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .container {
   font-family: 'Source Sans Pro';
   position: relative;
@@ -25,9 +31,8 @@
       font-weight: 600;
       font-size: 14px;
       max-width: 230px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
+
+      @extend .ellipsis-in-text;
     }
   }
 
@@ -45,16 +50,20 @@
     height: 42px;
 
     h4 {
+      max-width: 160px;
       font-weight: 600;
       font-size: 20px;
       color: $neutral-7;
+      @extend .ellipsis-in-text;
     }
 
     p {
+      max-width: 80px;
       font-style: normal;
       font-weight: 400;
       font-size: 16px;
       color: $neutral-7;
+      @extend .ellipsis-in-text;
     }
   }
 
