@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonTabComponent } from '../projects/ion/src/lib/tab/tab.component';
-import { IonSharedModule } from '../projects/ion/src/public-api';
+import {
+  IonButtonModule,
+  IonIconModule,
+  IonBadgeModule,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Tab',
@@ -13,7 +17,7 @@ const Template: Story<IonTabComponent> = (args: IonTabComponent) => ({
   props: args,
   moduleMetadata: {
     declarations: [IonTabComponent],
-    imports: [CommonModule, IonSharedModule],
+    imports: [CommonModule, IonButtonModule, IonBadgeModule, IonIconModule],
   },
 });
 

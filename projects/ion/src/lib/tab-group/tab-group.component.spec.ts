@@ -1,9 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonTabComponent, TabSize } from '../tab/tab.component';
 import { SafeAny } from '../utils/safe-any';
 import { IonTabGroupComponent, TabGroupProps } from './tab-group.component';
 import { IonIconModule } from '../icon/icon.module';
 import { IonBadgeModule } from '../badge/badge.module';
+import { IonTabModule } from '../tab/tab.module';
+import { TabSize } from '../tab/tab.component';
 
 const selectEvent = jest.fn();
 const mockTabs = [
@@ -28,8 +29,7 @@ const sut = async (
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   await render(IonTabGroupComponent, {
     componentProperties: customProps,
-    declarations: [IonTabComponent],
-    imports: [IonIconModule, IonBadgeModule],
+    imports: [IonIconModule, IonBadgeModule, IonTabModule],
   });
   return { element: screen.getByTestId('ion-tab-group'), event: selectEvent };
 };

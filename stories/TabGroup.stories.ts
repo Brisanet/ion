@@ -3,16 +3,15 @@ import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonTabGroupComponent } from '../projects/ion/src/lib/tab-group/tab-group.component';
-import { IonTabComponent } from '../projects/ion/src/lib/tab/tab.component';
 import { IonSharedModule } from '../projects/ion/src/lib/shared.module';
+import { IonTabModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/TabGroup',
   component: IonTabGroupComponent,
   decorators: [
     moduleMetadata({
-      imports: [IonSharedModule],
-      declarations: [IonTabComponent],
+      imports: [IonSharedModule, IonTabModule],
     }),
   ],
 } as Meta;

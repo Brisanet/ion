@@ -7,7 +7,6 @@ export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
 
-export * from './lib/tab/tab.component';
 export * from './lib/table/table.component';
 export * from './lib/tab-group/tab-group.component';
 export * from './lib/typography/';
@@ -37,4 +36,5 @@ export * from './lib/message/message.module';
 export * from './lib/notification/notification.module';
 export * from './lib/pagination/pagination.module';
 export * from './lib/radio/radio.module';
+export * from './lib/tab/tab.module';
 export { default as debounce } from './lib/utils/debounce';
