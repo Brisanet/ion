@@ -1,17 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import {
-  IonSharedModule,
-  IonCheckboxModule,
-  IonTagModule,
-  IonAlertModule,
-  IonDividerModule,
-  IonPaginationModule,
-  IonPopConfirmModule,
-} from '../projects/ion/src/public-api';
-import { FormsModule } from '@angular/forms';
+import { IonTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -22,18 +12,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
   component: IonTableComponent,
   props: args,
   moduleMetadata: {
-    declarations: [IonTableComponent],
-    imports: [
-      CommonModule,
-      FormsModule,
-      IonSharedModule,
-      IonCheckboxModule,
-      IonTagModule,
-      IonAlertModule,
-      IonDividerModule,
-      IonPaginationModule,
-      IonPopConfirmModule,
-    ],
+    imports: [IonTableModule],
   },
 });
 

@@ -87,7 +87,7 @@ const sut = async (
   });
 };
 
-describe('IonTableComponent', () => {
+describe('IonSmartTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });

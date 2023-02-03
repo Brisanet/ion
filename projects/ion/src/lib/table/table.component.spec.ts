@@ -3,11 +3,12 @@ import { SafeAny } from '../utils/safe-any';
 import { IonTableProps, IonTableComponent } from './table.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
-import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
-import { IonSharedModule } from '../shared.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonTagModule } from '../tag/tag.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonButtonModule } from '../button/button.module';
+import { IonIconModule } from '../icon/icon.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -64,13 +65,14 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(IonTableComponent, {
     componentProperties: customProps,
-    declarations: [IonPopConfirmDirective],
     imports: [
       FormsModule,
-      IonSharedModule,
+      IonButtonModule,
+      IonIconModule,
       IonCheckboxModule,
       IonPaginationModule,
       IonTagModule,
+      IonPopConfirmModule,
     ],
   });
 };

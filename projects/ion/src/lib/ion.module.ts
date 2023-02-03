@@ -7,7 +7,6 @@ import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
 import { IonRowComponent } from './row/row.component';
 import { IonSmartIonTableComponent } from './smart-table/smart-table.component';
-import { IonTableComponent } from './table/table.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIconModule } from './icon/icon.module';
@@ -36,6 +35,7 @@ import { IonTabGroupModule } from './tab-group/tab-group.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSwitchModule } from './switch/switch.module';
 import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
+import { IonTableModule } from './table/table.module';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,6 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonColComponent,
     IonModalComponent,
     IonSmartIonTableComponent,
-    IonTableComponent,
   ],
   providers: [IonModalService],
   imports: [
@@ -77,6 +76,7 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonSimpleMenuModule,
     IonSwitchModule,
     IonPopConfirmModule,
+    IonTableModule,
   ],
   exports: [
     IonComponent,
@@ -84,7 +84,6 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonColComponent,
     IonModalComponent,
     IonSmartIonTableComponent,
-    IonTableComponent,
     IonTooltipModule,
     IonTypographyModule,
     IonIconModule,
@@ -113,6 +112,7 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonSimpleMenuModule,
     IonSwitchModule,
     IonPopConfirmModule,
+    IonTableModule,
   ],
 })
 export class IonModule {}
