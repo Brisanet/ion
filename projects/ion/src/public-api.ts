@@ -7,7 +7,6 @@ export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
 
-export * from './lib/avatar/avatar.component';
 export * from './lib/chip/chip.component';
 export * from './lib/divider/divider.component';
 export * from './lib/notification/notification.component';
