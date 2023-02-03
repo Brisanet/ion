@@ -25,7 +25,7 @@ import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
-import { InputAreaModule } from './input-area/input-area.module';
+import { IonInputAreaModule } from './input-area/input-area.module';
 import { IonInputCounterModule } from './input-counter/input-counter.module';
 import { IonMessageModule } from './message/message.module';
 import { IonNotificationModule } from './notification/notification.module';
@@ -66,7 +66,7 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonCheckboxModule,
     IonDatePickerModule,
     IonDividerModule,
-    InputAreaModule,
+    IonInputAreaModule,
     IonInputCounterModule,
     IonMessageModule,
     IonNotificationModule,
@@ -102,7 +102,7 @@ import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
     IonCheckboxModule,
     IonDatePickerModule,
     IonDividerModule,
-    InputAreaModule,
+    IonInputAreaModule,
     IonInputCounterModule,
     IonMessageModule,
     IonNotificationModule,

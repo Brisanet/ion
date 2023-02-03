@@ -8,4 +8,4 @@ import { NgModule } from '@angular/core';
   imports: [CommonModule, FormsModule],
   exports: [IonInputAreaComponent],
 })
-export class InputAreaModule {}
+export class IonInputAreaModule {}
