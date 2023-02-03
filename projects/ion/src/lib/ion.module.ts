@@ -9,7 +9,6 @@ import { IonPopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { IonRowComponent } from './row/row.component';
 import { IonSmartIonTableComponent } from './smart-table/smart-table.component';
-import { IonSwitchComponent } from './switch/switch.component';
 import { IonTableComponent } from './table/table.component';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
@@ -37,6 +36,7 @@ import { IonRadioModule } from './radio/radio.module';
 import { IonTabModule } from './tab/tab.module';
 import { IonTabGroupModule } from './tab-group/tab-group.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
+import { IonSwitchModule } from './switch/switch.module';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
     IonModalComponent,
     IonPopConfirmComponent,
     IonSmartIonTableComponent,
-    IonSwitchComponent,
     IonTableComponent,
   ],
   providers: [IonModalService],
@@ -79,6 +78,7 @@ import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
     IonTabModule,
     IonTabGroupModule,
     IonSimpleMenuModule,
+    IonSwitchModule,
   ],
   exports: [
     IonComponent,
@@ -88,7 +88,6 @@ import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
     IonPopConfirmComponent,
     IonSmartIonTableComponent,
     IonTableComponent,
-    IonSwitchComponent,
     IonTooltipModule,
     IonTypographyModule,
     IonIconModule,
@@ -115,6 +114,7 @@ import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
     IonTabModule,
     IonTabGroupModule,
     IonSimpleMenuModule,
+    IonSwitchModule,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

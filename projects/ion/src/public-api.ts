@@ -37,4 +37,5 @@ export * from './lib/radio/radio.module';
 export * from './lib/tab/tab.module';
 export * from './lib/tab-group/tab-group.module';
 export * from './lib/simple-menu/simple-menu.module';
+export * from './lib/switch/switch.module';
 export { default as debounce } from './lib/utils/debounce';
