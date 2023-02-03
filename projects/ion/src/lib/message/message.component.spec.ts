@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import { IonIconComponent } from './../icon/icon.component';
 import {
   IonMessageProps,
   IonMessageComponent,
   MessageStatusType,
 } from './message.component';
+import { IonIconModule } from '../icon/icon.module';
 
 const defaultValue: IonMessageProps = {
   label: 'Message',
@@ -30,8 +30,7 @@ const sut = async (
 ): Promise<HTMLElement> => {
   await render(IonMessageComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, IonIconModule],
   });
   return screen.findByTestId(messageIDs.message);
 };

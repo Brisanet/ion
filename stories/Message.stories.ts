@@ -1,15 +1,14 @@
-import { IonIconComponent } from './../projects/ion/src/lib/icon/icon.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonMessageComponent } from '../projects/ion/src/lib/message/message.component';
+import { IonIconModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Feedback/Message',
   component: IonMessageComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
-      declarations: [IonIconComponent],
+      imports: [IonIconModule],
     }),
   ],
 } as Meta;
