@@ -39,4 +39,5 @@ export * from './lib/smart-table/smart-table.module';
 export * from './lib/col/col.module';
 export * from './lib/row/row.module';
 export * from './lib/modal/modal.module';
+export * from './lib/modal/modal.service';
 export { default as debounce } from './lib/utils/debounce';
