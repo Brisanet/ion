@@ -125,7 +125,7 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
     const label = '10 / página';
-    fireEvent.click(document.getElementById(`btn-${label}`));
+    fireEvent.click(await screen.getByTestId(`btn-${label}`));
     fireEvent.click(screen.getByText('20 / página'));
     expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });
