@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
-import { IonBreadcrumbComponent, BreadcrumbItem } from './breadcrumb.component';
+import { IonBreadcrumbComponent } from './breadcrumb.component';
+import { BreadcrumbItem } from '../core/types/breadcrumb';
 
 const options = [
   {
