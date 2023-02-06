@@ -105,21 +105,6 @@ class TestHostComponent {
 describe('Passing through the StepComponent', () => {
   let fixture, testHost;
 
-  const sut = async (
-    customProps: StepType[] = defaultValue,
-    index = 1
-  ): Promise<HTMLElement> => {
-    await render(StepComponent, {
-      componentProperties: {
-        steps: customProps,
-        current: index,
-      },
-      declarations: [IonIconComponent],
-      imports: [FormsModule],
-    });
-    return screen.findByTestId('ion-step');
-  };
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [StepComponent, TestHostComponent, IonIconComponent],
