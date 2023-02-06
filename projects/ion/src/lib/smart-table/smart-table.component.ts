@@ -12,7 +12,7 @@ import {
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from './../checkbox/checkbox.component';
+import { CheckBoxStates } from '../core/types/checkbox';
 
 export interface TableEvent {
   event: EventTable;

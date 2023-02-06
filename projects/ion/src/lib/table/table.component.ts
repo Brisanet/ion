@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PageEvent } from '../pagination/pagination.component';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
+import { CheckBoxStates } from '../core/types/checkbox';
 
 interface TableEvent {
   rows_selected: SafeAny[];
