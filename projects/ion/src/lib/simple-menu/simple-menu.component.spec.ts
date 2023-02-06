@@ -1,5 +1,4 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TabInGroup } from '../tab-group/tab-group.component';
 import { SafeAny } from '../utils/safe-any';
 import {
   IonSimpleMenuComponent,
@@ -9,6 +8,7 @@ import { IonTabGroupModule } from '../tab-group/tab-group.module';
 import { IonAvatarModule } from '../avatar/avatar.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonButtonModule } from '../button/button.module';
+import { TabInGroup } from '../core/types';
 
 const classMenuOpen = 'menu-container-opened';
 

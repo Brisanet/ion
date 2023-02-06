@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { TabInGroup } from '../tab-group/tab-group.component';
 import { SafeAny } from '../utils/safe-any';
+import { TabInGroup } from '../core/types';
 
 interface MenuProfile {
   imageUrl: string;

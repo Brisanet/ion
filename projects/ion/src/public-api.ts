@@ -6,6 +6,7 @@ export * from './lib/ion.service';
 export * from './lib/ion.component';
 export * from './lib/ion.module';
 export * from './lib/shared.module';
+export * from './lib/core/types';
 
 export * from './lib/typography/';
 export * from './lib/tooltip/tooltip.module';

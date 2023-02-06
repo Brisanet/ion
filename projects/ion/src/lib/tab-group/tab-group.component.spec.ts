@@ -1,10 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
-import { IonTabGroupComponent, TabGroupProps } from './tab-group.component';
+import { IonTabGroupComponent } from './tab-group.component';
 import { IonIconModule } from '../icon/icon.module';
 import { IonBadgeModule } from '../badge/badge.module';
 import { IonTabModule } from '../tab/tab.module';
 import { TabSize } from '../tab/tab.component';
+import { TabGroupProps } from '../core/types';
 
 const selectEvent = jest.fn();
 const mockTabs = [
