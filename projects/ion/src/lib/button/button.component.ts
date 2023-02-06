@@ -1,4 +1,3 @@
-import { BadgeProps } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
@@ -6,6 +5,7 @@ import { ButtonIconSizeOptions } from '../core/types/button';
 
 import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
+import { BadgeProps } from '../core/types';
 
 type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
 type Size = 'sm' | 'md' | 'lg' | 'xl';

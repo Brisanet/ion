@@ -7,3 +7,4 @@ export * from './tab-group';
 export * from './alert';
 export * from './avatar';
 export * from './breadcrumb';
+export * from './badge';

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BadgeType } from '../badge/badge.component';
-import { InfoBadgeStatus } from '../core/types';
+import { InfoBadgeStatus, BadgeType } from '../core/types';
 import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
 import { IconType } from './../icon/icon.component';
 
