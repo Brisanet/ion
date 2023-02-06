@@ -36,6 +36,7 @@ export class DropdownComponent implements AfterViewInit {
   @Input() searchOptions?: DropdownParams['searchOptions'];
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
+  @Output() clearBadgeValue = new EventEmitter();
 
   iconSize = 16;
 
@@ -72,6 +73,7 @@ export class DropdownComponent implements AfterViewInit {
       item.selected = false;
     });
     this.clearButtonIsVisible = false;
+    this.clearBadgeValue.emit();
   }
 
   select(option: DropdownItem): void {

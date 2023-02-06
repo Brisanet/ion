@@ -1,4 +1,4 @@
-import { BadgeProps } from './../badge/badge.component';
+import { BadgeProps, BadgeType } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
@@ -63,8 +63,8 @@ export class ButtonComponent implements OnInit {
 
   public iconSize!: ButtonIconSizeOptions;
 
-  updateBadgeValue(items: DropdownItem[]): void {
-    this.buttonBadge.value = items.length;
+  updateBadgeValue(item: DropdownItem[]) {
+    this.buttonBadge.value = item.length;
   }
 
   handleClick(): void {
@@ -87,6 +87,10 @@ export class ButtonComponent implements OnInit {
     this.label = item.label;
 
     this.showDropdown = false;
+  }
+
+  onClearBadgeValue(): void {
+    this.buttonBadge.value = 0;
   }
 
   ngOnInit(): void {
