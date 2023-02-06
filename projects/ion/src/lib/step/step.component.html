@@ -1,0 +1,39 @@
+<section class="steps" data-testid="ion-step">
+  <div class="step-container" *ngFor="let step of steps; let index = index">
+    <div [class]="disabled ? 'step disabled' : 'step theme-' + theme">
+      <div
+        [class]="crossClassGenerator('initial', index) + ' initial'"
+        *ngIf="crossVisibility('initial', step)"
+      ></div>
+
+      <div
+        [class]="'step-circle ' + step.status"
+        [attr.data-testid]="'step-' + step.index + '-' + step.status"
+      >
+        <span *ngIf="step.status !== 'checked'">
+          {{ step.index }}
+        </span>
+        <span *ngIf="step.status === 'checked'">
+          <ion-icon data-testid="check-icon" type="check" size="24"></ion-icon>
+        </span>
+      </div>
+
+      <div
+        [class]="crossClassGenerator('final', index) + ' final'"
+        *ngIf="crossVisibility('final', step)"
+      ></div>
+    </div>
+
+    <div [class]="labelClassGenerator(step)">
+      {{ step.label }}
+    </div>
+
+    <div
+      [class]="descriptionClassGenerator()"
+      [attr.data-testid]="'description-' + step.index"
+      *ngIf="step.description"
+    >
+      {{ step.description }}
+    </div>
+  </div>
+</section>
