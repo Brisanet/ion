@@ -1,18 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonChipComponent,
-  IonChipProps,
-  ChipSize,
-  IconDirection,
-} from './chip.component';
+import { IonChipComponent } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { FormsModule } from '@angular/forms';
 import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
 import { IonBadgeModule } from '../badge/badge.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
+import { IonChipProps, ChipSize, IconDirection } from '../core/types/chip';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 

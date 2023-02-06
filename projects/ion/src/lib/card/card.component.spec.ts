@@ -8,12 +8,12 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 
-import { IonChipProps } from './../chip/chip.component';
 import { IonCardComponent } from './card.component';
 import { IonChipModule } from '../chip/chip.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonCard, CardEvent } from '../core/types';
+import { IonChipProps } from '../core/types/chip';
 
 let renderFooter = false;
 
