@@ -4,9 +4,10 @@ import { BodyMockComponent } from './../projects/ion/src/lib/card/mock/body-mock
 import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
 import { IonIndicatorModule } from './../projects/ion/src/lib/indicator/indicator.module';
 import {
-  IonIndicatorButtonConfiguration,
-  IonIndicatorButtonType,
-} from './../projects/ion/src/lib/indicator/models/indicator';
+  buttonEmitterConfig,
+  buttonModalConfig,
+  buttonRedirectConfig,
+} from './../projects/ion/src/lib/indicator/mocks/configs';
 
 export default {
   title: 'Ion/Data Display/Indicator',
@@ -40,40 +41,26 @@ WithTooltip.args = {
   secondValue: '5%',
 };
 
-const buttonEmitter: IonIndicatorButtonConfiguration = {
-  label: 'Detalhes',
-  type: IonIndicatorButtonType.Emitter,
-};
 export const WithEmitterButton = Template.bind({});
 WithEmitterButton.args = {
   title: 'Com botão emitter',
   value: 1500,
   secondValue: '5%',
-  buttonConfig: buttonEmitter,
+  buttonConfig: buttonEmitterConfig,
 };
 
-const buttonRedirect: IonIndicatorButtonConfiguration = {
-  label: 'Link',
-  type: IonIndicatorButtonType.Redirect,
-  redirectLink: 'https://github.com/Brisanet/ion',
-};
 export const withRedirect = Template.bind({});
 withRedirect.args = {
   title: 'Com botão que redireciona para link',
   value: 'Rayanne',
   secondValue: 200,
-  buttonConfig: buttonRedirect,
+  buttonConfig: buttonRedirectConfig,
 };
 
-const buttonModal: IonIndicatorButtonConfiguration = {
-  label: 'Abrir modal',
-  type: IonIndicatorButtonType.Modal,
-  componentToModal: BodyMockComponent,
-};
 export const withOpenModal = Template.bind({});
 withOpenModal.args = {
   title: 'Com botão que abre modal',
   value: 1500,
   secondValue: '5%',
-  buttonConfig: buttonModal,
+  buttonConfig: buttonModalConfig,
 };

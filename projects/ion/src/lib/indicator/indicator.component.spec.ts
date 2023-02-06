@@ -1,14 +1,22 @@
-import {
-  IonIndicatorButtonConfiguration,
-  IonIndicatorButtonType,
-} from './models/indicator';
 import { CommonModule } from '@angular/common';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import { NgModule } from '@angular/core';
+import {
+  render,
+  RenderResult,
+  screen,
+  fireEvent,
+} from '@testing-library/angular';
 import { ButtonModule } from '../button/button.module';
 import { IonModalComponent } from '../modal/component/modal.component';
 import { TooltipModule } from '../tooltip/tooltip.module';
 import { BodyMockComponent } from './../card/mock/body-mock.component';
 import { IonIndicatorComponent } from './indicator.component';
+import {
+  buttonEmitterConfig,
+  buttonModalConfig,
+  buttonRedirectConfig,
+} from './mocks/configs';
+import { IonIndicatorButtonConfiguration } from './models/indicator';
 
 interface IonIndicatorProps {
   title?: string;
@@ -18,9 +26,16 @@ interface IonIndicatorProps {
   buttonConfig?: IonIndicatorButtonConfiguration;
 }
 
-const sut = async (props?: IonIndicatorProps): Promise<void> => {
-  await render(IonIndicatorComponent, {
-    imports: [CommonModule, CommonModule, ButtonModule, TooltipModule],
+@NgModule({
+  entryComponents: [IonModalComponent, BodyMockComponent],
+})
+class EntryComponentModule {}
+
+const sut = async (
+  props?: IonIndicatorProps
+): Promise<RenderResult<IonIndicatorComponent>> => {
+  return await render(IonIndicatorComponent, {
+    imports: [CommonModule, ButtonModule, TooltipModule, EntryComponentModule],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
   });
@@ -40,14 +55,6 @@ const buttonRedirect = (): HTMLElement =>
   screen.queryByTestId('ion-indicator-button-redirect');
 const buttonModal = (): HTMLElement =>
   screen.queryByTestId('ion-indicator-button-modal');
-
-// @Input() title = 'Ion Indicator';
-// @Input() tooltipText?: string;
-// @Input() value?: number | string;
-// @Input() secondValue?: number | string;
-// @Input() buttonConfig?: IonIndicatorButtonConfiguration;
-// @Output() ionClick = new EventEmitter();
-// @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
 
 fdescribe('IonIndicatorComponent', () => {
   fit('Should render with default values', async () => {
@@ -75,7 +82,7 @@ fdescribe('IonIndicatorComponent', () => {
     expect(tooltip()).toBeInTheDocument();
   });
 
-  fit('Should render valueElement and secondValueElement when they receive string values', async () => {
+  fit('Should render valueElement/secondValueElement when they receive string values', async () => {
     const valueText = 'testing';
     const secondText = 'testing';
     await sut({ value: valueText, secondValue: secondText });
@@ -84,7 +91,7 @@ fdescribe('IonIndicatorComponent', () => {
     expect(secondValueElement().textContent).toBe(secondText);
   });
 
-  fit('Should render valueElement and secondValueElement when they receive number values', async () => {
+  fit('Should render valueElement/secondValueElement when they receive number values', async () => {
     const valueNumber = 12;
     const secondValueNumber = 14;
     await sut({ value: valueNumber, secondValue: secondValueNumber });
@@ -94,37 +101,62 @@ fdescribe('IonIndicatorComponent', () => {
   });
 
   fit('Should render footer and button emitter when receive buttonConfig with this type', async () => {
-    const buttonEmitter: IonIndicatorButtonConfiguration = {
-      label: 'Detalhes',
-      type: IonIndicatorButtonType.Emitter,
-    };
-    await sut({ buttonConfig: buttonEmitter });
+    await sut({ buttonConfig: buttonEmitterConfig });
 
     expect(footer()).toBeInTheDocument();
-    expect(footer()).toBeInTheDocument();
+    expect(buttonEmitter()).toBeInTheDocument();
   });
 
   fit('Should render footer and button redirect when receive buttonConfig with this type', async () => {
-    const buttonEmitter: IonIndicatorButtonConfiguration = {
-      label: 'Link',
-      type: IonIndicatorButtonType.Redirect,
-      redirectLink: 'https://github.com/Brisanet/ion',
-    };
-    await sut({ buttonConfig: buttonEmitter });
+    await sut({ buttonConfig: buttonRedirectConfig });
 
     expect(footer()).toBeInTheDocument();
-    expect(footer()).toBeInTheDocument();
+    expect(buttonRedirect()).toBeInTheDocument();
   });
 
   fit('Should render footer and button modal when receive buttonConfig with this type', async () => {
-    const buttonEmitter: IonIndicatorButtonConfiguration = {
-      label: 'Abrir modal',
-      type: IonIndicatorButtonType.Modal,
-      componentToModal: BodyMockComponent,
-    };
-    await sut({ buttonConfig: buttonEmitter });
+    await sut({ buttonConfig: buttonModalConfig });
 
     expect(footer()).toBeInTheDocument();
-    expect(footer()).toBeInTheDocument();
+    expect(buttonModal()).toBeInTheDocument();
+  });
+
+  fit('Should call emitter when call emitButtonClick function ', async () => {
+    const renderResult = await sut();
+    const componentInstance = renderResult.fixture.componentInstance;
+    const spy = jest.spyOn(componentInstance.ionClick, 'emit');
+
+    componentInstance.emitButtonClick();
+    expect(spy).toHaveBeenCalled();
+  });
+
+  fit('Should sanitize url and redirect when call redirectTo function', async () => {
+    const spy = jest.spyOn(window, 'open');
+    const renderResult = await sut({ buttonConfig: buttonRedirectConfig });
+    const componentInstance = renderResult.fixture.componentInstance;
+
+    componentInstance.redirectTo();
+    expect(componentInstance.safeUrl).toBeTruthy();
+    expect(spy).toHaveBeenCalledWith(
+      componentInstance.safeUrl as string,
+      '_blank'
+    );
+  });
+
+  fit('Should open modal when call openModal function ', async () => {
+    const renderResult = await sut({ buttonConfig: buttonModalConfig });
+    const componentInstance = renderResult.fixture.componentInstance;
+    const spy = jest.spyOn(componentInstance.modalEvent, 'emit');
+
+    componentInstance.openModal();
+    const modalTitle = screen.getByText(buttonModalConfig.modalConfig.title);
+    const modalButton = screen.getByText(
+      buttonModalConfig.modalConfig.footer.primaryButton.label
+    );
+
+    expect(modalTitle).toBeInTheDocument();
+    fireEvent.click(modalButton);
+    expect(modalTitle).not.toBeInTheDocument();
+    expect(spy).toHaveBeenCalled();
   });
 });
