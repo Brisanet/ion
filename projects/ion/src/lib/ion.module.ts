@@ -34,9 +34,8 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
+import { TooltipModule } from './tooltip/tooltip.module';
 import { ChipGroupComponent } from './chip-group/chip-group.component';
-import { TooltipDirective } from './tooltip/tooltip.directive';
 import { HeadingComponent } from './typography/heading/heading.component';
 
 @NgModule({
@@ -75,8 +74,6 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SwitchComponent,
     TableComponent,
     InputComponent,
-    TooltipDirective,
-    TooltipComponent,
     ChipGroupComponent,
   ],
   providers: [IonModalService],
@@ -113,10 +110,10 @@ import { HeadingComponent } from './typography/heading/heading.component';
     TableComponent,
     InputCounterComponent,
     InputComponent,
-    TooltipComponent,
-    ChipGroupComponent,
     SwitchComponent,
+    TooltipModule,
+    ChipGroupComponent,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}
