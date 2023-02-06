@@ -2,7 +2,7 @@ import { BodyMockComponent } from '../../card/mock/body-mock.component';
 import {
   IonIndicatorButtonConfiguration,
   IonIndicatorButtonType,
-} from '../models/indicator';
+} from '../../core/types/indicator';
 
 export const buttonModalConfig: IonIndicatorButtonConfiguration = {
   label: 'Abrir modal',

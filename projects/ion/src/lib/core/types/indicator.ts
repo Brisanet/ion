@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { IonModalConfiguration } from './../../modal/models/modal.interface';
+import { IonModalConfiguration } from '../../modal/models/modal.interface';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',

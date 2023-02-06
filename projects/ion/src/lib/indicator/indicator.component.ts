@@ -11,7 +11,7 @@ import { IonModalService } from './../modal/modal.service';
 import {
   IonIndicatorButtonConfiguration,
   IonIndicatorButtonType,
-} from './models/indicator';
+} from '../core/types/indicator';
 
 @Component({
   selector: 'ion-indicator',
