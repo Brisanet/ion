@@ -1,8 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonButtonComponent, IonButtonProps } from './button.component';
+import { IonButtonComponent } from './button.component';
 import { SafeAny } from '../utils/safe-any';
 import { FormsModule } from '@angular/forms';
 import { IonSharedModule } from '../shared.module';
+import { IonButtonProps } from '../core/types/button';
 
 const defaultName = 'button';
 
