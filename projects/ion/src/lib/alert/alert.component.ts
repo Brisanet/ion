@@ -2,14 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../icon/icon.component';
 
-export interface IonAlertProps {
-  message: string;
-  type?: StatusType;
-  closable?: boolean;
-  hideBackground?: boolean;
-}
-
-export const iconTypes = {
+const iconTypes = {
   success: 'check-solid',
   warning: 'exclamation-solid',
   info: 'info-solid',
