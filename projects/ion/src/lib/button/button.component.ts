@@ -1,4 +1,4 @@
-import { BadgeProps, BadgeType } from './../badge/badge.component';
+import { BadgeProps } from './../badge/badge.component';
 import { DropdownItem } from './../dropdown/dropdown.component';
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
