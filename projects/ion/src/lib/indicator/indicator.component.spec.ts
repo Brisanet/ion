@@ -15,7 +15,7 @@ import {
   buttonEmitterConfig,
   buttonModalConfig,
   buttonRedirectConfig,
-} from './mocks/configs';
+} from './mocks/indicator-button-config';
 import { IonIndicatorButtonConfiguration } from './models/indicator';
 
 interface IonIndicatorProps {

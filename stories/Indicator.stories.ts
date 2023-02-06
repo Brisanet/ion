@@ -7,7 +7,7 @@ import {
   buttonEmitterConfig,
   buttonModalConfig,
   buttonRedirectConfig,
-} from './../projects/ion/src/lib/indicator/mocks/configs';
+} from '../projects/ion/src/lib/indicator/mocks/indicator-button-config';
 
 export default {
   title: 'Ion/Data Display/Indicator',
@@ -52,7 +52,7 @@ WithEmitterButton.args = {
 export const withRedirect = Template.bind({});
 withRedirect.args = {
   title: 'Com botão que redireciona para link',
-  value: 'Rayanne',
+  value: '1500',
   secondValue: 200,
   buttonConfig: buttonRedirectConfig,
 };
