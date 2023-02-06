@@ -9,10 +9,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 
 import { IonChipProps } from './../chip/chip.component';
-import { CardEvent, IonCardComponent, IonCard } from './card.component';
+import { IonCardComponent } from './card.component';
 import { IonChipModule } from '../chip/chip.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonCard, CardEvent } from '../core/types';
 
 let renderFooter = false;
 
