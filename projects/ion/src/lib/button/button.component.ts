@@ -1,5 +1,3 @@
-import { DropdownItem } from './../dropdown/dropdown.component';
-
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import {
   ButtonIconSizeOptions,
@@ -7,6 +5,7 @@ import {
   Size,
   ButtonBadgeTypes,
 } from '../core/types/button';
+import { DropdownItem } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-button',

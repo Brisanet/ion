@@ -1,8 +1,8 @@
 import { BadgeProps } from './badge';
 import { IconType } from '../../icon/icon.component';
-import { DropdownItem } from '../../dropdown/dropdown.component';
 import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
+import { DropdownItem } from './dropdown';
 
 export type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
 

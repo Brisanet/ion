@@ -6,7 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DropdownItem } from './../dropdown/dropdown.component';
+import { DropdownItem } from '../core/types/dropdown';
 
 interface Page {
   page_number: number;

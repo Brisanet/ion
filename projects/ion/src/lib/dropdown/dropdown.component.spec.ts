@@ -2,9 +2,10 @@ import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
-import { IonDropdownComponent, DropdownParams } from './dropdown.component';
+import { IonDropdownComponent } from './dropdown.component';
 import { IonSharedModule } from '../shared.module';
 import { IonInputProps } from '../input/input.component';
+import { DropdownParams } from '../core/types/dropdown';
 
 const options = [];
 const inputElement = 'input-element';
