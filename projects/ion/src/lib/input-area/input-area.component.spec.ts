@@ -3,10 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/angular';
-import {
-  IonInputAreaProps,
-  IonInputAreaComponent,
-} from './input-area.component';
+import { IonInputAreaComponent } from './input-area.component';
+import { IonInputAreaProps } from '../core/types/input-area';
 
 const sut = async (customProps?: IonInputAreaProps): Promise<void> => {
   await render(IonInputAreaComponent, {
