@@ -23,4 +23,5 @@ export * from './status';
 export * from './tab';
 export * from './tab-group';
 export * from './table';
+export * from './tag';
 export * from './tooltip';
