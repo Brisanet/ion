@@ -33,4 +33,5 @@ export * from './lib/modal/modal.service';
 export * from './lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 export * from './lib/popconfirm/popconfirm.directive';
 export * from './lib/input-counter/input-counter.component';
+export * from './lib/tooltip/tooltip.module';
 export { default as debounce } from './lib/utils/debounce';

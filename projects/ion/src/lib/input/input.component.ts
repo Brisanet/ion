@@ -20,6 +20,7 @@ export interface IonInputProps {
   clearButton?: boolean;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
+  maxLength?: string | number | null;
 }
 
 @Component({
@@ -41,6 +42,7 @@ export class InputComponent {
   @Input() inputType: InputType = 'text';
   @Input() clearButton = false;
   @Input() readonly = false;
+  @Input() maxLength?: string | number | null = null;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 

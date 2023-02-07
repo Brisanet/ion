@@ -33,8 +33,7 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { TooltipDirective } from './tooltip/tooltip.directive';
+import { TooltipModule } from './tooltip/tooltip.module';
 import { HeadingComponent } from './typography/heading/heading.component';
 import { DatepickerComponent } from './picker/date-picker/date-picker.component';
 import { DatePickerCalendarComponent } from '../lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
@@ -76,8 +75,6 @@ import { DatePickerInputComponent } from './picker/date-picker/date-picker-input
     SwitchComponent,
     TableComponent,
     InputComponent,
-    TooltipDirective,
-    TooltipComponent,
     DatepickerComponent,
     DatePickerCalendarComponent,
     ControlPickerComponent,
@@ -116,13 +113,13 @@ import { DatePickerInputComponent } from './picker/date-picker/date-picker-input
     TableComponent,
     InputCounterComponent,
     InputComponent,
-    TooltipComponent,
     SwitchComponent,
     DatepickerComponent,
     DatePickerCalendarComponent,
     ControlPickerComponent,
     DatePickerInputComponent,
+    TooltipModule,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}
