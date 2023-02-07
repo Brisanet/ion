@@ -1,6 +1,6 @@
-import { IonTabProps, TabSize } from '../../tab/tab.component';
-import { BorderDirectionType, DirectionType } from './direction';
 import { EventEmitter } from '@angular/core';
+import { BorderDirectionType, DirectionType } from './direction';
+import { IonTabProps, TabSize } from './tab';
 
 export interface TabInGroup extends IonTabProps {
   selected: boolean;

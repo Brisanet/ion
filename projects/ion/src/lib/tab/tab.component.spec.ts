@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonTabProps, IonTabComponent } from './tab.component';
-import { IonIconModule } from '../icon/icon.module';
 import { IonBadgeModule } from '../badge/badge.module';
+import { IonTabProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonTabComponent } from './tab.component';
 
 const defaultName = 'MinhaTab';
 

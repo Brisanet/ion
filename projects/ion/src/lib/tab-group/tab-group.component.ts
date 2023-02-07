@@ -1,6 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BorderDirectionType, DirectionType, TabInGroup } from '../core/types';
-import { TabSize } from '../tab/tab.component';
+import {
+  BorderDirectionType,
+  DirectionType,
+  TabInGroup,
+  TabSize,
+} from '../core/types';
 
 @Component({
   selector: 'ion-tab-group',
