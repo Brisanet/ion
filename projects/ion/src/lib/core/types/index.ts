@@ -14,6 +14,7 @@ export * from './info-badge';
 export * from './input-area';
 export * from './input-counter';
 export * from './message';
+export * from './notification';
 export * from './status';
 export * from './tab-group';
 export * from './tooltip';
