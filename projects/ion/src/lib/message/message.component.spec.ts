@@ -1,11 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import {
-  IonMessageProps,
-  IonMessageComponent,
-  MessageStatusType,
-} from './message.component';
+import { IonMessageComponent } from './message.component';
 import { IonIconModule } from '../icon/icon.module';
+import { IonMessageProps, MessageStatusType } from '../core/types/message';
 
 const defaultValue: IonMessageProps = {
   label: 'Message',
