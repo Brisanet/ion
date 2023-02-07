@@ -127,13 +127,40 @@ export class StepComponent implements OnInit, OnChanges {
     this.reorganizeSteps();
   }
 
+  generateIndexsForStep(): void {
+    this.steps.forEach((step, index) => {
+      step.index = index + 1;
+    });
+  }
+
+  changeStep(currentIndex: number): void {
+    if (currentIndex < 1 || currentIndex > this.steps.length) {
+      return;
+    }
+
+    this.steps = this.steps.map((step) => {
+      return {
+        ...step,
+        status:
+          step.index < currentIndex
+            ? 'checked'
+            : step.index === currentIndex
+            ? 'selected'
+            : 'default',
+      };
+    });
+  }
+
   ngOnInit(): void {
-    this.startSteps();
+    // this.startSteps();
+    this.generateIndexsForStep();
+    this.changeStep(1);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.current && !changes.current.firstChange) {
       this.checkMoveChange(changes.current);
     }
+    this.changeStep(changes.current.currentValue);
   }
 }
