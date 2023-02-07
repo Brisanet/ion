@@ -10,6 +10,7 @@ import {
   Output,
   EventEmitter,
   ViewContainerRef,
+  OnDestroy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -17,11 +18,12 @@ import { IonPopoverComponent } from './popover.component';
 import { IonButtonProps } from '../button/button.component';
 import { IconType } from '../icon/icon.component';
 import { PopoverPosition } from '../core/types/popover';
+import { getPositionsPopover } from './utilsPopover';
 
 @Directive({
   selector: '[ionPopover]',
 })
-export class PopoverDirective {
+export class PopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle = 'Tem certeza?';
   @Input() ionPopoverBody = '';
   @Input() ionPopoverActions?: IonButtonProps[] = [];
@@ -132,6 +134,18 @@ export class PopoverDirective {
       //   left: midHostElementInView,
       // });
     }
+  }
+
+  destroyComponent(): void {
+    if (this.popoverComponentRef) {
+      this.appRef.detachView(this.popoverComponentRef.hostView);
+      this.popoverComponentRef.destroy();
+      this.popoverComponentRef = null;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroyComponent();
   }
 }
 
