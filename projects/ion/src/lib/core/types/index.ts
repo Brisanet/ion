@@ -17,6 +17,7 @@ export * from './message';
 export * from './notification';
 export * from './pagination';
 export * from './popconfirm';
+export * from './simple-menu';
 export * from './status';
 export * from './tab-group';
 export * from './tooltip';

@@ -1,14 +1,12 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { SafeAny } from '../utils/safe-any';
-import {
-  IonSimpleMenuComponent,
-  SimpleMenuProps,
-} from './simple-menu.component';
-import { IonTabGroupModule } from '../tab-group/tab-group.module';
 import { IonAvatarModule } from '../avatar/avatar.module';
-import { IonIconModule } from '../icon/icon.module';
 import { IonButtonModule } from '../button/button.module';
 import { TabInGroup } from '../core/types';
+import { SimpleMenuProps } from '../core/types/simple-menu';
+import { IonIconModule } from '../icon/icon.module';
+import { IonTabGroupModule } from '../tab-group/tab-group.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonSimpleMenuComponent } from './simple-menu.component';
 
 const classMenuOpen = 'menu-container-opened';
 

@@ -1,17 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 import { TabInGroup } from '../core/types';
-
-interface MenuProfile {
-  imageUrl: string;
-  name: string;
-}
-export interface SimpleMenuProps {
-  options: TabInGroup[];
-  profile: MenuProfile;
-  selected?: EventEmitter<TabInGroup>;
-  logoutClick?: EventEmitter<SafeAny>;
-}
+import { SimpleMenuProps } from '../core/types/simple-menu';
 
 @Component({
   selector: 'ion-simple-menu',
