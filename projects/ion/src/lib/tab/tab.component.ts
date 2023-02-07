@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconType } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
 export type TabSize = 'sm' | 'md' | 'lg';
 type Direction = 'bottom' | 'top' | 'right' | 'left';

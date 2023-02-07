@@ -1,8 +1,8 @@
-import { DropdownItem } from '../../dropdown/dropdown.component';
-import { IconType } from '../../icon/icon.component';
 import { ComponentType } from '@angular/cdk/overlay';
 import { SafeAny } from '../../utils/safe-any';
 import { IonChipProps } from './chip';
+import { IconType } from './icon';
+import { DropdownItem } from './dropdown';
 
 type ButtonType = 'primary' | 'secondary' | 'ghost';
 

@@ -8,10 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import { StatusType } from '../core/types';
-import { IconType } from '../icon/icon.component';
 import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
 import { Subscription } from 'rxjs';
 import { setTimer } from '../utils/setTimer';
+import { IconType } from '../core/types/icon';
 
 export interface NotificationProps {
   title: string;

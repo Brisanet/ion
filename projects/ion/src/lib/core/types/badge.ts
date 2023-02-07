@@ -1,4 +1,4 @@
-import { IconType } from '../../icon/icon.component';
+import { IconType } from './icon';
 
 export type BadgeType = 'primary' | 'secondary' | 'neutral' | 'negative';
 

@@ -1,10 +1,7 @@
 import { EventEmitter } from '@angular/core';
-import {
-  DropdownItem,
-  DropdownParams,
-} from '../../dropdown/dropdown.component';
 import { InfoBadgeStatus } from './info-badge';
 import { BadgeType } from './badge';
+import { DropdownItem, DropdownParams } from './dropdown';
 
 export interface Badge {
   value: number;

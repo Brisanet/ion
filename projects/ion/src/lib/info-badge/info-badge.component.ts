@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { IconType } from '../icon/icon.component';
 import { InfoBadgeSize, InfoBadgeStatus } from '../core/types/info-badge';
+import { IconType } from '../core/types/icon';
 
 export interface InfoBadgeProps {
   variant: InfoBadgeStatus;

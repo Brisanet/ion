@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
-import { IconType } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
 const iconTypes = {
   success: 'check-solid',

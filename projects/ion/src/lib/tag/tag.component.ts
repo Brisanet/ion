@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { TagStatus } from '../core/types';
-import { IconType } from '../icon/icon.component';
 import { validateHexColor } from '../utils';
+import { IconType } from '../core/types/icon';
 
 export interface IonTagProps {
   outline?: boolean;

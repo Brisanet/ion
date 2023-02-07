@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarType } from '../core/types/avatar';
 import { SizeType } from '../core/types/size';
-import { IconType } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-avatar',

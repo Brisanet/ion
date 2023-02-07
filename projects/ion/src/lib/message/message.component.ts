@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IconType } from './../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
 export interface IonMessageProps {
   label: string;
