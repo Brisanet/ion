@@ -1,12 +1,10 @@
 import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
-import {
-  IonPopConfirmComponent,
-  PopConfirmProps,
-} from './popconfirm.component';
-import { IonDividerModule } from '../divider/divider.module';
 import { IonAlertModule } from '../alert/alert.module';
 import { IonButtonModule } from '../button/button.module';
+import { PopConfirmProps } from '../core/types/popconfirm';
+import { IonDividerModule } from '../divider/divider.module';
+import { IonPopConfirmComponent } from './popconfirm.component';
 
 const defaultProps: PopConfirmProps = {
   ionPopConfirmTitle: 'Title',
