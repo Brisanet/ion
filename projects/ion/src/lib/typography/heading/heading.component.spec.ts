@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/angular';
+import {} from '../../core/types';
+import { IonHeadingComponent } from './heading.component';
 import {
-  ColorScheme,
-  HeadingSize,
   HeadingType,
   HeadingWeight,
-} from '../../core/types';
-import { IonHeadingComponent } from './heading.component';
+  ColorScheme,
+  HeadingSize,
+} from '../../core/types/typography';
 
 type HeadingProps = {
   text: string;

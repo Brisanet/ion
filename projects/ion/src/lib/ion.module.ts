@@ -35,6 +35,7 @@ import { IonTableModule } from './table/table.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
+import { IonIndicatorModule } from './indicator/indicator.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -73,6 +74,7 @@ import { IonTypographyModule } from './typography/typography.module';
     IonColModule,
     IonRowModule,
     IonModalModule,
+    IonIndicatorModule,
   ],
   exports: [
     IonComponent,
@@ -109,6 +111,7 @@ import { IonTypographyModule } from './typography/typography.module';
     IonColModule,
     IonRowModule,
     IonModalModule,
+    IonIndicatorModule,
   ],
 })
 export class IonModule {}

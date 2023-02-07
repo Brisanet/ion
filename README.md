@@ -8,7 +8,7 @@
 
 To run this project, You will need to use [node v.12](https://nodejs.org/en/)
 
-- Run `git clone https://github.com/iurynogueira/ion.git` to get a copy of the repository;
+- Run `git clone https://github.com/Brisanet/ion.git` to get a copy of the repository;
 - Run `yarn install` to install all dependencies for the project;
 - Run `yarn run storybook` to open the storybook in your localhost.
 
