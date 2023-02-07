@@ -1,7 +1,8 @@
 import { EventEmitter } from '@angular/core';
-import { InfoBadgeStatus } from './info-badge';
 import { BadgeType } from './badge';
 import { DropdownItem, DropdownParams } from './dropdown';
+import { IconDirection } from './icon';
+import { InfoBadgeStatus } from './info-badge';
 
 export interface Badge {
   value: number;
@@ -13,8 +14,6 @@ export interface RightBadge {
 }
 
 export type ChipSize = 'sm' | 'md';
-
-export type IconDirection = 'right' | 'left';
 
 export interface ChipEvent {
   selected: boolean;

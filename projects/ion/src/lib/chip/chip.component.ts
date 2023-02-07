@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
+  Badge,
+  ChipEvent,
   ChipSize,
   IonChipProps,
-  IconDirection,
   RightBadge,
-  ChipEvent,
-  Badge,
 } from '../core/types/chip';
 import { DropdownItem } from '../core/types/dropdown';
-import { IconType } from '../core/types/icon';
+import { IconDirection, IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-chip',

@@ -1,7 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
-
-export type IconDirection = 'left' | 'right';
+import { IconDirection } from './icon';
 
 export type InputType = 'text' | 'password';
 

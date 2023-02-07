@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IconType } from '../core/types/icon';
-import { IconDirection, InputType } from '../core/types/input';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IconDirection, IconType } from '../core/types/icon';
+import { InputType } from '../core/types/input';
 
 @Component({
   selector: 'ion-input',
