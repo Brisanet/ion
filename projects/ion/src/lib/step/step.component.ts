@@ -30,7 +30,6 @@ export class StepComponent implements OnInit, OnChanges {
   @Input() disabled = false;
   @Input() theme: StepTheme = 'default';
   @Input() steps: StepType[];
-  @Input() clickable: boolean;
   @Output() indexChange = new EventEmitter<number>();
 
   public indexShowed = 1;
