@@ -63,7 +63,7 @@ export class ButtonComponent implements OnInit {
 
   public iconSize!: ButtonIconSizeOptions;
 
-  updateBadgeValue(items: DropdownItem[]) {
+  updateBadgeValue(items: DropdownItem[]): void {
     this.buttonBadge.value = items.length;
   }
 
