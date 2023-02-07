@@ -15,6 +15,7 @@ export * from './input-area';
 export * from './input-counter';
 export * from './message';
 export * from './notification';
+export * from './pagination';
 export * from './status';
 export * from './tab-group';
 export * from './tooltip';

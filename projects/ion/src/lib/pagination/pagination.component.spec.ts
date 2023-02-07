@@ -1,11 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { SafeAny } from '../utils/safe-any';
-import {
-  IonPaginationProps,
-  IonPaginationComponent,
-} from './pagination.component';
 import { IonButtonModule } from '../button/button.module';
+import { IonPaginationProps } from '../core/types/pagination';
+import { SafeAny } from '../utils/safe-any';
+import { IonPaginationComponent } from './pagination.component';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {

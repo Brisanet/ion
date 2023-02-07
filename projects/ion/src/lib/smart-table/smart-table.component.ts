@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  ITEMS_PER_PAGE_DEFAULT,
-  PageEvent,
-} from '../pagination/pagination.component';
+import { CheckBoxStates } from '../core/types/checkbox';
+import { PageEvent } from '../core/types/pagination';
+import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
 import {
   ActionTable,
   Column,
@@ -12,7 +11,6 @@ import {
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from '../core/types/checkbox';
 
 export interface TableEvent {
   event: EventTable;
