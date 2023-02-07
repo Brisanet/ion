@@ -2,13 +2,6 @@ import { Component, Input } from '@angular/core';
 import { InfoBadgeSize, InfoBadgeStatus } from '../core/types/info-badge';
 import { IconType } from '../core/types/icon';
 
-export interface InfoBadgeProps {
-  variant: InfoBadgeStatus;
-  icon?: IconType;
-  text?: string;
-  size?: InfoBadgeSize;
-}
-
 @Component({
   selector: 'ion-info-badge',
   templateUrl: './info-badge.component.html',

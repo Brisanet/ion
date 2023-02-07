@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import { InfoBadgeStatus } from '../core/types';
-import { IonInfoBadgeComponent, InfoBadgeProps } from './info-badge.component';
+import { InfoBadgeStatus, InfoBadgeProps } from '../core/types';
+import { IonInfoBadgeComponent } from './info-badge.component';
 import { IonIconModule } from '../icon/icon.module';
 
 const defaultInfoBadge: InfoBadgeProps = {
