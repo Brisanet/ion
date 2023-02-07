@@ -1,3 +1,4 @@
+export * from '../../modal/models/modal.interface';
 export * from './alert';
 export * from './avatar';
 export * from './badge';
