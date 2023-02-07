@@ -36,8 +36,7 @@ import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
 import { TooltipModule } from './tooltip/tooltip.module';
 import { HeadingComponent } from './typography/heading/heading.component';
-import { IonPopoverComponent } from './popover/popover.component';
-import { PopoverDirective } from './popover/popover.directive';
+import { PopoverModule } from './popover/popover.module';
 
 @NgModule({
   declarations: [
@@ -75,8 +74,6 @@ import { PopoverDirective } from './popover/popover.directive';
     SwitchComponent,
     TableComponent,
     InputComponent,
-    IonPopoverComponent,
-    PopoverDirective,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule],
@@ -114,7 +111,7 @@ import { PopoverDirective } from './popover/popover.directive';
     InputComponent,
     SwitchComponent,
     TooltipModule,
+    PopoverModule,
   ],
-  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}

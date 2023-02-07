@@ -5,7 +5,7 @@
   box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   background: #fff;
   display: inline-block;
-  max-width: 299px;
+  width: 299px;
   justify-content: flex-end;
   border-radius: spacing(1);
   position: relative;
@@ -41,43 +41,43 @@
   }
 }
 
-.sup-container-arrow-1 {
+.sup-container-leftTop {
   @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
 }
 
-.sup-container-arrow-2 {
+.sup-container-topLeft {
   @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
 }
 
-.sup-container-arrow-3 {
+.sup-container-topCenter {
   @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
 }
 
-.sup-container-arrow-4 {
+.sup-container-topRight {
   @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
 }
 
-.sup-container-arrow-5 {
+.sup-container-rightTop {
   @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
 }
 
-.sup-container-arrow-6 {
+.sup-container-leftBottom {
   @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
 }
 
-.sup-container-arrow-7 {
+.sup-container-bottomLeft {
   @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
 }
 
-.sup-container-arrow-8 {
+.sup-container-bottomCenter {
   @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
 }
 
-.sup-container-arrow-9 {
+.sup-container-bottomRight {
   @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
 }
 
-.sup-container-arrow-10 {
+.sup-container-rightBottom {
   @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
 }
 

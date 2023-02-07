@@ -10,11 +10,11 @@ import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
 import { IonPopoverComponent } from './popover.component';
-import { PopoverDirective, PopoverPosition } from './popover.directive';
+import { PopoverDirective } from './popover.directive';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
-const elementPosition: PopoverPosition = { top: 10, left: 40 };
+const elementPosition = { top: 10, left: 40 };
 const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
 
 @Component({
@@ -25,7 +25,7 @@ const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
       ionPopoverBody="Você tem certeza"
       ionPopoverIcon="condominium"
       ionPopoverIconClose="close"
-      ionPopoverArrowPosition="arrow-4"
+      ionPopoverPosition="arrow-4"
       (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"

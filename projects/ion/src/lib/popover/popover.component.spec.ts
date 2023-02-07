@@ -6,11 +6,8 @@ import { IonDividerComponent } from '../divider/divider.component';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { InputComponent } from '../input/input.component';
-import {
-  PopoverArrow,
-  IonPopoverComponent,
-  PopoverProps,
-} from './popover.component';
+import { IonPopoverComponent, PopoverProps } from './popover.component';
+import { PopoverPosition } from '../core/types/popover';
 
 const defaultProps: PopoverProps = {
   ionPopoverTitle: 'Title',
@@ -94,24 +91,24 @@ describe('PopoverComponent', () => {
   });
 
   describe('check the arrows', () => {
-    it.each(['arrow-1', 'arrow-3'])(
+    it.each(['leftTop', 'topCenter'])(
       'should render component with arrow $s',
-      async (arrow: PopoverArrow) => {
+      async (arrow: PopoverPosition) => {
         await sut({
           ...defaultProps,
-          ionPopoverArrowPosition: arrow,
+          ionPopoverPosition: arrow,
         });
         const element = screen.getByTestId('sup-container');
         expect(element).toHaveClass(`sup-container-${arrow}`);
       }
     );
 
-    it.each(['arrow-6', 'arrow-8'])(
+    it.each(['leftBottom', 'bottomCenter'])(
       'should render component with arrow in footer $s',
-      async (arrow: PopoverArrow) => {
+      async (arrow: PopoverPosition) => {
         await sut({
           ...defaultProps,
-          ionPopoverArrowPosition: arrow,
+          ionPopoverPosition: arrow,
         });
         const element = screen.getByTestId('sup-container');
         expect(element).toHaveClass(`sup-container-${arrow}`);
@@ -119,13 +116,13 @@ describe('PopoverComponent', () => {
     );
 
     describe('with arrow and actions', () => {
-      it.each(['arrow-6', 'arrow-8'])(
+      it.each(['leftBottom', 'bottomCenter'])(
         'should render component with arrow in footer $s',
-        async (arrow: PopoverArrow) => {
+        async (arrow: PopoverPosition) => {
           await sut({
             ...defaultProps,
             ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
-            ionPopoverArrowPosition: arrow,
+            ionPopoverPosition: arrow,
           });
           const element = screen.getByTestId('sup-container');
           expect(element).toHaveClass(`sup-container-${arrow}`);

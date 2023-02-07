@@ -13,14 +13,10 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
-import { PopoverArrow, IonPopoverComponent } from './popover.component';
+import { IonPopoverComponent } from './popover.component';
 import { IonButtonProps } from '../button/button.component';
 import { IconType } from '../icon/icon.component';
-
-export interface PopoverPosition {
-  top: number;
-  left: number;
-}
+import { PopoverPosition } from '../core/types/popover';
 
 @Directive({
   selector: '[ionPopover]',
@@ -31,7 +27,7 @@ export class PopoverDirective {
   @Input() ionPopoverActions?: IonButtonProps[] = [];
   @Input() ionPopoverIcon?: IconType = '';
   @Input() ionPopoverIconClose? = false;
-  @Input() ionPopoverArrowPosition?: PopoverArrow = 'arrow-2';
+  @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -46,7 +42,7 @@ export class PopoverDirective {
     private readonly viewRef: ViewContainerRef
   ) {}
 
-  open(position: PopoverPosition): void {
+  open(position: SafeAny): void {
     if (this.popoverComponentRef) {
       return;
     }
@@ -78,8 +74,8 @@ export class PopoverDirective {
     this.popoverComponentRef.instance.ionPopoverIconClose =
       this.ionPopoverIconClose;
 
-    this.popoverComponentRef.instance.ionPopoverArrowPosition =
-      this.ionPopoverArrowPosition;
+    this.popoverComponentRef.instance.ionPopoverPosition =
+      this.ionPopoverPosition;
 
     this.popoverComponentRef.instance.ionOnFirstAction.subscribe(() => {
       this.closePopover();
@@ -107,8 +103,8 @@ export class PopoverDirective {
 
   setStyle(element: HTMLElement, position: PopoverPosition): void {
     element.style.position = 'absolute';
-    element.style.left = position.left + 'px';
-    element.style.top = position.top + 'px';
+    // element.style.left = position.left + 'px';
+    // element.style.top = position.top + 'px';
   }
 
   elementIsEnabled(element: HTMLElement): boolean {
@@ -123,14 +119,24 @@ export class PopoverDirective {
     const marginBetweenComponents = 10;
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
 
+    const popoverElement = document.getElementById('ion-popover');
+    const elementProps = popoverElement.getBoundingClientRect();
+
     const position = hostElement.getBoundingClientRect();
-    const midHostElementInView = position.left - position.width / 2;
+    const midHostElementInView =
+      position.right - position.width / 2 - elementProps.width / 2;
 
     if (this.elementIsEnabled(hostElement)) {
-      this.open({
-        top: position.top + position.height + marginBetweenComponents,
-        left: midHostElementInView,
-      });
+      // this.open({
+      //   top: position.top + position.height + marginBetweenComponents,
+      //   left: midHostElementInView,
+      // });
     }
   }
 }
+
+// arrow-2 = top: position.top + position.height + marginBetweenComponents,
+//left: position.left - position.width / 2;,
+
+// arrow-3 = top: position.top + position.height + marginBetweenComponents,
+//left: position.right - position.width / 2 - 149.5,

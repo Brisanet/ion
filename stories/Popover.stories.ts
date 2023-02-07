@@ -12,6 +12,7 @@ import {
   IonDividerComponent,
   IonIconComponent,
 } from '../projects/ion/src/public-api';
+import { PopoverPosition } from '../projects/ion/src/lib/core/types/popover';
 
 export default {
   title: 'Ion/Data Display/Popover',
@@ -42,6 +43,8 @@ Default.args = {
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIcon: 'left2',
   ionPopoverIconClose: true,
+  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverActions: null,
 };
 
 export const withActions = Template.bind({});
@@ -52,4 +55,5 @@ withActions.args = {
   ionPopoverIcon: 'condominium',
   ionPopoverIconClose: true,
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
+  ionPopoverPosition: PopoverPosition.DEFAULT,
 };

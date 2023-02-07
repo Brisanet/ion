@@ -4,17 +4,7 @@ import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 import { IonButtonProps } from '../button/button.component';
 
-export type PopoverArrow =
-  | 'arrow-1'
-  | 'arrow-2'
-  | 'arrow-3'
-  | 'arrow-4'
-  | 'arrow-5'
-  | 'arrow-6'
-  | 'arrow-7'
-  | 'arrow-8'
-  | 'arrow-9'
-  | 'arrow-10';
+import { PopoverPosition } from '../core/types/popover';
 
 export interface PopoverProps {
   ionPopoverTitle: string;
@@ -22,7 +12,7 @@ export interface PopoverProps {
   ionPopoverActions?: IonButtonProps[];
   ionPopoverIcon?: IconType;
   ionPopoverIconClose?: boolean;
-  ionPopoverArrowPosition?: PopoverArrow;
+  ionPopoverPosition?: PopoverPosition;
 }
 
 @Component({
@@ -32,13 +22,17 @@ export interface PopoverProps {
   exportAs: 'PopoverComponent',
 })
 export class IonPopoverComponent {
-  @Input() ionPopoverTitle: string;
-  @Input() ionPopoverBody: SafeAny;
-  @Input() ionPopoverActions?: IonButtonProps[];
+  @Input() ionPopoverTitle = 'Você tem certeza?';
+  @Input() ionPopoverBody: SafeAny =
+    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.';
+  @Input() ionPopoverActions?: IonButtonProps[] = [
+    { label: 'action 1' },
+    { label: 'action 2' },
+  ];
 
-  @Input() ionPopoverIcon?: IconType = '';
-  @Input() ionPopoverIconClose?: boolean = false;
-  @Input() ionPopoverArrowPosition?: PopoverArrow = 'arrow-2';
+  @Input() ionPopoverIcon?: IconType = 'condominium';
+  @Input() ionPopoverIconClose?: boolean = true;
+  @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
 
   readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();
