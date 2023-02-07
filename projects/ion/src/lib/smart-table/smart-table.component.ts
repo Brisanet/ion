@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TableEvent } from '../core/types';
+import { SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
@@ -20,7 +20,7 @@ const stateChange = {
 
 export interface IonSmartTableProps<T> {
   config: ConfigSmartTable<T>;
-  events?: EventEmitter<TableEvent>;
+  events?: EventEmitter<SmartTableEvent>;
 }
 
 export interface ConfigSmartTable<T> extends ConfigTable<T> {
@@ -34,7 +34,7 @@ export interface ConfigSmartTable<T> extends ConfigTable<T> {
 })
 export class IonSmartTableComponent implements OnInit {
   @Input() config: ConfigSmartTable<SafeAny>;
-  @Output() events = new EventEmitter<TableEvent>();
+  @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;

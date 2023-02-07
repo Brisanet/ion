@@ -1,14 +1,15 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
-import { SafeAny } from '../utils/safe-any';
-import { IonTableProps, IonTableComponent } from './table.component';
 import { FormsModule } from '@angular/forms';
-import { ActionTable, Column, ColumnType } from './utilsTable';
-import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonPaginationModule } from '../pagination/pagination.module';
-import { IonTagModule } from '../tag/tag.module';
-import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonTableProps } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonTagModule } from '../tag/tag.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonTableComponent } from './table.component';
+import { ActionTable, Column, ColumnType } from './utilsTable';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';

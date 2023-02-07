@@ -2,7 +2,7 @@ import { EventTable } from '../../table/utilsTable';
 import { SafeAny } from '../../utils/safe-any';
 import { PageEvent } from './pagination';
 
-export interface TableEvent {
+export interface SmartTableEvent {
   event: EventTable;
   rows_selected?: SafeAny[];
   change_page?: PageEvent;

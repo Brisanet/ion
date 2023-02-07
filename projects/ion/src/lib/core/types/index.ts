@@ -22,4 +22,5 @@ export * from './smart-table';
 export * from './status';
 export * from './tab';
 export * from './tab-group';
+export * from './table';
 export * from './tooltip';
