@@ -46,6 +46,7 @@ WithEmitterButton.args = {
   title: 'Com botão emitter',
   value: 1500,
   secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonEmitterConfig,
 };
 
@@ -54,6 +55,7 @@ withRedirect.args = {
   title: 'Com botão que redireciona para link',
   value: '1500',
   secondValue: 200,
+  tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonRedirectConfig,
 };
 
@@ -62,5 +64,6 @@ withOpenModal.args = {
   title: 'Com botão que abre modal',
   value: 1500,
   secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonModalConfig,
 };

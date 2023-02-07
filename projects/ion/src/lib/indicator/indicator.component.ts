@@ -27,30 +27,23 @@ export class IonIndicatorComponent {
   @Output() ionClick = new EventEmitter();
   @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
   safeUrl: SafeResourceUrl;
+  private buttonActions = {
+    emitter: this.emitButtonClick,
+    modal: this.openModal,
+    redirect: this.redirectTo,
+  };
 
   constructor(
     private sanitizer: DomSanitizer,
     private ionModalService: IonModalService
   ) {}
 
-  emitButtonClick(): void {
-    this.ionClick.emit();
+  handleButtonClick(type: string): void {
+    const action = this.buttonActions[type];
+    action && action.bind(this)();
   }
 
-  redirectTo(): void {
-    this.safeUrl = this.sanitizeUrl();
-    window.open(this.safeUrl as string, '_blank');
-  }
-
-  openModal(): void {
-    this.ionModalService
-      .open(this.buttonConfig.componentToModal, this.buttonConfig.modalConfig)
-      .subscribe((responseFromModal) => {
-        this.modalEvent.emit(responseFromModal);
-      });
-  }
-
-  sanitizeUrl(): SafeResourceUrl {
+  private sanitizeUrl(): SafeResourceUrl {
     if (
       this.buttonConfig.type === IonIndicatorButtonType.Redirect &&
       this.buttonConfig.redirectLink
@@ -60,5 +53,22 @@ export class IonIndicatorComponent {
         this.buttonConfig.redirectLink
       );
     }
+  }
+
+  private emitButtonClick(): void {
+    this.ionClick.emit();
+  }
+
+  private redirectTo(): void {
+    this.safeUrl = this.sanitizeUrl();
+    window.open(this.safeUrl as string, '_blank');
+  }
+
+  private openModal(): void {
+    this.ionModalService
+      .open(this.buttonConfig.componentToModal, this.buttonConfig.modalConfig)
+      .subscribe((responseFromModal) => {
+        this.modalEvent.emit(responseFromModal);
+      });
   }
 }

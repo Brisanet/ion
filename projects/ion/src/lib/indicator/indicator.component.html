@@ -15,40 +15,21 @@
     >
     </ion-icon>
   </header>
-  <div class="content">
-    <h4 data-testid="ion-indicator-value">{{ value }}</h4>
-    <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+  <div class="content" [class.with-footer]="buttonConfig">
+    <header>
+      <h4 data-testid="ion-indicator-value">{{ value }}</h4>
+      <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+    </header>
+    <footer data-testid="ion-indicator-footer" *ngIf="buttonConfig">
+      <ion-button
+        [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"
+        type="ghost"
+        size="sm"
+        rightSideIcon="true"
+        [label]="buttonConfig.label"
+        [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
+        (ionOnClick)="handleButtonClick(buttonConfig.type)"
+      ></ion-button>
+    </footer>
   </div>
-  <footer data-testid="ion-indicator-footer" *ngIf="buttonConfig">
-    <ion-button
-      data-testid="ion-indicator-button-emitter"
-      *ngIf="buttonConfig.type === 'emitter'"
-      type="ghost"
-      size="sm"
-      rightSideIcon="true"
-      [label]="buttonConfig.label"
-      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
-      (ionOnClick)="emitButtonClick()"
-    ></ion-button>
-    <ion-button
-      data-testid="ion-indicator-button-redirect"
-      *ngIf="buttonConfig.type == 'redirect'"
-      type="ghost"
-      size="sm"
-      rightSideIcon="true"
-      [label]="buttonConfig.label"
-      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
-      (ionOnClick)="redirectTo()"
-    ></ion-button>
-    <ion-button
-      data-testid="ion-indicator-button-modal"
-      *ngIf="buttonConfig.type == 'modal'"
-      type="ghost"
-      size="sm"
-      rightSideIcon="true"
-      [label]="buttonConfig.label"
-      [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
-      (ionOnClick)="openModal()"
-    ></ion-button>
-  </footer>
 </div>

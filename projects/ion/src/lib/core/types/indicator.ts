@@ -8,6 +8,14 @@ export enum IonIndicatorButtonType {
   Emitter = 'emitter',
 }
 
+export interface IonIndicatorProps {
+  title?: string;
+  tooltipText?: string;
+  value?: string | number;
+  secondValue?: string | number;
+  buttonConfig?: IonIndicatorButtonConfiguration;
+}
+
 export interface IonIndicatorButtonConfiguration {
   label: string;
   icon?: string;
