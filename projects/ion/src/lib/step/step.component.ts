@@ -34,28 +34,28 @@ export class StepComponent implements OnInit, OnChanges {
 
   public indexShowed = 1;
 
-  public startSteps(): void {
-    let index = 1;
-    const firstStep = this.steps[0];
+  // public startSteps(): void {
+  //   let index = 1;
+  //   const firstStep = this.steps[0];
 
-    firstStep.status = firstStep.status ? firstStep.status : 'selected';
+  //   firstStep.status = firstStep.status ? firstStep.status : 'selected';
 
-    this.steps.map((step, indexArray) => {
-      const previusStep = this.steps[indexArray - 1];
-      const actualStepStatus = step.status;
-      if (
-        actualStepStatus !== 'checked' &&
-        previusStep &&
-        previusStep.status === 'checked'
-      ) {
-        step.status = actualStepStatus ? actualStepStatus : 'selected';
-      } else {
-        step.status = actualStepStatus ? actualStepStatus : 'default';
-      }
-      step.index = index;
-      ++index;
-    });
-  }
+  //   this.steps.map((step, indexArray) => {
+  //     const previusStep = this.steps[indexArray - 1];
+  //     const actualStepStatus = step.status;
+  //     if (
+  //       actualStepStatus !== 'checked' &&
+  //       previusStep &&
+  //       previusStep.status === 'checked'
+  //     ) {
+  //       step.status = actualStepStatus ? actualStepStatus : 'selected';
+  //     } else {
+  //       step.status = actualStepStatus ? actualStepStatus : 'default';
+  //     }
+  //     step.index = index;
+  //     ++index;
+  //   });
+  // }
 
   public crossVisibility(crossType: CrossType, step: StepType): boolean {
     const condition =
@@ -99,33 +99,33 @@ export class StepComponent implements OnInit, OnChanges {
     return this.disabledConcactClass('description');
   }
 
-  public reorganizeSteps(): void {
-    this.steps.map((step, indexArray) => {
-      const indexComparativo = indexArray + 1;
-      if (indexComparativo < this.indexShowed) {
-        step.status = 'checked';
-      } else if (indexComparativo === this.indexShowed) {
-        step.status = 'selected';
-      } else if (indexComparativo > this.indexShowed) {
-        step.status = 'default';
-      }
-    });
-  }
+  // public reorganizeSteps(): void {
+  //   this.steps.map((step, indexArray) => {
+  //     const indexComparativo = indexArray + 1;
+  //     if (indexComparativo < this.indexShowed) {
+  //       step.status = 'checked';
+  //     } else if (indexComparativo === this.indexShowed) {
+  //       step.status = 'selected';
+  //     } else if (indexComparativo > this.indexShowed) {
+  //       step.status = 'default';
+  //     }
+  //   });
+  // }
 
-  public checkMoveChange(index: SimpleChange): void {
-    const currentIndex = index.currentValue;
-    const previusIndex = index.previousValue;
-    if (currentIndex > previusIndex) {
-      if (this.indexShowed < this.steps.length) {
-        this.indexShowed++;
-      }
-    } else if (currentIndex < previusIndex) {
-      if (this.indexShowed > 1) {
-        this.indexShowed--;
-      }
-    }
-    this.reorganizeSteps();
-  }
+  // public checkMoveChange(index: SimpleChange): void {
+  //   const currentIndex = index.currentValue;
+  //   const previusIndex = index.previousValue;
+  //   if (currentIndex > previusIndex) {
+  //     if (this.indexShowed < this.steps.length) {
+  //       this.indexShowed++;
+  //     }
+  //   } else if (currentIndex < previusIndex) {
+  //     if (this.indexShowed > 1) {
+  //       this.indexShowed--;
+  //     }
+  //   }
+  //   this.reorganizeSteps();
+  // }
 
   generateIndexsForStep(): void {
     this.steps.forEach((step, index) => {
@@ -158,9 +158,9 @@ export class StepComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.current && !changes.current.firstChange) {
-      this.checkMoveChange(changes.current);
-    }
+    // if (changes.current && !changes.current.firstChange) {
+    //   this.checkMoveChange(changes.current);
+    // }
     this.changeStep(changes.current.currentValue);
   }
 }
