@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import { TooltipPosition } from '../core/types';
-import { IonTooltipComponent, TooltipProps } from './tooltip.component';
+import { TooltipPosition, TooltipProps } from '../core/types';
+import { IonTooltipComponent } from './tooltip.component';
 
 const tooltipTestId = 'ion-tooltip';
 
