@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
@@ -11,17 +12,6 @@ import {
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
-
-export interface TableEvent {
-  event: EventTable;
-  rows_selected?: SafeAny[];
-  change_page?: PageEvent;
-  order?: {
-    column: string;
-    desc: boolean;
-  };
-  data?: SafeAny;
-}
 
 const stateChange = {
   checked: 'enabled',
