@@ -2,9 +2,10 @@ import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonInputComponent, InputType, IonInputProps } from './input.component';
+import { IonInputComponent } from './input.component';
 import { FormsModule } from '@angular/forms';
 import { IonSharedModule } from '../shared.module';
+import { IonInputProps, InputType } from '../core/types/input';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(IonInputComponent, {

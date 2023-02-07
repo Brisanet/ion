@@ -1,5 +1,5 @@
-import { IonInputProps } from '../../input/input.component';
 import { EventEmitter } from '@angular/core';
+import { IonInputProps } from './input';
 
 export interface DropdownItem {
   label: string;

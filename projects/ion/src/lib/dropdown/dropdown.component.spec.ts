@@ -4,8 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
 import { IonDropdownComponent } from './dropdown.component';
 import { IonSharedModule } from '../shared.module';
-import { IonInputProps } from '../input/input.component';
 import { DropdownParams } from '../core/types/dropdown';
+import { IonInputProps } from '../core/types/input';
 
 const options = [];
 const inputElement = 'input-element';
