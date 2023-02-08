@@ -10,20 +10,20 @@ import {
 } from '../projects/ion/src/public-api';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
-import { IonSmartIonTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
+import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
-  component: IonSmartIonTableComponent,
+  component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<IonSmartIonTableComponent> = (
-  args: IonSmartIonTableComponent
+const Template: Story<IonSmartTableComponent> = (
+  args: IonSmartTableComponent
 ) => ({
-  component: IonSmartIonTableComponent,
+  component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
     entryComponents: [IonPopConfirmComponent],

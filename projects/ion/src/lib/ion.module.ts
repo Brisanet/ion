@@ -18,6 +18,7 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
 import { IonInputCounterComponent } from './input-counter/input-counter.component';
 import { IonInputComponent } from './input/input.component';
+import { IonIndicatorComponent } from './indicator/indicator.component';
 import { IonComponent } from './ion.component';
 import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
@@ -29,7 +30,7 @@ import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
 import { IonRadioComponent } from './radio/radio.component';
 import { IonRowComponent } from './row/row.component';
 import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { IonSmartIonTableComponent } from './smart-table/smart-table.component';
+import { IonSmartTableComponent } from './smart-table/smart-table.component';
 import { IonSwitchComponent } from './switch/switch.component';
 import { IonTabGroupComponent } from './tab-group/tab-group.component';
 import { IonTabComponent } from './tab/tab.component';
@@ -70,14 +71,15 @@ import { IonHeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    IonSmartIonTableComponent,
+    IonSmartTableComponent,
     IonSwitchComponent,
     IonTableComponent,
     IonInputComponent,
     IonBreadcrumbComponent,
+    IonIndicatorComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TooltipModule],
   exports: [
     IonComponent,
     IonButtonComponent,
@@ -106,13 +108,14 @@ import { IonHeadingComponent } from './typography/heading/heading.component';
     IonModalComponent,
     IonPaginationComponent,
     IonPopConfirmComponent,
-    IonSmartIonTableComponent,
+    IonSmartTableComponent,
     IonTableComponent,
     IonInputCounterComponent,
     IonInputComponent,
     IonSwitchComponent,
     IonBreadcrumbComponent,
     TooltipModule,
+    IonIndicatorComponent,
   ],
   entryComponents: [IonPopConfirmComponent],
 })

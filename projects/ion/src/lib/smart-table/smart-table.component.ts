@@ -44,7 +44,7 @@ export interface ConfigSmartTable<T> extends ConfigTable<T> {
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartIonTableComponent implements OnInit {
+export class IonSmartTableComponent implements OnInit {
   @Input() config: ConfigSmartTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
