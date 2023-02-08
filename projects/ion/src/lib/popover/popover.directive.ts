@@ -11,6 +11,7 @@ import {
   EventEmitter,
   ViewContainerRef,
   OnDestroy,
+  ElementRef,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -30,6 +31,7 @@ export class PopoverDirective implements OnDestroy {
   @Input() ionPopoverIcon?: IconType = '';
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
+  @Input() ionPopoverArrowPointAtCenter = true;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -59,8 +61,6 @@ export class PopoverDirective implements OnDestroy {
 
     const popoverElement = this.popoverComponentRef.location
       .nativeElement as HTMLElement;
-
-    this.setStyle(popoverElement, position);
 
     this.document.body.appendChild(popoverElement);
 
@@ -93,6 +93,21 @@ export class PopoverDirective implements OnDestroy {
       this.closePopover();
       this.ionOnClose.emit();
     });
+
+    this.setComponentPosition(position);
+  }
+
+  setComponentPosition(hostElement: SafeAny): void {
+    const { left, right, top, bottom } = hostElement;
+    const hostPositions = { left, right, top, bottom };
+    const positions = getPositionsPopover(
+      hostPositions,
+      this.ionPopoverArrowPointAtCenter
+    );
+    this.popoverComponentRef.instance.left =
+      positions[this.ionPopoverPosition].left;
+    this.popoverComponentRef.instance.top =
+      positions[this.ionPopoverPosition].top;
   }
 
   closePopover(): void {
@@ -101,12 +116,6 @@ export class PopoverDirective implements OnDestroy {
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
-  }
-
-  setStyle(element: HTMLElement, position: PopoverPosition): void {
-    element.style.position = 'absolute';
-    // element.style.left = position.left + 'px';
-    // element.style.top = position.top + 'px';
   }
 
   elementIsEnabled(element: HTMLElement): boolean {
@@ -118,21 +127,14 @@ export class PopoverDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick(): void {
-    const marginBetweenComponents = 10;
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
 
-    const popoverElement = document.getElementById('ion-popover');
-    const elementProps = popoverElement.getBoundingClientRect();
-
     const position = hostElement.getBoundingClientRect();
-    const midHostElementInView =
-      position.right - position.width / 2 - elementProps.width / 2;
 
     if (this.elementIsEnabled(hostElement)) {
-      // this.open({
-      //   top: position.top + position.height + marginBetweenComponents,
-      //   left: midHostElementInView,
-      // });
+      this.open({
+        position,
+      });
     }
   }
 
@@ -148,9 +150,3 @@ export class PopoverDirective implements OnDestroy {
     this.destroyComponent();
   }
 }
-
-// arrow-2 = top: position.top + position.height + marginBetweenComponents,
-//left: position.left - position.width / 2;,
-
-// arrow-3 = top: position.top + position.height + marginBetweenComponents,
-//left: position.right - position.width / 2 - 149.5,

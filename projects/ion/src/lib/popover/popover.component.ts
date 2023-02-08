@@ -29,10 +29,11 @@ export class IonPopoverComponent {
     { label: 'action 1' },
     { label: 'action 2' },
   ];
-
   @Input() ionPopoverIcon?: IconType = 'condominium';
   @Input() ionPopoverIconClose?: boolean = true;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
+  left = 0;
+  top = 0;
 
   readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();
