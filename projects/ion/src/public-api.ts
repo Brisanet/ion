@@ -5,6 +5,7 @@
 export * from './lib/ion.service';
 export * from './lib/ion.component';
 export * from './lib/ion.module';
+export * from './lib/core/types';
 
 export * from './lib/avatar/avatar.component';
 export * from './lib/badge/badge.component';
@@ -35,4 +36,6 @@ export * from './lib/popconfirm/popconfirm.directive';
 export * from './lib/popover/popover.directive';
 export * from './lib/input-counter/input-counter.component';
 export * from './lib/tooltip/tooltip.module';
+export * from './lib/indicator/indicator.component';
+
 export { default as debounce } from './lib/utils/debounce';
