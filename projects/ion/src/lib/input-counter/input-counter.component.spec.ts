@@ -4,7 +4,9 @@ import { render, fireEvent, screen } from '@testing-library/angular';
 import { IonInputCounterComponent } from './input-counter.component';
 import { IonButtonModule } from '../button/button.module';
 
-const sut = async (customProps = {}): Promise<void> => {
+const sut = async (
+  customProps: Partial<IonInputCounterComponent> = {}
+): Promise<void> => {
   await render(IonInputCounterComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule, IonButtonModule],
@@ -64,7 +66,7 @@ describe('InputCounter', () => {
 
 describe('InputCounter / Size', () => {
   it('should render with small size', async () => {
-    await sut({ InputSize: 'sm' });
+    await sut({ inputSize: 'sm' });
     expect(screen.getByTestId('iconAdd')).toHaveAttribute(
       'ng-reflect-size',
       'sm'
