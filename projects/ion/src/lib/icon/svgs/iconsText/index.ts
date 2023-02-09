@@ -51,6 +51,7 @@ export { default as serviceTv } from './service-tv';
 export { default as sortAsc } from './sort-asc';
 export { default as sortDesc } from './sort-desc';
 export { default as starSolid } from './star-solid';
+export { default as stb } from './stb';
 export { default as sub } from './sub';
 export { default as technical } from './technical';
 export { default as trash } from './trash';
