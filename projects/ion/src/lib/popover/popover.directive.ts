@@ -11,7 +11,6 @@ import {
   EventEmitter,
   ViewContainerRef,
   OnDestroy,
-  ElementRef,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -25,10 +24,10 @@ import { getPositionsPopover } from './utilsPopover';
   selector: '[ionPopover]',
 })
 export class PopoverDirective implements OnDestroy {
-  @Input() ionPopoverTitle = 'Tem certeza?';
-  @Input() ionPopoverBody = '';
+  @Input() ionPopoverTitle: string;
+  @Input() ionPopoverBody: string;
   @Input() ionPopoverActions?: IonButtonProps[] = [];
-  @Input() ionPopoverIcon?: IconType = '';
+  @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
@@ -57,12 +56,12 @@ export class PopoverDirective implements OnDestroy {
     this.popoverComponentRef = popover;
 
     this.appRef.attachView(this.popoverComponentRef.hostView);
-    this.popoverComponentRef.changeDetectorRef.detectChanges();
 
     const popoverElement = this.popoverComponentRef.location
       .nativeElement as HTMLElement;
 
     this.document.body.appendChild(popoverElement);
+    this.popoverComponentRef.changeDetectorRef.detectChanges();
 
     this.popoverComponentRef.instance.ionPopoverTitle = this.ionPopoverTitle;
 
@@ -95,6 +94,7 @@ export class PopoverDirective implements OnDestroy {
     });
 
     this.setComponentPosition(position);
+    this.popoverComponentRef.changeDetectorRef.detectChanges();
   }
 
   setComponentPosition(hostElement: SafeAny): void {
@@ -104,6 +104,7 @@ export class PopoverDirective implements OnDestroy {
       hostPositions,
       this.ionPopoverArrowPointAtCenter
     );
+
     this.popoverComponentRef.instance.left =
       positions[this.ionPopoverPosition].left;
     this.popoverComponentRef.instance.top =
@@ -128,13 +129,10 @@ export class PopoverDirective implements OnDestroy {
 
   @HostListener('click') onClick(): void {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-
     const position = hostElement.getBoundingClientRect();
 
     if (this.elementIsEnabled(hostElement)) {
-      this.open({
-        position,
-      });
+      this.open(position);
     }
   }
 

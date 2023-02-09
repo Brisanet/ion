@@ -22,15 +22,11 @@ export interface PopoverProps {
   exportAs: 'PopoverComponent',
 })
 export class IonPopoverComponent {
-  @Input() ionPopoverTitle = 'Você tem certeza?';
-  @Input() ionPopoverBody: SafeAny =
-    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.';
-  @Input() ionPopoverActions?: IonButtonProps[] = [
-    { label: 'action 1' },
-    { label: 'action 2' },
-  ];
-  @Input() ionPopoverIcon?: IconType = 'condominium';
-  @Input() ionPopoverIconClose?: boolean = true;
+  @Input() ionPopoverTitle: string;
+  @Input() ionPopoverBody: SafeAny;
+  @Input() ionPopoverActions?: IonButtonProps[];
+  @Input() ionPopoverIcon?: IconType;
+  @Input() ionPopoverIconClose?: boolean = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   left = 0;
   top = 0;
