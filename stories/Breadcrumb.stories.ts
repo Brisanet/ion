@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
+import { IonIconComponent } from '../projects/ion/src/public-api';
 import { BreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
 
 export default {
@@ -11,7 +12,7 @@ const Template: Story<BreadcrumbComponent> = (args: BreadcrumbComponent) => ({
   component: BreadcrumbComponent,
   props: args,
   moduleMetadata: {
-    declarations: [BreadcrumbComponent],
+    declarations: [BreadcrumbComponent, IonIconComponent],
     imports: [CommonModule],
   },
 });

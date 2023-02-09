@@ -1,6 +1,9 @@
+@import '../../styles/index.scss';
+
+
+
 .breadcrumbs-nav {
-  padding: 5px 7px;
-  background-color: #d0efff;
+  padding: spacing(0.7) spacing(0.9);
   text-decoration: none;
   font-family: sans-serif;
   font-size: 15px;
@@ -9,33 +12,52 @@
 .ol-navigator {
   display: inline-flex;
   margin: 0;
-  padding: 10px;
+  padding: spacing(1.25);
 }
 
 .ol-navigator li {
-  display: block;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  
+
+  ion-icon {
+    ::ng-deep svg {
+      fill: $neutral-6;
+    }
+  }
 }
 .ol-navigator li a {
-  padding: 10px;
   text-decoration: none;
-  color: #54718f;
-  font-family: sans-serif;
+  padding: spacing(1.25);
+  color: $neutral-6;
+  font-weight: 400;
   font-size: 14px;
+  line-height: 20px;
+  
+
+ 
+
+  &:hover{
+    color: $primary-6;
+  }
+
+  &:focus {
+    text-shadow: 0px 0px 0px $neutral-1, 0px 0px 0px $primary-5;
+  }
+
+  &:active{
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: $primary-6;
+  }
+
 }
 
-.ol-navigator li::after {
-  content: '/';
-  margin-right: 0px;
-  color: #b9cbdf;
+.ol-navigator li:last-child {
+  ion-icon {
+    display: none;
+  }
 }
 
-.ol-navigator li:last-child::after {
-  content: '';
-}
-
-.ol-navigator li > a:hover {
-  color: blue;
-}
-
-.ol-navigator li > a:last-child {
-}
