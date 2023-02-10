@@ -41,6 +41,7 @@ export { default as questionRounded } from './question-rounded';
 export { default as refresh } from './refresh';
 export { default as right2 } from './right2';
 export { default as right3 } from './right3';
+export { default as rota } from './rota';
 export { default as sandwich } from './sandwich';
 export { default as search } from './search';
 export { default as semiDown } from './semi-down';
