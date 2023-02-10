@@ -200,3 +200,36 @@
     text-align: right;
   }
 }
+
+.step-container.clickable:hover {
+  cursor: pointer;
+
+  .label, .description{
+    color: $primary-5;
+  }
+
+    .theme-default {
+      .default {
+      border-color: $primary-6;
+        background-color: $primary-1;
+        color: $primary-6;
+      }
+    }
+  
+  
+    .theme-pastel-tones {
+      .default {
+        border-color: $primary-6;
+          background-color: $primary-2;
+          color: $primary-6;
+      }
+    }
+  
+    .theme-dark-tones {
+      .default {
+        border-color: $primary-6;
+          background-color: $primary-2;
+          color: $primary-7;
+      }
+    }
+}

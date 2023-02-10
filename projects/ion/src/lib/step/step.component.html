@@ -1,8 +1,16 @@
 <section class="steps" data-testid="ion-step">
-  <div class="step-container" *ngFor="let step of steps; let index = index">
+  <div
+    class="step-container"
+    [class.clickable]="
+      clickable && step.status !== 'selected' && step.status !== 'error'
+    "
+    *ngFor="let step of steps; let index = index"
+    (click)="goesTo(step.index)"
+  >
     <div [class]="disabled ? 'step disabled' : 'step theme-' + theme">
       <div
-        [class]="crossClassGenerator('initial', index) + ' initial'"
+        class="cross"
+        [class.bolded]="this.beforeStepIsChecked(index)"
         *ngIf="crossVisibility('initial', step)"
       ></div>
 
@@ -19,17 +27,23 @@
       </div>
 
       <div
-        [class]="crossClassGenerator('final', index) + ' final'"
+        class="cross"
+        [class.bolded]="this.afterStepIsChecked(index)"
         *ngIf="crossVisibility('final', step)"
       ></div>
     </div>
 
-    <div [class]="labelClassGenerator(step)">
+    <div
+      class="label"
+      [class.selected]="step.status === 'selected' || step.status === 'error'"
+      [class.disabled]="disabled"
+    >
       {{ step.label }}
     </div>
 
     <div
-      [class]="descriptionClassGenerator()"
+      class="description"
+      [class.disabled]="disabled"
       [attr.data-testid]="'description-' + step.index"
       *ngIf="step.description"
     >

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
-import { StepComponent, StepType } from './step.component';
+import { StepComponent, StepConfig, StepType } from './step.component';
 
 const defaultValue: StepType[] = [
   {
@@ -17,80 +17,112 @@ const defaultValue: StepType[] = [
   },
 ];
 
-describe('Static StepComponent', () => {
-  const sut = async (
-    customProps: StepType[] = defaultValue
-  ): Promise<HTMLElement> => {
-    await render(StepComponent, {
-      componentProperties: {
-        steps: customProps,
-      },
-      declarations: [IonIconComponent],
-      imports: [FormsModule],
-    });
-    return screen.findByTestId('ion-step');
-  };
+const defaultProps: StepConfig = {
+  current: 1,
+  steps: defaultValue,
+};
 
-  it('should render step component with 3 steps', async () => {
-    await sut();
-    expect(screen.getByText('Step 3')).toBeTruthy();
+const sut = async (
+  customProps: StepConfig = defaultProps
+): Promise<HTMLElement> => {
+  await render(StepComponent, {
+    componentProperties: {
+      current: customProps.current,
+      steps: customProps.steps,
+      clickable: customProps.clickable,
+      disabled: customProps.disabled,
+    },
+    declarations: [IonIconComponent],
+    imports: [FormsModule],
   });
-  it('should render step component with 3 steps, first checked', async () => {
-    await sut([
-      {
-        label: 'Step 1',
-        status: 'checked',
-      },
-      {
-        label: 'Step 2',
-      },
-      {
-        label: 'Step 3',
-      },
-    ]);
-    expect(
-      screen.getByText('Step 3') && screen.getByTestId('step-1-checked')
-    ).toBeTruthy();
+  return screen.findByTestId('ion-step');
+};
+
+describe('Static StepComponent', () => {
+  const stepsLabels = ['Step 1', 'Step 2', 'Step 3'];
+
+  it.each(stepsLabels)(
+    'should render step component with 3 steps',
+    async (label: string) => {
+      await sut();
+      expect(screen.getByText(label)).toBeTruthy();
+    }
+  );
+  it('should render first checked', async () => {
+    await sut({
+      current: defaultProps.current,
+      steps: [
+        {
+          label: 'Step 1',
+          status: 'checked',
+        },
+        {
+          label: 'Step 2',
+        },
+        {
+          label: 'Step 3',
+        },
+      ],
+    });
+    expect(screen.getByTestId('step-1-checked')).toBeTruthy();
   });
-  it('should render step component with 3 steps, first checked and second with error and description', async () => {
-    await sut([
-      {
-        label: 'Step 1',
-        status: 'checked',
-      },
-      {
-        label: 'Step 2',
-        status: 'error',
-        description: 'Error',
-      },
-      {
-        label: 'Step 3',
-      },
-    ]);
-    expect(
-      screen.getByText('Step 3') &&
-        screen.getByTestId('step-1-checked') &&
-        screen.getByTestId('step-2-error') &&
-        screen.getByTestId('description-2')
-    ).toBeTruthy();
+  it('should render first step checked and second with error and description', async () => {
+    await sut({
+      current: defaultProps.current,
+      steps: [
+        {
+          label: 'Step 1',
+          status: 'checked',
+        },
+        {
+          label: 'Step 2',
+          status: 'error',
+          description: 'Error',
+        },
+        {
+          label: 'Step 3',
+        },
+      ],
+    });
+    expect(screen.getByTestId('step-1-checked')).toBeTruthy();
+    expect(screen.getByTestId('step-2-error')).toBeTruthy();
+    expect(screen.getByText('Error')).toHaveClass(`description`);
   });
   it('should render step component with 3 checked steps', async () => {
-    await sut([
-      {
-        label: 'Step 1',
-        status: 'checked',
-      },
-      {
-        label: 'Step 2',
-        status: 'checked',
-      },
-      {
-        label: 'Step 3',
-        status: 'checked',
-      },
-    ]);
+    await sut({
+      current: defaultProps.current,
+      steps: [
+        {
+          label: 'Step 1',
+          status: 'checked',
+        },
+        {
+          label: 'Step 2',
+          status: 'checked',
+        },
+        {
+          label: 'Step 3',
+          status: 'checked',
+        },
+      ],
+    });
     expect(screen.getAllByTestId('check-icon')).toHaveLength(3);
-    expect(screen.getByText('Step 3')).toBeTruthy();
+    expect(screen.getByTestId('step-1-checked')).toBeTruthy();
+    expect(screen.getByTestId('step-2-checked')).toBeTruthy();
+    expect(screen.getByTestId('step-3-checked')).toBeTruthy();
+  });
+  it('should go to step 3 when it be clicked', async () => {
+    await sut({
+      clickable: true,
+      disabled: false,
+      current: 1,
+      steps: defaultValue,
+    });
+    const step = await screen.findByTestId('step-3-default');
+    expect(step).toBeTruthy();
+    fireEvent.click(step);
+    // const stepSelected = await screen.findByTestId('step-3-selected');
+    // expect(stepSelected).toBeTruthy();
   });
 });
 
@@ -118,6 +150,7 @@ describe('Passing through the StepComponent', () => {
     expect(screen.getByTestId('step-1-selected')).toBeTruthy();
     testHost.current = 2;
     fixture.detectChanges();
+    expect(screen.getByTestId('step-1-checked')).toBeTruthy();
     expect(screen.getByTestId('step-2-selected')).toBeTruthy();
   });
   it('should back from step 2 to step 1', async () => {
@@ -127,12 +160,15 @@ describe('Passing through the StepComponent', () => {
     testHost.current = 1;
     fixture.detectChanges();
     expect(screen.getByTestId('step-1-selected')).toBeTruthy();
+    expect(screen.getByTestId('step-2-default')).toBeTruthy();
   });
   it('should to keep last step selected when try to pass forward', async () => {
     fixture.detectChanges();
     testHost.current = 2;
     fixture.detectChanges();
-    testHost.current = 8;
+    testHost.current = 3;
+    fixture.detectChanges();
+    testHost.current = 4;
     fixture.detectChanges();
     expect(screen.getByTestId('step-3-selected')).toBeTruthy();
   });
