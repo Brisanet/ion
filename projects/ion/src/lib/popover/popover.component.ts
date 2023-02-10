@@ -30,6 +30,7 @@ export class IonPopoverComponent {
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   left = 0;
   top = 0;
+  position = '';
 
   readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();

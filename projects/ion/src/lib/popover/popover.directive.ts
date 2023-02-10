@@ -109,6 +109,7 @@ export class PopoverDirective implements OnDestroy {
       positions[this.ionPopoverPosition].left;
     this.popoverComponentRef.instance.top =
       positions[this.ionPopoverPosition].top;
+    this.popoverComponentRef.instance.position = 'absolute';
   }
 
   closePopover(): void {

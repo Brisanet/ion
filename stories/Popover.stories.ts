@@ -97,7 +97,7 @@ const Template: Story = (args) => ({
   template: `
     <style>
         div {
-            height: 150px;
+            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -118,7 +118,7 @@ const Template: Story = (args) => ({
   `,
 });
 
-const data = [{ label: 'actions 1' }, { label: 'action 2' }];
+const actions = [{ label: 'actions 1' }, { label: 'action 2' }];
 
 export const Default = Template.bind({});
 Default.args = {
@@ -126,6 +126,6 @@ Default.args = {
   ionPopoverBody: 'e eu sou o body do popover',
   ionPopoverPosition: PopoverPosition.TOP_LEFT,
   ionPopoverIconClose: false,
-  ionPopoverActions: data,
+  ionPopoverActions: actions,
 } as PopoverProps;
 Default.storyName = 'ionPopover';
