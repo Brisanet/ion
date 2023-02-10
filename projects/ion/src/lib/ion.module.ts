@@ -14,6 +14,7 @@ import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
+import { IonIndicatorComponent } from './indicator/indicator.component';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { InputCounterComponent } from './input-counter/input-counter.component';
 import { InputComponent } from './input/input.component';
@@ -34,8 +35,7 @@ import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
 import { TableComponent } from './table/table.component';
 import { TagComponent } from './tag/tag.component';
-import { TooltipComponent } from './tooltip/tooltip.component';
-import { TooltipDirective } from './tooltip/tooltip.directive';
+import { TooltipModule } from './tooltip/tooltip.module';
 import { HeadingComponent } from './typography/heading/heading.component';
 
 @NgModule({
@@ -74,11 +74,10 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SwitchComponent,
     TableComponent,
     InputComponent,
-    TooltipDirective,
-    TooltipComponent,
+    IonIndicatorComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TooltipModule],
   exports: [
     IonComponent,
     ButtonComponent,
@@ -111,9 +110,10 @@ import { HeadingComponent } from './typography/heading/heading.component';
     TableComponent,
     InputCounterComponent,
     InputComponent,
-    TooltipComponent,
     SwitchComponent,
+    TooltipModule,
+    IonIndicatorComponent,
   ],
-  entryComponents: [PopConfirmComponent, TooltipComponent],
+  entryComponents: [PopConfirmComponent],
 })
 export class IonModule {}
