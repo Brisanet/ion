@@ -44,59 +44,61 @@ $arrow-size: 4.5px;
   }
 }
 
-.sup-container-rightBottom {
-  transform: translateY(-50%);
-  margin-left: $popover-spacing;
-  @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
-}
+.sup-container {
+  &-rightBottom {
+    transform: translateY(-50%);
+    margin-left: $popover-spacing;
+    @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
+  }
 
-.sup-container-bottomRight {
-  transform: translate($arrow-size * -2, $popover-spacing);
-  @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
-}
+  &-bottomRight {
+    transform: translate($arrow-size * -2, $popover-spacing);
+    @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
+  }
 
-.sup-container-bottomCenter {
-  transform: translate(-50%, $popover-spacing);
-  @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
-}
+  &-bottomCenter {
+    transform: translate(-50%, $popover-spacing);
+    @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
+  }
 
-.sup-container-bottomLeft {
-  transform: translate(calc(-100% + $arrow-size * 2), $popover-spacing);
-  @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
-}
+  &-bottomLeft {
+    transform: translate(calc(-100% + $arrow-size * 2), $popover-spacing);
+    @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
+  }
 
-.sup-container-leftBottom {
-  transform: translate(calc(-100% - $popover-spacing), -50%);
-  @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
-}
+  &-leftBottom {
+    transform: translate(calc(-100% - $popover-spacing), -50%);
+    @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
+  }
 
-.sup-container-rightTop {
-  transform: translateY(-50%);
-  margin-left: $popover-spacing;
-  @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
-}
+  &-rightTop {
+    transform: translateY(-50%);
+    margin-left: $popover-spacing;
+    @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
+  }
 
-.sup-container-topRight {
-  transform: translate(($arrow-size * -2), calc(-100% - $popover-spacing));
-  @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
-}
+  &-topRight {
+    transform: translate(($arrow-size * -2), calc(-100% - $popover-spacing));
+    @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
+  }
 
-.sup-container-topCenter {
-  transform: translate(-50%, calc(-100% - $popover-spacing));
-  @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
-}
+  &-topCenter {
+    transform: translate(-50%, calc(-100% - $popover-spacing));
+    @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
+  }
 
-.sup-container-topLeft {
-  transform: translate(
-    calc(-100% + ($arrow-size * 2)),
-    calc(-100% - $popover-spacing)
-  );
-  @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
-}
+  &-topLeft {
+    transform: translate(
+      calc(-100% + ($arrow-size * 2)),
+      calc(-100% - $popover-spacing)
+    );
+    @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
+  }
 
-.sup-container-leftTop {
-  transform: translate(calc(-100% - $popover-spacing), -50%);
-  @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
+  &-leftTop {
+    transform: translate(calc(-100% - $popover-spacing), -50%);
+    @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
+  }
 }
 
 .containter {
