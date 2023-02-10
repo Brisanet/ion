@@ -5,7 +5,6 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { fireEvent, screen } from '@testing-library/angular';
 import { BadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
 import { ButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
@@ -22,10 +21,11 @@ const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
     <button
       ionPopover
       ionPopoverTitle="${confirmText}"
-      ionPopoverBody="Você tem certeza"
+      ionPopoverBody="Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs."
       ionPopoverIcon="condominium"
       ionPopoverIconClose="close"
-      ionPopoverPosition="arrow-4"
+      ionPopoverPosition="topRight"
+      ionPopoverActions="${actions}"
       (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
@@ -39,25 +39,6 @@ class ContainerRefTestComponent {
   container!: ViewContainerRef;
 }
 
-@Component({
-  template: `
-    <ion-button
-      ionPopover
-      ionPopoverTitle="Você tem certeza?"
-      (ionOnFirstAction)="confirm()"
-      type="ghost"
-      size="sm"
-      [disabled]="true"
-    ></ion-button>
-  `,
-})
-class ButtonTestDisabledComponent {
-  @ViewChild('container', { read: ViewContainerRef, static: true })
-  container!: ViewContainerRef;
-
-  public disabled = true;
-}
-
 describe('Directive: Popover', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
   let directive: PopoverDirective;
@@ -68,7 +49,6 @@ describe('Directive: Popover', () => {
       declarations: [
         ContainerRefTestComponent,
         BadgeComponent,
-        DropdownComponent,
         ButtonComponent,
         IonIconComponent,
         IonPopoverComponent,
@@ -100,9 +80,9 @@ describe('Directive: Popover', () => {
     directive.open(elementPosition);
   });
 
-  // it('should open the popconfirm when clicked', () => {
-  //   directive.open(elementPosition);
-  //   fireEvent.click(screen.getByText(textButton));
-  //   expect(screen.getByText(confirmText)).toBeInTheDocument();
-  // });
+  it.skip('should open the popconfirm when clicked', () => {
+    directive.open(elementPosition);
+    fireEvent.click(screen.getByText(textButton));
+    expect(screen.getByText(confirmText)).toBeInTheDocument();
+  });
 });
