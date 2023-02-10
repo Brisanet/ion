@@ -14,6 +14,7 @@ import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
+import { IonIndicatorComponent } from './indicator/indicator.component';
 import { InfoBadgeComponent } from './info-badge/info-badge.component';
 import { InputCounterComponent } from './input-counter/input-counter.component';
 import { InputComponent } from './input/input.component';
@@ -75,9 +76,10 @@ import { HeadingComponent } from './typography/heading/heading.component';
     SwitchComponent,
     TableComponent,
     InputComponent,
+    IonIndicatorComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TooltipModule],
   exports: [
     IonComponent,
     ButtonComponent,
@@ -113,6 +115,7 @@ import { HeadingComponent } from './typography/heading/heading.component';
     InputComponent,
     SwitchComponent,
     TooltipModule,
+    IonIndicatorComponent,
   ],
   entryComponents: [PopConfirmComponent],
 })
