@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { SidebarGroupComponent } from '../projects/ion/src/lib/sidebar/sidebar-group/sidebar-group.component';
 import { SidebarItemComponent } from '../projects/ion/src/lib/sidebar/sidebar-item/sidebar-item.component';
 import { SidebarComponent } from '../projects/ion/src/lib/sidebar/sidebar.component';
-import { IonIconModule } from '../projects/ion/src/public-api';
+import { IonButtonModule, IonIconModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Sidebar',
@@ -11,7 +11,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [SidebarItemComponent, SidebarGroupComponent],
-      imports: [IonIconModule],
+      imports: [IonIconModule, IonButtonModule],
     }),
   ],
 } as Meta;
@@ -23,6 +23,7 @@ const Template: Story<SidebarComponent> = (args: SidebarComponent) => ({
 
 export const Default = Template.bind({});
 Default.args = {
+  logo: require('./assets/sidebar-logo.svg'),
   items: [
     { title: 'Fila de atendimento', icon: 'headset' },
     { title: 'Cadastros', icon: 'plus-solid' },

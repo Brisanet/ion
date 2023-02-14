@@ -1,10 +1,8 @@
 @import '../../styles/index.scss';
 
 @mixin icon-color($color) {
-  .ion-sidebar-item__icon {
-    ::ng-deep svg {
-      fill: $color;
-    }
+  ::ng-deep svg {
+    fill: $color;
   }
 }
 
@@ -17,6 +15,7 @@
 
   box-sizing: border-box;
   position: absolute;
+  z-index: 999;
   width: 256px;
   height: 100vh;
   left: 0px;
@@ -25,8 +24,18 @@
   box-shadow: 4px 0px 8px rgba(4, 42, 98, 0.15);
   padding: spacing(3);
 
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 16px;
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: spacing(4);
+    @include icon-color($primary-color);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
 }

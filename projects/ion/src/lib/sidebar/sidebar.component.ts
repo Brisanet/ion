@@ -8,6 +8,7 @@ export interface Item {
 }
 
 export interface IonSidebarProps {
+  logo: string;
   items: (Item & { options?: [Item, ...Item[]] })[];
 }
 
@@ -17,7 +18,14 @@ export interface IonSidebarProps {
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  @Input() logo!: string;
   @Input() items: IonSidebarProps['items'] = [];
+
+  public closed = true;
+
+  public toggleVisibility(): void {
+    this.closed = !this.closed;
+  }
 
   public itemSelected(itemIndex: number): void {
     this.items.forEach((item) => (item.selected = false));

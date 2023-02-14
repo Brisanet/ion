@@ -1,23 +1,46 @@
-<nav class="ion-sidebar" data-testid="ion-sidebar">
-  <ng-container *ngFor="let item of items; let i = index">
-    <ng-container *ngIf="!item.options">
-      <ion-sidebar-item
-        [title]="item.title"
-        [icon]="item.icon"
-        [selected]="item.selected"
-        [attr.data-testid]="'ion-sidebar__item-' + i"
-        (atClick)="itemSelected(i)"
-      ></ion-sidebar-item>
+<nav class="ion-sidebar" data-testid="ion-sidebar" [hidden]="closed">
+  <header class="ion-sidebar__header">
+    <img [src]="logo" alt="logo" />
+    <ng-template
+      *ngIf="!closed"
+      [ngTemplateOutlet]="btnToggleVisibility"
+    ></ng-template>
+  </header>
+  <section class="ion-sidebar__items">
+    <ng-container *ngFor="let item of items; let i = index">
+      <ng-container *ngIf="!item.options">
+        <ion-sidebar-item
+          [title]="item.title"
+          [icon]="item.icon"
+          [selected]="item.selected"
+          [attr.data-testid]="'ion-sidebar__item-' + i"
+          (atClick)="itemSelected(i)"
+        ></ion-sidebar-item>
+      </ng-container>
+      <ng-container *ngIf="item.options">
+        <ion-sidebar-group
+          [attr.data-testid]="'ion-sidebar__group-' + i"
+          [title]="item.title"
+          [icon]="item.icon"
+          [selected]="item.selected"
+          [items]="item.options"
+          (atClick)="itemSelected(i)"
+        ></ion-sidebar-group>
+      </ng-container>
     </ng-container>
-    <ng-container *ngIf="item.options">
-      <ion-sidebar-group
-        [attr.data-testid]="'ion-sidebar__group-' + i"
-        [title]="item.title"
-        [icon]="item.icon"
-        [selected]="item.selected"
-        [items]="item.options"
-        (atClick)="itemSelected(i)"
-      ></ion-sidebar-group>
-    </ng-container>
-  </ng-container>
+  </section>
 </nav>
+
+<span *ngIf="closed">
+  <ng-template *ngTemplateOutlet="btnToggleVisibility"></ng-template>
+</span>
+
+<ng-template #btnToggleVisibility>
+  <ion-button
+    data-testid="ion-sidebar__toggle-visibility"
+    iconType="sandwich"
+    size="lg"
+    type="ghost"
+    (ionOnClick)="toggleVisibility()"
+  ></ion-button>
+</ng-template>
