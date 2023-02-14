@@ -1,16 +1,10 @@
 import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
-import { IonAlertComponent } from '../alert/alert.component';
-import { IonBadgeComponent } from '../badge/badge.component';
-import { IonButtonComponent } from '../button/button.component';
-import { IonDividerComponent } from '../divider/divider.component';
-import {
-  IonPopConfirmComponent,
-  PopConfirmProps,
-} from './popconfirm.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { IonDropdownComponent } from '../dropdown/dropdown.component';
-import { IonInputComponent } from '../input/input.component';
+import { IonAlertModule } from '../alert/alert.module';
+import { IonButtonModule } from '../button/button.module';
+import { PopConfirmProps } from '../core/types/popconfirm';
+import { IonDividerModule } from '../divider/divider.module';
+import { IonPopConfirmComponent } from './popconfirm.component';
 
 const defaultProps: PopConfirmProps = {
   ionPopConfirmTitle: 'Title',
@@ -19,17 +13,7 @@ const defaultProps: PopConfirmProps = {
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
   await render(IonPopConfirmComponent, {
     componentProperties: props,
-    declarations: [
-      IonDividerComponent,
-      IonButtonComponent,
-      IonBadgeComponent,
-      IonAlertComponent,
-      IonIconComponent,
-      IonDropdownComponent,
-      IonInputComponent,
-      IonButtonComponent,
-    ],
-    imports: [FormsModule],
+    imports: [FormsModule, IonButtonModule, IonDividerModule, IonAlertModule],
   });
 };
 

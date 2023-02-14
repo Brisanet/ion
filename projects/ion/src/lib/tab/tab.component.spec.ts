@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonBadgeComponent } from '../badge/badge.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { IonTabProps, IonTabComponent } from './tab.component';
+import { IonBadgeModule } from '../badge/badge.module';
+import { IonTabProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonTabComponent } from './tab.component';
 
 const defaultName = 'MinhaTab';
 
@@ -11,8 +12,7 @@ const sut = async (customProps?: IonTabProps): Promise<void> => {
     componentProperties: customProps || {
       label: defaultName,
     },
-    imports: [CommonModule],
-    declarations: [IonIconComponent, IonBadgeComponent],
+    imports: [CommonModule, IonIconModule, IonBadgeModule],
   });
 };
 

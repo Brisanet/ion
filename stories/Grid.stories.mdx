@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { IonRowComponent } from '../projects/ion/src/lib/row/row.component';
 import { IonColComponent } from '../projects/ion/src/lib/col/col.component';
+import { IonColModule } from '../projects/ion/src/lib/col/col.module';
+import { IonRowModule } from '../projects/ion/src/lib/row/row.module';
 
 <Meta title="Ion/Design Tokens/Grid" />
 
@@ -38,7 +40,7 @@ import { IonColComponent } from '../projects/ion/src/lib/col/col.component';
     display: flex;
     gap: 50px;
     margin: 16px;
-  }  
+  }
 
   thead {
     background-color: #E4E6EB;
@@ -244,8 +246,7 @@ Disponível através da tag `<ion-col>`, as colunas tem 12 modelos, permitindo c
     name="row with 1 col-12"
     decorators={[
       moduleMetadata({
-        declarations: [IonRowComponent, IonColComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonRowModule, IonColModule],
       }),
     ]}
   >
@@ -263,8 +264,7 @@ Disponível através da tag `<ion-col>`, as colunas tem 12 modelos, permitindo c
     name="row with 4 col-3"
     decorators={[
       moduleMetadata({
-        declarations: [IonRowComponent, IonColComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonRowModule, IonColModule],
       }),
     ]}
   >
@@ -285,8 +285,7 @@ Disponível através da tag `<ion-col>`, as colunas tem 12 modelos, permitindo c
     name="row with 3 col-4"
     decorators={[
       moduleMetadata({
-        declarations: [IonRowComponent, IonColComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonRowModule, IonColModule],
       }),
     ]}
   >
@@ -306,8 +305,7 @@ Disponível através da tag `<ion-col>`, as colunas tem 12 modelos, permitindo c
     name="row with 2 col-6"
     decorators={[
       moduleMetadata({
-        declarations: [IonRowComponent, IonColComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonRowModule, IonColModule],
       }),
     ]}
   >
@@ -326,8 +324,7 @@ Disponível através da tag `<ion-col>`, as colunas tem 12 modelos, permitindo c
     name="row with 1 col-9 and 1 col-3"
     decorators={[
       moduleMetadata({
-        declarations: [IonRowComponent, IonColComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonRowModule, IonColModule],
       }),
     ]}
   >

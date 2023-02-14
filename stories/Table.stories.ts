@@ -1,18 +1,7 @@
-import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
-import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import {
-  IonAlertComponent,
-  IonDividerComponent,
-  PopConfirmDirective,
-  IonTagComponent,
-} from '../projects/ion/src/public-api';
-import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -23,18 +12,7 @@ const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
   component: IonTableComponent,
   props: args,
   moduleMetadata: {
-    entryComponents: [IonPopConfirmComponent],
-    declarations: [
-      IonTableComponent,
-      IonTagComponent,
-      IonCheckboxComponent,
-      IonPaginationComponent,
-      PopConfirmDirective,
-      IonPopConfirmComponent,
-      IonAlertComponent,
-      IonDividerComponent,
-    ],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [IonTableModule],
   },
 });
 

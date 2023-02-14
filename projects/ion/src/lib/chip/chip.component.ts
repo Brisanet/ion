@@ -1,41 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BadgeType } from '../badge/badge.component';
-import { InfoBadgeStatus } from '../core/types';
-import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
-import { IconType } from './../icon/icon.component';
-
-export type ChipSize = 'sm' | 'md';
-export type IconDirection = 'right' | 'left';
-
-interface ChipEvent {
-  selected: boolean;
-  disabled: boolean;
-}
-export interface IonChipProps {
-  label: string;
-  disabled?: boolean;
-  selected?: boolean;
-  size?: ChipSize;
-  events?: EventEmitter<ChipEvent>;
-  options?: DropdownItem[];
-  icon?: string;
-  multiple?: boolean;
-  infoBadge?: InfoBadgeStatus;
-  iconPosition?: IconDirection;
-  rightBadge?: RightBadge;
-  dropdownEvents?: EventEmitter<DropdownItem[]>;
-  dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
-  dropdownSearchEvents?: EventEmitter<string>;
-}
-
-type Badge = {
-  value: number;
-};
-
-interface RightBadge {
-  label: string;
-  type: BadgeType;
-}
+import {
+  Badge,
+  ChipEvent,
+  ChipSize,
+  IonChipProps,
+  RightBadge,
+} from '../core/types/chip';
+import { DropdownItem } from '../core/types/dropdown';
+import { IconDirection, IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-chip',

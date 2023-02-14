@@ -1,13 +1,15 @@
-import { IonCheckboxComponent } from './../checkbox/checkbox.component';
-import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonTagComponent } from '../tag/tag.component';
-import { SafeAny } from '../utils/safe-any';
-import { IonTableProps, IonTableComponent } from './table.component';
-import { IonPaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonTableProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonTagModule } from '../tag/tag.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonTableComponent } from './table.component';
 import { ActionTable, Column, ColumnType } from './utilsTable';
-import { ButtonModule } from '../button/button.module';
-import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -64,13 +66,15 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(IonTableComponent, {
     componentProperties: customProps,
-    declarations: [
-      IonTagComponent,
-      IonCheckboxComponent,
-      IonPaginationComponent,
-      PopConfirmDirective,
+    imports: [
+      FormsModule,
+      IonButtonModule,
+      IonIconModule,
+      IonCheckboxModule,
+      IonPaginationModule,
+      IonTagModule,
+      IonPopConfirmModule,
     ],
-    imports: [FormsModule, ButtonModule],
   });
 };
 

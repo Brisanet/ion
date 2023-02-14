@@ -10,27 +10,11 @@ import {
   ViewChild,
   SimpleChange,
 } from '@angular/core';
-
-export interface CheckBoxProps {
-  label?: string;
-  disabled?: boolean;
-  state?: CheckBoxStates;
-  ionClick?: EventEmitter<CheckBoxEvent>;
-}
-
-enum CheckBoxEvent {
-  checked = 'checked',
-  enabled = 'unchecked',
-  indeterminate = 'indeterminate',
-}
-
-export type CheckBoxStates = keyof typeof CheckBoxEvent;
-
-const stateChange = {
-  enabled: 'checked',
-  checked: 'enabled',
-  indeterminate: 'enabled',
-};
+import {
+  CheckBoxStates,
+  StateChange,
+  CheckBoxEvent,
+} from '../core/types/checkbox';
 
 @Component({
   selector: 'ion-checkbox',
@@ -57,7 +41,7 @@ export class IonCheckboxComponent implements OnInit, OnChanges {
   }
 
   changeState(): void {
-    this.state = stateChange[this.state] as CheckBoxStates;
+    this.state = StateChange[this.state] as CheckBoxStates;
     this.setState();
   }
 

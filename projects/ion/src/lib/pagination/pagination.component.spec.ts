@@ -1,11 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonPaginationProps } from '../core/types/pagination';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonPaginationProps,
-  IonPaginationComponent,
-} from './pagination.component';
-import { ButtonModule } from '../button/button.module';
+import { IonPaginationComponent } from './pagination.component';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -22,7 +20,7 @@ const sut = async (
   await render(IonPaginationComponent, {
     componentProperties: customProps,
     declarations: [],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonButtonModule],
   });
 };
 

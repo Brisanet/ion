@@ -3,10 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonButtonComponent } from '../projects/ion/src/lib/button/button.component';
-import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 <Meta title="Ion/Navigation/Button" component={IonButtonComponent} />
 
@@ -24,14 +21,7 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     name="type: primary"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -43,14 +33,7 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     name="type: secondary"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -62,14 +45,7 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     name="type: ghost"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -81,14 +57,7 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     name="type: dashed"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -105,14 +74,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="size: sm"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -124,14 +86,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="size: md"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -143,14 +98,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="size: lg"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -162,14 +110,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="type: xl"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -186,14 +127,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -205,14 +139,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype in danger"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -224,14 +151,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype: trash"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -243,14 +163,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype: loading"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -262,14 +175,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype: loading with label"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -281,14 +187,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="icontype: loading with custom loading message"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -300,14 +199,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="iconetype: trash danger"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -324,14 +216,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="rightSideIcon"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -343,14 +228,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="rightSideIcon: trash danger"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -365,14 +243,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="with dropdown"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -384,14 +255,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="with dropdown : multiple choices"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -408,14 +272,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="circularButton"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -427,14 +284,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="circularButton: trash danger"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -446,14 +296,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="circularButton: trash ghost"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -465,14 +308,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     name="circularButton: loading state"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -491,14 +327,7 @@ E 6 outras propriedades adicionais.
     name="label: name button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -515,14 +344,7 @@ E 6 outras propriedades adicionais.
     name="danger in primary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -534,14 +356,7 @@ E 6 outras propriedades adicionais.
     name="danger in secondary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -553,14 +368,7 @@ E 6 outras propriedades adicionais.
     name="danger in ghost button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -572,14 +380,7 @@ E 6 outras propriedades adicionais.
     name="danger in dashed button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -596,14 +397,7 @@ E 6 outras propriedades adicionais.
     name="expand: true"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -620,14 +414,7 @@ E 6 outras propriedades adicionais.
     name="disabled in primary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -639,14 +426,7 @@ E 6 outras propriedades adicionais.
     name="disabled in secondary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -658,14 +438,7 @@ E 6 outras propriedades adicionais.
     name="disabled in ghost button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -677,14 +450,7 @@ E 6 outras propriedades adicionais.
     name="disabled in dashed button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -701,14 +467,7 @@ E 6 outras propriedades adicionais.
     name="Loading in primary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -720,14 +479,7 @@ E 6 outras propriedades adicionais.
     name="Loading in secondary button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -739,14 +491,7 @@ E 6 outras propriedades adicionais.
     name="Loading in ghost button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -758,14 +503,7 @@ E 6 outras propriedades adicionais.
     name="Loading in dashed button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -777,14 +515,7 @@ E 6 outras propriedades adicionais.
     name="Loading in primary danger"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -796,14 +527,7 @@ E 6 outras propriedades adicionais.
     name="Loading in primary disabled button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -815,14 +539,7 @@ E 6 outras propriedades adicionais.
     name="Loading in secondary disabled button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -834,14 +551,7 @@ E 6 outras propriedades adicionais.
     name="Loading in ghost disabled button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -853,14 +563,7 @@ E 6 outras propriedades adicionais.
     name="Loading in dashed disabled button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -872,14 +575,7 @@ E 6 outras propriedades adicionais.
     name="Loading in secondary danger disabled button"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -891,14 +587,7 @@ E 6 outras propriedades adicionais.
     name="Loading with custom message"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -915,14 +604,7 @@ E 6 outras propriedades adicionais.
     name="ionOnClick"
     decorators={[
       moduleMetadata({
-        declarations: [
-          IonButtonComponent,
-          IonIconComponent,
-          IonDropdownComponent,
-          IonBadgeComponent,
-          IonInputComponent,
-        ],
-        imports: [CommonModule, FormsModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >

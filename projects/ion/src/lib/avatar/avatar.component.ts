@@ -1,15 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AvatarType } from '../core/types/avatar';
 import { SizeType } from '../core/types/size';
-import { IconType } from '../icon/icon.component';
-
-export interface IonAvatarProps {
-  type: AvatarType;
-  size: SizeType;
-  value?: string;
-  image?: string;
-  onErrorImage?: string;
-}
+import { IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-avatar',

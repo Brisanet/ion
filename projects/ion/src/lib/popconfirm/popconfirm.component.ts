@@ -1,14 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { StatusType } from '../core/types';
-
-export interface PopConfirmProps {
-  ionPopConfirmTitle: string;
-  ionPopConfirmType?: StatusType;
-  ionPopConfirmDesc?: string;
-  ionConfirmText?: string;
-  ionCancelText?: string;
-}
+import { PopConfirmProps } from '../core/types/popconfirm';
 
 @Component({
   selector: 'ion-popconfirm',

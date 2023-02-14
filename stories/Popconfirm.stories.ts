@@ -1,15 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 import {
-  IonAlertComponent,
-  IonBadgeComponent,
-  IonButtonComponent,
-  IonDropdownComponent,
-  IonDividerComponent,
-  IonIconComponent,
+  IonSharedModule,
+  IonAlertModule,
+  IonDividerModule,
 } from '../projects/ion/src/public-api';
 
 export default {
@@ -23,16 +19,13 @@ const Template: Story<IonPopConfirmComponent> = (
   component: IonPopConfirmComponent,
   props: args,
   moduleMetadata: {
-    declarations: [
-      IonDividerComponent,
-      IonButtonComponent,
-      IonIconComponent,
-      IonBadgeComponent,
-      IonDropdownComponent,
-      IonAlertComponent,
-      IonInputComponent,
+    imports: [
+      CommonModule,
+      FormsModule,
+      IonSharedModule,
+      IonAlertModule,
+      IonDividerModule,
     ],
-    imports: [CommonModule, FormsModule],
   },
 });
 

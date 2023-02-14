@@ -1,16 +1,16 @@
-import { IonCheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonTagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
-import { IonPaginationComponent } from '../pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
 import {
   IonSmartTableProps,
   IonSmartTableComponent,
 } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { ButtonModule } from '../button/button.module';
-import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonTagModule } from '../tag/tag.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonButtonModule } from '../button/button.module';
+import { IonIconModule } from '../icon/icon.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -76,17 +76,18 @@ const sut = async (
 ): Promise<SafeAny> => {
   await render(IonSmartTableComponent, {
     componentProperties: customProps,
-    declarations: [
-      IonTagComponent,
-      IonCheckboxComponent,
-      IonPaginationComponent,
-      PopConfirmDirective,
+    imports: [
+      IonCheckboxModule,
+      IonTagModule,
+      IonPopConfirmModule,
+      IonButtonModule,
+      IonIconModule,
+      IonPaginationModule,
     ],
-    imports: [FormsModule, ButtonModule],
   });
 };
 
-describe('IonTableComponent', () => {
+describe('IonSmartTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });

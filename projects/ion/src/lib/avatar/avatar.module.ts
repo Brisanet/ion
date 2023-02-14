@@ -1,12 +1,12 @@
 import { IonAvatarComponent } from './avatar.component';
-import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DefaultImageDirective } from '../defaultImage.directive';
+import { IonIconModule } from '../icon/icon.module';
 
 @NgModule({
-  declarations: [IonAvatarComponent, IonIconComponent, DefaultImageDirective],
-  imports: [CommonModule],
-  exports: [IonAvatarComponent, IonIconComponent],
+  declarations: [IonAvatarComponent, DefaultImageDirective],
+  imports: [CommonModule, IonIconModule],
+  exports: [IonAvatarComponent, DefaultImageDirective],
 })
-export class AvatarModule {}
+export class IonAvatarModule {}

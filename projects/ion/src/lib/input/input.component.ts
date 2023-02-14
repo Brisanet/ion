@@ -1,27 +1,6 @@
-import { SafeAny } from './../utils/safe-any';
-import { IconType } from './../icon/icon.component';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-export type IconDirection = 'left' | 'right';
-export type InputType = 'text' | 'password';
-
-export interface IonInputProps {
-  placeholder?: string;
-  button?: string;
-  iconInput?: string;
-  disabled?: boolean;
-  iconDirection?: IconDirection;
-  valid?: boolean;
-  invalid?: boolean;
-  inputButton?: boolean;
-  inputIconButton?: boolean;
-  clickButton?: EventEmitter<SafeAny>;
-  value?: string;
-  clearButton?: boolean;
-  inputType?: InputType;
-  valueChange?: EventEmitter<string>;
-  maxLength?: string | number | null;
-}
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { IconDirection, IconType } from '../core/types/icon';
+import { InputType } from '../core/types/input';
 
 @Component({
   selector: 'ion-input',

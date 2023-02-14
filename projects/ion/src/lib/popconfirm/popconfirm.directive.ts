@@ -23,7 +23,7 @@ export interface PopPosition {
 @Directive({
   selector: '[ionPopConfirm]',
 })
-export class PopConfirmDirective {
+export class IonPopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
   @Output() ionOnConfirm = new EventEmitter<void>();

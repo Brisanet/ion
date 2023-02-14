@@ -9,13 +9,13 @@ import {
   IonTooltipComponent,
   TooltipProps,
 } from '../projects/ion/src/lib/tooltip/tooltip.component';
-import { TooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
+import { IonTooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
 
 export default {
   title: 'Ion/Data Display/Tooltip',
   decorators: [
     moduleMetadata({
-      declarations: [TooltipDirective, IonTooltipComponent],
+      declarations: [IonTooltipDirective, IonTooltipComponent],
       imports: [CommonModule],
       entryComponents: [IonTooltipComponent],
     }),

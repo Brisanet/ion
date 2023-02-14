@@ -6,10 +6,8 @@ import {
   screen,
   fireEvent,
 } from '@testing-library/angular';
-import { ButtonModule } from '../button/button.module';
 import { IonIndicatorProps } from '../core/types';
 import { IonModalComponent } from '../modal/component/modal.component';
-import { TooltipModule } from '../tooltip/tooltip.module';
 import { BodyMockComponent } from './../card/mock/body-mock.component';
 import { IonIndicatorComponent } from './indicator.component';
 import {
@@ -17,6 +15,9 @@ import {
   buttonModalConfig,
   buttonRedirectConfig,
 } from './mocks/indicator-button-config';
+import { IonButtonModule } from '../button/button.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonIconModule } from '../icon/icon.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -27,7 +28,13 @@ const sut = async (
   props?: IonIndicatorProps
 ): Promise<RenderResult<IonIndicatorComponent>> => {
   return await render(IonIndicatorComponent, {
-    imports: [CommonModule, ButtonModule, TooltipModule, EntryComponentModule],
+    imports: [
+      CommonModule,
+      IonButtonModule,
+      IonIconModule,
+      IonTooltipModule,
+      EntryComponentModule,
+    ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
   });

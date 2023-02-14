@@ -7,22 +7,10 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { StatusType } from '../core/types';
-import { IconType } from '../icon/icon.component';
-import { fadeInDirection, fadeOutDirection } from '../utils/animationsTypes';
 import { Subscription } from 'rxjs';
+import { IconType } from '../core/types/icon';
+import { NotificationProps } from '../core/types/notification';
 import { setTimer } from '../utils/setTimer';
-
-export interface NotificationProps {
-  title: string;
-  message: string;
-  type?: StatusType;
-  icon?: IconType;
-  fixed?: boolean;
-  fadeIn?: fadeInDirection;
-  fadeOut?: fadeOutDirection;
-  ionOnClose?: EventEmitter<void>;
-}
 
 @Component({
   selector: 'ion-notification',

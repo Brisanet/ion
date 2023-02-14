@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Navigation/Pagination',
@@ -17,7 +17,7 @@ const Template: Story<IonPaginationComponent> = (
   props: { ...args, events: action('selected') },
   moduleMetadata: {
     declarations: [],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [CommonModule, FormsModule, IonButtonModule],
   },
 });
 

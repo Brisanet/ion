@@ -1,20 +1,13 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonInfoBadgeComponent } from '../info-badge/info-badge.component';
-import { IonBadgeComponent } from './../badge/badge.component';
-import { IonDropdownComponent } from './../dropdown/dropdown.component';
-import { IonIconComponent } from './../icon/icon.component';
-import { IonButtonComponent } from '../button/button.component';
+import { IonBadgeModule } from '../badge/badge.module';
+import { IconDirection, InfoBadgeStatus } from '../core/types';
+import { ChipSize, IonChipProps } from '../core/types/chip';
+import { IonDropdownModule } from '../dropdown/dropdown.module';
+import { IonIconModule } from '../icon/icon.module';
+import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonChipComponent,
-  IonChipProps,
-  ChipSize,
-  IconDirection,
-} from './chip.component';
-import { InfoBadgeStatus } from '../core/types';
-import { FormsModule } from '@angular/forms';
-import { IonInputComponent } from '../input/input.component';
+import { IonChipComponent } from './chip.component';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -23,15 +16,12 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [
-      IonBadgeComponent,
-      IonInfoBadgeComponent,
-      IonIconComponent,
-      IonDropdownComponent,
-      IonInputComponent,
-      IonButtonComponent,
+    imports: [
+      IonBadgeModule,
+      IonIconModule,
+      IonDropdownModule,
+      IonInfoBadgeModule,
     ],
-    imports: [FormsModule],
   });
 };
 

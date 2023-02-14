@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 
-export interface TooltipProps {
-  ionTooltipTitle: string;
-  ionTooltipColorScheme?: TooltipColorScheme;
-  ionTooltipPosition?: TooltipPosition;
-}
-
 @Component({
   selector: 'ion-tooltip',
   templateUrl: './tooltip.component.html',

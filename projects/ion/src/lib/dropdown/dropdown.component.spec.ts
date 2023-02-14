@@ -1,12 +1,11 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonBadgeComponent } from '../badge/badge.component';
-import { IonButtonComponent } from '../button/button.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { IonInputComponent, IonInputProps } from '../input/input.component';
 import { SafeAny } from '../utils/safe-any';
-import { IonDropdownComponent, DropdownParams } from './dropdown.component';
+import { IonDropdownComponent } from './dropdown.component';
+import { IonSharedModule } from '../shared.module';
+import { DropdownParams } from '../core/types/dropdown';
+import { IonInputProps } from '../core/types/input';
 
 const options = [];
 const inputElement = 'input-element';
@@ -36,13 +35,8 @@ const sut = async (
 }> => {
   await render(IonDropdownComponent, {
     componentProperties: customParams,
-    declarations: [
-      IonButtonComponent,
-      IonIconComponent,
-      IonBadgeComponent,
-      IonInputComponent,
-    ],
-    imports: [FormsModule],
+    excludeComponentDeclaration: true,
+    imports: [FormsModule, IonSharedModule],
   });
   return { element: screen.getByTestId('ion-dropdown') };
 };

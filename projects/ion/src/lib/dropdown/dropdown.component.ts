@@ -5,24 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { IonInputProps } from '../input/input.component';
-
-export interface DropdownItem {
-  label: string;
-  key?: string;
-  selected?: boolean;
-  disabled?: boolean;
-  hovered?: boolean;
-}
-
-export interface DropdownParams {
-  options: DropdownItem[];
-  selected: EventEmitter<DropdownItem[]>;
-  multiple?: boolean;
-  enableSearch?: boolean;
-  searchOptions?: IonInputProps;
-  searchChange?: EventEmitter<string>;
-}
+import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-dropdown',

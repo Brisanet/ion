@@ -1,22 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { IconType } from '../icon/icon.component';
-
-export type TabSize = 'sm' | 'md' | 'lg';
-type Direction = 'bottom' | 'top' | 'right' | 'left';
-
-interface BadgeOptions {
-  value: number;
-}
-
-export interface IonTabProps {
-  label: string;
-  tabSize?: TabSize;
-  disabled?: boolean;
-  selected?: boolean;
-  direction?: Direction;
-  iconType?: IconType;
-  badge?: BadgeOptions;
-}
+import { IconType } from '../core/types/icon';
+import { IonTabProps } from '../core/types/tab';
 
 @Component({
   selector: 'ion-tab',
@@ -25,12 +9,12 @@ export interface IonTabProps {
 })
 export class IonTabComponent {
   @Input() label!: string;
-  @Input() tabSize?: TabSize = 'sm';
+  @Input() tabSize?: IonTabProps['tabSize'] = 'sm';
   @Input() disabled?: boolean;
   @Input() selected?: boolean;
-  @Input() direction?: Direction = 'bottom';
+  @Input() direction?: IonTabProps['direction'] = 'bottom';
   @Input() iconType?: IconType;
-  @Input() badge?: BadgeOptions;
+  @Input() badge?: IonTabProps['badge'];
 
   select(): void {
     this.selected = true;

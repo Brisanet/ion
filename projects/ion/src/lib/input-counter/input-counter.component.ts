@@ -1,10 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-export type InputCountSize = 'sm' | 'md';
-
-export interface IonInputCount {
-  InputSize: InputCountSize;
-}
+import { IonInputCount } from '../core/types';
 
 @Component({
   selector: 'ion-input-counter',
@@ -12,7 +7,7 @@ export interface IonInputCount {
   styleUrls: ['./input-counter.component.scss'],
 })
 export class IonInputCounterComponent {
-  @Input() InputSize = 'md';
+  @Input() inputSize: IonInputCount['inputSize'] = 'md';
   @Input() count = 0;
   @Output() changedValue = new EventEmitter();
 

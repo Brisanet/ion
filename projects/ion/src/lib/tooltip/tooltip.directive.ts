@@ -22,7 +22,7 @@ import { getPositions } from './utilsTooltip';
 @Directive({
   selector: '[ionTooltip]',
 })
-export class TooltipDirective implements OnDestroy {
+export class IonTooltipDirective implements OnDestroy {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;

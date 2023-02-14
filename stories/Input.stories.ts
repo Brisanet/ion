@@ -1,17 +1,16 @@
 import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { FormsModule } from '@angular/forms';
 import { action } from '@storybook/addon-actions';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Entry/Input',
   component: IonInputComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
-      declarations: [IonIconComponent],
+      imports: [FormsModule, IonSharedModule],
     }),
   ],
 } as Meta;

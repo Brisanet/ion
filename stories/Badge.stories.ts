@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Badge',
@@ -12,8 +12,7 @@ const Template: Story<IonBadgeComponent> = (args: IonBadgeComponent) => ({
   component: IonBadgeComponent,
   props: args,
   moduleMetadata: {
-    declarations: [IonIconComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, IonSharedModule],
   },
 });
 

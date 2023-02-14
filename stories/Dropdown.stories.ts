@@ -1,12 +1,9 @@
-import { IonButtonComponent } from './../projects/ion/src/lib/button/button.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { FormsModule } from '@angular/forms';
-import { IonBadgeComponent } from '../projects/ion/src/public-api';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Dropdown',
@@ -21,13 +18,7 @@ const Template: Story<IonDropdownComponent> = (args: IonDropdownComponent) => ({
     searchChange: action('searchChange'),
   },
   moduleMetadata: {
-    declarations: [
-      IonIconComponent,
-      IonInputComponent,
-      IonButtonComponent,
-      IonBadgeComponent,
-    ],
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, IonSharedModule],
   },
 });
 

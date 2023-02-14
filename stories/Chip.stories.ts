@@ -1,28 +1,18 @@
-import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
-import { IonButtonComponent } from '../projects/ion/src/public-api';
-import { IonBadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
+import {
+  IonSharedModule,
+  IonInfoBadgeModule,
+} from '../projects/ion/src/public-api';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
 import { IonChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { IonInfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
 import { FormsModule } from '@angular/forms';
-import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
   title: 'Ion/Navigation/Chips',
   component: IonChipComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
-      declarations: [
-        IonBadgeComponent,
-        IonInfoBadgeComponent,
-        IonIconComponent,
-        IonDropdownComponent,
-        IonInputComponent,
-        IonButtonComponent,
-      ],
+      imports: [FormsModule, IonSharedModule, IonInfoBadgeModule],
     }),
   ],
 } as Meta;

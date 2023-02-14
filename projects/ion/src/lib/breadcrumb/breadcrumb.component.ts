@@ -1,9 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-export interface BreadcrumbItem {
-  label: string;
-  link: string;
-}
+import { BreadcrumbItem } from '../core/types/breadcrumb';
 
 @Component({
   selector: 'ion-breadcrumb',

@@ -3,12 +3,11 @@ import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonSimpleMenuComponent } from '../projects/ion/src/lib/simple-menu/simple-menu.component';
 import {
-  IonAvatarComponent,
-  IonTabComponent,
-  IonTabGroupComponent,
+  IonAvatarModule,
+  IonTabGroupModule,
+  IonIconModule,
+  IonButtonModule,
 } from '../projects/ion/src/public-api';
-import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Display/SimpleMenu',
@@ -25,13 +24,13 @@ const Template: Story<IonSimpleMenuComponent> = (
     logoutClick: action('logoutClick'),
   },
   moduleMetadata: {
-    declarations: [
-      IonTabGroupComponent,
-      IonTabComponent,
-      IonAvatarComponent,
-      DefaultImageDirective,
+    imports: [
+      CommonModule,
+      IonIconModule,
+      IonButtonModule,
+      IonAvatarModule,
+      IonTabGroupModule,
     ],
-    imports: [CommonModule, ButtonModule],
   },
 });
 

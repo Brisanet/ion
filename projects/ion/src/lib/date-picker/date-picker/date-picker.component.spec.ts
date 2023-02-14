@@ -1,14 +1,14 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonModule } from '../../button/button.module';
-import { IonDividerComponent } from '../../divider/divider.component';
 import { SafeAny } from '../../utils/safe-any';
 import { Calendar } from '../core/calendar';
-
 import {
   IonDatePickerComponent,
   IonDatePickerProps,
 } from './date-picker.component';
+import { IonDividerModule } from '../../divider/divider.module';
+import { IonButtonModule } from '../../button/button.module';
+import { IonIconModule } from '../../icon/icon.module';
 
 const events = jest.fn();
 
@@ -24,8 +24,7 @@ const sut = async (
 ): Promise<void> => {
   await render(IonDatePickerComponent, {
     componentProperties: customProps,
-    declarations: [IonDividerComponent],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonButtonModule, IonIconModule, IonDividerModule],
   });
 };
 

@@ -1,36 +1,11 @@
-import { BadgeProps } from './../badge/badge.component';
-import { DropdownItem } from './../dropdown/dropdown.component';
-
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { ButtonIconSizeOptions } from '../core/types/button';
-
-import { IconType } from '../icon/icon.component';
-import { SafeAny } from '../utils/safe-any';
-
-type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
-type Size = 'sm' | 'md' | 'lg' | 'xl';
-
-export interface IonButtonProps {
-  label?: string;
-  tooltip?: string;
-  type?: Type;
-  size?: Size;
-  expand?: boolean;
-  danger?: boolean;
-  disabled?: boolean;
-  loading?: boolean;
-  loadingMessage?: string;
-  multiple?: boolean;
-  iconType?: IconType;
-  rightSideIcon?: boolean;
-  options?: DropdownItem[];
-  showDropdown?: boolean;
-  circularButton?: boolean;
-  selected?: EventEmitter<SafeAny>;
-  ionOnClick?: EventEmitter<SafeAny>;
-}
-
-type ButtonBadgeTypes = Pick<BadgeProps, 'type' | 'value'>;
+import {
+  ButtonIconSizeOptions,
+  Type,
+  Size,
+  ButtonBadgeTypes,
+} from '../core/types/button';
+import { DropdownItem } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-button',

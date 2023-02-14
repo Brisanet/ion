@@ -6,28 +6,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DropdownItem } from './../dropdown/dropdown.component';
-
-interface Page {
-  page_number: number;
-  selected: boolean;
-}
-
-export interface PageEvent {
-  actual: number;
-  itemsPerPage: number;
-  offset: number;
-}
-
-export interface IonPaginationProps {
-  total: number;
-  itemsPerPage?: number;
-  size?: string;
-  events?: EventEmitter<PageEvent>;
-  allowChangeQtdItems?: boolean;
-  loading?: boolean;
-  page?: number;
-}
+import { DropdownItem } from '../core/types/dropdown';
+import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
 
