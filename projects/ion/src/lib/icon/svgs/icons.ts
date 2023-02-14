@@ -43,6 +43,7 @@ import {
   refresh,
   right2,
   right3,
+  rota,
   sandwich,
   search,
   semiDown,
@@ -66,6 +67,7 @@ import {
   arrowsLeftRight,
   download,
   upload,
+  stb,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -108,6 +110,7 @@ export const iconsPaths: Record<string, string> = {
   refresh,
   right2,
   right3,
+  rota,
   sandwich,
   search,
   'semi-down': semiDown,
@@ -118,6 +121,7 @@ export const iconsPaths: Record<string, string> = {
   'sort-asc': sortAsc,
   'sort-desc': sortDesc,
   'star-solid': starSolid,
+  stb,
   technical,
   trash,
   union,

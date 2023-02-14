@@ -1,33 +1,24 @@
-import { ButtonComponent } from './../projects/ion/src/lib/button/button.component';
 import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { IonDropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
-import { BadgeComponent } from '../projects/ion/src/public-api';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Dropdown',
-  component: DropdownComponent,
+  component: IonDropdownComponent,
 } as Meta;
 
-const Template: Story<DropdownComponent> = (args: DropdownComponent) => ({
-  component: DropdownComponent,
+const Template: Story<IonDropdownComponent> = (args: IonDropdownComponent) => ({
+  component: IonDropdownComponent,
   props: {
     ...args,
     selected: action('selected'),
     searchChange: action('searchChange'),
   },
   moduleMetadata: {
-    declarations: [
-      IonIconComponent,
-      InputComponent,
-      ButtonComponent,
-      BadgeComponent,
-    ],
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, IonSharedModule],
   },
 });
 
