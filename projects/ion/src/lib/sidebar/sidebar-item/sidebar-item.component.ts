@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IconType } from '../../icon/icon.component';
+import { IconType } from '../../core/types';
 
 @Component({
   selector: 'ion-sidebar-item',

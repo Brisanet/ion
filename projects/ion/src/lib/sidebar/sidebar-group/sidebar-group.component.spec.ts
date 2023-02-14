@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonIconComponent } from '../../icon/icon.component';
+import { IonIconModule } from '../../icon/icon.module';
 import { SidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { SidebarGroupComponent } from './sidebar-group.component';
 
@@ -39,7 +39,8 @@ const sut = async (
 ): Promise<void> => {
   await render(SidebarGroupComponent, {
     componentProperties: { ...props },
-    declarations: [IonIconComponent, SidebarItemComponent],
+    declarations: [SidebarItemComponent],
+    imports: [IonIconModule],
   });
 };
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconType } from '../../icon/icon.component';
+import { IconType } from '../../core/types';
 
 interface Item {
   title: string;
