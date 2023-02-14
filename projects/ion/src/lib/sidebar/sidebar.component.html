@@ -1,20 +1,23 @@
-<nav class="ion-sidebar">
-  <ion-sidebar-item
-    title="Configurações"
-    icon="config"
-    disabled="true"
-  ></ion-sidebar-item>
-  <ion-sidebar-item title="Usuários" icon="user"></ion-sidebar-item>
-  <ion-sidebar-item title="Agenda" icon="calendar"></ion-sidebar-item>
-  <ion-sidebar-item title="Serviços" icon="working"></ion-sidebar-item>
-  <ion-sidebar-group
-    title="Grupo"
-    icon="star-solid"
-    [items]="[
-      { title: 'Item 1', icon: 'pencil' },
-      { title: 'Item 2', icon: 'user' },
-      { title: 'Item 3', icon: 'trash' }
-    ]"
-  >
-  </ion-sidebar-group>
+<nav class="ion-sidebar" data-testid="ion-sidebar">
+  <ng-container *ngFor="let item of items; let i = index">
+    <ng-container *ngIf="!item.options">
+      <ion-sidebar-item
+        [title]="item.title"
+        [icon]="item.icon"
+        [selected]="item.selected"
+        [attr.data-testid]="'ion-sidebar__item-' + i"
+        (atClick)="itemSelected(i)"
+      ></ion-sidebar-item>
+    </ng-container>
+    <ng-container *ngIf="item.options">
+      <ion-sidebar-group
+        [attr.data-testid]="'ion-sidebar__group-' + i"
+        [title]="item.title"
+        [icon]="item.icon"
+        [selected]="item.selected"
+        [items]="item.options"
+        (atClick)="itemSelected(i)"
+      ></ion-sidebar-group>
+    </ng-container>
+  </ng-container>
 </nav>
