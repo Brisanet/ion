@@ -1,26 +1,26 @@
-import { InputComponent } from './../input/input.component';
-import { ButtonComponent } from './../button/button.component';
-import { DropdownComponent } from './dropdown.component';
+import { IonInputComponent } from './../input/input.component';
+import { IonButtonComponent } from './../button/button.component';
+import { IonDropdownComponent } from './dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 
 @NgModule({
   declarations: [
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
-    BadgeComponent,
-    InputComponent,
-    DropdownComponent,
+    IonBadgeComponent,
+    IonInputComponent,
+    IonDropdownComponent,
   ],
   exports: [
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
-    BadgeComponent,
-    InputComponent,
-    DropdownComponent,
+    IonBadgeComponent,
+    IonInputComponent,
+    IonDropdownComponent,
   ],
   imports: [CommonModule, FormsModule],
 })

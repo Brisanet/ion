@@ -29,7 +29,7 @@ export interface DropdownParams {
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements AfterViewInit {
+export class IonDropdownComponent implements AfterViewInit {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() enableSearch = false;

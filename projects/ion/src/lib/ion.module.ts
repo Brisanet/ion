@@ -1,119 +1,122 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AlertComponent } from './alert/alert.component';
-import { AvatarComponent } from './avatar/avatar.component';
-import { BadgeComponent } from './badge/badge.component';
-import { ButtonComponent } from './button/button.component';
-import { CardIonComponent } from './card/card.component';
-import { CheckboxComponent } from './checkbox/checkbox.component';
-import { ChipComponent } from './chip/chip.component';
-import { ColComponent } from './col/col.component';
-import { DatePickerComponent } from './date-picker/date-picker/date-picker.component';
+import { IonAlertComponent } from './alert/alert.component';
+import { IonAvatarComponent } from './avatar/avatar.component';
+import { IonBadgeComponent } from './badge/badge.component';
+import { IonBreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { IonButtonComponent } from './button/button.component';
+import { IonCardComponent } from './card/card.component';
+import { IonCheckboxComponent } from './checkbox/checkbox.component';
+import { IonChipComponent } from './chip/chip.component';
+import { IonColComponent } from './col/col.component';
+import { IonDatePickerComponent } from './date-picker/date-picker/date-picker.component';
 import { DefaultImageDirective } from './defaultImage.directive';
 import { IonDividerComponent } from './divider/divider.component';
-import { DropdownComponent } from './dropdown/dropdown.component';
+import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
+import { IonInfoBadgeComponent } from './info-badge/info-badge.component';
+import { IonInputCounterComponent } from './input-counter/input-counter.component';
+import { IonInputComponent } from './input/input.component';
 import { IonIndicatorComponent } from './indicator/indicator.component';
-import { InfoBadgeComponent } from './info-badge/info-badge.component';
-import { InputCounterComponent } from './input-counter/input-counter.component';
-import { InputComponent } from './input/input.component';
 import { IonComponent } from './ion.component';
-import { MessageComponent } from './message/message.component';
+import { IonMessageComponent } from './message/message.component';
 import { IonModalComponent } from './modal/component/modal.component';
 import { IonModalService } from './modal/modal.service';
-import { NotificationComponent } from './notification/notification.component';
-import { PaginationComponent } from './pagination/pagination.component';
-import { PopConfirmComponent } from './popconfirm/popconfirm.component';
+import { IonNotificationComponent } from './notification/notification.component';
+import { IonPaginationComponent } from './pagination/pagination.component';
+import { IonPopConfirmComponent } from './popconfirm/popconfirm.component';
 import { PopConfirmDirective } from './popconfirm/popconfirm.directive';
-import { RadioComponent } from './radio/radio.component';
-import { RowComponent } from './row/row.component';
-import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
-import { SmartTableComponent } from './smart-table/smart-table.component';
-import { SwitchComponent } from './switch/switch.component';
-import { TabGroupComponent } from './tab-group/tab-group.component';
-import { TabComponent } from './tab/tab.component';
-import { TableComponent } from './table/table.component';
-import { TagComponent } from './tag/tag.component';
+import { IonRadioComponent } from './radio/radio.component';
+import { IonRowComponent } from './row/row.component';
+import { IonSimpleMenuComponent } from './simple-menu/simple-menu.component';
+import { IonSmartTableComponent } from './smart-table/smart-table.component';
+import { IonSwitchComponent } from './switch/switch.component';
+import { IonTabGroupComponent } from './tab-group/tab-group.component';
+import { IonTabComponent } from './tab/tab.component';
+import { IonTableComponent } from './table/table.component';
+import { IonTagComponent } from './tag/tag.component';
 import { TooltipModule } from './tooltip/tooltip.module';
-import { HeadingComponent } from './typography/heading/heading.component';
+import { IonHeadingComponent } from './typography/heading/heading.component';
 
 @NgModule({
   declarations: [
     IonComponent,
-    ButtonComponent,
+    IonButtonComponent,
     IonIconComponent,
-    ChipComponent,
-    TabComponent,
+    IonChipComponent,
+    IonTabComponent,
     PopConfirmDirective,
-    RadioComponent,
-    TabGroupComponent,
+    IonRadioComponent,
+    IonTabGroupComponent,
     IonDividerComponent,
-    HeadingComponent,
-    AlertComponent,
-    MessageComponent,
-    NotificationComponent,
-    HeadingComponent,
-    AvatarComponent,
+    IonHeadingComponent,
+    IonAlertComponent,
+    IonMessageComponent,
+    IonNotificationComponent,
+    IonHeadingComponent,
+    IonAvatarComponent,
     DefaultImageDirective,
-    BadgeComponent,
-    TagComponent,
-    DropdownComponent,
-    RowComponent,
-    ColComponent,
-    CheckboxComponent,
-    CardIonComponent,
-    InputCounterComponent,
-    DatePickerComponent,
-    InfoBadgeComponent,
-    SimpleMenuComponent,
+    IonBadgeComponent,
+    IonTagComponent,
+    IonDropdownComponent,
+    IonRowComponent,
+    IonColComponent,
+    IonCheckboxComponent,
+    IonCardComponent,
+    IonInputCounterComponent,
+    IonDatePickerComponent,
+    IonInfoBadgeComponent,
+    IonSimpleMenuComponent,
     IonModalComponent,
-    PaginationComponent,
-    PopConfirmComponent,
-    SmartTableComponent,
-    SwitchComponent,
-    TableComponent,
-    InputComponent,
+    IonPaginationComponent,
+    IonPopConfirmComponent,
+    IonSmartTableComponent,
+    IonSwitchComponent,
+    IonTableComponent,
+    IonInputComponent,
+    IonBreadcrumbComponent,
     IonIndicatorComponent,
   ],
   providers: [IonModalService],
   imports: [CommonModule, FormsModule, TooltipModule],
   exports: [
     IonComponent,
-    ButtonComponent,
-    BadgeComponent,
+    IonButtonComponent,
+    IonBadgeComponent,
     IonIconComponent,
-    ChipComponent,
-    TabComponent,
-    RadioComponent,
-    TabGroupComponent,
+    IonChipComponent,
+    IonTabComponent,
+    IonRadioComponent,
+    IonTabGroupComponent,
     IonDividerComponent,
-    HeadingComponent,
-    TagComponent,
-    DropdownComponent,
-    AlertComponent,
-    MessageComponent,
-    NotificationComponent,
-    AvatarComponent,
-    RowComponent,
-    ColComponent,
-    CheckboxComponent,
-    CardIonComponent,
-    DatePickerComponent,
-    SimpleMenuComponent,
-    InfoBadgeComponent,
-    SimpleMenuComponent,
+    IonHeadingComponent,
+    IonTagComponent,
+    IonDropdownComponent,
+    IonAlertComponent,
+    IonMessageComponent,
+    IonNotificationComponent,
+    IonAvatarComponent,
+    IonRowComponent,
+    IonColComponent,
+    IonCheckboxComponent,
+    IonCardComponent,
+    IonDatePickerComponent,
+    IonSimpleMenuComponent,
+    IonInfoBadgeComponent,
+    IonSimpleMenuComponent,
     IonModalComponent,
-    PaginationComponent,
-    PopConfirmComponent,
-    SmartTableComponent,
-    TableComponent,
-    InputCounterComponent,
-    InputComponent,
-    SwitchComponent,
+    IonPaginationComponent,
+    IonPopConfirmComponent,
+    IonSmartTableComponent,
+    IonTableComponent,
+    IonInputCounterComponent,
+    IonInputComponent,
+    IonSwitchComponent,
+    IonBreadcrumbComponent,
     TooltipModule,
     IonIndicatorComponent,
   ],
-  entryComponents: [PopConfirmComponent],
+  entryComponents: [IonPopConfirmComponent],
 })
 export class IonModule {}

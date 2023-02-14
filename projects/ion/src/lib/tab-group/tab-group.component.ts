@@ -19,7 +19,7 @@ export interface TabGroupProps {
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.scss'],
 })
-export class TabGroupComponent implements OnInit {
+export class IonTabGroupComponent implements OnInit {
   @Input() tabs: TabInGroup[];
   @Input() direction: DirectionType = 'horizontal';
   @Input() border: BorderDirectionType;

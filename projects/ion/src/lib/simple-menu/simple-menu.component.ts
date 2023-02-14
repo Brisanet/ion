@@ -18,7 +18,7 @@ export interface SimpleMenuProps {
   templateUrl: './simple-menu.component.html',
   styleUrls: ['./simple-menu.component.scss'],
 })
-export class SimpleMenuComponent {
+export class IonSimpleMenuComponent {
   @Input() options: SimpleMenuProps['options'];
   @Input() profile: SimpleMenuProps['profile'];
 

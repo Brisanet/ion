@@ -21,7 +21,7 @@ export type HeadingSize = 'small' | 'medium' | 'normal';
   templateUrl: './heading.component.html',
   styleUrls: ['./heading.component.scss'],
 })
-export class HeadingComponent implements AfterViewInit {
+export class IonHeadingComponent implements AfterViewInit {
   @Input() text: string;
   @Input() type: HeadingType;
   @Input() weight?: HeadingWeight = 'medium';

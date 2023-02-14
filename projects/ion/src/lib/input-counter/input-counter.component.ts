@@ -11,7 +11,7 @@ export interface IonInputCount {
   templateUrl: './input-counter.component.html',
   styleUrls: ['./input-counter.component.scss'],
 })
-export class InputCounterComponent {
+export class IonInputCounterComponent {
   @Input() InputSize = 'md';
   @Input() count = 0;
   @Output() changedValue = new EventEmitter();

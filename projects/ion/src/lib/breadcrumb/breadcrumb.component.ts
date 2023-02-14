@@ -10,6 +10,6 @@ export interface BreadcrumbItem {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })
-export class BreadcrumbComponent {
+export class IonBreadcrumbComponent {
   @Input() breadcrumbs: Array<BreadcrumbItem>;
 }

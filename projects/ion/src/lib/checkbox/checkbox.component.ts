@@ -37,7 +37,7 @@ const stateChange = {
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })
-export class CheckboxComponent implements OnInit, OnChanges {
+export class IonCheckboxComponent implements OnInit, OnChanges {
   @Input() label?: string;
   @Input() state: CheckBoxStates = 'enabled';
   @Input() disabled = false;

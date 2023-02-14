@@ -1,9 +1,9 @@
-import { CheckboxComponent } from './../checkbox/checkbox.component';
+import { IonCheckboxComponent } from './../checkbox/checkbox.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { TagComponent } from '../tag/tag.component';
+import { IonTagComponent } from '../tag/tag.component';
 import { SafeAny } from '../utils/safe-any';
-import { IonTableProps, TableComponent } from './table.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { IonTableProps, IonTableComponent } from './table.component';
+import { IonPaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ActionTable, Column, ColumnType } from './utilsTable';
 import { ButtonModule } from '../button/button.module';
@@ -62,19 +62,19 @@ const defaultProps: IonTableProps<Disco> = {
 const sut = async (
   customProps: IonTableProps<Disco> = defaultProps
 ): Promise<SafeAny> => {
-  await render(TableComponent, {
+  await render(IonTableComponent, {
     componentProperties: customProps,
     declarations: [
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
+      IonTagComponent,
+      IonCheckboxComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
     ],
     imports: [FormsModule, ButtonModule],
   });
 };
 
-describe('TableComponent', () => {
+describe('IonTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });

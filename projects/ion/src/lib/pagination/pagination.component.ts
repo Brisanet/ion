@@ -36,7 +36,7 @@ export const ITEMS_PER_PAGE_DEFAULT = 10;
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnChanges {
+export class IonPaginationComponent implements OnChanges {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;

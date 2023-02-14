@@ -1,37 +1,37 @@
-import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
+import { IonCheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { TableComponent } from '../projects/ion/src/lib/table/table.component';
+import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
-  AlertComponent,
+  IonAlertComponent,
   IonDividerComponent,
   PopConfirmDirective,
-  TagComponent,
+  IonTagComponent,
 } from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonPopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/Table',
-  component: TableComponent,
+  component: IonTableComponent,
 } as Meta;
 
-const Template: Story<TableComponent> = (args: TableComponent) => ({
-  component: TableComponent,
+const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
+  component: IonTableComponent,
   props: args,
   moduleMetadata: {
-    entryComponents: [PopConfirmComponent],
+    entryComponents: [IonPopConfirmComponent],
     declarations: [
-      TableComponent,
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
+      IonTableComponent,
+      IonTagComponent,
+      IonCheckboxComponent,
+      IonPaginationComponent,
       PopConfirmDirective,
-      PopConfirmComponent,
-      AlertComponent,
+      IonPopConfirmComponent,
+      IonAlertComponent,
       IonDividerComponent,
     ],
     imports: [CommonModule, FormsModule, ButtonModule],

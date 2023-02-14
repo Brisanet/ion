@@ -28,7 +28,7 @@ export interface IonInputProps {
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class InputComponent {
+export class IonInputComponent {
   @Input() placeholder?: string;
   @Input() button = 'Button';
   @Input() iconInput: IconType;

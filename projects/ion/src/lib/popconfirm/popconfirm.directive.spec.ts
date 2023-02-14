@@ -8,16 +8,16 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { ButtonComponent } from './../button/button.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { IonButtonComponent } from './../button/button.component';
 import { IonIconComponent } from './../icon/icon.component';
 
-import { PopConfirmComponent } from './popconfirm.component';
+import { IonPopConfirmComponent } from './popconfirm.component';
 import { PopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
-import { InputComponent } from '../input/input.component';
+import { IonInputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
 
 const textButton = 'Teste';
@@ -69,18 +69,18 @@ describe('Directive: Popconfirm', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
+        IonBadgeComponent,
+        IonDropdownComponent,
+        IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
@@ -149,21 +149,21 @@ describe('Popconfirm host tests', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
+        IonBadgeComponent,
+        IonDropdownComponent,
+        IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
         PopConfirmDirective,
-        InputComponent,
+        IonInputComponent,
       ],
       imports: [FormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
@@ -196,11 +196,11 @@ describe('Popconfirm disabled host component', () => {
       providers: [PopConfirmDirective, ViewContainerRef],
       declarations: [
         ButtonTestDisabledComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
+        IonBadgeComponent,
+        IonDropdownComponent,
+        IonButtonComponent,
         IonIconComponent,
-        PopConfirmComponent,
+        IonPopConfirmComponent,
         IonDividerComponent,
         PopConfirmDirective,
       ],
@@ -208,7 +208,7 @@ describe('Popconfirm disabled host component', () => {
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ButtonTestDisabledComponent);

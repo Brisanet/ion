@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
 import {
   IonPaginationProps,
-  PaginationComponent,
+  IonPaginationComponent,
 } from './pagination.component';
 import { ButtonModule } from '../button/button.module';
 
@@ -19,14 +19,14 @@ const defaultComponent: IonPaginationProps = {
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
-  await render(PaginationComponent, {
+  await render(IonPaginationComponent, {
     componentProperties: customProps,
     declarations: [],
     imports: [FormsModule, ButtonModule],
   });
 };
 
-describe('PaginationComponent', () => {
+describe('IonPaginationComponent', () => {
   beforeEach(async () => {
     await sut();
   });
