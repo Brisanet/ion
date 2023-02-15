@@ -1,8 +1,8 @@
-import { IonIconComponent } from './../icon/icon.component';
+import { IonIconModule } from './../icon/icon.module';
 import { SafeAny } from './../utils/safe-any';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import {
-  BreadcrumbComponent,
+  IonBreadcrumbComponent,
   BreadcrumbItem,
   BreadcrumbProps,
 } from './breadcrumb.component';
@@ -27,12 +27,12 @@ const sut = async (
     },
   } as SafeAny
 ): Promise<void> => {
-  await render(BreadcrumbComponent, {
+  await render(IonBreadcrumbComponent, {
     componentProperties: {
       breadcrumbs: items,
       ...customProps,
     },
-    declarations: [IonIconComponent],
+    imports: [IonIconModule],
   });
 };
 

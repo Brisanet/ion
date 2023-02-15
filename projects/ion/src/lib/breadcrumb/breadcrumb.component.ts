@@ -15,7 +15,7 @@ export interface BreadcrumbProps {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })
-export class BreadcrumbComponent {
+export class IonBreadcrumbComponent {
   @Input() breadcrumbs: Array<BreadcrumbItem>;
   @Output() selectedBread = new EventEmitter<BreadcrumbItem>();
 

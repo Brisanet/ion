@@ -1,19 +1,21 @@
+import { IonIconModule } from './../projects/ion/src/lib/icon/icon.module';
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { IonIconComponent } from '../projects/ion/src/public-api';
-import { BreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
+import { IonBreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
 
 export default {
   title: 'Ion/Navigation/Breadcrumb',
-  component: BreadcrumbComponent,
+  component: IonBreadcrumbComponent,
 } as Meta;
 
-const Template: Story<BreadcrumbComponent> = (args: BreadcrumbComponent) => ({
-  component: BreadcrumbComponent,
+const Template: Story<IonBreadcrumbComponent> = (
+  args: IonBreadcrumbComponent
+) => ({
+  component: IonBreadcrumbComponent,
   props: args,
   moduleMetadata: {
-    declarations: [BreadcrumbComponent, IonIconComponent],
-    imports: [CommonModule],
+    declarations: [IonBreadcrumbComponent],
+    imports: [CommonModule, IonIconModule],
   },
 });
 

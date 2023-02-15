@@ -1,13 +1,13 @@
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { SwitchComponent } from '../projects/ion/src/lib/switch/switch.component';
+import { IonSwitchComponent } from '../projects/ion/src/lib/switch/switch.component';
 
 export default {
   title: 'Ion/Data Entry/Switch',
-  component: SwitchComponent,
+  component: IonSwitchComponent,
 } as Meta;
 
-const Template: Story<SwitchComponent> = (args: SwitchComponent) => ({
-  component: SwitchComponent,
+const Template: Story<IonSwitchComponent> = (args: IonSwitchComponent) => ({
+  component: IonSwitchComponent,
   props: args,
 });
 

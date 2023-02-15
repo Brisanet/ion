@@ -1,11 +1,11 @@
-import { InputAreaComponent } from './input-area.component';
+import { IonInputAreaComponent } from './input-area.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [InputAreaComponent],
+  declarations: [IonInputAreaComponent],
   imports: [CommonModule, FormsModule],
-  exports: [InputAreaComponent],
+  exports: [IonInputAreaComponent],
 })
-export class InputAreaModule {}
+export class IonInputAreaModule {}

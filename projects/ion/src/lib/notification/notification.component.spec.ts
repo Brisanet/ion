@@ -1,11 +1,9 @@
 import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { StatusType } from '../core/types';
-import { IonIconComponent } from '../icon/icon.component';
-import {
-  NotificationComponent,
-  NotificationProps,
-} from './notification.component';
+import { NotificationProps } from '../core/types/notification';
+import { IonIconModule } from '../icon/icon.module';
+import { IonNotificationComponent } from './notification.component';
 
 const defaultNotification = {
   title: 'Editado',
@@ -16,13 +14,13 @@ const defaultNotification = {
 const sut = async (
   customProps: NotificationProps = defaultNotification
 ): Promise<void> => {
-  await render(NotificationComponent, {
+  await render(IonNotificationComponent, {
     componentProperties: customProps,
-    declarations: [IonIconComponent],
+    imports: [IonIconModule],
   });
 };
 
-describe('NotificationComponent', () => {
+describe('IonNotificationComponent', () => {
   it('should show title', async () => {
     await sut();
     expect(screen.getByText(defaultNotification.title)).toBeInTheDocument();
