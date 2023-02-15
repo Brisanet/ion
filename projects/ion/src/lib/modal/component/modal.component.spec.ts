@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing'; // DO not forget to Import
 import { fireEvent, screen } from '@testing-library/angular';
-import { ButtonModule } from '../../button/button.module';
+import { IonButtonModule } from '../../button/button.module';
 import { SelectMockComponent } from '../mock/select-mock.component';
 import { IonModalConfiguration } from './../models/modal.interface';
 import { IonModalComponent } from './modal.component';
@@ -14,7 +14,7 @@ describe('IonModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [IonModalComponent, SelectMockComponent],
-      imports: [FormsModule, ButtonModule],
+      imports: [FormsModule, IonButtonModule],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {

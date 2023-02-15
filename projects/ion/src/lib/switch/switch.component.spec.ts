@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
-import { SwitchComponent } from './switch.component';
+import { IonSwitchComponent } from './switch.component';
 
 let ionSwitch: HTMLElement;
 
@@ -10,15 +10,15 @@ const emitValue = {
 } as SafeAny;
 
 const sut = async (
-  customProps: Partial<SwitchComponent> = {}
+  customProps: Partial<IonSwitchComponent> = {}
 ): Promise<HTMLElement> => {
-  await render(SwitchComponent, {
+  await render(IonSwitchComponent, {
     componentProperties: { ...customProps, atValueChange: emitValue },
   });
   return screen.getByTestId('ion-switch');
 };
 
-describe('SwitchComponent', () => {
+describe('IonSwitchComponent', () => {
   beforeEach(async () => {
     ionSwitch = await sut();
   });

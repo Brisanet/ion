@@ -1,23 +1,22 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { NotificationComponent } from '../projects/ion/src/lib/notification/notification.component';
+import { IonNotificationComponent } from '../projects/ion/src/lib/notification/notification.component';
 import { moduleMetadata } from '@storybook/angular';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { IonIconModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Feedback/Notification',
-  component: NotificationComponent,
+  component: IonNotificationComponent,
   decorators: [
     moduleMetadata({
-      imports: [],
-      declarations: [IonIconComponent],
+      imports: [IonIconModule],
     }),
   ],
 } as Meta;
 
-const Template: Story<NotificationComponent> = (
-  args: NotificationComponent
+const Template: Story<IonNotificationComponent> = (
+  args: IonNotificationComponent
 ) => ({
-  component: NotificationComponent,
+  component: IonNotificationComponent,
   props: args,
 });
 

@@ -6,7 +6,7 @@ import {
   TooltipPosition,
   TooltipTrigger,
 } from '../core/types';
-import { TooltipModule } from './tooltip.module';
+import { IonTooltipModule } from './tooltip.module';
 
 @Component({
   template: `
@@ -34,7 +34,7 @@ class HostTestComponent {
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
   await render(HostTestComponent, {
     componentProperties: props,
-    imports: [CommonModule, TooltipModule],
+    imports: [CommonModule, IonTooltipModule],
   });
 };
 
@@ -99,7 +99,7 @@ describe('Directive: Tooltip', () => {
       componentProperties: {
         ionTooltipShowDelay: timeDelay,
       },
-      imports: [CommonModule, TooltipModule],
+      imports: [CommonModule, IonTooltipModule],
     });
 
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));

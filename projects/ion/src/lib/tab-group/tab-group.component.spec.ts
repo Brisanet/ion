@@ -1,9 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { TabComponent, TabSize } from '../tab/tab.component';
+import { IonBadgeModule } from '../badge/badge.module';
+import { TabGroupProps, TabSize } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonTabModule } from '../tab/tab.module';
 import { SafeAny } from '../utils/safe-any';
-import { TabGroupComponent, TabGroupProps } from './tab-group.component';
+import { IonTabGroupComponent } from './tab-group.component';
 
 const selectEvent = jest.fn();
 const mockTabs = [
@@ -26,14 +27,14 @@ const sut = async (
     } as SafeAny,
   }
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
-  await render(TabGroupComponent, {
+  await render(IonTabGroupComponent, {
     componentProperties: customProps,
-    declarations: [TabComponent, IonIconComponent, BadgeComponent],
+    imports: [IonIconModule, IonBadgeModule, IonTabModule],
   });
   return { element: screen.getByTestId('ion-tab-group'), event: selectEvent };
 };
 
-describe('TabGroupComponent', () => {
+describe('IonTabGroupComponent', () => {
   it('should render component in horizontal by default', async () => {
     const rendered = await sut();
     expect(rendered.element).not.toHaveClass('tab-group-column-inner');

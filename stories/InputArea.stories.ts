@@ -1,11 +1,11 @@
 import { FormsModule } from '@angular/forms';
 import { Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata, Story } from '@storybook/angular';
-import { InputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
+import { IonInputAreaComponent } from '../projects/ion/src/lib/input-area/input-area.component';
 
 export default {
   title: 'Ion/Data Entry/Input-Area',
-  component: InputAreaComponent,
+  component: IonInputAreaComponent,
   decorators: [
     moduleMetadata({
       imports: [FormsModule],
@@ -14,8 +14,10 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<InputAreaComponent> = (args: InputAreaComponent) => ({
-  component: InputAreaComponent,
+const Template: Story<IonInputAreaComponent> = (
+  args: IonInputAreaComponent
+) => ({
+  component: IonInputAreaComponent,
   props: args,
 });
 
