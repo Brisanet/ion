@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { ButtonModule } from '../button/button.module';
+import { IonButtonModule } from '../button/button.module';
 import { IonModalComponent } from './component/modal.component';
 import { SelectMockComponent } from './mock/select-mock.component';
 import { IonModalService } from './modal.service';
@@ -27,7 +27,7 @@ describe('ModalService', () => {
         IonModalComponent,
         SelectMockComponent,
       ],
-      imports: [FormsModule, ButtonModule],
+      imports: [FormsModule, IonButtonModule],
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: [IonModalComponent, SelectMockComponent],
