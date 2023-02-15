@@ -8,14 +8,17 @@ import {
 } from './breadcrumb.component';
 
 const selectEvent = jest.fn();
-const options = [
+
+const items: BreadcrumbItem[] = [
   {
     label: 'Inicio',
     link: '/home',
+    selected: false,
   },
   {
     label: 'Recursos',
     link: '/recursos',
+    selected: false,
   },
 ];
 
@@ -28,14 +31,15 @@ const sut = async (
 ): Promise<void> => {
   await render(BreadcrumbComponent, {
     componentProperties: {
-      breadcrumbs: options,
+      breadcrumbs: items,
+      ...customProps,
     },
     declarations: [IonIconComponent],
   });
 };
 
 describe('Breadcrumb', () => {
-  it.each(options)(
+  it.each(items)(
     'should render %s in breadcrumb',
     async (link: BreadcrumbItem) => {
       await sut();
@@ -48,16 +52,18 @@ describe('Breadcrumb', () => {
     expect(screen.getByText('Recursos')).toHaveClass('breacrumbs-link');
   });
 
-  it.skip('should emit a event with the breadcrumb selected', async () => {
-    const rendered = await sut({
+  it.skip('should emit the selected breadcrumb', async () => {
+    await sut();
+    const config = {
+      label: items[0].label,
       selected: {
         emit: selectEvent,
-      },
-    } as SafeAny);
-    fireEvent.click(screen.getByText(options[0].label));
-    expect(rendered).toHaveBeenCalledWith({
-      label: options[0].label,
-      link: options[0].link,
-    });
+      } as SafeAny,
+    };
+    expect(screen.getByText(config.label)).toBeInTheDocument();
+
+    const element = screen.getByText(config.label);
+    fireEvent.click(element);
+    expect(selectEvent).toBeCalled();
   });
 });

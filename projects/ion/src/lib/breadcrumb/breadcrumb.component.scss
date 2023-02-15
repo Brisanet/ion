@@ -1,7 +1,5 @@
 @import '../../styles/index.scss';
 
-
-
 .breadcrumbs-nav {
   padding: spacing(0.7) spacing(0.9);
   text-decoration: none;
@@ -19,7 +17,6 @@
   display: flex;
   align-items: center;
   text-align: center;
-  
 
   ion-icon {
     ::ng-deep svg {
@@ -34,11 +31,8 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
-  
 
- 
-
-  &:hover{
+  &:hover {
     color: $primary-6;
   }
 
@@ -46,13 +40,12 @@
     text-shadow: 0px 0px 0px $neutral-1, 0px 0px 0px $primary-5;
   }
 
-  &:active{
+  &:active {
     font-weight: 600;
     font-size: 14px;
     line-height: 20px;
     color: $primary-6;
   }
-
 }
 
 .ol-navigator li:last-child {
@@ -60,4 +53,3 @@
     display: none;
   }
 }
-

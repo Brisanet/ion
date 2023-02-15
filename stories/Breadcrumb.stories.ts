@@ -17,11 +17,13 @@ const Template: Story<BreadcrumbComponent> = (args: BreadcrumbComponent) => ({
   },
 });
 
+const breadcrumbs = [
+  { label: 'Home', link: '/home' },
+  { label: 'Recursos', link: '/recursos' },
+  { label: 'Técnico', link: '/recursos/1' },
+];
+
 export const Initials = Template.bind({});
 Initials.args = {
-  breadcrumbs: [
-    { label: 'Home', link: '/home' },
-    { label: 'Recursos', link: '/recursos' },
-    { label: 'Técnico', link: '/recursos/1' },
-  ],
+  breadcrumbs,
 };

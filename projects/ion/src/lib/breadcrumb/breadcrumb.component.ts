@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { SafeAny } from '../utils/safe-any';
 
 export interface BreadcrumbItem {
   label: string;
   link: string;
+  selected?: boolean;
 }
 
 export interface BreadcrumbProps {
-  BreadcrumbItem: BreadcrumbItem;
-  selected: EventEmitter<BreadcrumbItem>;
+  breadcrumbItems: BreadcrumbItem[];
+  selectedBread: EventEmitter<BreadcrumbItem>;
 }
 
 @Component({
@@ -21,6 +21,10 @@ export class BreadcrumbComponent {
   @Output() selectedBread = new EventEmitter<BreadcrumbItem>();
 
   onSelectedBread(item: BreadcrumbItem) {
+    this.breadcrumbs.forEach((element) => {
+      element.selected = false;
+    });
+    item.selected = true;
     this.selectedBread.emit(item);
   }
 }
