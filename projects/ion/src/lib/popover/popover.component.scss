@@ -4,7 +4,6 @@ $popover-spacing: spacing(1.5);
 $arrow-size: 4.5px;
 
 @mixin sup-container($background, $arrowPosition, $left, $rotate, $position) {
-  margin-top: 8px;
   box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   background: #fff;
   display: inline-block;
@@ -52,17 +51,20 @@ $arrow-size: 4.5px;
   }
 
   &-bottomRight {
-    transform: translate($arrow-size * -2, $popover-spacing);
+    transform: translate($arrow-size * -2, $popover-spacing + $arrow-size);
     @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
   }
 
   &-bottomCenter {
-    transform: translate(-50%, $popover-spacing);
+    transform: translate(-50%, $popover-spacing + $arrow-size);
     @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
   }
 
   &-bottomLeft {
-    transform: translate(calc(-100% + $arrow-size * 2), $popover-spacing);
+    transform: translate(
+      calc(-100% + $arrow-size * 2),
+      $popover-spacing + $arrow-size
+    );
     @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
   }
 
@@ -78,19 +80,22 @@ $arrow-size: 4.5px;
   }
 
   &-topRight {
-    transform: translate(($arrow-size * -2), calc(-100% - $popover-spacing));
+    transform: translate(
+      ($arrow-size * -2),
+      calc(-100% - $popover-spacing - $arrow-size)
+    );
     @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
   }
 
   &-topCenter {
-    transform: translate(-50%, calc(-100% - $popover-spacing));
+    transform: translate(-50%, calc(-100% - $popover-spacing - $arrow-size));
     @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
   }
 
   &-topLeft {
     transform: translate(
       calc(-100% + ($arrow-size * 2)),
-      calc(-100% - $popover-spacing)
+      calc(-100% - $popover-spacing - $arrow-size)
     );
     @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
   }

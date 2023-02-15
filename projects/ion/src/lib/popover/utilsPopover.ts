@@ -16,19 +16,19 @@ export function getPositionsPopover(
   arrowAtCenter: boolean
 ): PopoverPositions {
   const horizontalCenter = Math.round((right - left) / 2 + left);
-  const verticalCenter = Math.round((bottom - top) / 2 + bottom);
+  const verticalCenter = Math.round((bottom - top) / 2 + top);
   return {
     topLeft: {
       left: arrowAtCenter ? horizontalCenter : Math.round(right),
-      top: Math.round(top - (bottom - top) / 2),
+      top: Math.round(top),
     },
     topCenter: {
       left: horizontalCenter,
-      top: Math.round(top - (bottom - top) / 2),
+      top: Math.round(top),
     },
     topRight: {
       left: arrowAtCenter ? horizontalCenter : Math.round(left),
-      top: Math.round(top - (bottom - top) / 2),
+      top: Math.round(top),
     },
     bottomLeft: {
       left: arrowAtCenter ? horizontalCenter : Math.round(right),
@@ -44,23 +44,21 @@ export function getPositionsPopover(
     },
     leftTop: {
       left: Math.round(left),
-      top: Math.round(top - (bottom - top)),
+      top: Math.round(top + (bottom - top) / 2),
     },
     rightTop: {
       left: Math.round(right),
-      top: Math.round(top - (bottom - top)),
+      top: Math.round(top + (bottom - top) / 2),
     },
     leftBottom: {
       left: Math.round(left),
       top: arrowAtCenter
-        ? verticalCenter
-        : Math.round((bottom - top) / 2 + bottom),
+        ? Math.round(bottom)
+        : Math.round(bottom - top + bottom),
     },
     rightBottom: {
       left: Math.round(right),
-      top: arrowAtCenter
-        ? verticalCenter
-        : Math.round((bottom - top) / 2 + bottom),
+      top: arrowAtCenter ? verticalCenter : Math.round(bottom - top + bottom),
     },
   };
 }

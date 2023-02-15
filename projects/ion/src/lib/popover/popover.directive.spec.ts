@@ -3,10 +3,8 @@ import { Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { ButtonComponent } from './../button/button.component';
-import { IonIconComponent } from './../icon/icon.component';
+import { IonSharedModule } from '../shared.module';
 
 import { IonPopoverComponent } from './popover.component';
 import { PopoverDirective } from './popover.directive';
@@ -46,11 +44,9 @@ describe('Directive: Popover', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       providers: [PopoverDirective, ViewContainerRef],
+      imports: [IonSharedModule],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
-        ButtonComponent,
-        IonIconComponent,
         IonPopoverComponent,
         IonDividerComponent,
       ],

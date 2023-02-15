@@ -4,14 +4,12 @@ import {
   IonPopoverComponent,
   PopoverProps,
 } from '../projects/ion/src/lib/popover/popover.component';
-import {
-  AlertComponent,
-  IonDividerComponent,
-  PopoverDirective,
-} from '../projects/ion/src/public-api';
 import { PopoverPosition } from '../projects/ion/src/lib/core/types/popover';
-import { ButtonModule } from './../projects/ion/src/lib/button/button.module';
 import { moduleMetadata } from '@storybook/angular/dist/ts3.9/client';
+import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
+import { PopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 const TemplateComponente: Story<IonPopoverComponent> = (
   args: IonPopoverComponent
@@ -19,8 +17,8 @@ const TemplateComponente: Story<IonPopoverComponent> = (
   component: IonPopoverComponent,
   props: args,
   moduleMetadata: {
-    declarations: [IonDividerComponent, AlertComponent],
-    imports: [CommonModule, ButtonModule],
+    declarations: [IonDividerComponent, IonAlertComponent],
+    imports: [CommonModule, IonSharedModule],
   },
 });
 
@@ -50,12 +48,12 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [
-        PopoverDirective,
         IonPopoverComponent,
-        AlertComponent,
+        IonAlertComponent,
         IonDividerComponent,
+        PopoverDirective,
       ],
-      imports: [CommonModule, ButtonModule],
+      imports: [CommonModule, IonSharedModule],
       entryComponents: [IonPopoverComponent],
     }),
   ],

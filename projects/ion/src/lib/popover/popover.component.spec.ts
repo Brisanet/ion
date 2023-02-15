@@ -1,13 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
-import { ButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { InputComponent } from '../input/input.component';
 import { IonPopoverComponent, PopoverProps } from './popover.component';
 import { PopoverPosition } from '../core/types/popover';
+import { IonSharedModule } from '../shared.module';
 
 const defaultProps: PopoverProps = {
   ionPopoverTitle: 'Title',
@@ -17,16 +13,8 @@ const defaultProps: PopoverProps = {
 const sut = async (props: PopoverProps = defaultProps): Promise<void> => {
   await render(IonPopoverComponent, {
     componentProperties: props,
-    declarations: [
-      IonDividerComponent,
-      ButtonComponent,
-      BadgeComponent,
-      IonIconComponent,
-      DropdownComponent,
-      InputComponent,
-      ButtonComponent,
-    ],
-    imports: [FormsModule],
+    declarations: [IonDividerComponent],
+    imports: [FormsModule, IonSharedModule],
   });
 };
 

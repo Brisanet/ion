@@ -1,40 +1,18 @@
-import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
-import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { TableComponent } from '../projects/ion/src/lib/table/table.component';
+import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import {
-  AlertComponent,
-  IonDividerComponent,
-  PopConfirmDirective,
-  TagComponent,
-} from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
+import { IonTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
-  component: TableComponent,
+  component: IonTableComponent,
 } as Meta;
 
-const Template: Story<TableComponent> = (args: TableComponent) => ({
-  component: TableComponent,
+const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
+  component: IonTableComponent,
   props: args,
   moduleMetadata: {
-    entryComponents: [PopConfirmComponent],
-    declarations: [
-      TableComponent,
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
-      PopConfirmDirective,
-      PopConfirmComponent,
-      AlertComponent,
-      IonDividerComponent,
-    ],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [IonTableModule],
   },
 });
 

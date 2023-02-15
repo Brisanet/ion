@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   template: '<ng-content></ng-content>',
   styleUrls: ['./col.component.scss'],
 })
-export class ColComponent {}
+export class IonColComponent {}

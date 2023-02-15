@@ -15,10 +15,9 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './popover.component';
-import { IonButtonProps } from '../button/button.component';
-import { IconType } from '../icon/icon.component';
 import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
+import { IonButtonProps, IconType } from '../core/types';
 
 @Directive({
   selector: '[ionPopover]',

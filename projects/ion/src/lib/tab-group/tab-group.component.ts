@@ -1,25 +1,17 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { BorderDirectionType, DirectionType } from '../core/types';
-import { IonTabProps, TabSize } from '../tab/tab.component';
-
-export interface TabInGroup extends IonTabProps {
-  selected: boolean;
-}
-
-export interface TabGroupProps {
-  tabs: TabInGroup[];
-  border?: BorderDirectionType;
-  direction: DirectionType;
-  size?: TabSize;
-  selected: EventEmitter<TabInGroup>;
-}
+import {
+  BorderDirectionType,
+  DirectionType,
+  TabInGroup,
+  TabSize,
+} from '../core/types';
 
 @Component({
   selector: 'ion-tab-group',
   templateUrl: './tab-group.component.html',
   styleUrls: ['./tab-group.component.scss'],
 })
-export class TabGroupComponent implements OnInit {
+export class IonTabGroupComponent implements OnInit {
   @Input() tabs: TabInGroup[];
   @Input() direction: DirectionType = 'horizontal';
   @Input() border: BorderDirectionType;

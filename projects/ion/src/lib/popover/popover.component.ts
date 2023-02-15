@@ -1,10 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
-import { IconType } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
-import { IonButtonProps } from '../button/button.component';
 
 import { PopoverPosition } from '../core/types/popover';
+import { IconType, IonButtonProps } from '../core/types';
 
 export interface PopoverProps {
   ionPopoverTitle: string;
