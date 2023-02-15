@@ -66,7 +66,7 @@ describe('Sidebar', () => {
       await sut({ items, logo });
     });
     it('should not show sidebar by default', () => {
-      expect(getByTestId('sidebar')).not.toBeVisible();
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
     it('should show sidebar after clicking on toggle visibility button', () => {
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
