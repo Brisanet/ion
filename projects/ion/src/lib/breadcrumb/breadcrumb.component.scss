@@ -31,6 +31,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
+  cursor: pointer;
 
   &:hover {
     color: $primary-6;
@@ -49,6 +50,12 @@
 }
 
 .ol-navigator li:last-child {
+  a {
+    color: $primary-6;
+    font-weight: 600;
+    cursor: text;
+  }
+  
   ion-icon {
     display: none;
   }

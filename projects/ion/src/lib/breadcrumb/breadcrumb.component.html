@@ -1,6 +1,6 @@
 <nav class="breadcrumbs-nav">
   <ol class="ol-navigator">
-    <li *ngFor="let breadcrumb of breadcrumbs; let index = index">
+    <li *ngFor="let breadcrumb of breadcrumbs">
       <a (click)="onSelectedBread(breadcrumb)" class="breacrumbs-link">
         {{ breadcrumb.label }}
       </a>
