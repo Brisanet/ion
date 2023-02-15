@@ -19,14 +19,18 @@ const getByTestId = (key: keyof typeof components): HTMLElement => {
 
 const logo: IonSidebarProps['logo'] = 'logo.svg';
 
+const actionMock = jest.fn();
+
 const items: IonSidebarProps['items'] = [
   {
     title: 'Item 1',
     icon: 'user',
+    action: actionMock,
   },
   {
     title: 'Item 2',
     icon: 'pencil',
+    action: actionMock,
   },
   {
     title: 'Group 1',
@@ -35,10 +39,12 @@ const items: IonSidebarProps['items'] = [
       {
         title: 'Item group 1',
         icon: 'box',
+        action: actionMock,
       },
       {
         title: 'Item group 2',
         icon: 'working',
+        action: actionMock,
       },
     ],
   },
@@ -142,6 +148,9 @@ describe('Sidebar', () => {
           name: items[2].options[1].title,
         });
       });
+      afterEach(() => {
+        actionMock.mockClear();
+      });
       it('should render an item selected when click on an item', () => {
         userEvent.click(item1);
         expect(item1).toHaveClass(selectedItemClass);
@@ -170,6 +179,14 @@ describe('Sidebar', () => {
         expect(item1).toHaveClass(selectedItemClass);
         expect(itemGroup2).not.toHaveClass(selectedItemClass);
         expect(getByTestId('group')).not.toHaveClass(selectedGroupClass);
+      });
+      it('should call action function when click on an item', () => {
+        userEvent.click(item1);
+        expect(items[0].action).toHaveBeenCalled();
+      });
+      it('should call action function when click on an item inside a group', () => {
+        userEvent.click(itemGroup2);
+        expect(items[2].options[1].action).toHaveBeenCalled();
       });
     });
   });

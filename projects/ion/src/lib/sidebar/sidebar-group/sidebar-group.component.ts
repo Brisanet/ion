@@ -12,6 +12,7 @@ interface Item {
   title: string;
   icon: IconType;
   selected?: boolean;
+  action: () => void;
 }
 
 @Component({
@@ -32,6 +33,9 @@ export class SidebarGroupComponent implements OnChanges {
     this.selected = true;
     this.items.forEach((item) => (item.selected = false));
     this.items[itemIndex].selected = true;
+    if (this.items[itemIndex].action) {
+      this.items[itemIndex].action();
+    }
     this.atClick.emit();
   }
 

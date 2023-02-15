@@ -5,6 +5,7 @@ export interface Item {
   title: string;
   icon: IconType;
   selected?: boolean;
+  action?: () => void;
 }
 
 export interface IonSidebarProps {
@@ -30,5 +31,9 @@ export class SidebarComponent {
   public itemSelected(itemIndex: number): void {
     this.items.forEach((item) => (item.selected = false));
     this.items[itemIndex].selected = true;
+
+    if (this.items[itemIndex].action) {
+      this.items[itemIndex].action();
+    }
   }
 }
