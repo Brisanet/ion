@@ -19,6 +19,8 @@ const getByTestId = (key: keyof typeof components): HTMLElement => {
   return screen.getByTestId(components[key]);
 };
 
+const actionMock = jest.fn();
+
 const mockGroup: Partial<SidebarGroupComponent> = {
   title: 'Title',
   icon: 'box',
@@ -26,10 +28,12 @@ const mockGroup: Partial<SidebarGroupComponent> = {
     {
       title: 'Item 1',
       icon: 'pencil',
+      action: actionMock,
     },
     {
       title: 'Item 2',
       icon: 'working',
+      action: actionMock,
     },
   ],
 };
@@ -47,6 +51,9 @@ const sut = async (
 describe('SidebarGroup', () => {
   beforeEach(async () => {
     await sut(mockGroup);
+  });
+  afterEach(() => {
+    actionMock.mockClear();
   });
 
   it('should render a sidebar group', () => {
@@ -120,5 +127,9 @@ describe('SidebarGroup', () => {
     userEvent.click(getByTestId('header'));
     expect(getByTestId('firstItem')).toBeVisible();
     expect(getByTestId('secondItem')).not.toBeVisible();
+  });
+  it('should call action function when an item is clicked', () => {
+    userEvent.click(getByTestId('firstItem').children[0]);
+    expect(actionMock).toHaveBeenCalledTimes(1);
   });
 });

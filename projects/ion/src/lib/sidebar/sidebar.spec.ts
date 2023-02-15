@@ -182,11 +182,11 @@ describe('Sidebar', () => {
       });
       it('should call action function when click on an item', () => {
         userEvent.click(item1);
-        expect(items[0].action).toHaveBeenCalled();
+        expect(actionMock).toHaveBeenCalledTimes(1);
       });
       it('should call action function when click on an item inside a group', () => {
         userEvent.click(itemGroup2);
-        expect(items[2].options[1].action).toHaveBeenCalled();
+        expect(actionMock).toHaveBeenCalledTimes(1);
       });
     });
   });
