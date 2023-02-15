@@ -33,6 +33,12 @@ Default.args = {
     },
     { title: 'Cadastros', icon: 'plus-solid', action: action('Cadastros') },
     {
+      title: 'Comissões',
+      icon: 'calendar-money',
+      action: action('Comissões'),
+      disabled: true,
+    },
+    {
       title: 'Permissões',
       icon: 'config',
       options: [
@@ -50,6 +56,12 @@ Default.args = {
           title: 'Pausas',
           icon: 'wait',
           action: action('Pausas'),
+        },
+        {
+          title: 'Comissões',
+          icon: 'calendar-money',
+          action: action('Comissões'),
+          disabled: true,
         },
       ],
     },

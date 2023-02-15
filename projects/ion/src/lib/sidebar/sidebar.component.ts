@@ -5,6 +5,7 @@ export interface Item {
   title: string;
   icon: IconType;
   selected?: boolean;
+  disabled?: boolean;
   action?: () => void;
 }
 

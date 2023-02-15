@@ -7,13 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { IconType } from '../../core/types';
-
-interface Item {
-  title: string;
-  icon: IconType;
-  selected?: boolean;
-  action: () => void;
-}
+import { Item } from '../sidebar.component';
 
 @Component({
   selector: 'ion-sidebar-group',

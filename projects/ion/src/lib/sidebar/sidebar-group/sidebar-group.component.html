@@ -34,6 +34,7 @@
       [title]="item.title"
       [icon]="item.icon"
       [selected]="item.selected"
+      [disabled]="item.disabled"
       [hidden]="closed && !item.selected"
       (atClick)="itemSelected(i)"
     ></ion-sidebar-item>

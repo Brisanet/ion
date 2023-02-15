@@ -105,12 +105,12 @@ describe('SidebarGroup', () => {
   });
 
   it('should render group selected when an item is clicked', () => {
-    userEvent.click(getByTestId('firstItem').children[0]);
+    userEvent.click(getByTestId('firstItem').firstElementChild);
     expect(getByTestId('group')).toHaveClass('sidebar-group--selected');
   });
   it('should render only one item selected at a time', () => {
-    const itemOne = getByTestId('firstItem').children[0];
-    const itemTwo = getByTestId('secondItem').children[0];
+    const itemOne = getByTestId('firstItem').firstElementChild;
+    const itemTwo = getByTestId('secondItem').firstElementChild;
     const selectedItemClass = 'ion-sidebar-item--selected';
 
     userEvent.click(itemOne);
@@ -123,13 +123,31 @@ describe('SidebarGroup', () => {
   });
   it('should show only the selected item when group is closed', () => {
     userEvent.click(getByTestId('header'));
-    userEvent.click(getByTestId('firstItem').children[0]);
+    userEvent.click(getByTestId('firstItem').firstElementChild);
     userEvent.click(getByTestId('header'));
     expect(getByTestId('firstItem')).toBeVisible();
     expect(getByTestId('secondItem')).not.toBeVisible();
   });
   it('should call action function when an item is clicked', () => {
-    userEvent.click(getByTestId('firstItem').children[0]);
+    userEvent.click(getByTestId('firstItem').firstElementChild);
     expect(actionMock).toHaveBeenCalledTimes(1);
+  });
+});
+describe('Sidebar Group - with disabled items', () => {
+  beforeEach(async () => {
+    await sut({
+      ...mockGroup,
+      items: [
+        {
+          title: 'Disabled item',
+          icon: 'pencil',
+          disabled: true,
+          action: actionMock,
+        },
+      ],
+    });
+  });
+  it('should render item disabled', () => {
+    expect(getByTestId('firstItem').firstElementChild).toBeDisabled();
   });
 });

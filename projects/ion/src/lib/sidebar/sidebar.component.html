@@ -13,6 +13,7 @@
           [title]="item.title"
           [icon]="item.icon"
           [selected]="item.selected"
+          [disabled]="item.disabled"
           [attr.data-testid]="'ion-sidebar__item-' + i"
           (atClick)="itemSelected(i)"
         ></ion-sidebar-item>

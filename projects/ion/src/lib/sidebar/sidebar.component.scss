@@ -17,7 +17,7 @@
   position: absolute;
   z-index: 999;
   width: 256px;
-  height: 100vh;
+  min-height: 100vh;
   left: 0px;
   top: 0px;
   background: $neutral-1;
