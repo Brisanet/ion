@@ -13,18 +13,16 @@ const items: BreadcrumbItem[] = [
   {
     label: 'Inicio',
     link: '/home',
-    selected: false,
   },
   {
     label: 'Recursos',
     link: '/recursos',
-    selected: false,
   },
 ];
 
 const sut = async (
   customProps: BreadcrumbProps = {
-    selected: {
+    selectedBread: {
       emit: selectEvent,
     },
   } as SafeAny
@@ -52,18 +50,15 @@ describe('Breadcrumb', () => {
     expect(screen.getByText('Recursos')).toHaveClass('breacrumbs-link');
   });
 
-  it.skip('should emit the selected breadcrumb', async () => {
+  it('should emit the selected breadcrumb', async () => {
     await sut();
     const config = {
-      label: items[0].label,
-      selected: {
-        emit: selectEvent,
-      } as SafeAny,
+      ...items[0],
     };
     expect(screen.getByText(config.label)).toBeInTheDocument();
 
     const element = screen.getByText(config.label);
     fireEvent.click(element);
-    expect(selectEvent).toBeCalled();
+    expect(selectEvent).toBeCalledWith(config);
   });
 });

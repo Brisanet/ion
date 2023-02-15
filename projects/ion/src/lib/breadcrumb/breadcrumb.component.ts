@@ -3,7 +3,6 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export interface BreadcrumbItem {
   label: string;
   link: string;
-  selected?: boolean;
 }
 
 export interface BreadcrumbProps {
@@ -21,10 +20,6 @@ export class BreadcrumbComponent {
   @Output() selectedBread = new EventEmitter<BreadcrumbItem>();
 
   onSelectedBread(item: BreadcrumbItem) {
-    this.breadcrumbs.forEach((element) => {
-      element.selected = false;
-    });
-    item.selected = true;
     this.selectedBread.emit(item);
   }
 }
