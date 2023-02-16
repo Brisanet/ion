@@ -34,10 +34,6 @@ jobs:
       - name: 📚 Install packages
         run: yarn install --frozen-lockfile
 
-      - name: 🏷️ update version
-        run: npm version patch
-        working-directory: projects/ion
-
       - name: 🏗️ build
         run: yarn build
 
