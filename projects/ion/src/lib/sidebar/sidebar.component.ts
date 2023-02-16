@@ -19,7 +19,7 @@ export interface IonSidebarProps {
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class IonSidebarComponent {
   @Input() logo!: string;
   @Input() items: IonSidebarProps['items'] = [];
 

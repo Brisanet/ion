@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonIconModule } from '../../icon/icon.module';
-import { SidebarItemComponent } from '../sidebar-item/sidebar-item.component';
-import { SidebarGroupComponent } from './sidebar-group.component';
+import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
+import { IonSidebarGroupComponent } from './sidebar-group.component';
 
 const components = {
   group: 'sidebar-group',
@@ -21,7 +21,7 @@ const getByTestId = (key: keyof typeof components): HTMLElement => {
 
 const actionMock = jest.fn();
 
-const mockGroup: Partial<SidebarGroupComponent> = {
+const mockGroup: Partial<IonSidebarGroupComponent> = {
   title: 'Title',
   icon: 'box',
   items: [
@@ -39,11 +39,11 @@ const mockGroup: Partial<SidebarGroupComponent> = {
 };
 
 const sut = async (
-  props: Partial<SidebarGroupComponent> = {}
+  props: Partial<IonSidebarGroupComponent> = {}
 ): Promise<void> => {
-  await render(SidebarGroupComponent, {
+  await render(IonSidebarGroupComponent, {
     componentProperties: { ...props },
-    declarations: [SidebarItemComponent],
+    declarations: [IonSidebarItemComponent],
     imports: [IonIconModule],
   });
 };

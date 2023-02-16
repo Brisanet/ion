@@ -3,9 +3,9 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
-import { SidebarGroupComponent } from './sidebar-group/sidebar-group.component';
-import { SidebarItemComponent } from './sidebar-item/sidebar-item.component';
-import { IonSidebarProps, SidebarComponent } from './sidebar.component';
+import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
+import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
+import { IonSidebarComponent, IonSidebarProps } from './sidebar.component';
 
 const components = {
   sidebar: 'ion-sidebar',
@@ -53,9 +53,9 @@ const items: IonSidebarProps['items'] = [
 const sut = async (
   props: IonSidebarProps = { logo: '', items: [] }
 ): Promise<void> => {
-  await render(SidebarComponent, {
+  await render(IonSidebarComponent, {
     componentProperties: { ...props },
-    declarations: [SidebarItemComponent, SidebarGroupComponent],
+    declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
     imports: [CommonModule, IonIconModule, IonButtonModule],
   });
 };

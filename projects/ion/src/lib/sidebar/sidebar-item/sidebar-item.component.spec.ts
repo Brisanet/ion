@@ -2,15 +2,15 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonIconComponent } from '../../icon/icon.component';
 import { SafeAny } from '../../utils/safe-any';
-import { SidebarItemComponent } from './sidebar-item.component';
+import { IonSidebarItemComponent } from './sidebar-item.component';
 
 const defaultTestId = 'ion-sidebar-item';
 const defaultClass = 'ion-sidebar-item';
 
 const sut = async (
-  props: Partial<SidebarItemComponent> = {}
+  props: Partial<IonSidebarItemComponent> = {}
 ): Promise<void> => {
-  await render(SidebarItemComponent, {
+  await render(IonSidebarItemComponent, {
     componentProperties: { ...props },
     declarations: [IonIconComponent],
   });

@@ -6,7 +6,7 @@ import { IconType } from '../../core/types';
   templateUrl: './sidebar-item.component.html',
   styleUrls: ['./sidebar-item.component.scss'],
 })
-export class SidebarItemComponent {
+export class IonSidebarItemComponent {
   @Input() title = '';
   @Input() icon: IconType = '';
   @Input() selected = false;

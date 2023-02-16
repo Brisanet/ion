@@ -14,7 +14,7 @@ import { Item } from '../sidebar.component';
   templateUrl: './sidebar-group.component.html',
   styleUrls: ['./sidebar-group.component.scss'],
 })
-export class SidebarGroupComponent implements OnChanges {
+export class IonSidebarGroupComponent implements OnChanges {
   @Input() title = '';
   @Input() icon!: IconType;
   @Input() items: Item[] = [];
