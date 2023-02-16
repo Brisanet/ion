@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { RadioComponent } from '../projects/ion/src/lib/radio/radio.component';
+import { IonRadioComponent } from '../projects/ion/src/lib/radio/radio.component';
 
 export default {
   title: 'Ion/Data Entry/Radio',
-  component: RadioComponent,
+  component: IonRadioComponent,
 } as Meta;
 
-const Template: Story<RadioComponent> = (args: RadioComponent) => ({
-  component: RadioComponent,
+const Template: Story<IonRadioComponent> = (args: IonRadioComponent) => ({
+  component: IonRadioComponent,
   props: args,
 });
 

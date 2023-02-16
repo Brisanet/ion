@@ -1,20 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { BadgeComponent } from '../projects/ion/src/public-api';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { TabComponent } from '../projects/ion/src/lib/tab/tab.component';
+import { IonTabComponent } from '../projects/ion/src/lib/tab/tab.component';
+import {
+  IonButtonModule,
+  IonIconModule,
+  IonBadgeModule,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Tab',
-  component: TabComponent,
+  component: IonTabComponent,
 } as Meta;
 
-const Template: Story<TabComponent> = (args: TabComponent) => ({
-  component: TabComponent,
+const Template: Story<IonTabComponent> = (args: IonTabComponent) => ({
+  component: IonTabComponent,
   props: args,
   moduleMetadata: {
-    declarations: [TabComponent, IonIconComponent, BadgeComponent],
-    imports: [CommonModule],
+    declarations: [IonTabComponent],
+    imports: [CommonModule, IonButtonModule, IonBadgeModule, IonIconModule],
   },
 });
 

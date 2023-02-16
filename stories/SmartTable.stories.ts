@@ -1,40 +1,21 @@
-import { CheckboxComponent } from './../projects/ion/src/lib/checkbox/checkbox.component';
-import { CommonModule } from '@angular/common';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import {
-  AlertComponent,
-  IonDividerComponent,
-  PopConfirmDirective,
-  TagComponent,
-} from '../projects/ion/src/public-api';
-import { PaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
-import { SmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
+import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { PopConfirmComponent } from '../projects/ion/src/lib/popconfirm/popconfirm.component';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
-  component: SmartTableComponent,
+  component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<SmartTableComponent> = (args: SmartTableComponent) => ({
-  component: SmartTableComponent,
+const Template: Story<IonSmartTableComponent> = (
+  args: IonSmartTableComponent
+) => ({
+  component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    entryComponents: [PopConfirmComponent],
-    declarations: [
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
-      PopConfirmDirective,
-      PopConfirmComponent,
-      AlertComponent,
-      IonDividerComponent,
-    ],
-    imports: [CommonModule, FormsModule, ButtonModule],
+    imports: [IonSmartTableModule],
   },
 });
 

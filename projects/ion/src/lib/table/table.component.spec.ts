@@ -1,13 +1,15 @@
-import { CheckboxComponent } from './../checkbox/checkbox.component';
-import { fireEvent, render, screen } from '@testing-library/angular';
-import { TagComponent } from '../tag/tag.component';
-import { SafeAny } from '../utils/safe-any';
-import { IonTableProps, TableComponent } from './table.component';
-import { PaginationComponent } from '../pagination/pagination.component';
 import { FormsModule } from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonTableProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonTagModule } from '../tag/tag.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonTableComponent } from './table.component';
 import { ActionTable, Column, ColumnType } from './utilsTable';
-import { ButtonModule } from '../button/button.module';
-import { PopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -62,19 +64,21 @@ const defaultProps: IonTableProps<Disco> = {
 const sut = async (
   customProps: IonTableProps<Disco> = defaultProps
 ): Promise<SafeAny> => {
-  await render(TableComponent, {
+  await render(IonTableComponent, {
     componentProperties: customProps,
-    declarations: [
-      TagComponent,
-      CheckboxComponent,
-      PaginationComponent,
-      PopConfirmDirective,
+    imports: [
+      FormsModule,
+      IonButtonModule,
+      IonIconModule,
+      IonCheckboxModule,
+      IonPaginationModule,
+      IonTagModule,
+      IonPopConfirmModule,
     ],
-    imports: [FormsModule, ButtonModule],
   });
 };
 
-describe('TableComponent', () => {
+describe('IonTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });

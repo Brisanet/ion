@@ -1,15 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { StatusType } from '../core/types';
-import { IconType } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
-export interface IonAlertProps {
-  message: string;
-  type?: StatusType;
-  closable?: boolean;
-  hideBackground?: boolean;
-}
-
-export const iconTypes = {
+const iconTypes = {
   success: 'check-solid',
   warning: 'exclamation-solid',
   info: 'info-solid',
@@ -21,7 +14,7 @@ export const iconTypes = {
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
 })
-export class AlertComponent implements OnInit {
+export class IonAlertComponent implements OnInit {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;

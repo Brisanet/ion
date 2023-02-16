@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
-import { BreadcrumbComponent, BreadcrumbItem } from './breadcrumb.component';
+import { IonBreadcrumbComponent } from './breadcrumb.component';
+import { BreadcrumbItem } from '../core/types/breadcrumb';
 
 const options = [
   {
@@ -13,7 +14,7 @@ const options = [
 ];
 
 const sut = async (): Promise<void> => {
-  await render(BreadcrumbComponent, {
+  await render(IonBreadcrumbComponent, {
     componentProperties: {
       breadcrumbs: options,
     },
