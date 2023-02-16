@@ -42,6 +42,10 @@
     gap: spacing(1.25);
   }
 
+  &__toggle-icon {
+    transition: all 0.3s ease;
+  }
+
   &--opened {
     gap: spacing(1.25);
 

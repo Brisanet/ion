@@ -24,7 +24,7 @@
   box-shadow: 4px 0px 8px rgba(4, 42, 98, 0.15);
   padding: spacing(3);
   transform: translateX(-110%);
-  transition: transform 0.4s ease-in-out;
+  transition: transform 0.25s ease-in-out;
 
   &__header {
     display: flex;
@@ -43,6 +43,6 @@
 
   &--opened {
     transform: translateX(0px);
-    transition: transform 0.4s ease-in-out;
+    transition: transform 0.25s ease-in-out;
   }
 }
