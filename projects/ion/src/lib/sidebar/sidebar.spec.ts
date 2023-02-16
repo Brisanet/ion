@@ -71,7 +71,7 @@ describe('Sidebar', () => {
     });
     it('should show sidebar after clicking on toggle visibility button', () => {
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
-      expect(getByTestId('sidebar')).toBeVisible();
+      expect(getByTestId('sidebar')).toHaveClass('ion-sidebar--opened');
     });
   });
   describe('Visible', () => {
@@ -86,7 +86,10 @@ describe('Sidebar', () => {
       expect(screen.getByRole('img')).toHaveAttribute('src', logo);
     });
     it('should render toggle sidebar visibility button', () => {
-      expect(getByTestId('toggleVisibility')).toBeInTheDocument();
+      const toggleVisibilityBtn = screen.queryAllByTestId(
+        'ion-sidebar__toggle-visibility'
+      );
+      expect(getByTestId('sidebar')).toContainElement(toggleVisibilityBtn[0]);
     });
     describe.each(
       items
