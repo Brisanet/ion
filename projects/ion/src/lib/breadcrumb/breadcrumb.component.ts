@@ -20,6 +20,8 @@ export class IonBreadcrumbComponent {
   @Output() selectedBread = new EventEmitter<BreadcrumbItem>();
 
   onSelectedBread(item: BreadcrumbItem) {
-    this.selectedBread.emit(item);
+    if (item !== this.breadcrumbs[this.breadcrumbs.length - 1]) {
+      this.selectedBread.emit(item);
+    }
   }
 }

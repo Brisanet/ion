@@ -18,6 +18,10 @@ const items: BreadcrumbItem[] = [
     label: 'Recursos',
     link: '/recursos',
   },
+  {
+    label: 'Tecnico',
+    link: '/recursos/1',
+  },
 ];
 
 const sut = async (
@@ -52,13 +56,21 @@ describe('Breadcrumb', () => {
 
   it('should emit the selected breadcrumb', async () => {
     await sut();
-    const config = {
-      ...items[0],
-    };
-    expect(screen.getByText(config.label)).toBeInTheDocument();
+    const [firstItem] = items;
 
-    const element = screen.getByText(config.label);
+    expect(screen.getByText(firstItem.label)).toBeInTheDocument();
+    const element = screen.getByText(firstItem.label);
     fireEvent.click(element);
-    expect(selectEvent).toBeCalledWith(config);
+    expect(selectEvent).toBeCalledWith(firstItem);
+  });
+
+  it('should not emit the selected breadcrumb is the last one', async () => {
+    await sut();
+    const lastItem = items[2];
+
+    expect(screen.getByText(lastItem.label)).toBeInTheDocument();
+    const element = screen.getByText(lastItem.label);
+    fireEvent.click(element);
+    expect(selectEvent).not.toBeCalledWith(lastItem);
   });
 });
