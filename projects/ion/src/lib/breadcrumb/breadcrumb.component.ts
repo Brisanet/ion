@@ -7,7 +7,7 @@ export interface BreadcrumbItem {
 
 export interface BreadcrumbProps {
   breadcrumbItems: BreadcrumbItem[];
-  selectedBread: EventEmitter<BreadcrumbItem>;
+  selected: EventEmitter<BreadcrumbItem>;
 }
 
 @Component({
@@ -17,11 +17,11 @@ export interface BreadcrumbProps {
 })
 export class IonBreadcrumbComponent {
   @Input() breadcrumbs: Array<BreadcrumbItem>;
-  @Output() selectedBread = new EventEmitter<BreadcrumbItem>();
+  @Output() selected = new EventEmitter<BreadcrumbItem>();
 
-  onSelectedBread(item: BreadcrumbItem) {
+  onSelected(item: BreadcrumbItem) {
     if (item !== this.breadcrumbs[this.breadcrumbs.length - 1]) {
-      this.selectedBread.emit(item);
+      this.selected.emit(item);
     }
   }
 }

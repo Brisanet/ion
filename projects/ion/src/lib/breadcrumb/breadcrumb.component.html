@@ -1,7 +1,7 @@
 <nav class="breadcrumbs-nav">
   <ol class="ol-navigator">
     <li *ngFor="let breadcrumb of breadcrumbs">
-      <a (click)="onSelectedBread(breadcrumb)" class="breacrumbs-link">
+      <a (click)="onSelected(breadcrumb)" class="breacrumbs-link">
         {{ breadcrumb.label }}
       </a>
       <ion-icon class="icon" type="right2" [size]="16"></ion-icon>

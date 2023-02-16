@@ -26,7 +26,7 @@ const items: BreadcrumbItem[] = [
 
 const sut = async (
   customProps: BreadcrumbProps = {
-    selectedBread: {
+    selected: {
       emit: selectEvent,
     },
   } as SafeAny
@@ -58,19 +58,25 @@ describe('Breadcrumb', () => {
     await sut();
     const [firstItem] = items;
 
-    expect(screen.getByText(firstItem.label)).toBeInTheDocument();
     const element = screen.getByText(firstItem.label);
+    expect(element).toBeInTheDocument();
     fireEvent.click(element);
+    expect(selectEvent).toBeCalledTimes(1);
     expect(selectEvent).toBeCalledWith(firstItem);
   });
 
   it('should not emit the selected breadcrumb is the last one', async () => {
     await sut();
-    const lastItem = items[2];
+    const lastItem = items[items.length - 1];
 
-    expect(screen.getByText(lastItem.label)).toBeInTheDocument();
     const element = screen.getByText(lastItem.label);
+    expect(element).toBeInTheDocument();
     fireEvent.click(element);
+    expect(selectEvent).toBeCalledTimes(0);
     expect(selectEvent).not.toBeCalledWith(lastItem);
+  });
+
+  afterEach(() => {
+    selectEvent.mockClear();
   });
 });
