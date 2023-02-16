@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { IconType } from '../../core/types';
 import { Item } from '../../core/types/sidebar';
+import { selectItemByIndex, unselectAllItems } from '../utils';
 
 @Component({
   selector: 'ion-sidebar-group',
@@ -23,21 +24,19 @@ export class IonSidebarGroupComponent implements OnChanges {
 
   public closed = true;
 
-  public itemSelected(itemIndex: number): void {
-    this.selected = true;
-    this.unselectAllItems();
-    this.selectItem(itemIndex);
-    this.callItemAction(itemIndex);
-    this.atClick.emit();
-  }
-
   public toggleItemsVisibility(): void {
     this.closed = !this.closed;
   }
 
+  public itemSelected(itemIndex: number): void {
+    this.selected = true;
+    selectItemByIndex(this.items, itemIndex);
+    this.atClick.emit();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selectedChangedToFalse(changes)) {
-      this.unselectAllItems();
+      unselectAllItems(this.items);
     }
   }
 
@@ -45,19 +44,5 @@ export class IonSidebarGroupComponent implements OnChanges {
     return (
       !changes.firstChange && changes.selected && !changes.selected.currentValue
     );
-  }
-
-  private unselectAllItems(): void {
-    this.items.forEach((item) => (item.selected = false));
-  }
-
-  private selectItem(index: number): void {
-    this.items[index].selected = true;
-  }
-
-  private callItemAction(index: number): void {
-    if (this.items[index].action) {
-      this.items[index].action();
-    }
   }
 }

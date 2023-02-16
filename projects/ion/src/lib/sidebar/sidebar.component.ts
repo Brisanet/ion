@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonSidebarProps } from '../core/types/sidebar';
+import { selectItemByIndex } from './utils';
 
 @Component({
   selector: 'ion-sidebar',
@@ -17,11 +18,6 @@ export class IonSidebarComponent {
   }
 
   public itemSelected(itemIndex: number): void {
-    this.items.forEach((item) => (item.selected = false));
-    this.items[itemIndex].selected = true;
-
-    if (this.items[itemIndex].action) {
-      this.items[itemIndex].action();
-    }
+    selectItemByIndex(this.items, itemIndex);
   }
 }
