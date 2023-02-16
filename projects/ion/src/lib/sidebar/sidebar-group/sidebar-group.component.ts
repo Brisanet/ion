@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { IconType } from '../../core/types';
-import { Item } from '../sidebar.component';
+import { Item } from '../../core/types/sidebar';
 
 @Component({
   selector: 'ion-sidebar-group',

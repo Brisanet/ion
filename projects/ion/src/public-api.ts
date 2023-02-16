@@ -1,11 +1,6 @@
 /*
  * Public API Surface of ion
  */
-export * from './lib/ion.component';
-export * from './lib/ion.module';
-export * from './lib/ion.service';
-export * from './lib/core/types';
-
 export * from './lib/alert/alert.module';
 export * from './lib/avatar/avatar.module';
 export * from './lib/badge/badge.module';
@@ -15,6 +10,7 @@ export * from './lib/card/card.module';
 export * from './lib/checkbox/checkbox.module';
 export * from './lib/chip/chip.module';
 export * from './lib/col/col.module';
+export * from './lib/core/types';
 export * from './lib/date-picker/date-picker/date-picker.module';
 export * from './lib/divider/divider.module';
 export * from './lib/dropdown/dropdown.module';
@@ -23,6 +19,9 @@ export * from './lib/indicator/indicator.module';
 export * from './lib/info-badge/info-badge.module';
 export * from './lib/input-area/input-area.module';
 export * from './lib/input-counter/input-counter.module';
+export * from './lib/ion.component';
+export * from './lib/ion.module';
+export * from './lib/ion.service';
 export * from './lib/message/message.module';
 export * from './lib/modal/modal.module';
 export * from './lib/modal/modal.service';
@@ -32,6 +31,7 @@ export * from './lib/popconfirm/popconfirm.module';
 export * from './lib/radio/radio.module';
 export * from './lib/row/row.module';
 export * from './lib/shared.module';
+export * from './lib/sidebar/sidebar.module';
 export * from './lib/simple-menu/simple-menu.module';
 export * from './lib/smart-table/smart-table.module';
 export * from './lib/switch/switch.module';

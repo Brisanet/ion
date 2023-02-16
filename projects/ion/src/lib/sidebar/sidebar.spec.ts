@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
+import { IonSidebarProps } from '../core/types/sidebar';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
-import { IonSidebarComponent, IonSidebarProps } from './sidebar.component';
+import { IonSidebarComponent } from './sidebar.component';
 
 const components = {
   sidebar: 'ion-sidebar',

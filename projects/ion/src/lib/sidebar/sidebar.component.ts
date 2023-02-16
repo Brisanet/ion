@@ -1,18 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IconType } from '../core/types';
-
-export interface Item {
-  title: string;
-  icon: IconType;
-  selected?: boolean;
-  disabled?: boolean;
-  action?: () => void;
-}
-
-export interface IonSidebarProps {
-  logo: string;
-  items: (Item & { options?: [Item, ...Item[]] })[];
-}
+import { IonSidebarProps } from '../core/types/sidebar';
 
 @Component({
   selector: 'ion-sidebar',
