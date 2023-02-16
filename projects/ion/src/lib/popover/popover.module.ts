@@ -9,4 +9,4 @@ import { PopoverDirective } from './popover.directive';
   exports: [PopoverDirective],
   entryComponents: [IonPopoverComponent],
 })
-export class PopoverModule {}
+export class IonPopoverModule {}

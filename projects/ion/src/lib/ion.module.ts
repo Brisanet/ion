@@ -36,7 +36,7 @@ import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
-import { PopoverModule } from './popover/popover.module';
+import { IonPopoverModule } from './popover/popover.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -76,7 +76,7 @@ import { PopoverModule } from './popover/popover.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
-    PopoverModule,
+    IonPopoverModule,
   ],
   exports: [
     IonComponent,
@@ -114,7 +114,7 @@ import { PopoverModule } from './popover/popover.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
-    PopoverModule,
+    IonPopoverModule,
   ],
 })
 export class IonModule {}
