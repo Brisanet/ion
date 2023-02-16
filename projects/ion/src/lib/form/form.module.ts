@@ -1,14 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonIconComponent } from '../icon/icon.component';
-import { InputComponent } from '../input/input.component';
+import { IonIconModule } from '../icon/icon.module';
+import { IonInputModule } from '../input/input.module';
 import { FormComponent } from './form.component';
 
 @NgModule({
-  declarations: [FormComponent, InputComponent, IonIconComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    IonInputModule,
+    IonIconModule,
+  ],
   exports: [FormComponent],
-  entryComponents: [InputComponent],
 })
 export class IonFormModule {}
