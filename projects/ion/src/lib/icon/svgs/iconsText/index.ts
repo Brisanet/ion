@@ -27,6 +27,7 @@ export { default as exclamationSolid } from './exclamation-solid';
 export { default as exclamationRounded } from './exclamation-rounded';
 export { default as expand } from './expand';
 export { default as filter } from './filter';
+export { default as home } from './home';
 export { default as info } from './info';
 export { default as infoSolid } from './info-solid';
 export { default as left2 } from './left2';
