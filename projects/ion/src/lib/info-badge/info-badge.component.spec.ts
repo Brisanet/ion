@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import { InfoBadgeStatus } from '../core/types';
-import { IonIconComponent } from '../icon/icon.component';
-
-import { InfoBadgeComponent, InfoBadgeProps } from './info-badge.component';
+import { InfoBadgeStatus, InfoBadgeProps } from '../core/types';
+import { IonInfoBadgeComponent } from './info-badge.component';
+import { IonIconModule } from '../icon/icon.module';
 
 const defaultInfoBadge: InfoBadgeProps = {
   variant: 'primary',
@@ -12,14 +11,13 @@ const defaultInfoBadge: InfoBadgeProps = {
 const sut = async (
   customProps: InfoBadgeProps = defaultInfoBadge
 ): Promise<void> => {
-  await render(InfoBadgeComponent, {
+  await render(IonInfoBadgeComponent, {
     componentProperties: customProps,
-    imports: [CommonModule],
-    declarations: [IonIconComponent],
+    imports: [CommonModule, IonIconModule],
   });
 };
 
-describe('InfoBadgeComponent', () => {
+describe('IonInfoBadgeComponent', () => {
   it('Should render an empty info badge', async () => {
     await sut({ ...defaultInfoBadge });
     expect(screen.getByTestId('info-badge')).toBeInTheDocument();

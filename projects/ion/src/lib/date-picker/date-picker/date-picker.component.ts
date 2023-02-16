@@ -32,7 +32,7 @@ export interface IonDatePickerProps {
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatePickerComponent implements OnInit, AfterViewInit {
+export class IonDatePickerComponent implements OnInit, AfterViewInit {
   @Input()
   isCalendarVisible = false;
   @Input() initialDate: IonDatePickerProps['initialDate'];

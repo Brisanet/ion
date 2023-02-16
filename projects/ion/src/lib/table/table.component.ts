@@ -1,17 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PageEvent } from '../pagination/pagination.component';
+import { CheckBoxStates } from '../core/types/checkbox';
+import { PageEvent } from '../core/types/pagination';
+import { TableEvent } from '../core/types/table';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
-
-interface TableEvent {
-  rows_selected: SafeAny[];
-}
-
-export interface IonTableProps<T> {
-  config: ConfigTable<T>;
-  events?: EventEmitter<TableEvent>;
-}
 
 const stateChange = {
   checked: 'enabled',
@@ -23,7 +15,7 @@ const stateChange = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 

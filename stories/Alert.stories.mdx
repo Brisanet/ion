@@ -1,14 +1,13 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
 import { moduleMetadata } from '@storybook/angular';
-import { AlertComponent } from '../projects/ion/src/lib/alert/alert.component.ts';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component.ts';
-import { IonFormModule } from '../projects/ion/src/lib/form/form.module.ts';
+import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component.ts';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-<Meta title="Ion/Feedback/Alert" component={AlertComponent} />
+<Meta title="Ion/Feedback/Alert" component={IonAlertComponent} />
 
-export const Template = (args) => <AlertComponent {...args} />;
+export const Template = (args) => <IonAlertComponent {...args} />;
 
 # Alert
 
@@ -37,8 +36,7 @@ O parâmetro `message` define qual será a mensagem exibida no alerta
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -62,8 +60,7 @@ O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -82,8 +79,7 @@ O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -102,8 +98,7 @@ O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -122,8 +117,7 @@ O ion-alert possui um total de 4 tipos: `success`, `warning`, `info`, `negative`
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -146,8 +140,7 @@ A partir do paramêtro `closable` pode ser definido se o usuário poderá fechar
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >
@@ -170,8 +163,7 @@ A partir do paramêtro `hideBackground` pode ser definido se o usuário quer mos
     }}
     decorators={[
       moduleMetadata({
-        declarations: [IonIconComponent],
-        imports: [CommonModule],
+        imports: [CommonModule, IonSharedModule],
       }),
     ]}
   >

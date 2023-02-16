@@ -1,15 +1,7 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { iconsPaths } from './svgs/icons';
-
-export type SvgModule = typeof import('./svgs/icons');
-export type IconType = keyof typeof iconsPaths;
-
-export interface IonIconProps {
-  type: IconType;
-  size?: number;
-  color?: string;
-}
+import { IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-icon',

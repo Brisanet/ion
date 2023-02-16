@@ -1,15 +1,7 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { TagStatus } from '../core/types';
-import { IconType } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 import { validateHexColor } from '../utils';
-
-export interface IonTagProps {
-  outline?: boolean;
-  status?: TagStatus;
-  color?: string;
-  label: string;
-  icon?: string;
-}
 
 const defaultColor = '#505566';
 
@@ -18,7 +10,7 @@ const defaultColor = '#505566';
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
 })
-export class TagComponent implements OnInit, OnChanges {
+export class IonTagComponent implements OnInit, OnChanges {
   @Input() outline = true;
   @Input() label!: string;
   @Input() status?: TagStatus;

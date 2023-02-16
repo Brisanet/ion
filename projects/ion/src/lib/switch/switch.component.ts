@@ -9,12 +9,12 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: SwitchComponent,
+      useExisting: IonSwitchComponent,
       multi: true,
     },
   ],
 })
-export class SwitchComponent implements ControlValueAccessor {
+export class IonSwitchComponent implements ControlValueAccessor {
   @Input() key!: string;
   @Input() value = false;
   @Input() disabled = false;

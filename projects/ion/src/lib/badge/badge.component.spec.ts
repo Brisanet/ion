@@ -1,12 +1,13 @@
 import { render, screen } from '@testing-library/angular';
-import { BadgeComponent, BadgeProps, BadgeType } from './badge.component';
+import { IonBadgeComponent } from './badge.component';
+import { BadgeProps, BadgeType } from '../core/types';
 
 const defaultBadge: BadgeProps = {
-  type: 'primary' as BadgeType,
+  type: 'primary',
 };
 
 const sut = async (customProps: BadgeProps = defaultBadge): Promise<void> => {
-  await render(BadgeComponent, {
+  await render(IonBadgeComponent, {
     componentProperties: customProps,
   });
 };

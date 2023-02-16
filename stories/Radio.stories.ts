@@ -1,23 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Meta, Story } from '@storybook/angular/types-6-0';
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
-import { RadioComponent } from '../projects/ion/src/lib/radio/radio.component';
-import { IonIconComponent } from '../projects/ion/src/public-api';
+import { Story, Meta } from '@storybook/angular/types-6-0';
+import { IonRadioComponent } from '../projects/ion/src/lib/radio/radio.component';
 
 export default {
   title: 'Ion/Data Entry/Radio',
-  component: RadioComponent,
+  component: IonRadioComponent,
 } as Meta;
 
-const Template: Story<RadioComponent> = (args: RadioComponent) => ({
-  component: RadioComponent,
+const Template: Story<IonRadioComponent> = (args: IonRadioComponent) => ({
+  component: IonRadioComponent,
   props: args,
-  moduleMetadata: {
-    declarations: [InputComponent, IonIconComponent],
-    imports: [CommonModule, FormsModule],
-    entryComponents: [InputComponent],
-  },
 });
 
 export const Basic = Template.bind({});

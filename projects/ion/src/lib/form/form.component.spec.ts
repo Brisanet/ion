@@ -1,10 +1,10 @@
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { render, RenderResult, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonIconComponent } from '../icon/icon.component';
-import { InputAreaComponent } from '../input-area/input-area.component';
-import { InputComponent } from '../input/input.component';
-import { SwitchComponent } from '../switch/switch.component';
+import { IonIconModule } from '../icon/icon.module';
+import { IonInputAreaModule } from '../input-area/input-area.module';
+import { IonInputModule } from '../input/input.module';
+import { IonSwitchModule } from '../switch/switch.module';
 import { TextField } from './core/textField';
 import { FormComponent, FormComponentProps } from './form.component';
 
@@ -22,12 +22,13 @@ const sut = async (
 ): Promise<RenderResult<FormComponent, FormComponent>> => {
   return await render(FormComponent, {
     componentProperties: props,
-    imports: [FormsModule, ReactiveFormsModule],
-    declarations: [
-      InputComponent,
-      IonIconComponent,
-      InputAreaComponent,
-      SwitchComponent,
+    imports: [
+      FormsModule,
+      ReactiveFormsModule,
+      IonInputModule,
+      IonInputAreaModule,
+      IonSwitchModule,
+      IonIconModule,
     ],
   });
 };

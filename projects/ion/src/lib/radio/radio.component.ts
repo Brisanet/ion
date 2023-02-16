@@ -5,7 +5,7 @@ import { Component, Input } from '@angular/core';
   templateUrl: './radio.component.html',
   styleUrls: ['./radio.component.scss'],
 })
-export class RadioComponent {
+export class IonRadioComponent {
   @Input() label?: string;
   @Input() checked? = false;
   @Input() disabled? = false;

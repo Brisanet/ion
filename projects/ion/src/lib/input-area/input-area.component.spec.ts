@@ -8,18 +8,20 @@ import {
 } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { SafeAny } from './../utils/safe-any';
-import { InputAreaComponent, IonInputAreaProps } from './input-area.component';
+import { IonInputAreaProps } from '../core/types/input-area';
+import { SafeAny } from '../utils/safe-any';
+import { IonInputAreaComponent } from './input-area.component';
+import { IonInputAreaModule } from './input-area.module';
 
 const sut = async (customProps?: IonInputAreaProps): Promise<void> => {
-  await render(InputAreaComponent, {
+  await render(IonInputAreaComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule],
     declarations: [],
   });
 };
 
-describe('InputAreaComponent', () => {
+describe('IonInputAreaComponent', () => {
   it('should render input with a given placeholder', async () => {
     const placeholder = 'Search';
     await sut({ placeholder });
@@ -109,8 +111,12 @@ const sutHost = async (
 ): Promise<Element> => {
   const { container } = await render(HostInputComponent, {
     componentProperties: props,
-    declarations: [InputAreaComponent],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      IonInputAreaModule,
+    ],
   });
   return container;
 };

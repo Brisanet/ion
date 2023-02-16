@@ -1,30 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { IconType } from './../icon/icon.component';
-import { SafeAny } from './../utils/safe-any';
-
-export type IconDirection = 'left' | 'right';
-export type InputType = 'text' | 'password';
-
-export interface IonInputProps {
-  key?: string;
-  placeholder?: string;
-  button?: string;
-  iconInput?: string;
-  disabled?: boolean;
-  iconDirection?: IconDirection;
-  valid?: boolean;
-  invalid?: boolean;
-  inputButton?: boolean;
-  inputIconButton?: boolean;
-  clickButton?: EventEmitter<SafeAny>;
-  value?: string;
-  clearButton?: boolean;
-  inputType?: InputType;
-  valueChange?: EventEmitter<string>;
-  maxLength?: string | number | null;
-}
+import { IconDirection, IconType } from '../core/types/icon';
+import { InputType } from '../core/types/input';
 
 @Component({
   selector: 'ion-input',
@@ -33,12 +11,12 @@ export interface IonInputProps {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputComponent,
+      useExisting: IonInputComponent,
       multi: true,
     },
   ],
 })
-export class InputComponent implements ControlValueAccessor {
+export class IonInputComponent implements ControlValueAccessor {
   @Input() key = '';
   @Input() placeholder?: string;
   @Input() button = 'Button';

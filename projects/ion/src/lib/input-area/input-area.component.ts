@@ -2,16 +2,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-export interface IonInputAreaProps {
-  key?: string;
-  cols?: string;
-  rows?: string;
-  disabled?: boolean;
-  value?: string;
-  placeholder?: string;
-  valueChange?: EventEmitter<string>;
-}
-
 @Component({
   selector: 'ion-input-area',
   templateUrl: './input-area.component.html',
@@ -19,12 +9,12 @@ export interface IonInputAreaProps {
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: InputAreaComponent,
+      useExisting: IonInputAreaComponent,
       multi: true,
     },
   ],
 })
-export class InputAreaComponent implements ControlValueAccessor {
+export class IonInputAreaComponent implements ControlValueAccessor {
   @Input() key!: string;
   @Input() cols = '30';
   @Input() rows = '5';

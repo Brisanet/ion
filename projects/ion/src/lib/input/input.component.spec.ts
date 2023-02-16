@@ -8,19 +8,22 @@ import {
 } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonIconComponent } from './../icon/icon.component';
-import { SafeAny } from './../utils/safe-any';
-import { InputComponent, InputType, IonInputProps } from './input.component';
+import { InputType, IonInputProps } from '../core/types/input';
+import { IonIconModule } from '../icon/icon.module';
+import { IonSharedModule } from '../shared.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonInputComponent } from './input.component';
+import { IonInputModule } from './input.module';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
-  await render(InputComponent, {
+  await render(IonInputComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, FormsModule],
-    declarations: [IonIconComponent],
+    excludeComponentDeclaration: true,
+    imports: [CommonModule, FormsModule, IonSharedModule],
   });
 };
 
-describe('InputComponent', () => {
+describe('IonInputComponent', () => {
   it('should render input with an empty placeholder if none is passed', async () => {
     await sut();
     const input = screen.getByTestId('input-element');
@@ -227,8 +230,13 @@ const sutHost = async (
 ): Promise<Element> => {
   const { container } = await render(HostInputComponent, {
     componentProperties: props,
-    declarations: [InputComponent, IonIconComponent],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      IonInputModule,
+      IonIconModule,
+    ],
   });
   return container;
 };
