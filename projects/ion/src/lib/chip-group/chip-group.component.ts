@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BadgeType } from '../badge/badge.component';
-import { ChipSize, IconDirection, IonChipProps } from '../chip/chip.component';
+import { BadgeType } from '../core/types/badge';
+import { ChipSize, IconDirection, IonChipProps } from '../core/types';
 
 export interface ChipInGroup extends IonChipProps {
   selected?: boolean;
@@ -30,7 +30,7 @@ interface RightBadge {
   templateUrl: './chip-group.component.html',
   styleUrls: ['./chip-group.component.scss'],
 })
-export class ChipGroupComponent {
+export class IonChipGroupComponent {
   @Input() chips: ChipInGroup[];
   @Input() size?: ChipSize = 'sm';
   @Input() infoBadge?: IonChipProps['infoBadge'];

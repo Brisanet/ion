@@ -5,23 +5,20 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
+import {
+  ColorScheme,
+  HeadingSize,
+  HeadingType,
+  HeadingWeight,
+} from '../../core/types/typography';
 import { createElement } from '../../utils';
-
-export type HeadingType = 'h1' | 'h2' | 'h3' | 'h4';
-export type HeadingWeight = 'medium' | 'bold';
-export type ColorScheme =
-  | 'primary'
-  | 'secondary'
-  | 'dark-primary'
-  | 'dark-secondary';
-export type HeadingSize = 'small' | 'medium' | 'normal';
 
 @Component({
   selector: 'ion-heading',
   templateUrl: './heading.component.html',
   styleUrls: ['./heading.component.scss'],
 })
-export class HeadingComponent implements AfterViewInit {
+export class IonHeadingComponent implements AfterViewInit {
   @Input() text: string;
   @Input() type: HeadingType;
   @Input() weight?: HeadingWeight = 'medium';

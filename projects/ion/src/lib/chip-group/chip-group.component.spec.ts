@@ -1,14 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
-import { ChipComponent, ChipSize } from '../chip/chip.component';
 import { SafeAny } from '../utils/safe-any';
-import { ChipGroupComponent, ChipGroupProps } from './chip-group.component';
-import { InfoBadgeComponent } from '../info-badge/info-badge.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { InputComponent } from '../input/input.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonChipGroupComponent, ChipGroupProps } from './chip-group.component';
 import { FormsModule } from '@angular/forms';
+import { ChipSize } from '../core/types';
+import { IonButtonModule } from '../button/button.module';
+import { IonChipModule } from '../chip/chip.module';
 
 const selectEvent = jest.fn();
 const mockChips = [
@@ -31,18 +27,9 @@ const sut = async (
     } as SafeAny,
   }
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
-  await render(ChipGroupComponent, {
+  await render(IonChipGroupComponent, {
     componentProperties: customProps,
-    imports: [FormsModule],
-    declarations: [
-      ChipComponent,
-      BadgeComponent,
-      IonIconComponent,
-      DropdownComponent,
-      InputComponent,
-      ButtonComponent,
-      InfoBadgeComponent,
-    ],
+    imports: [FormsModule, IonButtonModule, IonChipModule],
   });
   return { element: screen.getByTestId('ion-chip-group'), event: selectEvent };
 };
