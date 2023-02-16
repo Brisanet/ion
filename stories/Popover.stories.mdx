@@ -1,0 +1,39 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs';
+import { moduleMetadata } from '@storybook/angular';
+import dedent from 'ts-dedent';
+
+import { IonPopoverComponent } from '../projects/ion/src/lib/popover/popover.component';
+import { PopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
+import { OpenPopoverComponent } from '../projects/ion/src/lib/popover/mock/open-popover.component';
+import { IonPopoverModule } from '../projects/ion/src/lib/popover/popover.module';
+
+<Meta title="Ion/Data Display/Popover" component={IonPopoverComponent} />
+
+export const template = (args) => <OpenPopoverComponent {...args} />;
+
+# Ion Popover Diretiva
+
+<br />
+
+## Open
+
+<Canvas>
+  <Story
+    name="Directive"
+    height="350px"
+    args={{
+      componentToBody: OpenPopoverComponent,
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [OpenPopoverComponent],
+        imports: [CommonModule, FormsModule, IonSharedModule, IonPopoverModule],
+        entryComponents: [OpenPopoverComponent],
+      }),
+    ]}
+  >
+    {template.bind({})}
+  </Story>
+</Canvas>
