@@ -13,5 +13,6 @@ import { IonSidebarComponent } from './sidebar.component';
     IonSidebarItemComponent,
     IonSidebarGroupComponent,
   ],
+  exports: [IonSidebarComponent],
 })
 export class IonSidebarModule {}
