@@ -61,6 +61,7 @@ describe('SidebarGroup', () => {
   });
   it('should render a given group title', () => {
     expect(getByTestId('title')).toBeInTheDocument();
+    expect(getByTestId('title')).toHaveTextContent(mockGroup.title);
   });
   it('should render a given group icon', () => {
     const icon = document.getElementById(`ion-icon-${mockGroup.icon}`);
