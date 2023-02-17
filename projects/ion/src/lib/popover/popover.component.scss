@@ -45,7 +45,10 @@ $arrow-size: 4.5px;
 
 .sup-container {
   &-leftTop {
-    transform: translate(calc(-100% - $popover-spacing), -50%);
+    transform: translate(
+      calc(-100% - $popover-spacing),
+      calc(-100% + calc($popover-spacing + $arrow-size))
+    );
     @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
   }
 
@@ -71,13 +74,16 @@ $arrow-size: 4.5px;
   }
 
   &-rightTop {
-    transform: translateY(-50%);
+    transform: translateY(calc(-100% + calc($popover-spacing + $arrow-size)));
     margin-left: $popover-spacing;
     @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
   }
 
   &-leftBottom {
-    transform: translate(calc(-100% - $popover-spacing), -50%);
+    transform: translate(
+      calc(-100% - $popover-spacing),
+      -($popover-spacing + $arrow-size) * 2
+    );
     @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
   }
 
@@ -100,7 +106,7 @@ $arrow-size: 4.5px;
   }
 
   &-rightBottom {
-    transform: translateY(-50%);
+    transform: translateY(-($popover-spacing + $arrow-size));
     margin-left: $popover-spacing;
     @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
   }
