@@ -5,31 +5,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { IonInputProps } from '../input/input.component';
-
-export interface DropdownItem {
-  label: string;
-  key?: string;
-  selected?: boolean;
-  disabled?: boolean;
-  hovered?: boolean;
-}
-
-export interface DropdownParams {
-  options: DropdownItem[];
-  selected: EventEmitter<DropdownItem[]>;
-  multiple?: boolean;
-  enableSearch?: boolean;
-  searchOptions?: IonInputProps;
-  searchChange?: EventEmitter<string>;
-}
+import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class DropdownComponent implements AfterViewInit {
+export class IonDropdownComponent implements AfterViewInit {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() enableSearch = false;

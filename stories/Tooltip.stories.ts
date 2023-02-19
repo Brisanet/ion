@@ -6,18 +6,18 @@ import {
   TooltipTrigger,
 } from '../projects/ion/src/lib/core/types';
 import {
-  TooltipComponent,
+  IonTooltipComponent,
   TooltipProps,
 } from '../projects/ion/src/lib/tooltip/tooltip.component';
-import { TooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
+import { IonTooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
 
 export default {
   title: 'Ion/Data Display/Tooltip',
   decorators: [
     moduleMetadata({
-      declarations: [TooltipDirective, TooltipComponent],
+      declarations: [IonTooltipDirective, IonTooltipComponent],
       imports: [CommonModule],
-      entryComponents: [TooltipComponent],
+      entryComponents: [IonTooltipComponent],
     }),
   ],
   argTypes: {

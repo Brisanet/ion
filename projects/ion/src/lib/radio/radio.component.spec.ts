@@ -1,14 +1,14 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { RadioComponent } from './radio.component';
+import { IonRadioComponent } from './radio.component';
 
 const sut = async (customProps = {}): Promise<HTMLElement> => {
-  await render(RadioComponent, {
+  await render(IonRadioComponent, {
     componentProperties: customProps,
   });
   return screen.getByRole('radio');
 };
 
-describe('RadioComponent', () => {
+describe('IonRadioComponent', () => {
   it('should create an input', async () => {
     expect(await sut()).toBeInTheDocument();
   });

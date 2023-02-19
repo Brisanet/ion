@@ -1,16 +1,17 @@
+import { IonInputModule } from './../../../input/input.module';
+import { IonButtonModule } from './../../../button/button.module';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import {
   DatePickerInputComponent,
   DatePickerInputComponentProps,
 } from './date-picker-input.component';
-import { ButtonModule } from '../../../button/button.module';
 
 const sut = async (
   customProps?: DatePickerInputComponentProps
 ): Promise<void> => {
   await render(DatePickerInputComponent, {
     componentProperties: customProps,
-    imports: [ButtonModule],
+    imports: [IonButtonModule, IonInputModule],
     declarations: [],
   });
 };

@@ -2,7 +2,7 @@ import { TooltipDirective } from './../projects/ion/src/lib/tooltip/tooltip.dire
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 import {
-  DatepickerComponent,
+  IonDatepickerComponent,
   DatePickerComponentProps,
 } from './../projects/ion/src/lib/picker/date-picker/date-picker.component';
 import { DatePickerCalendarComponent } from './../projects/ion/src/lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
@@ -15,17 +15,17 @@ import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
 
 export default {
   title: 'Ion/Data Entry/Datepicker',
-  component: DatepickerComponent,
+  component: IonDatepickerComponent,
 } as Meta;
 
-const Template: Story<DatepickerComponent> = (
+const Template: Story<IonDatepickerComponent> = (
   args: DatePickerComponentProps
 ) => ({
-  component: DatepickerComponent,
+  component: IonDatepickerComponent,
   props: { ...args, ionOnClick: action('ionOnClick') },
   moduleMetadata: {
     declarations: [
-      DatepickerComponent,
+      IonDatepickerComponent,
       ControlPickerComponent,
       DatePickerInputComponent,
       DatePickerCalendarComponent,

@@ -1,36 +1,36 @@
+import { IonInputModule } from './../../input/input.module';
+import { IonDividerModule } from './../../divider/divider.module';
+import { IonButtonModule } from './../../button/button.module';
 import { SafeAny } from '../../utils/safe-any';
-import { DatepickerComponent } from './date-picker.component';
+import { IonDatepickerComponent } from './date-picker.component';
 import {
   ControlPickerComponent,
   TypeEvents,
 } from '../control-picker/control-picker.component';
 import { DatePickerInputComponent } from './date-picker-input/date-picker-input.component';
 import { DatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
-import { ButtonModule } from '../../button/button.module';
-import { IonDividerComponent } from '../../divider/divider.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Day } from '../core/day';
 import { ControlEvent } from '../control-picker/control-picker.component';
 
 describe('DatePickerCalendar', () => {
-  let component: DatepickerComponent;
-  let fixture: ComponentFixture<DatepickerComponent>;
+  let component: IonDatepickerComponent;
+  let fixture: ComponentFixture<IonDatepickerComponent>;
   const day = new Day(new Date(2023, 0, 1));
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
-        DatepickerComponent,
+        IonDatepickerComponent,
         ControlPickerComponent,
         DatePickerInputComponent,
         DatePickerCalendarComponent,
-        IonDividerComponent,
       ],
-      imports: [ButtonModule],
+      imports: [IonButtonModule, IonDividerModule, IonInputModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatepickerComponent);
+    fixture = TestBed.createComponent(IonDatepickerComponent);
     component = fixture.componentInstance;
   });
 

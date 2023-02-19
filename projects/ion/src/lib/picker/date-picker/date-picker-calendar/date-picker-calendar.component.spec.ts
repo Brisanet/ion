@@ -6,7 +6,7 @@ import {
   DatePickerCalendarComponentProps,
 } from './date-picker-calendar.component';
 import { Calendar } from './../../core/calendar';
-import { ButtonModule } from '../../../button/button.module';
+import { IonButtonModule } from './../../../button/button.module';
 
 const events = jest.fn();
 
@@ -20,7 +20,7 @@ const sut = async (customProps = defaultComponent): Promise<void> => {
   await render(DatePickerCalendarComponent, {
     componentProperties: customProps,
     declarations: [],
-    imports: [ButtonModule],
+    imports: [IonButtonModule],
   });
 };
 

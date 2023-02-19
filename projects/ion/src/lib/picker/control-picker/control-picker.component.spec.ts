@@ -1,8 +1,8 @@
+import { IonButtonModule } from './../../button/button.module';
+import { IonDividerModule } from './../../divider/divider.module';
+import { IonTooltipModule } from './../../tooltip/tooltip.module';
 import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonModule } from '../../button/button.module';
-import { IonDividerComponent } from '../../divider/divider.component';
-import { TooltipComponent } from '../../tooltip/tooltip.component';
 import { SafeAny } from '../../utils/safe-any';
 import {
   ControlPickerComponentProps,
@@ -25,8 +25,8 @@ const sut = async (
 ): Promise<void> => {
   await render(ControlPickerComponent, {
     componentProperties: customProps,
-    declarations: [TooltipComponent, IonDividerComponent],
-    imports: [ButtonModule],
+    declarations: [],
+    imports: [IonButtonModule, IonTooltipModule, IonDividerModule],
   });
 };
 

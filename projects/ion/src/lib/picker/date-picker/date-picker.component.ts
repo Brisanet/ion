@@ -30,7 +30,7 @@ export interface DatePickerComponentProps {
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })
-export class DatepickerComponent implements AfterViewInit {
+export class IonDatepickerComponent implements AfterViewInit {
   @Input() format = 'YYYY-MM-DD';
   @Input() formatInDateInput: FormatDateInput = 'DD/MM/YYYY';
   @Output() event = new EventEmitter<DateEvent>();
