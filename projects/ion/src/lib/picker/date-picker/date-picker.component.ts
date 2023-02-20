@@ -44,7 +44,7 @@ export class IonDatepickerComponent implements AfterViewInit {
   goToMonth: string;
   goToYear: string;
 
-  toggleVisibleCalendar(visible: boolean): void {
+  setVisibleCalendar(visible: boolean): void {
     this.showDatepicker = visible;
   }
 
@@ -53,7 +53,7 @@ export class IonDatepickerComponent implements AfterViewInit {
       const calendarContainer =
         document.getElementsByClassName('container-calendar')[0];
       if (calendarContainer && !calendarContainer.contains(e.target)) {
-        this.toggleVisibleCalendar(false);
+        this.setVisibleCalendar(false);
       }
     });
   }

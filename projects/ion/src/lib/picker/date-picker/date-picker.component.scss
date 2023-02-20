@@ -3,8 +3,8 @@
 .container-calendar {
   max-width: 312px;
   min-width: 312px;
-  margin: 8px 0px;
-  padding: 24px;
+  margin: spacing(1) spacing(0);
+  padding: spacing(3);
   border: 1px solid $neutral-4;
   background-color: $neutral-1;
   border-radius: 8px;

@@ -48,8 +48,8 @@ export class IonControlPickerComponent {
     'Nov',
     'Dez',
   ];
-  showContainerToChooseTheMonth = false;
-  showContainerToChooseTheYear = false;
+  showContainerToChooseMonth = false;
+  showContainerToChooseYear = false;
   rangeYear: number[] = [];
 
   handlePreviousYear(): void {
@@ -68,8 +68,8 @@ export class IonControlPickerComponent {
     this.controlPickerEvent.emit({ event: { type: 'nextYear' } });
   }
 
-  toogleVisibleContainerToChooseTheMonth(visible: boolean): void {
-    this.showContainerToChooseTheMonth = visible;
+  setVisibleContainerToChooseMonth(visible: boolean): void {
+    this.showContainerToChooseMonth = visible;
   }
 
   handleChangeMonth(monthNumber: string): void {
@@ -77,12 +77,12 @@ export class IonControlPickerComponent {
       event: { type: 'changeMonth', value: monthNumber },
     });
 
-    this.toogleVisibleContainerToChooseTheMonth(false);
+    this.setVisibleContainerToChooseMonth(false);
   }
 
-  toogleVisibleContainerToChooseTheYear(visible: boolean): void {
+  setVisibleContainerToChooseYear(visible: boolean): void {
     this.setRangeYear();
-    this.showContainerToChooseTheYear = visible;
+    this.showContainerToChooseYear = visible;
   }
 
   handleChangeYear(year: string): void {
@@ -90,16 +90,17 @@ export class IonControlPickerComponent {
       event: { type: 'changeYear', value: year },
     });
 
-    this.toogleVisibleContainerToChooseTheYear(false);
+    this.setVisibleContainerToChooseYear(false);
   }
 
-  setRangeYear(currentyear?: number): void {
-    const year = currentyear ? currentyear : this.year;
+  setRangeYear(currentYear?: number): void {
+    const maxRangeYear = 7;
+    const year = currentYear ? currentYear : this.year;
     this.rangeYear = [];
-    const InitialYear = Number(year) - 7;
-    const finalYear = Number(year) + 7;
+    const initialYear = Number(year) - maxRangeYear;
+    const finalYear = Number(year) + maxRangeYear;
 
-    for (let newYear = InitialYear; newYear <= finalYear; newYear++) {
+    for (let newYear = initialYear; newYear <= finalYear; newYear++) {
       this.rangeYear.push(newYear);
     }
   }

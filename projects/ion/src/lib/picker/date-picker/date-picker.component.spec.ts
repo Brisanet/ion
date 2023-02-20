@@ -57,7 +57,7 @@ describe('DatePickerCalendar', () => {
   });
 
   it('should set toggleVisibeCalendar for false when dispatch event mouseup', () => {
-    const toggleSpy = jest.spyOn(component, 'toggleVisibleCalendar');
+    const toggleSpy = jest.spyOn(component, 'setVisibleCalendar');
     component.showDatepicker = true;
     fixture.detectChanges();
     document.dispatchEvent(new Event('mouseup'));

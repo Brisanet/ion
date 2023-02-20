@@ -24,6 +24,7 @@ type CalendarControlActions =
   | 'previousMonth'
   | 'nextMonth'
   | 'nextYear';
+
 export interface IonDatePickerCalendarComponentProps {
   currentDate?: string;
   lang?: string;
