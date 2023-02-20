@@ -19,7 +19,6 @@ const Template: Story<StepComponent> = (args: StepComponent) => ({
 
 export const Basic = Template.bind({});
 Basic.args = {
-  theme: 'default',
   steps: [
     {
       label: 'First',
@@ -35,7 +34,6 @@ Basic.args = {
 
 export const Disabled = Template.bind({});
 Disabled.args = {
-  theme: 'default',
   steps: [
     {
       label: 'First',
@@ -53,7 +51,6 @@ Disabled.args = {
 
 export const Checked = Template.bind({});
 Checked.args = {
-  theme: 'default',
   steps: [
     {
       label: 'First',
@@ -74,7 +71,6 @@ Checked.args = {
 
 export const WithError = Template.bind({});
 WithError.args = {
-  theme: 'default',
   steps: [
     {
       label: 'First',

@@ -1,34 +1,54 @@
 @import '../../styles/index.scss';
 
-.steps {
+@mixin setStepColorsStatus($border, $bg, $color) {
+  .step-draw .circle {
+    border-color: $border;
+    background-color: $bg;
+    color: $color;
+  }
+}
+
+@mixin setIconColorStatus($color) {
+  ::ng-deep svg {
+    margin-top: 5px;
+    fill: $color;
+  }
+}
+
+@mixin setAlignAndWidthText($align, $maxWidth) {
+  text-align: $align;
+  max-width: $maxWidth;
+}
+
+.steps-container {
   display: flex;
 }
 
-.step-container {
+.step {
   display: flex;
   flex-direction: column;
 
-  .step {
+  .step-draw {
     display: flex;
     align-items: center;
 
-    .cross {
+    .line {
       width: 64.5px;
       height: 1px;
-      background-color: #ced2db;
+      background-color: $neutral-4;
 
       &.bolded {
         background-color: $primary-6;
       }
     }
 
-    .step-circle {
+    .circle {
       box-sizing: content-box;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin: 8px;
-      padding: 4px;
+      margin: spacing(1);
+      padding: spacing(0.5);
       min-width: 28px;
       height: 28px;
       border-radius: 20px;
@@ -43,15 +63,14 @@
 
   .label,
   .description {
-    text-align: center;
     color: $neutral-6;
     font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 400;
     word-break: break-all;
-    padding: 3px 8px;
-    max-width: 183px;
+    padding: spacing(0.5) spacing(1);
     box-sizing: border-box;
+    @include setAlignAndWidthText(center, 183px);
   }
 
   .label {
@@ -62,12 +81,9 @@
       color: $neutral-7;
     }
 
-    &.disabled {
+    &.disabled,
+    &.disabled.selected {
       color: $neutral-5;
-
-      &.selected {
-        color: $neutral-5;
-      }
     }
   }
 
@@ -76,160 +92,96 @@
     line-height: 16px;
   }
 
-  .theme-default {
-    .default {
-      border-color: $neutral-6;
-      background-color: $neutral-1;
-      color: $neutral-8;
-    }
-    .selected {
-      border-color: $primary-6;
-      background-color: $primary-6;
-      color: $neutral-1;
-    }
-    .checked {
-      border-color: $primary-6;
-      background-color: $primary-1;
-      color: $primary-6;
-
-      ::ng-deep svg {
-        margin-top: 5px;
-        fill: $primary-6;
-      }
-    }
-    .error {
-      border-color: $negative-6;
-      background-color: $negative-6;
-      color: $neutral-1;
-    }
+  &.default {
+    @include setStepColorsStatus($neutral-6, $neutral-1, $neutral-8);
+  }
+  &.selected {
+    @include setStepColorsStatus($primary-6, $primary-6, $neutral-1);
+  }
+  &.checked {
+    @include setStepColorsStatus($primary-6, $primary-1, $primary-6);
+    @include setIconColorStatus($primary-6);
+  }
+  &.error {
+    @include setStepColorsStatus($negative-6, $negative-6, $neutral-1);
   }
 
-  .theme-pastel-tones {
-    .default {
-      border-color: $primary-4;
-      background-color: $neutral-1;
-      color: $primary-7;
+  &.disabled {
+    &.default,
+    &.selected,
+    &.checked,
+    &.error {
+      @include setStepColorsStatus($neutral-4, $neutral-4, $neutral-5);
+      @include setIconColorStatus($neutral-5);
     }
-
-    .selected {
-      border-color: $primary-5;
-      background-color: $primary-5;
-      color: $neutral-1;
-    }
-
-    .checked {
-      border-color: $primary-6;
-      background-color: $primary-2;
-      color: $primary-6;
-
-      ::ng-deep svg {
-        margin-top: 5px;
-        fill: $primary-6;
+    .step-draw {
+      .line,
+      .line.bolded {
+        background-color: $neutral-4;
       }
-    }
-
-    .error {
-      border-color: $negative-5;
-      background-color: $negative-5;
-      color: $neutral-1;
-    }
-  }
-
-  .theme-dark-tones {
-    .default {
-      border-color: $primary-6;
-      background-color: $primary-1;
-      color: $primary-7;
-    }
-
-    .selected {
-      border-color: $primary-7;
-      background-color: $primary-7;
-      color: $neutral-1;
-    }
-
-    .checked {
-      border-color: $primary-6;
-      background-color: $primary-2;
-      color: $primary-7;
-
-      ::ng-deep svg {
-        margin-top: 5px;
-        fill: $primary-7;
-      }
-    }
-
-    .error {
-      border-color: $negative-7;
-      background-color: $negative-7;
-      color: $neutral-1;
-    }
-  }
-
-  .disabled {
-    .default,
-    .selected,
-    .checked,
-    .error {
-      border-color: $neutral-4;
-      background-color: $neutral-4;
-      color: $neutral-5;
-
-      ::ng-deep svg {
-        margin-top: 5px;
-        fill: $neutral-5;
-      }
-    }
-    .cross,
-    .cross.bolded {
-      background-color: #ced2db;
     }
   }
 }
 
-.step-container:first-child {
+.step:first-child {
   .label,
   .description {
-    text-align: left;
+    @include setAlignAndWidthText(left, 118.5px);
   }
 }
 
-.step-container:last-child {
+.step:last-child {
   .label,
   .description {
-    text-align: right;
+    @include setAlignAndWidthText(right, 118.5px);
   }
 }
 
-.step-container.clickable:hover {
+.step.clickable {
   cursor: pointer;
-
-  .label,
-  .description {
-    color: $primary-5;
-  }
-
-  .theme-default {
-    .default {
-      border-color: $primary-6;
-      background-color: $primary-1;
-      color: $primary-6;
+  &:hover,
+  &:active {
+    .label,
+    .description {
+      color: $primary-5;
     }
   }
 
-  .theme-pastel-tones {
-    .default {
-      border-color: $primary-6;
-      background-color: $primary-2;
-      color: $primary-6;
+  &:hover {
+    &.default {
+      @include setStepColorsStatus($primary-4, $neutral-1, $primary-7);
+    }
+
+    &.selected {
+      @include setStepColorsStatus($primary-5, $primary-5, $neutral-1);
+    }
+
+    &.checked {
+      @include setStepColorsStatus($primary-6, $primary-2, $primary-6);
+      @include setIconColorStatus($primary-6);
+    }
+
+    &.error {
+      @include setStepColorsStatus($negative-5, $negative-5, $neutral-1);
     }
   }
 
-  .theme-dark-tones {
-    .default {
-      border-color: $primary-6;
-      background-color: $primary-2;
-      color: $primary-7;
+  &:active {
+    &.default {
+      @include setStepColorsStatus($primary-6, $primary-1, $primary-7);
+    }
+
+    &.selected {
+      @include setStepColorsStatus($primary-7, $primary-7, $neutral-1);
+    }
+
+    &.checked {
+      @include setStepColorsStatus($primary-6, $primary-1, $primary-7);
+      @include setIconColorStatus($primary-7);
+    }
+
+    &.error {
+      @include setStepColorsStatus($negative-7, $negative-7, $neutral-1);
     }
   }
 }

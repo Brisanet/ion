@@ -1,23 +1,25 @@
-<section class="steps" data-testid="ion-step">
+<section class="steps-container" data-testid="ion-step">
   <div
-    class="step-container"
+    [class]="'step ' + step.status"
     [class.clickable]="
-      clickable && step.status !== 'selected' && step.status !== 'error'
+      clickable &&
+      !disabled &&
+      step.status !== 'selected' &&
+      step.status !== 'error'
     "
+    [class.disabled]="disabled"
+    [attr.data-testid]="'step-' + step.index + '-' + step.status"
     *ngFor="let step of steps; let index = index"
     (click)="goesTo(step.index)"
   >
-    <div [class]="disabled ? 'step disabled' : 'step theme-' + theme">
+    <div class="step-draw">
       <div
-        class="cross"
+        class="line"
         [class.bolded]="this.beforeStepIsChecked(index)"
-        *ngIf="crossVisibility('initial', step)"
+        *ngIf="lineVisibility('initial', step)"
       ></div>
 
-      <div
-        [class]="'step-circle ' + step.status"
-        [attr.data-testid]="'step-' + step.index + '-' + step.status"
-      >
+      <div class="circle">
         <span *ngIf="step.status !== 'checked'">
           {{ step.index }}
         </span>
@@ -27,9 +29,9 @@
       </div>
 
       <div
-        class="cross"
+        class="line"
         [class.bolded]="this.afterStepIsChecked(index)"
-        *ngIf="crossVisibility('final', step)"
+        *ngIf="lineVisibility('final', step)"
       ></div>
     </div>
 

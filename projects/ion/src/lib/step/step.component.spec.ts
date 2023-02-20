@@ -40,7 +40,6 @@ const sut = async (
 
 describe('Static StepComponent', () => {
   const stepsLabels = ['Step 1', 'Step 2', 'Step 3'];
-
   it.each(stepsLabels)(
     'should render step component with 3 steps',
     async (label: string) => {
@@ -65,6 +64,7 @@ describe('Static StepComponent', () => {
       ],
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
+    expect(screen.getByTestId('step-1-checked')).toHaveClass('checked');
   });
   it('should render first step checked and second with error and description', async () => {
     await sut({
@@ -85,32 +85,41 @@ describe('Static StepComponent', () => {
       ],
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
+    expect(screen.getByTestId('step-1-checked')).toHaveClass('checked');
     expect(screen.getByTestId('step-2-error')).toBeTruthy();
+    expect(screen.getByTestId('step-2-error')).toHaveClass('error');
     expect(screen.getByText('Error')).toHaveClass(`description`);
   });
-  it('should render step component with 3 checked steps', async () => {
-    await sut({
-      current: defaultProps.current,
-      steps: [
-        {
-          label: 'Step 1',
-          status: 'checked',
-        },
-        {
-          label: 'Step 2',
-          status: 'checked',
-        },
-        {
-          label: 'Step 3',
-          status: 'checked',
-        },
-      ],
-    });
-    expect(screen.getAllByTestId('check-icon')).toHaveLength(3);
-    expect(screen.getByTestId('step-1-checked')).toBeTruthy();
-    expect(screen.getByTestId('step-2-checked')).toBeTruthy();
-    expect(screen.getByTestId('step-3-checked')).toBeTruthy();
-  });
+  const checkedStepsIds = [
+    'step-1-checked',
+    'step-2-checked',
+    'step-3-checked',
+  ];
+  it.each(checkedStepsIds)(
+    'should render step component with 3 checked steps',
+    async (stepId: string) => {
+      await sut({
+        current: defaultProps.current,
+        steps: [
+          {
+            label: 'Step 1',
+            status: 'checked',
+          },
+          {
+            label: 'Step 2',
+            status: 'checked',
+          },
+          {
+            label: 'Step 3',
+            status: 'checked',
+          },
+        ],
+      });
+      expect(screen.getAllByTestId('check-icon')).toHaveLength(3);
+      expect(screen.getByTestId(stepId)).toBeTruthy();
+      expect(screen.getByTestId(stepId)).toHaveClass('checked');
+    }
+  );
   it('should go to step 3 when it be clicked', async () => {
     await sut({
       clickable: true,
@@ -148,6 +157,7 @@ describe('Passing through the StepComponent', () => {
   it('should pass from step 1 to step 2', async () => {
     fixture.detectChanges();
     expect(screen.getByTestId('step-1-selected')).toBeTruthy();
+    expect(screen.getByTestId('step-2-default')).toBeTruthy();
     testHost.current = 2;
     fixture.detectChanges();
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
