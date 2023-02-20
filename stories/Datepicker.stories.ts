@@ -1,4 +1,3 @@
-import { TooltipDirective } from './../projects/ion/src/lib/tooltip/tooltip.directive';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 import {
@@ -8,10 +7,12 @@ import {
 import { DatePickerCalendarComponent } from './../projects/ion/src/lib/picker/date-picker/date-picker-calendar/date-picker-calendar.component';
 import { DatePickerInputComponent } from './../projects/ion/src/lib/picker/date-picker/date-picker-input/date-picker-input.component';
 import { ControlPickerComponent } from './../projects/ion/src/lib/picker/control-picker/control-picker.component';
-import { IonDividerComponent } from '../projects/ion/src/public-api';
-import { TooltipComponent } from './../projects/ion/src/lib/tooltip/tooltip.component';
 import { CommonModule } from '@angular/common';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonDividerModule } from '../projects/ion/src/lib/divider/divider.module';
+import { IonInputModule } from '../projects/ion/src/lib/input/input.module';
+import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
+import { IonTooltipModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Entry/Datepicker',
@@ -29,12 +30,15 @@ const Template: Story<IonDatepickerComponent> = (
       ControlPickerComponent,
       DatePickerInputComponent,
       DatePickerCalendarComponent,
-      IonDividerComponent,
-      TooltipComponent,
-      TooltipDirective,
     ],
-    imports: [CommonModule, ButtonModule],
-    entryComponents: [TooltipComponent],
+    imports: [
+      CommonModule,
+      IonButtonModule,
+      IonDividerModule,
+      IonInputModule,
+      IonTooltipModule,
+    ],
+    entryComponents: [IonTooltipComponent],
   },
 });
 
