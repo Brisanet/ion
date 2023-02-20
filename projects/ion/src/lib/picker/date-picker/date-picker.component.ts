@@ -20,7 +20,7 @@ type DateEvent = {
 
 type FormatDateInput = 'YYYY-MM-DD' | 'DD/MM/YYYY';
 
-export interface DatePickerComponentProps {
+export interface IonDatePickerComponentProps {
   format?: string;
   formatInDateInput?: FormatDateInput;
   event?: EventEmitter<DateEvent>;

@@ -2,29 +2,29 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SafeAny } from '../../../utils/safe-any';
 import {
-  DatePickerCalendarComponent,
-  DatePickerCalendarComponentProps,
+  IonDatePickerCalendarComponent,
+  IonDatePickerCalendarComponentProps,
 } from './date-picker-calendar.component';
 import { Calendar } from './../../core/calendar';
 import { IonButtonModule } from './../../../button/button.module';
 
 const events = jest.fn();
 
-const defaultComponent: DatePickerCalendarComponentProps = {
+const defaultComponent: IonDatePickerCalendarComponentProps = {
   events: {
     emit: events,
   } as SafeAny,
 };
 
 const sut = async (customProps = defaultComponent): Promise<void> => {
-  await render(DatePickerCalendarComponent, {
+  await render(IonDatePickerCalendarComponent, {
     componentProperties: customProps,
     declarations: [],
     imports: [IonButtonModule],
   });
 };
 
-describe('DatePickerCalendarComponent', () => {
+describe('IonDatePickerCalendarComponent', () => {
   it('should render 28 days in the calendar when the date is 2015-02-01', async () => {
     const date = '2015-02-01';
     await sut({ currentDate: date });
@@ -62,7 +62,7 @@ describe('DatePickerCalendarComponent', () => {
 
   it('should render the month may when goToMonthInCalendar is 04', async () => {
     const mayMonthNumber = '4';
-    const datePickerCalendar = new DatePickerCalendarComponent();
+    const datePickerCalendar = new IonDatePickerCalendarComponent();
     datePickerCalendar.calendar = new Calendar(2023, 1);
     datePickerCalendar.goToMonthInCalendar = mayMonthNumber;
     datePickerCalendar.tempRenderDays();
@@ -74,7 +74,7 @@ describe('DatePickerCalendarComponent', () => {
 
   it('should render the year 2030 when goToYearInCalendar is 2030', async () => {
     const year2030 = '2030';
-    const datePickerCalendar = new DatePickerCalendarComponent();
+    const datePickerCalendar = new IonDatePickerCalendarComponent();
     datePickerCalendar.calendar = new Calendar(2023, 1);
     datePickerCalendar.goToYearInCalendar = year2030;
     datePickerCalendar.tempRenderDays();
@@ -98,17 +98,17 @@ describe('DatePickerCalendarComponent', () => {
 });
 
 describe('DatePickerCalendar: calendarControlAction', () => {
-  let component: DatePickerCalendarComponent;
-  let fixture: ComponentFixture<DatePickerCalendarComponent>;
+  let component: IonDatePickerCalendarComponent;
+  let fixture: ComponentFixture<IonDatePickerCalendarComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DatePickerCalendarComponent],
+      declarations: [IonDatePickerCalendarComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatePickerCalendarComponent);
+    fixture = TestBed.createComponent(IonDatePickerCalendarComponent);
     component = fixture.componentInstance;
   });
 

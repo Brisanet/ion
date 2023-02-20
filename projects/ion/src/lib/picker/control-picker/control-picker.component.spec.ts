@@ -5,14 +5,14 @@ import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../../utils/safe-any';
 import {
-  ControlPickerComponentProps,
-  ControlPickerComponent,
+  IonControlPickerComponentProps,
+  IonControlPickerComponent,
   ControlEvent,
 } from './control-picker.component';
 
 const events = jest.fn();
 
-const defaultComponent: ControlPickerComponentProps = {
+const defaultComponent: IonControlPickerComponentProps = {
   month: 'Janeiro',
   year: '2022',
   controlPickerEvent: {
@@ -21,16 +21,16 @@ const defaultComponent: ControlPickerComponentProps = {
 };
 
 const sut = async (
-  customProps: ControlPickerComponentProps = defaultComponent
+  customProps: IonControlPickerComponentProps = defaultComponent
 ): Promise<void> => {
-  await render(ControlPickerComponent, {
+  await render(IonControlPickerComponent, {
     componentProperties: customProps,
     declarations: [],
     imports: [IonButtonModule, IonTooltipModule, IonDividerModule],
   });
 };
 
-describe('ControlPickerComponent', () => {
+describe('IonControlPickerComponent', () => {
   it('should emit an event on clicking the previous year button', async () => {
     const onPreviousYear = new EventEmitter<ControlEvent>();
     await sut({ ...defaultComponent, controlPickerEvent: onPreviousYear });

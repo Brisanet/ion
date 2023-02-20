@@ -1,7 +1,7 @@
 import { SafeAny } from './../../../utils/safe-any';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-export interface DatePickerInputComponentProps {
+export interface IonDatePickerInputComponentProps {
   date?: string;
   placeholder?: string;
   clearDate?: EventEmitter<SafeAny>;
@@ -11,7 +11,7 @@ export interface DatePickerInputComponentProps {
   templateUrl: './date-picker-input.component.html',
   styleUrls: ['./date-picker-input.component.scss'],
 })
-export class DatePickerInputComponent {
+export class IonDatePickerInputComponent {
   @Input() date?: string;
   @Input() placeholder? = 'Selecione a data';
   @Output() clearDate = new EventEmitter();

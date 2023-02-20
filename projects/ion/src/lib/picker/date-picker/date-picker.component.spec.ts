@@ -4,11 +4,11 @@ import { IonButtonModule } from './../../button/button.module';
 import { SafeAny } from '../../utils/safe-any';
 import { IonDatepickerComponent } from './date-picker.component';
 import {
-  ControlPickerComponent,
+  IonControlPickerComponent,
   TypeEvents,
 } from '../control-picker/control-picker.component';
-import { DatePickerInputComponent } from './date-picker-input/date-picker-input.component';
-import { DatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
+import { IonDatePickerInputComponent } from './date-picker-input/date-picker-input.component';
+import { IonDatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Day } from '../core/day';
 import { ControlEvent } from '../control-picker/control-picker.component';
@@ -21,9 +21,9 @@ describe('DatePickerCalendar', () => {
     await TestBed.configureTestingModule({
       declarations: [
         IonDatepickerComponent,
-        ControlPickerComponent,
-        DatePickerInputComponent,
-        DatePickerCalendarComponent,
+        IonControlPickerComponent,
+        IonDatePickerInputComponent,
+        IonDatePickerCalendarComponent,
       ],
       imports: [IonButtonModule, IonDividerModule, IonInputModule],
     }).compileComponents();

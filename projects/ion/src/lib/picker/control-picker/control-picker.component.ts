@@ -17,7 +17,7 @@ export interface ControlEvent {
   event?: Events;
 }
 
-export interface ControlPickerComponentProps {
+export interface IonControlPickerComponentProps {
   month: string;
   year: string;
   controlPickerEvent?: EventEmitter<ControlEvent>;
@@ -28,7 +28,7 @@ export interface ControlPickerComponentProps {
   templateUrl: './control-picker.component.html',
   styleUrls: ['./control-picker.component.scss'],
 })
-export class ControlPickerComponent {
+export class IonControlPickerComponent {
   @Input() month: string;
   @Input() year: string;
   @Output() controlPickerEvent: EventEmitter<ControlEvent> =

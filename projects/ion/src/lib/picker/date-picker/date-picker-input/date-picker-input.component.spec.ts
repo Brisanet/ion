@@ -2,22 +2,22 @@ import { IonInputModule } from './../../../input/input.module';
 import { IonButtonModule } from './../../../button/button.module';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import {
-  DatePickerInputComponent,
-  DatePickerInputComponentProps,
+  IonDatePickerInputComponent,
+  IonDatePickerInputComponentProps,
 } from './date-picker-input.component';
 
 const sut = async (
-  customProps?: DatePickerInputComponentProps
+  customProps?: IonDatePickerInputComponentProps
 ): Promise<void> => {
-  await render(DatePickerInputComponent, {
+  await render(IonDatePickerInputComponent, {
     componentProperties: customProps,
     imports: [IonButtonModule, IonInputModule],
     declarations: [],
   });
 };
 
-describe('DatePickerInputComponent', () => {
-  it('Should render DatePickerInputComponent', async () => {
+describe('IonDatePickerInputComponent', () => {
+  it('Should render IonDatePickerInputComponent', async () => {
     await sut();
     const input = screen.getByTestId('input-element');
     expect(screen.findByTestId('container-input')).toBeTruthy();

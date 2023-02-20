@@ -24,7 +24,7 @@ type CalendarControlActions =
   | 'previousMonth'
   | 'nextMonth'
   | 'nextYear';
-export interface DatePickerCalendarComponentProps {
+export interface IonDatePickerCalendarComponentProps {
   currentDate?: string;
   lang?: string;
   goToMonthInCalendar?: string;
@@ -37,9 +37,9 @@ export interface DatePickerCalendarComponentProps {
   templateUrl: './date-picker-calendar.component.html',
   styleUrls: ['./date-picker-calendar.component.scss'],
 })
-export class DatePickerCalendarComponent implements OnInit, DoCheck {
-  @Input() currentDate: DatePickerCalendarComponentProps['currentDate'];
-  @Input() lang: DatePickerCalendarComponentProps['lang'];
+export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
+  @Input() currentDate: IonDatePickerCalendarComponentProps['currentDate'];
+  @Input() lang: IonDatePickerCalendarComponentProps['lang'];
   @Input() set goToMonthInCalendar(month: string) {
     if (this.calendar) {
       this.calendar.goToDate(Number(month) + 1, this.calendar.year);
