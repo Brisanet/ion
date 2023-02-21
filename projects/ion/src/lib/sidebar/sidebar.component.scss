@@ -1,0 +1,48 @@
+@import '../../styles/index.scss';
+
+@mixin icon-color($color) {
+  ::ng-deep svg {
+    fill: $color;
+  }
+}
+
+.ion-sidebar {
+  margin: 0;
+  padding-left: 0;
+  line-height: 0;
+  list-style: none;
+  outline: none;
+
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 999;
+  width: 256px;
+  min-height: 100vh;
+  left: 0px;
+  top: 0px;
+  background: $neutral-1;
+  box-shadow: 4px 0px 8px rgba(4, 42, 98, 0.15);
+  padding: spacing(3);
+  transform: translateX(-110%);
+  transition: transform 0.25s ease-in-out;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: spacing(4);
+    @include icon-color($primary-color);
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  &--opened {
+    transform: translateX(0px);
+    transition: transform 0.25s ease-in-out;
+  }
+}
