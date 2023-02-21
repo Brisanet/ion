@@ -9,6 +9,7 @@ import {
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
 import { Day } from '../core/day';
+import { IonDatePickerComponentProps } from '../../core/types/datepicker';
 
 type DateEmitter = {
   day?: Day;
@@ -18,13 +19,6 @@ type DateEvent = {
   date: string;
 };
 
-type FormatDateInput = 'YYYY-MM-DD' | 'DD/MM/YYYY';
-
-export interface IonDatePickerComponentProps {
-  format?: string;
-  formatInDateInput?: FormatDateInput;
-  event?: EventEmitter<DateEvent>;
-}
 @Component({
   selector: 'ion-date-picker',
   templateUrl: './date-picker.component.html',
@@ -32,7 +26,8 @@ export interface IonDatePickerComponentProps {
 })
 export class IonDatepickerComponent implements AfterViewInit {
   @Input() format = 'YYYY-MM-DD';
-  @Input() formatInDateInput: FormatDateInput = 'DD/MM/YYYY';
+  @Input() formatInDateInput: IonDatePickerComponentProps['formatInDateInput'] =
+    'DD/MM/YYYY';
   @Output() event = new EventEmitter<DateEvent>();
   currentDate: string;
   inputDate: string;
