@@ -61,6 +61,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
+  calendarAction = {
+    previousYear: (): void => this.previousYear(),
+    previousMonth: (): void => this.previousMonth(),
+    nextMonth: (): void => this.nextMonth(),
+    nextYear: (): void => this.nextYear(),
+  };
 
   constructor() {
     this.setLanguage();
@@ -211,20 +217,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    if (this.calendarControlAction === 'previousYear') {
-      this.previousYear();
-    }
-
-    if (this.calendarControlAction === 'previousMonth') {
-      this.previousMonth();
-    }
-
-    if (this.calendarControlAction === 'nextMonth') {
-      this.nextMonth();
-    }
-
-    if (this.calendarControlAction === 'nextYear') {
-      this.nextYear();
+    if (this.calendarControlAction) {
+      this.calendarAction[this.calendarControlAction]();
     }
   }
 }

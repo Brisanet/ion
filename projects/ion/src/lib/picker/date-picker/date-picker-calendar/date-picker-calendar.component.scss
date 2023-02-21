@@ -9,14 +9,14 @@
     grid-template-columns: repeat(7, 1fr);
     justify-items: center;
     align-items: center;
-    margin: 8px 0;
+    margin: spacing(1) 0;
 
     span {
       display: flex;
       justify-content: center;
       align-items: center;
       width: 24px;
-      line-height: 16px;
+      line-height: spacing(2);
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -28,7 +28,7 @@
   .month-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-row-gap: 16px;
+    grid-row-gap: spacing(2);
     justify-items: center;
     align-items: center;
 
