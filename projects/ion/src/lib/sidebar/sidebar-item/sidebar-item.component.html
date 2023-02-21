@@ -1,0 +1,18 @@
+<button
+  data-testid="ion-sidebar-item"
+  class="ion-sidebar-item"
+  [class.ion-sidebar-item--selected]="selected"
+  [disabled]="disabled"
+  (click)="selectItem()"
+>
+  <div>
+    <ion-icon class="ion-sidebar-item__icon" [type]="icon"></ion-icon>
+    <span class="ion-sidebar-item__text">{{ title }}</span>
+  </div>
+  <ion-icon
+    *ngIf="disabled"
+    class="ion-sidebar-item__icon ion-sidebar-item__icon--disabled"
+    size="20"
+    type="block"
+  ></ion-icon>
+</button>
