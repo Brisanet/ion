@@ -16,6 +16,7 @@ export * from './lib/divider/divider.module';
 export * from './lib/dropdown/dropdown.module';
 export * from './lib/icon/icon.module';
 export * from './lib/indicator/indicator.module';
+export * from './lib/input/input.module';
 export * from './lib/info-badge/info-badge.module';
 export * from './lib/input-area/input-area.module';
 export * from './lib/input-counter/input-counter.module';
