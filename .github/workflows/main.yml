@@ -1,7 +1,7 @@
 name: Automated Tests and Linting
 
 on:
-  pull_request:
+  pull_request_target:
     branches: ['main']
 
 jobs:
@@ -34,6 +34,12 @@ jobs:
 
       - name: Run Tests
         run: yarn test:coverage
+
+      - uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: yarn test:coverage
 
       - name: Run Prettier
         run: yarn prettier
