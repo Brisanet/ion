@@ -1,7 +1,7 @@
 name: CodeClimate
 on:
   workflow_run:
-    workflows: ['CI']
+    workflows: ['Automated Tests and Linting']
     types:
       - completed
 
