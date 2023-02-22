@@ -22,7 +22,7 @@ describe('ButtonComponent', () => {
   it('should render button with custom label', async () => {
     const textButton = 'Clique aqui';
     const button = await sut({ label: textButton });
-    expect(button.textContent).not.toContain(textButton);
+    expect(button.textContent).toContain(textButton);
   });
 
   it('should emit an event when clicked', async () => {

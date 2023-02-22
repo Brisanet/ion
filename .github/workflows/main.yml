@@ -35,11 +35,18 @@ jobs:
       - name: Run Tests
         run: yarn test:coverage
 
-      - uses: paambaati/codeclimate-action@v3.0.0
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      - name: Archive coverage
+        uses: actions/upload-artifact@v2
         with:
-          coverageCommand: yarn test:coverage
+          name: coverage
+          path: |
+            coverage
+
+      # - uses: paambaati/codeclimate-action@v3.0.0
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      #   with:
+      #     coverageCommand: yarn test:coverage
 
       - name: Run Prettier
         run: yarn prettier
