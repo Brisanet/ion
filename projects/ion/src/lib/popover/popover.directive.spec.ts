@@ -6,7 +6,7 @@ import { fireEvent, screen } from '@testing-library/angular';
 import { IonDividerComponent } from '../divider/divider.component';
 import { IonSharedModule } from '../shared.module';
 
-import { IonPopoverComponent } from './popover.component';
+import { IonPopoverComponent } from './component/popover.component';
 import { PopoverDirective } from './popover.directive';
 
 const textButton = 'Teste';

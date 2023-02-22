@@ -2,34 +2,27 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
 import { PopoverPosition } from '../projects/ion/src/lib/core/types/popover';
-import { IonSharedModule } from '../projects/ion/src/public-api';
-import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
 
-const TemplateComponente: Story<IonPopoverComponent> = (
-  args: IonPopoverComponent
-) => ({
-  component: IonPopoverComponent,
+import {
+  IonPopoverModule,
+  IonSharedModule,
+} from '../projects/ion/src/public-api';
+import { OpenPopoverComponent } from '../projects/ion/src/lib/popover/mock/open-popover.component';
+
+const Template: Story<OpenPopoverComponent> = (args: OpenPopoverComponent) => ({
+  component: OpenPopoverComponent,
   props: {
     ...args,
   },
   moduleMetadata: {
-    declarations: [IonDividerComponent],
-    imports: [CommonModule, IonSharedModule],
+    declarations: [OpenPopoverComponent],
+    imports: [CommonModule, IonSharedModule, IonPopoverModule],
+    entryComponents: [OpenPopoverComponent],
   },
 });
 
-export const DefaultComponent = TemplateComponente.bind({});
-DefaultComponent.args = {
-  ionPopoverTitle: 'Você tem certeza?',
-  ionPopoverBody:
-    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
-  ionPopoverIconClose: true,
-  ionPopoverPosition: PopoverPosition.DEFAULT,
-  ionPopoverActions: null,
-};
-
-export const withActions = TemplateComponente.bind({});
-withActions.args = {
+export const Directive = Template.bind({});
+Directive.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonPopoverComponent } from './popover.component';
+import { IonPopoverComponent } from './component/popover.component';
 import { PopoverDirective } from './popover.directive';
 import { IonDividerModule } from '../divider/divider.module';
-import { IonButtonModule } from '../button/button.module';
+import { IonSharedModule } from '../shared.module';
 
 @NgModule({
   declarations: [IonPopoverComponent, PopoverDirective],
-  imports: [CommonModule, IonDividerModule, IonButtonModule],
+  imports: [CommonModule, IonDividerModule, IonSharedModule],
   exports: [PopoverDirective],
   entryComponents: [IonPopoverComponent],
 })

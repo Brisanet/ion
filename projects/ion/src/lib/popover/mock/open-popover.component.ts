@@ -29,6 +29,6 @@ export class OpenPopoverComponent {
   @Input() ionPopoverTitle = 'Eu sou um popover';
   @Input() ionPopoverBody = 'e eu sou o body do popover';
   @Input() ionPopoverPosition = PopoverPosition.DEFAULT;
-  @Input() ionPopoverIconClose = false;
+  @Input() ionPopoverIconClose = true;
   @Input() ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];
 }

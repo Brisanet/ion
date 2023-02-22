@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
-import { IonPopoverComponent } from './popover.component';
+import { IonPopoverComponent } from './component/popover.component';
 import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
