@@ -14,6 +14,7 @@ import { IonDatePickerModule } from './date-picker/date-picker/date-picker.modul
 import { IonDividerModule } from './divider/divider.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonIconModule } from './icon/icon.module';
+import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonInfoBadgeModule } from './info-badge/info-badge.module';
 import { IonInputAreaModule } from './input-area/input-area.module';
 import { IonInputCounterModule } from './input-counter/input-counter.module';
@@ -26,6 +27,7 @@ import { IonPaginationModule } from './pagination/pagination.module';
 import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
 import { IonRadioModule } from './radio/radio.module';
 import { IonRowModule } from './row/row.module';
+import { IonSidebarModule } from './sidebar/sidebar.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
 import { IonSwitchModule } from './switch/switch.module';
@@ -35,7 +37,6 @@ import { IonTableModule } from './table/table.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
-import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 
 @NgModule({
@@ -77,6 +78,7 @@ import { IonPopoverModule } from './popover/popover.module';
     IonModalModule,
     IonIndicatorModule,
     IonPopoverModule,
+    IonSidebarModule,
   ],
   exports: [
     IonComponent,
@@ -115,6 +117,7 @@ import { IonPopoverModule } from './popover/popover.module';
     IonModalModule,
     IonIndicatorModule,
     IonPopoverModule,
+    IonSidebarModule,
   ],
 })
 export class IonModule {}
