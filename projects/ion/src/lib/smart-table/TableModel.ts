@@ -1,5 +1,5 @@
-import { TableEvent } from './smart-table.component';
+import { SmartTableEvent } from '../core/types';
 
 export interface TableModel {
-  paginationEvents: (event: TableEvent) => void;
+  paginationEvents: (event: SmartTableEvent) => void;
 }

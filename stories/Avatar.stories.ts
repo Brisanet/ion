@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
-import { AvatarComponent } from '../projects/ion/src/lib/avatar/avatar.component';
+import { IonAvatarComponent } from '../projects/ion/src/lib/avatar/avatar.component';
 import { DefaultImageDirective } from '../projects/ion/src/lib/defaultImage.directive';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Avatar',
-  component: AvatarComponent,
+  component: IonAvatarComponent,
 } as Meta;
 
-const Template: Story<AvatarComponent> = (args: AvatarComponent) => ({
-  component: AvatarComponent,
+const Template: Story<IonAvatarComponent> = (args: IonAvatarComponent) => ({
+  component: IonAvatarComponent,
   props: args,
   moduleMetadata: {
-    declarations: [AvatarComponent, IonIconComponent, DefaultImageDirective],
-    imports: [CommonModule],
+    declarations: [IonAvatarComponent, DefaultImageDirective],
+    imports: [CommonModule, IonSharedModule],
   },
 });
 
