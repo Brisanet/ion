@@ -30,6 +30,7 @@ import { IonRowModule } from './row/row.module';
 import { IonSidebarModule } from './sidebar/sidebar.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
+import { IonStepsModule } from './step/step.module';
 import { IonSwitchModule } from './switch/switch.module';
 import { IonTabGroupModule } from './tab-group/tab-group.module';
 import { IonTabModule } from './tab/tab.module';
@@ -77,6 +78,7 @@ import { IonTypographyModule } from './typography/typography.module';
     IonModalModule,
     IonIndicatorModule,
     IonSidebarModule,
+    IonStepsModule,
   ],
   exports: [
     IonComponent,
@@ -115,6 +117,7 @@ import { IonTypographyModule } from './typography/typography.module';
     IonModalModule,
     IonIndicatorModule,
     IonSidebarModule,
+    IonStepsModule,
   ],
 })
 export class IonModule {}
