@@ -42,4 +42,5 @@ export * from './lib/table/table.module';
 export * from './lib/tag/tag.module';
 export * from './lib/tooltip/tooltip.module';
 export * from './lib/typography/';
+export * from './lib/step/step.module';
 export { default as debounce } from './lib/utils/debounce';
