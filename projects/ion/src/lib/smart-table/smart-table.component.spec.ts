@@ -535,6 +535,7 @@ describe('Table > Differents columns data type', () => {
     });
 
     it('should only emit sort action after a given debounce time', async () => {
+      const debounceTime = 2000;
       jest.useFakeTimers();
 
       tableDifferentColumns.config.columns = [
@@ -544,16 +545,14 @@ describe('Table > Differents columns data type', () => {
           key: 'albuns',
         },
       ];
-      tableDifferentColumns.config.debounceOnSort = 2000;
+      tableDifferentColumns.config.debounceOnSort = debounceTime;
 
       await sut(tableDifferentColumns);
       eventSelect.mockClear();
       fireEvent.click(screen.getByTestId('sort-by-albuns'));
-
       expect(tableDifferentColumns.events.emit).not.toHaveBeenCalled();
 
-      jest.advanceTimersByTime(2000);
-
+      jest.advanceTimersByTime(debounceTime);
       expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
     });
   });
