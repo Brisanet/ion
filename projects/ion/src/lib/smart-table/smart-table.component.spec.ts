@@ -545,6 +545,7 @@ describe('Table > Pagination', () => {
     const withoutConfigItemsPerPage = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withoutConfigItemsPerPage.events = { emit: jest.fn() } as SafeAny;
     withoutConfigItemsPerPage.config.pagination = {
       total: 32,
       page: 1,
@@ -570,6 +571,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
@@ -594,6 +596,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
