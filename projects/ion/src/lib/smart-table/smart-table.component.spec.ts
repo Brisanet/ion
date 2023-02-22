@@ -533,10 +533,34 @@ describe('Table > Differents columns data type', () => {
       expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
       expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
+
+    it('should only emit sort action after a given debounce time', async () => {
+      jest.useFakeTimers();
+
+      tableDifferentColumns.config.columns = [
+        {
+          label: 'Albuns',
+          sort: true,
+          key: 'albuns',
+        },
+      ];
+      tableDifferentColumns.config.debounceOnSort = 2000;
+
+      await sut(tableDifferentColumns);
+      eventSelect.mockClear();
+      fireEvent.click(screen.getByTestId('sort-by-albuns'));
+
+      expect(tableDifferentColumns.events.emit).not.toHaveBeenCalled();
+
+      jest.advanceTimersByTime(2000);
+
+      expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
+    });
   });
 
   afterAll(() => {
     eventSelect.mockClear();
+    jest.useRealTimers();
   });
 });
 
