@@ -34,11 +34,11 @@ enum Status {
 }
 
 @Component({
-  selector: 'ion-step',
+  selector: 'ion-steps',
   templateUrl: './step.component.html',
   styleUrls: ['./step.component.scss'],
 })
-export class StepComponent implements OnInit, OnChanges {
+export class IonStepsComponent implements OnInit, OnChanges {
   @Input() current = 1;
   @Input() steps: StepType[];
   @Input() disabled = false;
@@ -94,7 +94,10 @@ export class StepComponent implements OnInit, OnChanges {
   }
 
   goesTo(index: number): void {
-    if (this.clickable && !this.disabled) this.indexChange.emit(index);
+    if (this.clickable && !this.disabled) {
+      this.indexChange.emit(index);
+      this.changeStep(index);
+    }
   }
 
   ngOnInit(): void {

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonIconComponent } from '../icon/icon.component';
-import { StepComponent, StepConfig, StepType } from './step.component';
+import { IonStepsComponent, StepConfig, StepType } from './step.component';
 
 const defaultValue: StepType[] = [
   {
@@ -25,7 +25,7 @@ const defaultProps: StepConfig = {
 const sut = async (
   customProps: StepConfig = defaultProps
 ): Promise<HTMLElement> => {
-  await render(StepComponent, {
+  await render(IonStepsComponent, {
     componentProperties: {
       current: customProps.current,
       steps: customProps.steps,
@@ -35,10 +35,10 @@ const sut = async (
     declarations: [IonIconComponent],
     imports: [FormsModule],
   });
-  return screen.findByTestId('ion-step');
+  return screen.findByTestId('ion-steps');
 };
 
-describe('Static StepComponent', () => {
+describe('Static IonStepsComponent', () => {
   const stepsLabels = ['Step 1', 'Step 2', 'Step 3'];
   it.each(stepsLabels)(
     'should render step component with 3 steps',
@@ -115,7 +115,6 @@ describe('Static StepComponent', () => {
           },
         ],
       });
-      expect(screen.getAllByTestId('check-icon')).toHaveLength(3);
       expect(screen.getByTestId(stepId)).toBeTruthy();
       expect(screen.getByTestId(stepId)).toHaveClass('checked');
     }
@@ -127,28 +126,26 @@ describe('Static StepComponent', () => {
       current: 1,
       steps: defaultValue,
     });
-    const step = await screen.findByTestId('step-3-default');
-    expect(step).toBeTruthy();
-    fireEvent.click(step);
-    // const stepSelected = await screen.findByTestId('step-3-selected');
-    // expect(stepSelected).toBeTruthy();
+    fireEvent.click(screen.getByTestId('step-3-default'));
+    expect(screen.findByTestId('step-3-selected')).toBeTruthy();
+    expect(screen.getByTestId('step-3-selected')).toHaveClass('selected');
   });
 });
 
 @Component({
-  template: `<ion-step [steps]="steps" [current]="current"></ion-step>`,
+  template: `<ion-steps [steps]="steps" [current]="current"></ion-steps>`,
 })
 class TestHostComponent {
   steps: StepType[] = defaultValue;
   current = 1;
 }
 
-describe('Passing through the StepComponent', () => {
+describe('Passing through the IonStepsComponent', () => {
   let fixture, testHost;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [StepComponent, TestHostComponent, IonIconComponent],
+      declarations: [IonStepsComponent, TestHostComponent, IonIconComponent],
     });
     fixture = TestBed.createComponent(TestHostComponent);
     testHost = fixture.componentInstance;

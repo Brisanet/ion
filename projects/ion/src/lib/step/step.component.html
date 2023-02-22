@@ -1,4 +1,4 @@
-<section class="steps-container" data-testid="ion-step">
+<section class="steps-container" data-testid="ion-steps">
   <div
     [class]="'step ' + step.status"
     [class.clickable]="
@@ -20,12 +20,14 @@
       ></div>
 
       <div class="circle">
-        <span *ngIf="step.status !== 'checked'">
+        <span *ngIf="step.status !== 'checked'; else checkedStatus">
           {{ step.index }}
         </span>
-        <span *ngIf="step.status === 'checked'">
-          <ion-icon data-testid="check-icon" type="check" size="24"></ion-icon>
-        </span>
+        <ng-template #checkedStatus>
+          <span>
+            <ion-icon type="check" size="24"></ion-icon>
+          </span>
+        </ng-template>
       </div>
 
       <div

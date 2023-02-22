@@ -1,10 +1,10 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { StepComponent } from '../projects/ion/src/lib/step/step.component';
+import { IonStepsComponent } from '../projects/ion/src/lib/step/step.component';
 
 export default {
   title: 'Ion/Navigation/Steps',
-  component: StepComponent,
+  component: IonStepsComponent,
   decorators: [
     moduleMetadata({
       declarations: [IonIconComponent],
@@ -12,8 +12,8 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<StepComponent> = (args: StepComponent) => ({
-  component: StepComponent,
+const Template: Story<IonStepsComponent> = (args: IonStepsComponent) => ({
+  component: IonStepsComponent,
   props: args,
 });
 

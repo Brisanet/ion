@@ -30,7 +30,7 @@ import { RadioComponent } from './radio/radio.component';
 import { RowComponent } from './row/row.component';
 import { SimpleMenuComponent } from './simple-menu/simple-menu.component';
 import { SmartTableComponent } from './smart-table/smart-table.component';
-import { StepComponent } from './step/step.component';
+import { IonStepsModule } from './step/step.module';
 import { SwitchComponent } from './switch/switch.component';
 import { TabGroupComponent } from './tab-group/tab-group.component';
 import { TabComponent } from './tab/tab.component';
@@ -72,14 +72,13 @@ import { HeadingComponent } from './typography/heading/heading.component';
     PaginationComponent,
     PopConfirmComponent,
     SmartTableComponent,
-    StepComponent,
     SwitchComponent,
     TableComponent,
     InputComponent,
     IonIndicatorComponent,
   ],
   providers: [IonModalService],
-  imports: [CommonModule, FormsModule, TooltipModule],
+  imports: [CommonModule, IonStepsModule, FormsModule, TooltipModule],
   exports: [
     IonComponent,
     ButtonComponent,
@@ -109,13 +108,13 @@ import { HeadingComponent } from './typography/heading/heading.component';
     PaginationComponent,
     PopConfirmComponent,
     SmartTableComponent,
-    StepComponent,
     TableComponent,
     InputCounterComponent,
     InputComponent,
     SwitchComponent,
     TooltipModule,
     IonIndicatorComponent,
+    IonStepsModule,
   ],
   entryComponents: [PopConfirmComponent],
 })
