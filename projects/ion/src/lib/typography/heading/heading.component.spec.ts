@@ -1,11 +1,12 @@
 import { render, screen } from '@testing-library/angular';
+import {} from '../../core/types';
+import { IonHeadingComponent } from './heading.component';
 import {
-  ColorScheme,
-  HeadingComponent,
-  HeadingSize,
   HeadingType,
   HeadingWeight,
-} from './heading.component';
+  ColorScheme,
+  HeadingSize,
+} from '../../core/types/typography';
 
 type HeadingProps = {
   text: string;
@@ -16,11 +17,11 @@ type HeadingProps = {
 };
 
 const sut = async (customProps?: HeadingProps): Promise<void> => {
-  await render(HeadingComponent, {
+  await render(IonHeadingComponent, {
     componentProperties: customProps || { text: 'default', type: 'h1' },
   });
 };
-describe('HeadingComponent', () => {
+describe('IonHeadingComponent', () => {
   it('should render with default props', async () => {
     await sut();
     const elementRendered = screen.getByTestId('ion-heading');

@@ -1,5 +1,6 @@
 import { render } from '@testing-library/angular';
-import { IonIconComponent, IonIconProps } from './icon.component';
+import { IonIconComponent } from './icon.component';
+import { IonIconProps } from '../core/types/icon';
 
 const sut = async (
   customProps: IonIconProps = { type: 'trash' }
