@@ -19,7 +19,7 @@ export class IonBreadcrumbComponent {
   @Input() breadcrumbs: Array<BreadcrumbItem>;
   @Output() selected = new EventEmitter<BreadcrumbItem>();
 
-  onSelected(item: BreadcrumbItem) {
+  onSelected(item: BreadcrumbItem): void {
     if (item !== this.breadcrumbs[this.breadcrumbs.length - 1]) {
       this.selected.emit(item);
     }
