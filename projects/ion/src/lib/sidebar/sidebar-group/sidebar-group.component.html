@@ -1,0 +1,42 @@
+<section
+  data-testid="sidebar-group"
+  class="sidebar-group"
+  [class.sidebar-group--selected]="selected"
+  [class.sidebar-group--opened]="!closed"
+>
+  <header
+    class="sidebar-group__header"
+    data-testid="sidebar-group__header"
+    (click)="toggleItemsVisibility()"
+  >
+    <div>
+      <ion-icon
+        data-testid="sidebar-group__title-icon"
+        [type]="icon"
+      ></ion-icon>
+      <span data-testid="sidebar-group__title">{{ title }}</span>
+    </div>
+    <ion-icon
+      class="sidebar-group__toggle-icon"
+      data-testid="sidebar-group__toggle-icon"
+      type="semi-down"
+      size="20"
+    ></ion-icon>
+  </header>
+  <ul
+    class="sidebar-group__items"
+    data-testid="sidebar-group__items"
+    [hidden]="closed && !selected"
+  >
+    <ion-sidebar-item
+      *ngFor="let item of items; let i = index"
+      [attr.data-testid]="'sidebar-group__item-' + i"
+      [title]="item.title"
+      [icon]="item.icon"
+      [selected]="item.selected"
+      [disabled]="item.disabled"
+      [hidden]="closed && !item.selected"
+      (atClick)="itemSelected(i)"
+    ></ion-sidebar-item>
+  </ul>
+</section>

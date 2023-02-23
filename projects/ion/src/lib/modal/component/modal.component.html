@@ -32,8 +32,8 @@
     </div>
 
     <footer
-      *ngIf="!configuration.footer.hide"
-      [class.divider-line]="configuration.footer.showDivider"
+      *ngIf="!configuration.footer?.hide"
+      [class.divider-line]="configuration.footer?.showDivider"
       tabindex="0"
       data-testid="modalFooter"
     >
