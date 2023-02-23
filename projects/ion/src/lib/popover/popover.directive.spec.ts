@@ -1,84 +1,60 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
-import { Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { fireEvent, screen } from '@testing-library/angular';
-import { IonDividerComponent } from '../divider/divider.component';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import { PopoverPosition } from '../core/types/popover';
 import { IonSharedModule } from '../shared.module';
-
-import { IonPopoverComponent } from './component/popover.component';
-import { PopoverDirective } from './popover.directive';
+import { IonPopoverModule } from './popover.module';
 
 const textButton = 'Teste';
-const confirmText = 'Você tem certeza?';
-const elementPosition = { top: 10, left: 40 };
-const actions = [{ label: 'cancelar' }, { label: 'confirmar' }];
 
 @Component({
   template: `
-    <button
+    <ion-button
+      data-testid="hostPopover"
       ionPopover
-      ionPopoverTitle="${confirmText}"
-      ionPopoverBody="Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs."
-      ionPopoverIcon="condominium"
-      ionPopoverIconClose="close"
-      ionPopoverPosition="topRight"
-      ionPopoverActions="${actions}"
+      [ionPopoverTitle]="ionPopoverTitle"
+      [ionPopoverBody]="ionPopoverBody"
+      [ionPopoverIcon]="ionPopoverIcon"
+      [ionPopoverIconClose]="ionPopoverIconClose"
+      [ionPopoverPosition]="ionPopoverPosition"
+      [ionPopoverActions]="ionPopoverActions"
       (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
+      [label]="${textButton}"
     >
-      ${textButton}
-    </button>
+    </ion-button>
   `,
 })
-class ContainerRefTestComponent {
-  @ViewChild('container', { read: ViewContainerRef, static: true })
-  container!: ViewContainerRef;
+class HostTestComponent {
+  ionPopoverTitle = 'Eu sou um popover';
+  ionPopoverBody = 'e eu sou o body do popover';
+  ionPopoverPosition = PopoverPosition.DEFAULT;
+  ionPopoverIconClose = true;
+  ionPopoverIcon = 'condominium';
+  ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];
 }
 
-describe('Directive: Popover', () => {
-  let fixture: ComponentFixture<ContainerRefTestComponent>;
-  let directive: PopoverDirective;
+const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
+  await render(HostTestComponent, {
+    componentProperties: props,
+    imports: [CommonModule, IonPopoverModule, IonSharedModule],
+  });
+};
 
-  beforeEach(() => {
-    fixture = TestBed.configureTestingModule({
-      providers: [PopoverDirective, ViewContainerRef],
-      imports: [IonSharedModule],
-      declarations: [
-        ContainerRefTestComponent,
-        IonPopoverComponent,
-        IonDividerComponent,
-      ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-      .overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: [IonPopoverComponent],
-        },
-      })
-      .createComponent(ContainerRefTestComponent);
-
-    fixture.detectChanges();
-    directive = fixture.debugElement.injector.get(PopoverDirective);
+describe('Directive: popover', () => {
+  afterEach(async () => {
+    fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
   });
 
-  afterEach(() => {
-    directive.closePopover();
+  it('should render without popover', async () => {
+    await sut();
+    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
   });
 
-  it('should create element with the directive', () => {
-    directive.open(elementPosition);
-    expect(screen.getByText(textButton)).toHaveAttribute('ionpopover', '');
-  });
-
-  it('should open the popover when clicked', () => {
-    directive.open(elementPosition);
-  });
-
-  it.skip('should open the popconfirm when clicked', () => {
-    directive.open(elementPosition);
-    fireEvent.click(screen.getByText(textButton));
-    expect(screen.getByText(confirmText)).toBeInTheDocument();
+  it('should create popover', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('hostPopover'));
+    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
   });
 });

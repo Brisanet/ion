@@ -86,7 +86,7 @@ describe('PopoverComponent', () => {
           ...defaultProps,
           ionPopoverPosition: arrow,
         });
-        const element = screen.getByTestId('sup-container');
+        const element = screen.getByTestId('ion-popover');
         expect(element).toHaveClass(`sup-container-${arrow}`);
       }
     );
@@ -98,7 +98,7 @@ describe('PopoverComponent', () => {
           ...defaultProps,
           ionPopoverPosition: arrow,
         });
-        const element = screen.getByTestId('sup-container');
+        const element = screen.getByTestId('ion-popover');
         expect(element).toHaveClass(`sup-container-${arrow}`);
       }
     );
@@ -112,7 +112,7 @@ describe('PopoverComponent', () => {
             ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
             ionPopoverPosition: arrow,
           });
-          const element = screen.getByTestId('sup-container');
+          const element = screen.getByTestId('ion-popover');
           expect(element).toHaveClass(`sup-container-${arrow}`);
         }
       );

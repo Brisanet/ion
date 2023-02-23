@@ -35,8 +35,8 @@ withActions.args = {
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIcon: 'condominium',
   ionPopoverIconClose: true,
-  ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
   ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
 };
 
 export default {

@@ -22,7 +22,7 @@ import { IonButtonProps, IconType } from '../core/types';
 @Directive({
   selector: '[ionPopover]',
 })
-export class PopoverDirective implements OnDestroy {
+export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: string;
   @Input() ionPopoverActions?: IonButtonProps[] = [];
