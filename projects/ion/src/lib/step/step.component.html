@@ -15,7 +15,7 @@
     <div class="step-draw">
       <div
         class="line"
-        [class.bolded]="this.beforeStepIsChecked(index)"
+        [class.bolded]="beforeStepIsChecked(index)"
         *ngIf="lineVisibility('initial', step)"
       ></div>
 
@@ -32,7 +32,7 @@
 
       <div
         class="line"
-        [class.bolded]="this.afterStepIsChecked(index)"
+        [class.bolded]="afterStepIsChecked(index)"
         *ngIf="lineVisibility('final', step)"
       ></div>
     </div>

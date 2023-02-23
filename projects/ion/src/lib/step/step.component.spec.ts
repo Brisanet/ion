@@ -1,9 +1,10 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { StepConfig, StepType } from '../core/types/steps';
 import { IonIconComponent } from '../icon/icon.component';
-import { IonStepsComponent, StepConfig, StepType } from './step.component';
+import { IonStepsComponent } from './step.component';
 
 const defaultValue: StepType[] = [
   {
