@@ -1,15 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  DebugElement,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
 import { PopoverPosition } from '../core/types/popover';
+import { IonDividerModule } from '../divider/divider.module';
 import { IonSharedModule } from '../shared.module';
+import { IonPopoverComponent } from './component/popover.component';
+import { IonPopoverDirective } from './popover.directive';
 import { IonPopoverModule } from './popover.module';
 
 const textButton = 'Teste';
 
 @Component({
   template: `
-    <ion-button
+    <button
       data-testid="hostPopover"
       ionPopover
       [ionPopoverTitle]="ionPopoverTitle"
@@ -21,9 +35,9 @@ const textButton = 'Teste';
       (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
-      [label]="${textButton}"
     >
-    </ion-button>
+      ${textButton}
+    </button>
   `,
 })
 class HostTestComponent {
@@ -42,6 +56,46 @@ const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
   });
 };
 
+@Component({
+  template: `
+    <button
+      ionPopover
+      ionPopoverTitle="Você tem certeza?"
+      ionPopoverBody="crianças orfãos"
+      (ionOnFirstAction)="confirm()"
+      class="get-test"
+      style="margin-top: 50px;"
+    >
+      ${textButton}
+    </button>
+  `,
+})
+class ContainerRefTestComponent {
+  @ViewChild('container', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+}
+
+@Component({
+  template: `
+    <ion-button
+      data-testid="hostPopover"
+      ionPopover
+      ionPopoverTitle="Eu sou um popover"
+      ionPopoverBody="Eu sou o corpo do popover"
+      class="get-test"
+      style="margin-top: 50px;"
+      [label]="${textButton}"
+      [disabled]="true"
+    ></ion-button>
+  `,
+})
+class ButtonTestDisabledComponent {
+  @ViewChild('container', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+
+  public disabled = true;
+}
+
 describe('Directive: popover', () => {
   afterEach(async () => {
     fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
@@ -56,5 +110,93 @@ describe('Directive: popover', () => {
     await sut();
     fireEvent.click(screen.getByTestId('hostPopover'));
     expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  });
+});
+
+describe('Popover host tests', () => {
+  let fixture: ComponentFixture<ContainerRefTestComponent>;
+  let directive: IonPopoverDirective;
+  let input: DebugElement;
+
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
+      providers: [IonPopoverDirective, ViewContainerRef],
+      declarations: [
+        ContainerRefTestComponent,
+        IonPopoverComponent,
+        IonPopoverDirective,
+      ],
+      imports: [FormsModule, IonButtonModule, IonDividerModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [IonPopoverComponent],
+        },
+      })
+      .createComponent(ContainerRefTestComponent);
+
+    fixture.detectChanges();
+    directive = fixture.debugElement.injector.get(IonPopoverDirective);
+    input = fixture.debugElement.query(By.directive(IonPopoverDirective));
+  });
+
+  afterEach(() => {
+    directive.closePopover();
+  });
+
+  it('should click in host element and dispath event', () => {
+    fixture.detectChanges();
+    const event = new Event('click');
+    input.triggerEventHandler('click', event);
+
+    expect(screen.getByText(textButton)).toBeInTheDocument();
+  });
+});
+
+describe('Popover disabled host component', () => {
+  let fixtureDisabledBtn: ComponentFixture<ButtonTestDisabledComponent>;
+  let directive: IonPopoverDirective;
+  let input: DebugElement;
+
+  beforeEach(() => {
+    fixtureDisabledBtn = TestBed.configureTestingModule({
+      providers: [IonPopoverDirective, ViewContainerRef],
+      declarations: [
+        ButtonTestDisabledComponent,
+        IonPopoverComponent,
+        IonPopoverDirective,
+      ],
+      imports: [IonButtonModule, IonDividerModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [IonPopoverComponent],
+        },
+      })
+      .createComponent(ButtonTestDisabledComponent);
+
+    fixtureDisabledBtn.detectChanges();
+    directive =
+      fixtureDisabledBtn.debugElement.injector.get(IonPopoverDirective);
+    input = fixtureDisabledBtn.debugElement.query(
+      By.directive(IonPopoverDirective)
+    );
+  });
+
+  afterEach(() => {
+    directive.closePopover();
+  });
+
+  it('should not open popover when the button is disabled', () => {
+    setTimeout(() => {
+      fixtureDisabledBtn.detectChanges();
+      const event = new Event('click');
+      input.triggerEventHandler('click', event);
+
+      expect(event).not.toBeCalled();
+      expect(screen.queryAllByText(textButton)).toHaveLength(0);
+    });
   });
 });
