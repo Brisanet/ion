@@ -12,6 +12,7 @@ import {
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
+import debounce from '../utils/debounce';
 
 const stateChange = {
   checked: 'enabled',
@@ -25,6 +26,7 @@ export interface IonSmartTableProps<T> {
 
 export interface ConfigSmartTable<T> extends ConfigTable<T> {
   pagination: PaginationConfig;
+  debounceOnSort?: number;
 }
 
 @Component({
@@ -38,6 +40,7 @@ export class IonSmartTableComponent implements OnInit {
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
+  public sortWithDebounce: (column: Column) => void;
 
   private firstLoad = true;
   private tableUtils: TableUtils;
@@ -46,6 +49,11 @@ export class IonSmartTableComponent implements OnInit {
     this.tableUtils = new TableUtils(this.config);
     if (!this.config.pagination.itemsPerPage) {
       this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
+    }
+    if (this.config.debounceOnSort) {
+      this.sortWithDebounce = debounce((column: Column) => {
+        this.sort(column);
+      }, this.config.debounceOnSort);
     }
   }
 
