@@ -10,6 +10,7 @@ import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonChipModule } from './chip/chip.module';
 import { IonColModule } from './col/col.module';
+import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonIconModule } from './icon/icon.module';
@@ -25,6 +26,7 @@ import { IonPaginationModule } from './pagination/pagination.module';
 import { IonPopConfirmModule } from './popconfirm/popconfirm.module';
 import { IonRadioModule } from './radio/radio.module';
 import { IonRowModule } from './row/row.module';
+import { IonSidebarModule } from './sidebar/sidebar.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
 import { IonSwitchModule } from './switch/switch.module';
@@ -35,7 +37,6 @@ import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
-import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -74,6 +75,7 @@ import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonSidebarModule,
     IonDatePickerModule,
   ],
   exports: [
@@ -111,6 +113,7 @@ import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonSidebarModule,
     IonDatePickerModule,
   ],
 })
