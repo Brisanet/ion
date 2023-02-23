@@ -533,10 +533,33 @@ describe('Table > Differents columns data type', () => {
       expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
       expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
+
+    it('should only emit sort action after a given debounce time', async () => {
+      const debounceTime = 2000;
+      jest.useFakeTimers();
+
+      tableDifferentColumns.config.columns = [
+        {
+          label: 'Albuns',
+          sort: true,
+          key: 'albuns',
+        },
+      ];
+      tableDifferentColumns.config.debounceOnSort = debounceTime;
+
+      await sut(tableDifferentColumns);
+      eventSelect.mockClear();
+      fireEvent.click(screen.getByTestId('sort-by-albuns'));
+      expect(tableDifferentColumns.events.emit).not.toHaveBeenCalled();
+
+      jest.advanceTimersByTime(debounceTime);
+      expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
+    });
   });
 
   afterAll(() => {
     eventSelect.mockClear();
+    jest.useRealTimers();
   });
 });
 
@@ -545,6 +568,7 @@ describe('Table > Pagination', () => {
     const withoutConfigItemsPerPage = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withoutConfigItemsPerPage.events = { emit: jest.fn() } as SafeAny;
     withoutConfigItemsPerPage.config.pagination = {
       total: 32,
       page: 1,
@@ -570,6 +594,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
@@ -594,6 +619,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
