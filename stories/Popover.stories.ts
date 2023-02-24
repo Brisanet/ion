@@ -24,21 +24,20 @@ const TemplateComponente: Story<IonPopoverComponent> = (
   },
 });
 
-export const DefaultComponent = TemplateComponente.bind({});
-DefaultComponent.args = {
+export const Component = TemplateComponente.bind({});
+Component.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIconClose: true,
   ionPopoverActions: null,
 };
-
-DefaultComponent.parameters = {
+Component.parameters = {
   controls: { exclude: /^ionPopoverPosition*/ },
 };
 
-export const withActions = TemplateComponente.bind({});
-withActions.args = {
+export const ComponentWithActions = TemplateComponente.bind({});
+ComponentWithActions.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
@@ -46,8 +45,7 @@ withActions.args = {
   ionPopoverIconClose: true,
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
 };
-
-withActions.parameters = {
+ComponentWithActions.parameters = {
   controls: { exclude: /^ionPopoverPosition*/ },
 };
 
@@ -120,11 +118,10 @@ const Template: Story = (args) => ({
   `,
 });
 
-export const Default = Template.bind({});
-Default.args = {
+export const Directive = Template.bind({});
+Directive.args = {
   ionPopoverTitle: 'Eu sou um popover',
   ionPopoverBody: 'e eu sou o body do popover',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
 } as PopoverProps;
-Default.storyName = 'ionPopover';
