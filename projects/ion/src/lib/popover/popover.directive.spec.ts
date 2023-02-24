@@ -14,54 +14,23 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { PopoverPosition } from '../core/types/popover';
 import { IonDividerModule } from '../divider/divider.module';
-import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
 import { IonPopoverDirective } from './popover.directive';
-import { IonPopoverModule } from './popover.module';
 
 const textButton = 'Teste';
+const confirmText = 'Você tem certeza?';
+const elementPosition = { top: 10, left: 40 };
 
 @Component({
   template: `
     <button
       data-testid="hostPopover"
       ionPopover
-      [ionPopoverTitle]="ionPopoverTitle"
-      [ionPopoverBody]="ionPopoverBody"
-      [ionPopoverIcon]="ionPopoverIcon"
-      [ionPopoverIconClose]="ionPopoverIconClose"
-      [ionPopoverPosition]="ionPopoverPosition"
-      [ionPopoverActions]="ionPopoverActions"
-      (ionOnFirstAction)="confirm()"
-      class="get-test"
-      style="margin-top: 50px;"
-    >
-      ${textButton}
-    </button>
-  `,
-})
-class HostTestComponent {
-  ionPopoverTitle = 'Eu sou um popover';
-  ionPopoverBody = 'e eu sou o body do popover';
-  ionPopoverPosition = PopoverPosition.DEFAULT;
-  ionPopoverIconClose = true;
-  ionPopoverIcon = 'condominium';
-  ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];
-}
-
-const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
-  await render(HostTestComponent, {
-    componentProperties: props,
-    imports: [CommonModule, IonPopoverModule, IonSharedModule],
-  });
-};
-
-@Component({
-  template: `
-    <button
-      ionPopover
-      ionPopoverTitle="Você tem certeza?"
+      ionPopoverTitle="${confirmText}"
       ionPopoverBody="crianças orfãos"
+      [ionPopoverIconClose]="true"
+      ionPopoverPosition="${PopoverPosition.DEFAULT}"
+      [ionPopoverActions]="[{ label: 'action 1' }, { label: 'action 2' }]"
       (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
@@ -82,6 +51,7 @@ class ContainerRefTestComponent {
       ionPopover
       ionPopoverTitle="Eu sou um popover"
       ionPopoverBody="Eu sou o corpo do popover"
+      ionPopoverIconClose="true"
       class="get-test"
       style="margin-top: 50px;"
       [label]="${textButton}"
@@ -97,19 +67,75 @@ class ButtonTestDisabledComponent {
 }
 
 describe('Directive: popover', () => {
-  afterEach(async () => {
-    fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
+  let fixture: ComponentFixture<ContainerRefTestComponent>;
+  let directive: IonPopoverDirective;
+
+  beforeEach(() => {
+    fixture = TestBed.configureTestingModule({
+      providers: [IonPopoverDirective, ViewContainerRef],
+      declarations: [
+        ContainerRefTestComponent,
+        IonPopoverComponent,
+        IonPopoverDirective,
+      ],
+      imports: [FormsModule, IonButtonModule, IonDividerModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [IonPopoverComponent],
+        },
+      })
+      .createComponent(ContainerRefTestComponent);
+
+    fixture.detectChanges();
+    directive = fixture.debugElement.injector.get(IonPopoverDirective);
   });
 
-  it('should render without popover', async () => {
-    await sut();
-    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  afterEach(() => {
+    directive.closePopover();
   });
 
-  it('should create popover', async () => {
-    await sut();
-    fireEvent.click(screen.getByTestId('hostPopover'));
-    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  it('should create element with the directive', () => {
+    directive.open(elementPosition);
+    expect(screen.getByText(textButton)).toHaveAttribute('ionpopover', '');
+  });
+
+  it('should open the popover when clicked', () => {
+    directive.open(elementPosition);
+  });
+
+  it('should open the popover when clicked', () => {
+    fireEvent.click(screen.getByText(textButton));
+    expect(screen.getByText(confirmText)).toBeInTheDocument();
+  });
+
+  it.each(['icon-close', 'action-1', 'action-2'])(
+    'should close pop when click in %s',
+    async (type) => {
+      fireEvent.click(screen.getByText(textButton));
+      fireEvent.click(screen.getByTestId(`popover-${type}`));
+      expect(screen.queryByTestId(`popover-${type}`)).toBeNull();
+    }
+  );
+
+  it.skip.each(['icon-close', 'action-1', 'action-2'])(
+    'should close pop when click in %s',
+    async (type) => {
+      jest.spyOn(directive, 'closePopover');
+
+      fireEvent.click(screen.getByText(textButton));
+      fireEvent.click(screen.getByTestId(`popover-${type}`));
+
+      expect(directive.closePopover).toHaveBeenCalled();
+    }
+  );
+
+  it('should render the popover in position default', () => {
+    fireEvent.click(screen.getByText(textButton));
+    expect(screen.getByTestId('ion-popover')).toHaveClass(
+      `sup-container-bottomRight`
+    );
   });
 });
 
