@@ -19,7 +19,13 @@
       >
         <div class="header-style">
           <span class="th-span">{{ column.label }}</span>
-          <button class="svg" (click)="sort(column)" *ngIf="column.sort">
+          <button
+            class="svg"
+            (click)="
+              !!config.debounceOnSort ? sortWithDebounce(column) : sort(column)
+            "
+            *ngIf="column.sort"
+          >
             <svg
               [attr.data-testid]="'sort-by-' + column.key"
               width="8"
