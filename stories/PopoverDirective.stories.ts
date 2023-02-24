@@ -21,8 +21,8 @@ const Template: Story<OpenPopoverComponent> = (args: OpenPopoverComponent) => ({
   },
 });
 
-export const Directive = Template.bind({});
-Directive.args = {
+export const DirectiveWithActions = Template.bind({});
+DirectiveWithActions.args = {
   ionPopoverTitle: 'Você tem certeza?',
   ionPopoverBody:
     'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
