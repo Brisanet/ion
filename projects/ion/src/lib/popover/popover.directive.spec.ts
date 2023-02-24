@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
@@ -10,7 +9,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, screen } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { PopoverPosition } from '../core/types/popover';
 import { IonDividerModule } from '../divider/divider.module';
