@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   Badge,
   ChipEvent,
@@ -14,7 +14,7 @@ import { IconDirection, IconType } from '../core/types/icon';
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class IonChipComponent {
+export class IonChipComponent implements OnInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -67,5 +67,23 @@ export class IonChipComponent {
 
   dropdownSearchChange(value: string): void {
     this.dropdownSearchEvents.emit(value);
+  }
+
+  ngOnInit(): void {
+    if (this.multiple) {
+      return;
+    }
+
+    const [selectedOption] = this.getSelectedOptions();
+
+    if (!selectedOption) {
+      return;
+    }
+
+    this.label = selectedOption.label;
+  }
+
+  getSelectedOptions(): DropdownItem[] {
+    return (this.options || []).filter((option) => option.selected);
   }
 }
