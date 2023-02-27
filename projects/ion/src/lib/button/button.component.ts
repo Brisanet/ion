@@ -64,6 +64,10 @@ export class IonButtonComponent implements OnInit {
     this.showDropdown = false;
   }
 
+  onClearBadgeValue(): void {
+    this.buttonBadge.value = 0;
+  }
+
   ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
   }
