@@ -82,7 +82,8 @@ function returnTableConfig(
   tableData,
   tableColumns,
   tableActions,
-  paginationTotal
+  paginationTotal,
+  debounceOnSort = 0
 ): SafeAny {
   return {
     config: {
@@ -93,6 +94,7 @@ function returnTableConfig(
       pagination: {
         total: paginationTotal,
       },
+      debounceOnSort,
     },
   };
 }
@@ -105,3 +107,6 @@ NoData.args = returnTableConfig([], columns, actions, 0);
 
 export const SelectableCells = Template.bind({});
 SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);
+
+export const SortWithDebounce = Template.bind({});
+SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
