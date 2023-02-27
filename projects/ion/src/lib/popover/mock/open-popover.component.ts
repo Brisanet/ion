@@ -26,8 +26,9 @@ import { PopoverPosition } from '../../core/types/popover';
   `,
 })
 export class OpenPopoverComponent {
-  @Input() ionPopoverTitle = 'Eu sou um popover';
-  @Input() ionPopoverBody = 'e eu sou o body do popover';
+  @Input() ionPopoverTitle = 'Você tem certeza?';
+  @Input() ionPopoverBody =
+    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.';
   @Input() ionPopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverIconClose = true;
   @Input() ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];

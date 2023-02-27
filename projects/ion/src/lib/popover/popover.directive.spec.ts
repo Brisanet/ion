@@ -21,7 +21,7 @@ import { IonPopoverModule } from './popover.module';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
-const elementPosition = { top: 10, left: 40 };
+const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
 
 @Component({
   template: `
@@ -57,7 +57,7 @@ class HostTestComponent {
       data-testid="hostPopover"
       ionPopover
       ionPopoverTitle="${confirmText}"
-      ionPopoverBody="crianças orfãos"
+      ionPopoverBody="Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs."
       [ionPopoverIconClose]="true"
       ionPopoverPosition="${PopoverPosition.DEFAULT}"
       [ionPopoverActions]="[{ label: 'action 1' }, { label: 'action 2' }]"
@@ -79,7 +79,7 @@ class ContainerRefTestComponent {
     <ion-button
       data-testid="hostPopover"
       ionPopover
-      ionPopoverTitle="Eu sou um popover"
+      ionPopoverTitle="${confirmText}"
       ionPopoverBody="Eu sou o corpo do popover"
       ionPopoverIconClose="true"
       class="get-test"

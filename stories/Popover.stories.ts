@@ -26,9 +26,9 @@ const TemplateComponente: Story<IonPopoverComponent> = (
 
 export const Component = TemplateComponente.bind({});
 Component.args = {
-  ionPopoverTitle: 'Você tem certeza?',
+  ionPopoverTitle: 'Título do popover',
   ionPopoverBody:
-    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
+    'Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!',
   ionPopoverIconClose: true,
   ionPopoverActions: null,
 };
@@ -120,8 +120,9 @@ const Template: Story = (args) => ({
 
 export const Directive = Template.bind({});
 Directive.args = {
-  ionPopoverTitle: 'Eu sou um popover',
-  ionPopoverBody: 'e eu sou o body do popover',
+  ionPopoverTitle: 'Título do popover',
+  ionPopoverBody:
+    'Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
 } as PopoverProps;

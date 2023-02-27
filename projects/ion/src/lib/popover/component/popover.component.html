@@ -38,7 +38,7 @@
     <div *ngIf="ionPopoverActions" class="footer">
       <ng-container *ngFor="let action of ionPopoverActions; let i = index">
         <ion-button
-          *ngIf="action"
+          *ngIf="action && i < 2"
           [attr.data-testid]="'popover-action-' + (i + 1)"
           [label]="action.label"
           [tooltip]="action.tooltip"
