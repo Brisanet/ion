@@ -519,6 +519,16 @@ describe('Table > Pagination', () => {
     expect(screen.getByTestId('page-7')).toBeInTheDocument();
     expect(screen.queryAllByTestId('page-8')).toHaveLength(0);
   });
+
+  it('should return to page 1 when sort is activated on a column', async () => {
+    await sut(tableWithPagination);
+
+    fireEvent.click(screen.getByTestId('page-2'));
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
+
+    fireEvent.click(screen.getByTestId('sort-by-name'));
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+  });
 });
 
 describe('Table > Action with confirm', () => {

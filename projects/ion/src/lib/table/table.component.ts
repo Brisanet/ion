@@ -31,6 +31,8 @@ export class IonTableComponent implements OnInit {
       this.config.pagination.itemsPerPage =
         this.config.pagination.itemsPerPage || defaultItemsPerPage;
 
+      this.config.pagination.page = this.config.pagination.page || 1;
+
       this.smartData = this.config.data.slice(
         this.config.pagination.offset,
         this.config.pagination.itemsPerPage
@@ -87,6 +89,14 @@ export class IonTableComponent implements OnInit {
       }
     });
     column.desc = !column.desc;
+
+    if (this.config.pagination) {
+      this.smartData = this.config.data.slice(
+        this.config.pagination.offset,
+        this.config.pagination.itemsPerPage
+      );
+      this.config.pagination.page = 1;
+    }
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {
@@ -104,6 +114,7 @@ export class IonTableComponent implements OnInit {
       event.offset,
       event.offset + event.itemsPerPage
     );
+    this.config.pagination.page = event.actual;
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {
