@@ -1,6 +1,5 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { IonRadioComponent } from '../projects/ion/src/lib/radio/radio.component';
-import { IonRadioGroupComponent } from '../projects/ion/src/lib/radio-group/radio-group.component';
 
 export default {
   title: 'Ion/Data Entry/Radio',
