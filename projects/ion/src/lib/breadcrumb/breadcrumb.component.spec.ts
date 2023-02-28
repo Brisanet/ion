@@ -41,36 +41,34 @@ const sut = async (
 };
 
 describe('Breadcrumb', () => {
+  beforeEach(async () => {
+    await sut();
+  });
+
   it.each(items)(
     'should render %s in breadcrumb',
     async (link: BreadcrumbItem) => {
-      await sut();
       expect(screen.getByText(link.label)).toBeInTheDocument();
     }
   );
 
   it('should render recursos in breadcrumb', async () => {
-    await sut();
     expect(screen.getByText('Recursos')).toHaveClass('breacrumbs-link');
   });
 
   it('should emit the selected breadcrumb', async () => {
-    await sut();
     const [firstItem] = items;
 
     const element = screen.getByText(firstItem.label);
-    expect(element).toBeInTheDocument();
     fireEvent.click(element);
     expect(selectEvent).toBeCalledTimes(1);
     expect(selectEvent).toBeCalledWith(firstItem);
   });
 
   it('should not emit the selected breadcrumb is the last one', async () => {
-    await sut();
     const lastItem = items[items.length - 1];
 
     const element = screen.getByText(lastItem.label);
-    expect(element).toBeInTheDocument();
     fireEvent.click(element);
     expect(selectEvent).toBeCalledTimes(0);
     expect(selectEvent).not.toBeCalledWith(lastItem);
