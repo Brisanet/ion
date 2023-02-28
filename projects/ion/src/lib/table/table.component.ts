@@ -26,11 +26,11 @@ export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
   private tableUtils: TableUtils;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);
