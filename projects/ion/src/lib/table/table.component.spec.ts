@@ -520,7 +520,15 @@ describe('Table > Pagination', () => {
     expect(screen.queryAllByTestId('page-8')).toHaveLength(0);
   });
 
-  it('should return to page 1 when sort is activated on a column', async () => {
+  it('should render a page selected when its passed on configuration', async () => {
+    const customInitialPage = { ...tableWithPagination };
+    customInitialPage.config.pagination.page = 3;
+    await sut(customInitialPage);
+    expect(screen.getByTestId('page-3')).toBeInTheDocument();
+    expect(screen.getByTestId('page-3')).toHaveClass('selected');
+  });
+
+  it('should return to first page when sort is activated on a column', async () => {
     await sut(tableWithPagination);
 
     fireEvent.click(screen.getByTestId('page-2'));

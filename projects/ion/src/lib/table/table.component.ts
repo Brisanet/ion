@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
@@ -19,6 +26,8 @@ export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
   private tableUtils: TableUtils;
@@ -33,10 +42,12 @@ export class IonTableComponent implements OnInit {
 
       this.config.pagination.page = this.config.pagination.page || 1;
 
-      this.smartData = this.config.data.slice(
-        this.config.pagination.offset,
-        this.config.pagination.itemsPerPage
-      );
+      this.paginationEvents({
+        actual: this.config.pagination.page,
+        itemsPerPage: this.config.pagination.itemsPerPage,
+        offset: this.config.pagination.offset * this.config.pagination.page,
+      });
+
       return;
     }
     this.smartData = this.config.data;
@@ -91,11 +102,11 @@ export class IonTableComponent implements OnInit {
     column.desc = !column.desc;
 
     if (this.config.pagination) {
-      this.smartData = this.config.data.slice(
-        this.config.pagination.offset,
-        this.config.pagination.itemsPerPage
-      );
-      this.config.pagination.page = 1;
+      this.paginationEvents({
+        actual: 1,
+        itemsPerPage: this.config.pagination.itemsPerPage,
+        offset: this.config.pagination.offset,
+      });
     }
   }
 
@@ -115,6 +126,8 @@ export class IonTableComponent implements OnInit {
       event.offset + event.itemsPerPage
     );
     this.config.pagination.page = event.actual;
+
+    this.cdr.detectChanges();
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {
