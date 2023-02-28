@@ -144,7 +144,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0].label;
       const element = screen.getByTestId('ion-chip');
       fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
+      fireEvent.click(document.getElementById('option-0'));
       expect(element).toHaveClass('chip');
       expect(screen.queryAllByText(option)).toHaveLength(1);
     });
@@ -153,7 +153,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0];
       const chipToOpen = screen.getByTestId('ion-chip');
       fireEvent.click(chipToOpen);
-      fireEvent.click(screen.getByText(option.label));
+      fireEvent.click(document.getElementById('option-0'));
       expect(dropdownEvent).toBeCalledWith([option]);
     });
 
@@ -222,7 +222,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     await sut({
       label,
-      options: defaultOptions,
+      options: [],
       dropdownEvents: {
         emit: jest.fn(),
       } as SafeAny,
