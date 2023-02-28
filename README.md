@@ -3,7 +3,7 @@
 <a href="https://codeclimate.com/github/iurynogueira/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/maintainability" /></a>
 <a href="https://codeclimate.com/github/iurynogueira/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/test_coverage" /></a>
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
-
+[![npm version](https://badge.fury.io/js/@brisanet%2Fion.svg)](https://www.npmjs.com/package/@brisanet/ion)
 ## Install and run project
 
 To run this project, You will need to use [node v.12](https://nodejs.org/en/)
