@@ -30,6 +30,7 @@ export * from './lib/notification/notification.module';
 export * from './lib/pagination/pagination.module';
 export * from './lib/popconfirm/popconfirm.module';
 export * from './lib/radio/radio.module';
+export * from './lib/radio-group/radio-group.module';
 export * from './lib/row/row.module';
 export * from './lib/shared.module';
 export * from './lib/sidebar/sidebar.module';
