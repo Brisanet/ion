@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SwitchSize } from '../core/types/switch';
 
 @Component({
   selector: 'ion-switch',
@@ -7,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class IonSwitchComponent {
   @Input() value = false;
+  @Input() size: SwitchSize = 'sm';
   @Output() atValueChange = new EventEmitter<boolean>();
 
   handleClick(value: boolean): void {

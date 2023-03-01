@@ -2,12 +2,15 @@ import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
 import { IonSwitchComponent } from './switch.component';
+import { SwitchSize } from '../core/types';
 
 let ionSwitch: HTMLElement;
 
 const emitValue = {
   emit: jest.fn(),
 } as SafeAny;
+
+const sizes: SwitchSize[] = ['sm', 'md', 'lg'];
 
 const sut = async (
   customProps: Partial<IonSwitchComponent> = {}
@@ -45,5 +48,13 @@ describe('IonSwitchComponent', () => {
 
     userEvent.click(ionSwitch);
     expect(emitValue.emit).toBeCalledWith(false);
+  });
+});
+describe.each(sizes)('IonSwitch - size %s', (size) => {
+  beforeEach(async () => {
+    ionSwitch = await sut({ size });
+  });
+  it(`should render a switch with size attribute and value '${size}'`, () => {
+    expect(ionSwitch).toHaveAttribute('size', size);
   });
 });
