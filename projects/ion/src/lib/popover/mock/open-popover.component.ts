@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { PopoverPosition } from '../../core/types/popover';
 
 @Component({
@@ -14,11 +14,11 @@ import { PopoverPosition } from '../../core/types/popover';
     <div>
       <ion-button
         ionPopover
-        [ionPopoverTitle]="ionPopoverTitle"
-        [ionPopoverBody]="ionPopoverBody"
-        [ionPopoverIconClose]="ionPopoverIconClose"
-        [ionPopoverPosition]="ionPopoverPosition"
-        [ionPopoverActions]="ionPopoverActions"
+        [ionPopoverTitle]="args.ionPopoverTitle"
+        [ionPopoverBody]="args.ionPopoverBody"
+        [ionPopoverIconClose]="args.ionPopoverIconClose"
+        [ionPopoverPosition]="args.ionPopoverPosition"
+        [ionPopoverActions]="args.ionPopoverActions"
         label="click me"
       >
       </ion-button>
@@ -26,10 +26,12 @@ import { PopoverPosition } from '../../core/types/popover';
   `,
 })
 export class OpenPopoverComponent {
-  @Input() ionPopoverTitle = 'Você tem certeza?';
-  @Input() ionPopoverBody =
-    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.';
-  @Input() ionPopoverPosition = PopoverPosition.DEFAULT;
-  @Input() ionPopoverIconClose = true;
-  @Input() ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];
+  args = {
+    ionPopoverTitle: 'Você tem certeza?',
+    ionPopoverBody:
+      'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
+    ionPopoverPosition: PopoverPosition.DEFAULT,
+    ionPopoverIconClose: true,
+    ionPopoverActions: [{ label: 'actions 1' }, { label: 'action 2' }],
+  };
 }
