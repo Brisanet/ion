@@ -1,9 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonSmartTableProps,
-  IonSmartTableComponent,
-} from './smart-table.component';
+import { IonSmartTableComponent } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
@@ -11,6 +8,7 @@ import { IonTagModule } from '../tag/tag.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonSmartTableProps } from '../core/types';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
