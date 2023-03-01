@@ -219,3 +219,31 @@ Neste parâmetro, enviamos o chip com as opções para o dropdown.
     {Template.bind({})}
   </Story>
 </Canvas>
+
+## Info icon
+
+Nest paramêtro o IonCard recebe um valor booleano para renderizar o info icon.
+
+<Canvas>
+  <Story
+    name="With info icon"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+          infoIcon: true,
+        },
+        body: BodyMockComponent,
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [BodyMockComponent],
+        imports: [CommonModule, IonSharedModule, IonChipModule],
+        entryComponents: [BodyMockComponent],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
