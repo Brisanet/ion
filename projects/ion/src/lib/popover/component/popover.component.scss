@@ -1,0 +1,181 @@
+@import '../../../styles/index.scss';
+
+$popover-spacing: spacing(1.5);
+$arrow-size: 4.5px;
+
+@mixin sup-container($background, $arrowPosition, $left, $rotate, $position) {
+  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
+  background: #fff;
+  display: inline-block;
+  width: 299px;
+  justify-content: flex-end;
+  border-radius: spacing(1);
+  position: relative;
+
+  @if ($position == 'header') {
+    &::before {
+      content: '';
+      display: block;
+      width: 13px;
+      height: 13px;
+      position: absolute;
+      box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
+      background-color: $background;
+      top: $arrowPosition;
+      left: $left;
+      transform: rotate($rotate);
+    }
+  }
+
+  @if ($position == 'footer') {
+    &::after {
+      content: '';
+      display: block;
+      width: 13px;
+      height: 13px;
+      position: absolute;
+      box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
+      background-color: $background;
+      bottom: $arrowPosition;
+      left: $left;
+      transform: rotate($rotate);
+    }
+  }
+}
+
+.sup-container {
+  &-leftTop {
+    transform: translate(
+      calc(-100% - $popover-spacing),
+      calc(-100% + calc($popover-spacing + $arrow-size))
+    );
+    @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
+  }
+
+  &-topLeft {
+    transform: translate(
+      calc(-100% + ($arrow-size * 2)),
+      calc(-100% - $popover-spacing - $arrow-size)
+    );
+    @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
+  }
+
+  &-topCenter {
+    transform: translate(-50%, calc(-100% - $popover-spacing - $arrow-size));
+    @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
+  }
+
+  &-topRight {
+    transform: translate(
+      ($arrow-size * -2),
+      calc(-100% - $popover-spacing - $arrow-size)
+    );
+    @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
+  }
+
+  &-rightTop {
+    transform: translateY(calc(-100% + calc($popover-spacing + $arrow-size)));
+    margin-left: $popover-spacing;
+    @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
+  }
+
+  &-leftBottom {
+    transform: translate(
+      calc(-100% - $popover-spacing),
+      -($popover-spacing + $arrow-size) * 2
+    );
+    @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
+  }
+
+  &-bottomLeft {
+    transform: translate(
+      calc(-100% + $arrow-size * 2),
+      $popover-spacing + $arrow-size
+    );
+    @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
+  }
+
+  &-bottomCenter {
+    transform: translate(-50%, $popover-spacing + $arrow-size);
+    @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
+  }
+
+  &-bottomRight {
+    transform: translate($arrow-size * -2, $popover-spacing + $arrow-size);
+    @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
+  }
+
+  &-rightBottom {
+    transform: translateY(-($popover-spacing + $arrow-size));
+    margin-left: $popover-spacing;
+    @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
+  }
+}
+
+.containter {
+  z-index: 1000;
+}
+
+.header {
+  display: flex;
+  background-color: $neutral-2;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 44px;
+  padding: spacing(0) spacing(2);
+
+  h4 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: $neutral-8;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 10.5px;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  &_icon {
+    ::ng-deep svg {
+      fill: $primary-6;
+      left: 12.5%;
+      right: 12.5%;
+      top: 8.33%;
+      bottom: 8.35%;
+    }
+  }
+
+  &_iconClose {
+    cursor: pointer;
+    ::ng-deep svg {
+      fill: $primary-6;
+      left: 21.88%;
+      right: 21.88%;
+      top: 21.88%;
+      bottom: 21.87%;
+    }
+  }
+}
+
+.content-body {
+  padding: spacing(2);
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $neutral-6;
+}
+
+.footer {
+  display: flex;
+  gap: spacing(2);
+  padding: spacing(1) spacing(2) spacing(2) spacing(2);
+  justify-content: flex-end;
+}
