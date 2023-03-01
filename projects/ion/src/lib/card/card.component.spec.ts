@@ -125,6 +125,12 @@ describe('CardComponent', () => {
     expect(screen.queryByTestId('icon-title')).toBeNull();
   });
 
+  it('should render info icon', () => {
+    cardComponent.cardConfig.header.infoIcon = true;
+    fixture.detectChanges();
+    expect(screen.queryByTestId('icon-info')).toBeInTheDocument();
+  });
+
   it('should render footer in cardComponent', async () => {
     renderFooter = true;
     fixture = TestBed.createComponent(CardTestComponent);
