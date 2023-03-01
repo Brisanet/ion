@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  ITEMS_PER_PAGE_DEFAULT,
-  PageEvent,
-} from '../pagination/pagination.component';
+import { SmartTableEvent } from '../core/types';
+import { CheckBoxStates } from '../core/types/checkbox';
+import { PageEvent } from '../core/types/pagination';
+import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
 import {
   ActionTable,
   Column,
@@ -12,18 +12,7 @@ import {
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from './../checkbox/checkbox.component';
-
-export interface TableEvent {
-  event: EventTable;
-  rows_selected?: SafeAny[];
-  change_page?: PageEvent;
-  order?: {
-    column: string;
-    desc: boolean;
-  };
-  data?: SafeAny;
-}
+import debounce from '../utils/debounce';
 
 const stateChange = {
   checked: 'enabled',
@@ -32,11 +21,12 @@ const stateChange = {
 
 export interface IonSmartTableProps<T> {
   config: ConfigSmartTable<T>;
-  events?: EventEmitter<TableEvent>;
+  events?: EventEmitter<SmartTableEvent>;
 }
 
 export interface ConfigSmartTable<T> extends ConfigTable<T> {
   pagination: PaginationConfig;
+  debounceOnSort?: number;
 }
 
 @Component({
@@ -44,12 +34,13 @@ export interface ConfigSmartTable<T> extends ConfigTable<T> {
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class SmartTableComponent implements OnInit {
+export class IonSmartTableComponent implements OnInit {
   @Input() config: ConfigSmartTable<SafeAny>;
-  @Output() events = new EventEmitter<TableEvent>();
+  @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
+  public sortWithDebounce: (column: Column) => void;
 
   private firstLoad = true;
   private tableUtils: TableUtils;
@@ -58,6 +49,11 @@ export class SmartTableComponent implements OnInit {
     this.tableUtils = new TableUtils(this.config);
     if (!this.config.pagination.itemsPerPage) {
       this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
+    }
+    if (this.config.debounceOnSort) {
+      this.sortWithDebounce = debounce((column: Column) => {
+        this.sort(column);
+      }, this.config.debounceOnSort);
     }
   }
 

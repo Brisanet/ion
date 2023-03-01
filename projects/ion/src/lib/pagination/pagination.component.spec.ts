@@ -1,11 +1,9 @@
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonPaginationProps } from '../core/types/pagination';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonPaginationProps,
-  PaginationComponent,
-} from './pagination.component';
-import { ButtonModule } from '../button/button.module';
+import { IonPaginationComponent } from './pagination.component';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -19,14 +17,14 @@ const defaultComponent: IonPaginationProps = {
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
-  await render(PaginationComponent, {
+  await render(IonPaginationComponent, {
     componentProperties: customProps,
     declarations: [],
-    imports: [FormsModule, ButtonModule],
+    imports: [FormsModule, IonButtonModule],
   });
 };
 
-describe('PaginationComponent', () => {
+describe('IonPaginationComponent', () => {
   beforeEach(async () => {
     await sut();
   });
@@ -125,7 +123,7 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
     const label = '10 / página';
-    fireEvent.click(document.getElementById(`btn-${label}`));
+    fireEvent.click(await screen.getByTestId(`btn-${label}`));
     fireEvent.click(screen.getByText('20 / página'));
     expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
   });

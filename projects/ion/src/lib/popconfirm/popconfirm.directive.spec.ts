@@ -8,17 +8,12 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
-import { BadgeComponent } from '../badge/badge.component';
-import { IonDividerComponent } from '../divider/divider.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { ButtonComponent } from './../button/button.component';
-import { IonIconComponent } from './../icon/icon.component';
-
-import { PopConfirmComponent } from './popconfirm.component';
-import { PopConfirmDirective, PopPosition } from './popconfirm.directive';
+import { IonPopConfirmComponent } from './popconfirm.component';
+import { IonPopConfirmDirective, PopPosition } from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
-import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
+import { IonDividerModule } from '../divider/divider.module';
+import { IonButtonModule } from '../button/button.module';
 
 const textButton = 'Teste';
 const confirmText = 'Confirmar';
@@ -62,31 +57,24 @@ class ButtonTestDisabledComponent {
 
 describe('Directive: Popconfirm', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
-  let directive: PopConfirmDirective;
+  let directive: IonPopConfirmDirective;
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      providers: [PopConfirmDirective, ViewContainerRef],
-      declarations: [
-        ContainerRefTestComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
-        IonIconComponent,
-        PopConfirmComponent,
-        IonDividerComponent,
-      ],
+      providers: [IonPopConfirmDirective, ViewContainerRef],
+      declarations: [ContainerRefTestComponent, IonPopConfirmComponent],
+      imports: [IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
 
     fixture.detectChanges();
-    directive = fixture.debugElement.injector.get(PopConfirmDirective);
+    directive = fixture.debugElement.injector.get(IonPopConfirmDirective);
   });
 
   afterEach(() => {
@@ -141,36 +129,30 @@ describe('Directive: Popconfirm', () => {
 
 describe('Popconfirm host tests', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
-  let directive: PopConfirmDirective;
+  let directive: IonPopConfirmDirective;
   let input: DebugElement;
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      providers: [PopConfirmDirective, ViewContainerRef],
+      providers: [IonPopConfirmDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
-        IonIconComponent,
-        PopConfirmComponent,
-        IonDividerComponent,
-        PopConfirmDirective,
-        InputComponent,
+        IonPopConfirmComponent,
+        IonPopConfirmDirective,
       ],
-      imports: [FormsModule],
+      imports: [FormsModule, IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ContainerRefTestComponent);
 
     fixture.detectChanges();
-    directive = fixture.debugElement.injector.get(PopConfirmDirective);
-    input = fixture.debugElement.query(By.directive(PopConfirmDirective));
+    directive = fixture.debugElement.injector.get(IonPopConfirmDirective);
+    input = fixture.debugElement.query(By.directive(IonPopConfirmDirective));
   });
 
   afterEach(() => {
@@ -188,36 +170,33 @@ describe('Popconfirm host tests', () => {
 
 describe('Popconfirm disabled host component', () => {
   let fixtureDisabledBtn: ComponentFixture<ButtonTestDisabledComponent>;
-  let directive: PopConfirmDirective;
+  let directive: IonPopConfirmDirective;
   let input: DebugElement;
 
   beforeEach(() => {
     fixtureDisabledBtn = TestBed.configureTestingModule({
-      providers: [PopConfirmDirective, ViewContainerRef],
+      providers: [IonPopConfirmDirective, ViewContainerRef],
       declarations: [
         ButtonTestDisabledComponent,
-        BadgeComponent,
-        DropdownComponent,
-        ButtonComponent,
-        IonIconComponent,
-        PopConfirmComponent,
-        IonDividerComponent,
-        PopConfirmDirective,
+        IonPopConfirmComponent,
+        IonPopConfirmDirective,
       ],
+      imports: [IonButtonModule, IonDividerModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
-          entryComponents: [PopConfirmComponent],
+          entryComponents: [IonPopConfirmComponent],
         },
       })
       .createComponent(ButtonTestDisabledComponent);
 
     fixtureDisabledBtn.detectChanges();
-    directive =
-      fixtureDisabledBtn.debugElement.injector.get(PopConfirmDirective);
+    directive = fixtureDisabledBtn.debugElement.injector.get(
+      IonPopConfirmDirective
+    );
     input = fixtureDisabledBtn.debugElement.query(
-      By.directive(PopConfirmDirective)
+      By.directive(IonPopConfirmDirective)
     );
   });
 

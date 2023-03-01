@@ -1,20 +1,21 @@
 import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
-import { IonIconComponent } from './../icon/icon.component';
 import { render, screen, fireEvent } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { InputComponent, InputType, IonInputProps } from './input.component';
+import { IonInputComponent } from './input.component';
 import { FormsModule } from '@angular/forms';
+import { IonSharedModule } from '../shared.module';
+import { IonInputProps, InputType } from '../core/types/input';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
-  await render(InputComponent, {
+  await render(IonInputComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, FormsModule],
-    declarations: [IonIconComponent],
+    excludeComponentDeclaration: true,
+    imports: [CommonModule, FormsModule, IonSharedModule],
   });
 };
 
-describe('InputComponent', () => {
+describe('IonInputComponent', () => {
   it('should render input with an empty placeholder if none is passed', async () => {
     await sut();
     const input = screen.getByTestId('input-element');
@@ -97,6 +98,25 @@ describe('InputComponent', () => {
     });
     fireEvent.click(screen.getByTestId('inputIcon-button'));
     expect(clickEvent).toHaveBeenCalled();
+  });
+
+  it.each(['4', 4])(
+    'should render input component with text "valu" when the typed "values" and maxLength = 4',
+    async (maxLength) => {
+      const exampleText = 'values';
+      await sut({ maxLength });
+      const element: HTMLInputElement = screen.getByTestId('input-element');
+      userEvent.type(element, exampleText);
+      expect(element.value).toBe(exampleText.substring(0, Number(maxLength)));
+    }
+  );
+
+  it("should render input component without maxLength when don't sent this prop", async () => {
+    const text = 'text for input element test';
+    await sut({});
+    const element: HTMLInputElement = screen.getByTestId('input-element');
+    userEvent.type(element, text);
+    expect(element.value).toBe(text);
   });
 
   it.skip('should render input icon valid', async () => {

@@ -1,37 +1,27 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { InfoBadgeComponent } from '../info-badge/info-badge.component';
-import { BadgeComponent } from './../badge/badge.component';
-import { DropdownComponent } from './../dropdown/dropdown.component';
-import { IonIconComponent } from './../icon/icon.component';
-import { ButtonComponent } from '../button/button.component';
+import { IonBadgeModule } from '../badge/badge.module';
+import { IconDirection, InfoBadgeStatus } from '../core/types';
+import { ChipSize, IonChipProps } from '../core/types/chip';
+import { IonDropdownModule } from '../dropdown/dropdown.module';
+import { IonIconModule } from '../icon/icon.module';
+import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
 import { SafeAny } from '../utils/safe-any';
-import {
-  ChipComponent,
-  IonChipProps,
-  ChipSize,
-  IconDirection,
-} from './chip.component';
-import { InfoBadgeStatus } from '../core/types';
-import { FormsModule } from '@angular/forms';
-import { InputComponent } from '../input/input.component';
+import { IonChipComponent } from './chip.component';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
 const sut = async (customProps?: IonChipProps): Promise<void> => {
-  await render(ChipComponent, {
+  await render(IonChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },
-    declarations: [
-      BadgeComponent,
-      InfoBadgeComponent,
-      IonIconComponent,
-      DropdownComponent,
-      InputComponent,
-      ButtonComponent,
+    imports: [
+      IonBadgeModule,
+      IonIconModule,
+      IonDropdownModule,
+      IonInfoBadgeModule,
     ],
-    imports: [FormsModule],
   });
 };
 
@@ -154,7 +144,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0].label;
       const element = screen.getByTestId('ion-chip');
       fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
+      fireEvent.click(document.getElementById('option-0'));
       expect(element).toHaveClass('chip');
       expect(screen.queryAllByText(option)).toHaveLength(1);
     });
@@ -163,7 +153,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0];
       const chipToOpen = screen.getByTestId('ion-chip');
       fireEvent.click(chipToOpen);
-      fireEvent.click(screen.getByText(option.label));
+      fireEvent.click(document.getElementById('option-0'));
       expect(dropdownEvent).toBeCalledWith([option]);
     });
 
@@ -232,7 +222,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     await sut({
       label,
-      options: defaultOptions,
+      options: [],
       dropdownEvents: {
         emit: jest.fn(),
       } as SafeAny,

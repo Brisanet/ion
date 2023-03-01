@@ -1,23 +1,22 @@
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
+import { IonInputComponent } from '../projects/ion/src/lib/input/input.component';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { FormsModule } from '@angular/forms';
 import { action } from '@storybook/addon-actions';
+import { IonSharedModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Entry/Input',
-  component: InputComponent,
+  component: IonInputComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
-      declarations: [IonIconComponent],
+      imports: [FormsModule, IonSharedModule],
     }),
   ],
 } as Meta;
 
-const Template: Story<InputComponent> = (args: InputComponent) => ({
-  component: InputComponent,
+const Template: Story<IonInputComponent> = (args: IonInputComponent) => ({
+  component: IonInputComponent,
   props: { ...args, valueChange: action('valueChange') },
 });
 
@@ -103,4 +102,9 @@ InputSearchWithClearButton.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+};
+
+export const MaxLength = Template.bind({});
+MaxLength.args = {
+  maxLength: 3,
 };

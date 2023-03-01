@@ -1,17 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PageEvent } from '../pagination/pagination.component';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ChangeDetectorRef,
+} from '@angular/core';
+import { CheckBoxStates } from '../core/types/checkbox';
+import { PageEvent } from '../core/types/pagination';
+import { TableEvent } from '../core/types/table';
 import { SafeAny } from '../utils/safe-any';
-import { CheckBoxStates } from './../checkbox/checkbox.component';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
-
-interface TableEvent {
-  rows_selected: SafeAny[];
-}
-
-export interface IonTableProps<T> {
-  config: ConfigTable<T>;
-  events?: EventEmitter<TableEvent>;
-}
 
 const stateChange = {
   checked: 'enabled',
@@ -23,13 +22,15 @@ const stateChange = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent implements OnInit {
+export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
   private tableUtils: TableUtils;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);
@@ -39,10 +40,14 @@ export class TableComponent implements OnInit {
       this.config.pagination.itemsPerPage =
         this.config.pagination.itemsPerPage || defaultItemsPerPage;
 
-      this.smartData = this.config.data.slice(
-        this.config.pagination.offset,
-        this.config.pagination.itemsPerPage
-      );
+      this.config.pagination.page = this.config.pagination.page || 1;
+
+      this.paginationEvents({
+        actual: this.config.pagination.page,
+        itemsPerPage: this.config.pagination.itemsPerPage,
+        offset: this.config.pagination.offset * this.config.pagination.page,
+      });
+
       return;
     }
     this.smartData = this.config.data;
@@ -95,6 +100,14 @@ export class TableComponent implements OnInit {
       }
     });
     column.desc = !column.desc;
+
+    if (this.config.pagination) {
+      this.paginationEvents({
+        actual: 1,
+        itemsPerPage: this.config.pagination.itemsPerPage,
+        offset: this.config.pagination.offset,
+      });
+    }
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {
@@ -112,6 +125,9 @@ export class TableComponent implements OnInit {
       event.offset,
       event.offset + event.itemsPerPage
     );
+    this.config.pagination.page = event.actual;
+
+    this.cdr.detectChanges();
   }
 
   private setMainCheckboxState(state: CheckBoxStates): void {

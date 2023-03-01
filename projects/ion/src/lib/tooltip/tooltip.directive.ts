@@ -16,13 +16,13 @@ import {
   TooltipTrigger,
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
-import { TooltipComponent } from './tooltip.component';
+import { IonTooltipComponent } from './tooltip.component';
 import { getPositions } from './utilsTooltip';
 
 @Directive({
   selector: '[ionTooltip]',
 })
-export class TooltipDirective implements OnDestroy {
+export class IonTooltipDirective implements OnDestroy {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
@@ -30,7 +30,7 @@ export class TooltipDirective implements OnDestroy {
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
 
-  private componentRef: ComponentRef<TooltipComponent> = null;
+  private componentRef: ComponentRef<IonTooltipComponent> = null;
   private delayTimeout: number;
 
   constructor(
@@ -50,7 +50,9 @@ export class TooltipDirective implements OnDestroy {
 
   createComponent(): HTMLElement {
     const componentFactory =
-      this.componentFactoryResolver.resolveComponentFactory(TooltipComponent);
+      this.componentFactoryResolver.resolveComponentFactory(
+        IonTooltipComponent
+      );
 
     this.componentRef = componentFactory.create(this.injector);
 

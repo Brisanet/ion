@@ -1,7 +1,8 @@
 /* tslint:disable:no-unused-variable */
 import { render, screen } from '@testing-library/angular';
 import { DirectionType } from '../core/types';
-import { IonDividerComponent, IonDividerProps } from './divider.component';
+import { IonDividerComponent } from './divider.component';
+import { IonDividerProps } from '../core/types/divider';
 
 const ClassType = {
   solid: 'ion-divider-solid',
