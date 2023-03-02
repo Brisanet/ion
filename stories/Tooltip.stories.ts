@@ -5,11 +5,9 @@ import {
   TooltipPosition,
   TooltipTrigger,
 } from '../projects/ion/src/lib/core/types';
-import {
-  IonTooltipComponent,
-  TooltipProps,
-} from '../projects/ion/src/lib/tooltip/tooltip.component';
+import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
 import { IonTooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
+import { TooltipProps } from '../projects/ion/src/lib/core/types/tooltip';
 
 export default {
   title: 'Ion/Data Display/Tooltip',
