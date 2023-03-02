@@ -1,6 +1,11 @@
-import { EventTable } from '../../table/utilsTable';
+import {
+  EventTable,
+  PaginationConfig,
+  ConfigTable,
+} from '../../table/utilsTable';
 import { SafeAny } from '../../utils/safe-any';
 import { PageEvent } from './pagination';
+import { EventEmitter } from '@angular/core';
 
 export interface SmartTableEvent {
   event: EventTable;
@@ -11,4 +16,14 @@ export interface SmartTableEvent {
     desc: boolean;
   };
   data?: SafeAny;
+}
+
+export interface IonSmartTableProps<T> {
+  config: ConfigSmartTable<T>;
+  events?: EventEmitter<SmartTableEvent>;
+}
+
+export interface ConfigSmartTable<T> extends ConfigTable<T> {
+  pagination: PaginationConfig;
+  debounceOnSort?: number;
 }

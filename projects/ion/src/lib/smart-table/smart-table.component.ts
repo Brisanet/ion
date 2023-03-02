@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SmartTableEvent } from '../core/types';
+import { SmartTableEvent, ConfigSmartTable } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
 import {
   ActionTable,
   Column,
-  ConfigTable,
   EventTable,
-  PaginationConfig,
   TableUtils,
 } from '../table/utilsTable';
 import { SafeAny } from '../utils/safe-any';
@@ -18,16 +16,6 @@ const stateChange = {
   checked: 'enabled',
   enabled: 'checked',
 };
-
-export interface IonSmartTableProps<T> {
-  config: ConfigSmartTable<T>;
-  events?: EventEmitter<SmartTableEvent>;
-}
-
-export interface ConfigSmartTable<T> extends ConfigTable<T> {
-  pagination: PaginationConfig;
-  debounceOnSort?: number;
-}
 
 @Component({
   selector: 'ion-smart-table',
