@@ -37,6 +37,7 @@ import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
+import { IonRadioGroupModule } from './radio-group/radio-group.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -76,6 +77,7 @@ import { IonIndicatorModule } from './indicator/indicator.module';
     IonModalModule,
     IonIndicatorModule,
     IonSidebarModule,
+    IonRadioGroupModule,
     IonDatePickerModule,
   ],
   exports: [
@@ -115,6 +117,7 @@ import { IonIndicatorModule } from './indicator/indicator.module';
     IonIndicatorModule,
     IonSidebarModule,
     IonDatePickerModule,
+    IonRadioGroupModule,
   ],
 })
 export class IonModule {}
