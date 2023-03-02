@@ -14,6 +14,19 @@
         class="icon-info"
         data-testid="icon-info"
         [size]="18"
+        ionTooltip
+        [ionTooltipTitle]="configuration.header.infoIcon.ionTooltipTitle"
+        [ionTooltipPosition]="configuration.header.infoIcon.ionTooltipPosition"
+        [ionTooltipArrowPointAtCenter]="
+          configuration.header.infoIcon.ionTooltipArrowPointAtCenter
+        "
+        [ionTooltipColorScheme]="
+          configuration.header.infoIcon?.ionTooltipColorScheme
+        "
+        [ionTooltipTrigger]="configuration.header.infoIcon.ionTooltipTrigger"
+        [ionTooltipShowDelay]="
+          configuration.header.infoIcon.ionTooltipShowDelay
+        "
       ></ion-icon>
     </div>
     <div

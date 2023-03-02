@@ -5,6 +5,12 @@ import { IonCardComponent } from '../projects/ion/src/lib/card/card.component.ts
 import { BodyMockComponent } from '../projects/ion/src/lib/card/mock/body-mock.component.ts';
 import { IonSharedModule } from '../projects/ion/src/public-api';
 import { IonChipModule } from '../projects/ion/src/lib/chip/chip.module';
+import { IonTooltipModule } from '../projects/ion/src/lib/tooltip/tooltip.module';
+import {
+  TooltipPosition,
+  TooltipTrigger,
+  TooltipProps,
+} from '../projects/ion/src/lib/core/types';
 
 <Meta title="Ion/Data Display/Card" component={IonCardComponent} />
 
@@ -34,7 +40,12 @@ Neste parâmetro o único atributo obrigatório é o atributo `title`.
     }}
     decorators={[
       moduleMetadata({
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -72,7 +83,12 @@ Há também a possibilidade de passar o paramêtro `buttons` para adicionar aç�
     }}
     decorators={[
       moduleMetadata({
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -95,7 +111,12 @@ Assim como a possibilidade de definir um ícone para o título do card, enviando
     }}
     decorators={[
       moduleMetadata({
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -121,7 +142,12 @@ No `body` o IonCard recebe um componente a se renderizado.
     decorators={[
       moduleMetadata({
         declarations: [BodyMockComponent],
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
         entryComponents: [BodyMockComponent],
       }),
     ]}
@@ -155,7 +181,12 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
     decorators={[
       moduleMetadata({
         declarations: [BodyMockComponent],
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
         entryComponents: [BodyMockComponent],
       }),
     ]}
@@ -181,7 +212,12 @@ Neste parâmetro, enviamos uma lista de chips.
     }}
     decorators={[
       moduleMetadata({
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -212,7 +248,12 @@ Neste parâmetro, enviamos o chip com as opções para o dropdown.
     }}
     decorators={[
       moduleMetadata({
-        imports: [CommonModule, IonSharedModule, IonChipModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -231,16 +272,25 @@ Nest paramêtro o IonCard recebe um valor booleano para renderizar o info icon.
       configuration: {
         header: {
           title: 'Com risco de atraso',
-          infoIcon: true,
+          infoIcon: {
+            ionTooltipTitle: 'ionTooltipTitle',
+            ionTooltipPosition: TooltipPosition.CENTER_LEFT,
+            ionTooltipArrowPointAtCenter: true,
+            ionTooltipColorScheme: 'dark',
+            ionTooltipTrigger: TooltipTrigger.HOVER,
+            ionTooltipShowDelay: 2,
+          },
         },
-        body: BodyMockComponent,
       },
     }}
     decorators={[
       moduleMetadata({
-        declarations: [BodyMockComponent],
-        imports: [CommonModule, IonSharedModule, IonChipModule],
-        entryComponents: [BodyMockComponent],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
