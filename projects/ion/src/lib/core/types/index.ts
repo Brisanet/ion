@@ -19,6 +19,7 @@ export * from './message';
 export * from './notification';
 export * from './pagination';
 export * from './popconfirm';
+export * from './radio-group';
 export * from './sidebar';
 export * from './simple-menu';
 export * from './smart-table';
