@@ -12,7 +12,8 @@ import { IonCardComponent } from './card.component';
 import { IonChipModule } from '../chip/chip.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
-import { IonCard, CardEvent } from '../core/types';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonCard, CardEvent, TooltipPosition } from '../core/types';
 import { IonChipProps } from '../core/types/chip';
 
 let renderFooter = false;
@@ -63,7 +64,13 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, IonIconModule, IonButtonModule, IonChipModule],
+  imports: [
+    CommonModule,
+    IonIconModule,
+    IonButtonModule,
+    IonChipModule,
+    IonTooltipModule,
+  ],
   declarations: [
     CardTestComponent,
     IonCardComponent,
@@ -126,7 +133,11 @@ describe('CardComponent', () => {
   });
 
   it('should render info icon', () => {
-    cardComponent.cardConfig.header.infoIcon = true;
+    cardComponent.cardConfig.header.infoIcon = {
+      ionTooltipTitle: 'ionTooltipTitle',
+      ionTooltipPosition: TooltipPosition.CENTER_LEFT,
+      ionTooltipColorScheme: 'dark',
+    };
     fixture.detectChanges();
     expect(screen.queryByTestId('icon-info')).toBeInTheDocument();
   });
