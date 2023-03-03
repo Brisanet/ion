@@ -1,19 +1,5 @@
 @import '../../styles/index.scss';
 
-@mixin shadow-step-1() {
-  box-shadow: 0 0 0 2px $primary-2;
-  background: $primary-3;
-}
-
-@mixin shadow-step-2() {
-  box-shadow: 0 0 0 4px hsla(215, 92%, 85%, 0.5);
-}
-
-@mixin shadow-step-3() {
-  box-shadow: 0 0 0 6px rgba(181, 210, 252, 0.2);
-  background: $primary-color;
-}
-
 $base-sm-size: 2px;
 $base-md-size: 3px;
 $base-lg-size: 4px;
@@ -53,6 +39,23 @@ $base-lg-size: 4px;
 
   &[size='lg']::before {
     transform: translateX(calc($base-lg-size * $base));
+  }
+}
+
+@mixin addShadowAnimation($base, $changeName: 'animateShadow') {
+  animation: $changeName 300ms ease-in-out;
+
+  @keyframes #{$changeName} {
+    0% {
+      box-shadow: none;
+    }
+    20% {
+      box-shadow: 0 0 0 calc($base * 2) $primary-1;
+      background: $primary-4;
+    }
+    100% {
+      box-shadow: none;
+    }
   }
 }
 
@@ -102,10 +105,34 @@ $base-lg-size: 4px;
     @include switch-sizes($base-lg-size);
   }
 
+  &--inactive {
+    &[size='sm'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
+
+    &[size='md'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
+
+    &[size='lg'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
+  }
+
   &--active {
     background: $primary-color;
-    animation: shadow--1 3ms ease-out, shadow--2 30ms ease-out 4ms,
-      shadow--3 50ms ease-out 34ms, shadow-4 50ms ease-out 84ms;
+
+    &[size='sm'] {
+      @include addShadowAnimation($base-sm-size);
+    }
+
+    &[size='md'] {
+      @include addShadowAnimation($base-md-size);
+    }
+
+    &[size='lg'] {
+      @include addShadowAnimation($base-lg-size);
+    }
 
     &:hover {
       background: $primary-5;
@@ -130,42 +157,5 @@ $base-lg-size: 4px;
         background: $neutral-2;
       }
     }
-  }
-}
-
-@keyframes shadow--1 {
-  from {
-    box-shadow: none;
-    background: $primary-2;
-  }
-  to {
-    @include shadow-step-1();
-  }
-}
-
-@keyframes shadow--2 {
-  from {
-    @include shadow-step-1();
-  }
-  to {
-    @include shadow-step-2();
-  }
-}
-
-@keyframes shadow--3 {
-  from {
-    @include shadow-step-2();
-  }
-  to {
-    @include shadow-step-3();
-  }
-}
-
-@keyframes shadow--4 {
-  from {
-    @include shadow-step-3();
-  }
-  to {
-    box-shadow: initial;
   }
 }
