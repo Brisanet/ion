@@ -87,6 +87,7 @@ $base-lg-size: 4px;
 
   &:disabled {
     background: $neutral-3;
+    cursor: not-allowed;
 
     &::before {
       background: $neutral-5;
@@ -152,6 +153,7 @@ $base-lg-size: 4px;
 
     &:disabled {
       background: $neutral-5;
+      cursor: not-allowed;
 
       &::before {
         background: $neutral-2;
