@@ -138,7 +138,7 @@ describe('CardComponent', () => {
   });
 
   it('should render info icon', () => {
-    cardComponent.cardConfig.header.infoIcon = {
+    cardComponent.cardConfig.header.infoTooltip = {
       ionTooltipTitle: 'ionTooltipTitle',
       ionTooltipPosition: TooltipPosition.CENTER_LEFT,
       ionTooltipColorScheme: 'dark',

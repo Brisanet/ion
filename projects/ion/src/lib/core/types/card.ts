@@ -19,7 +19,7 @@ interface Header {
   buttons?: ButtonBase[];
   chips?: IonChipProps[];
   icon?: IconType;
-  infoIcon?: SafeAny;
+  infoTooltip?: SafeAny;
 }
 
 type FooterButton = {
