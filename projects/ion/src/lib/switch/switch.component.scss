@@ -23,6 +23,12 @@ $base-lg-size: 4px;
   height: calc($base * 8);
   border-radius: calc($base * 7.5);
 
+  &:focus-visible {
+    box-shadow: 0px 0px 0px $base $neutral-1,
+      0px 0px 0px calc($base * 2) $primary-5;
+    border-radius: calc($base * 7.5);
+  }
+
   &::before {
     top: $base;
     left: $base;
@@ -31,9 +37,28 @@ $base-lg-size: 4px;
   }
 }
 
+@mixin translateEllipse($side: 'half') {
+  $base: 2;
+  @if $side == 'full' {
+    $base: 4;
+  }
+
+  &[size='sm']::before {
+    transform: translateX(calc($base-sm-size * $base));
+  }
+
+  &[size='md']::before {
+    transform: translateX(calc($base-md-size * $base));
+  }
+
+  &[size='lg']::before {
+    transform: translateX(calc($base-lg-size * $base));
+  }
+}
+
 .ion-switch {
   display: flex;
-  background: #a9adbc;
+  background: $primary-2;
   border: none;
   outline: none;
   cursor: pointer;
@@ -41,7 +66,12 @@ $base-lg-size: 4px;
   transition: all ease-out 100ms;
 
   &:hover {
-    background: $primary-2;
+    background: $primary-3;
+  }
+
+  &:active {
+    background: $primary-4;
+    @include translateEllipse();
   }
 
   &::before {
@@ -70,23 +100,19 @@ $base-lg-size: 4px;
       shadow--3 50ms ease-out 34ms, shadow-4 50ms ease-out 84ms;
 
     &:hover {
-      background: $primary-color;
+      background: $primary-5;
     }
 
     &::before {
       transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     }
 
-    &[size='sm']::before {
-      transform: translateX(calc($base-sm-size * 4));
-    }
+    @include translateEllipse('full');
 
-    &[size='md']::before {
-      transform: translateX(calc($base-md-size * 4));
-    }
+    &:active {
+      background: $primary-7;
 
-    &[size='lg']::before {
-      transform: translateX(calc($base-lg-size * 4));
+      @include translateEllipse();
     }
   }
 }
