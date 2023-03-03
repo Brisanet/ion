@@ -13,7 +13,12 @@ import { IonChipModule } from '../chip/chip.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonCard, CardEvent, TooltipPosition } from '../core/types';
+import {
+  IonCard,
+  CardEvent,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../core/types';
 import { IonChipProps } from '../core/types/chip';
 
 let renderFooter = false;
@@ -137,6 +142,9 @@ describe('CardComponent', () => {
       ionTooltipTitle: 'ionTooltipTitle',
       ionTooltipPosition: TooltipPosition.CENTER_LEFT,
       ionTooltipColorScheme: 'dark',
+      ionTooltipTrigger: TooltipTrigger.HOVER,
+      ionTooltipShowDelay: 2,
+      ionTooltipArrowPointAtCenter: true,
     };
     fixture.detectChanges();
     expect(screen.queryByTestId('icon-info')).toBeInTheDocument();
