@@ -5,6 +5,7 @@ import { IconDirection } from './icon';
 export type InputType = 'text' | 'password';
 
 export interface IonInputProps {
+  key?: string;
   placeholder?: string;
   button?: string;
   iconInput?: string;

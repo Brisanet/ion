@@ -1,0 +1,74 @@
+<h1>Formulário</h1>
+<form [formGroup]="formGroup" name="form">
+  <ng-container *ngFor="let field of formFields">
+    <ng-container [ngSwitch]="field.type">
+      <!-- InputText -->
+      <ng-container *ngSwitchCase="'text'">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
+            {{ field.label }}
+          </label>
+          <ion-input
+            [key]="field.key"
+            [placeholder]="field.placeholder"
+            [iconInput]="field.icon"
+            [formControlName]="field.key"
+            [invalid]="
+              formGroup.controls[field.key]?.invalid &&
+              (formGroup.controls[field.key]?.dirty ||
+                formGroup.controls[field.key]?.touched)
+            "
+          ></ion-input>
+        </div>
+      </ng-container>
+      <!-- TextArea -->
+      <ng-container *ngSwitchCase="'textarea'">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
+            {{ field.label }}
+          </label>
+          <ion-input-area
+            [key]="field.key"
+            [placeholder]="field.placeholder"
+            [formControlName]="field.key"
+          ></ion-input-area>
+        </div>
+      </ng-container>
+      <!-- SwitchField -->
+      <ng-container *ngSwitchCase="'switch'">
+        <div *ngIf="formGroup.controls[field.key]">
+          <label [for]="field.key">
+            {{ field.label }}
+          </label>
+          <ion-switch
+            [key]="field.key"
+            [formControlName]="field.key"
+          ></ion-switch>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <div
+      *ngIf="
+        formGroup.controls[field.key]?.invalid &&
+        (formGroup.controls[field.key]?.dirty ||
+          formGroup.controls[field.key]?.touched)
+      "
+    >
+      <span *ngIf="formGroup.controls[field.key]?.errors?.required">
+        Campo obrigatório!
+      </span>
+      <span *ngIf="formGroup.controls[field.key]?.errors?.email">
+        E-mail inválido.
+      </span>
+      <span *ngIf="formGroup.controls[field.key]?.errors?.minlength">
+        Pequeno demais (tamanho mínimo:
+        {{ formGroup.controls[field.key]?.errors?.minlength.requiredLength }})
+      </span>
+    </div>
+
+    <span>Value: {{ formGroup.controls[field.key]?.value }} | </span>
+    <span>Valid: {{ formGroup.controls[field.key]?.valid }} | </span>
+    <span>Disabled: {{ formGroup.controls[field.key]?.disabled }}</span>
+  </ng-container>
+</form>

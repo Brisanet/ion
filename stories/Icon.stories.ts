@@ -1,4 +1,4 @@
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 
 export default {

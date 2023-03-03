@@ -1,10 +1,17 @@
-import { SafeAny } from './../utils/safe-any';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import userEvent from '@testing-library/user-event';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
-import { IonInputAreaComponent } from './input-area.component';
+import userEvent from '@testing-library/user-event';
 import { IonInputAreaProps } from '../core/types/input-area';
+import { SafeAny } from '../utils/safe-any';
+import { IonInputAreaComponent } from './input-area.component';
+import { IonInputAreaModule } from './input-area.module';
 
 const sut = async (customProps?: IonInputAreaProps): Promise<void> => {
   await render(IonInputAreaComponent, {
@@ -80,5 +87,56 @@ describe('IonInputAreaComponent', () => {
     const input = 'input';
     userEvent.type(element, input);
     expect(valueChangeEvent).toHaveBeenLastCalledWith(input);
+  });
+});
+
+// ! tests below needs improvements!!!
+@Component({
+  template: `
+    <form [formGroup]="formGroup">
+      <ion-input-area formControlName="name" key="name"></ion-input-area>
+      <ion-input-area formControlName="email" key="email"></ion-input-area>
+    </form>
+  `,
+})
+class HostInputComponent {
+  formGroup = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl({ value: '', disabled: true }),
+  });
+}
+
+const sutHost = async (
+  props: Partial<HostInputComponent> = {}
+): Promise<Element> => {
+  const { container } = await render(HostInputComponent, {
+    componentProperties: props,
+    imports: [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      IonInputAreaModule,
+    ],
+  });
+  return container;
+};
+
+describe('InputAreaComponent - Angular Forms', () => {
+  let container;
+
+  beforeEach(async () => {
+    container = await sutHost({});
+  });
+
+  it('should render input', () => {
+    expect(container.querySelector('#name')).toBeInTheDocument();
+  });
+  it('should change value when typing', () => {
+    const value = 'Beyoncé';
+    userEvent.type(container.querySelector('#name'), value);
+    expect(container.querySelector('#name')).toHaveValue(value);
+  });
+  it('should render component disabled', () => {
+    expect(container.querySelector('#email')).toBeDisabled();
   });
 });

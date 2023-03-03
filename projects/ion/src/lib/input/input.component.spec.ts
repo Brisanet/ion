@@ -1,11 +1,19 @@
-import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonInputComponent } from './input.component';
-import { FormsModule } from '@angular/forms';
+import { InputType, IonInputProps } from '../core/types/input';
+import { IonIconModule } from '../icon/icon.module';
 import { IonSharedModule } from '../shared.module';
-import { IonInputProps, InputType } from '../core/types/input';
+import { SafeAny } from '../utils/safe-any';
+import { IonInputComponent } from './input.component';
+import { IonInputModule } from './input.module';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(IonInputComponent, {
@@ -198,5 +206,57 @@ describe('IonInputComponent', () => {
       fireEvent.click(screen.getByTestId('clear-button'));
       expect(mockFn).toHaveBeenLastCalledWith('');
     });
+  });
+});
+
+// ! tests below needs improvements!!!
+@Component({
+  template: `
+    <form [formGroup]="formGroup">
+      <ion-input formControlName="name" key="name"></ion-input>
+      <ion-input formControlName="email" key="email"></ion-input>
+    </form>
+  `,
+})
+class HostInputComponent {
+  formGroup = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl({ value: '', disabled: true }),
+  });
+}
+
+const sutHost = async (
+  props: Partial<HostInputComponent> = {}
+): Promise<Element> => {
+  const { container } = await render(HostInputComponent, {
+    componentProperties: props,
+    imports: [
+      CommonModule,
+      FormsModule,
+      ReactiveFormsModule,
+      IonInputModule,
+      IonIconModule,
+    ],
+  });
+  return container;
+};
+
+describe('InputComponent - Angular Forms', () => {
+  let container;
+
+  beforeEach(async () => {
+    container = await sutHost({});
+  });
+
+  it('should render input', () => {
+    expect(container.querySelector('#name')).toBeInTheDocument();
+  });
+  it('should change value when typing', () => {
+    const value = 'Beyoncé';
+    userEvent.type(container.querySelector('#name'), value);
+    expect(container.querySelector('#name')).toHaveValue(value);
+  });
+  it('should render component disabled', () => {
+    expect(container.querySelector('#email')).toBeDisabled();
   });
 });

@@ -10,25 +10,27 @@
   >
     <ion-icon
       data-testid="icon-left"
-      *ngIf="iconDirection === 'left'"
+      *ngIf="iconInput && iconDirection === 'left'"
       [type]="iconInput"
       size="20"
     ></ion-icon>
     <input
       #input
       [type]="inputType"
+      [id]="key"
+      [attr.name]="key"
       [attr.placeholder]="placeholder"
       class="my-input"
       [disabled]="disabled"
       [(ngModel)]="value"
-      (ngModelChange)="onChange($event)"
+      (ngModelChange)="setValue($event)"
       data-testid="input-element"
       [maxlength]="maxLength"
     />
 
     <ion-icon
       data-testid="icon-right"
-      *ngIf="!isClearButtonVisible() && iconDirection === 'right'"
+      *ngIf="!isClearButtonVisible() && iconInput && iconDirection === 'right'"
       [type]="iconInput"
       size="20"
     >

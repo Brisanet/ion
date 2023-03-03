@@ -10,6 +10,8 @@ export class IonRadioComponent {
   @Input() checked? = false;
   @Input() disabled? = false;
 
+  public model = {};
+
   check(): void {
     this.checked = true;
   }
