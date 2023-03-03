@@ -14,11 +14,27 @@
   background: $primary-color;
 }
 
+$base-sm-size: 2px;
+$base-md-size: 3px;
+$base-lg-size: 4px;
+
+@mixin switch-sizes($base) {
+  width: calc($base * 12);
+  height: calc($base * 8);
+  border-radius: calc($base * 7.5);
+
+  &::before {
+    top: $base;
+    left: $base;
+    width: calc($base * 6);
+    height: calc($base * 6);
+  }
+}
+
 .ion-switch {
   display: flex;
   background: #a9adbc;
   border: none;
-  border-radius: 15px;
   outline: none;
   cursor: pointer;
   position: relative;
@@ -37,39 +53,15 @@
   }
 
   &[size='sm'] {
-    width: 24px;
-    height: 16px;
-
-    &::before {
-      top: 2px;
-      left: 2px;
-      width: 12px;
-      height: 12px;
-    }
+    @include switch-sizes($base-sm-size);
   }
 
   &[size='md'] {
-    width: 36px;
-    height: 24px;
-
-    &::before {
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
-    }
+    @include switch-sizes($base-md-size);
   }
 
   &[size='lg'] {
-    width: 48px;
-    height: 32px;
-
-    &::before {
-      top: 4px;
-      left: 4px;
-      width: 24px;
-      height: 24px;
-    }
+    @include switch-sizes($base-lg-size);
   }
 
   &--active {
@@ -86,15 +78,15 @@
     }
 
     &[size='sm']::before {
-      transform: translateX(8px);
+      transform: translateX(calc($base-sm-size * 4));
     }
 
     &[size='md']::before {
-      transform: translateX(12px);
+      transform: translateX(calc($base-md-size * 4));
     }
 
     &[size='lg']::before {
-      transform: translateX(16px);
+      transform: translateX(calc($base-lg-size * 4));
     }
   }
 }
