@@ -9,6 +9,7 @@ import { SwitchSize } from '../core/types/switch';
 export class IonSwitchComponent {
   @Input() value = false;
   @Input() size: SwitchSize = 'sm';
+  @Input() disabled = false;
   @Output() atValueChange = new EventEmitter<boolean>();
 
   handleClick(value: boolean): void {

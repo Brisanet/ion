@@ -69,7 +69,7 @@ $base-lg-size: 4px;
     background: $primary-3;
   }
 
-  &:active {
+  &:active:not(:disabled) {
     background: $primary-4;
     @include translateEllipse();
   }
@@ -80,6 +80,14 @@ $base-lg-size: 4px;
     position: absolute;
     border-radius: 50%;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+
+  &:disabled {
+    background: $neutral-3;
+
+    &::before {
+      background: $neutral-5;
+    }
   }
 
   &[size='sm'] {
@@ -109,10 +117,18 @@ $base-lg-size: 4px;
 
     @include translateEllipse('full');
 
-    &:active {
+    &:active:not(:disabled) {
       background: $primary-7;
 
       @include translateEllipse();
+    }
+
+    &:disabled {
+      background: $neutral-5;
+
+      &::before {
+        background: $neutral-2;
+      }
     }
   }
 }
