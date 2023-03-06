@@ -10,6 +10,7 @@ import { DropdownItem } from '../core/types/dropdown';
 import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
+export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
 
 @Component({
   selector: 'ion-pagination',
@@ -26,13 +27,7 @@ export class IonPaginationComponent implements OnChanges {
   @Input() page = 0;
   @Output() events = new EventEmitter<PageEvent>();
 
-  public optionsPage = [
-    { label: `${ITEMS_PER_PAGE_DEFAULT} / página`, selected: true },
-    { label: '20 / página' },
-    { label: '30 / página' },
-    { label: '40 / página' },
-    { label: '46 / página' },
-  ];
+  public optionsPage?: DropdownItem[] = [];
 
   pages: Page[] = [];
 
@@ -48,6 +43,7 @@ export class IonPaginationComponent implements OnChanges {
     if (changes.page && changes.page.currentValue) {
       this.setPage(changes.page.currentValue);
     }
+    this.optionsPage = this.getOptionsPage();
   }
 
   setPage(page = 1): void {
@@ -106,6 +102,11 @@ export class IonPaginationComponent implements OnChanges {
     return numberOfPages;
   }
 
+  getSelectedItemsPerPageLabel(options: DropdownItem[]): string {
+    const option = options.find((pageOption) => pageOption.selected);
+    return (option && option.label) || this.generateLabel(this.itemsPerPage);
+  }
+
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
@@ -126,5 +127,25 @@ export class IonPaginationComponent implements OnChanges {
 
   private inFirstPage(): boolean {
     return this.currentPage().page_number === 1;
+  }
+
+  private generateLabel(page: number): string {
+    return `${page} / página`;
+  }
+
+  private getOptionsPage(): DropdownItem[] {
+    return LIST_OF_PAGE_OPTIONS.map((quantityOfPages) => {
+      return {
+        label: this.generateLabel(quantityOfPages),
+        selected: this.isASelectedOption(quantityOfPages),
+      };
+    });
+  }
+
+  private isASelectedOption(quantityOfPages: number): boolean {
+    return (
+      LIST_OF_PAGE_OPTIONS.includes(this.itemsPerPage) &&
+      this.itemsPerPage === quantityOfPages
+    );
   }
 }

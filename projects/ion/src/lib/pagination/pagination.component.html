@@ -2,7 +2,7 @@
   <ion-button
     rightSideIcon="true"
     *ngIf="allowChangeQtdItems"
-    [label]="optionsPage[0].label"
+    [label]="getSelectedItemsPerPageLabel(optionsPage)"
     [options]="optionsPage"
     customId="btn-select"
     (selected)="changeItemsPerPage($event)"
