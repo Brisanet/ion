@@ -24,6 +24,7 @@ export * from './sidebar';
 export * from './simple-menu';
 export * from './smart-table';
 export * from './status';
+export * from './switch';
 export * from './tab';
 export * from './tab-group';
 export * from './table';
