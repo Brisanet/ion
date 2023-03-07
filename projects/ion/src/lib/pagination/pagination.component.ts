@@ -29,7 +29,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage?: DropdownItem[] = [];
-  public labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+  public labelPerPage = '';
 
   pages: Page[] = [];
 
