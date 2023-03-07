@@ -3,6 +3,7 @@ import { SafeAny } from '../../utils/safe-any';
 import { IonChipProps } from './chip';
 import { IconType } from './icon';
 import { DropdownItem } from './dropdown';
+import { TooltipProps } from './tooltip';
 
 type ButtonType = 'primary' | 'secondary' | 'ghost';
 
@@ -19,7 +20,7 @@ interface Header {
   buttons?: ButtonBase[];
   chips?: IonChipProps[];
   icon?: IconType;
-  infoTooltip?: SafeAny;
+  infoTooltip?: TooltipProps;
 }
 
 type FooterButton = {

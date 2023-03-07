@@ -9,7 +9,7 @@
       ></ion-icon>
       <h4 data-testid="cardHeader">{{ configuration.header.title }}</h4>
       <ion-icon
-        *ngIf="configuration.header.infoTooltip.ionTooltipTitle"
+        *ngIf="configuration.header.infoTooltip?.ionTooltipTitle"
         type="information"
         class="icon-info"
         data-testid="icon-info"
@@ -17,17 +17,19 @@
         ionTooltip
         [ionTooltipTitle]="configuration.header.infoTooltip.ionTooltipTitle"
         [ionTooltipPosition]="
-          configuration.header.infoTooltip.ionTooltipPosition
+          configuration.header.infoTooltip.ionTooltipPosition || 'centerLeft'
         "
         [ionTooltipArrowPointAtCenter]="
-          configuration.header.infoTooltip.ionTooltipArrowPointAtCenter
+          configuration.header.infoTooltip.ionTooltipArrowPointAtCenter || true
         "
         [ionTooltipColorScheme]="
-          configuration.header.infoTooltip?.ionTooltipColorScheme
+          configuration.header.infoTooltip.ionTooltipColorScheme || 'dark'
         "
-        [ionTooltipTrigger]="configuration.header.infoTooltip.ionTooltipTrigger"
+        [ionTooltipTrigger]="
+          configuration.header.infoTooltip.ionTooltipTrigger || 'hover'
+        "
         [ionTooltipShowDelay]="
-          configuration.header.infoTooltip.ionTooltipShowDelay
+          configuration.header.infoTooltip.ionTooltipShowDelay || 0
         "
       ></ion-icon>
     </div>
