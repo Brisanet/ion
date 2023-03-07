@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 
 @Component({
@@ -8,6 +8,7 @@ import { TooltipColorScheme, TooltipPosition } from '../core/types';
 })
 export class IonTooltipComponent {
   ionTooltipTitle: string;
+  ionTooltipTemplateRef: TemplateRef<void>;
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
   ionTooltipVisible = false;

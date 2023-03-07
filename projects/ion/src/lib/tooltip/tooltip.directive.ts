@@ -9,6 +9,7 @@ import {
   Injector,
   Input,
   OnDestroy,
+  TemplateRef,
 } from '@angular/core';
 import {
   TooltipColorScheme,
@@ -24,6 +25,7 @@ import { getPositions } from './utilsTooltip';
 })
 export class IonTooltipDirective implements OnDestroy {
   @Input() ionTooltipTitle = '';
+  @Input() ionTooltipTemplateRef: TemplateRef<void>;
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
   @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
   @Input() ionTooltipArrowPointAtCenter = true;
@@ -65,6 +67,8 @@ export class IonTooltipDirective implements OnDestroy {
   setComponentProperties(): void {
     if (!this.isComponentRefNull()) {
       this.componentRef.instance.ionTooltipTitle = this.ionTooltipTitle;
+      this.componentRef.instance.ionTooltipTemplateRef =
+        this.ionTooltipTemplateRef;
       this.componentRef.instance.ionTooltipColorScheme =
         this.ionTooltipColorScheme;
       this.componentRef.instance.ionTooltipPosition = this.ionTooltipPosition;
