@@ -3,6 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -17,7 +18,7 @@ export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class IonPaginationComponent implements OnChanges {
+export class IonPaginationComponent implements OnChanges, OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
@@ -28,12 +29,14 @@ export class IonPaginationComponent implements OnChanges {
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage?: DropdownItem[] = [];
+  public labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
 
   pages: Page[] = [];
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
     this.remountPages();
+    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,7 +46,11 @@ export class IonPaginationComponent implements OnChanges {
     if (changes.page && changes.page.currentValue) {
       this.setPage(changes.page.currentValue);
     }
+  }
+
+  ngOnInit(): void {
     this.optionsPage = this.getOptionsPage();
+    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
   }
 
   setPage(page = 1): void {
