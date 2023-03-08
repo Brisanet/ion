@@ -24,7 +24,7 @@ describe('PopoverComponent', () => {
       await sut();
     });
 
-    it('should render component with message', async () => {
+    it('should render component with title', async () => {
       expect(
         screen.getByText(defaultProps.ionPopoverTitle)
       ).toBeInTheDocument();
