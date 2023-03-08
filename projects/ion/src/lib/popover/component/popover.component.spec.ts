@@ -71,7 +71,7 @@ describe('PopoverComponent', () => {
       expect(screen.getByTestId('popover-icon-close')).toBeInTheDocument();
     });
 
-    it('should render component with icon close', async () => {
+    it('should render component with a given icon', async () => {
       expect(
         document.getElementById('ion-icon-condominium')
       ).toBeInTheDocument();
