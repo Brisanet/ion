@@ -16,7 +16,7 @@ export class IonPopoverComponent {
   @Input() ionPopoverBody: SafeAny;
   @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
-  @Input() ionPopoverIconClose?: boolean = false;
+  @Input() ionPopoverIconClose = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   left = 0;
   top = 0;

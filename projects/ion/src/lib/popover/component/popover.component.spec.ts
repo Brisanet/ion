@@ -79,7 +79,7 @@ describe('PopoverComponent', () => {
   });
 
   describe('check the arrows', () => {
-    it.each(['leftTop', 'topCenter'])(
+    it.each(['leftTop', 'topCenter', 'leftBottom', 'bottomCenter'])(
       'should render component with arrow $s',
       async (arrow: PopoverPosition) => {
         await sut({
@@ -91,31 +91,5 @@ describe('PopoverComponent', () => {
       }
     );
 
-    it.each(['leftBottom', 'bottomCenter'])(
-      'should render component with arrow in footer $s',
-      async (arrow: PopoverPosition) => {
-        await sut({
-          ...defaultProps,
-          ionPopoverPosition: arrow,
-        });
-        const element = screen.getByTestId('ion-popover');
-        expect(element).toHaveClass(`sup-container-${arrow}`);
-      }
-    );
-
-    describe('with arrow and actions', () => {
-      it.each(['leftBottom', 'bottomCenter'])(
-        'should render component with arrow in footer $s',
-        async (arrow: PopoverPosition) => {
-          await sut({
-            ...defaultProps,
-            ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
-            ionPopoverPosition: arrow,
-          });
-          const element = screen.getByTestId('ion-popover');
-          expect(element).toHaveClass(`sup-container-${arrow}`);
-        }
-      );
-    });
   });
 });
