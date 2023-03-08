@@ -5,15 +5,6 @@ import { SafeAny } from '../../utils/safe-any';
 import { PopoverPosition } from '../../core/types/popover';
 import { IconType, IonButtonProps } from '../../core/types';
 
-export interface PopoverProps {
-  ionPopoverTitle: string;
-  ionPopoverBody: SafeAny;
-  ionPopoverActions?: IonButtonProps[];
-  ionPopoverIcon?: IconType;
-  ionPopoverIconClose?: boolean;
-  ionPopoverPosition?: PopoverPosition;
-}
-
 @Component({
   selector: 'ion-popover',
   templateUrl: './popover.component.html',

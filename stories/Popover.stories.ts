@@ -1,14 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import {
-  IonPopoverComponent,
-  PopoverProps,
-} from '../projects/ion/src/lib/popover/component/popover.component';
+import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
 import { IonSharedModule } from '../projects/ion/src/public-api';
 import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
 import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
 import { moduleMetadata } from '@storybook/angular';
-import { PopoverPosition } from '../projects/ion/src/lib/core/types/popover';
+import {
+  PopoverPosition,
+  PopoverProps,
+} from '../projects/ion/src/lib/core/types/popover';
 import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
 
 const TemplateComponente: Story<IonPopoverComponent> = (

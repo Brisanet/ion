@@ -1,3 +1,7 @@
+import { SafeAny } from '../../utils/safe-any';
+import { IonButtonProps } from './button';
+import { IconType } from './icon';
+
 export enum PopoverPosition {
   TOP_RIGHT = 'topRight',
   TOP_CENTER = 'topCenter',
@@ -10,4 +14,13 @@ export enum PopoverPosition {
   BOTTOM_CENTER = 'bottomCenter',
   BOTTOM_LEFT = 'bottomLeft',
   DEFAULT = 'bottomRight',
+}
+
+export interface PopoverProps {
+  ionPopoverTitle: string;
+  ionPopoverBody: SafeAny;
+  ionPopoverActions?: IonButtonProps[];
+  ionPopoverIcon?: IconType;
+  ionPopoverIconClose?: boolean;
+  ionPopoverPosition?: PopoverPosition;
 }

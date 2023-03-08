@@ -1,8 +1,8 @@
 import { FormsModule } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import { IonDividerComponent } from '../../divider/divider.component';
-import { IonPopoverComponent, PopoverProps } from './popover.component';
-import { PopoverPosition } from '../../core/types/popover';
+import { IonPopoverComponent } from './popover.component';
+import { PopoverPosition, PopoverProps } from '../../core/types/popover';
 import { IonSharedModule } from '../../shared.module';
 
 const defaultProps: PopoverProps = {
