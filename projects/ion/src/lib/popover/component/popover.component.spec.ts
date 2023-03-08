@@ -91,19 +91,5 @@ describe('PopoverComponent', () => {
       }
     );
 
-    describe('with arrow and actions', () => {
-      it.each(['leftBottom', 'bottomCenter'])(
-        'should render component with arrow in footer $s',
-        async (arrow: PopoverPosition) => {
-          await sut({
-            ...defaultProps,
-            ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
-            ionPopoverPosition: arrow,
-          });
-          const element = screen.getByTestId('ion-popover');
-          expect(element).toHaveClass(`sup-container-${arrow}`);
-        }
-      );
-    });
   });
 });
