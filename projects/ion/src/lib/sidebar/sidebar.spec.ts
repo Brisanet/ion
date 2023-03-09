@@ -232,5 +232,9 @@ describe('Sidebar', () => {
         }
       );
     });
+    it('should not call an action when clicking on group title', () => {
+      userEvent.click(screen.getByText('Group 1'));
+      expect(actionMock).not.toHaveBeenCalled();
+    });
   });
 });
