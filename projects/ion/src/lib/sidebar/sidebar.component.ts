@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonSidebarProps } from '../core/types/sidebar';
-import { selectItemByIndex, unselectAllItems } from './utils';
+import { selectItemByIndex, callItemAction, unselectAllItems } from './utils';
 
 @Component({
   selector: 'ion-sidebar',
@@ -23,5 +23,10 @@ export class IonSidebarComponent {
 
   public itemOnGroupSelected(groupIndex: number): void {
     unselectAllItems(this.items, groupIndex);
+  }
+
+  public groupSelected(groupIndex: number): void {
+    unselectAllItems(this.items);
+    callItemAction(this.items, groupIndex);
   }
 }

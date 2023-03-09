@@ -20,12 +20,12 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: pointer;
     padding: 0 spacing(1);
     color: $primary-color;
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
+    cursor: pointer;
 
     div {
       display: flex;
@@ -44,6 +44,24 @@
 
   &__toggle-icon {
     transition: all 0.3s ease;
+  }
+
+  &__header--with-action {
+    cursor: initial;
+
+    div {
+      cursor: pointer;
+      transition: all ease-in-out 0.1s;
+
+      &:hover {
+        color: $primary-5;
+        @include icon-color($primary-5);
+      }
+    }
+
+    .sidebar-group__toggle-icon {
+      cursor: pointer;
+    }
   }
 
   &--opened {

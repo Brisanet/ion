@@ -4,7 +4,7 @@ function selectItem(items: Item[], index: number): void {
   items[index].selected = true;
 }
 
-function callItemAction(items: Item[], index: number): void {
+export function callItemAction(items: Item[], index: number): void {
   if (items[index].action) {
     items[index].action();
   }
