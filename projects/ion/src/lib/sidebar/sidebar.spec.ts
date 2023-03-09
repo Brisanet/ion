@@ -36,6 +36,7 @@ const items: IonSidebarProps['items'] = [
   {
     title: 'Group 1',
     icon: 'star-solid',
+    action: actionMock,
     options: [
       {
         title: 'Item group 1',

@@ -10,8 +10,12 @@ function callItemAction(items: Item[], index: number): void {
   }
 }
 
-export function unselectAllItems(items: Item[]): void {
+export function unselectAllItems(items: Item[], exceptItemIndex = -1): void {
   items.forEach((item) => (item.selected = false));
+
+  if (exceptItemIndex >= 0) {
+    items[exceptItemIndex].selected = true;
+  }
 }
 
 export function selectItemByIndex(items: Item[], itemIndex: number): Item[] {
