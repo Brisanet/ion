@@ -76,7 +76,7 @@ describe('Sidebar', () => {
   });
   describe('Visible', () => {
     beforeEach(async () => {
-      await sut({ items, logo });
+      await sut({ items, logo, logoAction: actionMock });
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
     });
     it('should render sidebar', () => {
@@ -84,6 +84,10 @@ describe('Sidebar', () => {
     });
     it('should render logo on sidebar', () => {
       expect(screen.getByRole('img')).toHaveAttribute('src', logo);
+    });
+    it('shoud call sidebar logo action', () => {
+      userEvent.click(screen.getByRole('img'));
+      expect(actionMock).toHaveBeenCalledTimes(1);
     });
     it('should render toggle sidebar visibility button', () => {
       const toggleVisibilityBtn = screen.queryAllByTestId(

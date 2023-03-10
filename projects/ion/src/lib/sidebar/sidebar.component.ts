@@ -9,6 +9,7 @@ import { selectItemByIndex } from './utils';
 })
 export class IonSidebarComponent {
   @Input() logo!: string;
+  @Input() logoAction?: () => void;
   @Input() items: IonSidebarProps['items'] = [];
 
   public closed = true;
