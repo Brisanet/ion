@@ -1,26 +1,19 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { ButtonComponent, IonButtonProps } from './button.component';
-import { IonIconComponent } from '../icon/icon.component';
-import { DropdownComponent } from '../dropdown/dropdown.component';
-import { BadgeComponent } from './../badge/badge.component';
+import { IonButtonComponent } from './button.component';
 import { SafeAny } from '../utils/safe-any';
-import { InputComponent } from '../input/input.component';
 import { FormsModule } from '@angular/forms';
+import { IonSharedModule } from '../shared.module';
+import { IonButtonProps } from '../core/types/button';
 
 const defaultName = 'button';
 
 const sut = async (
   customProps: IonButtonProps = { label: defaultName }
 ): Promise<HTMLElement> => {
-  await render(ButtonComponent, {
+  await render(IonButtonComponent, {
     componentProperties: customProps,
-    declarations: [
-      IonIconComponent,
-      DropdownComponent,
-      BadgeComponent,
-      InputComponent,
-    ],
-    imports: [FormsModule],
+    imports: [FormsModule, IonSharedModule],
+    excludeComponentDeclaration: true,
   });
   return screen.findByRole('button');
 };
@@ -259,30 +252,6 @@ describe('ButtonComponent with dropdown', () => {
       expect(screen.getByTestId('badge-multiple')).toBeInTheDocument();
       expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
     });
-
-    it('should update the badge value when selecting an option', async () => {
-      const options = [
-        { label: 'Option 1' },
-        { label: 'Option 2' },
-        { label: 'Option 3' },
-      ];
-
-      const button = await sut({
-        label: defaultName,
-        multiple: true,
-        options,
-      });
-
-      fireEvent.click(button);
-
-      options.forEach(async (option) => {
-        fireEvent.click(await screen.findByText(option.label));
-      });
-
-      expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
-        String(options.length)
-      );
-    });
   });
 
   it('should emit an event when option is selected', async () => {
@@ -301,5 +270,44 @@ describe('ButtonComponent with dropdown', () => {
     fireEvent.click(await screen.findByText(options[0].label));
 
     expect(clickEvent).toHaveBeenCalled();
+  });
+
+  describe('should update badge value', () => {
+    let options = [];
+    let button;
+
+    beforeEach(async () => {
+      options = [
+        { label: 'Option 1' },
+        { label: 'Option 2' },
+        { label: 'Option 3' },
+      ];
+
+      button = await sut({
+        label: defaultName,
+        multiple: true,
+        options,
+      });
+
+      fireEvent.click(button);
+
+      options.forEach(async (option) => {
+        fireEvent.click(await screen.findByText(option.label));
+      });
+    });
+
+    it('should update the badge value when selecting an option', async () => {
+      expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
+        String(options.length)
+      );
+    });
+
+    it('should update the badge value when button clear options is clicked', async () => {
+      fireEvent.click(screen.getByTestId('buttonClear'));
+
+      expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
+        String(0)
+      );
+    });
   });
 });

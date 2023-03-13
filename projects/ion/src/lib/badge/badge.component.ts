@@ -1,21 +1,12 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
-import { IconType } from '../icon/icon.component';
-
-export type BadgeType = 'primary' | 'secondary' | 'neutral' | 'negative';
-
-export interface BadgeProps {
-  label?: string;
-  value?: number;
-  icon?: IconType;
-  type: BadgeType;
-}
+import { BadgeType } from '../core/types/badge';
 
 @Component({
   selector: 'ion-badge',
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })
-export class BadgeComponent implements OnChanges, OnInit {
+export class IonBadgeComponent implements OnChanges, OnInit {
   @Input() label?: string;
   @Input() value?: number;
   @Input() type!: BadgeType;

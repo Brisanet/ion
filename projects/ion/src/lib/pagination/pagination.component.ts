@@ -3,40 +3,22 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { DropdownItem } from './../dropdown/dropdown.component';
-
-interface Page {
-  page_number: number;
-  selected: boolean;
-}
-
-export interface PageEvent {
-  actual: number;
-  itemsPerPage: number;
-  offset: number;
-}
-
-export interface IonPaginationProps {
-  total: number;
-  itemsPerPage?: number;
-  size?: string;
-  events?: EventEmitter<PageEvent>;
-  allowChangeQtdItems?: boolean;
-  loading?: boolean;
-  page?: number;
-}
+import { DropdownItem } from '../core/types/dropdown';
+import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
+export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
 
 @Component({
   selector: 'ion-pagination',
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })
-export class PaginationComponent implements OnChanges {
+export class IonPaginationComponent implements OnChanges, OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
@@ -46,19 +28,15 @@ export class PaginationComponent implements OnChanges {
   @Input() page = 0;
   @Output() events = new EventEmitter<PageEvent>();
 
-  public optionsPage = [
-    { label: `${ITEMS_PER_PAGE_DEFAULT} / página`, selected: true },
-    { label: '20 / página' },
-    { label: '30 / página' },
-    { label: '40 / página' },
-    { label: '46 / página' },
-  ];
+  public optionsPage?: DropdownItem[] = [];
+  public labelPerPage = '';
 
   pages: Page[] = [];
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
     this.remountPages();
+    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -68,6 +46,11 @@ export class PaginationComponent implements OnChanges {
     if (changes.page && changes.page.currentValue) {
       this.setPage(changes.page.currentValue);
     }
+  }
+
+  ngOnInit(): void {
+    this.optionsPage = this.getOptionsPage();
+    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
   }
 
   setPage(page = 1): void {
@@ -126,6 +109,11 @@ export class PaginationComponent implements OnChanges {
     return numberOfPages;
   }
 
+  getSelectedItemsPerPageLabel(options: DropdownItem[]): string {
+    const option = options.find((pageOption) => pageOption.selected);
+    return (option && option.label) || this.generateLabel(this.itemsPerPage);
+  }
+
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
@@ -146,5 +134,25 @@ export class PaginationComponent implements OnChanges {
 
   private inFirstPage(): boolean {
     return this.currentPage().page_number === 1;
+  }
+
+  private generateLabel(page: number): string {
+    return `${page} / página`;
+  }
+
+  private getOptionsPage(): DropdownItem[] {
+    return LIST_OF_PAGE_OPTIONS.map((quantityOfPages) => {
+      return {
+        label: this.generateLabel(quantityOfPages),
+        selected: this.isASelectedOption(quantityOfPages),
+      };
+    });
+  }
+
+  private isASelectedOption(quantityOfPages: number): boolean {
+    return (
+      LIST_OF_PAGE_OPTIONS.includes(this.itemsPerPage) &&
+      this.itemsPerPage === quantityOfPages
+    );
   }
 }

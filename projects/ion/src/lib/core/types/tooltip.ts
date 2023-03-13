@@ -17,3 +17,12 @@ export enum TooltipTrigger {
   HOVER = 'hover',
   DEFAULT = 'hover',
 }
+
+export interface TooltipProps {
+  ionTooltipTitle: string;
+  ionTooltipColorScheme?: TooltipColorScheme;
+  ionTooltipPosition?: TooltipPosition;
+  ionTooltipArrowPointAtCenter?: boolean;
+  ionTooltipTrigger?: TooltipTrigger;
+  ionTooltipShowDelay?: number;
+}

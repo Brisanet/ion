@@ -1,5 +1,5 @@
-import { ConfigSmartTable } from '../smart-table/smart-table.component';
 import { SafeAny } from '../utils/safe-any';
+import { ConfigSmartTable } from '../core/types';
 
 export enum EventTable {
   SORT = 'sort',

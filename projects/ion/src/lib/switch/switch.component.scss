@@ -1,96 +1,163 @@
 @import '../../styles/index.scss';
 
-@mixin shadow-step-1() {
-  box-shadow: 0 0 0 2px $primary-2;
-  background: $primary-3;
+$base-sm-size: 2px;
+$base-md-size: 3px;
+$base-lg-size: 4px;
+
+@mixin switch-sizes($base) {
+  width: calc($base * 12);
+  height: calc($base * 8);
+  border-radius: calc($base * 7.5);
+
+  &:focus-visible {
+    box-shadow: 0px 0px 0px $base $neutral-1,
+      0px 0px 0px calc($base * 2) $primary-5;
+    border-radius: calc($base * 7.5);
+  }
+
+  &::before {
+    top: $base;
+    left: $base;
+    width: calc($base * 6);
+    height: calc($base * 6);
+  }
 }
 
-@mixin shadow-step-2() {
-  box-shadow: 0 0 0 4px hsla(215, 92%, 85%, 0.5);
+@mixin translateEllipse($side: 'half') {
+  $base: 2;
+  @if $side == 'full' {
+    $base: 4;
+  }
+
+  &[size='sm']::before {
+    transform: translateX(calc($base-sm-size * $base));
+  }
+
+  &[size='md']::before {
+    transform: translateX(calc($base-md-size * $base));
+  }
+
+  &[size='lg']::before {
+    transform: translateX(calc($base-lg-size * $base));
+  }
 }
 
-@mixin shadow-step-3() {
-  box-shadow: 0 0 0 6px rgba(181, 210, 252, 0.2);
-  background: $primary-color;
+@mixin addShadowAnimation($base, $changeName: 'animateShadow') {
+  animation: $changeName 300ms ease-in-out;
+
+  @keyframes #{$changeName} {
+    0% {
+      box-shadow: none;
+    }
+    20% {
+      box-shadow: 0 0 0 calc($base * 2) $primary-1;
+      background: $primary-4;
+    }
+    100% {
+      box-shadow: none;
+    }
+  }
 }
 
 .ion-switch {
   display: flex;
-  background: #a9adbc;
-  width: 24px;
-  height: 16px;
+  background: $primary-2;
   border: none;
-  border-radius: 15px;
   outline: none;
   cursor: pointer;
   position: relative;
   transition: all ease-out 100ms;
 
   &:hover {
-    background: $primary-2;
+    background: $primary-3;
+  }
+
+  &:active:not(:disabled) {
+    background: $primary-4;
+    @include translateEllipse();
   }
 
   &::before {
     content: '';
-    width: 12px;
-    height: 12px;
     background: #ffffff;
     position: absolute;
     border-radius: 50%;
-    top: 2px;
-    left: 2px;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  }
+
+  &:disabled {
+    background: $neutral-3;
+    cursor: not-allowed;
+
+    &::before {
+      background: $neutral-5;
+    }
+  }
+
+  &[size='sm'] {
+    @include switch-sizes($base-sm-size);
+  }
+
+  &[size='md'] {
+    @include switch-sizes($base-md-size);
+  }
+
+  &[size='lg'] {
+    @include switch-sizes($base-lg-size);
+  }
+
+  &--inactive {
+    &[size='sm'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
+
+    &[size='md'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
+
+    &[size='lg'] {
+      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
+    }
   }
 
   &--active {
     background: $primary-color;
-    animation: shadow--1 3ms ease-out, shadow--2 30ms ease-out 4ms,
-      shadow--3 50ms ease-out 34ms, shadow-4 50ms ease-out 84ms;
+
+    &[size='sm'] {
+      @include addShadowAnimation($base-sm-size);
+    }
+
+    &[size='md'] {
+      @include addShadowAnimation($base-md-size);
+    }
+
+    &[size='lg'] {
+      @include addShadowAnimation($base-lg-size);
+    }
 
     &:hover {
-      background: $primary-color;
+      background: $primary-5;
     }
 
     &::before {
       transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-      transform: translateX(8px);
     }
-  }
-}
 
-@keyframes shadow--1 {
-  from {
-    box-shadow: none;
-    background: $primary-2;
-  }
-  to {
-    @include shadow-step-1();
-  }
-}
+    @include translateEllipse('full');
 
-@keyframes shadow--2 {
-  from {
-    @include shadow-step-1();
-  }
-  to {
-    @include shadow-step-2();
-  }
-}
+    &:active:not(:disabled) {
+      background: $primary-7;
 
-@keyframes shadow--3 {
-  from {
-    @include shadow-step-2();
-  }
-  to {
-    @include shadow-step-3();
-  }
-}
+      @include translateEllipse();
+    }
 
-@keyframes shadow--4 {
-  from {
-    @include shadow-step-3();
-  }
-  to {
-    box-shadow: initial;
+    &:disabled {
+      background: $neutral-5;
+      cursor: not-allowed;
+
+      &::before {
+        background: $neutral-2;
+      }
+    }
   }
 }

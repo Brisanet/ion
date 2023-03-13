@@ -30,8 +30,8 @@
     </span>
   </ng-container>
   <ion-badge
-    [value]="buttonBadge.value"
-    [type]="buttonBadge.type"
+    [value]="buttonBadge?.value"
+    [type]="buttonBadge?.type"
     *ngIf="multiple && !loading"
     data-testid="badge-multiple"
   ></ion-badge>
@@ -41,6 +41,7 @@
     [options]="options"
     [multiple]="multiple"
     (selected)="handleSelect($event)"
+    (clearBadgeValue)="onClearBadgeValue()"
   >
   </ion-dropdown>
 </div>

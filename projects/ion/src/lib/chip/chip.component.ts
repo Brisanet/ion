@@ -7,10 +7,15 @@ import {
   Input,
   OnDestroy,
   Output,
+  OnInit,
 } from '@angular/core';
-import { BadgeType } from '../badge/badge.component';
-import { InfoBadgeStatus } from '../core/types';
-import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
+import {
+  BadgeType,
+  DropdownItem,
+  DropdownParams,
+  IconType,
+  InfoBadgeStatus,
+} from '../core/types';
 import {
   COOLDOWN_TIME,
   DROPDOWN_SEARCH_SELECTOR,
@@ -19,7 +24,6 @@ import {
   ID_SELECTOR,
 } from '../utils';
 import { SafeAny } from '../utils/safe-any';
-import { IconType } from './../icon/icon.component';
 
 export type ChipSize = 'sm' | 'md';
 export type IconDirection = 'right' | 'left';
@@ -60,7 +64,7 @@ interface RightBadge {
   styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent implements AfterViewInit, OnDestroy {
+export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -166,5 +170,23 @@ export class ChipComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     document.body.removeEventListener('click', this.clickReference);
+  }
+
+  ngOnInit(): void {
+    if (this.multiple) {
+      return;
+    }
+
+    const [selectedOption] = this.getSelectedOptions();
+
+    if (!selectedOption) {
+      return;
+    }
+
+    this.label = selectedOption.label;
+  }
+
+  getSelectedOptions(): DropdownItem[] {
+    return (this.options || []).filter((option) => option.selected);
   }
 }
