@@ -171,6 +171,27 @@ $arrow-size: 4.5px;
   font-size: 14px;
   line-height: 20px;
   color: $neutral-6;
+  max-height: 92px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: $primary-color;
+
+  // Chrome, Edge, and Safari
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 9px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $neutral-2;
+    border-radius: 20px;
+    border: 3px solid $neutral-2;
+  }
 }
 
 .footer {
