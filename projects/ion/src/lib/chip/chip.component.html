@@ -7,6 +7,7 @@
     'chip-selected': selected
   }"
   [class]="'chip-' + size"
+  [id]="id"
 >
   <ion-badge
     [value]="badge.value"
@@ -55,7 +56,7 @@
   >
   </ion-icon>
 </button>
-<div *ngIf="showDropdown" class="ion-chip-dropdown">
+<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="'dropdown-' + id">
   <ion-dropdown
     [options]="options"
     [multiple]="multiple"
