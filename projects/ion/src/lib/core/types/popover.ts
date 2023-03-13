@@ -1,4 +1,4 @@
-import { SafeAny } from '../../utils/safe-any';
+import { TemplateRef } from '@angular/core';
 import { IonButtonProps } from './button';
 import { IconType } from './icon';
 
@@ -18,7 +18,7 @@ export enum PopoverPosition {
 
 export interface PopoverProps {
   ionPopoverTitle: string;
-  ionPopoverBody: SafeAny;
+  ionPopoverBody: TemplateRef<void>;
   ionPopoverActions?: IonButtonProps[];
   ionPopoverIcon?: IconType;
   ionPopoverIconClose?: boolean;

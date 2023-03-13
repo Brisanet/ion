@@ -10,18 +10,31 @@ import {
   PopoverProps,
 } from '../projects/ion/src/lib/core/types/popover';
 import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
+import { bodyMockComponent } from '../projects/ion/src/lib/popover/mock/body-mock.component';
+import { IonTooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
+import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
 
-const TemplateComponente: Story<IonPopoverComponent> = (
-  args: IonPopoverComponent
-) => ({
-  component: IonPopoverComponent,
-  props: {
-    ...args,
-  },
-  moduleMetadata: {
-    declarations: [IonDividerComponent],
-    imports: [CommonModule, IonSharedModule],
-  },
+const TemplateComponente: Story = (args) => ({
+  props: args,
+  template: `
+    <style>
+          div {
+            display: flex;
+            margin-left: 10px;
+          }
+    </style>
+    <div>
+      <ion-popover
+        ionPopoverTitle="${args.ionPopoverTitle}"
+        [ionPopoverBody]="BodyTemplate"
+        ionPopoverIconClose="${args.ionPopoverIconClose}"
+      >
+      </ion-popover>
+      <ng-template #BodyTemplate>
+        ${args.ionPopoverBody}
+      </ng-template>
+    </div>
+  `,
 });
 
 export const Component = TemplateComponente.bind({});
@@ -30,17 +43,74 @@ Component.args = {
   ionPopoverBody:
     'Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!',
   ionPopoverIconClose: true,
-  ionPopoverActions: null,
 };
-Component.parameters = {
+Component.parameters = { controls: { exclude: /^ionPopoverPosition*/ } };
+
+export const ComponentBodyTemplate = TemplateComponente.bind({});
+ComponentBodyTemplate.args = {
+  ionPopoverTitle: 'Título do popover',
+  ionPopoverIconClose: true,
+  ionPopoverBody: `
+      <style>
+        div {
+          display: flex;
+          padding: 8px;
+        }
+      </style>
+      <div>
+        Preposição 1
+        <ion-icon
+          type="information"
+          [size]="16"
+          ionTooltip
+          ionTooltipTitle="ionTooltipTitle"
+          ionTooltipPosition="centerLeft"
+        >
+        </ion-icon>
+      </div>
+      <ion-divider></ion-divider>
+      <div>
+        Preposição 2
+        <ion-icon
+          type="information"
+          [size]="16"
+          ionTooltip
+          ionTooltipTitle="ionTooltipTitle"
+          ionTooltipPosition="centerLeft"
+        >
+        </ion-icon>
+      </div>
+      <ion-divider></ion-divider>
+      <div>
+        Preposição 3
+        <ion-icon
+          type="information"
+          [size]="16"
+          ionTooltip
+          ionTooltipTitle="ionTooltipTitle"
+          ionTooltipPosition="centerLeft"
+        >
+        </ion-icon>
+      </div>
+      <ion-divider></ion-divider>
+    `,
+};
+ComponentBodyTemplate.parameters = {
   controls: { exclude: /^ionPopoverPosition*/ },
 };
-
-export const ComponentWithActions = TemplateComponente.bind({});
+const TemplateComponenteWithActions: Story<bodyMockComponent> = (
+  args: bodyMockComponent
+) => ({
+  component: bodyMockComponent,
+  props: { ...args },
+  moduleMetadata: {
+    declarations: [IonDividerComponent],
+    imports: [CommonModule, IonSharedModule],
+  },
+});
+export const ComponentWithActions = TemplateComponenteWithActions.bind({});
 ComponentWithActions.args = {
   ionPopoverTitle: 'Você tem certeza?',
-  ionPopoverBody:
-    'Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs.',
   ionPopoverIcon: 'condominium',
   ionPopoverIconClose: true,
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
@@ -48,7 +118,6 @@ ComponentWithActions.args = {
 ComponentWithActions.parameters = {
   controls: { exclude: /^ionPopoverPosition*/ },
 };
-
 export default {
   title: 'Ion/Data Display/Popover',
   decorators: [
@@ -58,9 +127,14 @@ export default {
         IonAlertComponent,
         IonDividerComponent,
         IonPopoverDirective,
+        bodyMockComponent,
       ],
-      imports: [CommonModule, IonSharedModule],
-      entryComponents: [IonPopoverComponent],
+      imports: [CommonModule, IonSharedModule, IonTooltipModule],
+      entryComponents: [
+        IonPopoverComponent,
+        bodyMockComponent,
+        IonTooltipComponent,
+      ],
     }),
   ],
   argTypes: {
@@ -91,38 +165,37 @@ export default {
     },
   },
 } as Meta;
-
 const Template: Story = (args) => ({
   props: args,
   template: `
     <style>
-        div {
-            height: 400px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+      div {
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     </style>
     <div>
       <ion-button
         ionPopover
         ionPopoverTitle="${args.ionPopoverTitle}"
-        ionPopoverBody="${args.ionPopoverBody}"
+        [ionPopoverBody]="BodyTemplate"
         ionPopoverIconClose="${args.ionPopoverIconClose}"
         ionPopoverPosition="${args.ionPopoverPosition}"
         [ionPopoverActions]="null"
         label="click me"
       >
       </ion-button>
+      <ng-template #BodyTemplate>
+        Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!
+      </ng-template>
     </div>
   `,
 });
-
 export const Directive = Template.bind({});
 Directive.args = {
   ionPopoverTitle: 'Título do popover',
-  ionPopoverBody:
-    'Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
 } as PopoverProps;

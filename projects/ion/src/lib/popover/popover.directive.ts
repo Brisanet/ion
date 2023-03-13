@@ -11,6 +11,7 @@ import {
   EventEmitter,
   ViewContainerRef,
   OnDestroy,
+  TemplateRef,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -19,12 +20,10 @@ import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
 
-@Directive({
-  selector: '[ionPopover]',
-})
+@Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
-  @Input() ionPopoverBody: string;
+  @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[] = [];
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconClose? = false;

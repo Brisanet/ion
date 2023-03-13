@@ -29,17 +29,24 @@ const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
       data-testid="hostPopover"
       ionPopover
       [ionPopoverTitle]="ionPopoverTitle"
-      [ionPopoverBody]="ionPopoverBody"
+      [ionPopoverBody]="ref"
       [ionPopoverIcon]="ionPopoverIcon"
       [ionPopoverIconClose]="ionPopoverIconClose"
       [ionPopoverPosition]="ionPopoverPosition"
       [ionPopoverActions]="ionPopoverActions"
-      (ionOnFirstAction)="confirm()"
+      (ionOnFirstAction)="ionOnFirstAction()"
+      (ionOnSecondAction)="ionOnSecondAction()"
       class="get-test"
       style="margin-top: 50px;"
       label="${textButton}"
     >
     </ion-button>
+    <ng-template #ref>
+      <span data-testid="templateRef"
+        >Ao concluir essa ação as ordens de serviço alocadas para o recurso
+        ficarão órfãs.</span
+      >
+    </ng-template>
   `,
 })
 class HostTestComponent {
@@ -48,51 +55,62 @@ class HostTestComponent {
   ionPopoverPosition = PopoverPosition.DEFAULT;
   ionPopoverIconClose = true;
   ionPopoverIcon = 'condominium';
-  ionPopoverActions = [{ label: 'actions 1' }, { label: 'action 2' }];
+  ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
+  ionOnFirstAction(): void {
+    return;
+  }
+  ionOnSecondAction(): void {
+    return;
+  }
 }
-
 @Component({
   template: `
     <button
       data-testid="hostPopover"
       ionPopover
       ionPopoverTitle="${confirmText}"
-      ionPopoverBody="Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs."
+      [ionPopoverBody]="ref"
       [ionPopoverIconClose]="true"
       ionPopoverPosition="${PopoverPosition.DEFAULT}"
       [ionPopoverActions]="[{ label: 'action 1' }, { label: 'action 2' }]"
-      (ionOnFirstAction)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
     >
       ${textButton}
     </button>
+    <ng-template #ref>
+      <span data-testid="templateRef"
+        >Ao concluir essa ação as ordens de serviço alocadas para o recurso
+        ficarão órfãs.</span
+      >
+    </ng-template>
   `,
 })
 class ContainerRefTestComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
 }
-
 @Component({
   template: `
     <ion-button
       data-testid="hostPopover"
       ionPopover
       ionPopoverTitle="${confirmText}"
-      ionPopoverBody="Eu sou o corpo do popover"
+      [ionPopoverBody]="ref"
       ionPopoverIconClose="true"
       class="get-test"
       style="margin-top: 50px;"
       [label]="${textButton}"
       [disabled]="true"
     ></ion-button>
+    <ng-template #ref>
+      <span data-testid="templateRef">Eu sou o corpo do popover</span>
+    </ng-template>
   `,
 })
 class ButtonTestDisabledComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
-
   public disabled = true;
 }
 
@@ -163,9 +181,7 @@ describe('Popover host tests', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: [IonPopoverComponent],
-        },
+        set: { entryComponents: [IonPopoverComponent] },
       })
       .createComponent(ContainerRefTestComponent);
 
@@ -182,7 +198,6 @@ describe('Popover host tests', () => {
     fixture.detectChanges();
     const event = new Event('click');
     input.triggerEventHandler('click', event);
-
     expect(screen.getByText(textButton)).toBeInTheDocument();
   });
 
@@ -194,6 +209,16 @@ describe('Popover host tests', () => {
   it('should open the popover when clicked', () => {
     directive.open(elementPosition);
   });
+
+  it.skip.each(['icon-close', 'action-1', 'action-2'])(
+    'should close popover when click in %s',
+    (IonPopoverButton) => {
+      jest.spyOn(directive, 'closePopover');
+      fireEvent.click(screen.getByText(textButton));
+      fireEvent.click(screen.getByTestId(`popover-${IonPopoverButton}`));
+      expect(directive.closePopover).toHaveBeenCalled();
+    }
+  );
 });
 
 describe('Popover disabled host component', () => {
@@ -213,9 +238,7 @@ describe('Popover disabled host component', () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
       .overrideModule(BrowserDynamicTestingModule, {
-        set: {
-          entryComponents: [IonPopoverComponent],
-        },
+        set: { entryComponents: [IonPopoverComponent] },
       })
       .createComponent(ButtonTestDisabledComponent);
 
@@ -236,7 +259,6 @@ describe('Popover disabled host component', () => {
       fixtureDisabledBtn.detectChanges();
       const event = new Event('click');
       input.triggerEventHandler('click', event);
-
       expect(event).not.toBeCalled();
       expect(screen.queryAllByText(textButton)).toHaveLength(0);
     });

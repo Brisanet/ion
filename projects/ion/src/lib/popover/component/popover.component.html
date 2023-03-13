@@ -29,7 +29,7 @@
     </div>
 
     <div class="content-body" *ngIf="ionPopoverBody">
-      <span>{{ ionPopoverBody }}</span>
+      <ng-container [ngTemplateOutlet]="ionPopoverBody"></ng-container>
     </div>
 
     <ion-divider *ngIf="ionPopoverActions"></ion-divider>

@@ -5,28 +5,24 @@ import { PopoverPosition } from '../../core/types/popover';
   template: `
     <style>
       div {
-        height: 400px;
+        margin-left: 10px;
         display: flex;
-        justify-content: center;
-        align-items: center;
       }
     </style>
     <div>
-      <ion-button
-        ionPopover
+      <ion-popover
         [ionPopoverTitle]="args.ionPopoverTitle"
         [ionPopoverBody]="BodyTemplate"
         [ionPopoverIconClose]="args.ionPopoverIconClose"
         [ionPopoverPosition]="args.ionPopoverPosition"
         [ionPopoverActions]="args.ionPopoverActions"
-        label="click me"
       >
-      </ion-button>
+      </ion-popover>
       <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
     </div>
   `,
 })
-export class OpenPopoverComponent {
+export class bodyMockComponent {
   args = {
     ionPopoverTitle: 'Você tem certeza?',
     ionPopoverBody:

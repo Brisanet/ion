@@ -1,48 +1,88 @@
-import { FormsModule } from '@angular/forms';
-import { render, screen } from '@testing-library/angular';
+import { screen } from '@testing-library/angular';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { IonPopoverComponent } from './popover.component';
-import { PopoverPosition, PopoverProps } from '../../core/types/popover';
+import { PopoverPosition } from '../../core/types/popover';
 import { IonSharedModule } from '../../shared.module';
+import { Component, NgModule } from '@angular/core';
+import { IonIconModule } from '../../icon/icon.module';
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-const defaultProps: PopoverProps = {
-  ionPopoverTitle: 'Title',
-  ionPopoverBody: 'Description',
-};
-
-const sut = async (props: PopoverProps = defaultProps): Promise<void> => {
-  await render(IonPopoverComponent, {
-    componentProperties: props,
-    declarations: [IonDividerComponent],
-    imports: [FormsModule, IonSharedModule],
-  });
-};
+@Component({
+  template: `
+    <style>
+      div {
+        margin-left: 10px;
+        display: flex;
+      }
+    </style>
+    <div>
+      <ion-popover
+        [ionPopoverTitle]="args.ionPopoverTitle"
+        [ionPopoverBody]="BodyTemplate"
+        [ionPopoverIconClose]="args.ionPopoverIconClose"
+        [ionPopoverIcon]="args.ionPopoverIcon"
+        [ionPopoverPosition]="args.ionPopoverPosition"
+        [ionPopoverActions]="args.ionPopoverActions"
+      >
+      </ion-popover>
+      <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
+    </div>
+  `,
+})
+export class PopoverTestComponent {
+  args = {
+    ionPopoverTitle: 'Title',
+    ionPopoverBody: 'Description',
+    ionPopoverPosition: PopoverPosition.DEFAULT,
+    ionPopoverIconClose: true,
+    ionPopoverIcon: 'condominium',
+    ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
+  };
+}
+@NgModule({
+  imports: [CommonModule, IonIconModule, IonSharedModule],
+  declarations: [
+    PopoverTestComponent,
+    IonDividerComponent,
+    IonPopoverComponent,
+  ],
+  entryComponents: [PopoverTestComponent],
+})
+class TestModule {}
 
 describe('PopoverComponent', () => {
-  describe('Check default fields', () => {
-    beforeEach(async () => {
-      await sut();
-    });
+  let PopoverComponent!: PopoverTestComponent;
+  let fixture!: ComponentFixture<PopoverTestComponent>;
 
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(PopoverTestComponent);
+    PopoverComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(async () => {
+    fixture.destroy();
+  });
+
+  describe('Check default fields', () => {
     it('should render component with title', async () => {
       expect(
-        screen.getByText(defaultProps.ionPopoverTitle)
+        screen.getByText(PopoverComponent.args.ionPopoverTitle)
       ).toBeInTheDocument();
     });
 
     it('should render component with description', async () => {
-      expect(screen.getByText(defaultProps.ionPopoverBody)).toBeInTheDocument();
+      expect(
+        screen.getByText(PopoverComponent.args.ionPopoverBody)
+      ).toBeInTheDocument();
     });
   });
 
   describe('with actions', () => {
-    beforeEach(async () => {
-      await sut({
-        ...defaultProps,
-        ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
-      });
-    });
-
     it.each(['action 1', 'action 2'])(
       'should render button with default text %s',
       async (textBtn: string) => {
@@ -59,14 +99,6 @@ describe('PopoverComponent', () => {
   });
 
   describe('check the icons', () => {
-    beforeEach(async () => {
-      await sut({
-        ...defaultProps,
-        ionPopoverIcon: 'condominium',
-        ionPopoverIconClose: true,
-      });
-    });
-
     it('should render component with icon close', async () => {
       expect(screen.getByTestId('popover-icon-close')).toBeInTheDocument();
     });
@@ -82,14 +114,11 @@ describe('PopoverComponent', () => {
     it.each(['leftTop', 'topCenter', 'leftBottom', 'bottomCenter'])(
       'should render component with arrow $s',
       async (arrow: PopoverPosition) => {
-        await sut({
-          ...defaultProps,
-          ionPopoverPosition: arrow,
-        });
+        PopoverComponent.args.ionPopoverPosition = arrow;
+        fixture.detectChanges();
         const element = screen.getByTestId('ion-popover');
         expect(element).toHaveClass(`sup-container-${arrow}`);
       }
     );
-
   });
 });
