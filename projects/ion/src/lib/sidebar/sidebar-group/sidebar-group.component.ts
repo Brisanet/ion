@@ -20,7 +20,9 @@ export class IonSidebarGroupComponent implements OnChanges {
   @Input() icon!: IconType;
   @Input() items: Item[] = [];
   @Input() selected = false;
+  @Input() haveGroupAction = false;
   @Output() atClick = new EventEmitter();
+  @Output() atGroupClick = new EventEmitter();
 
   public closed = true;
 
@@ -32,6 +34,10 @@ export class IonSidebarGroupComponent implements OnChanges {
     this.selected = true;
     selectItemByIndex(this.items, itemIndex);
     this.atClick.emit();
+  }
+
+  public groupSelected(): void {
+    this.atGroupClick.emit();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

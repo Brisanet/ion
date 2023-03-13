@@ -36,6 +36,7 @@ const items: IonSidebarProps['items'] = [
   {
     title: 'Group 1',
     icon: 'star-solid',
+    action: actionMock,
     options: [
       {
         title: 'Item group 1',
@@ -133,7 +134,7 @@ describe('Sidebar', () => {
       it.each(options)(
         '$title should be visible after clicking on group',
         ({ title: itemTitle }) => {
-          userEvent.click(screen.getByTestId('sidebar-group__header'));
+          userEvent.click(screen.getByTestId('sidebar-group__toggle-icon'));
           expect(screen.getByText(itemTitle)).toBeVisible();
         }
       );
@@ -143,6 +144,7 @@ describe('Sidebar', () => {
       const selectedGroupClass = 'sidebar-group--selected';
       let item1: HTMLElement;
       let item2: HTMLElement;
+      let groupName: HTMLElement;
       let itemGroup2: HTMLElement;
       beforeEach(() => {
         item1 = screen.getByRole('button', {
@@ -151,7 +153,8 @@ describe('Sidebar', () => {
         item2 = screen.getByRole('button', {
           name: items[1].title,
         });
-        userEvent.click(screen.getByTestId('sidebar-group__header'));
+        groupName = screen.getByText('Group 1');
+        userEvent.click(screen.getByTestId('sidebar-group__toggle-icon'));
         itemGroup2 = screen.getByRole('button', {
           name: items[2].options[1].title,
         });
@@ -196,6 +199,46 @@ describe('Sidebar', () => {
         userEvent.click(itemGroup2);
         expect(actionMock).toHaveBeenCalledTimes(1);
       });
+      it('should call action function when click on a group title', () => {
+        userEvent.click(groupName);
+        expect(actionMock).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+  describe('Group without action', () => {
+    beforeEach(async () => {
+      items[2].action = undefined;
+      await sut({ items: [...items], logo });
+      userEvent.click(getByTestId('toggleVisibility').firstElementChild);
+    });
+    describe.each(
+      items
+        .map((item, index) => {
+          return { ...item, index };
+        })
+        .filter((item) => item.options && item.options.length)
+    )('group $title', ({ title, icon, index, options }) => {
+      const defaultGroupTestId = `ion-sidebar__group-${index}`;
+      it(`should render group with ${title}`, () => {
+        expect(screen.getByTestId(defaultGroupTestId)).toHaveTextContent(title);
+      });
+      it(`should render group with icon ${icon}`, () => {
+        const itemIcon = document.getElementById(`ion-icon-${icon}`);
+        expect(screen.getByTestId(defaultGroupTestId)).toContainElement(
+          itemIcon
+        );
+      });
+      it.each(options)(
+        '$title should be visible after clicking on group',
+        ({ title: itemTitle }) => {
+          userEvent.click(screen.getByTestId('sidebar-group__header'));
+          expect(screen.getByText(itemTitle)).toBeVisible();
+        }
+      );
+    });
+    it('should not call an action when clicking on group title', () => {
+      userEvent.click(screen.getByText('Group 1'));
+      expect(actionMock).not.toHaveBeenCalled();
     });
   });
 });

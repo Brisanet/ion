@@ -34,7 +34,9 @@
           [icon]="item.icon"
           [selected]="item.selected"
           [items]="item.options"
-          (atClick)="itemSelected(i)"
+          [haveGroupAction]="!!item.action"
+          (atClick)="itemOnGroupSelected(i)"
+          (atGroupClick)="groupSelected(i)"
         ></ion-sidebar-group>
       </ng-container>
     </ng-container>
