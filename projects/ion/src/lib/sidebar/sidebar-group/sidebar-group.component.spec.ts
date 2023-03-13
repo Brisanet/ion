@@ -79,7 +79,7 @@ describe('SidebarGroup', () => {
     expect(getByTestId('items')).not.toBeVisible();
   });
   it('should show items when header is clicked', () => {
-    userEvent.click(getByTestId('header'));
+    userEvent.click(getByTestId('toggleIcon'));
     expect(getByTestId('items')).toBeVisible();
   });
 

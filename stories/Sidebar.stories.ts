@@ -41,6 +41,34 @@ Default.args = {
     {
       title: 'Permissões',
       icon: 'config',
+      action: action('Permissões'),
+      options: [
+        {
+          title: 'Gerência',
+          icon: 'user',
+          action: action('Gerência'),
+        },
+        {
+          title: 'Grupos',
+          icon: 'union',
+          action: action('Grupos'),
+        },
+        {
+          title: 'Pausas',
+          icon: 'wait',
+          action: action('Pausas'),
+        },
+        {
+          title: 'Comissões',
+          icon: 'calendar-money',
+          action: action('Comissões'),
+          disabled: true,
+        },
+      ],
+    },
+    {
+      title: 'Gerenciamento',
+      icon: 'working',
       options: [
         {
           title: 'Gerência',

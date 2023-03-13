@@ -137,6 +137,11 @@ button {
 }
 
 .ion-chip-dropdown {
-  margin-top: 4px;
+  z-index: 1;
   position: relative;
+}
+::ng-deep {
+  .container-options {
+    margin-top: 5px;
+  }
 }
