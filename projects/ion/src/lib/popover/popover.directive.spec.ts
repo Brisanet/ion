@@ -210,10 +210,10 @@ describe('Popover host tests', () => {
     directive.open(elementPosition);
   });
 
-  it.skip.each(['icon-close', 'action-1', 'action-2'])(
+  it.each(['icon-close', 'action-1', 'action-2'])(
     'should close popover when click in %s',
     (IonPopoverButton) => {
-      jest.spyOn(directive, 'closePopover');
+      jest.spyOn(IonPopoverDirective.prototype, 'closePopover');
       fireEvent.click(screen.getByText(textButton));
       fireEvent.click(screen.getByTestId(`popover-${IonPopoverButton}`));
       expect(directive.closePopover).toHaveBeenCalled();
