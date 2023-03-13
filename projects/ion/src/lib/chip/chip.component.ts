@@ -1,20 +1,70 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
-  Badge,
-  ChipEvent,
-  ChipSize,
-  IonChipProps,
-  RightBadge,
-} from '../core/types/chip';
-import { DropdownItem } from '../core/types/dropdown';
-import { IconDirection, IconType } from '../core/types/icon';
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  OnInit,
+} from '@angular/core';
+import {
+  BadgeType,
+  DropdownItem,
+  DropdownParams,
+  IconType,
+  InfoBadgeStatus,
+} from '../core/types';
+import {
+  COOLDOWN_TIME,
+  DROPDOWN_SEARCH_SELECTOR,
+  DROPDOWN_SELECTOR,
+  generateIDs,
+  ID_SELECTOR,
+} from '../utils';
+import { SafeAny } from '../utils/safe-any';
+
+export type ChipSize = 'sm' | 'md';
+export type IconDirection = 'right' | 'left';
+
+interface ChipEvent {
+  selected: boolean;
+  disabled: boolean;
+}
+export interface IonChipProps {
+  label: string;
+  disabled?: boolean;
+  selected?: boolean;
+  size?: ChipSize;
+  events?: EventEmitter<ChipEvent>;
+  options?: DropdownItem[];
+  icon?: string;
+  multiple?: boolean;
+  infoBadge?: InfoBadgeStatus;
+  iconPosition?: IconDirection;
+  rightBadge?: RightBadge;
+  dropdownEvents?: EventEmitter<DropdownItem[]>;
+  dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
+  dropdownSearchEvents?: EventEmitter<string>;
+}
+
+type Badge = {
+  value: number;
+};
+
+interface RightBadge {
+  label: string;
+  type: BadgeType;
+}
 
 @Component({
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IonChipComponent {
+export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -32,9 +82,19 @@ export class IonChipComponent {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  public id: string;
+
   badge: Badge = {
     value: 0,
   };
+
+  previusSelectedStatus = false;
+
+  clickReference!: SafeAny;
+
+  constructor(private ref: ChangeDetectorRef) {
+    this.ref.markForCheck();
+  }
 
   select(): void {
     this.toggleDropdown();
@@ -67,5 +127,66 @@ export class IonChipComponent {
 
   dropdownSearchChange(value: string): void {
     this.dropdownSearchEvents.emit(value);
+  }
+
+  checkTargetClick = (event: MouseEvent): void => {
+    const target = event.target as HTMLInputElement;
+    const elementChip = target.closest(ID_SELECTOR + this.id);
+    const elementChipDropdown = target.closest(DROPDOWN_SELECTOR + this.id);
+    const elementChipSearch = target.closest(
+      DROPDOWN_SELECTOR + this.id + DROPDOWN_SEARCH_SELECTOR
+    );
+
+    if (elementChipSearch || (elementChipDropdown && this.multiple)) {
+      return;
+    }
+
+    if (!elementChip) {
+      if ((this.previusSelectedStatus && this.selected) || !this.selected) {
+        this.showDropdown = false;
+        this.selected = false;
+        this.events.emit({
+          selected: this.selected,
+          disabled: this.disabled,
+        });
+        this.ref.detectChanges();
+      }
+    }
+    this.previusSelectedStatus = this.selected;
+  };
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.id = generateIDs('chip-', 'ion-chip');
+      this.ref.markForCheck();
+    }, COOLDOWN_TIME);
+
+    this.clickReference = (event: MouseEvent): void => {
+      this.checkTargetClick(event);
+    };
+
+    document.body.addEventListener('click', this.clickReference);
+  }
+
+  ngOnDestroy(): void {
+    document.body.removeEventListener('click', this.clickReference);
+  }
+
+  ngOnInit(): void {
+    if (this.multiple) {
+      return;
+    }
+
+    const [selectedOption] = this.getSelectedOptions();
+
+    if (!selectedOption) {
+      return;
+    }
+
+    this.label = selectedOption.label;
+  }
+
+  getSelectedOptions(): DropdownItem[] {
+    return (this.options || []).filter((option) => option.selected);
   }
 }

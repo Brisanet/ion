@@ -54,8 +54,9 @@ table {
     padding: spacing(2);
     position: sticky;
     top: 0;
+    z-index: 99;
 
-    & .th-span {
+    & .th-span, &.th-actions {
       font-size: 16px;
       font-weight: 600;
       line-height: 22px;
@@ -63,8 +64,8 @@ table {
     }
 
     &.th-actions {
-      color: $neutral-8;
       text-align: left;
+      width: 0%;
     }
 
     & input {

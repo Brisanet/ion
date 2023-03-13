@@ -1,18 +1,25 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonBadgeModule } from '../badge/badge.module';
-import { IconDirection, InfoBadgeStatus } from '../core/types';
-import { ChipSize, IonChipProps } from '../core/types/chip';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
 import { SafeAny } from '../utils/safe-any';
-import { IonChipComponent } from './chip.component';
+import {
+  ChipComponent,
+  IonChipProps,
+  ChipSize,
+  IconDirection,
+} from './chip.component';
+import { InfoBadgeStatus } from '../core/types';
+import { FormsModule } from '@angular/forms';
+import { ChangeDetectorRef } from '@angular/core';
+import { COOLDOWN_TIME } from '../utils';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
 const sut = async (customProps?: IonChipProps): Promise<void> => {
-  await render(IonChipComponent, {
+  await render(ChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },
@@ -24,6 +31,24 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     ],
   });
 };
+
+class MockChangeDetectorRef extends ChangeDetectorRef {
+  markForCheck(): void {
+    return;
+  }
+  detach(): void {
+    return;
+  }
+  detectChanges(): void {
+    return;
+  }
+  checkNoChanges(): void {
+    return;
+  }
+  reattach(): void {
+    return;
+  }
+}
 
 describe('ChipComponent', () => {
   it('should render chip with options', async () => {
@@ -105,6 +130,16 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
+  it('should execute code inside setTimeout and set the ID', async () => {
+    const ref = new MockChangeDetectorRef();
+    const component = new ChipComponent(ref);
+    component.ngAfterViewInit();
+
+    await new Promise((resolve) => setTimeout(resolve, COOLDOWN_TIME));
+
+    expect(component.id).toBeDefined();
+  });
+
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
     beforeEach(async () => {
@@ -144,7 +179,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0].label;
       const element = screen.getByTestId('ion-chip');
       fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
+      fireEvent.click(document.getElementById('option-0'));
       expect(element).toHaveClass('chip');
       expect(screen.queryAllByText(option)).toHaveLength(1);
     });
@@ -153,7 +188,7 @@ describe('ChipComponent', () => {
       const option = defaultOptions[0];
       const chipToOpen = screen.getByTestId('ion-chip');
       fireEvent.click(chipToOpen);
-      fireEvent.click(screen.getByText(option.label));
+      fireEvent.click(document.getElementById('option-0'));
       expect(dropdownEvent).toBeCalledWith([option]);
     });
 
@@ -222,7 +257,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     await sut({
       label,
-      options: defaultOptions,
+      options: [],
       dropdownEvents: {
         emit: jest.fn(),
       } as SafeAny,
