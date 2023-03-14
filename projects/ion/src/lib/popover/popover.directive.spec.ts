@@ -23,6 +23,9 @@ const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
 const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
 
+const FirstAction = jest.fn();
+const SecondAction = jest.fn();
+
 @Component({
   template: `
     <ion-button
@@ -56,12 +59,9 @@ class HostTestComponent {
   ionPopoverIconClose = true;
   ionPopoverIcon = 'condominium';
   ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
-  ionOnFirstAction(): void {
-    return;
-  }
-  ionOnSecondAction(): void {
-    return;
-  }
+
+  ionOnFirstAction = FirstAction;
+  ionOnSecondAction = SecondAction;
 }
 @Component({
   template: `
@@ -150,6 +150,20 @@ describe('Directive: popover', () => {
       expect(screen.queryByTestId(`popover-${type}`)).toBeNull();
     }
   );
+
+  it('should emit an event when click on action-1', async () => {
+    await sut();
+    fireEvent.click(screen.getByText(textButton));
+    fireEvent.click(screen.getByTestId('popover-action-1'));
+    expect(FirstAction).toHaveBeenCalled();
+  });
+
+  it('should emit an event when click on action-2', async () => {
+    await sut();
+    fireEvent.click(screen.getByText(textButton));
+    fireEvent.click(screen.getByTestId('popover-action-2'));
+    expect(SecondAction).toHaveBeenCalled();
+  });
 
   it.each(Object.values(PopoverPosition))(
     'should render the popover in position %s',
