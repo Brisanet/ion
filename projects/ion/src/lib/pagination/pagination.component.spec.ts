@@ -137,3 +137,49 @@ describe('Pagination > Events', () => {
     expect(screen.queryAllByText('20 / página')).toHaveLength(1);
   });
 });
+
+describe('PaginationComponent with Ellipsis', () => {
+  it('should not to be selected when it is clicked', async () => {
+    await sut({
+      total: 23,
+      itemsPerPage: 1,
+    });
+    const pageZero = screen.getByTestId('page-0');
+    fireEvent.click(pageZero);
+    expect(pageZero).not.toHaveClass('selected');
+  });
+
+  it('should render the first ellipsis when page five is selected and render a page two when ellipsis is clicked', async () => {
+    await sut({
+      total: 46,
+      itemsPerPage: 2,
+    });
+    const pageThree = screen.getByTestId('page-3');
+    fireEvent.click(pageThree);
+    const pageFive = screen.getByTestId('page-5');
+    fireEvent.click(pageFive);
+    const firstEllipsis = screen.getByTestId('page--1');
+    fireEvent.click(firstEllipsis);
+    expect(document.querySelectorAll('.square-pag')).toHaveLength(9);
+  });
+
+  it('should render up to five pages more when the second ellipsis is clicked', async () => {
+    await sut({
+      total: 46,
+      itemsPerPage: 2,
+    });
+    const pageZero = screen.getByTestId('page-0');
+    fireEvent.click(pageZero);
+    expect(document.querySelectorAll('.square-pag')).toHaveLength(10);
+  });
+
+  it('should render a first ellipsis when last page is selected', async () => {
+    await sut({
+      total: 46,
+      itemsPerPage: 2,
+    });
+    const lastPage = screen.getByTestId('page-23');
+    fireEvent.click(lastPage);
+    expect(lastPage).toHaveClass('selected');
+  });
+});

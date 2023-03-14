@@ -21,7 +21,7 @@
   <ng-container *ngFor="let page of pages">
     <button
       [class]="
-        'square-pag ' + 'page-' + size + 'page-number-' + page.page_number
+        'square-pag ' + 'page-' + size + ' page-number-' + page.page_number
       "
       *ngIf="!hidePages(page.page_number)"
       [class.selected]="page.selected"
