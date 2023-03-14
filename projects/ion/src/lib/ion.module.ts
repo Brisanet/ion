@@ -38,6 +38,7 @@ import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
+import { IonSkeletonComponent } from './skeleton/skeleton.component';
 
 @NgModule({
   declarations: [IonComponent],
@@ -79,6 +80,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonIndicatorModule,
     IonSidebarModule,
     IonRadioGroupModule,
+    IonSkeletonComponent,
   ],
   exports: [
     IonComponent,
@@ -118,6 +120,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonIndicatorModule,
     IonSidebarModule,
     IonRadioGroupModule,
+    IonSkeletonComponent,
   ],
 })
 export class IonModule {}
