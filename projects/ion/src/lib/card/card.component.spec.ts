@@ -12,7 +12,13 @@ import { IonCardComponent } from './card.component';
 import { IonChipModule } from '../chip/chip.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
-import { IonCard, CardEvent } from '../core/types';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import {
+  IonCard,
+  CardEvent,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../core/types';
 import { IonChipProps } from '../core/types/chip';
 
 let renderFooter = false;
@@ -63,7 +69,13 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, IonIconModule, IonButtonModule, IonChipModule],
+  imports: [
+    CommonModule,
+    IonIconModule,
+    IonButtonModule,
+    IonChipModule,
+    IonTooltipModule,
+  ],
   declarations: [
     CardTestComponent,
     IonCardComponent,
@@ -123,6 +135,19 @@ describe('CardComponent', () => {
     cardComponent.cardConfig.header.icon = undefined;
     fixture.detectChanges();
     expect(screen.queryByTestId('icon-title')).toBeNull();
+  });
+
+  it('should render info icon', () => {
+    cardComponent.cardConfig.header.infoTooltip = {
+      ionTooltipTitle: 'ionTooltipTitle',
+      ionTooltipPosition: TooltipPosition.CENTER_LEFT,
+      ionTooltipColorScheme: 'dark',
+      ionTooltipTrigger: TooltipTrigger.HOVER,
+      ionTooltipShowDelay: 2,
+      ionTooltipArrowPointAtCenter: true,
+    };
+    fixture.detectChanges();
+    expect(screen.queryByTestId('icon-info')).toBeInTheDocument();
   });
 
   it('should render footer in cardComponent', async () => {
