@@ -24,6 +24,90 @@ const data = [
   { id: 2, name: 'One More Light', deleted: false, year: 2017 },
 ];
 
+const dataWithTag = [
+  ...data,
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    icon: 'star-solid',
+    status: 'warning',
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 6,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 7,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 8,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    icon: 'star-solid',
+    status: 'warning',
+  },
+  {
+    id: 9,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 10,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 11,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 12,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+    icon: 'union',
+    status: 'info',
+  },
+];
+
 const columns = [
   {
     key: 'id',
@@ -52,6 +136,34 @@ const selectableColumns = [
     sort: false,
     actions: {
       trigger: 'click',
+    },
+  },
+];
+
+const withTagColumns = [
+  ...columns,
+  {
+    key: 'year',
+    label: 'Year',
+    sort: true,
+    type: 'tag',
+    tag: {
+      icon: 'check',
+      status: 'success',
+    },
+  },
+];
+
+const withTagByRowColumns = [
+  ...columns,
+  {
+    key: 'year',
+    label: 'Year',
+    sort: true,
+    type: 'tag',
+    tag: {
+      iconKey: 'icon',
+      statusKey: 'status',
     },
   },
 ];
@@ -110,3 +222,19 @@ SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);
 
 export const SortWithDebounce = Template.bind({});
 SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
+
+export const WithTagByColumn = Template.bind({});
+WithTagByColumn.args = returnTableConfig(
+  dataWithTag,
+  withTagColumns,
+  actions,
+  2
+);
+
+export const WithTagByRow = Template.bind({});
+WithTagByRow.args = returnTableConfig(
+  dataWithTag,
+  withTagByRowColumns,
+  actions,
+  2
+);
