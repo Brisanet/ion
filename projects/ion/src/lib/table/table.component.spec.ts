@@ -1,3 +1,4 @@
+import { StatusType } from './../core/types/status';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
@@ -33,6 +34,7 @@ interface Disco {
   deleted: boolean;
   year?: number;
   icon?: string;
+  status?: StatusType;
 }
 
 const data: Disco[] = [
@@ -44,6 +46,7 @@ const data: Disco[] = [
     deleted: true,
     year: 2000,
     icon: 'star-solid',
+    status: 'warning',
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const data: Disco[] = [
     deleted: false,
     year: 2007,
     icon: 'union',
+    status: 'info',
   },
 ];
 
@@ -390,6 +394,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
+  const columnStatus = 'success';
   const tableDifferentColumns: IonTableProps<Disco> = {
     config: {
       columns: [
@@ -401,6 +406,7 @@ describe('Table > Differents columns data type', () => {
           sort: false,
           tag: {
             icon: columnIcon,
+            status: columnStatus,
           },
         },
       ],
@@ -420,6 +426,13 @@ describe('Table > Differents columns data type', () => {
       expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
     });
 
+    it('should set a status type in tag by column', async () => {
+      await sut(tableDifferentColumns);
+      expect(
+        document.getElementsByClassName(`ion-tag outline ${columnStatus}`)
+      ).toHaveLength(4);
+    });
+
     it.each(['union', 'star-solid'])(
       'should show %s icon in tag by row data',
       async (iconRow: string) => {
@@ -437,6 +450,26 @@ describe('Table > Differents columns data type', () => {
         expect(
           document.getElementById(`ion-icon-${iconRow}`)
         ).toBeInTheDocument();
+      }
+    );
+
+    it.each(['warning', 'info'])(
+      'should set %s status in tag by row data',
+      async (statusType: string) => {
+        const tableWithCustomIconInTag = JSON.parse(
+          JSON.stringify(tableDifferentColumns)
+        ) as IonTableProps<Disco>;
+
+        const columns = tableWithCustomIconInTag.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          statusKey: 'status',
+        };
+
+        await sut(tableWithCustomIconInTag);
+        expect(
+          document.getElementsByClassName(`ion-tag outline ${statusType}`)
+        ).toHaveLength(1);
       }
     );
   });
