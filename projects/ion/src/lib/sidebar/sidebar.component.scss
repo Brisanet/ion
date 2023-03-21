@@ -12,7 +12,6 @@
   line-height: 0;
   list-style: none;
   outline: none;
-
   box-sizing: border-box;
   position: absolute;
   z-index: 999;
@@ -32,6 +31,9 @@
     justify-content: space-between;
     padding-bottom: spacing(4);
     @include icon-color($primary-color);
+    img {
+      width: 75%;
+    }
   }
 
   &__items {
@@ -44,5 +46,8 @@
   &--opened {
     transform: translateX(0px);
     transition: transform 0.25s ease-in-out;
+  }
+  &__logo--pointer {
+    cursor: pointer;
   }
 }
