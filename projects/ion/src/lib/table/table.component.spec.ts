@@ -456,17 +456,17 @@ describe('Table > Differents columns data type', () => {
     it.each(['warning', 'info'])(
       'should set %s status in tag by row data',
       async (statusType: string) => {
-        const tableWithCustomIconInTag = JSON.parse(
+        const tableWithCustomStatusInTag = JSON.parse(
           JSON.stringify(tableDifferentColumns)
         ) as IonTableProps<Disco>;
 
-        const columns = tableWithCustomIconInTag.config.columns;
+        const columns = tableWithCustomStatusInTag.config.columns;
         const lastColumn = columns.length - 1;
         columns[lastColumn].tag = {
           statusKey: 'status',
         };
 
-        await sut(tableWithCustomIconInTag);
+        await sut(tableWithCustomStatusInTag);
         expect(
           document.getElementsByClassName(`ion-tag outline ${statusType}`)
         ).toHaveLength(1);
