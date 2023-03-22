@@ -36,7 +36,7 @@ describe('IonPaginationComponent', () => {
     }
   );
 
-  it('should be selected in fitst page by default', async () => {
+  it('should be selected in first page by default', async () => {
     expect(screen.getByTestId('page-1')).toHaveClass('selected');
   });
 
@@ -126,5 +126,14 @@ describe('Pagination > Events', () => {
     fireEvent.click(await screen.getByTestId(`btn-${label}`));
     fireEvent.click(screen.getByText('20 / página'));
     expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
+  });
+
+  it('should show items per page 20 when set initial itemsPerPage = 20', async () => {
+    await sut({
+      total: 16,
+      allowChangeQtdItems: true,
+      itemsPerPage: 20,
+    });
+    expect(screen.queryAllByText('20 / página')).toHaveLength(1);
   });
 });

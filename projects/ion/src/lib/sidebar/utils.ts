@@ -4,14 +4,20 @@ function selectItem(items: Item[], index: number): void {
   items[index].selected = true;
 }
 
-function callItemAction(items: Item[], index: number): void {
+export function callItemAction(items: Item[], index: number): void {
   if (items[index].action) {
     items[index].action();
   }
 }
 
-export function unselectAllItems(items: Item[]): void {
-  items.forEach((item) => (item.selected = false));
+export function unselectAllItems(
+  items: Item[],
+  exceptItemIndex?: number
+): void {
+  items.forEach((item, index) => {
+    item.selected =
+      exceptItemIndex !== undefined ? index === exceptItemIndex : false;
+  });
 }
 
 export function selectItemByIndex(items: Item[], itemIndex: number): Item[] {

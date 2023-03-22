@@ -10,5 +10,6 @@ export interface Item {
 
 export interface IonSidebarProps {
   logo: string;
+  logoAction?: () => void;
   items: (Item & { options?: [Item, ...Item[]] })[];
 }

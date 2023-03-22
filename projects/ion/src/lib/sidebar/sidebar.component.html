@@ -4,7 +4,12 @@
   data-testid="ion-sidebar"
 >
   <header class="ion-sidebar__header">
-    <img [src]="logo" alt="logo" />
+    <img
+      (click)="logoAction()"
+      [class.ion-sidebar__logo--pointer]="!!logoAction"
+      [src]="logo"
+      alt="logo"
+    />
     <ng-template
       *ngIf="!closed"
       [ngTemplateOutlet]="btnToggleVisibility"
@@ -29,7 +34,9 @@
           [icon]="item.icon"
           [selected]="item.selected"
           [items]="item.options"
-          (atClick)="itemSelected(i)"
+          [haveGroupAction]="!!item.action"
+          (atClick)="itemOnGroupSelected(i)"
+          (atGroupClick)="groupSelected(i)"
         ></ion-sidebar-group>
       </ng-container>
     </ng-container>

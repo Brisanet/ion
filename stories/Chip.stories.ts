@@ -4,12 +4,12 @@ import {
 } from '../projects/ion/src/public-api';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { moduleMetadata } from '@storybook/angular';
-import { IonChipComponent } from '../projects/ion/src/lib/chip/chip.component';
+import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
 import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Navigation/Chips',
-  component: IonChipComponent,
+  component: ChipComponent,
   decorators: [
     moduleMetadata({
       imports: [FormsModule, IonSharedModule, IonInfoBadgeModule],
@@ -17,8 +17,8 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<IonChipComponent> = (args: IonChipComponent) => ({
-  component: IonChipComponent,
+const Template: Story<ChipComponent> = (args: ChipComponent) => ({
+  component: ChipComponent,
   props: args,
 });
 
