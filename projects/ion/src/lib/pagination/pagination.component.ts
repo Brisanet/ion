@@ -74,6 +74,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private hasSelected() {
     this.pages &&
       this.pages.forEach((pageEach) => {
@@ -94,9 +95,10 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   private selectedPageCondition(pageNumber: number) {
     let page: Page;
-    if (this.totalPages() >= 20) {
+    if (this.totalPages() >= 10) {
       page = this.pages[this.skipEllipsis(pageNumber)];
       pageNumber === 0 || pageNumber === -1
         ? (page.selected = false)
@@ -113,21 +115,25 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     this.currentPageNumber = page.page_number;
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   hasPrevious(): boolean {
     return !this.inFirstPage();
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   hasNext(): boolean {
     const selecteds = this.pages.filter((page) => page.selected);
     return selecteds.length > 0 && !this.inLastPage();
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   previous(): void {
     if (!this.inFirstPage()) {
       this.selectPage(this.currentPageNumber - 1);
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   next(): void {
     if (!this.inLastPage()) {
       this.selectPage(this.currentPageNumber + 1);
@@ -152,7 +158,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
-      if (qtdOfPages >= 20) {
+      if (qtdOfPages >= 10) {
         this.createEllipsis(index, qtdOfPages);
       } else {
         this.pages.push({
@@ -213,20 +219,39 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   private hidePages(pageNumber: number): boolean {
-    if (this.totalPages() <= 20) {
+    // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+    if (this.totalPages() <= 9) {
       return false;
     } else {
       if (pageNumber === -1) {
         const pagesInLeft = this.currentPageNumber - 1;
-        const showLeftEllipsis = pagesInLeft > this.hidePreviousQuantity + 1;
+        const showLeftEllipsis = pagesInLeft > this.hideNextQuantity + 1;
         return !showLeftEllipsis;
+      } else if (this.currentPageNumber < 5) {
+        if (pageNumber <= 5 || pageNumber === this.totalPages()) {
+          return false;
+        }
+        this.page = this.hidePreviousQuantity && this.hideNextQuantity;
+      } else if (this.currentPageNumber < 4) {
+        this.page = pageNumber == 4 ? 6 : 5;
+      } else if (this.currentPageNumber == this.totalPages()) {
+        if (pageNumber == 1 || pageNumber == this.totalPages() - 4) {
+          return false;
+        }
+        if (
+          pageNumber <= this.totalPages() &&
+          pageNumber > this.totalPages() - 4
+        ) {
+          return false;
+        }
+        return true;
       } else if (pageNumber === 0) {
-        const pagesInRight = this.totalPages() - this.currentPageNumber - 1;
+        const pagesInRight = this.totalPages();
         const showRightEllipsis = pagesInRight > this.hideNextQuantity + 1;
         return !showRightEllipsis;
       }
-      return this.hidePageNumber(pageNumber);
     }
+    return this.hidePageNumber(pageNumber);
   }
 
   private hidePageNumber(pageNumber: number): boolean {
