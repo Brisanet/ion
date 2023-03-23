@@ -208,7 +208,7 @@ describe('Popover host tests', () => {
     directive.closePopover();
   });
 
-  it('should click in host element and dispath event', () => {
+  it('should click in host element and dispatch event', () => {
     fixture.detectChanges();
     const event = new Event('click');
     input.triggerEventHandler('click', event);
