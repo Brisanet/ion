@@ -121,8 +121,8 @@ $arrow-size: 4.5px;
   background-color: $neutral-2;
   justify-content: space-between;
   align-items: center;
-  max-height: 44px;
-  padding: spacing(0) spacing(2);
+  height: 24px;
+  padding: spacing(1.5) spacing(2);
 
   h4 {
     font-family: 'Source Sans Pro', sans-serif;
@@ -144,10 +144,6 @@ $arrow-size: 4.5px;
   &_icon {
     ::ng-deep svg {
       fill: $primary-6;
-      left: 12.5%;
-      right: 12.5%;
-      top: 8.33%;
-      bottom: 8.35%;
     }
   }
 
@@ -155,10 +151,6 @@ $arrow-size: 4.5px;
     cursor: pointer;
     ::ng-deep svg {
       fill: $primary-6;
-      left: 21.88%;
-      right: 21.88%;
-      top: 21.88%;
-      bottom: 21.87%;
     }
   }
 }

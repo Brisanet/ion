@@ -23,8 +23,8 @@ const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
 const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
 
-const FirstAction = jest.fn();
-const SecondAction = jest.fn();
+const firstAction = jest.fn();
+const secondAction = jest.fn();
 
 @Component({
   template: `
@@ -60,8 +60,8 @@ class HostTestComponent {
   ionPopoverIcon = 'condominium';
   ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
 
-  ionOnFirstAction = FirstAction;
-  ionOnSecondAction = SecondAction;
+  ionOnFirstAction = firstAction;
+  ionOnSecondAction = secondAction;
 }
 @Component({
   template: `
@@ -155,14 +155,14 @@ describe('Directive: popover', () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
     fireEvent.click(screen.getByTestId('popover-action-1'));
-    expect(FirstAction).toHaveBeenCalled();
+    expect(firstAction).toHaveBeenCalled();
   });
 
   it('should emit an event when click on action-2', async () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
     fireEvent.click(screen.getByTestId('popover-action-2'));
-    expect(SecondAction).toHaveBeenCalled();
+    expect(secondAction).toHaveBeenCalled();
   });
 
   it.each(Object.values(PopoverPosition))(
@@ -208,6 +208,11 @@ describe('Popover host tests', () => {
     directive.closePopover();
   });
 
+  it('should open the popover when clicked', () => {
+    directive.open(elementPosition);
+    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  });
+
   it('should click in host element and dispatch event', () => {
     fixture.detectChanges();
     const event = new Event('click');
@@ -218,10 +223,6 @@ describe('Popover host tests', () => {
   it('should create element with the directive', () => {
     directive.open(elementPosition);
     expect(screen.getByText(textButton)).toHaveAttribute('ionpopover', '');
-  });
-
-  it('should open the popover when clicked', () => {
-    directive.open(elementPosition);
   });
 
   it.each(['icon-close', 'action-1', 'action-2'])(
