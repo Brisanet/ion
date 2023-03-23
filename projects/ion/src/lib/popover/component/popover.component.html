@@ -54,7 +54,7 @@
           [circularButton]="action.circularButton"
           [options]="action.options"
           [showDropdown]="action.showDropdown"
-          (click)="i == 0 ? firstAction() : secondAction()"
+          (click)="i === 0 ? firstAction() : secondAction()"
         ></ion-button>
       </ng-container>
     </div>
