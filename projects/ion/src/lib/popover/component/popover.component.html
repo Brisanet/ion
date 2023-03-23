@@ -41,7 +41,7 @@
           [attr.data-testid]="'popover-action-' + (i + 1)"
           [label]="action.label"
           [tooltip]="action.tooltip"
-          [type]="i == 0 ? 'ghost' : 'primary'"
+          [type]="i === 0 ? 'ghost' : 'primary'"
           size="sm"
           [expand]="action.expand"
           [danger]="action.danger"
