@@ -232,19 +232,35 @@ export class IonPaginationComponent implements OnChanges, OnInit {
           return false;
         }
         this.page = this.hidePreviousQuantity && this.hideNextQuantity;
-      } else if (this.currentPageNumber < 4) {
-        this.page = pageNumber == 4 ? 6 : 5;
-      } else if (this.currentPageNumber == this.totalPages()) {
-        if (pageNumber == 1 || pageNumber == this.totalPages() - 4) {
+      } else if (this.currentPageNumber >= this.totalPages() - 3) {
+        if (pageNumber === 1 || pageNumber >= this.totalPages() - 4) {
           return false;
         }
         if (
-          pageNumber <= this.totalPages() &&
-          pageNumber > this.totalPages() - 4
+          pageNumber >= this.currentPageNumber - this.hidePreviousQuantity &&
+          pageNumber <= this.totalPages() - this.hideNextQuantity
         ) {
           return false;
         }
         return true;
+      } else if (this.currentPageNumber < 4) {
+        if (pageNumber <= 5 || pageNumber === this.totalPages()) {
+          return false;
+        }
+      } else if (this.currentPageNumber > this.totalPages() - 4) {
+        if (
+          pageNumber === this.totalPages() ||
+          pageNumber >= this.totalPages() - 4
+        ) {
+          return false;
+        }
+      } else if (this.currentPageNumber === this.totalPages() - 5) {
+        if (
+          pageNumber === this.totalPages() ||
+          pageNumber === this.currentPageNumber + this.hideNextQuantity
+        ) {
+          return false;
+        }
       } else if (pageNumber === 0) {
         const pagesInRight = this.totalPages();
         const showRightEllipsis = pagesInRight > this.hideNextQuantity + 1;
