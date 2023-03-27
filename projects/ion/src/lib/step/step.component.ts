@@ -9,6 +9,8 @@ import {
 } from '@angular/core';
 import { LineType, Status, StatusType, StepType } from '../core/types/steps';
 
+const FIRST_STEP = 1;
+
 @Component({
   selector: 'ion-steps',
   templateUrl: './step.component.html',
@@ -22,25 +24,6 @@ export class IonStepsComponent implements OnInit, OnChanges {
   @Output() indexChange = new EventEmitter<number>();
 
   public firstCatchStatus = true;
-
-  public lineVisibility(lineType: LineType, step: StepType): boolean {
-    return !(lineType === 'initial'
-      ? step.index === 1
-      : step.index === this.steps.length);
-  }
-
-  public beforeStepIsChecked(index: number): boolean {
-    return (
-      this.steps[index - 1] && this.steps[index - 1].status === Status.checked
-    );
-  }
-
-  public afterStepIsChecked(index: number): boolean {
-    if (this.steps[index].status === Status.checked) return true;
-    return (
-      this.steps[index + 1] && this.steps[index + 1].status !== Status.default
-    );
-  }
 
   stepStatus(step: StepType, currentIndex: number): StatusType {
     if (step.index < currentIndex) return Status.checked;
