@@ -28,12 +28,15 @@ $arrow-size: 4.2px;
 }
 
 .ion-tooltip {
+  z-index: 100;
   position: fixed;
-  padding: spacing(0.5) spacing(1);
-  font-size: 12px;
+  padding: spacing(1);
+  overflow-wrap: break-word;
+  max-width: 208px;
+  text-align: left;
+  font-size: 14px;
   font-weight: 400;
   line-height: 16px;
-  text-align: center;
   border-radius: 2px;
   filter: drop-shadow(0px 0px 4px $black-transparence-15);
   opacity: 0;

@@ -32,6 +32,12 @@
       gap: spacing(1);
     }
 
+    .icon-info {
+      ::ng-deep svg {
+        fill: $neutral-6;
+      }
+    }
+
     &-container-buttons {
       display: flex;
       gap: spacing(2);

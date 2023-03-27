@@ -1,12 +1,9 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from './../utils/safe-any';
-import {
-  CheckboxComponent,
-  CheckBoxProps,
-  CheckBoxStates,
-} from './checkbox.component';
+import { IonCheckboxComponent } from './checkbox.component';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { CheckBoxProps, CheckBoxStates } from '../core/types/checkbox';
 
 const boxId = 'ion-checkbox';
 
@@ -23,7 +20,7 @@ const StateEvents = {
 };
 
 const sut = async (customProps: CheckBoxProps = {}): Promise<void> => {
-  await render(CheckboxComponent, {
+  await render(IonCheckboxComponent, {
     componentProperties: customProps,
   });
 };
@@ -188,10 +185,11 @@ class CheckboxHostComponent {
   };
 }
 describe('Checkbox controlled by a parent component', () => {
-  let fixture, checkboxHost;
+  let fixture;
+  let checkboxHost;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CheckboxHostComponent, CheckboxComponent],
+      declarations: [CheckboxHostComponent, IonCheckboxComponent],
     });
     fixture = TestBed.createComponent(CheckboxHostComponent);
     checkboxHost = fixture.componentInstance;

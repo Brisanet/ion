@@ -8,10 +8,18 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 
-import { InfoBadgeComponent } from '../info-badge/info-badge.component';
-import { ButtonModule } from './../button/button.module';
-import { ChipComponent, IonChipProps } from './../chip/chip.component';
-import { CardEvent, CardIonComponent, IonCard } from './card.component';
+import { IonCardComponent } from './card.component';
+import { IonChipModule } from '../chip/chip.module';
+import { IonButtonModule } from '../button/button.module';
+import { IonIconModule } from '../icon/icon.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import {
+  IonCard,
+  CardEvent,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../core/types';
+import { IonChipProps } from '../core/types/chip';
 
 let renderFooter = false;
 
@@ -61,14 +69,18 @@ class CardTestComponent implements AfterViewInit {
 }
 
 @NgModule({
-  imports: [CommonModule, ButtonModule],
+  imports: [
+    CommonModule,
+    IonIconModule,
+    IonButtonModule,
+    IonChipModule,
+    IonTooltipModule,
+  ],
   declarations: [
     CardTestComponent,
-    CardIonComponent,
+    IonCardComponent,
     ButtonTestComponent,
     FooterTestComponent,
-    ChipComponent,
-    InfoBadgeComponent,
   ],
   entryComponents: [
     CardTestComponent,
@@ -123,6 +135,19 @@ describe('CardComponent', () => {
     cardComponent.cardConfig.header.icon = undefined;
     fixture.detectChanges();
     expect(screen.queryByTestId('icon-title')).toBeNull();
+  });
+
+  it('should render info icon', () => {
+    cardComponent.cardConfig.header.infoTooltip = {
+      ionTooltipTitle: 'ionTooltipTitle',
+      ionTooltipPosition: TooltipPosition.CENTER_LEFT,
+      ionTooltipColorScheme: 'dark',
+      ionTooltipTrigger: TooltipTrigger.HOVER,
+      ionTooltipShowDelay: 2,
+      ionTooltipArrowPointAtCenter: true,
+    };
+    fixture.detectChanges();
+    expect(screen.queryByTestId('icon-info')).toBeInTheDocument();
   });
 
   it('should render footer in cardComponent', async () => {

@@ -2,14 +2,17 @@ import { render, screen } from '@testing-library/angular';
 import { AvatarType } from '../core/types/avatar';
 import { SizeType } from '../core/types/size';
 import { DefaultImageDirective } from '../defaultImage.directive';
-import { IonIconComponent } from '../icon/icon.component';
-import { AvatarComponent } from './avatar.component';
+import { IonAvatarComponent } from './avatar.component';
+import { IonIconModule } from '../icon/icon.module';
 
-async function sut(props: Partial<AvatarComponent> = {}): Promise<HTMLElement> {
-  await render(AvatarComponent, {
+async function sut(
+  props: Partial<IonAvatarComponent> = {}
+): Promise<HTMLElement> {
+  await render(IonAvatarComponent, {
     componentProperties: props,
     providers: [DefaultImageDirective],
-    declarations: [IonIconComponent, DefaultImageDirective],
+    declarations: [DefaultImageDirective],
+    imports: [IonIconModule],
   });
   return screen.getByTestId('ion-avatar');
 }

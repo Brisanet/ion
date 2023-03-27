@@ -6,7 +6,7 @@ import {
   TooltipPosition,
   TooltipTrigger,
 } from '../core/types';
-import { TooltipModule } from './tooltip.module';
+import { IonTooltipModule } from './tooltip.module';
 
 @Component({
   template: `
@@ -14,6 +14,7 @@ import { TooltipModule } from './tooltip.module';
       data-testid="hostTooltip"
       ionTooltip
       [ionTooltipTitle]="ionTooltipTitle"
+      [ionTooltipTemplateRef]="ref"
       [ionTooltipColorScheme]="ionTooltipColorScheme"
       [ionTooltipPosition]="ionTooltipPosition"
       [ionTooltipTrigger]="ionTooltipTrigger"
@@ -21,6 +22,9 @@ import { TooltipModule } from './tooltip.module';
     >
       Hover me
     </p>
+    <ng-template #ref>
+      <span data-testid="templateRef">Im a template ref</span>
+    </ng-template>
   `,
 })
 class HostTestComponent {
@@ -34,7 +38,7 @@ class HostTestComponent {
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
   await render(HostTestComponent, {
     componentProperties: props,
-    imports: [CommonModule, TooltipModule],
+    imports: [CommonModule, IonTooltipModule],
   });
 };
 
@@ -70,6 +74,13 @@ describe('Directive: Tooltip', () => {
     expect(screen.getByText(ionTooltipTitle)).toBeInTheDocument();
   });
 
+  it('should render tooltip with a template ref', async () => {
+    await sut();
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByTestId('templateRef')).toBeInTheDocument();
+  });
+
   it.each(['light', 'dark'] as TooltipColorScheme[])(
     'should render tooltip with %s color scheme',
     async (ionTooltipColorScheme) => {
@@ -99,7 +110,7 @@ describe('Directive: Tooltip', () => {
       componentProperties: {
         ionTooltipShowDelay: timeDelay,
       },
-      imports: [CommonModule, TooltipModule],
+      imports: [CommonModule, IonTooltipModule],
     });
 
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));

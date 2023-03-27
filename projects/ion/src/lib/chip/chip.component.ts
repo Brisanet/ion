@@ -1,8 +1,29 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BadgeType } from '../badge/badge.component';
-import { InfoBadgeStatus } from '../core/types';
-import { DropdownItem, DropdownParams } from '../dropdown/dropdown.component';
-import { IconType } from './../icon/icon.component';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+  OnInit,
+} from '@angular/core';
+import {
+  BadgeType,
+  DropdownItem,
+  DropdownParams,
+  IconType,
+  InfoBadgeStatus,
+} from '../core/types';
+import {
+  COOLDOWN_TIME,
+  DROPDOWN_SEARCH_SELECTOR,
+  DROPDOWN_SELECTOR,
+  generateIDs,
+  ID_SELECTOR,
+} from '../utils';
+import { SafeAny } from '../utils/safe-any';
 
 export type ChipSize = 'sm' | 'md';
 export type IconDirection = 'right' | 'left';
@@ -41,8 +62,9 @@ interface RightBadge {
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent {
+export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -60,9 +82,19 @@ export class ChipComponent {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  public id: string;
+
   badge: Badge = {
     value: 0,
   };
+
+  previusSelectedStatus = false;
+
+  clickReference!: SafeAny;
+
+  constructor(private ref: ChangeDetectorRef) {
+    this.ref.markForCheck();
+  }
 
   select(): void {
     this.toggleDropdown();
@@ -95,5 +127,66 @@ export class ChipComponent {
 
   dropdownSearchChange(value: string): void {
     this.dropdownSearchEvents.emit(value);
+  }
+
+  checkTargetClick = (event: MouseEvent): void => {
+    const target = event.target as HTMLInputElement;
+    const elementChip = target.closest(ID_SELECTOR + this.id);
+    const elementChipDropdown = target.closest(DROPDOWN_SELECTOR + this.id);
+    const elementChipSearch = target.closest(
+      DROPDOWN_SELECTOR + this.id + DROPDOWN_SEARCH_SELECTOR
+    );
+
+    if (elementChipSearch || (elementChipDropdown && this.multiple)) {
+      return;
+    }
+
+    if (!elementChip) {
+      if ((this.previusSelectedStatus && this.selected) || !this.selected) {
+        this.showDropdown = false;
+        this.selected = false;
+        this.events.emit({
+          selected: this.selected,
+          disabled: this.disabled,
+        });
+        this.ref.detectChanges();
+      }
+    }
+    this.previusSelectedStatus = this.selected;
+  };
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.id = generateIDs('chip-', 'ion-chip');
+      this.ref.markForCheck();
+    }, COOLDOWN_TIME);
+
+    this.clickReference = (event: MouseEvent): void => {
+      this.checkTargetClick(event);
+    };
+
+    document.body.addEventListener('click', this.clickReference);
+  }
+
+  ngOnDestroy(): void {
+    document.body.removeEventListener('click', this.clickReference);
+  }
+
+  ngOnInit(): void {
+    if (this.multiple) {
+      return;
+    }
+
+    const [selectedOption] = this.getSelectedOptions();
+
+    if (!selectedOption) {
+      return;
+    }
+
+    this.label = selectedOption.label;
+  }
+
+  getSelectedOptions(): DropdownItem[] {
+    return (this.options || []).filter((option) => option.selected);
   }
 }

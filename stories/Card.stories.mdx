@@ -1,17 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular';
 import { Canvas, Meta, Story } from '@storybook/addon-docs';
-import { CardIonComponent } from '../projects/ion/src/lib/card/card.component.ts';
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component.ts';
-import { ButtonModule } from '../projects/ion/src/lib/button/button.module';
-import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component.ts';
-import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component.ts';
-import { DropdownModule } from './../projects/ion/src/lib/dropdown/dropdown.module';
+import { IonCardComponent } from '../projects/ion/src/lib/card/card.component.ts';
 import { BodyMockComponent } from '../projects/ion/src/lib/card/mock/body-mock.component.ts';
+import { IonSharedModule } from '../projects/ion/src/public-api';
+import { IonChipModule } from '../projects/ion/src/lib/chip/chip.module';
+import { IonTooltipModule } from '../projects/ion/src/lib/tooltip/tooltip.module';
+import {
+  TooltipPosition,
+  TooltipTrigger,
+  TooltipProps,
+} from '../projects/ion/src/lib/core/types';
 
-<Meta title="Ion/Data Display/Card" component={CardIonComponent} />
+<Meta title="Ion/Data Display/Card" component={IonCardComponent} />
 
-export const Template = (args) => <CardIonComponent {...args} />;
+export const Template = (args) => <IonCardComponent {...args} />;
 
 # Card
 
@@ -37,8 +40,12 @@ Neste parâmetro o único atributo obrigatório é o atributo `title`.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
-        imports: [CommonModule, ButtonModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -76,8 +83,12 @@ Há também a possibilidade de passar o paramêtro `buttons` para adicionar aç�
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
-        imports: [CommonModule, ButtonModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -100,8 +111,12 @@ Assim como a possibilidade de definir um ícone para o título do card, enviando
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
-        imports: [CommonModule, ButtonModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -126,8 +141,13 @@ No `body` o IonCard recebe um componente a se renderizado.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent, BodyMockComponent],
-        imports: [CommonModule, ButtonModule],
+        declarations: [BodyMockComponent],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
         entryComponents: [BodyMockComponent],
       }),
     ]}
@@ -160,8 +180,13 @@ No `footer` o IonCard pode receber um componente ou as configurações de botõe
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent, BodyMockComponent],
-        imports: [CommonModule, ButtonModule],
+        declarations: [BodyMockComponent],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
         entryComponents: [BodyMockComponent],
       }),
     ]}
@@ -187,8 +212,12 @@ Neste parâmetro, enviamos uma lista de chips.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
-        imports: [CommonModule, ButtonModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
@@ -219,8 +248,49 @@ Neste parâmetro, enviamos o chip com as opções para o dropdown.
     }}
     decorators={[
       moduleMetadata({
-        declarations: [ChipComponent, InfoBadgeComponent],
-        imports: [CommonModule, ButtonModule],
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Info icon
+
+Neste paramêtro o IonCard recebe as propriedades de um Tooltip para renderizar o info icon.
+
+<Canvas>
+  <Story
+    name="With info icon"
+    args={{
+      configuration: {
+        header: {
+          title: 'Com risco de atraso',
+          infoTooltip: {
+            ionTooltipTitle: 'ionTooltipTitle',
+            ionTooltipPosition: TooltipPosition.CENTER_LEFT,
+            ionTooltipArrowPointAtCenter: true,
+            ionTooltipColorScheme: 'dark',
+            ionTooltipTrigger: TooltipTrigger.HOVER,
+            ionTooltipShowDelay: 2,
+          },
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        imports: [
+          CommonModule,
+          IonSharedModule,
+          IonChipModule,
+          IonTooltipModule,
+        ],
       }),
     ]}
   >
