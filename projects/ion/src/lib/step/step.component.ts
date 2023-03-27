@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import { LineType, Status, StatusType, StepType } from '../core/types/steps';
 
-const FIRST_STEP = 1;
-
 @Component({
   selector: 'ion-steps',
   templateUrl: './step.component.html',
@@ -24,6 +22,8 @@ export class IonStepsComponent implements OnInit, OnChanges {
   @Output() indexChange = new EventEmitter<number>();
 
   public firstCatchStatus = true;
+
+  FIRST_STEP = 1;
 
   stepStatus(step: StepType, currentIndex: number): StatusType {
     if (step.index < currentIndex) return Status.checked;

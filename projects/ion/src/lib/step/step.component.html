@@ -16,7 +16,7 @@
       <div
         class="line"
         [class.bolded]="
-          steps[index - 1] && steps[index - 1].status === Status.checked
+          steps[index - 1] && steps[index - 1].status === 'checked'
         "
         *ngIf="step.index !== FIRST_STEP"
       ></div>
@@ -35,8 +35,8 @@
       <div
         class="line"
         [class.bolded]="
-          step.status === Status.checked ||
-          (steps[index + 1] && steps[index + 1].status !== Status.default)
+          steps[index].status === 'checked' ||
+          (steps[index + 1] && steps[index + 1].status !== 'default')
         "
         *ngIf="step.index !== steps.length"
       ></div>
