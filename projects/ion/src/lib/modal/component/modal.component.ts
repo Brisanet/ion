@@ -38,6 +38,7 @@ export class IonModalComponent implements OnInit {
   private componentFactory: ComponentRef<unknown>;
   private _defaultModal: IonModalConfiguration = {
     title: 'Ion Modal',
+    width: 500,
     showOverlay: true,
     overlayCanDismiss: true,
 
