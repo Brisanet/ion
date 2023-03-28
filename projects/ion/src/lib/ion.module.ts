@@ -10,11 +10,10 @@ import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonChipModule } from './chip/chip.module';
 import { IonColModule } from './col/col.module';
-import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
+import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonIconModule } from './icon/icon.module';
-import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonInfoBadgeModule } from './info-badge/info-badge.module';
 import { IonInputAreaModule } from './input-area/input-area.module';
 import { IonInputCounterModule } from './input-counter/input-counter.module';
@@ -37,6 +36,7 @@ import { IonTableModule } from './table/table.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
+import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
 
@@ -59,7 +59,6 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonChipModule,
     IonCardModule,
     IonCheckboxModule,
-    IonDatePickerModule,
     IonDividerModule,
     IonInputAreaModule,
     IonInputCounterModule,
@@ -81,6 +80,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonPopoverModule,
     IonSidebarModule,
     IonRadioGroupModule,
+    IonDatePickerModule,
   ],
   exports: [
     IonComponent,
@@ -99,7 +99,6 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonChipModule,
     IonCardModule,
     IonCheckboxModule,
-    IonDatePickerModule,
     IonDividerModule,
     IonInputAreaModule,
     IonInputCounterModule,
@@ -120,6 +119,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonIndicatorModule,
     IonPopoverModule,
     IonSidebarModule,
+    IonDatePickerModule,
     IonRadioGroupModule,
   ],
 })
