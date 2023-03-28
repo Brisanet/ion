@@ -37,6 +37,7 @@ import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
+import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
 
 @NgModule({
@@ -76,6 +77,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonPopoverModule,
     IonSidebarModule,
     IonRadioGroupModule,
     IonDatePickerModule,
@@ -115,6 +117,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonPopoverModule,
     IonSidebarModule,
     IonDatePickerModule,
     IonRadioGroupModule,
