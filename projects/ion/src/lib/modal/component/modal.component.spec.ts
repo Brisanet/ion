@@ -177,7 +177,7 @@ describe('IonModalComponent', () => {
 
   it('should render the width of the default modal', () => {
     const modalElement =
-      fixture.nativeElement.querySelector('.modal-body').style.width;
+      fixture.nativeElement.querySelector('.modal-container').style.width;
     expect(modalElement).toBe('500px');
   });
 
@@ -193,7 +193,7 @@ describe('IonModalComponent', () => {
     fixture.detectChanges();
 
     const modalElement =
-      fixture.nativeElement.querySelector('.modal-body').style.width;
+      fixture.nativeElement.querySelector('.modal-container').style.width;
     expect(modalElement).toBe(`${modalConfig.width}px`);
   });
 });

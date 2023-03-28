@@ -11,6 +11,7 @@
     tabindex="0"
     open
     class="modal-container"
+    [style.width.px]="configuration.width"
     (click)="$event.stopPropagation()"
   >
     <header tabindex="0">
@@ -27,11 +28,7 @@
       ></ion-button>
     </header>
 
-    <div
-      tabindex="0"
-      class="modal-body"
-      [style.width.px]="configuration.width || DEFAULT_WIDTH"
-    >
+    <div tabindex="0" class="modal-body">
       <ng-template #modalBody></ng-template>
     </div>
 
