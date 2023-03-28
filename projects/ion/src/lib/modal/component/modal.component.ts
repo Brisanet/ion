@@ -36,9 +36,10 @@ export class IonModalComponent implements OnInit {
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
   private componentFactory: ComponentRef<unknown>;
+  public DEFAULT_WIDTH = 500;
   private _defaultModal: IonModalConfiguration = {
     title: 'Ion Modal',
-    width: 500,
+    width: this.DEFAULT_WIDTH,
     showOverlay: true,
     overlayCanDismiss: true,
 
