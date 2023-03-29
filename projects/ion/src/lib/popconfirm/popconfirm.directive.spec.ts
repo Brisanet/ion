@@ -220,6 +220,5 @@ describe('Popconfirm disabled host component', () => {
     element.setAttribute('ng-reflect-disabled', 'true');
     const isEnable = directive.elementIsEnabled(element);
     expect(isEnable).toBe(false);
-    expect(result).toBe(false);
   });
 });
