@@ -1,30 +1,15 @@
-import { ChipGroupComponent } from '../projects/ion/src/lib/chip-group/chip-group.component';
-import { BadgeComponent } from '../projects/ion/src/lib/badge/badge.component';
+import { IonChipGroupComponent } from '../projects/ion/src/lib/chip-group/chip-group.component';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { ChipComponent } from '../projects/ion/src/lib/chip/chip.component';
-import { InfoBadgeComponent } from '../projects/ion/src/lib/info-badge/info-badge.component';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
-import { DropdownComponent } from '../projects/ion/src/lib/dropdown/dropdown.component';
-import { InputComponent } from '../projects/ion/src/lib/input/input.component';
-import { ButtonComponent } from '../projects/ion/src/lib/button/button.component';
 import { FormsModule } from '@angular/forms';
+import { IonChipGroupModule } from '../projects/ion/src/lib/chip-group/chip-group.module';
 
 export default {
   title: 'Ion/Navigation/ChipGroup',
-  component: ChipGroupComponent,
+  component: IonChipGroupComponent,
   decorators: [
     moduleMetadata({
-      imports: [FormsModule],
-      declarations: [
-        ChipComponent,
-        BadgeComponent,
-        IonIconComponent,
-        DropdownComponent,
-        InputComponent,
-        ButtonComponent,
-        InfoBadgeComponent,
-      ],
+      imports: [FormsModule, IonChipGroupModule],
     }),
   ],
 } as Meta;
@@ -46,8 +31,10 @@ for (let index = 1; index <= 8; index++) {
   });
 }
 
-const Template: Story<ChipGroupComponent> = (args: ChipGroupComponent) => ({
-  component: ChipGroupComponent,
+const Template: Story<IonChipGroupComponent> = (
+  args: IonChipGroupComponent
+) => ({
+  component: IonChipGroupComponent,
   props: {
     ...args,
   },

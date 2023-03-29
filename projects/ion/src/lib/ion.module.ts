@@ -39,6 +39,7 @@ import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
+import { IonChipGroupModule } from './chip-group/chip-group.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -81,6 +82,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonSidebarModule,
     IonRadioGroupModule,
     IonDatePickerModule,
+    IonChipGroupModule,
   ],
   exports: [
     IonComponent,
@@ -121,6 +123,7 @@ import { IonRadioGroupModule } from './radio-group/radio-group.module';
     IonSidebarModule,
     IonDatePickerModule,
     IonRadioGroupModule,
+    IonChipGroupModule,
   ],
 })
 export class IonModule {}
