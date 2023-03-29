@@ -235,7 +235,7 @@ describe('Popover host tests', () => {
     }
   );
 
-  it('should not open new popover when be opened', () => {
+  it('should not open a new popover when a popover is already opened', () => {
     directive.open(elementPosition);
     directive.open(elementPosition);
     expect(screen.queryAllByTestId('ion-popover')).toHaveLength(1);
