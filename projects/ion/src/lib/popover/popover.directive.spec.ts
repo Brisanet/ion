@@ -288,7 +288,8 @@ describe('Popover disabled host component', () => {
   it('should return false if element is disabled', () => {
     const element = document.createElement('ion-button');
     element.setAttribute('ng-reflect-disabled', 'true');
-    const result = directive.elementIsEnabled(element);
+    const isEnable = directive.elementIsEnabled(element);
+    expect(isEnable).toBe(false);
     expect(result).toBe(false);
   });
 });
