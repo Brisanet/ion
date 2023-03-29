@@ -12,7 +12,6 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { FormsModule } from '@angular/forms';
 import { ChangeDetectorRef } from '@angular/core';
 import { COOLDOWN_TIME } from '../utils';
 
