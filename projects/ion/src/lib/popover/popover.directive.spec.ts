@@ -234,6 +234,12 @@ describe('Popover host tests', () => {
       expect(directive.closePopover).toHaveBeenCalled();
     }
   );
+
+  it('should not open a new popover when a popover is already opened', () => {
+    directive.open(elementPosition);
+    directive.open(elementPosition);
+    expect(screen.queryAllByTestId('ion-popover')).toHaveLength(1);
+  });
 });
 
 describe('Popover disabled host component', () => {
@@ -277,5 +283,12 @@ describe('Popover disabled host component', () => {
       expect(event).not.toBeCalled();
       expect(screen.queryAllByText(textButton)).toHaveLength(0);
     });
+  });
+
+  it('should return false if element is disabled', () => {
+    const element = document.createElement('ion-button');
+    element.setAttribute('ng-reflect-disabled', 'true');
+    const isEnable = directive.elementIsEnabled(element);
+    expect(isEnable).toBe(false);
   });
 });
