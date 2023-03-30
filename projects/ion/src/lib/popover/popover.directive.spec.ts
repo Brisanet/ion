@@ -171,7 +171,7 @@ describe('Directive: popover', () => {
       await sut({ ionPopoverPosition: ionPopoverPosition });
       fireEvent.click(screen.getByText(textButton));
       expect(screen.getByTestId('ion-popover')).toHaveClass(
-        `sup-container-${ionPopoverPosition}`
+        `ion-popover-sup-container--${ionPopoverPosition}`
       );
       fireEvent.click(screen.getByTestId('popover-icon-close'));
     }

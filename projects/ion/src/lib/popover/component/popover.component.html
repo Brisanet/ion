@@ -1,40 +1,40 @@
 <div
-  [class]="'sup-container-' + ionPopoverPosition"
+  [class]="'ion-popover-sup-container--' + ionPopoverPosition"
   data-testid="ion-popover"
   [style.top]="top + 'px'"
   [style.left]="left + 'px'"
   [style.position]="position"
 >
-  <div class="container">
-    <div class="header">
+  <div class="ion-popover__container">
+    <div class="ion-popover__header">
       <div>
         <ion-icon
           *ngIf="ionPopoverIcon"
-          class="header_icon"
+          class="ion-popover__icon"
           [type]="ionPopoverIcon"
         ></ion-icon>
 
-        <h4 class="header_title">{{ ionPopoverTitle }}</h4>
+        <h4 class="ion-popover__title">{{ ionPopoverTitle }}</h4>
       </div>
 
       <ion-button
         *ngIf="ionPopoverIconClose"
         data-testid="popover-icon-close"
         iconType="close"
-        class="header_iconClose"
+        class="ion-popover__iconClose"
         type="ghost"
         [circularButton]="true"
         (click)="close()"
       ></ion-button>
     </div>
 
-    <div class="content-body" *ngIf="ionPopoverBody">
+    <div class="ion-popover__content-body" *ngIf="ionPopoverBody">
       <ng-container [ngTemplateOutlet]="ionPopoverBody"></ng-container>
     </div>
 
     <ion-divider *ngIf="ionPopoverActions"></ion-divider>
 
-    <div *ngIf="ionPopoverActions" class="footer">
+    <div *ngIf="ionPopoverActions" class="ion-popover__footer">
       <ng-container *ngFor="let action of ionPopoverActions; let i = index">
         <ion-button
           *ngIf="action && i < 2"

@@ -24,7 +24,7 @@ import { IonButtonProps, IconType } from '../core/types';
 export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: IonButtonProps[] = [];
+  @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
