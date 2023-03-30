@@ -1,11 +1,10 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   Output,
   OnInit,
+  AfterViewInit,
 } from '@angular/core';
 import {
   BadgeType,
@@ -54,9 +53,8 @@ interface RightBadge {
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent implements OnInit {
+export class ChipComponent implements OnInit, AfterViewInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -74,23 +72,15 @@ export class ChipComponent implements OnInit {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
-  public id: string;
-
   badge: Badge = {
     value: 0,
   };
 
-  previusSelectedStatus = false;
-
-  clickReference!: SafeAny;
-
-  constructor(private ref: ChangeDetectorRef) {
-    this.ref.markForCheck();
-  }
-
   select(): void {
     this.toggleDropdown();
-    this.selected = !this.selected;
+    if (!this.options) {
+      this.selected = !this.selected;
+    }
     this.events.emit({
       selected: this.selected,
       disabled: this.disabled,
@@ -137,5 +127,19 @@ export class ChipComponent implements OnInit {
 
   getSelectedOptions(): DropdownItem[] {
     return (this.options || []).filter((option) => option.selected);
+  }
+
+  ngAfterViewInit(): void {
+    document.addEventListener('mouseup', (e: SafeAny) => {
+      const dropdownContainer =
+        document.getElementsByClassName('ion-chip-dropdown')[0];
+      if (dropdownContainer && !dropdownContainer.contains(e.target)) {
+        this.showDropdown = false;
+      }
+    });
+  }
+
+  clearBadgeValue(): void {
+    this.badge.value = 0;
   }
 }

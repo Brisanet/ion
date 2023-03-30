@@ -12,6 +12,8 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonSharedModule } from '../shared.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -109,6 +111,15 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
+  it('should render the label of the first selected option when displaying the chip with dropdwon', async () => {
+    const customLabel = 'option';
+    await sut({
+      label: 'chip',
+      options: [{ label: customLabel, selected: true }],
+    });
+    expect(screen.getByText(customLabel)).toBeInTheDocument();
+  });
+
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
     beforeEach(async () => {
@@ -193,7 +204,7 @@ describe('With Multiple Dropdown', () => {
     const dropdown = screen.getByTestId('ion-chip');
     fireEvent.click(dropdown);
     fireEvent.click(screen.getByText(options[0].label));
-    expect(dropdown).toHaveClass('chip-selected');
+    expect(screen.getAllByTestId('ion-dropdown')).toBeTruthy();
   });
 
   afterEach(() => {
@@ -239,5 +250,33 @@ describe('With Dropdown with search input', () => {
 
   afterEach(() => {
     searchEvent.mockClear();
+  });
+});
+
+describe('dropdown visibility in chip component', () => {
+  let chipComponent: ChipComponent;
+  let fixture: ComponentFixture<ChipComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ChipComponent],
+      imports: [IonSharedModule, IonInfoBadgeModule],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ChipComponent);
+    chipComponent = fixture.componentInstance;
+  });
+
+  it('should set toggleVisibeCalendar for false when dispatch event mouseup', () => {
+    chipComponent.options = [{ label: 'test' }];
+    chipComponent.showDropdown = false;
+    chipComponent.toggleDropdown();
+    fixture.detectChanges();
+    expect(chipComponent.showDropdown).toBeTruthy();
+
+    document.dispatchEvent(new Event('mouseup'));
+    expect(chipComponent.showDropdown).not.toBeTruthy();
   });
 });

@@ -55,7 +55,7 @@
   >
   </ion-icon>
 </button>
-<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="'dropdown-' + id">
+<div *ngIf="showDropdown" class="ion-chip-dropdown">
   <ion-dropdown
     [options]="options"
     [multiple]="multiple"
@@ -63,5 +63,6 @@
     [searchOptions]="dropdownSearchConfig?.searchOptions"
     (searchChange)="dropdownSearchChange($event)"
     (selected)="selectDropdownItem($event)"
+    (clearBadgeValue)="clearBadgeValue()"
   ></ion-dropdown>
 </div>
