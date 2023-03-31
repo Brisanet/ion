@@ -79,8 +79,8 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   hasPrevious(): boolean {
-    const fisrtPage = this.inFirstPage();
-    return fisrtPage !== undefined && fisrtPage !== null && !fisrtPage;
+    const firstPage = this.inFirstPage();
+    return firstPage !== undefined && firstPage !== null && !firstPage;
   }
 
   hasNext(): boolean {
