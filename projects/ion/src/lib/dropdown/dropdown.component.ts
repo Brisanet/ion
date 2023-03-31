@@ -78,15 +78,15 @@ export class IonDropdownComponent implements OnInit, AfterViewInit {
     this.searchChange.emit(value);
   }
 
+  public ngOnInit(): void {
+    this.setClearButtonIsVisible();
+  }
+
   private isDisabled(option: DropdownItem): boolean {
     return option.disabled;
   }
 
   private isSingle(): boolean {
     return !this.multiple;
-  }
-
-  public ngOnInit(): void {
-    this.setClearButtonIsVisible();
   }
 }
