@@ -135,6 +135,22 @@ export class IonPopoverDirective implements OnDestroy {
     }
   }
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (this.popoverComponentRef) {
+      const popoverElement = this.popoverComponentRef.location
+        .nativeElement as HTMLElement;
+      const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+
+      if (
+        !popoverElement.contains(event.target as SafeAny) &&
+        !hostElement.contains(event.target as SafeAny)
+      ) {
+        this.closePopover();
+      }
+    }
+  }
+
   destroyComponent(): void {
     if (this.popoverComponentRef) {
       this.appRef.detachView(this.popoverComponentRef.hostView);
