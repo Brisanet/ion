@@ -2,7 +2,7 @@ import { IonSpinnerComponent } from '../projects/ion/src/lib/spinner/spinner.com
 import { Meta, Story } from '@storybook/angular/types-6-0';
 
 export default {
-  title: 'Spinner',
+  title: 'Ion/Feedback/Spinner',
   component: IonSpinnerComponent,
 } as Meta<typeof IonSpinnerComponent>;
 
