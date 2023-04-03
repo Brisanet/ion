@@ -192,7 +192,6 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.CHANGE_PAGE,
     });
   });
-
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
@@ -660,6 +659,18 @@ describe('Table without Data', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+
+  it('Should add a (-) when there is no data in the cell', async () => {
+    const customData = {
+      ...defaultProps,
+    };
+    customData.config.data = [{ name: '', height: 0, mass: 100 }];
+    await sut(customData);
+    const heightCell = screen.getByTestId('row-0-height');
+    const nameCell = screen.getByTestId('row-0-name');
+    expect(heightCell).toHaveTextContent('-');
+    expect(nameCell).toHaveTextContent('-');
   });
 });
 
