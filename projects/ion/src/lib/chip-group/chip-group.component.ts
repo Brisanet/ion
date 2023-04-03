@@ -1,29 +1,12 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { BadgeType } from '../core/types/badge';
-import { ChipSize, IconDirection, IonChipProps } from '../core/types';
-
-export interface ChipInGroup extends IonChipProps {
-  selected?: boolean;
-}
-
-export interface ChipGroupProps {
-  chips?: Array<IonChipProps>;
-  disabled?: boolean;
-  size?: ChipSize;
-  multiple?: boolean;
-  events?: EventEmitter<ChipEvent>;
-  selected: EventEmitter<ChipInGroup>;
-}
-
-interface ChipEvent {
-  selected: boolean;
-  disabled: boolean;
-}
-
-interface RightBadge {
-  label: string;
-  type: BadgeType;
-}
+import { EMPTY } from 'rxjs';
+import {
+  ChipSize,
+  IconDirection,
+  IonChipProps,
+  RightBadge,
+} from '../core/types';
+import { ChipInGroup } from '../core/types/chip-group';
 
 @Component({
   selector: 'ion-chip-group',
@@ -38,7 +21,7 @@ export class IonChipGroupComponent {
   @Input() rightBadge?: RightBadge;
   @Input() disabled = false;
   @Input() multiple = false;
-  @Output() selected = new EventEmitter<ChipInGroup>();
+  @Output() selected? = new EventEmitter<ChipInGroup>();
 
   selectChip(chipSelected: ChipInGroup): void {
     if (chipSelected.options) {
@@ -47,7 +30,7 @@ export class IonChipGroupComponent {
     if (!this.multiple) {
       this.clearChips();
     }
-    chipSelected.selected = true;
+    chipSelected.selected = !chipSelected.selected;
     this.selected.emit(chipSelected);
   }
 
@@ -59,7 +42,7 @@ export class IonChipGroupComponent {
 
   private clearChipsWithDropdown(): void {
     this.chips.forEach((chip) => {
-      chip.selected && chip.options ? (chip.selected = false) : '';
+      chip.selected && chip.options ? (chip.selected = false) : EMPTY;
     });
   }
 }

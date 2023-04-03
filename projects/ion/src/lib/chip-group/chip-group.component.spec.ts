@@ -1,10 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
-import { IonChipGroupComponent, ChipGroupProps } from './chip-group.component';
+import { IonChipGroupComponent } from './chip-group.component';
 import { FormsModule } from '@angular/forms';
 import { ChipSize } from '../core/types';
 import { IonButtonModule } from '../button/button.module';
 import { IonChipModule } from '../chip/chip.module';
+import { ChipGroupProps } from '../core/types/chip-group';
 
 const selectEvent = jest.fn();
 const mockChips = [
@@ -45,7 +46,7 @@ describe('ChipGroupComponent', () => {
     fireEvent.click(screen.getByText(mockChips[0].label));
     expect(rendered.event).toHaveBeenCalledWith({
       label: mockChips[0].label,
-      selected: true,
+      selected: mockChips[0].selected,
     });
   });
 
