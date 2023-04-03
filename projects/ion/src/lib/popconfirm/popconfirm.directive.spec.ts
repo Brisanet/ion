@@ -17,7 +17,7 @@ import { IonButtonModule } from '../button/button.module';
 
 const textButton = 'Teste';
 const confirmText = 'Confirmar';
-const elementPosition: PopPosition = { top: 10, left: 40 };
+const elementPosition: PopPosition = { top: 10, left: 40, width: 24, x: 500 };
 
 @Component({
   template: `

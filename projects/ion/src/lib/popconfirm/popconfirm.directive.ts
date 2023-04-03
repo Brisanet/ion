@@ -18,6 +18,15 @@ import { IonPopConfirmComponent } from './popconfirm.component';
 export interface PopPosition {
   top: number;
   left: number;
+  width: number;
+  x: number;
+}
+
+export interface PopOffset {
+  screenOffset: number;
+  top: number;
+  width: number;
+  x: number;
 }
 
 @Directive({
@@ -55,9 +64,12 @@ export class IonPopConfirmDirective {
     const popconfirmElement = this.IonPopConfirmComponentRef.location
       .nativeElement as HTMLElement;
 
-    this.setStyle(popconfirmElement, position);
-
     this.document.body.appendChild(popconfirmElement);
+
+    requestAnimationFrame(() => {
+      const offsetPosition = this.setPosition(popconfirmElement, position);
+      this.setStyle(popconfirmElement, offsetPosition);
+    });
 
     this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
       this.ionPopConfirmTitle;
@@ -84,10 +96,40 @@ export class IonPopConfirmDirective {
     }
   }
 
-  setStyle(element: HTMLElement, position: PopPosition): void {
+  setPosition(element: HTMLElement, position: PopPosition): PopOffset {
+    const documentWidth = this.document.body.clientWidth;
+
+    const popConfirmWidth = element.offsetWidth;
+
+    const offsetToLeft = position.x - popConfirmWidth + position.width * 1.5;
+
+    const offsetToRight = position.left - position.width / 2;
+
+    const screenOffset = documentWidth - position.x;
+
+    const xPosition =
+      screenOffset < popConfirmWidth ? offsetToLeft : offsetToRight;
+
+    const offset = {
+      screenOffset: screenOffset,
+      top: position.top,
+      width: popConfirmWidth,
+      x: xPosition,
+    };
+
+    return offset;
+  }
+
+  setStyle(element: HTMLElement, offset: PopOffset): void {
+    const supContainerEl = document.querySelector('.sup-container');
+
     element.style.position = 'absolute';
-    element.style.left = position.left + 'px';
-    element.style.top = position.top + 'px';
+    element.style.left = offset.x + 'px';
+    element.style.top = offset.top + 'px';
+
+    if (offset.screenOffset < offset.width) {
+      supContainerEl.classList.replace('sup-container', 'sup-container-right');
+    }
   }
 
   elementIsEnabled(element: HTMLElement): boolean {
@@ -100,15 +142,17 @@ export class IonPopConfirmDirective {
 
   @HostListener('click') onClick(): void {
     const marginBetweenComponents = 10;
+
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
 
-    const position = hostElement.getBoundingClientRect();
-    const midHostElementInView = position.left - position.width / 2;
+    const position = hostElement.getBoundingClientRect() as DOMRect;
 
     if (this.elementIsEnabled(hostElement)) {
       this.open({
         top: position.top + position.height + marginBetweenComponents,
-        left: midHostElementInView,
+        left: position.left,
+        width: position.width,
+        x: position.x,
       });
     }
   }
