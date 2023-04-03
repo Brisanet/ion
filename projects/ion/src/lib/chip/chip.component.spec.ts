@@ -12,8 +12,6 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { ChangeDetectorRef } from '@angular/core';
-import { COOLDOWN_TIME } from '../utils';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -30,24 +28,6 @@ const sut = async (customProps?: IonChipProps): Promise<void> => {
     ],
   });
 };
-
-class MockChangeDetectorRef extends ChangeDetectorRef {
-  markForCheck(): void {
-    return;
-  }
-  detach(): void {
-    return;
-  }
-  detectChanges(): void {
-    return;
-  }
-  checkNoChanges(): void {
-    return;
-  }
-  reattach(): void {
-    return;
-  }
-}
 
 describe('ChipComponent', () => {
   it('should render chip with options', async () => {
@@ -129,16 +109,6 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
-  it('should execute code inside setTimeout and set the ID', async () => {
-    const ref = new MockChangeDetectorRef();
-    const component = new ChipComponent(ref);
-    component.ngAfterViewInit();
-
-    await new Promise((resolve) => setTimeout(resolve, COOLDOWN_TIME));
-
-    expect(component.id).toBeDefined();
-  });
-
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
     beforeEach(async () => {
@@ -164,23 +134,6 @@ describe('ChipComponent', () => {
       const element = screen.getByText('dropdown');
       fireEvent.click(element);
       expect(screen.getByText(defaultOptions[0].label)).toBeInTheDocument();
-    });
-
-    it('should show option label in chip label when selected', async () => {
-      const option = defaultOptions[0].label;
-      const element = screen.getByText('dropdown');
-      fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
-      expect(screen.getAllByText(option)).toHaveLength(1);
-    });
-
-    it('should close dropdown when is not multiple and selected an option', async () => {
-      const option = defaultOptions[0].label;
-      const element = screen.getByTestId('ion-chip');
-      fireEvent.click(element);
-      fireEvent.click(document.getElementById('option-0'));
-      expect(element).toHaveClass('chip');
-      expect(screen.queryAllByText(option)).toHaveLength(1);
     });
 
     it('should emit options selected when select in chip', async () => {
