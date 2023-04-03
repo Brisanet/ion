@@ -36,10 +36,11 @@ describe('SpinnerComponent', () => {
   });
 
   it('should render SpinnerComponent with custom size', async () => {
-    await sut({ ...defaultProps, size: 48 });
+    const customSize = 48;
+    await sut({ ...defaultProps, size: customSize });
     expect(screen.getByTestId('ion-spinner')).toHaveStyle({
-      width: '48px',
-      height: '48px',
+      width: `${customSize}px`,
+      height: `${customSize}px`,
     });
   });
 });
