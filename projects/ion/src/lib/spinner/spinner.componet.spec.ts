@@ -28,9 +28,10 @@ describe('SpinnerComponent', () => {
   );
 
   it('should render SpinnerComponent with custom color', async () => {
-    await sut({ ...defaultProps, customColor: '#c05bff' });
+    const customColor = '#c05bff';
+    await sut({ ...defaultProps, customColor });
     expect(screen.getByTestId('ion-spinner')).toHaveStyle({
-      'border-left-color': '#c05bff',
+      'border-left-color': customColor,
     });
   });
 
