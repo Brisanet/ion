@@ -29,7 +29,7 @@
       (click)="!loading && selectPage(page.page_number)"
       [class.disabled]="loading"
     >
-      <span>{{
+      <span [class]="'page-ellipsis-' + page.page_number">{{
         page.page_number === -1 || page.page_number === 0
           ? '...'
           : page.page_number

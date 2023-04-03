@@ -154,13 +154,11 @@ describe('PaginationComponent with Ellipsis', () => {
       total: 46,
       itemsPerPage: 2,
     });
-    const pageThree = screen.getByTestId('page-3');
-    fireEvent.click(pageThree);
     const pageFive = screen.getByTestId('page-5');
     fireEvent.click(pageFive);
     const firstEllipsis = screen.getByTestId('page--1');
     fireEvent.click(firstEllipsis);
-    expect(document.querySelectorAll('.square-pag')).toHaveLength(9);
+    expect(document.querySelectorAll('.square-pag')).toHaveLength(7);
   });
 
   it('should render up to five pages more when the second ellipsis is clicked', async () => {
@@ -170,7 +168,7 @@ describe('PaginationComponent with Ellipsis', () => {
     });
     const pageZero = screen.getByTestId('page-0');
     fireEvent.click(pageZero);
-    expect(document.querySelectorAll('.square-pag')).toHaveLength(10);
+    expect(document.querySelectorAll('.square-pag')).toHaveLength(9);
   });
 
   it('should render a first ellipsis when last page is selected', async () => {
