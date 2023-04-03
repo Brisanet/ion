@@ -12,6 +12,8 @@ import {
   ViewContainerRef,
   OnDestroy,
   TemplateRef,
+  ElementRef,
+  OnInit,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -21,7 +23,7 @@ import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
 
 @Directive({ selector: '[ionPopover]' })
-export class IonPopoverDirective implements OnDestroy {
+export class IonPopoverDirective implements OnInit, OnDestroy {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
@@ -40,7 +42,8 @@ export class IonPopoverDirective implements OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private readonly viewRef: ViewContainerRef
+    private readonly viewRef: ViewContainerRef,
+    private elRef: ElementRef
   ) {}
 
   open(position: SafeAny): void {
@@ -157,6 +160,12 @@ export class IonPopoverDirective implements OnDestroy {
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
+  }
+
+  ngOnInit(): void {
+    const position = this.elRef.nativeElement.getBoundingClientRect();
+    // eslint-disable-next-line no-console
+    console.log(position);
   }
 
   ngOnDestroy(): void {
