@@ -117,7 +117,7 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
-  it('should test if a dropdown component correctly updates label', async () => {
+  it('should correctly updates label when the selected option changes', async () => {
     const dropdownEvent = jest.fn();
     const customOptions = [
       { label: 'Slytherin', selected: true },
