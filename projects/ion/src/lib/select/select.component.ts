@@ -27,10 +27,10 @@ export class IonSelectComponent implements AfterViewInit {
     }
 
     document.addEventListener('mouseup', (e: SafeAny) => {
-      const calendarContainer = document.getElementsByClassName(
+      const dropdownContainer = document.getElementsByClassName(
         'ion-select__container-dropdown'
       )[0];
-      if (calendarContainer && !calendarContainer.contains(e.target)) {
+      if (dropdownContainer && !dropdownContainer.contains(e.target)) {
         setTimeout(() => {
           this.showDropdown = false;
         });
