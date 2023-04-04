@@ -1,1 +1,7 @@
-<p>olá</p>
+<div class="ion-select__container-input">
+  <ion-input [placeholder]="placeholder" (click)="toggleDropdown()"></ion-input>
+</div>
+
+<div *ngIf="showDropdown">
+  <p>olá</p>
+</div>
