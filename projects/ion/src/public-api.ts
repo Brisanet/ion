@@ -45,3 +45,4 @@ export * from './lib/tooltip/tooltip.module';
 export * from './lib/popover/popover.module';
 export * from './lib/typography/';
 export { default as debounce } from './lib/utils/debounce';
+export * from './lib/spinner/spinner.module';
