@@ -1,13 +1,13 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
-  OnDestroy,
   Output,
   OnInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   BadgeType,
@@ -16,13 +16,7 @@ import {
   IconType,
   InfoBadgeStatus,
 } from '../core/types';
-import {
-  COOLDOWN_TIME,
-  DROPDOWN_SEARCH_SELECTOR,
-  DROPDOWN_SELECTOR,
-  generateIDs,
-  ID_SELECTOR,
-} from '../utils';
+
 import { SafeAny } from '../utils/safe-any';
 
 export type ChipSize = 'sm' | 'md';
@@ -64,7 +58,7 @@ interface RightBadge {
   styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
+export class ChipComponent implements OnInit, OnChanges {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -129,49 +123,6 @@ export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
     this.dropdownSearchEvents.emit(value);
   }
 
-  checkTargetClick = (event: MouseEvent): void => {
-    const target = event.target as HTMLInputElement;
-    const elementChip = target.closest(ID_SELECTOR + this.id);
-    const elementChipDropdown = target.closest(DROPDOWN_SELECTOR + this.id);
-    const elementChipSearch = target.closest(
-      DROPDOWN_SELECTOR + this.id + DROPDOWN_SEARCH_SELECTOR
-    );
-
-    if (elementChipSearch || (elementChipDropdown && this.multiple)) {
-      return;
-    }
-
-    if (!elementChip) {
-      if ((this.previusSelectedStatus && this.selected) || !this.selected) {
-        this.showDropdown = false;
-        this.selected = false;
-        this.events.emit({
-          selected: this.selected,
-          disabled: this.disabled,
-        });
-        this.ref.detectChanges();
-      }
-    }
-    this.previusSelectedStatus = this.selected;
-  };
-
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.id = generateIDs('chip-', 'ion-chip');
-      this.ref.markForCheck();
-    }, COOLDOWN_TIME);
-
-    this.clickReference = (event: MouseEvent): void => {
-      this.checkTargetClick(event);
-    };
-
-    document.body.addEventListener('click', this.clickReference);
-  }
-
-  ngOnDestroy(): void {
-    document.body.removeEventListener('click', this.clickReference);
-  }
-
   ngOnInit(): void {
     if (this.multiple) {
       return;
@@ -184,6 +135,15 @@ export class ChipComponent implements AfterViewInit, OnDestroy, OnInit {
     }
 
     this.label = selectedOption.label;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.options && !changes.options.firstChange && !this.multiple) {
+      const filterSelection = changes.options.currentValue.filter(
+        (option: DropdownItem) => option.selected
+      );
+      this.label = filterSelection[0].label;
+    }
   }
 
   getSelectedOptions(): DropdownItem[] {

@@ -174,4 +174,26 @@ describe('IonModalComponent', () => {
   it('should have close button', () => {
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
   });
+
+  it('should render the width of the default modal', () => {
+    const modalElement =
+      fixture.nativeElement.querySelector('.modal-container').style.width;
+    expect(modalElement).toBe('500px');
+  });
+
+  it('should render width of custom modal', () => {
+    const modalConfig: IonModalConfiguration = {
+      id: '1',
+      title: 'Modal primary disabled',
+      width: 200,
+    };
+
+    component.setConfig(modalConfig);
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    const modalElement =
+      fixture.nativeElement.querySelector('.modal-container').style.width;
+    expect(modalElement).toBe(`${modalConfig.width}px`);
+  });
 });
