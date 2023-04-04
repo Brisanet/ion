@@ -5,6 +5,8 @@ import {
   Output,
   OnInit,
   AfterViewInit,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   BadgeType,
@@ -54,7 +56,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent implements OnInit, AfterViewInit {
+export class ChipComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -123,6 +125,15 @@ export class ChipComponent implements OnInit, AfterViewInit {
     }
 
     this.label = selectedOption.label;
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.options && !changes.options.firstChange && !this.multiple) {
+      const filterSelection = changes.options.currentValue.filter(
+        (option: DropdownItem) => option.selected
+      );
+      this.label = filterSelection[0].label;
+    }
   }
 
   getSelectedOptions(): DropdownItem[] {
