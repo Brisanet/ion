@@ -19,11 +19,16 @@ import { PopoverPosition } from '../../core/types/popover';
         [ionPopoverIconClose]="args.ionPopoverIconClose"
         [ionPopoverPosition]="args.ionPopoverPosition"
         [ionPopoverActions]="args.ionPopoverActions"
+        [isVisible]="args.isVisible"
+        [onClickDesable]="args.onClickDesable"
         label="click me"
       >
       </ion-button>
       <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
     </div>
+
+    <ion-button (click)="changeVisibility()" label="change visibility">
+    </ion-button>
   `,
 })
 export class OpenPopoverComponent {
@@ -34,5 +39,11 @@ export class OpenPopoverComponent {
     ionPopoverPosition: PopoverPosition.DEFAULT,
     ionPopoverIconClose: true,
     ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
+    isVisible: false,
+    onClickDesable: true,
   };
+
+  changeVisibility(): void {
+    this.args.isVisible = !this.args.isVisible;
+  }
 }

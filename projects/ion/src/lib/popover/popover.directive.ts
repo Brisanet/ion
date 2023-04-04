@@ -13,7 +13,8 @@ import {
   OnDestroy,
   TemplateRef,
   ElementRef,
-  OnInit,
+  SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
@@ -23,7 +24,7 @@ import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
 
 @Directive({ selector: '[ionPopover]' })
-export class IonPopoverDirective implements OnInit, OnDestroy {
+export class IonPopoverDirective implements OnDestroy, OnChanges, ElementRef {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
@@ -31,9 +32,13 @@ export class IonPopoverDirective implements OnInit, OnDestroy {
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
+  @Input() onClickDesable = false;
+  @Input() isVisible = false;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
+
+  nativeElement: HTMLElement;
 
   private popoverComponentRef!: ComponentRef<IonPopoverComponent>;
 
@@ -133,14 +138,14 @@ export class IonPopoverDirective implements OnInit, OnDestroy {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
     const position = hostElement.getBoundingClientRect();
 
-    if (this.elementIsEnabled(hostElement)) {
+    if (this.elementIsEnabled(hostElement) && !this.onClickDesable) {
       this.open(position);
     }
   }
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-    if (this.popoverComponentRef) {
+    if (this.popoverComponentRef && !this.onClickDesable) {
       const popoverElement = this.popoverComponentRef.location
         .nativeElement as HTMLElement;
       const hostElement = this.viewRef.element.nativeElement as HTMLElement;
@@ -162,10 +167,16 @@ export class IonPopoverDirective implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {
-    const position = this.elRef.nativeElement.getBoundingClientRect();
-    // eslint-disable-next-line no-console
-    console.log(position);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.isVisible.currentValue) {
+      this.nativeElement = this.elRef.nativeElement;
+      const position = this.nativeElement.getBoundingClientRect();
+      if (this.elementIsEnabled(this.nativeElement) && this.onClickDesable) {
+        this.open(position);
+      }
+    } else {
+      this.closePopover();
+    }
   }
 
   ngOnDestroy(): void {
