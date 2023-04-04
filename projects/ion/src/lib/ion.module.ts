@@ -40,6 +40,7 @@ import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
 import { IonChipGroupModule } from './chip-group/chip-group.module';
+import { IonSpinnerModule } from './spinner/spinner.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -83,6 +84,7 @@ import { IonChipGroupModule } from './chip-group/chip-group.module';
     IonRadioGroupModule,
     IonDatePickerModule,
     IonChipGroupModule,
+    IonSpinnerModule,
   ],
   exports: [
     IonComponent,
@@ -124,6 +126,7 @@ import { IonChipGroupModule } from './chip-group/chip-group.module';
     IonDatePickerModule,
     IonRadioGroupModule,
     IonChipGroupModule,
+    IonSpinnerModule,
   ],
 })
 export class IonModule {}
