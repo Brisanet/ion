@@ -1,5 +1,11 @@
 <div class="ion-select__container-input">
-  <ion-input [placeholder]="placeholder" (click)="toggleDropdown()"></ion-input>
+  <ion-input
+    [placeholder]="placeholder"
+    (click)="toggleDropdown()"
+    iconDirection="right"
+    [iconInput]="search ? 'search' : showDropdown ? 'semi-down' : 'semi-up'"
+    [readonly]="!search"
+  ></ion-input>
 </div>
 
 <div *ngIf="showDropdown">
