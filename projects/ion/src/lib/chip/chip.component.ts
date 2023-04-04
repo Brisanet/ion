@@ -139,10 +139,10 @@ export class ChipComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.options && !changes.options.firstChange && !this.multiple) {
-      const filtroSelection = changes.options.currentValue.filter(
+      const filterSelection = changes.options.currentValue.filter(
         (option: DropdownItem) => option.selected
       );
-      this.label = filtroSelection[0].label;
+      this.label = filterSelection[0].label;
     }
   }
 
