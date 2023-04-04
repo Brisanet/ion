@@ -3,7 +3,6 @@
 $radius: 8px;
 
 .ion-table {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   border-radius: $radius;
 }
 
@@ -114,6 +113,10 @@ table {
     align-items: center;
   }
 
+  & .old {
+    background-color: $neutral-1;
+  }
+
   & .even {
     background-color: $neutral-2;
   }
@@ -166,6 +169,7 @@ table {
   align-items: center;
 
   color: $neutral-6;
+  background-color: $neutral-1;
   font-weight: 600;
   line-height: 17px;
   font-size: medium;
