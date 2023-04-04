@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonBadgeModule } from '../badge/badge.module';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
@@ -12,11 +17,14 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
+import { SimpleChange } from '@angular/core';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
-const sut = async (customProps?: IonChipProps): Promise<void> => {
-  await render(ChipComponent, {
+const sut = async (
+  customProps?: IonChipProps
+): Promise<RenderResult<ChipComponent>> => {
+  return await render(ChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },
@@ -107,6 +115,37 @@ describe('ChipComponent', () => {
       rightBadge: { label: labelBadge, type: 'negative' },
     });
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
+  });
+
+  it('should correctly updates label when the selected option changes', async () => {
+    const dropdownEvent = jest.fn();
+    const customOptions = [
+      { label: 'Slytherin', selected: true },
+      { label: 'Ravenclaw', selected: false },
+    ];
+    const customProps = {
+      label: 'dropdown',
+      options: customOptions,
+      multiple: false,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
+    };
+    const { fixture } = await sut(customProps);
+    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
+      customOptions[0].label
+    );
+    const element = screen.getByTestId('ion-chip');
+    fireEvent.click(element);
+    fireEvent.click(document.getElementById('option-0'));
+    customProps.options[0].selected = false;
+    customProps.options[1].selected = true;
+
+    fixture.componentInstance.ngOnChanges({
+      options: new SimpleChange(null, customProps.options, false),
+    });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.label).toBe(customProps.options[1].label);
   });
 
   describe('With Dropdown', () => {
