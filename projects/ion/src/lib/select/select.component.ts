@@ -1,16 +1,29 @@
+import {
+  Component,
+  Input,
+  Output,
+  AfterViewInit,
+  EventEmitter,
+  OnInit,
+} from '@angular/core';
 import { SafeAny } from './../utils/safe-any';
-import { Component, Input, AfterViewInit } from '@angular/core';
+import { DropdownItem } from '../core/types';
 
 @Component({
   selector: 'ion-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.css'],
 })
-export class IonSelectComponent implements AfterViewInit {
+export class IonSelectComponent implements OnInit, AfterViewInit {
   @Input() disabledToggle = false;
   @Input() showDropdown = false;
   @Input() placeholder = 'choose';
-  @Input() search = false;
+  @Input() options: DropdownItem[];
+  @Output() selected = new EventEmitter<DropdownItem>();
+
+  search = false;
+  inputValue = '';
+  id: string;
 
   toggleDropdown(): void {
     if (this.disabledToggle) {
@@ -21,20 +34,43 @@ export class IonSelectComponent implements AfterViewInit {
     this.showDropdown = !this.showDropdown;
   }
 
+  ngOnInit(): void {
+    this.id = this.generateIdentification();
+  }
+
+  generateIdentification = (): string =>
+    'ion-select__container-dropdown__' +
+    Math.floor(Math.random() * 100000000) +
+    1;
+
   ngAfterViewInit(): void {
     if (this.disabledToggle) {
       return;
     }
 
     document.addEventListener('mouseup', (e: SafeAny) => {
-      const dropdownContainer = document.getElementsByClassName(
-        'ion-select__container-dropdown'
-      )[0];
+      const dropdownContainer = document.getElementById(this.id);
       if (dropdownContainer && !dropdownContainer.contains(e.target)) {
-        setTimeout(() => {
-          this.showDropdown = false;
-        });
+        this.showDropdown = false;
       }
     });
+  }
+
+  selectedOptions(event: DropdownItem[]): void {
+    const [option] = event;
+    this.inputValue = option.label;
+    this.selected.emit(option);
+  }
+
+  uncheckedOptionsInSelect(event: string): void {
+    if (!event) {
+      this.options.forEach((item: DropdownItem) => {
+        item.selected = false;
+      });
+    }
+  }
+
+  clearInput(): void {
+    this.inputValue = '';
   }
 }
