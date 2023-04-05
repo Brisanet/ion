@@ -9,15 +9,33 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
 import { IonPopConfirmComponent } from './popconfirm.component';
-import { IonPopConfirmDirective, PopPosition } from './popconfirm.directive';
+import {
+  IonPopConfirmDirective,
+  PopPosition,
+  PopOffset,
+} from './popconfirm.directive';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonButtonModule } from '../button/button.module';
 
 const textButton = 'Teste';
+const tableTextButton = 'Teste na table';
 const confirmText = 'Confirmar';
-const elementPosition: PopPosition = { top: 10, left: 40, width: 24, x: 500 };
+const elementPosition: PopPosition = {
+  top: 10,
+  left: 500,
+  width: 24,
+};
+
+const documentWidth = 1024;
+
+const elementOffset: PopOffset = {
+  top: 10,
+  left: 488,
+  width: 210,
+  screenOffset: 524,
+};
 
 @Component({
   template: `
@@ -55,6 +73,37 @@ class ButtonTestDisabledComponent {
   public disabled = true;
 }
 
+@Component({
+  template: `
+    <table style="width: 100%;">
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Ações</th>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Meteora</td>
+        <td>
+          <button
+            ionPopConfirm
+            ionPopConfirmTitle="Você tem certeza?"
+            (ionOnConfirm)="confirm()"
+            class="get-test"
+            style="margin-top: 50px;"
+          >
+            ${tableTextButton}
+          </button>
+        </td>
+      </tr>
+    </table>
+  `,
+})
+class TableTestComponent {
+  @ViewChild('container', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+}
+
 describe('Directive: Popconfirm', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
   let directive: IonPopConfirmDirective;
@@ -82,16 +131,16 @@ describe('Directive: Popconfirm', () => {
   });
 
   it('should create element with the directive', () => {
-    directive.open(elementPosition);
+    directive.open();
     expect(screen.getByText(textButton)).toHaveAttribute('ionpopconfirm', '');
   });
 
   it('should open the popconfirm when clicked', () => {
-    directive.open(elementPosition);
+    directive.open();
   });
 
   it('should open the popconfirm when clicked', () => {
-    directive.open(elementPosition);
+    directive.open();
     fireEvent.click(screen.getByText(textButton));
     expect(screen.getByText(confirmText)).toBeInTheDocument();
   });
@@ -99,7 +148,7 @@ describe('Directive: Popconfirm', () => {
   it('should close pop when click in cancel', () => {
     jest.spyOn(directive, 'closePopConfirm');
 
-    directive.open(elementPosition);
+    directive.open();
     fireEvent.click(screen.getByTestId('pop-cancel-btn'));
 
     expect(directive.closePopConfirm).toHaveBeenCalled();
@@ -108,21 +157,21 @@ describe('Directive: Popconfirm', () => {
   it('should close pop when click in confirm', () => {
     jest.spyOn(directive, 'closePopConfirm');
 
-    directive.open(elementPosition);
+    directive.open();
     fireEvent.click(screen.getByTestId('pop-confirm-btn'));
 
     expect(directive.closePopConfirm).toHaveBeenCalled();
   });
 
   it('should click in confirm button', () => {
-    directive.open(elementPosition);
+    directive.open();
     fireEvent.click(screen.getByTestId('pop-confirm-btn'));
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
 
   it('should not open new popconfirm when be opened', () => {
-    directive.open(elementPosition);
-    directive.open(elementPosition);
+    directive.open();
+    directive.open();
     expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(1);
   });
 });
@@ -213,5 +262,52 @@ describe('Popconfirm disabled host component', () => {
       expect(event).not.toBeCalled();
       expect(screen.queryAllByText(confirmText)).toHaveLength(0);
     });
+  });
+});
+
+describe('Popconfirm position when it opens', () => {
+  let fixtureTable: ComponentFixture<TableTestComponent>;
+  let directive: IonPopConfirmDirective;
+  let input: DebugElement;
+
+  beforeEach(() => {
+    fixtureTable = TestBed.configureTestingModule({
+      providers: [IonPopConfirmDirective, ViewContainerRef],
+      declarations: [
+        TableTestComponent,
+        IonPopConfirmComponent,
+        IonPopConfirmDirective,
+      ],
+      imports: [FormsModule, IonButtonModule, IonDividerModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [IonPopConfirmComponent],
+        },
+      })
+      .createComponent(TableTestComponent);
+
+    fixtureTable.detectChanges();
+    directive = fixtureTable.debugElement.injector.get(IonPopConfirmDirective);
+    input = fixtureTable.debugElement.query(
+      By.directive(IonPopConfirmDirective)
+    );
+  });
+
+  afterEach(() => {
+    directive.closePopConfirm();
+  });
+
+  it('should open to right side when there is sufficient visible area', () => {
+    directive.open();
+    fireEvent.click(screen.getByText(tableTextButton));
+    const popconfirmElement = screen.getAllByTestId('sup-container')[2];
+    const position: PopOffset = directive.setPosition(
+      popconfirmElement,
+      documentWidth,
+      elementPosition
+    );
+    expect(position.left).toBe(elementOffset.left);
   });
 });
