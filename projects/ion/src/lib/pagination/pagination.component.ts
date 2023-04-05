@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { DropdownItem } from '../core/types/dropdown';
 import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
-
+import { IonPaginationEllipsisComponent } from './utils/ellipsis.component';
 export const ITEMS_PER_PAGE_DEFAULT = 10;
 export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
 
@@ -36,6 +36,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   pageShiftQuantity = 5;
   previousNextQuantity = 2;
   currentPageNumber: number;
+  ionEllipsis = new IonPaginationEllipsisComponent(this);
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
@@ -63,12 +64,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     } else {
       this.selectPage(page);
     }
-  }
-
-  skipEllipsis(pageNumber: number): number {
-    if (pageNumber === 1) return pageNumber - 1;
-    else if (pageNumber === this.pages.length - 2) return pageNumber + 1;
-    else return pageNumber;
   }
 
   selectPage(pageNumber = 1): void {
@@ -113,7 +108,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   selectedPageCondition(pageNumber: number): void {
     let page: Page;
     if (this.totalPages() >= 10) {
-      page = this.pages[this.skipEllipsis(pageNumber)];
+      page = this.pages[this.ionEllipsis.skipEllipsis(pageNumber)];
       pageNumber === 0 || pageNumber === -1
         ? (page.selected = false)
         : (page.selected = true);
@@ -149,6 +144,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     const showLeftEllipsis =
       this.currentPageNumber - 1 > this.previousNextQuantity + 1;
     const firstPages = this.currentPageNumber < 5 && pageNumber <= 5;
+
     if (this.totalPages() <= 9) return false;
     else {
       if (pageNumber === -1) return !showLeftEllipsis;
@@ -159,14 +155,14 @@ export class IonPaginationComponent implements OnChanges, OnInit {
         return true && !isLast && !beyondPages;
       }
     }
-    return this.hidePageNumber(pageNumber);
+    return this.ionEllipsis.hidePageNumber(pageNumber);
   }
 
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
       if (qtdOfPages >= 10) {
-        this.createEllipsis(index, qtdOfPages);
+        this.ionEllipsis.createEllipsis(index, qtdOfPages);
       } else {
         this.pages.push({
           selected: false,
@@ -174,24 +170,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
         });
       }
     }
-  }
-
-  private createEllipsis(index: number, qtdOfPages: number): void {
-    if (index == 1) {
-      this.pages.push({
-        selected: false,
-        page_number: -1,
-      });
-    } else if (index == qtdOfPages - 1) {
-      this.pages.push({
-        selected: false,
-        page_number: 0,
-      });
-    }
-    this.pages.push({
-      selected: false,
-      page_number: index + 1,
-    });
   }
 
   private inLastPage(): boolean {
@@ -222,17 +200,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     return (
       LIST_OF_PAGE_OPTIONS.includes(this.itemsPerPage) &&
       this.itemsPerPage === quantityOfPages
-    );
-  }
-
-  private hidePageNumber(pageNumber: number): boolean {
-    return (
-      (pageNumber < this.currentPageNumber - this.previousNextQuantity ||
-        pageNumber > this.currentPageNumber + this.previousNextQuantity) &&
-      pageNumber !== this.totalPages() &&
-      pageNumber !== 1 &&
-      pageNumber !== -1 &&
-      pageNumber !== 0
     );
   }
 }
