@@ -524,6 +524,42 @@ E 6 outras propriedades adicionais.
     }}
   </Story>
   <Story
+    name="Loading in secondary danger"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Secondary" type="secondary" [danger]="true" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="Loading in ghost danger"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [danger]="true" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="Loading in dashed danger"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Dashed" type="dashed" [danger]="true" [loading]="true"></ion-button>`,
+    }}
+  </Story>
+  <Story
     name="Loading with custom message"
     decorators={[
       moduleMetadata({
