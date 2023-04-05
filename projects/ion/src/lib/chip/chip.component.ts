@@ -127,26 +127,25 @@ export class ChipComponent implements OnInit, OnChanges {
     if (this.multiple) {
       return;
     }
-
-    const [selectedOption] = this.getSelectedOptions();
-
-    if (!selectedOption) {
-      return;
-    }
-
-    this.label = selectedOption.label;
+    this.updateLabel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.options && !changes.options.firstChange && !this.multiple) {
-      const filterSelection = changes.options.currentValue.filter(
-        (option: DropdownItem) => option.selected
-      );
-      this.label = filterSelection[0].label;
+      this.updateLabel();
     }
   }
 
   getSelectedOptions(): DropdownItem[] {
     return (this.options || []).filter((option) => option.selected);
+  }
+
+  private updateLabel(): void {
+    const [selectedOption] = this.getSelectedOptions();
+    if (!selectedOption) {
+      return;
+    }
+    this.label = selectedOption.label;
+    this.ref.markForCheck();
   }
 }
