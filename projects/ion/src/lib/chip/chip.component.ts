@@ -5,8 +5,7 @@ import {
   Output,
   OnInit,
   AfterViewInit,
-  OnChanges,
-  SimpleChanges,
+  DoCheck,
 } from '@angular/core';
 import {
   BadgeType,
@@ -56,7 +55,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent implements OnInit, OnChanges, AfterViewInit {
+export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -120,10 +119,11 @@ export class ChipComponent implements OnInit, OnChanges, AfterViewInit {
     this.updateLabel();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.options && !changes.options.firstChange && !this.multiple) {
-      this.updateLabel();
+  ngDoCheck(): void {
+    if (this.multiple || (this.options && this.options.length)) {
+      return;
     }
+    this.updateLabel();
   }
 
   getSelectedOptions(): DropdownItem[] {
