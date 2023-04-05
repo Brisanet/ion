@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
@@ -12,7 +13,7 @@ import { DropdownItem, DropdownParams } from '../core/types/dropdown';
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
 })
-export class IonDropdownComponent implements AfterViewInit {
+export class IonDropdownComponent implements OnInit, AfterViewInit {
   @Input() options: DropdownItem[];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() enableSearch = false;
@@ -75,6 +76,10 @@ export class IonDropdownComponent implements AfterViewInit {
 
   inputChange(value: string): void {
     this.searchChange.emit(value);
+  }
+
+  public ngOnInit(): void {
+    this.setClearButtonIsVisible();
   }
 
   private isDisabled(option: DropdownItem): boolean {

@@ -82,29 +82,42 @@ describe('Dropdown / Clear Filters', () => {
   const optionToSelect = 0;
   let elementToSelect;
 
-  beforeEach(async () => {
-    await sut();
-    selectEvent.mockClear();
-    elementToSelect = document.getElementById('option-' + optionToSelect);
-    fireEvent.click(elementToSelect);
-  });
-
-  it('should render button to clear filters selected in dropdown', async () => {
-    expect(elementToSelect).toHaveClass('dropdown-item-selected');
+  it('should render clear button on init if there are selected values by default', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: true },
+        { label: 'Option 2', selected: false },
+      ],
+    });
     expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
   });
 
-  it('should clear filters selected in dropdown', async () => {
-    expect(elementToSelect).toHaveClass('dropdown-item-selected');
-    fireEvent.click(screen.getByTestId('buttonClear'));
-    expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
-  });
+  describe('events', () => {
+    beforeEach(async () => {
+      await sut();
+      selectEvent.mockClear();
+      elementToSelect = document.getElementById('option-' + optionToSelect);
+      fireEvent.click(elementToSelect);
+    });
 
-  it('should button disapear when filter is not selected', async () => {
-    expect(elementToSelect).toHaveClass('dropdown-item-selected');
-    fireEvent.click(screen.getByTestId('buttonClear'));
-    expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
-    expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
+    it('should render button to clear filters selected in dropdown', async () => {
+      expect(elementToSelect).toHaveClass('dropdown-item-selected');
+      expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
+    });
+
+    it('should clear filters selected in dropdown', async () => {
+      expect(elementToSelect).toHaveClass('dropdown-item-selected');
+      fireEvent.click(screen.getByTestId('buttonClear'));
+      expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
+    });
+
+    it('button should not be visible when filter is not selected', async () => {
+      expect(elementToSelect).toHaveClass('dropdown-item-selected');
+      fireEvent.click(screen.getByTestId('buttonClear'));
+      expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
+      expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
+    });
   });
 });
 
