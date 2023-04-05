@@ -19,14 +19,13 @@ export interface PopPosition {
   top: number;
   left: number;
   width: number;
-  x: number;
 }
 
 export interface PopOffset {
-  screenOffset: number;
   top: number;
+  left: number;
   width: number;
-  x: number;
+  screenOffset: number;
 }
 
 @Directive({
@@ -48,7 +47,7 @@ export class IonPopConfirmDirective {
     private readonly viewRef: ViewContainerRef
   ) {}
 
-  open(position: PopPosition): void {
+  open(): void {
     if (this.IonPopConfirmComponentRef) {
       return;
     }
@@ -65,11 +64,6 @@ export class IonPopConfirmDirective {
       .nativeElement as HTMLElement;
 
     this.document.body.appendChild(popconfirmElement);
-
-    requestAnimationFrame(() => {
-      const offsetPosition = this.setPosition(popconfirmElement, position);
-      this.setStyle(popconfirmElement, offsetPosition);
-    });
 
     this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
       this.ionPopConfirmTitle;
@@ -96,25 +90,27 @@ export class IonPopConfirmDirective {
     }
   }
 
-  setPosition(element: HTMLElement, position: PopPosition): PopOffset {
-    const documentWidth = this.document.body.clientWidth;
-
+  setPosition(
+    element: HTMLElement,
+    docWidth: number,
+    position: PopPosition
+  ): PopOffset {
     const popConfirmWidth = element.offsetWidth;
 
-    const offsetToLeft = position.x - popConfirmWidth + position.width * 1.5;
+    const offsetToLeft = position.left - popConfirmWidth + position.width * 1.5;
 
     const offsetToRight = position.left - position.width / 2;
 
-    const screenOffset = documentWidth - position.x;
+    const screenOffset = docWidth - position.left;
 
-    const xPosition =
+    const leftOffset =
       screenOffset < popConfirmWidth ? offsetToLeft : offsetToRight;
 
     const offset = {
-      screenOffset: screenOffset,
       top: position.top,
+      left: leftOffset,
       width: popConfirmWidth,
-      x: xPosition,
+      screenOffset: screenOffset,
     };
 
     return offset;
@@ -124,7 +120,7 @@ export class IonPopConfirmDirective {
     const supContainerEl = document.querySelector('.sup-container');
 
     element.style.position = 'absolute';
-    element.style.left = offset.x + 'px';
+    element.style.left = offset.left + 'px';
     element.style.top = offset.top + 'px';
 
     if (offset.screenOffset < offset.width) {
@@ -141,6 +137,8 @@ export class IonPopConfirmDirective {
   }
 
   @HostListener('click') onClick(): void {
+    const docWidth = document.body.clientWidth;
+
     const marginBetweenComponents = 10;
 
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
@@ -148,11 +146,18 @@ export class IonPopConfirmDirective {
     const position = hostElement.getBoundingClientRect() as DOMRect;
 
     if (this.elementIsEnabled(hostElement)) {
-      this.open({
-        top: position.top + position.height + marginBetweenComponents,
-        left: position.left,
-        width: position.width,
-        x: position.x,
+      this.open();
+
+      requestAnimationFrame(() => {
+        const popconfirmElement = document.querySelector(
+          '.sup-container'
+        ) as HTMLElement;
+        const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
+          top: position.top + position.height + marginBetweenComponents,
+          left: position.left,
+          width: position.width,
+        });
+        this.setStyle(popconfirmElement, offsetPosition);
       });
     }
   }
