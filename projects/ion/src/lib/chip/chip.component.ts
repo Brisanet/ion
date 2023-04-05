@@ -117,22 +117,12 @@ export class ChipComponent implements OnInit, OnChanges, AfterViewInit {
     if (this.multiple) {
       return;
     }
-
-    const [selectedOption] = this.getSelectedOptions();
-
-    if (!selectedOption) {
-      return;
-    }
-
-    this.label = selectedOption.label;
+    this.updateLabel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.options && !changes.options.firstChange && !this.multiple) {
-      const filterSelection = changes.options.currentValue.filter(
-        (option: DropdownItem) => option.selected
-      );
-      this.label = filterSelection[0].label;
+      this.updateLabel();
     }
   }
 
@@ -152,5 +142,13 @@ export class ChipComponent implements OnInit, OnChanges, AfterViewInit {
 
   clearBadgeValue(): void {
     this.badge.value = 0;
+  }
+
+  private updateLabel(): void {
+    const [selectedOption] = this.getSelectedOptions();
+    if (!selectedOption) {
+      return;
+    }
+    this.label = selectedOption.label;
   }
 }

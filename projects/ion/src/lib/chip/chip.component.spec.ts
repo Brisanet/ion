@@ -146,9 +146,6 @@ describe('ChipComponent', () => {
     expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
       customOptions[0].label
     );
-    const element = screen.getByTestId('ion-chip');
-    fireEvent.click(element);
-    fireEvent.click(document.getElementById('option-0'));
     customProps.options[0].selected = false;
     customProps.options[1].selected = true;
 
@@ -156,7 +153,9 @@ describe('ChipComponent', () => {
       options: new SimpleChange(null, customProps.options, false),
     });
     fixture.detectChanges();
-    expect(fixture.componentInstance.label).toBe(customProps.options[1].label);
+    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
+      customProps.options[1].label
+    );
   });
 
   describe('With Dropdown', () => {
