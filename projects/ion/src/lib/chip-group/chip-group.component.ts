@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { EMPTY } from 'rxjs';
 import {
   ChipSize,
   IconDirection,
