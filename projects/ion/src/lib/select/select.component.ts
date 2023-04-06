@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   EventEmitter,
   OnInit,
+  DoCheck,
 } from '@angular/core';
 import { SafeAny } from './../utils/safe-any';
 import { DropdownItem } from '../core/types';
@@ -14,7 +15,7 @@ import { DropdownItem } from '../core/types';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.css'],
 })
-export class IonSelectComponent implements OnInit, AfterViewInit {
+export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() disabledToggle = false;
   @Input() showDropdown = false;
   @Input() placeholder = 'choose';
@@ -35,10 +36,12 @@ export class IonSelectComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.id = this.generateIdentification();
+    this.id = this.generateId();
+
+    this.updateLabel();
   }
 
-  generateIdentification = (): string =>
+  generateId = (): string =>
     'ion-select__container-dropdown__' +
     Math.floor(Math.random() * 100000000) +
     1;
@@ -56,6 +59,10 @@ export class IonSelectComponent implements OnInit, AfterViewInit {
     });
   }
 
+  ngDoCheck(): void {
+    this.updateLabel();
+  }
+
   selectedOptions(event: DropdownItem[]): void {
     const [option] = event;
     this.inputValue = option.label;
@@ -67,7 +74,33 @@ export class IonSelectComponent implements OnInit, AfterViewInit {
       this.options.forEach((item: DropdownItem) => {
         item.selected = false;
       });
+
+      this.clearInput();
     }
+  }
+
+  updateLabel(): void {
+    if (!this.options || (this.options && this.options.length === 0)) {
+      return;
+    }
+
+    const hasSelectedOptions = this.options.some(
+      (option) => option.selected === true
+    );
+
+    if (!hasSelectedOptions) {
+      return;
+    }
+
+    const [{ label }] = this.options.filter(
+      (option) => option.selected === true
+    );
+
+    if (this.inputValue === label) {
+      return;
+    }
+
+    this.inputValue = label;
   }
 
   clearInput(): void {
