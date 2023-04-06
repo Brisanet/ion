@@ -42,7 +42,9 @@ export class IonChipGroupComponent {
 
   private clearChipsWithDropdown(): void {
     this.chips.forEach((chip) => {
-      chip.selected && chip.options ? (chip.selected = false) : EMPTY;
+      if (chip.selected && chip.options) {
+        chip.selected = false;
+      }
     });
   }
 }
