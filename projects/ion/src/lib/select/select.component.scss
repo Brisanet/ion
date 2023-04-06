@@ -1,0 +1,9 @@
+.ion-select__container-dropdown {
+  position: relative;
+}
+
+.ion-select__container-input{
+  >>> input, >>> ion-icon {
+    cursor: pointer;
+  }
+}

@@ -13,7 +13,7 @@ import { DropdownItem } from '../core/types';
 @Component({
   selector: 'ion-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.css'],
+  styleUrls: ['./select.component.scss'],
 })
 export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() disabledToggle = false;
