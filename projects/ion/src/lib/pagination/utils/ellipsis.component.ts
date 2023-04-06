@@ -4,9 +4,9 @@ export class IonPaginationEllipsisComponent {
   constructor(private paginationComponent: IonPaginationComponent) {}
 
   createEllipsis(index: number, qtdOfPages: number): void {
-    if (index == 1) {
+    if (index === 1) {
       this.createBothEllipsis(-1);
-    } else if (index == qtdOfPages - 1) {
+    } else if (index === qtdOfPages - 1) {
       this.createBothEllipsis(0);
     }
     this.paginationComponent.pages.push({
