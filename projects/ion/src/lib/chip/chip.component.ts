@@ -36,6 +36,7 @@ export interface IonChipProps {
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
+  disableVisibilityToggle?: boolean;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
@@ -68,11 +69,13 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
+  @Input() disableVisibilityToggle = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  id: string;
   badge: Badge = {
     value: 0,
   };
@@ -89,6 +92,11 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   toggleDropdown(): void {
+    if (this.disableVisibilityToggle) {
+      this.showDropdown = true;
+      return;
+    }
+
     if (this.options) {
       this.showDropdown = !this.showDropdown;
     }
@@ -114,7 +122,13 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngOnInit(): void {
     this.updateLabel();
+    this.id = this.generateId();
   }
+
+  generateId = (): string =>
+    'ion-chip__container-dropdown__' +
+    Math.floor(Math.random() * 100000000) +
+    1;
 
   ngDoCheck(): void {
     this.updateLabel();
@@ -125,9 +139,12 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngAfterViewInit(): void {
+    if (this.disableVisibilityToggle) {
+      return;
+    }
+
     document.addEventListener('mouseup', (e: SafeAny) => {
-      const dropdownContainer =
-        document.getElementsByClassName('ion-chip-dropdown')[0];
+      const dropdownContainer = document.getElementById(this.id);
       if (dropdownContainer && !dropdownContainer.contains(e.target)) {
         this.showDropdown = false;
       }

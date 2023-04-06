@@ -276,7 +276,7 @@ describe('dropdown visibility in chip component', () => {
     chipComponent = fixture.componentInstance;
   });
 
-  it('should set toggleVisibeCalendar for false when dispatch event mouseup', () => {
+  it('should update showDropdown for false when dispatch event mouseup', () => {
     chipComponent.options = [{ label: 'test' }];
     chipComponent.showDropdown = false;
     chipComponent.toggleDropdown();
@@ -285,6 +285,18 @@ describe('dropdown visibility in chip component', () => {
 
     document.dispatchEvent(new Event('mouseup'));
     expect(chipComponent.showDropdown).not.toBeTruthy();
+  });
+
+  it('should keep showDropdown as true when disabledToggle for true and dispatch event mouseup ', () => {
+    chipComponent.options = [{ label: 'test' }];
+    chipComponent.disableVisibilityToggle = true;
+    chipComponent.showDropdown = false;
+    chipComponent.toggleDropdown();
+    fixture.detectChanges();
+    expect(chipComponent.showDropdown).toBeTruthy();
+
+    document.dispatchEvent(new Event('mouseup'));
+    expect(chipComponent.showDropdown).toBeTruthy();
   });
 
   it('should correctly updates label when the selected option changes', async () => {
