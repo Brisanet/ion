@@ -270,6 +270,13 @@ describe('Popconfirm disabled host component', () => {
       expect(screen.queryAllByText(confirmText)).toHaveLength(0);
     });
   });
+
+  it('should return false if element is disabled', () => {
+    const element = document.createElement('ion-button');
+    element.setAttribute('ng-reflect-disabled', 'true');
+    const isEnable = directive.elementIsEnabled(element);
+    expect(isEnable).toBe(false);
+  });
 });
 
 describe('Popconfirm position when it opens', () => {
