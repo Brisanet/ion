@@ -28,7 +28,7 @@ $arrow-size: 4.2px;
 }
 
 .ion-tooltip {
-  z-index: $nzIndexLow;
+  z-index: $zIndexLow;
   position: fixed;
   padding: spacing(1);
   overflow-wrap: break-word;
