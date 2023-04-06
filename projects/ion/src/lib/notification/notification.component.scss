@@ -14,7 +14,7 @@
   justify-content: space-between;
   padding: spacing(1.5) spacing(2);
   position: relative;
-  z-index: 999;
+  z-index: $zIndexMax;
 
   background: rgba(255, 255, 255, 0.9);
   box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15),

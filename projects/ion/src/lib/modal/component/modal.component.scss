@@ -6,7 +6,7 @@
 }
 
 .modal-overlay {
-  z-index: 100;
+  z-index: $zIndexMid;
   position: absolute;
   top: 0;
   left: 0;
