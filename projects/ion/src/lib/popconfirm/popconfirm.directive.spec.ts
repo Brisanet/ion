@@ -30,11 +30,18 @@ const elementPosition: PopPosition = {
 
 const documentWidth = 1024;
 
-const elementOffset: PopOffset = {
+const openToRightOffset: PopOffset = {
   top: 10,
   left: 488,
   width: 210,
   screenOffset: 524,
+};
+
+const openToLeftOffset: PopOffset = {
+  top: 10,
+  left: 438,
+  width: 210,
+  screenOffset: 96,
 };
 
 @Component({
@@ -293,21 +300,49 @@ describe('Popconfirm position when it opens', () => {
     input = fixtureTable.debugElement.query(
       By.directive(IonPopConfirmDirective)
     );
+
+    fireEvent.click(screen.getByText(tableTextButton));
+    directive.open();
   });
 
   afterEach(() => {
     directive.closePopConfirm();
   });
 
-  it('should open to right side when there is sufficient visible area', () => {
-    directive.open();
-    fireEvent.click(screen.getByText(tableTextButton));
+  it('should set the correct position', () => {
     const popconfirmElement = screen.getAllByTestId('sup-container')[2];
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
       elementPosition
     );
-    expect(position.left).toBe(elementOffset.left);
+    expect(position.left).toBe(openToRightOffset.left);
+  });
+
+  it('should open to the right side', () => {
+    jest.spyOn(window, 'requestAnimationFrame');
+    const popconfirmElement = document.querySelector(
+      '.sup-container'
+    ) as HTMLElement;
+    directive.setStyle(popconfirmElement, openToRightOffset);
+    expect(popconfirmElement.classList).toContain('sup-container');
+  });
+
+  it('should open to the left side', async () => {
+    jest.spyOn(window, 'requestAnimationFrame');
+    const popconfirmElement = document.querySelector(
+      '.sup-container'
+    ) as HTMLElement;
+    directive.setStyle(popconfirmElement, openToLeftOffset);
+    expect(popconfirmElement.classList).toContain('sup-container-right');
+  });
+
+  it('should set position when there is a animation frame', () => {
+    const spyAnimationFrame = jest.spyOn(window, 'requestAnimationFrame');
+    const spyQuerySelector = jest.spyOn(document, 'querySelector');
+    spyAnimationFrame.mock.calls[0][0](0);
+
+    expect(spyAnimationFrame).toHaveBeenCalled();
+    expect(spyQuerySelector).toHaveBeenCalledWith('.sup-container');
   });
 });
