@@ -116,7 +116,6 @@ export class IonSmartTableComponent implements OnInit {
 
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
-    this.config.pagination.page = this.pagination.actual;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
         event: EventTable.CHANGE_PAGE,
