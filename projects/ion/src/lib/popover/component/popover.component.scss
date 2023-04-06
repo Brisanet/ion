@@ -113,7 +113,7 @@ $arrow-size: 4.5px;
 }
 
 .container {
-  z-index: 1000;
+  z-index: $zIndexLow;
 }
 
 .header {
