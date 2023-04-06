@@ -113,16 +113,10 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngOnInit(): void {
-    if (this.multiple) {
-      return;
-    }
     this.updateLabel();
   }
 
   ngDoCheck(): void {
-    if (this.multiple || (this.options && this.options.length)) {
-      return;
-    }
     this.updateLabel();
   }
 
@@ -144,11 +138,21 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     this.badge.value = 0;
   }
 
-  private updateLabel(): void {
+  updateLabel(): void {
+    if (this.multiple || (this.options && this.options.length === 0)) {
+      return;
+    }
+
     const [selectedOption] = this.getSelectedOptions();
+
     if (!selectedOption) {
       return;
     }
+
+    if (this.label === selectedOption.label) {
+      return;
+    }
+
     this.label = selectedOption.label;
   }
 }

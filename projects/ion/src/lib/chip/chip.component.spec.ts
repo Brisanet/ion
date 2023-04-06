@@ -19,7 +19,6 @@ import {
 import { InfoBadgeStatus } from '../core/types';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonSharedModule } from '../shared.module';
-import { SimpleChange } from '@angular/core';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -127,34 +126,6 @@ describe('ChipComponent', () => {
     });
     expect(screen.getByText(customLabel)).toBeInTheDocument();
   });
-
-  // it('should correctly updates label when the selected option changes', async () => {
-  //   const dropdownEvent = jest.fn();
-  //   const customOptions = [
-  //     { label: 'Slytherin', selected: true },
-  //     { label: 'Ravenclaw', selected: false },
-  //   ];
-  //   const customProps = {
-  //     label: 'dropdown',
-  //     options: customOptions,
-  //     multiple: false,
-  //     dropdownEvents: {
-  //       emit: dropdownEvent,
-  //     } as SafeAny,
-  //   };
-  //   const { fixture } = await sut(customProps);
-  //   expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
-  //     customOptions[0].label
-  //   );
-  //   customProps.options[0].selected = false;
-  //   customProps.options[1].selected = true;
-  //   fixture.componentInstance.options[0].selected = false;
-  //   fixture.componentInstance.options[1].selected = true;
-  //   fixture.autoDetectChanges();
-  //   expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
-  //     customProps.options[1].label
-  //   );
-  // });
 
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
@@ -314,5 +285,21 @@ describe('dropdown visibility in chip component', () => {
 
     document.dispatchEvent(new Event('mouseup'));
     expect(chipComponent.showDropdown).not.toBeTruthy();
+  });
+
+  it('should correctly updates label when the selected option changes', async () => {
+    const customOptions = [
+      { label: 'Slytherin', selected: true },
+      { label: 'Ravenclaw', selected: false },
+    ];
+
+    chipComponent.options = customOptions;
+    fixture.autoDetectChanges();
+    expect(chipComponent.label).toBe('Slytherin');
+
+    chipComponent.options[0].selected = false;
+    chipComponent.options[1].selected = true;
+    chipComponent.updateLabel();
+    expect(chipComponent.label).toBe('Ravenclaw');
   });
 });
