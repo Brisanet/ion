@@ -70,6 +70,8 @@ export class IonButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
-    if (this.disabled) this.loading = false;
+    if (this.disabled) {
+      this.loading = false;
+    }
   }
 }
