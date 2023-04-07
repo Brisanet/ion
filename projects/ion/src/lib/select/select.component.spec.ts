@@ -1,5 +1,3 @@
-/* tslint:disable:no-unused-variable */
-
 import { IonSelectComponent } from './select.component';
 import { IonInputModule } from '../input/input.module';
 import { IonIconModule } from '../icon/icon.module';
@@ -15,6 +13,9 @@ import { IonSelectProps } from '../core/types/select';
 
 const getInput = async (): Promise<HTMLInputElement> =>
   (await screen.getByTestId('input-element')) as HTMLInputElement;
+
+const getButtonClear = async (): Promise<HTMLElement> =>
+  await screen.getByTestId('buttonClear');
 
 describe('dropdown visibility in select component', () => {
   let selectComponent: IonSelectComponent;
@@ -70,6 +71,24 @@ describe('dropdown visibility in select component', () => {
     selectComponent.updateLabel();
     expect(selectComponent.inputValue).toBe('Toyota');
   });
+
+  it('must uncheck the options when the uncheckedOptionsInSelect function is called and the event parameter is empty', () => {
+    const customOptions = [
+      { label: 'Apple', selected: false },
+      { label: 'Orange', selected: true },
+    ];
+
+    selectComponent.options = customOptions;
+    fixture.detectChanges();
+    expect(selectComponent.inputValue).toBe('Orange');
+
+    selectComponent.uncheckedOptionsInSelect('');
+    fixture.detectChanges();
+    const hasSelectedOptions = selectComponent.options.some(
+      (option) => option.selected === true
+    );
+    expect(hasSelectedOptions).not.toBeTruthy();
+  });
 });
 
 const sut = async (
@@ -84,15 +103,13 @@ const sut = async (
 describe('choosing options', () => {
   it('should render default placeholder', async () => {
     await sut();
-    const input = await getInput();
-    expect(input).toHaveAttribute('placeholder', 'choose');
+    expect(await getInput()).toHaveAttribute('placeholder', 'choose');
   });
 
   it('should render custom placeholder', async () => {
     const placeholder = 'Custom placeholder';
     await sut({ placeholder });
-    const input = await getInput();
-    expect(input).toHaveAttribute('placeholder', placeholder);
+    expect(await getInput()).toHaveAttribute('placeholder', placeholder);
   });
 
   it('should render label of the selected option', async () => {
@@ -100,5 +117,15 @@ describe('choosing options', () => {
     fireEvent.click(await getInput());
     fireEvent.click(document.getElementById('option-0'));
     expect((await getInput()).value).toBe('option 01');
+  });
+
+  it('should clear input when click in icon close', async () => {
+    await sut({ options: [{ label: 'option 01' }, { label: 'option 02' }] });
+    fireEvent.click(await getInput());
+    fireEvent.click(document.getElementById('option-0'));
+    expect((await getInput()).value).toBe('option 01');
+    fireEvent.click(await getButtonClear());
+    expect((await getInput()).value).toBe('');
+    expect(await getInput()).toHaveAttribute('placeholder', 'choose');
   });
 });
