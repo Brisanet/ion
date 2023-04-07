@@ -1,7 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { DropdownItem } from './dropdown';
 
-export interface IonSelecProps {
+export interface IonSelectProps {
   disableVisibilityToggle?: boolean;
   showDropdown?: boolean;
   placeholder?: string;

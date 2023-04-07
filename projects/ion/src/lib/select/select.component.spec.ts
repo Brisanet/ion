@@ -11,7 +11,7 @@ import {
   render,
   screen,
 } from '@testing-library/angular';
-import { IonSelecProps } from '../core/types/select';
+import { IonSelectProps } from '../core/types/select';
 
 const getInput = async (): Promise<HTMLInputElement> =>
   (await screen.getByTestId('input-element')) as HTMLInputElement;
@@ -73,7 +73,7 @@ describe('dropdown visibility in select component', () => {
 });
 
 const sut = async (
-  customProps?: IonSelecProps
+  customProps?: IonSelectProps
 ): Promise<RenderResult<IonSelectComponent>> => {
   return await render(IonSelectComponent, {
     componentProperties: customProps,
