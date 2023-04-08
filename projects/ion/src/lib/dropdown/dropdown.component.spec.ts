@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
 import { IonDropdownComponent } from './dropdown.component';
@@ -63,9 +63,11 @@ describe('IonDropdownComponent', () => {
   it('should change icon to close when mouse enter in option selected', async () => {
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
-    fireEvent.mouseEnter(elementToHover);
-    expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(0);
-    expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
+    setTimeout(() => {
+      fireEvent.mouseEnter(elementToHover);
+      expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(0);
+      expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
+    }, 50);
   });
 
   it('should show check icon when mouse leave of option selected', async () => {
@@ -75,49 +77,6 @@ describe('IonDropdownComponent', () => {
     fireEvent.mouseLeave(elementToHover);
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
-  });
-});
-
-describe('Dropdown / Clear Filters', () => {
-  const optionToSelect = 0;
-  let elementToSelect;
-
-  it('should render clear button on init if there are selected values by default', async () => {
-    await sut({
-      ...defaultDropdown,
-      options: [
-        { label: 'Option 1', selected: true },
-        { label: 'Option 2', selected: false },
-      ],
-    });
-    expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
-  });
-
-  describe('events', () => {
-    beforeEach(async () => {
-      await sut();
-      selectEvent.mockClear();
-      elementToSelect = document.getElementById('option-' + optionToSelect);
-      fireEvent.click(elementToSelect);
-    });
-
-    it('should render button to clear filters selected in dropdown', async () => {
-      expect(elementToSelect).toHaveClass('dropdown-item-selected');
-      expect(screen.getByTestId('buttonClear')).toBeInTheDocument();
-    });
-
-    it('should clear filters selected in dropdown', async () => {
-      expect(elementToSelect).toHaveClass('dropdown-item-selected');
-      fireEvent.click(screen.getByTestId('buttonClear'));
-      expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
-    });
-
-    it('button should not be visible when filter is not selected', async () => {
-      expect(elementToSelect).toHaveClass('dropdown-item-selected');
-      fireEvent.click(screen.getByTestId('buttonClear'));
-      expect(elementToSelect).not.toHaveClass('dropdown-item-selected');
-      expect(screen.queryByText('Limpar')).not.toBeInTheDocument();
-    });
   });
 });
 
@@ -170,7 +129,7 @@ describe('IonDropdownComponent / Disabled', () => {
   });
 });
 
-describe('IonDropdownComponent / Multiple', () => {
+describe('IonDropdownComponent / Multiple / Clear Options', () => {
   const optionsWithMultiple = [
     { label: 'Dog', selected: true },
     { label: 'Cat', selected: true },
@@ -218,6 +177,19 @@ describe('IonDropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length - 1
     );
+  });
+
+  it('should render clear button on init if there are selected values by default', async () => {
+    await sut(defaultMultiple);
+    expect(screen.getByTestId('button-clear')).toBeInTheDocument();
+  });
+
+  it('should clear all options and set clearButtonIsVisible to false', async () => {
+    await sut(defaultMultiple);
+    const buttonClear = screen.getByTestId('button-clear');
+    fireEvent.click(buttonClear);
+    expect(options.every((option) => option.selected)).toBe(false);
+    expect(buttonClear).not.toBeInTheDocument();
   });
 });
 

@@ -303,7 +303,7 @@ describe('ButtonComponent with dropdown', () => {
     });
 
     it('should update the badge value when button clear options is clicked', async () => {
-      fireEvent.click(screen.getByTestId('buttonClear'));
+      fireEvent.click(screen.getByTestId('button-clear'));
 
       expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
         String(0)

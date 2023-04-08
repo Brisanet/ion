@@ -27,9 +27,11 @@ export class IonDropdownComponent implements OnInit, AfterViewInit {
   clearButtonIsVisible: boolean;
 
   setClearButtonIsVisible(): void {
-    this.clearButtonIsVisible = this.options.some(
-      (option) => option.selected === true
-    );
+    if (this.multiple) {
+      this.clearButtonIsVisible = this.options.some(
+        (option) => option.selected === true
+      );
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -61,13 +63,17 @@ export class IonDropdownComponent implements OnInit, AfterViewInit {
   }
 
   select(option: DropdownItem): void {
+    const isSelected = option.selected;
+
     if (this.isDisabled(option)) {
       return;
     }
+
     if (this.isSingle()) {
-      this.clearOptions();
+      this.options.forEach((item) => (item.selected = false));
     }
-    option.selected = !option.selected;
+
+    option.selected = !isSelected;
     this.setClearButtonIsVisible();
     this.selected.emit(
       this.options.filter((item: DropdownItem) => item.selected)
