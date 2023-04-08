@@ -10,6 +10,8 @@ import {
   screen,
 } from '@testing-library/angular';
 import { IonSelectProps } from '../core/types/select';
+import { DropdownItem } from './../core/types/dropdown';
+import { EventEmitter } from '@angular/core';
 
 const getInput = async (): Promise<HTMLInputElement> =>
   (await screen.getByTestId('input-element')) as HTMLInputElement;
@@ -127,5 +129,21 @@ describe('choosing options', () => {
     fireEvent.click(await getButtonClear());
     expect((await getInput()).value).toBe('');
     expect(await getInput()).toHaveAttribute('placeholder', 'choose');
+  });
+
+  it('should emit correctly selected option', async () => {
+    const selectEvent = jest.fn();
+    const options = [{ label: 'Liam' }, { label: 'Noah' }];
+    await sut({
+      options,
+      selected: { emit: selectEvent } as unknown as EventEmitter<DropdownItem>,
+    });
+
+    fireEvent.click(await getInput());
+    fireEvent.click(document.getElementById('option-0'));
+    expect(selectEvent).toHaveBeenCalledWith({
+      label: options[0].label,
+      selected: true,
+    });
   });
 });
