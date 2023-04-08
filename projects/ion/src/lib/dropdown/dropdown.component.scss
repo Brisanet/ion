@@ -86,6 +86,7 @@
 
 .container-options {
   position: absolute;
+  z-index: $zIndexLow;
   display: flex;
   flex-direction: column;
   gap: spacing(0.5);
