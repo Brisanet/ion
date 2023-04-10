@@ -184,7 +184,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     expect(screen.getByTestId('button-clear')).toBeInTheDocument();
   });
 
-  it('should clear all options and set clearButtonIsVisible to false', async () => {
+  it('should clear all options and not show button clear in window', async () => {
     await sut(defaultMultiple);
     const buttonClear = screen.getByTestId('button-clear');
     fireEvent.click(buttonClear);
