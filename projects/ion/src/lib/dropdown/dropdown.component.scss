@@ -92,8 +92,8 @@
   gap: spacing(0.5);
   padding: 12px 8px;
   max-height: 244px;
-  left: 0;
-  right: 0;
+  min-width: 182px;
+  width: max-content;
   overflow-y: auto;
 
   background-color: $neutral-1;
