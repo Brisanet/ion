@@ -32,5 +32,5 @@ Basic.args = {
   placeholder: 'Choose a fruit',
   options,
   showDropdown: false,
-  disableVisibilityToggle: false,
+  showToggle: false,
 } as IonSelectProps;
