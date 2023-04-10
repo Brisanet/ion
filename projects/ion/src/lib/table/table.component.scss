@@ -53,9 +53,10 @@ table {
     padding: spacing(2);
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: $zIndexMid;
 
-    & .th-span, &.th-actions {
+    & .th-span,
+    &.th-actions {
       font-size: 16px;
       font-weight: 600;
       line-height: 22px;
@@ -140,6 +141,7 @@ table {
   justify-content: space-between;
   padding: 16px;
   gap: spacing(2);
+  z-index: $zIndexLow;
 
   position: sticky;
   bottom: 0;
