@@ -36,16 +36,22 @@ export class IonPaginationEllipsisComponent {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      (pageNumber <
-        this.paginationComponent.currentPageNumber -
-          this.paginationComponent.previousNextQuantity ||
-        pageNumber >
-          this.paginationComponent.currentPageNumber +
-            this.paginationComponent.previousNextQuantity) &&
+      this.checkPageRange(pageNumber) &&
       pageNumber !== this.paginationComponent.totalPages() &&
       pageNumber !== 1 &&
       pageNumber !== -1 &&
       pageNumber !== 0
+    );
+  }
+
+  checkPageRange(pageNumber: number): boolean {
+    return (
+      pageNumber <
+        this.paginationComponent.currentPageNumber -
+          this.paginationComponent.previousNextQuantity ||
+      pageNumber >
+        this.paginationComponent.currentPageNumber +
+          this.paginationComponent.previousNextQuantity
     );
   }
 

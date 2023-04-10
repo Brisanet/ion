@@ -158,17 +158,15 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   private inLastPage(): boolean {
-    const currentPageCopy = this.currentPageNumber;
-    if (this.totalPages() === currentPageCopy) {
+    if (this.totalPages() === this.currentPageNumber) {
       this.previousNextQuantity = 2;
     }
-    return currentPageCopy && currentPageCopy === this.totalPages();
+    return this.currentPageNumber === this.totalPages();
   }
 
   private inFirstPage(): boolean {
-    const currentPageCopy = this.currentPageNumber;
-    if (currentPageCopy === 1) this.previousNextQuantity = 2;
-    return currentPageCopy && currentPageCopy === 1;
+    if (this.currentPageNumber === 1) this.previousNextQuantity = 2;
+    return this.currentPageNumber === 1;
   }
 
   private generateLabel(page: number): string {
