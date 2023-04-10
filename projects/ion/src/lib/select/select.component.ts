@@ -18,7 +18,7 @@ import { DropdownItem } from '../core/types';
 export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() disableVisibilityToggle = false;
   @Input() showDropdown = false;
-  @Input() placeholder = 'choose';
+  @Input() placeholder = 'Choose a option';
   @Input() options: DropdownItem[] = [];
 
   @Output() selected = new EventEmitter<DropdownItem>();
@@ -85,11 +85,7 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
       return;
     }
 
-    const hasSelectedOptions = this.options.some(
-      (option) => option.selected === true
-    );
-
-    if (!hasSelectedOptions) {
+    if (!this.hasSelectedOptions()) {
       return;
     }
 
@@ -103,6 +99,9 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
 
     this.inputValue = label;
   }
+
+  hasSelectedOptions = (): boolean =>
+    this.options.some((option) => option.selected === true);
 
   clearInput(): void {
     this.inputValue = '';

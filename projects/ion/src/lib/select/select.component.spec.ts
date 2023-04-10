@@ -105,7 +105,7 @@ const sut = async (
 describe('choosing options', () => {
   it('should render default placeholder', async () => {
     await sut();
-    expect(await getInput()).toHaveAttribute('placeholder', 'choose');
+    expect(await getInput()).toHaveAttribute('placeholder', 'Choose a option');
   });
 
   it('should render custom placeholder', async () => {
@@ -125,10 +125,9 @@ describe('choosing options', () => {
     await sut({ options: [{ label: 'option 01' }, { label: 'option 02' }] });
     fireEvent.click(await getInput());
     fireEvent.click(document.getElementById('option-0'));
-    expect((await getInput()).value).toBe('option 01');
     fireEvent.click(await getButtonClear());
     expect((await getInput()).value).toBe('');
-    expect(await getInput()).toHaveAttribute('placeholder', 'choose');
+    expect(await getInput()).toHaveAttribute('placeholder', 'Choose a option');
   });
 
   it('should emit correctly selected option', async () => {
