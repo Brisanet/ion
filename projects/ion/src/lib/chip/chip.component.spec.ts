@@ -234,6 +234,13 @@ describe('With Multiple Dropdown', () => {
     expect(dropdown).toHaveClass('chip-selected');
   });
 
+  it('should clear badge when clear button be clicked', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText(options[0].label));
+    fireEvent.click(screen.getByText('Limpar'));
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
+  });
+
   afterEach(() => {
     dropdownEvent.mockClear();
   });
