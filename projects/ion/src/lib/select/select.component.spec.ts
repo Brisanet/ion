@@ -19,6 +19,9 @@ const getInput = async (): Promise<HTMLInputElement> =>
 const getButtonClear = async (): Promise<HTMLElement> =>
   await screen.getByTestId('buttonClear');
 
+const getContainerDropdown = (): HTMLElement | null =>
+  document.getElementById('ion-dropdown');
+
 describe('dropdown visibility in select component', () => {
   let selectComponent: IonSelectComponent;
   let fixture: ComponentFixture<IonSelectComponent>;
@@ -33,45 +36,6 @@ describe('dropdown visibility in select component', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(IonSelectComponent);
     selectComponent = fixture.componentInstance;
-  });
-
-  it('should update showDropdown for false when dispatch event mouseup', () => {
-    selectComponent.options = [{ label: 'test' }];
-    selectComponent.showDropdown = false;
-    selectComponent.toggleDropdown();
-    fixture.detectChanges();
-    expect(selectComponent.showDropdown).toBeTruthy();
-
-    document.dispatchEvent(new Event('mouseup'));
-    expect(selectComponent.showDropdown).not.toBeTruthy();
-  });
-
-  it('should keep showDropdown as true when disableVisibilityToggle for true and dispatch event mouseup ', () => {
-    selectComponent.options = [{ label: 'test' }];
-    selectComponent.disableVisibilityToggle = true;
-    selectComponent.showDropdown = false;
-    selectComponent.toggleDropdown();
-    fixture.detectChanges();
-    expect(selectComponent.showDropdown).toBeTruthy();
-
-    document.dispatchEvent(new Event('mouseup'));
-    expect(selectComponent.showDropdown).toBeTruthy();
-  });
-
-  it('should correctly updates label when the selected option changes', async () => {
-    const customOptions = [
-      { label: 'Fiat', selected: true },
-      { label: 'Toyota', selected: false },
-    ];
-
-    selectComponent.options = customOptions;
-    fixture.autoDetectChanges();
-    expect(selectComponent.inputValue).toBe('Fiat');
-
-    selectComponent.options[0].selected = false;
-    selectComponent.options[1].selected = true;
-    selectComponent.updateLabel();
-    expect(selectComponent.inputValue).toBe('Toyota');
   });
 
   it('must uncheck the options when the uncheckedOptionsInSelect function is called and the event parameter is empty', () => {
@@ -121,6 +85,17 @@ describe('choosing options', () => {
     expect((await getInput()).value).toBe('option 01');
   });
 
+  it('should correctly render input value when some option is initialized selected', async () => {
+    const customOptions = [
+      { label: 'Fiat', selected: true },
+      { label: 'Toyota', selected: false },
+    ];
+    await sut({
+      options: customOptions,
+    });
+    expect((await getInput()).value).toBe(customOptions[0].label);
+  });
+
   it('should clear input when click in icon close', async () => {
     await sut({ options: [{ label: 'option 01' }, { label: 'option 02' }] });
     fireEvent.click(await getInput());
@@ -144,5 +119,32 @@ describe('choosing options', () => {
       label: options[0].label,
       selected: true,
     });
+  });
+
+  it('should toggle dropdown view on input click', async () => {
+    await sut({});
+    fireEvent.click(await getInput());
+    expect(getContainerDropdown()).toBeTruthy();
+    fireEvent.click(await getInput());
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close dropdown on click outside element', async () => {
+    await sut();
+    fireEvent.click(await getInput());
+    expect(getContainerDropdown()).toBeTruthy();
+    fireEvent.click(document.body);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should keep showDropdown as true when disableVisibilityToggle for true and dispatch event mouseup ', async () => {
+    await sut({
+      showToggle: true,
+    });
+
+    fireEvent.click(await getInput());
+    expect(getContainerDropdown()).toBeTruthy();
+    fireEvent.click(document.body);
+    expect(getContainerDropdown()).toBeTruthy();
   });
 });

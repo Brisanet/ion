@@ -16,7 +16,7 @@ import { DropdownItem } from '../core/types';
   styleUrls: ['./select.component.scss'],
 })
 export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
-  @Input() disableVisibilityToggle = false;
+  @Input() showToggle = false;
   @Input() showDropdown = false;
   @Input() placeholder = 'Choose a option';
   @Input() options: DropdownItem[] = [];
@@ -28,7 +28,7 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
   id: string;
 
   toggleDropdown(): void {
-    if (this.disableVisibilityToggle) {
+    if (this.showToggle) {
       this.showDropdown = true;
       return;
     }
@@ -48,12 +48,17 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
     1;
 
   ngAfterViewInit(): void {
-    if (this.disableVisibilityToggle) {
+    if (this.showToggle) {
       return;
     }
 
-    document.addEventListener('mouseup', (e: SafeAny) => {
+    document.addEventListener('click', (e: SafeAny) => {
+      if (e.target.getAttribute('data-testid') === 'input-element') {
+        return;
+      }
+
       const dropdownContainer = document.getElementById(this.id);
+
       if (dropdownContainer && !dropdownContainer.contains(e.target)) {
         this.showDropdown = false;
       }
