@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
 import { IonDropdownComponent } from './dropdown.component';
