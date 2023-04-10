@@ -1,4 +1,12 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import {
   ButtonIconSizeOptions,
   Type,
@@ -12,7 +20,7 @@ import { DropdownItem } from '../core/types/dropdown';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class IonButtonComponent implements OnInit {
+export class IonButtonComponent implements OnInit, OnChanges {
   @Input() label?: string;
   @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
@@ -70,7 +78,10 @@ export class IonButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
-    if (this.disabled) {
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.disabled && changes.disabled.currentValue) {
       this.loading = false;
     }
   }
