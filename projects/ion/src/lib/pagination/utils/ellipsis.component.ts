@@ -36,11 +36,7 @@ export class IonPaginationEllipsisComponent {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      this.checkPageRange(pageNumber) &&
-      pageNumber !== this.paginationComponent.totalPages() &&
-      pageNumber !== 1 &&
-      pageNumber !== -1 &&
-      pageNumber !== 0
+      this.checkPageRange(pageNumber) && this.validatePageNumber(pageNumber)
     );
   }
 
@@ -49,10 +45,15 @@ export class IonPaginationEllipsisComponent {
       pageNumber <
         this.paginationComponent.currentPageNumber -
           this.paginationComponent.previousNextQuantity ||
-      pageNumber >
+      (pageNumber >
         this.paginationComponent.currentPageNumber +
-          this.paginationComponent.previousNextQuantity
+          this.paginationComponent.previousNextQuantity &&
+        pageNumber !== this.paginationComponent.totalPages())
     );
+  }
+
+  validatePageNumber(pageNumber: number): boolean {
+    return pageNumber !== 1 && pageNumber !== -1 && pageNumber !== 0;
   }
 
   isLimit(pageNumber: number): Limit {
