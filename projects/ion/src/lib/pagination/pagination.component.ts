@@ -79,7 +79,8 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   hasPrevious(): boolean {
-    return !this.inFirstPage();
+    const firstPage = this.inFirstPage();
+    return firstPage !== undefined && firstPage !== null && !firstPage;
   }
 
   hasNext(): boolean {
@@ -101,7 +102,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   remountPages(): void {
     this.createPages(this.totalPages());
-    this.selectPage(1);
+    if (this.pages.length) this.selectPage(1);
   }
 
   totalPages(): number {
@@ -129,11 +130,13 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   private inLastPage(): boolean {
-    return this.currentPage().page_number === this.totalPages();
+    const currentPageCopy = this.currentPage();
+    return currentPageCopy && currentPageCopy.page_number === this.totalPages();
   }
 
   private inFirstPage(): boolean {
-    return this.currentPage().page_number === 1;
+    const currentPageCopy = this.currentPage();
+    return currentPageCopy && currentPageCopy.page_number === 1;
   }
 
   private generateLabel(page: number): string {
