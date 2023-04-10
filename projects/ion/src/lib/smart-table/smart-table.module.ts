@@ -7,6 +7,7 @@ import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
+import { PipesModule } from '../utils/pipes/pipes.module';
 
 @NgModule({
   declarations: [IonSmartTableComponent],
@@ -18,6 +19,7 @@ import { IonPaginationModule } from '../pagination/pagination.module';
     IonButtonModule,
     IonIconModule,
     IonPaginationModule,
+    PipesModule,
   ],
   exports: [IonSmartTableComponent],
 })
