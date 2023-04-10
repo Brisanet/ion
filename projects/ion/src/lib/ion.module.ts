@@ -40,6 +40,7 @@ import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
 import { IonSpinnerModule } from './spinner/spinner.module';
+import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSelectModule } from './select/select.module';
 
 @NgModule({
@@ -84,6 +85,7 @@ import { IonSelectModule } from './select/select.module';
     IonRadioGroupModule,
     IonDatePickerModule,
     IonSpinnerModule,
+    PipesModule,
     IonSelectModule,
   ],
   exports: [

@@ -105,11 +105,15 @@ export class ChipComponent implements OnInit, OnChanges {
     }
   }
 
+  clearBadgeValue(): void {
+    this.setBadgeValue(0);
+  }
+
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
 
     if (selecteds && this.multiple) {
-      this.badge.value = selecteds.length;
+      this.setBadgeValue(selecteds.length);
     }
 
     if (!this.multiple) {
@@ -147,5 +151,9 @@ export class ChipComponent implements OnInit, OnChanges {
     }
     this.label = selectedOption.label;
     this.ref.markForCheck();
+  }
+
+  private setBadgeValue(newValue: number): void {
+    this.badge = { ...this.badge, value: newValue };
   }
 }
