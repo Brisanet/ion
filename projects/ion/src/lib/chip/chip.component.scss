@@ -125,6 +125,7 @@ button {
 .container-icon-text {
   display: flex;
   align-items: center;
+  white-space: nowrap;
   gap: spacing(1);
 }
 
