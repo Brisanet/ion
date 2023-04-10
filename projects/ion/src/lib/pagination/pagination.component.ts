@@ -140,22 +140,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   hidePages(pageNumber: number): boolean {
-    const leftLimit = this.currentPageNumber - this.previousNextQuantity;
-    const showLeftEllipsis =
-      this.currentPageNumber - 1 > this.previousNextQuantity + 1;
-    const firstPages = this.currentPageNumber < 5 && pageNumber <= 5;
-
-    if (this.totalPages() <= 9) return false;
-    else {
-      if (pageNumber === -1) return !showLeftEllipsis;
-      if (firstPages || pageNumber === this.totalPages()) return false;
-      if (this.currentPageNumber >= this.totalPages() - 3) {
-        const isLast = pageNumber === 1 || pageNumber >= this.totalPages() - 4;
-        const beyondPages = pageNumber >= leftLimit;
-        return true && !isLast && !beyondPages;
-      }
-    }
-    return this.paginationEllipsis.hidePageNumber(pageNumber);
+    return this.paginationEllipsis.ellipsisInPagination(pageNumber);
   }
 
   private createPages(qtdOfPages: number): void {
