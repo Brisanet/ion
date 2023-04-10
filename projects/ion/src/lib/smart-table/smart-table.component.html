@@ -82,7 +82,9 @@
       >
         <!-- cell types -->
 
-        <span class="td-span" *ngIf="!column.type">{{ row[column.key] }}</span>
+        <span class="td-span" *ngIf="!column.type">{{
+          row[column.key] | replaceEmpty: '-'
+        }}</span>
         <ion-tag
           *ngIf="column.type === 'tag'"
           [label]="row[column.key]"
