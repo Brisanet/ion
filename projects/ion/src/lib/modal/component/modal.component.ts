@@ -35,8 +35,9 @@ export class IonModalComponent implements OnInit {
   @Output()
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
-  private componentFactory: ComponentRef<unknown>;
   public DEFAULT_WIDTH = 500;
+
+  private componentFactory: ComponentRef<unknown>;
   private _defaultModal: IonModalConfiguration = {
     title: 'Ion Modal',
     width: this.DEFAULT_WIDTH,
