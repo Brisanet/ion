@@ -9,6 +9,7 @@ import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSmartTableProps } from '../core/types';
+import { PipesModule } from '../utils/pipes/pipes.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -81,6 +82,7 @@ const sut = async (
       IonButtonModule,
       IonIconModule,
       IonPaginationModule,
+      PipesModule,
     ],
   });
 };
@@ -192,7 +194,6 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.CHANGE_PAGE,
     });
   });
-
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
@@ -660,6 +661,18 @@ describe('Table without Data', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+
+  it('should add a (-) when there is no data in the cell', async () => {
+    const customData = {
+      ...defaultProps,
+    };
+    customData.config.data = [{ name: '', height: 0, mass: 100 }];
+    await sut(customData);
+    const cellHeight = screen.getByTestId('row-0-height');
+    const cellName = screen.getByTestId('row-0-name');
+    expect(cellHeight).toHaveTextContent('0');
+    expect(cellName).toHaveTextContent('-');
   });
 });
 
