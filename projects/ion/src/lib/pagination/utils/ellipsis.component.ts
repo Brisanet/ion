@@ -36,24 +36,17 @@ export class IonPaginationEllipsisComponent {
 
   hidePageNumber(pageNumber: number): boolean {
     return (
-      this.checkPageRange(pageNumber) && this.validatePageNumber(pageNumber)
-    );
-  }
-
-  checkPageRange(pageNumber: number): boolean {
-    return (
-      pageNumber <
+      (pageNumber <
         this.paginationComponent.currentPageNumber -
           this.paginationComponent.previousNextQuantity ||
-      (pageNumber >
-        this.paginationComponent.currentPageNumber +
-          this.paginationComponent.previousNextQuantity &&
-        pageNumber !== this.paginationComponent.totalPages())
+        pageNumber >
+          this.paginationComponent.currentPageNumber +
+            this.paginationComponent.previousNextQuantity) &&
+      pageNumber !== this.paginationComponent.totalPages() &&
+      pageNumber !== 1 &&
+      pageNumber !== -1 &&
+      pageNumber !== 0
     );
-  }
-
-  validatePageNumber(pageNumber: number): boolean {
-    return pageNumber !== 1 && pageNumber !== -1 && pageNumber !== 0;
   }
 
   isLimit(pageNumber: number): Limit {
@@ -73,10 +66,7 @@ export class IonPaginationEllipsisComponent {
     };
   }
 
-  ellipsisInPagination(pageNumber: number): boolean {
-    const limitFunction = this.isLimit(pageNumber);
-    if (this.paginationComponent.totalPages() <= 9) return false;
-    if (pageNumber === -1) return !limitFunction.showLeftEllipsis;
+  shouldShowPageNumber(pageNumber: number, limitFunction: Limit): boolean {
     if (
       limitFunction.firstPages ||
       pageNumber === this.paginationComponent.totalPages()
@@ -87,6 +77,17 @@ export class IonPaginationEllipsisComponent {
       return this.isPageNearEnd(pageNumber, limitFunction);
     }
     return this.hidePageNumber(pageNumber);
+  }
+
+  ellipsisInPagination(pageNumber: number): boolean {
+    const limitFunction = this.isLimit(pageNumber);
+    if (this.paginationComponent.totalPages() <= 9) {
+      return false;
+    }
+    if (pageNumber === -1) {
+      return !limitFunction.showLeftEllipsis;
+    }
+    return this.shouldShowPageNumber(pageNumber, limitFunction);
   }
 
   withinEndRange(): boolean {
