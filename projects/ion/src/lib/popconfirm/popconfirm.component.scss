@@ -1,6 +1,6 @@
 @import '../../styles/index.scss';
 
-.sup-container {
+@mixin arrowPosition($top, $left, $right) {
   margin-top: 8px;
   box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   background: #fff;
@@ -9,7 +9,7 @@
   justify-content: flex-end;
   border-radius: spacing(1);
   position: relative;
-
+  
   &::before {
     content: '';
     display: block;
@@ -17,11 +17,20 @@
     height: 13px;
     background-color: #fff;
     position: absolute;
-    top: -6px;
-    left: 16px;
+    top: $top;
+    left: $left;
+    right: $right;
     transform: rotate(45deg);
     box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
   }
+}
+
+.sup-container {
+  @include arrowPosition(-6px, 16px, none);
+}
+
+.sup-container-right {
+  @include arrowPosition(-6px, none, 16px);
 }
 
 .arrow {
