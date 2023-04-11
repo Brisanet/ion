@@ -296,7 +296,7 @@ describe('dropdown visibility in chip component', () => {
 
   it('should keep showDropdown as true when disabledToggle for true and dispatch event mouseup ', () => {
     chipComponent.options = [{ label: 'test' }];
-    chipComponent.disableVisibilityToggle = true;
+    chipComponent.showToggle = true;
     chipComponent.showDropdown = false;
     chipComponent.toggleDropdown();
     fixture.detectChanges();

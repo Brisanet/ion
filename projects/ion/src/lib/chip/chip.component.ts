@@ -36,7 +36,7 @@ export interface IonChipProps {
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
-  disableVisibilityToggle?: boolean;
+  showToggle?: boolean;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
@@ -69,7 +69,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
-  @Input() disableVisibilityToggle = false;
+  @Input() showToggle = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
@@ -92,7 +92,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   toggleDropdown(): void {
-    if (this.disableVisibilityToggle) {
+    if (this.showToggle) {
       this.showDropdown = true;
       return;
     }
@@ -143,7 +143,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngAfterViewInit(): void {
-    if (this.disableVisibilityToggle) {
+    if (this.showToggle) {
       return;
     }
 
