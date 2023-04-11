@@ -102,11 +102,15 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     }
   }
 
+  clearBadgeValue(): void {
+    this.setBadgeValue(0);
+  }
+
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
 
     if (selecteds && this.multiple) {
-      this.badge.value = selecteds.length;
+      this.setBadgeValue(selecteds.length);
     }
 
     if (!this.multiple) {
@@ -151,10 +155,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     });
   }
 
-  clearBadgeValue(): void {
-    this.badge.value = 0;
-  }
-
   updateLabel(): void {
     if (this.multiple || (this.options && this.options.length === 0)) {
       return;
@@ -171,5 +171,9 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     this.label = selectedOption.label;
+  }
+
+  private setBadgeValue(newValue: number): void {
+    this.badge = { ...this.badge, value: newValue };
   }
 }
