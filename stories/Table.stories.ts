@@ -221,6 +221,7 @@ WithPagination.args = {
       total: 46,
       itemsPerPage: 2,
     },
+    actions,
   },
 };
 
