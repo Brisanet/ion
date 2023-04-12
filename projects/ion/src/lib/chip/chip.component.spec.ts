@@ -290,7 +290,7 @@ describe('dropdown visibility in chip component', () => {
     fixture.detectChanges();
     expect(chipComponent.showDropdown).toBeTruthy();
 
-    document.dispatchEvent(new Event('mouseup'));
+    document.dispatchEvent(new Event('click'));
     expect(chipComponent.showDropdown).not.toBeTruthy();
   });
 

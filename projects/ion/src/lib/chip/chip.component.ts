@@ -6,6 +6,7 @@ import {
   OnInit,
   AfterViewInit,
   DoCheck,
+  OnDestroy,
 } from '@angular/core';
 import {
   BadgeType,
@@ -56,7 +57,9 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
+export class ChipComponent
+  implements OnInit, AfterViewInit, DoCheck, OnDestroy
+{
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -75,7 +78,8 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
-  id: string;
+  dropdownId: string;
+  chipId: string;
   badge: Badge = {
     value: 0,
   };
@@ -126,13 +130,12 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngOnInit(): void {
     this.updateLabel();
-    this.id = this.generateId();
+    this.chipId = this.generateId('ion-chip__container-');
+    this.dropdownId = this.generateId('ion-chip__container-dropdown-');
   }
 
-  generateId = (): string =>
-    'ion-chip__container-dropdown__' +
-    Math.floor(Math.random() * 100000000) +
-    1;
+  generateId = (name: string): string =>
+    name + Math.floor(Math.random() * 100000000) + 1;
 
   ngDoCheck(): void {
     this.updateLabel();
@@ -142,17 +145,34 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     return (this.options || []).filter((option) => option.selected);
   }
 
+  closeDropdown(event: MouseEvent): void {
+    const element = event.target as HTMLElement;
+
+    if (element.nodeName === 'path') {
+      return;
+    }
+
+    const chipContainer = document.getElementById(this.chipId);
+    if (chipContainer && chipContainer.contains(element)) {
+      return;
+    }
+
+    const dropdownContainer = document.getElementById(this.dropdownId);
+    if (dropdownContainer && !dropdownContainer.contains(element)) {
+      this.showDropdown = false;
+    }
+  }
+
   ngAfterViewInit(): void {
     if (this.showToggle) {
       return;
     }
 
-    document.addEventListener('mouseup', (e: SafeAny) => {
-      const dropdownContainer = document.getElementById(this.id);
-      if (dropdownContainer && !dropdownContainer.contains(e.target)) {
-        this.showDropdown = false;
-      }
-    });
+    document.addEventListener('click', (e) => this.closeDropdown(e));
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.closeDropdown);
   }
 
   updateLabel(): void {
