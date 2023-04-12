@@ -16,8 +16,6 @@ import {
   InfoBadgeStatus,
 } from '../core/types';
 
-import { SafeAny } from '../utils/safe-any';
-
 export type ChipSize = 'sm' | 'md';
 export type IconDirection = 'right' | 'left';
 
