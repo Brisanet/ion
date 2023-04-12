@@ -9,7 +9,8 @@
   justify-content: flex-end;
   border-radius: spacing(1);
   position: relative;
-  
+  z-index: $zIndexLow;
+
   &::before {
     content: '';
     display: block;
