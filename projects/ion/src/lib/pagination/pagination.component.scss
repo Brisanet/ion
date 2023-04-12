@@ -12,6 +12,43 @@
   border-radius: $borderRadius;
 }
 
+@mixin setBackgroundRightEllipsis($color) {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23" + $color + "' d='M17.8839 12.8839C18.1183 12.6495 18.25 12.3315 18.25 12C18.25 11.6685 18.1183 11.3505 17.8839 11.1161L13.8839 7.11612C13.3957 6.62796 12.6043 6.62796 12.1161 7.11612C11.628 7.60427 11.628 8.39573 12.1161 8.88388L15.2322 12L12.1161 15.1161C11.628 15.6043 11.628 16.3957 12.1161 16.8839C12.6043 17.372 13.3957 17.372 13.8839 16.8839L17.8839 12.8839Z'/><path fill='%23" + $color + "' d='M11.8839 12.8839C12.1183 12.6495 12.25 12.3315 12.25 12C12.25 11.6685 12.1183 11.3505 11.8839 11.1161L7.88388 7.11612C7.39573 6.62796 6.60427 6.62796 6.11612 7.11612C5.62796 7.60427 5.62796 8.39573 6.11612 8.88388L9.23223 12L6.11612 15.1161C5.62796 15.6043 5.62796 16.3957 6.11612 16.8839C6.60427 17.372 7.39573 17.372 7.88388 16.8839L11.8839 12.8839Z'/></svg>");
+ }
+
+@mixin setBackgroundLeftEllipsis($color) {
+  background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23" + $color + "' d='M6.11612 11.1161C5.8817 11.3505 5.75 11.6685 5.75 12C5.75 12.3315 5.8817 12.6495 6.11612 12.8839L10.1161 16.8839C10.6043 17.372 11.3957 17.372 11.8839 16.8839C12.372 16.3957 12.372 15.6043 11.8839 15.1161L8.76777 12L11.8839 8.88388C12.372 8.39573 12.372 7.60427 11.8839 7.11612C11.3957 6.62796 10.6043 6.62796 10.1161 7.11612L6.11612 11.1161Z'/><path fill='%23" + $color + "' d='M12.1161 11.1161C11.8817 11.3505 11.75 11.6685 11.75 12C11.75 12.3315 11.8817 12.6495 12.1161 12.8839L16.1161 16.8839C16.6043 17.372 17.3957 17.372 17.8839 16.8839C18.372 16.3957 18.372 15.6043 17.8839 15.1161L14.7678 12L17.8839 8.88388C18.372 8.39573 18.372 7.60427 17.8839 7.11612C17.3957 6.62796 16.6043 6.62796 16.1161 7.11612L12.1161 11.1161Z'/></svg>");
+}
+
+$color-primary-5: '146ff5';
+
+@mixin hoverEllipsisConfig($ellipsisType) {
+  display: inline-block;
+  position: relative;
+
+  .square-pag:hover & {
+    color: transparent;
+
+    &::before {
+      @if $ellipsisType == "first" {
+        @include setBackgroundLeftEllipsis($color-primary-5);
+      } @else if $ellipsisType == "secondary" {
+        @include setBackgroundRightEllipsis($color-primary-5);
+      }
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
 .pag-container {
   display: flex;
   align-items: flex-start;
@@ -68,4 +105,12 @@
   &:hover {
     @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
   }
+}
+
+.page-ellipsis--1 {
+  @include hoverEllipsisConfig('first');
+}
+
+.page-ellipsis-0 {
+  @include hoverEllipsisConfig('secondary');
 }

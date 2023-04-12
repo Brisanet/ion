@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { DropdownItem } from '../core/types/dropdown';
 import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
-
+import { IonPaginationEllipsisComponent } from './utils/ellipsis.component';
 export const ITEMS_PER_PAGE_DEFAULT = 10;
 export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
 
@@ -32,6 +32,11 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   public labelPerPage = '';
 
   pages: Page[] = [];
+  pageOffset: number;
+  pageShiftQuantity = 5;
+  previousNextQuantity = 2;
+  currentPageNumber: number;
+  paginationEllipsis = new IonPaginationEllipsisComponent(this);
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
@@ -62,20 +67,21 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPage(pageNumber = 1): void {
-    this.pages &&
-      this.pages.forEach((pageEach) => {
-        pageEach.selected = false;
-      });
-
-    const page = this.pages[pageNumber - 1];
-    page.selected = true;
-
-    this.events.emit({
-      actual: page.page_number,
-      itemsPerPage: this.itemsPerPage,
-      offset: (page.page_number - 1) * this.itemsPerPage,
-    });
-    this.page = page.page_number;
+    if (pageNumber === -1) {
+      this.pageOffset = this.currentPageNumber - this.pageShiftQuantity;
+      this.currentPageNumber = this.pageOffset;
+      this.selectedPageCondition(this.currentPageNumber);
+    } else if (pageNumber === 0) {
+      this.pageOffset = this.currentPageNumber + this.pageShiftQuantity;
+      this.currentPageNumber = this.pageOffset;
+      this.selectedPageCondition(this.currentPageNumber);
+    } else {
+      this.pages &&
+        this.pages.forEach((pageEach) => {
+          pageEach.selected = false;
+        });
+      this.selectedPageCondition(pageNumber);
+    }
   }
 
   hasPrevious(): boolean {
@@ -90,13 +96,13 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   previous(): void {
     if (!this.inFirstPage()) {
-      this.selectPage(this.currentPage().page_number - 1);
+      this.selectPage(this.currentPageNumber - 1);
     }
   }
 
   next(): void {
     if (!this.inLastPage()) {
-      this.selectPage(this.currentPage().page_number + 1);
+      this.selectPage(this.currentPageNumber + 1);
     }
   }
 
@@ -104,10 +110,28 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     this.createPages(this.totalPages());
     if (this.pages.length) this.selectPage(1);
   }
-
   totalPages(): number {
     const numberOfPages = Math.ceil(this.total / this.itemsPerPage);
     return numberOfPages;
+  }
+
+  selectedPageCondition(pageNumber: number): void {
+    let page: Page;
+    if (this.totalPages() >= 10) {
+      page = this.pages[this.paginationEllipsis.skipEllipsis(pageNumber)];
+      pageNumber === 0 || pageNumber === -1
+        ? (page.selected = false)
+        : (page.selected = true);
+    } else {
+      page = this.pages[pageNumber - 1];
+      page.selected = true;
+    }
+    this.currentPageNumber = page.page_number;
+    this.events.emit({
+      actual: page.page_number,
+      itemsPerPage: this.itemsPerPage,
+      offset: (page.page_number - 1) * this.itemsPerPage,
+    });
   }
 
   getSelectedItemsPerPageLabel(options: DropdownItem[]): string {
@@ -115,28 +139,34 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     return (option && option.label) || this.generateLabel(this.itemsPerPage);
   }
 
+  hidePages(pageNumber: number): boolean {
+    return this.paginationEllipsis.ellipsisInPagination(pageNumber);
+  }
+
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
-      this.pages.push({
-        selected: false,
-        page_number: index + 1,
-      });
+      if (qtdOfPages >= 10) {
+        this.paginationEllipsis.createEllipsis(index, qtdOfPages);
+      } else {
+        this.pages.push({
+          selected: false,
+          page_number: index + 1,
+        });
+      }
     }
   }
 
-  private currentPage(): Page {
-    return this.pages.filter((page) => page.selected)[0];
-  }
-
   private inLastPage(): boolean {
-    const currentPageCopy = this.currentPage();
-    return currentPageCopy && currentPageCopy.page_number === this.totalPages();
+    if (this.totalPages() === this.currentPageNumber) {
+      this.previousNextQuantity = 2;
+    }
+    return this.currentPageNumber === this.totalPages();
   }
 
   private inFirstPage(): boolean {
-    const currentPageCopy = this.currentPage();
-    return currentPageCopy && currentPageCopy.page_number === 1;
+    if (this.currentPageNumber === 1) this.previousNextQuantity = 2;
+    return this.currentPageNumber === 1;
   }
 
   private generateLabel(page: number): string {
