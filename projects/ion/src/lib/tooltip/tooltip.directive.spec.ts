@@ -14,6 +14,7 @@ import { IonTooltipModule } from './tooltip.module';
       data-testid="hostTooltip"
       ionTooltip
       [ionTooltipTitle]="ionTooltipTitle"
+      [ionTooltipTemplateRef]="ref"
       [ionTooltipColorScheme]="ionTooltipColorScheme"
       [ionTooltipPosition]="ionTooltipPosition"
       [ionTooltipTrigger]="ionTooltipTrigger"
@@ -21,6 +22,9 @@ import { IonTooltipModule } from './tooltip.module';
     >
       Hover me
     </p>
+    <ng-template #ref>
+      <span data-testid="templateRef">Im a template ref</span>
+    </ng-template>
   `,
 })
 class HostTestComponent {
@@ -68,6 +72,13 @@ describe('Directive: Tooltip', () => {
 
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByText(ionTooltipTitle)).toBeInTheDocument();
+  });
+
+  it('should render tooltip with a template ref', async () => {
+    await sut();
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByTestId('templateRef')).toBeInTheDocument();
   });
 
   it.each(['light', 'dark'] as TooltipColorScheme[])(

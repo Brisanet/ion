@@ -1,4 +1,4 @@
-name: "🚀 release"
+name: '🚀 release'
 
 on:
   release:
@@ -28,15 +28,11 @@ jobs:
       - name: 🟢 node
         uses: actions/setup-node@v3
         with:
-            node-version: ${{ matrix.node-version }}
-            registry-url: https://registry.npmjs.org
+          node-version: ${{ matrix.node-version }}
+          registry-url: https://registry.npmjs.org
 
       - name: 📚 Install packages
         run: yarn install --frozen-lockfile
-
-      - name: 🏷️ update version
-        run: npm version patch
-        working-directory: projects/ion
 
       - name: 🏗️ build
         run: yarn build
@@ -45,4 +41,4 @@ jobs:
         run: npm publish --access public
         working-directory: dist/ion
         env:
-            NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}

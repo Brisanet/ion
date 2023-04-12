@@ -19,7 +19,13 @@
       >
         <div class="header-style">
           <span class="th-span">{{ column.label }}</span>
-          <button class="svg" (click)="sort(column)" *ngIf="column.sort">
+          <button
+            class="svg"
+            (click)="
+              !!config.debounceOnSort ? sortWithDebounce(column) : sort(column)
+            "
+            *ngIf="column.sort"
+          >
             <svg
               [attr.data-testid]="'sort-by-' + column.key"
               width="8"
@@ -76,7 +82,9 @@
       >
         <!-- cell types -->
 
-        <span class="td-span" *ngIf="!column.type">{{ row[column.key] }}</span>
+        <span class="td-span" *ngIf="!column.type">{{
+          row[column.key] | replaceEmpty: '-'
+        }}</span>
         <ion-tag
           *ngIf="column.type === 'tag'"
           [label]="row[column.key]"

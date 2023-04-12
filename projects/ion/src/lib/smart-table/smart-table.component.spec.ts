@@ -1,9 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonSmartTableProps,
-  IonSmartTableComponent,
-} from './smart-table.component';
+import { IonSmartTableComponent } from './smart-table.component';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
@@ -11,6 +8,8 @@ import { IonTagModule } from '../tag/tag.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonSmartTableProps } from '../core/types';
+import { PipesModule } from '../utils/pipes/pipes.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -83,6 +82,7 @@ const sut = async (
       IonButtonModule,
       IonIconModule,
       IonPaginationModule,
+      PipesModule,
     ],
   });
 };
@@ -194,7 +194,6 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.CHANGE_PAGE,
     });
   });
-
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
@@ -533,10 +532,33 @@ describe('Table > Differents columns data type', () => {
       expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
       expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
     });
+
+    it('should only emit sort action after a given debounce time', async () => {
+      const debounceTime = 2000;
+      jest.useFakeTimers();
+
+      tableDifferentColumns.config.columns = [
+        {
+          label: 'Albuns',
+          sort: true,
+          key: 'albuns',
+        },
+      ];
+      tableDifferentColumns.config.debounceOnSort = debounceTime;
+
+      await sut(tableDifferentColumns);
+      eventSelect.mockClear();
+      fireEvent.click(screen.getByTestId('sort-by-albuns'));
+      expect(tableDifferentColumns.events.emit).not.toHaveBeenCalled();
+
+      jest.advanceTimersByTime(debounceTime);
+      expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
+    });
   });
 
   afterAll(() => {
     eventSelect.mockClear();
+    jest.useRealTimers();
   });
 });
 
@@ -545,6 +567,7 @@ describe('Table > Pagination', () => {
     const withoutConfigItemsPerPage = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withoutConfigItemsPerPage.events = { emit: jest.fn() } as SafeAny;
     withoutConfigItemsPerPage.config.pagination = {
       total: 32,
       page: 1,
@@ -570,6 +593,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
@@ -594,6 +618,7 @@ describe('Table > Action with confirm', () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
 
     const actionConfig = {
       label: 'Excluir',
@@ -636,6 +661,18 @@ describe('Table without Data', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+
+  it('should add a (-) when there is no data in the cell', async () => {
+    const customData = {
+      ...defaultProps,
+    };
+    customData.config.data = [{ name: '', height: 0, mass: 100 }];
+    await sut(customData);
+    const cellHeight = screen.getByTestId('row-0-height');
+    const cellName = screen.getByTestId('row-0-name');
+    expect(cellHeight).toHaveTextContent('0');
+    expect(cellName).toHaveTextContent('-');
   });
 });
 

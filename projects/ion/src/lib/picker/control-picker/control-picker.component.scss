@@ -1,0 +1,111 @@
+@import '../../../styles/index.scss';
+
+:host {
+  position: relative;
+}
+
+.container-controls,
+.container-buttons,
+.container-labels {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $neutral-1;
+}
+
+.container-buttons {
+  gap: 8px;
+
+  & ion-button {
+    ::ng-deep button.ion-btn-md {
+      padding: 0;
+      border-radius: 12px;
+      height: 24px;
+      width: 24px !important;
+      min-width: 24px !important;
+      border: 1px solid $neutral-5;
+    }
+  }
+}
+
+.container-labels {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: $neutral-8;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-6;
+    }
+  }
+}
+
+.container-choose-month,
+.container-choose-year {
+  position: absolute;
+  height: 280px;
+  border-radius: 8px;
+  background: $neutral-1;
+  left: -24px;
+  top: -24px;
+  right: -24px;
+  z-index: 1;
+}
+
+.container-choose-month {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  ion-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.container-choose-year {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    padding: 0 spacing(3);
+    margin-top: 4px;
+
+    span {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      text-align: center;
+      color: $neutral-8;
+    }
+
+    & ion-button {
+      ::ng-deep button.ion-btn-md {
+        border: 1px solid $neutral-5;
+      }
+    }
+  }
+
+  .content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+
+    ion-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

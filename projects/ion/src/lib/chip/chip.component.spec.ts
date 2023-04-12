@@ -1,18 +1,30 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonBadgeModule } from '../badge/badge.module';
-import { IconDirection, InfoBadgeStatus } from '../core/types';
-import { ChipSize, IonChipProps } from '../core/types/chip';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonInfoBadgeModule } from '../info-badge/info-badge.module';
 import { SafeAny } from '../utils/safe-any';
-import { IonChipComponent } from './chip.component';
+import {
+  ChipComponent,
+  IonChipProps,
+  ChipSize,
+  IconDirection,
+} from './chip.component';
+import { InfoBadgeStatus } from '../core/types';
+import { SimpleChange } from '@angular/core';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
-const sut = async (customProps?: IonChipProps): Promise<void> => {
-  await render(IonChipComponent, {
+const sut = async (
+  customProps?: IonChipProps
+): Promise<RenderResult<ChipComponent>> => {
+  return await render(ChipComponent, {
     componentProperties: customProps || {
       label: 'chip',
     },
@@ -105,6 +117,36 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
+  it('should correctly updates label when the selected option changes', async () => {
+    const dropdownEvent = jest.fn();
+    const customOptions = [
+      { label: 'Slytherin', selected: true },
+      { label: 'Ravenclaw', selected: false },
+    ];
+    const customProps = {
+      label: 'dropdown',
+      options: customOptions,
+      multiple: false,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
+    };
+    const { fixture } = await sut(customProps);
+    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
+      customOptions[0].label
+    );
+    customProps.options[0].selected = false;
+    customProps.options[1].selected = true;
+
+    fixture.componentInstance.ngOnChanges({
+      options: new SimpleChange(null, customProps.options, false),
+    });
+    fixture.detectChanges();
+    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
+      customProps.options[1].label
+    );
+  });
+
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
     beforeEach(async () => {
@@ -132,28 +174,11 @@ describe('ChipComponent', () => {
       expect(screen.getByText(defaultOptions[0].label)).toBeInTheDocument();
     });
 
-    it('should show option label in chip label when selected', async () => {
-      const option = defaultOptions[0].label;
-      const element = screen.getByText('dropdown');
-      fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
-      expect(screen.getAllByText(option)).toHaveLength(1);
-    });
-
-    it('should close dropdown when is not multiple and selected an option', async () => {
-      const option = defaultOptions[0].label;
-      const element = screen.getByTestId('ion-chip');
-      fireEvent.click(element);
-      fireEvent.click(screen.getByText(option));
-      expect(element).toHaveClass('chip');
-      expect(screen.queryAllByText(option)).toHaveLength(1);
-    });
-
     it('should emit options selected when select in chip', async () => {
       const option = defaultOptions[0];
       const chipToOpen = screen.getByTestId('ion-chip');
       fireEvent.click(chipToOpen);
-      fireEvent.click(screen.getByText(option.label));
+      fireEvent.click(document.getElementById('option-0'));
       expect(dropdownEvent).toBeCalledWith([option]);
     });
 
@@ -209,6 +234,13 @@ describe('With Multiple Dropdown', () => {
     expect(dropdown).toHaveClass('chip-selected');
   });
 
+  it('should clear badge when clear button be clicked', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText(options[0].label));
+    fireEvent.click(screen.getByText('Limpar'));
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
+  });
+
   afterEach(() => {
     dropdownEvent.mockClear();
   });
@@ -222,7 +254,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     await sut({
       label,
-      options: defaultOptions,
+      options: [],
       dropdownEvents: {
         emit: jest.fn(),
       } as SafeAny,
