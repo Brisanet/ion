@@ -1,5 +1,6 @@
 import {
   access,
+  access2,
   add,
   alert,
   arrowsDownUp,
@@ -80,6 +81,7 @@ import {
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
 export const iconsPaths: Record<string, string> = {
   access,
+  access2,
   add,
   'arrows-down-up': arrowsDownUp,
   'arrows-up-down': arrowsUpDown,

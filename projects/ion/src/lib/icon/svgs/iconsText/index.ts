@@ -1,4 +1,5 @@
 export { default as access } from './access';
+export { default as access2 } from './access2';
 export { default as add } from './add';
 export { default as alert } from './alert';
 export { default as arrowsDownUp } from './arrows-down-up';
