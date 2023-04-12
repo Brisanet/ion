@@ -17,8 +17,6 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonSharedModule } from '../shared.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -37,6 +35,9 @@ const sut = async (
     ],
   });
 };
+
+const getContainerDropdown = (): HTMLElement | null =>
+  document.getElementById('ion-dropdown');
 
 describe('ChipComponent', () => {
   it('should render chip with options', async () => {
@@ -262,63 +263,48 @@ describe('With Dropdown with search input', () => {
     expect(searchEvent).toHaveBeenCalledWith(input);
   });
 
+  it('should toggle dropdown when click', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(screen.getByText('dropdown'));
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close dropdown on click outside element', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(document.body);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close dropdown on click outside element', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(document.body);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close the dropdown when clicking on the path contained in the chip`s svg', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    const svgElement = document.querySelector('svg');
+    const pathElement = svgElement.querySelector('path');
+    expect(pathElement).toBeTruthy();
+    fireEvent.click(pathElement);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
   afterEach(() => {
     searchEvent.mockClear();
   });
 });
 
-describe('dropdown visibility in chip component', () => {
-  let chipComponent: ChipComponent;
-  let fixture: ComponentFixture<ChipComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ChipComponent],
-      imports: [IonSharedModule, IonInfoBadgeModule],
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ChipComponent);
-    chipComponent = fixture.componentInstance;
-  });
-
-  it('should update showDropdown for false when dispatch event mouseup', () => {
-    chipComponent.options = [{ label: 'test' }];
-    chipComponent.showDropdown = false;
-    chipComponent.toggleDropdown();
-    fixture.detectChanges();
-    expect(chipComponent.showDropdown).toBeTruthy();
-
-    document.dispatchEvent(new Event('click'));
-    expect(chipComponent.showDropdown).not.toBeTruthy();
-  });
-
-  it('should keep showDropdown as true when disabledToggle for true and dispatch event mouseup ', () => {
-    chipComponent.options = [{ label: 'test' }];
-    chipComponent.showToggle = true;
-    chipComponent.showDropdown = false;
-    chipComponent.toggleDropdown();
-    fixture.detectChanges();
-    expect(chipComponent.showDropdown).toBeTruthy();
-
-    document.dispatchEvent(new Event('mouseup'));
-    expect(chipComponent.showDropdown).toBeTruthy();
-  });
-
-  it('should correctly updates label when the selected option changes', async () => {
-    const customOptions = [
-      { label: 'Slytherin', selected: true },
-      { label: 'Ravenclaw', selected: false },
-    ];
-
-    chipComponent.options = customOptions;
-    fixture.autoDetectChanges();
-    expect(chipComponent.label).toBe('Slytherin');
-
-    chipComponent.options[0].selected = false;
-    chipComponent.options[1].selected = true;
-    chipComponent.updateLabel();
-    expect(chipComponent.label).toBe('Ravenclaw');
+describe('option showToggle', () => {
+  it('should not close dropdown when showToggle option is true', async () => {
+    await sut({
+      label: 'dropdown',
+      showToggle: true,
+      options: [],
+    });
+    fireEvent.click(screen.getByText('dropdown'));
+    expect(getContainerDropdown()).toBeTruthy();
+    fireEvent.click(document.body);
+    expect(getContainerDropdown()).toBeTruthy();
   });
 });
