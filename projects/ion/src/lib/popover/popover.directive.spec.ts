@@ -3,7 +3,6 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
-  ElementRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -40,8 +39,6 @@ const secondAction = jest.fn();
       [ionPopoverActions]="ionPopoverActions"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
-      [isVisible]="isVisible"
-      [onClickDesable]="onClickDesable"
       class="get-test"
       style="margin-top: 50px;"
       label="${textButton}"
@@ -62,8 +59,6 @@ class HostTestComponent {
   ionPopoverIconClose = true;
   ionPopoverIcon = 'condominium';
   ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
-  isVisible = false;
-  onClickDesable = false;
 
   ionOnFirstAction = firstAction;
   ionOnSecondAction = secondAction;
@@ -78,8 +73,6 @@ class HostTestComponent {
       [ionPopoverIconClose]="true"
       ionPopoverPosition="${PopoverPosition.DEFAULT}"
       [ionPopoverActions]="[{ label: 'action 1' }, { label: 'action 2' }]"
-      [isVisible]="false"
-      [onClickDesable]="false"
       class="get-test"
       style="margin-top: 50px;"
     >
@@ -105,8 +98,6 @@ class ContainerRefTestComponent {
       ionPopoverTitle="${confirmText}"
       [ionPopoverBody]="ref"
       [ionPopoverIconClose]="true"
-      [isVisible]="false"
-      [onClickDesable]="false"
       class="get-test"
       style="margin-top: 50px;"
       [label]="${textButton}"
@@ -202,11 +193,7 @@ describe('Popover host tests', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      providers: [
-        IonPopoverDirective,
-        ViewContainerRef,
-        { provide: ElementRef, useValue: {} },
-      ],
+      providers: [IonPopoverDirective, ViewContainerRef],
       declarations: [
         ContainerRefTestComponent,
         IonPopoverComponent,
@@ -270,11 +257,7 @@ describe('Popover disabled host component', () => {
 
   beforeEach(() => {
     fixtureDisabledBtn = TestBed.configureTestingModule({
-      providers: [
-        IonPopoverDirective,
-        ViewContainerRef,
-        { provide: ElementRef, useValue: {} },
-      ],
+      providers: [IonPopoverDirective, ViewContainerRef],
       declarations: [
         ButtonTestDisabledComponent,
         IonPopoverComponent,
