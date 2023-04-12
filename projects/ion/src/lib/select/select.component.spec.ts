@@ -122,7 +122,7 @@ describe('choosing options', () => {
   });
 
   it('should toggle dropdown view on input click', async () => {
-    await sut({});
+    await sut();
     fireEvent.click(await getInput());
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(await getInput());
@@ -137,11 +137,21 @@ describe('choosing options', () => {
     expect(getContainerDropdown()).toBe(null);
   });
 
+  it('should close the dropdown when clicking on the path contained in the svg', async () => {
+    await sut();
+    fireEvent.click(await getInput());
+    expect(getContainerDropdown()).toBeTruthy();
+    const svgElement = document.querySelector('svg');
+    const pathElement = svgElement.querySelector('path');
+    expect(pathElement).toBeTruthy();
+    fireEvent.click(pathElement);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
   it('should keep showDropdown as true when disableVisibilityToggle for true and dispatch event mouseup ', async () => {
     await sut({
       showToggle: true,
     });
-
     fireEvent.click(await getInput());
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(document.body);

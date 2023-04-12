@@ -1,4 +1,4 @@
-<div class="ion-select__container-input">
+<div class="ion-select__container-input" [id]="inputId">
   <ion-input
     [placeholder]="placeholder"
     (click)="toggleDropdown()"
@@ -11,7 +11,11 @@
   ></ion-input>
 </div>
 
-<div [id]="id" class="ion-select__container-dropdown" *ngIf="showDropdown">
+<div
+  [id]="dropdownId"
+  class="ion-select__container-dropdown"
+  *ngIf="showDropdown"
+>
   <ion-dropdown
     [options]="options"
     (selected)="selectedOptions($event)"

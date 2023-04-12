@@ -6,8 +6,8 @@ import {
   EventEmitter,
   OnInit,
   DoCheck,
+  OnDestroy,
 } from '@angular/core';
-import { SafeAny } from './../utils/safe-any';
 import { DropdownItem } from '../core/types';
 
 @Component({
@@ -15,7 +15,9 @@ import { DropdownItem } from '../core/types';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
+export class IonSelectComponent
+  implements OnInit, AfterViewInit, DoCheck, OnDestroy
+{
   @Input() showToggle = false;
   @Input() showDropdown = false;
   @Input() placeholder = 'Choose a option';
@@ -25,7 +27,8 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
 
   search = false;
   inputValue = '';
-  id: string;
+  inputId: string;
+  dropdownId: string;
 
   toggleDropdown(): void {
     if (this.showToggle) {
@@ -37,32 +40,38 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   ngOnInit(): void {
-    this.id = this.generateId();
-
     this.updateLabel();
+    this.inputId = this.generateId('ion-select__input-container-');
+    this.dropdownId = this.generateId('ion-select__dropdown-container-');
   }
 
-  generateId = (): string =>
-    'ion-select__container-dropdown__' +
-    Math.floor(Math.random() * 100000000) +
-    1;
+  generateId = (name: string): string =>
+    name + Math.floor(Math.random() * 100000000) + 1;
+
+  closeDropdown(event: MouseEvent): void {
+    const element = event.target as HTMLElement;
+
+    if (element.nodeName === 'path') {
+      return;
+    }
+
+    const chipContainer = document.getElementById(this.inputId);
+    if (chipContainer && chipContainer.contains(element)) {
+      return;
+    }
+
+    const dropdownContainer = document.getElementById(this.dropdownId);
+    if (dropdownContainer && !dropdownContainer.contains(element)) {
+      this.showDropdown = false;
+    }
+  }
 
   ngAfterViewInit(): void {
     if (this.showToggle) {
       return;
     }
 
-    document.addEventListener('click', (e: SafeAny) => {
-      if (e.target.getAttribute('data-testid') === 'input-element') {
-        return;
-      }
-
-      const dropdownContainer = document.getElementById(this.id);
-
-      if (dropdownContainer && !dropdownContainer.contains(e.target)) {
-        this.showDropdown = false;
-      }
-    });
+    document.addEventListener('click', (e) => this.closeDropdown(e));
   }
 
   ngDoCheck(): void {
@@ -110,5 +119,9 @@ export class IonSelectComponent implements OnInit, AfterViewInit, DoCheck {
 
   clearInput(): void {
     this.inputValue = '';
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.closeDropdown);
   }
 }
