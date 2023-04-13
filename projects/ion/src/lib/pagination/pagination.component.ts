@@ -30,7 +30,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   public optionsPage?: DropdownItem[] = [];
   public labelPerPage = '';
-  private isFistLoad = true;
 
   pages: Page[] = [];
 
@@ -41,8 +40,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.total && this.isFistLoad) {
-      this.isFistLoad = false;
+    if (changes.total && changes.total.firstChange) {
       this.remountPages();
     }
 
