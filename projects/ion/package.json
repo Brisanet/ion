@@ -1,6 +1,6 @@
 {
   "name": "@brisanet/ion",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "peerDependencies": {
     "@angular/common": "^8.1.3",
     "@angular/core": "^8.1.3"
