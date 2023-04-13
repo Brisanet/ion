@@ -30,6 +30,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   public optionsPage?: DropdownItem[] = [];
   public labelPerPage = '';
+  private isFistLoad = true;
 
   pages: Page[] = [];
 
@@ -40,9 +41,15 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.total) {
+    if (changes.total && this.isFistLoad) {
+      this.isFistLoad = false;
       this.remountPages();
     }
+
+    if (changes.total && changes.total) {
+      this.remountPages(false);
+    }
+
     if (changes.page && changes.page.currentValue) {
       this.setPage(changes.page.currentValue);
     }
@@ -61,20 +68,23 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     }
   }
 
-  selectPage(pageNumber = 1): void {
-    this.pages &&
+  selectPage(pageNumber = 1, emitEvent = true): void {
+    if (this.pages) {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
+    }
 
     const page = this.pages[pageNumber - 1];
     page.selected = true;
 
-    this.events.emit({
-      actual: page.page_number,
-      itemsPerPage: this.itemsPerPage,
-      offset: (page.page_number - 1) * this.itemsPerPage,
-    });
+    if (emitEvent) {
+      this.events.emit({
+        actual: page.page_number,
+        itemsPerPage: this.itemsPerPage,
+        offset: (page.page_number - 1) * this.itemsPerPage,
+      });
+    }
     this.page = page.page_number;
   }
 
@@ -100,9 +110,11 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     }
   }
 
-  remountPages(): void {
+  remountPages(emitEvent = true): void {
     this.createPages(this.totalPages());
-    if (this.pages.length) this.selectPage(1);
+    if (this.pages.length) {
+      this.selectPage(1, emitEvent);
+    }
   }
 
   totalPages(): number {
