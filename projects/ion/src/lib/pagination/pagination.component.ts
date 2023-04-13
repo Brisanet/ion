@@ -12,7 +12,7 @@ import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 import { IonPaginationEllipsisComponent } from './utils/ellipsis.component';
 export const ITEMS_PER_PAGE_DEFAULT = 10;
 export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
-
+export const LIMIT_TO_ADVANCED_PAGINATION = 10;
 @Component({
   selector: 'ion-pagination',
   templateUrl: './pagination.component.html',
@@ -117,7 +117,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   selectedPageCondition(pageNumber: number): void {
     let page: Page;
-    if (this.totalPages() >= 10) {
+    if (this.totalPages() >= LIMIT_TO_ADVANCED_PAGINATION) {
       page = this.pages[this.paginationEllipsis.skipEllipsis(pageNumber)];
       pageNumber === 0 || pageNumber === -1
         ? (page.selected = false)
@@ -146,7 +146,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
-      if (qtdOfPages >= 10) {
+      if (qtdOfPages >= LIMIT_TO_ADVANCED_PAGINATION) {
         this.paginationEllipsis.createEllipsis(index, qtdOfPages);
       } else {
         this.pages.push({
