@@ -23,6 +23,21 @@ Include screenshots or GIFs that illustrate the proposed changes. This can be es
 
 Provide a link to the chromatic Storybook that shows the proposed changes so reviewers can easily see the changes in action.
 
+Please also be aware that in addition to the Chromatic link, the link in the pull request description will also need to be updated whenever changes are made.
+
+<details>
+  <summary>How can I access the Chromatic link?</summary>
+
+- Open the pull request that you wish to verify the Storybook Chromatic on.
+
+- At the bottom of the "Checks" comment, click on "Details" next to the "Chromatic/chromatic-deployment" status.
+
+- On the "Checks" page, you will see a list of checks. Select the "Publish to Chromatic" section.
+
+- Scroll down until you find the section "View your Storybook at https://examplelink", that represents the desired link.
+
+</details>
+
 ## Compliance
 
 - [ ] I have verified that this change complies with our code and contribution policies.
