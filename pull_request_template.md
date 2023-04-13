@@ -1,3 +1,7 @@
+## Issue Number
+
+Associate the issue number with the title of the pull request. If you don't have an associated issue, you should create one. Including an issue number helps provide context and traceability to the proposed changes in the pull request.
+
 ## Description
 
 Provide a clear and concise description of your change. Explain why this change is necessary and how it improves the project. Include links to related issues, if any.
@@ -14,6 +18,10 @@ Provide detailed instructions on how to test the proposed changes. Include infor
 ## Screenshots
 
 Include screenshots or GIFs that illustrate the proposed changes. This can be especially useful for user interface changes.
+
+## View Storybook
+
+Provide a link to the chromatic Storybook that shows the proposed changes so reviewers can easily see the changes in action.
 
 ## Compliance
 
