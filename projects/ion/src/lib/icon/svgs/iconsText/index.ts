@@ -18,6 +18,7 @@ export { default as closeSolid } from './close-solid';
 export { default as closeRounded } from './close-rounded';
 export { default as condominium } from './condominium';
 export { default as config } from './config';
+export { default as config2 } from './config2';
 export { default as doc } from './doc';
 export { default as docAdd } from './doc-add';
 export { default as docCheck } from './doc-check';
