@@ -7,7 +7,7 @@
 }
 
 @mixin setPageSizeBorder($size, $borderRadius) {
-  width: $size;
+  min-width: $size;
   height: $size;
   border-radius: $borderRadius;
 }
