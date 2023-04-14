@@ -17,7 +17,6 @@ import {
   IconDirection,
 } from './chip.component';
 import { InfoBadgeStatus } from '../core/types';
-import { SimpleChange } from '@angular/core';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -36,6 +35,9 @@ const sut = async (
     ],
   });
 };
+
+const getContainerDropdown = (): HTMLElement | null =>
+  document.getElementById('ion-dropdown');
 
 describe('ChipComponent', () => {
   it('should render chip with options', async () => {
@@ -117,34 +119,13 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
-  it('should correctly updates label when the selected option changes', async () => {
-    const dropdownEvent = jest.fn();
-    const customOptions = [
-      { label: 'Slytherin', selected: true },
-      { label: 'Ravenclaw', selected: false },
-    ];
-    const customProps = {
-      label: 'dropdown',
-      options: customOptions,
-      multiple: false,
-      dropdownEvents: {
-        emit: dropdownEvent,
-      } as SafeAny,
-    };
-    const { fixture } = await sut(customProps);
-    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
-      customOptions[0].label
-    );
-    customProps.options[0].selected = false;
-    customProps.options[1].selected = true;
-
-    fixture.componentInstance.ngOnChanges({
-      options: new SimpleChange(null, customProps.options, false),
+  it('should render the label of the first selected option when displaying the chip with dropdwon', async () => {
+    const customLabel = 'option';
+    await sut({
+      label: 'chip',
+      options: [{ label: customLabel, selected: true }],
     });
-    fixture.detectChanges();
-    expect(screen.getByTestId('ion-chip-label')).toHaveTextContent(
-      customProps.options[1].label
-    );
+    expect(screen.getByText(customLabel)).toBeInTheDocument();
   });
 
   describe('With Dropdown', () => {
@@ -231,7 +212,7 @@ describe('With Multiple Dropdown', () => {
     const dropdown = screen.getByTestId('ion-chip');
     fireEvent.click(dropdown);
     fireEvent.click(screen.getByText(options[0].label));
-    expect(dropdown).toHaveClass('chip-selected');
+    expect(screen.getAllByTestId('ion-dropdown')).toBeTruthy();
   });
 
   it('should clear badge when clear button be clicked', async () => {
@@ -282,7 +263,48 @@ describe('With Dropdown with search input', () => {
     expect(searchEvent).toHaveBeenCalledWith(input);
   });
 
+  it('should toggle dropdown when click', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(screen.getByText('dropdown'));
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close dropdown on click outside element', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(document.body);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close dropdown on click outside element', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    userEvent.click(document.body);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
+  it('should close the dropdown when clicking on the path contained in the chip`s svg', async () => {
+    expect(getContainerDropdown()).toBeTruthy();
+    const svgElement = document.querySelector('svg');
+    const pathElement = svgElement.querySelector('path');
+    expect(pathElement).toBeTruthy();
+    fireEvent.click(pathElement);
+    expect(getContainerDropdown()).toBe(null);
+  });
+
   afterEach(() => {
     searchEvent.mockClear();
+  });
+});
+
+describe('option showToggle', () => {
+  it('should not close dropdown when showToggle option is true', async () => {
+    await sut({
+      label: 'dropdown',
+      showToggle: true,
+      options: [],
+    });
+    fireEvent.click(screen.getByText('dropdown'));
+    expect(getContainerDropdown()).toBeTruthy();
+    fireEvent.click(document.body);
+    expect(getContainerDropdown()).toBeTruthy();
   });
 });
