@@ -110,3 +110,6 @@ SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);
 
 export const SortWithDebounce = Template.bind({});
 SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
+
+export const LargePagination = Template.bind({});
+LargePagination.args = returnTableConfig(data, columns, actions, 2000);
