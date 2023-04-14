@@ -26,6 +26,14 @@
   @include setPageSizeBorder(24px, 6px);
 }
 
+.pages-list {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+  max-width: 352px;
+}
+
 .square-pag {
   @include setBorderBgColor($neutral-4, #fff, $primary-color);
 
