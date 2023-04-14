@@ -6,7 +6,7 @@
 }
 
 .modal-overlay {
-  z-index: 99;
+  z-index: $zIndexMid;
   position: absolute;
   top: 0;
   left: 0;
@@ -25,7 +25,6 @@
 
   .modal-container {
     width: 500px;
-
     border-radius: 12px;
     background: #ffffff;
     border: none;
