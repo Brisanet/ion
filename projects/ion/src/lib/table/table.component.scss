@@ -53,7 +53,7 @@ table {
     padding: spacing(2);
     position: sticky;
     top: 0;
-    z-index: $zIndexMid;
+    z-index: $zIndexLow;
 
     & .th-span,
     &.th-actions {
@@ -157,6 +157,10 @@ table {
   font-size: 14px;
   line-height: 20px;
   color: $neutral-7;
+
+  .pagination {
+    max-width: 80%;
+  }
 }
 
 .noData {
