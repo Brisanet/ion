@@ -1,3 +1,9 @@
+## Issue Number
+
+Associate the issue number with the title of the pull request. If you don't have an associated issue, you should create one. Including an issue number helps provide context and traceability to the proposed changes in the pull request.
+
+fix #issue_number
+
 ## Description
 
 Provide a clear and concise description of your change. Explain why this change is necessary and how it improves the project. Include links to related issues, if any.
@@ -14,6 +20,25 @@ Provide detailed instructions on how to test the proposed changes. Include infor
 ## Screenshots
 
 Include screenshots or GIFs that illustrate the proposed changes. This can be especially useful for user interface changes.
+
+## View Storybook
+
+Provide a link to the chromatic Storybook that shows the proposed changes so reviewers can easily see the changes in action.
+
+Please also be aware that in addition to the Chromatic link, the link in the pull request description will also need to be updated whenever changes are made.
+
+<details>
+  <summary>How can I access the Chromatic link?</summary>
+
+- Open the pull request that you wish to verify the Storybook Chromatic on.
+
+- At the bottom of the "Checks" comment, click on "Details" next to the "Chromatic/chromatic-deployment" status.
+
+- On the "Checks" page, you will see a list of checks. Select the "Publish to Chromatic" section.
+
+- Scroll down until you find the section "View your Storybook at https://examplelink", that represents the desired link.
+
+</details>
 
 ## Compliance
 
