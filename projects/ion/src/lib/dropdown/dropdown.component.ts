@@ -29,7 +29,7 @@ export class IonDropdownComponent implements OnInit, AfterViewInit {
   setClearButtonIsVisible(): void {
     if (this.multiple) {
       this.clearButtonIsVisible = this.options.some(
-        (option) => option.selected === true
+        (option) => option.selected
       );
     }
   }
