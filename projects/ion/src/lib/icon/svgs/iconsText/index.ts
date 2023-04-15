@@ -1,4 +1,5 @@
 export { default as access } from './access';
+export { default as access2 } from './access2';
 export { default as add } from './add';
 export { default as alert } from './alert';
 export { default as arrowsDownUp } from './arrows-down-up';
@@ -18,6 +19,7 @@ export { default as closeSolid } from './close-solid';
 export { default as closeRounded } from './close-rounded';
 export { default as condominium } from './condominium';
 export { default as config } from './config';
+export { default as config2 } from './config2';
 export { default as doc } from './doc';
 export { default as docAdd } from './doc-add';
 export { default as docCheck } from './doc-check';

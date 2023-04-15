@@ -157,6 +157,10 @@ table {
   font-size: 14px;
   line-height: 20px;
   color: $neutral-7;
+
+  .pagination {
+    max-width: 80%;
+  }
 }
 
 .noData {

@@ -131,18 +131,20 @@
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
   </div>
+
   <div
     *ngIf="config.pagination && config.data && config.data.length"
     data-testid="pagination-container"
     class="footer-table"
   >
-    <div>
+    <div class="total-container">
       <span>Total: {{ config.pagination.total }}</span>
       <span *ngIf="config.loading" data-testid="loading-pagination">
         Carregando página..
       </span>
     </div>
-    <div>
+
+    <div class="pagination">
       <ion-pagination
         [loading]="config.loading"
         [total]="config.pagination.total"
