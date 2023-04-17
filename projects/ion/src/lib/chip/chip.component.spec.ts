@@ -222,7 +222,7 @@ describe('With Multiple Dropdown', () => {
     expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
   });
 
-  it('should emit event when clear button be clicked', async () => {
+  it('should emit event when click clear button', async () => {
     fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText(options[0].label));
     fireEvent.click(screen.getByText('Limpar'));
