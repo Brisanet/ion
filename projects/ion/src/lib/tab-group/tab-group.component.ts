@@ -22,7 +22,7 @@ import {
 export class IonTabGroupComponent implements OnInit, OnChanges {
   @Input() tabs: TabInGroup[];
   @Input() direction: DirectionType = 'horizontal';
-  @Input() border: BorderDirectionType;
+  @Input() border: BorderDirectionType = 'bottom';
   @Input() size: TabSize = 'sm';
 
   @Output() selected = new EventEmitter<TabInGroup>();
@@ -48,7 +48,7 @@ export class IonTabGroupComponent implements OnInit, OnChanges {
   }
 
   private getBorderByDirection(direction: DirectionType): BorderDirectionType {
-    const directions = {
+    const directions: { [key in DirectionType]: BorderDirectionType } = {
       horizontal: 'bottom',
       vertical: 'right',
     };
@@ -57,18 +57,20 @@ export class IonTabGroupComponent implements OnInit, OnChanges {
       return this.border;
     }
 
-    return directions[direction] as BorderDirectionType;
+    return directions[direction];
   }
 
   private getDirectionByBorder(border: BorderDirectionType): DirectionType {
-    const directions = {
+    const directions: {
+      [key in BorderDirectionType]: DirectionType;
+    } = {
       left: 'vertical',
       right: 'vertical',
       top: 'horizontal',
       bottom: 'horizontal',
     };
 
-    return directions[border] as DirectionType;
+    return directions[border];
   }
 
   private isBorderDirectionCorrect(direction: DirectionType): boolean {
