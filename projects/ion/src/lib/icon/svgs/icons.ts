@@ -1,5 +1,6 @@
 import {
   access,
+  access2,
   add,
   alert,
   arrowsDownUp,
@@ -18,6 +19,7 @@ import {
   closeRounded,
   condominium,
   config,
+  config2,
   doc,
   docAdd,
   docCheck,
@@ -80,6 +82,7 @@ import {
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
 export const iconsPaths: Record<string, string> = {
   access,
+  access2,
   add,
   'arrows-down-up': arrowsDownUp,
   'arrows-up-down': arrowsUpDown,
@@ -148,6 +151,7 @@ export const iconsPaths: Record<string, string> = {
   'doc-warning': docWarning,
   condominium,
   config,
+  config2,
   alert,
   user,
   motorcycle,
