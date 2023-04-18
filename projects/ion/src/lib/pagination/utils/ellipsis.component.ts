@@ -11,7 +11,8 @@ export class IonPaginationEllipsisComponent {
   createEllipsis(index: number, qtdOfPages: number): void {
     if (index === 1) {
       this.createBothEllipsis(-1);
-    } else if (index === qtdOfPages - 1) {
+    }
+    if (index === qtdOfPages - 1) {
       this.createBothEllipsis(0);
     }
     this.paginationComponent.pages.push({
@@ -29,12 +30,12 @@ export class IonPaginationEllipsisComponent {
 
   skipEllipsis(pageNumber: number): number {
     if (pageNumber === 1) return pageNumber - 1;
-    else if (pageNumber === this.paginationComponent.pages.length - 2)
+    if (pageNumber === this.paginationComponent.pages.length - 2)
       return pageNumber + 1;
     else return pageNumber;
   }
 
-  hidePageNumber(pageNumber: number): boolean {
+  shouldHide(pageNumber: number): boolean {
     return (
       (pageNumber <
         this.paginationComponent.currentPageNumber -
@@ -60,9 +61,9 @@ export class IonPaginationEllipsisComponent {
       this.paginationComponent.currentPageNumber < 5 && pageNumber <= 5;
 
     return {
-      leftLimit: leftLimit,
-      showLeftEllipsis: showLeftEllipsis,
-      firstPages: firstPages,
+      leftLimit,
+      showLeftEllipsis,
+      firstPages,
     };
   }
 
@@ -76,10 +77,10 @@ export class IonPaginationEllipsisComponent {
     if (this.withinEndRange()) {
       return this.isPageNearEnd(pageNumber, limitFunction);
     }
-    return this.hidePageNumber(pageNumber);
+    return this.shouldHide(pageNumber);
   }
 
-  ellipsisInPagination(pageNumber: number): boolean {
+  pageRangeEllipsis(pageNumber: number): boolean {
     const limitFunction = this.isLimit(pageNumber);
     if (this.paginationComponent.totalPages() <= 9) {
       return false;

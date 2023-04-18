@@ -7,7 +7,7 @@
 }
 
 @mixin setPageSizeBorder($size, $borderRadius) {
-  width: $size;
+  min-width: $size;
   height: $size;
   border-radius: $borderRadius;
 }
@@ -61,6 +61,14 @@ $color-primary-5: '146ff5';
 
 .page-sm {
   @include setPageSizeBorder(24px, 6px);
+}
+
+.pages-list {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+  max-width: 352px;
 }
 
 .square-pag {
