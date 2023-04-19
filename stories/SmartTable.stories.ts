@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
+import { IonSmartTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -113,3 +113,30 @@ SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
 
 export const LargePagination = Template.bind({});
 LargePagination.args = returnTableConfig(data, columns, actions, 2000);
+
+export const ActionWithDanger = Template.bind({});
+ActionWithDanger.args = returnTableConfig(
+  data,
+  columns,
+  [{ ...actions[0], danger: true }],
+  2
+);
+
+export const PopConfirmDynamicDescription = Template.bind({});
+PopConfirmDynamicDescription.args = returnTableConfig(
+  data,
+  columns,
+  [
+    {
+      ...actions[0],
+      confirm: {
+        ...actions[0].confirm,
+        description: undefined,
+        dynamicDescription: (row: SafeAny): string => {
+          return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
+        },
+      },
+    },
+  ],
+  2
+);
