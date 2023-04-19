@@ -175,9 +175,9 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(button);
 
       expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
-      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
-        options.length
-      );
+      expect(
+        screen.getByTestId('ion-dropdown').lastElementChild.childElementCount
+      ).toEqual(options.length);
     });
 
     it('should render a single-selection dropdown that close when a option is clicked', async () => {
@@ -235,9 +235,9 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(button);
 
       expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
-      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
-        options.length
-      );
+      expect(
+        screen.getByTestId('ion-dropdown').lastElementChild.childElementCount
+      ).toEqual(options.length);
     });
 
     it('should render an ion-badge when multiple is true', async () => {
