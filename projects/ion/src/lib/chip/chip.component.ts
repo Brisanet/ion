@@ -106,6 +106,7 @@ export class ChipComponent
 
   clearBadgeValue(): void {
     this.setBadgeValue(0);
+    this.dropdownEvents.emit([]);
   }
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
