@@ -87,12 +87,19 @@
               *ngIf="action.confirm"
               ionPopConfirm
               [ionPopConfirmTitle]="action.confirm.title"
-              [ionPopConfirmDesc]="action.confirm.description"
+              [ionPopConfirmDesc]="
+                !!action.confirm.description
+                  ? action.confirm.description
+                  : !!action.confirm.dynamicDescription
+                  ? action.confirm.dynamicDescription(row)
+                  : undefined
+              "
               (ionOnConfirm)="handleEvent(row, action)"
               [title]="action.label"
               [attr.data-testid]="'row-' + index + '-' + action.label"
               type="ghost"
               size="sm"
+              [danger]="!!action.danger"
               [iconType]="action.icon"
               [circularButton]="true"
               [disabled]="action.show ? !showAction(row, action) : false"
@@ -104,6 +111,7 @@
               [attr.data-testid]="'row-' + index + '-' + action.label"
               type="ghost"
               size="sm"
+              [danger]="!!action.danger"
               [iconType]="action.icon"
               [circularButton]="true"
               (ionOnClick)="handleEvent(row, action)"

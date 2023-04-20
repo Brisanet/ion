@@ -1,5 +1,5 @@
-import { SafeAny } from '../utils/safe-any';
 import { ConfigSmartTable } from '../core/types';
+import { SafeAny } from '../utils/safe-any';
 
 export enum EventTable {
   SORT = 'sort',
@@ -31,11 +31,13 @@ export interface Column {
 export interface ActionConfirm {
   title: string;
   description?: string;
+  dynamicDescription?: (row: SafeAny) => string;
 }
 
 export interface ActionTable {
   label: string;
   icon: string;
+  danger?: boolean;
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
   confirm?: ActionConfirm;
