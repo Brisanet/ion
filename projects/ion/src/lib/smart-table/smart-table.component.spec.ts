@@ -1,15 +1,15 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonSmartTableProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { ActionTable, Column, EventTable } from '../table/utilsTable';
+import { IonTagModule } from '../tag/tag.module';
+import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableComponent } from './smart-table.component';
-import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonPaginationModule } from '../pagination/pagination.module';
-import { IonTagModule } from '../tag/tag.module';
-import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
-import { IonButtonModule } from '../button/button.module';
-import { IonIconModule } from '../icon/icon.module';
-import { IonSmartTableProps } from '../core/types';
-import { PipesModule } from '../utils/pipes/pipes.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -233,6 +233,25 @@ describe('Table > Actions', () => {
   it.each(actions)('should render icon action', async ({ icon }) => {
     await sut(tableWithActions);
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
+  });
+
+  it('should render action with danger class when action has danger config', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+      config: {
+        ...tableWithActions.config,
+        actions: [
+          {
+            ...actions[0],
+            danger: true,
+          },
+        ],
+      },
+    } as IonSmartTableProps<Character>;
+    await sut(tableItemDeleted);
+    const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
+    expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
+    expect(within(rowAction).getByRole('button')).toHaveClass('danger');
   });
 
   it('should not render popconfirm when action dont has confirm config', async () => {
@@ -589,7 +608,7 @@ describe('Table > Pagination', () => {
 });
 
 describe('Table > Action with confirm', () => {
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -614,7 +633,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title and description in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -636,6 +655,31 @@ describe('Table > Action with confirm', () => {
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
+    );
+  });
+
+  it('should render popconfirm description with data provided from row', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+
+    expect(dynamicDescription).toHaveBeenCalled();
+    expect(dynamicDescription).toHaveBeenCalledWith(
+      defaultProps.config.data[0]
     );
   });
 });
