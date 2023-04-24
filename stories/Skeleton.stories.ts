@@ -6,10 +6,25 @@ export default {
   component: IonSkeletonComponent,
 } as Meta;
 
-const template: Story<IonSkeletonComponent> = (args: IonSkeletonComponent) => ({
+const Template: Story<IonSkeletonComponent> = (args: IonSkeletonComponent) => ({
   component: IonSkeletonComponent,
   props: args,
 });
 
-export const test = template.bind({});
-test.args = {};
+export const Rectangular = Template.bind({});
+Rectangular.args = {
+  variant: 'rect',
+  width: 100,
+} as IonSkeletonComponent;
+
+export const Circular = Template.bind({});
+Circular.args = {
+  variant: 'circular',
+} as IonSkeletonComponent;
+
+export const withCustomRadius = Template.bind({});
+withCustomRadius.args = {
+  variant: 'rect',
+  width: 100,
+  radius: 12,
+} as IonSkeletonComponent;

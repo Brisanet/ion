@@ -5,5 +5,6 @@ import { IonSkeletonComponent } from './skeleton.component';
 @NgModule({
   declarations: [IonSkeletonComponent],
   imports: [CommonModule],
+  exports: [IonSkeletonComponent],
 })
 export class IonSkeletonModule {}
