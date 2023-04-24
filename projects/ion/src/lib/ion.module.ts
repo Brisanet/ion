@@ -10,11 +10,10 @@ import { IonCardModule } from './card/card.module';
 import { IonCheckboxModule } from './checkbox/checkbox.module';
 import { IonChipModule } from './chip/chip.module';
 import { IonColModule } from './col/col.module';
-import { IonDatePickerModule } from './date-picker/date-picker/date-picker.module';
+import { IonDatePickerModule } from './picker/date-picker/date-picker.module';
 import { IonDividerModule } from './divider/divider.module';
 import { IonDropdownModule } from './dropdown/dropdown.module';
 import { IonIconModule } from './icon/icon.module';
-import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonInfoBadgeModule } from './info-badge/info-badge.module';
 import { IonInputAreaModule } from './input-area/input-area.module';
 import { IonInputCounterModule } from './input-counter/input-counter.module';
@@ -37,7 +36,11 @@ import { IonTableModule } from './table/table.module';
 import { IonTagModule } from './tag/tag.module';
 import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTypographyModule } from './typography/typography.module';
+import { IonIndicatorModule } from './indicator/indicator.module';
+import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
+import { IonSpinnerModule } from './spinner/spinner.module';
+import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonComponent } from './skeleton/skeleton.component';
 
 @NgModule({
@@ -59,7 +62,6 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonChipModule,
     IonCardModule,
     IonCheckboxModule,
-    IonDatePickerModule,
     IonDividerModule,
     IonInputAreaModule,
     IonInputCounterModule,
@@ -78,9 +80,13 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonPopoverModule,
     IonSidebarModule,
     IonRadioGroupModule,
     IonSkeletonComponent,
+    IonDatePickerModule,
+    IonSpinnerModule,
+    PipesModule,
   ],
   exports: [
     IonComponent,
@@ -99,7 +105,6 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonChipModule,
     IonCardModule,
     IonCheckboxModule,
-    IonDatePickerModule,
     IonDividerModule,
     IonInputAreaModule,
     IonInputCounterModule,
@@ -118,8 +123,11 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonRowModule,
     IonModalModule,
     IonIndicatorModule,
+    IonPopoverModule,
     IonSidebarModule,
+    IonDatePickerModule,
     IonRadioGroupModule,
+    IonSpinnerModule,
     IonSkeletonComponent,
   ],
 })

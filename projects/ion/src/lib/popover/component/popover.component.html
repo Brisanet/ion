@@ -1,0 +1,62 @@
+<div
+  [class]="'sup-container-' + ionPopoverPosition"
+  data-testid="ion-popover"
+  [style.top]="top + 'px'"
+  [style.left]="left + 'px'"
+  [style.position]="position"
+>
+  <div class="container">
+    <div class="header">
+      <div>
+        <ion-icon
+          *ngIf="ionPopoverIcon"
+          class="header_icon"
+          [type]="ionPopoverIcon"
+        ></ion-icon>
+
+        <h4 class="header_title">{{ ionPopoverTitle }}</h4>
+      </div>
+
+      <ion-button
+        *ngIf="ionPopoverIconClose"
+        data-testid="popover-icon-close"
+        iconType="close"
+        class="header_iconClose"
+        type="ghost"
+        [circularButton]="true"
+        (click)="close()"
+      ></ion-button>
+    </div>
+
+    <div class="content-body" *ngIf="ionPopoverBody">
+      <ng-container [ngTemplateOutlet]="ionPopoverBody"></ng-container>
+    </div>
+
+    <ion-divider *ngIf="ionPopoverActions"></ion-divider>
+
+    <div *ngIf="ionPopoverActions" class="footer">
+      <ng-container *ngFor="let action of ionPopoverActions; let i = index">
+        <ion-button
+          *ngIf="action && i < 2"
+          [attr.data-testid]="'popover-action-' + (i + 1)"
+          [label]="action.label"
+          [tooltip]="action.tooltip"
+          [type]="i === 0 ? 'ghost' : 'primary'"
+          size="sm"
+          [expand]="action.expand"
+          [danger]="action.danger"
+          [disabled]="action.disabled"
+          [loading]="action.loading"
+          [loadingMessage]="action.loadingMessage"
+          [multiple]="action.multiple"
+          [iconType]="action.iconType"
+          [rightSideIcon]="action.rightSideIcon"
+          [circularButton]="action.circularButton"
+          [options]="action.options"
+          [showDropdown]="action.showDropdown"
+          (click)="i === 0 ? firstAction() : secondAction()"
+        ></ion-button>
+      </ng-container>
+    </div>
+  </div>
+</div>
