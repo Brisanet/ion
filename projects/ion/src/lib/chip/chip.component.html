@@ -1,5 +1,6 @@
 <button
   data-testid="ion-chip"
+  [id]="chipId"
   (click)="select()"
   [disabled]="disabled"
   [ngClass]="{
@@ -56,7 +57,7 @@
   >
   </ion-icon>
 </button>
-<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="'dropdown-' + id">
+<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="dropdownId">
   <ion-dropdown
     [options]="options"
     [multiple]="multiple"
