@@ -14,17 +14,20 @@ const Template: Story<IonSkeletonComponent> = (args: IonSkeletonComponent) => ({
 export const Rectangular = Template.bind({});
 Rectangular.args = {
   variant: 'rect',
-  width: 100,
+  width: 400,
+  height: 100,
 } as IonSkeletonComponent;
 
 export const Circular = Template.bind({});
 Circular.args = {
   variant: 'circular',
+  height: 100,
+  width: 100,
 } as IonSkeletonComponent;
 
 export const withCustomRadius = Template.bind({});
 withCustomRadius.args = {
   variant: 'rect',
-  width: 100,
+  width: 400,
   radius: 12,
 } as IonSkeletonComponent;

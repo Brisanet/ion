@@ -16,13 +16,16 @@
       rgba(155, 160, 177, 0.2) 48.52%,
       rgba(246, 247, 248, 0.2) 100%
     );
-    animation: shimmer 1s infinite ease;
+    animation: shimmer 1.5s infinite ease-in-out;
     content: '';
   }
 
   @keyframes shimmer {
-    100% {
+    75% {
       transform: translateX(100%);
+    }
+    100% {
+      opacity: 0;
     }
   }
 }
