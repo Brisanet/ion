@@ -1,8 +1,10 @@
+@import '../../styles/index.scss';
+
 .skeleton-box {
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #fcfcfd;
+  background-color: $neutral-1;
 
   &::after {
     position: absolute;
