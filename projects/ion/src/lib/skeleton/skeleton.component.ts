@@ -13,9 +13,9 @@ enum variantRadius {
 })
 export class IonSkeletonComponent {
   @Input() variant: SkeletonVariants;
-  @Input() width: number = 50;
-  @Input() height: number = 50;
   @Input() radius?: number;
+  @Input() width = 50;
+  @Input() height = 50;
 
   getRadius() {
     return this.radius ? `${this.radius}px` : variantRadius[this.variant];
