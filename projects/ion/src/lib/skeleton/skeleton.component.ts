@@ -17,7 +17,7 @@ export class IonSkeletonComponent {
   @Input() width = 50;
   @Input() height = 50;
 
-  getRadius() {
+  getRadius(): string {
     return this.radius ? `${this.radius}px` : variantRadius[this.variant];
   }
 }
