@@ -35,11 +35,12 @@ export interface PopOffset {
 export class IonPopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
-  @Input() ionPopConfirmType: StatusType = 'warning';
+  @Input() ionPopConfirmType: StatusType;
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
   private IonPopConfirmComponentRef!: ComponentRef<IonPopConfirmComponent>;
+  private defaultType: StatusType = 'warning';
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -74,7 +75,7 @@ export class IonPopConfirmDirective {
       this.ionPopConfirmDesc;
 
     this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
-      this.ionPopConfirmType;
+      this.ionPopConfirmType || this.defaultType;
 
     this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.closePopConfirm();

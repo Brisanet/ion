@@ -135,6 +135,7 @@ PopConfirmDynamicDescription.args = returnTableConfig(
         dynamicDescription: (row: SafeAny): string => {
           return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
         },
+        type: 'info',
       },
     },
   ],
