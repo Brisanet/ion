@@ -41,7 +41,7 @@ import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
 import { IonSpinnerModule } from './spinner/spinner.module';
 import { PipesModule } from './utils/pipes/pipes.module';
-import { IonSkeletonComponent } from './skeleton/skeleton.component';
+import { IonSkeletonModule } from './skeleton/skeleton.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -83,7 +83,7 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonPopoverModule,
     IonSidebarModule,
     IonRadioGroupModule,
-    IonSkeletonComponent,
+    IonSkeletonModule,
     IonDatePickerModule,
     IonSpinnerModule,
     PipesModule,
@@ -128,7 +128,7 @@ import { IonSkeletonComponent } from './skeleton/skeleton.component';
     IonDatePickerModule,
     IonRadioGroupModule,
     IonSpinnerModule,
-    IonSkeletonComponent,
+    IonSkeletonModule,
   ],
 })
 export class IonModule {}
