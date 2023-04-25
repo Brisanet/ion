@@ -19,6 +19,7 @@ import { IonButtonModule } from '../button/button.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -36,6 +37,7 @@ const sut = async (
       IonTooltipModule,
       EntryComponentModule,
       IonSkeletonModule,
+      IonSpinnerModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
@@ -51,7 +53,8 @@ const elements = {
   buttonEmitter: 'ion-indicator-button-emitter',
   buttonRedirect: 'ion-indicator-button-redirect',
   buttonModal: 'ion-indicator-button-modal',
-  loading: 'ion-indicator-loading',
+  preview: 'ion-indicator-preview',
+  spinner: 'ion-indicator-spinner',
 };
 
 const getElementByTestId = (key: keyof typeof elements): HTMLElement =>
@@ -165,15 +168,15 @@ describe('IonIndicatorComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should hide all values when is loading', async () => {
-    const testTitle = 'Indicator Loading';
+  it('Should hide all values when is preview', async () => {
+    const testTitle = 'Indicator preview';
     const valueNumber = 12;
     const secondValueNumber = 14;
     await sut({
       value: valueNumber,
       secondValue: secondValueNumber,
       title: testTitle,
-      loading: true,
+      preview: true,
     });
 
     expect(getElementByTestId('title')).not.toBeInTheDocument();
@@ -181,11 +184,17 @@ describe('IonIndicatorComponent', () => {
     expect(getElementByTestId('secondValue')).not.toBeInTheDocument();
   });
 
-  it('should hide all values when is loading', async () => {
+  it('Should render skeleton when in preview', async () => {
+    await sut({
+      preview: true,
+    });
+    expect(getElementByTestId('preview')).toBeInTheDocument();
+  });
+
+  it('Should render spinner when is loading', async () => {
     await sut({
       loading: true,
     });
-
-    expect(getElementByTestId('loading')).toBeInTheDocument();
+    expect(getElementByTestId('spinner')).toBeInTheDocument();
   });
 });

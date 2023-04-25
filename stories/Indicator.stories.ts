@@ -41,9 +41,19 @@ WithTooltip.args = {
   secondValue: '5%',
 };
 
+export const WithPreview = Template.bind({});
+WithPreview.args = {
+  title: 'preview',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonEmitterConfig,
+  preview: true,
+};
+
 export const WithLoading = Template.bind({});
 WithLoading.args = {
-  title: 'Loading',
+  title: 'Tempo de SLA',
   value: 1500,
   secondValue: '5%',
   tooltipText: 'Texto personalizado via atributo tooltipText',

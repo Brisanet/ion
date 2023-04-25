@@ -1,12 +1,12 @@
 <div data-testid="ion-indicator" class="container">
   <div
-    *ngIf="loading"
-    class="loading-content"
-    data-testid="ion-indicator-loading"
+    *ngIf="preview"
+    class="preview-content"
+    data-testid="ion-indicator-preview"
   >
     <ion-skeleton variant="rect" [width]="400" [height]="136"></ion-skeleton>
   </div>
-  <div *ngIf="!loading">
+  <div *ngIf="!preview">
     <header class="title">
       <h1 data-testid="ion-indicator-title">{{ title }}</h1>
       <ion-icon
@@ -24,11 +24,21 @@
       </ion-icon>
     </header>
     <div class="content with-footer">
-      <header>
+      <div *ngIf="loading">
+        <ion-spinner
+          data-testid="ion-indicator-spinner"
+          [size]="32"
+          color="primary"
+        ></ion-spinner>
+      </div>
+      <header *ngIf="!loading">
         <h4 data-testid="ion-indicator-value">{{ value }}</h4>
         <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
       </header>
-      <footer data-testid="ion-indicator-footer" *ngIf="buttonConfig">
+      <footer
+        data-testid="ion-indicator-footer"
+        *ngIf="buttonConfig && !loading"
+      >
         <ion-button
           [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"
           type="ghost"

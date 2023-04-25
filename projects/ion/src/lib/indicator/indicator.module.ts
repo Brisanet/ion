@@ -6,6 +6,7 @@ import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonModalModule } from '../modal/modal.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 @NgModule({
   declarations: [IonIndicatorComponent],
@@ -16,6 +17,7 @@ import { IonSkeletonModule } from '../skeleton/skeleton.module';
     IonTooltipModule,
     IonModalModule,
     IonSkeletonModule,
+    IonSpinnerModule,
   ],
   exports: [IonIndicatorComponent],
 })
