@@ -32,7 +32,7 @@ export interface ActionConfirm {
   title: string;
   description?: string;
   dynamicDescription?: (row: SafeAny) => string;
-  type: StatusType;
+  type?: StatusType;
 }
 
 export interface ActionTable {
