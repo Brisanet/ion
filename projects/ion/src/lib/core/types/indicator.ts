@@ -14,6 +14,7 @@ export interface IonIndicatorProps {
   value?: string | number;
   secondValue?: string | number;
   buttonConfig?: IonIndicatorButtonConfiguration;
+  loading?: boolean;
 }
 
 export interface IonIndicatorButtonConfiguration {

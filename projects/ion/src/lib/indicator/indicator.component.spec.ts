@@ -18,6 +18,7 @@ import {
 import { IonButtonModule } from '../button/button.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonSkeletonModule } from '../skeleton/skeleton.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -34,6 +35,7 @@ const sut = async (
       IonIconModule,
       IonTooltipModule,
       EntryComponentModule,
+      IonSkeletonModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
@@ -49,6 +51,7 @@ const elements = {
   buttonEmitter: 'ion-indicator-button-emitter',
   buttonRedirect: 'ion-indicator-button-redirect',
   buttonModal: 'ion-indicator-button-modal',
+  loading: 'ion-indicator-loading',
 };
 
 const getElementByTestId = (key: keyof typeof elements): HTMLElement =>
@@ -160,5 +163,29 @@ describe('IonIndicatorComponent', () => {
     fireEvent.click(modalButton);
     expect(modalTitle).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('should hide all values when is loading', async () => {
+    const testTitle = 'Indicator Loading';
+    const valueNumber = 12;
+    const secondValueNumber = 14;
+    await sut({
+      value: valueNumber,
+      secondValue: secondValueNumber,
+      title: testTitle,
+      loading: true,
+    });
+
+    expect(getElementByTestId('title')).not.toBeInTheDocument();
+    expect(getElementByTestId('value')).not.toBeInTheDocument();
+    expect(getElementByTestId('secondValue')).not.toBeInTheDocument();
+  });
+
+  it('should hide all values when is loading', async () => {
+    await sut({
+      loading: true,
+    });
+
+    expect(getElementByTestId('loading')).toBeInTheDocument();
   });
 });

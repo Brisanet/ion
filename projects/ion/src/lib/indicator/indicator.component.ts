@@ -24,9 +24,11 @@ export class IonIndicatorComponent {
   @Input() value: number | string;
   @Input() secondValue: number | string;
   @Input() buttonConfig: IonIndicatorButtonConfiguration;
+  @Input() loading = false;
   @Output() ionClick = new EventEmitter();
   @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
   safeUrl: SafeResourceUrl;
+
   private buttonActions = {
     emitter: this.emitButtonClick,
     modal: this.openModal,

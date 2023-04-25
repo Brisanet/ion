@@ -18,7 +18,7 @@ const sut = async (
 };
 
 describe('Skeleton', () => {
-  const getSkeleton = () => screen.getByTestId('ion-skeleton');
+  const getSkeleton = (): HTMLElement => screen.getByTestId('ion-skeleton');
 
   it('should render correctly', async () => {
     await sut();
