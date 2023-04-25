@@ -1,11 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SkeletonVariants } from '../core/types/skeleton';
 
-enum variantRadius {
-  circular = '50%',
-  rect = '0',
-}
-
 @Component({
   selector: 'ion-skeleton',
   templateUrl: './skeleton.component.html',
@@ -17,7 +12,8 @@ export class IonSkeletonComponent {
   @Input() width = 50;
   @Input() height = 50;
 
-  getRadius(): string {
-    return this.radius ? `${this.radius}px` : variantRadius[this.variant];
-  }
+  variantRadius = {
+    circular: '50%',
+    rect: '0',
+  };
 }

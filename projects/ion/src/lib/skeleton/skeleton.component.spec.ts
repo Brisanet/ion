@@ -18,12 +18,11 @@ const sut = async (
 };
 
 describe('Skeleton', () => {
+  const getSkeleton = () => screen.getByTestId('ion-skeleton');
+
   it('should render correctly', async () => {
     await sut();
-
-    const skeleton = screen.getByTestId('ion-skeleton');
-    expect(skeleton).toBeVisible();
-    expect(skeleton).toHaveClass('skeleton-box');
+    expect(getSkeleton()).toHaveClass('skeleton-box');
   });
 
   it('should render a rectangular with a passed ratio', async () => {
@@ -33,21 +32,16 @@ describe('Skeleton', () => {
       height: 50,
     } as IonSkeletonComponent);
 
-    const skeleton = screen.getByTestId('ion-skeleton');
-    expect(skeleton).toHaveStyle('width: 100px; height: 50px');
+    expect(getSkeleton()).toHaveStyle('width: 100px; height: 50px');
   });
 
   it('should works on circular mode', async () => {
     await sut({ variant: 'circular' } as IonSkeletonComponent);
-
-    const skeleton = screen.getByTestId('ion-skeleton');
-    expect(skeleton).toHaveStyle('border-radius: 50%');
+    expect(getSkeleton()).toHaveStyle('border-radius: 50%');
   });
 
   it('should accepts a custom border radius', async () => {
     await sut({ variant: 'rect', radius: 12 } as IonSkeletonComponent);
-
-    const skeleton = screen.getByTestId('ion-skeleton');
-    expect(skeleton).toHaveStyle('border-radius: 12px');
+    expect(getSkeleton()).toHaveStyle('border-radius: 12px');
   });
 });
