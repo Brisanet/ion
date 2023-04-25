@@ -157,12 +157,15 @@ export class IonPopConfirmDirective {
         const popconfirmElement = document.querySelector(
           '.sup-container'
         ) as HTMLElement;
-        const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
-          top: position.top + position.height + marginBetweenComponents,
-          left: position.left,
-          width: position.width,
-        });
-        this.setStyle(popconfirmElement, offsetPosition);
+
+        if (popconfirmElement) {
+          const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
+            top: position.top + position.height + marginBetweenComponents,
+            left: position.left,
+            width: position.width,
+          });
+          this.setStyle(popconfirmElement, offsetPosition);
+        }
       });
     }
   }
