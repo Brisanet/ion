@@ -23,27 +23,19 @@ export class IonChipGroupComponent {
   @Output() selected? = new EventEmitter<ChipInGroup>();
 
   selectChip(chipSelected: ChipInGroup): void {
-    if (chipSelected.options) {
-      this.clearChipsWithDropdown();
-    }
+    const isChipSelected = chipSelected.selected;
+
     if (!this.multiple) {
       this.clearChips();
     }
-    chipSelected.selected = !chipSelected.selected;
+
+    chipSelected.selected = !isChipSelected;
     this.selected.emit(chipSelected);
   }
 
   private clearChips(): void {
     this.chips.forEach((chip) => {
       chip.selected = false;
-    });
-  }
-
-  private clearChipsWithDropdown(): void {
-    this.chips.forEach((chip) => {
-      if (chip.selected && chip.options) {
-        chip.selected = false;
-      }
     });
   }
 }
