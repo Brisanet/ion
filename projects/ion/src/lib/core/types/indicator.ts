@@ -16,6 +16,7 @@ export interface IonIndicatorProps {
   buttonConfig?: IonIndicatorButtonConfiguration;
   preview?: boolean;
   loading?: boolean;
+  error?: boolean;
 }
 
 export interface IonIndicatorButtonConfiguration {

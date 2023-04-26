@@ -55,6 +55,7 @@ const elements = {
   buttonModal: 'ion-indicator-button-modal',
   preview: 'ion-indicator-preview',
   spinner: 'ion-indicator-spinner',
+  error: 'ion-indicator-error',
 };
 
 const getElementByTestId = (key: keyof typeof elements): HTMLElement =>
@@ -196,5 +197,12 @@ describe('IonIndicatorComponent', () => {
       loading: true,
     });
     expect(getElementByTestId('spinner')).toBeInTheDocument();
+  });
+
+  it('Should render error msg', async () => {
+    await sut({
+      error: true,
+    });
+    expect(getElementByTestId('error')).toBeInTheDocument();
   });
 });

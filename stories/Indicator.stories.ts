@@ -61,6 +61,16 @@ WithLoading.args = {
   loading: true,
 };
 
+export const WithError = Template.bind({});
+WithError.args = {
+  title: 'Tempo de SLA',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonEmitterConfig,
+  error: true,
+};
+
 export const WithEmitterButton = Template.bind({});
 WithEmitterButton.args = {
   title: 'Com botão emitter',

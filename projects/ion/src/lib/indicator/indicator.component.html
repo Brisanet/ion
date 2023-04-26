@@ -24,20 +24,28 @@
       </ion-icon>
     </header>
     <div class="content with-footer">
-      <div *ngIf="loading">
+      <div
+        *ngIf="error"
+        class="error-container"
+        data-testid="ion-indicator-error"
+      >
+        <ion-icon size="16" type="exclamation-rounded"></ion-icon>
+        <span>Erro no carregamento</span>
+      </div>
+      <div *ngIf="loading && !error">
         <ion-spinner
           data-testid="ion-indicator-spinner"
           [size]="32"
           color="primary"
         ></ion-spinner>
       </div>
-      <header *ngIf="!loading">
+      <header *ngIf="!loading && !error">
         <h4 data-testid="ion-indicator-value">{{ value }}</h4>
         <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
       </header>
       <footer
         data-testid="ion-indicator-footer"
-        *ngIf="buttonConfig && !loading"
+        *ngIf="buttonConfig && !loading && !error"
       >
         <ion-button
           [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"

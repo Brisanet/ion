@@ -26,6 +26,7 @@ export class IonIndicatorComponent {
   @Input() buttonConfig: IonIndicatorButtonConfiguration;
   @Input() preview = false;
   @Input() loading = false;
+  @Input() error = false;
   @Output() ionClick = new EventEmitter();
   @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
   safeUrl: SafeResourceUrl;
