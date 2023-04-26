@@ -70,6 +70,7 @@ const actions = [
     confirm: {
       title: 'Você realmente deseja deletar?',
       description: 'você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
     },
   },
   {
@@ -135,6 +136,7 @@ PopConfirmDynamicDescription.args = returnTableConfig(
         dynamicDescription: (row: SafeAny): string => {
           return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
         },
+        type: 'info',
       },
     },
   ],
