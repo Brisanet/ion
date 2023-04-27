@@ -1,4 +1,10 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  ViewChild,
+} from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../core/types/icon';
 
@@ -14,7 +20,7 @@ const iconTypes = {
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.scss'],
 })
-export class IonAlertComponent implements OnInit {
+export class IonAlertComponent implements OnChanges {
   @Input() message!: string;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
@@ -32,7 +38,7 @@ export class IonAlertComponent implements OnInit {
     this.iconType = iconTypes[this.type];
   }
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.setIcon();
   }
 }

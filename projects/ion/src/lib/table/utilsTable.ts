@@ -1,4 +1,4 @@
-import { ConfigSmartTable } from '../core/types';
+import { ConfigSmartTable, StatusType } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 
 export enum EventTable {
@@ -32,6 +32,7 @@ export interface ActionConfirm {
   title: string;
   description?: string;
   dynamicDescription?: (row: SafeAny) => string;
+  type?: StatusType;
 }
 
 export interface ActionTable {
