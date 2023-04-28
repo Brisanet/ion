@@ -33,8 +33,6 @@ export class IonPopoverDirective implements OnDestroy {
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
-  nativeElement: HTMLElement;
-
   private popoverComponentRef!: ComponentRef<IonPopoverComponent>;
 
   constructor(
