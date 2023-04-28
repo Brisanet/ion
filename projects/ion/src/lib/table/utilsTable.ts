@@ -47,6 +47,7 @@ export interface ActionTable {
 export interface PaginationConfig {
   total: number;
   itemsPerPage?: number;
+  pageSizeOptions?: number[];
   offset?: number;
   page?: number;
 }
