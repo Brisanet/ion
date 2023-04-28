@@ -447,6 +447,18 @@ E 6 outras propriedades adicionais.
     }}
   </Story>
   <Story
+    name="disabled in ghost danger icon button"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [danger]="true" iconType="close" [disabled]=false></ion-button>`,
+    }}
+  </Story>
+  <Story
     name="disabled in dashed button"
     decorators={[
       moduleMetadata({
