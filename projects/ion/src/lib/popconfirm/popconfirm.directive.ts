@@ -14,6 +14,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopConfirmComponent } from './popconfirm.component';
+import { StatusType } from '../core/types';
 
 export interface PopPosition {
   top: number;
@@ -34,6 +35,7 @@ export interface PopOffset {
 export class IonPopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
+  @Input() ionPopConfirmType: StatusType = 'warning';
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
@@ -70,6 +72,9 @@ export class IonPopConfirmDirective {
 
     this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
       this.ionPopConfirmDesc;
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
+      this.ionPopConfirmType;
 
     this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.closePopConfirm();
@@ -152,12 +157,15 @@ export class IonPopConfirmDirective {
         const popconfirmElement = document.querySelector(
           '.sup-container'
         ) as HTMLElement;
-        const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
-          top: position.top + position.height + marginBetweenComponents,
-          left: position.left,
-          width: position.width,
-        });
-        this.setStyle(popconfirmElement, offsetPosition);
+
+        if (popconfirmElement) {
+          const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
+            top: position.top + position.height + marginBetweenComponents,
+            left: position.left,
+            width: position.width,
+          });
+          this.setStyle(popconfirmElement, offsetPosition);
+        }
       });
     }
   }
