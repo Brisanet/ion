@@ -43,6 +43,7 @@ import { IonChipGroupModule } from './chip-group/chip-group.module';
 import { IonSpinnerModule } from './spinner/spinner.module';
 import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonModule } from './skeleton/skeleton.module';
+import { IonSelectModule } from './select/select.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -89,6 +90,7 @@ import { IonSkeletonModule } from './skeleton/skeleton.module';
     IonChipGroupModule,
     IonSpinnerModule,
     PipesModule,
+    IonSelectModule,
   ],
   exports: [
     IonComponent,
@@ -132,6 +134,7 @@ import { IonSkeletonModule } from './skeleton/skeleton.module';
     IonChipGroupModule,
     IonSpinnerModule,
     IonSkeletonModule,
+    IonSelectModule,
   ],
 })
 export class IonModule {}
