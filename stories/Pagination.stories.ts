@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
-import { FormsModule } from '@angular/forms';
 import { IonButtonModule } from '../projects/ion/src/lib/button/button.module';
+import { IonPaginationComponent } from '../projects/ion/src/lib/pagination/pagination.component';
 
 export default {
   title: 'Ion/Navigation/Pagination',
@@ -39,4 +39,5 @@ SelectItemPerPage.args = {
   total: 46,
   allowChangeQtdItems: true,
   itemsPerPage: 10,
+  pageSizeOptions: [10, 20, 30, 40, 46],
 };
