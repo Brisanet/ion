@@ -22,13 +22,16 @@ export class IonSelectComponent
   @Input() showDropdown = false;
   @Input() placeholder = 'Choose a option';
   @Input() options: DropdownItem[] = [];
+  @Input() enableSearch = true;
+  @Input() enableFilteringOptions = true;
 
   @Output() selected = new EventEmitter<DropdownItem>();
+  @Output() searchChange = new EventEmitter<string>();
 
-  search = false;
   inputValue = '';
   inputId: string;
   dropdownId: string;
+  optionsCopy: DropdownItem[] = [];
 
   toggleDropdown(): void {
     if (this.showToggle) {
@@ -37,12 +40,14 @@ export class IonSelectComponent
     }
 
     this.showDropdown = !this.showDropdown;
+    this.optionsCopy = this.options;
   }
 
   ngOnInit(): void {
     this.updateLabel();
     this.inputId = this.generateId('ion-select__input-container-');
     this.dropdownId = this.generateId('ion-select__dropdown-container-');
+    this.optionsCopy = this.options;
   }
 
   generateId = (name: string): string =>
@@ -63,6 +68,7 @@ export class IonSelectComponent
     const dropdownContainer = document.getElementById(this.dropdownId);
     if (dropdownContainer && !dropdownContainer.contains(element)) {
       this.showDropdown = false;
+      this.optionsCopy = this.options;
     }
   }
 
@@ -82,10 +88,15 @@ export class IonSelectComponent
     const [option] = event;
     this.inputValue = option.label;
     this.selected.emit(option);
+
+    this.options.forEach((currentOption) => {
+      currentOption.selected = currentOption.label === option.label;
+    });
+    this.showDropdown = false;
   }
 
-  uncheckedOptionsInSelect(event: string): void {
-    if (!event) {
+  uncheckedOptionsInSelect(value: string): void {
+    if (!value) {
       this.options.forEach((item: DropdownItem) => {
         item.selected = false;
       });
@@ -119,6 +130,25 @@ export class IonSelectComponent
 
   clearInput(): void {
     this.inputValue = '';
+  }
+
+  inputChange(value: string): void {
+    this.searchChange.emit(value);
+
+    if (this.enableFilteringOptions) {
+      this.filterOptions(value);
+    }
+  }
+
+  filterOptions(term: string): void {
+    if (!term) {
+      this.optionsCopy = this.options;
+      return;
+    }
+
+    this.optionsCopy = this.options.filter((item) =>
+      item.label.toLowerCase().includes(term.toLowerCase())
+    );
   }
 
   ngOnDestroy(): void {

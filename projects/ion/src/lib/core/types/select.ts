@@ -6,5 +6,8 @@ export interface IonSelectProps {
   showDropdown?: boolean;
   placeholder?: string;
   options?: DropdownItem[];
+  enableSearch?: boolean;
+  enableFilteringOptions?: boolean;
   selected?: EventEmitter<DropdownItem>;
+  searchChange?: EventEmitter<string>;
 }

@@ -12,9 +12,13 @@ import {
 import { IonSelectProps } from '../core/types/select';
 import { DropdownItem } from './../core/types/dropdown';
 import { EventEmitter } from '@angular/core';
+import userEvent from '@testing-library/user-event';
 
 const getInput = async (): Promise<HTMLInputElement> =>
   (await screen.getByTestId('input-element')) as HTMLInputElement;
+
+const getInputSearch = async (): Promise<HTMLInputElement> =>
+  (await screen.getAllByTestId('input-element')[1]) as HTMLInputElement;
 
 const getButtonClear = async (): Promise<HTMLElement> =>
   await screen.getByTestId('buttonClear');
@@ -79,7 +83,10 @@ describe('choosing options', () => {
   });
 
   it('should render label of the selected option', async () => {
-    await sut({ options: [{ label: 'option 01' }, { label: 'option 02' }] });
+    await sut({
+      options: [{ label: 'option 01' }, { label: 'option 02' }],
+      enableSearch: false,
+    });
     fireEvent.click(await getInput());
     fireEvent.click(document.getElementById('option-0'));
     expect((await getInput()).value).toBe('option 01');
@@ -97,9 +104,13 @@ describe('choosing options', () => {
   });
 
   it('should clear input when click in icon close', async () => {
-    await sut({ options: [{ label: 'option 01' }, { label: 'option 02' }] });
+    await sut({
+      options: [{ label: 'option 01' }, { label: 'option 02' }],
+      enableSearch: false,
+    });
     fireEvent.click(await getInput());
     fireEvent.click(document.getElementById('option-0'));
+    fireEvent.click(await getInput());
     fireEvent.click(await getButtonClear());
     expect((await getInput()).value).toBe('');
     expect(await getInput()).toHaveAttribute('placeholder', 'Choose a option');
@@ -122,7 +133,7 @@ describe('choosing options', () => {
   });
 
   it('should toggle dropdown view on input click', async () => {
-    await sut();
+    await sut({ enableSearch: false });
     fireEvent.click(await getInput());
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(await getInput());
@@ -156,5 +167,43 @@ describe('choosing options', () => {
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(document.body);
     expect(getContainerDropdown()).toBeTruthy();
+  });
+});
+
+describe('Filtering Options', () => {
+  const customOptions: DropdownItem[] = [
+    { label: 'Banana' },
+    { label: 'Coconut' },
+    { label: 'Melon' },
+    { label: 'Mango' },
+  ];
+  it('should only show the options that contain the text in the input', async () => {
+    await sut({ options: customOptions });
+    fireEvent.click(await getInput());
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(
+      customOptions.length
+    );
+    userEvent.type(await getInputSearch(), customOptions[3].label);
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
+    expect(document.getElementById('option-0')).toContainHTML(
+      customOptions[3].label
+    );
+  });
+
+  it('should reset option when clear input search ', async () => {
+    await sut({ options: customOptions });
+    fireEvent.click(await getInput());
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(
+      customOptions.length
+    );
+    userEvent.type(await getInputSearch(), customOptions[3].label);
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
+    expect(document.getElementById('option-0')).toContainHTML(
+      customOptions[3].label
+    );
+    userEvent.clear(await getInputSearch());
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(
+      customOptions.length
+    );
   });
 });

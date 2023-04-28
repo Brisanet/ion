@@ -3,8 +3,8 @@
     [placeholder]="placeholder"
     (click)="toggleDropdown()"
     iconDirection="right"
-    [iconInput]="search ? 'search' : showDropdown ? 'semi-down' : 'semi-up'"
-    [readonly]="!search"
+    [iconInput]="showDropdown ? 'semi-up' : 'semi-down'"
+    [readonly]="true"
     [value]="inputValue"
     [clearButton]="inputValue"
     (valueChange)="uncheckedOptionsInSelect($event)"
@@ -17,8 +17,10 @@
   *ngIf="showDropdown"
 >
   <ion-dropdown
-    [options]="options"
+    [options]="optionsCopy"
+    [enableSearch]="enableSearch"
     (selected)="selectedOptions($event)"
     (clearBadgeValue)="clearInput()"
+    (searchChange)="inputChange($event)"
   ></ion-dropdown>
 </div>
