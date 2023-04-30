@@ -1,7 +1,6 @@
 @import '../../styles/index.scss';
 
 .breadcrumbs-nav {
-  padding: spacing(0.7) spacing(0.9);
   text-decoration: none;
   font-family: sans-serif;
   font-size: 15px;
@@ -9,24 +8,27 @@
 
 .ol-navigator {
   display: inline-flex;
+  gap: 8px;
   margin: 0;
-  padding: spacing(1.25);
+  padding: 0;
 }
 
 .ol-navigator li {
   display: flex;
+  gap: 8px;
   align-items: center;
   text-align: center;
 
   ion-icon {
     ::ng-deep svg {
-      fill: $neutral-6;
+      fill: $neutral-5;
     }
   }
 }
+
 .ol-navigator li a {
   text-decoration: none;
-  padding: spacing(1.25);
+  padding: spacing(1.25) spacing(0);
   color: $neutral-6;
   font-weight: 400;
   font-size: 14px;
