@@ -1,14 +1,15 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
+import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
 import { SafeAny } from '../utils/safe-any';
 import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
 
@@ -41,6 +42,9 @@ export class IonTableComponent implements OnInit {
         this.config.pagination.itemsPerPage || defaultItemsPerPage;
 
       this.config.pagination.page = this.config.pagination.page || 1;
+
+      this.config.pagination.pageSizeOptions =
+        this.config.pagination.pageSizeOptions || LIST_OF_PAGE_OPTIONS;
 
       this.paginationEvents({
         actual: this.config.pagination.page,
