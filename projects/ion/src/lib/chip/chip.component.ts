@@ -71,6 +71,7 @@ export class ChipComponent
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
+  @Input() isChipWithGroup = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
@@ -99,7 +100,7 @@ export class ChipComponent
       return;
     }
 
-    if (this.options) {
+    if (this.options && !this.isChipWithGroup) {
       this.showDropdown = !this.showDropdown;
     }
   }
@@ -158,6 +159,7 @@ export class ChipComponent
 
     const dropdownContainer = document.getElementById(this.dropdownId);
     if (dropdownContainer && !dropdownContainer.contains(element)) {
+      this.isChipWithGroup && (this.selected = !this.selected);
       this.showDropdown = false;
     }
   }

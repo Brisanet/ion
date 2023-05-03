@@ -1,6 +1,7 @@
 <div data-testid="ion-chip-group" class="chip-group">
   <ion-chip
     *ngFor="let chip of chips; index as i"
+    [isChipWithGroup]="isChipWithGroup"
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
     [selected]="chip.selected"

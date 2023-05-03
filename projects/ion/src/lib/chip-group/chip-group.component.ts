@@ -22,6 +22,8 @@ export class IonChipGroupComponent {
   @Input() multiple = false;
   @Output() selected? = new EventEmitter<ChipInGroup>();
 
+  private isChipWithGroup = true;
+
   selectChip(chipSelected: ChipInGroup): void {
     const isChipSelected = chipSelected.selected;
 
