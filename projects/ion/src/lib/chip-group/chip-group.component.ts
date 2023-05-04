@@ -6,7 +6,7 @@ import {
   RightBadge,
 } from '../core/types';
 import { ChipInGroup } from '../core/types/chip-group';
-import { DropdownItem } from 'ion/public-api';
+import { DropdownItem } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-chip-group',
