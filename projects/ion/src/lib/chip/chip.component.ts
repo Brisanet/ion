@@ -82,6 +82,8 @@ export class ChipComponent
     value: 0,
   };
 
+  tempFilter: DropdownItem[] = [];
+
   select(): void {
     this.toggleDropdown();
     if (!this.options) {
@@ -190,6 +192,10 @@ export class ChipComponent
     }
 
     this.label = selectedOption.label;
+  }
+
+  setTempOptions(selectedArray: DropdownItem[]): void {
+    this.tempFilter = selectedArray;
   }
 
   private setBadgeValue(newValue: number): void {

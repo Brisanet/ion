@@ -85,6 +85,7 @@ describe('Dropdown / Clear Filters', () => {
   it('should render clear button on init if there are selected values by default', async () => {
     await sut({
       ...defaultDropdown,
+      multiple: true,
       options: [
         { label: 'Option 1', selected: true },
         { label: 'Option 2', selected: false },
