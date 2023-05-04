@@ -5,7 +5,9 @@
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
     [selected]="chip.selected"
-    [showDropdown]="chip.selected && chip.options"
+    [showDropdown]="
+      (chip.selected && chip.options) || (chip.selected && chip.multiple)
+    "
     [size]="chip.size || size"
     [options]="chip.options"
     [icon]="chip.icon"
@@ -14,5 +16,6 @@
     [iconPosition]="chip.iconPosition || iconPosition"
     [rightBadge]="chip.rightBadge || rightBadge"
     (click)="selectChip(chip)"
+    (dropdownEvents)="dropdownEvents($event)"
   ></ion-chip>
 </div>

@@ -95,7 +95,14 @@ export class ChipComponent
   }
 
   toggleDropdown(): void {
-    if (this.showToggle) {
+    this.selected = !this.selected;
+
+    if (!this.selected) {
+      this.showDropdown = false;
+      return;
+    }
+
+    if (this.showToggle || this.selected) {
       this.showDropdown = true;
       return;
     }
