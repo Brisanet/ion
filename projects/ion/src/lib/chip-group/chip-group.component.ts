@@ -41,7 +41,7 @@ export class IonChipGroupComponent {
     this.selected.emit(chipSelected);
   }
 
-  dropdownEvents(options: DropdownItem[]) {
+  dropdownEvents(options: DropdownItem[]): void {
     if (options) {
       this.dropdown.emit(options);
     }
