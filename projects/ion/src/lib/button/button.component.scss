@@ -66,7 +66,7 @@ button {
 
     ion-icon {
       ::ng-deep svg {
-        fill: $neutral-5;
+        fill: $neutral-5 !important;
       }
     }
   }
