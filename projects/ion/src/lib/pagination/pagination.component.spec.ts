@@ -132,7 +132,6 @@ describe('Pagination > Page sizes', () => {
             name: /10 \/ página/i,
           })
         );
-        screen.logTestingPlaygroundURL();
         const view = screen.getByTestId('ion-dropdown');
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
       }
