@@ -45,6 +45,12 @@ describe('IonDropdownComponent', () => {
   beforeEach(async () => {
     await sut();
   });
+  afterEach(() => {
+    const elementToSelect = document.getElementById('option-0');
+    if (elementToSelect.classList.contains('dropdown-item-selected')) {
+      fireEvent.click(elementToSelect);
+    }
+  });
 
   it.each(options)('should render option $label', async ({ label }) => {
     expect(screen.getAllByText(label)).toHaveLength(1);
@@ -63,11 +69,9 @@ describe('IonDropdownComponent', () => {
   it('should change icon to close when mouse enter in option selected', async () => {
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
-    setTimeout(() => {
-      fireEvent.mouseEnter(elementToHover);
-      expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(0);
-      expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
-    }, 50);
+    fireEvent.mouseEnter(elementToHover);
+    expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(0);
+    expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
   });
 
   it('should show check icon when mouse leave of option selected', async () => {
