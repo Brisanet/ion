@@ -44,7 +44,7 @@ $arrow-size: 4.5px;
 }
 
 .ion-popover {
-  &-sup-container {
+  &__sup-container {
     &--leftTop {
       transform: translate(
         calc(-100% - $popover-spacing),
@@ -149,7 +149,7 @@ $arrow-size: 4.5px;
     }
   }
 
-  &__iconClose {
+  &__icon-close {
     cursor: pointer;
     ::ng-deep svg {
       fill: $primary-6;
