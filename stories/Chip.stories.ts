@@ -75,7 +75,22 @@ ChipWithRightBadge.args = {
 export const WithDropdown = Template.bind({});
 WithDropdown.args = {
   label: 'Animais',
-  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  options: [
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Cat' },
+    { label: 'Dog' },
+  ],
   icon: 'close',
   multiple: true,
 };

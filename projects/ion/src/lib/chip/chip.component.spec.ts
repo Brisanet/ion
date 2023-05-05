@@ -219,7 +219,7 @@ describe('With Multiple Dropdown', () => {
     fireEvent.click(screen.getByText('dropdown'));
     fireEvent.click(screen.getByText(options[0].label));
     fireEvent.click(screen.getByText('Limpar'));
-    expect(screen.queryAllByTestId('badge-multiple')).not.toBeInTheDocument();
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
   });
 
   it('should emit event when click clear button', async () => {

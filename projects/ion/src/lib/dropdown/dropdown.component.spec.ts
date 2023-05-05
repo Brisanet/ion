@@ -1,11 +1,19 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
 import { IonDropdownComponent } from './dropdown.component';
 import { IonSharedModule } from '../shared.module';
 import { DropdownParams } from '../core/types/dropdown';
 import { IonInputProps } from '../core/types/input';
+import { CommonModule } from '@angular/common';
+import { createComponent } from '@angular/compiler/src/core';
+import { TestBed } from '@angular/core/testing';
 
 const options = [];
 const inputElement = 'input-element';
@@ -21,6 +29,7 @@ const createOptions = (): void => {
 createOptions();
 
 const selectEvent = jest.fn();
+const scrollFinal = jest.fn();
 const defaultDropdown: DropdownParams = {
   options,
   selected: {
@@ -178,11 +187,25 @@ describe('IonDropdownComponent / Multiple', () => {
     { label: 'Horse', selected: true },
   ];
 
+  const initialValue = [{ label: 'Option 0', selected: true }];
+
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
     selected: {
       emit: selectEvent,
+    } as SafeAny,
+  };
+
+  const multipleWithInitalValue = {
+    options,
+    multiple: true,
+    arraySelecteds: initialValue,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+    scrollFinal: {
+      emit: scrollFinal,
     } as SafeAny,
   };
 
@@ -219,6 +242,31 @@ describe('IonDropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length - 1
     );
+  });
+
+  it('should reder with value selected when arraySelecteds is passed', async () => {
+    await sut(multipleWithInitalValue);
+    const elementToSelect = document.getElementById('option-0');
+    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+  });
+
+  it('should emmit event when reach the final of scrollable dropdown', async () => {
+    await sut(multipleWithInitalValue);
+    const elementToScroll = document.getElementById('option-list');
+    const scrollsize =
+      elementToScroll.scrollHeight + elementToScroll.clientHeight;
+    fireEvent.scroll(elementToScroll, {
+      target: {
+        scrollY: scrollsize,
+      },
+    });
+    expect(scrollFinal).toBeCalled();
+  });
+
+  it('should render with clear button when selected array is passed', async () => {
+    await sut(multipleWithInitalValue);
+    const clearButton = screen.getByTestId('buttonClear');
+    expect(clearButton).toBeInTheDocument();
   });
 });
 
@@ -307,3 +355,34 @@ describe('IonDropdownComponent / With Search / Custom Search', () => {
     ).toBeInTheDocument();
   });
 });
+
+async function returnComponent(): Promise<IonDropdownComponent> {
+  const fixture = TestBed.createComponent(IonDropdownComponent);
+  await fixture.whenStable();
+  return fixture.componentInstance;
+}
+
+// describe('IonDropdownComponent / changes detection', () => {
+//   // const setRender = async (
+//   //   customParams: DropdownParams = defaultDropdown
+//   // ): Promise<RenderResult<IonDropdownComponent>> => {
+//   //   return await render(IonDropdownComponent, {
+//   //     componentProperties: customParams,
+//   //     imports: [CommonModule, IonSharedModule],
+//   //     declarations: [IonDropdownComponent],
+//   //   });
+//   // };
+
+//   it('', async () => {
+//     const component = await returnComponent();
+
+//     // const newOptions = [{ label: 'Option 1', selected: true }];
+
+//     // component.options = newOptions;
+//     screen.debug();
+//     expect(true).toBeTruthy();
+//     // expect(
+//     //   document.getElementsByClassName('dropdown-item-selected')
+//     // ).toHaveLength(1);
+//   });
+// });

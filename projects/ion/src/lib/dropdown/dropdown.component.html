@@ -9,7 +9,12 @@
     [disabled]="searchOptions?.disabled || false"
     (valueChange)="inputChange($event)"
   ></ion-input>
-  <div class="options-list" #scrollableSection (scroll)="onScroll()">
+  <div
+    class="options-list"
+    (scroll)="optionsScroll($event)"
+    id="option-list"
+    #optionList
+  >
     <div
       [ngClass]="{
         'dropdown-disabled': option.disabled,

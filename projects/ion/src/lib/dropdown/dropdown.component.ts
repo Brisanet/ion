@@ -1,3 +1,4 @@
+import { SafeAny } from './../utils/safe-any';
 import {
   AfterViewInit,
   Component,
@@ -11,6 +12,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { isArray } from 'util';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
 @Component({
@@ -32,18 +34,18 @@ export class IonDropdownComponent
   @Output() scrollFinal = new EventEmitter();
   @Output() closeDropdown = new EventEmitter<DropdownItem[]>();
 
-  @ViewChild('scrollableSection', { static: false })
-  scrollableSection: ElementRef;
+  @ViewChild('optionList', { static: false })
+  optionList: ElementRef;
 
   iconSize = 16;
 
   clearButtonIsVisible: boolean;
 
-  selectedArray: DropdownItem[] = [];
+  dropdownItens: DropdownItem[] = [];
 
   setClearButtonIsVisible(): void {
     this.clearButtonIsVisible = !!(
-      this.selectedArray && this.selectedArray.length
+      this.dropdownItens && this.dropdownItens.length
     );
   }
 
@@ -57,12 +59,9 @@ export class IonDropdownComponent
     const heightContainer = window.innerHeight;
     const elementBottom = elementProps.bottom;
     elementBottom > heightContainer && (element.style.bottom = '42px');
-    console.log(this.selectedArray);
   }
 
   mouseEnter(option: DropdownItem): void {
-    // debugger;
-    console.log(this.selectedArray);
     option.selected && !option.disabled && (option.hovered = true);
   }
 
@@ -74,13 +73,14 @@ export class IonDropdownComponent
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
-    // this.selectedArray = [];
+    this.dropdownItens = [];
     this.clearButtonIsVisible = false;
     this.clearBadgeValue.emit();
   }
 
-  onScroll(): void {
-    const scrollableElement = this.scrollableSection.nativeElement;
+  optionsScroll(): void {
+    const scrollableElement = this.optionList.nativeElement;
+
     const scrollFinal =
       scrollableElement.scrollHeight - scrollableElement.scrollTop ===
       scrollableElement.clientHeight;
@@ -91,32 +91,36 @@ export class IonDropdownComponent
   }
 
   select(option: DropdownItem): void {
-    console.log(this.selectedArray);
+    const isSingle = this.isSingle();
+
     if (this.isDisabled(option)) {
       return;
     }
-    if (this.isSingle()) {
+    if (isSingle) {
       this.clearOptions();
     }
     option.selected = !option.selected;
-    console.log('aqui');
 
-    if (!this.isSingle()) {
-      if (option.selected) {
-        this.selectedArray.push(option);
-      } else {
-        const index = this.selectedArray.findIndex(
-          (selectedOption) => selectedOption.label === option.label
-        );
-        this.selectedArray.splice(index, 1);
+    if (isSingle) {
+      if (isArray(this.dropdownItens)) {
+        this.dropdownItens = [];
+        this.dropdownItens.push(option);
+      }
+    } else {
+      if (isArray(this.dropdownItens)) {
+        if (option.selected) {
+          this.dropdownItens.push(option);
+        } else {
+          const index = this.dropdownItens.findIndex(
+            (selectedOption) => selectedOption.label === option.label
+          );
+          this.dropdownItens.splice(index, 1);
+        }
       }
     }
-    console.log('quebrou?');
-
-    console.log(this.selectedArray);
 
     this.setClearButtonIsVisible();
-    this.selected.emit(this.selectedArray);
+    this.selected.emit(this.dropdownItens);
   }
 
   inputChange(value: string): void {
@@ -124,41 +128,48 @@ export class IonDropdownComponent
   }
 
   public ngOnInit(): void {
-    // if (this.arraySelecteds && this.arraySelecteds.length) {
-    //   this.setInicialFilter();
-    // }
     this.getSelected();
-    console.log(this.selectedArray);
+    setTimeout(() => {
+      this.setClearButtonIsVisible();
+    });
   }
+
   getSelected(): void {
     this.options.forEach((option) => {
       if (option.selected) {
-        this.selectedArray.push(option);
+        this.dropdownItens.push(option);
       }
     });
-    console.log(this.selectedArray);
+
+    if (isArray(this.arraySelecteds)) {
+      this.arraySelecteds.forEach((option) => {
+        const duplicateOption = this.dropdownItens.find(
+          (selectedOption) => selectedOption.label === option.label
+        );
+        !duplicateOption && this.dropdownItens.push(option);
+      });
+    }
+
+    this.setSelected();
   }
 
-  // setInicialFilter(): void {
-  //   this.selectedArray.concat(this.arraySelecteds);
-  //   this.setSelected();
-  // }
-
   public ngOnDestroy(): void {
-    this.closeDropdown.emit(this.selectedArray);
+    this.closeDropdown.emit(this.dropdownItens);
   }
 
   setSelected(): void {
-    if (this.selectedArray && this.selectedArray.length) {
-      this.selectedArray.forEach((selectedOption) => {
+    if (this.dropdownItens) {
+      this.dropdownItens.forEach((selectedOption) => {
         const option = this.options.find(
           (option) => option.label === selectedOption.label
         );
+
         if (option) {
           option.selected = true;
         }
       });
     }
+
     this.setClearButtonIsVisible();
   }
 
