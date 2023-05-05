@@ -113,9 +113,9 @@ $arrow-size: 4.5px;
     }
   }
 
-.container {
-  z-index: $zIndexLow;
-}
+  .container {
+    z-index: $zIndexLow;
+  }
 
   &__header {
     display: flex;
