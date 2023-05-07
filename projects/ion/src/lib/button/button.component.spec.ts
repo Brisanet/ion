@@ -294,6 +294,7 @@ describe('ButtonComponent with dropdown', () => {
       options.forEach(async (option) => {
         fireEvent.click(await screen.findByText(option.label));
       });
+      expect(await screen.findByTestId('button-clear')).toBeInTheDocument();
     });
 
     it('should update the badge value when selecting an option', async () => {

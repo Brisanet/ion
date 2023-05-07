@@ -205,6 +205,7 @@ describe('With Multiple Dropdown', () => {
     options[0].selected = true;
     options[1].selected = true;
     expect(dropdownEvent).toBeCalledWith(options);
+    expect(screen.getByText('Limpar')).toBeInTheDocument();
     expect(screen.getByTestId('badge-multiple')).toContainHTML('2');
   });
 
@@ -213,6 +214,7 @@ describe('With Multiple Dropdown', () => {
     fireEvent.click(dropdown);
     fireEvent.click(screen.getByText(options[0].label));
     expect(screen.getAllByTestId('ion-dropdown')).toBeTruthy();
+    expect(screen.getByText('Limpar')).toBeInTheDocument();
   });
 
   it('should clear badge when clear button be clicked', async () => {

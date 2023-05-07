@@ -17,7 +17,7 @@ const getInput = async (): Promise<HTMLInputElement> =>
   (await screen.getByTestId('input-element')) as HTMLInputElement;
 
 const getButtonClear = async (): Promise<HTMLElement> =>
-  await screen.getByTestId('buttonClear');
+  await screen.getByTestId('clear-button');
 
 const getContainerDropdown = (): HTMLElement | null =>
   document.getElementById('ion-dropdown');
