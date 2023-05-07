@@ -41,6 +41,36 @@ WithTooltip.args = {
   secondValue: '5%',
 };
 
+export const WithPreview = Template.bind({});
+WithPreview.args = {
+  title: 'preview',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonEmitterConfig,
+  preview: true,
+};
+
+export const WithLoading = Template.bind({});
+WithLoading.args = {
+  title: 'Tempo de SLA',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonEmitterConfig,
+  loading: true,
+};
+
+export const WithError = Template.bind({});
+WithError.args = {
+  title: 'Tempo de SLA',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonEmitterConfig,
+  error: true,
+};
+
 export const WithEmitterButton = Template.bind({});
 WithEmitterButton.args = {
   title: 'Com botão emitter',
