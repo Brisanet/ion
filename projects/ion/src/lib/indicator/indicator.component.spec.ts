@@ -18,6 +18,8 @@ import {
 import { IonButtonModule } from '../button/button.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonSkeletonModule } from '../skeleton/skeleton.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -34,6 +36,8 @@ const sut = async (
       IonIconModule,
       IonTooltipModule,
       EntryComponentModule,
+      IonSkeletonModule,
+      IonSpinnerModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
@@ -49,6 +53,9 @@ const elements = {
   buttonEmitter: 'ion-indicator-button-emitter',
   buttonRedirect: 'ion-indicator-button-redirect',
   buttonModal: 'ion-indicator-button-modal',
+  preview: 'ion-indicator-preview',
+  spinner: 'ion-indicator-spinner',
+  error: 'ion-indicator-error',
 };
 
 const getElementByTestId = (key: keyof typeof elements): HTMLElement =>
@@ -160,5 +167,42 @@ describe('IonIndicatorComponent', () => {
     fireEvent.click(modalButton);
     expect(modalTitle).not.toBeInTheDocument();
     expect(spy).toHaveBeenCalled();
+  });
+
+  it('Should hide all values when is preview', async () => {
+    const testTitle = 'Indicator preview';
+    const valueNumber = 12;
+    const secondValueNumber = 14;
+    await sut({
+      value: valueNumber,
+      secondValue: secondValueNumber,
+      title: testTitle,
+      preview: true,
+    });
+
+    expect(getElementByTestId('title')).not.toBeInTheDocument();
+    expect(getElementByTestId('value')).not.toBeInTheDocument();
+    expect(getElementByTestId('secondValue')).not.toBeInTheDocument();
+  });
+
+  it('Should render skeleton when in preview', async () => {
+    await sut({
+      preview: true,
+    });
+    expect(getElementByTestId('preview')).toBeInTheDocument();
+  });
+
+  it('Should render spinner when is loading', async () => {
+    await sut({
+      loading: true,
+    });
+    expect(getElementByTestId('spinner')).toBeInTheDocument();
+  });
+
+  it('Should render error msg', async () => {
+    await sut({
+      error: true,
+    });
+    expect(getElementByTestId('error')).toBeInTheDocument();
   });
 });
