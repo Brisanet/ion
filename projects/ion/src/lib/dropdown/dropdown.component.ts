@@ -15,6 +15,8 @@ import {
 import { isArray } from 'util';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
+export const COLDOWN = 200;
+
 @Component({
   selector: 'ion-dropdown',
   templateUrl: './dropdown.component.html',
@@ -178,7 +180,7 @@ export class IonDropdownComponent
       if (changes.options && !changes.options.firstChange) {
         this.setSelected();
       }
-    }, 200);
+    }, COLDOWN);
   }
 
   private isDisabled(option: DropdownItem): boolean {

@@ -1,19 +1,19 @@
 import { FormsModule } from '@angular/forms';
-import {
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-} from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
-import { IonDropdownComponent } from './dropdown.component';
+import { COLDOWN, IonDropdownComponent } from './dropdown.component';
 import { IonSharedModule } from '../shared.module';
 import { DropdownParams } from '../core/types/dropdown';
 import { IonInputProps } from '../core/types/input';
-import { CommonModule } from '@angular/common';
-import { createComponent } from '@angular/compiler/src/core';
-import { TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { SimpleChange, SimpleChanges } from '@angular/core';
+import { IonDropdownTestModule } from './dropdown-test.module';
 
 const options = [];
 const inputElement = 'input-element';
@@ -362,27 +362,45 @@ async function returnComponent(): Promise<IonDropdownComponent> {
   return fixture.componentInstance;
 }
 
-// describe('IonDropdownComponent / changes detection', () => {
-//   // const setRender = async (
-//   //   customParams: DropdownParams = defaultDropdown
-//   // ): Promise<RenderResult<IonDropdownComponent>> => {
-//   //   return await render(IonDropdownComponent, {
-//   //     componentProperties: customParams,
-//   //     imports: [CommonModule, IonSharedModule],
-//   //     declarations: [IonDropdownComponent],
-//   //   });
-//   // };
+describe('IonDropdownComponent / Changes detection', () => {
+  let component: IonDropdownComponent;
+  let fixture: ComponentFixture<IonDropdownComponent>;
 
-//   it('', async () => {
-//     const component = await returnComponent();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [IonDropdownTestModule],
+    }).compileComponents();
+  });
 
-//     // const newOptions = [{ label: 'Option 1', selected: true }];
+  beforeEach(() => {
+    fixture = TestBed.createComponent(IonDropdownComponent);
+    component = fixture.componentInstance;
+    component.options = options;
+  });
 
-//     // component.options = newOptions;
-//     screen.debug();
-//     expect(true).toBeTruthy();
-//     // expect(
-//     //   document.getElementsByClassName('dropdown-item-selected')
-//     // ).toHaveLength(1);
-//   });
-// });
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
+  it('should update options and call setSelected', fakeAsync(() => {
+    const newOptions = [{ label: 'Option 1', selected: true }];
+    const changes: SimpleChanges = {
+      options: new SimpleChange(undefined, newOptions, false),
+    };
+    const spy = jest.spyOn(component, 'setSelected');
+
+    component.options = newOptions;
+    component.ngOnChanges(changes);
+    tick(COLDOWN + 1);
+
+    expect(component.options).toEqual(newOptions);
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call setClearButtonIsVisible()', fakeAsync(() => {
+    const spy = jest.spyOn(component, 'setClearButtonIsVisible');
+    fixture.detectChanges();
+    tick();
+    expect(spy).toHaveBeenCalled();
+  }));
+});
