@@ -1,9 +1,13 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonPaginationProps } from '../core/types/pagination';
 import { SafeAny } from '../utils/safe-any';
-import { IonPaginationComponent } from './pagination.component';
+import {
+  IonPaginationComponent,
+  LIST_OF_PAGE_OPTIONS,
+} from './pagination.component';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -94,6 +98,45 @@ describe('Pagination > Page', () => {
       expect(screen.getByTestId(`page-${page}`)).toHaveClass('selected');
     }
   );
+});
+
+describe('Pagination > Page sizes', () => {
+  describe('Default', () => {
+    it.each(LIST_OF_PAGE_OPTIONS)(
+      'should show items per page %d',
+      async (label) => {
+        await sut({ ...defaultComponent, allowChangeQtdItems: true });
+        userEvent.click(
+          screen.getByRole('button', {
+            name: /10 \/ página/i,
+          })
+        );
+        const view = screen.getByTestId('ion-dropdown');
+        expect(within(view).getByText(`${label} / página`)).toBeVisible();
+      }
+    );
+  });
+
+  const customPageSizeOptions = [5, 10, 15, 20];
+  describe('Custom', () => {
+    it.each(customPageSizeOptions)(
+      'should show items per page %d',
+      async (label) => {
+        await sut({
+          ...defaultComponent,
+          pageSizeOptions: customPageSizeOptions,
+          allowChangeQtdItems: true,
+        });
+        userEvent.click(
+          screen.getByRole('button', {
+            name: /10 \/ página/i,
+          })
+        );
+        const view = screen.getByTestId('ion-dropdown');
+        expect(within(view).getByText(`${label} / página`)).toBeVisible();
+      }
+    );
+  });
 });
 
 describe('Pagination > Events', () => {

@@ -23,6 +23,8 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
+  @Input() pageSizeOptions: IonPaginationProps['pageSizeOptions'] =
+    LIST_OF_PAGE_OPTIONS;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
@@ -184,7 +186,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   private getOptionsPage(): DropdownItem[] {
-    return LIST_OF_PAGE_OPTIONS.map((quantityOfPages) => {
+    return this.pageSizeOptions.map((quantityOfPages) => {
       return {
         label: this.generateLabel(quantityOfPages),
         selected: this.isASelectedOption(quantityOfPages),
@@ -194,7 +196,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   private isASelectedOption(quantityOfPages: number): boolean {
     return (
-      LIST_OF_PAGE_OPTIONS.includes(this.itemsPerPage) &&
+      this.pageSizeOptions.includes(this.itemsPerPage) &&
       this.itemsPerPage === quantityOfPages
     );
   }
