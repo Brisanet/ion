@@ -23,7 +23,7 @@
       positionIcon: iconPosition === 'left' && icon && !options
     }"
   >
-    {{ label }}
+    {{ placeholder }}
     <ion-icon
       data-testid="icon-dinamic"
       class="icon-color"
@@ -62,6 +62,7 @@
     [options]="options"
     [arraySelecteds]="tempFilter"
     [multiple]="multiple"
+    [required]="required"
     [enableSearch]="dropdownSearchConfig?.enableSearch || false"
     [searchOptions]="dropdownSearchConfig?.searchOptions"
     (searchChange)="dropdownSearchChange($event)"

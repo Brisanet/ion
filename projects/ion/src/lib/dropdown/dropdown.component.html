@@ -10,10 +10,10 @@
     (valueChange)="inputChange($event)"
   ></ion-input>
   <div
-    class="options-list"
-    (scroll)="optionsScroll($event)"
-    id="option-list"
     #optionList
+    class="options-list"
+    (scroll)="optionsScroll()"
+    id="option-list"
   >
     <div
       [ngClass]="{
@@ -42,13 +42,13 @@
     </div>
   </div>
   <ion-button
+    *ngIf="clearButtonIsVisible"
     label="Limpar"
     iconType="trash"
     type="secondary"
     size="sm"
     rightSideIcon="true"
     expand="true"
-    *ngIf="clearButtonIsVisible"
     (click)="clearOptions()"
     data-testid="buttonClear"
   ></ion-button>

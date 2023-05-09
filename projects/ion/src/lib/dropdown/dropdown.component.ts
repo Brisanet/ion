@@ -1,4 +1,3 @@
-import { SafeAny } from './../utils/safe-any';
 import {
   AfterViewInit,
   Component,
@@ -12,8 +11,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { isArray } from 'util';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
+import { SafeAny } from '../utils/safe-any';
 
 export const COLDOWN = 200;
 
@@ -30,6 +29,7 @@ export class IonDropdownComponent
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
+  @Input() required = false;
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
@@ -43,12 +43,11 @@ export class IonDropdownComponent
 
   clearButtonIsVisible: boolean;
 
-  dropdownItens: DropdownItem[] = [];
+  dropdownItens: Array<DropdownItem> = [];
 
   setClearButtonIsVisible(): void {
-    this.clearButtonIsVisible = !!(
-      this.dropdownItens && this.dropdownItens.length
-    );
+    this.clearButtonIsVisible =
+      this.checkArray(this.dropdownItens) && !this.required;
   }
 
   public ngAfterViewInit(): void {
@@ -77,6 +76,9 @@ export class IonDropdownComponent
     });
     this.dropdownItens = [];
     this.clearButtonIsVisible = false;
+    if (this.isSingle() && !this.isRequired()) {
+      this.selected.emit(this.dropdownItens);
+    }
     this.clearBadgeValue.emit();
   }
 
@@ -93,26 +95,36 @@ export class IonDropdownComponent
   }
 
   select(option: DropdownItem): void {
-    const isSingle = this.isSingle();
-
     if (this.isDisabled(option)) {
       return;
     }
-    if (isSingle) {
-      this.clearOptions();
-    }
-    option.selected = !option.selected;
-
-    if (isSingle) {
-      if (isArray(this.dropdownItens)) {
-        this.dropdownItens = [];
-        this.dropdownItens.push(option);
+    const isSingle = this.isSingle();
+    const isRequired = this.isRequired();
+    if (isSingle && isRequired) {
+      if (option.selected) {
+        return;
       }
-    } else {
-      if (isArray(this.dropdownItens)) {
-        if (option.selected) {
+      this.clearOptions();
+      option.selected = true;
+      this.dropdownItens = [option];
+    }
+    if (isSingle && !isRequired) {
+      if (option.selected) {
+        option.selected = false;
+        this.clearOptions();
+      } else {
+        this.clearOptions();
+        option.selected = true;
+        this.dropdownItens = [option];
+      }
+    }
+    if (!isSingle) {
+      if (this.dropdownItens) {
+        if (!option.selected) {
+          option.selected = true;
           this.dropdownItens.push(option);
         } else {
+          option.selected = false;
           const index = this.dropdownItens.findIndex(
             (selectedOption) => selectedOption.label === option.label
           );
@@ -120,7 +132,6 @@ export class IonDropdownComponent
         }
       }
     }
-
     this.setClearButtonIsVisible();
     this.selected.emit(this.dropdownItens);
   }
@@ -130,6 +141,9 @@ export class IonDropdownComponent
   }
 
   public ngOnInit(): void {
+    if (this.multiple) {
+      this.required = false;
+    }
     this.getSelected();
     setTimeout(() => {
       this.setClearButtonIsVisible();
@@ -143,7 +157,7 @@ export class IonDropdownComponent
       }
     });
 
-    if (isArray(this.arraySelecteds)) {
+    if (this.checkArray(this.arraySelecteds)) {
       this.arraySelecteds.forEach((option) => {
         const duplicateOption = this.dropdownItens.find(
           (selectedOption) => selectedOption.label === option.label
@@ -160,7 +174,7 @@ export class IonDropdownComponent
   }
 
   setSelected(): void {
-    if (this.dropdownItens) {
+    if (this.checkArray(this.dropdownItens)) {
       this.dropdownItens.forEach((selectedOption) => {
         const option = this.options.find(
           (option) => option.label === selectedOption.label
@@ -189,5 +203,13 @@ export class IonDropdownComponent
 
   private isSingle(): boolean {
     return !this.multiple;
+  }
+
+  private isRequired(): boolean {
+    return this.required;
+  }
+
+  private checkArray(array: Array<SafeAny> = []): boolean {
+    return array && array.length > 0;
   }
 }

@@ -4,7 +4,6 @@ import {
   Input,
   Output,
   OnInit,
-  AfterViewInit,
   DoCheck,
   OnDestroy,
 } from '@angular/core';
@@ -55,9 +54,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent
-  implements OnInit, AfterViewInit, DoCheck, OnDestroy
-{
+export class ChipComponent implements OnInit, DoCheck, OnDestroy {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -71,6 +68,7 @@ export class ChipComponent
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
+  @Input() required = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
@@ -83,6 +81,8 @@ export class ChipComponent
   };
 
   tempFilter: DropdownItem[] = [];
+
+  placeholder = '';
 
   select(): void {
     this.toggleDropdown();
@@ -113,15 +113,17 @@ export class ChipComponent
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-
-    if (selecteds && this.multiple) {
-      this.setBadgeValue(selecteds.length);
-    }
-
-    if (!this.multiple) {
-      this.label = selecteds[0].label;
-      this.selected = false;
-      this.toggleDropdown();
+    if (selecteds) {
+      if (this.multiple) {
+        this.setBadgeValue(selecteds.length);
+      } else {
+        this.placeholder =
+          selecteds && selecteds[0] ? selecteds[0].label : this.label;
+        this.selected = false;
+        this.toggleDropdown();
+      }
+    } else {
+      this.placeholder = this.label;
     }
   }
 
@@ -130,7 +132,7 @@ export class ChipComponent
   }
 
   ngOnInit(): void {
-    this.updateLabel();
+    this.updateLabel(true);
     this.chipId = this.generateId('ion-chip__container-');
     this.dropdownId = this.generateId('ion-chip__container-dropdown-');
   }
@@ -176,7 +178,20 @@ export class ChipComponent
     document.removeEventListener('click', this.closeDropdown);
   }
 
-  updateLabel(): void {
+  updateLabel(isInit = false): void {
+    this.placeholder = this.label;
+    if (isInit) {
+      if (!this.multiple) {
+        const optionSelected = this.options.find(
+          (option) => option.selected === true
+        );
+        this.placeholder = optionSelected ? optionSelected.label : '';
+      } else {
+        this.placeholder = this.label;
+      }
+      return;
+    }
+
     if (this.multiple || (this.options && this.options.length === 0)) {
       return;
     }
@@ -191,7 +206,7 @@ export class ChipComponent
       return;
     }
 
-    this.label = selectedOption.label;
+    this.placeholder = selectedOption.label;
   }
 
   setTempOptions(selectedArray: DropdownItem[]): void {
