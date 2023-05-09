@@ -6,6 +6,7 @@ import {
   OnInit,
   DoCheck,
   OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 import {
   BadgeType,
@@ -54,7 +55,9 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent implements OnInit, DoCheck, OnDestroy {
+export class ChipComponent
+  implements OnInit, AfterViewInit, DoCheck, OnDestroy
+{
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -132,7 +135,6 @@ export class ChipComponent implements OnInit, DoCheck, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.updateLabel(true);
     this.chipId = this.generateId('ion-chip__container-');
     this.dropdownId = this.generateId('ion-chip__container-dropdown-');
   }
@@ -170,6 +172,7 @@ export class ChipComponent implements OnInit, DoCheck, OnDestroy {
     if (this.showToggle) {
       return;
     }
+    this.updateLabel(true);
 
     document.addEventListener('click', (e) => this.closeDropdown(e));
   }
@@ -181,11 +184,13 @@ export class ChipComponent implements OnInit, DoCheck, OnDestroy {
   updateLabel(isInit = false): void {
     this.placeholder = this.label;
     if (isInit) {
-      if (!this.multiple) {
+      if (!this.multiple && this.options) {
         const optionSelected = this.options.find(
           (option) => option.selected === true
         );
-        this.placeholder = optionSelected ? optionSelected.label : '';
+        if (optionSelected) {
+          this.placeholder = optionSelected.label || '';
+        }
       } else {
         this.placeholder = this.label;
       }
