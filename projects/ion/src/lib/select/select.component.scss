@@ -1,0 +1,21 @@
+.ion-select__container-dropdown {
+  position: relative;
+
+  &::ng-deep ion-dropdown {
+    &::ng-deep .container-options {
+      left: 0;
+      right: 0;
+      width: auto !important;
+    }
+  }
+}
+
+.ion-select__container-input {
+  ::ng-deep div.input-container {
+    .input{
+      input, ion-icon {
+        cursor: pointer;
+      }
+    }
+  }
+}
