@@ -1,6 +1,7 @@
 import {
   access,
   access2,
+  addSecurity,
   activeDeactivate,
   add,
   alert,
@@ -84,6 +85,7 @@ import {
 export const iconsPaths: Record<string, string> = {
   access,
   access2,
+  'add-security': addSecurity,
   'active-deactivate': activeDeactivate,
   add,
   'arrows-down-up': arrowsDownUp,
