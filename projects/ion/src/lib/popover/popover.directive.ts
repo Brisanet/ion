@@ -93,6 +93,8 @@ export class IonPopoverDirective implements OnDestroy {
 
     this.setComponentPosition(position);
     this.popoverComponentRef.changeDetectorRef.detectChanges();
+
+    document.addEventListener('click', (e) => this.onDocumentClick(e));
   }
 
   setComponentPosition(hostElement: SafeAny): void {
@@ -135,7 +137,6 @@ export class IonPopoverDirective implements OnDestroy {
     }
   }
 
-  @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
     if (this.popoverComponentRef) {
       const popoverElement = this.popoverComponentRef.location
@@ -160,6 +161,7 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    document.removeEventListener('click', this.onDocumentClick);
     this.destroyComponent();
   }
 }
