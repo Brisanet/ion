@@ -69,7 +69,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPage(pageNumber = 1, emitEvent = true): void {
-    if (this.pages) {
+    if (this.pages && !this.loading) {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
@@ -99,13 +99,13 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   previous(): void {
-    if (!this.inFirstPage()) {
+    if (!this.inFirstPage() && !this.loading) {
       this.selectPage(this.currentPage().page_number - 1);
     }
   }
 
   next(): void {
-    if (!this.inLastPage()) {
+    if (!this.inLastPage() && !this.loading) {
       this.selectPage(this.currentPage().page_number + 1);
     }
   }
