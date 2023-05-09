@@ -1,8 +1,9 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
+import { IonSmartTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -182,6 +183,7 @@ const actions = [
     confirm: {
       title: 'Você realmente deseja deletar?',
       description: 'você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
     },
   },
   {
@@ -195,7 +197,8 @@ function returnTableConfig(
   tableColumns,
   tableActions,
   paginationTotal,
-  debounceOnSort = 0
+  debounceOnSort = 0,
+  pageSizeOptions = LIST_OF_PAGE_OPTIONS
 ): SafeAny {
   return {
     config: {
@@ -205,6 +208,7 @@ function returnTableConfig(
       actions: tableActions,
       pagination: {
         total: paginationTotal,
+        pageSizeOptions,
       },
       debounceOnSort,
     },
@@ -236,5 +240,46 @@ WithTagByRow.args = returnTableConfig(
   dataWithTag,
   withTagByRowColumns,
   actions,
+  2
+);
+
+export const LargePagination = Template.bind({});
+LargePagination.args = returnTableConfig(data, columns, actions, 2000);
+
+export const CustomPageSizeOptions = Template.bind({});
+CustomPageSizeOptions.args = returnTableConfig(
+  data,
+  columns,
+  actions,
+  2000,
+  0,
+  [10, 15, 30, 50, 100]
+);
+
+export const ActionWithDanger = Template.bind({});
+ActionWithDanger.args = returnTableConfig(
+  data,
+  columns,
+  [{ ...actions[0], danger: true }],
+  2
+);
+
+export const PopConfirmDynamicDescription = Template.bind({});
+PopConfirmDynamicDescription.args = returnTableConfig(
+  data,
+  columns,
+  [
+    {
+      ...actions[0],
+      confirm: {
+        ...actions[0].confirm,
+        description: undefined,
+        dynamicDescription: (row: SafeAny): string => {
+          return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
+        },
+        type: 'info',
+      },
+    },
+  ],
   2
 );

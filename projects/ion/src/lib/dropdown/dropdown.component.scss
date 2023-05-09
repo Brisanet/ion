@@ -35,6 +35,10 @@
   }
 }
 
+.options-list {
+  overflow-y: auto;
+}
+
 .dropdown-item {
   @include dropdown-commons($neutral-7);
 

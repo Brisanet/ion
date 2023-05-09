@@ -1,5 +1,13 @@
 @import '../../styles/index.scss';
 
+@mixin icon-style {
+  ion-icon {
+    ::ng-deep svg {
+      fill: $neutral-6;
+    }
+  }
+}
+
 .ellipsis-in-text {
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -31,6 +39,8 @@
     height: 36px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+
+    @include icon-style();
 
     h1 {
       color: $neutral-7;
@@ -79,13 +89,25 @@
       }
     }
 
+    .error-container {
+      color: $neutral-6;
+      display: flex;
+      align-items: center;
+
+      @include icon-style();
+
+      span {
+        padding-left: 4px;
+      }
+    }
+
     &.with-footer {
-      padding: 12px 0px 0px;
+      padding: 0px;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
 
       header {
-        padding: 0px 16px 12px;
+        padding: 12px 16px 12px;
         box-sizing: border-box;
       }
 

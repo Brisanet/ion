@@ -18,16 +18,19 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <button
-    *ngFor="let page of pages"
-    [class]="'square-pag ' + 'page-' + size"
-    [class.selected]="page.selected"
-    [attr.data-testid]="'page-' + page.page_number"
-    (click)="!loading && selectPage(page.page_number)"
-    [class.disabled]="loading"
-  >
-    <span>{{ page.page_number }}</span>
-  </button>
+  <div class="pages-list">
+    <button
+      *ngFor="let page of pages"
+      [class]="'square-pag ' + 'page-' + size"
+      [class.selected]="page.selected"
+      [attr.data-testid]="'page-' + page.page_number"
+      (click)="selectPage(page.page_number)"
+      [class.disabled]="loading"
+      [disabled]="loading"
+    >
+      <span>{{ page.page_number }}</span>
+    </button>
+  </div>
 
   <ion-button
     iconType="right2"

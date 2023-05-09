@@ -1,6 +1,6 @@
 import { TagStatus } from './../core/types/status';
+import { ConfigSmartTable, StatusType } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
-import { ConfigSmartTable } from '../core/types';
 
 export enum EventTable {
   SORT = 'sort',
@@ -34,11 +34,14 @@ export interface Column {
 export interface ActionConfirm {
   title: string;
   description?: string;
+  dynamicDescription?: (row: SafeAny) => string;
+  type?: StatusType;
 }
 
 export interface ActionTable {
   label: string;
   icon: string;
+  danger?: boolean;
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
   confirm?: ActionConfirm;
@@ -47,6 +50,7 @@ export interface ActionTable {
 export interface PaginationConfig {
   total: number;
   itemsPerPage?: number;
+  pageSizeOptions?: number[];
   offset?: number;
   page?: number;
 }

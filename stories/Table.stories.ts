@@ -228,11 +228,71 @@ WithPagination.args = {
 export const CustomItemsPerPage = Template.bind({});
 CustomItemsPerPage.args = {
   config: {
-    data: [...data, ...data, ...data, ...data],
+    data: [
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+      ...data,
+    ],
     columns,
     pagination: {
-      total: 46,
+      total: 3000,
       itemsPerPage: 7,
     },
+  },
+};
+
+export const ActionWithDanger = Template.bind({});
+ActionWithDanger.args = {
+  config: {
+    data,
+    columns,
+    actions: [{ ...actions[0], danger: true }],
+    pagination: { total: 2, itemsPerPage: 2 },
+  },
+};
+
+export const PopConfirmDynamicDescription = Template.bind({});
+PopConfirmDynamicDescription.args = {
+  config: {
+    data,
+    columns,
+    actions: [
+      {
+        ...actions[0],
+        confirm: {
+          ...actions[0].confirm,
+          description: undefined,
+          dynamicDescription: (row: SafeAny): string => {
+            return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
+          },
+        },
+      },
+    ],
+    pagination: { total: 2, itemsPerPage: 2 },
   },
 };

@@ -10,10 +10,14 @@
       [src]="logo"
       alt="logo"
     />
-    <ng-template
+    <ion-button
       *ngIf="!closed"
-      [ngTemplateOutlet]="btnToggleVisibility"
-    ></ng-template>
+      data-testid="ion-sidebar__toggle-visibility"
+      iconType="left3"
+      size="lg"
+      type="ghost"
+      (ionOnClick)="toggleVisibility()"
+    ></ion-button>
   </header>
   <section class="ion-sidebar__items">
     <ng-container *ngFor="let item of items; let i = index">
@@ -44,10 +48,6 @@
 </nav>
 
 <span>
-  <ng-template *ngTemplateOutlet="btnToggleVisibility"></ng-template>
-</span>
-
-<ng-template #btnToggleVisibility>
   <ion-button
     data-testid="ion-sidebar__toggle-visibility"
     iconType="sandwich"
@@ -55,4 +55,4 @@
     type="ghost"
     (ionOnClick)="toggleVisibility()"
   ></ion-button>
-</ng-template>
+</span>
