@@ -27,9 +27,9 @@ export class IonDropdownComponent
   @Input() options: DropdownItem[] = [];
   @Input() arraySelecteds: DropdownItem[] = [];
   @Input() multiple?: DropdownParams['multiple'] = false;
+  @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
-  @Input() required = false;
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
@@ -209,7 +209,7 @@ export class IonDropdownComponent
     return this.required;
   }
 
-  private checkArray(array: Array<SafeAny> = []): boolean {
+  private checkArray(array: Array<SafeAny>): boolean {
     return array && array.length > 0;
   }
 }

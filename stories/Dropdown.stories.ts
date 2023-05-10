@@ -98,3 +98,11 @@ WithCleanSearch.args = {
     placeholder: 'Busque por algo...',
   },
 };
+
+export const RequiredOption = Template.bind({});
+RequiredOption.args = {
+  options: optionsWithMultiple,
+  required: true,
+  selected: action('selected'),
+  optionsScroll: action('optionsScroll'),
+};

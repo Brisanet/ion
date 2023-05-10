@@ -51,15 +51,13 @@ const sut = async (
 };
 
 describe('IonDropdownComponent', () => {
-  beforeEach(async () => {
-    await sut();
-  });
-
   it.each(options)('should render option $label', async ({ label }) => {
+    await sut();
     expect(screen.getAllByText(label)).toHaveLength(1);
   });
 
   it('should select a option', async () => {
+    await sut();
     selectEvent.mockClear();
     const optionToSelect = 0;
     const elementToSelect = document.getElementById('option-' + optionToSelect);
@@ -69,7 +67,27 @@ describe('IonDropdownComponent', () => {
     expect(selectEvent).toHaveBeenCalledWith([options[optionToSelect]]);
   });
 
+  it('should deselect a option', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: true },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    const element = document.getElementById('option-0');
+    fireEvent.click(element);
+    expect(element.classList).not.toContain('dropdown-item-selected');
+  });
+
   it('should change icon to close when mouse enter in option selected', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
     fireEvent.mouseEnter(elementToHover);
@@ -78,6 +96,13 @@ describe('IonDropdownComponent', () => {
   });
 
   it('should show check icon when mouse leave of option selected', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
     fireEvent.mouseEnter(elementToHover);
@@ -105,7 +130,14 @@ describe('Dropdown / Clear Filters', () => {
 
   describe('events', () => {
     beforeEach(async () => {
-      await sut();
+      await sut({
+        ...defaultDropdown,
+        multiple: true,
+        options: [
+          { label: 'Option 1', selected: false },
+          { label: 'Option 2', selected: false },
+        ],
+      });
       selectEvent.mockClear();
       elementToSelect = document.getElementById('option-' + optionToSelect);
       fireEvent.click(elementToSelect);
@@ -187,7 +219,7 @@ describe('IonDropdownComponent / Multiple', () => {
     { label: 'Horse', selected: true },
   ];
 
-  const initialValue = [{ label: 'Option 0', selected: true }];
+  const initialValue = [{ label: 'Option 1', selected: true }];
 
   const defaultMultiple = {
     options: optionsWithMultiple,
@@ -247,7 +279,7 @@ describe('IonDropdownComponent / Multiple', () => {
   it('should reder with value selected when arraySelecteds is passed', async () => {
     await sut(multipleWithInitalValue);
     const elementToSelect = document.getElementById('option-0');
-    expect(elementToSelect.classList).toContain('dropdown-item-selected');
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
   });
 
   it('should emmit event when reach the final of scrollable dropdown', async () => {
@@ -356,12 +388,6 @@ describe('IonDropdownComponent / With Search / Custom Search', () => {
   });
 });
 
-async function returnComponent(): Promise<IonDropdownComponent> {
-  const fixture = TestBed.createComponent(IonDropdownComponent);
-  await fixture.whenStable();
-  return fixture.componentInstance;
-}
-
 describe('IonDropdownComponent / Changes detection', () => {
   let component: IonDropdownComponent;
   let fixture: ComponentFixture<IonDropdownComponent>;
@@ -403,4 +429,49 @@ describe('IonDropdownComponent / Changes detection', () => {
     tick();
     expect(spy).toHaveBeenCalled();
   }));
+});
+
+describe('IonDropdownComponent / Required', () => {
+  const defaultRequired = {
+    ...defaultDropdown,
+    required: true,
+    options: [
+      { label: 'Option 1', selected: false },
+      { label: 'Option 2', selected: false },
+    ],
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not deselect a selected option', async () => {
+    await sut(defaultRequired);
+
+    const element = document.getElementById('option-0');
+    fireEvent.click(element);
+    fireEvent.click(element);
+    expect(element).toHaveClass('dropdown-item-selected');
+  });
+
+  it('should render a multiple dropdown even when required true', async () => {
+    await sut({
+      ...defaultDropdown,
+      multiple: true,
+      required: true,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    const element = document.getElementById('option-0');
+    expect(element).not.toHaveClass('dropdown-item-selected');
+  });
+
+  it('should change option when clicked', async () => {
+    await sut(defaultRequired);
+    const elementToClick = document.getElementById('option-1');
+    fireEvent.click(elementToClick);
+    expect(elementToClick).toHaveClass('dropdown-item-selected');
+    expect(document.getElementById('option-0')).toHaveClass('dropdown-item');
+  });
 });

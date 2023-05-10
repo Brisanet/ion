@@ -102,3 +102,11 @@ WithDropdownWithSearch.args = {
     },
   },
 };
+
+export const ChipRequired = Template.bind({});
+ChipRequired.args = {
+  label: 'Animais',
+  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  icon: 'close',
+  required: true,
+};

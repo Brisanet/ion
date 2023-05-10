@@ -87,6 +87,8 @@ export class ChipComponent
 
   placeholder = '';
 
+  firstcheck = true;
+
   select(): void {
     this.toggleDropdown();
     if (!this.options) {
@@ -172,7 +174,6 @@ export class ChipComponent
     if (this.showToggle) {
       return;
     }
-    this.updateLabel(true);
 
     document.addEventListener('click', (e) => this.closeDropdown(e));
   }
@@ -181,9 +182,10 @@ export class ChipComponent
     document.removeEventListener('click', this.closeDropdown);
   }
 
-  updateLabel(isInit = false): void {
+  updateLabel(): void {
     this.placeholder = this.label;
-    if (isInit) {
+    if (this.firstcheck) {
+      this.firstcheck = false;
       if (!this.multiple && this.options) {
         const optionSelected = this.options.find(
           (option) => option.selected === true
@@ -204,10 +206,6 @@ export class ChipComponent
     const [selectedOption] = this.getSelectedOptions();
 
     if (!selectedOption) {
-      return;
-    }
-
-    if (this.label === selectedOption.label) {
       return;
     }
 
