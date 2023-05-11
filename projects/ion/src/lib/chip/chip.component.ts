@@ -118,18 +118,21 @@ export class ChipComponent
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-    if (selecteds) {
-      if (this.multiple) {
-        this.setBadgeValue(selecteds.length);
-      } else {
-        this.placeholder =
-          selecteds && selecteds[0] ? selecteds[0].label : this.label;
-        this.selected = false;
-        this.toggleDropdown();
-      }
-    } else {
+    if (!selecteds) {
       this.placeholder = this.label;
+      return;
     }
+    if (this.multiple) {
+      this.setBadgeValue(selecteds.length);
+      return;
+    }
+    this.setPlaceHolder(selecteds[0].label);
+  }
+
+  setPlaceHolder(label: string): void {
+    this.placeholder = label || this.label;
+    this.selected = false;
+    this.toggleDropdown();
   }
 
   dropdownSearchChange(value: string): void {

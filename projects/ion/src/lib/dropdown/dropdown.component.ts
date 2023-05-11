@@ -98,62 +98,26 @@ export class IonDropdownComponent
     if (this.isDisabled(option)) {
       return;
     }
-    const isSingle = this.isSingle();
-    const isRequired = this.isRequired();
-    // if (isSingle && isRequired) {
-    //   if (option.selected) {
-    //     return;
-    //   }
-    //   // this.clearOptions();
-    //   // option.selected = true;
-    //   // this.dropdownItens = [option];
-    // }
-    // if (isSingle && !isRequired) {
-    //   if (option.selected) {
-    //     option.selected = false;
-    //     this.clearOptions();
-    //   } else {
-    //     // this.clearOptions();
-    //     // option.selected = true;
-    //     // this.dropdownItens = [option];
-    //   }
-    // }
-    // if (!isSingle) {
-    //   if (this.dropdownItens) {
-    //     if (!option.selected) {
-    //       option.selected = true;
-    //       this.dropdownItens.push(option);
-    //     } else {
-    //       option.selected = false;
-    //       const index = this.dropdownItens.findIndex(
-    //         (selectedOption) => selectedOption.label === option.label
-    //       );
-    //       this.dropdownItens.splice(index, 1);
-    //     }
-    //   }
-    // }
 
-    if (!isSingle) {
+    if (!this.isSingle()) {
       this.manageMultipleOptions(option);
     } else {
       if (!option.selected) {
         this.selectSingleOption(option);
       } else {
-        if (isRequired) {
+        if (this.isRequired()) {
           return;
         }
         this.clearOptions();
       }
     }
-
-    this.setClearButtonIsVisible();
-    this.selected.emit(this.dropdownItens);
   }
 
   selectSingleOption(option: DropdownItem): void {
     this.clearOptions();
     option.selected = true;
     this.dropdownItens = [option];
+    this.emitSelectedOptions();
   }
 
   manageMultipleOptions(option: DropdownItem): void {
@@ -169,6 +133,12 @@ export class IonDropdownComponent
         this.dropdownItens.splice(index, 1);
       }
     }
+    this.emitSelectedOptions();
+  }
+
+  emitSelectedOptions(): void {
+    this.setClearButtonIsVisible();
+    this.selected.emit(this.dropdownItens);
   }
 
   inputChange(value: string): void {
