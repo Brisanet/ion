@@ -101,16 +101,16 @@ export class IonDropdownComponent
 
     if (!this.isSingle()) {
       this.manageMultipleOptions(option);
-    } else {
-      if (!option.selected) {
-        this.selectSingleOption(option);
-      } else {
-        if (this.isRequired()) {
-          return;
-        }
-        this.clearOptions();
-      }
+      return;
     }
+    if (!option.selected) {
+      this.selectSingleOption(option);
+      return;
+    }
+    if (this.isRequired()) {
+      return;
+    }
+    this.clearOptions();
   }
 
   selectSingleOption(option: DropdownItem): void {
