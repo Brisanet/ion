@@ -87,7 +87,7 @@ export class ChipComponent
 
   placeholder = '';
 
-  firstcheck = true;
+  firstCheck = true;
 
   select(): void {
     this.toggleDropdown();
@@ -187,9 +187,8 @@ export class ChipComponent
 
   updateLabel(): void {
     this.placeholder = this.label;
-    if (this.firstcheck) {
+    if (this.firstCheck) {
       this.firstUpdateLabel();
-
       return;
     }
 
@@ -217,7 +216,7 @@ export class ChipComponent
     } else {
       this.placeholder = this.label;
     }
-    this.firstcheck = false;
+    this.firstCheck = false;
   }
 
   setTempOptions(selectedArray: DropdownItem[]): void {

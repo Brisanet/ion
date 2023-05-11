@@ -276,7 +276,7 @@ describe('IonDropdownComponent / Multiple', () => {
     );
   });
 
-  it('should reder with value selected when arraySelecteds is passed', async () => {
+  it('should render with value selected when arraySelecteds is passed', async () => {
     await sut(multipleWithInitalValue);
     const elementToSelect = document.getElementById('option-0');
     expect(elementToSelect).toHaveClass('dropdown-item-selected');
