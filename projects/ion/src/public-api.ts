@@ -47,3 +47,4 @@ export * from './lib/typography/';
 export * from './lib/step/step.module';
 export { default as debounce } from './lib/utils/debounce';
 export * from './lib/spinner/spinner.module';
+export * from './lib/select/select.module';
