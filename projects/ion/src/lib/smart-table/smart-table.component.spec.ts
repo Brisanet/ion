@@ -600,10 +600,12 @@ describe('Table > Pagination', () => {
     const tableWithLoading = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    const totalPagination = screen.getByTestId('total-pagination');
     tableWithLoading.config.loading = true;
 
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+    expect(totalPagination).not.toBeInTheDocument();
   });
 });
 
