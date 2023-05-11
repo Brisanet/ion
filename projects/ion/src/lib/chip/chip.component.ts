@@ -118,15 +118,13 @@ export class ChipComponent
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-    if (!selecteds) {
-      this.placeholder = this.label;
-      return;
+    if (selecteds) {
+      if (this.multiple) {
+        this.setBadgeValue(selecteds.length);
+        return;
+      }
+      this.setPlaceHolder(selecteds[0].label);
     }
-    if (this.multiple) {
-      this.setBadgeValue(selecteds.length);
-      return;
-    }
-    this.setPlaceHolder(selecteds[0].label);
   }
 
   setPlaceHolder(label: string): void {

@@ -170,22 +170,46 @@ describe('ChipComponent', () => {
 });
 
 describe('Check update label', () => {
-  it('should change label when selected option is clicked', async () => {
+  const dropdownEvent = jest.fn();
+  const events = jest.fn();
+
+  const options = [
+    { label: 'Cat', selected: false },
+    { label: 'Dog', selected: false },
+    { label: 'Bird', selected: false },
+  ];
+
+  it('should change label when select option', async () => {
     await sut({
       label: 'dropdown',
-      options: [
-        { label: 'Cat', selected: false },
-        { label: 'Dog', selected: false },
-        { label: 'Bird', selected: false },
-      ],
+      options: options,
+      events: {
+        emit: events,
+      } as SafeAny,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
     });
     const chip = screen.getByText('dropdown');
     fireEvent.click(chip);
-    const option = screen.getByText(defaultOptions[0].label);
-    for (let count = 0; count < 2; count++) {
-      fireEvent.click(chip);
-      fireEvent.click(option);
-    }
+    const option = screen.getByText(options[0].label);
+    fireEvent.click(option);
+    expect(screen.getByText(options[0].label)).toBeInTheDocument();
+  });
+
+  it('should change label when deselect option', async () => {
+    options[0].selected = true;
+    await sut({
+      label: 'dropdown',
+      options: options,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
+    });
+    const chip = screen.getByText('Cat');
+    fireEvent.click(chip);
+    const option = document.getElementById('option-0');
+    fireEvent.click(option);
     expect(screen.getByText('dropdown')).toBeInTheDocument();
   });
 });
