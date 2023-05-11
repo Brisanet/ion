@@ -185,17 +185,8 @@ export class ChipComponent
   updateLabel(): void {
     this.placeholder = this.label;
     if (this.firstcheck) {
-      this.firstcheck = false;
-      if (!this.multiple && this.options) {
-        const optionSelected = this.options.find(
-          (option) => option.selected === true
-        );
-        if (optionSelected) {
-          this.placeholder = optionSelected.label || '';
-        }
-      } else {
-        this.placeholder = this.label;
-      }
+      this.firstUpdateLabel();
+
       return;
     }
 
@@ -210,6 +201,20 @@ export class ChipComponent
     }
 
     this.placeholder = selectedOption.label;
+  }
+
+  firstUpdateLabel(): void {
+    if (!this.multiple && this.options) {
+      const optionSelected = this.options.find(
+        (option) => option.selected === true
+      );
+      if (optionSelected) {
+        this.placeholder = optionSelected.label || '';
+      }
+    } else {
+      this.placeholder = this.label;
+    }
+    this.firstcheck = false;
   }
 
   setTempOptions(selectedArray: DropdownItem[]): void {

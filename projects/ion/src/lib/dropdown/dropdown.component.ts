@@ -100,40 +100,75 @@ export class IonDropdownComponent
     }
     const isSingle = this.isSingle();
     const isRequired = this.isRequired();
-    if (isSingle && isRequired) {
-      if (option.selected) {
-        return;
-      }
-      this.clearOptions();
-      option.selected = true;
-      this.dropdownItens = [option];
-    }
-    if (isSingle && !isRequired) {
-      if (option.selected) {
-        option.selected = false;
-        this.clearOptions();
-      } else {
-        this.clearOptions();
-        option.selected = true;
-        this.dropdownItens = [option];
-      }
-    }
+    // if (isSingle && isRequired) {
+    //   if (option.selected) {
+    //     return;
+    //   }
+    //   // this.clearOptions();
+    //   // option.selected = true;
+    //   // this.dropdownItens = [option];
+    // }
+    // if (isSingle && !isRequired) {
+    //   if (option.selected) {
+    //     option.selected = false;
+    //     this.clearOptions();
+    //   } else {
+    //     // this.clearOptions();
+    //     // option.selected = true;
+    //     // this.dropdownItens = [option];
+    //   }
+    // }
+    // if (!isSingle) {
+    //   if (this.dropdownItens) {
+    //     if (!option.selected) {
+    //       option.selected = true;
+    //       this.dropdownItens.push(option);
+    //     } else {
+    //       option.selected = false;
+    //       const index = this.dropdownItens.findIndex(
+    //         (selectedOption) => selectedOption.label === option.label
+    //       );
+    //       this.dropdownItens.splice(index, 1);
+    //     }
+    //   }
+    // }
+
     if (!isSingle) {
-      if (this.dropdownItens) {
-        if (!option.selected) {
-          option.selected = true;
-          this.dropdownItens.push(option);
-        } else {
-          option.selected = false;
-          const index = this.dropdownItens.findIndex(
-            (selectedOption) => selectedOption.label === option.label
-          );
-          this.dropdownItens.splice(index, 1);
+      this.manageMultipleOptions(option);
+    } else {
+      if (!option.selected) {
+        this.selectSingleOption(option);
+      } else {
+        if (isRequired) {
+          return;
         }
+        this.clearOptions();
       }
     }
+
     this.setClearButtonIsVisible();
     this.selected.emit(this.dropdownItens);
+  }
+
+  selectSingleOption(option: DropdownItem): void {
+    this.clearOptions();
+    option.selected = true;
+    this.dropdownItens = [option];
+  }
+
+  manageMultipleOptions(option: DropdownItem): void {
+    if (this.dropdownItens) {
+      if (!option.selected) {
+        option.selected = true;
+        this.dropdownItens.push(option);
+      } else {
+        option.selected = false;
+        const index = this.dropdownItens.findIndex(
+          (selectedOption) => selectedOption.label === option.label
+        );
+        this.dropdownItens.splice(index, 1);
+      }
+    }
   }
 
   inputChange(value: string): void {
