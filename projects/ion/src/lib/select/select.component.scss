@@ -12,8 +12,9 @@
 
 .ion-select__container-input {
   ::ng-deep div.input-container {
-    .input{
-      input, ion-icon {
+    .input {
+      input,
+      ion-icon {
         cursor: pointer;
       }
     }
