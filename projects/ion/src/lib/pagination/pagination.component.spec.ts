@@ -18,6 +18,8 @@ const defaultComponent: IonPaginationProps = {
   page: 1,
 };
 
+const LOADING_STATUS = [true, false];
+
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
@@ -115,6 +117,22 @@ describe('Pagination > Page sizes', () => {
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
       }
     );
+
+    it.each(LOADING_STATUS)(
+      'should show items per page disabled when loading is %b',
+      async (loadingValue) => {
+        await sut({
+          ...defaultComponent,
+          loading: loadingValue,
+          allowChangeQtdItems: true,
+        });
+        const itemsPerPage = screen.getByTestId('itemsPerPage');
+        expect(itemsPerPage).toHaveAttribute(
+          'ng-reflect-disabled',
+          `${loadingValue}`
+        );
+      }
+    );
   });
 
   const customPageSizeOptions = [5, 10, 15, 20];
@@ -179,4 +197,47 @@ describe('Pagination > Events', () => {
     });
     expect(screen.queryAllByText('20 / página')).toHaveLength(1);
   });
+
+  const NUMBER_BUTTONS = [20, 30, 40, 46];
+
+  it.each(NUMBER_BUTTONS)(
+    'should not display any button of testID equal to $n after clicking itemsPerPage when loading is true',
+    async (numberButton) => {
+      await sut({
+        loading: true,
+        total: 46,
+        allowChangeQtdItems: true,
+      });
+      const label = '10 / página';
+      const changeItemsPerPageElement = screen.getByTestId(`btn-${label}`);
+      fireEvent.click(changeItemsPerPageElement);
+
+      const button20PerPage = screen.queryByTestId(
+        `btn-${numberButton} / página`
+      );
+      expect(button20PerPage).not.toBeInTheDocument();
+    }
+  );
+
+  it.each(NUMBER_BUTTONS)(
+    'Should change the button with testId 10 for the button with testId %n when loading is false.',
+    async (numberButton) => {
+      await sut({
+        loading: false,
+        total: 46,
+        allowChangeQtdItems: true,
+      });
+      const btn10TestId = 'btn-10 / página';
+      const changeItemsPerPageElement = screen.getByTestId(btn10TestId);
+      fireEvent.click(changeItemsPerPageElement);
+      const dropdownItem = screen.getByText(`${numberButton} / página`);
+      fireEvent.click(dropdownItem);
+      const btnPerPageClicked = screen.getByTestId(
+        `btn-${numberButton} / página`
+      );
+      expect(btnPerPageClicked).toBeInTheDocument();
+      const btn10PerPage = screen.queryByTestId(btn10TestId);
+      expect(btn10PerPage).not.toBeInTheDocument();
+    }
+  );
 });
