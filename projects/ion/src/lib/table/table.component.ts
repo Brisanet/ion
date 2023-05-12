@@ -124,6 +124,10 @@ export class IonTableComponent implements OnInit {
     return action.show(row);
   }
 
+  public disableAction(row: SafeAny, action: ActionTable): boolean {
+    return action.disabled(row);
+  }
+
   public paginationEvents(event: PageEvent): void {
     this.smartData = this.config.data.slice(
       event.offset,
