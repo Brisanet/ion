@@ -36,9 +36,11 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   pages: Page[] = [];
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
-    this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
-    this.remountPages();
-    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+    if (!this.loading) {
+      this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
+      this.remountPages();
+      this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
