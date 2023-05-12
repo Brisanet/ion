@@ -96,7 +96,10 @@
         <div class="icons-td">
           <div *ngFor="let action of config.actions">
             <ion-button
-              *ngIf="action.confirm"
+              *ngIf="
+                action.confirm &&
+                (action.show ? !showAction(row, action) : true)
+              "
               ionPopConfirm
               [ionPopConfirmTitle]="action.confirm.title"
               [ionPopConfirmType]="action.confirm.type"
@@ -115,11 +118,14 @@
               [danger]="!!action.danger"
               [iconType]="action.icon"
               [circularButton]="true"
-              [disabled]="action.show ? !showAction(row, action) : false"
+              [disabled]="action.disabled ? !disableAction(row, action) : false"
             ></ion-button>
 
             <ion-button
-              *ngIf="!action.confirm"
+              *ngIf="
+                !action.confirm &&
+                (action.show ? !showAction(row, action) : true)
+              "
               [title]="action.label"
               [attr.data-testid]="'row-' + index + '-' + action.label"
               type="ghost"
@@ -128,7 +134,7 @@
               [iconType]="action.icon"
               [circularButton]="true"
               (ionOnClick)="handleEvent(row, action)"
-              [disabled]="action.show ? !showAction(row, action) : false"
+              [disabled]="action.disabled ? !disableAction(row, action) : false"
             ></ion-button>
           </div>
         </div>
