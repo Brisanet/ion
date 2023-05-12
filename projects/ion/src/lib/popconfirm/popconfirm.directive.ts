@@ -50,37 +50,8 @@ export class IonPopConfirmDirective {
   ) {}
 
   open(): void {
-    if (this.IonPopConfirmComponentRef) {
-      return;
-    }
-    const popover = this.componentFactoryResolver
-      .resolveComponentFactory(IonPopConfirmComponent)
-      .create(this.injector);
-
-    this.IonPopConfirmComponentRef = popover;
-
-    this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
-    this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
-
-    const popconfirmElement = this.IonPopConfirmComponentRef.location
-      .nativeElement as HTMLElement;
-
-    this.document.body.appendChild(popconfirmElement);
-
-    this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
-      this.ionPopConfirmTitle;
-
-    this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
-      this.ionPopConfirmDesc;
-
-    this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
-      this.ionPopConfirmType;
-
-    this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
-      this.closePopConfirm();
-      this.ionOnConfirm.emit();
-    });
-
+    this.closeAllPopsConfirm();
+    this.createPopConfirm();
     this.IonPopConfirmComponentRef.instance.ionOnClose.subscribe(() => {
       this.closePopConfirm();
       this.ionOnClose.emit();
@@ -119,6 +90,45 @@ export class IonPopConfirmDirective {
     };
 
     return offset;
+  }
+
+  closeAllPopsConfirm(): void {
+    const existingPopConfirms = document.querySelectorAll('ion-popconfirm');
+    if (existingPopConfirms) {
+      existingPopConfirms.forEach((popConfirm) => {
+        popConfirm.remove();
+      });
+    }
+  }
+
+  createPopConfirm(): void {
+    const popover = this.componentFactoryResolver
+      .resolveComponentFactory(IonPopConfirmComponent)
+      .create(this.injector);
+
+    this.IonPopConfirmComponentRef = popover;
+
+    this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
+    this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
+
+    const popconfirmElement = this.IonPopConfirmComponentRef.location
+      .nativeElement as HTMLElement;
+
+    this.document.body.appendChild(popconfirmElement);
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
+      this.ionPopConfirmTitle;
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
+      this.ionPopConfirmDesc;
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
+      this.ionPopConfirmType;
+
+    this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
+      this.closePopConfirm();
+      this.ionOnConfirm.emit();
+    });
   }
 
   setStyle(element: HTMLElement, offset: PopOffset): void {
