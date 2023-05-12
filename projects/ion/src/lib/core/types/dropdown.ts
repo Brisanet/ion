@@ -13,6 +13,7 @@ export interface DropdownParams {
   options: DropdownItem[];
   selected: EventEmitter<DropdownItem[]>;
   multiple?: boolean;
+  required?: boolean;
   enableSearch?: boolean;
   searchOptions?: IonInputProps;
   searchChange?: EventEmitter<string>;

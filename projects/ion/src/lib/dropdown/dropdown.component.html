@@ -9,7 +9,12 @@
     [disabled]="searchOptions?.disabled || false"
     (valueChange)="inputChange($event)"
   ></ion-input>
-  <div class="options-list">
+  <div
+    #optionList
+    class="options-list"
+    (scroll)="optionsScroll()"
+    id="option-list"
+  >
     <div
       [ngClass]="{
         'dropdown-disabled': option.disabled,
@@ -37,14 +42,14 @@
     </div>
   </div>
   <ion-button
+    *ngIf="clearButtonIsVisible"
     label="Limpar"
     iconType="trash"
     type="secondary"
     size="sm"
     rightSideIcon="true"
     expand="true"
-    *ngIf="clearButtonIsVisible"
-    (click)="clearOptions()"
+    (click)="clearEvent()"
     data-testid="buttonClear"
   ></ion-button>
 </div>
