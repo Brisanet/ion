@@ -61,7 +61,8 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-    show: (row: SafeAny): boolean => {
+
+    disabled: (row: SafeAny): boolean => {
       return !row.deleted;
     },
     call: (row: SafeAny): void => {
@@ -77,6 +78,17 @@ const actions = [
   {
     label: 'Editar',
     icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.name;
+    },
+    call: (row: SafeAny): void => {
+      row.name = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
   },
 ];
 

@@ -206,6 +206,13 @@ describe('Table > Actions', () => {
       label: 'Excluir',
       icon: 'trash',
       show: (row: Character): boolean => {
+        return !row.name;
+      },
+    },
+    {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: Character): boolean => {
         return row.height > 160;
       },
     },
@@ -269,7 +276,7 @@ describe('Table > Actions', () => {
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
