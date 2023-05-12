@@ -176,11 +176,10 @@ describe('Directive: Popconfirm', () => {
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
 
-  it('should close popconfirm if it is already open', () => {
+  it('should not open new popconfirm when be opened', () => {
+    directive.open();
     directive.open();
     expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(1);
-    directive.open();
-    expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(0);
   });
 });
 
