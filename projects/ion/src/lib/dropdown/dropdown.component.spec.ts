@@ -2,10 +2,18 @@ import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { SafeAny } from '../utils/safe-any';
-import { IonDropdownComponent } from './dropdown.component';
+import { COLDOWN, IonDropdownComponent } from './dropdown.component';
 import { IonSharedModule } from '../shared.module';
 import { DropdownParams } from '../core/types/dropdown';
 import { IonInputProps } from '../core/types/input';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
+import { SimpleChange, SimpleChanges } from '@angular/core';
+import { IonDropdownTestModule } from './dropdown-test.module';
 
 const options = [];
 const inputElement = 'input-element';
@@ -21,6 +29,7 @@ const createOptions = (): void => {
 createOptions();
 
 const selectEvent = jest.fn();
+const scrollFinal = jest.fn();
 const defaultDropdown: DropdownParams = {
   options,
   selected: {
@@ -42,15 +51,13 @@ const sut = async (
 };
 
 describe('IonDropdownComponent', () => {
-  beforeEach(async () => {
-    await sut();
-  });
-
   it.each(options)('should render option $label', async ({ label }) => {
+    await sut();
     expect(screen.getAllByText(label)).toHaveLength(1);
   });
 
   it('should select a option', async () => {
+    await sut();
     selectEvent.mockClear();
     const optionToSelect = 0;
     const elementToSelect = document.getElementById('option-' + optionToSelect);
@@ -60,7 +67,27 @@ describe('IonDropdownComponent', () => {
     expect(selectEvent).toHaveBeenCalledWith([options[optionToSelect]]);
   });
 
+  it('should deselect a option', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: true },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    const element = document.getElementById('option-0');
+    fireEvent.click(element);
+    expect(element.classList).not.toContain('dropdown-item-selected');
+  });
+
   it('should change icon to close when mouse enter in option selected', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
     fireEvent.mouseEnter(elementToHover);
@@ -69,6 +96,13 @@ describe('IonDropdownComponent', () => {
   });
 
   it('should show check icon when mouse leave of option selected', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
     const elementToHover = document.getElementById('option-0');
     fireEvent.click(elementToHover);
     fireEvent.mouseEnter(elementToHover);
@@ -85,6 +119,7 @@ describe('Dropdown / Clear Filters', () => {
   it('should render clear button on init if there are selected values by default', async () => {
     await sut({
       ...defaultDropdown,
+      multiple: true,
       options: [
         { label: 'Option 1', selected: true },
         { label: 'Option 2', selected: false },
@@ -95,7 +130,14 @@ describe('Dropdown / Clear Filters', () => {
 
   describe('events', () => {
     beforeEach(async () => {
-      await sut();
+      await sut({
+        ...defaultDropdown,
+        multiple: true,
+        options: [
+          { label: 'Option 1', selected: false },
+          { label: 'Option 2', selected: false },
+        ],
+      });
       selectEvent.mockClear();
       elementToSelect = document.getElementById('option-' + optionToSelect);
       fireEvent.click(elementToSelect);
@@ -177,11 +219,25 @@ describe('IonDropdownComponent / Multiple', () => {
     { label: 'Horse', selected: true },
   ];
 
+  const initialValue = [{ label: 'Option 1', selected: true }];
+
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
     selected: {
       emit: selectEvent,
+    } as SafeAny,
+  };
+
+  const multipleWithInitalValue = {
+    options,
+    multiple: true,
+    arraySelecteds: initialValue,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+    scrollFinal: {
+      emit: scrollFinal,
     } as SafeAny,
   };
 
@@ -218,6 +274,31 @@ describe('IonDropdownComponent / Multiple', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length - 1
     );
+  });
+
+  it('should render with value selected when arraySelecteds is passed', async () => {
+    await sut(multipleWithInitalValue);
+    const elementToSelect = document.getElementById('option-0');
+    expect(elementToSelect).toHaveClass('dropdown-item-selected');
+  });
+
+  it('should emmit event when reach the final of scrollable dropdown', async () => {
+    await sut(multipleWithInitalValue);
+    const elementToScroll = document.getElementById('option-list');
+    const scrollsize =
+      elementToScroll.scrollHeight + elementToScroll.clientHeight;
+    fireEvent.scroll(elementToScroll, {
+      target: {
+        scrollY: scrollsize,
+      },
+    });
+    expect(scrollFinal).toBeCalled();
+  });
+
+  it('should render with clear button when selected array is passed', async () => {
+    await sut(multipleWithInitalValue);
+    const clearButton = screen.getByTestId('buttonClear');
+    expect(clearButton).toBeInTheDocument();
   });
 });
 
@@ -304,5 +385,93 @@ describe('IonDropdownComponent / With Search / Custom Search', () => {
     expect(
       screen.getByTestId(`icon-${searchOptions.iconDirection}`)
     ).toBeInTheDocument();
+  });
+});
+
+describe('IonDropdownComponent / Changes detection', () => {
+  let component: IonDropdownComponent;
+  let fixture: ComponentFixture<IonDropdownComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [IonDropdownTestModule],
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(IonDropdownComponent);
+    component = fixture.componentInstance;
+    component.options = options;
+  });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+  });
+
+  it('should update options and call setSelected', fakeAsync(() => {
+    const newOptions = [{ label: 'Option 1', selected: true }];
+    const changes: SimpleChanges = {
+      options: new SimpleChange(undefined, newOptions, false),
+    };
+    const spy = jest.spyOn(component, 'setSelected');
+
+    component.options = newOptions;
+    component.ngOnChanges(changes);
+    tick(COLDOWN + 1);
+
+    expect(component.options).toEqual(newOptions);
+    expect(spy).toHaveBeenCalled();
+  }));
+
+  it('should call setClearButtonIsVisible()', fakeAsync(() => {
+    const spy = jest.spyOn(component, 'setClearButtonIsVisible');
+    fixture.detectChanges();
+    tick();
+    expect(spy).toHaveBeenCalled();
+  }));
+});
+
+describe('IonDropdownComponent / Required', () => {
+  const defaultRequired = {
+    ...defaultDropdown,
+    required: true,
+    options: [
+      { label: 'Option 1', selected: false },
+      { label: 'Option 2', selected: false },
+    ],
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not deselect a selected option', async () => {
+    await sut(defaultRequired);
+
+    const element = document.getElementById('option-0');
+    fireEvent.click(element);
+    fireEvent.click(element);
+    expect(element).toHaveClass('dropdown-item-selected');
+  });
+
+  it('should render a multiple dropdown even when required true', async () => {
+    await sut({
+      ...defaultDropdown,
+      multiple: true,
+      required: true,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    const element = document.getElementById('option-0');
+    expect(element).not.toHaveClass('dropdown-item-selected');
+  });
+
+  it('should change option when clicked', async () => {
+    await sut(defaultRequired);
+    const elementToClick = document.getElementById('option-1');
+    fireEvent.click(elementToClick);
+    expect(elementToClick).toHaveClass('dropdown-item-selected');
+    expect(document.getElementById('option-0')).toHaveClass('dropdown-item');
   });
 });
