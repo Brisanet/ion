@@ -50,10 +50,6 @@ export class IonPopConfirmDirective {
   ) {}
 
   open(): void {
-    if (this.IonPopConfirmComponentRef) {
-      this.closePopConfirm();
-      return;
-    }
     this.closeAllPopsConfirm();
     this.createPopConfirm();
     this.IonPopConfirmComponentRef.instance.ionOnClose.subscribe(() => {
@@ -96,7 +92,7 @@ export class IonPopConfirmDirective {
     return offset;
   }
 
-  closeAllPopsConfirm() {
+  closeAllPopsConfirm(): void {
     const existingPopConfirms = document.querySelectorAll('ion-popconfirm');
     if (existingPopConfirms) {
       existingPopConfirms.forEach((popConfirm) => {
@@ -105,7 +101,7 @@ export class IonPopConfirmDirective {
     }
   }
 
-  createPopConfirm() {
+  createPopConfirm(): void {
     const popover = this.componentFactoryResolver
       .resolveComponentFactory(IonPopConfirmComponent)
       .create(this.injector);
