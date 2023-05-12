@@ -282,6 +282,17 @@ describe('Table > Actions', () => {
     );
   });
 
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonSmartTableProps<Character>;
+
+    tableItemDeleted.config.data = [{ height: 96, name: '', mass: 96 }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
+  });
+
   it('should call action when clicked in action', async () => {
     await sut(tableWithActions);
     const removeOption = document.getElementById('ion-icon-pencil');

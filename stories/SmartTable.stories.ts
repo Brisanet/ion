@@ -86,7 +86,22 @@ const actions = [
     },
     confirm: {
       title: 'Você realmente deseja deletar?',
-      description: 'você estará excluindo um disco da sua base de dados!',
+      description: 'Você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
+  },
+  {
+    label: 'Teste',
+    icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.year;
+    },
+    call: (row: SafeAny): void => {
+      row.year = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'Você estará excluindo um disco da sua base de dados!',
       type: 'negative',
     },
   },
