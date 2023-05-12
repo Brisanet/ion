@@ -176,10 +176,11 @@ describe('Directive: Popconfirm', () => {
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
 
-  it('should not open new popconfirm when be opened', () => {
-    directive.open();
+  it('should close popconfirm if it is already open', () => {
     directive.open();
     expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(1);
+    directive.open();
+    expect(screen.queryAllByTestId('pop-confirm-btn')).toHaveLength(0);
   });
 });
 
@@ -317,7 +318,7 @@ describe('Popconfirm position when it opens', () => {
   });
 
   it('should set the correct position', () => {
-    const popconfirmElement = screen.getAllByTestId('sup-container')[2];
+    const popconfirmElement = screen.getAllByTestId('sup-container')[0];
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
