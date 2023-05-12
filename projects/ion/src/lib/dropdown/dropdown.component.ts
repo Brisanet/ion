@@ -72,7 +72,7 @@ export class IonDropdownComponent
 
   clearEvent(): void {
     this.clearOptions();
-    if (this.isSingle() && !this.isRequired()) {
+    if (!this.multiple && !this.required) {
       this.selected.emit(this.dropdownItens);
     }
     this.clearBadgeValue.emit();
@@ -99,11 +99,11 @@ export class IonDropdownComponent
   }
 
   select(option: DropdownItem): void {
-    if (this.isDisabled(option)) {
+    if (option.disabled) {
       return;
     }
 
-    if (!this.isSingle()) {
+    if (this.multiple) {
       this.manageMultipleOptions(option);
       return;
     }
@@ -111,7 +111,7 @@ export class IonDropdownComponent
       this.selectSingleOption(option);
       return;
     }
-    if (this.isRequired()) {
+    if (this.required) {
       return;
     }
     this.clearEvent();
@@ -204,18 +204,6 @@ export class IonDropdownComponent
         this.setSelected();
       }
     }, COLDOWN);
-  }
-
-  private isDisabled(option: DropdownItem): boolean {
-    return option.disabled;
-  }
-
-  private isSingle(): boolean {
-    return !this.multiple;
-  }
-
-  private isRequired(): boolean {
-    return this.required;
   }
 
   private checkArray(array: Array<SafeAny>): boolean {
