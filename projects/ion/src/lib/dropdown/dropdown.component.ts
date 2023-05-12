@@ -70,16 +70,20 @@ export class IonDropdownComponent
     option.selected && !option.disabled && (option.hovered = false);
   }
 
+  clearEvent(): void {
+    this.clearOptions();
+    if (this.isSingle() && !this.isRequired()) {
+      this.selected.emit(this.dropdownItens);
+    }
+    this.clearBadgeValue.emit();
+  }
+
   clearOptions(): void {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
     this.dropdownItens = [];
     this.clearButtonIsVisible = false;
-    if (this.isSingle() && !this.isRequired()) {
-      this.selected.emit(this.dropdownItens);
-    }
-    this.clearBadgeValue.emit();
   }
 
   optionsScroll(): void {
@@ -110,7 +114,7 @@ export class IonDropdownComponent
     if (this.isRequired()) {
       return;
     }
-    this.clearOptions();
+    this.clearEvent();
   }
 
   selectSingleOption(option: DropdownItem): void {
