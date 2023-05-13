@@ -18,6 +18,8 @@ const defaultComponent: IonPaginationProps = {
   page: 1,
 };
 
+const LOADING_STATUS = [true, false];
+
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
@@ -113,6 +115,22 @@ describe('Pagination > Page sizes', () => {
         );
         const view = screen.getByTestId('ion-dropdown');
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
+      }
+    );
+
+    it.each(LOADING_STATUS)(
+      'should show items per page disabled as %b when loading is %b',
+      async (loadingValue) => {
+        await sut({
+          ...defaultComponent,
+          loading: loadingValue,
+          allowChangeQtdItems: true,
+        });
+        const itemsPerPage = screen.getByTestId('itemsPerPage');
+        expect(itemsPerPage).toHaveAttribute(
+          'ng-reflect-disabled',
+          `${loadingValue}`
+        );
       }
     );
   });

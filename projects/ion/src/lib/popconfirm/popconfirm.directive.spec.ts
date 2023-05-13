@@ -317,7 +317,7 @@ describe('Popconfirm position when it opens', () => {
   });
 
   it('should set the correct position', () => {
-    const popconfirmElement = screen.getAllByTestId('sup-container')[2];
+    const popconfirmElement = screen.getAllByTestId('sup-container')[0];
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,

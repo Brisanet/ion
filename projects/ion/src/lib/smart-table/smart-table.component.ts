@@ -120,6 +120,10 @@ export class IonSmartTableComponent implements OnInit {
     return action.show(row);
   }
 
+  public disableAction(row: SafeAny, action: ActionTable): boolean {
+    return action.disabled(row);
+  }
+
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
     if (!this.config.loading && !this.firstLoad) {
