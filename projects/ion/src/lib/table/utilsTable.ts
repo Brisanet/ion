@@ -41,6 +41,7 @@ export interface ActionConfirm {
 export interface ActionTable {
   label: string;
   icon: string;
+  disabled?: (row: SafeAny) => boolean;
   danger?: boolean;
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
