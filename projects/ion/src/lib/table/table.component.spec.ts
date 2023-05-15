@@ -156,10 +156,17 @@ describe('IonTableComponent', () => {
 describe('Table > Actions', () => {
   const actions: ActionTable[] = [
     {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: SafeAny): boolean => {
+        return !row.deleted;
+      },
+    },
+    {
       label: 'Excluir',
       icon: 'trash',
       show: (row: SafeAny): boolean => {
-        return !row.deleted;
+        return !row.name;
       },
     },
     {
@@ -217,10 +224,21 @@ describe('Table > Actions', () => {
     ];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
+  });
+
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonTableProps<Disco>;
+
+    tableItemDeleted.config.data = [{ id: 1, name: '', deleted: true }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
   });
 
   it('should call action when clicked in action', async () => {

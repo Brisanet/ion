@@ -1,13 +1,21 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { render, fireEvent, screen } from '@testing-library/angular';
+
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+
 import { IonInputCounterComponent } from './input-counter.component';
 import { IonButtonModule } from '../button/button.module';
 
 const sut = async (
   customProps: Partial<IonInputCounterComponent> = {}
-): Promise<void> => {
-  await render(IonInputCounterComponent, {
+): Promise<RenderResult<IonInputCounterComponent>> => {
+  return await render(IonInputCounterComponent, {
     componentProperties: customProps,
     imports: [CommonModule, FormsModule, IonButtonModule],
     declarations: [],
@@ -61,6 +69,15 @@ describe('InputCounter', () => {
       'ng-reflect-size',
       'md'
     );
+  });
+
+  it('should enter non-numeric characters and not affect the value of input-number', async () => {
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const value = '111';
+    userEvent.type(inputCounter, value);
+    expect(inputCounter.value).toBe(value);
+    userEvent.type(inputCounter, 'abc');
+    expect(inputCounter.value).toBe(value);
   });
 });
 

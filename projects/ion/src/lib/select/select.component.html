@@ -1,0 +1,24 @@
+<div class="ion-select__container-input" [id]="inputId">
+  <ion-input
+    [placeholder]="placeholder"
+    (click)="toggleDropdown()"
+    iconDirection="right"
+    [iconInput]="search ? 'search' : showDropdown ? 'semi-down' : 'semi-up'"
+    [readonly]="!search"
+    [value]="inputValue"
+    [clearButton]="inputValue"
+    (valueChange)="uncheckedOptionsInSelect($event)"
+  ></ion-input>
+</div>
+
+<div
+  [id]="dropdownId"
+  class="ion-select__container-dropdown"
+  *ngIf="showDropdown"
+>
+  <ion-dropdown
+    [options]="options"
+    (selected)="selectedOptions($event)"
+    (clearBadgeValue)="clearInput()"
+  ></ion-dropdown>
+</div>

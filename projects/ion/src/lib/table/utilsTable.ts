@@ -1,4 +1,4 @@
-import { ConfigSmartTable } from '../core/types';
+import { ConfigSmartTable, StatusType } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 
 export enum EventTable {
@@ -32,11 +32,13 @@ export interface ActionConfirm {
   title: string;
   description?: string;
   dynamicDescription?: (row: SafeAny) => string;
+  type?: StatusType;
 }
 
 export interface ActionTable {
   label: string;
   icon: string;
+  disabled?: (row: SafeAny) => boolean;
   danger?: boolean;
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
@@ -46,6 +48,7 @@ export interface ActionTable {
 export interface PaginationConfig {
   total: number;
   itemsPerPage?: number;
+  pageSizeOptions?: number[];
   offset?: number;
   page?: number;
 }

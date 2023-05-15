@@ -14,6 +14,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopConfirmComponent } from './popconfirm.component';
+import { StatusType } from '../core/types';
 
 export interface PopPosition {
   top: number;
@@ -34,6 +35,7 @@ export interface PopOffset {
 export class IonPopConfirmDirective {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
+  @Input() ionPopConfirmType: StatusType = 'warning';
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
@@ -48,34 +50,8 @@ export class IonPopConfirmDirective {
   ) {}
 
   open(): void {
-    if (this.IonPopConfirmComponentRef) {
-      return;
-    }
-    const popover = this.componentFactoryResolver
-      .resolveComponentFactory(IonPopConfirmComponent)
-      .create(this.injector);
-
-    this.IonPopConfirmComponentRef = popover;
-
-    this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
-    this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
-
-    const popconfirmElement = this.IonPopConfirmComponentRef.location
-      .nativeElement as HTMLElement;
-
-    this.document.body.appendChild(popconfirmElement);
-
-    this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
-      this.ionPopConfirmTitle;
-
-    this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
-      this.ionPopConfirmDesc;
-
-    this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
-      this.closePopConfirm();
-      this.ionOnConfirm.emit();
-    });
-
+    this.closeAllPopsConfirm();
+    this.createPopConfirm();
     this.IonPopConfirmComponentRef.instance.ionOnClose.subscribe(() => {
       this.closePopConfirm();
       this.ionOnClose.emit();
@@ -116,6 +92,45 @@ export class IonPopConfirmDirective {
     return offset;
   }
 
+  closeAllPopsConfirm(): void {
+    const existingPopConfirms = document.querySelectorAll('ion-popconfirm');
+    if (existingPopConfirms) {
+      existingPopConfirms.forEach((popConfirm) => {
+        popConfirm.remove();
+      });
+    }
+  }
+
+  createPopConfirm(): void {
+    const popover = this.componentFactoryResolver
+      .resolveComponentFactory(IonPopConfirmComponent)
+      .create(this.injector);
+
+    this.IonPopConfirmComponentRef = popover;
+
+    this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
+    this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
+
+    const popconfirmElement = this.IonPopConfirmComponentRef.location
+      .nativeElement as HTMLElement;
+
+    this.document.body.appendChild(popconfirmElement);
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmTitle =
+      this.ionPopConfirmTitle;
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmDesc =
+      this.ionPopConfirmDesc;
+
+    this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
+      this.ionPopConfirmType;
+
+    this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
+      this.closePopConfirm();
+      this.ionOnConfirm.emit();
+    });
+  }
+
   setStyle(element: HTMLElement, offset: PopOffset): void {
     const supContainerEl = document.querySelector('.sup-container');
 
@@ -152,12 +167,15 @@ export class IonPopConfirmDirective {
         const popconfirmElement = document.querySelector(
           '.sup-container'
         ) as HTMLElement;
-        const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
-          top: position.top + position.height + marginBetweenComponents,
-          left: position.left,
-          width: position.width,
-        });
-        this.setStyle(popconfirmElement, offsetPosition);
+
+        if (popconfirmElement) {
+          const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
+            top: position.top + position.height + marginBetweenComponents,
+            left: position.left,
+            width: position.width,
+          });
+          this.setStyle(popconfirmElement, offsetPosition);
+        }
       });
     }
   }

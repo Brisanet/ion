@@ -41,12 +41,12 @@ export class IonAlertComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.setIcon();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hideBackground && changes.hideBackground.currentValue) {
+    if (this.hideBackground) {
       this.closable = false;
     }
+  }
+  
+  ngOnChanges(): void {
+    this.setIcon();
   }
 }

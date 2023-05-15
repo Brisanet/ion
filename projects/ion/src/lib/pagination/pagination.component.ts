@@ -22,6 +22,8 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   @Input() total: IonPaginationProps['total'];
   @Input() itemsPerPage: IonPaginationProps['itemsPerPage'] =
     ITEMS_PER_PAGE_DEFAULT;
+  @Input() pageSizeOptions: IonPaginationProps['pageSizeOptions'] =
+    LIST_OF_PAGE_OPTIONS;
   @Input() size: IonPaginationProps['size'] = 'md';
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
@@ -34,9 +36,11 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   pages: Page[] = [];
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
-    this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
-    this.remountPages();
-    this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+    if (!this.loading) {
+      this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
+      this.remountPages();
+      this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -67,7 +71,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPage(pageNumber = 1, emitEvent = true): void {
-    if (this.pages) {
+    if (this.pages && !this.loading) {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
       });
@@ -97,13 +101,13 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   previous(): void {
-    if (!this.inFirstPage()) {
+    if (!this.inFirstPage() && !this.loading) {
       this.selectPage(this.currentPage().page_number - 1);
     }
   }
 
   next(): void {
-    if (!this.inLastPage()) {
+    if (!this.inLastPage() && !this.loading) {
       this.selectPage(this.currentPage().page_number + 1);
     }
   }
@@ -154,7 +158,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   private getOptionsPage(): DropdownItem[] {
-    return LIST_OF_PAGE_OPTIONS.map((quantityOfPages) => {
+    return this.pageSizeOptions.map((quantityOfPages) => {
       return {
         label: this.generateLabel(quantityOfPages),
         selected: this.isASelectedOption(quantityOfPages),
@@ -164,7 +168,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   private isASelectedOption(quantityOfPages: number): boolean {
     return (
-      LIST_OF_PAGE_OPTIONS.includes(this.itemsPerPage) &&
+      this.pageSizeOptions.includes(this.itemsPerPage) &&
       this.itemsPerPage === quantityOfPages
     );
   }
