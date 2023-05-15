@@ -1,5 +1,6 @@
 <div class="pag-container">
   <ion-button
+    data-testid="itemsPerPage"
     rightSideIcon="true"
     *ngIf="allowChangeQtdItems"
     [label]="labelPerPage"
@@ -7,6 +8,7 @@
     customId="btn-select"
     (selected)="changeItemsPerPage($event)"
     type="secondary"
+    [disabled]="loading"
   ></ion-button>
 
   <ion-button
@@ -18,16 +20,19 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <button
-    *ngFor="let page of pages"
-    [class]="'square-pag ' + 'page-' + size"
-    [class.selected]="page.selected"
-    [attr.data-testid]="'page-' + page.page_number"
-    (click)="!loading && selectPage(page.page_number)"
-    [class.disabled]="loading"
-  >
-    <span>{{ page.page_number }}</span>
-  </button>
+  <div class="pages-list">
+    <button
+      *ngFor="let page of pages"
+      [class]="'square-pag ' + 'page-' + size"
+      [class.selected]="page.selected"
+      [attr.data-testid]="'page-' + page.page_number"
+      (click)="selectPage(page.page_number)"
+      [class.disabled]="loading"
+      [disabled]="loading"
+    >
+      <span>{{ page.page_number }}</span>
+    </button>
+  </div>
 
   <ion-button
     iconType="right2"

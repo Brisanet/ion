@@ -2,8 +2,25 @@
 
 $radius: 8px;
 
+@keyframes dot-animation {
+  0% {
+    content: '.  ';
+  }
+  25% {
+    content: '.. ';
+  }
+  50% {
+    content: '...';
+  }
+  75% {
+    content: '.. ';
+  }
+  100% {
+    content: '.  ';
+  }
+}
+
 .ion-table {
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.15);
   border-radius: $radius;
 }
 
@@ -54,9 +71,10 @@ table {
     padding: spacing(2);
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: $zIndexLow;
 
-    & .th-span, &.th-actions {
+    & .th-span,
+    &.th-actions {
       font-size: 16px;
       font-weight: 600;
       line-height: 22px;
@@ -113,6 +131,10 @@ table {
     align-items: center;
   }
 
+  & .old {
+    background-color: $neutral-1;
+  }
+
   & .even {
     background-color: $neutral-2;
   }
@@ -137,6 +159,7 @@ table {
   justify-content: space-between;
   padding: 16px;
   gap: spacing(2);
+  z-index: $zIndexLow;
 
   position: sticky;
   bottom: 0;
@@ -152,6 +175,15 @@ table {
   font-size: 14px;
   line-height: 20px;
   color: $neutral-7;
+
+  .loading-message:after {
+    content: '...';
+    animation: dot-animation 1.5s infinite;
+  }
+
+  .pagination {
+    max-width: 80%;
+  }
 }
 
 .noData {
@@ -164,6 +196,7 @@ table {
   align-items: center;
 
   color: $neutral-6;
+  background-color: $neutral-1;
   font-weight: 600;
   line-height: 17px;
   font-size: medium;

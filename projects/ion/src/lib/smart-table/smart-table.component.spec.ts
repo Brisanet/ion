@@ -1,14 +1,15 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { IonSmartTableProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { ActionTable, Column, EventTable } from '../table/utilsTable';
+import { IonTagModule } from '../tag/tag.module';
+import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableComponent } from './smart-table.component';
-import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonPaginationModule } from '../pagination/pagination.module';
-import { IonTagModule } from '../tag/tag.module';
-import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
-import { IonButtonModule } from '../button/button.module';
-import { IonIconModule } from '../icon/icon.module';
-import { IonSmartTableProps } from '../core/types';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -81,6 +82,7 @@ const sut = async (
       IonButtonModule,
       IonIconModule,
       IonPaginationModule,
+      PipesModule,
     ],
   });
 };
@@ -192,7 +194,6 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.CHANGE_PAGE,
     });
   });
-
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
@@ -205,6 +206,13 @@ describe('Table > Actions', () => {
       label: 'Excluir',
       icon: 'trash',
       show: (row: Character): boolean => {
+        return !row.name;
+      },
+    },
+    {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: Character): boolean => {
         return row.height > 160;
       },
     },
@@ -234,6 +242,25 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
+  it('should render action with danger class when action has danger config', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+      config: {
+        ...tableWithActions.config,
+        actions: [
+          {
+            ...actions[0],
+            danger: true,
+          },
+        ],
+      },
+    } as IonSmartTableProps<Character>;
+    await sut(tableItemDeleted);
+    const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
+    expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
+    expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
   it('should not render popconfirm when action dont has confirm config', async () => {
     await sut(tableWithActions);
     expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
@@ -249,10 +276,21 @@ describe('Table > Actions', () => {
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
+  });
+
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonSmartTableProps<Character>;
+
+    tableItemDeleted.config.data = [{ height: 96, name: '', mass: 96 }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
   });
 
   it('should call action when clicked in action', async () => {
@@ -580,15 +618,17 @@ describe('Table > Pagination', () => {
     const tableWithLoading = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    const totalPagination = screen.getByTestId('total-pagination');
     tableWithLoading.config.loading = true;
 
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+    expect(totalPagination).not.toBeInTheDocument();
   });
 });
 
 describe('Table > Action with confirm', () => {
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -613,7 +653,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title and description in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -635,6 +675,31 @@ describe('Table > Action with confirm', () => {
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
+    );
+  });
+
+  it('should render popconfirm description with data provided from row', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+
+    expect(dynamicDescription).toHaveBeenCalled();
+    expect(dynamicDescription).toHaveBeenCalledWith(
+      defaultProps.config.data[0]
     );
   });
 });
@@ -660,6 +725,18 @@ describe('Table without Data', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+
+  it('should add a (-) when there is no data in the cell', async () => {
+    const customData = {
+      ...defaultProps,
+    };
+    customData.config.data = [{ name: '', height: 0, mass: 100 }];
+    await sut(customData);
+    const cellHeight = screen.getByTestId('row-0-height');
+    const cellName = screen.getByTestId('row-0-name');
+    expect(cellHeight).toHaveTextContent('0');
+    expect(cellName).toHaveTextContent('-');
   });
 });
 

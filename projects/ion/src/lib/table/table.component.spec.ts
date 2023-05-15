@@ -1,5 +1,5 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonTableProps } from '../core/types';
@@ -156,10 +156,17 @@ describe('IonTableComponent', () => {
 describe('Table > Actions', () => {
   const actions: ActionTable[] = [
     {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: SafeAny): boolean => {
+        return !row.deleted;
+      },
+    },
+    {
       label: 'Excluir',
       icon: 'trash',
       show: (row: SafeAny): boolean => {
-        return !row.deleted;
+        return !row.name;
       },
     },
     {
@@ -188,6 +195,25 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
+  it('should render action with danger class when action has danger config', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+      config: {
+        ...tableWithActions.config,
+        actions: [
+          {
+            ...actions[0],
+            danger: true,
+          },
+        ],
+      },
+    } as IonTableProps<Disco>;
+    await sut(tableItemDeleted);
+    const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
+    expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
+    expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
   it('should render trash button disabled when the item is deleted', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
@@ -198,10 +224,21 @@ describe('Table > Actions', () => {
     ];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
+  });
+
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonTableProps<Disco>;
+
+    tableItemDeleted.config.data = [{ id: 1, name: '', deleted: true }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
   });
 
   it('should call action when clicked in action', async () => {
@@ -540,7 +577,7 @@ describe('Table > Pagination', () => {
 });
 
 describe('Table > Action with confirm', () => {
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonTableProps<Disco>;
@@ -564,7 +601,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title and description in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonTableProps<Disco>;
@@ -585,6 +622,31 @@ describe('Table > Action with confirm', () => {
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
+    );
+  });
+
+  it('should render popconfirm description with data provided from row', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonTableProps<Disco>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+
+    expect(dynamicDescription).toHaveBeenCalled();
+    expect(dynamicDescription).toHaveBeenCalledWith(
+      defaultProps.config.data[0]
     );
   });
 });

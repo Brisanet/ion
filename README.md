@@ -1,9 +1,13 @@
 <img src="stories/assets/capa.svg">
 
-<a href="https://codeclimate.com/github/iurynogueira/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/maintainability" /></a>
-<a href="https://codeclimate.com/github/iurynogueira/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/22e2c6dab72fd7234e24/test_coverage" /></a>
+### Angular version
+
+<a href="https://codeclimate.com/github/Brisanet/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/7ae5966c0de8137d95b0/maintainability" /></a>
+<a href="https://codeclimate.com/github/Brisanet/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/7ae5966c0de8137d95b0/test_coverage" /></a>
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
 [![npm version](https://badge.fury.io/js/@brisanet%2Fion.svg)](https://www.npmjs.com/package/@brisanet/ion)
+
+React version here: https://github.com/iurynogueira/ion-react
 
 ## Install and run project
 

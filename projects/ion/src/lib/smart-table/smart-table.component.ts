@@ -1,16 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SmartTableEvent, ConfigSmartTable } from '../core/types';
+import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
-import { ITEMS_PER_PAGE_DEFAULT } from '../pagination/pagination.component';
+import {
+  ITEMS_PER_PAGE_DEFAULT,
+  LIST_OF_PAGE_OPTIONS,
+} from '../pagination/pagination.component';
 import {
   ActionTable,
   Column,
   EventTable,
   TableUtils,
 } from '../table/utilsTable';
-import { SafeAny } from '../utils/safe-any';
 import debounce from '../utils/debounce';
+import { SafeAny } from '../utils/safe-any';
 
 const stateChange = {
   checked: 'enabled',
@@ -37,6 +40,9 @@ export class IonSmartTableComponent implements OnInit {
     this.tableUtils = new TableUtils(this.config);
     if (!this.config.pagination.itemsPerPage) {
       this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
+    }
+    if (!this.config.pagination.pageSizeOptions) {
+      this.config.pagination.pageSizeOptions = LIST_OF_PAGE_OPTIONS;
     }
     if (this.config.debounceOnSort) {
       this.sortWithDebounce = debounce((column: Column) => {
@@ -114,9 +120,12 @@ export class IonSmartTableComponent implements OnInit {
     return action.show(row);
   }
 
+  public disableAction(row: SafeAny, action: ActionTable): boolean {
+    return action.disabled(row);
+  }
+
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
-    this.config.pagination.page = this.pagination.actual;
     if (!this.config.loading && !this.firstLoad) {
       this.events.emit({
         event: EventTable.CHANGE_PAGE,

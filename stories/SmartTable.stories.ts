@@ -1,8 +1,9 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
+import { IonSmartTableModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -60,7 +61,8 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-    show: (row: SafeAny): boolean => {
+
+    disabled: (row: SafeAny): boolean => {
       return !row.deleted;
     },
     call: (row: SafeAny): void => {
@@ -70,11 +72,38 @@ const actions = [
     confirm: {
       title: 'Você realmente deseja deletar?',
       description: 'você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
     },
   },
   {
     label: 'Editar',
     icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.name;
+    },
+    call: (row: SafeAny): void => {
+      row.name = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'Você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
+  },
+  {
+    label: 'Teste',
+    icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.year;
+    },
+    call: (row: SafeAny): void => {
+      row.year = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'Você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
   },
 ];
 
@@ -83,7 +112,8 @@ function returnTableConfig(
   tableColumns,
   tableActions,
   paginationTotal,
-  debounceOnSort = 0
+  debounceOnSort = 0,
+  pageSizeOptions = LIST_OF_PAGE_OPTIONS
 ): SafeAny {
   return {
     config: {
@@ -93,6 +123,7 @@ function returnTableConfig(
       actions: tableActions,
       pagination: {
         total: paginationTotal,
+        pageSizeOptions,
       },
       debounceOnSort,
     },
@@ -110,3 +141,44 @@ SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);
 
 export const SortWithDebounce = Template.bind({});
 SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
+
+export const LargePagination = Template.bind({});
+LargePagination.args = returnTableConfig(data, columns, actions, 2000);
+
+export const CustomPageSizeOptions = Template.bind({});
+CustomPageSizeOptions.args = returnTableConfig(
+  data,
+  columns,
+  actions,
+  2000,
+  0,
+  [10, 15, 30, 50, 100]
+);
+
+export const ActionWithDanger = Template.bind({});
+ActionWithDanger.args = returnTableConfig(
+  data,
+  columns,
+  [{ ...actions[0], danger: true }],
+  2
+);
+
+export const PopConfirmDynamicDescription = Template.bind({});
+PopConfirmDynamicDescription.args = returnTableConfig(
+  data,
+  columns,
+  [
+    {
+      ...actions[0],
+      confirm: {
+        ...actions[0].confirm,
+        description: undefined,
+        dynamicDescription: (row: SafeAny): string => {
+          return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
+        },
+        type: 'info',
+      },
+    },
+  ],
+  2
+);
