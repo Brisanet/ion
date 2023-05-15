@@ -7,7 +7,14 @@
     (click)="countDecrement()"
   ></ion-button>
 
-  <input type="number" [(ngModel)]="count" data-testid="input-count" />
+  <input
+    type="text"
+    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+    [(ngModel)]="count"
+    data-testid="input-count"
+    (ngModelChange)="changeCount($event)"
+    [value]="count"
+  />
 
   <ion-button
     data-testid="iconAdd"
