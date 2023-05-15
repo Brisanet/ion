@@ -28,4 +28,12 @@ export class IonInputCounterComponent {
     this.count++;
     this.emitEvent();
   }
+
+  public changeCount(count: string): void {
+    const countNumeric = Number(count);
+    if (!isNaN(countNumeric)) {
+      this.count = countNumeric;
+      this.emitEvent();
+    }
+  }
 }
