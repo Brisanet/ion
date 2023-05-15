@@ -4,7 +4,6 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { StatusType } from '../core/types';
@@ -45,7 +44,7 @@ export class IonAlertComponent implements OnInit, OnChanges {
       this.closable = false;
     }
   }
-  
+
   ngOnChanges(): void {
     this.setIcon();
   }
