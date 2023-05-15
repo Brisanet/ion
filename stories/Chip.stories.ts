@@ -75,7 +75,17 @@ ChipWithRightBadge.args = {
 export const WithDropdown = Template.bind({});
 WithDropdown.args = {
   label: 'Animais',
-  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  options: [
+    { label: 'Cat' },
+    { label: 'Dog' },
+    { label: 'Monkey' },
+    { label: 'Human' },
+    { label: 'Bird' },
+    { label: 'Fish' },
+    { label: 'Goat' },
+    { label: 'Lion' },
+    { label: 'Tiger' },
+  ],
   icon: 'close',
   multiple: true,
 };
@@ -91,4 +101,12 @@ WithDropdownWithSearch.args = {
       placeholder: 'Busque um animal',
     },
   },
+};
+
+export const ChipRequired = Template.bind({});
+ChipRequired.args = {
+  label: 'Animais',
+  options: [{ label: 'Cat' }, { label: 'Dog' }],
+  icon: 'close',
+  required: true,
 };
