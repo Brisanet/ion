@@ -29,6 +29,7 @@ import { IonRowModule } from './row/row.module';
 import { IonSidebarModule } from './sidebar/sidebar.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
+import { IonStepsModule } from './step/step.module';
 import { IonSwitchModule } from './switch/switch.module';
 import { IonTabGroupModule } from './tab-group/tab-group.module';
 import { IonTabModule } from './tab/tab.module';
@@ -91,6 +92,7 @@ import { IonSelectModule } from './select/select.module';
     IonSpinnerModule,
     PipesModule,
     IonSelectModule,
+    IonStepsModule,
   ],
   exports: [
     IonComponent,
@@ -135,6 +137,7 @@ import { IonSelectModule } from './select/select.module';
     IonSpinnerModule,
     IonSkeletonModule,
     IonSelectModule,
+    IonStepsModule,
   ],
 })
 export class IonModule {}
