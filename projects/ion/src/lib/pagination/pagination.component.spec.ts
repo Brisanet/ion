@@ -35,7 +35,7 @@ describe('IonPaginationComponent', () => {
     await sut();
   });
 
-  it.each(['1', '2', '3', '4'])(
+  it.each(['1', '2', '3', '4', '5'])(
     'should render page %s',
     async (page: string) => {
       expect(screen.getByText(page)).toBeInTheDocument();
@@ -168,6 +168,20 @@ describe('Pagination > Events', () => {
     });
     fireEvent.click(screen.getByTestId('page-2'));
     expect(event).toBeCalledTimes(2);
+  });
+
+  it('should not emit an event when the selected page is already selected', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    event.mockClear();
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    fireEvent.click(screen.getByTestId('page-1'));
+    expect(event).not.toHaveBeenCalled();
   });
 
   it('should show items per page 10 when params is informed', async () => {
