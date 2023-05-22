@@ -145,9 +145,8 @@ export class IonPopConfirmDirective {
 
   elementIsEnabled(element: HTMLElement): boolean {
     return (
-      !element.getAttribute('ng-reflect-disabled') ||
-      (element.getAttribute('ng-reflect-disabled') &&
-        element.getAttribute('ng-reflect-disabled') == 'false')
+      !element.querySelector(':first-child').getAttribute('disabled') ||
+      !element.getAttribute('disabled')
     );
   }
 
