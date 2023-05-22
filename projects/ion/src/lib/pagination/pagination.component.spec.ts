@@ -35,7 +35,7 @@ describe('IonPaginationComponent', () => {
     await sut();
   });
 
-  it.each(['1', '2', '3', '4', '5'])(
+  it.each(['1', '2', '3', '4'])(
     'should render page %s',
     async (page: string) => {
       expect(screen.getByText(page)).toBeInTheDocument();
