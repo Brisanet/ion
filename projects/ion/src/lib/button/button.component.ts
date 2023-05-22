@@ -6,6 +6,8 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import {
   ButtonIconSizeOptions,
@@ -20,7 +22,9 @@ import { DropdownItem } from '../core/types/dropdown';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class IonButtonComponent implements OnInit, OnChanges {
+export class IonButtonComponent
+  implements OnInit, OnChanges, AfterViewInit, OnDestroy
+{
   @Input() label?: string;
   @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
@@ -38,6 +42,9 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() showDropdown? = false;
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();
+
+  dropdownId: string;
+  buttonId: string;
 
   public buttonBadge?: ButtonBadgeTypes = {
     type: 'secondary',
@@ -76,13 +83,42 @@ export class IonButtonComponent implements OnInit, OnChanges {
     this.buttonBadge.value = 0;
   }
 
+  closeDropdown(event: MouseEvent): void {
+    const element = event.target as HTMLElement;
+
+    const buttonContainer = document.getElementById(this.buttonId);
+    if (buttonContainer && buttonContainer.contains(element)) {
+      return;
+    }
+
+    const dropdownContainer = document.getElementById(this.dropdownId);
+    if (dropdownContainer && !dropdownContainer.contains(element)) {
+      this.showDropdown = false;
+    }
+  }
+
+  generateId(name: string): string {
+    return name + Math.floor(Math.random() * 100000000) + 1;
+  }
+
   ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
+
+    this.buttonId = this.generateId('ion-button__container-');
+    this.dropdownId = this.generateId('ion-button__container-dropdown-');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.disabled && changes.disabled.currentValue) {
       this.loading = false;
     }
+  }
+
+  ngAfterViewInit(): void {
+    document.addEventListener('click', (e) => this.closeDropdown(e));
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.closeDropdown);
   }
 }

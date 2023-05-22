@@ -207,6 +207,20 @@ describe('ButtonComponent with dropdown', () => {
       expect(screen.queryByTestId('ion-dropdown')).toBeNull();
     });
 
+    it('should close the dropdown when the outside is clicked "', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      fireEvent.click(button);
+      fireEvent.click(document.body);
+
+      expect(screen.queryByTestId('ion-dropdown')).toBeNull();
+    });
+
     it('should change label when an option is selected', async () => {
       const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 

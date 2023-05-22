@@ -10,6 +10,7 @@
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
+  [id]="buttonId"
 >
   <span *ngIf="loading" class="spinner"></span>
   <ion-icon
@@ -36,7 +37,11 @@
     data-testid="badge-multiple"
   ></ion-badge>
 </button>
-<div *ngIf="!!options && showDropdown" class="ion-btn-dropdown">
+<div
+  *ngIf="!!options && showDropdown"
+  class="ion-btn-dropdown"
+  [id]="dropdownId"
+>
   <ion-dropdown
     [options]="options"
     [multiple]="multiple"
