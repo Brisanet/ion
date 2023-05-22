@@ -26,7 +26,7 @@
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="page.selected"
       [attr.data-testid]="'page-' + page.page_number"
-      (click)="selectPage(page.page_number)"
+      (click)="selectPageOnClick(page.page_number)"
       [class.disabled]="loading"
       [disabled]="loading"
     >
