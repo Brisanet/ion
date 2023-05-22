@@ -10,6 +10,7 @@
   [class.right-side-icon]="rightSideIcon"
   [disabled]="disabled"
   (click)="handleClick()"
+  (clickOutside)="onCloseDropdown()"
 >
   <span *ngIf="loading" class="spinner"></span>
   <ion-icon
