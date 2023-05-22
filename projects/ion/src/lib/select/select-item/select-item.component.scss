@@ -1,0 +1,16 @@
+@import '../../../styles/index.scss';
+
+.ion-select-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 4px;
+  padding: 4px;
+  background-color: $neutral-2;
+  border-radius: 4px;
+  font-size: 14px;
+
+  .ion-select-item__content {
+    white-space: nowrap;
+  }
+}

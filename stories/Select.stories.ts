@@ -1,44 +1,27 @@
 import { IonSelectComponent } from '../projects/ion/src/lib/select/select.component';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { moduleMetadata } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
+import { IonSelectItemComponent } from '../projects/ion/src/lib/select/select-item/select-item.component';
+import { moduleMetadata } from '@storybook/angular/dist/ts3.9/client';
 import {
   IonDropdownModule,
-  IonInputModule,
+  IonIconModule,
 } from '../projects/ion/src/public-api';
-import { DropdownItem } from '../projects/ion/src/lib/core/types/dropdown';
+import { FormsModule } from '@angular/forms';
 
 export default {
   title: 'Ion/Data Entry/Select',
   Component: IonSelectComponent,
   decorators: [
     moduleMetadata({
-      imports: [IonInputModule, IonDropdownModule],
+      declarations: [IonSelectComponent, IonSelectItemComponent],
+      imports: [IonIconModule, FormsModule, IonDropdownModule],
     }),
   ],
 } as Meta;
 
 const Template: Story<IonSelectComponent> = (args: IonSelectComponent) => ({
   component: IonSelectComponent,
-  props: {
-    ...args,
-    selected: action('selected'),
-    searchChange: action('searchChange'),
-  },
+  props: { ...args },
 });
 
-const options: DropdownItem[] = [
-  { label: 'apples', disabled: true },
-  { label: 'oranges' },
-  { label: 'bananas' },
-];
-
-export const Basic = Template.bind({});
-Basic.args = {
-  placeholder: 'Choose a fruit',
-  options,
-  showDropdown: false,
-  showToggle: false,
-  enableSearch: true,
-  enableFilteringOptions: true,
-};
+export const Default = Template.bind({});
