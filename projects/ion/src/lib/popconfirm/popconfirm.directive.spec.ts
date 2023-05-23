@@ -1,23 +1,23 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler/src/core';
 import {
   Component,
+  DebugElement,
   ViewChild,
   ViewContainerRef,
-  DebugElement,
 } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonDividerModule } from '../divider/divider.module';
 import { IonPopConfirmComponent } from './popconfirm.component';
 import {
   IonPopConfirmDirective,
-  PopPosition,
   PopOffset,
+  PopPosition,
 } from './popconfirm.directive';
-import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { IonDividerModule } from '../divider/divider.module';
-import { IonButtonModule } from '../button/button.module';
 
 const textButton = 'Teste';
 const tableTextButton = 'Teste na table';
@@ -215,7 +215,7 @@ describe('Popconfirm host tests', () => {
     directive.closePopConfirm();
   });
 
-  it('should click in host element and dispath event', () => {
+  it('should click in host element and dispatch event', () => {
     fixture.detectChanges();
     const event = new Event('click');
     input.triggerEventHandler('click', event);
@@ -271,10 +271,19 @@ describe('Popconfirm disabled host component', () => {
     });
   });
 
+  it('should return false if child element is disabled', () => {
+    const element = document.createElement('ion-button');
+    element
+      .appendChild(document.createElement('button'))
+      .setAttribute('disabled', '');
+    const isEnable = directive.elementsAreEnabled(element);
+    expect(isEnable).toBe(false);
+  });
+
   it('should return false if element is disabled', () => {
     const element = document.createElement('ion-button');
-    element.setAttribute('disabled', 'true');
-    const isEnable = directive.elementIsEnabled(element);
+    element.setAttribute('disabled', '');
+    const isEnable = directive.elementsAreEnabled(element);
     expect(isEnable).toBe(false);
   });
 });
