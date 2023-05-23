@@ -4,7 +4,6 @@ import { SafeAny } from '../utils/safe-any';
 import { FormsModule } from '@angular/forms';
 import { IonSharedModule } from '../shared.module';
 import { IonButtonProps } from '../core/types/button';
-import fireEvemt from '@testing-library/user-event';
 
 const defaultName = 'button';
 
