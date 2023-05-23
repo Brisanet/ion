@@ -32,6 +32,7 @@ describe('CheckboxComponent', () => {
     beforeEach(async () => {
       await sut({
         label: 'Custom label',
+        value: 'checkbox value',
         ionClick: {
           emit: checkEvent,
         } as SafeAny,
@@ -52,8 +53,11 @@ describe('CheckboxComponent', () => {
       expect(element).toBeChecked();
     });
 
-    it('should have the attribute name defined with label value', async () => {
-      expect(screen.getByTestId(boxId)).toHaveAttribute('name', '');
+    it('should have the attribute name defined with "value" value', async () => {
+      expect(screen.getByTestId(boxId)).toHaveAttribute(
+        'name',
+        'checkbox value'
+      );
     });
 
     it('should not call event when render', async () => {
@@ -65,7 +69,7 @@ describe('CheckboxComponent', () => {
       fireEvent.click(screen.getByTestId(boxId));
       expect(checkEvent).toHaveBeenCalledWith({
         state: 'checked',
-        value: '',
+        value: 'checkbox value',
       });
     });
 
