@@ -4,6 +4,7 @@ import { SafeAny } from '../utils/safe-any';
 import { FormsModule } from '@angular/forms';
 import { IonSharedModule } from '../shared.module';
 import { IonButtonProps } from '../core/types/button';
+import fireEvemt from '@testing-library/user-event';
 
 const defaultName = 'button';
 
@@ -220,6 +221,26 @@ describe('ButtonComponent with dropdown', () => {
 
       expect(button).toHaveTextContent(options[0].label);
     });
+  });
+
+  it('should close the dropdown when the outside is clicked "', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+
+    fireEvent.click(fakeDiv);
+    fireEvent.click(fakeDiv);
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeNull();
   });
 
   describe('ButtonComponent with multiple-selection dropdown', () => {
