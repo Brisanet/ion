@@ -222,7 +222,7 @@ describe('ButtonComponent with dropdown', () => {
     });
   });
 
-  it('should close the dropdown when the outside is clicked "', async () => {
+  it('should close dropdown when click outside component', async () => {
     const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 
     const button = await sut({
