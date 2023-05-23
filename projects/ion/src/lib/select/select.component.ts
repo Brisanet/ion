@@ -92,18 +92,19 @@ export class IonSelectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   standardizeOptions(selectedOptions: IonSelectProps['options']): void {
-    selectedOptions.forEach((selectedOption) => {
-      const item = this.options.find(
-        (option) => option.label !== selectedOption.label
-      );
+    this.options.forEach((option) => {
+      option.selected = false;
 
-      item.selected = false;
+      if (option.label === selectedOptions[0].label) {
+        option.selected = true;
+      }
     });
   }
 
   clearSelectedOptions(): void {
     this.selectedOptions = [];
     this.inputValue = '';
+    this.option = '';
     this.copyOptions = this.options.map((option) => {
       option.selected = false;
       return option;

@@ -16,6 +16,7 @@ export default {
     mode: {
       options: ['default', 'multiple'],
       control: { type: 'select' },
+      defaultValue: 'default',
     },
   },
   decorators: [
