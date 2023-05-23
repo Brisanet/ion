@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'ion-select-item',
@@ -7,4 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class IonSelectItemComponent {
   @Input() label = '';
+  @Output() unselect = new EventEmitter<void>();
+
+  onUnselect(): void {
+    this.unselect.emit();
+  }
 }

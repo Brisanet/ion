@@ -39,18 +39,14 @@
   }
 
   input {
-    width: 100%;
-    min-width: 4.1px;
+    // width: 100%;
+    // min-width: auto;
 
     margin-inline-start: 12px;
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
-
-    // font-size: 14px;
-    // line-height: 20px;
-    // font-weight: 400;
 
     &.ion-select-input-search {
       width: 4px;

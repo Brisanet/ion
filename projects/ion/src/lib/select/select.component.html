@@ -1,23 +1,26 @@
 <div
   class="ion-select"
   (click)="onSelect($event)"
-  id="ion-select"
+  #ionSelect
   data-testid="ion-select"
 >
-  <!-- <ng-template *ngIf="mode === 'multiple'"> -->
   <ion-select-item
     *ngFor="let option of selectedOptions"
     [label]="option.label"
-    (click)="unselect(option)"
+    (unselect)="unselect(option)"
   ></ion-select-item>
-  <!-- </ng-template> -->
+
   <input
     type="text"
     data-testid="ion-select-input"
-    [placeholder]="placeholder"
+    [placeholder]="option || selectedOptions.length > 0 ? '' : placeholder"
     [(ngModel)]="inputValue"
-    [class]="!inputValue && 'ion-select-input-search'"
+    (input)="onSearchChange()"
+    [ngClass]="{
+      'ion-select-input-search': mode === 'default' && option && !inputValue
+    }"
   />
+
   <p
     *ngIf="mode !== 'multiple' && !inputValue"
     [class]="!inputValue && 'ion-select-input-search'"
@@ -26,8 +29,9 @@
   </p>
 </div>
 <ion-dropdown
+  #ionDropdown
   *ngIf="showDropdown"
-  [options]="options"
+  [options]="copyOptions"
   (selected)="selected($event)"
   [multiple]="mode === 'multiple'"
   (clearBadgeValue)="clearSelectedOptions()"

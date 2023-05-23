@@ -1,35 +1,44 @@
 import {
   AfterViewInit,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
+  OnDestroy,
+  OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
+import { IonSelectProps } from '../core/types/select';
 import { DropdownItem } from '../core/types';
 
-type Mode = 'default' | 'multiple';
 @Component({
   selector: 'ion-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class IonSelectComponent implements AfterViewInit {
-  @Input() mode: Mode = 'multiple';
+export class IonSelectComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('ionSelect', { static: false })
+  ionSelect!: ElementRef<HTMLElement>;
+  @ViewChild('ionDropdown', { static: false })
+  ionDropdown;
+  @Input() mode: IonSelectProps['mode'] = 'multiple';
   @Input() placeholder = '';
-  @Input() options: DropdownItem[] = [
-    { label: 'opção 01', selected: false },
-    { label: 'opção 02', selected: false },
-  ];
-
-  @Output() events = new EventEmitter<DropdownItem[]>();
+  @Input() options: IonSelectProps['options'] = [];
+  @Output() events = new EventEmitter<IonSelectProps['options']>();
 
   showDropdown = false;
   option = '';
   inputValue = '';
-  selectedOptions: DropdownItem[] = [];
+  selectedOptions: IonSelectProps['options'] = [];
+  copyOptions: IonSelectProps['options'] = [];
 
   onSelect(event): void {
-    if (event.target.id === 'ion-select') {
+    const eventNodeName = event.target.attributes[0].nodeName;
+    const ionSelectNodeName =
+      this.ionSelect.nativeElement.attributes[0].nodeName;
+
+    if (eventNodeName === ionSelectNodeName) {
       this.focusInput(event.target.children);
     }
     this.showDropdown = !this.showDropdown;
@@ -43,28 +52,62 @@ export class IonSelectComponent implements AfterViewInit {
     }
   }
 
+  ngOnInit(): void {
+    this.copyOptions = this.options;
+  }
+
   ngAfterViewInit(): void {
     document.addEventListener('click', (e) => this.closeDropdown(e));
   }
 
   closeDropdown(event: MouseEvent): void {
-    // logica para fechar quando clicar fora do elemento
+    if (!this.showDropdown) {
+      return;
+    }
+
+    const element = event.target as HTMLElement;
+
+    if (this.ionSelect.nativeElement.contains(element)) {
+      return;
+    }
+
+    if (!this.ionDropdown.optionList.nativeElement.contains(element)) {
+      this.showDropdown = false;
+    }
   }
 
-  selected(options: DropdownItem[]): void {
-    this.events.emit(options);
+  selected(selectedOptions: IonSelectProps['options']): void {
+    this.events.emit(selectedOptions);
+    this.inputValue = '';
+    this.copyOptions = this.options;
 
     if (this.mode !== 'multiple') {
-      this.option = options.length > 0 ? options[0].label : '';
+      this.standardizeOptions(selectedOptions);
+      this.option = selectedOptions.length > 0 ? selectedOptions[0].label : '';
       this.showDropdown = false;
       return;
     }
 
-    this.selectedOptions = options.length > 0 ? options : [];
+    this.selectedOptions = this.options.filter((option) => option.selected);
+  }
+
+  standardizeOptions(selectedOptions: IonSelectProps['options']): void {
+    selectedOptions.forEach((selectedOption) => {
+      const item = this.options.find(
+        (option) => option.label !== selectedOption.label
+      );
+
+      item.selected = false;
+    });
   }
 
   clearSelectedOptions(): void {
     this.selectedOptions = [];
+    this.inputValue = '';
+    this.copyOptions = this.options.map((option) => {
+      option.selected = false;
+      return option;
+    });
   }
 
   unselect(unselectOption: DropdownItem): void {
@@ -77,5 +120,20 @@ export class IonSelectComponent implements AfterViewInit {
     this.selectedOptions = this.selectedOptions.filter(
       (option) => option.label !== unselectOption.label
     );
+  }
+
+  onSearchChange(): void {
+    this.showDropdown = true;
+    if (!this.inputValue) {
+      this.copyOptions = this.options;
+    }
+
+    this.copyOptions = this.options.filter((option) =>
+      option.label.toLowerCase().includes(this.inputValue.toLowerCase())
+    );
+  }
+
+  ngOnDestroy(): void {
+    document.removeEventListener('click', this.closeDropdown);
   }
 }

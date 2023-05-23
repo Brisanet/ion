@@ -7,10 +7,17 @@ import {
   IonIconModule,
 } from '../projects/ion/src/public-api';
 import { FormsModule } from '@angular/forms';
+import { IonSelectProps } from '../projects/ion/src/lib/core/types/select';
 
 export default {
   title: 'Ion/Data Entry/Select',
   Component: IonSelectComponent,
+  argTypes: {
+    mode: {
+      options: ['default', 'multiple'],
+      control: { type: 'select' },
+    },
+  },
   decorators: [
     moduleMetadata({
       declarations: [IonSelectComponent, IonSelectItemComponent],
@@ -19,9 +26,21 @@ export default {
   ],
 } as Meta;
 
-const Template: Story<IonSelectComponent> = (args: IonSelectComponent) => ({
+const fruitOptions: IonSelectProps['options'] = [
+  { label: 'Apple', selected: false },
+  { label: 'Banana', selected: false },
+  { label: 'Grape', selected: false },
+];
+
+const Template: Story<IonSelectComponent> = (args: IonSelectProps) => ({
   component: IonSelectComponent,
   props: { ...args },
 });
 
 export const Default = Template.bind({});
+
+Default.args = {
+  // mode: 'default',
+  options: fruitOptions,
+  placeholder: 'Choose a fruit',
+};
