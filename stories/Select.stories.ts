@@ -40,7 +40,6 @@ const Template: Story<IonSelectComponent> = (args: IonSelectProps) => ({
 export const Default = Template.bind({});
 
 Default.args = {
-  // mode: 'default',
   options: fruitOptions,
   placeholder: 'Choose a fruit',
 };
