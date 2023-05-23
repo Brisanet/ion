@@ -145,7 +145,8 @@ export class IonPopConfirmDirective {
 
   elementIsEnabled(element: HTMLElement): boolean {
     return (
-      !element.querySelector(':first-child').getAttribute('disabled') ||
+      (element.querySelector(':first-child') &&
+        !element.querySelector(':first-child').getAttribute('disabled')) ||
       !element.getAttribute('disabled')
     );
   }
