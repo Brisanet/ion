@@ -17,6 +17,7 @@ export interface CheckBoxProps {
   disabled?: boolean;
   state?: CheckBoxStates;
   ionClick?: EventEmitter<CheckBoxEvent>;
+  value?: string;
 }
 
 export type CheckBoxStates = keyof typeof CheckBoxEvent;

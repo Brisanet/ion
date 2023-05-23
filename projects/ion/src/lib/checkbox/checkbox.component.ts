@@ -23,6 +23,7 @@ import {
 })
 export class IonCheckboxComponent implements OnInit, OnChanges {
   @Input() label?: string;
+  @Input() value = '';
   @Input() state: CheckBoxStates = 'enabled';
   @Input() disabled = false;
 
@@ -68,7 +69,10 @@ export class IonCheckboxComponent implements OnInit, OnChanges {
   }
 
   emitEvent(): void {
-    this.ionClick.emit({ state: CheckBoxEvent[this.state] });
+    this.ionClick.emit({
+      state: CheckBoxEvent[this.state],
+      value: this.value,
+    });
   }
 
   stateInputChanged(state: SimpleChange): boolean {
