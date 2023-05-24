@@ -82,8 +82,18 @@ export class IonPopConfirmDirective {
     const leftOffset =
       screenOffset < popConfirmWidth ? offsetToLeft : offsetToRight;
 
+    const indicatorIcon = 9;
+
+    const elementSize = element.offsetHeight + indicatorIcon;
+    // const elementCurrentHeight = position.top + elementSize;
+
+    if (position.top + elementSize >= window.innerHeight) {
+      position.top = position.top - elementSize - 56;
+      // mudar a posição do icone indicado no popconfirm
+    }
+
     const offset = {
-      top: position.top,
+      top: position.top + document.scrollingElement.scrollTop,
       left: leftOffset,
       width: popConfirmWidth,
       screenOffset: screenOffset,
