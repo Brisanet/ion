@@ -94,12 +94,11 @@ describe('CheckboxComponent', () => {
       expect(screen.getByTestId(boxId)).toHaveAttribute('name', '');
     });
 
-    it('should call event when check, but emiting empty value', async () => {
+    it('should call event when check', async () => {
       expect(checkEvent).not.toHaveBeenCalled();
       fireEvent.click(screen.getByTestId(boxId));
       expect(checkEvent).toHaveBeenCalledWith({
         state: 'checked',
-        value: '',
       });
     });
   });
@@ -165,9 +164,7 @@ describe('CheckboxComponent', () => {
       });
       const element = screen.getByTestId(boxId);
       fireEvent.click(element);
-      const expectedEmission = StateEvents[state];
-      expectedEmission.value = '';
-      expect(clickEvent).toHaveBeenLastCalledWith(expectedEmission);
+      expect(clickEvent).toHaveBeenLastCalledWith(StateEvents[state]);
     }
   );
   it('should emit a event in every click', async () => {
@@ -242,7 +239,6 @@ describe('Checkbox controlled by a parent component', () => {
     fireEvent(screen.getByTestId('ion-checkbox'), new Event('click'));
     expect(checkboxHost.changedState).toHaveBeenCalledWith({
       state: 'checked',
-      value: '',
     });
   });
   it('should emit event when changing state directly on host component', () => {
@@ -251,7 +247,6 @@ describe('Checkbox controlled by a parent component', () => {
     fixture.detectChanges();
     expect(checkboxHost.changedState).toHaveBeenCalledWith({
       state: 'checked',
-      value: '',
     });
   });
   it('should emit event when changing state to indeterminate directly on host component', () => {
@@ -260,7 +255,6 @@ describe('Checkbox controlled by a parent component', () => {
     fixture.detectChanges();
     expect(checkboxHost.changedState).toHaveBeenCalledWith({
       state: 'indeterminate',
-      value: '',
     });
   });
   it('should disable checkbox when changing disable input on host component', () => {

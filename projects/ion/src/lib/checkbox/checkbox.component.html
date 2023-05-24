@@ -9,7 +9,7 @@
     (click)="changeState()"
     #checkBox
   />
-  <label *ngIf="label" [class.labelDisabled]="disabled" [for]="value">{{
+  <label *ngIf="label" [class.labelDisabled]="disabled" [attr.for]="value">{{
     label
   }}</label>
 </div>

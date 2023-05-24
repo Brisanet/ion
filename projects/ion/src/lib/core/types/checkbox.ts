@@ -12,6 +12,11 @@ export const StateChange = {
   indeterminate: 'enabled',
 };
 
+export interface CheckboxReturn {
+  state: CheckBoxEvent;
+  value?: string;
+}
+
 export interface CheckBoxProps {
   label?: string;
   disabled?: boolean;

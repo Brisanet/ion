@@ -14,6 +14,7 @@ import {
   CheckBoxStates,
   StateChange,
   CheckBoxEvent,
+  CheckboxReturn,
 } from '../core/types/checkbox';
 
 @Component({
@@ -69,10 +70,9 @@ export class IonCheckboxComponent implements OnInit, OnChanges {
   }
 
   emitEvent(): void {
-    this.ionClick.emit({
-      state: CheckBoxEvent[this.state],
-      value: this.value,
-    });
+    const valueToEmit: CheckboxReturn = { state: CheckBoxEvent[this.state] };
+    if (this.value) valueToEmit.value = this.value;
+    this.ionClick.emit(valueToEmit);
   }
 
   stateInputChanged(state: SimpleChange): boolean {
