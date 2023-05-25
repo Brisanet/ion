@@ -702,6 +702,33 @@ describe('Table > Action with confirm', () => {
       defaultProps.config.data[0]
     );
   });
+
+  it.only('should close popconfirm when click outside', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('column-name'));
+    expect(screen.queryAllByText(cancelTextOnPopconfirm)).toHaveLength(0);
+  });
 });
 
 describe('Table without Data', () => {
