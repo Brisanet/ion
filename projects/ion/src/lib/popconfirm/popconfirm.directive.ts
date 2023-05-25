@@ -92,13 +92,9 @@ export class IonPopConfirmDirective {
 
     this.isBottomIcon = false;
 
-    if (position.top + elementSize >= window.innerHeight) {
+    if (this.isBiggerThenWindow(position, elementSize)) {
       this.isBottomIcon = true;
-      position.top =
-        position.top -
-        elementSize -
-        position.hostHeight -
-        marginBetweenComponents;
+      this.setPositionIcon(position, elementSize);
     }
 
     const scrollDocument = document.scrollingElement
@@ -113,6 +109,15 @@ export class IonPopConfirmDirective {
     };
 
     return offset;
+  }
+
+  isBiggerThenWindow(position, elementSize): boolean {
+    return position.top + elementSize >= window.innerHeight;
+  }
+
+  setPositionIcon(position, elementSize): void {
+    this.isBottomIcon = true;
+    position.top = position.top - elementSize - position.hostHeight - 10;
   }
 
   closeAllPopsConfirm(): void {
@@ -156,7 +161,6 @@ export class IonPopConfirmDirective {
 
   setStyle(element: HTMLElement, offset: PopOffset): void {
     const supContainerEl = document.querySelector('.sup-container');
-
     element.style.position = 'absolute';
     element.style.left = offset.left + 'px';
     element.style.top = offset.top + 'px';
