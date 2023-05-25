@@ -703,7 +703,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it.only('should close popconfirm when click outside', async () => {
+  it('should close popconfirm when click outside', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
