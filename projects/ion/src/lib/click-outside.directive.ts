@@ -17,10 +17,14 @@ export class ClickOutsideDirective {
 
   @HostListener('document:click', ['$event.target'])
   public onClick(targetElement: HTMLElement): void {
-    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
-    if (!clickedInside && !this.firstOpen) {
-      this.clickOutside.emit(null);
+    if (this.firstOpen) {
+      this.firstOpen = false;
+      return;
     }
-    this.firstOpen = false;
+    const clickedInside = this.elementRef.nativeElement.contains(targetElement);
+    if (!clickedInside) {
+      this.clickOutside.emit(null);
+      this.firstOpen = true;
+    }
   }
 }

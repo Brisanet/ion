@@ -95,6 +95,7 @@ export class IonPopConfirmDirective {
   closeAllPopsConfirm(): void {
     const existingPopConfirms = document.querySelectorAll('ion-popconfirm');
     if (existingPopConfirms) {
+      this.closePopConfirm();
       existingPopConfirms.forEach((popConfirm) => {
         popConfirm.remove();
       });
