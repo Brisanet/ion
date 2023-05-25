@@ -1,20 +1,20 @@
+import { DOCUMENT } from '@angular/common';
 import {
-  Directive,
-  Input,
-  HostListener,
-  ComponentFactoryResolver,
-  Injector,
-  Inject,
-  ComponentRef,
   ApplicationRef,
-  Output,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
   EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  Output,
   ViewContainerRef,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { StatusType } from '../core/types';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopConfirmComponent } from './popconfirm.component';
-import { StatusType } from '../core/types';
 
 export interface PopPosition {
   top: number;
@@ -170,11 +170,20 @@ export class IonPopConfirmDirective {
     }
   }
 
-  elementIsEnabled(element: HTMLElement): boolean {
+  elementChildIsEnabled(element: HTMLElement): boolean {
+    if (!element.firstElementChild) {
+      return true;
+    }
+    return element.firstElementChild.getAttribute('disabled') !== '';
+  }
+
+  hostElementIsEnabled(element: HTMLElement): boolean {
+    return element.getAttribute('disabled') !== '';
+  }
+
+  elementsAreEnabled(element: HTMLElement): boolean {
     return (
-      !element.getAttribute('ng-reflect-disabled') ||
-      (element.getAttribute('ng-reflect-disabled') &&
-        element.getAttribute('ng-reflect-disabled') == 'false')
+      this.elementChildIsEnabled(element) && this.hostElementIsEnabled(element)
     );
   }
 
@@ -185,7 +194,7 @@ export class IonPopConfirmDirective {
 
     const position = hostElement.getBoundingClientRect() as DOMRect;
 
-    if (this.elementIsEnabled(hostElement)) {
+    if (this.elementsAreEnabled(hostElement)) {
       this.open();
 
       requestAnimationFrame(() => {
