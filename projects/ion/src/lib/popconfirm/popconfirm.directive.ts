@@ -42,7 +42,7 @@ export class IonPopConfirmDirective {
 
   private IonPopConfirmComponentRef!: ComponentRef<IonPopConfirmComponent>;
   private isBottomIcon = false;
-
+  private marginBetweenComponents = 10;
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -73,8 +73,6 @@ export class IonPopConfirmDirective {
     docWidth: number,
     position: PopPosition
   ): PopOffset {
-    const marginBetweenComponents = 10;
-
     const popConfirmWidth = element.offsetWidth;
 
     const offsetToLeft = position.left - popConfirmWidth + position.width * 1.5;
@@ -94,7 +92,7 @@ export class IonPopConfirmDirective {
 
     if (this.isBiggerThenWindow(position, elementSize)) {
       this.isBottomIcon = true;
-      this.setPositionIcon(position, elementSize);
+      this.setUpPositionPopconfirm(position, elementSize);
     }
 
     const scrollDocument = document.scrollingElement
@@ -111,13 +109,16 @@ export class IonPopConfirmDirective {
     return offset;
   }
 
-  isBiggerThenWindow(position, elementSize): boolean {
+  isBiggerThenWindow(position: PopPosition, elementSize: number): boolean {
     return position.top + elementSize >= window.innerHeight;
   }
 
-  setPositionIcon(position, elementSize): void {
-    this.isBottomIcon = true;
-    position.top = position.top - elementSize - position.hostHeight - 10;
+  setUpPositionPopconfirm(position, elementSize): void {
+    position.top =
+      position.top -
+      elementSize -
+      position.hostHeight -
+      this.marginBetweenComponents;
   }
 
   closeAllPopsConfirm(): void {
