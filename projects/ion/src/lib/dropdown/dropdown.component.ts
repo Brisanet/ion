@@ -44,6 +44,7 @@ export class IonDropdownComponent
   clearButtonIsVisible: boolean;
 
   dropdownItens: Array<DropdownItem> = [];
+  private firstOpen = true;
 
   setClearButtonIsVisible(): void {
     this.clearButtonIsVisible =
@@ -196,6 +197,14 @@ export class IonDropdownComponent
     }
 
     this.setClearButtonIsVisible();
+  }
+
+  clickedOutsideDropdown(): void {
+    if (this.firstOpen) {
+      this.firstOpen = false;
+      return;
+    }
+    this.closeDropdown.emit(this.dropdownItens);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
