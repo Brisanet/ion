@@ -44,6 +44,13 @@ const openToLeftOffset: PopOffset = {
   screenOffset: 96,
 };
 
+const openToUpOffset: PopOffset = {
+  top: 1800,
+  left: 438,
+  width: 210,
+  screenOffset: 96,
+};
+
 @Component({
   template: `
     <button
@@ -351,6 +358,19 @@ describe('Popconfirm position when it opens', () => {
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToLeftOffset);
     expect(popconfirmElement.classList).toContain('sup-container-right');
+  });
+
+  it('should set the correct position when is bottom', () => {
+    const popconfirmElement = screen.getAllByTestId('sup-container')[0];
+    const position: PopOffset = directive.setPosition(
+      popconfirmElement,
+      documentWidth,
+      openToUpOffset
+    );
+
+    directive.setStyle(popconfirmElement, openToUpOffset);
+    expect(popconfirmElement.classList).toContain('sup-container-bottom');
+    expect(position.top).toBe(openToUpOffset.top);
   });
 
   it('should set position when there is a animation frame', () => {
