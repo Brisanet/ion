@@ -115,3 +115,21 @@ tabsWithIcons.args = {
   tabs: tabsIcons,
   direction: 'vertical',
 };
+
+export const WithBadges = Template.bind({});
+WithBadges.args = {
+  tabs: [
+    {
+      label: 'With badge',
+      selected: true,
+      badge: {
+        value: 20,
+      },
+    },
+    {
+      label: 'Without badge',
+      selected: false,
+    },
+  ],
+  selected: action('selected'),
+};
