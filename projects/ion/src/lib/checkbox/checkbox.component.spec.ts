@@ -32,6 +32,7 @@ describe('CheckboxComponent', () => {
     beforeEach(async () => {
       await sut({
         label: 'Custom label',
+        value: 'checkbox value',
         ionClick: {
           emit: checkEvent,
         } as SafeAny,
@@ -52,8 +53,11 @@ describe('CheckboxComponent', () => {
       expect(element).toBeChecked();
     });
 
-    it('should have the attribute name defined with label value', async () => {
-      expect(screen.getByTestId(boxId)).toHaveAttribute('name', 'Custom label');
+    it('should have the attribute name defined with "value" value', async () => {
+      expect(screen.getByTestId(boxId)).toHaveAttribute(
+        'name',
+        'checkbox value'
+      );
     });
 
     it('should not call event when render', async () => {
@@ -65,6 +69,7 @@ describe('CheckboxComponent', () => {
       fireEvent.click(screen.getByTestId(boxId));
       expect(checkEvent).toHaveBeenCalledWith({
         state: 'checked',
+        value: 'checkbox value',
       });
     });
 
@@ -72,6 +77,32 @@ describe('CheckboxComponent', () => {
       checkEvent.mockClear();
     });
   });
+
+  describe('Without value property set', () => {
+    const checkEvent = jest.fn();
+
+    beforeEach(async () => {
+      await sut({
+        label: 'Custom label',
+        ionClick: {
+          emit: checkEvent,
+        } as SafeAny,
+      });
+    });
+
+    it('should have the attribute name defined but without value', async () => {
+      expect(screen.getByTestId(boxId)).toHaveAttribute('name', '');
+    });
+
+    it('should call event when check', async () => {
+      expect(checkEvent).not.toHaveBeenCalled();
+      fireEvent.click(screen.getByTestId(boxId));
+      expect(checkEvent).toHaveBeenCalledWith({
+        state: 'checked',
+      });
+    });
+  });
+
   it('should render indeterminate checkbox', async () => {
     await sut({ state: 'indeterminate' });
     expect(screen.getByTestId(boxId)).toHaveProperty('indeterminate', true);
@@ -160,7 +191,7 @@ describe('CheckboxComponent', () => {
   });
   it('should is marked when clicked input label', async () => {
     const labelText = 'Teste';
-    await sut({ label: labelText });
+    await sut({ label: labelText, value: labelText });
     const element = screen.getByLabelText(labelText);
     fireEvent.click(element);
     expect(element).toBeChecked();
