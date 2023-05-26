@@ -198,6 +198,10 @@ export class IonDropdownComponent
     this.setClearButtonIsVisible();
   }
 
+  clickedOutsideDropdown(): void {
+    this.closeDropdown.emit(this.dropdownItens);
+  }
+
   public ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
       if (changes.options && !changes.options.firstChange) {

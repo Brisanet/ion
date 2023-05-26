@@ -34,6 +34,11 @@
   @include arrowPosition(-6px, none, 16px);
 }
 
+.sup-container-bottom {
+  --height: calc(100% - 9px);
+  @include arrowPosition(var(--height), none, 16px);
+}
+
 .arrow {
   background-color: #fff;
   width: spacing(2);

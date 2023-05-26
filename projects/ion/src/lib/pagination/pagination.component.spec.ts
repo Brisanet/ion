@@ -170,6 +170,20 @@ describe('Pagination > Events', () => {
     expect(event).toBeCalledTimes(2);
   });
 
+  it('should not emit an event when the selected page is already selected', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    event.mockClear();
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    fireEvent.click(screen.getByTestId('page-1'));
+    expect(event).not.toHaveBeenCalled();
+  });
+
   it('should show items per page 10 when params is informed', async () => {
     await sut({
       total: 16,

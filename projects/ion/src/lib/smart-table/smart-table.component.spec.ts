@@ -750,6 +750,90 @@ describe('Table > Action with confirm', () => {
       defaultProps.config.data[0]
     );
   });
+
+  it('should close popconfirm when click outside', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('column-name'));
+    expect(screen.queryAllByText(cancelTextOnPopconfirm)).toHaveLength(0);
+  });
+
+  it('should open popconfirm when click in action button 3 times', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
+
+  it('should open popconfirm when click in action button 2 times, click outside and click in button again', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+
+    // click outside
+    fireEvent.click(screen.getByTestId('column-name'));
+
+    // click in button again
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
 });
 
 describe('Table without Data', () => {
