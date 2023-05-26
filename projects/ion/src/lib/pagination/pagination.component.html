@@ -20,7 +20,61 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <div class="pages-list">
+  <div *ngIf="isAdvanced" class="pages-list">
+    <button
+      [class]="'square-pag ' + 'page-' + size"
+      [class.selected]="pages[0].selected"
+      [attr.data-testid]="'page-' + pages[0].page_number"
+      (click)="selectPageOnClick(pages[0].page_number)"
+      [class.disabled]="loading"
+      [disabled]="loading"
+    >
+      <span>{{ pages[0].page_number }}</span>
+    </button>
+    <ion-button
+      [iconType]="hoverControl.left ? 'left3' : 'more'"
+      data-testid="more-left"
+      type="secondary"
+      [size]="size"
+      [disabled]="loading"
+      (mouseenter)="changeHover('left', true)"
+      (mouseleave)="changeHover('left', false)"
+      *ngIf="currentPage().page_number >= 5"
+    ></ion-button>
+    <button
+      *ngFor="let page of pages"
+      [class]="'square-pag ' + 'page-' + size"
+      [class.selected]="page.selected"
+      [attr.data-testid]="'page-' + page.page_number"
+      (click)="selectPageOnClick(page.page_number)"
+      [class.disabled]="loading"
+      [disabled]="loading"
+    >
+      <span>{{ page.page_number }}</span>
+    </button>
+    <ion-button
+      [iconType]="hoverControl.right ? 'right3' : 'more'"
+      data-testid="more-right"
+      type="secondary"
+      [size]="size"
+      [disabled]="loading"
+      (mouseenter)="changeHover('right', true)"
+      (mouseleave)="changeHover('right', false)"
+      *ngIf="currentPage().page_number <= pages.length - 4"
+    ></ion-button>
+    <button
+      [class]="'square-pag ' + 'page-' + size"
+      [class.selected]="pages[pages.length - 1].selected"
+      [attr.data-testid]="'page-' + pages[pages.length - 1].page_number"
+      (click)="selectPageOnClick(pages[pages.length - 1].page_number)"
+      [class.disabled]="loading"
+      [disabled]="loading"
+    >
+      <span>{{ pages[pages.length - 1].page_number }}</span>
+    </button>
+  </div>
+
+  <div *ngIf="!isAdvanced" class="pages-list">
     <button
       *ngFor="let page of pages"
       [class]="'square-pag ' + 'page-' + size"

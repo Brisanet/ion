@@ -35,11 +35,23 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   pages: Page[] = [];
 
+  hoverControl = {
+    left: false,
+    right: false,
+  };
+
+  isAdvanced: boolean;
+
+  changeHover(side: string, value: boolean): void {
+    this.hoverControl[side] = value;
+  }
+
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     if (!this.loading) {
       this.itemsPerPage = Number(itemsSelected[0].label.split(' / página')[0]);
       this.remountPages();
       this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+      this.updateIsAdvanced();
     }
   }
 
@@ -60,6 +72,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.optionsPage = this.getOptionsPage();
     this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+    this.updateIsAdvanced();
   }
 
   setPage(page = 1): void {
@@ -95,6 +108,10 @@ export class IonPaginationComponent implements OnChanges, OnInit {
       });
     }
     this.page = page.page_number;
+  }
+
+  updateIsAdvanced(): void {
+    this.isAdvanced = this.pages.length > 10;
   }
 
   hasPrevious(): boolean {
@@ -134,6 +151,10 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   getSelectedItemsPerPageLabel(options: DropdownItem[]): string {
     const option = options.find((pageOption) => pageOption.selected);
     return (option && option.label) || this.generateLabel(this.itemsPerPage);
+  }
+
+  visiblePages(currentPages: Page[]): Page[] {
+    return [currentPages[0]];
   }
 
   private createPages(qtdOfPages: number): void {
