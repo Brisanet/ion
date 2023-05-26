@@ -20,7 +20,7 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <div *ngIf="isAdvanced" class="pages-list">
+  <div *ngIf="isAdvanced" class="pages-list" data-testid="advanced-pagination">
     <button
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="pages[0].selected"

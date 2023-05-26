@@ -164,12 +164,8 @@ export class IonPaginationComponent implements OnChanges, OnInit {
       return this.pages.slice(1, 6);
     } else if (currentPage <= pagesLength - 3) {
       return this.pages.slice(currentPageIndex - 2, currentPageIndex + 3);
-    } else if (currentPage < pagesLength - 2) {
-      return this.pages.slice(currentPageIndex - 1, currentPageIndex + 3);
     } else if (currentPage < pagesLength - 1) {
       return this.pages.slice(currentPageIndex - 2, currentPageIndex + 2);
-    } else if (currentPage < pagesLength) {
-      return this.pages.slice(currentPageIndex - 3, currentPageIndex + 1);
     } else {
       return this.pages.slice(currentPageIndex - 4, currentPageIndex);
     }
