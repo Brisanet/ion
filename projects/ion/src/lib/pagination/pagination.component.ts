@@ -91,7 +91,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPage(pageNumber = 1, emitEvent = true): void {
-    console.log(pageNumber);
     if (this.pages && !this.loading) {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
