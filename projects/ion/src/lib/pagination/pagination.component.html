@@ -39,10 +39,11 @@
       [disabled]="loading"
       (mouseenter)="changeHover('left', true)"
       (mouseleave)="changeHover('left', false)"
+      (click)="jumpBackwards()"
       *ngIf="currentPage().page_number >= 5"
     ></ion-button>
     <button
-      *ngFor="let page of pages"
+      *ngFor="let page of visiblePages()"
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="page.selected"
       [attr.data-testid]="'page-' + page.page_number"
@@ -60,6 +61,7 @@
       [disabled]="loading"
       (mouseenter)="changeHover('right', true)"
       (mouseleave)="changeHover('right', false)"
+      (click)="skipPages()"
       *ngIf="currentPage().page_number <= pages.length - 4"
     ></ion-button>
     <button

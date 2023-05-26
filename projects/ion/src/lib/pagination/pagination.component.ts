@@ -91,6 +91,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPage(pageNumber = 1, emitEvent = true): void {
+    console.log(pageNumber);
     if (this.pages && !this.loading) {
       this.pages.forEach((pageEach) => {
         pageEach.selected = false;
@@ -153,8 +154,42 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     return (option && option.label) || this.generateLabel(this.itemsPerPage);
   }
 
-  visiblePages(currentPages: Page[]): Page[] {
-    return [currentPages[0]];
+  visiblePages(): Page[] {
+    const currentPage = this.currentPage().page_number;
+    const pagesLength = this.pages.length;
+    const currentPageIndex = this.pages.indexOf(this.currentPage());
+
+    if (currentPage < 4) {
+      return this.pages.slice(1, 5);
+    } else if (currentPage === 4) {
+      return this.pages.slice(1, 6);
+    } else if (currentPage <= pagesLength - 3) {
+      return this.pages.slice(currentPageIndex - 2, currentPageIndex + 3);
+    } else if (currentPage < pagesLength - 2) {
+      return this.pages.slice(currentPageIndex - 1, currentPageIndex + 3);
+    } else if (currentPage < pagesLength - 1) {
+      return this.pages.slice(currentPageIndex - 2, currentPageIndex + 2);
+    } else if (currentPage < pagesLength) {
+      return this.pages.slice(currentPageIndex - 3, currentPageIndex + 1);
+    } else {
+      return this.pages.slice(currentPageIndex - 4, currentPageIndex);
+    }
+  }
+
+  skipPages(): void {
+    if (this.currentPage().page_number >= this.pages.length - 4) {
+      this.selectPageOnClick(this.pages.length);
+      return;
+    }
+    this.selectPageOnClick(this.currentPage().page_number + 5);
+  }
+
+  jumpBackwards(): void {
+    if (this.currentPage().page_number <= 6) {
+      this.selectPageOnClick(1);
+      return;
+    }
+    this.selectPageOnClick(this.currentPage().page_number - 5);
   }
 
   private createPages(qtdOfPages: number): void {
