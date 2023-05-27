@@ -7,7 +7,7 @@
   <ion-select-item
     *ngFor="let option of selectedOptions"
     [label]="option.label"
-    (unselect)="unselect(option)"
+    (unselect)="unselectOption(option)"
   ></ion-select-item>
 
   <input

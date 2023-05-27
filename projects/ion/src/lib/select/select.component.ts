@@ -19,6 +19,10 @@ export class IonSelectComponent implements OnInit {
   selectedOptions: IonSelectProps['options'] = [];
   copyOptions: IonSelectProps['options'] = [];
 
+  ngOnInit(): void {
+    this.copyOptions = this.options;
+  }
+
   handleClick(event): void {
     this.focusInput(event.target.children);
     this.showDropdown = !this.showDropdown;
@@ -30,10 +34,6 @@ export class IonSelectComponent implements OnInit {
         element.focus();
       }
     }
-  }
-
-  ngOnInit(): void {
-    this.copyOptions = this.options;
   }
 
   selected(selectedOptions: IonSelectProps['options']): void {
@@ -75,15 +75,15 @@ export class IonSelectComponent implements OnInit {
     this.options.forEach((option) => (option.selected = false));
   }
 
-  unselect(unselectOption: DropdownItem): void {
+  unselectOption(currentOption: DropdownItem): void {
     const item = this.options.find(
-      (option) => option.label === unselectOption.label
+      (option) => option.label === currentOption.label
     );
 
     item.selected = false;
 
     this.selectedOptions = this.selectedOptions.filter(
-      (option) => option.label !== unselectOption.label
+      (option) => option.label !== currentOption.label
     );
   }
 
