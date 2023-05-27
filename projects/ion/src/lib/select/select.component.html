@@ -1,6 +1,6 @@
 <div
   class="ion-select"
-  (click)="onSelect($event)"
+  (click)="handleClick($event)"
   #ionSelect
   data-testid="ion-select"
 >
@@ -29,7 +29,6 @@
   </p>
 </div>
 <ion-dropdown
-  #ionDropdown
   *ngIf="showDropdown"
   [options]="copyOptions"
   (selected)="selected($event)"

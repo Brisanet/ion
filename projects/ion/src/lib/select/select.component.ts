@@ -16,10 +16,6 @@ import { DropdownItem } from '../core/types';
   styleUrls: ['./select.component.scss'],
 })
 export class IonSelectComponent implements OnInit {
-  @ViewChild('ionSelect', { static: false })
-  ionSelect!: ElementRef<HTMLElement>;
-  @ViewChild('ionDropdown', { static: false })
-  ionDropdown;
   @Input() mode: IonSelectProps['mode'] = 'multiple';
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
@@ -31,14 +27,8 @@ export class IonSelectComponent implements OnInit {
   selectedOptions: IonSelectProps['options'] = [];
   copyOptions: IonSelectProps['options'] = [];
 
-  onSelect(event): void {
-    const eventNodeName = event.target.attributes[0].nodeName;
-    const ionSelectNodeName =
-      this.ionSelect.nativeElement.attributes[0].nodeName;
-
-    if (eventNodeName === ionSelectNodeName) {
-      this.focusInput(event.target.children);
-    }
+  handleClick(event): void {
+    this.focusInput(event.target.children);
     this.showDropdown = !this.showDropdown;
   }
 
