@@ -8,7 +8,7 @@ import { DropdownItem } from '../core/types';
   styleUrls: ['./select.component.scss'],
 })
 export class IonSelectComponent implements OnInit {
-  @Input() mode: IonSelectProps['mode'] = 'multiple';
+  @Input() mode: IonSelectProps['mode'] = 'default';
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
   @Output() events = new EventEmitter<IonSelectProps['options']>();
