@@ -43,7 +43,6 @@ export class IonSelectComponent implements OnInit {
 
     if (this.mode !== 'multiple') {
       this.standardizeOptions(selectedOptions);
-      this.option = selectedOptions.length > 0 ? selectedOptions[0].label : '';
       this.showDropdown = false;
       return;
     }
@@ -52,23 +51,28 @@ export class IonSelectComponent implements OnInit {
   }
 
   standardizeOptions(selectedOptions: IonSelectProps['options']): void {
-    this.options.forEach((option) => {
-      option.selected = false;
+    this.unselectAllOptions();
 
-      if (option.label === selectedOptions[0].label) {
-        option.selected = true;
-      }
-    });
+    if (selectedOptions.length) {
+      const [optionSelected] = this.options.filter(
+        (option) => option.label === selectedOptions[0].label
+      );
+      optionSelected.selected = true;
+      this.option = optionSelected.label;
+      return;
+    }
+    this.option = '';
   }
 
   clearSelectedOptions(): void {
     this.selectedOptions = [];
     this.inputValue = '';
     this.option = '';
-    this.copyOptions = this.options.map((option) => {
-      option.selected = false;
-      return option;
-    });
+    this.unselectAllOptions();
+  }
+
+  unselectAllOptions(): void {
+    this.options.forEach((option) => (option.selected = false));
   }
 
   unselect(unselectOption: DropdownItem): void {
