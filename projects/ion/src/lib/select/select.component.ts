@@ -1,10 +1,8 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
-  OnDestroy,
   OnInit,
   Output,
   ViewChild,
@@ -17,7 +15,7 @@ import { DropdownItem } from '../core/types';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class IonSelectComponent implements OnInit, AfterViewInit, OnDestroy {
+export class IonSelectComponent implements OnInit {
   @ViewChild('ionSelect', { static: false })
   ionSelect!: ElementRef<HTMLElement>;
   @ViewChild('ionDropdown', { static: false })
@@ -54,26 +52,6 @@ export class IonSelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.copyOptions = this.options;
-  }
-
-  ngAfterViewInit(): void {
-    document.addEventListener('click', (e) => this.closeDropdown(e));
-  }
-
-  closeDropdown(event: MouseEvent): void {
-    if (!this.showDropdown) {
-      return;
-    }
-
-    const element = event.target as HTMLElement;
-
-    if (this.ionSelect.nativeElement.contains(element)) {
-      return;
-    }
-
-    if (!this.ionDropdown.optionList.nativeElement.contains(element)) {
-      this.showDropdown = false;
-    }
   }
 
   selected(selectedOptions: IonSelectProps['options']): void {
@@ -134,7 +112,9 @@ export class IonSelectComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    document.removeEventListener('click', this.closeDropdown);
+  onCloseDropdown(): void {
+    if (this.showDropdown) {
+      this.showDropdown = false;
+    }
   }
 }
