@@ -69,3 +69,18 @@ Caso um label seja passado o `checkbox` será rederizado com o mesmo.
     {Template.bind({})}
   </Story>
 </Canvas>
+
+## With Value
+
+Para casos em que se deseja saber exatemente o que foi selecionado, pode-se usar o `value`. Além de retornar o status do checkbox, também retornará seu valor.
+
+Um comportamento extra é que ao clicar sobre a `label`, caso esta seja utilizada, ele poderá selecionar ou descelecionar o checkbox.
+
+<Canvas>
+  <Story
+    name="type: with value"
+    args={{ label: 'Label', value: 'checkbox value' }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

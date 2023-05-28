@@ -222,6 +222,26 @@ describe('ButtonComponent with dropdown', () => {
     });
   });
 
+  it('should close dropdown when click outside component', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+
+    fireEvent.click(fakeDiv);
+    fireEvent.click(fakeDiv);
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeNull();
+  });
+
   describe('ButtonComponent with multiple-selection dropdown', () => {
     it('should render a multiple-selection dropdown when button is clicked', async () => {
       const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
