@@ -47,7 +47,7 @@
       *ngIf="currentPage().page_number >= 5"
     ></ion-button>
     <button
-      *ngFor="let page of visiblePages()"
+      *ngFor="let page of visibleButtons()"
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="page.selected"
       [attr.data-testid]="'page-' + page.page_number"

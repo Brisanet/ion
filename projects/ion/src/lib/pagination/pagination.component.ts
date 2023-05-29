@@ -153,24 +153,28 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     return (option && option.label) || this.generateLabel(this.itemsPerPage);
   }
 
-  visiblePages(): Page[] {
-    const currentPage = this.currentPage().page_number;
+  visibleButtons(): Page[] {
     const pagesLength = this.pages.length;
     const currentPageIndex = this.pages.indexOf(this.currentPage());
+    const visiblePageCount = Math.min(5, pagesLength);
 
-    if (currentPage < 4) {
-      return this.pages.slice(1, 5);
-    } else if (currentPage === 4) {
-      return this.pages.slice(1, 6);
-    } else if (currentPage <= pagesLength - 3) {
-      return this.pages.slice(currentPageIndex - 2, currentPageIndex + 3);
-    } else if (currentPage < pagesLength - 1) {
-      return this.pages.slice(currentPageIndex - 2, currentPageIndex + 2);
-    } else if (currentPage < pagesLength) {
-      return this.pages.slice(currentPageIndex - 3, currentPageIndex + 1);
-    } else {
-      return this.pages.slice(currentPageIndex - 4, currentPageIndex);
+    let startPageIndex = Math.max(
+      1,
+      currentPageIndex - Math.floor(visiblePageCount / 2)
+    );
+    let endPageIndex = Math.min(
+      startPageIndex + visiblePageCount - 1,
+      pagesLength - 2
+    );
+
+    if (currentPageIndex < 3) {
+      endPageIndex = 4;
     }
+    if (currentPageIndex > pagesLength - 3) {
+      startPageIndex = pagesLength - 5;
+    }
+
+    return this.pages.slice(startPageIndex, endPageIndex + 1);
   }
 
   jumpPagesFoward(): void {
