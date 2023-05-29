@@ -51,19 +51,15 @@ const sut = async (
 };
 
 describe('IonDropdownComponent', () => {
-  beforeEach(async () => {
+  it.each(options)('should render option $label', async ({ label }) => {
     await sut();
+    expect(screen.getAllByText(label)).toHaveLength(1);
   });
   afterEach(() => {
     const elementToSelect = document.getElementById('option-0');
     if (elementToSelect.classList.contains('dropdown-item-selected')) {
       fireEvent.click(elementToSelect);
     }
-  });
-  
-  it.each(options)('should render option $label', async ({ label }) => {
-    await sut();
-    expect(screen.getAllByText(label)).toHaveLength(1);
   });
 
   it('should select a option', async () => {
@@ -235,7 +231,6 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     );
   });
 
-
   it('should render clear button on init if there are selected values by default', async () => {
     await sut(defaultMultiple);
     expect(screen.getByTestId('button-clear')).toBeInTheDocument();
@@ -248,10 +243,11 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     expect(options.every((option) => option.selected)).toBe(false);
     expect(buttonClear).not.toBeInTheDocument();
   });
-  
+
   it('should render with value selected when arraySelecteds is passed', async () => {
     await sut(multipleWithInitalValue);
-    const elementToSelect = document.getElementById('option-0');
+    screen.debug();
+    const elementToSelect = document.getElementById('option-1');
     expect(elementToSelect).toHaveClass('dropdown-item-selected');
   });
 
@@ -270,7 +266,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
 
   it('should render with clear button when selected array is passed', async () => {
     await sut(multipleWithInitalValue);
-    const clearButton = screen.getByTestId('buttonClear');
+    const clearButton = screen.getByTestId('button-clear');
     expect(clearButton).toBeInTheDocument();
   });
 });
