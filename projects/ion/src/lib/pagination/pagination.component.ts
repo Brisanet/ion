@@ -195,6 +195,10 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     this.selectPageOnClick(this.currentPage().page_number - 5);
   }
 
+  currentPage(): Page {
+    return this.pages.filter((page) => page.selected)[0];
+  }
+
   private createPages(qtdOfPages: number): void {
     this.pages = [];
     for (let index = 0; index < qtdOfPages; index++) {
@@ -203,10 +207,6 @@ export class IonPaginationComponent implements OnChanges, OnInit {
         page_number: index + 1,
       });
     }
-  }
-
-  private currentPage(): Page {
-    return this.pages.filter((page) => page.selected)[0];
   }
 
   private inLastPage(): boolean {
