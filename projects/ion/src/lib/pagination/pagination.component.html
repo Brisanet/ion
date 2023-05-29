@@ -37,9 +37,9 @@
       type="secondary"
       [size]="size"
       [disabled]="loading"
-      (mouseenter)="changeHover('left', true)"
-      (mouseleave)="changeHover('left', false)"
-      (click)="jumpBackwards()"
+      (mouseenter)="changeIconHover('left', true)"
+      (mouseleave)="changeIconHover('left', false)"
+      (click)="jumpPagesBackward()"
       *ngIf="currentPage().page_number >= 5"
     ></ion-button>
     <button
@@ -59,9 +59,9 @@
       type="secondary"
       [size]="size"
       [disabled]="loading"
-      (mouseenter)="changeHover('right', true)"
-      (mouseleave)="changeHover('right', false)"
-      (click)="skipPages()"
+      (mouseenter)="changeIconHover('right', true)"
+      (mouseleave)="changeIconHover('right', false)"
+      (click)="jumpPagesFoward()"
       *ngIf="currentPage().page_number <= pages.length - 4"
     ></ion-button>
     <button

@@ -35,14 +35,14 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   pages: Page[] = [];
 
+  isAdvanced: boolean;
+
   hoverControl = {
     left: false,
     right: false,
   };
 
-  isAdvanced: boolean;
-
-  changeHover(side: string, value: boolean): void {
+  changeIconHover(side: string, value: boolean): void {
     this.hoverControl[side] = value;
   }
 
@@ -173,7 +173,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     }
   }
 
-  skipPages(): void {
+  jumpPagesFoward(): void {
     if (this.currentPage().page_number >= this.pages.length - 4) {
       this.selectPageOnClick(this.pages.length);
       return;
@@ -181,7 +181,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     this.selectPageOnClick(this.currentPage().page_number + 5);
   }
 
-  jumpBackwards(): void {
+  jumpPagesBackward(): void {
     if (this.currentPage().page_number <= 6) {
       this.selectPageOnClick(1);
       return;
