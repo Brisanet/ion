@@ -20,7 +20,11 @@
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
-  <div *ngIf="isAdvanced" class="pages-list" data-testid="advanced-pagination">
+  <div
+    *ngIf="isAdvanced; else regularPagination"
+    class="pages-list"
+    data-testid="advanced-pagination"
+  >
     <button
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="pages[0].selected"
@@ -76,7 +80,7 @@
     </button>
   </div>
 
-  <div *ngIf="!isAdvanced" class="pages-list">
+  <ng-template #regularPagination>
     <button
       *ngFor="let page of pages"
       [class]="'square-pag ' + 'page-' + size"
@@ -88,7 +92,7 @@
     >
       <span>{{ page.page_number }}</span>
     </button>
-  </div>
+  </ng-template>
 
   <ion-button
     iconType="right2"
