@@ -349,11 +349,28 @@ describe('Advanced Pagination', () => {
         expect(screen.queryByTestId(`page-${page}`)).toBeNull();
       });
     });
-    describe('last three pages selected', () => {
+    describe('when page selected is two pages before last page', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-4'));
-        userEvent.click(screen.getByTestId('more-right'));
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-9'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is the page before the last', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-10'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
