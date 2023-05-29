@@ -9,6 +9,9 @@
     (selected)="changeItemsPerPage($event)"
     type="secondary"
     [disabled]="loading"
+    [dropdownConfig]="{
+      notShowClearButton: true
+    }"
   ></ion-button>
 
   <ion-button

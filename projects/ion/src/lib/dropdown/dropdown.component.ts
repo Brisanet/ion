@@ -30,6 +30,7 @@ export class IonDropdownComponent
   @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
+  @Input() notShowClearButton?: DropdownParams['notShowClearButton'] = false;
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
@@ -44,11 +45,12 @@ export class IonDropdownComponent
   clearButtonIsVisible: boolean;
 
   dropdownItens: Array<DropdownItem> = [];
-  private firstOpen = true;
 
   setClearButtonIsVisible(): void {
-    this.clearButtonIsVisible =
-      this.checkArray(this.dropdownItens) && !this.required;
+    const hasItems = this.checkArray(this.dropdownItens);
+    const showClearButton = !this.notShowClearButton;
+
+    this.clearButtonIsVisible = showClearButton && hasItems && !this.required;
   }
 
   public ngAfterViewInit(): void {
@@ -200,10 +202,6 @@ export class IonDropdownComponent
   }
 
   clickedOutsideDropdown(): void {
-    if (this.firstOpen) {
-      this.firstOpen = false;
-      return;
-    }
     this.closeDropdown.emit(this.dropdownItens);
   }
 

@@ -17,4 +17,5 @@ export interface DropdownParams {
   enableSearch?: boolean;
   searchOptions?: IonInputProps;
   searchChange?: EventEmitter<string>;
+  notShowClearButton?: boolean;
 }
