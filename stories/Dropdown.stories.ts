@@ -16,6 +16,7 @@ const Template: Story<IonDropdownComponent> = (args: IonDropdownComponent) => ({
     ...args,
     selected: action('selected'),
     searchChange: action('searchChange'),
+    scrollFinal: action('scrollFinal'),
   },
   moduleMetadata: {
     imports: [CommonModule, FormsModule, IonSharedModule],
@@ -24,7 +25,7 @@ const Template: Story<IonDropdownComponent> = (args: IonDropdownComponent) => ({
 
 const options = [];
 const createOptions = (): void => {
-  for (let index = 1; index <= 4; index++) {
+  for (let index = 1; index <= 9; index++) {
     options.push({
       label: `Option ${index}`,
       selected: false,
@@ -62,12 +63,18 @@ MultipleSelect.args = {
   multiple: true,
   clearButtonIsVisible: true,
   selected: action('selected'),
+  optionsScroll: action('optionsScroll'),
 };
 
 export const WithSearch = Template.bind({});
 WithSearch.args = {
   enableSearch: true,
   options,
+  arraySelecteds: [
+    { label: 'Option 1', selected: true },
+    { label: 'Option 1', selected: true },
+  ],
+  scrollFinal: action('scrollFinal'),
 };
 
 export const WithCustomSearch = Template.bind({});
@@ -91,4 +98,12 @@ WithCleanSearch.args = {
     clearButton: true,
     placeholder: 'Busque por algo...',
   },
+};
+
+export const RequiredOption = Template.bind({});
+RequiredOption.args = {
+  options: optionsWithMultiple,
+  required: true,
+  selected: action('selected'),
+  optionsScroll: action('optionsScroll'),
 };

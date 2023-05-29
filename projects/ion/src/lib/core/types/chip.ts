@@ -29,6 +29,7 @@ export interface IonChipProps {
   options?: DropdownItem[];
   icon?: string;
   multiple?: boolean;
+  required?: boolean;
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;

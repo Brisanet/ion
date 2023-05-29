@@ -169,6 +169,51 @@ describe('ChipComponent', () => {
   });
 });
 
+describe('Check update label', () => {
+  const dropdownEvent = jest.fn();
+  const events = jest.fn();
+
+  const options = [
+    { label: 'Cat', selected: false },
+    { label: 'Dog', selected: false },
+    { label: 'Bird', selected: false },
+  ];
+
+  it('should change label when select option', async () => {
+    await sut({
+      label: 'dropdown',
+      options: options,
+      events: {
+        emit: events,
+      } as SafeAny,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
+    });
+    const chip = screen.getByText('dropdown');
+    fireEvent.click(chip);
+    const option = screen.getByText(options[0].label);
+    fireEvent.click(option);
+    expect(screen.getByText(options[0].label)).toBeInTheDocument();
+  });
+
+  it('should change label when deselect option', async () => {
+    options[0].selected = true;
+    await sut({
+      label: 'dropdown',
+      options: options,
+      dropdownEvents: {
+        emit: dropdownEvent,
+      } as SafeAny,
+    });
+    const chip = screen.getByText('Cat');
+    fireEvent.click(chip);
+    const option = document.getElementById('option-0');
+    fireEvent.click(option);
+    expect(screen.getByText('dropdown')).toBeInTheDocument();
+  });
+});
+
 describe('With Multiple Dropdown', () => {
   const dropdownEvent = jest.fn();
   const options = [
@@ -315,5 +360,33 @@ describe('option showToggle', () => {
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(document.body);
     expect(getContainerDropdown()).toBeTruthy();
+  });
+});
+
+describe('IonChipComponent / Required', () => {
+  const options = [
+    { label: 'Cat', selected: false },
+    { label: 'Dog', selected: false },
+  ];
+  const requiredConfiguration = {
+    label: 'Custom label',
+    options: options,
+    icon: 'close',
+    required: true,
+  };
+
+  it('should render with correct label', async () => {
+    await sut(requiredConfiguration);
+    expect(screen.getByTestId('ion-chip-label')).toContainHTML('Custom label');
+  });
+
+  it('should not change label when selected option is clicked', async () => {
+    await sut(requiredConfiguration);
+    const chip = screen.getByText('Custom label');
+    for (let index = 0; index < 2; index++) {
+      fireEvent.click(chip);
+      fireEvent.click(document.getElementById('option-0'));
+      expect(chip).toContainHTML('Cat');
+    }
   });
 });

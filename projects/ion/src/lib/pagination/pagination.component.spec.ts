@@ -18,6 +18,8 @@ const defaultComponent: IonPaginationProps = {
   page: 1,
 };
 
+const LOADING_STATUS = [true, false];
+
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
@@ -115,6 +117,22 @@ describe('Pagination > Page sizes', () => {
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
       }
     );
+
+    it.each(LOADING_STATUS)(
+      'should show items per page disabled as %b when loading is %b',
+      async (loadingValue) => {
+        await sut({
+          ...defaultComponent,
+          loading: loadingValue,
+          allowChangeQtdItems: true,
+        });
+        const itemsPerPage = screen.getByTestId('itemsPerPage');
+        expect(itemsPerPage).toHaveAttribute(
+          'ng-reflect-disabled',
+          `${loadingValue}`
+        );
+      }
+    );
   });
 
   const customPageSizeOptions = [5, 10, 15, 20];
@@ -150,6 +168,20 @@ describe('Pagination > Events', () => {
     });
     fireEvent.click(screen.getByTestId('page-2'));
     expect(event).toBeCalledTimes(2);
+  });
+
+  it('should not emit an event when the selected page is already selected', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    event.mockClear();
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    fireEvent.click(screen.getByTestId('page-1'));
+    expect(event).not.toHaveBeenCalled();
   });
 
   it('should show items per page 10 when params is informed', async () => {
