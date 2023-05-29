@@ -1,209 +1,107 @@
+import { render, screen, fireEvent } from '@testing-library/angular';
 import { IonSelectComponent } from './select.component';
-import { IonInputModule } from '../input/input.module';
-import { IonIconModule } from '../icon/icon.module';
-import { IonDropdownModule } from '../dropdown/dropdown.module';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  RenderResult,
-  fireEvent,
-  render,
-  screen,
-} from '@testing-library/angular';
 import { IonSelectProps } from '../core/types/select';
-import { DropdownItem } from './../core/types/dropdown';
-import { EventEmitter } from '@angular/core';
-import userEvent from '@testing-library/user-event';
+import { IonIconModule } from '../icon/icon.module';
+import { IonSelectItemComponent } from './select-item/select-item.component';
+import { DropdownItem } from '../core/types';
+import { FormsModule } from '@angular/forms';
+import { IonDropdownModule } from '../dropdown/dropdown.module';
 
-const getInput = async (): Promise<HTMLInputElement> =>
-  (await screen.getByTestId('input-element')) as HTMLInputElement;
-
-const getInputSearch = async (): Promise<HTMLInputElement> =>
-  (await screen.getAllByTestId('input-element')[1]) as HTMLInputElement;
-
-const getButtonClear = async (): Promise<HTMLElement> =>
-  await screen.getByTestId('buttonClear');
-
-const getContainerDropdown = (): HTMLElement | null =>
-  document.getElementById('ion-dropdown');
-
-describe('dropdown visibility in select component', () => {
-  let selectComponent: IonSelectComponent;
-  let fixture: ComponentFixture<IonSelectComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [IonSelectComponent],
-      imports: [IonDropdownModule, IonInputModule, IonIconModule],
-    }).compileComponents();
-  });
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(IonSelectComponent);
-    selectComponent = fixture.componentInstance;
-  });
-
-  it('must uncheck the options when the uncheckedOptionsInSelect function is called and the event parameter is empty', () => {
-    const customOptions = [
-      { label: 'Apple', selected: false },
-      { label: 'Orange', selected: true },
-    ];
-
-    selectComponent.options = customOptions;
-    fixture.detectChanges();
-    expect(selectComponent.inputValue).toBe('Orange');
-
-    selectComponent.uncheckedOptionsInSelect('');
-    fixture.detectChanges();
-    const hasSelectedOptions = selectComponent.options.some(
-      (option) => option.selected === true
-    );
-    expect(hasSelectedOptions).not.toBeTruthy();
-  });
-});
-
-const sut = async (
-  customProps?: IonSelectProps
-): Promise<RenderResult<IonSelectComponent>> => {
-  return await render(IonSelectComponent, {
+const sut = async (customProps?: IonSelectProps): Promise<void> => {
+  await render(IonSelectComponent, {
     componentProperties: customProps,
-    imports: [IonInputModule, IonIconModule, IonDropdownModule],
+    declarations: [IonSelectItemComponent],
+    imports: [FormsModule, IonIconModule, IonDropdownModule],
   });
 };
 
-describe('choosing options', () => {
-  it('should render default placeholder', async () => {
-    await sut();
-    expect(await getInput()).toHaveAttribute('placeholder', 'Choose a option');
+const getIonSelect = async (): Promise<HTMLElement> =>
+  await screen.getByTestId('ion-select');
+
+const getIonSelectInput = async (): Promise<HTMLElement> =>
+  await screen.getByTestId('ion-select-input');
+
+const getOption = async (key: string): Promise<HTMLElement> =>
+  await document.getElementById(`${key}`);
+
+const options: DropdownItem[] = [
+  { label: 'option 01', key: 'option-0' },
+  { label: 'option 02', key: 'option-1' },
+  { label: 'option 03', key: 'option-2' },
+];
+
+const getCopyOptions = (): DropdownItem[] =>
+  JSON.parse(JSON.stringify(options));
+
+describe('IonSelecComponent - mode: default', () => {
+  it('should render select with placeholder', async () => {
+    const customPlaceholder = 'Choose an option';
+    await sut({ placeholder: customPlaceholder });
+    expect(await getIonSelectInput()).toHaveAttribute(
+      'placeholder',
+      customPlaceholder
+    );
   });
 
-  it('should render custom placeholder', async () => {
-    const placeholder = 'Custom placeholder';
-    await sut({ placeholder });
-    expect(await getInput()).toHaveAttribute('placeholder', placeholder);
+  it('should display the correct label when selecting an option', async () => {
+    await sut({ options: getCopyOptions() });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
+      options[0].label
+    );
   });
 
-  it('should render label of the selected option', async () => {
-    await sut({
-      options: [{ label: 'option 01' }, { label: 'option 02' }],
-      enableSearch: false,
-    });
-    fireEvent.click(await getInput());
-    fireEvent.click(document.getElementById('option-0'));
-    expect((await getInput()).value).toBe('option 01');
-  });
-
-  it('should correctly render input value when some option is initialized selected', async () => {
-    const customOptions = [
-      { label: 'Fiat', selected: true },
-      { label: 'Toyota', selected: false },
-    ];
-    await sut({
-      options: customOptions,
-    });
-    expect((await getInput()).value).toBe(customOptions[0].label);
-  });
-
-  it('should clear input when click in icon close', async () => {
-    await sut({
-      options: [{ label: 'option 01' }, { label: 'option 02' }],
-      enableSearch: false,
-    });
-    fireEvent.click(await getInput());
-    fireEvent.click(document.getElementById('option-0'));
-    fireEvent.click(await getInput());
-    fireEvent.click(await getButtonClear());
-    expect((await getInput()).value).toBe('');
-    expect(await getInput()).toHaveAttribute('placeholder', 'Choose a option');
-  });
-
-  it('should emit correctly selected option', async () => {
-    const selectEvent = jest.fn();
-    const options = [{ label: 'Liam' }, { label: 'Noah' }];
-    await sut({
-      options,
-      selected: { emit: selectEvent } as unknown as EventEmitter<DropdownItem>,
-    });
-
-    fireEvent.click(await getInput());
-    fireEvent.click(document.getElementById('option-0'));
-    expect(selectEvent).toHaveBeenCalledWith({
-      label: options[0].label,
-      selected: true,
-    });
-  });
-
-  it('should toggle dropdown view on input click', async () => {
-    await sut({ enableSearch: false });
-    fireEvent.click(await getInput());
-    expect(getContainerDropdown()).toBeTruthy();
-    fireEvent.click(await getInput());
-    expect(getContainerDropdown()).toBe(null);
-  });
-
-  it('should close dropdown on click outside element', async () => {
-    await sut();
-    fireEvent.click(await getInput());
-    expect(getContainerDropdown()).toBeTruthy();
-    fireEvent.click(document.body);
-    expect(getContainerDropdown()).toBe(null);
-  });
-
-  it('should close the dropdown when clicking on the path contained in the svg', async () => {
-    await sut();
-    fireEvent.click(await getInput());
-    expect(getContainerDropdown()).toBeTruthy();
-    const svgElement = document.querySelector('svg');
-    const pathElement = svgElement.querySelector('path');
-    expect(pathElement).toBeTruthy();
-    fireEvent.click(pathElement);
-    expect(getContainerDropdown()).toBe(null);
-  });
-
-  it('should keep showDropdown as true when disableVisibilityToggle for true and dispatch event mouseup ', async () => {
-    await sut({
-      showToggle: true,
-    });
-    fireEvent.click(await getInput());
-    expect(getContainerDropdown()).toBeTruthy();
-    fireEvent.click(document.body);
-    expect(getContainerDropdown()).toBeTruthy();
+  it('should unselect item', async () => {
+    await sut({ options: getCopyOptions() });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[1].key));
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[1].key));
+    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
+      ''
+    );
   });
 });
 
-describe('Filtering Options', () => {
-  const customOptions: DropdownItem[] = [
-    { label: 'Banana' },
-    { label: 'Coconut' },
-    { label: 'Melon' },
-    { label: 'Mango' },
-  ];
-  it('should only show the options that contain the text in the input', async () => {
-    await sut({ options: customOptions });
-    fireEvent.click(await getInput());
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(
-      customOptions.length
-    );
-    userEvent.type(await getInputSearch(), customOptions[3].label);
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
-    expect(document.getElementById('option-0')).toContainHTML(
-      customOptions[3].label
-    );
+describe('IonSelecComponent - mode: multiple', () => {
+  it('should selected multiple options', async () => {
+    await sut({
+      options: getCopyOptions(),
+      mode: 'multiple',
+    });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(await getOption(options[2].key));
+    expect(
+      await screen.getByTestId('ion-select-item-selected-0')
+    ).toHaveTextContent(options[0].label);
+    expect(
+      await screen.getByTestId('ion-select-item-selected-1')
+    ).toHaveTextContent(options[2].label);
   });
 
-  it('should reset option when clear input search ', async () => {
-    await sut({ options: customOptions });
-    fireEvent.click(await getInput());
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(
-      customOptions.length
-    );
-    userEvent.type(await getInputSearch(), customOptions[3].label);
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
-    expect(document.getElementById('option-0')).toContainHTML(
-      customOptions[3].label
-    );
-    userEvent.clear(await getInputSearch());
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(
-      customOptions.length
-    );
+  it('should remove a selected option when clicking on it in the dropdown', async () => {
+    await sut({
+      options: getCopyOptions(),
+      mode: 'multiple',
+    });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(await getOption(options[0].key));
+    expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
+
+  it('should remove an option selected by clicking on the "X" icon of the ion-select-tem component', async () => {
+    await sut({
+      options: getCopyOptions(),
+      mode: 'multiple',
+    });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(screen.getByTestId('ion-icon-close'));
+    expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
+  });
+
+  it.todo('should select an item when searching and then click on it');
 });

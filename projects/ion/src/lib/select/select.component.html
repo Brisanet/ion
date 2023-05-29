@@ -1,11 +1,7 @@
-<div
-  class="ion-select"
-  (click)="handleClick($event)"
-  #ionSelect
-  data-testid="ion-select"
->
+<div class="ion-select" (click)="handleClick($event)" data-testid="ion-select">
   <ion-select-item
-    *ngFor="let option of selectedOptions"
+    *ngFor="let option of selectedOptions; let i = index"
+    [attr.data-testid]="'ion-select-item-selected-' + i"
     [label]="option.label"
     (unselect)="unselectOption(option)"
   ></ion-select-item>
@@ -17,13 +13,14 @@
     [(ngModel)]="inputValue"
     (input)="onSearchChange()"
     [ngClass]="{
-      'ion-select-input-search': mode === 'default' && option && !inputValue
+      'ion-select-item-selected': mode === 'default' && option && !inputValue
     }"
   />
 
   <p
+    data-testid="ion-select-item-selected"
     *ngIf="mode !== 'multiple' && !inputValue"
-    [class]="!inputValue && 'ion-select-input-search'"
+    [class]="!inputValue && 'ion-select-item-selected'"
   >
     {{ option }}
   </p>
