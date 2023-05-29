@@ -6,6 +6,7 @@ import { IonSelectItemComponent } from './select-item/select-item.component';
 import { DropdownItem } from '../core/types';
 import { FormsModule } from '@angular/forms';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
+import userEvent from '@testing-library/user-event';
 
 const sut = async (customProps?: IonSelectProps): Promise<void> => {
   await render(IonSelectComponent, {
@@ -103,5 +104,15 @@ describe('IonSelecComponent - mode: multiple', () => {
     expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
 
-  it.todo('should select an item when searching and then click on it');
+  it('should select an item when searching and then click on it', async () => {
+    await sut({ options: await getCopyOptions(), mode: 'multiple' });
+    fireEvent.click(await getIonSelect());
+    userEvent.keyboard('01');
+    expect(await getIonSelectInput()).toHaveValue('01');
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
+    fireEvent.click(await getOption(options[0].key));
+    expect(screen.getByTestId('ion-select-item-selected-0')).toHaveTextContent(
+      options[0].label
+    );
+  });
 });
