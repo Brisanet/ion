@@ -174,6 +174,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   jumpPagesFoward(): void {
+    this.hoverControl.right = false;
     if (this.currentPage().page_number >= this.pages.length - 4) {
       this.selectPageOnClick(this.pages.length);
       return;
@@ -182,6 +183,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   jumpPagesBackward(): void {
+    this.hoverControl.left = false;
     if (this.currentPage().page_number <= 6) {
       this.selectPageOnClick(1);
       return;
