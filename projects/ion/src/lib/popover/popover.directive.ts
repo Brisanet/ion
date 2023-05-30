@@ -44,9 +44,13 @@ export class IonPopoverDirective implements OnDestroy {
   ) {}
 
   open(position: SafeAny): void {
-    if (this.popoverComponentRef) {
-      return;
-    }
+    this.closeAllPopovers();
+    this.createPopover();
+    this.setComponentPosition(position);
+    this.popoverComponentRef.changeDetectorRef.detectChanges();
+  }
+
+  createPopover(): void {
     const popover = this.componentFactoryResolver
       .resolveComponentFactory(IonPopoverComponent)
       .create(this.injector);
@@ -90,11 +94,16 @@ export class IonPopoverDirective implements OnDestroy {
       this.closePopover();
       this.ionOnClose.emit();
     });
+  }
 
-    this.setComponentPosition(position);
-    this.popoverComponentRef.changeDetectorRef.detectChanges();
-
-    document.addEventListener('click', (e) => this.onDocumentClick(e));
+  closeAllPopovers(): void {
+    const existingPopovers = document.querySelectorAll('ion-popover');
+    if (existingPopovers) {
+      this.closePopover();
+      existingPopovers.forEach((popover) => {
+        popover.remove();
+      });
+    }
   }
 
   setComponentPosition(hostElement: SafeAny): void {
@@ -137,21 +146,6 @@ export class IonPopoverDirective implements OnDestroy {
     }
   }
 
-  onDocumentClick(event: MouseEvent): void {
-    if (this.popoverComponentRef) {
-      const popoverElement = this.popoverComponentRef.location
-        .nativeElement as HTMLElement;
-      const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-
-      if (
-        !popoverElement.contains(event.target as SafeAny) &&
-        !hostElement.contains(event.target as SafeAny)
-      ) {
-        this.closePopover();
-      }
-    }
-  }
-
   destroyComponent(): void {
     if (this.popoverComponentRef) {
       this.appRef.detachView(this.popoverComponentRef.hostView);
@@ -161,7 +155,6 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    document.removeEventListener('click', this.onDocumentClick);
     this.destroyComponent();
   }
 }
