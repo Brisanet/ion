@@ -81,6 +81,10 @@ import {
   download,
   upload,
   stb,
+  time,
+  clip,
+  total,
+  porcent,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -103,6 +107,7 @@ export const iconsPaths: Record<string, string> = {
   'check-solid': checkSolid,
   'check-outlined': checkOutlined,
   'clock-solid': clockSolid,
+  clip,
   close,
   'close-solid': closeSolid,
   'close-rounded': closeRounded,
@@ -131,6 +136,7 @@ export const iconsPaths: Record<string, string> = {
   out,
   option,
   'plus-solid': plusSolid,
+  porcent,
   refresh,
   'registration-list': registrationList,
   right2,
@@ -148,6 +154,8 @@ export const iconsPaths: Record<string, string> = {
   'star-solid': starSolid,
   stb,
   technical,
+  time,
+  total,
   trash,
   union,
   wait,
@@ -156,6 +164,7 @@ export const iconsPaths: Record<string, string> = {
   onu,
   'doc-close': docClose,
   'doc-check': docCheck,
+  'doc-graphic': docWarning,
   'doc-warning': docWarning,
   condominium,
   config,
