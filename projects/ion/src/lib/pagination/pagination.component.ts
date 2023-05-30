@@ -12,6 +12,9 @@ import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
 export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
+const VISIBLE_PAGES_DEFAULT_AMOUNT = 5;
+const MIN_PAGES_SHOW_ADVANCED_PAG = 10;
+const FIRST_PAGE = 1;
 
 @Component({
   selector: 'ion-pagination',
@@ -37,13 +40,26 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
   isAdvanced: boolean;
 
-  hoverControl = {
-    left: false,
-    right: false,
+  moreBtnsConfig = {
+    left: { hover: false, visible: true },
+    right: { hover: false, visible: true },
   };
 
+  currentVisibleButtons: Page[];
+
   changeIconHover(side: string, value: boolean): void {
-    this.hoverControl[side] = value;
+    this.moreBtnsConfig[side].hover = value;
+  }
+
+  updateMoreBtnsVisibility(): void {
+    const isFirstFourPages =
+      this.currentPage().page_number < VISIBLE_PAGES_DEFAULT_AMOUNT;
+
+    const isLastFourPages =
+      this.currentPage().page_number > this.pages.length - 4;
+
+    this.moreBtnsConfig.left.visible = !isFirstFourPages;
+    this.moreBtnsConfig.right.visible = !isLastFourPages;
   }
 
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
@@ -72,7 +88,9 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.optionsPage = this.getOptionsPage();
     this.labelPerPage = this.getSelectedItemsPerPageLabel(this.optionsPage);
+
     this.updateIsAdvanced();
+    this.updateMoreBtnsVisibility();
   }
 
   setPage(page = 1): void {
@@ -108,10 +126,12 @@ export class IonPaginationComponent implements OnChanges, OnInit {
       });
     }
     this.page = page.page_number;
+    this.updateMoreBtnsVisibility();
+    this.currentVisibleButtons = this.nextVisibleButtons();
   }
 
   updateIsAdvanced(): void {
-    this.isAdvanced = this.pages.length > 10;
+    this.isAdvanced = this.pages.length > MIN_PAGES_SHOW_ADVANCED_PAG;
   }
 
   hasPrevious(): boolean {
@@ -153,50 +173,61 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     return (option && option.label) || this.generateLabel(this.itemsPerPage);
   }
 
-  visibleButtons(): Page[] {
-    const pagesLength = this.pages.length;
+  nextVisibleButtons(): Page[] {
     const currentPageIndex = this.pages.indexOf(this.currentPage());
-    const visiblePageCount = Math.min(5, pagesLength);
 
-    let startPageIndex = Math.max(
-      1,
-      currentPageIndex - Math.floor(visiblePageCount / 2)
-    );
-    let endPageIndex = Math.min(
-      startPageIndex + visiblePageCount - 1,
-      pagesLength - 2
-    );
+    const startPageIndex = this.getStartPageIndex(currentPageIndex);
 
-    if (currentPageIndex < 3) {
-      endPageIndex = 4;
-    }
-    if (currentPageIndex > pagesLength - 3) {
-      startPageIndex = pagesLength - 5;
-    }
+    const endPageIndex = this.getLastPageIndex(
+      currentPageIndex,
+      startPageIndex
+    );
 
     return this.pages.slice(startPageIndex, endPageIndex + 1);
   }
 
-  jumpPagesFoward(): void {
-    this.hoverControl.right = false;
-    if (this.currentPage().page_number >= this.pages.length - 4) {
-      this.selectPageOnClick(this.pages.length);
-      return;
+  getStartPageIndex(currentIndex: number): number {
+    const isLastThreePages = currentIndex > this.pages.length - 3;
+
+    if (isLastThreePages) {
+      return this.pages.length - VISIBLE_PAGES_DEFAULT_AMOUNT;
+    } else {
+      return Math.max(
+        FIRST_PAGE,
+        currentIndex - Math.floor(VISIBLE_PAGES_DEFAULT_AMOUNT / 2)
+      );
     }
-    this.selectPageOnClick(this.currentPage().page_number + 5);
+  }
+
+  getLastPageIndex(currentIndex: number, startPageIndex: number): number {
+    const isFirstThreePages = currentIndex < 3;
+
+    if (isFirstThreePages) {
+      return VISIBLE_PAGES_DEFAULT_AMOUNT - 1;
+    } else {
+      return Math.min(
+        startPageIndex + VISIBLE_PAGES_DEFAULT_AMOUNT - 1,
+        this.pages.length - 2
+      );
+    }
+  }
+
+  jumpPagesForward(): void {
+    this.moreBtnsConfig.right.hover = false;
+    const pageDestination = Math.min(
+      this.pages.length,
+      this.currentPage().page_number + VISIBLE_PAGES_DEFAULT_AMOUNT
+    );
+    this.selectPageOnClick(pageDestination);
   }
 
   jumpPagesBackward(): void {
-    this.hoverControl.left = false;
-    if (this.currentPage().page_number <= 6) {
-      this.selectPageOnClick(1);
-      return;
-    }
-    this.selectPageOnClick(this.currentPage().page_number - 5);
-  }
-
-  currentPage(): Page {
-    return this.pages.filter((page) => page.selected)[0];
+    this.moreBtnsConfig.left.hover = false;
+    const pageDestination = Math.max(
+      FIRST_PAGE,
+      this.currentPage().page_number - VISIBLE_PAGES_DEFAULT_AMOUNT
+    );
+    this.selectPageOnClick(pageDestination);
   }
 
   private createPages(qtdOfPages: number): void {
@@ -207,6 +238,10 @@ export class IonPaginationComponent implements OnChanges, OnInit {
         page_number: index + 1,
       });
     }
+  }
+
+  private currentPage(): Page {
+    return this.pages.filter((page) => page.selected)[0];
   }
 
   private inLastPage(): boolean {

@@ -39,7 +39,7 @@
       <span>{{ pages[0].page_number }}</span>
     </button>
     <ion-button
-      [iconType]="hoverControl.left ? 'left3' : 'more'"
+      [iconType]="moreBtnsConfig.left.hover ? 'left3' : 'more'"
       data-testid="more-left"
       type="secondary"
       [size]="size"
@@ -47,10 +47,10 @@
       (mouseenter)="changeIconHover('left', true)"
       (mouseleave)="changeIconHover('left', false)"
       (click)="jumpPagesBackward()"
-      *ngIf="currentPage().page_number >= 5"
+      *ngIf="moreBtnsConfig.left.visible"
     ></ion-button>
     <button
-      *ngFor="let page of visibleButtons()"
+      *ngFor="let page of currentVisibleButtons"
       [class]="'square-pag ' + 'page-' + size"
       [class.selected]="page.selected"
       [attr.data-testid]="'page-' + page.page_number"
@@ -61,15 +61,15 @@
       <span>{{ page.page_number }}</span>
     </button>
     <ion-button
-      [iconType]="hoverControl.right ? 'right3' : 'more'"
+      [iconType]="moreBtnsConfig.right.hover ? 'right3' : 'more'"
       data-testid="more-right"
       type="secondary"
       [size]="size"
       [disabled]="loading"
       (mouseenter)="changeIconHover('right', true)"
       (mouseleave)="changeIconHover('right', false)"
-      (click)="jumpPagesFoward()"
-      *ngIf="currentPage().page_number <= pages.length - 4"
+      (click)="jumpPagesForward()"
+      *ngIf="moreBtnsConfig.right.visible"
     ></ion-button>
     <button
       [class]="'square-pag ' + 'page-' + size"
