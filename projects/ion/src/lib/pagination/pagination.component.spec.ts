@@ -170,6 +170,20 @@ describe('Pagination > Events', () => {
     expect(event).toBeCalledTimes(2);
   });
 
+  it('should not emit an event when the selected page is already selected', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    event.mockClear();
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    fireEvent.click(screen.getByTestId('page-1'));
+    expect(event).not.toHaveBeenCalled();
+  });
+
   it('should show items per page 10 when params is informed', async () => {
     await sut({
       total: 16,
@@ -196,5 +210,178 @@ describe('Pagination > Events', () => {
       itemsPerPage: 20,
     });
     expect(screen.queryAllByText('20 / página')).toHaveLength(1);
+  });
+});
+
+describe('Advanced Pagination', () => {
+  it('should show advanced pagination when total pages is more than 10', async () => {
+    await sut({ ...defaultComponent, total: 110 });
+    expect(screen.getByTestId('advanced-pagination')).toBeVisible();
+  });
+  describe('basics - more right button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-1'));
+    });
+    it('should show right more button with more icon', () => {
+      expect(screen.getByTestId('more-right')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should not show left more button', () => {
+      expect(screen.queryByTestId('more-left')).toBeNull();
+    });
+    it('should show arrow right icon when hover on more right button', async () => {
+      userEvent.hover(screen.getByTestId('more-right'));
+      expect(document.getElementById('ion-icon-right3')).toBeVisible();
+    });
+    it('should skip five pages when click on more right button', () => {
+      userEvent.click(screen.getByTestId('more-right'));
+      expect(screen.getByTestId('page-6')).toHaveClass('selected');
+    });
+  });
+  describe('basics - more left button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-11'));
+    });
+    it('should show left more button with more icon', () => {
+      expect(screen.getByTestId('more-left')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should not show right more button', () => {
+      expect(screen.queryByTestId('more-right')).toBeNull();
+    });
+    it('should show arrow left icon when hover on more left button', async () => {
+      userEvent.hover(screen.getByTestId('more-left'));
+      expect(document.getElementById('ion-icon-left3')).toBeVisible();
+    });
+    it('should go back five pages when click on more left button', () => {
+      userEvent.click(screen.getByTestId('more-left'));
+      expect(screen.getByTestId('page-6')).toHaveClass('selected');
+    });
+  });
+  describe('more left and right button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-5'));
+    });
+    it('should show left more button with more icon', () => {
+      expect(screen.getByTestId('more-left')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should show right more button with more icon', () => {
+      expect(screen.getByTestId('more-right')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should go back to first page when its not possible to go back five pages', () => {
+      userEvent.click(screen.getByTestId('more-left'));
+      expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    });
+    it('should go to last page when its not possible to go forward five pages', () => {
+      userEvent.click(screen.getByTestId('page-7'));
+      userEvent.click(screen.getByTestId('more-right'));
+      expect(screen.getByTestId('page-11')).toHaveClass('selected');
+    });
+  });
+  describe('buttons visibility', () => {
+    describe('first three pages selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-1'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['6', '7', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page 4 is selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-4'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when a middle page is selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-5'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['3', '4', '5', '6', '7'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is three pages before last page', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-3'));
+        userEvent.click(screen.getByTestId('more-right'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['6', '7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is two pages before last page', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-9'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is the page before the last', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-10'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
   });
 });

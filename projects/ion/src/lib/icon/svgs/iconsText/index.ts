@@ -44,6 +44,7 @@ export { default as localization } from './localization';
 export { default as messageBallon } from './message-ballon';
 export { default as motorcycle } from './motorcycle';
 export { default as module } from './module';
+export { default as more } from './more';
 export { default as moduleBox } from './module-box';
 export { default as option } from './option';
 export { default as out } from './out';

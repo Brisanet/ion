@@ -18,6 +18,10 @@ export class IonPopConfirmComponent {
   readonly ionOnConfirm = new Subject<void>();
   readonly ionOnClose = new Subject<void>();
 
+  onClickOutside(): void {
+    this.close();
+  }
+
   handleConfirm(): void {
     this.ionOnConfirm.next();
   }
