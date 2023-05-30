@@ -205,6 +205,12 @@ button {
     &:active {
       @include add-colors($primary-2, $primary-7);
       border-color: $primary-5;
+
+      ion-icon {
+        ::ng-deep svg {
+          fill: $primary-7;
+        }
+      }
     }
   }
 
