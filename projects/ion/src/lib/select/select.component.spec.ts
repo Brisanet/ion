@@ -115,4 +115,15 @@ describe('IonSelecComponent - mode: multiple', () => {
       options[0].label
     );
   });
+
+  it('should display all options when clearing text in search input', async () => {
+    await sut({ options: await getCopyOptions(), mode: 'multiple' });
+    fireEvent.click(await getIonSelect());
+    userEvent.keyboard('01');
+    expect(await getIonSelectInput()).toHaveValue('01');
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
+    userEvent.clear(await getIonSelectInput());
+    expect(await getIonSelectInput()).toHaveValue('');
+    expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
+  });
 });
