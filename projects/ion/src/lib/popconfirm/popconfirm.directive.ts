@@ -1,25 +1,26 @@
+import { DOCUMENT } from '@angular/common';
 import {
-  Directive,
-  Input,
-  HostListener,
-  ComponentFactoryResolver,
-  Injector,
-  Inject,
-  ComponentRef,
   ApplicationRef,
-  Output,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
   EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  Output,
   ViewContainerRef,
 } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { StatusType } from '../core/types';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopConfirmComponent } from './popconfirm.component';
-import { StatusType } from '../core/types';
 
 export interface PopPosition {
   top: number;
   left: number;
   width: number;
+  hostHeight?: number;
 }
 
 export interface PopOffset {
@@ -40,7 +41,8 @@ export class IonPopConfirmDirective {
   @Output() ionOnClose = new EventEmitter<void>();
 
   private IonPopConfirmComponentRef!: ComponentRef<IonPopConfirmComponent>;
-
+  private isBottomIcon = false;
+  private marginBetweenComponents = 10;
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -82,8 +84,23 @@ export class IonPopConfirmDirective {
     const leftOffset =
       screenOffset < popConfirmWidth ? offsetToLeft : offsetToRight;
 
+    const indicatorIcon = 9;
+
+    const elementSize = element.offsetHeight + indicatorIcon;
+
+    this.isBottomIcon = false;
+
+    if (this.isBiggerThenWindow(position, elementSize)) {
+      this.isBottomIcon = true;
+      this.setUpPositionPopconfirm(position, elementSize);
+    }
+
+    const scrollDocument = document.scrollingElement
+      ? document.scrollingElement.scrollTop
+      : 0;
+
     const offset = {
-      top: position.top,
+      top: position.top + scrollDocument,
       left: leftOffset,
       width: popConfirmWidth,
       screenOffset: screenOffset,
@@ -92,9 +109,22 @@ export class IonPopConfirmDirective {
     return offset;
   }
 
+  isBiggerThenWindow(position: PopPosition, elementSize: number): boolean {
+    return position.top + elementSize >= window.innerHeight;
+  }
+
+  setUpPositionPopconfirm(position, elementSize): void {
+    position.top =
+      position.top -
+      elementSize -
+      position.hostHeight -
+      this.marginBetweenComponents;
+  }
+
   closeAllPopsConfirm(): void {
     const existingPopConfirms = document.querySelectorAll('ion-popconfirm');
     if (existingPopConfirms) {
+      this.closePopConfirm();
       existingPopConfirms.forEach((popConfirm) => {
         popConfirm.remove();
       });
@@ -133,7 +163,6 @@ export class IonPopConfirmDirective {
 
   setStyle(element: HTMLElement, offset: PopOffset): void {
     const supContainerEl = document.querySelector('.sup-container');
-
     element.style.position = 'absolute';
     element.style.left = offset.left + 'px';
     element.style.top = offset.top + 'px';
@@ -141,26 +170,37 @@ export class IonPopConfirmDirective {
     if (offset.screenOffset < offset.width) {
       supContainerEl.classList.replace('sup-container', 'sup-container-right');
     }
+
+    if (this.isBottomIcon) {
+      supContainerEl.classList.add('sup-container-bottom');
+    }
   }
 
-  elementIsEnabled(element: HTMLElement): boolean {
+  elementChildIsEnabled(element: HTMLElement): boolean {
+    if (!element.firstElementChild) {
+      return true;
+    }
+    return element.firstElementChild.getAttribute('disabled') !== '';
+  }
+
+  hostElementIsEnabled(element: HTMLElement): boolean {
+    return element.getAttribute('disabled') !== '';
+  }
+
+  elementsAreEnabled(element: HTMLElement): boolean {
     return (
-      !element.getAttribute('ng-reflect-disabled') ||
-      (element.getAttribute('ng-reflect-disabled') &&
-        element.getAttribute('ng-reflect-disabled') == 'false')
+      this.elementChildIsEnabled(element) && this.hostElementIsEnabled(element)
     );
   }
 
   @HostListener('click') onClick(): void {
     const docWidth = document.body.clientWidth;
 
-    const marginBetweenComponents = 10;
-
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
 
     const position = hostElement.getBoundingClientRect() as DOMRect;
 
-    if (this.elementIsEnabled(hostElement)) {
+    if (this.elementsAreEnabled(hostElement)) {
       this.open();
 
       requestAnimationFrame(() => {
@@ -170,9 +210,10 @@ export class IonPopConfirmDirective {
 
         if (popconfirmElement) {
           const offsetPosition = this.setPosition(popconfirmElement, docWidth, {
-            top: position.top + position.height + marginBetweenComponents,
+            top: position.top + position.height,
             left: position.left,
             width: position.width,
+            hostHeight: position.height,
           });
           this.setStyle(popconfirmElement, offsetPosition);
         }

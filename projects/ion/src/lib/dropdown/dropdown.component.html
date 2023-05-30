@@ -1,4 +1,9 @@
-<div class="container-options" id="ion-dropdown" data-testid="ion-dropdown">
+<div
+  class="container-options"
+  id="ion-dropdown"
+  data-testid="ion-dropdown"
+  (clickOutside)="clickedOutsideDropdown()"
+>
   <ion-input
     class="dropdown-search"
     *ngIf="enableSearch"
