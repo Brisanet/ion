@@ -1,12 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/angular';
-import { EventEmitter } from '@angular/core';
 import { IonSelectItemComponent } from './select-item.component';
 import { IonIconModule } from '../../icon/icon.module';
 import { SafeAny } from '../../utils/safe-any';
-interface IonSelectItemProps {
-  label: string;
-  unselect?: EventEmitter<void>;
-}
+import { IonSelectItemProps } from '../../core/types/select';
+
 const sut = async (customProps?: IonSelectItemProps): Promise<void> => {
   await render(IonSelectItemComponent, {
     componentProperties: customProps,

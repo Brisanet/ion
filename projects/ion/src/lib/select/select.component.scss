@@ -38,12 +38,19 @@
     }
   }
 
+  div.ion-select-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+  }
+
   input {
     margin-inline-start: 12px;
     padding: 0;
     background: transparent;
     border: none;
     outline: none;
+    width: 100%;
 
     &.ion-select-item-selected {
       width: 4px;
@@ -55,5 +62,10 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
+  }
+
+  .icon {
+    display: flex;
+    margin-inline-end: 8px;
   }
 }

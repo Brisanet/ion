@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { IonSelectProps } from '../core/types/select';
 import { DropdownItem } from '../core/types';
 
@@ -8,6 +15,7 @@ import { DropdownItem } from '../core/types';
   styleUrls: ['./select.component.scss'],
 })
 export class IonSelectComponent implements OnInit {
+  @ViewChild('ionSelectInput', { static: true }) ionSelectInput;
   @Input() mode: IonSelectProps['mode'] = 'default';
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
@@ -17,29 +25,25 @@ export class IonSelectComponent implements OnInit {
   option = '';
   inputValue = '';
   selectedOptions: IonSelectProps['options'] = [];
-  copyOptions: IonSelectProps['options'] = [];
+  visibleOptions: IonSelectProps['options'] = [];
 
   ngOnInit(): void {
-    this.copyOptions = this.options;
+    this.visibleOptions = this.options;
   }
 
-  handleClick(event): void {
-    this.focusInput(event.target.children);
+  handleClick(): void {
+    this.focusInput();
     this.showDropdown = !this.showDropdown;
   }
 
-  focusInput(children: HTMLElement[]): void {
-    for (const element of children) {
-      if (element.nodeName === 'INPUT') {
-        element.focus();
-      }
-    }
+  focusInput(): void {
+    this.ionSelectInput.nativeElement.focus();
   }
 
   selected(selectedOptions: IonSelectProps['options']): void {
     this.events.emit(selectedOptions);
     this.inputValue = '';
-    this.copyOptions = this.options;
+    this.visibleOptions = this.options;
 
     if (this.mode !== 'multiple') {
       this.standardizeOptions(selectedOptions);
@@ -90,10 +94,10 @@ export class IonSelectComponent implements OnInit {
   onSearchChange(): void {
     this.showDropdown = true;
     if (!this.inputValue) {
-      this.copyOptions = this.options;
+      this.visibleOptions = this.options;
     }
 
-    this.copyOptions = this.options.filter((option) =>
+    this.visibleOptions = this.options.filter((option) =>
       option.label.toLowerCase().includes(this.inputValue.toLowerCase())
     );
   }

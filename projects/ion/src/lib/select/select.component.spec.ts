@@ -16,14 +16,13 @@ const sut = async (customProps?: IonSelectProps): Promise<void> => {
   });
 };
 
-const getIonSelect = async (): Promise<HTMLElement> =>
-  await screen.getByTestId('ion-select');
+const getIonSelect = (): HTMLElement => screen.getByTestId('ion-select');
 
-const getIonSelectInput = async (): Promise<HTMLElement> =>
-  await screen.getByTestId('ion-select-input');
+const getIonSelectInput = (): HTMLElement =>
+  screen.getByTestId('ion-select-input');
 
-const getOption = async (key: string): Promise<HTMLElement> =>
-  await document.getElementById(`${key}`);
+const getOption = (key: string): HTMLElement =>
+  document.getElementById(`${key}`);
 
 const options: DropdownItem[] = [
   { label: 'option 01', key: 'option-0' },
