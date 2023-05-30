@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/angular';
 import { EventEmitter } from '@angular/core';
 import { IonSelectItemComponent } from './select-item.component';
 import { IonIconModule } from '../../icon/icon.module';
-import { SafeAny } from 'ion/lib/utils/safe-any';
+import { SafeAny } from '../../utils/safe-any';
 interface IonSelectItemProps {
   label: string;
   unselect?: EventEmitter<void>;
