@@ -85,7 +85,6 @@ import {
   time,
   clip,
   total,
-  porcent,
   docGraphic,
   money,
   tagDivision,
@@ -177,8 +176,9 @@ import {
   copy,
   graphic3,
   calendarReserved,
+  percent,
+  mail,
 } from './iconsText';
-import mail from './iconsText/mail';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
 export const iconsPaths: Record<string, string> = {
@@ -294,7 +294,7 @@ export const iconsPaths: Record<string, string> = {
   play,
   'plus-solid': plusSolid,
   plus,
-  porcent,
+  percent,
   process,
   qrcode,
   radio,
