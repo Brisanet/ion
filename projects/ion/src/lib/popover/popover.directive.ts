@@ -19,6 +19,7 @@ import { IonPopoverComponent } from './component/popover.component';
 import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
+import { pick } from 'lodash';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
@@ -47,15 +48,12 @@ export class IonPopoverDirective implements OnDestroy {
     this.closeAllPopovers();
     this.createPopover();
     this.setComponentPosition(position);
-    this.popoverComponentRef.changeDetectorRef.detectChanges();
   }
 
   createPopover(): void {
-    const popover = this.componentFactoryResolver
+    this.popoverComponentRef = this.componentFactoryResolver
       .resolveComponentFactory(IonPopoverComponent)
       .create(this.injector);
-
-    this.popoverComponentRef = popover;
 
     this.appRef.attachView(this.popoverComponentRef.hostView);
 
@@ -63,36 +61,35 @@ export class IonPopoverDirective implements OnDestroy {
       .nativeElement as HTMLElement;
 
     this.document.body.appendChild(popoverElement);
+
     this.popoverComponentRef.changeDetectorRef.detectChanges();
 
-    this.popoverComponentRef.instance.ionPopoverTitle = this.ionPopoverTitle;
+    const popoverInstance = this.popoverComponentRef.instance;
 
-    this.popoverComponentRef.instance.ionPopoverBody = this.ionPopoverBody;
+    const instanceProps = {
+      ionPopoverTitle: this.ionPopoverTitle,
+      ionPopoverBody: this.ionPopoverBody,
+      ionPopoverActions: this.ionPopoverActions,
+      ionPopoverIcon: this.ionPopoverIcon,
+      ionPopoverIconClose: this.ionPopoverIconClose,
+      ionPopoverPosition: this.ionPopoverPosition,
+    };
 
-    this.popoverComponentRef.instance.ionPopoverActions =
-      this.ionPopoverActions;
-
-    this.popoverComponentRef.instance.ionPopoverIcon = this.ionPopoverIcon;
-
-    this.popoverComponentRef.instance.ionPopoverIconClose =
-      this.ionPopoverIconClose;
-
-    this.popoverComponentRef.instance.ionPopoverPosition =
-      this.ionPopoverPosition;
-
-    this.popoverComponentRef.instance.ionOnFirstAction.subscribe(() => {
-      this.closePopover();
-      this.ionOnFirstAction.emit();
+    Object.keys(instanceProps).forEach((prop) => {
+      popoverInstance[prop] = instanceProps[prop];
     });
 
-    this.popoverComponentRef.instance.ionOnSecondAction.subscribe(() => {
-      this.closePopover();
-      this.ionOnSecondAction.emit();
-    });
+    const eventSubscriptions: [string, EventEmitter<void>][] = [
+      ['ionOnFirstAction', this.ionOnFirstAction],
+      ['ionOnSecondAction', this.ionOnSecondAction],
+      ['ionOnClose', this.ionOnClose],
+    ];
 
-    this.popoverComponentRef.instance.ionOnClose.subscribe(() => {
-      this.closePopover();
-      this.ionOnClose.emit();
+    eventSubscriptions.forEach(([event, emitter]) => {
+      popoverInstance[event].subscribe(() => {
+        this.closePopover();
+        emitter.emit();
+      });
     });
   }
 
@@ -107,18 +104,23 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   setComponentPosition(hostElement: SafeAny): void {
-    const { left, right, top, bottom } = hostElement;
-    const hostPositions = { left, right, top, bottom };
+    const hostPositions = pick(hostElement, ['left', 'right', 'top', 'bottom']);
     const positions = getPositionsPopover(
       hostPositions,
       this.ionPopoverArrowPointAtCenter
     );
 
-    this.popoverComponentRef.instance.left =
-      positions[this.ionPopoverPosition].left;
-    this.popoverComponentRef.instance.top =
-      positions[this.ionPopoverPosition].top;
-    this.popoverComponentRef.instance.position = 'absolute';
+    const props = {
+      left: positions[this.ionPopoverPosition].left,
+      top: positions[this.ionPopoverPosition].top,
+      position: 'absolute',
+    };
+
+    Object.keys(props).forEach((prop) => {
+      this.popoverComponentRef.instance[prop] = props[prop];
+    });
+
+    this.popoverComponentRef.changeDetectorRef.detectChanges();
   }
 
   closePopover(): void {
