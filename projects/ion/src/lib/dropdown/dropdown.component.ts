@@ -157,6 +157,9 @@ export class IonDropdownComponent
     if (this.multiple) {
       this.required = false;
     }
+    setTimeout(() => {
+      this.setClearButtonIsVisible();
+    });
     this.getSelected();
   }
 
