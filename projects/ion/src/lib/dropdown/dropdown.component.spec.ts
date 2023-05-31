@@ -246,7 +246,6 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
 
   it('should render with value selected when arraySelecteds is passed', async () => {
     await sut(multipleWithInitalValue);
-    screen.debug();
     const elementToSelect = document.getElementById('option-1');
     expect(elementToSelect).toHaveClass('dropdown-item-selected');
   });
