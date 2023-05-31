@@ -323,13 +323,14 @@ describe('With Dropdown with search input', () => {
 
   it('should close dropdown on click outside element', async () => {
     expect(getContainerDropdown()).toBeTruthy();
-    userEvent.click(document.body);
-    expect(getContainerDropdown()).toBe(null);
-  });
 
-  it('should close dropdown on click outside element', async () => {
-    expect(getContainerDropdown()).toBeTruthy();
-    userEvent.click(document.body);
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+
+    fireEvent.click(fakeDiv);
+    fireEvent.click(fakeDiv);
+
     expect(getContainerDropdown()).toBe(null);
   });
 
