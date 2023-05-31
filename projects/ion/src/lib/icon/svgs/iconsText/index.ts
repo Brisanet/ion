@@ -95,6 +95,7 @@ export { default as messageBallon } from './message-ballon';
 export { default as motorcycle } from './motorcycle';
 export { default as module } from './module';
 export { default as money } from './money';
+export { default as more } from './more';
 export { default as moduleBox } from './module-box';
 export { default as negotiation } from './negotiation';
 export { default as netflix } from './netflix';
