@@ -61,11 +61,11 @@ export class IonPopoverDirective implements OnDestroy {
       .nativeElement as HTMLElement;
 
     this.document.body.appendChild(popoverElement);
-
     this.popoverComponentRef.changeDetectorRef.detectChanges();
+    this.updatePopoverProps(this.popoverComponentRef.instance);
+  }
 
-    const popoverInstance = this.popoverComponentRef.instance;
-
+  updatePopoverProps(popoverInstance: IonPopoverComponent): void {
     const instanceProps = {
       ionPopoverTitle: this.ionPopoverTitle,
       ionPopoverBody: this.ionPopoverBody,
@@ -74,7 +74,6 @@ export class IonPopoverDirective implements OnDestroy {
       ionPopoverIconClose: this.ionPopoverIconClose,
       ionPopoverPosition: this.ionPopoverPosition,
     };
-
     Object.keys(instanceProps).forEach((prop) => {
       popoverInstance[prop] = instanceProps[prop];
     });
@@ -84,7 +83,6 @@ export class IonPopoverDirective implements OnDestroy {
       ['ionOnSecondAction', this.ionOnSecondAction],
       ['ionOnClose', this.ionOnClose],
     ];
-
     eventSubscriptions.forEach(([event, emitter]) => {
       popoverInstance[event].subscribe(() => {
         this.closePopover();
