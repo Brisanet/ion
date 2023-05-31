@@ -61,7 +61,6 @@ export const MultipleSelect = Template.bind({});
 MultipleSelect.args = {
   options: optionsWithMultiple,
   multiple: true,
-
   selected: action('selected'),
   optionsScroll: action('optionsScroll'),
 };
