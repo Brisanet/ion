@@ -5,7 +5,6 @@ import {
   Output,
   OnInit,
   DoCheck,
-  OnDestroy,
   AfterViewInit,
 } from '@angular/core';
 import {
@@ -55,9 +54,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent
-  implements OnInit, AfterViewInit, DoCheck, OnDestroy
-{
+export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -126,7 +123,7 @@ export class ChipComponent
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-    if (selecteds) {
+    if (selecteds.length) {
       if (this.multiple) {
         this.setBadgeValue(selecteds.length);
         return;
@@ -179,17 +176,11 @@ export class ChipComponent
       this.showDropdown = false;
     }
   }
-
+  
   ngAfterViewInit(): void {
     if (this.showToggle) {
       return;
     }
-
-    document.addEventListener('click', (e) => this.closeDropdown(e));
-  }
-
-  ngOnDestroy(): void {
-    document.removeEventListener('click', this.closeDropdown);
   }
 
   updateLabel(): void {
@@ -226,8 +217,15 @@ export class ChipComponent
     this.firstCheck = false;
   }
 
+  closeDropdown(): void {
+    if (this.showDropdown) {
+      this.showDropdown = false;
+    }
+  }
+
   setTempOptions(selectedArray: DropdownItem[]): void {
     this.tempFilter = selectedArray;
+    this.closeDropdown();
   }
 
   private setBadgeValue(newValue: number): void {
