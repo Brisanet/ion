@@ -158,25 +158,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     return (this.options || []).filter((option) => option.selected);
   }
 
-  closeDropdown(event: MouseEvent): void {
-    const element = event.target as HTMLElement;
-
-    if (element.nodeName === 'path') {
-      return;
-    }
-
-    const chipContainer = document.getElementById(this.chipId);
-    if (chipContainer && chipContainer.contains(element)) {
-      return;
-    }
-
-    const dropdownContainer = document.getElementById(this.dropdownId);
-    if (dropdownContainer && !dropdownContainer.contains(element)) {
-      this.isChipWithGroup && (this.selected = !this.selected);
-      this.showDropdown = false;
-    }
-  }
-  
   ngAfterViewInit(): void {
     if (this.showToggle) {
       return;
