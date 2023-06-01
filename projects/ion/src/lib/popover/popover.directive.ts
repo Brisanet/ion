@@ -91,17 +91,7 @@ export class IonPopoverDirective implements OnDestroy {
     });
   }
 
-  closeAllPopovers(): void {
-    const existingPopovers = document.querySelectorAll('ion-popover');
-    if (existingPopovers) {
-      this.closePopover();
-      existingPopovers.forEach((popover) => {
-        popover.remove();
-      });
-    }
-  }
-
-  setComponentPosition(hostElement: SafeAny): void {
+  setComponentPosition(hostElement: DOMRect): void {
     const hostPositions = pick(hostElement, ['left', 'right', 'top', 'bottom']);
     const positions = getPositionsPopover(
       hostPositions,
@@ -119,6 +109,16 @@ export class IonPopoverDirective implements OnDestroy {
     });
 
     this.popoverComponentRef.changeDetectorRef.detectChanges();
+  }
+
+  closeAllPopovers(): void {
+    const existingPopovers = document.querySelectorAll('ion-popover');
+    if (existingPopovers) {
+      this.closePopover();
+      existingPopovers.forEach((popover) => {
+        popover.remove();
+      });
+    }
   }
 
   closePopover(): void {
