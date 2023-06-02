@@ -174,20 +174,10 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     { label: 'Horse', selected: true },
   ];
 
-  const initialValue = [{ label: 'Option 1', selected: true }];
-
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
-    selected: {
-      emit: selectEvent,
-    } as SafeAny,
-  };
-
-  const multipleWithInitalValue = {
-    options,
-    multiple: true,
-    arraySelecteds: initialValue,
+    arraySelecteds: optionsWithMultiple,
     selected: {
       emit: selectEvent,
     } as SafeAny,
@@ -245,13 +235,13 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
   });
 
   it('should render with value selected when arraySelecteds is passed', async () => {
-    await sut(multipleWithInitalValue);
+    await sut(defaultMultiple);
     const elementToSelect = document.getElementById('option-1');
     expect(elementToSelect).toHaveClass('dropdown-item-selected');
   });
 
   it('should emmit event when reach the final of scrollable dropdown', async () => {
-    await sut(multipleWithInitalValue);
+    await sut(defaultMultiple);
     const elementToScroll = document.getElementById('option-list');
     const scrollsize =
       elementToScroll.scrollHeight + elementToScroll.clientHeight;
@@ -264,7 +254,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
   });
 
   it('should render with clear button when selected array is passed', async () => {
-    await sut(multipleWithInitalValue);
+    await sut(defaultMultiple);
     const clearButton = screen.getByTestId('button-clear');
     expect(clearButton).toBeInTheDocument();
   });
