@@ -1,10 +1,16 @@
 import { EventEmitter } from '@angular/core';
 import { DropdownItem } from './dropdown';
 
+type Mode = 'default' | 'multiple';
+
 export interface IonSelectProps {
-  showToggle?: boolean;
-  showDropdown?: boolean;
+  mode?: Mode;
   placeholder?: string;
   options?: DropdownItem[];
-  selected?: EventEmitter<DropdownItem>;
+  events?: EventEmitter<DropdownItem[]>;
+}
+
+export interface IonSelectItemProps {
+  label: string;
+  unselect?: EventEmitter<void>;
 }
