@@ -1,13 +1,12 @@
 import {
   Component,
-  Input,
-  Output,
-  AfterViewInit,
   EventEmitter,
+  Input,
   OnInit,
-  DoCheck,
-  OnDestroy,
+  Output,
+  ViewChild,
 } from '@angular/core';
+import { IonSelectProps } from '../core/types/select';
 import { DropdownItem } from '../core/types';
 
 @Component({
@@ -15,113 +14,97 @@ import { DropdownItem } from '../core/types';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class IonSelectComponent
-  implements OnInit, AfterViewInit, DoCheck, OnDestroy
-{
-  @Input() showToggle = false;
-  @Input() showDropdown = false;
-  @Input() placeholder = 'Choose a option';
-  @Input() options: DropdownItem[] = [];
+export class IonSelectComponent implements OnInit {
+  @ViewChild('ionSelectInput', { static: true }) ionSelectInput;
+  @Input() mode: IonSelectProps['mode'] = 'default';
+  @Input() placeholder = '';
+  @Input() options: IonSelectProps['options'] = [];
+  @Output() events = new EventEmitter<IonSelectProps['options']>();
 
-  @Output() selected = new EventEmitter<DropdownItem>();
-
-  search = false;
+  showDropdown = false;
+  option = '';
   inputValue = '';
-  inputId: string;
-  dropdownId: string;
+  selectedOptions: IonSelectProps['options'] = [];
+  visibleOptions: IonSelectProps['options'] = [];
 
-  toggleDropdown(): void {
-    if (this.showToggle) {
-      this.showDropdown = true;
-      return;
-    }
+  ngOnInit(): void {
+    this.visibleOptions = this.options;
+  }
 
+  handleClick(): void {
+    this.focusInput();
     this.showDropdown = !this.showDropdown;
   }
 
-  ngOnInit(): void {
-    this.updateLabel();
-    this.inputId = this.generateId('ion-select__input-container-');
-    this.dropdownId = this.generateId('ion-select__dropdown-container-');
+  focusInput(): void {
+    this.ionSelectInput.nativeElement.focus();
   }
 
-  generateId = (name: string): string =>
-    name + Math.floor(Math.random() * 100000000) + 1;
+  selected(selectedOptions: IonSelectProps['options']): void {
+    this.events.emit(selectedOptions);
+    this.inputValue = '';
+    this.visibleOptions = this.options;
 
-  closeDropdown(event: MouseEvent): void {
-    const element = event.target as HTMLElement;
-
-    if (element.nodeName === 'path') {
-      return;
-    }
-
-    const chipContainer = document.getElementById(this.inputId);
-    if (chipContainer && chipContainer.contains(element)) {
-      return;
-    }
-
-    const dropdownContainer = document.getElementById(this.dropdownId);
-    if (dropdownContainer && !dropdownContainer.contains(element)) {
+    if (this.mode !== 'multiple') {
+      this.standardizeOptions(selectedOptions);
       this.showDropdown = false;
-    }
-  }
-
-  ngAfterViewInit(): void {
-    if (this.showToggle) {
       return;
     }
 
-    document.addEventListener('click', (e) => this.closeDropdown(e));
+    this.selectedOptions = this.options.filter((option) => option.selected);
   }
 
-  ngDoCheck(): void {
-    this.updateLabel();
-  }
+  standardizeOptions(selectedOptions: IonSelectProps['options']): void {
+    this.unselectAllOptions();
 
-  selectedOptions(event: DropdownItem[]): void {
-    const [option] = event;
-    this.inputValue = option.label;
-    this.selected.emit(option);
-  }
-
-  uncheckedOptionsInSelect(event: string): void {
-    if (!event) {
-      this.options.forEach((item: DropdownItem) => {
-        item.selected = false;
-      });
-
-      this.clearInput();
-    }
-  }
-
-  updateLabel(): void {
-    if (!this.options || (this.options && this.options.length === 0)) {
+    if (selectedOptions.length) {
+      const [optionSelected] = this.options.filter(
+        (option) => option.label === selectedOptions[0].label
+      );
+      optionSelected.selected = true;
+      this.option = optionSelected.label;
       return;
     }
+    this.option = '';
+  }
 
-    if (!this.hasSelectedOptions()) {
-      return;
-    }
+  clearSelectedOptions(): void {
+    this.selectedOptions = [];
+    this.inputValue = '';
+    this.option = '';
+    this.unselectAllOptions();
+  }
 
-    const [{ label }] = this.options.filter(
-      (option) => option.selected === true
+  unselectAllOptions(): void {
+    this.options.forEach((option) => (option.selected = false));
+  }
+
+  unselectOption(currentOption: DropdownItem): void {
+    const item = this.options.find(
+      (option) => option.label === currentOption.label
     );
 
-    if (this.inputValue === label) {
-      return;
+    item.selected = false;
+
+    this.selectedOptions = this.selectedOptions.filter(
+      (option) => option.label !== currentOption.label
+    );
+  }
+
+  onSearchChange(): void {
+    this.showDropdown = true;
+    if (!this.inputValue) {
+      this.visibleOptions = this.options;
     }
 
-    this.inputValue = label;
+    this.visibleOptions = this.options.filter((option) =>
+      option.label.toLowerCase().includes(this.inputValue.toLowerCase())
+    );
   }
 
-  hasSelectedOptions = (): boolean =>
-    this.options.some((option) => option.selected === true);
-
-  clearInput(): void {
-    this.inputValue = '';
-  }
-
-  ngOnDestroy(): void {
-    document.removeEventListener('click', this.closeDropdown);
+  onCloseDropdown(): void {
+    if (this.showDropdown) {
+      this.showDropdown = false;
+    }
   }
 }
