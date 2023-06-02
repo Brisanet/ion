@@ -61,7 +61,8 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-    show: (row: SafeAny): boolean => {
+
+    disabled: (row: SafeAny): boolean => {
       return !row.deleted;
     },
     call: (row: SafeAny): void => {
@@ -77,6 +78,32 @@ const actions = [
   {
     label: 'Editar',
     icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.name;
+    },
+    call: (row: SafeAny): void => {
+      row.name = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'Você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
+  },
+  {
+    label: 'Teste',
+    icon: 'pencil',
+    show: (row: SafeAny): boolean => {
+      return !row.year;
+    },
+    call: (row: SafeAny): void => {
+      row.year = '';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+      description: 'Você estará excluindo um disco da sua base de dados!',
+      type: 'negative',
+    },
   },
 ];
 
@@ -116,7 +143,7 @@ export const SortWithDebounce = Template.bind({});
 SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
 
 export const LargePagination = Template.bind({});
-LargePagination.args = returnTableConfig(data, columns, actions, 2000);
+LargePagination.args = returnTableConfig(data, columns, actions, 110);
 
 export const CustomPageSizeOptions = Template.bind({});
 CustomPageSizeOptions.args = returnTableConfig(

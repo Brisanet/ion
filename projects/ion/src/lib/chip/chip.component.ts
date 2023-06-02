@@ -4,9 +4,8 @@ import {
   Input,
   Output,
   OnInit,
-  AfterViewInit,
   DoCheck,
-  OnDestroy,
+  AfterViewInit,
 } from '@angular/core';
 import {
   BadgeType,
@@ -55,9 +54,7 @@ interface RightBadge {
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })
-export class ChipComponent
-  implements OnInit, AfterViewInit, DoCheck, OnDestroy
-{
+export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -71,6 +68,7 @@ export class ChipComponent
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
+  @Input() required = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
@@ -81,6 +79,12 @@ export class ChipComponent
   badge: Badge = {
     value: 0,
   };
+
+  tempFilter: DropdownItem[] = [];
+
+  placeholder = '';
+
+  firstCheck = true;
 
   select(): void {
     this.toggleDropdown();
@@ -111,16 +115,19 @@ export class ChipComponent
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-
-    if (selecteds && this.multiple) {
-      this.setBadgeValue(selecteds.length);
+    if (selecteds.length) {
+      if (this.multiple) {
+        this.setBadgeValue(selecteds.length);
+        return;
+      }
+      this.setPlaceHolder(selecteds[0].label);
     }
+  }
 
-    if (!this.multiple) {
-      this.label = selecteds[0].label;
-      this.selected = false;
-      this.toggleDropdown();
-    }
+  setPlaceHolder(label: string): void {
+    this.placeholder = label || this.label;
+    this.selected = false;
+    this.toggleDropdown();
   }
 
   dropdownSearchChange(value: string): void {
@@ -128,7 +135,6 @@ export class ChipComponent
   }
 
   ngOnInit(): void {
-    this.updateLabel();
     this.chipId = this.generateId('ion-chip__container-');
     this.dropdownId = this.generateId('ion-chip__container-dropdown-');
   }
@@ -144,37 +150,19 @@ export class ChipComponent
     return (this.options || []).filter((option) => option.selected);
   }
 
-  closeDropdown(event: MouseEvent): void {
-    const element = event.target as HTMLElement;
-
-    if (element.nodeName === 'path') {
-      return;
-    }
-
-    const chipContainer = document.getElementById(this.chipId);
-    if (chipContainer && chipContainer.contains(element)) {
-      return;
-    }
-
-    const dropdownContainer = document.getElementById(this.dropdownId);
-    if (dropdownContainer && !dropdownContainer.contains(element)) {
-      this.showDropdown = false;
-    }
-  }
-
   ngAfterViewInit(): void {
     if (this.showToggle) {
       return;
     }
-
-    document.addEventListener('click', (e) => this.closeDropdown(e));
-  }
-
-  ngOnDestroy(): void {
-    document.removeEventListener('click', this.closeDropdown);
   }
 
   updateLabel(): void {
+    this.placeholder = this.label;
+    if (this.firstCheck) {
+      this.firstUpdateLabel();
+      return;
+    }
+
     if (this.multiple || (this.options && this.options.length === 0)) {
       return;
     }
@@ -185,11 +173,32 @@ export class ChipComponent
       return;
     }
 
-    if (this.label === selectedOption.label) {
-      return;
-    }
+    this.placeholder = selectedOption.label;
+  }
 
-    this.label = selectedOption.label;
+  firstUpdateLabel(): void {
+    if (!this.multiple && this.options) {
+      const optionSelected = this.options.find(
+        (option) => option.selected === true
+      );
+      if (optionSelected) {
+        this.placeholder = optionSelected.label || '';
+      }
+    } else {
+      this.placeholder = this.label;
+    }
+    this.firstCheck = false;
+  }
+
+  closeDropdown(): void {
+    if (this.showDropdown) {
+      this.showDropdown = false;
+    }
+  }
+
+  setTempOptions(selectedArray: DropdownItem[]): void {
+    this.tempFilter = selectedArray;
+    this.closeDropdown();
   }
 
   private setBadgeValue(newValue: number): void {

@@ -21,6 +21,7 @@ const tabs = [];
 for (let index = 1; index <= 8; index++) {
   tabs.push({
     label: 'Tab ' + index,
+
     selected: false,
   });
 }
@@ -37,6 +38,12 @@ export const Horizontal = Template.bind({});
 Horizontal.args = {
   tabs,
 
+  selected: action('selected'),
+};
+
+export const HorizontalDisabled = Template.bind({});
+HorizontalDisabled.args = {
+  tabs: [...tabs, { label: 'disabled tab', disabled: true }],
   selected: action('selected'),
 };
 
@@ -114,4 +121,22 @@ const tabsIcons = Object.keys(iconsPaths).map((icon) => {
 tabsWithIcons.args = {
   tabs: tabsIcons,
   direction: 'vertical',
+};
+
+export const WithBadges = Template.bind({});
+WithBadges.args = {
+  tabs: [
+    {
+      label: 'With badge',
+      selected: true,
+      badge: {
+        value: 20,
+      },
+    },
+    {
+      label: 'Without badge',
+      selected: false,
+    },
+  ],
+  selected: action('selected'),
 };

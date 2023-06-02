@@ -1,21 +1,79 @@
-.ion-select__container-dropdown {
-  position: relative;
+@import '../../styles/index.scss';
 
-  &::ng-deep ion-dropdown {
-    &::ng-deep .container-options {
+:host {
+  position: relative;
+  width: 100%;
+
+  ::ng-deep ion-dropdown {
+    .container-options {
       left: 0;
       right: 0;
-      width: auto !important;
+      width: auto;
+      margin-top: 4px;
     }
   }
 }
 
-.ion-select__container-input {
-  ::ng-deep div.input-container {
-    .input{
-      input, ion-icon {
-        cursor: pointer;
-      }
+.ion-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  height: 32px;
+  min-width: 120px;
+
+  border-radius: 8px;
+  border: 1px solid $neutral-5;
+  cursor: text;
+
+  &:hover {
+    border-color: $primary-4;
+  }
+
+  &:focus-within {
+    border-color: $primary-5;
+    box-shadow: 0px 0px 0px 2px $primary-2;
+
+    p.ion-select-item-selected {
+      color: $neutral-5;
     }
+  }
+
+  div.ion-select-container {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    overflow: hidden;
+  }
+
+  input {
+    margin-inline-start: 12px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    width: 100%;
+
+    &.ion-select-item-selected {
+      width: 4px;
+    }
+  }
+
+  p,
+  input {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+
+  .icon {
+    display: flex;
+    margin-inline-end: 8px;
+  }
+
+  p.ion-select-item-selected {
+    margin: 0;
+    max-height: 32px;
+    overflow: hidden;
   }
 }
