@@ -147,4 +147,24 @@ describe('IonTabGroupComponent', () => {
     expect(screen.getByTestId('badge-tab')).toBeInTheDocument();
     expect(screen.getByText(badgeValue)).toBeInTheDocument();
   });
+
+  it('should have a disabled tab when informed', async () => {
+    const disabledTabLabel = 'disabled tab';
+    await sut({
+      direction: 'horizontal',
+      tabs: [
+        ...mockTabs,
+        {
+          label: disabledTabLabel,
+          selected: false,
+          disabled: true,
+        },
+      ],
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+
+    expect(screen.getByText(disabledTabLabel)).toBeDisabled();
+  });
 });
