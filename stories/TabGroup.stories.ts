@@ -21,6 +21,7 @@ const tabs = [];
 for (let index = 1; index <= 8; index++) {
   tabs.push({
     label: 'Tab ' + index,
+
     selected: false,
   });
 }
@@ -37,6 +38,12 @@ export const Horizontal = Template.bind({});
 Horizontal.args = {
   tabs,
 
+  selected: action('selected'),
+};
+
+export const HorizontalDisabled = Template.bind({});
+HorizontalDisabled.args = {
+  tabs: [...tabs, { label: 'disabled tab', disabled: true }],
   selected: action('selected'),
 };
 

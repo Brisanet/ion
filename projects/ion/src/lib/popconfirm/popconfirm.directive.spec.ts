@@ -298,7 +298,6 @@ describe('Popconfirm disabled host component', () => {
 describe('Popconfirm position when it opens', () => {
   let fixtureTable: ComponentFixture<TableTestComponent>;
   let directive: IonPopConfirmDirective;
-  let input: DebugElement;
 
   beforeEach(() => {
     fixtureTable = TestBed.configureTestingModule({
@@ -320,9 +319,6 @@ describe('Popconfirm position when it opens', () => {
 
     fixtureTable.detectChanges();
     directive = fixtureTable.debugElement.injector.get(IonPopConfirmDirective);
-    input = fixtureTable.debugElement.query(
-      By.directive(IonPopConfirmDirective)
-    );
 
     fireEvent.click(screen.getByText(tableTextButton));
     directive.open();
