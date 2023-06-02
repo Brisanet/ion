@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { LineType, Status, StatusType, StepType } from '../core/types/steps';
+import { Status, StatusType, StepType } from '../core/types/steps';
 
 @Component({
   selector: 'ion-steps',
