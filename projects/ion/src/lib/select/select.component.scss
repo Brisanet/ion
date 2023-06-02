@@ -2,6 +2,7 @@
 
 :host {
   position: relative;
+  width: 100%;
 
   ::ng-deep ion-dropdown {
     .container-options {
@@ -67,5 +68,9 @@
   .icon {
     display: flex;
     margin-inline-end: 8px;
+  }
+
+  p.ion-select-item-selected {
+    margin: 0;
   }
 }
