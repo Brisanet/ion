@@ -143,7 +143,7 @@ export const SortWithDebounce = Template.bind({});
 SortWithDebounce.args = returnTableConfig(data, columns, actions, 2, 2000);
 
 export const LargePagination = Template.bind({});
-LargePagination.args = returnTableConfig(data, columns, actions, 2000);
+LargePagination.args = returnTableConfig(data, columns, actions, 110);
 
 export const CustomPageSizeOptions = Template.bind({});
 CustomPageSizeOptions.args = returnTableConfig(

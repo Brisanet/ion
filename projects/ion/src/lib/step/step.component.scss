@@ -15,11 +15,6 @@
   }
 }
 
-@mixin setAlignAndWidthText($align, $maxWidth) {
-  text-align: $align;
-  max-width: $maxWidth;
-}
-
 .steps-container {
   display: flex;
 }
@@ -39,6 +34,10 @@
 
       &.bolded {
         background-color: $primary-6;
+      }
+
+      &.transparent {
+        background-color: transparent !important;
       }
     }
 
@@ -70,7 +69,8 @@
     word-break: break-all;
     padding: spacing(0.5) spacing(1);
     box-sizing: border-box;
-    @include setAlignAndWidthText(center, 183px);
+    text-align: center;
+    max-width: 183px;
   }
 
   .label {
@@ -120,20 +120,6 @@
         background-color: $neutral-4;
       }
     }
-  }
-}
-
-.step:first-child {
-  .label,
-  .description {
-    @include setAlignAndWidthText(left, 118.5px);
-  }
-}
-
-.step:last-child {
-  .label,
-  .description {
-    @include setAlignAndWidthText(right, 118.5px);
   }
 }
 
