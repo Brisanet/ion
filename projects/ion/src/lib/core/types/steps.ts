@@ -1,9 +1,3 @@
-import { EventEmitter } from '@angular/core';
-import { BadgeType } from './badge';
-import { DropdownItem, DropdownParams } from './dropdown';
-import { IconDirection } from './icon';
-import { InfoBadgeStatus } from './info-badge';
-
 export type StatusType = 'default' | 'selected' | 'checked' | 'error';
 
 export interface StepType {
