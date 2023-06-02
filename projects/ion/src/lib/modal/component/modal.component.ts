@@ -6,6 +6,7 @@ import {
   EventEmitter,
   HostListener,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   Type,
@@ -23,7 +24,7 @@ import {
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
-export class IonModalComponent implements OnInit {
+export class IonModalComponent implements OnInit, OnDestroy {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody: ViewContainerRef;
   @ViewChild('dialogElement', { static: true })
@@ -99,5 +100,13 @@ export class IonModalComponent implements OnInit {
       );
     }
     this.dialogElement.nativeElement.focus();
+
+    const appRootContainer = document.querySelector('app-root');
+    appRootContainer && appRootContainer.setAttribute('inert', 'true');
+  }
+
+  ngOnDestroy(): void {
+    const appRootContainer = document.querySelector('app-root');
+    appRootContainer && appRootContainer.removeAttribute('inert');
   }
 }
