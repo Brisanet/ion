@@ -291,10 +291,12 @@ describe('IonDropdownComponent / With Search', () => {
     userEvent.type(searchInput, search);
     expect(searchEvent).toHaveBeenLastCalledWith(search);
   });
+
   it('should show empty placeholder when a placeholder is not provided', async () => {
     await sut(defaultWithSearch);
     expect(screen.getByTestId(inputElement)).toHaveAttribute('placeholder', '');
   });
+
   it('should show search icon when an icon is not provided', async () => {
     await sut(defaultWithSearch);
     expect(document.getElementById('ion-icon-search')).toBeTruthy();
