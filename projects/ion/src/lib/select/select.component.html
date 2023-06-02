@@ -1,24 +1,44 @@
-<div class="ion-select__container-input" [id]="inputId">
-  <ion-input
-    [placeholder]="placeholder"
-    (click)="toggleDropdown()"
-    iconDirection="right"
-    [iconInput]="search ? 'search' : showDropdown ? 'semi-down' : 'semi-up'"
-    [readonly]="!search"
-    [value]="inputValue"
-    [clearButton]="inputValue"
-    (valueChange)="uncheckedOptionsInSelect($event)"
-  ></ion-input>
-</div>
+<div class="ion-select" (click)="handleClick()" data-testid="ion-select">
+  <div class="ion-select-container">
+    <ion-select-item
+      *ngFor="let option of selectedOptions; let i = index"
+      [attr.data-testid]="'ion-select-item-selected-' + i"
+      [label]="option.label"
+      (unselect)="unselectOption(option)"
+    ></ion-select-item>
 
-<div
-  [id]="dropdownId"
-  class="ion-select__container-dropdown"
-  *ngIf="showDropdown"
->
-  <ion-dropdown
-    [options]="options"
-    (selected)="selectedOptions($event)"
-    (clearBadgeValue)="clearInput()"
-  ></ion-dropdown>
+    <input
+      #ionSelectInput
+      type="text"
+      data-testid="ion-select-input"
+      [placeholder]="option || selectedOptions.length > 0 ? '' : placeholder"
+      [(ngModel)]="inputValue"
+      (input)="onSearchChange()"
+      [ngClass]="{
+        'ion-select-item-selected': mode === 'default' && option && !inputValue
+      }"
+    />
+
+    <p
+      data-testid="ion-select-item-selected"
+      *ngIf="mode !== 'multiple' && !inputValue"
+      [class]="!inputValue && 'ion-select-item-selected'"
+    >
+      {{ option }}
+    </p>
+  </div>
+  <div>
+    <ion-icon
+      class="icon"
+      [type]="showDropdown ? 'semi-up' : 'semi-down'"
+    ></ion-icon>
+  </div>
 </div>
+<ion-dropdown
+  *ngIf="showDropdown"
+  [options]="visibleOptions"
+  (selected)="selected($event)"
+  [multiple]="mode === 'multiple'"
+  (clearBadgeValue)="clearSelectedOptions()"
+  (closeDropdown)="onCloseDropdown()"
+></ion-dropdown>
