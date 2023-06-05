@@ -25,6 +25,7 @@ const data = [
     deleted: true,
     year: 2000,
     icon: 'star-solid',
+    status: 'warning',
   },
   {
     id: 4,
@@ -32,6 +33,7 @@ const data = [
     deleted: false,
     year: 2007,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 5,
@@ -39,6 +41,7 @@ const data = [
     deleted: false,
     year: 2010,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 6,
@@ -46,6 +49,7 @@ const data = [
     deleted: false,
     year: 2012,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 7,
@@ -53,6 +57,7 @@ const data = [
     deleted: false,
     year: 2014,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 8,
@@ -60,6 +65,7 @@ const data = [
     deleted: true,
     year: 2000,
     icon: 'star-solid',
+    status: 'warning',
   },
   {
     id: 9,
@@ -67,6 +73,7 @@ const data = [
     deleted: false,
     year: 2007,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 10,
@@ -74,6 +81,7 @@ const data = [
     deleted: false,
     year: 2010,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 11,
@@ -81,6 +89,7 @@ const data = [
     deleted: false,
     year: 2012,
     icon: 'union',
+    status: 'info',
   },
   {
     id: 12,
@@ -88,6 +97,7 @@ const data = [
     deleted: false,
     year: 2014,
     icon: 'union',
+    status: 'info',
   },
 ];
 
@@ -173,6 +183,7 @@ WithTagByColumn.args = {
         type: 'tag',
         tag: {
           icon: 'check',
+          status: 'success',
         },
       },
     ],
@@ -194,6 +205,7 @@ WithTagByRow.args = {
         type: 'tag',
         tag: {
           iconKey: 'icon',
+          statusKey: 'status',
         },
       },
     ],

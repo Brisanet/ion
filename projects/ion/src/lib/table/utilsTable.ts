@@ -1,3 +1,4 @@
+import { TagStatus } from './../core/types/status';
 import { ConfigSmartTable, StatusType } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 
@@ -16,6 +17,8 @@ export enum ColumnType {
 interface TagRow {
   icon?: string;
   iconKey?: string;
+  status?: TagStatus;
+  statusKey?: string;
 }
 export interface Column {
   label: string;
