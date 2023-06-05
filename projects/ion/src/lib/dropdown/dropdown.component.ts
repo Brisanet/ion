@@ -26,7 +26,7 @@ export class IonDropdownComponent
 {
   @Input() options: DropdownItem[] = [];
   @Input() arraySelecteds: DropdownItem[] = [];
-  @Input() selectedMaxLength: DropdownParams['selectedMaxLength'];
+  @Input() selectedMaxLength?: DropdownParams['selectedMaxLength'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
