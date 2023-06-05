@@ -43,88 +43,98 @@ $arrow-size: 4.5px;
   }
 }
 
-.sup-container {
-  &-leftTop {
-    transform: translate(
-      calc(-100% - $popover-spacing),
-      calc(-100% + calc($popover-spacing + $arrow-size))
-    );
-    @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
+.ion-popover {
+  &__sup-container {
+    &--leftTop {
+      transform: translate(
+        calc(-100% - $popover-spacing),
+        calc(-100% + calc($popover-spacing + $arrow-size))
+      );
+      @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
+    }
+
+    &--topLeft {
+      transform: translate(
+        calc(-100% + ($arrow-size * 2)),
+        calc(-100% - $popover-spacing - $arrow-size)
+      );
+      @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
+    }
+
+    &--topCenter {
+      transform: translate(-50%, calc(-100% - $popover-spacing - $arrow-size));
+      @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
+    }
+
+    &--topRight {
+      transform: translate(
+        ($arrow-size * -2),
+        calc(-100% - $popover-spacing - $arrow-size)
+      );
+      @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
+    }
+
+    &--rightTop {
+      transform: translateY(calc(-100% + calc($popover-spacing + $arrow-size)));
+      margin-left: $popover-spacing;
+      @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
+    }
+
+    &--leftBottom {
+      transform: translate(
+        calc(-100% - $popover-spacing),
+        -($popover-spacing + $arrow-size) * 2
+      );
+      @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
+    }
+
+    &--bottomLeft {
+      transform: translate(
+        calc(-100% + $arrow-size * 2),
+        $popover-spacing + $arrow-size
+      );
+      @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
+    }
+
+    &--bottomCenter {
+      transform: translate(-50%, $popover-spacing + $arrow-size);
+      @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
+    }
+
+    &--bottomRight {
+      transform: translate($arrow-size * -2, $popover-spacing + $arrow-size);
+      @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
+    }
+
+    &--rightBottom {
+      transform: translateY(-($popover-spacing + $arrow-size));
+      margin-left: $popover-spacing;
+      @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
+    }
   }
 
-  &-topLeft {
-    transform: translate(
-      calc(-100% + ($arrow-size * 2)),
-      calc(-100% - $popover-spacing - $arrow-size)
-    );
-    @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
+  .container {
+    z-index: $zIndexLow;
   }
 
-  &-topCenter {
-    transform: translate(-50%, calc(-100% - $popover-spacing - $arrow-size));
-    @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
+  &__header {
+    display: flex;
+    background-color: $neutral-2;
+    justify-content: space-between;
+    align-items: center;
+    height: 24px;
+    padding: spacing(1.5) spacing(2);
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 10.5px;
+      overflow: hidden;
+      align-items: center;
+    }
   }
 
-  &-topRight {
-    transform: translate(
-      ($arrow-size * -2),
-      calc(-100% - $popover-spacing - $arrow-size)
-    );
-    @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
-  }
-
-  &-rightTop {
-    transform: translateY(calc(-100% + calc($popover-spacing + $arrow-size)));
-    margin-left: $popover-spacing;
-    @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
-  }
-
-  &-leftBottom {
-    transform: translate(
-      calc(-100% - $popover-spacing),
-      -($popover-spacing + $arrow-size) * 2
-    );
-    @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
-  }
-
-  &-bottomLeft {
-    transform: translate(
-      calc(-100% + $arrow-size * 2),
-      $popover-spacing + $arrow-size
-    );
-    @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
-  }
-
-  &-bottomCenter {
-    transform: translate(-50%, $popover-spacing + $arrow-size);
-    @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
-  }
-
-  &-bottomRight {
-    transform: translate($arrow-size * -2, $popover-spacing + $arrow-size);
-    @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
-  }
-
-  &-rightBottom {
-    transform: translateY(-($popover-spacing + $arrow-size));
-    margin-left: $popover-spacing;
-    @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
-  }
-}
-
-.container {
-  z-index: $zIndexLow;
-}
-
-.header {
-  display: flex;
-  background-color: $neutral-2;
-  justify-content: space-between;
-  align-items: center;
-  height: 24px;
-  padding: spacing(1.5) spacing(2);
-
-  h4 {
+  &__title {
     font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 600;
@@ -133,62 +143,54 @@ $arrow-size: 4.5px;
     color: $neutral-8;
   }
 
-  & > div {
-    display: flex;
-    align-items: center;
-    gap: 10.5px;
-    overflow: hidden;
-    align-items: center;
-  }
-
-  &_icon {
+  &__icon {
     ::ng-deep svg {
       fill: $primary-6;
     }
   }
 
-  &_iconClose {
+  &__icon-close {
     cursor: pointer;
     ::ng-deep svg {
       fill: $primary-6;
     }
   }
-}
 
-.content-body {
-  padding: spacing(2);
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: $neutral-6;
-  max-height: 92px;
-  overflow-y: auto;
+  &__content-body {
+    padding: spacing(2);
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: $neutral-6;
+    max-height: 92px;
+    overflow-y: auto;
 
-  scrollbar-width: thin;
-  scrollbar-color: $primary-color;
+    scrollbar-width: thin;
+    scrollbar-color: $primary-color;
 
-  // Chrome, Edge, and Safari
-  &::-webkit-scrollbar {
-    width: 8px;
-    height: 9px;
+    // Chrome, Edge, and Safari
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 9px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #ffffff;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $neutral-2;
+      border-radius: 20px;
+      border: 3px solid $neutral-2;
+    }
   }
 
-  &::-webkit-scrollbar-track {
-    background: #ffffff;
+  &__footer {
+    display: flex;
+    gap: spacing(2);
+    padding: spacing(1) spacing(2) spacing(2) spacing(2);
+    justify-content: flex-end;
   }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $neutral-2;
-    border-radius: 20px;
-    border: 3px solid $neutral-2;
-  }
-}
-
-.footer {
-  display: flex;
-  gap: spacing(2);
-  padding: spacing(1) spacing(2) spacing(2) spacing(2);
-  justify-content: flex-end;
 }
