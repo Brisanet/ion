@@ -76,7 +76,7 @@
         <ion-tag
           *ngIf="column.type === 'tag'"
           [label]="row[column.key]"
-          status="neutral"
+          [status]="row[column.tag.statusKey] || column.tag.status"
           [icon]="row[column.tag.iconKey] || column.tag.icon"
         ></ion-tag>
       </td>
