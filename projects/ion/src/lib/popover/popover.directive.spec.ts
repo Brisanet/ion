@@ -97,7 +97,7 @@ class ContainerRefTestComponent {
       ionPopover
       ionPopoverTitle="${confirmText}"
       [ionPopoverBody]="ref"
-      ionPopoverIconClose="true"
+      [ionPopoverIconClose]="true"
       class="get-test"
       style="margin-top: 50px;"
       [label]="${textButton}"
@@ -171,11 +171,19 @@ describe('Directive: popover', () => {
       await sut({ ionPopoverPosition: ionPopoverPosition });
       fireEvent.click(screen.getByText(textButton));
       expect(screen.getByTestId('ion-popover')).toHaveClass(
-        `sup-container-${ionPopoverPosition}`
+        `ion-popover__sup-container--${ionPopoverPosition}`
       );
       fireEvent.click(screen.getByTestId('popover-icon-close'));
     }
   );
+
+  it('should close popover when clicking outside of popover and button', async () => {
+    await sut();
+    fireEvent.click(screen.getByText(textButton));
+    expect(screen.getByTestId('ion-popover')).toBeTruthy();
+    fireEvent.click(document);
+    expect(screen.queryByTestId('ion-popover')).toBeFalsy();
+  });
 });
 
 describe('Popover host tests', () => {
