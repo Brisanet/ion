@@ -131,10 +131,7 @@ export class IonDropdownComponent
   manageMultipleOptions(option: DropdownItem): void {
     if (this.dropdownSelectedItens) {
       if (!option.selected) {
-        if (
-          this.selectedMaxLength &&
-          this.dropdownSelectedItens.length === this.selectedMaxLength
-        ) {
+        if (this.selectedMaxLength && this.isAtSelectedsMaxLength()) {
           return;
         }
         option.selected = true;
@@ -148,6 +145,10 @@ export class IonDropdownComponent
       }
     }
     this.emitSelectedOptions();
+  }
+
+  isAtSelectedsMaxLength(): boolean {
+    return this.dropdownSelectedItens.length === this.selectedMaxLength;
   }
 
   emitSelectedOptions(): void {
