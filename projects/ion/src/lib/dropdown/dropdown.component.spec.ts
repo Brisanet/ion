@@ -302,6 +302,58 @@ describe('IonDropdownComponent / Multiple', () => {
   });
 });
 
+describe('IonDropdownComponent / Multiple With Max Length', () => {
+  const optionsWithMultiple = [
+    { label: 'Dog', selected: true },
+    { label: 'Cat', selected: false },
+    { label: 'Horse', selected: false },
+  ];
+
+  const defaultMultiple = {
+    options: optionsWithMultiple,
+    multiple: true,
+    selectedMaxLength: 1,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not select an option when the defined limit was reached', async () => {
+    await sut(defaultMultiple);
+    const elementToSelect = document.getElementById('option-1');
+    fireEvent.click(elementToSelect);
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(1);
+  });
+});
+
+describe('IonDropdownComponent / Default With Max Length', () => {
+  const optionsWithMultiple = [
+    { label: 'Dog', selected: true },
+    { label: 'Cat', selected: false },
+    { label: 'Horse', selected: false },
+  ];
+
+  const defaultMultiple = {
+    options: optionsWithMultiple,
+    multiple: false,
+    selectedMaxLength: 2,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not select more than one option when passed an max length', async () => {
+    await sut(defaultMultiple);
+    const elementToSelect = document.getElementById('option-1');
+    fireEvent.click(elementToSelect);
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(1);
+  });
+});
+
 describe('IonDropdownComponent / With Search', () => {
   const searchEvent = jest.fn();
 
