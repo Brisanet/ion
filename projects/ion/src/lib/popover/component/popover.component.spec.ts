@@ -117,7 +117,7 @@ describe('PopoverComponent', () => {
         PopoverComponent.args.ionPopoverPosition = arrow;
         fixture.detectChanges();
         const element = screen.getByTestId('ion-popover');
-        expect(element).toHaveClass(`sup-container-${arrow}`);
+        expect(element).toHaveClass(`ion-popover__sup-container--${arrow}`);
       }
     );
   });
