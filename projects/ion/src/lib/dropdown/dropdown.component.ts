@@ -26,6 +26,7 @@ export class IonDropdownComponent
 {
   @Input() options: DropdownItem[] = [];
   @Input() arraySelecteds: DropdownItem[] = [];
+  @Input() selectedMaxLength: DropdownParams['selectedMaxLength'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
@@ -44,10 +45,10 @@ export class IonDropdownComponent
 
   clearButtonIsVisible: boolean;
 
-  dropdownItens: Array<DropdownItem> = [];
+  dropdownSelectedItens: Array<DropdownItem> = [];
 
   setClearButtonIsVisible(): void {
-    const hasItems = this.checkArray(this.dropdownItens);
+    const hasItems = this.checkArray(this.dropdownSelectedItens);
     const showClearButton = !this.notShowClearButton;
 
     this.clearButtonIsVisible = showClearButton && hasItems && !this.required;
@@ -76,7 +77,7 @@ export class IonDropdownComponent
   clearEvent(): void {
     this.clearOptions();
     if (!this.multiple && !this.required) {
-      this.selected.emit(this.dropdownItens);
+      this.selected.emit(this.dropdownSelectedItens);
     }
     this.clearBadgeValue.emit();
   }
@@ -85,7 +86,7 @@ export class IonDropdownComponent
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
-    this.dropdownItens = [];
+    this.dropdownSelectedItens = [];
     this.clearButtonIsVisible = false;
   }
 
@@ -123,21 +124,27 @@ export class IonDropdownComponent
   selectSingleOption(option: DropdownItem): void {
     this.clearOptions();
     option.selected = true;
-    this.dropdownItens = [option];
+    this.dropdownSelectedItens = [option];
     this.emitSelectedOptions();
   }
 
   manageMultipleOptions(option: DropdownItem): void {
-    if (this.dropdownItens) {
+    if (this.dropdownSelectedItens) {
       if (!option.selected) {
+        if (
+          this.selectedMaxLength &&
+          this.dropdownSelectedItens.length === this.selectedMaxLength
+        ) {
+          return;
+        }
         option.selected = true;
-        this.dropdownItens.push(option);
+        this.dropdownSelectedItens.push(option);
       } else {
         option.selected = false;
-        const index = this.dropdownItens.findIndex(
+        const index = this.dropdownSelectedItens.findIndex(
           (selectedOption) => selectedOption.label === option.label
         );
-        this.dropdownItens.splice(index, 1);
+        this.dropdownSelectedItens.splice(index, 1);
       }
     }
     this.emitSelectedOptions();
@@ -145,7 +152,7 @@ export class IonDropdownComponent
 
   emitSelectedOptions(): void {
     this.setClearButtonIsVisible();
-    this.selected.emit(this.dropdownItens);
+    this.selected.emit(this.dropdownSelectedItens);
   }
 
   inputChange(value: string): void {
@@ -165,16 +172,16 @@ export class IonDropdownComponent
   getSelected(): void {
     this.options.forEach((option) => {
       if (option.selected) {
-        this.dropdownItens.push(option);
+        this.dropdownSelectedItens.push(option);
       }
     });
 
     if (this.checkArray(this.arraySelecteds)) {
       this.arraySelecteds.forEach((option) => {
-        const duplicateOption = this.dropdownItens.find(
+        const duplicateOption = this.dropdownSelectedItens.find(
           (selectedOption) => selectedOption.label === option.label
         );
-        !duplicateOption && this.dropdownItens.push(option);
+        !duplicateOption && this.dropdownSelectedItens.push(option);
       });
     }
 
@@ -182,12 +189,12 @@ export class IonDropdownComponent
   }
 
   public ngOnDestroy(): void {
-    this.closeDropdown.emit(this.dropdownItens);
+    this.closeDropdown.emit(this.dropdownSelectedItens);
   }
 
   setSelected(): void {
-    if (this.checkArray(this.dropdownItens)) {
-      this.dropdownItens.forEach((selectedOption) => {
+    if (this.checkArray(this.dropdownSelectedItens)) {
+      this.dropdownSelectedItens.forEach((selectedOption) => {
         const option = this.options.find(
           (option) => option.label === selectedOption.label
         );
@@ -202,7 +209,7 @@ export class IonDropdownComponent
   }
 
   clickedOutsideDropdown(): void {
-    this.closeDropdown.emit(this.dropdownItens);
+    this.closeDropdown.emit(this.dropdownSelectedItens);
   }
 
   public ngOnChanges(changes: SimpleChanges): void {

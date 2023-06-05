@@ -12,6 +12,7 @@ export interface DropdownItem {
 export interface DropdownParams {
   options: DropdownItem[];
   selected: EventEmitter<DropdownItem[]>;
+  selectedMaxLength: number;
   multiple?: boolean;
   required?: boolean;
   enableSearch?: boolean;
