@@ -19,7 +19,7 @@ export class IonSelectComponent implements OnInit {
   @Input() mode: IonSelectProps['mode'] = 'default';
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
-  @Input() maxSelecteds?: IonSelectProps['maxSelecteds'];
+  @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Output() events = new EventEmitter<IonSelectProps['options']>();
 
   showDropdown = false;

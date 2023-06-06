@@ -26,7 +26,7 @@ export class IonDropdownComponent
 {
   @Input() options: DropdownItem[] = [];
   @Input() arraySelecteds: DropdownItem[] = [];
-  @Input() maxSelecteds?: DropdownParams['maxSelecteds'];
+  @Input() maxSelected?: DropdownParams['maxSelected'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
@@ -152,7 +152,7 @@ export class IonDropdownComponent
 
   isAtSelectedsMaxLength(): boolean {
     const selectedOptions = this.options.filter((option) => option.selected);
-    return this.maxSelecteds && selectedOptions.length === this.maxSelecteds;
+    return this.maxSelected && selectedOptions.length === this.maxSelected;
   }
 
   emitSelectedOptions(): void {

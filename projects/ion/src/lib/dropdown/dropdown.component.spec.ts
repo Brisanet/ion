@@ -267,10 +267,12 @@ describe('IonDropdownComponent / Multiple With Max Length', () => {
     { label: 'Horse', selected: false },
   ];
 
+  const maxSelectedQtd = 1;
+
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
-    maxSelecteds: 1,
+    maxSelected: maxSelectedQtd,
     selected: {
       emit: selectEvent,
     } as SafeAny,
@@ -282,7 +284,7 @@ describe('IonDropdownComponent / Multiple With Max Length', () => {
     fireEvent.click(elementToSelect);
     expect(
       document.getElementsByClassName('dropdown-item-selected')
-    ).toHaveLength(1);
+    ).toHaveLength(maxSelectedQtd);
   });
 });
 
@@ -296,7 +298,7 @@ describe('IonDropdownComponent / Default With Max Length', () => {
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: false,
-    maxSelecteds: 2,
+    maxSelected: 2,
     selected: {
       emit: selectEvent,
     } as SafeAny,
