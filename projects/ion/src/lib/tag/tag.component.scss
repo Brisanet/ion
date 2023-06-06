@@ -17,15 +17,19 @@
   align-items: center;
   flex-direction: row;
   border-radius: 50px;
-  line-height: normal;
-  padding: 6px spacing(1.5);
+  padding: 2px 8px;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 400;
   font-size: 12px;
+  line-height: 16px;
   height: max-content;
   width: max-content;
+
+  .tag-icon {
+    padding-left: 2px;
+  }
 }
 
 .outline {
