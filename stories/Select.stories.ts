@@ -63,5 +63,5 @@ Multiple.args = {
   options: moreFruitOptions,
   placeholder: 'Choose a fruit',
   mode: 'multiple',
-  selectedMaxLength: 3,
+  maxSelecteds: 3,
 };

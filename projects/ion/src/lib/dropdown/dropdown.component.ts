@@ -26,7 +26,7 @@ export class IonDropdownComponent
 {
   @Input() options: DropdownItem[] = [];
   @Input() arraySelecteds: DropdownItem[] = [];
-  @Input() selectedMaxLength?: DropdownParams['selectedMaxLength'];
+  @Input() maxSelecteds?: DropdownParams['maxSelecteds'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
   @Input() enableSearch = false;
@@ -109,7 +109,11 @@ export class IonDropdownComponent
     }
 
     if (this.multiple) {
+      if (!option.selected && this.isAtSelectedsMaxLength()) {
+        return;
+      }
       this.manageMultipleOptions(option);
+      this.emitSelectedOptions();
       return;
     }
     if (!option.selected) {
@@ -130,26 +134,22 @@ export class IonDropdownComponent
   }
 
   manageMultipleOptions(option: DropdownItem): void {
-    if (this.dropdownSelectedItens) {
-      if (!option.selected) {
-        if (this.selectedMaxLength && this.isAtSelectedsMaxLength()) {
-          return;
-        }
-        option.selected = true;
-        this.dropdownSelectedItens.push(option);
-      } else {
-        option.selected = false;
-        const index = this.dropdownSelectedItens.findIndex(
-          (selectedOption) => selectedOption.label === option.label
-        );
-        this.dropdownSelectedItens.splice(index, 1);
-      }
+    option.selected = !option.selected;
+
+    if (option.selected) {
+      this.dropdownSelectedItens.push(option);
+      return;
     }
-    this.emitSelectedOptions();
+
+    const index = this.dropdownSelectedItens.findIndex(
+      (selectedOption) => selectedOption.label === option.label
+    );
+    this.dropdownSelectedItens.splice(index, 1);
   }
 
   isAtSelectedsMaxLength(): boolean {
-    return this.dropdownSelectedItens.length === this.selectedMaxLength;
+    const selectedOptions = this.options.filter((option) => option.selected);
+    return this.maxSelecteds && selectedOptions.length === this.maxSelecteds;
   }
 
   emitSelectedOptions(): void {

@@ -270,7 +270,7 @@ describe('IonDropdownComponent / Multiple With Max Length', () => {
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
-    selectedMaxLength: 1,
+    maxSelecteds: 1,
     selected: {
       emit: selectEvent,
     } as SafeAny,
@@ -296,7 +296,7 @@ describe('IonDropdownComponent / Default With Max Length', () => {
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: false,
-    selectedMaxLength: 2,
+    maxSelecteds: 2,
     selected: {
       emit: selectEvent,
     } as SafeAny,
