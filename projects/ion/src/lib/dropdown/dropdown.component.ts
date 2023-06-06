@@ -49,8 +49,9 @@ export class IonDropdownComponent
   setClearButtonIsVisible(): void {
     const hasItems = this.checkArray(this.dropdownItens);
     const showClearButton = !this.notShowClearButton;
-
-    this.clearButtonIsVisible = showClearButton && hasItems && !this.required;
+    if (this.multiple) {
+      this.clearButtonIsVisible = showClearButton && hasItems && !this.required;
+    }
   }
 
   public ngAfterViewInit(): void {
@@ -78,7 +79,6 @@ export class IonDropdownComponent
     if (!this.multiple && !this.required) {
       this.selected.emit(this.dropdownItens);
     }
-    this.clearBadgeValue.emit();
   }
 
   clearOptions(): void {
@@ -87,6 +87,7 @@ export class IonDropdownComponent
     });
     this.dropdownItens = [];
     this.clearButtonIsVisible = false;
+    this.clearBadgeValue.emit();
   }
 
   optionsScroll(): void {
@@ -156,10 +157,10 @@ export class IonDropdownComponent
     if (this.multiple) {
       this.required = false;
     }
-    this.getSelected();
     setTimeout(() => {
       this.setClearButtonIsVisible();
     });
+    this.getSelected();
   }
 
   getSelected(): void {
