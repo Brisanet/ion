@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
+
 import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
@@ -27,6 +35,7 @@ const stateChange = {
 })
 export class IonSmartTableComponent implements OnInit {
   @Input() config: ConfigSmartTable<SafeAny>;
+  @Input() height = '200px';
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
@@ -35,6 +44,15 @@ export class IonSmartTableComponent implements OnInit {
 
   private firstLoad = true;
   private tableUtils: TableUtils;
+
+  constructor(private elementRef: ElementRef) {}
+
+  public get tableContainerHeight(): string {
+    const footer = this.elementRef.nativeElement.querySelector('.footer-table');
+    const footerHeight = footer.offsetHeight;
+    const verticalPadding = '2rem';
+    return `calc(${this.height} - ${footerHeight}px - ${verticalPadding} - 0.05px)`;
+  }
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);

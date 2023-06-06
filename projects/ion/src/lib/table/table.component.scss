@@ -24,6 +24,10 @@ $radius: 8px;
   border-radius: $radius;
 }
 
+.ion-table-container {
+  overflow-y: auto;
+}
+
 table {
   border-collapse: collapse;
   position: relative;

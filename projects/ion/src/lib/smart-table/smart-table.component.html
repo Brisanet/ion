@@ -1,146 +1,154 @@
 <div class="ion-table">
-  <table data-testid="ion-table">
-    <tr class="border-header">
-      <th *ngIf="config.check" width="16">
-        <ion-checkbox
-          data-testid="table-check-all"
-          id="check-all"
-          name="check-all"
-          [state]="mainCheckBoxState"
-          (click)="checkState()"
-          [disabled]="!config?.data?.length"
-        >
-        </ion-checkbox>
-      </th>
-      <th
-        *ngFor="let column of config.columns"
-        [attr.data-testid]="'column-' + column.key"
-        [ngStyle]="{ width: column.width + '%' }"
-      >
-        <div class="header-style">
-          <span class="th-span">{{ column.label }}</span>
-          <button
-            class="svg"
-            (click)="
-              !!config.debounceOnSort ? sortWithDebounce(column) : sort(column)
-            "
-            *ngIf="column.sort"
+  <div class="ion-table-container" [style.height]="tableContainerHeight">
+    <table data-testid="ion-table">
+      <tr class="border-header">
+        <th *ngIf="config.check" width="16">
+          <ion-checkbox
+            data-testid="table-check-all"
+            id="check-all"
+            name="check-all"
+            [state]="mainCheckBoxState"
+            (click)="checkState()"
+            [disabled]="!config?.data?.length"
           >
-            <svg
-              [attr.data-testid]="'sort-by-' + column.key"
-              width="8"
-              height="16"
-              viewBox="0 0 8 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
-                [attr.fill]="fillColor(column, true)"
-              />
-              <path
-                d="M3.81985 15.8966C3.8995 16.0345 4.1005 16.0345 4.18015 15.8966L7.97236 9.33307C8.0514 9.19627 7.95152 9.02605 7.79221 9.02605L0.207794 9.02605C0.0484809 9.02605 -0.0513966 9.19627 0.0276449 9.33307L3.81985 15.8966Z"
-                [attr.fill]="fillColor(column, false)"
-              />
-            </svg>
-          </button>
-        </div>
-      </th>
-      <th class="th-actions" *ngIf="config.actions && config.actions.length">
-        Ações
-      </th>
-    </tr>
-    <tr
-      *ngFor="let row of config.data; let index = index; let last = last"
-      [attr.data-testid]="'row-' + index"
-      [class.last-row]="last && !config.pagination"
-      [ngClass]="{
-        old: index % 2 === 0,
-        even: index % 2 !== 0,
-        checked: row.selected
-      }"
-    >
-      <td *ngIf="config.check" [attr.data-testid]="'row-' + index + '-td'">
-        <ion-checkbox
-          name="check-all"
-          id="check-all"
-          [state]="row.selected ? 'checked' : 'enabled'"
-          [attr.data-testid]="'row-' + index + '-check'"
-          (click)="checkRow(row)"
+          </ion-checkbox>
+        </th>
+        <th
+          *ngFor="let column of config.columns"
+          [attr.data-testid]="'column-' + column.key"
+          [ngStyle]="{ width: column.width + '%' }"
         >
-        </ion-checkbox>
-      </td>
-      <td
-        *ngFor="let column of config.columns"
-        [attr.data-testid]="'row-' + index + '-' + column.key"
-        [style.cursor]="column.actions && 'pointer'"
-        (click)="
-          column.actions &&
-            column.actions.trigger === 'click' &&
-            cellEvents(row, column, row[column.key])
-        "
-      >
-        <!-- cell types -->
-
-        <span class="td-span" *ngIf="!column.type">{{
-          row[column.key] | replaceEmpty: '-'
-        }}</span>
-        <ion-tag
-          *ngIf="column.type === 'tag'"
-          [label]="row[column.key]"
-          [status]="row[column.tag.statusKey] || column.tag.status"
-          [icon]="row[column.tag.iconKey] || column.tag.icon"
-        ></ion-tag>
-      </td>
-      <td *ngIf="config.actions">
-        <div class="icons-td">
-          <div *ngFor="let action of config.actions">
-            <ion-button
-              *ngIf="
-                action.confirm &&
-                (action.show ? !showAction(row, action) : true)
+          <div class="header-style">
+            <span class="th-span">{{ column.label }}</span>
+            <button
+              class="svg"
+              (click)="
+                !!config.debounceOnSort
+                  ? sortWithDebounce(column)
+                  : sort(column)
               "
-              ionPopConfirm
-              [ionPopConfirmTitle]="action.confirm.title"
-              [ionPopConfirmType]="action.confirm.type"
-              [ionPopConfirmDesc]="
-                !!action.confirm.description
-                  ? action.confirm.description
-                  : !!action.confirm.dynamicDescription
-                  ? action.confirm.dynamicDescription(row)
-                  : undefined
-              "
-              (ionOnConfirm)="handleEvent(row, action)"
-              [title]="action.label"
-              [attr.data-testid]="'row-' + index + '-' + action.label"
-              type="ghost"
-              size="sm"
-              [danger]="!!action.danger"
-              [iconType]="action.icon"
-              [circularButton]="true"
-              [disabled]="action.disabled ? !disableAction(row, action) : false"
-            ></ion-button>
-
-            <ion-button
-              *ngIf="
-                !action.confirm &&
-                (action.show ? !showAction(row, action) : true)
-              "
-              [title]="action.label"
-              [attr.data-testid]="'row-' + index + '-' + action.label"
-              type="ghost"
-              size="sm"
-              [danger]="!!action.danger"
-              [iconType]="action.icon"
-              [circularButton]="true"
-              (ionOnClick)="handleEvent(row, action)"
-              [disabled]="action.disabled ? !disableAction(row, action) : false"
-            ></ion-button>
+              *ngIf="column.sort"
+            >
+              <svg
+                [attr.data-testid]="'sort-by-' + column.key"
+                width="8"
+                height="16"
+                viewBox="0 0 8 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
+                  [attr.fill]="fillColor(column, true)"
+                />
+                <path
+                  d="M3.81985 15.8966C3.8995 16.0345 4.1005 16.0345 4.18015 15.8966L7.97236 9.33307C8.0514 9.19627 7.95152 9.02605 7.79221 9.02605L0.207794 9.02605C0.0484809 9.02605 -0.0513966 9.19627 0.0276449 9.33307L3.81985 15.8966Z"
+                  [attr.fill]="fillColor(column, false)"
+                />
+              </svg>
+            </button>
           </div>
-        </div>
-      </td>
-    </tr>
-  </table>
+        </th>
+        <th class="th-actions" *ngIf="config.actions && config.actions.length">
+          Ações
+        </th>
+      </tr>
+      <tr
+        *ngFor="let row of config.data; let index = index; let last = last"
+        [attr.data-testid]="'row-' + index"
+        [class.last-row]="last && !config.pagination"
+        [ngClass]="{
+          old: index % 2 === 0,
+          even: index % 2 !== 0,
+          checked: row.selected
+        }"
+      >
+        <td *ngIf="config.check" [attr.data-testid]="'row-' + index + '-td'">
+          <ion-checkbox
+            name="check-all"
+            id="check-all"
+            [state]="row.selected ? 'checked' : 'enabled'"
+            [attr.data-testid]="'row-' + index + '-check'"
+            (click)="checkRow(row)"
+          >
+          </ion-checkbox>
+        </td>
+        <td
+          *ngFor="let column of config.columns"
+          [attr.data-testid]="'row-' + index + '-' + column.key"
+          [style.cursor]="column.actions && 'pointer'"
+          (click)="
+            column.actions &&
+              column.actions.trigger === 'click' &&
+              cellEvents(row, column, row[column.key])
+          "
+        >
+          <!-- cell types -->
+
+          <span class="td-span" *ngIf="!column.type">{{
+            row[column.key] | replaceEmpty: '-'
+          }}</span>
+          <ion-tag
+            *ngIf="column.type === 'tag'"
+            [label]="row[column.key]"
+            [status]="row[column.tag.statusKey] || column.tag.status"
+            [icon]="row[column.tag.iconKey] || column.tag.icon"
+          ></ion-tag>
+        </td>
+        <td *ngIf="config.actions">
+          <div class="icons-td">
+            <div *ngFor="let action of config.actions">
+              <ion-button
+                *ngIf="
+                  action.confirm &&
+                  (action.show ? !showAction(row, action) : true)
+                "
+                ionPopConfirm
+                [ionPopConfirmTitle]="action.confirm.title"
+                [ionPopConfirmType]="action.confirm.type"
+                [ionPopConfirmDesc]="
+                  !!action.confirm.description
+                    ? action.confirm.description
+                    : !!action.confirm.dynamicDescription
+                    ? action.confirm.dynamicDescription(row)
+                    : undefined
+                "
+                (ionOnConfirm)="handleEvent(row, action)"
+                [title]="action.label"
+                [attr.data-testid]="'row-' + index + '-' + action.label"
+                type="ghost"
+                size="sm"
+                [danger]="!!action.danger"
+                [iconType]="action.icon"
+                [circularButton]="true"
+                [disabled]="
+                  action.disabled ? !disableAction(row, action) : false
+                "
+              ></ion-button>
+
+              <ion-button
+                *ngIf="
+                  !action.confirm &&
+                  (action.show ? !showAction(row, action) : true)
+                "
+                [title]="action.label"
+                [attr.data-testid]="'row-' + index + '-' + action.label"
+                type="ghost"
+                size="sm"
+                [danger]="!!action.danger"
+                [iconType]="action.icon"
+                [circularButton]="true"
+                (ionOnClick)="handleEvent(row, action)"
+                [disabled]="
+                  action.disabled ? !disableAction(row, action) : false
+                "
+              ></ion-button>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
 
   <div *ngIf="config.data && config.data.length === 0" class="noData">
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
