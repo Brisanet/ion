@@ -314,6 +314,7 @@ describe('ButtonComponent with dropdown', () => {
       options.forEach(async (option) => {
         fireEvent.click(await screen.findByText(option.label));
       });
+      expect(await screen.findByTestId('button-clear')).toBeInTheDocument();
     });
 
     it('should update the badge value when selecting an option', async () => {
@@ -323,7 +324,7 @@ describe('ButtonComponent with dropdown', () => {
     });
 
     it('should update the badge value when button clear options is clicked', async () => {
-      fireEvent.click(screen.getByTestId('buttonClear'));
+      fireEvent.click(screen.getByTestId('button-clear'));
 
       expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
         String(0)

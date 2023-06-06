@@ -1,3 +1,4 @@
+import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
@@ -38,17 +39,23 @@ interface Character {
   name: string;
   height: number;
   mass: number;
+  icon?: string;
+  status?: StatusType;
 }
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
     height: 172,
     mass: 96,
+    icon: 'user',
+    status: 'success',
   },
   {
     name: 'C-3PO',
     height: 167,
     mass: 96,
+    icon: 'technical',
+    status: 'negative',
   },
 ];
 
@@ -486,6 +493,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
+  const columnStatus = 'success';
   const tableDifferentColumns: IonSmartTableProps<Character> = {
     config: {
       columns: [
@@ -497,6 +505,7 @@ describe('Table > Differents columns data type', () => {
           sort: false,
           tag: {
             icon: columnIcon,
+            status: columnStatus,
           },
         },
       ],
@@ -520,6 +529,45 @@ describe('Table > Differents columns data type', () => {
       ).toBeInTheDocument();
       expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
     });
+
+    it('should set a status type in tag by column', async () => {
+      await sut(tableDifferentColumns);
+      expect(
+        document.getElementsByClassName(`ion-tag outline ${columnStatus}`)
+      ).toHaveLength(2);
+    });
+
+    it.each(['user', 'technical'])(
+      'should show %s icon in tag by row data',
+      async (iconRow: string) => {
+        const columns = tableDifferentColumns.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          iconKey: 'icon',
+        };
+
+        await sut(tableDifferentColumns);
+        expect(
+          document.getElementById(`ion-icon-${iconRow}`)
+        ).toBeInTheDocument();
+      }
+    );
+
+    it.each(['success', 'negative'])(
+      'should set %s status in tag by row data',
+      async (statusType: string) => {
+        const columns = tableDifferentColumns.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          statusKey: 'status',
+        };
+
+        await sut(tableDifferentColumns);
+        expect(
+          document.getElementsByClassName(`ion-tag outline ${statusType}`)
+        ).toHaveLength(1);
+      }
+    );
   });
 
   describe('Sort', () => {
