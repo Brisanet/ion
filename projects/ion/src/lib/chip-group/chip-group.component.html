@@ -1,13 +1,10 @@
 <div data-testid="ion-chip-group" class="chip-group">
   <ion-chip
     *ngFor="let chip of chips; index as i"
-    [isChipWithGroup]="isChipWithGroup"
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
     [selected]="chip.selected"
-    [showDropdown]="
-      (chip.selected && chip.options) || (chip.selected && chip.multiple)
-    "
+    [showDropdown]="chip.selected && chip.options"
     [size]="chip.size || size"
     [options]="chip.options"
     [icon]="chip.icon"
@@ -19,3 +16,7 @@
     (dropdownEvents)="dropdownEvents($event)"
   ></ion-chip>
 </div>
+
+<!--     [showDropdown]="
+      (chip.selected && chip.options) || (chip.selected && chip.multiple)
+    " -->

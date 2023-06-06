@@ -68,7 +68,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
-  @Input() isChipWithGroup = false;
   @Input() required = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
@@ -99,19 +98,12 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   }
 
   toggleDropdown(): void {
-    this.selected = !this.selected;
-
-    if (!this.selected) {
-      this.showDropdown = false;
-      return;
-    }
-
-    if (this.showToggle || this.selected) {
+    if (this.showToggle) {
       this.showDropdown = true;
       return;
     }
 
-    if (this.options && !this.isChipWithGroup) {
+    if (this.options) {
       this.showDropdown = !this.showDropdown;
     }
   }
