@@ -61,7 +61,7 @@ export const Multiple = Template.bind({});
 
 Multiple.args = {
   options: moreFruitOptions,
-  placeholder: 'Choose a fruit',
+  placeholder: 'Select 3 fruits',
   mode: 'multiple',
   maxSelected: 3,
 };
