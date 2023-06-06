@@ -71,7 +71,7 @@
       overflow: auto;
 
       scrollbar-width: thin;
-      scrollbar-color: $primary-color;
+      scrollbar-color: $neutral-5;
 
       // Chrome, Edge, and Safari
       &::-webkit-scrollbar {
@@ -84,9 +84,9 @@
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $primary-color;
+        background-color: $neutral-5;
         border-radius: 20px;
-        border: 3px solid $primary-color;
+        border: 3px solid $neutral-5;
       }
     }
 
