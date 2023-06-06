@@ -280,8 +280,12 @@ describe('IonDropdownComponent / Multiple With Max Length', () => {
 
   it('should not select an option when the defined limit was reached', async () => {
     await sut(defaultMultiple);
-    const elementToSelect = document.getElementById('option-1');
+
+    let elementToSelect = document.getElementById('option-1');
     fireEvent.click(elementToSelect);
+    elementToSelect = document.getElementById('option-2');
+    fireEvent.click(elementToSelect);
+
     expect(
       document.getElementsByClassName('dropdown-item-selected')
     ).toHaveLength(maxSelectedQtd);
@@ -306,8 +310,12 @@ describe('IonDropdownComponent / Default With Max Length', () => {
 
   it('should not select more than one option when passed an max length', async () => {
     await sut(defaultMultiple);
-    const elementToSelect = document.getElementById('option-1');
+
+    let elementToSelect = document.getElementById('option-1');
     fireEvent.click(elementToSelect);
+    elementToSelect = document.getElementById('option-2');
+    fireEvent.click(elementToSelect);
+
     expect(
       document.getElementsByClassName('dropdown-item-selected')
     ).toHaveLength(1);
