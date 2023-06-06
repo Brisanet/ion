@@ -54,12 +54,12 @@ export const Default = Template.bind({});
 
 Default.args = {
   options: fruitOptions,
-  placeholder: 'Choose a fruit',
+  placeholder: 'Select 3 fruits',
 };
 
-export const Multiple = Template.bind({});
+export const MultipleMax3 = Template.bind({});
 
-Multiple.args = {
+MultipleMax3.args = {
   options: moreFruitOptions,
   placeholder: 'Select 3 fruits',
   mode: 'multiple',
