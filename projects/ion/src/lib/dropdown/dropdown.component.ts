@@ -178,11 +178,10 @@ export class IonDropdownComponent
     if (this.options) {
       this.options.forEach((option) => {
         if (option.selected) {
-          this.dropdownItens.push(option);
+          this.dropdownSelectedItems.push(option);
         }
       });
     }
-
 
     if (this.checkArray(this.arraySelecteds)) {
       this.arraySelecteds.forEach((option) => {
