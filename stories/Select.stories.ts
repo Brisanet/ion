@@ -33,6 +33,18 @@ const fruitOptions: IonSelectProps['options'] = [
   { label: 'Grape', selected: false },
 ];
 
+const moreFruitOptions: IonSelectProps['options'] = [
+  { label: 'Apple', selected: false },
+  { label: 'Banana', selected: false },
+  { label: 'Grape', selected: false },
+  { label: 'Orange', selected: false },
+  { label: 'Lemon', selected: false },
+  { label: 'Avocado', selected: false },
+  { label: 'Watermelon', selected: false },
+  { label: 'Melon', selected: false },
+  { label: 'Strawberry', selected: false },
+];
+
 const Template: Story<IonSelectComponent> = (args: IonSelectProps) => ({
   component: IonSelectComponent,
   props: { ...args },
@@ -42,5 +54,14 @@ export const Default = Template.bind({});
 
 Default.args = {
   options: fruitOptions,
-  placeholder: 'Choose a fruit',
+  placeholder: 'Select 3 fruits',
+};
+
+export const MultipleMax3 = Template.bind({});
+
+MultipleMax3.args = {
+  options: moreFruitOptions,
+  placeholder: 'Select 3 fruits',
+  mode: 'multiple',
+  maxSelected: 3,
 };

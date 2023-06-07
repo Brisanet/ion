@@ -260,6 +260,68 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
   });
 });
 
+describe('IonDropdownComponent / Multiple With Max Length', () => {
+  const optionsWithMultiple = [
+    { label: 'Dog', selected: true },
+    { label: 'Cat', selected: false },
+    { label: 'Horse', selected: false },
+  ];
+
+  const maxSelectedQtd = 1;
+
+  const defaultMultiple = {
+    options: optionsWithMultiple,
+    multiple: true,
+    maxSelected: maxSelectedQtd,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not select an option when the defined limit was reached', async () => {
+    await sut(defaultMultiple);
+
+    let elementToSelect = document.getElementById('option-1');
+    fireEvent.click(elementToSelect);
+    elementToSelect = document.getElementById('option-2');
+    fireEvent.click(elementToSelect);
+
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(maxSelectedQtd);
+  });
+});
+
+describe('IonDropdownComponent / Default With Max Length', () => {
+  const optionsWithMultiple = [
+    { label: 'Dog', selected: true },
+    { label: 'Cat', selected: false },
+    { label: 'Horse', selected: false },
+  ];
+
+  const defaultMultiple = {
+    options: optionsWithMultiple,
+    multiple: false,
+    maxSelected: 2,
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('should not select more than one option when passed an max length', async () => {
+    await sut(defaultMultiple);
+
+    let elementToSelect = document.getElementById('option-1');
+    fireEvent.click(elementToSelect);
+    elementToSelect = document.getElementById('option-2');
+    fireEvent.click(elementToSelect);
+
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(1);
+  });
+});
+
 describe('IonDropdownComponent / With Search', () => {
   const searchEvent = jest.fn();
 
