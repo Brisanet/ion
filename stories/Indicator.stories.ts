@@ -6,6 +6,7 @@ import { IonIndicatorModule } from './../projects/ion/src/lib/indicator/indicato
 import {
   buttonEmitterConfig,
   buttonModalConfig,
+  buttonPopoverConfig,
   buttonRedirectConfig,
 } from '../projects/ion/src/lib/indicator/mocks/indicator-button-config';
 
@@ -96,4 +97,13 @@ withOpenModal.args = {
   secondValue: '5%',
   tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonModalConfig,
+};
+
+export const withPopover = Template.bind({});
+withPopover.args = {
+  title: 'Com botão que abre popover',
+  value: 1500,
+  secondValue: '5%',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  buttonConfig: buttonPopoverConfig,
 };

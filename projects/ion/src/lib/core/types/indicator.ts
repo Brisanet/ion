@@ -1,5 +1,8 @@
 import { Type } from '@angular/core';
 import { IonModalConfiguration } from '../../modal/models/modal.interface';
+import { PopoverPosition } from './popover';
+import { IonButtonProps } from './button';
+import { IconType } from './icon';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',
@@ -57,13 +60,28 @@ export interface IonIndicatorButtonConfiguration {
   modalConfig?: IonModalConfiguration;
   /**
    * Responsável por receber o componente a ser renderizado no modal. É obrigatório o type do botão ser IonIndicatorButtonType.Modal e também informar a config do modal, que segue a interface IonModalConfiguration.
-   * @example
-   * const buttonModalExample: IonIndicatorButtonConfiguration {
-   *   label: 'Link',
+   * @example´
    *   type: IonIndicatorButtonType.Modal,
    *   modalConfig: IonModalConfiguration,
    *   componentToModal: MyComponent
    * }
    */
   componentToModal?: Type<unknown>;
+  /**
+   * Para utilizar, é obrigatório o type ser IonIndicatorButtonType.Popover.
+   * A config segue a interface IonModalConfiguration
+   * @example
+   * const buttonPopoverExample: IonIndicatorButtonConfiguration {
+   *   label: 'Link',
+   *   type: IonIndicatorButtonType.Popover,
+   * }
+   */
+  popoverConfig?: {
+    ionPopoverTitle: string;
+    ionPopoverContent?: string;
+    ionPopoverActions?: IonButtonProps[];
+    ionPopoverIcon?: IconType;
+    ionPopoverIconClose?: boolean;
+    ionPopoverPosition?: PopoverPosition;
+  };
 }

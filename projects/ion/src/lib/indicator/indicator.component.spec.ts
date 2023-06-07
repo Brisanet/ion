@@ -20,6 +20,7 @@ import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonPopoverModule } from '../popover/popover.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -38,6 +39,7 @@ const sut = async (
       EntryComponentModule,
       IonSkeletonModule,
       IonSpinnerModule,
+      IonPopoverModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
