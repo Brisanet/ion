@@ -38,6 +38,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() showDropdown? = false;
   @Input() dropdownConfig? = {
     notShowClearButton: false,
+    required: false,
   };
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();

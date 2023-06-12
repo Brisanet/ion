@@ -172,19 +172,6 @@ describe('ChipComponent', () => {
       expect(dropdownEvent).toHaveBeenCalledTimes(1);
     });
 
-    // it.only('should render call event only one time when select a option', async () => {
-    //   const element = screen.getByText('dropdown');
-    //   fireEvent.click(element);
-    //   fireEvent.click(document.getElementById('option-0'));
-
-    //   fireEvent.click(screen.getByTestId('ion-chip-label'));
-    //   dropdownEvent.mockClear(); // to clear when open dropdown
-    //   fireEvent.click(document.getElementById('option-0'));
-
-    //   expect(dropdownEvent).toHaveBeenCalledTimes(1);
-    //   screen.debug();
-    // });
-
     afterEach(() => {
       dropdownEvent.mockClear();
     });
