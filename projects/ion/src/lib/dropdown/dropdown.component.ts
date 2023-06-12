@@ -126,7 +126,12 @@ export class IonDropdownComponent
   }
 
   selectSingleOption(option: DropdownItem): void {
-    this.clearOptions();
+    this.options.forEach((item: DropdownItem) => {
+      item.selected = false;
+    });
+    this.dropdownSelectedItems = [];
+    this.clearButtonIsVisible = false;
+
     option.selected = true;
     this.dropdownSelectedItems = [option];
     this.emitSelectedOptions();
@@ -148,6 +153,10 @@ export class IonDropdownComponent
       (selectedOption) => selectedOption.label === option.label
     );
     this.dropdownSelectedItems.splice(index, 1);
+
+    if (this.dropdownSelectedItems.length === 0) {
+      this.clearBadgeValue.emit();
+    }
   }
 
   isAtSelectedsMaxLength(): boolean {
