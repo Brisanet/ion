@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  TemplateRef,
 } from '@angular/core';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
@@ -25,6 +26,7 @@ const stateChange = {
 })
 export class IonTableComponent implements OnInit {
   @Input() config: ConfigTable<SafeAny>;
+  @Input() customRowTemplate?: TemplateRef<HTMLElement>;
   @Output() events = new EventEmitter<TableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
