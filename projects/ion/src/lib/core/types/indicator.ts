@@ -1,8 +1,6 @@
 import { Type } from '@angular/core';
 import { IonModalConfiguration } from '../../modal/models/modal.interface';
-import { PopoverPosition } from './popover';
-import { IonButtonProps } from './button';
-import { IconType } from './icon';
+import { PopoverProps } from './popover';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',
@@ -32,6 +30,7 @@ export interface IonIndicatorButtonConfiguration {
    *  Redirect = 'redirect', // Redirecionará para um link em nova aba
    *  Modal = 'modal', // Irá abrir um modal
    *  Emitter = 'emitter', // Irá emitir evento ionClick
+   *  Popover = 'popover', // Irá abrir um popover
    *}
    */
   type: IonIndicatorButtonType;
@@ -69,19 +68,12 @@ export interface IonIndicatorButtonConfiguration {
   componentToModal?: Type<unknown>;
   /**
    * Para utilizar, é obrigatório o type ser IonIndicatorButtonType.Popover.
-   * A config segue a interface IonModalConfiguration
+   * A config segue a interface PopoverProps
    * @example
    * const buttonPopoverExample: IonIndicatorButtonConfiguration {
    *   label: 'Link',
    *   type: IonIndicatorButtonType.Popover,
-   * }
+   *   popoverConfig: PopoverProps,
    */
-  popoverConfig?: {
-    ionPopoverTitle: string;
-    ionPopoverContent?: string;
-    ionPopoverActions?: IonButtonProps[];
-    ionPopoverIcon?: IconType;
-    ionPopoverIconClose?: boolean;
-    ionPopoverPosition?: PopoverPosition;
-  };
+  popoverConfig?: PopoverProps;
 }
