@@ -82,13 +82,13 @@ export class IonDropdownComponent
     }
   }
 
-  clearOptions(): void {
+  clearOptions(isClearButton = false): void {
     this.options.forEach((item: DropdownItem) => {
       item.selected = false;
     });
     this.dropdownSelectedItems = [];
     this.clearButtonIsVisible = false;
-    this.clearBadgeValue.emit();
+    isClearButton && this.selected.emit([]);
   }
 
   optionsScroll(): void {
