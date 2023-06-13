@@ -163,6 +163,15 @@ describe('ChipComponent', () => {
       expect(dropdownEvent).toBeCalledWith([option]);
     });
 
+    it('should render call event only one time when select a option', async () => {
+      const option = defaultOptions[1];
+      const chipToOpen = screen.getByTestId('ion-chip');
+      fireEvent.click(chipToOpen);
+      fireEvent.click(document.getElementById('option-1'));
+      expect(dropdownEvent).toBeCalledWith([option]);
+      expect(dropdownEvent).toHaveBeenCalledTimes(1);
+    });
+
     afterEach(() => {
       dropdownEvent.mockClear();
     });
