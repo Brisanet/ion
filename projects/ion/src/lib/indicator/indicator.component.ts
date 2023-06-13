@@ -29,8 +29,7 @@ export class IonIndicatorComponent {
   @Input() error = false;
   @Output() ionClick = new EventEmitter();
   @Output() modalEvent = new EventEmitter<IonModalResponse | unknown>();
-  @Output() ionIndicatorPopoverFirstAction = new EventEmitter();
-  @Output() ionIndicatorPopoverSecondAction = new EventEmitter();
+
   safeUrl: SafeResourceUrl;
 
   private buttonActions = {
@@ -47,14 +46,6 @@ export class IonIndicatorComponent {
   handleButtonClick(type: string): void {
     const action = this.buttonActions[type];
     action && action.bind(this)();
-  }
-
-  popoverFirstAction(): void {
-    this.ionIndicatorPopoverFirstAction.emit();
-  }
-
-  popoverSecondAction(): void {
-    this.ionIndicatorPopoverSecondAction.emit();
   }
 
   private sanitizeUrl(): SafeResourceUrl {

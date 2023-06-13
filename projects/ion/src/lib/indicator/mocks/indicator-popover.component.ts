@@ -21,8 +21,6 @@ import { PopoverPosition } from '../../core/types/popover';
         secondValue="5%"
         tooltipText="Texto personalizado via atributo tooltipText"
         [buttonConfig]="buttonPopoverConfig"
-        (ionIndicatorPopoverFirstAction)="mockFirstAction()"
-        (ionIndicatorPopoverSecondAction)="mockSecondAction()"
       >
       </ion-indicator>
       <ng-template #BodyTemplate>
@@ -48,6 +46,12 @@ export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
       ionPopoverPosition: PopoverPosition.DEFAULT,
       ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
       ionPopoverIconClose: true,
+      firstAction: (): void => {
+        this.indicatorConfig.title = 'Título alterado com a action 1';
+      },
+      secondAction: (): void => {
+        this.indicatorConfig.title = 'Título alterado com a action 2';
+      },
     },
   };
 
@@ -62,13 +66,5 @@ export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.buttonPopoverConfig.popoverConfig.ionPopoverBody = this.popoverBody;
-  }
-
-  mockFirstAction(): void {
-    this.indicatorConfig.value = 1000;
-  }
-
-  mockSecondAction(): void {
-    this.indicatorConfig.title = 'Título alterado com uma action';
   }
 }

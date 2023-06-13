@@ -75,8 +75,8 @@
               buttonConfig.popoverConfig.ionPopoverIconClose
             "
             [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
-            (ionOnFirstAction)="popoverFirstAction()"
-            (ionOnSecondAction)="popoverSecondAction()"
+            (ionOnFirstAction)="buttonConfig.popoverConfig.firstAction()"
+            (ionOnSecondAction)="buttonConfig.popoverConfig.secondAction()"
           ></ion-button>
         </ng-template>
       </footer>
