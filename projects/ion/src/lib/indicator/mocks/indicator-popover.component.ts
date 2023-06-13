@@ -14,14 +14,6 @@ import { PopoverPosition } from '../../core/types/popover';
 
 @Component({
   template: `
-    <style>
-      div {
-        height: 400px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    </style>
     <div>
       <ion-indicator
         [title]="indicatorConfig.title"
@@ -48,6 +40,7 @@ export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
     popoverConfig: {
       ionPopoverBody: this.popoverBody,
       ionPopoverTitle: 'Título do popover',
+      ionPopoverIcon: 'box',
       ionPopoverPosition: PopoverPosition.DEFAULT,
       ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
       ionPopoverIconClose: true,

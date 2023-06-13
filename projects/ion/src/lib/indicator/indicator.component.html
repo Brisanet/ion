@@ -68,12 +68,13 @@
             (ionOnClick)="handleButtonClick(buttonConfig.type)"
             ionPopover
             [ionPopoverTitle]="buttonConfig.popoverConfig.ionPopoverTitle"
+            [ionPopoverBody]="ionIndicatorPopoverBody"
+            [ionPopoverActions]="buttonConfig.popoverConfig.ionPopoverActions"
+            [ionPopoverIcon]="buttonConfig.popoverConfig.ionPopoverIcon"
             [ionPopoverIconClose]="
               buttonConfig.popoverConfig.ionPopoverIconClose
             "
             [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
-            [ionPopoverActions]="buttonConfig.popoverConfig.ionPopoverActions"
-            [ionPopoverBody]="ionIndicatorPopoverBody"
           ></ion-button>
         </ng-template>
       </footer>
