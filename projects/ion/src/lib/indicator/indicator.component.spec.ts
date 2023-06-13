@@ -21,6 +21,9 @@ import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
 import { IonPopoverModule } from '../popover/popover.module';
+import { IndicatorPopoverComponent } from './mocks/indicator-popover.component';
+import { IonSharedModule } from '../shared.module';
+import { IonIndicatorModule } from './indicator.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -43,6 +46,15 @@ const sut = async (
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
+  });
+};
+
+const sutIndicatorWithPopover = async (): Promise<
+  RenderResult<IndicatorPopoverComponent>
+> => {
+  return await render(IndicatorPopoverComponent, {
+    imports: [CommonModule, IonSharedModule, IonIndicatorModule],
+    declarations: [IndicatorPopoverComponent],
   });
 };
 
@@ -207,4 +219,48 @@ describe('IonIndicatorComponent', () => {
     });
     expect(getElementByTestId('error')).toBeInTheDocument();
   });
+});
+
+describe('IonIndicatorComponent with popover button', () => {
+  it('Should render a open popover button when the button type is popover', async () => {
+    await sutIndicatorWithPopover();
+    expect(
+      screen.getByTestId('ion-indicator-button-popover')
+    ).toBeInTheDocument();
+  });
+});
+
+describe.only('IonIndicatorComponent with a opened popover', () => {
+  beforeEach(async () => {
+    await sutIndicatorWithPopover();
+    const buttonOpenPopover = screen.getByTestId(
+      'ion-indicator-button-popover'
+    );
+    fireEvent.click(buttonOpenPopover);
+  });
+
+  it('Should open a popover when the button is clicked', async () => {
+    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  });
+
+  it('Should render the popover title informed', async () => {
+    expect(screen.getByText('Com botão que abre popover')).toBeInTheDocument();
+  });
+
+  it('Should render the popover icon informed', async () => {
+    expect(document.querySelector('#ion-icon-box')).toBeInTheDocument();
+  });
+
+  it('Should render the popover body informed', async () => {
+    expect(screen.getByTestId('ion-popover-body')).toBeInTheDocument();
+  });
+
+  it.each(['action-1', 'action-2'])(
+    'Should render the popover %s informed',
+    async (IonPopoverButton) => {
+      expect(
+        screen.getByTestId(`popover-${IonPopoverButton}`)
+      ).toBeInTheDocument();
+    }
+  );
 });
