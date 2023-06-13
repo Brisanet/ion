@@ -62,8 +62,8 @@
           }"
         >
           <ng-container
-            *ngIf="customTemplate; else defaultTemplate"
-            [ngTemplateOutlet]="customTemplate"
+            *ngIf="customRowTemplate; else defaultTemplate"
+            [ngTemplateOutlet]="customRowTemplate"
             [ngTemplateOutletContext]="{ $implicit: row }"
           >
           </ng-container>
