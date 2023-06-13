@@ -1,6 +1,7 @@
 import { TagStatus } from './../core/types/status';
 import { ConfigSmartTable, StatusType } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
+import { TemplateRef } from '@angular/core';
 
 export enum EventTable {
   SORT = 'sort',
@@ -67,6 +68,7 @@ export interface ConfigTable<T> {
     column: string;
     desc: boolean | undefined;
   };
+  customRowTemplate?: TemplateRef<HTMLElement>;
 }
 
 export interface ColumnActions {
