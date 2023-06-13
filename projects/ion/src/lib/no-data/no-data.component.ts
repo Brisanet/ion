@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IconType } from '../core/types';
 
 @Component({
   selector: 'ion-no-data',
@@ -6,6 +7,6 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./no-data.component.scss'],
 })
 export class IonNoDataComponent {
-  @Input() iconType?: string;
+  @Input() iconType?: IconType;
   @Input() label: string;
 }
