@@ -1,0 +1,12 @@
+<div class="ion-no-data-container">
+  <ion-icon
+    data-testid="ion-no-data-icon"
+    *ngIf="iconType"
+    [size]="12"
+    color="#8D93A5"
+    [type]="iconType"
+  ></ion-icon>
+  <p class="ion-no-data-container__label">
+    {{ label }}
+  </p>
+</div>
