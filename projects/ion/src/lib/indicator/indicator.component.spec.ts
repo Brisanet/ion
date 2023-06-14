@@ -246,6 +246,11 @@ describe('IonIndicatorComponent with a opened popover', () => {
     fireEvent.click(buttonOpenPopover);
   });
 
+  afterEach(() => {
+    mockFirstAction.mockClear();
+    mockSecondAction.mockClear();
+  });
+
   it('Should open a popover when the button is clicked', async () => {
     expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
   });
@@ -274,10 +279,12 @@ describe('IonIndicatorComponent with a opened popover', () => {
   it('Should execute action 1 of the popover when the button is clicked', async () => {
     fireEvent.click(screen.getByTestId('popover-action-1'));
     expect(mockFirstAction).toHaveBeenCalled();
+    expect(mockFirstAction).toHaveBeenCalledTimes(1);
   });
 
   it('Should execute action 2 of the popover when the button is clicked', async () => {
     fireEvent.click(screen.getByTestId('popover-action-2'));
     expect(mockSecondAction).toHaveBeenCalled();
+    expect(mockSecondAction).toHaveBeenCalledTimes(1);
   });
 });
