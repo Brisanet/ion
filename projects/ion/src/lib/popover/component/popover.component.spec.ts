@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/angular';
+import { fireEvent, screen } from '@testing-library/angular';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { IonPopoverComponent } from './popover.component';
 import { PopoverPosition } from '../../core/types/popover';
@@ -20,6 +20,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
       <ion-popover
         [ionPopoverTitle]="args.ionPopoverTitle"
         [ionPopoverBody]="BodyTemplate"
+        [ionPopoverKeep]="true"
         [ionPopoverIconClose]="args.ionPopoverIconClose"
         [ionPopoverIcon]="args.ionPopoverIcon"
         [ionPopoverPosition]="args.ionPopoverPosition"
@@ -32,6 +33,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 })
 export class PopoverTestComponent {
   args = {
+    ionPopoverKeep: true,
     ionPopoverTitle: 'Title',
     ionPopoverBody: 'Description',
     ionPopoverPosition: PopoverPosition.DEFAULT,
@@ -120,5 +122,20 @@ describe('PopoverComponent', () => {
         expect(element).toHaveClass(`ion-popover__sup-container--${arrow}`);
       }
     );
+
+    // it('should keep open when click outside', async () => {
+    //   PopoverComponent.args.ionPopoverKeep = true;
+    //   fixture.detectChanges();
+    //   const element = screen.getByTestId('ion-popover');
+
+    //   const fakeDiv = document.createElement('div');
+    //   fakeDiv.setAttribute('data-testid', 'fake-div');
+    //   document.body.appendChild(fakeDiv);
+
+    //   fireEvent.click(fakeDiv);
+    //   fireEvent.click(fakeDiv);
+
+    //   screen.debug();
+    // });
   });
 });
