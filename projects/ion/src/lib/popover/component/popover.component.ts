@@ -26,6 +26,9 @@ export class IonPopoverComponent {
     this.ionOnClose.next();
   }
   onClickOutside(): void {
+    if (this.ionPopoverKeep) {
+      return;
+    }
     this.close();
   }
   firstAction(): void {

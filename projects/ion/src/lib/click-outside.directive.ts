@@ -4,7 +4,6 @@ import {
   Output,
   EventEmitter,
   HostListener,
-  Input,
 } from '@angular/core';
 
 @Directive({
@@ -12,7 +11,6 @@ import {
 })
 export class ClickOutsideDirective {
   @Output() clickOutside: EventEmitter<null> = new EventEmitter();
-  @Input() clickOutsideKeep = false;
   private firstOpen = true;
 
   constructor(private elementRef: ElementRef) {}
@@ -24,7 +22,7 @@ export class ClickOutsideDirective {
       return;
     }
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
-    if (!clickedInside && !this.clickOutsideKeep) {
+    if (!clickedInside) {
       this.clickOutside.emit(null);
       this.firstOpen = true;
     }

@@ -164,8 +164,6 @@ describe('Directive: popover', () => {
     document.body.appendChild(fakeDiv);
     fireEvent.click(fakeDiv);
 
-    screen.debug();
-
     expect(screen.queryAllByTestId('popover-icon-close')).toHaveLength(1);
   });
 
