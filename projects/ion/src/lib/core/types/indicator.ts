@@ -73,7 +73,7 @@ export interface IonIndicatorButtonConfiguration {
    * const buttonPopoverExample: IonIndicatorButtonConfiguration {
    *   label: 'Open popover',
    *   type: IonIndicatorButtonType.Popover,
-   *   popoverConfig: PopoverProps,
+   *   popoverConfig: PopoverConfig,
    */
   popoverConfig?: PopoverConfig;
 }
