@@ -24,6 +24,7 @@ import { pick } from 'lodash';
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
+  @Input() ionPopoverKeep = false;
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
@@ -68,6 +69,7 @@ export class IonPopoverDirective implements OnDestroy {
   updatePopoverProps(popoverInstance: IonPopoverComponent): void {
     const instanceProps = {
       ionPopoverTitle: this.ionPopoverTitle,
+      ionPopoverKeep: this.ionPopoverKeep,
       ionPopoverBody: this.ionPopoverBody,
       ionPopoverActions: this.ionPopoverActions,
       ionPopoverIcon: this.ionPopoverIcon,
