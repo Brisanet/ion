@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Component,
+  Input,
   OnInit,
   TemplateRef,
   ViewChild,
@@ -33,9 +34,12 @@ import { PopoverPosition } from '../../core/types/popover';
 })
 export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
   @ViewChild('BodyTemplate', { static: true }) popoverBody!: TemplateRef<void>;
+  @Input() firstAction: () => void;
+  @Input() secondAction: () => void;
 
   templateBody = 'Texto teste para popover';
   indicatorConfig: IonIndicatorProps;
+
   buttonPopoverConfig: IonIndicatorButtonConfiguration = {
     label: 'Abrir popover',
     type: IonIndicatorButtonType.Popover,
@@ -46,12 +50,6 @@ export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
       ionPopoverPosition: PopoverPosition.DEFAULT,
       ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
       ionPopoverIconClose: true,
-      firstAction: (): void => {
-        this.indicatorConfig.title = 'Título alterado com a action 1';
-      },
-      secondAction: (): void => {
-        this.indicatorConfig.title = 'Título alterado com a action 2';
-      },
     },
   };
 
@@ -62,6 +60,9 @@ export class IndicatorPopoverComponent implements OnInit, AfterViewInit {
       secondValue: '5%',
       tooltipText: 'Texto personalizado via atributo tooltipText',
     };
+
+    this.buttonPopoverConfig.popoverConfig.firstAction = this.firstAction;
+    this.buttonPopoverConfig.popoverConfig.secondAction = this.secondAction;
   }
 
   ngAfterViewInit(): void {
