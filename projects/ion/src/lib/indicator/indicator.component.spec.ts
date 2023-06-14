@@ -230,7 +230,7 @@ describe('IonIndicatorComponent with popover button', () => {
   });
 });
 
-describe.only('IonIndicatorComponent with a opened popover', () => {
+describe('IonIndicatorComponent with a opened popover', () => {
   beforeEach(async () => {
     await sutIndicatorWithPopover();
     const buttonOpenPopover = screen.getByTestId(
