@@ -110,7 +110,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   clearBadgeValue(): void {
     this.setBadgeValue(0);
-    this.dropdownEvents.emit([]);
   }
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
@@ -121,6 +120,8 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
         return;
       }
       this.setPlaceHolder(selecteds[0].label);
+    } else {
+      this.clearBadgeValue();
     }
   }
 
