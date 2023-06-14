@@ -20,6 +20,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
       <ion-popover
         [ionPopoverTitle]="args.ionPopoverTitle"
         [ionPopoverBody]="BodyTemplate"
+        [ionPopoverKeep]="true"
         [ionPopoverIconClose]="args.ionPopoverIconClose"
         [ionPopoverIcon]="args.ionPopoverIcon"
         [ionPopoverPosition]="args.ionPopoverPosition"
@@ -32,6 +33,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 })
 export class PopoverTestComponent {
   args = {
+    ionPopoverKeep: true,
     ionPopoverTitle: 'Title',
     ionPopoverBody: 'Description',
     ionPopoverPosition: PopoverPosition.DEFAULT,

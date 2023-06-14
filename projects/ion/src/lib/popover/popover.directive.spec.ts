@@ -31,6 +31,7 @@ const secondAction = jest.fn();
     <ion-button
       data-testid="hostPopover"
       ionPopover
+      [ionPopoverKeep]="ionPopoverKeep"
       [ionPopoverTitle]="ionPopoverTitle"
       [ionPopoverBody]="ref"
       [ionPopoverIcon]="ionPopoverIcon"
@@ -56,6 +57,7 @@ class HostTestComponent {
   ionPopoverTitle = confirmText;
   ionPopoverBody = 'e eu sou o body do popover';
   ionPopoverPosition = PopoverPosition.DEFAULT;
+  ionPopoverKeep = false;
   ionPopoverIconClose = true;
   ionPopoverIcon = 'condominium';
   ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
@@ -141,6 +143,30 @@ describe('Directive: popover', () => {
     fireEvent.click(screen.getByTestId('popover-icon-close'));
   });
 
+  it('should close popover when click outside', async () => {
+    await sut();
+    fireEvent.click(screen.getByText(textButton));
+
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+    fireEvent.click(fakeDiv);
+
+    expect(screen.queryAllByTestId('popover-icon-close')).toHaveLength(0);
+  });
+
+  it('should not close popover when click outside', async () => {
+    await sut({ ionPopoverKeep: true });
+    fireEvent.click(screen.getByText(textButton));
+
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+    fireEvent.click(fakeDiv);
+
+    expect(screen.queryAllByTestId('popover-icon-close')).toHaveLength(1);
+  });
+
   it.each(['icon-close', 'action-1', 'action-2'])(
     'should close pop when click in %s',
     async (type) => {
@@ -213,7 +239,7 @@ describe('Popover host tests', () => {
   });
 
   afterEach(() => {
-    directive.closePopover();
+    directive && directive.closePopover();
   });
 
   it('should open the popover when clicked', () => {
@@ -280,7 +306,7 @@ describe('Popover disabled host component', () => {
   });
 
   afterEach(() => {
-    directive.closePopover();
+    directive && directive.closePopover();
   });
 
   it('should not open popover when the button is disabled', () => {

@@ -43,6 +43,7 @@
     (selected)="handleSelect($event)"
     (clearBadgeValue)="onClearBadgeValue()"
     (closeDropdown)="onCloseDropdown()"
+    [required]="dropdownConfig.required"
     [notShowClearButton]="dropdownConfig.notShowClearButton"
   >
   </ion-dropdown>
