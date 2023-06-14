@@ -193,8 +193,46 @@ const Template: Story = (args) => ({
     </div>
   `,
 });
+
 export const Directive = Template.bind({});
 Directive.args = {
+  ionPopoverTitle: 'Título do popover',
+  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverIconClose: false,
+} as PopoverProps;
+
+const TemplateOpen: Story = (args) => ({
+  props: args,
+  template: `
+    <style>
+      div {
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <div>
+      <ion-button
+        ionPopover
+        [ionPopoverKeep]="true"
+        ionPopoverTitle="${args.ionPopoverTitle}"
+        [ionPopoverBody]="BodyTemplate"
+        ionPopoverIconClose="${args.ionPopoverIconClose}"
+        ionPopoverPosition="${args.ionPopoverPosition}"
+        [ionPopoverActions]="null"
+        label="click me"
+      >
+      </ion-button>
+      <ng-template #BodyTemplate>
+        Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!
+      </ng-template>
+    </div>
+  `,
+});
+
+export const KeepOpen = TemplateOpen.bind({});
+KeepOpen.args = {
   ionPopoverTitle: 'Título do popover',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
