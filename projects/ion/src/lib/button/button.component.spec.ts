@@ -330,5 +330,12 @@ describe('ButtonComponent with dropdown', () => {
         String(0)
       );
     });
+
+    it('should update the badge value when option selected is clicked', async () => {
+      options.forEach((option) => {
+        fireEvent.click(screen.getByText(option.label));
+      });
+      expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
+    });
   });
 });
