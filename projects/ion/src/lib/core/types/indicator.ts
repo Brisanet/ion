@@ -20,11 +20,6 @@ export interface IonIndicatorProps {
   error?: boolean;
 }
 
-export interface PopoverConfig extends PopoverProps {
-  firstAction?: () => void;
-  secondAction?: () => void;
-}
-
 export interface IonIndicatorButtonConfiguration {
   label: string;
   icon?: string;
@@ -81,4 +76,9 @@ export interface IonIndicatorButtonConfiguration {
    *   popoverConfig: PopoverProps,
    */
   popoverConfig?: PopoverConfig;
+}
+
+export interface PopoverConfig extends PopoverProps {
+  firstAction?: () => void;
+  secondAction?: () => void;
 }
