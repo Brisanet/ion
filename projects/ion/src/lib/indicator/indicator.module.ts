@@ -7,6 +7,7 @@ import { IonModalModule } from '../modal/modal.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonPopoverModule } from '../popover/popover.module';
 
 @NgModule({
   declarations: [IonIndicatorComponent],
@@ -18,6 +19,7 @@ import { IonSpinnerModule } from '../spinner/spinner.module';
     IonModalModule,
     IonSkeletonModule,
     IonSpinnerModule,
+    IonPopoverModule,
   ],
   exports: [IonIndicatorComponent],
 })
