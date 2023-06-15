@@ -44,6 +44,7 @@ import { IonSpinnerModule } from './spinner/spinner.module';
 import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonModule } from './skeleton/skeleton.module';
 import { IonSelectModule } from './select/select.module';
+import { IonNoDataModule } from './no-data/no-data.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -91,6 +92,7 @@ import { IonSelectModule } from './select/select.module';
     PipesModule,
     IonSelectModule,
     IonStepsModule,
+    IonNoDataModule,
   ],
   exports: [
     IonComponent,
@@ -135,6 +137,7 @@ import { IonSelectModule } from './select/select.module';
     IonSkeletonModule,
     IonSelectModule,
     IonStepsModule,
+    IonNoDataModule,
   ],
 })
 export class IonModule {}
