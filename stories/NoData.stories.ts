@@ -18,7 +18,3 @@ const Template: Story<IonNoDataComponent> = (args: IonNoDataComponent) => ({
 });
 
 export const Default = Template.bind({});
-Default.args = {
-  label: 'Não há dados',
-  iconType: 'exclamation-rounded',
-};

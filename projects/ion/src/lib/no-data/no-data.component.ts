@@ -7,6 +7,6 @@ import { IconType } from '../core/types';
   styleUrls: ['./no-data.component.scss'],
 })
 export class IonNoDataComponent {
-  @Input() iconType?: IconType;
-  @Input() label: string;
+  @Input() iconType: IconType = 'exclamation-rounded';
+  @Input() label = 'Não há dados';
 }
