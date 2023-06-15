@@ -20,6 +20,10 @@ import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonPopoverModule } from '../popover/popover.module';
+import { IndicatorPopoverComponent } from './mocks/indicator-popover.component';
+import { IonSharedModule } from '../shared.module';
+import { IonIndicatorModule } from './indicator.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -38,9 +42,26 @@ const sut = async (
       EntryComponentModule,
       IonSkeletonModule,
       IonSpinnerModule,
+      IonPopoverModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
+  });
+};
+
+const mockFirstAction = jest.fn();
+const mockSecondAction = jest.fn();
+
+const sutIndicatorWithPopover = async (): Promise<
+  RenderResult<IndicatorPopoverComponent>
+> => {
+  return await render(IndicatorPopoverComponent, {
+    imports: [CommonModule, IonSharedModule, IonIndicatorModule],
+    declarations: [IndicatorPopoverComponent],
+    componentProperties: {
+      firstAction: mockFirstAction,
+      secondAction: mockSecondAction,
+    },
   });
 };
 
@@ -204,5 +225,66 @@ describe('IonIndicatorComponent', () => {
       error: true,
     });
     expect(getElementByTestId('error')).toBeInTheDocument();
+  });
+});
+
+describe('IonIndicatorComponent with popover button', () => {
+  it('Should render a open popover button when the button type is popover', async () => {
+    await sutIndicatorWithPopover();
+    expect(
+      screen.getByTestId('ion-indicator-button-popover')
+    ).toBeInTheDocument();
+  });
+});
+
+describe('IonIndicatorComponent with a opened popover', () => {
+  beforeEach(async () => {
+    await sutIndicatorWithPopover();
+    const buttonOpenPopover = screen.getByTestId(
+      'ion-indicator-button-popover'
+    );
+    fireEvent.click(buttonOpenPopover);
+  });
+
+  afterEach(() => {
+    mockFirstAction.mockClear();
+    mockSecondAction.mockClear();
+  });
+
+  it('Should open a popover when the button is clicked', async () => {
+    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  });
+
+  it('Should render the popover title informed', async () => {
+    expect(screen.getByText('Com botão que abre popover')).toBeInTheDocument();
+  });
+
+  it('Should render the popover icon informed', async () => {
+    expect(document.querySelector('#ion-icon-box')).toBeInTheDocument();
+  });
+
+  it('Should render the popover body informed', async () => {
+    expect(screen.getByTestId('ion-popover-body')).toBeInTheDocument();
+  });
+
+  it.each(['action-1', 'action-2'])(
+    'Should render the popover %s informed',
+    async (IonPopoverButton) => {
+      expect(
+        screen.getByTestId(`popover-${IonPopoverButton}`)
+      ).toBeInTheDocument();
+    }
+  );
+
+  it('Should execute action 1 of the popover when the button is clicked', async () => {
+    fireEvent.click(screen.getByTestId('popover-action-1'));
+    expect(mockFirstAction).toHaveBeenCalled();
+    expect(mockFirstAction).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should execute action 2 of the popover when the button is clicked', async () => {
+    fireEvent.click(screen.getByTestId('popover-action-2'));
+    expect(mockSecondAction).toHaveBeenCalled();
+    expect(mockSecondAction).toHaveBeenCalledTimes(1);
   });
 });
