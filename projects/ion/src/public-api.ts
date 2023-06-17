@@ -49,3 +49,4 @@ export * from './lib/step/step.module';
 export { default as debounce } from './lib/utils/debounce';
 export * from './lib/spinner/spinner.module';
 export * from './lib/select/select.module';
+export * from './lib/no-data/no-data.module';

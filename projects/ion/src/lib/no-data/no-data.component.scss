@@ -1,0 +1,18 @@
+@import '../../styles/index.scss';
+
+.ion-no-data-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  background-color: transparent;
+
+  &__label {
+    color: $neutral-6;
+    font-family: 'Source Sans Pro';
+    font-weight: 600;
+    @include font-size-xs;
+  }
+}
