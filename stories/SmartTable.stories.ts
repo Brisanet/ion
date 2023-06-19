@@ -3,7 +3,11 @@ import { Meta, Story } from '@storybook/angular';
 import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import {
+  IonSmartTableModule,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -155,13 +159,23 @@ const actions = [
   },
 ];
 
+const mockTooltip = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+  ionTooltipColorScheme: 'dark',
+  ionTooltipShowDelay: 1000,
+  ionTooltipArrowPointAtCenter: true,
+};
+
 function returnTableConfig(
   tableData,
   tableColumns,
   tableActions,
   paginationTotal,
   debounceOnSort = 0,
-  pageSizeOptions = LIST_OF_PAGE_OPTIONS
+  pageSizeOptions = LIST_OF_PAGE_OPTIONS,
+  tooltipConfig?
 ): SafeAny {
   return {
     config: {
@@ -174,6 +188,7 @@ function returnTableConfig(
         pageSizeOptions,
       },
       debounceOnSort,
+      tooltipConfig: tooltipConfig,
     },
   };
 }
@@ -245,4 +260,15 @@ PopConfirmDynamicDescription.args = returnTableConfig(
     },
   ],
   2
+);
+
+export const WithTooltipInActions = Template.bind({});
+WithTooltipInActions.args = returnTableConfig(
+  data,
+  columns,
+  actions,
+  2,
+  2000,
+  [10, 15, 30, 50, 100],
+  mockTooltip
 );
