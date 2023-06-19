@@ -138,6 +138,7 @@
               "
               [ionTooltipTrigger]="config.tooltipConfig.ionTooltipTrigger"
               [ionTooltipShowDelay]="config.tooltipConfig.ionTooltipShowDelay"
+              [ionTooltipTemplateRef]="ionTooltipTemplateBody"
               ionPopConfirm
               [ionPopConfirmTitle]="action.confirm.title"
               [ionPopConfirmType]="action.confirm.type"
@@ -217,3 +218,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #ionTooltipTemplateBody>
+  <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
+</ng-template>
