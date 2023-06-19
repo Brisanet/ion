@@ -138,6 +138,10 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   ngOnInit(): void {
     this.chipId = this.generateId('ion-chip__container-');
     this.dropdownId = this.generateId('ion-chip__container-dropdown-');
+    const selecteds = this.getSelectedOptions();
+    if (selecteds && this.multiple) {
+      this.setBadgeValue(selecteds.length);
+    }
   }
 
   generateId = (name: string): string =>
