@@ -11,6 +11,7 @@ import { IonTagModule } from '../tag/tag.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableComponent } from './smart-table.component';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -90,6 +91,7 @@ const sut = async (
       IonIconModule,
       IonPaginationModule,
       PipesModule,
+      IonTooltipModule,
     ],
   });
 };
