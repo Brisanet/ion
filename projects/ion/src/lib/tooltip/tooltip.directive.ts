@@ -130,6 +130,8 @@ export class IonTooltipDirective implements OnDestroy {
       this.isComponentRefNull()
         ? this.attachComponentToView()
         : this.destroyComponent();
+    } else {
+      this.destroyComponent();
     }
   }
 
