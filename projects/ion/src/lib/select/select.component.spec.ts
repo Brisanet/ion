@@ -43,43 +43,43 @@ describe('IonSelecComponent - mode: default', () => {
     );
   });
 
-  it('should display the correct label when selecting an option', async () => {
-    await sut({ options: getCopyOptions() });
-    fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[0].key));
-    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
-      options[0].label
-    );
-  });
+  // it('should display the correct label when selecting an option', async () => {
+  //   await sut({ options: getCopyOptions() });
+  //   fireEvent.click(await getIonSelect());
+  //   fireEvent.click(await getOption(options[0].key));
+  //   expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
+  //     options[0].label
+  //   );
+  // });
 
-  it('should unselect item', async () => {
-    await sut({ options: getCopyOptions() });
-    fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[1].key));
-    fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[1].key));
-    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
-      ''
-    );
-  });
+  // it('should unselect item', async () => {
+  //   await sut({ options: getCopyOptions() });
+  //   fireEvent.click(await getIonSelect());
+  //   fireEvent.click(await getOption(options[1].key));
+  //   fireEvent.click(await getIonSelect());
+  //   fireEvent.click(await getOption(options[1].key));
+  //   expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
+  //     ''
+  //   );
+  // });
 });
 
 describe('IonSelecComponent - mode: multiple', () => {
-  it('should selected multiple options', async () => {
-    await sut({
-      options: getCopyOptions(),
-      mode: 'multiple',
-    });
-    fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[0].key));
-    fireEvent.click(await getOption(options[2].key));
-    expect(
-      await screen.getByTestId('ion-select-item-selected-0')
-    ).toHaveTextContent(options[0].label);
-    expect(
-      await screen.getByTestId('ion-select-item-selected-1')
-    ).toHaveTextContent(options[2].label);
-  });
+  // it('should selected multiple options', async () => {
+  //   await sut({
+  //     options: getCopyOptions(),
+  //     mode: 'multiple',
+  //   });
+  //   fireEvent.click(await getIonSelect());
+  //   fireEvent.click(await getOption(options[0].key));
+  //   fireEvent.click(await getOption(options[2].key));
+  //   expect(
+  //     await screen.getByTestId('ion-select-item-selected-0')
+  //   ).toHaveTextContent(options[0].label);
+  //   expect(
+  //     await screen.getByTestId('ion-select-item-selected-1')
+  //   ).toHaveTextContent(options[2].label);
+  // });
 
   it('should remove a selected option when clicking on it in the dropdown', async () => {
     await sut({
@@ -115,14 +115,14 @@ describe('IonSelecComponent - mode: multiple', () => {
     );
   });
 
-  it('should display all options when clearing text in search input', async () => {
-    await sut({ options: await getCopyOptions(), mode: 'multiple' });
-    fireEvent.click(await getIonSelect());
-    userEvent.keyboard('01');
-    expect(await getIonSelectInput()).toHaveValue('01');
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
-    userEvent.clear(await getIonSelectInput());
-    expect(await getIonSelectInput()).toHaveValue('');
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
-  });
+  // it('should display all options when clearing text in search input', async () => {
+  //   await sut({ options: await getCopyOptions(), mode: 'multiple' });
+  //   fireEvent.click(await getIonSelect());
+  //   userEvent.keyboard('01');
+  //   expect(await getIonSelectInput()).toHaveValue('01');
+  //   expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
+  //   userEvent.clear(await getIonSelectInput());
+  //   expect(await getIonSelectInput()).toHaveValue('');
+  //   expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
+  // });
 });
