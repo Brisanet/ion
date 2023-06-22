@@ -8,6 +8,7 @@ import {
 } from '../projects/ion/src/public-api';
 import { FormsModule } from '@angular/forms';
 import { IonSelectProps } from '../projects/ion/src/lib/core/types/select';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Ion/Data Entry/Select',
@@ -47,7 +48,7 @@ const moreFruitOptions: IonSelectProps['options'] = [
 
 const Template: Story<IonSelectComponent> = (args: IonSelectProps) => ({
   component: IonSelectComponent,
-  props: { ...args },
+  props: { ...args, search: action('search') },
 });
 
 export const Default = Template.bind({});

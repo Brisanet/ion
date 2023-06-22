@@ -21,16 +21,15 @@ export class IonSelectComponent implements OnInit {
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Output() events = new EventEmitter<IonSelectProps['options']>();
+  @Output() search = new EventEmitter<string>();
 
   showDropdown = false;
   inputValue = '';
-  selectedOptions: IonSelectProps['options'] = [];
   visibleOptions: IonSelectProps['options'] = [];
   showPlaceholder = true;
 
   ngOnInit(): void {
     this.visibleOptions = this.options;
-    // this.setPlaceholderVisibility();
   }
 
   handleClick(): void {
@@ -53,21 +52,11 @@ export class IonSelectComponent implements OnInit {
         option.selected = true;
       }
     }
-    // this.setPlaceholderVisibility();
   }
-
-  // setPlaceholderVisibility(): void {
-  //   this.showPlaceholder = !this.hasSelectedOption();
-  // }
 
   hasSelectedOption = (): boolean => {
     return this.options.some((option) => !!option.selected);
   };
-
-  clearSelectedOptions(): void {
-    this.inputValue = '';
-    this.unselectAllOptions();
-  }
 
   unselectAllOptions(): void {
     this.options.forEach((option) => (option.selected = false));
@@ -75,18 +64,16 @@ export class IonSelectComponent implements OnInit {
 
   unselectOption(currentOption: DropdownItem): void {
     currentOption.selected = false;
-    // this.setPlaceholderVisibility();
   }
 
   onSearchChange(): void {
     this.showDropdown = true;
-    if (!this.inputValue) {
-      this.visibleOptions = this.options;
-    }
 
-    this.visibleOptions = this.options.filter((option) =>
-      option.label.toLowerCase().includes(this.inputValue.toLowerCase())
-    );
+    this.visibleOptions = this.options.filter((option) => {
+      return option.label.toLowerCase().includes(this.inputValue.toLowerCase());
+    });
+
+    this.search.emit(this.inputValue);
   }
 
   onCloseDropdown(): void {

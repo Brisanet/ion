@@ -7,6 +7,7 @@ import { DropdownItem } from '../core/types';
 import { FormsModule } from '@angular/forms';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
 import userEvent from '@testing-library/user-event';
+import { SafeAny } from '../utils/safe-any';
 
 const sut = async (customProps?: IonSelectProps): Promise<void> => {
   await render(IonSelectComponent, {
@@ -111,14 +112,18 @@ describe('IonSelecComponent - mode: multiple', () => {
     );
   });
 
-  // it.only('should display all options when clearing text in search input', async () => {
-  //   await sut({ options: await getCopyOptions(), mode: 'multiple' });
-  //   fireEvent.click(await getIonSelect());
-  //   userEvent.keyboard('01');
-  //   expect(await getIonSelectInput()).toHaveValue('01');
-  //   expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
-  //   userEvent.clear(await getIonSelectInput());
-  //   screen.debug();
-  //   expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
-  // });
+  it('should dispatch a event with input value when search', async () => {
+    const selectEvent = jest.fn();
+    await sut({
+      options: getCopyOptions(),
+      search: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+
+    fireEvent.click(getIonSelect());
+    const textToType = '01';
+    userEvent.keyboard(textToType);
+    expect(selectEvent).toHaveBeenCalledWith(textToType);
+  });
 });
