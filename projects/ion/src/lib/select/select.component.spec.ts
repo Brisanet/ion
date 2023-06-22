@@ -7,6 +7,7 @@ import { DropdownItem } from '../core/types';
 import { FormsModule } from '@angular/forms';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
 import userEvent from '@testing-library/user-event';
+import { SafeAny } from '../utils/safe-any';
 
 const sut = async (customProps?: IonSelectProps): Promise<void> => {
   await render(IonSelectComponent, {
@@ -124,5 +125,20 @@ describe('IonSelecComponent - mode: multiple', () => {
     userEvent.clear(await getIonSelectInput());
     expect(await getIonSelectInput()).toHaveValue('');
     expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
+  });
+
+  it('should dispatch a event with input value when search', async () => {
+    const selectEvent = jest.fn();
+    await sut({
+      options: getCopyOptions(),
+      search: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+
+    fireEvent.click(getIonSelect());
+    const textToType = '01';
+    userEvent.keyboard(textToType);
+    expect(selectEvent).toHaveBeenCalledWith(textToType);
   });
 });
