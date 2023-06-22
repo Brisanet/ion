@@ -1,8 +1,9 @@
+import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonSmartTableProps } from '../core/types';
+import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
@@ -835,6 +836,96 @@ describe('Table > Action with confirm', () => {
     // click in button again
     fireEvent.click(screen.getByTestId('row-0-Excluir'));
     expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
+});
+
+describe('Table > Action with tooltip', () => {
+  const actions: ActionTable[] = [
+    {
+      label: 'Excluir',
+      icon: 'trash',
+      show: (row: Character): boolean => {
+        return !row.name;
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+    {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: Character): boolean => {
+        return row.height > 160;
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+    {
+      label: 'Editar',
+      icon: 'pencil',
+      call: (row: Character): void => {
+        row.name = 'editado!';
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+  ];
+
+  const tooltipConfig: TooltipProps = {
+    ionTooltipTitle: 'Eu sou um tooltip',
+    ionTooltipPosition: TooltipPosition.DEFAULT,
+    ionTooltipTrigger: TooltipTrigger.DEFAULT,
+    ionTooltipColorScheme: 'dark',
+    ionTooltipArrowPointAtCenter: true,
+  };
+
+  const propsWithTooltip: IonSmartTableProps<Character> = {
+    ...defaultProps,
+    config: {
+      ...defaultProps.config,
+      actions,
+      tooltipConfig,
+    },
+  };
+
+  let actionButton: HTMLButtonElement;
+
+  beforeEach(async () => {
+    await sut(propsWithTooltip);
+    actionButton = screen.getByTestId(`row-0-${actions[0].label}-tooltip`);
+  });
+
+  it('should render without tooltip', async () => {
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+  });
+
+  it('should render the button with the tooltip directive when the tooltip configs are informed', async () => {
+    expect(actionButton).toBeInTheDocument();
+  });
+
+  it('should close the tooltip and open the popconfirm when clicked the button', () => {
+    fireEvent.mouseEnter(actionButton);
+    fireEvent.click(actionButton);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('sup-container')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Luke Skywalker'));
+    expect(screen.queryByTestId('sup-container')).not.toBeInTheDocument();
+  });
+
+  it('should open the tooltip after a hover on the button', () => {
+    fireEvent.mouseEnter(actionButton);
+
+    expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
+    fireEvent.mouseLeave(actionButton);
+  });
+
+  it('should close the tooltip after the mouse leave the button', () => {
+    fireEvent.mouseEnter(actionButton);
+    fireEvent.mouseLeave(actionButton);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });
 

@@ -150,7 +150,9 @@
                   : undefined
               "
               (ionOnConfirm)="handleEvent(row, action)"
-              [attr.data-testid]="'row-' + index + '-' + action.label"
+              [attr.data-testid]="
+                'row-' + index + '-' + action.label + '-tooltip'
+              "
               type="ghost"
               size="sm"
               [danger]="!!action.danger"
