@@ -8,6 +8,7 @@ import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 @NgModule({
   declarations: [IonSmartTableComponent],
@@ -20,6 +21,7 @@ import { PipesModule } from '../utils/pipes/pipes.module';
     IonIconModule,
     IonPaginationModule,
     PipesModule,
+    IonSpinnerModule,
   ],
   exports: [IonSmartTableComponent],
 })
