@@ -13,8 +13,8 @@ export class IonInputComponent {
   @Input() iconInput: IconType;
   @Input() disabled = false;
   @Input() iconDirection?: IconDirection;
-  @Input() valid: boolean;
-  @Input() invalid: boolean;
+  @Input() valid = true;
+  @Input() showIconValidation!: boolean;
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
   @Input() value = '';
@@ -22,6 +22,7 @@ export class IonInputComponent {
   @Input() clearButton = false;
   @Input() readonly = false;
   @Input() maxLength?: string | number | null = null;
+  @Input() errorMsg?: string;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
