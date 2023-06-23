@@ -119,13 +119,25 @@ describe('ChipComponent', () => {
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
 
-  it('should render the label of the first selected option when displaying the chip with dropdwon', async () => {
+  it('should render the label of the first selected option when displaying the chip with dropdown', async () => {
     const customLabel = 'option';
     await sut({
       label: 'chip',
       options: [{ label: customLabel, selected: true }],
     });
     expect(screen.getByText(customLabel)).toBeInTheDocument();
+  });
+
+  it('should render badge with value', async () => {
+    await sut({
+      label: 'Chip',
+      options: [
+        { label: 'Option 1', selected: true },
+        { label: 'Option 2', selected: false },
+      ],
+      multiple: true,
+    });
+    expect(screen.getByTestId('badge-multiple')).toHaveTextContent('1');
   });
 
   describe('With Dropdown', () => {
