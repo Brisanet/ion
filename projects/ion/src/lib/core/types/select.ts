@@ -9,6 +9,7 @@ export interface IonSelectProps {
   options?: DropdownItem[];
   events?: EventEmitter<DropdownItem[]>;
   maxSelected?: number;
+  search?: EventEmitter<string>;
 }
 
 export interface IonSelectItemProps {
