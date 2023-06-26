@@ -103,6 +103,12 @@ describe('Icon on ButtonComponent', () => {
     expect(button.querySelector('ion-icon')).toBeTruthy();
     expect(button).toHaveClass('circular-button');
   });
+
+  it('should find button by data-testid when dont have label', async () => {
+    const myCustomId = '1234';
+    await sut({ iconType: 'pencil', id: myCustomId });
+    expect(screen.queryAllByTestId(`btn-${myCustomId}`)).toHaveLength(1);
+  });
 });
 
 describe('Danger ButtonComponent', () => {
