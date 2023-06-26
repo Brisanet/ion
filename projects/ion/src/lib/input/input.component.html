@@ -3,7 +3,7 @@
     data-testid="input-div"
     class="input"
     [class.disabled]="disabled"
-    [class.invalid]="!valid"
+    [class.invalid]="invalid"
     [class.valid]="valid"
     [class.inputButton]="inputButton"
     [class.IconButton]="inputIconButton"
@@ -37,7 +37,7 @@
     <ion-icon
       data-testid="icon-valid"
       class="colorValid"
-      *ngIf="valid && showIconValidation"
+      *ngIf="valid"
       type="check-solid"
       size="16"
     >
@@ -45,7 +45,7 @@
     <ion-icon
       data-testid="icon-invalid"
       class="colorInvalid"
-      *ngIf="!valid && showIconValidation"
+      *ngIf="invalid"
       type="close-solid"
       size="16"
     >
@@ -77,5 +77,5 @@
 </div>
 
 <div class="errorMsg">
-  <p *ngIf="!valid">{{ errorMsg }}</p>
+  <p *ngIf="invalid">{{ errorMsg }}</p>
 </div>

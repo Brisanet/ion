@@ -35,15 +35,19 @@ iconRight.args = {
   iconDirection: 'right',
 };
 
-export const iconValidation = Template.bind({});
-iconValidation.args = {
+export const iconValid = Template.bind({});
+iconValid.args = {
   valid: true,
-  showIconValidation: true,
+};
+
+export const iconInvalid = Template.bind({});
+iconInvalid.args = {
+  invalid: true,
 };
 
 export const errorMsg = Template.bind({});
 errorMsg.args = {
-  valid: false,
+  invalid: true,
   errorMsg: 'Invalid input',
 };
 
