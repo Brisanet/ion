@@ -76,7 +76,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
       this.remountPages();
     }
 
-    if (changes.total && changes.total) {
+    if (changes.total) {
       this.remountPages(false);
     }
 
@@ -161,6 +161,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
     if (this.pages.length) {
       this.selectPage(1, emitEvent);
     }
+    this.updateIsAdvanced();
   }
 
   totalPages(): number {
