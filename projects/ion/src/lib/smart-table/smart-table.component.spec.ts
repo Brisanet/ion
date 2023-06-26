@@ -13,6 +13,7 @@ import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableComponent } from './smart-table.component';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -93,6 +94,7 @@ const sut = async (
       IonPaginationModule,
       PipesModule,
       IonTooltipModule,
+      IonSpinnerModule,
     ],
   });
 };
@@ -675,6 +677,17 @@ describe('Table > Pagination', () => {
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
     expect(totalPagination).not.toBeInTheDocument();
+  });
+
+  it('should render loading when dont have data and table is loading', async () => {
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    tableWithLoading.config.loading = true;
+    tableWithLoading.config.data = [];
+
+    await sut(tableWithLoading);
+    expect(screen.getByTestId('ion-spinner')).toBeInTheDocument();
   });
 });
 

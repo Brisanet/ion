@@ -7,6 +7,9 @@ import {
   IonSmartTableModule,
   TooltipPosition,
   TooltipTrigger,
+  ConfigSmartTable,
+  IonSmartTableModule,
+  IonSpinnerModule,
 } from '../projects/ion/src/public-api';
 
 export default {
@@ -20,7 +23,7 @@ const Template: Story<IonSmartTableComponent> = (
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    imports: [IonSmartTableModule],
+    imports: [IonSmartTableModule, IonSpinnerModule],
   },
 });
 
@@ -176,7 +179,8 @@ function returnTableConfig(
   debounceOnSort = 0,
   pageSizeOptions = LIST_OF_PAGE_OPTIONS,
   tooltipConfig?
-): SafeAny {
+): { config: ConfigSmartTable<SafeAny> } {
+
   return {
     config: {
       check: true,
@@ -195,6 +199,20 @@ function returnTableConfig(
 
 export const Basic = Template.bind({});
 Basic.args = returnTableConfig(data, columns, actions, 2);
+
+export const Loading = Template.bind({});
+Loading.args = {
+  config: {
+    loading: true,
+    check: true,
+    data: [],
+    columns: columns,
+    pagination: {
+      total: 2,
+      LIST_OF_PAGE_OPTIONS,
+    },
+  },
+};
 
 export const NoData = Template.bind({});
 NoData.args = returnTableConfig([], columns, actions, 0);
