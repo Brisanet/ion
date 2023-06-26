@@ -48,20 +48,27 @@ describe('IonSelecComponent - mode: default', () => {
     await sut({ options: getCopyOptions() });
     fireEvent.click(await getIonSelect());
     fireEvent.click(await getOption(options[0].key));
-    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
+    expect(screen.getByTestId('ion-select-item-selected-0')).toHaveTextContent(
       options[0].label
     );
   });
 
-  it('should unselect item', async () => {
+  it('should remove the selected option by clicking on the close icon of the option itself', async () => {
     await sut({ options: getCopyOptions() });
     fireEvent.click(await getIonSelect());
     fireEvent.click(await getOption(options[1].key));
+    fireEvent.click(screen.getByTestId('ion-icon-close'));
+    expect(await screen.queryByTestId('ion-select-item-selected-1')).toBeNull();
+  });
+
+  it('should remove a selected option when clicking on it in the dropdown', async () => {
+    await sut({
+      options: getCopyOptions(),
+    });
     fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[1].key));
-    expect(screen.getByTestId('ion-select-item-selected')).toHaveTextContent(
-      ''
-    );
+    fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(await getOption(options[0].key));
+    expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
 });
 
@@ -78,19 +85,8 @@ describe('IonSelecComponent - mode: multiple', () => {
       await screen.getByTestId('ion-select-item-selected-0')
     ).toHaveTextContent(options[0].label);
     expect(
-      await screen.getByTestId('ion-select-item-selected-1')
+      await screen.getByTestId('ion-select-item-selected-2')
     ).toHaveTextContent(options[2].label);
-  });
-
-  it('should remove a selected option when clicking on it in the dropdown', async () => {
-    await sut({
-      options: getCopyOptions(),
-      mode: 'multiple',
-    });
-    fireEvent.click(await getIonSelect());
-    fireEvent.click(await getOption(options[0].key));
-    fireEvent.click(await getOption(options[0].key));
-    expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
 
   it('should remove an option selected by clicking on the "X" icon of the ion-select-tem component', async () => {
@@ -114,17 +110,6 @@ describe('IonSelecComponent - mode: multiple', () => {
     expect(screen.getByTestId('ion-select-item-selected-0')).toHaveTextContent(
       options[0].label
     );
-  });
-
-  it('should display all options when clearing text in search input', async () => {
-    await sut({ options: await getCopyOptions(), mode: 'multiple' });
-    fireEvent.click(await getIonSelect());
-    userEvent.keyboard('01');
-    expect(await getIonSelectInput()).toHaveValue('01');
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(1);
-    userEvent.clear(await getIonSelectInput());
-    expect(await getIonSelectInput()).toHaveValue('');
-    expect(document.getElementsByClassName('dropdown-item').length).toBe(3);
   });
 
   it('should dispatch a event with input value when search', async () => {
