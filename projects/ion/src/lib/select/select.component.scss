@@ -53,13 +53,8 @@
     border: none;
     outline: none;
     width: 100%;
-
-    &.ion-select-item-selected {
-      width: 4px;
-    }
   }
 
-  p,
   input {
     font-size: 14px;
     line-height: 20px;
@@ -69,11 +64,5 @@
   .icon {
     display: flex;
     margin-inline-end: 8px;
-  }
-
-  p.ion-select-item-selected {
-    margin: 0;
-    max-height: 32px;
-    overflow: hidden;
   }
 }
