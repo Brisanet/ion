@@ -3,7 +3,11 @@ import { Meta, Story } from '@storybook/angular';
 import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import {
+  ConfigSmartTable,
+  IonSmartTableModule,
+  IonSpinnerModule,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -16,7 +20,7 @@ const Template: Story<IonSmartTableComponent> = (
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    imports: [IonSmartTableModule],
+    imports: [IonSmartTableModule, IonSpinnerModule],
   },
 });
 
@@ -162,7 +166,7 @@ function returnTableConfig(
   paginationTotal,
   debounceOnSort = 0,
   pageSizeOptions = LIST_OF_PAGE_OPTIONS
-): SafeAny {
+): { config: ConfigSmartTable<SafeAny> } {
   return {
     config: {
       check: true,
@@ -180,6 +184,20 @@ function returnTableConfig(
 
 export const Basic = Template.bind({});
 Basic.args = returnTableConfig(data, columns, actions, 2);
+
+export const Loading = Template.bind({});
+Loading.args = {
+  config: {
+    loading: true,
+    check: true,
+    data: [],
+    columns: columns,
+    pagination: {
+      total: 2,
+      LIST_OF_PAGE_OPTIONS,
+    },
+  },
+};
 
 export const NoData = Template.bind({});
 NoData.args = returnTableConfig([], columns, actions, 0);
