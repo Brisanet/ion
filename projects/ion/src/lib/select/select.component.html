@@ -1,31 +1,22 @@
 <div class="ion-select" (click)="handleClick()" data-testid="ion-select">
   <div class="ion-select-container">
-    <ion-select-item
-      *ngFor="let option of selectedOptions; let i = index"
-      [attr.data-testid]="'ion-select-item-selected-' + i"
-      [label]="option.label"
-      (unselect)="unselectOption(option)"
-    ></ion-select-item>
-
+    <ng-container *ngFor="let option of options; let i = index">
+      <ng-container *ngIf="option.selected">
+        <ion-select-item
+          [attr.data-testid]="'ion-select-item-selected-' + i"
+          [label]="option.label"
+          (unselect)="unselectOption(option)"
+        ></ion-select-item>
+      </ng-container>
+    </ng-container>
     <input
       #ionSelectInput
       type="text"
       data-testid="ion-select-input"
-      [placeholder]="option || selectedOptions.length > 0 ? '' : placeholder"
+      [placeholder]="!hasSelectedOption() ? placeholder : ''"
       [(ngModel)]="inputValue"
       (input)="onSearchChange()"
-      [ngClass]="{
-        'ion-select-item-selected': mode === 'default' && option && !inputValue
-      }"
     />
-
-    <p
-      data-testid="ion-select-item-selected"
-      *ngIf="mode !== 'multiple' && !inputValue"
-      [class]="!inputValue && 'ion-select-item-selected'"
-    >
-      {{ option }}
-    </p>
   </div>
   <div>
     <ion-icon
@@ -39,7 +30,6 @@
   [options]="visibleOptions"
   (selected)="selected($event)"
   [multiple]="mode === 'multiple'"
-  (clearBadgeValue)="clearSelectedOptions()"
   (closeDropdown)="onCloseDropdown()"
   [maxSelected]="maxSelected"
 ></ion-dropdown>
