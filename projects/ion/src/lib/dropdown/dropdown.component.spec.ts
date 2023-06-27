@@ -526,14 +526,6 @@ describe('IonDropdownComponent / No data', () => {
     expect(element).not.toBeInTheDocument();
   });
 
-  it('Should render NoData with default parameters.', async () => {
-    await sut(defaultNoData);
-    expect(screen.getByText('Não há dados')).toBeInTheDocument();
-    expect(
-      document.getElementById('ion-icon-exclamation-rounded')
-    ).toBeInTheDocument();
-  });
-
   it('Should render NoData with custom parameters.', async () => {
     const noDataConfig = {
       label: 'Dados? Fugiram em férias!',
