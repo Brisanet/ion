@@ -39,6 +39,11 @@ Basic.args = {
   options,
 };
 
+export const NoData = Template.bind({});
+NoData.args = {
+  options: [],
+};
+
 export const DisabledSelected = Template.bind({});
 DisabledSelected.args = {
   options: [

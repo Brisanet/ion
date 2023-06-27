@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
-import { IonNoDataComponent } from './no-data.component';
 import { CommonModule } from '@angular/common';
-import { IonIconModule } from '../icon/icon.module';
+import { IonNoDataComponent } from './no-data.component';
+import { IonSharedModule } from '../shared.module';
 
 @NgModule({
-  declarations: [IonNoDataComponent],
-  imports: [CommonModule, IonIconModule],
+  imports: [CommonModule, IonSharedModule],
   exports: [IonNoDataComponent],
 })
 export class IonNoDataModule {}
