@@ -24,10 +24,9 @@ export class IonSelectComponent implements OnInit {
   @Output() search = new EventEmitter<string>();
 
   showDropdown = false;
-  option = '';
   inputValue = '';
-  selectedOptions: IonSelectProps['options'] = [];
   visibleOptions: IonSelectProps['options'] = [];
+  showPlaceholder = true;
 
   ngOnInit(): void {
     this.visibleOptions = this.options;
@@ -46,62 +45,33 @@ export class IonSelectComponent implements OnInit {
     this.events.emit(selectedOptions);
     this.inputValue = '';
     this.visibleOptions = this.options;
-
-    if (this.mode !== 'multiple') {
-      this.standardizeOptions(selectedOptions);
-      this.showDropdown = false;
-      return;
+    if (this.mode === 'default') {
+      this.unselectAllOptions();
+      const [option] = selectedOptions;
+      if (option) {
+        option.selected = true;
+      }
     }
-
-    this.selectedOptions = this.options.filter((option) => option.selected);
   }
 
-  standardizeOptions(selectedOptions: IonSelectProps['options']): void {
-    this.unselectAllOptions();
-
-    if (selectedOptions.length) {
-      const [optionSelected] = this.options.filter(
-        (option) => option.label === selectedOptions[0].label
-      );
-      optionSelected.selected = true;
-      this.option = optionSelected.label;
-      return;
-    }
-    this.option = '';
-  }
-
-  clearSelectedOptions(): void {
-    this.selectedOptions = [];
-    this.inputValue = '';
-    this.option = '';
-    this.unselectAllOptions();
-  }
+  hasSelectedOption = (): boolean => {
+    return this.options.some((option) => !!option.selected);
+  };
 
   unselectAllOptions(): void {
     this.options.forEach((option) => (option.selected = false));
   }
 
   unselectOption(currentOption: DropdownItem): void {
-    const item = this.options.find(
-      (option) => option.label === currentOption.label
-    );
-
-    item.selected = false;
-
-    this.selectedOptions = this.selectedOptions.filter(
-      (option) => option.label !== currentOption.label
-    );
+    currentOption.selected = false;
   }
 
   onSearchChange(): void {
     this.showDropdown = true;
-    if (!this.inputValue) {
-      this.visibleOptions = this.options;
-    }
 
-    this.visibleOptions = this.options.filter((option) =>
-      option.label.toLowerCase().includes(this.inputValue.toLowerCase())
-    );
+    this.visibleOptions = this.options.filter((option) => {
+      return option.label.toLowerCase().includes(this.inputValue.toLowerCase());
+    });
 
     this.search.emit(this.inputValue);
   }
@@ -110,5 +80,7 @@ export class IonSelectComponent implements OnInit {
     if (this.showDropdown) {
       this.showDropdown = false;
     }
+    this.inputValue = '';
+    this.visibleOptions = this.options;
   }
 }
