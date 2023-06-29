@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular';
 import { IonNoDataComponent } from './no-data.component';
 import { CommonModule } from '@angular/common';
-import { IonIconModule } from '../icon/icon.module';
+import { IonSharedModule } from '../shared.module';
 
 const customLabel = 'No data';
 
@@ -13,7 +13,8 @@ const testCustomProps: IonNoDataComponent = {
 const sut = async (customProps?: IonNoDataComponent): Promise<void> => {
   await render(IonNoDataComponent, {
     componentProperties: customProps,
-    imports: [CommonModule, IonIconModule],
+    imports: [CommonModule, IonSharedModule],
+    excludeComponentDeclaration: true,
   });
 };
 
