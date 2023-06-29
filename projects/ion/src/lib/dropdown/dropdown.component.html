@@ -57,4 +57,10 @@
     (click)="clearOptions(true)"
     data-testid="button-clear"
   ></ion-button>
+  <ion-no-data
+    *ngIf="!options || options.length === 0"
+    data-testid="ion-no-data"
+    [label]="noDataConfig.label"
+    [iconType]="noDataConfig.iconType"
+  ></ion-no-data>
 </div>

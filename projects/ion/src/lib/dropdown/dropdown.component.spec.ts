@@ -497,3 +497,47 @@ describe('IonDropdownComponent / Required', () => {
     expect(document.getElementById('option-0')).toHaveClass('dropdown-item');
   });
 });
+
+describe('IonDropdownComponent / No data', () => {
+  const defaultNoData = {
+    ...defaultDropdown,
+    options: [],
+    selected: {
+      emit: selectEvent,
+    } as SafeAny,
+  };
+
+  it('Should render NoData when there are no options.', async () => {
+    await sut(defaultNoData);
+    const element = screen.getByTestId('ion-no-data');
+    expect(element).toBeInTheDocument();
+    expect(screen.getByText('Não há dados')).toBeInTheDocument();
+    expect(
+      document.getElementById('ion-icon-exclamation-rounded')
+    ).toBeInTheDocument();
+  });
+
+  it('Should not render NoData when there are options.', async () => {
+    await sut({
+      ...defaultNoData,
+      options: [{ label: 'Option 1', selected: false }],
+    });
+    const element = screen.queryByTestId('ion-no-data');
+    expect(element).not.toBeInTheDocument();
+  });
+
+  it('Should render NoData with custom parameters.', async () => {
+    const noDataConfig = {
+      label: 'Dados? Fugiram em férias!',
+      iconType: 'working',
+    };
+    await sut({
+      ...defaultNoData,
+      noDataConfig,
+    });
+    expect(screen.getByText(noDataConfig.label)).toBeInTheDocument();
+    expect(
+      document.getElementById(`ion-icon-${noDataConfig.iconType}`)
+    ).toBeInTheDocument();
+  });
+});

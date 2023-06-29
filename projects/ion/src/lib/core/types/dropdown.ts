@@ -1,5 +1,6 @@
 import { EventEmitter } from '@angular/core';
 import { IonInputProps } from './input';
+import { IonNoDataProps } from './no-data';
 
 export interface DropdownItem {
   label: string;
@@ -19,4 +20,5 @@ export interface DropdownParams {
   searchOptions?: IonInputProps;
   searchChange?: EventEmitter<string>;
   notShowClearButton?: boolean;
+  noDataConfig?: IonNoDataProps;
 }
