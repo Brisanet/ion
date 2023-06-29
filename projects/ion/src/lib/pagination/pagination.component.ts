@@ -78,6 +78,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
 
     if (changes.total) {
       this.remountPages(false);
+      this.updateIsAdvanced();
     }
 
     if (changes.page && changes.page.currentValue) {
