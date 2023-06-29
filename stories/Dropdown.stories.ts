@@ -39,6 +39,15 @@ Basic.args = {
   options,
 };
 
+export const NoData = Template.bind({});
+NoData.args = {
+  options: [],
+  noDataConfig: {
+    label: 'Dados? Fugiram em férias!',
+    iconType: 'exclamation-rounded',
+  },
+};
+
 export const DisabledSelected = Template.bind({});
 DisabledSelected.args = {
   options: [
