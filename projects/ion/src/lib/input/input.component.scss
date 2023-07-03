@@ -202,3 +202,10 @@ button {
 .IconButton {
   border-radius: 8px 0px 0px 8px;
 }
+
+.errorMsg {
+  p {
+    margin: 4px 0px 0px;
+    color: $negative-6;
+  }
+}

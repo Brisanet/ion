@@ -15,6 +15,7 @@ export class IonInputComponent {
   @Input() iconDirection?: IconDirection;
   @Input() valid: boolean;
   @Input() invalid: boolean;
+  @Input() errorMsg?: string;
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
   @Input() value = '';
