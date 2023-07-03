@@ -180,7 +180,6 @@ function returnTableConfig(
   pageSizeOptions = LIST_OF_PAGE_OPTIONS,
   tooltipConfig?
 ): { config: ConfigSmartTable<SafeAny> } {
-
   return {
     config: {
       check: true,
