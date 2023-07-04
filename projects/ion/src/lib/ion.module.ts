@@ -40,6 +40,7 @@ import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
+import { IonChipGroupModule } from './chip-group/chip-group.module';
 import { IonSpinnerModule } from './spinner/spinner.module';
 import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonModule } from './skeleton/skeleton.module';
@@ -88,6 +89,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonRadioGroupModule,
     IonSkeletonModule,
     IonDatePickerModule,
+    IonChipGroupModule,
     IonSpinnerModule,
     PipesModule,
     IonSelectModule,
@@ -133,6 +135,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonSidebarModule,
     IonDatePickerModule,
     IonRadioGroupModule,
+    IonChipGroupModule,
     IonSpinnerModule,
     IonSkeletonModule,
     IonSelectModule,
