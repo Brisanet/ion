@@ -98,6 +98,7 @@
             <ion-button
               *ngIf="
                 action.confirm &&
+                !config.tooltipConfig &&
                 (action.show ? !showAction(row, action) : true)
               "
               ionPopConfirm
@@ -113,6 +114,45 @@
               (ionOnConfirm)="handleEvent(row, action)"
               [title]="action.label"
               [attr.data-testid]="'row-' + index + '-' + action.label"
+              type="ghost"
+              size="sm"
+              [danger]="!!action.danger"
+              [iconType]="action.icon"
+              [circularButton]="true"
+              [disabled]="action.disabled ? !disableAction(row, action) : false"
+            ></ion-button>
+            <ion-button
+              *ngIf="
+                action.confirm &&
+                config.tooltipConfig &&
+                (action.show ? !showAction(row, action) : true)
+              "
+              ionTooltip
+              [ionTooltipTitle]="config.tooltipConfig.ionTooltipTitle"
+              [ionTooltipPosition]="config.tooltipConfig.ionTooltipPosition"
+              [ionTooltipArrowPointAtCenter]="
+                config.tooltipConfig.ionTooltipArrowPointAtCenter
+              "
+              [ionTooltipColorScheme]="
+                config.tooltipConfig.ionTooltipColorScheme
+              "
+              [ionTooltipTrigger]="config.tooltipConfig.ionTooltipTrigger"
+              [ionTooltipShowDelay]="config.tooltipConfig.ionTooltipShowDelay"
+              [ionTooltipTemplateRef]="ionTooltipTemplateBody"
+              ionPopConfirm
+              [ionPopConfirmTitle]="action.confirm.title"
+              [ionPopConfirmType]="action.confirm.type"
+              [ionPopConfirmDesc]="
+                !!action.confirm.description
+                  ? action.confirm.description
+                  : !!action.confirm.dynamicDescription
+                  ? action.confirm.dynamicDescription(row)
+                  : undefined
+              "
+              (ionOnConfirm)="handleEvent(row, action)"
+              [attr.data-testid]="
+                'row-' + index + '-' + action.label + '-tooltip'
+              "
               type="ghost"
               size="sm"
               [danger]="!!action.danger"
@@ -143,9 +183,17 @@
   </table>
 
   <div *ngIf="config.data && config.data.length === 0" class="noData">
+    <ion-spinner
+      *ngIf="config.loading; else noData"
+      [size]="42"
+      color="primary"
+    ></ion-spinner>
+  </div>
+
+  <ng-template #noData>
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
-  </div>
+  </ng-template>
 
   <div
     *ngIf="config.pagination && config.data && config.data.length"
@@ -179,3 +227,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #ionTooltipTemplateBody>
+  <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
+</ng-template>

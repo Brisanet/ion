@@ -7,6 +7,7 @@ import { IonDropdownComponent } from './dropdown/dropdown.component';
 import { IonIconComponent } from './icon/icon.component';
 import { IonInputComponent } from './input/input.component';
 import { ClickOutsideDirective } from './click-outside.directive';
+import { IonNoDataComponent } from './no-data/no-data.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ClickOutsideDirective } from './click-outside.directive';
     IonBadgeComponent,
     IonInputComponent,
     ClickOutsideDirective,
+    IonNoDataComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -25,6 +27,7 @@ import { ClickOutsideDirective } from './click-outside.directive';
     IonBadgeComponent,
     IonInputComponent,
     ClickOutsideDirective,
+    IonNoDataComponent,
   ],
 })
 export class IonSharedModule {}

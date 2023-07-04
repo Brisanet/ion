@@ -75,3 +75,7 @@
     <ion-icon type="close-solid"></ion-icon>
   </button>
 </div>
+
+<div class="errorMsg" *ngIf="invalid && errorMsg">
+  <p>{{ errorMsg }}</p>
+</div>

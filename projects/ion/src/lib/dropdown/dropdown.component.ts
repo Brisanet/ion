@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { SafeAny } from '../utils/safe-any';
+import { IonNoDataProps } from '../core/types/no-data';
 
 export const COLDOWN = 200;
 
@@ -32,6 +33,10 @@ export class IonDropdownComponent
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
   @Input() notShowClearButton?: DropdownParams['notShowClearButton'] = false;
+  @Input() noDataConfig?: IonNoDataProps = {
+    label: 'Não há dados',
+    iconType: 'exclamation-rounded',
+  };
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();

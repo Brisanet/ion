@@ -3,7 +3,14 @@ import { Meta, Story } from '@storybook/angular';
 import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonSmartTableModule } from '../projects/ion/src/public-api';
+import {
+  IonSmartTableModule,
+  TooltipPosition,
+  TooltipTrigger,
+  ConfigSmartTable,
+  IonSmartTableModule,
+  IonSpinnerModule,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
@@ -16,7 +23,7 @@ const Template: Story<IonSmartTableComponent> = (
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
   moduleMetadata: {
-    imports: [IonSmartTableModule],
+    imports: [IonSmartTableModule, IonSpinnerModule],
   },
 });
 
@@ -155,14 +162,24 @@ const actions = [
   },
 ];
 
+const mockTooltip = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+  ionTooltipColorScheme: 'dark',
+  ionTooltipShowDelay: 1000,
+  ionTooltipArrowPointAtCenter: true,
+};
+
 function returnTableConfig(
   tableData,
   tableColumns,
   tableActions,
   paginationTotal,
   debounceOnSort = 0,
-  pageSizeOptions = LIST_OF_PAGE_OPTIONS
-): SafeAny {
+  pageSizeOptions = LIST_OF_PAGE_OPTIONS,
+  tooltipConfig?
+): { config: ConfigSmartTable<SafeAny> } {
   return {
     config: {
       check: true,
@@ -174,12 +191,27 @@ function returnTableConfig(
         pageSizeOptions,
       },
       debounceOnSort,
+      tooltipConfig: tooltipConfig,
     },
   };
 }
 
 export const Basic = Template.bind({});
 Basic.args = returnTableConfig(data, columns, actions, 2);
+
+export const Loading = Template.bind({});
+Loading.args = {
+  config: {
+    loading: true,
+    check: true,
+    data: [],
+    columns: columns,
+    pagination: {
+      total: 2,
+      LIST_OF_PAGE_OPTIONS,
+    },
+  },
+};
 
 export const NoData = Template.bind({});
 NoData.args = returnTableConfig([], columns, actions, 0);
@@ -245,4 +277,15 @@ PopConfirmDynamicDescription.args = returnTableConfig(
     },
   ],
   2
+);
+
+export const WithTooltipInActions = Template.bind({});
+WithTooltipInActions.args = returnTableConfig(
+  data,
+  columns,
+  actions,
+  2,
+  2000,
+  [10, 15, 30, 50, 100],
+  mockTooltip
 );
