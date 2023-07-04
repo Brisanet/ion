@@ -10,7 +10,14 @@ import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTagModule } from '../tag/tag.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonTableComponent } from './table.component';
-import { ActionTable, Column, ColumnType } from './utilsTable';
+import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
+import {
+  AfterViewInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { IonTableModule } from './table.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -710,5 +717,68 @@ describe('Table without Data and with checkBox', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+});
+
+@Component({
+  selector: 'app',
+  template: ` <div>
+    <ion-table [config]="config"> </ion-table>
+    <ng-template #customTemplate let-row>
+      <td data-testid="custom-id-column">{{ row.id }}</td>
+      <td>
+        <div data-testid="custom-name-column">
+          <ion-icon type="user"></ion-icon>
+          <span> {{ row.name }} </span>
+        </div>
+      </td>
+    </ng-template>
+  </div>`,
+})
+export class WrapperCustomRowTemplateComponent implements AfterViewInit {
+  @ViewChild('customTemplate', { static: false })
+  customTemplate: TemplateRef<HTMLElement>;
+  config: ConfigTable<Disco>;
+
+  ngAfterViewInit(): void {
+    this.config = {
+      data,
+      columns,
+      customRowTemplate: this.customTemplate,
+    };
+  }
+}
+
+const sutCustomRowTemplate = async (
+  customProps: IonTableProps<Disco> = defaultProps
+): Promise<SafeAny> => {
+  await render(WrapperCustomRowTemplateComponent, {
+    componentProperties: customProps,
+    imports: [
+      FormsModule,
+      IonButtonModule,
+      IonIconModule,
+      IonCheckboxModule,
+      IonPaginationModule,
+      IonTagModule,
+      IonPopConfirmModule,
+      IonTableModule,
+    ],
+  });
+};
+
+describe('Table with custom row template', () => {
+  it('should render table with custom template', async () => {
+    await sutCustomRowTemplate();
+    expect(
+      await screen.getAllByTestId('custom-id-column').length
+    ).toBeGreaterThan(0);
+  });
+
+  it('should render table with custom template', async () => {
+    await sutCustomRowTemplate();
+    expect(
+      await screen.getAllByTestId('custom-name-column').length
+    ).toBeGreaterThan(0);
   });
 });
