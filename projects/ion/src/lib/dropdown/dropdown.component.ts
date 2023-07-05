@@ -26,7 +26,6 @@ export class IonDropdownComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
   @Input() options: DropdownItem[] = [];
-  @Input() arraySelecteds: DropdownItem[] = [];
   @Input() maxSelected?: DropdownParams['maxSelected'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
@@ -41,7 +40,7 @@ export class IonDropdownComponent
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
   @Output() scrollFinal = new EventEmitter();
-  @Output() closeDropdown = new EventEmitter<DropdownItem[]>();
+  @Output() closeDropdown = new EventEmitter();
 
   @ViewChild('optionList', { static: false })
   optionList: ElementRef;
@@ -194,15 +193,6 @@ export class IonDropdownComponent
         this.dropdownSelectedItems.push(option);
       }
     });
-
-    if (this.checkArray(this.arraySelecteds)) {
-      this.arraySelecteds.forEach((option) => {
-        const duplicateOption = this.dropdownSelectedItems.find(
-          (selectedOption) => selectedOption.label === option.label
-        );
-        !duplicateOption && this.dropdownSelectedItems.push(option);
-      });
-    }
 
     this.setSelected();
   }
