@@ -188,11 +188,13 @@ export class IonDropdownComponent
   }
 
   getSelected(): void {
-    this.options.forEach((option) => {
-      if (option.selected) {
-        this.dropdownSelectedItems.push(option);
-      }
-    });
+    if (this.options) {
+      this.options.forEach((option) => {
+        if (option.selected) {
+          this.dropdownSelectedItems.push(option);
+        }
+      });
+    }
 
     this.setSelected();
   }
