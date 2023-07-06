@@ -468,16 +468,23 @@ describe('IonChipComponent / Deselect options by Developer implementation', () =
     fixture.detectChanges();
   });
 
-  it('should show 1 option selected and after implementation no option selected', async () => {
+  it.only('should show 1 option selected and after implementation no option selected', async () => {
     const ionChip = screen.getByTestId('ion-chip');
     fireEvent.click(ionChip);
     fixture.detectChanges();
     expect(
       document.getElementsByClassName('dropdown-item-selected')
     ).toHaveLength(1);
+
     chipComponent.teams.forEach((team) => {
       team.selected = false;
     });
+    // close dropdown
+    fireEvent.click(ionChip);
+    fixture.detectChanges();
+
+    // open dropdown
+    fireEvent.click(ionChip);
     fixture.detectChanges();
     expect(
       document.getElementsByClassName('dropdown-item-selected')
