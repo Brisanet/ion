@@ -429,11 +429,7 @@ describe('IonChipComponent / Required', () => {
 });
 
 @Component({
-  template: `<ion-chip
-    [label]="label"
-    [options]="teams"
-    (dropdownEvents)="dropdownEvents($event)"
-  ></ion-chip>`,
+  template: `<ion-chip [label]="label" [options]="teams"></ion-chip>`,
 })
 class ChipTestComponent {
   label = 'Choose a team';
@@ -444,10 +440,6 @@ class ChipTestComponent {
     { label: 'Paysandu', selected: false },
     { label: 'Bahia', selected: false },
   ];
-
-  dropdownEvents(event: SafeAny) {
-    console.log(event);
-  }
 }
 
 @NgModule({
