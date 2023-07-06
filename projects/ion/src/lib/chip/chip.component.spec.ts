@@ -468,7 +468,7 @@ describe('IonChipComponent / Deselect options by Developer implementation', () =
     fixture.detectChanges();
   });
 
-  it.only('should show 1 option selected and after implementation no option selected', async () => {
+  it('should show 1 option selected and after implementation no option selected', async () => {
     const ionChip = screen.getByTestId('ion-chip');
     fireEvent.click(ionChip);
     fixture.detectChanges();
