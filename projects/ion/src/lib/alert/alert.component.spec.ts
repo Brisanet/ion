@@ -113,7 +113,7 @@ describe('AlertComponent', () => {
     expect(element).toHaveClass('without-background');
   });
 
-  it('should render with a custom body', async () => {
+  it('should render with a custom body when a TemplateRef is provided', async () => {
     await sutAlertWithCustomBody();
     expect(screen.getByTestId('ion-alert-custom-body')).toBeVisible();
   });
