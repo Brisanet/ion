@@ -10,6 +10,9 @@ import { IonUseTableComponent } from '../projects/ion/src/lib/use-table/use-tabl
 export default {
   title: 'Ion/Core/UseBnTable',
   component: IonUseTableComponent,
+  parameters: {
+    docs: false,
+  },
 } as Meta;
 
 const Template: Story<IonUseTableComponent> = (args: IonUseTableComponent) => ({

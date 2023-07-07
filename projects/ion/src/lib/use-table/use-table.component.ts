@@ -17,6 +17,15 @@ export class IonUseTableComponent extends BnTable<User> {
       service,
       tableConfig: {
         columns: [{ label: 'Name', key: 'name' }],
+        actions: [
+          {
+            icon: 'trash',
+            label: 'Delete',
+            call: (row): void => {
+              console.log('row -> ', row);
+            },
+          },
+        ],
       },
     });
   }
