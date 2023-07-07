@@ -159,7 +159,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   remountPages(emitEvent = true): void {
     this.createPages(this.totalPages());
     if (this.pages.length) {
-      this.selectPage(1, emitEvent);
+      this.selectPage(this.page || 1, emitEvent);
     }
     this.updateIsAdvanced();
   }
