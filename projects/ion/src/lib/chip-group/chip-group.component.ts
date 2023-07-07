@@ -21,6 +21,7 @@ export class IonChipGroupComponent {
   @Input() rightBadge?: RightBadge;
   @Input() disabled = false;
   @Input() multiple = false;
+  @Input() required = false;
 
   @Output() selected? = new EventEmitter<ChipInGroup>();
   @Output() dropdown? = new EventEmitter<DropdownItem[]>();
@@ -36,6 +37,15 @@ export class IonChipGroupComponent {
     if (!chipSelected.multiple || !isChipSelected) {
       chipSelected.selected = !isChipSelected;
     }
+
+    // const chipsSelecteds = this.chips.filter((chip) => chip.selected);
+    // if (this.required && !this.multiple) {
+    //   chipSelected.selected = true;
+    //   chipSelected.label = 'teste';
+    //   this.selected.emit(chipSelected);
+    //   return;
+    // }
+
     this.selected.emit(chipSelected);
   }
 

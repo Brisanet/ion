@@ -14,5 +14,6 @@
     [rightBadge]="chip.rightBadge || rightBadge"
     (click)="selectChip(chip)"
     (dropdownEvents)="dropdownEvents($event)"
+    [attr.data-testid]="'chip-group-' + chip.label"
   ></ion-chip>
 </div>

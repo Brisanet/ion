@@ -106,6 +106,25 @@ describe('ChipGroupComponent', () => {
     const element = screen.getByTestId('ion-chip');
     expect(element).toHaveAttribute('disabled');
   });
+
+  it('should render chip selected and not unselect when group is required', async () => {
+    const chips = [
+      { label: 'Option 1', selected: true },
+      { label: 'Option 2', selected: false },
+    ];
+
+    await sut({
+      chips,
+      required: true,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    const optionElement = screen.getByTestId(`chip-group-${chips[0].label}`);
+    expect(optionElement).toBeInTheDocument();
+    fireEvent.click(optionElement);
+    expect(optionElement).toHaveAttribute('ng-reflect-selected', 'true');
+  });
 });
 
 describe('With Dropdown', () => {
