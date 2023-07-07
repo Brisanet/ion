@@ -1,9 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import {
+  RenderResult,
+  fireEvent,
+  render,
+  screen,
+} from '@testing-library/angular';
 import { StatusType } from '../core/types/status';
 import { IonAlertComponent } from './alert.component';
 import { IonIconModule } from '../icon/icon.module';
 import { IonAlertProps } from '../core/types/alert';
+import { AlertCustomBodyComponent } from './mocks/alert-custom-body.component';
+import { IonAlertModule } from './alert.module';
 
 const defaultValue: IonAlertProps = {
   message: 'Mensagem padrão',
@@ -31,13 +38,22 @@ const sut = async (
   return screen.findByTestId(alertIDs.alert);
 };
 
+const sutAlertWithCustomBody = async (): Promise<
+  RenderResult<AlertCustomBodyComponent>
+> => {
+  return await render(AlertCustomBodyComponent, {
+    imports: [CommonModule, IonAlertModule],
+    declarations: [AlertCustomBodyComponent],
+  });
+};
+
 describe('AlertComponent', () => {
   it('Should render alert', async () => {
     expect(await sut()).toHaveClass(alertDefaultClass);
   });
 
   it('Should have an alert message', async () => {
-    expect(await sut()).toHaveTextContent(defaultValue.message);
+    expect(await sut()).toHaveTextContent(defaultValue.message as string);
   });
 
   it('Should render with success icon by default', async () => {
@@ -95,5 +111,15 @@ describe('AlertComponent', () => {
   it('should render without background', async () => {
     const element = await sut({ ...defaultValue, hideBackground: true });
     expect(element).toHaveClass('without-background');
+  });
+
+  it('should render with a custom body', async () => {
+    await sutAlertWithCustomBody();
+    expect(screen.getByTestId('ion-alert-custom-body')).toBeVisible();
+  });
+
+  it('should not render the plain message if a custom body is informed', async () => {
+    await sutAlertWithCustomBody();
+    expect(screen.queryByTestId('ion-alert-message')).toBeNull();
   });
 });

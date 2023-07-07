@@ -9,7 +9,15 @@
     class="alert-icon"
     [type]="iconType"
   ></ion-icon>
-  <span>{{ message }}</span>
+  <ng-container
+    *ngIf="hasCustomBody; else simpleMessage"
+    [ngTemplateOutlet]="message"
+  ></ng-container>
+
+  <ng-template #simpleMessage>
+    <span data-testid="ion-alert-message">{{ message }}</span>
+  </ng-template>
+
   <ion-icon
     class="close-icon"
     data-testid="close-icon"
