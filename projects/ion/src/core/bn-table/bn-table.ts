@@ -72,6 +72,9 @@ export class BnTable<DataType> {
             };
           }
           this.configTable.data = response.data;
+          if (response.dados) {
+            this.configTable.data = response.dados;
+          }
         },
         (error) => {
           // TODO: add notification service

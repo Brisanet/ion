@@ -2,7 +2,8 @@ import { SafeAny } from '../../lib/utils/safe-any';
 import { SmartPayload } from '../bn-table/bn-table';
 
 export interface IResponse<DataType> {
-  data: DataType[];
+  data?: DataType[];
+  dados?: DataType[];
   total: number;
 }
 
