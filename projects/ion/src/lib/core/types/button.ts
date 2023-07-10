@@ -33,6 +33,7 @@ export interface IonButtonProps {
   options?: DropdownItem[];
   showDropdown?: boolean;
   circularButton?: boolean;
+  id?: string;
   selected?: EventEmitter<SafeAny>;
   ionOnClick?: EventEmitter<SafeAny>;
 }

@@ -103,6 +103,12 @@ describe('Icon on ButtonComponent', () => {
     expect(button.querySelector('ion-icon')).toBeTruthy();
     expect(button).toHaveClass('circular-button');
   });
+
+  it('should find button by data-testid when dont have label', async () => {
+    const myCustomId = '1234';
+    await sut({ iconType: 'pencil', id: myCustomId });
+    expect(screen.queryAllByTestId(`btn-${myCustomId}`)).toHaveLength(1);
+  });
 });
 
 describe('Danger ButtonComponent', () => {
@@ -175,9 +181,9 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(button);
 
       expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
-      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
-        options.length
-      );
+      expect(
+        screen.getByTestId('ion-dropdown').lastElementChild.childElementCount
+      ).toEqual(options.length);
     });
 
     it('should render a single-selection dropdown that close when a option is clicked', async () => {
@@ -222,6 +228,26 @@ describe('ButtonComponent with dropdown', () => {
     });
   });
 
+  it('should close dropdown when click outside component', async () => {
+    const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+    const button = await sut({
+      label: defaultName,
+      options,
+    });
+
+    fireEvent.click(button);
+
+    const fakeDiv = document.createElement('div');
+    fakeDiv.setAttribute('data-testid', 'fake-div');
+    document.body.appendChild(fakeDiv);
+
+    fireEvent.click(fakeDiv);
+    fireEvent.click(fakeDiv);
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeNull();
+  });
+
   describe('ButtonComponent with multiple-selection dropdown', () => {
     it('should render a multiple-selection dropdown when button is clicked', async () => {
       const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
@@ -235,9 +261,9 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(button);
 
       expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
-      expect(screen.getByTestId('ion-dropdown').childElementCount).toEqual(
-        options.length
-      );
+      expect(
+        screen.getByTestId('ion-dropdown').lastElementChild.childElementCount
+      ).toEqual(options.length);
     });
 
     it('should render an ion-badge when multiple is true', async () => {
@@ -294,6 +320,7 @@ describe('ButtonComponent with dropdown', () => {
       options.forEach(async (option) => {
         fireEvent.click(await screen.findByText(option.label));
       });
+      expect(await screen.findByTestId('button-clear')).toBeInTheDocument();
     });
 
     it('should update the badge value when selecting an option', async () => {
@@ -303,11 +330,18 @@ describe('ButtonComponent with dropdown', () => {
     });
 
     it('should update the badge value when button clear options is clicked', async () => {
-      fireEvent.click(screen.getByTestId('buttonClear'));
+      fireEvent.click(screen.getByTestId('button-clear'));
 
       expect(await screen.findByTestId('badge-multiple')).toHaveTextContent(
         String(0)
       );
+    });
+
+    it('should update the badge value when option selected is clicked', async () => {
+      options.forEach((option) => {
+        fireEvent.click(screen.getByText(option.label));
+      });
+      expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
     });
   });
 });

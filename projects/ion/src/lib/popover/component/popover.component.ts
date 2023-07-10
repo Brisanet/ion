@@ -10,6 +10,7 @@ import { IconType, IonButtonProps } from '../../core/types';
 })
 export class IonPopoverComponent {
   @Input() ionPopoverTitle: string;
+  @Input() ionPopoverKeep: boolean;
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
@@ -23,6 +24,12 @@ export class IonPopoverComponent {
   readonly ionOnSecondAction = new Subject<void>();
   close(): void {
     this.ionOnClose.next();
+  }
+  onClickOutside(): void {
+    if (this.ionPopoverKeep) {
+      return;
+    }
+    this.close();
   }
   firstAction(): void {
     this.ionOnFirstAction.next();

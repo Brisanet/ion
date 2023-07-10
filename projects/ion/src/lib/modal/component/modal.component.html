@@ -13,6 +13,7 @@
     class="modal-container"
     [style.width.px]="configuration.width"
     (click)="$event.stopPropagation()"
+    aria-modal="true"
   >
     <header tabindex="0">
       <h4 data-testid="modalTitle">{{ configuration.title }}</h4>

@@ -1,0 +1,62 @@
+<section class="steps-container" data-testid="ion-steps">
+  <div
+    [class]="'step ' + step.status"
+    [class.clickable]="
+      clickable &&
+      !disabled &&
+      step.status !== 'selected' &&
+      step.status !== 'error'
+    "
+    [class.disabled]="disabled"
+    [attr.data-testid]="'step-' + step.index + '-' + step.status"
+    *ngFor="let step of steps; let index = index"
+    (click)="goesTo(step.index)"
+  >
+    <div class="step-draw">
+      <div
+        class="line"
+        [class.bolded]="
+          steps[index - 1] && steps[index - 1].status === 'checked'
+        "
+        [class.transparent]="step.index === FIRST_STEP"
+      ></div>
+
+      <div class="circle">
+        <span *ngIf="step.status !== 'checked'; else checkedStatus">
+          {{ step.index }}
+        </span>
+        <ng-template #checkedStatus>
+          <span>
+            <ion-icon type="check" size="24"></ion-icon>
+          </span>
+        </ng-template>
+      </div>
+
+      <div
+        class="line"
+        [class.bolded]="
+          steps[index].status === 'checked' ||
+          (steps[index + 1] && steps[index + 1].status !== 'default')
+        "
+        [class.transparent]="step.index === steps.length"
+      ></div>
+    </div>
+
+    <div
+      class="label"
+      [class.selected]="step.status === 'selected' || step.status === 'error'"
+      [class.disabled]="disabled"
+    >
+      {{ step.label }}
+    </div>
+
+    <div
+      class="description"
+      [class.disabled]="disabled"
+      [attr.data-testid]="'description-' + step.index"
+      *ngIf="step.description"
+    >
+      {{ step.description }}
+    </div>
+  </div>
+</section>

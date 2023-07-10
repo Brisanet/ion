@@ -29,6 +29,7 @@ import { IonRowModule } from './row/row.module';
 import { IonSidebarModule } from './sidebar/sidebar.module';
 import { IonSimpleMenuModule } from './simple-menu/simple-menu.module';
 import { IonSmartTableModule } from './smart-table/smart-table.module';
+import { IonStepsModule } from './step/step.module';
 import { IonSwitchModule } from './switch/switch.module';
 import { IonTabGroupModule } from './tab-group/tab-group.module';
 import { IonTabModule } from './tab/tab.module';
@@ -39,8 +40,12 @@ import { IonTypographyModule } from './typography/typography.module';
 import { IonIndicatorModule } from './indicator/indicator.module';
 import { IonPopoverModule } from './popover/popover.module';
 import { IonRadioGroupModule } from './radio-group/radio-group.module';
+import { IonChipGroupModule } from './chip-group/chip-group.module';
 import { IonSpinnerModule } from './spinner/spinner.module';
 import { PipesModule } from './utils/pipes/pipes.module';
+import { IonSkeletonModule } from './skeleton/skeleton.module';
+import { IonSelectModule } from './select/select.module';
+import { IonNoDataModule } from './no-data/no-data.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -82,9 +87,14 @@ import { PipesModule } from './utils/pipes/pipes.module';
     IonPopoverModule,
     IonSidebarModule,
     IonRadioGroupModule,
+    IonSkeletonModule,
     IonDatePickerModule,
+    IonChipGroupModule,
     IonSpinnerModule,
     PipesModule,
+    IonSelectModule,
+    IonStepsModule,
+    IonNoDataModule,
   ],
   exports: [
     IonComponent,
@@ -125,7 +135,12 @@ import { PipesModule } from './utils/pipes/pipes.module';
     IonSidebarModule,
     IonDatePickerModule,
     IonRadioGroupModule,
+    IonChipGroupModule,
     IonSpinnerModule,
+    IonSkeletonModule,
+    IonSelectModule,
+    IonStepsModule,
+    IonNoDataModule,
   ],
 })
 export class IonModule {}

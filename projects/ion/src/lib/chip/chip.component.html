@@ -1,5 +1,6 @@
 <button
   data-testid="ion-chip"
+  [id]="chipId"
   (click)="select()"
   [disabled]="disabled"
   [ngClass]="{
@@ -22,7 +23,7 @@
       positionIcon: iconPosition === 'left' && icon && !options
     }"
   >
-    {{ label }}
+    {{ placeholder }}
     <ion-icon
       data-testid="icon-dinamic"
       class="icon-color"
@@ -56,14 +57,17 @@
   >
   </ion-icon>
 </button>
-<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="'dropdown-' + id">
+<div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="dropdownId">
   <ion-dropdown
     [options]="options"
+    [arraySelecteds]="tempFilter"
     [multiple]="multiple"
+    [required]="required"
     [enableSearch]="dropdownSearchConfig?.enableSearch || false"
     [searchOptions]="dropdownSearchConfig?.searchOptions"
     (searchChange)="dropdownSearchChange($event)"
     (selected)="selectDropdownItem($event)"
     (clearBadgeValue)="clearBadgeValue()"
+    (closeDropdown)="setTempOptions($event)"
   ></ion-dropdown>
 </div>

@@ -1,15 +1,19 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { IonSmartTableProps } from './../core/types/smart-table';
+import { StatusType } from './../core/types/status';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
+import { IonPaginationModule } from '../pagination/pagination.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { ActionTable, Column, EventTable } from '../table/utilsTable';
+import { IonTagModule } from '../tag/tag.module';
+import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableComponent } from './smart-table.component';
-import { ActionTable, Column, EventTable } from '../table/utilsTable';
-import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonPaginationModule } from '../pagination/pagination.module';
-import { IonTagModule } from '../tag/tag.module';
-import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
-import { IonButtonModule } from '../button/button.module';
-import { IonIconModule } from '../icon/icon.module';
-import { IonSmartTableProps } from '../core/types';
-import { PipesModule } from '../utils/pipes/pipes.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -38,17 +42,23 @@ interface Character {
   name: string;
   height: number;
   mass: number;
+  icon?: string;
+  status?: StatusType;
 }
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
     height: 172,
     mass: 96,
+    icon: 'user',
+    status: 'success',
   },
   {
     name: 'C-3PO',
     height: 167,
     mass: 96,
+    icon: 'technical',
+    status: 'negative',
   },
 ];
 
@@ -83,6 +93,8 @@ const sut = async (
       IonIconModule,
       IonPaginationModule,
       PipesModule,
+      IonTooltipModule,
+      IonSpinnerModule,
     ],
   });
 };
@@ -206,6 +218,13 @@ describe('Table > Actions', () => {
       label: 'Excluir',
       icon: 'trash',
       show: (row: Character): boolean => {
+        return !row.name;
+      },
+    },
+    {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: Character): boolean => {
         return row.height > 160;
       },
     },
@@ -235,6 +254,25 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
+  it('should render action with danger class when action has danger config', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+      config: {
+        ...tableWithActions.config,
+        actions: [
+          {
+            ...actions[0],
+            danger: true,
+          },
+        ],
+      },
+    } as IonSmartTableProps<Character>;
+    await sut(tableItemDeleted);
+    const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
+    expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
+    expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
   it('should not render popconfirm when action dont has confirm config', async () => {
     await sut(tableWithActions);
     expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
@@ -250,10 +288,21 @@ describe('Table > Actions', () => {
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
+  });
+
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonSmartTableProps<Character>;
+
+    tableItemDeleted.config.data = [{ height: 96, name: '', mass: 96 }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
   });
 
   it('should call action when clicked in action', async () => {
@@ -449,6 +498,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
+  const columnStatus = 'success';
   const tableDifferentColumns: IonSmartTableProps<Character> = {
     config: {
       columns: [
@@ -460,6 +510,7 @@ describe('Table > Differents columns data type', () => {
           sort: false,
           tag: {
             icon: columnIcon,
+            status: columnStatus,
           },
         },
       ],
@@ -483,6 +534,45 @@ describe('Table > Differents columns data type', () => {
       ).toBeInTheDocument();
       expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
     });
+
+    it('should set a status type in tag by column', async () => {
+      await sut(tableDifferentColumns);
+      expect(
+        document.getElementsByClassName(`ion-tag outline ${columnStatus}`)
+      ).toHaveLength(2);
+    });
+
+    it.each(['user', 'technical'])(
+      'should show %s icon in tag by row data',
+      async (iconRow: string) => {
+        const columns = tableDifferentColumns.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          iconKey: 'icon',
+        };
+
+        await sut(tableDifferentColumns);
+        expect(
+          document.getElementById(`ion-icon-${iconRow}`)
+        ).toBeInTheDocument();
+      }
+    );
+
+    it.each(['success', 'negative'])(
+      'should set %s status in tag by row data',
+      async (statusType: string) => {
+        const columns = tableDifferentColumns.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          statusKey: 'status',
+        };
+
+        await sut(tableDifferentColumns);
+        expect(
+          document.getElementsByClassName(`ion-tag outline ${statusType}`)
+        ).toHaveLength(1);
+      }
+    );
   });
 
   describe('Sort', () => {
@@ -581,15 +671,28 @@ describe('Table > Pagination', () => {
     const tableWithLoading = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
+    const totalPagination = screen.getByTestId('total-pagination');
     tableWithLoading.config.loading = true;
 
     await sut(tableWithLoading);
     expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+    expect(totalPagination).not.toBeInTheDocument();
+  });
+
+  it('should render loading when dont have data and table is loading', async () => {
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    tableWithLoading.config.loading = true;
+    tableWithLoading.config.data = [];
+
+    await sut(tableWithLoading);
+    expect(screen.getByTestId('ion-spinner')).toBeInTheDocument();
   });
 });
 
 describe('Table > Action with confirm', () => {
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -614,7 +717,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title and description in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonSmartTableProps<Character>;
@@ -637,6 +740,205 @@ describe('Table > Action with confirm', () => {
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
     );
+  });
+
+  it('should render popconfirm description with data provided from row', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+
+    expect(dynamicDescription).toHaveBeenCalled();
+    expect(dynamicDescription).toHaveBeenCalledWith(
+      defaultProps.config.data[0]
+    );
+  });
+
+  it('should close popconfirm when click outside', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('column-name'));
+    expect(screen.queryAllByText(cancelTextOnPopconfirm)).toHaveLength(0);
+  });
+
+  it('should open popconfirm when click in action button 3 times', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
+
+  it('should open popconfirm when click in action button 2 times, click outside and click in button again', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+    const cancelTextOnPopconfirm = 'Cancelar';
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+
+    // click outside
+    fireEvent.click(screen.getByTestId('column-name'));
+
+    // click in button again
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
+});
+
+describe('Table > Action with tooltip', () => {
+  const actions: ActionTable[] = [
+    {
+      label: 'Excluir',
+      icon: 'trash',
+      show: (row: Character): boolean => {
+        return !row.name;
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+    {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: Character): boolean => {
+        return row.height > 160;
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+    {
+      label: 'Editar',
+      icon: 'pencil',
+      call: (row: Character): void => {
+        row.name = 'editado!';
+      },
+      confirm: {
+        title: 'Você tem certeza?',
+      },
+    },
+  ];
+
+  const tooltipConfig: TooltipProps = {
+    ionTooltipTitle: 'Eu sou um tooltip',
+    ionTooltipPosition: TooltipPosition.DEFAULT,
+    ionTooltipTrigger: TooltipTrigger.DEFAULT,
+    ionTooltipColorScheme: 'dark',
+    ionTooltipArrowPointAtCenter: true,
+  };
+
+  const propsWithTooltip: IonSmartTableProps<Character> = {
+    ...defaultProps,
+    config: {
+      ...defaultProps.config,
+      actions,
+      tooltipConfig,
+    },
+  };
+
+  let actionButton: HTMLButtonElement;
+
+  beforeEach(async () => {
+    await sut(propsWithTooltip);
+    actionButton = screen.getByTestId(`row-0-${actions[0].label}-tooltip`);
+  });
+
+  it('should render without tooltip', async () => {
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+  });
+
+  it('should render the button with the tooltip directive when the tooltip configs are informed', async () => {
+    expect(actionButton).toBeInTheDocument();
+  });
+
+  it('should close the tooltip and open the popconfirm when clicked the button', () => {
+    fireEvent.mouseEnter(actionButton);
+    fireEvent.click(actionButton);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('sup-container')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Luke Skywalker'));
+    expect(screen.queryByTestId('sup-container')).not.toBeInTheDocument();
+  });
+
+  it('should open the tooltip after a hover on the button', () => {
+    fireEvent.mouseEnter(actionButton);
+
+    expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
+    fireEvent.mouseLeave(actionButton);
+  });
+
+  it('should close the tooltip after the mouse leave the button', () => {
+    fireEvent.mouseEnter(actionButton);
+    fireEvent.mouseLeave(actionButton);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });
 

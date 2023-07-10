@@ -19,12 +19,14 @@ import { IonPopoverComponent } from './component/popover.component';
 import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
 import { IonButtonProps, IconType } from '../core/types';
+import { pick } from 'lodash';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
+  @Input() ionPopoverKeep = false;
   @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: IonButtonProps[] = [];
+  @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
@@ -44,14 +46,15 @@ export class IonPopoverDirective implements OnDestroy {
   ) {}
 
   open(position: SafeAny): void {
-    if (this.popoverComponentRef) {
-      return;
-    }
-    const popover = this.componentFactoryResolver
+    this.closeAllPopovers();
+    this.createPopover();
+    this.setComponentPosition(position);
+  }
+
+  createPopover(): void {
+    this.popoverComponentRef = this.componentFactoryResolver
       .resolveComponentFactory(IonPopoverComponent)
       .create(this.injector);
-
-    this.popoverComponentRef = popover;
 
     this.appRef.attachView(this.popoverComponentRef.hostView);
 
@@ -60,54 +63,64 @@ export class IonPopoverDirective implements OnDestroy {
 
     this.document.body.appendChild(popoverElement);
     this.popoverComponentRef.changeDetectorRef.detectChanges();
-
-    this.popoverComponentRef.instance.ionPopoverTitle = this.ionPopoverTitle;
-
-    this.popoverComponentRef.instance.ionPopoverBody = this.ionPopoverBody;
-
-    this.popoverComponentRef.instance.ionPopoverActions =
-      this.ionPopoverActions;
-
-    this.popoverComponentRef.instance.ionPopoverIcon = this.ionPopoverIcon;
-
-    this.popoverComponentRef.instance.ionPopoverIconClose =
-      this.ionPopoverIconClose;
-
-    this.popoverComponentRef.instance.ionPopoverPosition =
-      this.ionPopoverPosition;
-
-    this.popoverComponentRef.instance.ionOnFirstAction.subscribe(() => {
-      this.closePopover();
-      this.ionOnFirstAction.emit();
-    });
-
-    this.popoverComponentRef.instance.ionOnSecondAction.subscribe(() => {
-      this.closePopover();
-      this.ionOnSecondAction.emit();
-    });
-
-    this.popoverComponentRef.instance.ionOnClose.subscribe(() => {
-      this.closePopover();
-      this.ionOnClose.emit();
-    });
-
-    this.setComponentPosition(position);
-    this.popoverComponentRef.changeDetectorRef.detectChanges();
+    this.updatePopoverProps(this.popoverComponentRef.instance);
   }
 
-  setComponentPosition(hostElement: SafeAny): void {
-    const { left, right, top, bottom } = hostElement;
-    const hostPositions = { left, right, top, bottom };
+  updatePopoverProps(popoverInstance: IonPopoverComponent): void {
+    const instanceProps = {
+      ionPopoverTitle: this.ionPopoverTitle,
+      ionPopoverKeep: this.ionPopoverKeep,
+      ionPopoverBody: this.ionPopoverBody,
+      ionPopoverActions: this.ionPopoverActions,
+      ionPopoverIcon: this.ionPopoverIcon,
+      ionPopoverIconClose: this.ionPopoverIconClose,
+      ionPopoverPosition: this.ionPopoverPosition,
+    };
+    Object.keys(instanceProps).forEach((prop) => {
+      popoverInstance[prop] = instanceProps[prop];
+    });
+
+    const eventSubscriptions: [string, EventEmitter<void>][] = [
+      ['ionOnFirstAction', this.ionOnFirstAction],
+      ['ionOnSecondAction', this.ionOnSecondAction],
+      ['ionOnClose', this.ionOnClose],
+    ];
+    eventSubscriptions.forEach(([event, emitter]) => {
+      popoverInstance[event].subscribe(() => {
+        this.closePopover();
+        emitter.emit();
+      });
+    });
+  }
+
+  setComponentPosition(hostElement: DOMRect): void {
+    const hostPositions = pick(hostElement, ['left', 'right', 'top', 'bottom']);
     const positions = getPositionsPopover(
       hostPositions,
       this.ionPopoverArrowPointAtCenter
     );
 
-    this.popoverComponentRef.instance.left =
-      positions[this.ionPopoverPosition].left;
-    this.popoverComponentRef.instance.top =
-      positions[this.ionPopoverPosition].top;
-    this.popoverComponentRef.instance.position = 'absolute';
+    const props = {
+      left: positions[this.ionPopoverPosition].left,
+      top: positions[this.ionPopoverPosition].top,
+      position: 'absolute',
+    };
+
+    Object.keys(props).forEach((prop) => {
+      this.popoverComponentRef.instance[prop] = props[prop];
+    });
+
+    this.popoverComponentRef.changeDetectorRef.detectChanges();
+  }
+
+  closeAllPopovers(): void {
+    const existingPopovers = document.querySelectorAll('ion-popover');
+    if (existingPopovers) {
+      this.closePopover();
+      existingPopovers.forEach((popover) => {
+        popover.remove();
+      });
+    }
   }
 
   closePopover(): void {

@@ -1,5 +1,6 @@
+import { StatusType } from './../core/types/status';
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonTableProps } from '../core/types';
@@ -9,7 +10,14 @@ import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTagModule } from '../tag/tag.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonTableComponent } from './table.component';
-import { ActionTable, Column, ColumnType } from './utilsTable';
+import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
+import {
+  AfterViewInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { IonTableModule } from './table.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -33,6 +41,7 @@ interface Disco {
   deleted: boolean;
   year?: number;
   icon?: string;
+  status?: StatusType;
 }
 
 const data: Disco[] = [
@@ -44,6 +53,7 @@ const data: Disco[] = [
     deleted: true,
     year: 2000,
     icon: 'star-solid',
+    status: 'warning',
   },
   {
     id: 4,
@@ -51,6 +61,7 @@ const data: Disco[] = [
     deleted: false,
     year: 2007,
     icon: 'union',
+    status: 'info',
   },
 ];
 
@@ -156,10 +167,17 @@ describe('IonTableComponent', () => {
 describe('Table > Actions', () => {
   const actions: ActionTable[] = [
     {
+      label: 'Desabilitar',
+      icon: 'block',
+      disabled: (row: SafeAny): boolean => {
+        return !row.deleted;
+      },
+    },
+    {
       label: 'Excluir',
       icon: 'trash',
       show: (row: SafeAny): boolean => {
-        return !row.deleted;
+        return !row.name;
       },
     },
     {
@@ -188,6 +206,25 @@ describe('Table > Actions', () => {
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
   });
 
+  it('should render action with danger class when action has danger config', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+      config: {
+        ...tableWithActions.config,
+        actions: [
+          {
+            ...actions[0],
+            danger: true,
+          },
+        ],
+      },
+    } as IonTableProps<Disco>;
+    await sut(tableItemDeleted);
+    const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
+    expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
+    expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
   it('should render trash button disabled when the item is deleted', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
@@ -198,10 +235,21 @@ describe('Table > Actions', () => {
     ];
 
     await sut(tableItemDeleted);
-    expect(screen.getByTestId('row-0-Excluir')).toHaveAttribute(
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
       'ng-reflect-disabled',
       'true'
     );
+  });
+
+  it('should not render when the show is false', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonTableProps<Disco>;
+
+    tableItemDeleted.config.data = [{ id: 1, name: '', deleted: true }];
+
+    await sut(tableItemDeleted);
+    expect(screen.queryByTestId('row-0-Excluir')).not.toBeInTheDocument();
   });
 
   it('should call action when clicked in action', async () => {
@@ -390,6 +438,7 @@ describe('Table > Checkbox', () => {
 describe('Table > Differents columns data type', () => {
   const eventSelect = jest.fn();
   const columnIcon = 'check';
+  const columnStatus = 'success';
   const tableDifferentColumns: IonTableProps<Disco> = {
     config: {
       columns: [
@@ -401,6 +450,7 @@ describe('Table > Differents columns data type', () => {
           sort: false,
           tag: {
             icon: columnIcon,
+            status: columnStatus,
           },
         },
       ],
@@ -420,6 +470,13 @@ describe('Table > Differents columns data type', () => {
       expect(document.getElementById('ion-icon-union')).not.toBeInTheDocument();
     });
 
+    it('should set a status type in tag by column', async () => {
+      await sut(tableDifferentColumns);
+      expect(
+        document.getElementsByClassName(`ion-tag outline ${columnStatus}`)
+      ).toHaveLength(4);
+    });
+
     it.each(['union', 'star-solid'])(
       'should show %s icon in tag by row data',
       async (iconRow: string) => {
@@ -437,6 +494,26 @@ describe('Table > Differents columns data type', () => {
         expect(
           document.getElementById(`ion-icon-${iconRow}`)
         ).toBeInTheDocument();
+      }
+    );
+
+    it.each(['warning', 'info'])(
+      'should set %s status in tag by row data',
+      async (statusType: string) => {
+        const tableWithCustomStatusInTag = JSON.parse(
+          JSON.stringify(tableDifferentColumns)
+        ) as IonTableProps<Disco>;
+
+        const columns = tableWithCustomStatusInTag.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          statusKey: 'status',
+        };
+
+        await sut(tableWithCustomStatusInTag);
+        expect(
+          document.getElementsByClassName(`ion-tag outline ${statusType}`)
+        ).toHaveLength(1);
       }
     );
   });
@@ -540,7 +617,7 @@ describe('Table > Pagination', () => {
 });
 
 describe('Table > Action with confirm', () => {
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonTableProps<Disco>;
@@ -564,7 +641,7 @@ describe('Table > Action with confirm', () => {
     );
   });
 
-  it('should render popconfirm in action', async () => {
+  it('should render popconfirm with title and description in action', async () => {
     const withPopconfirm = JSON.parse(
       JSON.stringify(defaultProps)
     ) as IonTableProps<Disco>;
@@ -585,6 +662,31 @@ describe('Table > Action with confirm', () => {
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-pop-confirm-desc',
       actionConfig.confirm.description
+    );
+  });
+
+  it('should render popconfirm description with data provided from row', async () => {
+    const withPopconfirm = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonTableProps<Disco>;
+    withPopconfirm.events = { emit: jest.fn() } as SafeAny;
+    const dynamicDescription = jest.fn().mockReturnValue('dynamic description');
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      confirm: {
+        title: 'Você tem certeza?',
+        dynamicDescription,
+      },
+    };
+    withPopconfirm.config.actions = [actionConfig];
+
+    await sut(withPopconfirm);
+
+    expect(dynamicDescription).toHaveBeenCalled();
+    expect(dynamicDescription).toHaveBeenCalledWith(
+      defaultProps.config.data[0]
     );
   });
 });
@@ -615,5 +717,68 @@ describe('Table without Data and with checkBox', () => {
   it('checkbox should be disabled when there is no data', async () => {
     await sut(tableWithoutData);
     expect(screen.getByTestId('ion-checkbox')).toBeDisabled();
+  });
+});
+
+@Component({
+  selector: 'app',
+  template: ` <div>
+    <ion-table [config]="config"> </ion-table>
+    <ng-template #customTemplate let-row>
+      <td data-testid="custom-id-column">{{ row.id }}</td>
+      <td>
+        <div data-testid="custom-name-column">
+          <ion-icon type="user"></ion-icon>
+          <span> {{ row.name }} </span>
+        </div>
+      </td>
+    </ng-template>
+  </div>`,
+})
+export class WrapperCustomRowTemplateComponent implements AfterViewInit {
+  @ViewChild('customTemplate', { static: false })
+  customTemplate: TemplateRef<HTMLElement>;
+  config: ConfigTable<Disco>;
+
+  ngAfterViewInit(): void {
+    this.config = {
+      data,
+      columns,
+      customRowTemplate: this.customTemplate,
+    };
+  }
+}
+
+const sutCustomRowTemplate = async (
+  customProps: IonTableProps<Disco> = defaultProps
+): Promise<SafeAny> => {
+  await render(WrapperCustomRowTemplateComponent, {
+    componentProperties: customProps,
+    imports: [
+      FormsModule,
+      IonButtonModule,
+      IonIconModule,
+      IonCheckboxModule,
+      IonPaginationModule,
+      IonTagModule,
+      IonPopConfirmModule,
+      IonTableModule,
+    ],
+  });
+};
+
+describe('Table with custom row template', () => {
+  it('should render table with custom template', async () => {
+    await sutCustomRowTemplate();
+    expect(
+      await screen.getAllByTestId('custom-id-column').length
+    ).toBeGreaterThan(0);
+  });
+
+  it('should render table with custom template', async () => {
+    await sutCustomRowTemplate();
+    expect(
+      await screen.getAllByTestId('custom-name-column').length
+    ).toBeGreaterThan(0);
   });
 });

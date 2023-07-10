@@ -1,9 +1,16 @@
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonPaginationProps } from '../core/types/pagination';
 import { SafeAny } from '../utils/safe-any';
-import { IonPaginationComponent } from './pagination.component';
+import {
+  IonPaginationComponent,
+  LIST_OF_PAGE_OPTIONS,
+} from './pagination.component';
+import { Component, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -13,6 +20,8 @@ const defaultComponent: IonPaginationProps = {
   } as SafeAny,
   page: 1,
 };
+
+const LOADING_STATUS = [true, false];
 
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
@@ -96,6 +105,61 @@ describe('Pagination > Page', () => {
   );
 });
 
+describe('Pagination > Page sizes', () => {
+  describe('Default', () => {
+    it.each(LIST_OF_PAGE_OPTIONS)(
+      'should show items per page %d',
+      async (label) => {
+        await sut({ ...defaultComponent, allowChangeQtdItems: true });
+        userEvent.click(
+          screen.getByRole('button', {
+            name: /10 \/ página/i,
+          })
+        );
+        const view = screen.getByTestId('ion-dropdown');
+        expect(within(view).getByText(`${label} / página`)).toBeVisible();
+      }
+    );
+
+    it.each(LOADING_STATUS)(
+      'should show items per page disabled as %b when loading is %b',
+      async (loadingValue) => {
+        await sut({
+          ...defaultComponent,
+          loading: loadingValue,
+          allowChangeQtdItems: true,
+        });
+        const itemsPerPage = screen.getByTestId('itemsPerPage');
+        expect(itemsPerPage).toHaveAttribute(
+          'ng-reflect-disabled',
+          `${loadingValue}`
+        );
+      }
+    );
+  });
+
+  const customPageSizeOptions = [5, 10, 15, 20];
+  describe('Custom', () => {
+    it.each(customPageSizeOptions)(
+      'should show items per page %d',
+      async (label) => {
+        await sut({
+          ...defaultComponent,
+          pageSizeOptions: customPageSizeOptions,
+          allowChangeQtdItems: true,
+        });
+        userEvent.click(
+          screen.getByRole('button', {
+            name: /10 \/ página/i,
+          })
+        );
+        const view = screen.getByTestId('ion-dropdown');
+        expect(within(view).getByText(`${label} / página`)).toBeVisible();
+      }
+    );
+  });
+});
+
 describe('Pagination > Events', () => {
   it('should emit the page selected when selected page', async () => {
     const event = jest.fn();
@@ -107,6 +171,20 @@ describe('Pagination > Events', () => {
     });
     fireEvent.click(screen.getByTestId('page-2'));
     expect(event).toBeCalledTimes(2);
+  });
+
+  it('should not emit an event when the selected page is already selected', async () => {
+    const event = jest.fn();
+    await sut({
+      total: 16,
+      events: {
+        emit: event,
+      } as SafeAny,
+    });
+    event.mockClear();
+    expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    fireEvent.click(screen.getByTestId('page-1'));
+    expect(event).not.toHaveBeenCalled();
   });
 
   it('should show items per page 10 when params is informed', async () => {
@@ -135,5 +213,215 @@ describe('Pagination > Events', () => {
       itemsPerPage: 20,
     });
     expect(screen.queryAllByText('20 / página')).toHaveLength(1);
+  });
+});
+
+describe('Advanced Pagination', () => {
+  it('should show advanced pagination when total pages is more than 10', async () => {
+    await sut({ ...defaultComponent, total: 110 });
+    expect(screen.getByTestId('advanced-pagination')).toBeVisible();
+  });
+  describe('basics - more right button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-1'));
+    });
+    it('should show right more button with more icon', () => {
+      expect(screen.getByTestId('more-right')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should not show left more button', () => {
+      expect(screen.queryByTestId('more-left')).toBeNull();
+    });
+    it('should show arrow right icon when hover on more right button', async () => {
+      userEvent.hover(screen.getByTestId('more-right'));
+      expect(document.getElementById('ion-icon-right3')).toBeVisible();
+    });
+    it('should skip five pages when click on more right button', () => {
+      userEvent.click(screen.getByTestId('more-right'));
+      expect(screen.getByTestId('page-6')).toHaveClass('selected');
+    });
+  });
+  describe('basics - more left button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-11'));
+    });
+    it('should show left more button with more icon', () => {
+      expect(screen.getByTestId('more-left')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should not show right more button', () => {
+      expect(screen.queryByTestId('more-right')).toBeNull();
+    });
+    it('should show arrow left icon when hover on more left button', async () => {
+      userEvent.hover(screen.getByTestId('more-left'));
+      expect(document.getElementById('ion-icon-left3')).toBeVisible();
+    });
+    it('should go back five pages when click on more left button', () => {
+      userEvent.click(screen.getByTestId('more-left'));
+      expect(screen.getByTestId('page-6')).toHaveClass('selected');
+    });
+  });
+  describe('more left and right button', () => {
+    beforeEach(async () => {
+      await sut({ ...defaultComponent, total: 110 });
+      userEvent.click(screen.getByTestId('page-5'));
+    });
+    it('should show left more button with more icon', () => {
+      expect(screen.getByTestId('more-left')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should show right more button with more icon', () => {
+      expect(screen.getByTestId('more-right')).toBeVisible();
+      expect(document.getElementById('ion-icon-more')).toBeVisible();
+    });
+    it('should go back to first page when its not possible to go back five pages', () => {
+      userEvent.click(screen.getByTestId('more-left'));
+      expect(screen.getByTestId('page-1')).toHaveClass('selected');
+    });
+    it('should go to last page when its not possible to go forward five pages', () => {
+      userEvent.click(screen.getByTestId('page-7'));
+      userEvent.click(screen.getByTestId('more-right'));
+      expect(screen.getByTestId('page-11')).toHaveClass('selected');
+    });
+  });
+  describe('buttons visibility', () => {
+    describe('first three pages selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-1'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['6', '7', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page 4 is selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-4'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when a middle page is selected', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-5'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['3', '4', '5', '6', '7'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '8', '9', '10'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is three pages before last page', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-3'));
+        userEvent.click(screen.getByTestId('more-right'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['6', '7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is two pages before last page', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-9'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+    describe('when page selected is the page before the last', () => {
+      beforeEach(async () => {
+        await sut({ ...defaultComponent, total: 110 });
+        userEvent.click(screen.getByTestId('page-11'));
+        userEvent.click(screen.getByTestId('page-10'));
+      });
+      it('should show first and last page', () => {
+        expect(screen.getByTestId('page-1')).toBeVisible();
+        expect(screen.getByTestId('page-11')).toBeVisible();
+      });
+      it.each(['7', '8', '9', '10'])('should show page %s', (page) => {
+        expect(screen.getByTestId(`page-${page}`)).toBeVisible();
+      });
+      it.each(['2', '3', '4', '5', '6'])('should not show page %s', (page) => {
+        expect(screen.queryByTestId(`page-${page}`)).toBeNull();
+      });
+    });
+  });
+});
+
+const PAGE_SELECTED = 2;
+const TOTAL_ITEMS = 20;
+@Component({
+  template: `<ion-pagination [total]="total" [page]="page"> </ion-pagination>`,
+})
+class PaginationTestComponent {
+  total = TOTAL_ITEMS;
+  page = PAGE_SELECTED;
+}
+
+@NgModule({
+  declarations: [IonPaginationComponent, PaginationTestComponent],
+  imports: [CommonModule, IonButtonModule],
+  entryComponents: [PaginationTestComponent],
+})
+class TestModule {}
+
+describe('Pagination / Setting current page after total change', () => {
+  let paginationComponent!: PaginationTestComponent;
+  let fixture!: ComponentFixture<PaginationTestComponent>;
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(PaginationTestComponent);
+    paginationComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should show that after setting a page, even with a change in total, the selected page is the same as previously chosen', async () => {
+    paginationComponent.total = TOTAL_ITEMS + 1;
+    fixture.detectChanges();
+    expect(screen.getByTestId(`page-${PAGE_SELECTED}`)).toHaveClass('selected');
+    expect(document.getElementsByClassName('selected')).toHaveLength(1);
   });
 });

@@ -1,5 +1,5 @@
 <button
-  [attr.data-testid]="'btn-' + label"
+  [attr.data-testid]="'btn-' + (label || id)"
   [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
@@ -42,6 +42,9 @@
     [multiple]="multiple"
     (selected)="handleSelect($event)"
     (clearBadgeValue)="onClearBadgeValue()"
+    (closeDropdown)="onCloseDropdown()"
+    [required]="dropdownConfig.required"
+    [notShowClearButton]="dropdownConfig.notShowClearButton"
   >
   </ion-dropdown>
 </div>

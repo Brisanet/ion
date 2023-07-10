@@ -42,6 +42,18 @@ No Ion, o tipo padrão do botão é `primary`. Mas, fornecemos 4 tipos.
     }}
   </Story>
   <Story
+    name="type: secondary with icon"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Secondary" type="secondary" iconType="left3"></ion-button>`,
+    }}
+  </Story>
+  <Story
     name="type: ghost"
     decorators={[
       moduleMetadata({
@@ -250,6 +262,7 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     {{
       template: `<ion-button label="Primary" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>`,
     }}
+    secondary
   </Story>
   <Story
     name="with dropdown : multiple choices"
@@ -444,6 +457,18 @@ E 6 outras propriedades adicionais.
   >
     {{
       template: `<ion-button label="Ghost" type="ghost" [disabled]=true></ion-button>`,
+    }}
+  </Story>
+  <Story
+    name="disabled in ghost danger icon button"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Ghost" type="ghost" [danger]="true" iconType="close" [disabled]=true></ion-button>`,
     }}
   </Story>
   <Story

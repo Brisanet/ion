@@ -45,6 +45,12 @@ iconInvalid.args = {
   invalid: true,
 };
 
+export const errorMsg = Template.bind({});
+errorMsg.args = {
+  invalid: true,
+  errorMsg: 'Invalid input',
+};
+
 export const rightWithIcon = Template.bind({});
 rightWithIcon.args = {
   valid: true,

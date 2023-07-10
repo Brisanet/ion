@@ -124,4 +124,47 @@ describe('IonTabGroupComponent', () => {
     fireEvent.click(screen.getByText(mockTabs[1].label));
     expect(tabs.event).toHaveBeenCalledTimes(2);
   });
+
+  it('should show a tab with badge', async () => {
+    const badgeValue = 10;
+    await sut({
+      direction: 'vertical',
+      tabs: [
+        ...mockTabs,
+        {
+          label: 'Guardians of the galaxy',
+          selected: false,
+          badge: {
+            value: badgeValue,
+          },
+        },
+      ],
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+
+    expect(screen.getByTestId('badge-tab')).toBeInTheDocument();
+    expect(screen.getByText(badgeValue)).toBeInTheDocument();
+  });
+
+  it('should have a disabled tab when informed', async () => {
+    const disabledTabLabel = 'disabled tab';
+    await sut({
+      direction: 'horizontal',
+      tabs: [
+        ...mockTabs,
+        {
+          label: disabledTabLabel,
+          selected: false,
+          disabled: true,
+        },
+      ],
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+
+    expect(screen.getByText(disabledTabLabel)).toBeDisabled();
+  });
 });

@@ -1,4 +1,9 @@
-<div class="container-options" id="ion-dropdown" data-testid="ion-dropdown">
+<div
+  class="container-options"
+  id="ion-dropdown"
+  data-testid="ion-dropdown"
+  (clickOutside)="clickedOutsideDropdown()"
+>
   <ion-input
     class="dropdown-search"
     *ngIf="enableSearch"
@@ -10,39 +15,52 @@
     (valueChange)="inputChange($event)"
   ></ion-input>
   <div
-    [ngClass]="{
-      'dropdown-disabled': option.disabled,
-      'dropdown-disabled-selected': option.disabled && option.selected,
-      'dropdown-item-selected': option.selected && !option.disabled,
-      'dropdown-item': !option.selected && !option.disabled
-    }"
-    *ngFor="let option of options; let index = index"
-    (click)="select(option)"
-    (mouseenter)="mouseEnter(option)"
-    (mouseleave)="mouseLeave(option)"
-    [id]="'option-' + index"
+    #optionList
+    class="options-list"
+    (scroll)="optionsScroll()"
+    id="option-list"
   >
-    <div class="container">
-      <span>{{ option.label }}</span>
-      <ion-icon
-        [type]="option.hovered ? 'close' : 'check'"
-        [attr.data-testid]="
-          'ion-' + (option.hovered ? 'close' : 'check') + '-selected'
-        "
-        [size]="iconSize"
-        *ngIf="option.selected"
-      ></ion-icon>
+    <div
+      [ngClass]="{
+        'dropdown-disabled': option.disabled,
+        'dropdown-disabled-selected': option.disabled && option.selected,
+        'dropdown-item-selected': option.selected && !option.disabled,
+        'dropdown-item': !option.selected && !option.disabled
+      }"
+      *ngFor="let option of options; let index = index"
+      (click)="select(option)"
+      (mouseenter)="mouseEnter(option)"
+      (mouseleave)="mouseLeave(option)"
+      [id]="'option-' + index"
+    >
+      <div class="container">
+        <span>{{ option.label }}</span>
+        <ion-icon
+          [type]="option.hovered ? 'close' : 'check'"
+          [attr.data-testid]="
+            'ion-' + (option.hovered ? 'close' : 'check') + '-selected'
+          "
+          [size]="iconSize"
+          *ngIf="option.selected"
+        ></ion-icon>
+      </div>
     </div>
   </div>
   <ion-button
+    *ngIf="clearButtonIsVisible"
     label="Limpar"
     iconType="trash"
     type="secondary"
     size="sm"
     rightSideIcon="true"
     expand="true"
-    *ngIf="clearButtonIsVisible"
-    (click)="clearOptions()"
-    data-testid="buttonClear"
+    (click)="clearOptions(true)"
+    data-testid="button-clear"
   ></ion-button>
+  <ion-no-data
+    *ngIf="!options || options.length === 0"
+    data-testid="ion-no-data"
+    [label]="noDataConfig.label"
+    [iconType]="noDataConfig.iconType"
+  ></ion-no-data>
 </div>

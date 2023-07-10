@@ -1,13 +1,11 @@
 import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   Output,
   OnInit,
-  OnChanges,
-  SimpleChanges,
+  DoCheck,
+  AfterViewInit,
 } from '@angular/core';
 import {
   BadgeType,
@@ -16,8 +14,6 @@ import {
   IconType,
   InfoBadgeStatus,
 } from '../core/types';
-
-import { SafeAny } from '../utils/safe-any';
 
 export type ChipSize = 'sm' | 'md';
 export type IconDirection = 'right' | 'left';
@@ -38,6 +34,7 @@ export interface IonChipProps {
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
+  showToggle?: boolean;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
@@ -56,9 +53,8 @@ interface RightBadge {
   selector: 'ion-chip',
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent implements OnInit, OnChanges {
+export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() label!: string;
   @Input() disabled = false;
   @Input() selected = false;
@@ -71,28 +67,30 @@ export class ChipComponent implements OnInit, OnChanges {
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
+  @Input() showToggle = false;
+  @Input() required = false;
 
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
-  public id: string;
-
+  dropdownId: string;
+  chipId: string;
   badge: Badge = {
     value: 0,
   };
 
-  previusSelectedStatus = false;
+  tempFilter: DropdownItem[] = [];
 
-  clickReference!: SafeAny;
+  placeholder = '';
 
-  constructor(private ref: ChangeDetectorRef) {
-    this.ref.markForCheck();
-  }
+  firstCheck = true;
 
   select(): void {
     this.toggleDropdown();
-    this.selected = !this.selected;
+    if (!this.options) {
+      this.selected = !this.selected;
+    }
     this.events.emit({
       selected: this.selected,
       disabled: this.disabled,
@@ -100,6 +98,11 @@ export class ChipComponent implements OnInit, OnChanges {
   }
 
   toggleDropdown(): void {
+    if (this.showToggle) {
+      this.showDropdown = true;
+      return;
+    }
+
     if (this.options) {
       this.showDropdown = !this.showDropdown;
     }
@@ -111,16 +114,21 @@ export class ChipComponent implements OnInit, OnChanges {
 
   selectDropdownItem(selecteds: DropdownItem[]): void {
     this.dropdownEvents.emit(selecteds);
-
-    if (selecteds && this.multiple) {
-      this.setBadgeValue(selecteds.length);
+    if (selecteds.length) {
+      if (this.multiple) {
+        this.setBadgeValue(selecteds.length);
+        return;
+      }
+      this.setPlaceHolder(selecteds[0].label);
+    } else {
+      this.clearBadgeValue();
     }
+  }
 
-    if (!this.multiple) {
-      this.label = selecteds[0].label;
-      this.selected = false;
-      this.toggleDropdown();
-    }
+  setPlaceHolder(label: string): void {
+    this.placeholder = label || this.label;
+    this.selected = false;
+    this.toggleDropdown();
   }
 
   dropdownSearchChange(value: string): void {
@@ -128,29 +136,74 @@ export class ChipComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    if (this.multiple) {
-      return;
+    this.chipId = this.generateId('ion-chip__container-');
+    this.dropdownId = this.generateId('ion-chip__container-dropdown-');
+    const selecteds = this.getSelectedOptions();
+    if (selecteds && this.multiple) {
+      this.setBadgeValue(selecteds.length);
     }
-    this.updateLabel();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.options && !changes.options.firstChange && !this.multiple) {
-      this.updateLabel();
-    }
+  generateId = (name: string): string =>
+    name + Math.floor(Math.random() * 100000000) + 1;
+
+  ngDoCheck(): void {
+    this.updateLabel();
   }
 
   getSelectedOptions(): DropdownItem[] {
     return (this.options || []).filter((option) => option.selected);
   }
 
-  private updateLabel(): void {
+  ngAfterViewInit(): void {
+    if (this.showToggle) {
+      return;
+    }
+  }
+
+  updateLabel(): void {
+    this.placeholder = this.label;
+    if (this.firstCheck) {
+      this.firstUpdateLabel();
+      return;
+    }
+
+    if (this.multiple || (this.options && this.options.length === 0)) {
+      return;
+    }
+
     const [selectedOption] = this.getSelectedOptions();
+
     if (!selectedOption) {
       return;
     }
-    this.label = selectedOption.label;
-    this.ref.markForCheck();
+
+    this.placeholder = selectedOption.label;
+  }
+
+  firstUpdateLabel(): void {
+    if (!this.multiple && this.options) {
+      const optionSelected = this.options.find(
+        (option) => option.selected === true
+      );
+      if (optionSelected) {
+        this.placeholder = optionSelected.label || '';
+      }
+    } else {
+      this.placeholder = this.label;
+    }
+    this.firstCheck = false;
+  }
+
+  closeDropdown(): void {
+    if (this.showDropdown) {
+      this.showDropdown = false;
+    }
+  }
+
+  setTempOptions(selectedArray: DropdownItem[]): void {
+    this.tempFilter = selectedArray;
+    this.closeDropdown();
   }
 
   private setBadgeValue(newValue: number): void {
