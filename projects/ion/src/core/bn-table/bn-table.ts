@@ -38,7 +38,7 @@ export default class BnTable<DataType> {
 
   public payload: IPayload = {
     total: true,
-    offset: this.configTable.pagination.offset,
+    offset: this.configTable.pagination.offset || 0,
     limit: this.configTable.pagination.itemsPerPage,
   };
 
