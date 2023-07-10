@@ -1,4 +1,3 @@
-import { AlertCustomBodyComponent } from './mocks/alert-custom-body.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonAlertComponent } from './alert.component';
@@ -8,6 +7,5 @@ import { IonIconModule } from '../icon/icon.module';
   declarations: [IonAlertComponent],
   imports: [CommonModule, IonIconModule],
   exports: [IonAlertComponent],
-  entryComponents: [AlertCustomBodyComponent],
 })
 export class IonAlertModule {}
