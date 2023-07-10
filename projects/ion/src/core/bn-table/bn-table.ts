@@ -38,7 +38,7 @@ export default class BnTable<DataType> {
 
   public payload: IPayload = {
     total: true,
-    offset: 0,
+    offset: this.configTable.pagination.offset,
     limit: this.configTable.pagination.itemsPerPage,
   };
 
@@ -56,8 +56,6 @@ export default class BnTable<DataType> {
 
   smartData(): void {
     this.configTable.loading = true;
-
-    console.log('this.payload -> ', this.payload);
 
     // TODO: make function to get and not duplicated this list code
     if (this.payload.total) {
@@ -88,8 +86,6 @@ export default class BnTable<DataType> {
     if (notTotal.total) {
       delete notTotal.total;
     }
-
-    console.log('notTotal -> ', notTotal);
 
     this.service
       .list({ ...notTotal })
