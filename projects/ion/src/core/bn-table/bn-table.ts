@@ -18,10 +18,7 @@ export interface IBnTable<DataType> {
 }
 
 export interface BnService<DataType = SafeAny> {
-  smartList: (
-    filters?: IPayload
-  ) => Observable<{ data: DataType[]; total: number }>;
-  list: () => SafeAny;
+  list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
 export class BnTable<DataType> {
@@ -61,7 +58,7 @@ export class BnTable<DataType> {
     this.configTable.loading = true;
 
     this.service
-      .smartList(this.payload)
+      .list(this.payload)
       .pipe(
         take(1),
         finalize(() => (this.configTable.loading = false))
