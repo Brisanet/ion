@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
+import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
+import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import { SafeAny } from '../../lib/utils/safe-any';
 import { ConfigSmartTable, SmartTableEvent } from '../../public-api';
-import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import { IPayload, IResponse } from '../api/http.interfaces';
-import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 
 export interface SmartPayload {
   offset?: number;
@@ -21,7 +21,7 @@ export interface BnService<DataType = SafeAny> {
   list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
-export class BnTable<DataType> {
+export default class BnTable<DataType> {
   public message: string;
 
   public configTable: ConfigSmartTable<DataType> = {
