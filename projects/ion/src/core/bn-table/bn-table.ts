@@ -59,32 +59,6 @@ export default class BnTable<DataType> {
 
     console.log('this.payload -> ', this.payload);
 
-    this.service
-      .list(this.payload)
-      .pipe(
-        take(1),
-        finalize(() => (this.configTable.loading = false))
-      )
-      .subscribe(
-        (response: IResponse<DataType>) => {
-          if (response.total && response.total !== null) {
-            this.configTable.pagination = {
-              ...this.configTable.pagination,
-              total: response.total || 0,
-            };
-          }
-          this.configTable.data = response.data;
-          if (response.dados) {
-            this.configTable.data = response.dados;
-          }
-        },
-        (error) => {
-          // TODO: add notification service
-          // const msg: string = error.msg || error.error.msg;
-          // this.notify.error('Erro', msg);
-        }
-      );
-
     // TODO: make function to get and not duplicated this list code
     if (this.payload.total) {
       this.service
@@ -109,6 +83,39 @@ export default class BnTable<DataType> {
           }
         );
     }
+
+    const notTotal = JSON.parse(JSON.stringify(this.payload));
+    if (notTotal.total) {
+      delete notTotal.total;
+    }
+
+    console.log('notTotal -> ', notTotal);
+
+    this.service
+      .list({ ...notTotal })
+      .pipe(
+        take(1),
+        finalize(() => (this.configTable.loading = false))
+      )
+      .subscribe(
+        (response: IResponse<DataType>) => {
+          if (response.total && response.total !== null) {
+            this.configTable.pagination = {
+              ...this.configTable.pagination,
+              total: response.total || 0,
+            };
+          }
+          this.configTable.data = response.data;
+          if (response.dados) {
+            this.configTable.data = response.dados;
+          }
+        },
+        (error) => {
+          // TODO: add notification service
+          // const msg: string = error.msg || error.error.msg;
+          // this.notify.error('Erro', msg);
+        }
+      );
   }
 
   events(event: SmartTableEvent): void {
