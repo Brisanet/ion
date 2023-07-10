@@ -117,6 +117,7 @@ export default class BnTable<DataType> {
   events(event: SmartTableEvent): void {
     if (event.event === EventTable.CHANGE_PAGE) {
       this.payload.limit = event.change_page.itemsPerPage;
+      this.payload.offset = event.change_page.offset;
 
       this.smartData();
     }
