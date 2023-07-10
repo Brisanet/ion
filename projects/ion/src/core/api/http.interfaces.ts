@@ -10,4 +10,5 @@ export interface IResponse<DataType> {
 
 export interface IPayload extends SmartPayload {
   [x: string]: SafeAny;
+  filter?: SafeAny;
 }

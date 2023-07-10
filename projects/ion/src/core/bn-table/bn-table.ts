@@ -21,7 +21,7 @@ export interface BnService<DataType = SafeAny> {
   list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
-export class BnTable<DataType> {
+export default class BnTable<DataType> {
   public message: string;
 
   public configTable: ConfigSmartTable<DataType> = {
