@@ -21,7 +21,7 @@ export interface BnService<DataType = SafeAny> {
   list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
-export default class BnTable<DataType> {
+export class BnTable<DataType> {
   public message: string;
 
   public configTable: ConfigSmartTable<DataType> = {
@@ -82,6 +82,31 @@ export default class BnTable<DataType> {
           // this.notify.error('Erro', msg);
         }
       );
+
+    // TODO: make function to get and not duplicated this list code
+    if (this.payload.total) {
+      this.service
+        .list(this.payload)
+        .pipe(
+          take(1),
+          finalize(() => (this.configTable.loading = false))
+        )
+        .subscribe(
+          (response: IResponse<DataType>) => {
+            if (response.total && response.total !== null) {
+              this.configTable.pagination = {
+                ...this.configTable.pagination,
+                total: response.total || 0,
+              };
+            }
+          },
+          (error) => {
+            // TODO: add notification service
+            // const msg: string = error.msg || error.error.msg;
+            // this.notify.error('Erro', msg);
+          }
+        );
+    }
   }
 
   events(event: SmartTableEvent): void {
