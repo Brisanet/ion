@@ -8,6 +8,9 @@ import {
   IonPaginationComponent,
   LIST_OF_PAGE_OPTIONS,
 } from './pagination.component';
+import { Component, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
@@ -383,5 +386,42 @@ describe('Advanced Pagination', () => {
         expect(screen.queryByTestId(`page-${page}`)).toBeNull();
       });
     });
+  });
+});
+
+const PAGE_SELECTED = 2;
+const TOTAL_ITEMS = 20;
+@Component({
+  template: `<ion-pagination [total]="total" [page]="page"> </ion-pagination>`,
+})
+class PaginationTestComponent {
+  total = TOTAL_ITEMS;
+  page = PAGE_SELECTED;
+}
+
+@NgModule({
+  declarations: [IonPaginationComponent, PaginationTestComponent],
+  imports: [CommonModule, IonButtonModule],
+  entryComponents: [PaginationTestComponent],
+})
+class TestModule {}
+
+describe('Pagination / Setting current page after total change', () => {
+  let paginationComponent!: PaginationTestComponent;
+  let fixture!: ComponentFixture<PaginationTestComponent>;
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(PaginationTestComponent);
+    paginationComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should show that after setting a page, even with a change in total, the selected page is the same as previously chosen', async () => {
+    paginationComponent.total = TOTAL_ITEMS + 1;
+    fixture.detectChanges();
+    expect(screen.getByTestId(`page-${PAGE_SELECTED}`)).toHaveClass('selected');
+    expect(document.getElementsByClassName('selected')).toHaveLength(1);
   });
 });
