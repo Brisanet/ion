@@ -51,3 +51,4 @@ export * from './lib/spinner/spinner.module';
 export * from './lib/select/select.module';
 export * from './lib/no-data/no-data.module';
 export * from './lib/skeleton/skeleton.module';
+export * from './core/bn-table/bn-table';
