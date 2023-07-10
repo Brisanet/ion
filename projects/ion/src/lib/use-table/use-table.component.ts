@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BnTable } from '../../core/bn-table/bn-table';
 import { IonApiService } from './ApiService.service';
+import BnTable from '../../core/bn-table/bn-table';
 
 interface User {
   name: string;
