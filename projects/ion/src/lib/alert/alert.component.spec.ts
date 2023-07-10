@@ -52,19 +52,9 @@ describe('AlertComponent', () => {
     expect(await sut()).toHaveClass(alertDefaultClass);
   });
 
-  it('Should have an alert message', async () => {
-    expect(await sut()).toHaveTextContent(defaultValue.message as string);
-  });
-
   it('Should render with success icon by default', async () => {
     await sut();
     expect(await screen.findByTestId(alertIDs.iconStatus)).toBeInTheDocument();
-  });
-
-  it('Should show the informed message', async () => {
-    const label = 'Testing message in Alert';
-    const element = await sut({ message: label });
-    expect(element).toHaveTextContent(label);
   });
 
   it.each(alertTypes)('Should render %s type', async (type: StatusType) => {
@@ -113,13 +103,29 @@ describe('AlertComponent', () => {
     expect(element).toHaveClass('without-background');
   });
 
-  it('should render with a custom body when a TemplateRef is provided', async () => {
-    await sutAlertWithCustomBody();
-    expect(screen.getByTestId('ion-alert-custom-body')).toBeVisible();
+  describe('With a string provided', () => {
+    it('Should have an alert message', async () => {
+      expect(await sut()).toHaveTextContent(defaultValue.message as string);
+    });
+
+    it('Should show the informed message', async () => {
+      const label = 'Testing message in Alert';
+      const element = await sut({ message: label });
+      expect(element).toHaveTextContent(label);
+    });
   });
 
-  it('should not render the plain message if a custom body is informed', async () => {
-    await sutAlertWithCustomBody();
-    expect(screen.queryByTestId('ion-alert-message')).toBeNull();
+  describe('With a custom body provided', () => {
+    beforeEach(async () => {
+      await sutAlertWithCustomBody();
+    });
+
+    it('should render with the custom body provided', async () => {
+      expect(screen.getByTestId('ion-alert-custom-body')).toBeVisible();
+    });
+
+    it('should not render the plain message', async () => {
+      expect(screen.queryByTestId('ion-alert-message')).toBeNull();
+    });
   });
 });
