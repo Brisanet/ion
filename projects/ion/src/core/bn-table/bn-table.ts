@@ -8,7 +8,7 @@ import { IPayload, IResponse } from '../api/http.interfaces';
 
 export interface SmartPayload {
   offset?: number;
-  total?: number;
+  total?: boolean;
   limit?: number;
 }
 
@@ -37,7 +37,7 @@ export default class BnTable<DataType> {
   };
 
   public payload: IPayload = {
-    total: 0,
+    total: true,
     offset: 0,
     limit: this.configTable.pagination.itemsPerPage,
   };
@@ -56,6 +56,8 @@ export default class BnTable<DataType> {
 
   smartData(): void {
     this.configTable.loading = true;
+
+    console.log('this.payload -> ', this.payload);
 
     this.service
       .list(this.payload)
