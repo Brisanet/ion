@@ -6,7 +6,7 @@ import { IPayload, IResponse } from '../../core/api/http.interfaces';
   providedIn: 'root',
 })
 export class IonApiService {
-  list(filter: IPayload): Observable<IResponse<{ name: string }>> {
+  list(filter?: IPayload): Observable<IResponse<{ name: string }>> {
     console.log('filter -> ', filter);
     return of({
       data: [{ name: 'Iury' }, { name: 'Iracema' }],

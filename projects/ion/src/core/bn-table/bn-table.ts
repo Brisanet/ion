@@ -7,9 +7,9 @@ import { IPayload, IResponse } from '../api/http.interfaces';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 
 export interface SmartPayload {
-  offset: number;
-  total: number;
-  limit: number;
+  offset?: number;
+  total?: number;
+  limit?: number;
 }
 
 export interface IBnTable<DataType> {
