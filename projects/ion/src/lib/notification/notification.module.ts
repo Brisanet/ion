@@ -1,11 +1,18 @@
+import { IonNotificationContainerComponent } from './service/notification.container.component';
+import { IonNotificationService } from './service/notification.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconModule } from '../icon/icon.module';
 import { IonNotificationComponent } from './notification.component';
 
 @NgModule({
-  declarations: [IonNotificationComponent],
+  declarations: [IonNotificationComponent, IonNotificationContainerComponent],
   imports: [CommonModule, IonIconModule],
-  exports: [IonNotificationComponent],
+  providers: [IonNotificationService],
+  exports: [IonNotificationComponent, IonNotificationContainerComponent],
+  entryComponents: [
+    IonNotificationComponent,
+    IonNotificationContainerComponent,
+  ],
 })
 export class IonNotificationModule {}
