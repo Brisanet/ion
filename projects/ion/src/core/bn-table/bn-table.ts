@@ -27,7 +27,7 @@ export interface BnService<DataType = SafeAny> {
 export class BnTable<DataType> {
   public message: string;
 
-  protected configTable: ConfigSmartTable<DataType> = {
+  public configTable: ConfigSmartTable<DataType> = {
     data: [],
     columns: [],
     actions: [],
@@ -39,7 +39,7 @@ export class BnTable<DataType> {
     loading: false,
   };
 
-  protected payload: IPayload = {
+  public payload: IPayload = {
     total: 0,
     offset: 0,
     limit: this.configTable.pagination.itemsPerPage,
