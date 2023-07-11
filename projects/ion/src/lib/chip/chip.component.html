@@ -60,7 +60,6 @@
 <div *ngIf="showDropdown" class="ion-chip-dropdown" [id]="dropdownId">
   <ion-dropdown
     [options]="options"
-    [arraySelecteds]="tempFilter"
     [multiple]="multiple"
     [required]="required"
     [enableSearch]="dropdownSearchConfig?.enableSearch || false"
@@ -68,6 +67,6 @@
     (searchChange)="dropdownSearchChange($event)"
     (selected)="selectDropdownItem($event)"
     (clearBadgeValue)="clearBadgeValue()"
-    (closeDropdown)="setTempOptions($event)"
+    (closeDropdown)="closeDropdown()"
   ></ion-dropdown>
 </div>
