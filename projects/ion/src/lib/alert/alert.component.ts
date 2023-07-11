@@ -4,6 +4,7 @@ import {
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -32,7 +33,7 @@ export class IonAlertComponent implements OnInit, OnChanges {
 
   iconType: IconType;
 
-  hasCustomBody: boolean;
+  hasPlainText: boolean;
 
   closeEvent(): void {
     this.ionAlert.nativeElement.remove();
@@ -43,14 +44,15 @@ export class IonAlertComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.hasCustomBody = typeof this.message !== 'string';
-
     if (this.hideBackground) {
       this.closable = false;
     }
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.setIcon();
+    if (changes.message) {
+      this.hasPlainText = typeof this.message === 'string';
+    }
   }
 }
