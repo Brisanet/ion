@@ -88,9 +88,10 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   select(): void {
     this.toggleDropdown();
-    if (!this.options) {
-      !this.selected;
+    if (!this.options.length) {
+      this.selected = !this.selected;
     }
+
     this.events.emit({
       selected: this.selected,
       disabled: this.disabled,
