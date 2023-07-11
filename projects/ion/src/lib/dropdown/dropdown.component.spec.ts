@@ -177,7 +177,6 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
   const defaultMultiple = {
     options: optionsWithMultiple,
     multiple: true,
-    arraySelecteds: optionsWithMultiple,
     selected: {
       emit: selectEvent,
     } as SafeAny,
@@ -188,6 +187,18 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
 
   beforeEach(() => {
     selectEvent.mockClear();
+  });
+
+  it('should render with clear button when options selected is passed', async () => {
+    await sut(defaultMultiple);
+    const clearButton = screen.getByTestId('button-clear');
+    expect(clearButton).toBeInTheDocument();
+  });
+
+  it('should render with clear button when options selected is passed', async () => {
+    await sut(defaultMultiple);
+    const clearButton = screen.getByTestId('button-clear');
+    expect(clearButton).toBeInTheDocument();
   });
 
   it('should show check icon when mouse enter in option selected', async () => {
@@ -234,12 +245,6 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     expect(buttonClear).not.toBeInTheDocument();
   });
 
-  it('should render with value selected when arraySelecteds is passed', async () => {
-    await sut(defaultMultiple);
-    const elementToSelect = document.getElementById('option-1');
-    expect(elementToSelect).toHaveClass('dropdown-item-selected');
-  });
-
   it('should emmit event when reach the final of scrollable dropdown', async () => {
     await sut(defaultMultiple);
     const elementToScroll = document.getElementById('option-list');
@@ -251,12 +256,6 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
       },
     });
     expect(scrollFinal).toBeCalled();
-  });
-
-  it('should render with clear button when selected array is passed', async () => {
-    await sut(defaultMultiple);
-    const clearButton = screen.getByTestId('button-clear');
-    expect(clearButton).toBeInTheDocument();
   });
 });
 
