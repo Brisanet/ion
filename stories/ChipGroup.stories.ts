@@ -129,3 +129,9 @@ export const WithDropdown = Template.bind({});
 WithDropdown.args = {
   chips: chipsWithOptions,
 };
+
+export const WithRequired = Template.bind({});
+WithRequired.args = {
+  chips,
+  required: true,
+};

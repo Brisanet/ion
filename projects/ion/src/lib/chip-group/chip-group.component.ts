@@ -38,15 +38,19 @@ export class IonChipGroupComponent {
       chipSelected.selected = !isChipSelected;
     }
 
-    // const chipsSelecteds = this.chips.filter((chip) => chip.selected);
-    // if (this.required && !this.multiple) {
-    //   chipSelected.selected = true;
-    //   chipSelected.label = 'teste';
-    //   this.selected.emit(chipSelected);
-    //   return;
-    // }
+    if (this.required) {
+      this.checkRequired(chipSelected);
+      return;
+    }
 
     this.selected.emit(chipSelected);
+  }
+
+  checkRequired(chipSelected: ChipInGroup) {
+    const selectedChips = this.chips.filter((chip) => chip.selected);
+    if (!selectedChips.length) {
+      chipSelected.selected = true;
+    }
   }
 
   dropdownEvents(options: DropdownItem[]): void {

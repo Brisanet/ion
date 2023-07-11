@@ -3,6 +3,7 @@
     *ngFor="let chip of chips; index as i"
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
+    [required]="chip.required || required"
     [selected]="chip.selected"
     [showDropdown]="chip.selected && chip.options"
     [size]="chip.size || size"
