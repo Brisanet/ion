@@ -8,9 +8,10 @@ import { IPayload, IResponse } from '../../core/api/http.interfaces';
 export class IonApiService {
   list(filter?: IPayload): Observable<IResponse<{ name: string }>> {
     console.log('filter -> ', filter);
+    const data = [{ name: 'Iury' }, { name: 'Iracema' }];
     return of({
-      data: [{ name: 'Iury' }, { name: 'Iracema' }],
-      total: 2,
+      data,
+      total: data.length,
     });
   }
 }
