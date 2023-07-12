@@ -27,7 +27,9 @@ export class IonChipGroupComponent {
   @Output() dropdown? = new EventEmitter<DropdownItem[]>();
 
   selectChip(chipSelected: ChipInGroup): void {
-    if (chipSelected.multiple && chipSelected.selected) {
+    const isChipSelectedOrMultiple =
+      chipSelected.multiple && chipSelected.selected;
+    if (isChipSelectedOrMultiple) {
       return;
     }
 
