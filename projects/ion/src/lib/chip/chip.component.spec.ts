@@ -16,7 +16,11 @@ import {
   ChipSize,
   IconDirection,
 } from './chip.component';
-import { InfoBadgeStatus } from '../core/types';
+import { DropdownItem, InfoBadgeStatus } from '../core/types';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonChipModule } from './chip.module';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
@@ -371,16 +375,27 @@ describe('With Dropdown with search input', () => {
   });
 });
 
-describe('option showToggle', () => {
+describe('IonChipComponent / Option showToggle', () => {
   it('should not close dropdown when showToggle option is true', async () => {
     await sut({
       label: 'dropdown',
       showToggle: true,
       options: [],
     });
+
     fireEvent.click(screen.getByText('dropdown'));
     expect(getContainerDropdown()).toBeTruthy();
     fireEvent.click(document.body);
+    expect(getContainerDropdown()).toBeTruthy();
+  });
+
+  it('should not close dropdown when selected option', async () => {
+    await sut({
+      label: 'dropdown',
+      showToggle: true,
+      options: [...defaultOptions],
+    });
+    fireEvent.click(screen.getByText(defaultOptions[1].label));
     expect(getContainerDropdown()).toBeTruthy();
   });
 });
@@ -410,5 +425,69 @@ describe('IonChipComponent / Required', () => {
       fireEvent.click(document.getElementById('option-0'));
       expect(chip).toContainHTML('Cat');
     }
+  });
+});
+
+@Component({
+  template: `<ion-chip [label]="label" [options]="teams"></ion-chip>`,
+})
+class ChipTestComponent {
+  label = 'Choose a team';
+  teams: DropdownItem[] = [
+    { label: 'Icasa', selected: true },
+    { label: 'Vasco', selected: false },
+    { label: 'Ceará', selected: false },
+    { label: 'Paysandu', selected: false },
+    { label: 'Bahia', selected: false },
+  ];
+}
+
+@NgModule({
+  declarations: [ChipTestComponent],
+  imports: [
+    CommonModule,
+    IonBadgeModule,
+    IonIconModule,
+    IonDropdownModule,
+    IonInfoBadgeModule,
+    IonChipModule,
+  ],
+  entryComponents: [ChipComponent, ChipTestComponent],
+})
+class TestModule {}
+
+describe('IonChipComponent / Deselect options by Developer implementation', () => {
+  let chipComponent!: ChipTestComponent;
+  let fixture!: ComponentFixture<ChipTestComponent>;
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(ChipTestComponent);
+    chipComponent = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should show 1 option selected and after implementation no option selected', async () => {
+    const ionChip = screen.getByTestId('ion-chip');
+    fireEvent.click(ionChip);
+    fixture.detectChanges();
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(1);
+
+    chipComponent.teams.forEach((team) => {
+      team.selected = false;
+    });
+    // close dropdown
+    fireEvent.click(ionChip);
+    fixture.detectChanges();
+
+    // open dropdown
+    fireEvent.click(ionChip);
+    fixture.detectChanges();
+    expect(
+      document.getElementsByClassName('dropdown-item-selected')
+    ).toHaveLength(0);
   });
 });
