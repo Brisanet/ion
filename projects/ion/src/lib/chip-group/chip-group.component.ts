@@ -37,7 +37,9 @@ export class IonChipGroupComponent {
       this.clearChips();
     }
 
-    if (!chipSelected.multiple || !isChipSelected) {
+    const isSingleOrSelectedChip = !chipSelected.multiple || !isChipSelected;
+
+    if (isSingleOrSelectedChip) {
       chipSelected.selected = !isChipSelected;
     }
 
@@ -48,7 +50,7 @@ export class IonChipGroupComponent {
     this.selected.emit(chipSelected);
   }
 
-  checkRequired(chipSelected: ChipInGroup) {
+  checkRequired(chipSelected: ChipInGroup): void {
     const selectedChips = this.chips.filter((chip) => chip.selected);
     if (!selectedChips.length) {
       chipSelected.selected = true;
