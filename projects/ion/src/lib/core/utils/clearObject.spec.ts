@@ -1,6 +1,6 @@
 import { clearObject } from './clearObject';
 
-const mock = {
+const mockBasic = {
   nullKey: null,
   undefinedKey: undefined,
   emptyStringKey: '',
@@ -20,17 +20,20 @@ const mockFalsyValues = {
 };
 
 describe('BrisanetCore Utils - clear-object', () => {
-  it.each(Object.keys(mock))('should remove %s from the object ', (key) => {
-    expect(clearObject(mock)[key]).toBeUndefined();
-  });
+  it.each(Object.keys(mockBasic))(
+    'should remove %s from the object ',
+    (key) => {
+      expect(clearObject(mockBasic)[key]).toBeUndefined();
+    }
+  );
 
   it('should deep clean the object', () => {
     expect(clearObject(mockNestedObject).nullKeyInsideObject).toEqual({});
   });
 
   it('should return same object when a key have a non-empty value', () => {
-    mock.emptyStringKey = 'abcdef';
-    expect(clearObject(mock)).toEqual(mock);
+    mockBasic.emptyStringKey = 'abcdef';
+    expect(clearObject(mockBasic)).toEqual(mockBasic);
   });
 
   it.each(Object.keys(mockFalsyValues))(
