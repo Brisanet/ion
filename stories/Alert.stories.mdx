@@ -12,16 +12,17 @@ export const Template = (args) => <IonAlertComponent {...args} />;
 
 No Ion o alerta pode receber 5 parâmetros, sendo eles:
 
-- `message`. Indicando a mensagem que será mostrada no alerta.
+- `message`. Indicando o conteúdo que será mostrada no alerta, podendo ser uma string ou um TemplateRef.
 - `type`. Indicando o tipo do alerta.
 - `closable`. Indicando se o alerta pode ou não ser fechado.
 - `width`. Indicando a largura do alerta.
 - `height`. Indicando a altura do alerta.
 
 Dentre os parâmetros o `message` é o unico obrigatório, os outros possuem valores padrões.
-O alerta pode ser chamado da seguinte forma:
+O alerta pode ser chamado das seguintes formas:
 
 - `<ion-alert message="Example"></ion-alert>`
+- `<ion-alert message="BodyTemplate"></ion-alert> <ng-template #BodyTemplate>Custom <span>Alert</span> Message </ng-template>`
 
 ## Message
 
