@@ -1,6 +1,6 @@
 import { StatusType } from './../../core/types/status';
 import { NotificationConfigOptions } from './../../core/types/notification';
-import { IonNotificationComponent } from './../notification.component';
+import { IonNotificationComponent } from './../component/notification.component';
 import {
   Injectable,
   ComponentRef,

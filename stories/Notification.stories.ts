@@ -1,7 +1,40 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { IonNotificationComponent } from '../projects/ion/src/lib/notification/notification.component';
+import { IonNotificationComponent } from '../projects/ion/src/lib/notification/component/notification.component';
+import {
+  IonIconModule,
+  IonNotificationModule,
+  IonSharedModule,
+} from '../projects/ion/src/public-api';
+import { OpenNotificationButtonComponent } from '../projects/ion/src/lib/notification/mock/open-notification-mock.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { moduleMetadata } from '@storybook/angular';
-import { IonIconModule } from '../projects/ion/src/public-api';
+
+const Template: Story<IonNotificationComponent> = (
+  args: IonNotificationComponent
+) => ({
+  component: IonNotificationComponent,
+  props: args,
+});
+
+const basicTemplate: Story<IonNotificationComponent> = (
+  args: IonNotificationComponent
+) => ({
+  component: OpenNotificationButtonComponent,
+  props: {
+    ...args,
+  },
+  moduleMetadata: {
+    declarations: [OpenNotificationButtonComponent],
+    imports: [
+      CommonModule,
+      FormsModule,
+      IonSharedModule,
+      IonNotificationModule,
+    ],
+    entryComponents: [OpenNotificationButtonComponent],
+  },
+});
 
 export default {
   title: 'Ion/Feedback/Notification',
@@ -11,14 +44,12 @@ export default {
       imports: [IonIconModule],
     }),
   ],
-} as Meta;
+} as Meta<IonNotificationComponent>;
 
-const Template: Story<IonNotificationComponent> = (
-  args: IonNotificationComponent
-) => ({
-  component: IonNotificationComponent,
-  props: args,
-});
+export const Service = basicTemplate.bind({});
+Service.args = {
+  componentToBody: OpenNotificationButtonComponent,
+};
 
 export const Basic = Template.bind({});
 Basic.args = {

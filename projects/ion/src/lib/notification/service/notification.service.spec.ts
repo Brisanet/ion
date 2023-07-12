@@ -1,8 +1,8 @@
 import { IonSharedModule } from './../../shared.module';
 import { IonNotificationContainerComponent } from './notification.container.component';
-import { IonNotificationComponent } from './../notification.component';
+import { IonNotificationComponent } from '../component/notification.component';
 import { IonNotificationService } from './notification.service';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Component, NgModule } from '@angular/core';
 import { screen } from '@testing-library/angular';
 

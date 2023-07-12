@@ -1,11 +1,5 @@
-import { IonNotificationComponent } from './../notification.component';
-import {
-  Component,
-  OnInit,
-  ComponentRef,
-  Renderer2,
-  ElementRef,
-} from '@angular/core';
+import { IonNotificationComponent } from '../component/notification.component';
+import { Component, ComponentRef, Renderer2, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'notification-container',

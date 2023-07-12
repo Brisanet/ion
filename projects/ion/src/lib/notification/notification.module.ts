@@ -3,7 +3,7 @@ import { IonNotificationService } from './service/notification.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconModule } from '../icon/icon.module';
-import { IonNotificationComponent } from './notification.component';
+import { IonNotificationComponent } from './component/notification.component';
 
 @NgModule({
   declarations: [IonNotificationComponent, IonNotificationContainerComponent],
