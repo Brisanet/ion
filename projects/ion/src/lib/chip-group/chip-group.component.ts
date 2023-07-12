@@ -33,6 +33,12 @@ export class IonChipGroupComponent {
       return;
     }
 
+    chipSelected = this.setChip(chipSelected);
+
+    this.selected.emit(chipSelected);
+  }
+
+  setChip(chipSelected: ChipInGroup): ChipInGroup {
     const isChipSelected = chipSelected.selected;
 
     if (!this.multiple) {
@@ -49,7 +55,7 @@ export class IonChipGroupComponent {
       this.checkRequired(chipSelected);
     }
 
-    this.selected.emit(chipSelected);
+    return chipSelected;
   }
 
   checkRequired(chipSelected: ChipInGroup): void {
