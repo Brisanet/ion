@@ -4,6 +4,8 @@ import {
   Input,
   OnChanges,
   OnInit,
+  SimpleChanges,
+  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { StatusType } from '../core/types';
@@ -22,7 +24,7 @@ const iconTypes = {
   styleUrls: ['./alert.component.scss'],
 })
 export class IonAlertComponent implements OnInit, OnChanges {
-  @Input() message!: string;
+  @Input() message!: string | TemplateRef<void>;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
   @Input() hideBackground? = false;
@@ -30,6 +32,8 @@ export class IonAlertComponent implements OnInit, OnChanges {
   @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
 
   iconType: IconType;
+
+  hasPlainText: boolean;
 
   closeEvent(): void {
     this.ionAlert.nativeElement.remove();
@@ -45,7 +49,10 @@ export class IonAlertComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(changes: SimpleChanges): void {
     this.setIcon();
+    if (changes.message) {
+      this.hasPlainText = typeof this.message === 'string';
+    }
   }
 }
