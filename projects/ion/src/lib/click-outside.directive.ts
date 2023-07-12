@@ -1,9 +1,9 @@
 import {
   Directive,
   ElementRef,
-  Output,
   EventEmitter,
   HostListener,
+  Output,
 } from '@angular/core';
 
 @Directive({
