@@ -26,6 +26,7 @@ export * from './lib/message/message.module';
 export * from './lib/modal/modal.module';
 export * from './lib/modal/modal.service';
 export * from './lib/notification/notification.module';
+export * from './lib/notification/service/notification.service';
 export * from './lib/pagination/pagination.module';
 export * from './lib/picker/date-picker/date-picker.module';
 export * from './lib/popconfirm/popconfirm.module';

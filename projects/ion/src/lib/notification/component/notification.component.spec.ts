@@ -1,8 +1,8 @@
 import { EventEmitter } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { StatusType } from '../core/types';
-import { NotificationProps } from '../core/types/notification';
-import { IonIconModule } from '../icon/icon.module';
+import { StatusType } from '../../core/types';
+import { NotificationProps } from '../../core/types/notification';
+import { IonIconModule } from '../../icon/icon.module';
 import { IonNotificationComponent } from './notification.component';
 
 const defaultNotification = {
