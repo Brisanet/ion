@@ -30,17 +30,19 @@ export class IonChipGroupComponent {
     if (chipSelected.multiple && chipSelected.selected) {
       return;
     }
+
     const isChipSelected = chipSelected.selected;
+
     if (!this.multiple) {
       this.clearChips();
     }
+
     if (!chipSelected.multiple || !isChipSelected) {
       chipSelected.selected = !isChipSelected;
     }
 
     if (this.required) {
       this.checkRequired(chipSelected);
-      return;
     }
 
     this.selected.emit(chipSelected);
