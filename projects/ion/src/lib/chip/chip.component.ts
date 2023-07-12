@@ -70,6 +70,9 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() showToggle = false;
   @Input() required = false;
 
+  @Input() chipGroup = false;
+  @Input() chipGroupRequired = false;
+
   @Output() events = new EventEmitter<ChipEvent>();
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
@@ -89,7 +92,10 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   select(): void {
     this.toggleDropdown();
 
-    if (this.options && this.options.length) {
+    if (
+      (!this.options && this.chipGroup && !this.chipGroupRequired) ||
+      !this.chipGroup
+    ) {
       this.selected = !this.selected;
     }
 

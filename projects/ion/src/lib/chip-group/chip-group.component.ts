@@ -14,7 +14,7 @@ import { DropdownItem } from '../core/types/dropdown';
   styleUrls: ['./chip-group.component.scss'],
 })
 export class IonChipGroupComponent {
-  @Input() chips: ChipInGroup[];
+  @Input() chips: ChipInGroup[] = [];
   @Input() size?: ChipSize = 'sm';
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
