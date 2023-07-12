@@ -229,6 +229,38 @@ WithTagByColumn.args = returnTableConfig(
   2
 );
 
+const mockTooltipColumn = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+  ionTooltipColorScheme: 'dark',
+  ionTooltipShowDelay: 1000,
+  ionTooltipArrowPointAtCenter: true,
+};
+
+const columnsWithTooltip = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    configTooltip: { ...mockTooltipColumn },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    configTooltip: { ...mockTooltipColumn },
+  },
+];
+
+export const ColumnWithTooltip = Template.bind({});
+ColumnWithTooltip.args = returnTableConfig(
+  data,
+  columnsWithTooltip,
+  actions,
+  2
+);
+
 export const WithTagByRow = Template.bind({});
 WithTagByRow.args = returnTableConfig(
   dataWithTag,
@@ -302,7 +334,7 @@ TableCustomRow.parameters = {
       story: `Passos para customizar a linha da tabela.
     1. No HTML do seu componente, crie um ng-template com a diretiva 'let-row' e realize as customizações desejadas.
     A diretiva 'let-row' permite acessar os dados da linha através da identificação do objeto passado na configuração
-    da tabela. Veja o exemplo abaixo: 
+    da tabela. Veja o exemplo abaixo:
 
     <ng-template #customTemplate let-row>
       <td>{{row.id}}</td>
@@ -318,20 +350,20 @@ TableCustomRow.parameters = {
     </ng-template>
 
     2. No arquivo .ts do seu componente, utilize o decorator '@ViewChild' para obter a referência do template customizado
-    criado no arquivo HTML.  
-        
+    criado no arquivo HTML.
+
     export class AppComponent implements OnInit {
       @ViewChild("customTemplate", { static: true })
       customTemplate: TemplateRef<HTMLElement>;
 
       ...
     }
-      
+
     3. Passe a referência do template customizado para o atributo customRowTemplate da configuração da tabela.
 
     export class AppComponent implements OnInit {
       ...
-      
+
       ngOnInit(): void {
         this.config = {
           data,

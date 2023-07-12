@@ -19,7 +19,32 @@
           [ngStyle]="{ width: column.width + '%' }"
         >
           <div class="header-style">
-            <span class="th-span">{{ column.label }}</span>
+            <ng-container *ngIf="column.configTooltip; else noTooltip">
+              <span
+                class="th-span"
+                ionTooltip
+                [ionTooltipTitle]="
+                  column.configTooltip.ionTooltipTitle || column.label
+                "
+                [ionTooltipPosition]="column.configTooltip.ionTooltipPosition"
+                [ionTooltipArrowPointAtCenter]="
+                  column.configTooltip.ionTooltipArrowPointAtCenter
+                "
+                [ionTooltipColorScheme]="
+                  column.configTooltip.ionTooltipColorScheme
+                "
+                [ionTooltipTrigger]="column.configTooltip.ionTooltipTrigger"
+                [ionTooltipShowDelay]="column.configTooltip.ionTooltipShowDelay"
+                [ionTooltipTemplateRef]="ionTooltipColumnTemplateBody"
+              >
+                {{ column.label }}
+              </span>
+            </ng-container>
+
+            <ng-template #noTooltip>
+              <span class="th-span">{{ column.label }}</span>
+            </ng-template>
+
             <button
               class="svg"
               (click)="
@@ -214,10 +239,6 @@
     </tbody>
   </table>
 
-  <ng-template #ionTooltipTemplateBody>
-    <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
-  </ng-template>
-
   <div *ngIf="config.data && config.data.length === 0" class="noData">
     <ion-spinner
       *ngIf="config.loading; else noData"
@@ -265,5 +286,9 @@
 </div>
 
 <ng-template #ionTooltipTemplateBody>
+  <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
+</ng-template>
+
+<ng-template #ionTooltipColumnTemplateBody>
   <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
 </ng-template>

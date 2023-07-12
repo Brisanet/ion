@@ -1,5 +1,5 @@
 import { TagStatus } from './../core/types/status';
-import { ConfigSmartTable, StatusType } from '../core/types';
+import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TemplateRef } from '@angular/core';
 
@@ -30,6 +30,7 @@ export interface Column {
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
+  configTooltip?: TooltipProps;
 }
 
 export interface ActionConfirm {
