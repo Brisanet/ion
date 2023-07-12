@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, forkJoin, of } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
@@ -57,61 +57,40 @@ export default class BnTable<DataType> {
   smartData(): void {
     this.configTable.loading = true;
 
-    // TODO: make function to get and not duplicated this list code
-    if (this.payload.total) {
-      this.service
-        .list(this.payload)
-        .pipe(
+    const totalRequest$ = this.payload.total
+      ? this.service.list(this.payload).pipe(
           take(1),
           finalize(() => (this.configTable.loading = false))
         )
-        .subscribe(
-          (response: IResponse<DataType>) => {
-            if (response.total && response.total !== null) {
-              this.configTable.pagination = {
-                ...this.configTable.pagination,
-                total: response.total || 0,
-              };
-            }
-          },
-          (error) => {
-            // TODO: add notification service
-            // const msg: string = error.msg || error.error.msg;
-            // this.notify.error('Erro', msg);
-          }
-        );
-    }
+      : of(null);
 
-    const notTotal = JSON.parse(JSON.stringify(this.payload));
-    if (notTotal.total) {
-      delete notTotal.total;
-    }
-
-    this.service
-      .list({ ...notTotal })
+    const dataRequest$ = this.service
+      .list({ ...this.payload, total: undefined })
       .pipe(
         take(1),
         finalize(() => (this.configTable.loading = false))
-      )
-      .subscribe(
-        (response: IResponse<DataType>) => {
-          if (response.total && response.total !== null) {
-            this.configTable.pagination = {
-              ...this.configTable.pagination,
-              total: response.total || 0,
-            };
-          }
-          this.configTable.data = response.data;
-          if (response.dados) {
-            this.configTable.data = response.dados;
-          }
-        },
-        (error) => {
-          // TODO: add notification service
-          // const msg: string = error.msg || error.error.msg;
-          // this.notify.error('Erro', msg);
-        }
       );
+
+    forkJoin([totalRequest$, dataRequest$]).subscribe(
+      (response) => {
+        const totalResponse: IResponse<DataType> = response[0];
+        const dataResponse: IResponse<DataType> = response[1];
+
+        if (totalResponse && totalResponse.total !== null) {
+          this.configTable.pagination = {
+            ...this.configTable.pagination,
+            total: totalResponse.total || 0,
+          };
+        }
+
+        this.configTable.data = dataResponse.dados || dataResponse.data;
+      },
+      (error) => {
+        // TODO: add notification service
+        // const msg: string = error.msg || error.error.msg;
+        // this.notify.error('Erro', msg);
+      }
+    );
   }
 
   events(event: SmartTableEvent): void {
