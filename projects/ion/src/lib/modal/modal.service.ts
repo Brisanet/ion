@@ -1,4 +1,3 @@
-import { SafeAny } from './../utils/safe-any';
 import { DOCUMENT } from '@angular/common';
 import {
   ApplicationRef,
@@ -10,6 +9,7 @@ import {
   Type,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { SafeAny } from './../utils/safe-any';
 
 import { IonModalComponent } from './component/modal.component';
 import {
@@ -72,8 +72,10 @@ export class IonModalService {
   }
 
   closeModal(): void {
-    this.appRef.detachView(this.modalComponentRef.hostView);
-    this.componentSubscriber.complete();
-    this.modalComponentRef.destroy();
+    if (this.modalComponentRef) {
+      this.appRef.detachView(this.modalComponentRef.hostView);
+      this.componentSubscriber.complete();
+      this.modalComponentRef.destroy();
+    }
   }
 }
