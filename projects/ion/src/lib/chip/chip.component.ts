@@ -201,11 +201,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     }
   }
 
-  setTempOptions(selectedArray: DropdownItem[]): void {
-    this.tempFilter = selectedArray;
-    this.closeDropdown();
-  }
-
   private setBadgeValue(newValue: number): void {
     this.badge = { ...this.badge, value: newValue };
   }
