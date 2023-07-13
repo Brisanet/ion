@@ -35,6 +35,7 @@ const stateChange = {
 export class IonSmartTableComponent implements OnInit {
   @Input() config: ConfigSmartTable<SafeAny>;
   @Input() ionTooltipTemplate?: TemplateRef<void>;
+  @Input() ionTooltipTemplateColumn?: TemplateRef<void>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
