@@ -1,6 +1,7 @@
 import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
@@ -30,6 +31,22 @@ const columns: Column[] = [
     key: 'height',
     label: 'Altura',
     sort: true,
+  },
+];
+
+const columnsWithTooltip: Column[] = [
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: true,
+  },
+  {
+    key: 'height',
+    label: 'Altura',
+    sort: true,
+    configTooltip: {
+      ionTooltipTitle: 'Eu sou um tooltip',
+    },
   },
 ];
 
@@ -209,6 +226,37 @@ describe('IonSmartTableComponent', () => {
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
+  });
+});
+
+describe.skip('Table > columns with tooltip', () => {
+  const propsColumnWithTooltip: IonSmartTableProps<Character> = {
+    config: {
+      data,
+      columns: columnsWithTooltip,
+      pagination: {
+        total: 32,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+  beforeEach(async () => {
+    await sut(propsColumnWithTooltip);
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', async () => {
+    userEvent.hover(screen.getByText(columnsWithTooltip[0].label));
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+  });
+
+  it('should render tooltip when it have a configTooltip', async () => {
+    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
+    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
   });
 });
 
