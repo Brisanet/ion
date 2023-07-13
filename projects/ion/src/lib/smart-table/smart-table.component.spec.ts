@@ -229,7 +229,7 @@ describe('IonSmartTableComponent', () => {
   });
 });
 
-describe.skip('Table > columns with tooltip', () => {
+describe('Table > columns header with tooltip', () => {
   const propsColumnWithTooltip: IonSmartTableProps<Character> = {
     config: {
       data,
@@ -249,14 +249,14 @@ describe.skip('Table > columns with tooltip', () => {
     await sut(propsColumnWithTooltip);
   });
 
+  it.skip('should render tooltip when it have a configTooltip', async () => {
+    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
+    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
+  });
+
   it('should not render tooltip when it doesnt have a configTooltip', async () => {
     userEvent.hover(screen.getByText(columnsWithTooltip[0].label));
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
-  });
-
-  it('should render tooltip when it have a configTooltip', async () => {
-    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
-    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
   });
 });
 

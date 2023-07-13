@@ -229,32 +229,23 @@ WithTagByColumn.args = returnTableConfig(
   2
 );
 
-const mockTooltipColumn = {
-  ionTooltipTitle: 'Eu sou um tooltip',
-  ionTooltipPosition: TooltipPosition.DEFAULT,
-  ionTooltipTrigger: TooltipTrigger.DEFAULT,
-  ionTooltipColorScheme: 'dark',
-  ionTooltipShowDelay: 1000,
-  ionTooltipArrowPointAtCenter: true,
-};
-
 const columnsWithTooltip = [
   {
     key: 'id',
     label: 'Código',
     sort: true,
-    configTooltip: { ...mockTooltipColumn },
+    configTooltip: { ...mockTooltip },
   },
   {
     key: 'name',
     label: 'Nome',
     sort: false,
-    configTooltip: { ...mockTooltipColumn },
+    configTooltip: { ...mockTooltip },
   },
 ];
 
-export const ColumnWithTooltip = Template.bind({});
-ColumnWithTooltip.args = returnTableConfig(
+export const ColumnHeaderWithTooltip = Template.bind({});
+ColumnHeaderWithTooltip.args = returnTableConfig(
   data,
   columnsWithTooltip,
   actions,
