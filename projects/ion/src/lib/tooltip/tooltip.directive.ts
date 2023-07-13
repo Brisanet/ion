@@ -97,8 +97,10 @@ export class IonTooltipDirective implements OnDestroy {
   }
 
   attachComponentToView(): void {
-    document.body.appendChild(this.createComponent());
-    this.setComponentProperties();
+    if (this.ionTooltipTitle) {
+      document.body.appendChild(this.createComponent());
+      this.setComponentProperties();
+    }
   }
 
   showTooltip(): void {
