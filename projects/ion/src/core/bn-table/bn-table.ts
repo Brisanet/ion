@@ -3,13 +3,20 @@ import { finalize, take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import { SafeAny } from '../../lib/utils/safe-any';
-import { ConfigSmartTable, SmartTableEvent } from '../../public-api';
+import {
+  ConfigSmartTable,
+  OrderTableEvent,
+  PageEvent,
+  SmartTableEvent,
+} from '../../public-api';
 import { IPayload, IResponse } from '../api/http.interfaces';
 
 export interface SmartPayload {
   offset?: number;
   total?: boolean;
   limit?: number;
+  order?: string;
+  sort?: string;
 }
 
 export interface IBnTable<DataType> {
@@ -94,12 +101,34 @@ export default class BnTable<DataType> {
   }
 
   events(event: SmartTableEvent): void {
-    if (event.event === EventTable.CHANGE_PAGE) {
-      this.payload.limit = event.change_page.itemsPerPage;
-      this.payload.offset = event.change_page.offset;
+    const eventHandlers = {
+      [EventTable.CHANGE_PAGE]: () => this.handlePageChange(event.change_page),
+      [EventTable.SORT]: () => event.order && this.handleSort(event.order),
+    };
 
-      this.smartData();
+    const handler = eventHandlers[event.event];
+    if (handler) {
+      handler();
     }
+
+    this.smartData();
+  }
+
+  handlePageChange(changePage: PageEvent): void {
+    this.payload.limit = changePage.itemsPerPage;
+    this.payload.offset = changePage.offset;
+  }
+
+  handleSort(order: OrderTableEvent): void {
+    this.payload.order = order.column;
+    this.payload.sort = order.desc ? 'desc' : 'asc';
+
+    this.resetTablePagination();
+  }
+
+  private resetTablePagination(): void {
+    this.configTable.pagination.offset = 0;
+    this.configTable.pagination.total = 0;
   }
 
   private onInit(): void {
