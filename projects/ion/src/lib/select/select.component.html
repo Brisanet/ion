@@ -1,4 +1,9 @@
-<div class="ion-select" (click)="handleClick()" data-testid="ion-select">
+<div
+  class="ion-select"
+  (click)="handleClick()"
+  data-testid="ion-select"
+  [class.ion-select-required]="isInValid()"
+>
   <div class="ion-select-container">
     <ng-container *ngFor="let option of options; let i = index">
       <ng-container *ngIf="option.selected">
@@ -16,12 +21,14 @@
       [placeholder]="!hasSelectedOption() ? placeholder : ''"
       [(ngModel)]="inputValue"
       (input)="onSearchChange()"
+      [required]="required"
     />
   </div>
   <div>
     <ion-icon
       class="icon"
       [type]="showDropdown ? 'semi-up' : 'semi-down'"
+      [color]="isInValid() ? '#d6293a' : ''"
     ></ion-icon>
   </div>
 </div>

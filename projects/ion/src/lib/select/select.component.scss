@@ -66,3 +66,11 @@
     margin-inline-end: 8px;
   }
 }
+
+.ion-select-required {
+  border-color: $negative-color;
+
+  &:hover {
+    border-color: $negative-color;
+  }
+}

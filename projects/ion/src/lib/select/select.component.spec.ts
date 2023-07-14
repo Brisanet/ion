@@ -126,4 +126,63 @@ describe('IonSelecComponent - mode: multiple', () => {
     userEvent.keyboard(textToType);
     expect(selectEvent).toHaveBeenCalledWith(textToType);
   });
+  describe('IonSelectComponent - required', () => {
+    it('should apply class required in select', async () => {
+      await sut({
+        options: getCopyOptions(),
+        required: true,
+      });
+      const select = await screen.getByTestId('ion-select');
+      const el = document.createElement('div');
+      el.setAttribute('id', 'element-div');
+      el.style.height = '100px';
+      el.style.width = '100px';
+      document.body.appendChild(el);
+
+      await userEvent.click(select);
+      await userEvent.dblClick(document.getElementById('element-div'));
+
+      expect(select).toHaveClass('ion-select-required');
+    });
+    it('should not apply the required class if the parameter is false', async () => {
+      await sut({
+        options: getCopyOptions(),
+      });
+      const select = await screen.getByTestId('ion-select');
+      const el = document.createElement('div');
+      el.setAttribute('id', 'element-div');
+      el.style.height = '100px';
+      el.style.width = '100px';
+      document.body.appendChild(el);
+
+      userEvent.click(select);
+      userEvent.dblClick(document.getElementById('element-div'));
+
+      expect(select).not.toHaveClass('ion-select-required');
+    });
+    it('should not apply required class in multiple mode with an option checked', async () => {
+      await sut({
+        options: getCopyOptions(),
+        required: true,
+        mode: 'multiple',
+      });
+
+      const select = await screen.getByTestId('ion-select');
+      const el = document.createElement('div');
+      el.setAttribute('id', 'element-div');
+      el.style.height = '100px';
+      el.style.width = '100px';
+      document.body.appendChild(el);
+
+      userEvent.click(select);
+      fireEvent.click(await getOption(options[0].key));
+      fireEvent.click(await getOption(options[1].key));
+
+      const selectItem = screen.getAllByTestId('ion-icon-close');
+      userEvent.click(selectItem[0]);
+      userEvent.dblClick(document.getElementById('element-div'));
+
+      expect(select).not.toHaveClass('ion-select-required');
+    });
+  });
 });
