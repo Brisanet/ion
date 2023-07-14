@@ -34,22 +34,6 @@ const columns: Column[] = [
   },
 ];
 
-const columnsWithTooltip: Column[] = [
-  {
-    key: 'name',
-    label: 'Nome',
-    sort: true,
-  },
-  {
-    key: 'height',
-    label: 'Altura',
-    sort: true,
-    configTooltip: {
-      ionTooltipTitle: 'Eu sou um tooltip',
-    },
-  },
-];
-
 const pagination = {
   actual: 1,
   itemsPerPage: 10,
@@ -230,6 +214,22 @@ describe('IonSmartTableComponent', () => {
 });
 
 describe('Table > columns header with tooltip', () => {
+  const columnsWithTooltip: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
+    },
+  ];
+
   const propsColumnWithTooltip: IonSmartTableProps<Character> = {
     config: {
       data,
@@ -245,6 +245,7 @@ describe('Table > columns header with tooltip', () => {
       emit: events,
     } as SafeAny,
   };
+
   beforeEach(async () => {
     await sut(propsColumnWithTooltip);
   });
