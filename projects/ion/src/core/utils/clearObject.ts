@@ -2,7 +2,7 @@ import { SafeAny } from '../../lib/utils/safe-any';
 import { isEmpty } from 'lodash';
 
 export function clearObject<T = SafeAny>(value: SafeAny): T {
-  Object.keys(value).map((key) => {
+  Object.keys(value).forEach((key) => {
     if (isNestedObj(value[key])) {
       clearObject(value[key]);
     }
