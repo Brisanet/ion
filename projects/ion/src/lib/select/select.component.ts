@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostBinding,
   Input,
   OnInit,
   Output,
@@ -83,7 +84,8 @@ export class IonSelectComponent implements OnInit {
     this.search.emit(this.inputValue);
   }
 
-  isInvalid(): boolean {
+  @HostBinding('class.ion-select__required')
+  get isValid(): boolean {
     if (!this.required) {
       return false;
     }

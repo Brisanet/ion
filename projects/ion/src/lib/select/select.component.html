@@ -2,7 +2,7 @@
   class="ion-select"
   (click)="handleClick()"
   data-testid="ion-select"
-  [class.ion-select__required]="isInvalid()"
+  [class.ion-select__required]="isValid"
 >
   <div class="ion-select-container">
     <ng-container *ngFor="let option of options; let i = index">
@@ -28,7 +28,7 @@
     <ion-icon
       class="icon"
       [type]="showDropdown ? 'semi-up' : 'semi-down'"
-      [color]="isInvalid() ? '#d6293a' : ''"
+      [color]="!isValid ? '' : '#d6293a'"
     ></ion-icon>
   </div>
 </div>

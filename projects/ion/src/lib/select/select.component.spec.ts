@@ -160,8 +160,8 @@ describe('IonSelecComponent - mode: multiple', () => {
       const select = await screen.getByTestId('ion-select');
 
       userEvent.click(select);
-      fireEvent.click(await getOption(options[0].key));
-      fireEvent.click(await getOption(options[1].key));
+      userEvent.click(await getOption(options[0].key));
+      userEvent.click(await getOption(options[1].key));
 
       const selectItem = screen.getAllByTestId('ion-icon-close');
       userEvent.click(selectItem[0]);
