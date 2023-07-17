@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  HostBinding,
   Input,
   OnInit,
   Output,
@@ -20,6 +21,7 @@ export class IonSelectComponent implements OnInit {
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
+  @Input() required: IonSelectProps['required'] = false;
   @Output() events = new EventEmitter<IonSelectProps['options']>();
   @Output() search = new EventEmitter<string>();
 
@@ -27,6 +29,8 @@ export class IonSelectComponent implements OnInit {
   inputValue = '';
   visibleOptions: IonSelectProps['options'] = [];
   showPlaceholder = true;
+  private touched = false;
+  private hasValue = false;
 
   ngOnInit(): void {
     this.visibleOptions = this.options;
@@ -52,6 +56,7 @@ export class IonSelectComponent implements OnInit {
         option.selected = true;
       }
     }
+    this.hasValue = !!selectedOptions.length;
   }
 
   hasSelectedOption = (): boolean => {
@@ -64,6 +69,9 @@ export class IonSelectComponent implements OnInit {
 
   unselectOption(currentOption: DropdownItem): void {
     currentOption.selected = false;
+    this.events.emit(this.options.filter((option) => option.selected));
+    event.stopPropagation();
+    this.hasValue = this.mode === 'default' ? false : this.hasSelectedOption();
   }
 
   onSearchChange(): void {
@@ -76,9 +84,18 @@ export class IonSelectComponent implements OnInit {
     this.search.emit(this.inputValue);
   }
 
+  @HostBinding('class.ion-select__required')
+  get isValid(): boolean {
+    if (!this.required) {
+      return false;
+    }
+    return this.touched && !this.hasValue;
+  }
+
   onCloseDropdown(): void {
     if (this.showDropdown) {
       this.showDropdown = false;
+      this.touched = true;
     }
     this.inputValue = '';
     this.visibleOptions = this.options;
