@@ -29,7 +29,7 @@ export class IonSelectComponent implements OnInit {
   visibleOptions: IonSelectProps['options'] = [];
   showPlaceholder = true;
   private touched = false;
-  private isValue = false;
+  private hasValue = false;
 
   ngOnInit(): void {
     this.visibleOptions = this.options;
@@ -55,7 +55,7 @@ export class IonSelectComponent implements OnInit {
         option.selected = true;
       }
     }
-    this.isValue = !!selectedOptions.length;
+    this.hasValue = !!selectedOptions.length;
   }
 
   hasSelectedOption = (): boolean => {
@@ -70,7 +70,7 @@ export class IonSelectComponent implements OnInit {
     currentOption.selected = false;
     this.events.emit(this.options.filter((option) => option.selected));
     event.stopPropagation();
-    this.isValue = this.mode === 'default' ? false : this.hasSelectedOption();
+    this.hasValue = this.mode === 'default' ? false : this.hasSelectedOption();
   }
 
   onSearchChange(): void {
@@ -83,11 +83,11 @@ export class IonSelectComponent implements OnInit {
     this.search.emit(this.inputValue);
   }
 
-  isInValid(): boolean {
+  isInvalid(): boolean {
     if (!this.required) {
       return false;
     }
-    return this.touched && !this.isValue;
+    return this.touched && !this.hasValue;
   }
 
   onCloseDropdown(): void {
