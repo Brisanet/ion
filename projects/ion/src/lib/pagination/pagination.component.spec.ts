@@ -214,6 +214,19 @@ describe('Pagination > Events', () => {
     });
     expect(screen.queryAllByText('20 / página')).toHaveLength(1);
   });
+
+  it('should select the last page when itemsPerPage increases and the number of pages decreases', async () => {
+    await sut({
+      total: 21,
+      allowChangeQtdItems: true,
+    });
+
+    fireEvent.click(screen.getByTestId('page-3'));
+    fireEvent.click(screen.getByTestId('btn-10 / página'));
+    fireEvent.click(screen.getByText('20 / página'));
+
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
+  });
 });
 
 describe('Advanced Pagination', () => {
