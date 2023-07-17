@@ -2,7 +2,6 @@ import { Observable, forkJoin, of } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
-import { SafeAny } from '../../lib/utils/safe-any';
 import {
   ConfigSmartTable,
   OrderTableEvent,
@@ -20,17 +19,15 @@ export interface SmartPayload {
 }
 
 export interface IBnTable<DataType> {
-  service: BnService;
+  service: BnService<DataType>;
   tableConfig: Pick<ConfigTable<DataType>, 'columns' | 'actions'>;
 }
 
-export interface BnService<DataType = SafeAny> {
+export interface BnService<DataType> {
   list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
 export default class BnTable<DataType> {
-  public message: string;
-
   public configTable: ConfigSmartTable<DataType> = {
     data: [],
     columns: [],
@@ -49,7 +46,7 @@ export default class BnTable<DataType> {
     limit: this.configTable.pagination.itemsPerPage,
   };
 
-  private service: BnService;
+  private service: BnService<DataType>;
 
   constructor(config: IBnTable<DataType>) {
     this.service = config.service;
@@ -122,6 +119,7 @@ export default class BnTable<DataType> {
   handleSort(order: OrderTableEvent): void {
     this.payload.order = order.column;
     this.payload.sort = order.desc ? 'desc' : 'asc';
+    this.payload.offset = 0;
 
     this.resetTablePagination();
   }

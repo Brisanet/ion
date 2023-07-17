@@ -94,5 +94,27 @@ describe('BnTable', () => {
       expect(bnTable.payload.order).toBe(event.order.column);
       expect(bnTable.payload.sort).toBe('desc');
     });
+
+    it('should reset pagination when order table', () => {
+      const nextPageEvent: SmartTableEvent = {
+        event: EventTable.CHANGE_PAGE,
+        change_page: {
+          actual: 3,
+          itemsPerPage: 10,
+          offset: 10,
+        },
+      };
+      bnTable.events(nextPageEvent);
+
+      const sortEvent: SmartTableEvent = {
+        event: EventTable.SORT,
+        order: {
+          column: 'name',
+          desc: true,
+        },
+      };
+      bnTable.events(sortEvent);
+      expect(bnTable.payload.offset).toBe(0);
+    });
   });
 });
