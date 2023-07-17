@@ -64,8 +64,8 @@ export default class BnTable<DataType> {
       ...this.payload,
       ...clearObject(filter),
     };
-
     this.resetTablePagination();
+    this.smartData();
   }
 
   smartData(): void {
