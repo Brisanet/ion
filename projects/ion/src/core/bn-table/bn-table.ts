@@ -9,6 +9,7 @@ import {
   SmartTableEvent,
 } from '../../public-api';
 import { IPayload, IResponse } from '../api/http.interfaces';
+import { clearObject } from '../utils/clearObject';
 
 export interface SmartPayload {
   offset?: number;
@@ -56,6 +57,15 @@ export default class BnTable<DataType> {
     this.configTable.actions = config.tableConfig.actions;
 
     this.onInit();
+  }
+
+  filter<T = DataType>(filter: T): void {
+    this.payload = {
+      ...this.payload,
+      ...clearObject(filter),
+    };
+
+    this.resetTablePagination();
   }
 
   smartData(): void {
@@ -119,7 +129,6 @@ export default class BnTable<DataType> {
   handleSort(order: OrderTableEvent): void {
     this.payload.order = order.column;
     this.payload.sort = order.desc ? 'desc' : 'asc';
-    this.payload.offset = 0;
 
     this.resetTablePagination();
   }
@@ -127,6 +136,7 @@ export default class BnTable<DataType> {
   private resetTablePagination(): void {
     this.configTable.pagination.offset = 0;
     this.configTable.pagination.total = 0;
+    this.payload.offset = 0;
   }
 
   private onInit(): void {

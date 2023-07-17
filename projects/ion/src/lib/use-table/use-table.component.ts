@@ -29,4 +29,8 @@ export class IonUseTableComponent extends BnTable<User> {
       },
     });
   }
+
+  reload(): void {
+    this.filter({ name: 'iury' });
+  }
 }

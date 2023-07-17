@@ -116,5 +116,39 @@ describe('BnTable', () => {
       bnTable.events(sortEvent);
       expect(bnTable.payload.offset).toBe(0);
     });
+
+    it('should reload data with new filters', () => {
+      const filter = {
+        name: 'abc',
+        friends: 0,
+        age: null,
+      };
+      bnTable.filter(filter);
+
+      expect(bnTable.payload.age).toBeUndefined();
+      expect(bnTable.payload.friends).toBe(filter.friends);
+      expect(bnTable.payload.name).toBe(filter.name);
+      expect(bnTable.payload.name).toBe(filter.name);
+    });
+
+    it('should reset off when reload data with new filters', () => {
+      const filter = {
+        name: 'abc',
+        friends: 0,
+        age: null,
+      };
+
+      const nextPageEvent: SmartTableEvent = {
+        event: EventTable.CHANGE_PAGE,
+        change_page: {
+          actual: 3,
+          itemsPerPage: 10,
+          offset: 10,
+        },
+      };
+      bnTable.events(nextPageEvent);
+      bnTable.filter(filter);
+      expect(bnTable.payload.offset).toBe(0);
+    });
   });
 });
