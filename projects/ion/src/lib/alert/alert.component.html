@@ -10,7 +10,7 @@
     [type]="iconType"
   ></ion-icon>
   <span
-    *ngIf="!message._def; else customBody"
+    *ngIf="message && !message._def; else customBody"
     data-testid="ion-alert-message"
     >{{ message }}</span
   >
