@@ -4,7 +4,6 @@ import {
   Input,
   OnChanges,
   OnInit,
-  SimpleChanges,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -49,10 +48,7 @@ export class IonAlertComponent implements OnInit, OnChanges {
     }
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.setIcon();
-    if (changes.message) {
-      this.hasPlainText = typeof this.message === 'string';
-    }
   }
 }
