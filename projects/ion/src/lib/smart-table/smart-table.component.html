@@ -91,6 +91,7 @@
             </td>
             <td
               *ngFor="let column of config.columns"
+              [ngClass]="{ 'hidden-content': config.hideLongData }"
               [attr.data-testid]="'row-' + index + '-' + column.key"
               [style.cursor]="column.actions && 'pointer'"
               (click)="
@@ -98,6 +99,9 @@
                   column.actions.trigger === 'click' &&
                   cellEvents(row, column, row[column.key])
               "
+              ionTooltip
+              [ionTooltipTitle]="config.hideLongData && row[column.key]"
+              ionTooltipColorScheme="dark"
             >
               <!-- cell types -->
 

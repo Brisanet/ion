@@ -99,7 +99,6 @@ table {
       font-weight: 400;
       line-height: 20px;
       color: $neutral-7;
-      word-break: break-all;
     }
 
     & input {
@@ -210,4 +209,16 @@ table {
   ::ng-deep ion-icon svg {
     fill: $neutral-6;
   }
+}
+
+.hidden-content {
+  max-width: 200px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  /* &:hover {
+    overflow-x: initial;
+    white-space: break-spaces;
+  } */
 }
