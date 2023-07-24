@@ -36,11 +36,7 @@ export class IonTableComponent implements OnInit, OnChanges {
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(change: SimpleChanges): void {
-    if (
-      change &&
-      change.config.currentValue &&
-      change.config.currentValue.data
-    ) {
+    if (!change.config.firstChange && change.config.currentValue) {
       this.config.data = change.config.currentValue.data;
       this.smartData = this.config.data;
     }

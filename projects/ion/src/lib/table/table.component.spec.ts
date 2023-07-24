@@ -185,9 +185,29 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
       ],
     });
-    propsToChange.config.data = [{ name: 'Meteora', deleted: false, id: 2 }];
+    const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
+    propsToChange.config.data = [...newData];
+
     rerender(propsToChange);
-    expect(screen.queryAllByText('Meteora')).toHaveLength(1);
+    expect(screen.queryAllByText(newData[0].name)).toHaveLength(1);
+  });
+
+  it('should change data to empty and render no data', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+      ],
+    });
+    propsToChange.config.data = [];
+    rerender(propsToChange);
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(1);
   });
 });
 
