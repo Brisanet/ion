@@ -20,9 +20,13 @@
         >
           <div class="header-style">
             <span class="th-span">{{ column.label }}</span>
-            <button class="svg" (click)="sort(column)">
+            <button
+              class="svg"
+              [attr.data-testid]="'btn-sort-by-' + column.key"
+              (click)="sort(column)"
+              *ngIf="column.sort"
+            >
               <svg
-                *ngIf="column.sort"
                 [attr.data-testid]="'sort-by-' + column.key"
                 width="8"
                 height="16"

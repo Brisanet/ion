@@ -551,6 +551,11 @@ describe('Table > Differents columns data type', () => {
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });
 
+    it('should not show button sort when column not is sortable', async () => {
+      await sut(tableDifferentColumns);
+      expect(screen.queryAllByTestId('btn-sort-by-year')).toHaveLength(0);
+    });
+
     it('should render arrow down blue when sort desc', async () => {
       await sut(tableDifferentColumns);
       fireEvent.click(screen.getByTestId('sort-by-id'));
