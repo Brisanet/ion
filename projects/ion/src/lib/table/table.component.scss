@@ -212,13 +212,8 @@ table {
 }
 
 .hidden-content {
-  max-width: 200px;
+  max-width: 0;
   overflow-x: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-
-  /* &:hover {
-    overflow-x: initial;
-    white-space: break-spaces;
-  } */
 }

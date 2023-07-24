@@ -40,6 +40,8 @@ const longData = [
     deleted: false,
     year: 2017,
   },
+  { id: 4, name: 'Slayyyter', deleted: false, year: 2019 },
+  { id: 5, name: 'Troubled Paradise', deleted: false, year: 2021 },
 ];
 
 const dataWithTag = [
@@ -127,13 +129,19 @@ const columnsWithWidth = [
     key: 'id',
     label: 'Código',
     sort: true,
-    width: 30,
+    width: 25,
   },
   {
     key: 'name',
     label: 'Nome',
     sort: false,
     width: 50,
+  },
+  {
+    key: 'year',
+    label: 'Ano',
+    sort: true,
+    width: 25,
   },
 ];
 

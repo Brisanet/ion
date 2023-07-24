@@ -100,8 +100,13 @@
                   cellEvents(row, column, row[column.key])
               "
               ionTooltip
-              [ionTooltipTitle]="config.hideLongData && row[column.key]"
+              [ionTooltipTitle]="
+                config.hideLongData &&
+                cell.offsetWidth < cell.scrollWidth &&
+                row[column.key]
+              "
               ionTooltipColorScheme="dark"
+              #cell
             >
               <!-- cell types -->
 
