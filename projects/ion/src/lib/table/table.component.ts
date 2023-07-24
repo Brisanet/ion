@@ -3,8 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
@@ -23,7 +25,7 @@ const stateChange = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class IonTableComponent implements OnInit {
+export class IonTableComponent implements OnInit, OnChanges {
   @Input() config: ConfigTable<SafeAny>;
   @Output() events = new EventEmitter<TableEvent>();
 
@@ -32,6 +34,17 @@ export class IonTableComponent implements OnInit {
   private tableUtils: TableUtils;
 
   constructor(private cdr: ChangeDetectorRef) {}
+
+  ngOnChanges(change: SimpleChanges): void {
+    if (
+      change &&
+      change.config.currentValue &&
+      change.config.currentValue.data
+    ) {
+      this.config.data = change.config.currentValue.data;
+      this.smartData = this.config.data;
+    }
+  }
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);

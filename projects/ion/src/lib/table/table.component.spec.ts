@@ -164,6 +164,33 @@ describe('IonTableComponent', () => {
   });
 });
 
+describe('Table > Changes', () => {
+  const propsToChange: IonTableProps<Disco> = {
+    config: {
+      data: [{ name: 'Blink 182', deleted: false, id: 2 }],
+      columns,
+    },
+  };
+
+  it('should change data in table', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+      ],
+    });
+    propsToChange.config.data = [{ name: 'Meteora', deleted: false, id: 2 }];
+    rerender(propsToChange);
+    expect(screen.queryAllByText('Meteora')).toHaveLength(1);
+  });
+});
+
 describe('Table > Actions', () => {
   const actions: ActionTable[] = [
     {
