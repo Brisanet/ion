@@ -2,6 +2,7 @@
   class="ion-sidebar"
   [class.ion-sidebar--opened]="!closed"
   data-testid="ion-sidebar"
+  (clickOutside)="onClickOutside()"
 >
   <header class="ion-sidebar__header">
     <img

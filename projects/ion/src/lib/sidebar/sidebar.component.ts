@@ -14,26 +14,8 @@ export class IonSidebarComponent {
 
   public closed = true;
 
-  public checkClikOnPage = (event): EventListenerOrEventListenerObject => {
-    const containerElement = document.querySelector('.ion-sidebar--opened');
-    const innerElement = event.target;
-    if (containerElement && !containerElement.contains(innerElement as Node)) {
-      const closeBUtton = document.querySelector(
-        '.ion-sidebar--opened .ion-sidebar__header button'
-      ) as HTMLElement;
-      closeBUtton.click();
-      document.removeEventListener('click', this.checkClikOnPage);
-    }
-    return;
-  };
-
   public toggleVisibility(): void {
     this.closed = !this.closed;
-    if (!this.closed) {
-      setTimeout(() => {
-        document.addEventListener('click', this.checkClikOnPage);
-      });
-    }
   }
 
   public itemSelected(itemIndex: number): void {
@@ -47,5 +29,9 @@ export class IonSidebarComponent {
   public groupSelected(groupIndex: number): void {
     unselectAllItems(this.items);
     callItemAction(this.items, groupIndex);
+  }
+
+  onClickOutside(): void {
+    this.closed = true;
   }
 }
