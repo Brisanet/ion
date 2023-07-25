@@ -29,5 +29,4 @@ export interface ConfigSmartTable<T> extends ConfigTable<T> {
   debounceOnSort?: number;
   tooltipConfig?: TooltipProps;
   hideLongData?: boolean;
-  cellTooltipConfig?: Partial<TooltipProps>;
 }
