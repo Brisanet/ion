@@ -25,6 +25,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
         [ionPopoverIcon]="args.ionPopoverIcon"
         [ionPopoverPosition]="args.ionPopoverPosition"
         [ionPopoverActions]="args.ionPopoverActions"
+        [ionPopoverCustomClass]="args.ionPopoverCustomClass"
       >
       </ion-popover>
       <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
@@ -40,6 +41,7 @@ export class PopoverTestComponent {
     ionPopoverIconClose: true,
     ionPopoverIcon: 'condominium',
     ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
+    ionPopoverCustomClass: 'custom-class-added',
   };
 }
 @NgModule({
@@ -120,6 +122,18 @@ describe('PopoverComponent', () => {
         fixture.detectChanges();
         const element = screen.getByTestId('ion-popover');
         expect(element).toHaveClass(`ion-popover__sup-container--${arrow}`);
+      }
+    );
+  });
+
+  describe('check the custom class', () => {
+    it.each(['custom-1', 'custom-2', 'custom-3'])(
+      'should render component with custom class %s',
+      async (customClass: PopoverPosition) => {
+        PopoverComponent.args.ionPopoverCustomClass = customClass;
+        fixture.detectChanges();
+        const element = screen.getByTestId('ion-popover');
+        expect(element).toHaveClass(customClass);
       }
     );
   });

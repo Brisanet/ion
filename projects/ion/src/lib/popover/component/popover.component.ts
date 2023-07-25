@@ -16,6 +16,8 @@ export class IonPopoverComponent {
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconClose = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
+  @Input() ionPopoverCustomClass = '';
+
   left = 0;
   top = 0;
   position = '';
