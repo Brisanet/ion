@@ -62,8 +62,9 @@ export default class BnTable<DataType> {
   filter<T = DataType>(filter: T): void {
     this.payload = {
       ...this.payload,
-      ...clearObject(filter),
+      ...filter,
     };
+    clearObject(this.payload);
     this.resetTablePagination();
     this.smartData();
   }
@@ -79,7 +80,7 @@ export default class BnTable<DataType> {
       : of(null);
 
     const dataRequest$ = this.service
-      .list({ ...this.payload, total: undefined })
+      .list({ ...this.payload, total: false })
       .pipe(
         take(1),
         finalize(() => (this.configTable.loading = false))
@@ -97,7 +98,7 @@ export default class BnTable<DataType> {
           };
         }
 
-        this.configTable.data = dataResponse.dados || dataResponse.data;
+        this.configTable.data = dataResponse.dados || dataResponse.data || [];
       },
       (error) => {
         // TODO: add notification service
