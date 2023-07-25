@@ -105,7 +105,18 @@
                 cell.offsetWidth < cell.scrollWidth &&
                 row[column.key]
               "
-              ionTooltipColorScheme="dark"
+              [ionTooltipColorScheme]="
+                config.cellTooltipConfig?.ionTooltipColorScheme || 'dark'
+              "
+              [ionTooltipPosition]="
+                config.cellTooltipConfig?.ionTooltipPosition || 'bottomLeft'
+              "
+              [ionTooltipShowDelay]="
+                config.cellTooltipConfig?.ionTooltipShowDelay || 0
+              "
+              [ionTooltipTrigger]="
+                config.cellTooltipConfig?.ionTooltipTrigger || 'hover'
+              "
               #cell
             >
               <!-- cell types -->
