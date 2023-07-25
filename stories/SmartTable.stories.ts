@@ -225,8 +225,8 @@ function returnTableConfig(
         pageSizeOptions,
       },
       debounceOnSort,
-      tooltipConfig: tooltipConfig,
-      hideLongData: hideLongData,
+      tooltipConfig,
+      hideLongData,
     },
   };
 }
