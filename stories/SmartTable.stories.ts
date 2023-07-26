@@ -5,8 +5,6 @@ import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smar
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
   IonSmartTableModule,
-  TooltipPosition,
-  TooltipTrigger,
   ConfigSmartTable,
   IonSpinnerModule,
 } from '../projects/ion/src/public-api';
@@ -158,17 +156,11 @@ const actions = [
       description: 'Você estará excluindo um disco da sua base de dados!',
       type: 'negative',
     },
+    tooltipConfig: {
+      ionTooltipTitle: 'Tooltip customizada',
+    },
   },
 ];
-
-const mockTooltip = {
-  ionTooltipTitle: 'Eu sou um tooltip',
-  ionTooltipPosition: TooltipPosition.DEFAULT,
-  ionTooltipTrigger: TooltipTrigger.DEFAULT,
-  ionTooltipColorScheme: 'dark',
-  ionTooltipShowDelay: 1000,
-  ionTooltipArrowPointAtCenter: true,
-};
 
 function returnTableConfig(
   tableData,
@@ -176,8 +168,7 @@ function returnTableConfig(
   tableActions,
   paginationTotal,
   debounceOnSort = 0,
-  pageSizeOptions = LIST_OF_PAGE_OPTIONS,
-  tooltipConfig?
+  pageSizeOptions = LIST_OF_PAGE_OPTIONS
 ): { config: ConfigSmartTable<SafeAny> } {
   return {
     config: {
@@ -190,7 +181,6 @@ function returnTableConfig(
         pageSizeOptions,
       },
       debounceOnSort,
-      tooltipConfig: tooltipConfig,
     },
   };
 }
@@ -278,17 +268,6 @@ PopConfirmDynamicDescription.args = returnTableConfig(
   2
 );
 
-export const WithTooltipInActions = Template.bind({});
-WithTooltipInActions.args = returnTableConfig(
-  data,
-  columns,
-  actions,
-  2,
-  2000,
-  [10, 15, 30, 50, 100],
-  mockTooltip
-);
-
 export const TableCustomRow = Template.bind({});
 TableCustomRow.args = {
   config: {
@@ -302,7 +281,7 @@ TableCustomRow.parameters = {
       story: `Passos para customizar a linha da tabela.
     1. No HTML do seu componente, crie um ng-template com a diretiva 'let-row' e realize as customizações desejadas.
     A diretiva 'let-row' permite acessar os dados da linha através da identificação do objeto passado na configuração
-    da tabela. Veja o exemplo abaixo: 
+    da tabela. Veja o exemplo abaixo:
 
     <ng-template #customTemplate let-row>
       <td>{{row.id}}</td>
@@ -318,20 +297,20 @@ TableCustomRow.parameters = {
     </ng-template>
 
     2. No arquivo .ts do seu componente, utilize o decorator '@ViewChild' para obter a referência do template customizado
-    criado no arquivo HTML.  
-        
+    criado no arquivo HTML.
+
     export class AppComponent implements OnInit {
       @ViewChild("customTemplate", { static: true })
       customTemplate: TemplateRef<HTMLElement>;
 
       ...
     }
-      
+
     3. Passe a referência do template customizado para o atributo customRowTemplate da configuração da tabela.
 
     export class AppComponent implements OnInit {
       ...
-      
+
       ngOnInit(): void {
         this.config = {
           data,
