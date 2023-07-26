@@ -6,9 +6,7 @@ import {
 } from '../../table/utilsTable';
 import { SafeAny } from '../../utils/safe-any';
 import { PageEvent } from './pagination';
-import { EventEmitter } from '@angular/core';
 import { TooltipProps } from './tooltip';
-
 
 export interface SmartTableEvent {
   event: EventTable;

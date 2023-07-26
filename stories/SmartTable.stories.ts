@@ -368,6 +368,5 @@ WithEllipsisOnCell.args = returnTableConfig(
   2,
   2000,
   [10, 15, 30, 50, 100],
-  mockTooltip,
   true
 );
