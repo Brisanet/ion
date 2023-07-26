@@ -35,73 +35,7 @@ export class IonNotificationService {
     private injector: Injector
   ) {}
 
-  private createComponentView(
-    viewRef: ComponentRef<IonNotificationContainerComponent>
-  ): void {
-    this.appRef.attachView(viewRef.hostView);
-    viewRef.changeDetectorRef.detectChanges();
-
-    const notificationElement = viewRef.location.nativeElement;
-    this.document.body.appendChild(notificationElement);
-
-    this.componentSubscriber = new Subject<SafeAny>();
-    this.componentSubscriber.asObservable();
-  }
-
-  private createNotificationContainer() {
-    const containerRef = this.componentFactoryResolver
-      .resolveComponentFactory(IonNotificationContainerComponent)
-      .create(this.injector);
-
-    this.notificationContainerComponentRef = containerRef;
-
-    this.createComponentView(this.notificationContainerComponentRef);
-  }
-
-  private createNotificationInstance(): ComponentRef<IonNotificationComponent> {
-    return this.componentFactoryResolver
-      .resolveComponentFactory(IonNotificationComponent)
-      .create(this.injector);
-  }
-
-  private configNotification(
-    notification: IonNotificationComponent,
-    title: string,
-    message: string,
-    options: NotificationConfigOptions,
-    type: StatusType = 'success'
-  ) {
-    notification.title = title;
-    notification.message = message;
-    notification.type = type;
-
-    if (options) {
-      Object.keys(options).forEach((prop) => {
-        notification[prop] = options[prop];
-      });
-    }
-
-    notification.ionOnClose.subscribe((eventResponse: SafeAny) => {
-      if (!eventResponse) return notification.closeNotification();
-    });
-  }
-
-  // TODO: Ver a necessidade de uma notificação mais generica para poder seguir com essa implementação
-  // create(configuration: NotificationProps): Observable<SafeAny> {
-  //   const notification = this.componentFactoryResolver
-  //     .resolveComponentFactory(IonNotificationComponent)
-  //     .create(this.injector);
-
-  //   this.notificationComponentRef = notification;
-
-  //   Object.keys(configuration).forEach((prop) => {
-  //     this.notificationComponentRef.instance[prop] = configuration[prop];
-  //   });
-
-  //   return this.createComponentView(this.notificationComponentRef);
-  // }
-
-  success(
+  public success(
     title: string,
     message: string,
     options?: NotificationConfigOptions
@@ -125,7 +59,7 @@ export class IonNotificationService {
     return this.componentSubscriber.next();
   }
 
-  info(
+  public info(
     title: string,
     message: string,
     options?: NotificationConfigOptions
@@ -155,7 +89,7 @@ export class IonNotificationService {
     return this.componentSubscriber.next();
   }
 
-  warning(
+  public warning(
     title: string,
     message: string,
     options?: NotificationConfigOptions
@@ -185,7 +119,7 @@ export class IonNotificationService {
     return this.componentSubscriber.next();
   }
 
-  error(
+  public error(
     title: string,
     message: string,
     options?: NotificationConfigOptions
@@ -213,5 +147,56 @@ export class IonNotificationService {
     this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
 
     return this.componentSubscriber.next();
+  }
+
+  private createComponentView(
+    viewRef: ComponentRef<IonNotificationContainerComponent>
+  ): void {
+    this.appRef.attachView(viewRef.hostView);
+    viewRef.changeDetectorRef.detectChanges();
+
+    const notificationElement = viewRef.location.nativeElement;
+    this.document.body.appendChild(notificationElement);
+
+    this.componentSubscriber = new Subject<SafeAny>();
+    this.componentSubscriber.asObservable();
+  }
+
+  private createNotificationContainer(): void {
+    const containerRef = this.componentFactoryResolver
+      .resolveComponentFactory(IonNotificationContainerComponent)
+      .create(this.injector);
+
+    this.notificationContainerComponentRef = containerRef;
+
+    this.createComponentView(this.notificationContainerComponentRef);
+  }
+
+  private createNotificationInstance(): ComponentRef<IonNotificationComponent> {
+    return this.componentFactoryResolver
+      .resolveComponentFactory(IonNotificationComponent)
+      .create(this.injector);
+  }
+
+  private configNotification(
+    notification: IonNotificationComponent,
+    title: string,
+    message: string,
+    options: NotificationConfigOptions,
+    type: StatusType = 'success'
+  ): void {
+    notification.title = title;
+    notification.message = message;
+    notification.type = type;
+
+    if (options) {
+      Object.keys(options).forEach((prop) => {
+        notification[prop] = options[prop];
+      });
+    }
+
+    notification.ionOnClose.subscribe((eventResponse: SafeAny) => {
+      if (!eventResponse) return notification.closeNotification();
+    });
   }
 }

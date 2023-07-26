@@ -1,8 +1,6 @@
 import { IonNotificationService } from './../service/notification.service';
 import { Component } from '@angular/core';
 
-const NOTIFICATION_METHODS = ['error', 'success', 'info', 'warning'];
-
 @Component({
   selector: 'open-notification-button',
   template: `
