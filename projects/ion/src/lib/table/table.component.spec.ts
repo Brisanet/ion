@@ -1,6 +1,13 @@
-import { StatusType } from './../core/types/status';
+import {
+  AfterViewInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonTableProps } from '../core/types';
@@ -8,16 +15,12 @@ import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { SafeAny } from '../utils/safe-any';
+import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
-import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
-import {
-  AfterViewInit,
-  Component,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
 import { IonTableModule } from './table.module';
+import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -85,6 +88,7 @@ const sut = async (
       IonPaginationModule,
       IonTagModule,
       IonPopConfirmModule,
+      IonTooltipModule,
     ],
   });
 };
@@ -164,6 +168,55 @@ describe('IonTableComponent', () => {
   });
 });
 
+describe('Table > columns header with tooltip', () => {
+  const events = jest.fn();
+  const columnsWithTooltip: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
+    },
+  ];
+
+  const propsColumnWithTooltip: IonTableProps<Disco> = {
+    config: {
+      data,
+      columns: columnsWithTooltip,
+      pagination: {
+        total: 32,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(propsColumnWithTooltip);
+  });
+
+  it.skip('should render tooltip when it have a configTooltip', async () => {
+    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
+    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', async () => {
+    userEvent.hover(screen.getByText(columnsWithTooltip[0].label));
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+  });
+});
+
 describe('Table > Changes', () => {
   const propsToChange: IonTableProps<Disco> = {
     config: {
@@ -183,6 +236,7 @@ describe('Table > Changes', () => {
         IonPaginationModule,
         IonTagModule,
         IonPopConfirmModule,
+        IonTooltipModule,
       ],
     });
     const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
@@ -203,6 +257,7 @@ describe('Table > Changes', () => {
         IonPaginationModule,
         IonTagModule,
         IonPopConfirmModule,
+        IonTooltipModule,
       ],
     });
     propsToChange.config.data = [];

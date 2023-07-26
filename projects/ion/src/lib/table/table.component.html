@@ -19,7 +19,41 @@
           [ngStyle]="{ width: column.width + '%' }"
         >
           <div class="header-style">
-            <span class="th-span">{{ column.label }}</span>
+            <span
+              class="th-span"
+              ionTooltip
+              [ionTooltipTitle]="
+                column.configTooltip ? column.configTooltip.ionTooltipTitle : ''
+              "
+              [ionTooltipPosition]="
+                column.configTooltip
+                  ? column.configTooltip.ionTooltipPosition
+                  : 'topCenter'
+              "
+              [ionTooltipArrowPointAtCenter]="
+                column.configTooltip
+                  ? column.configTooltip.ionTooltipArrowPointAtCenter
+                  : true
+              "
+              [ionTooltipColorScheme]="
+                column.configTooltip
+                  ? column.configTooltip.ionTooltipColorScheme
+                  : 'dark'
+              "
+              [ionTooltipTrigger]="
+                column.configTooltip
+                  ? column.configTooltip.ionTooltipTrigger
+                  : 'hover'
+              "
+              [ionTooltipShowDelay]="
+                column.configTooltip
+                  ? column.configTooltip.ionTooltipShowDelay
+                  : 0
+              "
+              [ionTooltipTemplateRef]="ionTooltipColumnTemplateBody"
+            >
+              {{ column.label }}
+            </span>
             <button
               class="svg"
               [attr.data-testid]="'btn-sort-by-' + column.key"
@@ -179,3 +213,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #ionTooltipColumnTemplateBody>
+  <ng-container [ngTemplateOutlet]="ionTooltipTemplateColumn"></ng-container>
+</ng-template>

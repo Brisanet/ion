@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  TemplateRef,
 } from '@angular/core';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
@@ -27,6 +28,7 @@ const stateChange = {
 })
 export class IonTableComponent implements OnInit, OnChanges {
   @Input() config: ConfigTable<SafeAny>;
+  @Input() ionTooltipTemplateColumn?: TemplateRef<void>;
   @Output() events = new EventEmitter<TableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
