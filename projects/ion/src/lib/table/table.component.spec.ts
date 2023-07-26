@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
-import userEvent from '@testing-library/user-event';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
