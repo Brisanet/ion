@@ -62,6 +62,16 @@ const data: Character[] = [
   },
 ];
 
+const longData: Character[] = [
+  {
+    name: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci.',
+    height: 0,
+    mass: 0,
+    icon: 'box',
+    status: 'negative',
+  },
+];
+
 const events = jest.fn();
 
 const defaultProps: IonSmartTableProps<Character> = {
@@ -1065,5 +1075,26 @@ describe('Table with cell events', () => {
         },
       },
     });
+  });
+});
+
+describe('Table > Cell with long data', () => {
+  const tableWithLongData = {
+    ...defaultProps,
+    config: {
+      ...defaultProps.config,
+      data: longData,
+    },
+  };
+
+  it('should render without the hidden-content class as default', async () => {
+    await sut(tableWithLongData);
+    expect(screen.getByTestId('row-0-name')).not.toHaveClass('hidden-content');
+  });
+
+  it('should render with the hidden-content class when hideLongData is provided', async () => {
+    tableWithLongData.config.hideLongData = true;
+    await sut(tableWithLongData);
+    expect(screen.getByTestId('row-0-name')).toHaveClass('hidden-content');
   });
 });
