@@ -1,20 +1,20 @@
-import { IonSmartTableProps } from './../core/types/smart-table';
-import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
-import userEvent from '@testing-library/user-event';
+
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
+import { IonSmartTableProps } from './../core/types/smart-table';
+import { StatusType } from './../core/types/status';
 import { IonSmartTableComponent } from './smart-table.component';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonSpinnerModule } from '../spinner/spinner.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -224,19 +224,20 @@ describe('IonSmartTableComponent', () => {
 });
 
 describe('Table > columns header with tooltip', () => {
+  let columnHead: HTMLElement;
   const columnsWithTooltip: Column[] = [
     {
       key: 'name',
       label: 'Nome',
       sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
     },
     {
       key: 'height',
       label: 'Altura',
       sort: true,
-      configTooltip: {
-        ionTooltipTitle: 'Eu sou um tooltip',
-      },
     },
   ];
 
@@ -260,13 +261,19 @@ describe('Table > columns header with tooltip', () => {
     await sut(propsColumnWithTooltip);
   });
 
-  it.skip('should render tooltip when it have a configTooltip', async () => {
-    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
-    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
+  afterEach(() => {
+    fireEvent.mouseLeave(columnHead);
   });
 
-  it('should not render tooltip when it doesnt have a configTooltip', async () => {
-    userEvent.hover(screen.getByText(columnsWithTooltip[0].label));
+  it('should render tooltip when it have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.queryByTestId('ion-tooltip')).toBeInTheDocument();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[1].key);
+    fireEvent.mouseEnter(columnHead);
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });

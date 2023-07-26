@@ -20,35 +20,24 @@
         >
           <div class="header-style">
             <span
+              [attr.data-testid]="'th-span-' + column.key"
               class="th-span"
               ionTooltip
-              [ionTooltipTitle]="
-                column.configTooltip ? column.configTooltip.ionTooltipTitle : ''
-              "
+              [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
               [ionTooltipPosition]="
-                column.configTooltip
-                  ? column.configTooltip.ionTooltipPosition
-                  : 'topCenter'
+                column.configTooltip?.ionTooltipPosition || 'topCenter'
               "
               [ionTooltipArrowPointAtCenter]="
-                column.configTooltip
-                  ? column.configTooltip.ionTooltipArrowPointAtCenter
-                  : true
+                column.configTooltip?.ionTooltipArrowPointAtCenter || true
               "
               [ionTooltipColorScheme]="
-                column.configTooltip
-                  ? column.configTooltip.ionTooltipColorScheme
-                  : 'dark'
+                column.configTooltip?.ionTooltipColorScheme || 'dark'
               "
               [ionTooltipTrigger]="
-                column.configTooltip
-                  ? column.configTooltip.ionTooltipTrigger
-                  : 'hover'
+                column.configTooltip?.ionTooltipTrigger || 'hover'
               "
               [ionTooltipShowDelay]="
-                column.configTooltip
-                  ? column.configTooltip.ionTooltipShowDelay
-                  : 0
+                column.configTooltip?.ionTooltipShowDelay || 0
               "
               [ionTooltipTemplateRef]="ionTooltipColumnTemplateBody"
             >

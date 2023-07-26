@@ -170,19 +170,20 @@ describe('IonTableComponent', () => {
 
 describe('Table > columns header with tooltip', () => {
   const events = jest.fn();
+  let columnHead: HTMLElement;
   const columnsWithTooltip: Column[] = [
     {
       key: 'name',
       label: 'Nome',
       sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
     },
     {
       key: 'height',
       label: 'Altura',
       sort: true,
-      configTooltip: {
-        ionTooltipTitle: 'Eu sou um tooltip',
-      },
     },
   ];
 
@@ -206,13 +207,19 @@ describe('Table > columns header with tooltip', () => {
     await sut(propsColumnWithTooltip);
   });
 
-  it.skip('should render tooltip when it have a configTooltip', async () => {
-    await userEvent.hover(screen.getByText(columnsWithTooltip[1].label));
-    expect(await screen.findByTestId('ion-tooltip')).toBeInTheDocument();
+  afterEach(() => {
+    fireEvent.mouseLeave(columnHead);
   });
 
-  it('should not render tooltip when it doesnt have a configTooltip', async () => {
-    userEvent.hover(screen.getByText(columnsWithTooltip[0].label));
+  it('should render tooltip when it have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.queryByTestId('ion-tooltip')).toBeInTheDocument();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[1].key);
+    fireEvent.mouseEnter(columnHead);
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });
