@@ -48,7 +48,7 @@ const moreFruitOptions: IonSelectProps['options'] = [
 
 const Template: Story<IonSelectComponent> = (args: IonSelectProps) => ({
   component: IonSelectComponent,
-  props: { ...args, search: action('search') },
+  props: { ...args, search: action('search'), events: action('events') },
 });
 
 export const Default = Template.bind({});
@@ -65,4 +65,11 @@ MultipleMax3.args = {
   placeholder: 'Select 3 fruits',
   mode: 'multiple',
   maxSelected: 3,
+};
+
+export const Required = Template.bind({});
+Required.args = {
+  options: fruitOptions,
+  placeholder: 'Select 3 fruits',
+  required: true,
 };

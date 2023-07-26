@@ -20,9 +20,13 @@
         >
           <div class="header-style">
             <span class="th-span">{{ column.label }}</span>
-            <button class="svg" (click)="sort(column)">
+            <button
+              class="svg"
+              [attr.data-testid]="'btn-sort-by-' + column.key"
+              (click)="sort(column)"
+              *ngIf="column.sort"
+            >
               <svg
-                *ngIf="column.sort"
                 [attr.data-testid]="'sort-by-' + column.key"
                 width="8"
                 height="16"
@@ -153,7 +157,7 @@
       </ng-container>
     </tbody>
   </table>
-  <div *ngIf="config.data && config.data.length === 0" class="noData">
+  <div *ngIf="smartData.length === 0" class="noData">
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
   </div>

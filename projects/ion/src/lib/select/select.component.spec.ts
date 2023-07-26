@@ -126,4 +126,48 @@ describe('IonSelecComponent - mode: multiple', () => {
     userEvent.keyboard(textToType);
     expect(selectEvent).toHaveBeenCalledWith(textToType);
   });
+  describe('IonSelectComponent - required', () => {
+    it('should apply class required in select', async () => {
+      await sut({
+        options: getCopyOptions(),
+        required: true,
+      });
+      const select = await screen.getByTestId('ion-select');
+
+      await userEvent.click(select);
+      userEvent.dblClick(document.body);
+
+      expect(select).toHaveClass('ion-select__required');
+    });
+    it('should not apply the required class if the parameter is false', async () => {
+      await sut({
+        options: getCopyOptions(),
+      });
+      const select = await screen.getByTestId('ion-select');
+
+      userEvent.click(select);
+      userEvent.dblClick(document.body);
+
+      expect(select).not.toHaveClass('ion-select__required');
+    });
+    it('should not apply required class in multiple mode with an option checked', async () => {
+      await sut({
+        options: getCopyOptions(),
+        required: true,
+        mode: 'multiple',
+      });
+
+      const select = await screen.getByTestId('ion-select');
+
+      userEvent.click(select);
+      userEvent.click(await getOption(options[0].key));
+      userEvent.click(await getOption(options[1].key));
+
+      const selectItem = screen.getAllByTestId('ion-icon-close');
+      userEvent.click(selectItem[0]);
+      userEvent.dblClick(document.body);
+
+      expect(select).not.toHaveClass('ion-select__required');
+    });
+  });
 });

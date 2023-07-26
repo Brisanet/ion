@@ -1,4 +1,6 @@
 import {
+  AfterViewChecked,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -32,7 +34,7 @@ const stateChange = {
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartTableComponent implements OnInit {
+export class IonSmartTableComponent implements OnInit, AfterViewChecked {
   @Input() config: ConfigSmartTable<SafeAny>;
   @Input() ionTooltipTemplate?: TemplateRef<void>;
   @Input() ionTooltipTemplateColumn?: TemplateRef<void>;
@@ -44,6 +46,8 @@ export class IonSmartTableComponent implements OnInit {
 
   private firstLoad = true;
   private tableUtils: TableUtils;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);
@@ -58,6 +62,10 @@ export class IonSmartTableComponent implements OnInit {
         this.sort(column);
       }, this.config.debounceOnSort);
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
   public checkState(): void {

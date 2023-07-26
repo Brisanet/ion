@@ -11,7 +11,7 @@ import { DropdownItem } from '../core/types/dropdown';
 import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
 
 export const ITEMS_PER_PAGE_DEFAULT = 10;
-export const LIST_OF_PAGE_OPTIONS = [10, 20, 30, 40, 46];
+export const LIST_OF_PAGE_OPTIONS = [10, 25, 50, 100];
 const VISIBLE_PAGES_DEFAULT_AMOUNT = 5;
 const MIN_PAGES_SHOW_ADVANCED_PAG = 10;
 const FIRST_PAGE = 1;
@@ -159,7 +159,9 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   remountPages(emitEvent = true): void {
     this.createPages(this.totalPages());
     if (this.pages.length) {
-      this.selectPage(this.page || 1, emitEvent);
+      const pageToSelect =
+        this.page > this.pages.length ? this.pages.length : this.page;
+      this.selectPage(pageToSelect || 1, emitEvent);
     }
     this.updateIsAdvanced();
   }
