@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
-import BnTable, { BnService, IBnTable } from './bn-table';
-import { IResponse } from '../api/http.interfaces';
+import BnTable, { IBnTable } from './bn-table';
+import { BnService, IResponse } from '../api/http.interfaces';
 import { SmartTableEvent } from '../../public-api';
 import { EventTable } from '../../lib/table/utilsTable';
 

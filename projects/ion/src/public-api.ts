@@ -1,7 +1,6 @@
 /*
  * Public API Surface of ion
  */
-export { default as BnTable } from './core/bn-table/bn-table';
 export * from './lib/alert/alert.module';
 export * from './lib/avatar/avatar.module';
 export * from './lib/badge/badge.module';
@@ -52,3 +51,4 @@ export * from './lib/tag/tag.module';
 export * from './lib/tooltip/tooltip.module';
 export * from './lib/typography/';
 export { default as debounce } from './lib/utils/debounce';
+export { default as BnTable } from './core/bn-table/bn-table';

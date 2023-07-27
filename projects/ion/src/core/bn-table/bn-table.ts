@@ -1,4 +1,4 @@
-import { Observable, forkJoin, of } from 'rxjs';
+import { forkJoin, of } from 'rxjs';
 import { finalize, take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
@@ -8,7 +8,7 @@ import {
   PageEvent,
   SmartTableEvent,
 } from '../../public-api';
-import { IPayload, IResponse } from '../api/http.interfaces';
+import { BnService, IPayload, IResponse } from '../api/http.interfaces';
 import { clearObject } from '../utils/clearObject';
 
 export interface SmartPayload {
@@ -22,10 +22,6 @@ export interface SmartPayload {
 export interface IBnTable<DataType> {
   service: BnService<DataType>;
   tableConfig: Pick<ConfigTable<DataType>, 'columns' | 'actions'>;
-}
-
-export interface BnService<DataType> {
-  list: (filters?: IPayload) => Observable<IResponse<DataType>>;
 }
 
 export default class BnTable<DataType> {
