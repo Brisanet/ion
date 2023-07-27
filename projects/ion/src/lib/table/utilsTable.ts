@@ -1,5 +1,5 @@
 import { TagStatus } from './../core/types/status';
-import { ConfigSmartTable, StatusType } from '../core/types';
+import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TemplateRef } from '@angular/core';
 
@@ -47,6 +47,7 @@ export interface ActionTable {
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
   confirm?: ActionConfirm;
+  tooltipConfig?: TooltipProps;
 }
 
 export interface PaginationConfig {

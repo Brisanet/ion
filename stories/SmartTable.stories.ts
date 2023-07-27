@@ -5,8 +5,6 @@ import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smar
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
   IonSmartTableModule,
-  TooltipPosition,
-  TooltipTrigger,
   ConfigSmartTable,
   IonSpinnerModule,
 } from '../projects/ion/src/public-api';
@@ -192,17 +190,11 @@ const actions = [
       description: 'Você estará excluindo um disco da sua base de dados!',
       type: 'negative',
     },
+    tooltipConfig: {
+      ionTooltipTitle: 'Tooltip customizada',
+    },
   },
 ];
-
-const mockTooltip = {
-  ionTooltipTitle: 'Eu sou um tooltip',
-  ionTooltipPosition: TooltipPosition.DEFAULT,
-  ionTooltipTrigger: TooltipTrigger.DEFAULT,
-  ionTooltipColorScheme: 'dark',
-  ionTooltipShowDelay: 1000,
-  ionTooltipArrowPointAtCenter: true,
-};
 
 function returnTableConfig(
   tableData,
@@ -211,7 +203,6 @@ function returnTableConfig(
   paginationTotal,
   debounceOnSort = 0,
   pageSizeOptions = LIST_OF_PAGE_OPTIONS,
-  tooltipConfig?,
   hideLongData?
 ): { config: ConfigSmartTable<SafeAny> } {
   return {
@@ -225,7 +216,6 @@ function returnTableConfig(
         pageSizeOptions,
       },
       debounceOnSort,
-      tooltipConfig,
       hideLongData,
     },
   };
@@ -314,17 +304,6 @@ PopConfirmDynamicDescription.args = returnTableConfig(
   2
 );
 
-export const WithTooltipInActions = Template.bind({});
-WithTooltipInActions.args = returnTableConfig(
-  data,
-  columns,
-  actions,
-  2,
-  2000,
-  [10, 15, 30, 50, 100],
-  mockTooltip
-);
-
 export const TableCustomRow = Template.bind({});
 TableCustomRow.args = {
   config: {
@@ -389,6 +368,5 @@ WithEllipsisOnCell.args = returnTableConfig(
   2,
   2000,
   [10, 15, 30, 50, 100],
-  mockTooltip,
   true
 );

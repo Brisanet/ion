@@ -3,7 +3,6 @@ import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
@@ -863,7 +862,7 @@ describe('Table > Action with confirm', () => {
 });
 
 describe('Table > Action with tooltip', () => {
-  const actions: ActionTable[] = [
+  const actionsWithCustomTooltip: ActionTable[] = [
     {
       label: 'Excluir',
       icon: 'trash',
@@ -872,6 +871,9 @@ describe('Table > Action with tooltip', () => {
       },
       confirm: {
         title: 'Você tem certeza?',
+      },
+      tooltipConfig: {
+        ionTooltipTitle: 'Custom title',
       },
     },
     {
@@ -896,20 +898,11 @@ describe('Table > Action with tooltip', () => {
     },
   ];
 
-  const tooltipConfig: TooltipProps = {
-    ionTooltipTitle: 'Eu sou um tooltip',
-    ionTooltipPosition: TooltipPosition.DEFAULT,
-    ionTooltipTrigger: TooltipTrigger.DEFAULT,
-    ionTooltipColorScheme: 'dark',
-    ionTooltipArrowPointAtCenter: true,
-  };
-
   const propsWithTooltip: IonSmartTableProps<Character> = {
     ...defaultProps,
     config: {
       ...defaultProps.config,
-      actions,
-      tooltipConfig,
+      actions: actionsWithCustomTooltip,
     },
   };
 
@@ -917,15 +910,33 @@ describe('Table > Action with tooltip', () => {
 
   beforeEach(async () => {
     await sut(propsWithTooltip);
-    actionButton = screen.getByTestId(`row-0-${actions[0].label}-tooltip`);
+    actionButton = screen.getByTestId(
+      `row-0-${actionsWithCustomTooltip[0].label}`
+    );
   });
 
   it('should render without tooltip', async () => {
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 
-  it('should render the button with the tooltip directive when the tooltip configs are informed', async () => {
-    expect(actionButton).toBeInTheDocument();
+  it('should render the tooltip with the label as default', () => {
+    fireEvent.mouseEnter(
+      screen.getByTestId(`row-0-${actionsWithCustomTooltip[2].label}`)
+    );
+    expect(screen.getByText(actionsWithCustomTooltip[2].label)).toBeVisible();
+    fireEvent.mouseLeave(
+      screen.getByTestId(`row-0-${actionsWithCustomTooltip[2].label}`)
+    );
+  });
+
+  it('should render the tooltip with its custom title when provided', () => {
+    fireEvent.mouseEnter(actionButton);
+    expect(
+      screen.getByText(
+        actionsWithCustomTooltip[0].tooltipConfig.ionTooltipTitle
+      )
+    ).toBeVisible();
+    fireEvent.mouseLeave(actionButton);
   });
 
   it('should close the tooltip and open the popconfirm when clicked the button', () => {
