@@ -20,12 +20,17 @@ class MockService implements BnService<MockItemData> {
   }
 }
 
+class MockEmptyService implements BnService<MockItemData> {
+  list(): Observable<IResponse<MockItemData>> {
+    return of({ total: 1 });
+  }
+}
+
 describe('BnTable', () => {
   let bnTable: BnTable<MockItemData>;
-  let mockService: MockService;
+  const mockService: MockService = new MockService();
 
   beforeEach(() => {
-    mockService = new MockService();
     const config: IBnTable<MockItemData> = {
       service: mockService,
       tableConfig: {
@@ -33,7 +38,7 @@ describe('BnTable', () => {
         actions: [{ label: 'Remove', icon: 'trash' }],
       },
     };
-    bnTable = new BnTable<MockItemData>(config);
+    bnTable = new BnTable<MockItemData>({ ...config });
   });
 
   it('should create a instance of BnTable', () => {
@@ -62,8 +67,44 @@ describe('BnTable', () => {
     expect(bnTable.configTable.loading).toBeFalsy();
   });
 
+  it('should format the data', async () => {
+    const config: IBnTable<MockItemData> = {
+      service: mockService,
+      tableConfig: {
+        columns: [{ label: 'Name', key: 'name' }],
+      },
+      formatData: (data) => {
+        return data.map((item) => ({
+          ...item,
+          name: `${item.name} - formatted`,
+        }));
+      },
+    };
+
+    const bnTableFormatted: BnTable<MockItemData> = new BnTable<MockItemData>(
+      config
+    );
+
+    bnTableFormatted.configTable.data.forEach((person) => {
+      expect(person.name.includes('- formatted')).toBeTruthy();
+    });
+  });
+
+  it('should return empty array when dont have data or dados', async () => {
+    const config: IBnTable<MockItemData> = {
+      service: new MockEmptyService(),
+      tableConfig: {
+        columns: [{ label: 'Name', key: 'name' }],
+      },
+    };
+    const bnTableEmptyData: BnTable<MockItemData> = new BnTable<MockItemData>(
+      config
+    );
+    expect(bnTableEmptyData.configTable.data).toHaveLength(0);
+  });
+
   describe('Payload', () => {
-    it('should send offset 0 on payload', async () => {
+    it('should send offset 0 on payload when init', async () => {
       expect(bnTable.payload.offset).toBe(0);
     });
   });
