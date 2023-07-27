@@ -27,6 +27,8 @@ export class IonUseTableComponent extends BnTable<User> {
           },
         ],
       },
+      formatData: (data) =>
+        data.map((item) => ({ ...item, name: `${item.name} Teste` })),
     });
   }
 

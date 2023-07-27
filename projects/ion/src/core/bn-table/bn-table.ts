@@ -22,6 +22,7 @@ export interface SmartPayload {
 export interface IBnTable<DataType> {
   service: BnService<DataType>;
   tableConfig: Pick<ConfigTable<DataType>, 'columns' | 'actions'>;
+  formatData?: (data: DataType[]) => DataType[];
 }
 
 export default class BnTable<DataType> {
@@ -44,6 +45,7 @@ export default class BnTable<DataType> {
   };
 
   private service: BnService<DataType>;
+  private formatData: (data: DataType[]) => DataType[];
 
   constructor(config: IBnTable<DataType>) {
     this.service = config.service;
@@ -52,6 +54,7 @@ export default class BnTable<DataType> {
     this.configTable.columns = config.tableConfig.columns;
     this.configTable.actions = config.tableConfig.actions;
 
+    this.formatData = config.formatData;
     this.onInit();
   }
 
@@ -95,6 +98,10 @@ export default class BnTable<DataType> {
         }
 
         this.configTable.data = dataResponse.dados || dataResponse.data || [];
+
+        if (this.formatData) {
+          this.configTable.data = this.formatData(this.configTable.data);
+        }
       },
       (error) => {
         // TODO: add notification service
