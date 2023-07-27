@@ -164,6 +164,53 @@ describe('IonTableComponent', () => {
   });
 });
 
+describe('Table > Changes', () => {
+  const propsToChange: IonTableProps<Disco> = {
+    config: {
+      data: [{ name: 'Blink 182', deleted: false, id: 2 }],
+      columns,
+    },
+  };
+
+  it('should change data in table', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+      ],
+    });
+    const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
+    propsToChange.config.data = [...newData];
+
+    rerender(propsToChange);
+    expect(screen.queryAllByText(newData[0].name)).toHaveLength(1);
+  });
+
+  it('should change data to empty and render no data', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+      ],
+    });
+    propsToChange.config.data = [];
+    rerender(propsToChange);
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(1);
+  });
+});
+
 describe('Table > Actions', () => {
   const actions: ActionTable[] = [
     {
@@ -522,6 +569,11 @@ describe('Table > Differents columns data type', () => {
     it('should not show icon sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
+    });
+
+    it('should not show sort button when column is not sortable', async () => {
+      await sut(tableDifferentColumns);
+      expect(screen.queryAllByTestId('btn-sort-by-year')).toHaveLength(0);
     });
 
     it('should render arrow down blue when sort desc', async () => {

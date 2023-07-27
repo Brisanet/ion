@@ -187,7 +187,7 @@ describe('Pagination > Events', () => {
     expect(event).not.toHaveBeenCalled();
   });
 
-  it('should show items per page 10 when params is informed', async () => {
+  it('should show the itemsPerPage default value when is not provided', async () => {
     await sut({
       total: 16,
       allowChangeQtdItems: true,
@@ -201,18 +201,34 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
     const label = '10 / página';
-    fireEvent.click(await screen.getByTestId(`btn-${label}`));
-    fireEvent.click(screen.getByText('20 / página'));
-    expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
+    fireEvent.click(screen.getByTestId(`btn-${label}`));
+    fireEvent.click(screen.getByText('25 / página'));
+    expect(screen.queryAllByTestId('page-3')).toHaveLength(0);
   });
 
-  it('should show items per page 20 when set initial itemsPerPage = 20', async () => {
+  it.each(LIST_OF_PAGE_OPTIONS)(
+    'should show items per page %d selected as default when value is given',
+    async (value) => {
+      await sut({
+        total: 16,
+        allowChangeQtdItems: true,
+        itemsPerPage: value,
+      });
+      expect(screen.queryAllByText(`${value} / página`)).toHaveLength(1);
+    }
+  );
+
+  it('should select the last page when itemsPerPage changes to a value smaller than the current page selected', async () => {
     await sut({
-      total: 16,
+      total: 26,
       allowChangeQtdItems: true,
-      itemsPerPage: 20,
     });
-    expect(screen.queryAllByText('20 / página')).toHaveLength(1);
+
+    fireEvent.click(screen.getByTestId('page-3'));
+    fireEvent.click(screen.getByTestId('btn-10 / página'));
+    fireEvent.click(screen.getByText('25 / página'));
+
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 });
 
