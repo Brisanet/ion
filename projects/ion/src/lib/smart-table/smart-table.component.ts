@@ -6,7 +6,6 @@ import {
   Input,
   OnInit,
   Output,
-  TemplateRef,
 } from '@angular/core';
 import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
@@ -36,8 +35,6 @@ const stateChange = {
 })
 export class IonSmartTableComponent implements OnInit, AfterViewChecked {
   @Input() config: ConfigSmartTable<SafeAny>;
-  @Input() ionTooltipTemplate?: TemplateRef<void>;
-  @Input() ionTooltipTemplateColumn?: TemplateRef<void>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';

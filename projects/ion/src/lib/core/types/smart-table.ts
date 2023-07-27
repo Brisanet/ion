@@ -27,7 +27,6 @@ export interface IonSmartTableProps<T> {
 export interface ConfigSmartTable<T> extends ConfigTable<T> {
   pagination: PaginationConfig;
   debounceOnSort?: number;
-  tooltipConfig?: TooltipProps;
   hideLongData?: boolean;
   cellTooltipConfig?: Partial<TooltipProps>;
 }

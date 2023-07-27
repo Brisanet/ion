@@ -39,7 +39,9 @@
               [ionTooltipShowDelay]="
                 column.configTooltip?.ionTooltipShowDelay || 0
               "
-              [ionTooltipTemplateRef]="ionTooltipColumnTemplateBody"
+              [ionTooltipTemplateRef]="
+                column.configTooltip?.ionTooltipTemplateRef || null
+              "
             >
               {{ column.label }}
             </span>
@@ -202,7 +204,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #ionTooltipColumnTemplateBody>
-  <ng-container [ngTemplateOutlet]="ionTooltipTemplateColumn"></ng-container>
-</ng-template>

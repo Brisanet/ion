@@ -48,6 +48,7 @@ export interface ActionTable {
   show?: (row: SafeAny) => boolean;
   call?: (row: SafeAny) => void;
   confirm?: ActionConfirm;
+  tooltipConfig?: TooltipProps;
 }
 
 export interface PaginationConfig {
