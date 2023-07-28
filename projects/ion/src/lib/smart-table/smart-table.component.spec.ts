@@ -1,18 +1,19 @@
-import { IonSmartTableProps } from './../core/types/smart-table';
-import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
+import { IonSmartTableProps } from './../core/types/smart-table';
+import { StatusType } from './../core/types/status';
 import { IonSmartTableComponent } from './smart-table.component';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonSpinnerModule } from '../spinner/spinner.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -218,6 +219,61 @@ describe('IonSmartTableComponent', () => {
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
+  });
+});
+
+describe('Table > columns header with tooltip', () => {
+  let columnHead: HTMLElement;
+  const columnsWithTooltip: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+    },
+  ];
+
+  const propsColumnWithTooltip: IonSmartTableProps<Character> = {
+    config: {
+      data,
+      columns: columnsWithTooltip,
+      pagination: {
+        total: 32,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(propsColumnWithTooltip);
+  });
+
+  afterEach(() => {
+    fireEvent.mouseLeave(columnHead);
+  });
+
+  it('should render tooltip when it have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[1].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });
 

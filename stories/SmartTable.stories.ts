@@ -255,6 +255,33 @@ WithTagByColumn.args = returnTableConfig(
   2
 );
 
+const columnsWithTooltip = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    configTooltip: {
+      ionTooltipTitle: 'Saiba mais sobre esta coluna e suas funcionalidades.',
+    },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    configTooltip: {
+      ionTooltipTitle: 'Saiba mais sobre esta coluna e suas funcionalidades.',
+    },
+  },
+];
+
+export const ColumnHeaderWithTooltip = Template.bind({});
+ColumnHeaderWithTooltip.args = returnTableConfig(
+  data,
+  columnsWithTooltip,
+  actions,
+  2
+);
+
 export const WithTagByRow = Template.bind({});
 WithTagByRow.args = returnTableConfig(
   dataWithTag,

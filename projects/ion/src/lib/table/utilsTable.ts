@@ -30,6 +30,7 @@ export interface Column {
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
+  configTooltip?: TooltipProps;
 }
 
 export interface ActionConfirm {

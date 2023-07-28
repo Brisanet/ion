@@ -1,7 +1,11 @@
 import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonTableModule } from '../projects/ion/src/public-api';
+import {
+  IonTableModule,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -134,6 +138,30 @@ const actions = [
   },
 ];
 
+const mockTooltip = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+  ionTooltipColorScheme: 'dark',
+  ionTooltipShowDelay: 1000,
+  ionTooltipArrowPointAtCenter: true,
+};
+
+const columnsWithTooltip = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    configTooltip: { ...mockTooltip },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    configTooltip: { ...mockTooltip },
+  },
+];
+
 export const Basic = Template.bind({});
 Basic.args = {
   config: {
@@ -195,6 +223,15 @@ WithTagByColumn.args = {
         },
       },
     ],
+  },
+};
+
+export const ColumnHeaderWithTooltip = Template.bind({});
+ColumnHeaderWithTooltip.args = {
+  config: {
+    data,
+    columns: columnsWithTooltip,
+    actions,
   },
 };
 
