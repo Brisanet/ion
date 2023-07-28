@@ -213,7 +213,7 @@ describe('Table > columns header with tooltip', () => {
   it('should render tooltip when it have a configTooltip', () => {
     columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
     fireEvent.mouseEnter(columnHead);
-    expect(screen.queryByTestId('ion-tooltip')).toBeInTheDocument();
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
   });
 
   it('should not render tooltip when it doesnt have a configTooltip', () => {
