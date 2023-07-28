@@ -22,11 +22,12 @@
       <ion-button
         *ngIf="ionPopoverIconClose"
         data-testid="popover-icon-close"
+        id="icon-close"
         iconType="close"
         class="ion-popover__icon-close"
         type="ghost"
         [circularButton]="true"
-        (click)="close()"
+        (ionOnClick)="close()"
       ></ion-button>
     </div>
 
@@ -56,7 +57,7 @@
           [circularButton]="action.circularButton"
           [options]="action.options"
           [showDropdown]="action.showDropdown"
-          (click)="i === 0 ? firstAction() : secondAction()"
+          (ionOnClick)="i === 0 ? firstAction() : secondAction()"
         ></ion-button>
       </ng-container>
     </div>
