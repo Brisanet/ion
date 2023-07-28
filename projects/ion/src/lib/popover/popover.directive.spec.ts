@@ -171,7 +171,7 @@ describe('Directive: popover', () => {
     { dataTestId: 'icon-close', label: 'icon-close' },
     { dataTestId: 'action-1', label: 'action 1' },
     { dataTestId: 'action-2', label: 'action 2' },
-  ])('should close pop when click in $label ', async (type) => {
+  ])('should close pop when click in $label', async (type) => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
     fireEvent.click(screen.getByTestId(`btn-${type.label}`));
