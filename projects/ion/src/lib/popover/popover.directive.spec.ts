@@ -168,7 +168,7 @@ describe('Directive: popover', () => {
   });
 
   it.each([
-    { dataTestId: 'icon-close', label: 'icon-close' },
+    { dataTestId: 'close-button', label: 'popover-close-button' },
     { dataTestId: 'action-1', label: 'action 1' },
     { dataTestId: 'action-2', label: 'action 2' },
   ])('should close pop when click in $label', async (type) => {
