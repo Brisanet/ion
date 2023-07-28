@@ -19,7 +19,33 @@
           [ngStyle]="{ width: column.width + '%' }"
         >
           <div class="header-style">
-            <span class="th-span">{{ column.label }}</span>
+            <span
+              [attr.data-testid]="'th-span-' + column.key"
+              class="th-span"
+              ionTooltip
+              [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
+              [ionTooltipPosition]="
+                column.configTooltip?.ionTooltipPosition || 'topCenter'
+              "
+              [ionTooltipArrowPointAtCenter]="
+                column.configTooltip?.ionTooltipArrowPointAtCenter || true
+              "
+              [ionTooltipColorScheme]="
+                column.configTooltip?.ionTooltipColorScheme || 'dark'
+              "
+              [ionTooltipTrigger]="
+                column.configTooltip?.ionTooltipTrigger || 'hover'
+              "
+              [ionTooltipShowDelay]="
+                column.configTooltip?.ionTooltipShowDelay || 0
+              "
+              [ionTooltipTemplateRef]="
+                column.configTooltip?.ionTooltipTemplateRef || null
+              "
+            >
+              {{ column.label }}
+            </span>
+
             <button
               class="svg"
               (click)="
