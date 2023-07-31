@@ -11,7 +11,7 @@ interface MockItemData {
 const data: MockItemData[] = [{ name: 'iury' }];
 const mockResponse: IResponse<MockItemData> = {
   data,
-  total: 1,
+  total: data.length,
 };
 
 class MockService implements BnService<MockItemData> {
@@ -190,6 +190,54 @@ describe('BnTable', () => {
       bnTable.events(nextPageEvent);
       bnTable.filter(filter);
       expect(bnTable.payload.offset).toBe(0);
+    });
+
+    it('should back to page 1 when order column', () => {
+      const nextPageEvent: SmartTableEvent = {
+        event: EventTable.CHANGE_PAGE,
+        change_page: {
+          actual: 3,
+          itemsPerPage: 10,
+          offset: 10,
+        },
+      };
+      bnTable.events(nextPageEvent);
+
+      const event: SmartTableEvent = {
+        event: EventTable.SORT,
+        order: {
+          column: 'name',
+          desc: true,
+        },
+      };
+
+      bnTable.events(event);
+
+      expect(bnTable.configTable.pagination.offset).toBe(0);
+      // expect(bnTable.configTable.pagination.total).toBe(0);
+      expect(bnTable.configTable.pagination.page).toBe(1);
+
+      const nextPageEvent2: SmartTableEvent = {
+        event: EventTable.CHANGE_PAGE,
+        change_page: {
+          actual: 3,
+          itemsPerPage: 10,
+          offset: 10,
+        },
+      };
+      bnTable.events(nextPageEvent2);
+      expect(bnTable.configTable.pagination.page).toBe(3);
+
+      const event2: SmartTableEvent = {
+        event: EventTable.SORT,
+        order: {
+          column: 'name',
+          desc: true,
+        },
+      };
+
+      bnTable.events(event2);
+      expect(bnTable.configTable.pagination.page).toBe(1);
     });
   });
 });

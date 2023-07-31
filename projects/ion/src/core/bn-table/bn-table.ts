@@ -128,6 +128,7 @@ export default class BnTable<DataType> {
   handlePageChange(changePage: PageEvent): void {
     this.payload.limit = changePage.itemsPerPage;
     this.payload.offset = changePage.offset;
+    this.configTable.pagination.page = changePage.actual;
   }
 
   handleSort(order: OrderTableEvent): void {
@@ -140,6 +141,9 @@ export default class BnTable<DataType> {
   private resetTablePagination(): void {
     this.configTable.pagination.offset = 0;
     this.configTable.pagination.total = 0;
+
+    // set page 1
+    this.configTable.pagination.page = 1;
     this.payload.offset = 0;
   }
 
