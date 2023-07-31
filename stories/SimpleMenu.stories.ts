@@ -55,6 +55,31 @@ Basic.args = {
   },
 };
 
+export const withLogo = Template.bind({});
+withLogo.args = {
+  logo: {
+    src: require('./assets/sidebar-logo.svg'),
+    alt: 'Logo de exemplo',
+  },
+  options: [
+    {
+      label: 'Agendamentos',
+      iconType: 'calendar',
+      selected: false,
+    },
+    {
+      label: 'Recursos',
+      iconType: 'pencil',
+      selected: false,
+    },
+  ],
+  profile: {
+    imageUrl:
+      'https://ovicio.com.br/wp-content/uploads/2022/01/20220123-rocket-raccoon-guardians-of-the-galaxy.jpeg',
+    name: 'Rocket Raccoon',
+  },
+};
+
 export const withoutImage = Template.bind({});
 withoutImage.args = {
   options: [

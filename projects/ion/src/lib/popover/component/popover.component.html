@@ -1,4 +1,5 @@
 <div
+  [ngClass]="ionPopoverCustomClass"
   [class]="'ion-popover__sup-container--' + ionPopoverPosition"
   data-testid="ion-popover"
   [style.top]="top + 'px'"
@@ -21,11 +22,12 @@
       <ion-button
         *ngIf="ionPopoverIconClose"
         data-testid="popover-icon-close"
+        id="popover-close-button"
         iconType="close"
         class="ion-popover__icon-close"
         type="ghost"
         [circularButton]="true"
-        (click)="close()"
+        (ionOnClick)="close()"
       ></ion-button>
     </div>
 
@@ -55,7 +57,7 @@
           [circularButton]="action.circularButton"
           [options]="action.options"
           [showDropdown]="action.showDropdown"
-          (click)="i === 0 ? firstAction() : secondAction()"
+          (ionOnClick)="i === 0 ? firstAction() : secondAction()"
         ></ion-button>
       </ng-container>
     </div>

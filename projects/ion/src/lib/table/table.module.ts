@@ -7,6 +7,7 @@ import { IonButtonModule } from '../button/button.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 
 @NgModule({
   declarations: [IonTableComponent],
@@ -18,6 +19,7 @@ import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
     IonIconModule,
     IonPaginationModule,
     IonPopConfirmModule,
+    IonTooltipModule,
   ],
   exports: [IonTableComponent],
 })
