@@ -19,7 +19,33 @@
           [ngStyle]="{ width: column.width + '%' }"
         >
           <div class="header-style">
-            <span class="th-span">{{ column.label }}</span>
+            <span
+              [attr.data-testid]="'th-span-' + column.key"
+              class="th-span"
+              ionTooltip
+              [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
+              [ionTooltipPosition]="
+                column.configTooltip?.ionTooltipPosition || 'topCenter'
+              "
+              [ionTooltipArrowPointAtCenter]="
+                column.configTooltip?.ionTooltipArrowPointAtCenter || true
+              "
+              [ionTooltipColorScheme]="
+                column.configTooltip?.ionTooltipColorScheme || 'dark'
+              "
+              [ionTooltipTrigger]="
+                column.configTooltip?.ionTooltipTrigger || 'hover'
+              "
+              [ionTooltipShowDelay]="
+                column.configTooltip?.ionTooltipShowDelay || 0
+              "
+              [ionTooltipTemplateRef]="
+                column.configTooltip?.ionTooltipTemplateRef || null
+              "
+            >
+              {{ column.label }}
+            </span>
+
             <button
               class="svg"
               (click)="
@@ -137,53 +163,31 @@
                   <ion-button
                     *ngIf="
                       action.confirm &&
-                      !config.tooltipConfig &&
-                      (action.show ? !showAction(row, action) : true)
-                    "
-                    ionPopConfirm
-                    [ionPopConfirmTitle]="action.confirm.title"
-                    [ionPopConfirmType]="action.confirm.type"
-                    [ionPopConfirmDesc]="
-                      !!action.confirm.description
-                        ? action.confirm.description
-                        : !!action.confirm.dynamicDescription
-                        ? action.confirm.dynamicDescription(row)
-                        : undefined
-                    "
-                    (ionOnConfirm)="handleEvent(row, action)"
-                    [title]="action.label"
-                    [attr.data-testid]="'row-' + index + '-' + action.label"
-                    type="ghost"
-                    size="sm"
-                    [danger]="!!action.danger"
-                    [iconType]="action.icon"
-                    [circularButton]="true"
-                    [disabled]="
-                      action.disabled ? !disableAction(row, action) : false
-                    "
-                  ></ion-button>
-                  <ion-button
-                    *ngIf="
-                      action.confirm &&
-                      config.tooltipConfig &&
                       (action.show ? !showAction(row, action) : true)
                     "
                     ionTooltip
-                    [ionTooltipTitle]="config.tooltipConfig.ionTooltipTitle"
+                    [ionTooltipTitle]="
+                      action.tooltipConfig?.ionTooltipTitle || action.label
+                    "
                     [ionTooltipPosition]="
-                      config.tooltipConfig.ionTooltipPosition
+                      action.tooltipConfig?.ionTooltipPosition || 'topCenter'
                     "
                     [ionTooltipArrowPointAtCenter]="
-                      config.tooltipConfig.ionTooltipArrowPointAtCenter
+                      action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                      false
                     "
                     [ionTooltipColorScheme]="
-                      config.tooltipConfig.ionTooltipColorScheme
+                      action.tooltipConfig?.ionTooltipColorScheme || 'dark'
                     "
-                    [ionTooltipTrigger]="config.tooltipConfig.ionTooltipTrigger"
+                    [ionTooltipTrigger]="
+                      action.tooltipConfig?.ionTooltipTrigger || 'hover'
+                    "
                     [ionTooltipShowDelay]="
-                      config.tooltipConfig.ionTooltipShowDelay
+                      action.tooltipConfig?.ionTooltipShowDelay || 0
                     "
-                    [ionTooltipTemplateRef]="ionTooltipTemplateBody"
+                    [ionTooltipTemplateRef]="
+                      action.tooltipConfig?.ionTooltipTemplateRef || null
+                    "
                     ionPopConfirm
                     [ionPopConfirmTitle]="action.confirm.title"
                     [ionPopConfirmType]="action.confirm.type"
@@ -195,9 +199,7 @@
                         : undefined
                     "
                     (ionOnConfirm)="handleEvent(row, action)"
-                    [attr.data-testid]="
-                      'row-' + index + '-' + action.label + '-tooltip'
-                    "
+                    [attr.data-testid]="'row-' + index + '-' + action.label"
                     type="ghost"
                     size="sm"
                     [danger]="!!action.danger"
@@ -213,7 +215,29 @@
                       !action.confirm &&
                       (action.show ? !showAction(row, action) : true)
                     "
-                    [title]="action.label"
+                    ionTooltip
+                    [ionTooltipTitle]="
+                      action.tooltipConfig?.ionTooltipTitle || action.label
+                    "
+                    [ionTooltipPosition]="
+                      action.tooltipConfig?.ionTooltipPosition || 'topCenter'
+                    "
+                    [ionTooltipArrowPointAtCenter]="
+                      action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                      false
+                    "
+                    [ionTooltipColorScheme]="
+                      action.tooltipConfig?.ionTooltipColorScheme || 'dark'
+                    "
+                    [ionTooltipTrigger]="
+                      action.tooltipConfig?.ionTooltipTrigger || 'hover'
+                    "
+                    [ionTooltipShowDelay]="
+                      action.tooltipConfig?.ionTooltipShowDelay || 0
+                    "
+                    [ionTooltipTemplateRef]="
+                      action.tooltipConfig?.ionTooltipTemplateRef || null
+                    "
                     [attr.data-testid]="'row-' + index + '-' + action.label"
                     type="ghost"
                     size="sm"
@@ -233,10 +257,6 @@
       </ng-container>
     </tbody>
   </table>
-
-  <ng-template #ionTooltipTemplateBody>
-    <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
-  </ng-template>
 
   <div *ngIf="config.data && config.data.length === 0" class="noData">
     <ion-spinner
@@ -283,7 +303,3 @@
     </div>
   </div>
 </div>
-
-<ng-template #ionTooltipTemplateBody>
-  <ng-container [ngTemplateOutlet]="ionTooltipTemplate"></ng-container>
-</ng-template>

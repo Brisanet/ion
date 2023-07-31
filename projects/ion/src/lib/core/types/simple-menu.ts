@@ -7,9 +7,15 @@ interface MenuProfile {
   name: string;
 }
 
+interface Image {
+  src: string;
+  alt: string;
+}
+
 export interface SimpleMenuProps {
   options: TabInGroup[];
   profile: MenuProfile;
   selected?: EventEmitter<TabInGroup>;
   logoutClick?: EventEmitter<SafeAny>;
+  logo?: Image;
 }

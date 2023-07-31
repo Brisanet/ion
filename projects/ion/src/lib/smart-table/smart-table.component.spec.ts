@@ -1,19 +1,19 @@
-import { IonSmartTableProps } from './../core/types/smart-table';
-import { StatusType } from './../core/types/status';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { TooltipPosition, TooltipProps, TooltipTrigger } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 import { ActionTable, Column, EventTable } from '../table/utilsTable';
 import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
+import { IonSmartTableProps } from './../core/types/smart-table';
+import { StatusType } from './../core/types/status';
 import { IonSmartTableComponent } from './smart-table.component';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonSpinnerModule } from '../spinner/spinner.module';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -219,6 +219,61 @@ describe('IonSmartTableComponent', () => {
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
     events.mockClear();
+  });
+});
+
+describe('Table > columns header with tooltip', () => {
+  let columnHead: HTMLElement;
+  const columnsWithTooltip: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+    },
+  ];
+
+  const propsColumnWithTooltip: IonSmartTableProps<Character> = {
+    config: {
+      data,
+      columns: columnsWithTooltip,
+      pagination: {
+        total: 32,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(propsColumnWithTooltip);
+  });
+
+  afterEach(() => {
+    fireEvent.mouseLeave(columnHead);
+  });
+
+  it('should render tooltip when it have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[1].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 });
 
@@ -863,7 +918,7 @@ describe('Table > Action with confirm', () => {
 });
 
 describe('Table > Action with tooltip', () => {
-  const actions: ActionTable[] = [
+  const actionsWithCustomTooltip: ActionTable[] = [
     {
       label: 'Excluir',
       icon: 'trash',
@@ -872,6 +927,9 @@ describe('Table > Action with tooltip', () => {
       },
       confirm: {
         title: 'Você tem certeza?',
+      },
+      tooltipConfig: {
+        ionTooltipTitle: 'Custom title',
       },
     },
     {
@@ -896,20 +954,11 @@ describe('Table > Action with tooltip', () => {
     },
   ];
 
-  const tooltipConfig: TooltipProps = {
-    ionTooltipTitle: 'Eu sou um tooltip',
-    ionTooltipPosition: TooltipPosition.DEFAULT,
-    ionTooltipTrigger: TooltipTrigger.DEFAULT,
-    ionTooltipColorScheme: 'dark',
-    ionTooltipArrowPointAtCenter: true,
-  };
-
   const propsWithTooltip: IonSmartTableProps<Character> = {
     ...defaultProps,
     config: {
       ...defaultProps.config,
-      actions,
-      tooltipConfig,
+      actions: actionsWithCustomTooltip,
     },
   };
 
@@ -917,15 +966,33 @@ describe('Table > Action with tooltip', () => {
 
   beforeEach(async () => {
     await sut(propsWithTooltip);
-    actionButton = screen.getByTestId(`row-0-${actions[0].label}-tooltip`);
+    actionButton = screen.getByTestId(
+      `row-0-${actionsWithCustomTooltip[0].label}`
+    );
   });
 
   it('should render without tooltip', async () => {
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 
-  it('should render the button with the tooltip directive when the tooltip configs are informed', async () => {
-    expect(actionButton).toBeInTheDocument();
+  it('should render the tooltip with the label as default', () => {
+    fireEvent.mouseEnter(
+      screen.getByTestId(`row-0-${actionsWithCustomTooltip[2].label}`)
+    );
+    expect(screen.getByText(actionsWithCustomTooltip[2].label)).toBeVisible();
+    fireEvent.mouseLeave(
+      screen.getByTestId(`row-0-${actionsWithCustomTooltip[2].label}`)
+    );
+  });
+
+  it('should render the tooltip with its custom title when provided', () => {
+    fireEvent.mouseEnter(actionButton);
+    expect(
+      screen.getByText(
+        actionsWithCustomTooltip[0].tooltipConfig.ionTooltipTitle
+      )
+    ).toBeVisible();
+    fireEvent.mouseLeave(actionButton);
   });
 
   it('should close the tooltip and open the popconfirm when clicked the button', () => {
