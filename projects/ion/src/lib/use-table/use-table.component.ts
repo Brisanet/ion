@@ -3,7 +3,9 @@ import { IonApiService } from './ApiService.service';
 import { BnTable } from '../../public-api';
 
 interface User {
-  name: string;
+  id: string;
+  nome: string;
+  data_criacao: string;
 }
 
 @Component({
@@ -16,7 +18,7 @@ export class IonUseTableComponent extends BnTable<User> {
     super({
       service,
       tableConfig: {
-        columns: [{ label: 'Nome', sort: true, key: 'name' }],
+        columns: [{ label: 'Nome', sort: true, key: 'nome' }],
         actions: [
           {
             icon: 'trash',
@@ -28,7 +30,7 @@ export class IonUseTableComponent extends BnTable<User> {
         ],
       },
       formatData: (data) =>
-        data.map((item) => ({ ...item, name: `${item.name} Teste` })),
+        data.map((item) => ({ ...item, nome: `${item.nome} Teste` })),
     });
   }
 

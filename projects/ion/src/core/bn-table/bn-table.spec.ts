@@ -193,50 +193,43 @@ describe('BnTable', () => {
     });
 
     it('should back to page 1 when order column', () => {
-      const nextPageEvent: SmartTableEvent = {
+      bnTable.events({
         event: EventTable.CHANGE_PAGE,
         change_page: {
           actual: 3,
           itemsPerPage: 10,
           offset: 10,
         },
-      };
-      bnTable.events(nextPageEvent);
+      });
 
-      const event: SmartTableEvent = {
+      bnTable.events({
         event: EventTable.SORT,
         order: {
           column: 'name',
           desc: true,
         },
-      };
-
-      bnTable.events(event);
+      });
 
       expect(bnTable.configTable.pagination.offset).toBe(0);
-      // expect(bnTable.configTable.pagination.total).toBe(0);
       expect(bnTable.configTable.pagination.page).toBe(1);
 
-      const nextPageEvent2: SmartTableEvent = {
+      bnTable.events({
         event: EventTable.CHANGE_PAGE,
         change_page: {
           actual: 3,
           itemsPerPage: 10,
           offset: 10,
         },
-      };
-      bnTable.events(nextPageEvent2);
+      });
       expect(bnTable.configTable.pagination.page).toBe(3);
 
-      const event2: SmartTableEvent = {
+      bnTable.events({
         event: EventTable.SORT,
         order: {
           column: 'name',
           desc: true,
         },
-      };
-
-      bnTable.events(event2);
+      });
       expect(bnTable.configTable.pagination.page).toBe(1);
     });
   });

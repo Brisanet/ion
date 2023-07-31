@@ -72,21 +72,17 @@ export default class BnTable<DataType> {
     this.configTable.loading = true;
 
     const totalRequest$ = this.payload.total
-      ? this.service.list(this.payload).pipe(
-          take(1),
-          finalize(() => (this.configTable.loading = false))
-        )
+      ? this.service.list(this.payload).pipe(take(1))
       : of(null);
 
     const dataRequest$ = this.service
       .list({ ...this.payload, total: false })
-      .pipe(
-        take(1),
-        finalize(() => (this.configTable.loading = false))
-      );
+      .pipe(take(1));
 
     forkJoin([totalRequest$, dataRequest$]).subscribe(
       (response) => {
+        this.configTable.loading = false;
+
         const totalResponse: IResponse<DataType> = response[0];
         const dataResponse: IResponse<DataType> = response[1];
 
@@ -141,9 +137,8 @@ export default class BnTable<DataType> {
   private resetTablePagination(): void {
     this.configTable.pagination.offset = 0;
     this.configTable.pagination.total = 0;
-
-    // set page 1
     this.configTable.pagination.page = 1;
+
     this.payload.offset = 0;
   }
 
