@@ -117,7 +117,7 @@ describe('CardComponent', () => {
     const header = screen.getByTestId('cardHeader');
     expect(header.textContent).toBe('Título do card');
 
-    const buttonPrimary = screen.getByTestId('buttonPrimary');
+    const buttonPrimary = screen.getByTestId('btn-Confirmar');
     fireEvent.click(buttonPrimary);
     fixture.detectChanges();
     expect(header.textContent).toBe(
