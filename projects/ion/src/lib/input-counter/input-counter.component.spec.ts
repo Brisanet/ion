@@ -23,12 +23,19 @@ const sut = async (
 };
 
 describe('InputCounter', () => {
+  let buttons: NodeListOf<HTMLButtonElement>;
+  let subButton: HTMLButtonElement;
+  let addButton: HTMLButtonElement;
+
   beforeEach(async () => {
     await sut();
+    buttons = document.querySelectorAll('button');
+    subButton = buttons[0];
+    addButton = buttons[1];
   });
 
   it('should increment to 1 when click in decrement', async () => {
-    fireEvent.click(screen.getByTestId('iconSub'));
+    fireEvent.click(subButton);
     expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '0'
@@ -36,8 +43,8 @@ describe('InputCounter', () => {
   });
 
   it('should keep 0 when click to decrement and is 0', async () => {
-    fireEvent.click(screen.getByTestId('iconAdd'));
-    fireEvent.click(screen.getByTestId('iconSub'));
+    fireEvent.click(addButton);
+    fireEvent.click(subButton);
     expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '0'
@@ -45,7 +52,7 @@ describe('InputCounter', () => {
   });
 
   it('should increment to 1 when click in increment', async () => {
-    fireEvent.click(screen.getByTestId('iconAdd'));
+    fireEvent.click(addButton);
     expect(screen.getByTestId('input-count')).toHaveAttribute(
       'ng-reflect-model',
       '1'
