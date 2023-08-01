@@ -25,7 +25,7 @@ export class IonNotificationComponent implements OnInit {
   @Input() fixed?: NotificationProps['fixed'] = false;
   @Input() fadeIn?: NotificationProps['fadeIn'] = 'fadeIn';
   @Input() fadeOut?: NotificationProps['fadeOut'] = 'fadeOut';
-  @ViewChild('notificationRef', { static: false }) notification: ElementRef;
+  @ViewChild('notificationRef') notification: ElementRef;
   @Output() ionOnClose = new EventEmitter<void>();
 
   private timer$: Subscription;

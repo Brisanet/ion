@@ -29,7 +29,7 @@ export class IonAlertComponent implements OnInit, OnChanges {
   @Input() closable? = false;
   @Input() hideBackground? = false;
 
-  @ViewChild('ionAlert', { static: false }) private ionAlert: ElementRef;
+  @ViewChild('ionAlert') private ionAlert: ElementRef;
 
   iconType: IconType;
 

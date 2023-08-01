@@ -25,7 +25,7 @@ export class IonHeadingComponent implements AfterViewInit {
   @Input() colorScheme?: ColorScheme = 'primary';
   @Input() size?: HeadingSize = 'normal';
 
-  @ViewChild('heading', { static: false }) heading: ElementRef;
+  @ViewChild('heading') heading: ElementRef;
 
   ngAfterViewInit(): void {
     const heading = this.makeElement(this.type, this.text);

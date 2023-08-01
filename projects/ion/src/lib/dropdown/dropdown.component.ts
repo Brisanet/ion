@@ -42,7 +42,7 @@ export class IonDropdownComponent
   @Output() scrollFinal = new EventEmitter();
   @Output() closeDropdown = new EventEmitter();
 
-  @ViewChild('optionList', { static: false })
+  @ViewChild('optionList')
   optionList: ElementRef;
 
   iconSize = 16;

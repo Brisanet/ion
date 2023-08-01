@@ -22,9 +22,9 @@ export class IonCardComponent implements AfterViewInit, OnDestroy {
   @Input() configuration!: IonCard;
   @Output() events = new EventEmitter<CardEvent>();
 
-  @ViewChild('body', { read: ViewContainerRef, static: false })
+  @ViewChild('body', { read: ViewContainerRef })
   body!: ViewContainerRef;
-  @ViewChild('footer', { read: ViewContainerRef, static: false })
+  @ViewChild('footer', { read: ViewContainerRef })
   footer!: ViewContainerRef;
 
   private indexOfChipSelected: number | null = null;
