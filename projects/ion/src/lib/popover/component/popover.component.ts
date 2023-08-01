@@ -14,6 +14,7 @@ export class IonPopoverComponent {
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
+  @Input() ionPopoverIconColor? = '#0858ce';
   @Input() ionPopoverIconClose = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverCustomClass = '';
