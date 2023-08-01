@@ -58,7 +58,6 @@
     "@storybook/builder-webpack4": "^6.5.9",
     "@storybook/manager-webpack4": "^6.5.9",
     "@storybook/testing-library": "0.0.13",
-    "@testing-library/angular": "^10.11.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@types/jest": "^27.0.1",
     "@types/node": "~8.9.4",
