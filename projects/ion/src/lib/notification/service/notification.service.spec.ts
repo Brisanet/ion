@@ -6,6 +6,15 @@ import { TestBed } from '@angular/core/testing';
 import { Component, NgModule } from '@angular/core';
 import { fireEvent, screen } from '@testing-library/angular';
 
+const NOTIFICATION_ICONS = {
+  success: 'success-icon',
+  info: 'info-icon',
+  warning: 'warning-icon',
+  negative: 'negative-icon',
+};
+
+const NOTIFICATION_TYPES = ['success', 'info', 'warning', 'negative'];
+
 @Component({
   template: '<div></div>',
 })
@@ -38,7 +47,7 @@ describe('NotificationService', () => {
     notificationService = TestBed.get(IonNotificationService);
   });
 
-  it('should custom notification', () => {
+  it('should remove a notification', () => {
     notificationService.success('Custom', 'Custom', { fixed: true });
     const removeNotification = screen.getByTestId('btn-remove');
     fireEvent.click(removeNotification);
@@ -46,33 +55,72 @@ describe('NotificationService', () => {
     expect(elements).toHaveLength(0);
   });
 
+  it('should remove a notification', () => {
+    const closeEvent = jest.fn();
+    notificationService.success(
+      'Custom',
+      'Custom',
+      { fixed: true },
+      closeEvent
+    );
+    const removeNotification = screen.getByTestId('btn-remove');
+    fireEvent.click(removeNotification);
+    expect(closeEvent).toHaveBeenCalledTimes(1);
+  });
+
   it('should create a notification', () => {
     notificationService.success('Teste', 'Teste');
-    expect(notificationService).toBeTruthy();
     expect(screen.getByTestId('ion-notification')).toBeTruthy();
   });
+});
 
-  it('should create a sucess notification', () => {
-    notificationService.success('Teste', 'Teste');
-    const iconType = screen.getAllByTestId('notification-icon');
-    expect(iconType[1].classList).toContain('success-icon');
+describe('NotificationService -> notification types', () => {
+  let notificationService: IonNotificationService;
+
+  let currentIndex = 1;
+
+  let notificationsOnScreen = 5;
+
+  const indexToRemove = [1, 2, 0];
+
+  const NOTIFICATIONS_CALLS = {
+    success: (): void => {
+      notificationService.success('teste', 'teste');
+    },
+    info: (): void => {
+      notificationService.info('teste', 'teste');
+    },
+    warning: (): void => {
+      notificationService.warning('teste', 'teste');
+    },
+    negative: (): void => {
+      notificationService.error('teste', 'teste');
+    },
+  };
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+
+    notificationService = TestBed.get(IonNotificationService);
   });
 
-  it('should create a info notification', () => {
-    notificationService.info('Teste', 'Teste');
+  it.each(NOTIFICATION_TYPES)('should create %s notification', async (type) => {
+    NOTIFICATIONS_CALLS[type]();
     const iconType = screen.getAllByTestId('notification-icon');
-    expect(iconType[2].classList).toContain('info-icon');
+    expect(iconType[currentIndex]).toHaveClass(NOTIFICATION_ICONS[type]);
+    currentIndex += 1;
   });
 
-  it('should create a warning notification', () => {
-    notificationService.warning('Teste', 'Teste');
-    const iconType = screen.getAllByTestId('notification-icon');
-    expect(iconType[3].classList).toContain('warning-icon');
-  });
-
-  it('should create a negative notification', () => {
-    notificationService.error('Teste', 'Teste');
-    const iconType = screen.getAllByTestId('notification-icon');
-    expect(iconType[4].classList).toContain('negative-icon');
-  });
+  it.each(indexToRemove)(
+    'should remove multiple notifications',
+    async (index) => {
+      const elements = document.getElementsByTagName('ion-notification');
+      const removeNotification = screen.getAllByTestId('btn-remove');
+      fireEvent.click(removeNotification[index]);
+      notificationsOnScreen -= 1;
+      expect(elements).toHaveLength(notificationsOnScreen);
+    }
+  );
 });

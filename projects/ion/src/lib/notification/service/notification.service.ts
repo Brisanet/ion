@@ -38,7 +38,8 @@ export class IonNotificationService {
   public success(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
+    closeEventCall?: () => void
   ): void {
     if (!this.notificationContainerComponentRef)
       this.createNotificationContainer();
@@ -47,22 +48,16 @@ export class IonNotificationService {
 
     this.configNotification(notification.instance, title, message, options);
 
-    notification.hostView.detectChanges();
-    notification.changeDetectorRef.detectChanges();
+    this.instanceNotification(notification);
 
-    this.notificationContainerComponentRef.instance.addNotification(
-      notification
-    );
-
-    this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
-
-    return this.componentSubscriber.next();
+    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
   }
 
   public info(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
+    closeEventCall?: () => void
   ): void {
     if (!this.notificationContainerComponentRef)
       this.createNotificationContainer();
@@ -77,22 +72,16 @@ export class IonNotificationService {
       NOTIFICATION_TYPES.info
     );
 
-    notification.hostView.detectChanges();
-    notification.changeDetectorRef.detectChanges();
+    this.instanceNotification(notification);
 
-    this.notificationContainerComponentRef.instance.addNotification(
-      notification
-    );
-
-    this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
-
-    return this.componentSubscriber.next();
+    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
   }
 
   public warning(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
+    closeEventCall?: () => void
   ): void {
     if (!this.notificationContainerComponentRef)
       this.createNotificationContainer();
@@ -107,22 +96,16 @@ export class IonNotificationService {
       NOTIFICATION_TYPES.warning
     );
 
-    notification.hostView.detectChanges();
-    notification.changeDetectorRef.detectChanges();
+    this.instanceNotification(notification);
 
-    this.notificationContainerComponentRef.instance.addNotification(
-      notification
-    );
-
-    this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
-
-    return this.componentSubscriber.next();
+    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
   }
 
   public error(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
+    closeEventCall?: () => void
   ): void {
     if (!this.notificationContainerComponentRef)
       this.createNotificationContainer();
@@ -137,16 +120,9 @@ export class IonNotificationService {
       NOTIFICATION_TYPES.negative
     );
 
-    notification.hostView.detectChanges();
-    notification.changeDetectorRef.detectChanges();
+    this.instanceNotification(notification);
 
-    this.notificationContainerComponentRef.instance.addNotification(
-      notification
-    );
-
-    this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
-
-    return this.componentSubscriber.next();
+    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
   }
 
   private createComponentView(
@@ -190,13 +166,31 @@ export class IonNotificationService {
     notification.type = type;
 
     if (options) {
-      Object.keys(options).forEach((prop) => {
-        notification[prop] = options[prop];
-      });
+      Object.assign(notification, options);
     }
+  }
 
-    notification.ionOnClose.subscribe((eventResponse: SafeAny) => {
-      if (!eventResponse) return notification.closeNotification();
+  private instanceNotification(
+    notification: ComponentRef<IonNotificationComponent>
+  ) {
+    notification.hostView.detectChanges();
+    notification.changeDetectorRef.detectChanges();
+
+    this.notificationContainerComponentRef.instance.addNotification(
+      notification
+    );
+
+    this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
+
+    return this.componentSubscriber.next();
+  }
+
+  private addCloseEventEmitter(
+    notification: ComponentRef<IonNotificationComponent>,
+    closeEvent: () => void
+  ) {
+    notification.instance.ionOnClose.subscribe(() => {
+      closeEvent();
     });
   }
 }
