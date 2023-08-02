@@ -6,6 +6,7 @@ import {
   render,
   RenderResult,
   screen,
+  within,
 } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
@@ -23,15 +24,13 @@ const sut = async (
 };
 
 describe('InputCounter', () => {
-  let buttons: NodeListOf<HTMLButtonElement>;
   let subButton: HTMLButtonElement;
   let addButton: HTMLButtonElement;
 
   beforeEach(async () => {
     await sut();
-    buttons = document.querySelectorAll('button');
-    subButton = buttons[0];
-    addButton = buttons[1];
+    subButton = within(screen.getByTestId('iconSub')).getByRole('button');
+    addButton = within(screen.getByTestId('iconAdd')).getByRole('button');
   });
 
   it('should increment to 1 when click in decrement', async () => {
