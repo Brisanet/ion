@@ -2,7 +2,7 @@ import { IonButtonModule } from './../../button/button.module';
 import { IonDividerModule } from './../../divider/divider.module';
 import { IonTooltipModule } from './../../tooltip/tooltip.module';
 import { EventEmitter } from '@angular/core';
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { SafeAny } from '../../utils/safe-any';
 import {
   IonControlPickerComponentProps,
@@ -34,7 +34,10 @@ describe('IonControlPickerComponent', () => {
   it('should emit an event on clicking the previous year button', async () => {
     const onPreviousYear = new EventEmitter<ControlEvent>();
     await sut({ ...defaultComponent, controlPickerEvent: onPreviousYear });
-    const btnPreviousYear = screen.getByTestId('btn-previous-year');
+    const btnPreviousYear = within(
+      screen.getByTestId('btn-previous-year')
+    ).getByRole('button');
+
     jest.spyOn(onPreviousYear, 'emit');
     fireEvent.click(btnPreviousYear);
     expect(onPreviousYear.emit).toHaveBeenCalledTimes(1);
@@ -43,7 +46,10 @@ describe('IonControlPickerComponent', () => {
   it('should emit an event on clicking the previous month button', async () => {
     const onPreviousMonth = new EventEmitter<ControlEvent>();
     await sut({ ...defaultComponent, controlPickerEvent: onPreviousMonth });
-    const btnPreviousMonth = screen.getByTestId('btn-previous-month');
+    const btnPreviousMonth = within(
+      screen.getByTestId('btn-previous-month')
+    ).getByRole('button');
+
     jest.spyOn(onPreviousMonth, 'emit');
     fireEvent.click(btnPreviousMonth);
     expect(onPreviousMonth.emit).toHaveBeenCalledTimes(1);
@@ -52,7 +58,10 @@ describe('IonControlPickerComponent', () => {
   it('should emit an event on clicking the next month button', async () => {
     const onNextMonth = new EventEmitter<ControlEvent>();
     await sut({ ...defaultComponent, controlPickerEvent: onNextMonth });
-    const btnNextMonth = screen.getByTestId('btn-next-month');
+    const btnNextMonth = within(screen.getByTestId('btn-next-month')).getByRole(
+      'button'
+    );
+
     jest.spyOn(onNextMonth, 'emit');
     fireEvent.click(btnNextMonth);
     expect(onNextMonth.emit).toHaveBeenCalledTimes(1);
@@ -61,7 +70,10 @@ describe('IonControlPickerComponent', () => {
   it('should emit an event on clicking the next year button', async () => {
     const onNextYear = new EventEmitter<ControlEvent>();
     await sut({ ...defaultComponent, controlPickerEvent: onNextYear });
-    const btnNextYear = screen.getByTestId('btn-next-year');
+    const btnNextYear = within(screen.getByTestId('btn-next-year')).getByRole(
+      'button'
+    );
+
     jest.spyOn(onNextYear, 'emit');
     fireEvent.click(btnNextYear);
     expect(onNextYear.emit).toHaveBeenCalledTimes(1);
@@ -73,7 +85,9 @@ describe('IonControlPickerComponent', () => {
     const labelMonth = screen.getByTestId('label-month');
     jest.spyOn(onChangeMonth, 'emit');
     fireEvent.click(labelMonth);
-    const button = screen.getByTestId('btn-month-2');
+    const button = within(screen.getByTestId('btn-month-2')).getByRole(
+      'button'
+    );
     fireEvent.click(button);
     expect(onChangeMonth.emit).toHaveBeenCalledTimes(1);
   });
@@ -84,7 +98,9 @@ describe('IonControlPickerComponent', () => {
     const labelYear = screen.getByTestId('label-year');
     jest.spyOn(onChangeYear, 'emit');
     fireEvent.click(labelYear);
-    const button = screen.getByTestId('btn-year-2025');
+    const button = within(screen.getByTestId('btn-year-2025')).getByRole(
+      'button'
+    );
     fireEvent.click(button);
     expect(onChangeYear.emit).toHaveBeenCalledTimes(1);
   });

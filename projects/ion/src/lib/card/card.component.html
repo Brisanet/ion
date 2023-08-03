@@ -43,7 +43,7 @@
           [iconType]="button.icon"
           [circularButton]="button.circular"
           [type]="button.type"
-          (click)="cardEvent({ buttonAction: button.nameAction })"
+          (ionOnClick)="cardEvent({ buttonAction: button.nameAction })"
           size="sm"
         ></ion-button>
       </div>
@@ -92,7 +92,7 @@
           [iconType]="configuration.footer.buttons.secondary.icon"
           [circularButton]="configuration.footer.buttons.secondary.circular"
           [type]="'secondary'"
-          (click)="cardEvent({ buttonAction: 'secondary' })"
+          (ionOnClick)="cardEvent({ buttonAction: 'secondary' })"
         ></ion-button>
         <div class="card-ion-footer-buttons">
           <ion-button
@@ -101,7 +101,7 @@
             [iconType]="configuration.footer.buttons.ghost.icon"
             [circularButton]="configuration.footer.buttons.ghost.circular"
             [type]="'ghost'"
-            (click)="cardEvent({ buttonAction: 'ghost' })"
+            (ionOnClick)="cardEvent({ buttonAction: 'ghost' })"
           ></ion-button>
           <ion-button
             *ngIf="configuration.footer.buttons.primary"
@@ -110,7 +110,7 @@
             [circularButton]="configuration.footer.buttons.primary.circular"
             [type]="'primary'"
             data-testid="buttonPrimary"
-            (click)="cardEvent({ buttonAction: 'primary' })"
+            (ionOnClick)="cardEvent({ buttonAction: 'primary' })"
           ></ion-button>
         </div>
       </div>
