@@ -8,7 +8,7 @@
       ionTooltip
       ionTooltipTitle="Ano anterior"
       ionTooltipPosition="bottomCenter"
-      (click)="handlePreviousYear()"
+      (ionOnClick)="handlePreviousYear()"
     ></ion-button>
     <ion-button
       data-testid="btn-previous-month"
@@ -18,7 +18,7 @@
       ionTooltip
       ionTooltipTitle="Mês anterior"
       ionTooltipPosition="bottomCenter"
-      (click)="handlePreviousMonth()"
+      (ionOnClick)="handlePreviousMonth()"
     ></ion-button>
   </div>
   <div class="container-labels">
@@ -51,7 +51,7 @@
       ionTooltip
       ionTooltipTitle="Próximo mês"
       ionTooltipPosition="bottomCenter"
-      (click)="handleNextMonth()"
+      (ionOnClick)="handleNextMonth()"
     ></ion-button>
     <ion-button
       data-testid="btn-next-year"
@@ -61,7 +61,7 @@
       ionTooltip
       ionTooltipTitle="Próximo ano"
       ionTooltipPosition="bottomCenter"
-      (click)="handleNextYear()"
+      (ionOnClick)="handleNextYear()"
     ></ion-button>
   </div>
 </div>
@@ -72,7 +72,7 @@
       *ngFor="let month of months; let i = index"
       [label]="month"
       type="dashed"
-      (click)="handleChangeMonth(i)"
+      (ionOnClick)="handleChangeMonth(i)"
       [attr.data-testid]="'btn-month-' + i"
     ></ion-button>
   </div>
@@ -89,7 +89,7 @@
         ionTooltip
         ionTooltipTitle="Anos anteriores"
         ionTooltipPosition="bottomCenter"
-        (click)="handleShowPreviousYears()"
+        (ionOnClick)="handleShowPreviousYears()"
       ></ion-button>
       <span>{{ rangeYear[0] }} - {{ rangeYear[rangeYear.length - 1] }}</span>
       <ion-button
@@ -100,7 +100,7 @@
         ionTooltip
         ionTooltipTitle="Próximos anos"
         ionTooltipPosition="bottomCenter"
-        (click)="handleShowNextYears()"
+        (ionOnClick)="handleShowNextYears()"
       ></ion-button>
     </div>
     <ion-divider></ion-divider>
@@ -109,7 +109,7 @@
         *ngFor="let year of rangeYear; let i = index"
         [label]="year"
         type="dashed"
-        (click)="handleChangeYear(year)"
+        (ionOnClick)="handleChangeYear(year)"
         [attr.data-testid]="'btn-year-' + year"
       ></ion-button>
     </div>
