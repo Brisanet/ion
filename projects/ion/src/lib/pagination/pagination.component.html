@@ -20,7 +20,7 @@
     data-testid="arrow-left"
     type="secondary"
     [size]="size"
-    (click)="previous()"
+    (ionOnClick)="previous()"
     [disabled]="loading || !hasPrevious()"
   ></ion-button>
 
@@ -47,7 +47,7 @@
       [disabled]="loading"
       (mouseenter)="changeIconHover('left', true)"
       (mouseleave)="changeIconHover('left', false)"
-      (click)="jumpPagesBackward()"
+      (ionOnClick)="jumpPagesBackward()"
       *ngIf="moreBtnsConfig.left.visible"
     ></ion-button>
     <button
@@ -69,7 +69,7 @@
       [disabled]="loading"
       (mouseenter)="changeIconHover('right', true)"
       (mouseleave)="changeIconHover('right', false)"
-      (click)="jumpPagesForward()"
+      (ionOnClick)="jumpPagesForward()"
       *ngIf="moreBtnsConfig.right.visible"
     ></ion-button>
     <button
@@ -103,7 +103,7 @@
     data-testid="arrow-right"
     type="secondary"
     [size]="size"
-    (click)="next()"
+    (ionOnClick)="next()"
     [disabled]="loading || !hasNext()"
   ></ion-button>
 </div>
