@@ -9,19 +9,18 @@ import { IconType } from '../core/types/icon';
   styleUrls: ['./avatar.component.scss'],
 })
 export class IonAvatarComponent implements OnInit {
-  @Input() type: AvatarType;
+  @Input() type!: AvatarType;
   @Input() size: SizeType = 'md';
   @Input() value?: string;
-  @Input() image?: string;
-  @Input() onErrorImage?: string;
+  @Input() image!: string;
+  @Input() onErrorImage!: string;
 
-  initials: string;
+  initials!: string;
   icon: IconType = 'union';
 
   ngOnInit(): void {
     if (this.type === AvatarType.initials) {
-      this.initials = this.getInitials(this.value) || '--';
-      return;
+      this.initials = this.value?.length ? this.getInitials(this.value) : '--';
     }
   }
 

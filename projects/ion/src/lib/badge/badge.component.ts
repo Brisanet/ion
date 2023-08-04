@@ -7,11 +7,11 @@ import { BadgeType } from '../core/types/badge';
   styleUrls: ['./badge.component.scss'],
 })
 export class IonBadgeComponent implements OnChanges, OnInit {
-  @Input() label?: string;
-  @Input() value?: number;
+  @Input() label!: string;
+  @Input() value!: number;
   @Input() type!: BadgeType;
 
-  valueInBadge: string;
+  valueInBadge!: string;
 
   ngOnInit(): void {
     this.valueInBadge = this.formatValue();
@@ -34,6 +34,6 @@ export class IonBadgeComponent implements OnChanges, OnInit {
     if (value > maxValue) {
       return `${maxValue}+`;
     }
-    return value && value.toString();
+    return `${value}`;
   }
 }

@@ -46,21 +46,11 @@
       </div>
     </div>
   </div>
-  <ion-button
-    *ngIf="clearButtonIsVisible"
-    label="Limpar"
-    iconType="trash"
-    type="secondary"
-    size="sm"
-    rightSideIcon="true"
-    expand="true"
-    (click)="clearOptions(true)"
-    data-testid="button-clear"
-  ></ion-button>
+  <!-- TODO: Lembrar de colocar botão novamente -->
   <ion-no-data
     *ngIf="!options || options.length === 0"
     data-testid="ion-no-data"
     [label]="noDataConfig.label"
-    [iconType]="noDataConfig.iconType"
+    [iconType]="noDataConfig.iconType || ''"
   ></ion-no-data>
 </div>

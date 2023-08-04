@@ -32,7 +32,7 @@ export class IonDropdownComponent
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
   @Input() notShowClearButton?: DropdownParams['notShowClearButton'] = false;
-  @Input() noDataConfig?: IonNoDataProps = {
+  @Input() noDataConfig: IonNoDataProps = {
     label: 'Não há dados',
     iconType: 'exclamation-rounded',
   };
@@ -43,11 +43,11 @@ export class IonDropdownComponent
   @Output() closeDropdown = new EventEmitter();
 
   @ViewChild('optionList')
-  optionList: ElementRef;
+  optionList!: ElementRef;
 
   iconSize = 16;
 
-  clearButtonIsVisible: boolean;
+  clearButtonIsVisible!: boolean;
 
   dropdownSelectedItems: Array<DropdownItem> = [];
 
@@ -62,13 +62,15 @@ export class IonDropdownComponent
   public ngAfterViewInit(): void {
     const widthContainer = window.innerWidth;
     const element = document.getElementById('ion-dropdown');
-    const elementProps = element.getBoundingClientRect();
-    const elementRight = elementProps.right;
-    elementRight > widthContainer && (element.style.right = '0');
+    if (element) {
+      const elementProps = element.getBoundingClientRect();
+      const elementRight = elementProps.right;
+      elementRight > widthContainer && (element.style.right = '0');
 
-    const heightContainer = window.innerHeight;
-    const elementBottom = elementProps.bottom;
-    elementBottom > heightContainer && (element.style.bottom = '42px');
+      const heightContainer = window.innerHeight;
+      const elementBottom = elementProps.bottom;
+      elementBottom > heightContainer && (element.style.bottom = '42px');
+    }
   }
 
   mouseEnter(option: DropdownItem): void {
@@ -165,7 +167,7 @@ export class IonDropdownComponent
 
   isAtSelectedsMaxLength(): boolean {
     const selectedOptions = this.options.filter((option) => option.selected);
-    return this.maxSelected && selectedOptions.length === this.maxSelected;
+    return !!(this.maxSelected && selectedOptions.length === this.maxSelected);
   }
 
   emitSelectedOptions(): void {
@@ -225,7 +227,7 @@ export class IonDropdownComponent
 
   public ngOnChanges(changes: SimpleChanges): void {
     setTimeout(() => {
-      if (changes.options && !changes.options.firstChange) {
+      if (changes['options'] && !changes['options'].firstChange) {
         this.setSelected();
       }
     }, COLDOWN);

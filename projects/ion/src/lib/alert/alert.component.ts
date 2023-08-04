@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { StatusType } from '../core/types';
 import { IconType } from '../core/types/icon';
+import { SafeAny } from '../utils/safe-any';
 
 const iconTypes = {
   success: 'check-solid',
@@ -24,23 +25,25 @@ const iconTypes = {
   styleUrls: ['./alert.component.scss'],
 })
 export class IonAlertComponent implements OnInit, OnChanges {
-  @Input() message!: string | TemplateRef<void>;
+  @Input() message!: string | TemplateRef<string>;
   @Input() type?: StatusType = 'success';
   @Input() closable? = false;
   @Input() hideBackground? = false;
 
-  @ViewChild('ionAlert') private ionAlert: ElementRef;
+  @ViewChild('ionAlert') private ionAlert!: ElementRef;
 
-  iconType: IconType;
+  public template!: TemplateRef<string>;
 
-  hasPlainText: boolean;
+  iconType!: IconType;
+
+  hasPlainText!: boolean;
 
   closeEvent(): void {
     this.ionAlert.nativeElement.remove();
   }
 
   setIcon(): void {
-    this.iconType = iconTypes[this.type];
+    this.iconType = iconTypes[this.type || 'success'];
   }
 
   ngOnInit(): void {
@@ -51,8 +54,12 @@ export class IonAlertComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setIcon();
-    if (changes.message) {
+    if (changes['message']) {
       this.hasPlainText = typeof this.message === 'string';
+
+      if (!this.hasPlainText) {
+        this.template = this.message as unknown as TemplateRef<string>;
+      }
     }
   }
 }

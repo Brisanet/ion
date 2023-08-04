@@ -24,7 +24,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() label?: string;
   @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
-  @Input() size?: Size = 'md';
+  @Input() size: Size = 'md';
   @Input() expand? = false;
   @Input() danger? = false;
   @Input() disabled? = false;
@@ -36,16 +36,16 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() circularButton? = false;
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
-  @Input() dropdownConfig? = {
+  @Input() dropdownConfig = {
     notShowClearButton: false,
     required: false,
   };
   @Input() id?: string;
 
-  @Output() ionOnClick? = new EventEmitter();
+  @Output() ionOnClick = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();
 
-  public buttonBadge?: ButtonBadgeTypes = {
+  public buttonBadge: ButtonBadgeTypes = {
     type: 'secondary',
     value: 0,
   };
@@ -93,7 +93,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.disabled && changes.disabled.currentValue) {
+    if (changes['disabled'] && changes['disabled'].currentValue) {
       this.loading = false;
     }
   }

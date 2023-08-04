@@ -30,7 +30,7 @@ export class IonCheckboxComponent implements OnInit, OnChanges {
 
   @Output() ionClick = new EventEmitter();
 
-  @ViewChild('checkBox', { static: true }) checkBox: ElementRef;
+  @ViewChild('checkBox', { static: true }) checkBox!: ElementRef;
 
   private actions = {
     indeterminate: this.setIndeterminate.bind(this),

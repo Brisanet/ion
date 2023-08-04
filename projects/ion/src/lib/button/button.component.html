@@ -30,8 +30,8 @@
     </span>
   </ng-container>
   <ion-badge
-    [value]="buttonBadge?.value"
-    [type]="buttonBadge?.type"
+    [value]="buttonBadge.value || 0"
+    [type]="buttonBadge.type"
     *ngIf="multiple && !loading"
     data-testid="badge-multiple"
   ></ion-badge>

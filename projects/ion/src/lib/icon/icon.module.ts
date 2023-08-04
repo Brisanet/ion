@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from './icon.component';
-import { IonSharedModule } from '../shared.module';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
-  imports: [CommonModule, IonSharedModule],
+  imports: [CommonModule, SharedModule],
   exports: [IonIconComponent],
 })
 export class IonIconModule {}

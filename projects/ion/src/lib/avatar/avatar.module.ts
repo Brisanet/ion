@@ -1,8 +1,8 @@
 import { IonAvatarComponent } from './avatar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DefaultImageDirective } from '../defaultImage.directive';
 import { IonIconModule } from '../icon/icon.module';
+import { DefaultImageDirective } from '../defaultImage.directive';
 
 @NgModule({
   declarations: [IonAvatarComponent, DefaultImageDirective],

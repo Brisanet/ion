@@ -62,7 +62,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() icon?: IconType;
   @Input() showDropdown = false;
   @Input() dropdownSearchConfig: IonChipProps['dropdownSearchConfig'];
-  @Input() options: DropdownItem[];
+  @Input() options!: DropdownItem[];
   @Input() multiple = false;
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
@@ -74,8 +74,8 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
-  dropdownId: string;
-  chipId: string;
+  dropdownId!: string;
+  chipId!: string;
   badge: Badge = {
     value: 0,
   };

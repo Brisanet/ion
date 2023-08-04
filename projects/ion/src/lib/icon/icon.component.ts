@@ -9,7 +9,7 @@ import { IconType } from '../core/types/icon';
   styleUrls: ['./icon.component.scss'],
 })
 export class IonIconComponent {
-  @Input() type: IconType;
+  @Input() type: IconType = '';
   @Input() size = 24;
   @Input() color = '#282b33';
 

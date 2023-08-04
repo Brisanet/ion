@@ -10,11 +10,11 @@ import { InputType } from '../core/types/input';
 export class IonInputComponent {
   @Input() placeholder?: string;
   @Input() button = 'Button';
-  @Input() iconInput: IconType;
+  @Input() iconInput!: IconType;
   @Input() disabled = false;
   @Input() iconDirection?: IconDirection;
-  @Input() valid: boolean;
-  @Input() invalid: boolean;
+  @Input() valid!: boolean;
+  @Input() invalid!: boolean;
   @Input() errorMsg?: string;
   @Input() inputButton? = false;
   @Input() inputIconButton? = false;
@@ -22,7 +22,7 @@ export class IonInputComponent {
   @Input() inputType: InputType = 'text';
   @Input() clearButton = false;
   @Input() readonly = false;
-  @Input() maxLength?: string | number | null = null;
+  @Input() maxLength: string | number | null = null;
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
