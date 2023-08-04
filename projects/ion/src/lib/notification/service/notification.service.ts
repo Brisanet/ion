@@ -50,7 +50,9 @@ export class IonNotificationService {
 
     this.instanceNotification(notification);
 
-    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
+    if (closeEventCall) {
+      this.addCloseEventEmitter(notification, closeEventCall);
+    }
   }
 
   public info(
@@ -74,7 +76,9 @@ export class IonNotificationService {
 
     this.instanceNotification(notification);
 
-    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
+    if (closeEventCall) {
+      this.addCloseEventEmitter(notification, closeEventCall);
+    }
   }
 
   public warning(
@@ -98,7 +102,9 @@ export class IonNotificationService {
 
     this.instanceNotification(notification);
 
-    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
+    if (closeEventCall) {
+      this.addCloseEventEmitter(notification, closeEventCall);
+    }
   }
 
   public error(
@@ -122,7 +128,9 @@ export class IonNotificationService {
 
     this.instanceNotification(notification);
 
-    closeEventCall && this.addCloseEventEmitter(notification, closeEventCall);
+    if (closeEventCall) {
+      this.addCloseEventEmitter(notification, closeEventCall);
+    }
   }
 
   private createComponentView(

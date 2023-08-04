@@ -13,7 +13,7 @@ const NOTIFICATION_ICONS = {
   negative: 'negative-icon',
 };
 
-const NOTIFICATION_TYPES = ['success', 'info', 'warning', 'negative'];
+const NOTIFICATION_TYPES = Object.keys(NOTIFICATION_ICONS);
 
 @Component({
   template: '<div></div>',
@@ -55,7 +55,7 @@ describe('NotificationService', () => {
     expect(elements).toHaveLength(0);
   });
 
-  it('should remove a notification', () => {
+  it('should emit event when a notification is closed', () => {
     const closeEvent = jest.fn();
     notificationService.success(
       'Custom',
