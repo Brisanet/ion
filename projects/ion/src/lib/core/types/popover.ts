@@ -21,6 +21,7 @@ export interface PopoverProps {
   ionPopoverBody: TemplateRef<void>;
   ionPopoverActions?: IonButtonProps[];
   ionPopoverIcon?: IconType;
+  ionPopoverIconColor?: string;
   ionPopoverIconClose?: boolean;
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
