@@ -1,12 +1,24 @@
 {
-  "name": "ion-v2",
-  "version": "0.0.0",
+  "name": "ion",
+  "version": "0.0.1",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build": "ng build --project=ion",
+    "test": "jest -i --passWithNoTests",
+    "test:coverage": "jest -i --coverage",
+    "test:watch": "jest -i --watchAll",
+    "lint": "eslint .",
+    "e2e": "ng e2e",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "build-storybook": "npm run docs:json && build-storybook",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "commit": "git-cz",
+    "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-once-uploaded"
   },
   "private": true,
   "dependencies": {
