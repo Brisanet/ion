@@ -28,6 +28,8 @@ const TemplateComponente: Story = (args) => ({
         ionPopoverTitle="${args.ionPopoverTitle}"
         [ionPopoverBody]="BodyTemplate"
         ionPopoverIconClose="${args.ionPopoverIconClose}"
+        ionPopoverIcon="${args.ionPopoverIcon}"
+        ionPopoverIconColor="${args.ionPopoverIconColor}"
       >
       </ion-popover>
       <ng-template #BodyTemplate>
@@ -43,6 +45,8 @@ Component.args = {
   ionPopoverBody:
     'Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!',
   ionPopoverIconClose: true,
+  ionPopoverIcon: 'block',
+  ionPopoverIconColor: '#282b33',
 };
 Component.parameters = { controls: { exclude: /^ionPopoverPosition*/ } };
 

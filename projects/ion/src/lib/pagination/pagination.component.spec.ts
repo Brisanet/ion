@@ -73,13 +73,15 @@ describe('IonPaginationComponent', () => {
   });
 
   it('should go to the previous page when click in arrow left', async () => {
+    const previousBtn = screen.getByTestId('arrow-left');
     fireEvent.click(screen.getByTestId('page-3'));
-    fireEvent.click(screen.getByTestId('arrow-left'));
+    fireEvent.click(within(previousBtn).getByRole('button'));
     expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 
   it('should go to the next page when click in arrow right', async () => {
-    fireEvent.click(screen.getByTestId('arrow-right'));
+    const nextBtn = screen.getByTestId('arrow-right');
+    fireEvent.click(within(nextBtn).getByRole('button'));
     expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
 
@@ -187,7 +189,7 @@ describe('Pagination > Events', () => {
     expect(event).not.toHaveBeenCalled();
   });
 
-  it('should show items per page 10 when params is informed', async () => {
+  it('should show the itemsPerPage default value when is not provided', async () => {
     await sut({
       total: 16,
       allowChangeQtdItems: true,
@@ -201,29 +203,32 @@ describe('Pagination > Events', () => {
       allowChangeQtdItems: true,
     });
     const label = '10 / página';
-    fireEvent.click(await screen.getByTestId(`btn-${label}`));
-    fireEvent.click(screen.getByText('20 / página'));
-    expect(screen.queryAllByTestId('page-4')).toHaveLength(0);
+    fireEvent.click(screen.getByTestId(`btn-${label}`));
+    fireEvent.click(screen.getByText('25 / página'));
+    expect(screen.queryAllByTestId('page-3')).toHaveLength(0);
   });
 
-  it('should show items per page 20 when set initial itemsPerPage = 20', async () => {
-    await sut({
-      total: 16,
-      allowChangeQtdItems: true,
-      itemsPerPage: 20,
-    });
-    expect(screen.queryAllByText('20 / página')).toHaveLength(1);
-  });
+  it.each(LIST_OF_PAGE_OPTIONS)(
+    'should show items per page %d selected as default when value is given',
+    async (value) => {
+      await sut({
+        total: 16,
+        allowChangeQtdItems: true,
+        itemsPerPage: value,
+      });
+      expect(screen.queryAllByText(`${value} / página`)).toHaveLength(1);
+    }
+  );
 
-  it('should select the last page when itemsPerPage increases and the number of pages decreases', async () => {
+  it('should select the last page when itemsPerPage changes to a value smaller than the current page selected', async () => {
     await sut({
-      total: 21,
+      total: 26,
       allowChangeQtdItems: true,
     });
 
     fireEvent.click(screen.getByTestId('page-3'));
     fireEvent.click(screen.getByTestId('btn-10 / página'));
-    fireEvent.click(screen.getByText('20 / página'));
+    fireEvent.click(screen.getByText('25 / página'));
 
     expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
@@ -251,7 +256,8 @@ describe('Advanced Pagination', () => {
       expect(document.getElementById('ion-icon-right3')).toBeVisible();
     });
     it('should skip five pages when click on more right button', () => {
-      userEvent.click(screen.getByTestId('more-right'));
+      const moreRightBtn = screen.getByTestId('more-right');
+      userEvent.click(within(moreRightBtn).getByRole('button'));
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
@@ -272,7 +278,8 @@ describe('Advanced Pagination', () => {
       expect(document.getElementById('ion-icon-left3')).toBeVisible();
     });
     it('should go back five pages when click on more left button', () => {
-      userEvent.click(screen.getByTestId('more-left'));
+      const moreLeftBtn = screen.getByTestId('more-left');
+      userEvent.click(within(moreLeftBtn).getByRole('button'));
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
@@ -290,12 +297,14 @@ describe('Advanced Pagination', () => {
       expect(document.getElementById('ion-icon-more')).toBeVisible();
     });
     it('should go back to first page when its not possible to go back five pages', () => {
-      userEvent.click(screen.getByTestId('more-left'));
+      const moreLeftBtn = screen.getByTestId('more-left');
+      userEvent.click(within(moreLeftBtn).getByRole('button'));
       expect(screen.getByTestId('page-1')).toHaveClass('selected');
     });
     it('should go to last page when its not possible to go forward five pages', () => {
+      const moreRightBtn = screen.getByTestId('more-right');
       userEvent.click(screen.getByTestId('page-7'));
-      userEvent.click(screen.getByTestId('more-right'));
+      userEvent.click(within(moreRightBtn).getByRole('button'));
       expect(screen.getByTestId('page-11')).toHaveClass('selected');
     });
   });
@@ -351,8 +360,9 @@ describe('Advanced Pagination', () => {
     describe('when page selected is three pages before last page', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
+        const moreRightBtn = screen.getByTestId('more-right');
         userEvent.click(screen.getByTestId('page-3'));
-        userEvent.click(screen.getByTestId('more-right'));
+        userEvent.click(within(moreRightBtn).getByRole('button'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();

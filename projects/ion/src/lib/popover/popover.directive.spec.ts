@@ -167,27 +167,28 @@ describe('Directive: popover', () => {
     expect(screen.queryAllByTestId('popover-icon-close')).toHaveLength(1);
   });
 
-  it.each(['icon-close', 'action-1', 'action-2'])(
-    'should close pop when click in %s',
-    async (type) => {
-      await sut();
-      fireEvent.click(screen.getByText(textButton));
-      fireEvent.click(screen.getByTestId(`popover-${type}`));
-      expect(screen.queryByTestId(`popover-${type}`)).toBeNull();
-    }
-  );
+  it.each([
+    { dataTestId: 'close-button', label: 'popover-close-button' },
+    { dataTestId: 'action-1', label: 'action 1' },
+    { dataTestId: 'action-2', label: 'action 2' },
+  ])('should close pop when click in $label', async (type) => {
+    await sut();
+    fireEvent.click(screen.getByText(textButton));
+    fireEvent.click(screen.getByTestId(`btn-${type.label}`));
+    expect(screen.queryByTestId(`popover-${type.dataTestId}`)).toBeNull();
+  });
 
   it('should emit an event when click on action-1', async () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
-    fireEvent.click(screen.getByTestId('popover-action-1'));
+    fireEvent.click(screen.getByTestId('btn-action 1'));
     expect(firstAction).toHaveBeenCalled();
   });
 
   it('should emit an event when click on action-2', async () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
-    fireEvent.click(screen.getByTestId('popover-action-2'));
+    fireEvent.click(screen.getByTestId('btn-action 2'));
     expect(secondAction).toHaveBeenCalled();
   });
 

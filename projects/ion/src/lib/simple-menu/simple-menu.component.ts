@@ -10,6 +10,7 @@ import { SimpleMenuProps } from '../core/types/simple-menu';
 export class IonSimpleMenuComponent {
   @Input() options: SimpleMenuProps['options'];
   @Input() profile: SimpleMenuProps['profile'];
+  @Input() logo?: SimpleMenuProps['logo'];
 
   @Output() selected = new EventEmitter<TabInGroup>();
   @Output() logoutClick = new EventEmitter();

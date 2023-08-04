@@ -1,3 +1,5 @@
+import { TemplateRef } from '@angular/core';
+
 export type TooltipColorScheme = 'light' | 'dark';
 
 export enum TooltipPosition {
@@ -25,4 +27,5 @@ export interface TooltipProps {
   ionTooltipArrowPointAtCenter?: boolean;
   ionTooltipTrigger?: TooltipTrigger;
   ionTooltipShowDelay?: number;
+  ionTooltipTemplateRef?: TemplateRef<void>;
 }
