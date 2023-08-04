@@ -187,6 +187,8 @@ const Template: Story = (args) => ({
         [ionPopoverBody]="BodyTemplate"
         ionPopoverIconClose="${args.ionPopoverIconClose}"
         ionPopoverPosition="${args.ionPopoverPosition}"
+        ionPopoverIcon="${args.ionPopoverIcon}"
+        ionPopoverIconColor="${args.ionPopoverIconColor}"
         [ionPopoverActions]="null"
         label="click me"
       >
@@ -203,6 +205,8 @@ Directive.args = {
   ionPopoverTitle: 'Título do popover',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
+  ionPopoverIcon: 'historic',
+  ionPopoverIconColor: '#282b33',
 } as PopoverProps;
 
 const TemplateOpen: Story = (args) => ({
