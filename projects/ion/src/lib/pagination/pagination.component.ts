@@ -102,7 +102,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   }
 
   selectPageOnClick(pageNumber: number): void {
-    if (pageNumber === this.page) {
+    if (pageNumber === this.page || this.loading) {
       return;
     }
     this.selectPage(pageNumber);

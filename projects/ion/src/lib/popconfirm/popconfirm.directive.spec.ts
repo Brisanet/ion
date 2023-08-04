@@ -9,7 +9,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { fireEvent, screen } from '@testing-library/angular';
+import { fireEvent, screen, within } from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonPopConfirmComponent } from './popconfirm.component';
@@ -179,7 +179,9 @@ describe('Directive: Popconfirm', () => {
 
   it('should click in confirm button', () => {
     directive.open();
-    fireEvent.click(screen.getByTestId('pop-confirm-btn'));
+    fireEvent.click(
+      within(screen.getByTestId('pop-confirm-btn')).getByRole('button')
+    );
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
 
