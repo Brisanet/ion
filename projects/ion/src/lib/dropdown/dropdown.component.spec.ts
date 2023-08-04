@@ -239,7 +239,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
 
   it('should clear all options and not show button clear in window', async () => {
     await sut(defaultMultiple);
-    const buttonClear = screen.getByTestId('button-clear');
+    const buttonClear = screen.getByTestId('btn-Limpar');
     fireEvent.click(buttonClear);
     expect(options.every((option) => option.selected)).toBe(false);
     expect(buttonClear).not.toBeInTheDocument();
