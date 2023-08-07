@@ -193,7 +193,7 @@ export class IonNotificationService {
     return this.componentSubscriber.next();
   }
 
-  private addCloseEventEmitter(
+  addCloseEventEmitter(
     notification: ComponentRef<IonNotificationComponent>,
     closeEvent: () => void
   ) {

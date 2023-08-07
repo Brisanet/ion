@@ -85,16 +85,24 @@ describe('NotificationService -> notification types', () => {
 
   const NOTIFICATIONS_CALLS = {
     success: (): void => {
-      notificationService.success('teste', 'teste');
+      notificationService.success('teste', 'teste', {}, () => {
+        return true;
+      });
     },
     info: (): void => {
-      notificationService.info('teste', 'teste');
+      notificationService.info('teste', 'teste', {}, () => {
+        return true;
+      });
     },
     warning: (): void => {
-      notificationService.warning('teste', 'teste');
+      notificationService.warning('teste', 'teste', {}, () => {
+        return true;
+      });
     },
     negative: (): void => {
-      notificationService.error('teste', 'teste');
+      notificationService.error('teste', 'teste', {}, () => {
+        return true;
+      });
     },
   };
 
@@ -121,6 +129,15 @@ describe('NotificationService -> notification types', () => {
       fireEvent.click(removeNotification[index]);
       notificationsOnScreen -= 1;
       expect(elements).toHaveLength(notificationsOnScreen);
+    }
+  );
+
+  it.each(NOTIFICATION_TYPES)(
+    'should add ionOnClose subscription when %s notification is created',
+    async (type) => {
+      notificationService.addCloseEventEmitter = jest.fn();
+      NOTIFICATIONS_CALLS[type]();
+      expect(notificationService.addCloseEventEmitter).toHaveBeenCalledTimes(1);
     }
   );
 });
