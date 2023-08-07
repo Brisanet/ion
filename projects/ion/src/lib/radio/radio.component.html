@@ -11,7 +11,7 @@
   />
   <label
     [ngClass]="{ labelDisabled: !disabled, 'labelDisabled-checked': disabled }"
-    [for]="label"
+    (click)="check()"
     >{{ label }}</label
   >
 </form>
