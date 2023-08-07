@@ -110,7 +110,7 @@ describe('IonControlPickerComponent', () => {
     const labelYear = screen.getByTestId('label-year');
     fireEvent.click(labelYear);
     const button = screen.getByTestId('btn-show-previous-years');
-    fireEvent.click(button);
+    fireEvent.click(within(button).getByRole('button'));
     const button2015 = screen.getByTestId('btn-year-2015');
     expect(button2015.textContent).toBe('2015');
   });
@@ -120,7 +120,7 @@ describe('IonControlPickerComponent', () => {
     const labelYear = screen.getByTestId('label-year');
     fireEvent.click(labelYear);
     const button = screen.getByTestId('btn-show-next-years');
-    fireEvent.click(button);
+    fireEvent.click(within(button).getByRole('button'));
     const button2029 = screen.getByTestId('btn-year-2029');
     expect(button2029.textContent).toBe('2029');
   });
