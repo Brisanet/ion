@@ -142,12 +142,6 @@ $arrow-size: 4.5px;
     color: $neutral-8;
   }
 
-  &__icon {
-    ::ng-deep svg {
-      fill: $primary-6;
-    }
-  }
-
   &__icon-close {
     cursor: pointer;
     ::ng-deep svg {
