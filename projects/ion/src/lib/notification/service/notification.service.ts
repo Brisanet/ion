@@ -133,6 +133,15 @@ export class IonNotificationService {
     }
   }
 
+  addCloseEventEmitter(
+    notification: ComponentRef<IonNotificationComponent>,
+    closeEvent: () => void
+  ): void {
+    notification.instance.ionOnClose.subscribe(() => {
+      closeEvent();
+    });
+  }
+
   private createComponentView(
     viewRef: ComponentRef<IonNotificationContainerComponent>
   ): void {
@@ -180,7 +189,7 @@ export class IonNotificationService {
 
   private instanceNotification(
     notification: ComponentRef<IonNotificationComponent>
-  ) {
+  ): void {
     notification.hostView.detectChanges();
     notification.changeDetectorRef.detectChanges();
 
@@ -191,14 +200,5 @@ export class IonNotificationService {
     this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
 
     return this.componentSubscriber.next();
-  }
-
-  addCloseEventEmitter(
-    notification: ComponentRef<IonNotificationComponent>,
-    closeEvent: () => void
-  ) {
-    notification.instance.ionOnClose.subscribe(() => {
-      closeEvent();
-    });
   }
 }
