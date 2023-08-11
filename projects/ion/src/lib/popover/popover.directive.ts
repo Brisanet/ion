@@ -28,6 +28,7 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverBody: TemplateRef<void>;
   @Input() ionPopoverActions?: IonButtonProps[];
   @Input() ionPopoverIcon?: IconType;
+  @Input() ionPopoverIconColor?: string;
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
@@ -73,6 +74,7 @@ export class IonPopoverDirective implements OnDestroy {
       ionPopoverBody: this.ionPopoverBody,
       ionPopoverActions: this.ionPopoverActions,
       ionPopoverIcon: this.ionPopoverIcon,
+      ionPopoverIconColor: this.ionPopoverIconColor,
       ionPopoverIconClose: this.ionPopoverIconClose,
       ionPopoverPosition: this.ionPopoverPosition,
     };
