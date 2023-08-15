@@ -83,8 +83,10 @@ export default class BnTable<DataType> {
       (response) => {
         this.configTable.loading = false;
 
-        const totalResponse: IResponse<DataType> = response[0];
-        const dataResponse: IResponse<DataType> = response[1];
+        const [totalResponse, dataResponse]: [
+          IResponse<DataType>,
+          IResponse<DataType>
+        ] = response;
 
         if (totalResponse && totalResponse.total !== null) {
           this.configTable.pagination = {
