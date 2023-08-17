@@ -169,7 +169,6 @@ describe('BnTable', () => {
       expect(bnTable.payload.age).toBeUndefined();
       expect(bnTable.payload.friends).toBe(filter.friends);
       expect(bnTable.payload.name).toBe(filter.name);
-      expect(bnTable.payload.name).toBe(filter.name);
     });
 
     it('should reset off when reload data with new filters', () => {
