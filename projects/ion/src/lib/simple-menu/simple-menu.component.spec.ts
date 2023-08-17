@@ -141,6 +141,32 @@ describe('Without Image', () => {
   });
 });
 
+describe('With Logo', () => {
+  it('should render logo', async () => {
+    const withLogoMenu: SimpleMenuProps = {
+      logo: {
+        src: 'https://logodownload.org/wp-content/uploads/2016/09/vasco-logo-0.png',
+        alt: 'Logo de exemplo',
+      },
+      options,
+      profile: {
+        imageUrl:
+          'https://ovicio.com.br/wp-content/uploads/2022/01/20220123-rocket-raccoon-guardians-of-the-galaxy.jpeg',
+        name: 'Rocket Raccoon',
+      },
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+      logoutClick: {
+        emit: logoutEvent,
+      } as SafeAny,
+    };
+
+    await sut(withLogoMenu);
+    expect(screen.queryByTestId('logoPhoto')).toBeInTheDocument();
+  });
+});
+
 const sleep = (ms: number): Promise<unknown> => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };

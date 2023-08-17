@@ -211,3 +211,10 @@ table {
     fill: $neutral-6;
   }
 }
+
+.hidden-content {
+  max-width: 0;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
