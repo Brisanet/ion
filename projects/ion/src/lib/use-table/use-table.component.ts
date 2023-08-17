@@ -11,7 +11,6 @@ interface User {
 @Component({
   selector: 'ion-use-table',
   templateUrl: './use-table.component.html',
-  styleUrls: ['./use-table.component.scss'],
 })
 export class IonUseTableComponent extends BnTable<User> {
   constructor(service: IonApiService) {
@@ -24,7 +23,7 @@ export class IonUseTableComponent extends BnTable<User> {
             icon: 'trash',
             label: 'Delete',
             call: (row): void => {
-              console.log('row -> ', row);
+              // console.log('row -> ', row);
             },
           },
         ],
