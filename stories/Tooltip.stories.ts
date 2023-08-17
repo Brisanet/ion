@@ -61,7 +61,7 @@ const Template: Story = (args) => ({
         div {
             height: 150px;
             display: flex;
-            justify-content: center;
+            justify-content: end;
             align-items: center;
         }
     </style>
@@ -83,7 +83,8 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipTitle:
+    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   ionTooltipPosition: TooltipPosition.DEFAULT,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
@@ -97,7 +98,8 @@ const WithTemplateRef: Story = (args) => ({
             height: 150px;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: start;
+            margin-right: 55px;
         }
 
         .content {
@@ -111,6 +113,7 @@ const WithTemplateRef: Story = (args) => ({
     <div class="tooltip">
       <span
         ionTooltip
+        ionTooltipTitle="${args.ionTooltipTitle}"
         [ionTooltipTemplateRef]="titleTemplate"
         ionTooltipPosition="${args.ionTooltipPosition}"
         [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
@@ -132,8 +135,9 @@ const WithTemplateRef: Story = (args) => ({
 
 export const WithContent = WithTemplateRef.bind({});
 WithContent.args = {
-  ionTooltipTitle: '',
-  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTitle:
+    'Sed ut perspiciatis unde ulalalalalalalalalalalaalalalalalalALSAAASLSLASKADLDASKDLDKLSAKD',
+  ionTooltipPosition: TooltipPosition.BOTTOM_CENTER,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
 WithContent.storyName = 'With Content';
@@ -184,7 +188,8 @@ const WithTitleAndTemplateRef: Story = (args) => ({
 
 export const WithTitleAndSubtitle = WithTitleAndTemplateRef.bind({});
 WithTitleAndSubtitle.args = {
-  ionTooltipTitle: 'Explicação do indicador aqui',
+  ionTooltipTitle:
+    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
   ionTooltipPosition: TooltipPosition.DEFAULT,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;

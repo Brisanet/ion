@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
@@ -23,7 +24,7 @@ import { getPositions } from './utilsTooltip';
 @Directive({
   selector: '[ionTooltip]',
 })
-export class IonTooltipDirective implements OnDestroy {
+export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipTemplateRef: TemplateRef<void>;
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
@@ -41,6 +42,16 @@ export class IonTooltipDirective implements OnDestroy {
     private injector: Injector,
     private elementRef: ElementRef
   ) {}
+
+  ngAfterViewChecked(): void {
+    if (
+      this.componentRef &&
+      this.componentRef.instance.getCoordinates().top < 0
+    ) {
+      console.log(this.componentRef.instance.getCoordinates());
+      this.ionTooltipPosition = TooltipPosition.TOP_CENTER;
+    }
+  }
 
   isComponentRefNull(): boolean {
     return this.componentRef === null;
@@ -77,7 +88,6 @@ export class IonTooltipDirective implements OnDestroy {
         this.showTooltip.bind(this),
         this.ionTooltipShowDelay
       );
-
       this.setComponentPosition();
     }
   }
@@ -92,8 +102,25 @@ export class IonTooltipDirective implements OnDestroy {
       this.ionTooltipArrowPointAtCenter
     );
 
-    this.componentRef.instance.left = positions[this.ionTooltipPosition].left;
-    this.componentRef.instance.top = positions[this.ionTooltipPosition].top;
+    const TOOLTIP_MAX_WIDTH = 224;
+    const SPACE_BETWEEN_HOST_AND_SCREEN_END = document.body.clientWidth - right;
+    // console.log(this.componentRef.instance.ionTooltipPosition);
+    // this.componentRef.instance.getHeight(
+    //   this.elementRef.nativeElement.getBoundingClientRect()
+    // );
+    //console.log(this.componentRef.instance.ionTooltipPosition);
+    // console.log('real width', width);
+    // console.log('espaço restante na tela?', SPACE_BETWEEN_HOST_AND_SCREEN_END);
+    // console.log('host positions', hostPositions);
+    // console.log(
+    //   'tem espaço?',
+    //   SPACE_BETWEEN_HOST_AND_SCREEN_END + width / 2 > TOOLTIP_MAX_WIDTH / 2
+    // );
+
+    this.componentRef.instance.left =
+      positions[this.componentRef.instance.ionTooltipPosition].left;
+    this.componentRef.instance.top =
+      positions[this.componentRef.instance.ionTooltipPosition].top;
   }
 
   attachComponentToView(): void {

@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild } from '@angular/core';
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 
 @Component({
@@ -7,6 +7,8 @@ import { TooltipColorScheme, TooltipPosition } from '../core/types';
   styleUrls: ['./tooltip.component.scss'],
 })
 export class IonTooltipComponent {
+  @ViewChild('tooltip', { static: true }) tooltip: ElementRef;
+
   ionTooltipTitle: string;
   ionTooltipTemplateRef: TemplateRef<void>;
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
@@ -14,4 +16,8 @@ export class IonTooltipComponent {
   ionTooltipVisible = false;
   left = 0;
   top = 0;
+
+  getCoordinates() {
+    return this.tooltip.nativeElement.getBoundingClientRect();
+  }
 }
