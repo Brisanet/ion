@@ -9,6 +9,14 @@ import {
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 import { TooltipService } from './tooltip.service';
 
+const PADDING = 16;
+const TOOLTIP_MAX_WIDTH = 208 + PADDING;
+
+type PositionCheck = {
+  check: () => boolean;
+  position: TooltipPosition;
+};
+
 @Component({
   selector: 'ion-tooltip',
   templateUrl: './tooltip.component.html',
@@ -36,51 +44,84 @@ export class IonTooltipComponent implements AfterViewChecked {
     this.cdr.detectChanges();
   }
 
-  checkHostPositionOnPage(): void {
-    const { top, left, height } = this.getCoordinates();
+  private checkHostPositionOnPage(): void {
+    const { left, height } = this.getCoordinates();
 
     const hostPosition = this.tooltipService.hostPosition;
 
-    const TOOLTIP_MAX_WIDTH = 224;
-
     const { clientWidth, clientHeight } = document.body;
 
-    if (clientWidth - hostPosition.right < TOOLTIP_MAX_WIDTH / 2) {
-      this.ionTooltipPosition = TooltipPosition.CENTER_RIGHT;
+    if (!hostPosition) {
+      return;
     }
 
-    if (clientHeight - hostPosition.bottom < height) {
-      this.ionTooltipPosition = TooltipPosition.BOTTOM_CENTER;
-    }
+    const positionChecks: PositionCheck[] = [
+      {
+        check: () => this.atRightEdge(clientWidth, hostPosition.right),
+        position: TooltipPosition.CENTER_RIGHT,
+      },
+      {
+        check: () =>
+          this.atBottomEdge(clientHeight, hostPosition.bottom, height),
+        position: TooltipPosition.BOTTOM_CENTER,
+      },
+      {
+        check: () => this.atLeftEdge(left),
+        position: TooltipPosition.CENTER_LEFT,
+      },
+      {
+        check: () =>
+          this.atTopEdge(hostPosition.top, height) &&
+          this.atRightEdge(clientWidth, hostPosition.right),
+        position: TooltipPosition.TOP_RIGHT,
+      },
+      {
+        check: () =>
+          this.atBottomEdge(clientHeight, hostPosition.bottom, height) &&
+          this.atLeftEdge(left),
+        position: TooltipPosition.BOTTOM_LEFT,
+      },
+      {
+        check: () =>
+          this.atTopEdge(hostPosition.top, height) && this.atLeftEdge(left),
+        position: TooltipPosition.TOP_LEFT,
+      },
+      {
+        check: () =>
+          this.atBottomEdge(clientHeight, hostPosition.bottom, height) &&
+          this.atRightEdge(clientWidth, hostPosition.right),
+        position: TooltipPosition.BOTTOM_RIGHT,
+      },
+    ];
 
-    if (left < 0) {
-      this.ionTooltipPosition = TooltipPosition.CENTER_LEFT;
-    }
-
-    if (top < 0 && clientWidth - hostPosition.right < TOOLTIP_MAX_WIDTH / 2) {
-      this.ionTooltipPosition = TooltipPosition.TOP_RIGHT;
-    }
-
-    if (
-      clientHeight - hostPosition.bottom < height &&
-      left < TOOLTIP_MAX_WIDTH / 2
-    ) {
-      this.ionTooltipPosition = TooltipPosition.BOTTOM_LEFT;
-    }
-
-    if (hostPosition.top < height / 2 && left < TOOLTIP_MAX_WIDTH / 2) {
-      this.ionTooltipPosition = TooltipPosition.TOP_LEFT;
-    }
-
-    if (
-      clientHeight - hostPosition.bottom < height &&
-      clientWidth - hostPosition.right < TOOLTIP_MAX_WIDTH / 2
-    ) {
-      this.ionTooltipPosition = TooltipPosition.BOTTOM_RIGHT;
+    for (const { check, position } of positionChecks) {
+      if (check()) {
+        this.ionTooltipPosition = position;
+      }
     }
   }
 
-  getCoordinates(): DOMRect {
+  private getCoordinates(): DOMRect {
     return this.tooltip.nativeElement.getBoundingClientRect();
+  }
+
+  private atTopEdge(hostTop: number, height: number): boolean {
+    return hostTop < (height + PADDING) / 2;
+  }
+
+  private atBottomEdge(
+    screenHeight: number,
+    hostBottom: number,
+    height: number
+  ): boolean {
+    return screenHeight - hostBottom < height + PADDING;
+  }
+
+  private atLeftEdge(left: number): boolean {
+    return left < TOOLTIP_MAX_WIDTH / 2;
+  }
+
+  private atRightEdge(screenWidth: number, hostRight: number): boolean {
+    return screenWidth - hostRight < TOOLTIP_MAX_WIDTH / 2;
   }
 }

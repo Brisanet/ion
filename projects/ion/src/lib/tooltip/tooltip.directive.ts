@@ -32,7 +32,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
 
-  subscription: Subscription;
+  public subscription: Subscription;
   private componentRef: ComponentRef<IonTooltipComponent> = null;
   private delayTimeout: number;
 
