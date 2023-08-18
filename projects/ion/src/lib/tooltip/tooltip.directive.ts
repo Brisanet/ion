@@ -1,5 +1,5 @@
+import { TooltipPosition } from './../core/types/tooltip';
 import {
-  AfterViewChecked,
   ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
@@ -10,21 +10,20 @@ import {
   Injector,
   Input,
   OnDestroy,
+  OnInit,
   TemplateRef,
 } from '@angular/core';
-import {
-  TooltipColorScheme,
-  TooltipPosition,
-  TooltipTrigger,
-} from '../core/types';
+import { TooltipColorScheme, TooltipTrigger } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { IonTooltipComponent } from './tooltip.component';
 import { getPositions } from './utilsTooltip';
+import { TooltipService } from './tooltip.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[ionTooltip]',
 })
-export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
+export class IonTooltipDirective implements OnDestroy, OnInit {
   @Input() ionTooltipTitle = '';
   @Input() ionTooltipTemplateRef: TemplateRef<void>;
   @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
@@ -33,6 +32,7 @@ export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
 
+  subscription: Subscription;
   private componentRef: ComponentRef<IonTooltipComponent> = null;
   private delayTimeout: number;
 
@@ -40,17 +40,16 @@ export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private tooltipService: TooltipService
   ) {}
 
-  ngAfterViewChecked(): void {
-    if (
-      this.componentRef &&
-      this.componentRef.instance.getCoordinates().top < 0
-    ) {
-      console.log(this.componentRef.instance.getCoordinates());
-      this.ionTooltipPosition = TooltipPosition.TOP_CENTER;
-    }
+  ngOnInit(): void {
+    this.subscription = this.tooltipService.rerender.subscribe((response) => {
+      if (response && !this.isComponentRefNull()) {
+        this.setComponentPosition();
+      }
+    });
   }
 
   isComponentRefNull(): boolean {
@@ -97,25 +96,13 @@ export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
       this.elementRef.nativeElement.getBoundingClientRect();
 
     const hostPositions = { left, right, top, bottom };
+
+    this.tooltipService.hostPosition = hostPositions;
+
     const positions = getPositions(
       hostPositions,
       this.ionTooltipArrowPointAtCenter
     );
-
-    const TOOLTIP_MAX_WIDTH = 224;
-    const SPACE_BETWEEN_HOST_AND_SCREEN_END = document.body.clientWidth - right;
-    // console.log(this.componentRef.instance.ionTooltipPosition);
-    // this.componentRef.instance.getHeight(
-    //   this.elementRef.nativeElement.getBoundingClientRect()
-    // );
-    //console.log(this.componentRef.instance.ionTooltipPosition);
-    // console.log('real width', width);
-    // console.log('espaço restante na tela?', SPACE_BETWEEN_HOST_AND_SCREEN_END);
-    // console.log('host positions', hostPositions);
-    // console.log(
-    //   'tem espaço?',
-    //   SPACE_BETWEEN_HOST_AND_SCREEN_END + width / 2 > TOOLTIP_MAX_WIDTH / 2
-    // );
 
     this.componentRef.instance.left =
       positions[this.componentRef.instance.ionTooltipPosition].left;
@@ -172,5 +159,6 @@ export class IonTooltipDirective implements OnDestroy, AfterViewChecked {
 
   ngOnDestroy(): void {
     this.destroyComponent();
+    this.subscription.unsubscribe();
   }
 }
