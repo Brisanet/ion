@@ -41,7 +41,7 @@ export class IonTooltipComponent implements AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.repositionTooltip();
-    this.tooltipService.rerender.next(true);
+    this.tooltipService.reposition.next();
     this.cdr.detectChanges();
   }
 
@@ -56,7 +56,7 @@ export class IonTooltipComponent implements AfterViewChecked {
       return;
     }
 
-    const positionChecks: PositionCheck[] = this.getTooltipPositions(
+    const positionChecks: PositionCheck[] = this.getTooltipPosition(
       left,
       height,
       hostPosition,
@@ -71,7 +71,7 @@ export class IonTooltipComponent implements AfterViewChecked {
     return this.tooltip.nativeElement.getBoundingClientRect();
   }
 
-  private getTooltipPositions(
+  private getTooltipPosition(
     tooltipLeft: number,
     tooltipHeight: number,
     hostPosition: SafeAny,

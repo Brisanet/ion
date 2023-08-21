@@ -45,8 +45,8 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.tooltipService.rerender.subscribe((response) => {
-      if (response && !this.isComponentRefNull()) {
+    this.subscription = this.tooltipService.reposition.subscribe(() => {
+      if (!this.isComponentRefNull()) {
         this.setComponentPosition();
       }
     });
