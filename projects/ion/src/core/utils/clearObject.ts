@@ -1,5 +1,5 @@
 import { SafeAny } from '../../lib/utils/safe-any';
-import { isEmpty } from 'lodash';
+import { isEmpty } from './isEmpty';
 
 export function clearObject<T = SafeAny>(value: SafeAny): T {
   Object.keys(value).forEach((key) => {
