@@ -22,14 +22,14 @@
     <div class="footer">
       <ion-button
         data-testid="pop-cancel-btn"
-        (click)="close()"
+        (ionOnClick)="close()"
         [label]="ionCancelText"
         type="ghost"
         size="sm"
       ></ion-button>
       <ion-button
         data-testid="pop-confirm-btn"
-        (click)="handleConfirm()"
+        (ionOnClick)="handleConfirm()"
         [label]="ionConfirmText"
         size="sm"
       ></ion-button>

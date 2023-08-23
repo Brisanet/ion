@@ -1,6 +1,12 @@
-import { StatusType } from './../core/types/status';
+import {
+  AfterViewInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonTableProps } from '../core/types';
@@ -8,16 +14,12 @@ import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { SafeAny } from '../utils/safe-any';
+import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
-import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
-import {
-  AfterViewInit,
-  Component,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
 import { IonTableModule } from './table.module';
+import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -85,6 +87,7 @@ const sut = async (
       IonPaginationModule,
       IonTagModule,
       IonPopConfirmModule,
+      IonTooltipModule,
     ],
   });
 };
@@ -161,6 +164,111 @@ describe('IonTableComponent', () => {
 
   afterEach(() => {
     defaultProps.config.data = JSON.parse(JSON.stringify(data));
+  });
+});
+
+describe('Table > columns header with tooltip', () => {
+  const events = jest.fn();
+  let columnHead: HTMLElement;
+  const columnsWithTooltip: Column[] = [
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: true,
+      configTooltip: {
+        ionTooltipTitle: 'Eu sou um tooltip',
+      },
+    },
+    {
+      key: 'height',
+      label: 'Altura',
+      sort: true,
+    },
+  ];
+
+  const propsColumnWithTooltip: IonTableProps<Disco> = {
+    config: {
+      data,
+      columns: columnsWithTooltip,
+      pagination: {
+        total: 32,
+        itemsPerPage: 10,
+        page: 1,
+      },
+      loading: false,
+    },
+    events: {
+      emit: events,
+    } as SafeAny,
+  };
+
+  beforeEach(async () => {
+    await sut(propsColumnWithTooltip);
+  });
+
+  afterEach(() => {
+    fireEvent.mouseLeave(columnHead);
+  });
+
+  it('should render tooltip when it have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[0].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
+  });
+
+  it('should not render tooltip when it doesnt have a configTooltip', () => {
+    columnHead = screen.getByTestId('th-span-' + columnsWithTooltip[1].key);
+    fireEvent.mouseEnter(columnHead);
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+  });
+});
+
+describe('Table > Changes', () => {
+  const propsToChange: IonTableProps<Disco> = {
+    config: {
+      data: [{ name: 'Blink 182', deleted: false, id: 2 }],
+      columns,
+    },
+  };
+
+  it('should change data in table', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+        IonTooltipModule,
+      ],
+    });
+    const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
+    propsToChange.config.data = [...newData];
+
+    rerender(propsToChange);
+    expect(screen.queryAllByText(newData[0].name)).toHaveLength(1);
+  });
+
+  it('should change data to empty and render no data', async () => {
+    const { rerender } = await render(IonTableComponent, {
+      componentProperties: propsToChange,
+      imports: [
+        FormsModule,
+        IonButtonModule,
+        IonIconModule,
+        IonCheckboxModule,
+        IonPaginationModule,
+        IonTagModule,
+        IonPopConfirmModule,
+        IonTooltipModule,
+      ],
+    });
+    propsToChange.config.data = [];
+    rerender(propsToChange);
+    expect(screen.queryAllByText('Não há dados')).toHaveLength(1);
   });
 });
 
@@ -522,6 +630,11 @@ describe('Table > Differents columns data type', () => {
     it('should not show icon sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
+    });
+
+    it('should not show sort button when column is not sortable', async () => {
+      await sut(tableDifferentColumns);
+      expect(screen.queryAllByTestId('btn-sort-by-year')).toHaveLength(0);
     });
 
     it('should render arrow down blue when sort desc', async () => {

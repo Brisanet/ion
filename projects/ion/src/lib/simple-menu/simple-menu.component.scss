@@ -26,6 +26,15 @@
   ::ng-deep ion-tab-group div div {
     width: 100%;
   }
+
+  .menu-header {
+    padding: spacing(2) spacing(3);
+
+    img {
+      width: 94px;
+      height: 32px;
+    }
+  }
 }
 
 .menu-container-opened {

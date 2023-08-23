@@ -1,10 +1,11 @@
 import {
+  AfterViewChecked,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnInit,
   Output,
-  TemplateRef,
 } from '@angular/core';
 import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
@@ -32,9 +33,8 @@ const stateChange = {
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartTableComponent implements OnInit {
+export class IonSmartTableComponent implements OnInit, AfterViewChecked {
   @Input() config: ConfigSmartTable<SafeAny>;
-  @Input() ionTooltipTemplate?: TemplateRef<void>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
@@ -43,6 +43,8 @@ export class IonSmartTableComponent implements OnInit {
 
   private firstLoad = true;
   private tableUtils: TableUtils;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.tableUtils = new TableUtils(this.config);
@@ -57,6 +59,10 @@ export class IonSmartTableComponent implements OnInit {
         this.sort(column);
       }, this.config.debounceOnSort);
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
   }
 
   public checkState(): void {

@@ -1,7 +1,11 @@
 import { Meta, Story } from '@storybook/angular';
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
-import { IonTableModule } from '../projects/ion/src/public-api';
+import {
+  IonTableModule,
+  TooltipPosition,
+  TooltipTrigger,
+} from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Table',
@@ -134,10 +138,42 @@ const actions = [
   },
 ];
 
+const mockTooltip = {
+  ionTooltipTitle: 'Eu sou um tooltip',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+  ionTooltipColorScheme: 'dark',
+  ionTooltipShowDelay: 1000,
+  ionTooltipArrowPointAtCenter: true,
+};
+
+const columnsWithTooltip = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    configTooltip: { ...mockTooltip },
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    configTooltip: { ...mockTooltip },
+  },
+];
+
 export const Basic = Template.bind({});
 Basic.args = {
   config: {
     data,
+    columns,
+  },
+};
+
+export const NoData = Template.bind({});
+NoData.args = {
+  config: {
+    data: [],
     columns,
   },
 };
@@ -187,6 +223,15 @@ WithTagByColumn.args = {
         },
       },
     ],
+  },
+};
+
+export const ColumnHeaderWithTooltip = Template.bind({});
+ColumnHeaderWithTooltip.args = {
+  config: {
+    data,
+    columns: columnsWithTooltip,
+    actions,
   },
 };
 
@@ -310,7 +355,7 @@ TableCustomRow.parameters = {
       story: `Passos para customizar a linha da tabela.
     1. No HTML do seu componente, crie um ng-template com a diretiva 'let-row' e realize as customizações desejadas.
     A diretiva 'let-row' permite acessar os dados da linha através da identificação do objeto passado na configuração
-    da tabela. Veja o exemplo abaixo: 
+    da tabela. Veja o exemplo abaixo:
 
     <ng-template #customTemplate let-row>
       <td>{{row.id}}</td>
@@ -326,20 +371,20 @@ TableCustomRow.parameters = {
     </ng-template>
 
     2. No arquivo .ts do seu componente, utilize o decorator '@ViewChild' para obter a referência do template customizado
-    criado no arquivo HTML.  
-        
+    criado no arquivo HTML.
+
     export class AppComponent implements OnInit {
       @ViewChild("customTemplate", { static: true })
       customTemplate: TemplateRef<HTMLElement>;
 
       ...
     }
-      
+
     3. Passe a referência do template customizado para o atributo customRowTemplate da configuração da tabela.
 
     export class AppComponent implements OnInit {
       ...
-      
+
       ngOnInit(): void {
         this.config = {
           data,
