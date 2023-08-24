@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { timer } from 'rxjs';
 import { IonSidebarProps } from '../core/types/sidebar';
 import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
@@ -40,7 +39,7 @@ export class IonSidebarComponent {
   public toggleVisibility(): void {
     this.closed = !this.closed;
     if (!this.closed) {
-      timer(1).subscribe(() => {
+      setTimeout(() => {
         document.addEventListener('click', this.checkClikOnPageAccess);
       });
     }

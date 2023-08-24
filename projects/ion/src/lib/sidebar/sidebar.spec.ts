@@ -89,18 +89,6 @@ describe('Sidebar', () => {
     it('should render sidebar', () => {
       expect(getByTestId('sidebar')).toBeInTheDocument();
     });
-
-    it('should close sidebar after clicking outside it', () => {
-      jest.spyOn(IonSidebarComponent.prototype, 'checkClikOnPage');
-      const instance = new IonSidebarComponent();
-      const button = within(getByTestId('outsideContainer')).getByTestId(
-        'ion-sidebar__toggle-visibility'
-      ).firstElementChild;
-      userEvent.click(button);
-      instance.checkClikOnPage(true);
-      expect(instance.checkClikOnPage).toBeCalledTimes(1);
-      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
-    });
     it('should render logo on sidebar', () => {
       expect(screen.getByRole('img')).toHaveAttribute('src', logo);
     });
@@ -221,6 +209,27 @@ describe('Sidebar', () => {
         userEvent.click(groupName);
         expect(actionMock).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+  describe('Clicking outside it', () => {
+    it('should close sidebar after clicking outside it', async () => {
+      jest.useFakeTimers();
+      const timeDelay = 300;
+      const { detectChanges } = await render(IonSidebarComponent, {
+        declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
+        imports: [CommonModule, IonIconModule, IonButtonModule],
+      });
+
+      userEvent.click(getByTestId('toggleVisibility').firstElementChild);
+      userEvent.click(
+        within(getByTestId('outsideContainer')).getByTestId(
+          'ion-sidebar__toggle-visibility'
+        ).firstElementChild
+      );
+
+      jest.advanceTimersByTime(timeDelay);
+      detectChanges();
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
   });
   describe('Group without action', () => {
