@@ -49,6 +49,7 @@
       <ion-button
         [label]="configuration.footer?.primaryButton?.label"
         [iconType]="configuration.footer?.primaryButton?.iconType"
+        [loading]="configuration.footer?.primaryButton?.loading"
         (ionOnClick)="closeModal(this.getChildComponentPropertiesValue())"
         [disabled]="configuration.footer?.primaryButton?.disabled"
         data-testid="modal-primary-btn"
