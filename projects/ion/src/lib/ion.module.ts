@@ -46,6 +46,7 @@ import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonModule } from './skeleton/skeleton.module';
 import { IonSelectModule } from './select/select.module';
 import { IonNoDataModule } from './no-data/no-data.module';
+import { IonWizardModule } from './wizard/wizard.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -60,6 +61,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonInputModule,
     IonTagModule,
     IonAvatarModule,
+    IonWizardModule,
     IonAlertModule,
     IonBreadcrumbModule,
     IonInfoBadgeModule,
@@ -107,6 +109,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonInputModule,
     IonTagModule,
     IonAvatarModule,
+    IonWizardModule,
     IonAlertModule,
     IonBreadcrumbModule,
     IonInfoBadgeModule,
