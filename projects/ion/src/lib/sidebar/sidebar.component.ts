@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { timer } from 'rxjs';
 import { IonSidebarProps } from '../core/types/sidebar';
 import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
@@ -14,24 +15,33 @@ export class IonSidebarComponent {
 
   public closed = true;
 
-  public checkClikOnPage = (event): EventListenerOrEventListenerObject => {
-    const containerElement = document.querySelector('.ion-sidebar--opened');
+  public checkClikOnPageAccess = (
+    event
+  ): EventListenerOrEventListenerObject => {
+    this.checkClikOnPage(event);
+    return;
+  };
+
+  public checkClikOnPage(event): EventListenerOrEventListenerObject {
+    const containerElement = [document.querySelector('.ion-sidebar--opened')];
     const innerElement = event.target;
-    if (containerElement && !containerElement.contains(innerElement as Node)) {
-      const closeBUtton = document.querySelector(
+    if (containerElement.length && !containerElement.includes(innerElement)) {
+      const closeButton = document.querySelector(
         '.ion-sidebar--opened .ion-sidebar__header button'
       ) as HTMLElement;
-      closeBUtton.click();
+      if (closeButton) {
+        closeButton.click();
+      }
       document.removeEventListener('click', this.checkClikOnPage);
     }
     return;
-  };
+  }
 
   public toggleVisibility(): void {
     this.closed = !this.closed;
     if (!this.closed) {
-      setTimeout(() => {
-        document.addEventListener('click', this.checkClikOnPage);
+      timer(1).subscribe(() => {
+        document.addEventListener('click', this.checkClikOnPageAccess);
       });
     }
   }

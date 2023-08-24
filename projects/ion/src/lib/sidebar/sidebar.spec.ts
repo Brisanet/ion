@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonSidebarProps } from '../core/types/sidebar';
@@ -12,6 +12,7 @@ const components = {
   sidebar: 'ion-sidebar',
   group: 'sidebar-group',
   toggleVisibility: 'ion-sidebar__toggle-visibility',
+  outsideContainer: 'ion-sidebar__outside-container',
 };
 
 const getByTestId = (key: keyof typeof components): HTMLElement => {
@@ -80,8 +81,25 @@ describe('Sidebar', () => {
       await sut({ items, logo, logoAction: actionMock });
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
     });
+
+    afterEach(async () => {
+      jest.clearAllMocks();
+    });
+
     it('should render sidebar', () => {
       expect(getByTestId('sidebar')).toBeInTheDocument();
+    });
+
+    it('should close sidebar after clicking outside it', () => {
+      jest.spyOn(IonSidebarComponent.prototype, 'checkClikOnPage');
+      const instance = new IonSidebarComponent();
+      const button = within(getByTestId('outsideContainer')).getByTestId(
+        'ion-sidebar__toggle-visibility'
+      ).firstElementChild;
+      userEvent.click(button);
+      instance.checkClikOnPage(true);
+      expect(instance.checkClikOnPage).toBeCalledTimes(1);
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
     it('should render logo on sidebar', () => {
       expect(screen.getByRole('img')).toHaveAttribute('src', logo);
