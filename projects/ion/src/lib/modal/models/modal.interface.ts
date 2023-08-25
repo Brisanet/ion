@@ -1,3 +1,4 @@
+import { IonButtonProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
 export interface IonModalConfiguration {
@@ -15,14 +16,8 @@ export interface IonModalFooterConfiguration {
   hide?: boolean;
   showDivider?: boolean;
 
-  primaryButton?: ModalButton;
-  secondaryButton?: ModalButton;
-}
-
-export interface ModalButton {
-  label?: string;
-  iconType?: string;
-  disabled?: boolean;
+  primaryButton?: IonButtonProps;
+  secondaryButton?: IonButtonProps;
 }
 
 export interface IonModalResponse {
