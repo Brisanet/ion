@@ -30,10 +30,9 @@ export class ClickOutsideDirective {
 
   private isOnDropdown(targetElement: HTMLElement): boolean {
     return (
-      (targetElement &&
-        targetElement.className &&
-        targetElement.className.includes('ant-select-dropdown-menu-item')) ||
-      false
+      targetElement &&
+      targetElement.className &&
+      targetElement.className.includes('ant-select-dropdown-menu-item')
     );
   }
 }
