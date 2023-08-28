@@ -21,7 +21,7 @@ export class IonSidebarComponent {
     return;
   };
 
-  public checkClikOnPage(event): EventListenerOrEventListenerObject {
+  public checkClikOnPage(event): void {
     const containerElement = [document.querySelector('.ion-sidebar--opened')];
     const innerElement = event.target;
     if (containerElement.length && !containerElement.includes(innerElement)) {
@@ -33,7 +33,6 @@ export class IonSidebarComponent {
       }
       document.removeEventListener('click', this.checkClikOnPage);
     }
-    return;
   }
 
   public toggleVisibility(): void {
