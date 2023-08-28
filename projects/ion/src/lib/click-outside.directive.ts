@@ -22,9 +22,18 @@ export class ClickOutsideDirective {
       return;
     }
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
-    if (!clickedInside) {
+    if (!clickedInside && !this.isOnDropdown(targetElement)) {
       this.clickOutside.emit(null);
       this.firstOpen = true;
     }
+  }
+
+  private isOnDropdown(targetElement: HTMLElement): boolean {
+    return (
+      (targetElement &&
+        targetElement.className &&
+        targetElement.className.includes('ant-select-dropdown-menu-item')) ||
+      false
+    );
   }
 }
