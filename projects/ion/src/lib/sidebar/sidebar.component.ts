@@ -14,11 +14,8 @@ export class IonSidebarComponent {
 
   public closed = true;
 
-  public checkClikOnPageAccess = (
-    event
-  ): EventListenerOrEventListenerObject => {
+  public checkClikOnPageAccess = (event): void => {
     this.checkClikOnPage(event);
-    return;
   };
 
   public checkClikOnPage(event): void {
