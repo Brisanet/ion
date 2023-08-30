@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { IPayload, IResponse } from '../../core/api/http.interfaces';
+import { IResponse } from '../../core/api/http.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IonApiService {
-  list(
-    filter?: IPayload
-  ): Observable<IResponse<{ id: string; nome: string; data_criacao: string }>> {
-    // const data = [{ name: 'Iury' }, { name: 'Iracema' }];
+  list(): Observable<
+    IResponse<{ id: string; nome: string; data_criacao: string }>
+  > {
     const page1 = [
       {
         id: '0ad3d3fb-b91a-4251-9b9b-b720c23505e9',
