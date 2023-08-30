@@ -23,6 +23,7 @@ export class IonUseTableComponent extends BnTable<User> {
             icon: 'trash',
             label: 'Delete',
             call: (row): void => {
+              row = `${row.name} - deleted`;
               // console.log('row -> ', row);
             },
           },
