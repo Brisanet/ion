@@ -1,5 +1,5 @@
 import { forkJoin, of } from 'rxjs';
-import { finalize, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import {
