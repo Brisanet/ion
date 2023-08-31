@@ -113,6 +113,7 @@ export default class BnTable<DataType> {
     const eventHandlers = {
       [EventTable.CHANGE_PAGE]: () => this.handlePageChange(event.change_page),
       [EventTable.SORT]: () => event.order && this.handleSort(event.order),
+      [EventTable.REFRESH_FILTER]: () => this.filter(event.data),
     };
 
     const handler = eventHandlers[event.event];
@@ -120,7 +121,9 @@ export default class BnTable<DataType> {
       handler();
     }
 
-    this.smartData();
+    if (event.event !== EventTable.REFRESH_FILTER) {
+      this.smartData();
+    }
   }
 
   handlePageChange(changePage: PageEvent): void {
