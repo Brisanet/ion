@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   HostListener,
+  Input,
   Output,
 } from '@angular/core';
 
@@ -11,6 +12,7 @@ import {
 })
 export class ClickOutsideDirective {
   @Output() clickOutside: EventEmitter<null> = new EventEmitter();
+  @Input() exceptionSeletor = '';
   private firstOpen = true;
 
   constructor(private elementRef: ElementRef) {}
@@ -22,17 +24,18 @@ export class ClickOutsideDirective {
       return;
     }
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
-    if (!clickedInside && !this.isOnDropdown(targetElement)) {
+    if (!clickedInside && !this.isOnException(targetElement)) {
       this.clickOutside.emit(null);
       this.firstOpen = true;
     }
   }
 
-  private isOnDropdown(targetElement: HTMLElement): boolean {
+  private isOnException(targetElement: HTMLElement): boolean {
     return (
+      this.exceptionSeletor &&
       targetElement &&
       targetElement.className &&
-      targetElement.className.includes('ant-select-dropdown-menu-item')
+      targetElement.className.includes(this.exceptionSeletor)
     );
   }
 }

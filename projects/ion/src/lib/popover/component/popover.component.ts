@@ -1,7 +1,7 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { PopoverPosition } from '../../core/types/popover';
 import { IconType, IonButtonProps } from '../../core/types';
+import { PopoverPosition } from '../../core/types/popover';
 
 const PRIMARY_6 = '#0858ce';
 
@@ -21,6 +21,7 @@ export class IonPopoverComponent {
   @Input() ionPopoverIconClose = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverCustomClass = '';
+  @Input() ionPopoverExceptionClickOutside!: string;
 
   left = 0;
   top = 0;

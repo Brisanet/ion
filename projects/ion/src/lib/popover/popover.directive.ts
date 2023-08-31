@@ -1,25 +1,25 @@
-import {
-  Directive,
-  Input,
-  HostListener,
-  ComponentFactoryResolver,
-  Injector,
-  Inject,
-  ComponentRef,
-  ApplicationRef,
-  Output,
-  EventEmitter,
-  ViewContainerRef,
-  OnDestroy,
-  TemplateRef,
-} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  OnDestroy,
+  Output,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
+import { pick } from 'lodash';
+import { IconType, IonButtonProps } from '../core/types';
+import { PopoverPosition } from '../core/types/popover';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
-import { PopoverPosition } from '../core/types/popover';
 import { getPositionsPopover } from './utilsPopover';
-import { IonButtonProps, IconType } from '../core/types';
-import { pick } from 'lodash';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
@@ -32,6 +32,7 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
+  @Input() ionPopoverExceptionClickOutside!: string;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -77,6 +78,7 @@ export class IonPopoverDirective implements OnDestroy {
       ionPopoverIconColor: this.ionPopoverIconColor,
       ionPopoverIconClose: this.ionPopoverIconClose,
       ionPopoverPosition: this.ionPopoverPosition,
+      ionPopoverExceptionClickOutside: this.ionPopoverExceptionClickOutside,
     };
     Object.keys(instanceProps).forEach((prop) => {
       popoverInstance[prop] = instanceProps[prop];
