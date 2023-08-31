@@ -1,5 +1,5 @@
 import { forkJoin, of } from 'rxjs';
-import { finalize, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import {
@@ -113,6 +113,7 @@ export default class BnTable<DataType> {
     const eventHandlers = {
       [EventTable.CHANGE_PAGE]: () => this.handlePageChange(event.change_page),
       [EventTable.SORT]: () => event.order && this.handleSort(event.order),
+      [EventTable.REFRESH_FILTER]: () => this.filter(event.data),
     };
 
     const handler = eventHandlers[event.event];
@@ -120,7 +121,9 @@ export default class BnTable<DataType> {
       handler();
     }
 
-    this.smartData();
+    if (event.event !== EventTable.REFRESH_FILTER) {
+      this.smartData();
+    }
   }
 
   handlePageChange(changePage: PageEvent): void {

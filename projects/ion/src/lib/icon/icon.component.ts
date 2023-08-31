@@ -16,6 +16,16 @@ export class IonIconComponent {
   constructor(private sanitizer: DomSanitizer, private el: ElementRef) {}
 
   getPath(): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(iconsPaths[this.type]);
+    if (iconsPaths[this.type]) {
+      const paths = iconsPaths[this.type].split('/>');
+      const resultPaths = paths
+        .map((path, index) => {
+          return path.includes('path')
+            ? `${path} id="ion-icon-path-${this.type}-${index}" />`
+            : '';
+        })
+        .join('');
+      return this.sanitizer.bypassSecurityTrustHtml(resultPaths);
+    }
   }
 }

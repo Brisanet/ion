@@ -21,6 +21,11 @@ export class ClickOutsideDirective {
       this.firstOpen = false;
       return;
     }
+
+    if (targetElement.id && targetElement.id.includes('ion-icon')) {
+      return;
+    }
+
     const clickedInside = this.elementRef.nativeElement.contains(targetElement);
     if (!clickedInside) {
       this.clickOutside.emit(null);
