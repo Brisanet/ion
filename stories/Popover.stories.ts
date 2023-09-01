@@ -30,6 +30,7 @@ const TemplateComponente: Story = (args) => ({
         ionPopoverIconClose="${args.ionPopoverIconClose}"
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
+        ionPopoverCustomClass="${args.ionPopoverCustomClass}"
       >
       </ion-popover>
       <ng-template #BodyTemplate>
@@ -47,6 +48,7 @@ Component.args = {
   ionPopoverIconClose: true,
   ionPopoverIcon: 'block',
   ionPopoverIconColor: '#282b33',
+  ionPopoverCustomClass: 'popover-custom-class',
 };
 Component.parameters = { controls: { exclude: /^ionPopoverPosition*/ } };
 
@@ -189,6 +191,7 @@ const Template: Story = (args) => ({
         ionPopoverPosition="${args.ionPopoverPosition}"
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
+        ionPopoverCustomClass="${args.ionPopoverCustomClass}"
         [ionPopoverActions]="null"
         label="click me"
       >
@@ -207,6 +210,7 @@ Directive.args = {
   ionPopoverIconClose: false,
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
+  ionPopoverCustomClass: 'popover-custom-class',
 } as PopoverProps;
 
 const TemplateOpen: Story = (args) => ({
@@ -228,6 +232,7 @@ const TemplateOpen: Story = (args) => ({
         [ionPopoverBody]="BodyTemplate"
         ionPopoverIconClose="${args.ionPopoverIconClose}"
         ionPopoverPosition="${args.ionPopoverPosition}"
+        ionPopoverCustomClass="${args.ionPopoverCustomClass}"
         [ionPopoverActions]="null"
         label="click me"
       >
@@ -244,4 +249,5 @@ KeepOpen.args = {
   ionPopoverTitle: 'Título do popover',
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
+  ionPopoverCustomClass: 'popover-custom-class',
 } as PopoverProps;
