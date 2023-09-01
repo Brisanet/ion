@@ -110,6 +110,36 @@ describe('BnTable', () => {
   });
 
   describe('Events', () => {
+    it('should change payload when dispatch REFRESH_FILTER', () => {
+      const event: SmartTableEvent = {
+        event: EventTable.REFRESH_FILTER,
+        data: {
+          name: 'Iracema',
+        },
+      };
+
+      bnTable.events(event);
+      expect(bnTable.payload.name).toBe('Iracema');
+    });
+
+    it('should dispatch 2 requests (total and data) when dispatch REFRESH_FILTER', () => {
+      const listSpy = jest.spyOn(mockService, 'list');
+      const momName = 'Iracema';
+
+      const event: SmartTableEvent = {
+        event: EventTable.REFRESH_FILTER,
+        data: {
+          name: momName,
+        },
+      };
+
+      bnTable.events(event);
+      expect(listSpy).toHaveBeenCalledTimes(2);
+      expect(bnTable.payload.name).toBe(momName);
+
+      jest.clearAllMocks();
+    });
+
     it('should change offset when dispatch CHANGE_PAGE event', () => {
       const event: SmartTableEvent = {
         event: EventTable.CHANGE_PAGE,
