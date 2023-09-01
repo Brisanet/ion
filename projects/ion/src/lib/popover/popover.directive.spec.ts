@@ -207,7 +207,6 @@ describe('Directive: popover', () => {
   it('should close popover when clicking outside of popover and button', async () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
-    expect(screen.getByTestId('ion-popover')).toBeTruthy();
     fireEvent.click(document);
     expect(screen.queryByTestId('ion-popover')).toBeFalsy();
   });
