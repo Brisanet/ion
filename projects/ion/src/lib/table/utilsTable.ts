@@ -8,6 +8,7 @@ export enum EventTable {
   CHANGE_PAGE = 'change_page',
   ROW_SELECT = 'row_select',
   CELL_SELECT = 'cell_select',
+  REFRESH_FILTER = 'refresh_filter',
 }
 
 export enum ColumnType {
