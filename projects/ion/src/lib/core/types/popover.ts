@@ -25,4 +25,5 @@ export interface PopoverProps {
   ionPopoverIconClose?: boolean;
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
+  ionPopoverCustomClass?: string;
 }
