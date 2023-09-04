@@ -32,6 +32,7 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverIconClose? = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
+  @Input() ionPopoverCustomClass?: string;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -77,6 +78,7 @@ export class IonPopoverDirective implements OnDestroy {
       ionPopoverIconColor: this.ionPopoverIconColor,
       ionPopoverIconClose: this.ionPopoverIconClose,
       ionPopoverPosition: this.ionPopoverPosition,
+      ionPopoverCustomClass: this.ionPopoverCustomClass,
     };
     Object.keys(instanceProps).forEach((prop) => {
       popoverInstance[prop] = instanceProps[prop];

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { IonSidebarProps } from '../core/types/sidebar';
-import { selectItemByIndex, callItemAction, unselectAllItems } from './utils';
+import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
 @Component({
   selector: 'ion-sidebar',
@@ -14,8 +14,31 @@ export class IonSidebarComponent {
 
   public closed = true;
 
+  public checkClikOnPageAccess = (event): void => {
+    this.checkClikOnPage(event);
+  };
+
+  public checkClikOnPage(event): void {
+    const containerElement = [document.querySelector('.ion-sidebar--opened')];
+    const innerElement = event.target;
+    if (containerElement.length && !containerElement.includes(innerElement)) {
+      const closeButton = document.querySelector(
+        '.ion-sidebar--opened .ion-sidebar__header button'
+      ) as HTMLElement;
+      if (closeButton) {
+        closeButton.click();
+      }
+      document.removeEventListener('click', this.checkClikOnPage);
+    }
+  }
+
   public toggleVisibility(): void {
     this.closed = !this.closed;
+    if (!this.closed) {
+      setTimeout(() => {
+        document.addEventListener('click', this.checkClikOnPageAccess);
+      });
+    }
   }
 
   public itemSelected(itemIndex: number): void {
