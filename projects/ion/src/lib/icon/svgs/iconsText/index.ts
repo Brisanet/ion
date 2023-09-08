@@ -346,6 +346,7 @@ export { default as waitWarning } from './wait-warning';
 export { default as wait } from './wait';
 export { default as wallet } from './wallet';
 export { default as watchCircle } from './watch-circle';
+export { default as whatsapp } from './whatsapp';
 export { default as wifi } from './wifi';
 export { default as workBag } from './work-bag';
 export { default as working } from './working';
