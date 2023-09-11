@@ -32,7 +32,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
 
-  public subscription: Subscription;
+  public subscription$: Subscription;
   private componentRef: ComponentRef<IonTooltipComponent> = null;
   private delayTimeout: number;
 
@@ -45,7 +45,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.tooltipService.reposition.subscribe(() => {
+    this.subscription$ = this.tooltipService.reposition.subscribe(() => {
       if (!this.isComponentRefNull()) {
         this.setComponentPosition();
       }
@@ -159,6 +159,6 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.destroyComponent();
-    this.subscription.unsubscribe();
+    this.subscription$.unsubscribe();
   }
 }

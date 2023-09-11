@@ -12,11 +12,6 @@ import { TooltipService } from './tooltip.service';
 const PADDING = 16;
 export const TOOLTIP_MAX_WIDTH = 208 + PADDING;
 
-type PositionCheck = {
-  check: () => boolean;
-  position: TooltipPosition;
-};
-
 @Component({
   selector: 'ion-tooltip',
   templateUrl: './tooltip.component.html',
@@ -40,109 +35,19 @@ export class IonTooltipComponent implements AfterViewChecked {
 
   ngAfterViewChecked(): void {
     this.repositionTooltip();
-    this.tooltipService.reposition.next();
     this.cdr.detectChanges();
   }
 
-  public getTooltipPosition(
-    tooltipLeft: number,
-    tooltipHeight: number,
-    hostPosition: Partial<DOMRect>,
-    screenWidth: number,
-    screenHeight: number
-  ): PositionCheck[] {
-    return [
-      {
-        check: () => this.atRightEdge(screenWidth, hostPosition.right),
-        position: TooltipPosition.CENTER_RIGHT,
-      },
-      {
-        check: () =>
-          this.atBottomEdge(screenHeight, hostPosition.bottom, tooltipHeight),
-        position: TooltipPosition.BOTTOM_CENTER,
-      },
-      {
-        check: () => this.atLeftEdge(tooltipLeft),
-        position: TooltipPosition.CENTER_LEFT,
-      },
-      {
-        check: () =>
-          this.atTopEdge(hostPosition.top, tooltipHeight) &&
-          this.atRightEdge(screenWidth, hostPosition.right),
-        position: TooltipPosition.TOP_RIGHT,
-      },
-      {
-        check: () =>
-          this.atBottomEdge(screenHeight, hostPosition.bottom, tooltipHeight) &&
-          this.atLeftEdge(tooltipLeft),
-        position: TooltipPosition.BOTTOM_LEFT,
-      },
-      {
-        check: () =>
-          this.atTopEdge(hostPosition.top, screenHeight) &&
-          this.atLeftEdge(tooltipLeft),
-        position: TooltipPosition.TOP_LEFT,
-      },
-      {
-        check: () =>
-          this.atBottomEdge(screenHeight, hostPosition.bottom, tooltipHeight) &&
-          this.atRightEdge(screenWidth, hostPosition.right),
-        position: TooltipPosition.BOTTOM_RIGHT,
-      },
-    ];
-  }
-
-  public setTooltipPosition(positions: PositionCheck[]): void {
-    for (const { check, position } of positions) {
-      if (check()) {
-        this.ionTooltipPosition = position;
-      }
-    }
-  }
-
   private repositionTooltip(): void {
-    const { left, height } = this.getCoordinates();
-
-    const hostPosition = this.tooltipService.hostPosition;
-
-    const { clientWidth, clientHeight } = document.body;
-
-    if (!hostPosition) {
-      return;
-    }
-
-    const positionChecks: PositionCheck[] = this.getTooltipPosition(
-      left,
-      height,
-      hostPosition,
-      clientWidth,
-      clientHeight
-    );
-
-    this.setTooltipPosition(positionChecks);
+    this.sendCoordinates();
+    this.tooltipService.screenSize = document.body;
+    this.tooltipService.setNewPosition();
+    this.ionTooltipPosition = this.tooltipService.newPosition;
+    this.tooltipService.reposition.next();
   }
 
-  private getCoordinates(): DOMRect {
-    return this.tooltip.nativeElement.getBoundingClientRect();
-  }
-
-  private atRightEdge(screenWidth: number, hostRight: number): boolean {
-    return screenWidth - hostRight < TOOLTIP_MAX_WIDTH / 2;
-  }
-
-  private atBottomEdge(
-    screenHeight: number,
-    hostBottom: number,
-    height: number
-  ): boolean {
-    return screenHeight - hostBottom < height + PADDING;
-  }
-
-  private atLeftEdge(left: number): boolean {
-    return left < TOOLTIP_MAX_WIDTH / 2;
-  }
-
-  private atTopEdge(hostTop: number, height: number): boolean {
-    return hostTop < (height + PADDING) / 2;
+  private sendCoordinates(): void {
+    this.tooltipService.tootipCoordinates =
+      this.tooltip.nativeElement.getBoundingClientRect();
   }
 }
