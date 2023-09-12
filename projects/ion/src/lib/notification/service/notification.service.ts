@@ -41,18 +41,13 @@ export class IonNotificationService {
     options?: NotificationConfigOptions,
     closeEventCall?: () => void
   ): void {
-    if (!this.notificationContainerComponentRef)
-      this.createNotificationContainer();
-
-    const notification = this.createNotificationInstance();
-
-    this.configNotification(notification.instance, title, message, options);
-
-    this.instanceNotification(notification);
-
-    if (closeEventCall) {
-      this.addCloseEventEmitter(notification, closeEventCall);
-    }
+    this.showNotification(
+      title,
+      message,
+      options,
+      NOTIFICATION_TYPES.success,
+      closeEventCall ? closeEventCall : undefined
+    );
   }
 
   public info(
@@ -61,24 +56,13 @@ export class IonNotificationService {
     options?: NotificationConfigOptions,
     closeEventCall?: () => void
   ): void {
-    if (!this.notificationContainerComponentRef)
-      this.createNotificationContainer();
-
-    const notification = this.createNotificationInstance();
-
-    this.configNotification(
-      notification.instance,
+    this.showNotification(
       title,
       message,
       options,
-      NOTIFICATION_TYPES.info
+      NOTIFICATION_TYPES.info,
+      closeEventCall ? closeEventCall : undefined
     );
-
-    this.instanceNotification(notification);
-
-    if (closeEventCall) {
-      this.addCloseEventEmitter(notification, closeEventCall);
-    }
   }
 
   public warning(
@@ -87,24 +71,13 @@ export class IonNotificationService {
     options?: NotificationConfigOptions,
     closeEventCall?: () => void
   ): void {
-    if (!this.notificationContainerComponentRef)
-      this.createNotificationContainer();
-
-    const notification = this.createNotificationInstance();
-
-    this.configNotification(
-      notification.instance,
+    this.showNotification(
       title,
       message,
       options,
-      NOTIFICATION_TYPES.warning
+      NOTIFICATION_TYPES.warning,
+      closeEventCall ? closeEventCall : undefined
     );
-
-    this.instanceNotification(notification);
-
-    if (closeEventCall) {
-      this.addCloseEventEmitter(notification, closeEventCall);
-    }
   }
 
   public error(
@@ -113,24 +86,13 @@ export class IonNotificationService {
     options?: NotificationConfigOptions,
     closeEventCall?: () => void
   ): void {
-    if (!this.notificationContainerComponentRef)
-      this.createNotificationContainer();
-
-    const notification = this.createNotificationInstance();
-
-    this.configNotification(
-      notification.instance,
+    this.showNotification(
       title,
       message,
       options,
-      NOTIFICATION_TYPES.negative
+      NOTIFICATION_TYPES.negative,
+      closeEventCall ? closeEventCall : undefined
     );
-
-    this.instanceNotification(notification);
-
-    if (closeEventCall) {
-      this.addCloseEventEmitter(notification, closeEventCall);
-    }
   }
 
   addCloseEventEmitter(
@@ -169,6 +131,33 @@ export class IonNotificationService {
     return this.componentFactoryResolver
       .resolveComponentFactory(IonNotificationComponent)
       .create(this.injector);
+  }
+
+  private showNotification(
+    title: string,
+    message: string,
+    options: NotificationConfigOptions,
+    type: StatusType = 'success',
+    closeEventCall?: () => void
+  ): void {
+    if (!this.notificationContainerComponentRef)
+      this.createNotificationContainer();
+
+    const notification = this.createNotificationInstance();
+
+    this.configNotification(
+      notification.instance,
+      title,
+      message,
+      options,
+      type
+    );
+
+    this.instanceNotification(notification);
+
+    if (closeEventCall) {
+      this.addCloseEventEmitter(notification, closeEventCall);
+    }
   }
 
   private configNotification(

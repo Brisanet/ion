@@ -15,6 +15,11 @@ const NOTIFICATION_ICONS = {
 
 const NOTIFICATION_TYPES = Object.keys(NOTIFICATION_ICONS);
 
+const DEFAULT_NOTIFICATION_OPTIONS = {
+  title: 'Titulo Padrão',
+  message: 'Mensagem Padrão',
+};
+
 @Component({
   template: '<div></div>',
 })
@@ -48,7 +53,11 @@ describe('NotificationService', () => {
   });
 
   it('should remove a notification', () => {
-    notificationService.success('Custom', 'Custom', { fixed: true });
+    notificationService.success(
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message,
+      { fixed: true }
+    );
     const removeNotification = screen.getByTestId('btn-remove');
     fireEvent.click(removeNotification);
     const elements = document.getElementsByTagName('ion-notification');
@@ -58,8 +67,8 @@ describe('NotificationService', () => {
   it('should emit event when a notification is closed', () => {
     const closeEvent = jest.fn();
     notificationService.success(
-      'Custom',
-      'Custom',
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message,
       { fixed: true },
       closeEvent
     );
@@ -69,9 +78,21 @@ describe('NotificationService', () => {
   });
 
   it('should create a notification', () => {
-    notificationService.success('Teste', 'Teste');
+    notificationService.success(
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message
+    );
     expect(screen.getByTestId('ion-notification')).toBeTruthy();
   });
+
+  it.each(['title', 'message'])(
+    'should render a notification with default %s',
+    (key) => {
+      expect(
+        screen.getByText(DEFAULT_NOTIFICATION_OPTIONS[key])
+      ).toBeInTheDocument();
+    }
+  );
 });
 
 describe('NotificationService -> notification types', () => {
