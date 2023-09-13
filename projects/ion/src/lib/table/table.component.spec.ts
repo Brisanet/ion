@@ -282,7 +282,7 @@ describe('Table > Actions', () => {
       label: 'Desabilitar',
       icon: 'block',
       disabled: (row: SafeAny): boolean => {
-        return !row.deleted;
+        return row.deleted;
       },
     },
     {
@@ -335,6 +335,22 @@ describe('Table > Actions', () => {
     const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
     expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
     expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
+  it('should render trash button enabled when the item is not deleted', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonTableProps<Disco>;
+
+    tableItemDeleted.config.data = [
+      { id: 1, name: 'Item Deleted', deleted: false },
+    ];
+
+    await sut(tableItemDeleted);
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'false'
+    );
   });
 
   it('should render trash button disabled when the item is deleted', async () => {
