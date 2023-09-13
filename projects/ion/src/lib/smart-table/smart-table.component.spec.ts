@@ -345,12 +345,26 @@ describe('Table > Actions', () => {
     );
   });
 
-  it('should render trash button disabled when he caracther is less than 160cm', async () => {
+  it('should render trash button enable when he character is less than 160cm', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
     } as IonSmartTableProps<Character>;
 
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
+
+    await sut(tableItemDeleted);
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'false'
+    );
+  });
+
+  it('should render trash button disabled when he character is taller than 160cm', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonSmartTableProps<Character>;
+
+    tableItemDeleted.config.data = [{ height: 196, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
     expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
