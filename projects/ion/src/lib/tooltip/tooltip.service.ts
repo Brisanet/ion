@@ -22,13 +22,11 @@ export class TooltipService {
   hostPosition: Partial<DOMRect>;
   screenSize: HTMLElement;
   tootipCoordinates: DOMRect;
-  newPosition: TooltipPosition;
   elementPadding = 16;
   elementMaxWidth = 208 + this.elementPadding;
 
-  public setNewPosition(): void {
+  public getNewPosition(): TooltipPosition {
     const { left, height } = this.tootipCoordinates;
-
     const { clientWidth, clientHeight } = this.screenSize;
 
     if (!this.hostPosition) {
@@ -42,16 +40,15 @@ export class TooltipService {
       screenWidth: clientWidth,
       screenHeight: clientHeight,
     };
-
     const positions: tooltipPositionChecks =
       this.getTooltipPositions(repositionData);
 
-    this.newPosition = this.getNewTooltipPosition(positions);
+    const newPosition = this.checkPositions(positions);
+
+    return newPosition;
   }
 
-  public getNewTooltipPosition(
-    positions: tooltipPositionChecks
-  ): TooltipPosition {
+  public checkPositions(positions: tooltipPositionChecks): TooltipPosition {
     let newPosition = TooltipPosition.DEFAULT;
 
     Object.entries(positions).forEach(([position, check]) => {
@@ -59,6 +56,7 @@ export class TooltipService {
         newPosition = position as TooltipPosition;
       }
     });
+
     return newPosition;
   }
 

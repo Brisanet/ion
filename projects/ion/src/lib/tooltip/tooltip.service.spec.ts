@@ -69,7 +69,7 @@ describe('TooltipService', () => {
     'should return %s as the new position if at the edges',
     async (positionKey, positionValue) => {
       const positionChecks = service.getTooltipPositions(positionValue);
-      const newPosition = service.getNewTooltipPosition(positionChecks);
+      const newPosition = service.checkPositions(positionChecks);
       expect(newPosition).toBe(positionKey);
     }
   );

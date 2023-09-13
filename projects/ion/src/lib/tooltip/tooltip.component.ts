@@ -41,8 +41,7 @@ export class IonTooltipComponent implements AfterViewChecked {
   private repositionTooltip(): void {
     this.sendCoordinates();
     this.tooltipService.screenSize = document.body;
-    this.tooltipService.setNewPosition();
-    this.ionTooltipPosition = this.tooltipService.newPosition;
+    this.ionTooltipPosition = this.tooltipService.getNewPosition();
     this.tooltipService.reposition.next();
   }
 
