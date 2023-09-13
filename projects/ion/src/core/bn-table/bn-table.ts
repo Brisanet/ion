@@ -46,6 +46,7 @@ export default class BnTable<DataType> {
 
   private service: BnService<DataType>;
   private formatData: (data: DataType[]) => DataType[];
+  private firstLoad = true;
 
   constructor(config: IBnTable<DataType>) {
     this.service = config.service;
@@ -70,6 +71,21 @@ export default class BnTable<DataType> {
 
   smartData(): void {
     this.configTable.loading = true;
+
+    if (this.firstLoad) {
+      const firstOrderedColumn = this.configTable.columns.filter(
+        (column) => column.desc !== undefined
+      )[0];
+
+      if (firstOrderedColumn) {
+        this.handleSort({
+          column: firstOrderedColumn.key,
+          desc: firstOrderedColumn.desc,
+        });
+      }
+
+      this.firstLoad = false;
+    }
 
     const totalRequest$ = this.payload.total
       ? this.service.list(this.payload).pipe(take(1))
