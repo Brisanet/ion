@@ -17,7 +17,10 @@ export class IonUseTableComponent extends BnTable<User> {
     super({
       service,
       tableConfig: {
-        columns: [{ label: 'Nome', sort: true, key: 'nome' }],
+        columns: [
+          { label: 'Nome', sort: true, key: 'nome', desc: true },
+          { label: 'Url', sort: true, key: 'url' },
+        ],
         actions: [
           {
             icon: 'trash',

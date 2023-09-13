@@ -90,6 +90,24 @@ describe('BnTable', () => {
     });
   });
 
+  it('should add order on payload in first load when column have a order by default', async () => {
+    const config: IBnTable<MockItemData> = {
+      service: new MockEmptyService(),
+      tableConfig: {
+        columns: [
+          { label: 'Name', key: 'name', desc: true },
+          { label: 'Url', key: 'url' },
+        ],
+        actions: [{ label: 'Remove', icon: 'trash' }],
+      },
+    };
+    const bnTableWithDefaultOrder: BnTable<MockItemData> =
+      new BnTable<MockItemData>(config);
+
+    expect(bnTableWithDefaultOrder.payload.order).toBe('name');
+    expect(bnTableWithDefaultOrder.payload.sort).toBe('desc');
+  });
+
   it('should return empty array when dont have data or dados', async () => {
     const config: IBnTable<MockItemData> = {
       service: new MockEmptyService(),
