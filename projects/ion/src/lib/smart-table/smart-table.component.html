@@ -246,7 +246,7 @@
                     [circularButton]="true"
                     (ionOnClick)="handleEvent(row, action)"
                     [disabled]="
-                      action.disabled ? !disableAction(row, action) : false
+                      action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
                 </div>
