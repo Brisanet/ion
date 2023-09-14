@@ -9,9 +9,6 @@ import {
 import { TooltipColorScheme, TooltipPosition } from '../core/types';
 import { TooltipService } from './tooltip.service';
 
-const PADDING = 16;
-export const TOOLTIP_MAX_WIDTH = 208 + PADDING;
-
 @Component({
   selector: 'ion-tooltip',
   templateUrl: './tooltip.component.html',
@@ -39,14 +36,10 @@ export class IonTooltipComponent implements AfterViewChecked {
   }
 
   private repositionTooltip(): void {
-    this.sendCoordinates();
-    this.tooltipService.screenSize = document.body;
-    this.ionTooltipPosition = this.tooltipService.getNewPosition();
-    this.tooltipService.reposition.next();
-  }
+    const coordinates = this.tooltip.nativeElement.getBoundingClientRect();
 
-  private sendCoordinates(): void {
-    this.tooltipService.tootipCoordinates =
-      this.tooltip.nativeElement.getBoundingClientRect();
+    this.tooltipService.setTooltipCoordinates(coordinates);
+    this.ionTooltipPosition = this.tooltipService.getNewPosition();
+    this.tooltipService.emitReposition();
   }
 }

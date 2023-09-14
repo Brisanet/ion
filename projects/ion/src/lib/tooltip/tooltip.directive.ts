@@ -97,7 +97,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
     const hostPositions = { left, right, top, bottom };
 
-    this.tooltipService.hostPosition = hostPositions;
+    this.tooltipService.setHostPosition(hostPositions);
 
     const positions = getPositions(
       hostPositions,

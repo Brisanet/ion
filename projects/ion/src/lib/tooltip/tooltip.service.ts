@@ -3,39 +3,42 @@ import { Subject } from 'rxjs';
 import { TooltipPosition } from '../core/types';
 
 export type RepositionData = {
-  tooltipLeft: number;
-  tooltipHeight: number;
+  tooltipCoordinates: DOMRect;
   hostPosition: Partial<DOMRect>;
   screenWidth: number;
   screenHeight: number;
 };
 
 export type tooltipPositionChecks = {
-  [x in TooltipPosition]?: () => boolean;
+  [x in TooltipPosition]?: boolean;
 };
 
 @Injectable({
   providedIn: 'root',
 })
 export class TooltipService {
-  reposition = new Subject();
-  hostPosition: Partial<DOMRect>;
-  screenSize: HTMLElement;
-  tootipCoordinates: DOMRect;
-  elementPadding = 16;
-  elementMaxWidth = 208 + this.elementPadding;
+  public readonly reposition = new Subject();
+  public hostPosition: Partial<DOMRect>;
+  public tootipCoordinates: DOMRect;
+  private elementPadding = 16;
+
+  public setHostPosition(position: Partial<DOMRect>): void {
+    this.hostPosition = position;
+  }
+
+  public setTooltipCoordinates(coordinates: DOMRect): void {
+    this.tootipCoordinates = coordinates;
+  }
 
   public getNewPosition(): TooltipPosition {
-    const { left, height } = this.tootipCoordinates;
-    const { clientWidth, clientHeight } = this.screenSize;
+    const { clientWidth, clientHeight } = document.body;
 
     if (!this.hostPosition) {
       return;
     }
 
     const repositionData: RepositionData = {
-      tooltipLeft: left,
-      tooltipHeight: height,
+      tooltipCoordinates: this.tootipCoordinates,
       hostPosition: this.hostPosition,
       screenWidth: clientWidth,
       screenHeight: clientHeight,
@@ -43,16 +46,14 @@ export class TooltipService {
     const positions: tooltipPositionChecks =
       this.getTooltipPositions(repositionData);
 
-    const newPosition = this.checkPositions(positions);
-
-    return newPosition;
+    return this.checkPositions(positions);
   }
 
   public checkPositions(positions: tooltipPositionChecks): TooltipPosition {
     let newPosition = TooltipPosition.DEFAULT;
 
     Object.entries(positions).forEach(([position, check]) => {
-      if (check()) {
+      if (check) {
         newPosition = position as TooltipPosition;
       }
     });
@@ -63,69 +64,59 @@ export class TooltipService {
   public getTooltipPositions(
     respositionData: RepositionData
   ): tooltipPositionChecks {
+    const { height, left, width } = respositionData.tooltipCoordinates;
+
+    const tooltipPositions = {
+      right: this.atRightEdge(
+        respositionData.screenWidth,
+        respositionData.hostPosition.right,
+        width
+      ),
+      bottom: this.atBottomEdge(
+        respositionData.screenHeight,
+        respositionData.hostPosition.bottom,
+        height
+      ),
+      left: this.atLeftEdge(left, width),
+      top: this.atTopEdge(respositionData.hostPosition.top, height),
+    };
+
     return {
-      centerRight: () =>
-        this.atRightEdge(
-          respositionData.screenWidth,
-          respositionData.hostPosition.right
-        ),
-      bottomCenter: () =>
-        this.atBottomEdge(
-          respositionData.screenHeight,
-          respositionData.hostPosition.bottom,
-          respositionData.tooltipHeight
-        ),
-      centerLeft: () => this.atLeftEdge(respositionData.tooltipLeft),
-      topRight: () =>
-        this.atTopEdge(
-          respositionData.hostPosition.top,
-          respositionData.tooltipHeight
-        ) &&
-        this.atRightEdge(
-          respositionData.screenWidth,
-          respositionData.hostPosition.right
-        ),
-      bottomLeft: () =>
-        this.atBottomEdge(
-          respositionData.screenHeight,
-          respositionData.hostPosition.bottom,
-          respositionData.tooltipHeight
-        ) && this.atLeftEdge(respositionData.tooltipLeft),
-      topLeft: () =>
-        this.atTopEdge(
-          respositionData.hostPosition.top,
-          respositionData.screenHeight
-        ) && this.atLeftEdge(respositionData.tooltipLeft),
-      bottomRight: () =>
-        this.atBottomEdge(
-          respositionData.screenHeight,
-          respositionData.hostPosition.bottom,
-          respositionData.tooltipHeight
-        ) &&
-        this.atRightEdge(
-          respositionData.screenWidth,
-          respositionData.hostPosition.right
-        ),
+      centerRight: tooltipPositions.right,
+      bottomCenter: tooltipPositions.bottom,
+      centerLeft: tooltipPositions.left,
+      topRight: tooltipPositions.top && tooltipPositions.right,
+      bottomLeft: tooltipPositions.bottom && tooltipPositions.left,
+      topLeft: tooltipPositions.top && tooltipPositions.left,
+      bottomRight: tooltipPositions.bottom && tooltipPositions.right,
     };
   }
 
-  private atRightEdge(screenWidth: number, hostRight: number): boolean {
-    return screenWidth - hostRight < this.elementMaxWidth / 2;
+  public emitReposition(): void {
+    this.reposition.next();
+  }
+
+  private atRightEdge(
+    screenWidth: number,
+    hostRight: number,
+    tooltipWidth: number
+  ): boolean {
+    return screenWidth - hostRight < (tooltipWidth + this.elementPadding) / 2;
   }
 
   private atBottomEdge(
     screenHeight: number,
     hostBottom: number,
-    height: number
+    tooltipHeight: number
   ): boolean {
-    return screenHeight - hostBottom < height + this.elementPadding;
+    return screenHeight - hostBottom < tooltipHeight + this.elementPadding;
   }
 
-  private atLeftEdge(left: number): boolean {
-    return left < this.elementMaxWidth / 2;
+  private atLeftEdge(tooltipLeft: number, tooltipWidth: number): boolean {
+    return tooltipLeft < (tooltipWidth + this.elementPadding) / 2;
   }
 
-  private atTopEdge(hostTop: number, height: number): boolean {
-    return hostTop < (height + this.elementPadding) / 2;
+  private atTopEdge(hostTop: number, tooltipHeight: number): boolean {
+    return hostTop < (tooltipHeight + this.elementPadding) / 2;
   }
 }
