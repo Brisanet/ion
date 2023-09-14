@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { TooltipPosition } from '../core/types';
 
 export type RepositionData = {
-  tooltipCoordinates: DOMRect;
+  tooltipCoordinates: Partial<DOMRect>;
   hostPosition: Partial<DOMRect>;
   screenWidth: number;
   screenHeight: number;
