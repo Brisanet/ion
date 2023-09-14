@@ -83,8 +83,7 @@ const Template: Story = (args) => ({
 
 export const Default = Template.bind({});
 Default.args = {
-  ionTooltipTitle:
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+  ionTooltipTitle: 'Eu sou um tooltip',
   ionTooltipPosition: TooltipPosition.DEFAULT,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
@@ -134,8 +133,7 @@ const WithTemplateRef: Story = (args) => ({
 
 export const WithContent = WithTemplateRef.bind({});
 WithContent.args = {
-  ionTooltipTitle:
-    'Sed ut perspiciatis unde ulalalalalalalalalalalaalalalalalalALSAAASLSLASKADLDASKDLDKLSAKD',
+  ionTooltipTitle: '',
   ionTooltipPosition: TooltipPosition.BOTTOM_CENTER,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
@@ -187,8 +185,7 @@ const WithTitleAndTemplateRef: Story = (args) => ({
 
 export const WithTitleAndSubtitle = WithTitleAndTemplateRef.bind({});
 WithTitleAndSubtitle.args = {
-  ionTooltipTitle:
-    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+  ionTooltipTitle: 'Explicação do indicador aqui',
   ionTooltipPosition: TooltipPosition.DEFAULT,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
