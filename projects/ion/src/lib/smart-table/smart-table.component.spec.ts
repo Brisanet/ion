@@ -168,7 +168,7 @@ describe('IonSmartTableComponent', () => {
     );
   });
 
-  it('should emit event sort with desc false when click in sort icon', async () => {
+  it('should emit event sort with desc true when click in sort icon', async () => {
     const orderBy = columns[0].key;
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(events).toHaveBeenCalledWith({
@@ -176,7 +176,7 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.SORT,
       order: {
         column: orderBy,
-        desc: false,
+        desc: true,
       },
     });
   });
@@ -186,7 +186,7 @@ describe('IonSmartTableComponent', () => {
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(defaultProps.config.order).toStrictEqual({
       column: orderBy,
-      desc: true,
+      desc: false,
     });
   });
 
