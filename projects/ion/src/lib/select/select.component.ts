@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { IonSelectProps } from '../core/types/select';
 import { DropdownItem } from '../core/types';
+import { SafeAny } from '../utils/safe-any';
 
 @Component({
   selector: 'ion-select',
@@ -27,6 +28,8 @@ export class IonSelectComponent implements OnInit {
   inputValue = '';
   visibleOptions: IonSelectProps['options'] = [];
   showPlaceholder = true;
+
+  clearButtonIsVisible: boolean;
 
   ngOnInit(): void {
     this.visibleOptions = this.options;
@@ -52,6 +55,7 @@ export class IonSelectComponent implements OnInit {
         option.selected = true;
       }
     }
+    this.setClearButtonIsVisible(selectedOptions);
   }
 
   hasSelectedOption = (): boolean => {
@@ -60,10 +64,14 @@ export class IonSelectComponent implements OnInit {
 
   unselectAllOptions(): void {
     this.options.forEach((option) => (option.selected = false));
+    this.clearButtonIsVisible = false;
   }
 
   unselectOption(currentOption: DropdownItem): void {
     currentOption.selected = false;
+
+    const selectedOptions = this.options.filter((option) => option.selected);
+    this.setClearButtonIsVisible(selectedOptions);
   }
 
   onSearchChange(): void {
@@ -82,5 +90,16 @@ export class IonSelectComponent implements OnInit {
     }
     this.inputValue = '';
     this.visibleOptions = this.options;
+  }
+
+  setClearButtonIsVisible(selectedOptions): void {
+    const hasItensSelecteds = this.checkArray(selectedOptions);
+    if (this.mode === 'multiple') {
+      this.clearButtonIsVisible = hasItensSelecteds;
+    }
+  }
+
+  private checkArray(array: Array<SafeAny>): boolean {
+    return array && array.length > 0;
   }
 }

@@ -60,9 +60,17 @@
     line-height: 20px;
     font-weight: 400;
   }
+}
 
-  .icon {
-    display: flex;
+.ion-select-icons {
+  display: flex;
+  align-items: center;
+
+  .clear {
+    cursor: pointer;
+  }
+
+  .dropdown {
     margin-inline-end: 8px;
   }
 }

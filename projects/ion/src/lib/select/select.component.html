@@ -18,15 +18,23 @@
       (input)="onSearchChange()"
     />
   </div>
-  <div>
+  <div class="ion-select-icons">
     <ion-icon
-      class="icon"
+      *ngIf="clearButtonIsVisible"
+      (click)="unselectAllOptions()"
+      class="clear"
+      type="close-solid"
+      size="18"
+    ></ion-icon>
+    <ion-icon
+      class="dropdown"
       [type]="showDropdown ? 'semi-up' : 'semi-down'"
     ></ion-icon>
   </div>
 </div>
 <ion-dropdown
   *ngIf="showDropdown"
+  notShowClearButton="true"
   [options]="visibleOptions"
   (selected)="selected($event)"
   [multiple]="mode === 'multiple'"

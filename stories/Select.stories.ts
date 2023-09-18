@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonSelectItemComponent } from '../projects/ion/src/lib/select/select-item/select-item.component';
 import { moduleMetadata } from '@storybook/angular/dist/ts3.9/client';
 import {
+  IonButtonModule,
   IonDropdownModule,
   IonIconModule,
 } from '../projects/ion/src/public-api';
@@ -23,7 +24,7 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [IonSelectComponent, IonSelectItemComponent],
-      imports: [IonIconModule, FormsModule, IonDropdownModule],
+      imports: [IonIconModule, FormsModule, IonDropdownModule, IonButtonModule],
     }),
   ],
 } as Meta;
