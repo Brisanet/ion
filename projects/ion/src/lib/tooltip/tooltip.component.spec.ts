@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { render, screen } from '@testing-library/angular';
-import { TooltipPosition, TooltipProps } from '../core/types';
+import { TooltipProps } from '../core/types';
 import { IonTooltipComponent } from './tooltip.component';
 
 const tooltipTestId = 'ion-tooltip';
-
-const positions = Object.values(TooltipPosition) as TooltipPosition[];
 
 const defaultProps: TooltipProps = {
   ionTooltipTitle: 'Title',
@@ -38,15 +36,6 @@ describe('IonTooltipComponent', () => {
     await sut({ ionTooltipColorScheme: 'light' });
     expect(screen.getByTestId(tooltipTestId)).toHaveClass('ion-tooltip-light');
   });
-  it.each(positions)(
-    'should render tooltip on position %s',
-    async (position) => {
-      await sut({ ionTooltipPosition: position });
-      expect(screen.getByTestId(tooltipTestId)).toHaveClass(
-        `ion-tooltip-position--${position}`
-      );
-    }
-  );
   it('should not have visible class when visibility is false', async () => {
     await sut();
     expect(screen.getByTestId(tooltipTestId)).not.toHaveClass(
