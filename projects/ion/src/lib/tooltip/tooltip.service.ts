@@ -21,6 +21,7 @@ export class TooltipService {
   private hostPosition: Partial<DOMRect>;
   private tootipCoordinates: DOMRect;
   private elementPadding = 16;
+  private currentPosition: TooltipPosition;
 
   public setHostPosition(position: Partial<DOMRect>): void {
     this.hostPosition = position;
@@ -28,6 +29,10 @@ export class TooltipService {
 
   public setTooltipCoordinates(coordinates: DOMRect): void {
     this.tootipCoordinates = coordinates;
+  }
+
+  public setCurrentPosition(position: TooltipPosition): void {
+    this.currentPosition = position;
   }
 
   public getNewPosition(): TooltipPosition {
@@ -50,7 +55,7 @@ export class TooltipService {
   }
 
   public checkPositions(positions: tooltipPositionChecks): TooltipPosition {
-    let newPosition = TooltipPosition.DEFAULT;
+    let newPosition = this.currentPosition;
 
     Object.entries(positions).forEach(([position, check]) => {
       if (check) {

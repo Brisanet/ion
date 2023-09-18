@@ -39,6 +39,7 @@ export class IonTooltipComponent implements AfterViewChecked {
     const coordinates = this.tooltip.nativeElement.getBoundingClientRect();
 
     this.tooltipService.setTooltipCoordinates(coordinates);
+    this.tooltipService.setCurrentPosition(this.ionTooltipPosition);
     this.ionTooltipPosition = this.tooltipService.getNewPosition();
     this.tooltipService.emitReposition();
   }
