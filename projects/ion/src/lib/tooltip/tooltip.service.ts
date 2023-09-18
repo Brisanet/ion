@@ -18,8 +18,8 @@ export type tooltipPositionChecks = {
 })
 export class TooltipService {
   public readonly reposition = new Subject();
-  public hostPosition: Partial<DOMRect>;
-  public tootipCoordinates: DOMRect;
+  private hostPosition: Partial<DOMRect>;
+  private tootipCoordinates: DOMRect;
   private elementPadding = 16;
 
   public setHostPosition(position: Partial<DOMRect>): void {
