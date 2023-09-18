@@ -15,22 +15,17 @@ export class IonSidebarComponent {
   public closed = true;
 
   public checkClikOnPageAccess = (event): void => {
-    this.checkClikOnPage(event);
-  };
-
-  public checkClikOnPage(event): void {
-    const containerElement = [document.querySelector('.ion-sidebar--opened')];
+    const containerElement = document.querySelector('.ion-sidebar--opened');
     const innerElement = event.target;
-    if (containerElement.length && !containerElement.includes(innerElement)) {
+    if (containerElement && !containerElement.contains(innerElement)) {
       const closeButton = document.querySelector(
         '.ion-sidebar--opened .ion-sidebar__header button'
       ) as HTMLElement;
       if (closeButton) {
         closeButton.click();
       }
-      document.removeEventListener('click', this.checkClikOnPage);
     }
-  }
+  };
 
   public toggleVisibility(): void {
     this.closed = !this.closed;
@@ -38,7 +33,10 @@ export class IonSidebarComponent {
       setTimeout(() => {
         document.addEventListener('click', this.checkClikOnPageAccess);
       });
+
+      return;
     }
+    document.removeEventListener('click', this.checkClikOnPageAccess);
   }
 
   public itemSelected(itemIndex: number): void {
