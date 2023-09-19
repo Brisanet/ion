@@ -153,7 +153,7 @@
                     [iconType]="action.icon"
                     [circularButton]="true"
                     [disabled]="
-                      action.disabled ? !disableAction(row, action) : false
+                      action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
 
