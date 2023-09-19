@@ -153,7 +153,7 @@
                     [iconType]="action.icon"
                     [circularButton]="true"
                     [disabled]="
-                      action.disabled ? !disableAction(row, action) : false
+                      action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
 
@@ -171,7 +171,7 @@
                     [circularButton]="true"
                     (ionOnClick)="handleEvent(row, action)"
                     [disabled]="
-                      action.disabled ? !disableAction(row, action) : false
+                      action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
                 </div>
@@ -183,17 +183,36 @@
     </tbody>
   </table>
   <div *ngIf="smartData.length === 0" class="noData">
+    <ion-spinner
+      *ngIf="config.loading; else noData"
+      [size]="42"
+      color="primary"
+    ></ion-spinner>
+  </div>
+
+  <ng-template #noData>
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
-  </div>
+  </ng-template>
+
   <div
     *ngIf="config.pagination"
     data-testid="pagination-container"
     class="footer-table"
   >
-    <span>{{ config.pagination.total }}</span>
+    <span *ngIf="!config.loading">{{ config.pagination.total }}</span>
+
+    <span
+      *ngIf="config.loading"
+      class="loading-message"
+      data-testid="loading-pagination"
+    >
+      Carregando página
+    </span>
+
     <div style="overflow-x: auto">
       <ion-pagination
+        [loading]="config.loading"
         [total]="config.pagination.total"
         [itemsPerPage]="config.pagination.itemsPerPage"
         [page]="config.pagination.page"

@@ -103,6 +103,8 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
   }
 
   public sort(column: Column): void {
+    column.desc = !column.desc;
+
     this.config.order = {
       column: column.key,
       desc: column.desc,
@@ -112,7 +114,7 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
       change_page: this.pagination,
       order: {
         column: column.key,
-        desc: !!column.desc,
+        desc: column.desc,
       },
     });
 
@@ -121,7 +123,6 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
         columnEach.desc = null;
       }
     });
-    column.desc = !column.desc;
   }
 
   public handleEvent(row: SafeAny, action: ActionTable): void {

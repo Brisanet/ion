@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonSidebarProps } from '../core/types/sidebar';
@@ -12,6 +12,7 @@ const components = {
   sidebar: 'ion-sidebar',
   group: 'sidebar-group',
   toggleVisibility: 'ion-sidebar__toggle-visibility',
+  outsideContainer: 'ion-sidebar__outside-container',
 };
 
 const getByTestId = (key: keyof typeof components): HTMLElement => {
@@ -80,6 +81,11 @@ describe('Sidebar', () => {
       await sut({ items, logo, logoAction: actionMock });
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
     });
+
+    afterEach(async () => {
+      jest.clearAllMocks();
+    });
+
     it('should render sidebar', () => {
       expect(getByTestId('sidebar')).toBeInTheDocument();
     });
@@ -203,6 +209,28 @@ describe('Sidebar', () => {
         userEvent.click(groupName);
         expect(actionMock).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+  describe('Clicking outside it', () => {
+    it('should close sidebar after clicking outside it', async () => {
+      jest.useFakeTimers();
+      const timeDelay = 300;
+
+      await render(IonSidebarComponent, {
+        declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
+        imports: [CommonModule, IonIconModule, IonButtonModule],
+      });
+
+      userEvent.click(getByTestId('toggleVisibility').firstElementChild);
+      jest.advanceTimersByTime(timeDelay);
+      expect(getByTestId('sidebar')).toHaveClass('ion-sidebar--opened');
+      userEvent.click(
+        within(getByTestId('outsideContainer')).getByTestId(
+          'ion-sidebar__toggle-visibility'
+        )
+      );
+
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
   });
   describe('Group without action', () => {

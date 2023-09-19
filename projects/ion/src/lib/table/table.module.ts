@@ -8,6 +8,7 @@ import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
 
 @NgModule({
   declarations: [IonTableComponent],
@@ -20,6 +21,7 @@ import { IonTooltipModule } from '../tooltip/tooltip.module';
     IonPaginationModule,
     IonPopConfirmModule,
     IonTooltipModule,
+    IonSpinnerModule,
   ],
   exports: [IonTableComponent],
 })

@@ -26,6 +26,8 @@ const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
 const firstAction = jest.fn();
 const secondAction = jest.fn();
 
+const CUSTOM_CLASS = 'custom-class';
+
 @Component({
   template: `
     <ion-button
@@ -40,6 +42,7 @@ const secondAction = jest.fn();
       [ionPopoverActions]="ionPopoverActions"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
+      ionPopoverCustomClass="${CUSTOM_CLASS}"
       class="get-test"
       style="margin-top: 50px;"
       label="${textButton}"
@@ -209,6 +212,13 @@ describe('Directive: popover', () => {
     fireEvent.click(screen.getByText(textButton));
     fireEvent.click(document);
     expect(screen.queryByTestId('ion-popover')).toBeFalsy();
+  });
+
+  it('should render popover with custom class', async () => {
+    await sut();
+    fireEvent.click(screen.getByTestId('hostPopover'));
+    const popover = screen.getByTestId('ion-popover');
+    expect(popover).toHaveClass(CUSTOM_CLASS);
   });
 });
 

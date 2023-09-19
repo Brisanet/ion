@@ -100,17 +100,6 @@ describe('Directive: Tooltip', () => {
     }
   );
 
-  it.each(Object.values(TooltipPosition))(
-    'should render tooltip on %s position',
-    async (ionTooltipPosition) => {
-      await sut({ ionTooltipPosition });
-      fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
-      expect(screen.getByTestId('ion-tooltip')).toHaveClass(
-        `ion-tooltip-position--${ionTooltipPosition}`
-      );
-    }
-  );
-
   it('should show tooltip after delay time setted', async () => {
     jest.useFakeTimers();
     const timeDelay = 300;
@@ -130,6 +119,14 @@ describe('Directive: Tooltip', () => {
     detectChanges();
     expect(screen.getByTestId('ion-tooltip')).toHaveClass(
       'ion-tooltip--visible'
+    );
+  });
+
+  it('should reposition the tooltip when exceed the screen size', async () => {
+    await sut();
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+      `ion-tooltip-position--bottomRight`
     );
   });
 

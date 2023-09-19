@@ -168,7 +168,7 @@ describe('IonSmartTableComponent', () => {
     );
   });
 
-  it('should emit event sort with desc false when click in sort icon', async () => {
+  it('should emit event sort with desc true when click in sort icon', async () => {
     const orderBy = columns[0].key;
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(events).toHaveBeenCalledWith({
@@ -176,7 +176,7 @@ describe('IonSmartTableComponent', () => {
       event: EventTable.SORT,
       order: {
         column: orderBy,
-        desc: false,
+        desc: true,
       },
     });
   });
@@ -186,7 +186,7 @@ describe('IonSmartTableComponent', () => {
     fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
     expect(defaultProps.config.order).toStrictEqual({
       column: orderBy,
-      desc: true,
+      desc: false,
     });
   });
 
@@ -345,12 +345,26 @@ describe('Table > Actions', () => {
     );
   });
 
-  it('should render trash button disabled when he caracther is less than 160cm', async () => {
+  it('should render trash button enable when he character is less than 160cm', async () => {
     const tableItemDeleted = {
       ...tableWithActions,
     } as IonSmartTableProps<Character>;
 
     tableItemDeleted.config.data = [{ height: 96, name: 'RS-D2', mass: 96 }];
+
+    await sut(tableItemDeleted);
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'false'
+    );
+  });
+
+  it('should render trash button disabled when he character is taller than 160cm', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonSmartTableProps<Character>;
+
+    tableItemDeleted.config.data = [{ height: 196, name: 'RS-D2', mass: 96 }];
 
     await sut(tableItemDeleted);
     expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(

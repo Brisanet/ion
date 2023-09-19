@@ -19,6 +19,7 @@ import { SafeAny } from '../utils/safe-any';
 import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
+import { IonSpinnerModule } from './../spinner/spinner.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
 const disabledArrowColor = '#CED2DB';
@@ -88,6 +89,7 @@ const sut = async (
       IonTagModule,
       IonPopConfirmModule,
       IonTooltipModule,
+      IonSpinnerModule,
     ],
   });
 };
@@ -243,6 +245,7 @@ describe('Table > Changes', () => {
         IonTagModule,
         IonPopConfirmModule,
         IonTooltipModule,
+        IonSpinnerModule,
       ],
     });
     const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
@@ -264,6 +267,7 @@ describe('Table > Changes', () => {
         IonTagModule,
         IonPopConfirmModule,
         IonTooltipModule,
+        IonSpinnerModule,
       ],
     });
     propsToChange.config.data = [];
@@ -278,7 +282,7 @@ describe('Table > Actions', () => {
       label: 'Desabilitar',
       icon: 'block',
       disabled: (row: SafeAny): boolean => {
-        return !row.deleted;
+        return row.deleted;
       },
     },
     {
@@ -331,6 +335,22 @@ describe('Table > Actions', () => {
     const rowAction = screen.getByTestId(`row-0-${actions[0].label}`);
     expect(rowAction).toHaveAttribute('ng-reflect-danger', 'true');
     expect(within(rowAction).getByRole('button')).toHaveClass('danger');
+  });
+
+  it('should render trash button enabled when the item is not deleted', async () => {
+    const tableItemDeleted = {
+      ...tableWithActions,
+    } as IonTableProps<Disco>;
+
+    tableItemDeleted.config.data = [
+      { id: 1, name: 'Item Deleted', deleted: false },
+    ];
+
+    await sut(tableItemDeleted);
+    expect(screen.getByTestId('row-0-Desabilitar')).toHaveAttribute(
+      'ng-reflect-disabled',
+      'false'
+    );
   });
 
   it('should render trash button disabled when the item is deleted', async () => {
@@ -692,6 +712,28 @@ describe('Table > Pagination', () => {
     },
   };
 
+  it('should render loading when table is loading', async () => {
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(tableWithPagination)
+    ) as IonTableProps<Disco>;
+    const totalPagination = screen.queryByTestId('total-pagination');
+    tableWithLoading.config.loading = true;
+    await sut(tableWithLoading);
+    expect(screen.getByTestId('loading-pagination')).toBeInTheDocument();
+    expect(totalPagination).not.toBeInTheDocument();
+  });
+
+  it('should render loading when dont have data and table is loading', async () => {
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(tableWithPagination)
+    ) as IonTableProps<Disco>;
+    tableWithLoading.config.loading = true;
+    tableWithLoading.config.data = [];
+
+    await sut(tableWithLoading);
+    expect(screen.getByTestId('ion-spinner')).toBeInTheDocument();
+  });
+
   it('should render the pagination', async () => {
     await sut(tableWithPagination);
     expect(screen.getByTestId('pagination-container')).toBeInTheDocument();
@@ -876,6 +918,7 @@ const sutCustomRowTemplate = async (
       IonTagModule,
       IonPopConfirmModule,
       IonTableModule,
+      IonSpinnerModule,
     ],
   });
 };
