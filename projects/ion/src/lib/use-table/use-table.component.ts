@@ -8,6 +8,39 @@ interface User {
   data_criacao: string;
 }
 
+const columns = [
+  {
+    key: 'data_monitoramento',
+    label: 'Data do monitoramento',
+    sort: true,
+  },
+  {
+    key: 'http_code',
+    label: 'HTTP code',
+    sort: true,
+  },
+  {
+    key: 'dns',
+    label: 'DNS',
+    sort: true,
+  },
+  {
+    key: 'latencia',
+    label: 'Conexão',
+    sort: true,
+  },
+  {
+    key: 'processamento',
+    label: 'Processamento',
+    sort: true,
+  },
+  {
+    key: 'problemas',
+    label: 'Problemas',
+    sort: true,
+  },
+];
+
 @Component({
   selector: 'ion-use-table',
   templateUrl: './use-table.component.html',
@@ -17,10 +50,7 @@ export class IonUseTableComponent extends BnTable<User> {
     super({
       service,
       tableConfig: {
-        columns: [
-          { label: 'Nome', sort: true, key: 'nome', desc: true },
-          { label: 'Url', sort: true, key: 'url' },
-        ],
+        columns,
         actions: [
           {
             icon: 'trash',

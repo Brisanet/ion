@@ -9,6 +9,12 @@
 
 React version here: https://github.com/iurynogueira/ion-react
 
+## Install in your project
+
+```
+npm i @brisanet/ion
+```
+
 ## Install and run project
 
 To run this project, You will need to use [node v.12](https://nodejs.org/en/)

@@ -215,20 +215,21 @@ describe('Sidebar', () => {
     it('should close sidebar after clicking outside it', async () => {
       jest.useFakeTimers();
       const timeDelay = 300;
-      const { detectChanges } = await render(IonSidebarComponent, {
+
+      await render(IonSidebarComponent, {
         declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
         imports: [CommonModule, IonIconModule, IonButtonModule],
       });
 
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
+      jest.advanceTimersByTime(timeDelay);
+      expect(getByTestId('sidebar')).toHaveClass('ion-sidebar--opened');
       userEvent.click(
         within(getByTestId('outsideContainer')).getByTestId(
           'ion-sidebar__toggle-visibility'
-        ).firstElementChild
+        )
       );
 
-      jest.advanceTimersByTime(timeDelay);
-      detectChanges();
       expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
   });

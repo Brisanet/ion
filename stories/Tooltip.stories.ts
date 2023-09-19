@@ -111,6 +111,7 @@ const WithTemplateRef: Story = (args) => ({
     <div class="tooltip">
       <span
         ionTooltip
+        ionTooltipTitle="${args.ionTooltipTitle}"
         [ionTooltipTemplateRef]="titleTemplate"
         ionTooltipPosition="${args.ionTooltipPosition}"
         [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
@@ -133,7 +134,7 @@ const WithTemplateRef: Story = (args) => ({
 export const WithContent = WithTemplateRef.bind({});
 WithContent.args = {
   ionTooltipTitle: '',
-  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipPosition: TooltipPosition.BOTTOM_CENTER,
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
 WithContent.storyName = 'With Content';
@@ -189,3 +190,140 @@ WithTitleAndSubtitle.args = {
   ionTooltipTrigger: TooltipTrigger.DEFAULT,
 } as TooltipProps;
 WithTitleAndSubtitle.storyName = 'With Title and Content';
+
+const TemplateWithEdgeHost: Story = (args) => ({
+  props: args,
+  template: `
+    <style>
+        main {
+            height: 100vh;
+            padding: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .row {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+        }
+    </style>
+    <main>
+    <div class="row">
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    </div>
+    <div class="row">
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    </div>
+    <div class="row">
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    <span
+      ionTooltip
+      ionTooltipTitle="${args.ionTooltipTitle}"
+      ionTooltipPosition="${args.ionTooltipPosition}"
+      [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
+      ionTooltipColorScheme="${args.ionTooltipColorScheme}"
+      ionTooltipTrigger="${args.ionTooltipTrigger}"
+      ionTooltipShowDelay="${args.ionTooltipShowDelay}"
+    >
+      Hover me
+    </span>
+    </div>
+    </main>
+  `,
+});
+
+export const WithHostOnEdge = TemplateWithEdgeHost.bind({});
+WithHostOnEdge.args = {
+  ionTooltipTitle:
+    'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.',
+  ionTooltipPosition: TooltipPosition.DEFAULT,
+  ionTooltipTrigger: TooltipTrigger.DEFAULT,
+} as TooltipProps;
