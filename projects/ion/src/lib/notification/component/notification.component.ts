@@ -8,9 +8,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { IconType } from '../core/types/icon';
-import { NotificationProps } from '../core/types/notification';
-import { setTimer } from '../utils/setTimer';
+import { IconType } from '../../core/types/icon';
+import { NotificationProps } from '../../core/types/notification';
+import { setTimer } from '../../utils/setTimer';
 
 @Component({
   selector: 'ion-notification',
