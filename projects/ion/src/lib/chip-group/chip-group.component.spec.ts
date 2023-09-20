@@ -121,7 +121,6 @@ describe('ChipGroupComponent', () => {
       } as SafeAny,
     });
     const optionElement = screen.getByTestId(`chip-group-${chips[0].label}`);
-    expect(optionElement).toBeInTheDocument();
     fireEvent.click(optionElement);
     expect(optionElement).toHaveAttribute('ng-reflect-selected', 'true');
   });
