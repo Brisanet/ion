@@ -64,6 +64,22 @@ SelectedByDefault.args = {
   ],
 };
 
+export const RequiredSelected = Template.bind({});
+RequiredSelected.args = {
+  chips: [
+    {
+      label: 'Chip 1',
+      selected: true,
+    },
+    {
+      label: 'Chip 2',
+      selected: false,
+    },
+  ],
+  required: true,
+  multiple: false,
+};
+
 export const Multiple = Template.bind({});
 Multiple.args = {
   chips,

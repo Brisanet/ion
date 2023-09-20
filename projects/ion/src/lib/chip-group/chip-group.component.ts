@@ -14,29 +14,55 @@ import { DropdownItem } from '../core/types/dropdown';
   styleUrls: ['./chip-group.component.scss'],
 })
 export class IonChipGroupComponent {
-  @Input() chips: ChipInGroup[];
+  @Input() chips: ChipInGroup[] = [];
   @Input() size?: ChipSize = 'sm';
   @Input() infoBadge?: IonChipProps['infoBadge'];
   @Input() iconPosition?: IconDirection = 'left';
   @Input() rightBadge?: RightBadge;
   @Input() disabled = false;
   @Input() multiple = false;
+  @Input() required = false;
 
   @Output() selected? = new EventEmitter<ChipInGroup>();
   @Output() dropdown? = new EventEmitter<DropdownItem[]>();
 
   selectChip(chipSelected: ChipInGroup): void {
-    if (chipSelected.multiple && chipSelected.selected) {
+    const isChipSelectedOrMultiple =
+      chipSelected.multiple && chipSelected.selected;
+    if (isChipSelectedOrMultiple) {
       return;
     }
+
+    chipSelected = this.setChip(chipSelected);
+
+    this.selected.emit(chipSelected);
+  }
+
+  setChip(chipSelected: ChipInGroup): ChipInGroup {
     const isChipSelected = chipSelected.selected;
+
     if (!this.multiple) {
       this.clearChips();
     }
-    if (!chipSelected.multiple || !isChipSelected) {
+
+    const isSingleOrSelectedChip = !chipSelected.multiple || !isChipSelected;
+
+    if (isSingleOrSelectedChip) {
       chipSelected.selected = !isChipSelected;
     }
-    this.selected.emit(chipSelected);
+
+    if (this.required) {
+      this.checkRequired(chipSelected);
+    }
+
+    return chipSelected;
+  }
+
+  checkRequired(chipSelected: ChipInGroup): void {
+    const selectedChips = this.chips.filter((chip) => chip.selected);
+    if (!selectedChips.length) {
+      chipSelected.selected = true;
+    }
   }
 
   dropdownEvents(options: DropdownItem[]): void {

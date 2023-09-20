@@ -1,6 +1,7 @@
 <div data-testid="ion-chip-group" class="chip-group">
   <ion-chip
     *ngFor="let chip of chips; index as i"
+    [chipGroupRequired]="required"
     [label]="chip.label"
     [disabled]="chip.disabled || disabled"
     [selected]="chip.selected"
@@ -14,5 +15,7 @@
     [rightBadge]="chip.rightBadge || rightBadge"
     (click)="selectChip(chip)"
     (dropdownEvents)="dropdownEvents($event)"
+    [attr.data-testid]="'chip-group-' + chip.label"
+    [chipGroup]="true"
   ></ion-chip>
 </div>

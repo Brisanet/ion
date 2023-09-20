@@ -9,6 +9,7 @@ export interface ChipGroupProps {
   disabled?: boolean;
   size?: ChipSize;
   multiple?: boolean;
+  required?: boolean;
   events?: EventEmitter<ChipEvent>;
   selected?: EventEmitter<ChipInGroup>;
 }
