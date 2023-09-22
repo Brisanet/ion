@@ -27,7 +27,7 @@ export class IonSidebarComponent {
     }
   };
 
-  public toggleVisibility(): void {
+  public toggleSidebarVisibility(): void {
     this.closed = !this.closed;
     if (!this.closed) {
       setTimeout(() => {
@@ -41,14 +41,17 @@ export class IonSidebarComponent {
 
   public itemSelected(itemIndex: number): void {
     selectItemByIndex(this.items, itemIndex);
+    this.toggleSidebarVisibility();
   }
 
   public itemOnGroupSelected(groupIndex: number): void {
     unselectAllItems(this.items, groupIndex);
+    this.toggleSidebarVisibility();
   }
 
   public groupSelected(groupIndex: number): void {
     unselectAllItems(this.items);
     callItemAction(this.items, groupIndex);
+    this.toggleSidebarVisibility();
   }
 }

@@ -209,6 +209,13 @@ describe('Sidebar', () => {
         userEvent.click(groupName);
         expect(actionMock).toHaveBeenCalledTimes(1);
       });
+      describe('Selecting option', () => {
+        it('should close sidebar when options is selected', () => {
+          userEvent.click(item1);
+          expect(item1).toHaveClass(selectedItemClass);
+          expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
+        });
+      });
     });
   });
   describe('Clicking outside it', () => {
