@@ -21,6 +21,8 @@ const getByTestId = (key: keyof typeof components): HTMLElement => {
 
 const logo: IonSidebarProps['logo'] = 'logo.svg';
 
+const closeOnSelectConfig: IonSidebarProps['closeOnSelect'] = false;
+
 const actionMock = jest.fn();
 
 const items: IonSidebarProps['items'] = [
@@ -54,7 +56,7 @@ const items: IonSidebarProps['items'] = [
 ];
 
 const sut = async (
-  props: IonSidebarProps = { logo: '', items: [] }
+  props: IonSidebarProps = { logo: '', items: [], closeOnSelect: false }
 ): Promise<void> => {
   await render(IonSidebarComponent, {
     componentProperties: { ...props },
@@ -209,13 +211,6 @@ describe('Sidebar', () => {
         userEvent.click(groupName);
         expect(actionMock).toHaveBeenCalledTimes(1);
       });
-      describe('Selecting option', () => {
-        it('should close sidebar when options is selected', () => {
-          userEvent.click(item1);
-          expect(item1).toHaveClass(selectedItemClass);
-          expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
-        });
-      });
     });
   });
   describe('Clicking outside it', () => {
@@ -274,6 +269,21 @@ describe('Sidebar', () => {
     it('should not call an action when clicking on group title', () => {
       userEvent.click(screen.getByText('Group 1'));
       expect(actionMock).not.toHaveBeenCalled();
+    });
+  });
+  describe('Close on select config', () => {
+    it('should close sidebar when options is selected', async () => {
+      await sut({ items: items, logo, closeOnSelect: closeOnSelectConfig });
+
+      const item1 = screen.getByRole('button', {
+        name: items[0].title,
+      });
+      const selectedItemClass = 'ion-sidebar-item--selected';
+
+      userEvent.click(item1);
+      expect(item1).toHaveClass(selectedItemClass);
+
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
   });
 });

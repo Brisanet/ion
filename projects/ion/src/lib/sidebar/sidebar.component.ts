@@ -11,6 +11,7 @@ export class IonSidebarComponent {
   @Input() logo!: string;
   @Input() logoAction?: () => void;
   @Input() items: IonSidebarProps['items'] = [];
+  @Input() closeOnSelect = false;
 
   public closed = true;
 
@@ -41,17 +42,16 @@ export class IonSidebarComponent {
 
   public itemSelected(itemIndex: number): void {
     selectItemByIndex(this.items, itemIndex);
-    this.toggleSidebarVisibility();
+    this.closeOnSelect ? this.toggleSidebarVisibility() : false;
   }
 
   public itemOnGroupSelected(groupIndex: number): void {
     unselectAllItems(this.items, groupIndex);
-    this.toggleSidebarVisibility();
+    this.closeOnSelect ? this.toggleSidebarVisibility() : false;
   }
 
   public groupSelected(groupIndex: number): void {
     unselectAllItems(this.items);
     callItemAction(this.items, groupIndex);
-    this.toggleSidebarVisibility();
   }
 }
