@@ -92,9 +92,7 @@ export class IonPopoverDirective implements OnDestroy {
     ];
     eventSubscriptions.forEach(([event, emitter], index) => {
       popoverInstance[event].subscribe(() => {
-        if (this.shouldClosePopover(index)) {
-          this.closePopover();
-        }
+        this.handlePopoverAction(index);
 
         emitter.emit();
       });
@@ -168,9 +166,10 @@ export class IonPopoverDirective implements OnDestroy {
     this.destroyComponent();
   }
 
-  private shouldClosePopover(index: number): boolean {
+  private handlePopoverAction(index: number): void {
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
-
-    return !action || !action.keepOpenAfterAction;
+    if (!action || !action.keepOpenAfterAction) {
+      this.closePopover();
+    }
   }
 }
