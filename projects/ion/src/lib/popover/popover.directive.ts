@@ -169,12 +169,7 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   private shouldClosePopover(index: number): boolean {
-    const ionIconCloseIndex = 2;
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
-
-    if (index === ionIconCloseIndex) {
-      return true;
-    }
 
     return !action || !action.keepOpenAfterAction;
   }
