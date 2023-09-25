@@ -44,6 +44,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
 
       h4 {
         margin: 0;
@@ -54,6 +55,7 @@
         font-size: 20px;
         line-height: 28px;
         color: $neutral-color;
+        margin-right: auto;
       }
 
       .close-icon {

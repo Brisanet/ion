@@ -18,6 +18,7 @@ import {
   IonModalConfiguration,
   IonModalResponse,
 } from '../models/modal.interface';
+import { SafeAny } from '../../utils/safe-any';
 
 @Component({
   selector: 'ion-modal',
@@ -34,6 +35,7 @@ export class IonModalComponent implements OnInit, OnDestroy {
   @Input() configuration: IonModalConfiguration = {};
 
   @Output()
+  ionOnHeaderButtonAction = new EventEmitter<SafeAny>();
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
   public DEFAULT_WIDTH = 500;
@@ -86,6 +88,10 @@ export class IonModalComponent implements OnInit, OnDestroy {
     params: Partial<T> | undefined
   ): void {
     Object.assign(instance, params);
+  }
+
+  emitHeaderButtonAction(): void {
+    this.ionOnHeaderButtonAction.emit();
   }
 
   ngOnInit(): void {

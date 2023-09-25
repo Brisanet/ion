@@ -1,4 +1,4 @@
-import { IonButtonProps } from '../../core/types';
+import { IconType, IonButtonProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
 export interface IonModalConfiguration {
@@ -8,6 +8,7 @@ export interface IonModalConfiguration {
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;
   ionParams?: SafeAny;
+  headerButton?: IonModalHeaderButton;
 
   footer?: IonModalFooterConfiguration;
 }
@@ -18,6 +19,13 @@ export interface IonModalFooterConfiguration {
 
   primaryButton?: IonButtonProps;
   secondaryButton?: IonButtonProps;
+}
+
+interface IonModalHeaderButton {
+  label: string;
+  icon: IconType;
+  disabled?: () => boolean;
+  hidden?: () => boolean;
 }
 
 export interface IonModalResponse {

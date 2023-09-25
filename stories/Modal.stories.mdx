@@ -49,6 +49,14 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
     height="350px"
     args={{
       componentToBody: SelectMockComponent,
+      modalConfig: {
+        headerButton: {
+          icon: 'left',
+          label: 'test',
+          disabled: () => false,
+          hidden: () => false,
+        },
+      },
     }}
     decorators={[
       moduleMetadata({
