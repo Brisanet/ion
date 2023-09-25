@@ -1,5 +1,6 @@
 import { TemplateRef } from '@angular/core';
-import { IonButtonProps } from './button';
+
+import { PopoverButtonsProps } from '../../popover/utilsPopover';
 import { IconType } from './icon';
 
 export enum PopoverPosition {
@@ -19,7 +20,7 @@ export enum PopoverPosition {
 export interface PopoverProps {
   ionPopoverTitle: string;
   ionPopoverBody: TemplateRef<void>;
-  ionPopoverActions?: IonButtonProps[];
+  ionPopoverActions?: PopoverButtonsProps[];
   ionPopoverIcon?: IconType;
   ionPopoverIconColor?: string;
   ionPopoverIconClose?: boolean;

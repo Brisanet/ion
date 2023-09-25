@@ -1,32 +1,33 @@
-import {
-  Directive,
-  Input,
-  HostListener,
-  ComponentFactoryResolver,
-  Injector,
-  Inject,
-  ComponentRef,
-  ApplicationRef,
-  Output,
-  EventEmitter,
-  ViewContainerRef,
-  OnDestroy,
-  TemplateRef,
-} from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  ApplicationRef,
+  ComponentFactoryResolver,
+  ComponentRef,
+  Directive,
+  EventEmitter,
+  HostListener,
+  Inject,
+  Injector,
+  Input,
+  OnDestroy,
+  Output,
+  TemplateRef,
+  ViewContainerRef,
+} from '@angular/core';
+import { pick } from 'lodash';
+
+import { IconType } from '../core/types';
+import { PopoverPosition } from '../core/types/popover';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
-import { PopoverPosition } from '../core/types/popover';
-import { getPositionsPopover } from './utilsPopover';
-import { IonButtonProps, IconType } from '../core/types';
-import { pick } from 'lodash';
+import { getPositionsPopover, PopoverButtonsProps } from './utilsPopover';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverKeep = false;
   @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: IonButtonProps[];
+  @Input() ionPopoverActions?: PopoverButtonsProps[];
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconColor?: string;
   @Input() ionPopoverIconClose? = false;
@@ -89,9 +90,12 @@ export class IonPopoverDirective implements OnDestroy {
       ['ionOnSecondAction', this.ionOnSecondAction],
       ['ionOnClose', this.ionOnClose],
     ];
-    eventSubscriptions.forEach(([event, emitter]) => {
+    eventSubscriptions.forEach(([event, emitter], index) => {
       popoverInstance[event].subscribe(() => {
-        this.closePopover();
+        if (this.shouldClosePopover(index)) {
+          this.closePopover();
+        }
+
         emitter.emit();
       });
     });
@@ -162,5 +166,16 @@ export class IonPopoverDirective implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyComponent();
+  }
+
+  private shouldClosePopover(index: number): boolean {
+    const ionIconCloseIndex = 2;
+    const action = this.ionPopoverActions && this.ionPopoverActions[index];
+
+    if (index === ionIconCloseIndex) {
+      return true;
+    }
+
+    return !action || !action.keepOpenAfterAction;
   }
 }
