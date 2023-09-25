@@ -1,4 +1,3 @@
-import { IonButtonProps } from '../core/types';
 import { PopoverPosition } from '../core/types/popover';
 
 interface Hostpositions {
@@ -11,10 +10,6 @@ interface Hostpositions {
 export type PopoverPositions = {
   [key in PopoverPosition]: Pick<Hostpositions, 'left' | 'top'>;
 };
-
-export interface PopoverButtonsProps extends IonButtonProps {
-  keepOpenAfterAction?: boolean;
-}
 
 export function getPositionsPopover(
   { left, right, top, bottom }: Hostpositions,

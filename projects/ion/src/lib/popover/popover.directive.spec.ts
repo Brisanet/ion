@@ -11,14 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
+
 import { IonButtonModule } from '../button/button.module';
-import { PopoverPosition } from '../core/types/popover';
+import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
 import { IonPopoverDirective } from './popover.directive';
 import { IonPopoverModule } from './popover.module';
-import { PopoverButtonsProps } from './utilsPopover';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';

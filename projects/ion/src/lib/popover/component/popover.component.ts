@@ -2,8 +2,7 @@ import { Component, Input, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { IconType } from '../../core/types';
-import { PopoverPosition } from '../../core/types/popover';
-import { PopoverButtonsProps } from '../utilsPopover';
+import { PopoverButtonsProps, PopoverPosition } from '../../core/types/popover';
 
 const PRIMARY_6 = '#0858ce';
 

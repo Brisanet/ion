@@ -17,10 +17,10 @@ import {
 import { pick } from 'lodash';
 
 import { IconType } from '../core/types';
-import { PopoverPosition } from '../core/types/popover';
+import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
-import { getPositionsPopover, PopoverButtonsProps } from './utilsPopover';
+import { getPositionsPopover } from './utilsPopover';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {

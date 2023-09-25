@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 
-import { PopoverButtonsProps } from '../../popover/utilsPopover';
+import { IonButtonProps } from './button';
 import { IconType } from './icon';
 
 export enum PopoverPosition {
@@ -15,6 +15,10 @@ export enum PopoverPosition {
   BOTTOM_CENTER = 'bottomCenter',
   BOTTOM_LEFT = 'bottomLeft',
   DEFAULT = 'bottomRight',
+}
+
+export interface PopoverButtonsProps extends IonButtonProps {
+  keepOpenAfterAction?: boolean;
 }
 
 export interface PopoverProps {
