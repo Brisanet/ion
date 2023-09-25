@@ -99,6 +99,13 @@ export class IonPopoverDirective implements OnDestroy {
     });
   }
 
+  handlePopoverAction(index: number): void {
+    const action = this.ionPopoverActions && this.ionPopoverActions[index];
+    if (!action || !action.keepOpenAfterAction) {
+      this.closePopover();
+    }
+  }
+
   setComponentPosition(hostElement: DOMRect): void {
     const hostPositions = pick(hostElement, ['left', 'right', 'top', 'bottom']);
     const positions = getPositionsPopover(
@@ -164,12 +171,5 @@ export class IonPopoverDirective implements OnDestroy {
 
   ngOnDestroy(): void {
     this.destroyComponent();
-  }
-
-  private handlePopoverAction(index: number): void {
-    const action = this.ionPopoverActions && this.ionPopoverActions[index];
-    if (!action || !action.keepOpenAfterAction) {
-      this.closePopover();
-    }
   }
 }
