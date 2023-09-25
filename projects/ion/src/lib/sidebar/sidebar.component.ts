@@ -42,12 +42,16 @@ export class IonSidebarComponent {
 
   public itemSelected(itemIndex: number): void {
     selectItemByIndex(this.items, itemIndex);
-    this.closeOnSelect ? this.toggleSidebarVisibility() : false;
+    if (this.closeOnSelect) {
+      this.toggleSidebarVisibility();
+    }
   }
 
   public itemOnGroupSelected(groupIndex: number): void {
     unselectAllItems(this.items, groupIndex);
-    this.closeOnSelect ? this.toggleSidebarVisibility() : false;
+    if (this.closeOnSelect) {
+      this.toggleSidebarVisibility();
+    }
   }
 
   public groupSelected(groupIndex: number): void {
