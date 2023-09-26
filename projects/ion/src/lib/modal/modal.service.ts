@@ -21,7 +21,7 @@ import {
   providedIn: 'root',
 })
 export class IonModalService {
-  public ionOnHeaderButtonAction = new Subject<SafeAny>();
+  public readonly ionOnHeaderButtonAction = new Subject<SafeAny>();
   private modalComponentRef!: ComponentRef<IonModalComponent>;
   private componentSubscriber!: Subject<IonModalResponse | unknown>;
 
