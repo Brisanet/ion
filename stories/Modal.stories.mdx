@@ -72,6 +72,26 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
 
 <br />
 
+## ionOnHeaderButtonAction
+
+Um subject que irá informar ao Body Component do clique no HeaderLeftButton. O usuário deve instanciar o ModalService no componente usado como body e se inscrever nesse subject.
+
+> Ideal para casos onde precisamos que o bodyComponent altere seu estado a partir da action do headerButton. Veja o exemplo abaixo:
+
+<Source
+  language="js"
+  dark
+  format={false}
+  code={dedent`
+    export class BodyComponent implements OnInit {
+      constructor(private modalService: IonModalService) {}
+      ngOnInit(): void {
+      this.modalService.ionOnHeaderButtonAction.subscribe();
+    }
+  }
+`}
+/>
+
 ## EmitValueAndCloseModal
 
 Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser emitido e faz o fechamento do modal.
