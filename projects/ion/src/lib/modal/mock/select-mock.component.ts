@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { IonModalService } from '../modal.service';
+import { Component } from '@angular/core';
 
 @Component({
   template: `
@@ -19,13 +18,6 @@ import { IonModalService } from '../modal.service';
     </select>
   `,
 })
-export class SelectMockComponent implements OnInit {
+export class SelectMockComponent {
   state = 'ceara';
-  constructor(private ionModalService: IonModalService) {}
-
-  ngOnInit(): void {
-    this.ionModalService.ionOnHeaderButtonAction.subscribe(() => {
-      this.state = 'espirito-santo';
-    });
-  }
 }

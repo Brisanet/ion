@@ -90,8 +90,8 @@ export class IonModalComponent implements OnInit, OnDestroy {
     Object.assign(instance, params);
   }
 
-  emitHeaderButtonAction(): void {
-    this.ionOnHeaderButtonAction.emit();
+  emitHeaderButtonAction(valueToEmit: IonModalResponse | undefined): void {
+    this.ionOnHeaderButtonAction.emit(valueToEmit);
   }
 
   ngOnInit(): void {

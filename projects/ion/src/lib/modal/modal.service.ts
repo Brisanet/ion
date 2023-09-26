@@ -64,9 +64,11 @@ export class IonModalService {
       }
     );
 
-    this.modalComponentRef.instance.ionOnHeaderButtonAction.subscribe(() => {
-      this.ionOnHeaderButtonAction.next();
-    });
+    this.modalComponentRef.instance.ionOnHeaderButtonAction.subscribe(
+      (valueFromModal: IonModalResponse) => {
+        this.emitHeaderAction(valueFromModal);
+      }
+    );
 
     this.componentSubscriber = new Subject<IonModalResponse | unknown>();
     return this.componentSubscriber.asObservable();
@@ -75,6 +77,10 @@ export class IonModalService {
   emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown): void {
     this.componentSubscriber.next(valueToEmit);
     this.closeModal();
+  }
+
+  emitHeaderAction(valueToEmit: IonModalResponse | unknown): void {
+    this.ionOnHeaderButtonAction.next(valueToEmit);
   }
 
   closeModal(): void {

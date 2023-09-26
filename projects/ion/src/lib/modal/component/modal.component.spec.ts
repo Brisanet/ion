@@ -196,4 +196,161 @@ describe('IonModalComponent', () => {
       fixture.nativeElement.querySelector('.modal-container').style.width;
     expect(modalElement).toBe(`${modalConfig.width}px`);
   });
+
+  describe('IonModalComponent - Header left button', () => {
+    it('should not be rendered as default', () => {
+      expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+
+    it('should emit event when call closeModal function', () => {
+      jest.spyOn(component.ionOnHeaderButtonAction, 'emit');
+      component.emitHeaderButtonAction(
+        component.getChildComponentPropertiesValue()
+      );
+      expect(component.ionOnHeaderButtonAction.emit).toHaveBeenCalled();
+    });
+
+    it('should be visible as default if the config is informed', () => {
+      const configuration: IonModalConfiguration = {
+        id: '1',
+        title: 'Ion Test',
+
+        footer: {
+          showDivider: false,
+          primaryButton: {
+            label: 'Ion Cancel',
+            iconType: 'icon',
+          },
+          secondaryButton: {
+            label: 'Ion Confirm',
+            iconType: 'icon',
+          },
+        },
+
+        headerButton: {
+          icon: 'left',
+          label: 'voltar',
+        },
+      };
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).toBeVisible();
+    });
+
+    it('should be hidden when informed', () => {
+      const configuration: IonModalConfiguration = {
+        id: '1',
+        title: 'Ion Test',
+
+        footer: {
+          showDivider: false,
+          primaryButton: {
+            label: 'Ion Cancel',
+            iconType: 'icon',
+          },
+          secondaryButton: {
+            label: 'Ion Confirm',
+            iconType: 'icon',
+          },
+        },
+
+        headerButton: {
+          icon: 'left',
+          label: 'voltar',
+          hidden: () => true,
+        },
+      };
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+
+    it('should not be disabled as default', () => {
+      const configuration: IonModalConfiguration = {
+        id: '1',
+        title: 'Ion Test',
+
+        footer: {
+          showDivider: false,
+          primaryButton: {
+            label: 'Ion Cancel',
+            iconType: 'icon',
+          },
+          secondaryButton: {
+            label: 'Ion Confirm',
+            iconType: 'icon',
+          },
+        },
+
+        headerButton: {
+          icon: 'left',
+          label: 'voltar',
+        },
+      };
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).not.toBeDisabled();
+    });
+
+    it('should be disabled when informed', () => {
+      const configuration: IonModalConfiguration = {
+        id: '1',
+        title: 'Ion Test',
+
+        footer: {
+          showDivider: false,
+          primaryButton: {
+            label: 'Ion Cancel',
+            iconType: 'icon',
+          },
+          secondaryButton: {
+            label: 'Ion Confirm',
+            iconType: 'icon',
+          },
+        },
+
+        headerButton: {
+          icon: 'left',
+          label: 'voltar',
+          disabled: () => true,
+        },
+      };
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).toBeDisabled();
+    });
+
+    it('should render the specified icon', () => {
+      const configuration: IonModalConfiguration = {
+        id: '1',
+        title: 'Ion Test',
+
+        footer: {
+          showDivider: false,
+          primaryButton: {
+            label: 'Ion Cancel',
+            iconType: 'icon',
+          },
+          secondaryButton: {
+            label: 'Ion Confirm',
+            iconType: 'icon',
+          },
+        },
+
+        headerButton: {
+          icon: 'left',
+          label: 'voltar',
+        },
+      };
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      const icon = document.getElementById('ion-icon-left');
+      expect(icon).toBeVisible();
+    });
+  });
 });
