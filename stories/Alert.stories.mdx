@@ -170,3 +170,21 @@ A partir do paramêtro `hideBackground` pode ser definido se o usuário quer mos
     {Template.bind({})}
   </Story>
 </Canvas>
+
+<Canvas>
+  <Story
+    name="type: with description"
+    args={{
+      type: 'info',
+      message: 'Example of alert message',
+      description: 'Example of description.',
+    }}
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

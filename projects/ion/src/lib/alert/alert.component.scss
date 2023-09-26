@@ -16,8 +16,7 @@
 
 .ion-alert {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   border: 1px solid;
   border-radius: 8px;
@@ -29,6 +28,18 @@
   span {
     width: 95%;
   }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .success {
@@ -50,6 +61,15 @@
 .without-background {
   background-color: transparent;
   border: none !important;
+}
+
+.with-description {
+  border: none !important;
+  background-color: #f2f3f5;
+}
+
+.no-radius {
+  border-radius: 0;
 }
 
 .closable-true {
