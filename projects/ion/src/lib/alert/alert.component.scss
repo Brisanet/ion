@@ -58,14 +58,27 @@
   @include alert-style($negative-1, $negative-6);
 }
 
+.with-description {
+  border: none !important;
+  background-color: $neutral-2;
+  padding: 16px 24px !important;
+  color: $neutral-7;
+  gap: 4px;
+
+  .message-text {
+    font-weight: 600;
+  }
+
+  .description {
+    word-break: break-all;
+    hyphens: auto;
+    width: 100%;
+  }
+}
+
 .without-background {
   background-color: transparent;
   border: none !important;
-}
-
-.with-description {
-  border: none !important;
-  background-color: #f2f3f5;
 }
 
 .no-radius {

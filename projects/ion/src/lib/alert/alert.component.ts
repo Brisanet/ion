@@ -36,7 +36,6 @@ export class IonAlertComponent implements OnInit, OnChanges {
   iconType: IconType;
 
   hasPlainText: boolean;
-  hasDescription: boolean;
 
   closeEvent(): void {
     this.ionAlert.nativeElement.remove();
@@ -47,14 +46,6 @@ export class IonAlertComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    if (this.description) {
-      this.hasDescription = true;
-    }
-
-    if (this.noRadius) {
-      this.noRadius = true;
-    }
-
     if (this.hideBackground) {
       this.closable = false;
     }

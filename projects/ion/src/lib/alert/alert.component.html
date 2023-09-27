@@ -3,7 +3,7 @@
   [class]="'ion-alert ' + type + ' closable-' + closable"
   [ngClass]="{
     'without-background': hideBackground,
-    'with-description': description,
+    'with-description': description?.length > 0,
     'no-radius': noRadius
   }"
   #ionAlert
@@ -19,6 +19,7 @@
       <span
         *ngIf="hasPlainText; else customBody"
         data-testid="ion-alert-message"
+        class="message-text"
         >{{ message }}</span
       >
 
@@ -36,5 +37,7 @@
     ></ion-icon>
   </div>
 
-  <div *ngIf="description" class="description">{{ description }}</div>
+  <div *ngIf="description?.length > 0" class="description">
+    {{ description }}
+  </div>
 </div>
