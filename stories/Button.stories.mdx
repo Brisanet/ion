@@ -250,6 +250,9 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   </Story>
 </Canvas>
 
+- `options`. Habilita o dropdown no IonButton.
+- `dropdownConfig`. Possibilita configurar o dropdown, ao repassar as propriedades `required` e `notShowClearButton`.
+
 <Canvas>
   <Story
     name="with dropdown"
@@ -261,6 +264,19 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   >
     {{
       template: `<ion-button label="Primary" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>`,
+    }}
+    secondary
+  </Story>
+  <Story
+    name="with dropdown"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Primary" [options]="[{ label: 'option 1' }, {label: 'option 2'}]" [dropdownConfig]="{required: true}"></ion-button>`,
     }}
     secondary
   </Story>
