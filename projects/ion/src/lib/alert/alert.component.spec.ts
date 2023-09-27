@@ -103,6 +103,17 @@ describe('AlertComponent', () => {
     expect(element).toHaveClass('without-background');
   });
 
+  it('should render with description', async () => {
+    const description = 'Testing description';
+    const element = await sut({ ...defaultValue, description });
+    expect(element).toHaveTextContent(description);
+  });
+
+  it('should render without radius', async () => {
+    const element = await sut({ ...defaultValue, noRadius: true });
+    expect(element).toHaveClass('no-radius');
+  });
+
   describe('With a string provided', () => {
     it('Should have an alert message', async () => {
       expect(await sut()).toHaveTextContent(defaultValue.message as string);
