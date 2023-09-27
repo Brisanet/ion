@@ -231,6 +231,8 @@ export { default as orderBottom } from './order-bottom';
 export { default as orderGeneric } from './order-generic';
 export { default as orderLetter1 } from './order-letter1';
 export { default as orderLetter2 } from './order-letter2';
+export { default as orderNumber1 } from './order-number1';
+export { default as orderNumber2 } from './order-number2';
 export { default as orderUp } from './order-up';
 export { default as out } from './out';
 export { default as passcode } from './passcode';
