@@ -354,6 +354,8 @@ import {
   move,
   zoomOut,
   hand,
+  orderNumber1,
+  orderNumber2,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -590,6 +592,8 @@ export const iconsPaths: Record<string, string> = {
   'order-generic': orderGeneric,
   'order-letter1': orderLetter1,
   'order-letter2': orderLetter2,
+  'order-number1': orderNumber1,
+  'order-number2': orderNumber2,
   'order-up': orderUp,
   out,
   passcode,
