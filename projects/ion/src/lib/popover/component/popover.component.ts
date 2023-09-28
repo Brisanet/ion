@@ -1,7 +1,8 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { PopoverPosition } from '../../core/types/popover';
-import { IconType, IonButtonProps } from '../../core/types';
+
+import { IconType } from '../../core/types';
+import { PopoverButtonsProps, PopoverPosition } from '../../core/types/popover';
 
 const PRIMARY_6 = '#0858ce';
 
@@ -15,7 +16,7 @@ export class IonPopoverComponent {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverKeep: boolean;
   @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: IonButtonProps[];
+  @Input() ionPopoverActions?: PopoverButtonsProps[];
   @Input() ionPopoverIcon?: IconType;
   @Input() ionPopoverIconColor? = PRIMARY_6;
   @Input() ionPopoverIconClose = false;

@@ -7,6 +7,7 @@ import {
   TooltipTrigger,
 } from '../core/types';
 import { IonTooltipModule } from './tooltip.module';
+import { IonTooltipDirective } from './tooltip.directive';
 
 @Component({
   template: `
@@ -128,6 +129,17 @@ describe('Directive: Tooltip', () => {
     expect(screen.getByTestId('ion-tooltip')).toHaveClass(
       `ion-tooltip-position--bottomRight`
     );
+  });
+
+  it('should close the tooltip when scrolling the page', async () => {
+    await sut();
+    const directive = IonTooltipDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    fireEvent.scroll(window);
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });
 
   describe('trigger: click', () => {
