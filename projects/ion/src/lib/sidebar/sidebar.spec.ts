@@ -21,6 +21,8 @@ const getByTestId = (key: keyof typeof components): HTMLElement => {
 
 const logo: IonSidebarProps['logo'] = 'logo.svg';
 
+const closeOnSelectConfig: IonSidebarProps['closeOnSelect'] = true;
+
 const actionMock = jest.fn();
 
 const items: IonSidebarProps['items'] = [
@@ -54,7 +56,7 @@ const items: IonSidebarProps['items'] = [
 ];
 
 const sut = async (
-  props: IonSidebarProps = { logo: '', items: [] }
+  props: IonSidebarProps = { logo: '', items: [], closeOnSelect: false }
 ): Promise<void> => {
   await render(IonSidebarComponent, {
     componentProperties: { ...props },
@@ -267,6 +269,36 @@ describe('Sidebar', () => {
     it('should not call an action when clicking on group title', () => {
       userEvent.click(screen.getByText('Group 1'));
       expect(actionMock).not.toHaveBeenCalled();
+    });
+  });
+  describe('Close on select config', () => {
+    const selectedItemClass = 'ion-sidebar-item--selected';
+    let item1: HTMLElement;
+    let itemGroup2: HTMLElement;
+    beforeEach(async () => {
+      await sut({ items: items, logo, closeOnSelect: closeOnSelectConfig });
+      userEvent.click(getByTestId('toggleVisibility').firstElementChild);
+      expect(getByTestId('sidebar')).toHaveClass('ion-sidebar--opened');
+    });
+    it('should close sidebar when option is clicked', async () => {
+      item1 = screen.getByRole('button', {
+        name: items[0].title,
+      });
+
+      userEvent.click(item1);
+      expect(item1).toHaveClass(selectedItemClass);
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
+    });
+    it('should close sidebar when options is clicked', async () => {
+      userEvent.click(screen.getByTestId('sidebar-group__toggle-icon'));
+
+      itemGroup2 = screen.getByRole('button', {
+        name: items[2].options[1].title,
+      });
+
+      userEvent.click(itemGroup2);
+      expect(itemGroup2).toHaveClass(selectedItemClass);
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
   });
 });
