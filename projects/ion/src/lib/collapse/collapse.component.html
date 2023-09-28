@@ -1,5 +1,5 @@
 <section data-testid="ion-collapse">
-  <header (click)="toggle()" [style]="{ backgroundColor: color }">
+  <header (click)="toggle()" [style.background]="color">
     <div>
       <div
         *ngIf="!templateHeader; else headerCustom"
@@ -17,7 +17,7 @@
   </header>
   <main
     *ngIf="show"
-    [style]="{ borderColor: color }"
+    [style.background]="color"
     data-testid="ion-collapse__main"
   >
     <ng-content></ng-content>
