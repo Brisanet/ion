@@ -1,0 +1,27 @@
+@import '../../styles/index.scss';
+
+section {
+  margin: 8px;
+
+  header,
+  main {
+    padding: 16px;
+    background-color: $neutral-1;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  main {
+    border-top: 1px solid $neutral-4;
+
+    .icon-color {
+      ::ng-deep svg {
+        fill: $primary-4;
+      }
+    }
+  }
+}

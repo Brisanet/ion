@@ -1,0 +1,25 @@
+<section data-testid="ion-collapse">
+  <header (click)="toggle()" [style]="{ backgroundColor: color }">
+    <div>
+      <div
+        *ngIf="!templateHeader; else headerCustom"
+        data-testid="ion-collapse__header-name"
+      >
+        {{ name }}
+      </div>
+      <ng-template
+        #headerCustom
+        [ngTemplateOutlet]="templateHeader"
+      ></ng-template>
+    </div>
+    <ion-icon *ngIf="!show" type="right2" [size]="16" color="blue"></ion-icon>
+    <ion-icon *ngIf="show" type="semi-down" [size]="16" color="blue"></ion-icon>
+  </header>
+  <main
+    *ngIf="show"
+    [style]="{ borderColor: color }"
+    data-testid="ion-collapse__main"
+  >
+    <ng-content></ng-content>
+  </main>
+</section>
