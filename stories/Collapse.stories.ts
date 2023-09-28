@@ -17,11 +17,21 @@ const Template: Story<IonCollapseComponent> = (args: IonCollapseComponent) => ({
   },
 });
 
-export const WithValue = Template.bind({});
-WithValue.args = {
+export const Collapse = Template.bind({});
+Collapse.args = {
   name: 'Brisanet',
   color: '#deb887',
 };
+
+const TemplateCollapseCustomColor: Story = (args) => ({
+  props: args,
+  template: `<ion-collapse name="Collapse name example" color="burlywood"><p>The main code should go here</p></ion-collapse><ion-collapse name="Collapse name example" color="red"><p>The main code should go here</p></ion-collapse>`,
+  moduleMetadata: {
+    imports: [CommonModule, IonIconModule, IonCollapseModule],
+  },
+});
+
+export const CollapseCustomCollor = TemplateCollapseCustomColor.bind({});
 
 const TemplateCollapseMainContent: Story = (args) => ({
   props: args,
