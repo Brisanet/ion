@@ -21,6 +21,7 @@ import {
   providedIn: 'root',
 })
 export class IonModalService {
+  public readonly ionOnHeaderButtonAction = new Subject<SafeAny>();
   private modalComponentRef!: ComponentRef<IonModalComponent>;
   private componentSubscriber!: Subject<IonModalResponse | unknown>;
 
@@ -62,6 +63,13 @@ export class IonModalService {
         this.emitValueAndCloseModal(valueFromModal);
       }
     );
+
+    this.modalComponentRef.instance.ionOnHeaderButtonAction.subscribe(
+      (valueFromModal: IonModalResponse) => {
+        this.emitHeaderAction(valueFromModal);
+      }
+    );
+
     this.componentSubscriber = new Subject<IonModalResponse | unknown>();
     return this.componentSubscriber.asObservable();
   }
@@ -69,6 +77,10 @@ export class IonModalService {
   emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown): void {
     this.componentSubscriber.next(valueToEmit);
     this.closeModal();
+  }
+
+  emitHeaderAction(valueToEmit: IonModalResponse | unknown): void {
+    this.ionOnHeaderButtonAction.next(valueToEmit);
   }
 
   closeModal(): void {

@@ -16,6 +16,27 @@
     aria-modal="true"
   >
     <header tabindex="0">
+      <ion-button
+        *ngIf="
+          configuration.headerButton &&
+          !(configuration.headerButton.hidden
+            ? configuration.headerButton.hidden()
+            : false)
+        "
+        [iconType]="configuration.headerButton.icon"
+        [label]="configuration.headerButton.label"
+        [disabled]="
+          configuration.headerButton.disabled
+            ? configuration.headerButton.disabled()
+            : false
+        "
+        type="ghost"
+        [circularButton]="true"
+        data-testid="header-button"
+        (ionOnClick)="
+          emitHeaderButtonAction(this.getChildComponentPropertiesValue())
+        "
+      ></ion-button>
       <h4 data-testid="modalTitle">{{ configuration.title }}</h4>
       <ion-button
         label="Deletar"
