@@ -109,6 +109,11 @@ describe('AlertComponent', () => {
     expect(element).toHaveTextContent(description);
   });
 
+  it('should render with radius', async () => {
+    const element = await sut(defaultValue);
+    expect(element).not.toHaveClass('no-radius');
+  });
+
   it('should render without radius', async () => {
     const element = await sut({ ...defaultValue, noRadius: true });
     expect(element).toHaveClass('no-radius');
