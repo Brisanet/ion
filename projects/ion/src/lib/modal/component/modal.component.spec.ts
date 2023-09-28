@@ -202,7 +202,7 @@ describe('IonModalComponent', () => {
       expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
     });
 
-    it('should emit event when call closeModal function', () => {
+    it('should emit event when call emitHeaderButtonAction function', () => {
       jest.spyOn(component.ionOnHeaderButtonAction, 'emit');
       component.emitHeaderButtonAction(
         component.getChildComponentPropertiesValue()
@@ -267,7 +267,7 @@ describe('IonModalComponent', () => {
       expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
     });
 
-    it('should not be disabled as default', () => {
+    it('should be enabled as default', () => {
       const configuration: IonModalConfiguration = {
         id: '1',
         title: 'Ion Test',
@@ -292,7 +292,7 @@ describe('IonModalComponent', () => {
 
       component.setConfig(configuration);
       fixture.detectChanges();
-      expect(screen.getByTestId('btn-voltar')).not.toBeDisabled();
+      expect(screen.getByTestId('btn-voltar')).toBeEnabled();
     });
 
     it('should be disabled when informed', () => {
