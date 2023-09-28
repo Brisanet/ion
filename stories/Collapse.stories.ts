@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonCollapseComponent } from '../projects/ion/src/lib/collapse/collapse.component';
 import { IonIconModule } from '../projects/ion/src/lib/icon/icon.module';
 import { IonCollapseModule } from '../projects/ion/src/lib/collapse/collapse.module';
+import { IonTooltipModule } from '../projects/ion/src/lib/tooltip/tooltip.module';
 
 export default {
   title: 'Ion/Data Display/Collapse',
@@ -45,13 +46,32 @@ export const CollapseMainContent = TemplateCollapseMainContent.bind({});
 
 const TemplateCollapseCustomHeader: Story = (args) => ({
   props: args,
-  template: `<ion-collapse [templateHeader]="customHeader" color="burlywood"><p>The main code should go here</p></ion-collapse>
-  
-    <ng-template #customHeader ><div style="display:flex; align-items:center; gap: 8px;"> <label>Collapse Custom header</label><input/> <ion-icon type="search" [size]=18></ion-icon></div></ng-template>
+  template: `
+    <ion-collapse  [templateHeader]="customHeader" color="burlywood" ><p>Uma terminação de linha óptica, também chamada de terminal de linha óptica, é um dispositivo que serve como ponto final do provedor de serviços de uma rede óptica passiva. </p></ion-collapse>
+    
+    <ng-template #customHeader>
+      <div style="display:flex; align-items:center; gap: 8px;">
+        <ion-icon type="olt"></ion-icon><b>OLT</b>
+        <ion-icon 
+          type="information" 
+          [size]=14 
+          color="#6868ff" 
+          ionTooltip
+          ionTooltipTitle="Terminação de Linha Óptica"
+          ionTooltipPosition="topCenter"
+          [ionTooltipArrowPointAtCenter]="true"
+          ionTooltipColorScheme="dark"
+          ionTooltipTrigger="hover"
+          ionTooltipShowDelay="0"
+        ></ion-icon>
+      </div>
+    </ng-template>
   `,
   moduleMetadata: {
-    imports: [CommonModule, IonIconModule, IonCollapseModule],
+    imports: [CommonModule, IonIconModule, IonCollapseModule, IonTooltipModule],
   },
 });
 
-export const CollapseTemplateHeader = TemplateCollapseCustomHeader.bind({});
+export const CollapseTemplateHeader = TemplateCollapseCustomHeader.bind({
+  dados: [{ icon: 'olt' }],
+});
