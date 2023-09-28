@@ -11,8 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
+
 import { IonButtonModule } from '../button/button.module';
-import { PopoverPosition } from '../core/types/popover';
+import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
@@ -63,7 +64,10 @@ class HostTestComponent {
   ionPopoverKeep = false;
   ionPopoverIconClose = true;
   ionPopoverIcon = 'condominium';
-  ionPopoverActions = [{ label: 'action 1' }, { label: 'action 2' }];
+  ionPopoverActions: PopoverButtonsProps[] = [
+    { label: 'action 1' },
+    { label: 'action 2' },
+  ];
 
   ionOnFirstAction = firstAction;
   ionOnSecondAction = secondAction;
@@ -181,6 +185,24 @@ describe('Directive: popover', () => {
     expect(screen.queryByTestId(`popover-${type.dataTestId}`)).toBeNull();
   });
 
+  it.each([
+    { dataTestId: 'action-1', label: 'voltar' },
+    { dataTestId: 'action-2', label: 'continuar' },
+  ])(
+    'should not close pop when click in $label when to have keepOpenAfterAction',
+    async (type) => {
+      await sut({
+        ionPopoverActions: [
+          { label: 'voltar', keepOpenAfterAction: true },
+          { label: 'continuar', keepOpenAfterAction: true },
+        ],
+      });
+      fireEvent.click(screen.getByText(textButton));
+      fireEvent.click(screen.getByTestId(`btn-${type.label}`));
+      expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+    }
+  );
+
   it('should emit an event when click on action-1', async () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
@@ -211,7 +233,7 @@ describe('Directive: popover', () => {
     await sut();
     fireEvent.click(screen.getByText(textButton));
     fireEvent.click(document);
-    expect(screen.queryByTestId('ion-popover')).toBeFalsy();
+    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
   });
 
   it('should render popover with custom class', async () => {
