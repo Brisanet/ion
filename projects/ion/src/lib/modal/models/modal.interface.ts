@@ -22,8 +22,8 @@ export interface IonModalFooterConfiguration {
 }
 
 interface IonModalHeaderButton {
-  label: string;
   icon: IconType;
+  label?: string;
   disabled?: () => boolean;
   hidden?: () => boolean;
 }
