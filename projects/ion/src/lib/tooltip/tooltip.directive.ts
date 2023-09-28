@@ -157,6 +157,10 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
     }
   }
 
+  @HostListener('window:scroll') onScroll(): void {
+    this.destroyComponent();
+  }
+
   ngOnDestroy(): void {
     this.destroyComponent();
     this.subscription$.unsubscribe();
