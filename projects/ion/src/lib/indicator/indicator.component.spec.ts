@@ -1,29 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import {
-  render,
   RenderResult,
-  screen,
   fireEvent,
+  render,
+  screen,
 } from '@testing-library/angular';
+import { IonButtonModule } from '../button/button.module';
 import { IonIndicatorProps } from '../core/types';
+import { IonIconModule } from '../icon/icon.module';
 import { IonModalComponent } from '../modal/component/modal.component';
+import { IonNoDataModule } from '../no-data/no-data.module';
+import { IonPopoverModule } from '../popover/popover.module';
+import { IonSharedModule } from '../shared.module';
+import { IonSkeletonModule } from '../skeleton/skeleton.module';
+import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { BodyMockComponent } from './../card/mock/body-mock.component';
 import { IonIndicatorComponent } from './indicator.component';
+import { IonIndicatorModule } from './indicator.module';
 import {
   buttonEmitterConfig,
   buttonModalConfig,
   buttonRedirectConfig,
 } from './mocks/indicator-button-config';
-import { IonButtonModule } from '../button/button.module';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonIconModule } from '../icon/icon.module';
-import { IonSkeletonModule } from '../skeleton/skeleton.module';
-import { IonSpinnerModule } from '../spinner/spinner.module';
-import { IonPopoverModule } from '../popover/popover.module';
 import { IndicatorPopoverComponent } from './mocks/indicator-popover.component';
-import { IonSharedModule } from '../shared.module';
-import { IonIndicatorModule } from './indicator.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -43,6 +44,7 @@ const sut = async (
       IonSkeletonModule,
       IonSpinnerModule,
       IonPopoverModule,
+      IonNoDataModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
@@ -77,6 +79,7 @@ const elements = {
   preview: 'ion-indicator-preview',
   spinner: 'ion-indicator-spinner',
   error: 'ion-indicator-error',
+  noData: 'ion-no-data-icon',
 };
 
 const getElementByTestId = (key: keyof typeof elements): HTMLElement =>
@@ -88,8 +91,8 @@ describe('IonIndicatorComponent', () => {
     const defaultTitle = 'Ion Indicator';
     expect(screen.getByTestId('ion-indicator')).toBeInTheDocument();
     expect(getElementByTestId('title').textContent).toBe(defaultTitle);
-    expect(getElementByTestId('value').textContent).toBeFalsy();
-    expect(getElementByTestId('secondValue').textContent).toBeFalsy();
+    expect(screen.queryByTestId('ion-indicator-value')).toBeFalsy();
+    expect(screen.queryByTestId('ion-indicator-second-value')).toBeFalsy();
     expect(getElementByTestId('tooltip')).not.toBeInTheDocument();
     expect(getElementByTestId('footer')).not.toBeInTheDocument();
   });
@@ -225,6 +228,13 @@ describe('IonIndicatorComponent', () => {
       error: true,
     });
     expect(getElementByTestId('error')).toBeInTheDocument();
+  });
+
+  it('Should render no value msg', async () => {
+    await sut({
+      value: '',
+    });
+    expect(getElementByTestId('noData')).toBeInTheDocument();
   });
 });
 

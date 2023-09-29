@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { IonIndicatorComponent } from './indicator.component';
 import { IonButtonModule } from '../button/button.module';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
-import { IonModalModule } from '../modal/modal.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonModalModule } from '../modal/modal.module';
+import { IonNoDataModule } from '../no-data/no-data.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonSkeletonModule } from '../skeleton/skeleton.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
-import { IonPopoverModule } from '../popover/popover.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonIndicatorComponent } from './indicator.component';
 
 @NgModule({
   declarations: [IonIndicatorComponent],
@@ -20,6 +21,7 @@ import { IonPopoverModule } from '../popover/popover.module';
     IonSkeletonModule,
     IonSpinnerModule,
     IonPopoverModule,
+    IonNoDataModule,
   ],
   exports: [IonIndicatorComponent],
 })

@@ -6,12 +6,12 @@ import {
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { IonModalResponse } from '../modal/models/modal.interface';
-import { IonModalService } from './../modal/modal.service';
 import {
   IonIndicatorButtonConfiguration,
   IonIndicatorButtonType,
 } from '../core/types/indicator';
+import { IonModalResponse } from '../modal/models/modal.interface';
+import { IonModalService } from './../modal/modal.service';
 
 @Component({
   selector: 'ion-indicator',
@@ -46,6 +46,10 @@ export class IonIndicatorComponent {
   handleButtonClick(type: string): void {
     const action = this.buttonActions[type];
     action && action.bind(this)();
+  }
+
+  isNoData(): boolean {
+    return this.value === null || this.value === undefined || this.value === '';
   }
 
   private sanitizeUrl(): SafeResourceUrl {
