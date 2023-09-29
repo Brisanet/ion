@@ -34,6 +34,7 @@ export class IonModalComponent implements OnInit, OnDestroy {
   @Input() configuration: IonModalConfiguration = {};
 
   @Output()
+  ionOnHeaderButtonAction = new EventEmitter<IonModalResponse | undefined>();
   ionOnClose = new EventEmitter<IonModalResponse | undefined>();
 
   public DEFAULT_WIDTH = 500;
@@ -86,6 +87,10 @@ export class IonModalComponent implements OnInit, OnDestroy {
     params: Partial<T> | undefined
   ): void {
     Object.assign(instance, params);
+  }
+
+  emitHeaderButtonAction(valueToEmit: IonModalResponse | undefined): void {
+    this.ionOnHeaderButtonAction.emit(valueToEmit);
   }
 
   ngOnInit(): void {

@@ -95,4 +95,22 @@ describe('ModalService', () => {
       state: 'ceara',
     });
   });
+
+  it('should call emitHeaderAction when ionOnHeaderButtonAction fires', () => {
+    jest.spyOn(modalService, 'emitHeaderAction');
+
+    modalService.open(SelectMockComponent, {
+      headerButton: {
+        icon: 'left',
+        label: 'voltar',
+      },
+    });
+
+    fireEvent.click(screen.getByTestId('btn-voltar'));
+    fixture.detectChanges();
+
+    expect(modalService.emitHeaderAction).toHaveBeenCalledWith({
+      state: 'ceara',
+    });
+  });
 });

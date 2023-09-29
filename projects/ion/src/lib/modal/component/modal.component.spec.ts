@@ -196,4 +196,74 @@ describe('IonModalComponent', () => {
       fixture.nativeElement.querySelector('.modal-container').style.width;
     expect(modalElement).toBe(`${modalConfig.width}px`);
   });
+
+  describe('IonModalComponent - Header left button', () => {
+    const configuration: IonModalConfiguration = {
+      id: '1',
+      title: 'Ion Test',
+
+      footer: {
+        showDivider: false,
+        primaryButton: {
+          label: 'Ion Cancel',
+          iconType: 'icon',
+        },
+        secondaryButton: {
+          label: 'Ion Confirm',
+          iconType: 'icon',
+        },
+      },
+
+      headerButton: {
+        icon: 'left',
+        label: 'voltar',
+      },
+    };
+
+    it('should not be rendered as default', () => {
+      expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+
+    it('should emit event when call emitHeaderButtonAction function', () => {
+      jest.spyOn(component.ionOnHeaderButtonAction, 'emit');
+      component.emitHeaderButtonAction(
+        component.getChildComponentPropertiesValue()
+      );
+      expect(component.ionOnHeaderButtonAction.emit).toHaveBeenCalled();
+    });
+
+    it('should be visible as default if the config is informed', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).toBeVisible();
+    });
+
+    it('should be enabled as default', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).toBeEnabled();
+    });
+
+    it('should be disabled when informed', () => {
+      configuration.headerButton.disabled = (): boolean => true;
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('btn-voltar')).toBeDisabled();
+    });
+
+    it('should render the specified icon', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      const icon = document.getElementById('ion-icon-left');
+      expect(icon).toBeVisible();
+    });
+
+    it('should be hidden when informed', () => {
+      configuration.headerButton.hidden = (): boolean => true;
+
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+  });
 });
