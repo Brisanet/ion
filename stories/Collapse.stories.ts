@@ -47,7 +47,12 @@ export const CollapseMainContent = TemplateCollapseMainContent.bind({});
 const TemplateCollapseCustomHeader: Story = (args) => ({
   props: args,
   template: `
-    <ion-collapse  [templateHeader]="customHeader" color="burlywood" ><p>Uma terminação de linha óptica, também chamada de terminal de linha óptica, é um dispositivo que serve como ponto final do provedor de serviços de uma rede óptica passiva. </p></ion-collapse>
+    <ion-collapse 
+      [templateHeader]="customHeader" 
+      color="burlywood"
+    >
+      <p>Uma terminação de linha óptica, também chamada de terminal de linha óptica, é um dispositivo que serve como ponto final do provedor de serviços de uma rede óptica passiva. </p>
+    </ion-collapse>
     
     <ng-template #customHeader>
       <div style="display:flex; align-items:center; gap: 8px;">
@@ -72,6 +77,4 @@ const TemplateCollapseCustomHeader: Story = (args) => ({
   },
 });
 
-export const CollapseTemplateHeader = TemplateCollapseCustomHeader.bind({
-  dados: [{ icon: 'olt' }],
-});
+export const CollapseTemplateHeader = TemplateCollapseCustomHeader.bind({});
