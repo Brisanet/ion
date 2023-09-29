@@ -25,6 +25,7 @@ const Template: Story<IonSidebarComponent> = (args: IonSidebarComponent) => ({
 export const Default = Template.bind({});
 Default.args = {
   logo: require('./assets/sidebar-logo.svg'),
+  closeOnSelect: false,
   items: [
     {
       title: 'Fila de atendimento',

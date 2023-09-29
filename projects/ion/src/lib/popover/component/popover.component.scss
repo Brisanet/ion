@@ -121,6 +121,7 @@ $arrow-size: 4.5px;
     display: flex;
     background-color: $neutral-2;
     justify-content: space-between;
+    border-radius: spacing(1) spacing(1) 0 0;
     align-items: center;
     padding: spacing(1.5) spacing(2);
 
