@@ -16,8 +16,7 @@
 
 .ion-alert {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   border: 1px solid;
   border-radius: 8px;
@@ -29,6 +28,18 @@
   span {
     width: 95%;
   }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .success {
@@ -47,9 +58,29 @@
   @include alert-style($negative-1, $negative-6);
 }
 
+.with-description {
+  border: none !important;
+  background-color: $neutral-2;
+  padding: spacing(2) spacing(3) !important;
+  color: $neutral-7;
+  gap: 4px;
+
+  .message-text {
+    font-weight: 600;
+  }
+
+  .description {
+    width: 100%;
+  }
+}
+
 .without-background {
   background-color: transparent;
   border: none !important;
+}
+
+.no-radius {
+  border-radius: 0;
 }
 
 .closable-true {
