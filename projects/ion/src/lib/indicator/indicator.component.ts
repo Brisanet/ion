@@ -48,10 +48,6 @@ export class IonIndicatorComponent {
     action && action.bind(this)();
   }
 
-  isNoData(): boolean {
-    return this.value === null || this.value === undefined || this.value === '';
-  }
-
   private sanitizeUrl(): SafeResourceUrl {
     if (
       this.buttonConfig.type === IonIndicatorButtonType.Redirect &&
