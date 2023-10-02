@@ -1,5 +1,10 @@
-<section data-testid="ion-collapse">
-  <header (click)="toggle()" [style.background]="color">
+<section
+  data-testid="ion-collapse"
+  [class.open]="show"
+  [class.close]="!show"
+  tabindex="0"
+>
+  <header (click)="toggle()">
     <div>
       <div
         *ngIf="!templateHeader; else headerCustom"
@@ -12,14 +17,10 @@
         [ngTemplateOutlet]="templateHeader"
       ></ng-template>
     </div>
-    <ion-icon *ngIf="!show" type="right2" [size]="16" color="blue"></ion-icon>
-    <ion-icon *ngIf="show" type="semi-down" [size]="16" color="blue"></ion-icon>
+    <ion-icon *ngIf="!show" type="semi-up" [size]="iconSize"></ion-icon>
+    <ion-icon *ngIf="show" type="semi-down" [size]="iconSize"></ion-icon>
   </header>
-  <main
-    *ngIf="show"
-    [style.background]="color"
-    data-testid="ion-collapse__main"
-  >
+  <main *ngIf="show" data-testid="ion-collapse__main">
     <ng-content></ng-content>
   </main>
 </section>

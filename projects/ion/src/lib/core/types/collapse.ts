@@ -6,5 +6,4 @@ export interface IonCollapseProps {
   name?: string;
   templateHeader?: TemplateHeader;
   show?: boolean;
-  color?: string;
 }

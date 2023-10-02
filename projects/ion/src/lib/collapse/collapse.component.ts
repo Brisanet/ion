@@ -10,7 +10,8 @@ export class IonCollapseComponent {
   @Input() name?: string;
   @Input() templateHeader: TemplateHeader;
   @Input() show? = false;
-  @Input() color?: string;
+
+  iconSize = 24;
 
   toggle(): void {
     this.show = !this.show;
