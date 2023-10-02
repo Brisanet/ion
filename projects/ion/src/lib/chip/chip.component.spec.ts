@@ -144,6 +144,17 @@ describe('ChipComponent', () => {
     expect(screen.getByTestId('badge-multiple')).toHaveTextContent('1');
   });
 
+  it('should start with badge when an item is already selected', async () => {
+    await sut({
+      label: 'dropdown',
+      options: [
+        { label: 'Option 1', selected: true },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(1);
+  });
+
   describe('With Dropdown', () => {
     const dropdownEvent = jest.fn();
     beforeEach(async () => {
