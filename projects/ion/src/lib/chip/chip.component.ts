@@ -157,6 +157,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   ngDoCheck(): void {
     this.updateLabel();
+    this.setBadgeValue(this.getSelectedOptions().length);
   }
 
   getSelectedOptions(): DropdownItem[] {
