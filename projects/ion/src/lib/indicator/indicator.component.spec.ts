@@ -230,12 +230,17 @@ describe('IonIndicatorComponent', () => {
     expect(getElementByTestId('error')).toBeInTheDocument();
   });
 
-  it('Should render no value msg', async () => {
-    await sut({
-      value: '',
-    });
-    expect(getElementByTestId('noData')).toBeInTheDocument();
-  });
+  const notValidValues = [null, undefined, ''];
+
+  it.each(notValidValues)(
+    'Should render no value msg when value is %s',
+    async (notValidValue) => {
+      await sut({
+        value: notValidValue,
+      });
+      expect(getElementByTestId('noData')).toBeInTheDocument();
+    }
+  );
 });
 
 describe('IonIndicatorComponent with popover button', () => {
