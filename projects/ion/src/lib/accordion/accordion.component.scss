@@ -1,6 +1,6 @@
 @import '../../styles/index.scss';
 
-@mixin collpase-style($bgColor, $color) {
+@mixin accordion-style($bgColor, $color) {
   header {
     color: $color;
     border-bottom: 1px solid $color;
@@ -15,7 +15,7 @@
 }
 
 section {
-  @include collpase-style($neutral-1, $neutral-7);
+  @include accordion-style($neutral-1, $neutral-7);
   header,
   main {
     padding: 16px 20px;
@@ -42,11 +42,11 @@ section {
   }
 
   &:hover {
-    @include collpase-style($neutral-2, $primary-3);
+    @include accordion-style($neutral-2, $primary-3);
   }
 
   &:active {
-    @include collpase-style($primary-2, $primary-4);
+    @include accordion-style($primary-2, $primary-4);
   }
 
   &:focus-visible {
@@ -54,7 +54,7 @@ section {
   }
 
   &.open {
-    @include collpase-style($primary-1, $primary-4);
+    @include accordion-style($primary-1, $primary-4);
   }
 
   &.close {

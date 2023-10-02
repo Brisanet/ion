@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { TemplateHeader } from '../core/types/collapse';
+import { TemplateHeader } from '../core/types/accordion';
 
 @Component({
-  selector: 'ion-collapse',
-  templateUrl: './collapse.component.html',
-  styleUrls: ['./collapse.component.scss'],
+  selector: 'ion-accordion',
+  templateUrl: './accordion.component.html',
+  styleUrls: ['./accordion.component.scss'],
 })
-export class IonCollapseComponent {
+export class IonAccordionComponent {
   @Input() name?: string;
   @Input() templateHeader: TemplateHeader;
   @Input() show? = false;

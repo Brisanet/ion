@@ -1,5 +1,5 @@
 <section
-  data-testid="ion-collapse"
+  data-testid="ion-accordion"
   [class.open]="show"
   [class.close]="!show"
   tabindex="0"
@@ -8,7 +8,7 @@
     <div>
       <div
         *ngIf="!templateHeader; else headerCustom"
-        data-testid="ion-collapse__header-name"
+        data-testid="ion-accordion__header-name"
       >
         {{ name }}
       </div>
@@ -20,7 +20,7 @@
     <ion-icon *ngIf="!show" type="semi-up" [size]="iconSize"></ion-icon>
     <ion-icon *ngIf="show" type="semi-down" [size]="iconSize"></ion-icon>
   </header>
-  <main *ngIf="show" data-testid="ion-collapse__main">
+  <main *ngIf="show" data-testid="ion-accordion__main">
     <ng-content></ng-content>
   </main>
 </section>

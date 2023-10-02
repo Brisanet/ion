@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonCollapseComponent } from './collapse.component';
+import { IonAccordionComponent } from './accordion.component';
 import { IonIconModule } from '../icon/icon.module';
 
 @NgModule({
-  declarations: [IonCollapseComponent],
+  declarations: [IonAccordionComponent],
   imports: [CommonModule, IonIconModule],
-  exports: [IonCollapseComponent],
+  exports: [IonAccordionComponent],
 })
-export class IonCollapseModule {}
+export class IonAccordionModule {}
