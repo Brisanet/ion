@@ -8,7 +8,7 @@ import { TemplateHeader } from '../core/types/accordion';
 })
 export class IonAccordionComponent {
   @Input() name?: string;
-  @Input() templateHeader: TemplateHeader;
+  @Input() templateHeader?: TemplateHeader;
   @Input() show? = false;
 
   iconSize = 24;
