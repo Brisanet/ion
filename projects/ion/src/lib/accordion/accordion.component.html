@@ -17,8 +17,8 @@
         [ngTemplateOutlet]="templateHeader"
       ></ng-template>
     </div>
-    <ion-icon *ngIf="!show" type="semi-up" [size]="iconSize"></ion-icon>
-    <ion-icon *ngIf="show" type="semi-down" [size]="iconSize"></ion-icon>
+    <ion-icon *ngIf="show" type="semi-up" [size]="iconSize"></ion-icon>
+    <ion-icon *ngIf="!show" type="semi-down" [size]="iconSize"></ion-icon>
   </header>
   <main *ngIf="show" data-testid="ion-accordion__main">
     <ng-content></ng-content>
