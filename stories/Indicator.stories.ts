@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { BodyMockComponent } from './../projects/ion/src/lib/card/mock/body-mock.component';
-import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
-import { IonIndicatorModule } from './../projects/ion/src/lib/indicator/indicator.module';
 import {
   buttonEmitterConfig,
   buttonModalConfig,
   buttonRedirectConfig,
 } from '../projects/ion/src/lib/indicator/mocks/indicator-button-config';
+import { BodyMockComponent } from './../projects/ion/src/lib/card/mock/body-mock.component';
+import { IonIndicatorComponent } from './../projects/ion/src/lib/indicator/indicator.component';
+import { IonIndicatorModule } from './../projects/ion/src/lib/indicator/indicator.module';
 
 export default {
   title: 'Ion/Data Display/Indicator',
@@ -69,6 +69,13 @@ WithError.args = {
   tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonEmitterConfig,
   error: true,
+};
+
+export const WithNoContent = Template.bind({});
+WithError.args = {
+  title: 'Tempo de SLA',
+  value: '',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
 };
 
 export const WithEmitterButton = Template.bind({});

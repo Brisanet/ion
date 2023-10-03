@@ -39,9 +39,24 @@
           color="primary"
         ></ion-spinner>
       </div>
-      <header *ngIf="!loading && !error">
-        <h4 data-testid="ion-indicator-value">{{ value }}</h4>
-        <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+      <header
+        *ngIf="!loading && !error"
+        [class.no-data]="value === null || value === undefined || value === ''"
+      >
+        <ng-container
+          *ngIf="!(value === null || value === undefined || value === '')"
+        >
+          <h4 data-testid="ion-indicator-value">{{ value }}</h4>
+          <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+        </ng-container>
+        <ng-container
+          *ngIf="value === null || value === undefined || value === ''"
+        >
+          <ion-no-data
+            iconType="exclamation-rounded"
+            label="Sem dados"
+          ></ion-no-data>
+        </ng-container>
       </header>
       <footer
         data-testid="ion-indicator-footer"
