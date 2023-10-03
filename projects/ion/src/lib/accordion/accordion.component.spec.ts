@@ -57,10 +57,11 @@ describe('IonAccordion', () => {
   });
 
   it('should render ion-accordion with name Brisanet', async () => {
-    accordionTestComponent.name = 'Brisanet';
+    const accordionName = 'Brisanet';
+    accordionTestComponent.name = accordionName ;
     fixture.detectChanges();
     expect(screen.getByTestId('ion-accordion__header-name')).toHaveTextContent(
-      'Brisanet'
+      accordionName 
     );
   });
 
