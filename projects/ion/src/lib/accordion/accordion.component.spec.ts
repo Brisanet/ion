@@ -58,10 +58,10 @@ describe('IonAccordion', () => {
 
   it('should render ion-accordion with name Brisanet', async () => {
     const accordionName = 'Brisanet';
-    accordionTestComponent.name = accordionName ;
+    accordionTestComponent.name = accordionName;
     fixture.detectChanges();
     expect(screen.getByTestId('ion-accordion__header-name')).toHaveTextContent(
-      accordionName 
+      accordionName
     );
   });
 
@@ -85,6 +85,7 @@ describe('IonAccordion', () => {
 });
 
 describe('IonAccordion - template header', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   let accordionWithTemplateHeaderTestComponent!: AccordionWithTemplateHeaderTestComponent;
   let fixture!: ComponentFixture<AccordionWithTemplateHeaderTestComponent>;
   beforeEach(async () => {
