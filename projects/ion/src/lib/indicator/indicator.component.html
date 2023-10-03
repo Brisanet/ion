@@ -63,7 +63,7 @@
         *ngIf="buttonConfig && !loading && !error"
       >
         <ion-button
-          *ngIf="buttonConfig.type !== 'popover'; else ionPopoverButton"
+          *ngIf="buttonConfig.type !== 'popover'"
           [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"
           type="ghost"
           size="sm"
@@ -72,28 +72,26 @@
           [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
           (ionOnClick)="handleButtonClick(buttonConfig.type)"
         ></ion-button>
-        <ng-template #ionPopoverButton>
-          <ion-button
-            [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"
-            type="ghost"
-            size="sm"
-            rightSideIcon="true"
-            [label]="buttonConfig.label"
-            [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
-            (ionOnClick)="handleButtonClick(buttonConfig.type)"
-            ionPopover
-            [ionPopoverTitle]="buttonConfig.popoverConfig.ionPopoverTitle"
-            [ionPopoverBody]="ionIndicatorPopoverBody"
-            [ionPopoverActions]="buttonConfig.popoverConfig.ionPopoverActions"
-            [ionPopoverIcon]="buttonConfig.popoverConfig.ionPopoverIcon"
-            [ionPopoverIconClose]="
-              buttonConfig.popoverConfig.ionPopoverIconClose
-            "
-            [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
-            (ionOnFirstAction)="buttonConfig.popoverConfig.firstAction()"
-            (ionOnSecondAction)="buttonConfig.popoverConfig.secondAction()"
-          ></ion-button>
-        </ng-template>
+
+        <ion-button
+          *ngIf="buttonConfig.popoverConfig"
+          [attr.data-testid]="'ion-indicator-button-' + buttonConfig.type"
+          type="ghost"
+          size="sm"
+          rightSideIcon="true"
+          [label]="buttonConfig.label"
+          [iconType]="buttonConfig.icon ? buttonConfig.icon : 'right2'"
+          (ionOnClick)="handleButtonClick(buttonConfig.type)"
+          ionPopover
+          [ionPopoverTitle]="buttonConfig.popoverConfig.ionPopoverTitle"
+          [ionPopoverBody]="ionIndicatorPopoverBody"
+          [ionPopoverActions]="buttonConfig.popoverConfig.ionPopoverActions"
+          [ionPopoverIcon]="buttonConfig.popoverConfig.ionPopoverIcon"
+          [ionPopoverIconClose]="buttonConfig.popoverConfig.ionPopoverIconClose"
+          [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
+          (ionOnFirstAction)="buttonConfig.popoverConfig.firstAction()"
+          (ionOnSecondAction)="buttonConfig.popoverConfig.secondAction()"
+        ></ion-button>
       </footer>
     </div>
   </div>
