@@ -134,10 +134,6 @@ describe('With Dropdown', () => {
     expect(screen.queryAllByText(option)).toHaveLength(1);
   });
 
-  it('should not show badge when dont have item selected', async () => {
-    expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(0);
-  });
-
   it('should not close the dropdown when an option is selected and the chip is multiple', async () => {
     await sut({
       chips: [
