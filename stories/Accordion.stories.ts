@@ -12,14 +12,13 @@ export default {
 
 const TemplateAccordionMainContent: Story = (args) => ({
   props: args,
-  template: `<ion-accordion [name]="name"><p style="margin:0">The main code should go here</p></ion-accordion>`,
+  template: `<ion-accordion name="Accordion name example"><p style="margin:0">The main code should go here</p></ion-accordion>`,
   moduleMetadata: {
     imports: [CommonModule, IonIconModule, IonAccordionModule],
   },
 });
 
 export const accordion = TemplateAccordionMainContent.bind({});
-accordion.name = 'Accordion name example';
 
 const TemplateAccordionCustomHeader: Story = (args) => ({
   props: args,

@@ -1,10 +1,11 @@
-import { screen, fireEvent } from '@testing-library/angular';
-
+import { screen, fireEvent, render } from '@testing-library/angular';
 import { Component, NgModule } from '@angular/core';
 import { IonAccordionModule } from './accordion.module';
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { IonIconModule } from '../icon/icon.module';
+import { IonAccordionProps } from '../core/types';
+import { IonAccordionComponent } from './accordion.component';
 
 @Component({
   template: `<ion-accordion [name]="name">
@@ -12,7 +13,7 @@ import { IonIconModule } from '../icon/icon.module';
   </ion-accordion>`,
 })
 class AccordionTestComponent {
-  name = '';
+  name = 'Name';
 }
 
 @Component({
@@ -108,5 +109,24 @@ describe('IonAccordion - template header', () => {
     expect(headerCustom).toBeTruthy();
     expect(headerCustom).toHaveTextContent('Custom template header');
     expect(document.getElementById('ion-icon-zoom-in')).toBeTruthy();
+  });
+});
+
+describe('IonAccordion - throw error', () => {
+  const sut = async (customProps?: IonAccordionProps): Promise<void> => {
+    await render(IonAccordionComponent, {
+      componentProperties: customProps,
+      imports: [CommonModule, IonIconModule],
+    });
+  };
+
+  it('should throw an error when name and templateHeader properties do not exist', async () => {
+    try {
+      await sut();
+    } catch (error) {
+      expect(error.message).toBe(
+        'The name or templateHeader properties were not set correctly'
+      );
+    }
   });
 });
