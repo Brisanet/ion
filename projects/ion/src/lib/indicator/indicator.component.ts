@@ -6,12 +6,12 @@ import {
   SecurityContext,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { IonModalResponse } from '../modal/models/modal.interface';
-import { IonModalService } from './../modal/modal.service';
 import {
   IonIndicatorButtonConfiguration,
   IonIndicatorButtonType,
 } from '../core/types/indicator';
+import { IonModalResponse } from '../modal/models/modal.interface';
+import { IonModalService } from './../modal/modal.service';
 
 @Component({
   selector: 'ion-indicator',
