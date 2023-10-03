@@ -40,6 +40,10 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 
+    &.no-data {
+      justify-content: center !important;
+    }
+
     @include icon-style();
 
     h1 {
