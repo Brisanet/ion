@@ -1,0 +1,60 @@
+<div class="input-wraper" data-testid="ion-input-select">
+  <div
+    class="input-select-container"
+    [class.multiple-input]="currentOption?.multiple"
+  >
+    <div class="dropdown-container" (clickOutside)="onClickOutside()">
+      <button
+        data-testid="ion-select-button"
+        (click)="handleClick()"
+        class="dropdown-container__button"
+        [disabled]="disabled"
+      >
+        <span>{{ currentOption?.label }}</span>
+        <ion-icon type="semi-down" color="#8D93A5"></ion-icon>
+      </button>
+
+      <div *ngIf="!!selectOptions && dropdownVisible" class="ion-btn-dropdown">
+        <ion-dropdown
+          [options]="selectOptions"
+          (selected)="handleSelect($event)"
+          [multiple]="false"
+          [required]="true"
+        >
+        </ion-dropdown>
+      </div>
+    </div>
+
+    <div class="input-container">
+      <div class="input first-input" [class.disabled]="disabled">
+        <input
+          data-testid="single-input"
+          [id]="name"
+          type="text"
+          class="my-input"
+          [attr.placeholder]="
+            currentOption?.multiple ? firstPlaceholder : singlePlaceholder
+          "
+          [disabled]="disabled"
+          [(ngModel)]="value"
+          (ngModelChange)="handleChange()"
+        />
+      </div>
+    </div>
+    <div *ngIf="currentOption?.multiple" class="separator">-</div>
+    <div *ngIf="currentOption?.multiple" class="input-container">
+      <div class="input second-input" [class.disabled]="disabled">
+        <input
+          data-testid="second-input"
+          [id]="name"
+          type="text"
+          class="my-input"
+          [attr.placeholder]="secondPlaceholder"
+          [disabled]="disabled"
+          [(ngModel)]="secondValue"
+          (ngModelChange)="handleChange()"
+        />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,84 @@
+@import '../input/input.component.scss';
+@import '../../styles/index.scss';
+
+.input-wraper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  .input-select-container {
+    display: flex;
+
+    .input {
+      border-radius: 0 8px 8px 0;
+    }
+  }
+}
+
+.dropdown-container {
+  &__button {
+    background-color: $neutral-2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    min-width: max-content;
+    border-radius: 8px 0px 0px 8px;
+    border: 1px solid $neutral-5;
+    @include font-size-sm;
+    font-weight: 400;
+    color: $neutral-7;
+
+    border-right: none;
+  }
+}
+
+.multiple-input {
+  .first-input {
+    border-right: none;
+    border-radius: 0 !important;
+
+    &:hover {
+      border: 1px solid $primary-4;
+    }
+
+    &:focus-within {
+      border: 1px solid $primary-4;
+      @include add-colors($primary-5, 2px solid, $primary-2);
+    }
+
+    &:active {
+      border: 1px solid $primary-4;
+      @include add-colors($primary-5, 2px solid, $primary-2);
+    }
+  }
+
+  .second-input {
+    border-left: none;
+
+    &:hover {
+      border: 1px solid $primary-4;
+    }
+
+    &:focus-within {
+      border: 1px solid $primary-4;
+      @include add-colors($primary-5, 2px solid, $primary-2);
+    }
+
+    &:active {
+      border: 1px solid $primary-4;
+      @include add-colors($primary-5, 2px solid, $primary-2);
+    }
+  }
+}
+
+.separator {
+  position: relative;
+  z-index: -1;
+  background: $neutral-1;
+  border-top: 1px solid $neutral-5;
+  border-bottom: 1px solid $neutral-5;
+  padding: spacing(1) spacing(1.5);
+  color: $neutral-5;
+}
