@@ -109,7 +109,7 @@ describe('IonInputSelectComponent', () => {
       expect(valueChange).toHaveBeenCalledWith(valueToEmmit);
     });
 
-    it('should emit the option selected and the input value on input', async () => {
+    it('should emit the option selected and the input value on both inputs when multiple', async () => {
       await sut({
         name: 'test',
         valueChange: { emit: valueChange } as SafeAny,
