@@ -356,6 +356,7 @@ import {
   hand,
   orderNumber1,
   orderNumber2,
+  changePriority,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -423,6 +424,7 @@ export const iconsPaths: Record<string, string> = {
   camera2,
   car,
   certificate,
+  'change-priority': changePriority,
   'check-list': checkList,
   'check-outlined': checkOutlined,
   'check-solid': checkSolid,

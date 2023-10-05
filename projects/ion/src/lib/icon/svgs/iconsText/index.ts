@@ -62,6 +62,7 @@ export { default as camera } from './camera';
 export { default as camera2 } from './camera2';
 export { default as car } from './car';
 export { default as certificate } from './certificate';
+export { default as changePriority } from './change-priority';
 export { default as checkList } from './check-list';
 export { default as checkOutlined } from './check-outlined';
 export { default as checkSolid } from './check-solid';
