@@ -4,33 +4,35 @@
 .input-wraper {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: spacing(0.5);
 
   .input-select-container {
     display: flex;
 
     .input {
-      border-radius: 0 8px 8px 0;
+      border-radius: 0 spacing(1) spacing(1) 0;
     }
   }
 }
 
 .dropdown-container {
   &__button {
-    background-color: $neutral-2;
     cursor: pointer;
+    background-color: $neutral-2;
+
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: spacing(1);
+
     padding: 6px 12px;
     min-width: max-content;
-    border-radius: 8px 0px 0px 8px;
+    border-radius: spacing(1) 0px 0px spacing(1);
     border: 1px solid $neutral-5;
+    border-right: none;
+
     @include font-size-sm;
     font-weight: 400;
     color: $neutral-7;
-
-    border-right: none;
   }
 }
 
@@ -38,25 +40,14 @@
   .first-input {
     border-right: none;
     border-radius: 0 !important;
-
-    &:hover {
-      border: 1px solid $primary-4;
-    }
-
-    &:focus-within {
-      border: 1px solid $primary-4;
-      @include add-colors($primary-5, 2px solid, $primary-2);
-    }
-
-    &:active {
-      border: 1px solid $primary-4;
-      @include add-colors($primary-5, 2px solid, $primary-2);
-    }
   }
 
   .second-input {
     border-left: none;
+  }
 
+  .first-input,
+  .second-input {
     &:hover {
       border: 1px solid $primary-4;
     }
@@ -76,9 +67,11 @@
 .separator {
   position: relative;
   z-index: -1;
-  background: $neutral-1;
+
+  background-color: $neutral-1;
+  color: $neutral-5;
+
   border-top: 1px solid $neutral-5;
   border-bottom: 1px solid $neutral-5;
   padding: spacing(1) spacing(1.5);
-  color: $neutral-5;
 }
