@@ -24,11 +24,23 @@ const resetComponentState = (): void => {
   }
 };
 
-const selectOptionWithmultple = (): void => {
+const selectOptionWithmultple = (): HTMLElement => {
   const selectButton = screen.getByTestId('ion-select-button');
   fireEvent.click(selectButton);
   const secondOption = document.getElementById('option-1');
   fireEvent.click(secondOption);
+
+  return selectButton;
+};
+
+const getInputFields = (): {
+  firstInput: HTMLElement;
+  secondInput: HTMLElement;
+} => {
+  const firstInput = screen.queryByTestId('first-input');
+  const secondInput = screen.queryByTestId('second-input');
+
+  return { firstInput, secondInput };
 };
 
 const sut = async (
@@ -50,36 +62,46 @@ describe('IonInputSelectComponent', () => {
 
   it('should render the input select', async () => {
     await sut();
+
     const inputSelect = screen.getByTestId('ion-input-select');
+
     expect(inputSelect).toBeVisible();
   });
 
   it('should render the select button', async () => {
     await sut();
+
     const selectButton = screen.getByTestId('ion-select-button');
+
     expect(selectButton).toBeVisible();
   });
 
   it('should render without the dropdown', async () => {
     await sut();
+
     const dropdown = screen.queryByTestId('ion-dropdown');
+
     expect(dropdown).not.toBeInTheDocument();
   });
 
   it('should open the dropdown when the select button is clicked', async () => {
     await sut();
+
     const selectButton = screen.getByTestId('ion-select-button');
     fireEvent.click(selectButton);
     const dropdown = screen.getByTestId('ion-dropdown');
+
     expect(dropdown).toBeVisible();
   });
 
   it('should close the dropdown when clicking outside', async () => {
     await sut();
+
     const selectButton = screen.getByTestId('ion-select-button');
     fireEvent.click(selectButton);
     fireEvent.click(document.body);
     const dropdown = screen.queryByText('ion-dropdown');
+
     expect(dropdown).not.toBeInTheDocument();
   });
 
@@ -104,8 +126,10 @@ describe('IonInputSelectComponent', () => {
         name: 'test',
         valueChange: { emit: valueChange } as SafeAny,
       });
-      const singleInput = screen.getByTestId('single-input');
-      userEvent.type(singleInput, value);
+
+      const { firstInput } = getInputFields();
+      userEvent.type(firstInput, value);
+
       expect(valueChange).toHaveBeenCalledWith(valueToEmmit);
     });
 
@@ -114,20 +138,22 @@ describe('IonInputSelectComponent', () => {
         name: 'test',
         valueChange: { emit: valueChange } as SafeAny,
       });
+
       valueToEmmit = {
         optionSelected: {
           label: 'Entre',
           selected: true,
           multiple: true,
+          firstPlaceholder: 'Valor inicial',
+          secondPlaceholder: 'Valor final',
         },
         inputValue: value,
         secondValue: value,
       };
 
       selectOptionWithmultple();
-      const singleInput = screen.getByTestId('single-input');
-      userEvent.type(singleInput, value);
-      const secondInput = screen.getByTestId('second-input');
+      const { firstInput, secondInput } = getInputFields();
+      userEvent.type(firstInput, value);
       userEvent.type(secondInput, value);
 
       expect(valueChange).toHaveBeenCalledWith(valueToEmmit);
@@ -137,38 +163,40 @@ describe('IonInputSelectComponent', () => {
   describe('IonInputSelectComponent - Default options', () => {
     it('should render the first option as the default button label', async () => {
       await sut();
-      const selectButton = screen.getByTestId('ion-select-button');
-      expect(selectButton.textContent.trim()).toBe(
-        defaultSelectOptions[0].label
-      );
+
+      const selectButtonLabel = screen
+        .getByTestId('ion-select-button')
+        .textContent.trim();
+
+      expect(selectButtonLabel).toBe(defaultSelectOptions[0].label);
     });
 
     it('should change the button label', async () => {
       await sut();
-      const selectButton = screen.getByTestId('ion-select-button');
-      fireEvent.click(selectButton);
-      const secondOption = document.getElementById('option-1');
-      fireEvent.click(secondOption);
-      expect(selectButton.textContent.trim()).toBe(
-        defaultSelectOptions[1].label
-      );
-      expect(screen.getByTestId('second-input')).toBeVisible();
+
+      const selectButtonLabel = selectOptionWithmultple().textContent.trim();
+      const { secondInput } = getInputFields();
+
+      expect(selectButtonLabel).toBe(defaultSelectOptions[1].label);
+      expect(secondInput).toBeVisible();
     });
 
     it('should render only the single input when the option is not multiple', async () => {
       await sut();
-      const singleInput = screen.getByTestId('single-input');
-      const secondInput = screen.queryByTestId('second-input');
-      expect(singleInput).toBeVisible();
+
+      const { firstInput, secondInput } = getInputFields();
+
+      expect(firstInput).toBeVisible();
       expect(secondInput).not.toBeInTheDocument();
     });
 
     it('should render both inputs when the option is multiple', async () => {
       await sut();
+
       selectOptionWithmultple();
-      const singleInput = screen.getByTestId('single-input');
-      const secondInput = screen.getByTestId('second-input');
-      expect(singleInput).toBeVisible();
+      const { firstInput, secondInput } = getInputFields();
+
+      expect(firstInput).toBeVisible();
       expect(secondInput).toBeVisible();
     });
   });
@@ -189,6 +217,7 @@ describe('IonInputSelectComponent', () => {
         name: 'test',
         selectOptions: customSelectOptions,
       });
+
       expect(
         screen.getByText(customSelectOptions[0].label)
       ).toBeInTheDocument();

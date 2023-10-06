@@ -9,6 +9,8 @@ export type ValueToEmmit = {
 
 export interface SelectOption extends DropdownItem {
   multiple?: boolean;
+  firstPlaceholder?: string;
+  secondPlaceholder?: string;
 }
 
 export interface IonInputSelectProps {

@@ -28,12 +28,14 @@
     <div class="input-container">
       <div class="input first-input" [class.disabled]="disabled">
         <input
-          data-testid="single-input"
+          data-testid="first-input"
           [id]="name"
           type="text"
           class="my-input"
           [attr.placeholder]="
-            currentOption?.multiple ? firstPlaceholder : singlePlaceholder
+            currentOption?.firstPlaceholder
+              ? currentOption.firstPlaceholder
+              : 'Digite o valor'
           "
           [disabled]="disabled"
           [(ngModel)]="value"
@@ -49,7 +51,11 @@
           [id]="name"
           type="text"
           class="my-input"
-          [attr.placeholder]="secondPlaceholder"
+          [attr.placeholder]="
+            currentOption?.secondPlaceholder
+              ? currentOption.secondPlaceholder
+              : 'Valor Final'
+          "
           [disabled]="disabled"
           [(ngModel)]="secondValue"
           (ngModelChange)="handleChange()"

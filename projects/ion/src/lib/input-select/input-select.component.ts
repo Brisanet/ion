@@ -8,6 +8,8 @@ export const defaultSelectOptions: SelectOption[] = [
   {
     label: 'Entre',
     multiple: true,
+    firstPlaceholder: 'Valor inicial',
+    secondPlaceholder: 'Valor final',
   },
   {
     label: 'Igual a',
@@ -31,9 +33,6 @@ export const defaultSelectOptions: SelectOption[] = [
 export class IonInputSelectComponent implements OnInit {
   @Input() name: string;
   @Input() disabled = false;
-  @Input() singlePlaceholder = 'Digite o valor';
-  @Input() firstPlaceholder = 'Valor inicial';
-  @Input() secondPlaceholder = 'Valor final';
   @Input() value = '';
   @Input() secondValue = '';
   @Input() selectOptions: SelectOption[] = defaultSelectOptions;
