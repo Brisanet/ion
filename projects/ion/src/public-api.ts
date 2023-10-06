@@ -54,4 +54,4 @@ export * from './lib/typography/';
 export { default as debounce } from './lib/utils/debounce';
 export { default as BnTable } from './core/bn-table/bn-table';
 export * from './lib/table/utilsTable';
-export * from './lib/input-select/input.select.module';
+export * from './lib/input-select/input-select.module';
