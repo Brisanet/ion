@@ -1,0 +1,37 @@
+@import '../../styles/index.scss';
+
+section {
+  ::ng-deep ion-accordion:first-child {
+    section {
+      header {
+        border-radius: 8px 8px 0 0;
+      }
+    }
+  }
+
+  ::ng-deep ion-accordion {
+    section.open {
+      main {
+        border-bottom: 1px solid $neutral-4;
+      }
+    }
+  }
+
+  ::ng-deep ion-accordion:last-child {
+    section {
+      header {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+
+    section.open {
+      header {
+        border-radius: 0;
+      }
+
+      main {
+        border-radius: 0 0 8px 8px;
+      }
+    }
+  }
+}

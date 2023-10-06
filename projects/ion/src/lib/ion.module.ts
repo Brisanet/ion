@@ -46,6 +46,7 @@ import { PipesModule } from './utils/pipes/pipes.module';
 import { IonSkeletonModule } from './skeleton/skeleton.module';
 import { IonSelectModule } from './select/select.module';
 import { IonNoDataModule } from './no-data/no-data.module';
+import { IonAccordionModule } from './accordion/accordion.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -95,6 +96,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonSelectModule,
     IonStepsModule,
     IonNoDataModule,
+    IonAccordionModule,
   ],
   exports: [
     IonComponent,
@@ -141,6 +143,7 @@ import { IonNoDataModule } from './no-data/no-data.module';
     IonSelectModule,
     IonStepsModule,
     IonNoDataModule,
+    IonAccordionModule,
   ],
 })
 export class IonModule {}

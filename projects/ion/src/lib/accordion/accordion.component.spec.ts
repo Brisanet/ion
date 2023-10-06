@@ -9,7 +9,7 @@ import { IonAccordionComponent } from './accordion.component';
 
 @Component({
   template: `<ion-accordion [name]="name">
-    <p data-testID="ion-accordion__main-paragraph">Context Main</p>
+    <p data-testId="ion-accordion__main-paragraph">Context Main</p>
   </ion-accordion>`,
 })
 class AccordionTestComponent {
@@ -18,7 +18,7 @@ class AccordionTestComponent {
 
 @Component({
   template: `<ion-accordion [templateHeader]="customHeader">
-      <p data-testID="ion-accordion__main-paragraph">Context Main</p>
+      <p data-testId="ion-accordion__main-paragraph">Context Main</p>
     </ion-accordion>
     <ng-template #customHeader>
       <div data-testId="ion-accordion__header-custom">
