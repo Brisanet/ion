@@ -65,7 +65,10 @@ export class IonInputSelectComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.selectOptions[0].selected = true;
+    if (!this.getCurrentOption()) {
+      this.selectOptions[0].selected = true;
+    }
+
     this.currentOption = this.getCurrentOption();
   }
 
