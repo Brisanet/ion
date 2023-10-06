@@ -1,0 +1,26 @@
+<section
+  data-testid="ion-accordion"
+  [class.open]="show"
+  [class.close]="!show"
+  tabindex="0"
+>
+  <header (click)="toggle()">
+    <div>
+      <div
+        *ngIf="!templateHeader; else headerCustom"
+        data-testid="ion-accordion__header-name"
+      >
+        {{ name }}
+      </div>
+      <ng-template
+        #headerCustom
+        [ngTemplateOutlet]="templateHeader"
+      ></ng-template>
+    </div>
+    <ion-icon *ngIf="show" type="semi-up" [size]="iconSize"></ion-icon>
+    <ion-icon *ngIf="!show" type="semi-down" [size]="iconSize"></ion-icon>
+  </header>
+  <main *ngIf="show" data-testid="ion-accordion__main">
+    <ng-content></ng-content>
+  </main>
+</section>
