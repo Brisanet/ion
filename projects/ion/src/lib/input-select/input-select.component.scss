@@ -48,6 +48,8 @@
 
   .first-input,
   .second-input {
+    position: relative;
+    z-index: 2;
     &:hover {
       border: 1px solid $primary-4;
     }
@@ -65,9 +67,6 @@
 }
 
 .separator {
-  position: relative;
-  z-index: -1;
-
   background-color: $neutral-1;
   color: $neutral-5;
 
