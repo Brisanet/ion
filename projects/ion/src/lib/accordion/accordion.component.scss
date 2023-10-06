@@ -1,0 +1,66 @@
+@import '../../styles/index.scss';
+
+@mixin accordion-style($bgColor, $color) {
+  header {
+    color: $color;
+    border-bottom: 1px solid $color;
+    background-color: $bgColor;
+
+    ion-icon {
+      ::ng-deep svg {
+        fill: $color;
+      }
+    }
+  }
+}
+
+section {
+  @include accordion-style($neutral-1, $neutral-7);
+  header,
+  main {
+    padding: 16px 20px;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    div {
+      div {
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+      }
+    }
+  }
+
+  main {
+    background-color: $neutral-1;
+  }
+
+  &:hover {
+    @include accordion-style($neutral-2, $primary-3);
+  }
+
+  &:active {
+    @include accordion-style($primary-2, $primary-4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $primary-4;
+  }
+
+  &.open {
+    @include accordion-style($primary-1, $primary-4);
+  }
+
+  &.close {
+    header {
+      border-bottom: 1px solid $neutral-4;
+    }
+  }
+}

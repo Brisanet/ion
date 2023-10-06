@@ -30,3 +30,4 @@ export * from './tab-group';
 export * from './table';
 export * from './tag';
 export * from './tooltip';
+export * from './accordion';
