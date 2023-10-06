@@ -15,12 +15,9 @@ export interface SelectOption extends DropdownItem {
 
 export interface IonInputSelectProps {
   name: string;
+  disabled?: boolean;
   value?: string;
   secondValue?: string;
-  disabled?: boolean;
   selectOptions?: SelectOption[];
-  singlePlaceholder?: string;
-  firstPlaceholder?: string;
-  secondPlaceholder?: string;
   valueChange?: EventEmitter<ValueToEmmit>;
 }
