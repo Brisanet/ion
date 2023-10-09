@@ -59,3 +59,19 @@ const TemplateAccordionCustomHeader: Story = (args) => ({
 });
 
 export const AccordionCustomHeader = TemplateAccordionCustomHeader.bind({});
+
+const TemplateAccordionGroup: Story = (args) => ({
+  props: args,
+  template: `
+  <ion-accordion-group>
+    <ion-accordion [name]="'Accrodion ' + item" *ngFor="let item of [1, 2, 3, 4]">
+      Conteúdo do Accordion {{ item }}
+    </ion-accordion>
+  </ion-accordion-group>
+  `,
+  moduleMetadata: {
+    imports: [CommonModule, IonAccordionModule],
+  },
+});
+
+export const AccordionGroup = TemplateAccordionGroup.bind({});
