@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectOption, ValueToEmmit } from '../core/types/input-select';
 
-export const defaultSelectOptions: SelectOption[] = [
+const defaultSelectOptions: SelectOption[] = [
   {
     label: 'Maior que',
   },
@@ -31,7 +31,7 @@ export const defaultSelectOptions: SelectOption[] = [
   styleUrls: ['./input-select.component.scss'],
 })
 export class IonInputSelectComponent implements OnInit {
-  @Input() name: string;
+  @Input() name?: string;
   @Input() disabled = false;
   @Input() value = '';
   @Input() secondValue = '';
@@ -39,7 +39,7 @@ export class IonInputSelectComponent implements OnInit {
   @Output() valueChange = new EventEmitter<ValueToEmmit>();
 
   public dropdownVisible = false;
-  public currentOption: SelectOption;
+  public currentOption!: SelectOption;
 
   public handleSelect(selectedOption: SelectOption[]): void {
     this.currentOption = selectedOption[0];
@@ -51,13 +51,11 @@ export class IonInputSelectComponent implements OnInit {
   }
 
   public handleChange(): void {
-    const valueToEmmit = {
+    this.valueChange.emit({
       optionSelected: this.currentOption,
       inputValue: this.value,
       secondValue: this.secondValue,
-    };
-
-    this.valueChange.emit(valueToEmmit);
+    });
   }
 
   public onClickOutside(): void {

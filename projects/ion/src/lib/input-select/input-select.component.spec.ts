@@ -7,13 +7,34 @@ import {
   SelectOption,
   ValueToEmmit,
 } from './../core/types/input-select';
-import {
-  IonInputSelectComponent,
-  defaultSelectOptions,
-} from './input-select.component';
+import { IonInputSelectComponent } from './input-select.component';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { ComponentFixture } from '@angular/core/testing';
 import { SafeAny } from '../utils/safe-any';
+
+const defaultSelectOptions: SelectOption[] = [
+  {
+    label: 'Maior que',
+  },
+  {
+    label: 'Entre',
+    multiple: true,
+    firstPlaceholder: 'Valor inicial',
+    secondPlaceholder: 'Valor final',
+  },
+  {
+    label: 'Igual a',
+  },
+  {
+    label: 'Maior ou igual a',
+  },
+  {
+    label: 'Menor que',
+  },
+  {
+    label: 'Menor ou igual a',
+  },
+];
 
 const resetComponentState = (): void => {
   const selectButton = screen.getByTestId('ion-select-button');
@@ -24,7 +45,7 @@ const resetComponentState = (): void => {
   }
 };
 
-const selectOptionWithmultple = (): HTMLElement => {
+const selectOptionWithMultiple = (): HTMLElement => {
   const selectButton = screen.getByTestId('ion-select-button');
   fireEvent.click(selectButton);
   const secondOption = document.getElementById('option-1');
@@ -151,7 +172,7 @@ describe('IonInputSelectComponent', () => {
         secondValue: value,
       };
 
-      selectOptionWithmultple();
+      selectOptionWithMultiple();
       const { firstInput, secondInput } = getInputFields();
       userEvent.type(firstInput, value);
       userEvent.type(secondInput, value);
@@ -174,7 +195,7 @@ describe('IonInputSelectComponent', () => {
     it('should change the button label', async () => {
       await sut();
 
-      const selectButtonLabel = selectOptionWithmultple().textContent.trim();
+      const selectButtonLabel = selectOptionWithMultiple().textContent.trim();
       const { secondInput } = getInputFields();
 
       expect(selectButtonLabel).toBe(defaultSelectOptions[1].label);
@@ -193,7 +214,7 @@ describe('IonInputSelectComponent', () => {
     it('should render both inputs when the option is multiple', async () => {
       await sut();
 
-      selectOptionWithmultple();
+      selectOptionWithMultiple();
       const { firstInput, secondInput } = getInputFields();
 
       expect(firstInput).toBeVisible();
