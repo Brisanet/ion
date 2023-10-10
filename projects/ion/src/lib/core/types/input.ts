@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { IconDirection } from './icon';
 
-export type InputType = 'text' | 'password';
+export type InputType = 'text' | 'password' | 'number';
 
 export interface IonInputProps {
   placeholder?: string;
