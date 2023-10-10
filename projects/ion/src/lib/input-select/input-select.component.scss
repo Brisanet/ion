@@ -10,6 +10,7 @@
     display: flex;
 
     .input {
+      padding: 6px 12px;
       border-radius: 0 spacing(1) spacing(1) 0;
     }
   }
@@ -69,6 +70,7 @@
 .separator {
   background-color: $neutral-1;
   color: $neutral-5;
+  line-height: 20px;
 
   border-top: 1px solid $neutral-5;
   border-bottom: 1px solid $neutral-5;
