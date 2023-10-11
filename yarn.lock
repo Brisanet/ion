@@ -268,12 +268,12 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/core@~8.1.0":
-  version "8.1.3"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-8.1.3.tgz#3b12cf3785419c573cd54116ba80fc798f75448a"
-  integrity sha512-45ocymDkXhmgluhaIX/O6IgqGPCLOlSYEXYpJ660QS1JgprKU7Ae9mWiNSmbBmT0OGV/sKKF8SNMQAGOHgio6Q==
+"@angular/core@~10.2.5":
+  version "10.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-10.2.5.tgz#2050b0dbb180aa98c2ec46bba6d4827565ba2a2d"
+  integrity sha512-krhOKNTj5XE92Rk9ASX5KmgTF72j7qT2PLVxrGEVjuUKjBY2XaK3TV0Kotq9zI3qa9WgeCrP/Njn6jlKQCCAEQ==
   dependencies:
-    tslib "^1.9.0"
+    tslib "^2.0.0"
 
 "@angular/forms@~8.1.0":
   version "8.1.3"
@@ -16047,6 +16047,11 @@ trim-trailing-lines@^1.0.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/trim-trailing-lines/-/trim-trailing-lines-1.1.4.tgz#bd4abbec7cc880462f10b2c8b5ce1d8d1ec7c2c0"
   integrity sha512-rjUWSqnfTNrjbB9NQWfPMH/xRK1deHeGsHoVfpxJ++XeYXE0d6B1En37AHfw3jtfTU7dzMzZL2jjpe8Qb5gLIQ==
+
+trim@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/trim/-/trim-0.0.1.tgz#5858547f6b290757ee95cccc666fb50084c460dd"
+  integrity sha512-YzQV+TZg4AxpKxaTHK3c3D+kRDCGVEE7LemdlQZoQXn0iennk10RsIoY6ikzAqJTc9Xjl9C1/waHom/J86ziAQ==
 
 trim@0.0.3:
   version "0.0.3"
