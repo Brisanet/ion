@@ -5,8 +5,8 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
 import { IonIconModule } from '../../icon/icon.module';
 import { IonAccordionItemComponent } from './accordion-item.component';
-import { SafeAny } from 'ion/lib/utils/safe-any';
 import { IonAccordionItemProps } from '../../core/types';
+import { SafeAny } from '../../utils/safe-any';
 
 @Component({
   template: `<ion-accordion-item [templateHeader]="customHeader" [data]="data">
