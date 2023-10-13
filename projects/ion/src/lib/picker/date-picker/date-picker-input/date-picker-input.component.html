@@ -4,7 +4,8 @@
     [placeholder]="placeholder"
     [iconInput]="date ? '' : 'calendar'"
     iconDirection="right"
-    [inputIconButton]="!!date"
+    [inputButton]="!!date"
+    [inputButtonConfig]="clearButtonConfig"
     [readonly]="true"
     (clickButton)="clearDateValue()"
   ></ion-input>
