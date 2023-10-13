@@ -36,7 +36,7 @@ describe('IonInputComponent', () => {
     expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
-  it.each(['text', 'password', 'number'])(
+  it.each(['text', 'password', 'number', 'email'])(
     'should render type %s on input component',
     async (type: InputType) => {
       await sut({ inputType: type });
