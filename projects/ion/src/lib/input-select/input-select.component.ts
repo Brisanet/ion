@@ -3,9 +3,6 @@ import { SelectOption, ValueToEmmit } from '../core/types/input-select';
 
 const defaultSelectOptions: SelectOption[] = [
   {
-    label: 'Maior que',
-  },
-  {
     label: 'Entre',
     multiple: true,
     firstPlaceholder: 'Valor inicial',
@@ -18,10 +15,13 @@ const defaultSelectOptions: SelectOption[] = [
     label: 'Maior ou igual a',
   },
   {
-    label: 'Menor que',
+    label: 'Maior que',
   },
   {
     label: 'Menor ou igual a',
+  },
+  {
+    label: 'Menor que',
   },
 ];
 
@@ -42,6 +42,7 @@ export class IonInputSelectComponent implements OnInit {
   public currentOption!: SelectOption;
 
   public handleSelect(selectedOption: SelectOption[]): void {
+    this.clearInputs();
     this.currentOption = selectedOption[0];
     this.toggleDropdownVisibility();
   }
@@ -53,7 +54,7 @@ export class IonInputSelectComponent implements OnInit {
   public handleChange(): void {
     this.valueChange.emit({
       optionSelected: this.currentOption,
-      inputValue: this.value,
+      firstValue: this.value,
       secondValue: this.secondValue,
     });
   }
@@ -68,6 +69,11 @@ export class IonInputSelectComponent implements OnInit {
     }
 
     this.currentOption = this.getCurrentOption();
+  }
+
+  private clearInputs(): void {
+    this.value = '';
+    this.secondValue = '';
   }
 
   private toggleDropdownVisibility(): void {

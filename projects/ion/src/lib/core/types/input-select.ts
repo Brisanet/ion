@@ -3,7 +3,7 @@ import { DropdownItem } from './dropdown';
 
 export type ValueToEmmit = {
   optionSelected: SelectOption;
-  inputValue: string;
+  firstValue: string;
   secondValue?: string;
 };
 

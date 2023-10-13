@@ -14,9 +14,6 @@ import { SafeAny } from '../utils/safe-any';
 
 const defaultSelectOptions: SelectOption[] = [
   {
-    label: 'Maior que',
-  },
-  {
     label: 'Entre',
     multiple: true,
     firstPlaceholder: 'Valor inicial',
@@ -29,10 +26,13 @@ const defaultSelectOptions: SelectOption[] = [
     label: 'Maior ou igual a',
   },
   {
-    label: 'Menor que',
+    label: 'Maior que',
   },
   {
     label: 'Menor ou igual a',
+  },
+  {
+    label: 'Menor que',
   },
 ];
 
@@ -45,7 +45,7 @@ const resetComponentState = (): void => {
   }
 };
 
-const selectOptionWithMultiple = (): HTMLElement => {
+const selectSecondOption = (): HTMLElement => {
   const selectButton = screen.getByTestId('ion-select-button');
   fireEvent.click(selectButton);
   const secondOption = document.getElementById('option-1');
@@ -131,10 +131,10 @@ describe('IonInputSelectComponent', () => {
     const value = 'input';
     let valueToEmmit: ValueToEmmit = {
       optionSelected: {
-        label: 'Maior que',
+        label: 'Igual a',
         selected: true,
       },
-      inputValue: value,
+      firstValue: value,
       secondValue: '',
     };
 
@@ -148,6 +148,7 @@ describe('IonInputSelectComponent', () => {
         valueChange: { emit: valueChange } as SafeAny,
       });
 
+      selectSecondOption();
       const { firstInput } = getInputFields();
       userEvent.type(firstInput, value);
 
@@ -168,11 +169,10 @@ describe('IonInputSelectComponent', () => {
           firstPlaceholder: 'Valor inicial',
           secondPlaceholder: 'Valor final',
         },
-        inputValue: value,
+        firstValue: value,
         secondValue: value,
       };
 
-      selectOptionWithMultiple();
       const { firstInput, secondInput } = getInputFields();
       userEvent.type(firstInput, value);
       userEvent.type(secondInput, value);
@@ -195,16 +195,17 @@ describe('IonInputSelectComponent', () => {
     it('should change the button label', async () => {
       await sut();
 
-      const selectButtonLabel = selectOptionWithMultiple().textContent.trim();
-      const { secondInput } = getInputFields();
+      const selectButtonLabel = selectSecondOption().textContent.trim();
+      const { firstInput } = getInputFields();
 
       expect(selectButtonLabel).toBe(defaultSelectOptions[1].label);
-      expect(secondInput).toBeVisible();
+      expect(firstInput).toBeVisible();
     });
 
     it('should render only the single input when the option is not multiple', async () => {
       await sut();
 
+      selectSecondOption();
       const { firstInput, secondInput } = getInputFields();
 
       expect(firstInput).toBeVisible();
@@ -214,7 +215,6 @@ describe('IonInputSelectComponent', () => {
     it('should render both inputs when the option is multiple', async () => {
       await sut();
 
-      selectOptionWithMultiple();
       const { firstInput, secondInput } = getInputFields();
 
       expect(firstInput).toBeVisible();
