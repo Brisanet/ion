@@ -152,9 +152,12 @@
 }
 
 .clearButton {
+  cursor: pointer;
   border: none;
   border-radius: 8px;
   padding: 0;
+  background-color: $neutral-1;
+  display: flex;
 
   &:hover {
     background-color: $primary-1;
