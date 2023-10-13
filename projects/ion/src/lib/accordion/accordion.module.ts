@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonAccordionComponent } from './accordion.component';
 import { IonIconModule } from '../icon/icon.module';
-import { IonAccordionGroupComponent } from '../accordion-group/accordion-group.component';
+import { IonAccordionItemComponent } from './accordion-item/accordion-item.component';
 
 @NgModule({
-  declarations: [IonAccordionComponent, IonAccordionGroupComponent],
+  declarations: [IonAccordionComponent, IonAccordionItemComponent],
   imports: [CommonModule, IonIconModule],
-  exports: [IonAccordionComponent, IonAccordionGroupComponent],
+  exports: [IonAccordionComponent, IonAccordionItemComponent],
 })
 export class IonAccordionModule {}

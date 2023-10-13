@@ -1,45 +1,56 @@
-import { screen, fireEvent, render } from '@testing-library/angular';
 import { Component, NgModule } from '@angular/core';
-import { IonAccordionModule } from './accordion.module';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { IonAccordionModule } from '../accordion/accordion.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { screen, fireEvent, render } from '@testing-library/angular';
 import { CommonModule } from '@angular/common';
-import { IonIconModule } from '../icon/icon.module';
 import { IonAccordionProps } from '../core/types';
+import { SafeAny } from '../utils/safe-any';
 import { IonAccordionComponent } from './accordion.component';
+import { IonIconModule } from '../icon/icon.module';
+import { IonAccordionItemComponent } from './accordion-item/accordion-item.component';
 
-@Component({
-  template: `<ion-accordion [name]="name">
-    <p data-testId="ion-accordion__main-paragraph">Context Main</p>
-  </ion-accordion>`,
-})
-class AccordionTestComponent {
-  name = 'Name';
+interface Websites {
+  name: string;
+  url: string;
 }
 
+const webSites = [
+  { name: 'Brisanet', url: 'https://www.brisanet.com.br/' },
+  { name: 'Google', url: 'https://www.google.com.br/' },
+];
 @Component({
-  template: `<ion-accordion [templateHeader]="customHeader">
-      <p data-testId="ion-accordion__main-paragraph">Context Main</p>
+  template: `<ion-accordion
+      [accordions]="accordions"
+      [modeAccordion]="modeAccordion"
+      [templateBody]="customBody"
+      [templateHeader]="customHeader"
+    >
     </ion-accordion>
-    <ng-template #customHeader>
-      <div data-testId="ion-accordion__header-custom">
-        Custom template header
-        <ion-icon type="zoom-in"></ion-icon></div
-    ></ng-template>`,
+
+    <ng-template #customHeader let-data>
+      {{ data.name }}
+    </ng-template>
+
+    <ng-template #customBody let-data>
+      <h3>Url</h3>
+      <p>{{ data.url }}</p>
+    </ng-template> `,
 })
-class AccordionWithTemplateHeaderTestComponent {}
+class AccordionTestComponent {
+  accordions: Websites[] = webSites;
+  modeAccordion = true;
+}
 
 @NgModule({
-  declarations: [
-    AccordionTestComponent,
-    AccordionWithTemplateHeaderTestComponent,
-  ],
-  imports: [IonAccordionModule, IonIconModule],
+  declarations: [AccordionTestComponent],
+  imports: [CommonModule, IonAccordionModule],
 })
 class AccordionTestModule {}
 
 describe('IonAccordion', () => {
   let accordionTestComponent!: AccordionTestComponent;
   let fixture!: ComponentFixture<AccordionTestComponent>;
+
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [AccordionTestModule],
@@ -57,75 +68,68 @@ describe('IonAccordion', () => {
     expect(screen.getByTestId('ion-accordion')).toBeTruthy();
   });
 
-  it('should render ion-accordion with name Brisanet', async () => {
-    const accordionName = 'Brisanet';
-    accordionTestComponent.name = accordionName;
-    fixture.detectChanges();
-    expect(screen.getByTestId('ion-accordion__header-name')).toHaveTextContent(
-      accordionName
+  it('should render headers correctly', async () => {
+    const headers = screen.getAllByTestId('ion-accordion-item__header');
+    expect(headers[0]).toHaveTextContent(
+      accordionTestComponent.accordions[0].name
+    );
+    expect(headers[1]).toHaveTextContent(
+      accordionTestComponent.accordions[1].name
     );
   });
 
-  it('should render main when clicking on header', async () => {
-    const header = screen.getByTestId('ion-accordion__header-name');
-    fireEvent.click(header);
-    fixture.detectChanges();
-    expect(screen.getByTestId('ion-accordion__main')).toBeTruthy();
-    expect(
-      screen.getByTestId('ion-accordion__main-paragraph')
-    ).toHaveTextContent('Context Main');
-  });
-
-  it('should not render main when clicking on header twice', async () => {
-    const header = screen.getByTestId('ion-accordion__header-name');
-    fireEvent.click(header);
-    fireEvent.click(header);
-    fixture.detectChanges();
-    expect(screen.queryByTestId('ion-accordion__main')).not.toBeTruthy();
+  it('should correctly render the main of the corresponding header', async () => {
+    const headers = screen.getAllByTestId('ion-accordion-item__header');
+    headers.forEach((accordion, index) => {
+      fireEvent.click(accordion);
+      fixture.detectChanges();
+      expect(screen.getByTestId('ion-accordion-item__main')).toHaveTextContent(
+        webSites[index].url
+      );
+    });
   });
 });
 
-describe('IonAccordion - template header', () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  let accordionWithTemplateHeaderTestComponent!: AccordionWithTemplateHeaderTestComponent;
-  let fixture!: ComponentFixture<AccordionWithTemplateHeaderTestComponent>;
-  beforeEach(async () => {
-    TestBed.configureTestingModule({
-      imports: [CommonModule, AccordionTestModule],
-    }).compileComponents();
-    fixture = TestBed.createComponent(AccordionWithTemplateHeaderTestComponent);
-    accordionWithTemplateHeaderTestComponent = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  afterEach(async () => {
-    fixture.destroy();
-  });
-
-  it('should render template header', async () => {
-    const headerCustom = await screen.getByTestId(
-      'ion-accordion__header-custom'
-    );
-    expect(headerCustom).toBeTruthy();
-    expect(headerCustom).toHaveTextContent('Custom template header');
-    expect(document.getElementById('ion-icon-zoom-in')).toBeTruthy();
-  });
-});
-
-describe('IonAccordion - throw error', () => {
-  const sut = async (customProps?: IonAccordionProps): Promise<void> => {
+describe('IonAccordion - throw an error', () => {
+  const sut = async (
+    customProps: IonAccordionProps = {} as SafeAny
+  ): Promise<void> => {
     await render(IonAccordionComponent, {
-      componentProperties: customProps,
+      declarations: [IonAccordionComponent, IonAccordionItemComponent],
+      componentProperties: { ...customProps },
       imports: [CommonModule, IonIconModule],
     });
   };
 
-  it('should throw an error when name and templateHeader properties do not exist', async () => {
+  it('should throw an error when accordions propertie do not exist', async () => {
     try {
       await sut();
     } catch (error) {
       expect(error.message).toBe(
-        'The name or templateHeader properties were not set correctly'
+        'The accordions property is not configured correctly'
+      );
+    }
+  });
+
+  it('should throw an error when TemplateHeader propertie do not exist', async () => {
+    try {
+      await sut({ accordions: webSites } as SafeAny);
+    } catch (error) {
+      expect(error.message).toBe(
+        'The TemplateHeader propertie have not been set'
+      );
+    }
+  });
+
+  it('should throw an error when templateBody propertie do not exist', async () => {
+    try {
+      await sut({
+        accordions: webSites,
+        templateHeader: `<p>Test</p>`,
+      } as SafeAny);
+    } catch (error) {
+      expect(error.message).toBe(
+        'The TempleteBody propertie have not been set'
       );
     }
   });
