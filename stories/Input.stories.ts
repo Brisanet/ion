@@ -101,6 +101,12 @@ InputNumber.args = {
   clearButton: true,
 };
 
+export const InputEmail = Template.bind({});
+InputEmail.args = {
+  inputType: 'email',
+  clearButton: true,
+};
+
 export const InputWithSearch = Template.bind({});
 InputWithSearch.args = {
   inputType: 'text',

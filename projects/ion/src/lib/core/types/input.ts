@@ -3,7 +3,7 @@ import { SafeAny } from '../../utils/safe-any';
 import { IconDirection } from './icon';
 import { IonButtonProps } from './button';
 
-export type InputType = 'text' | 'password' | 'number';
+export type InputType = 'text' | 'password' | 'number' | 'email';
 
 export interface IonInputProps {
   placeholder?: string;
