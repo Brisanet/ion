@@ -16,6 +16,12 @@ export class IonDatePickerInputComponent {
   @Input() placeholder? = 'Selecione a data';
   @Output() clearDate = new EventEmitter();
 
+  public clearButtonConfig = {
+    iconType: 'close-solid',
+    type: 'secondary',
+    size: 'lg',
+  };
+
   clearDateValue(): void {
     this.date = '';
     this.clearDate.emit();

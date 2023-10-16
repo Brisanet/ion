@@ -1,6 +1,6 @@
 import { IonInputModule } from './../../../input/input.module';
 import { IonButtonModule } from './../../../button/button.module';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import { render, screen, fireEvent, within } from '@testing-library/angular';
 import {
   IonDatePickerInputComponent,
   IonDatePickerInputComponentProps,
@@ -44,10 +44,10 @@ describe('IonDatePickerInputComponent', () => {
     let input = await screen.getByTestId('input-element');
     expect(input).toHaveValue(date);
 
-    const clearButton = await screen.findByTestId('inputIcon-button');
+    const clearButton = await screen.findByTestId('input-button');
     expect(clearButton).toBeTruthy();
 
-    fireEvent.click(clearButton);
+    fireEvent.click(within(clearButton).getByRole('button'));
     input = await screen.getByTestId('input-element');
     expect(input).toHaveValue('');
   });

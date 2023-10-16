@@ -11,7 +11,11 @@
         [ngTemplateOutletContext]="{ $implicit: data }"
       ></ng-container>
     </div>
-    <ion-icon *ngIf="show" [type]="show ? 'semi-up' : 'semi-down'" [size]="iconSize"></ion-icon>
+    <ion-icon
+      *ngIf="show"
+      [type]="show ? 'semi-up' : 'semi-down'"
+      [size]="iconSize"
+    ></ion-icon>
   </header>
   <main *ngIf="show" data-testid="ion-accordion-item__main">
     <ng-content></ng-content>

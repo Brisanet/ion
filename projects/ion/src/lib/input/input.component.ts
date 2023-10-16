@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { IconDirection, IconType } from '../core/types/icon';
 import { InputType } from '../core/types/input';
+import { IonButtonProps } from '../core/types';
 
 @Component({
   selector: 'ion-input',
@@ -16,8 +17,8 @@ export class IonInputComponent {
   @Input() valid: boolean;
   @Input() invalid: boolean;
   @Input() errorMsg?: string;
-  @Input() inputButton? = false;
-  @Input() inputIconButton? = false;
+  @Input() inputButton = false;
+  @Input() inputButtonConfig?: IonButtonProps;
   @Input() value = '';
   @Input() inputType: InputType = 'text';
   @Input() clearButton = false;
