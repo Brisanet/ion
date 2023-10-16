@@ -90,6 +90,18 @@ InputPassword.args = {
   clearButton: true,
 };
 
+export const InputNumber = Template.bind({});
+InputNumber.args = {
+  inputType: 'number',
+  clearButton: true,
+};
+
+export const InputEmail = Template.bind({});
+InputEmail.args = {
+  inputType: 'email',
+  clearButton: true,
+};
+
 export const InputWithSearch = Template.bind({});
 InputWithSearch.args = {
   inputType: 'text',
