@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
 section {
-  ::ng-deep ion-accordion:first-child {
+  ::ng-deep ion-accordion-item:first-child {
     section {
       header {
         border-radius: 8px 8px 0 0;
@@ -9,15 +9,16 @@ section {
     }
   }
 
-  ::ng-deep ion-accordion {
-    section.open {
+  ::ng-deep ion-accordion-item {
+    section {
+      header,
       main {
-        border-bottom: 1px solid $neutral-4;
+        border: 1px solid $neutral-4;
       }
     }
   }
 
-  ::ng-deep ion-accordion:last-child {
+  ::ng-deep ion-accordion-item:last-child {
     section {
       header {
         border-radius: 0 0 8px 8px;
