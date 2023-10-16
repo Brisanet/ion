@@ -10,42 +10,16 @@
   border-color: $border;
   outline: $outline;
 }
+
 .input-container {
   display: flex;
   line-height: 0;
   width: 100%;
-
-  &__button {
-    display: flex;
-    align-items: center;
-    border: 1px solid $neutral-5;
-    border-radius: 0px 8px 8px 0px;
-    background-color: $neutral-1;
-    padding: spacing(0.75) spacing(1.5);
-    margin-left: -1px;
-    color: $primary-6;
-    font-weight: 600;
-    cursor: pointer;
-
-    &:hover {
-      border-color: $primary-4;
-    }
-
-    &:focus-within {
-      @include add-colors($primary-5, 2px solid, $primary-2);
-    }
-
-    &:active {
-      @include add-colors($primary-5, 2px solid, $primary-2);
-    }
-
-    ::ng-deep svg {
-      fill: $primary-6;
-    }
-  }
 }
 
 .input {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: spacing(1);
@@ -178,15 +152,13 @@
   }
 }
 
-.inputButton {
-  border-radius: 8px 0px 0px 8px;
-  padding: spacing(1) spacing(1.5);
-}
-
 .clearButton {
+  cursor: pointer;
   border: none;
   border-radius: 8px;
   padding: 0;
+  background-color: $neutral-1;
+  display: flex;
 
   &:hover {
     background-color: $primary-1;
@@ -199,13 +171,46 @@
   }
 }
 
-.IconButton {
-  border-radius: 8px 0px 0px 8px;
-}
-
 .errorMsg {
   p {
     margin: 4px 0px 0px;
     color: $negative-6;
+  }
+}
+
+.input-button {
+  &:has(.ion-btn-primary) .input {
+    border-right: none;
+
+    &:focus-within {
+      border-right: 1px solid $primary-5;
+    }
+  }
+
+  .input {
+    border-radius: 8px 0 0 8px;
+  }
+
+  ::ng-deep button {
+    height: 100%;
+    padding: spacing(1) spacing(1.5);
+    border-radius: 0 8px 8px 0;
+    border-left: none;
+    transition: none;
+
+    &.ion-btn-secondary {
+      border-color: $neutral-5;
+
+      &:hover {
+        border: 1px solid $primary-4;
+      }
+
+      &:active {
+        border: 1px solid $primary-5;
+      }
+    }
+    &.ion-remove-space {
+      padding: spacing(1) !important;
+    }
   }
 }

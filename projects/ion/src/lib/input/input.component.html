@@ -1,12 +1,13 @@
-<div class="input-container">
+<div
+  class="input-container"
+  [class.input-button]="inputButton && inputButtonConfig"
+>
   <div
     data-testid="input-div"
     class="input"
     [class.disabled]="disabled"
     [class.invalid]="invalid"
     [class.valid]="valid"
-    [class.inputButton]="inputButton"
-    [class.IconButton]="inputIconButton"
   >
     <ion-icon
       data-testid="icon-left"
@@ -60,22 +61,18 @@
     </button>
   </div>
 
-  <button
-    class="input-container__button"
+  <ion-button
+    *ngIf="inputButton && inputButtonConfig"
     data-testid="input-button"
-    *ngIf="inputButton"
-    (click)="handleClick()"
-  >
-    {{ button }}
-  </button>
-  <button
-    class="input-container__button"
-    data-testid="inputIcon-button"
-    *ngIf="inputIconButton"
-    (click)="handleClick()"
-  >
-    <ion-icon type="close-solid"></ion-icon>
-  </button>
+    [label]="inputButtonConfig.label"
+    [type]="inputButtonConfig.type"
+    [disabled]="inputButtonConfig.disabled"
+    [loading]="inputButtonConfig.loading"
+    [iconType]="inputButtonConfig.iconType"
+    [id]="inputButtonConfig.id"
+    [size]="inputButtonConfig.size"
+    (ionOnClick)="handleClick()"
+  ></ion-button>
 </div>
 
 <div class="errorMsg" *ngIf="invalid && errorMsg">
