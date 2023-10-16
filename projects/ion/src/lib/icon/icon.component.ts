@@ -1,5 +1,11 @@
-import { Component, ElementRef, Input } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import { iconsPaths } from './svgs/icons';
 import { IconType } from '../core/types/icon';
 
@@ -8,14 +14,20 @@ import { IconType } from '../core/types/icon';
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })
-export class IonIconComponent {
+export class IonIconComponent implements AfterViewInit {
   @Input() type: IconType;
   @Input() size = 24;
   @Input() color = '#282b33';
 
-  constructor(private sanitizer: DomSanitizer, private el: ElementRef) {}
+  @ViewChild('svgElement', { static: true }) svgElement: ElementRef;
 
-  getPath(): SafeHtml {
+  constructor(private renderer: Renderer2) {}
+
+  ngAfterViewInit(): void {
+    if (!this.svgElement) {
+      return;
+    }
+
     if (iconsPaths[this.type]) {
       const paths = iconsPaths[this.type].split('/>');
       const resultPaths = paths
@@ -25,7 +37,12 @@ export class IonIconComponent {
             : '';
         })
         .join('');
-      return this.sanitizer.bypassSecurityTrustHtml(resultPaths);
+
+      this.renderer.setProperty(
+        this.svgElement.nativeElement,
+        'innerHTML',
+        resultPaths
+      );
     }
   }
 }
