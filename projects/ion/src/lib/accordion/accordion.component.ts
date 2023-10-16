@@ -31,9 +31,11 @@ export class IonAccordionComponent implements OnInit {
       this.closeAccordions();
     }
 
-    this.accordions[index].show = !state;
-
-    this.accordions[index].key = index;
+ this.accordions[index] = {
+   ...this.accordions[index],
+   show: !state,
+   key: index
+ }
 
     this.activeChange.emit(this.accordions[index]);
   }
