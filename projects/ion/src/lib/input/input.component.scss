@@ -192,7 +192,7 @@
 
   ::ng-deep button {
     height: 100%;
-    padding: 8px 12px;
+    padding: spacing(1) spacing(1.5);
     border-radius: 0 8px 8px 0;
     border-left: none;
     transition: none;
@@ -209,7 +209,7 @@
       }
     }
     &.ion-remove-space {
-      padding: 8px !important;
+      padding: spacing(1) !important;
     }
   }
 }
