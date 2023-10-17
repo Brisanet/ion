@@ -24,10 +24,6 @@ export class IonIconComponent implements AfterViewInit {
   constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
-    if (!this.svgElement) {
-      return;
-    }
-
     if (iconsPaths[this.type]) {
       const paths = iconsPaths[this.type].split('/>');
       const resultPaths = paths
