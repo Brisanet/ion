@@ -1,4 +1,4 @@
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import BnTable, { IBnTable } from './bn-table';
 import { BnService, IResponse } from '../api/http.interfaces';
 import { SmartTableEvent } from '../../public-api';
@@ -23,6 +23,14 @@ class MockService implements BnService<MockItemData> {
 class MockEmptyService implements BnService<MockItemData> {
   list(): Observable<IResponse<MockItemData>> {
     return of({ total: 1 });
+  }
+}
+
+// Defina um erro de exemplo
+const mockError = new Error('Request Error');
+class MockServiceError implements BnService<MockItemData> {
+  list(): Observable<IResponse<MockItemData>> {
+    return throwError(mockError);
   }
 }
 
@@ -279,5 +287,22 @@ describe('BnTable', () => {
       });
       expect(bnTable.configTable.pagination.page).toBe(1);
     });
+  });
+});
+
+describe('BnTable Error', () => {
+  let bnTable: BnTable<MockItemData>;
+  const mockServiceWithError: MockServiceError = new MockServiceError();
+
+  it('should stop loading when receive an error', () => {
+    const config: IBnTable<MockItemData> = {
+      service: mockServiceWithError,
+      tableConfig: {
+        columns: [{ label: 'Name', key: 'name' }],
+        actions: [{ label: 'Remove', icon: 'trash' }],
+      },
+    };
+    bnTable = new BnTable<MockItemData>({ ...config });
+    expect(bnTable.configTable.loading).toBeFalsy();
   });
 });
