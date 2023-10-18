@@ -55,18 +55,18 @@ describe('IonRadioGroup', () => {
   )('radio option $index', ({ label, value, index }) => {
     let radio: HTMLElement;
     beforeEach(() => {
-      radio = document.getElementById(`radio-${index}`);
+      radio = document.getElementById(`${radioGroupName}-radio-${index}`);
     });
-    it(`should render a radio with id as radio-${index}`, () => {
+    it(`should render a radio with id as ${radioGroupName}-radio-${index}`, () => {
       expect(radio).toBeInTheDocument();
     });
     it(`should render a radio with label ${label}`, () => {
       expect(screen.getByLabelText(label)).toBeInTheDocument();
     });
-    it(`should render radio-${index} with radio group name`, () => {
+    it(`should render ${radioGroupName}-radio-${index} with radio group name`, () => {
       expect(radio).toHaveAttribute('name', radioGroupName);
     });
-    it(`should render radio-${index} with value '${value}'`, () => {
+    it(`should render ${radioGroupName}-radio-${index} with value '${value}'`, () => {
       expect(radio).toHaveAttribute('value', value.toString());
     });
     it('should be unchecked by default', () => {
@@ -78,8 +78,8 @@ describe('IonRadioGroup', () => {
     });
   });
   it('only one radio in the group should be checked', () => {
-    const firstOption = document.getElementById('radio-0');
-    const secondOption = document.getElementById('radio-1');
+    const firstOption = document.getElementById(`${radioGroupName}-radio-0`);
+    const secondOption = document.getElementById(`${radioGroupName}-radio-1`);
 
     userEvent.click(firstOption);
     expect(firstOption).toBeChecked();
@@ -91,7 +91,7 @@ describe('IonRadioGroup', () => {
   });
   it('should change value', () => {
     const spyEmit = jest.spyOn(fixture.componentInstance.valueChange, 'emit');
-    const firstOption = document.getElementById('radio-0');
+    const firstOption = document.getElementById(`${radioGroupName}-radio-0`);
 
     userEvent.click(firstOption);
     expect(spyEmit).toHaveBeenCalled();
@@ -99,6 +99,6 @@ describe('IonRadioGroup', () => {
   });
   it('should render option disabled', () => {
     rerender({ options: [{ ...options[0], disabled: true }] });
-    expect(document.getElementById('radio-0')).toBeDisabled();
+    expect(document.getElementById(`${radioGroupName}-radio-0`)).toBeDisabled();
   });
 });
