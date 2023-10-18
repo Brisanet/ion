@@ -1,5 +1,5 @@
 import { forkJoin, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { LIST_OF_PAGE_OPTIONS } from '../../lib/pagination/pagination.component';
 import { ConfigTable, EventTable } from '../../lib/table/utilsTable';
 import {
@@ -95,34 +95,34 @@ export default class BnTable<DataType> {
       .list({ ...this.payload, total: false })
       .pipe(take(1));
 
-    forkJoin([totalRequest$, dataRequest$]).subscribe(
-      (response) => {
-        this.configTable.loading = false;
+    forkJoin([totalRequest$, dataRequest$])
+      .pipe(finalize(() => (this.configTable.loading = false)))
+      .subscribe(
+        (response) => {
+          const [totalResponse, dataResponse]: [
+            IResponse<DataType>,
+            IResponse<DataType>
+          ] = response;
 
-        const [totalResponse, dataResponse]: [
-          IResponse<DataType>,
-          IResponse<DataType>
-        ] = response;
+          if (totalResponse && totalResponse.total !== null) {
+            this.configTable.pagination = {
+              ...this.configTable.pagination,
+              total: totalResponse.total || 0,
+            };
+          }
 
-        if (totalResponse && totalResponse.total !== null) {
-          this.configTable.pagination = {
-            ...this.configTable.pagination,
-            total: totalResponse.total || 0,
-          };
+          this.configTable.data = dataResponse.dados || dataResponse.data || [];
+
+          if (this.formatData) {
+            this.configTable.data = this.formatData(this.configTable.data);
+          }
+        },
+        () => {
+          // TODO: add notification service
+          // const msg: string = error.msg || error.error.msg;
+          // this.notify.error('Erro', msg);
         }
-
-        this.configTable.data = dataResponse.dados || dataResponse.data || [];
-
-        if (this.formatData) {
-          this.configTable.data = this.formatData(this.configTable.data);
-        }
-      },
-      (error) => {
-        // TODO: add notification service
-        // const msg: string = error.msg || error.error.msg;
-        // this.notify.error('Erro', msg);
-      }
-    );
+      );
   }
 
   events(event: SmartTableEvent): void {
