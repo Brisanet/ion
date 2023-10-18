@@ -23,9 +23,7 @@ export class IonAccordionItemComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.templateHeader) {
-      throw new Error(
-        'The name or templateHeader properties were not set correctly'
-      );
+      throw new Error('The templateHeader propertie were not set correctly');
     }
   }
 

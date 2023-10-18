@@ -87,7 +87,7 @@ describe('IonAccordionItem - throw an error', () => {
       await sut();
     } catch (error) {
       expect(error.message).toBe(
-        'The name or templateHeader properties were not set correctly'
+        'The templateHeader propertie were not set correctly'
       );
     }
   });
