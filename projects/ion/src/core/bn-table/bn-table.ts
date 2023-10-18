@@ -117,10 +117,11 @@ export default class BnTable<DataType> {
           this.configTable.data = this.formatData(this.configTable.data);
         }
       },
-      (error) => {
+      () => {
         // TODO: add notification service
         // const msg: string = error.msg || error.error.msg;
         // this.notify.error('Erro', msg);
+        this.configTable.loading = false;
       }
     );
   }
