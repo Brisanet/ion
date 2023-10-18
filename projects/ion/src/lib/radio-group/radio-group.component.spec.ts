@@ -1,10 +1,12 @@
-import { render, screen } from '@testing-library/angular';
+import { render, screen, fireEvent } from '@testing-library/angular';
 import { IonRadioGroupComponent } from './radio-group.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import userEvent from '@testing-library/user-event';
-import { ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RadioOptions } from '../core/types/radio-group';
+import { NgModule, Component } from '@angular/core';
+import { IonRadioGroupModule } from './radio-group.module';
 
 const radioGroupName = 'group';
 const radioGroupValue = '';
@@ -100,5 +102,117 @@ describe('IonRadioGroup', () => {
   it('should render option disabled', () => {
     rerender({ options: [{ ...options[0], disabled: true }] });
     expect(document.getElementById(`${radioGroupName}-radio-0`)).toBeDisabled();
+  });
+});
+
+@Component({
+  template: `
+    <section style="display: flex; gap: 16px; flex-direction: column">
+      <div>
+        <h3>Please select your preferred contact method:</h3>
+        <ion-radio-group
+          [name]="contactMethod.name"
+          [options]="contactMethod.options"
+        ></ion-radio-group>
+      </div>
+
+      <div>
+        <h3>Please select your favorite Web language:</h3>
+        <ion-radio-group
+          [name]="languages.name"
+          [options]="languages.options"
+        ></ion-radio-group>
+      </div>
+    </section>
+  `,
+})
+class RadioGroupTestComponent {
+  contactMethod = {
+    name: 'contact-mathod',
+    options: [
+      {
+        label: 'Email',
+        value: 'email',
+      },
+      {
+        label: 'Phone',
+        value: 'phone',
+      },
+      {
+        label: 'Mail',
+        value: 'mail',
+      },
+    ],
+  };
+  languages = {
+    name: 'language',
+    options: [
+      {
+        label: 'HTML',
+        value: 'html',
+      },
+      {
+        label: 'CSS',
+        value: 'css',
+      },
+      {
+        label: 'Javascript',
+        value: 'javascript',
+      },
+    ],
+  };
+}
+
+@NgModule({
+  declarations: [RadioGroupTestComponent],
+  imports: [CommonModule, IonRadioGroupModule],
+})
+class RadioGroupTestModule {}
+
+describe('IonRadioGroup - selecting an option when there are several ion-radio-group', () => {
+  let component: RadioGroupTestComponent;
+  let fixture: ComponentFixture<RadioGroupTestComponent>;
+
+  beforeEach(async () => {
+    TestBed.configureTestingModule({
+      imports: [RadioGroupTestModule],
+    }).compileComponents();
+    fixture = TestBed.createComponent(RadioGroupTestComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  afterEach(async () => {
+    fixture.destroy();
+  });
+
+  it('should select the option by clicking on the HTML text and should not select any other option', () => {
+    const htmlOption = document.getElementById(
+      `${component.languages.name}-radio-0`
+    );
+    const cssOption = document.getElementById(
+      `${component.languages.name}-radio-1`
+    );
+    const jsOption = document.getElementById(
+      `${component.languages.name}-radio-2`
+    );
+
+    const emailOption = document.getElementById(
+      `${component.contactMethod.name}-radio-0`
+    );
+    const phoneOption = document.getElementById(
+      `${component.contactMethod.name}-radio-1`
+    );
+    const mailOption = document.getElementById(
+      `${component.contactMethod.name}-radio-2`
+    );
+
+    fireEvent.click(screen.getByLabelText('HTML'));
+    expect(htmlOption).toBeChecked();
+    expect(cssOption).not.toBeChecked();
+    expect(jsOption).not.toBeChecked();
+    expect(emailOption).not.toBeChecked();
+    expect(phoneOption).not.toBeChecked();
+    expect(mailOption).not.toBeChecked();
   });
 });
