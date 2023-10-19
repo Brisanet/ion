@@ -76,12 +76,15 @@ export class IonPopConfirmDirective implements OnDestroy {
   ): PopOffset {
     const popConfirmWidth = element.offsetWidth;
 
+    const arrowSpacing = 24;
+
     const offsetToLeft =
-      position.left + 24 - popConfirmWidth + position.width / 2;
+      position.left + arrowSpacing - popConfirmWidth + position.width / 2;
 
-    const offsetToRight = position.left - 24 + position.width / 2;
+    const offsetToRight = position.left - arrowSpacing + position.width / 2;
 
-    const screenOffset = docWidth - position.left; // espaço disponível pra direita
+    const screenOffset = docWidth - position.left;
+
     const leftOffset =
       screenOffset < popConfirmWidth ? offsetToLeft : offsetToRight;
 
