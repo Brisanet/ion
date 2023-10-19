@@ -54,6 +54,7 @@ const openToUpOffset: PopOffset = {
 @Component({
   template: `
     <button
+      *ngIf="buttonVisibility"
       ionPopConfirm
       ionPopConfirmTitle="Você tem certeza?"
       (ionOnConfirm)="confirm()"
@@ -67,6 +68,7 @@ const openToUpOffset: PopOffset = {
 class ContainerRefTestComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
   container!: ViewContainerRef;
+  buttonVisibility = true;
 }
 
 @Component({
@@ -173,6 +175,15 @@ describe('Directive: Popconfirm', () => {
 
     directive.open();
     fireEvent.click(screen.getByTestId('pop-confirm-btn'));
+
+    expect(directive.closePopConfirm).toHaveBeenCalled();
+  });
+
+  it('should close pop when the button element is removed from the view', () => {
+    jest.spyOn(directive, 'closePopConfirm');
+
+    directive.open();
+    fixture.componentInstance.buttonVisibility = false;
 
     expect(directive.closePopConfirm).toHaveBeenCalled();
   });
