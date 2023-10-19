@@ -68,15 +68,20 @@ leftWithIcon.args = {
 export const inputButton = Template.bind({});
 inputButton.args = {
   inputButton: true,
-  iconDirection: 'left',
-  iconInput: 'filter',
+  inputButtonConfig: {
+    label: 'Button',
+    type: 'secondary',
+  },
 };
 
 export const inputIconButton = Template.bind({});
 inputIconButton.args = {
-  inputIconButton: true,
-  iconDirection: 'left',
-  iconInput: 'filter',
+  inputButton: true,
+  inputButtonConfig: {
+    iconType: 'pencil',
+    size: 'md',
+    type: 'primary',
+  },
 };
 
 export const InputText = Template.bind({});
@@ -87,6 +92,18 @@ InputText.args = {
 export const InputPassword = Template.bind({});
 InputPassword.args = {
   inputType: 'password',
+  clearButton: true,
+};
+
+export const InputNumber = Template.bind({});
+InputNumber.args = {
+  inputType: 'number',
+  clearButton: true,
+};
+
+export const InputEmail = Template.bind({});
+InputEmail.args = {
+  inputType: 'email',
   clearButton: true,
 };
 

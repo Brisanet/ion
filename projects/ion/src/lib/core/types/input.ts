@@ -1,8 +1,9 @@
 import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { IconDirection } from './icon';
+import { IonButtonProps } from './button';
 
-export type InputType = 'text' | 'password';
+export type InputType = 'text' | 'password' | 'number' | 'email';
 
 export interface IonInputProps {
   placeholder?: string;
@@ -13,8 +14,8 @@ export interface IonInputProps {
   valid?: boolean;
   invalid?: boolean;
   inputButton?: boolean;
-  inputIconButton?: boolean;
   clickButton?: EventEmitter<SafeAny>;
+  inputButtonConfig?: IonButtonProps;
   value?: string;
   clearButton?: boolean;
   inputType?: InputType;
