@@ -1,6 +1,6 @@
 import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
-import { render, screen, fireEvent } from '@testing-library/angular';
+import { render, screen, fireEvent, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonInputComponent } from './input.component';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +36,7 @@ describe('IonInputComponent', () => {
     expect(screen.getByTestId('input-element')).toHaveValue(inputValue);
   });
 
-  it.each(['text', 'password'])(
+  it.each(['text', 'password', 'number', 'email'])(
     'should render type %s on input component',
     async (type: InputType) => {
       await sut({ inputType: type });
@@ -62,16 +62,27 @@ describe('IonInputComponent', () => {
     expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
-  it('should render button when informed', async () => {
-    await sut({ inputButton: true });
-    const button = screen.getByTestId('input-button');
-    fireEvent.click(button);
-    expect(button).toBeInTheDocument();
+  it('should not render the input button as default', async () => {
+    await sut();
+    const button = screen.queryByTestId('input-button');
+    expect(button).not.toBeInTheDocument();
   });
 
-  it('should render input icon button when informed', async () => {
-    await sut({ inputIconButton: true });
-    const button = screen.getByTestId('inputIcon-button');
+  it('should not render the input button if the button config is not informed', async () => {
+    await sut({ inputButton: true });
+    const button = screen.queryByTestId('input-button');
+    expect(button).not.toBeInTheDocument();
+  });
+
+  it('should render button when informed', async () => {
+    await sut({
+      inputButton: true,
+      inputButtonConfig: {
+        iconType: 'pencil',
+        type: 'primary',
+      },
+    });
+    const button = screen.getByTestId('input-button');
     fireEvent.click(button);
     expect(button).toBeInTheDocument();
   });
@@ -80,23 +91,17 @@ describe('IonInputComponent', () => {
     const clickEvent = jest.fn();
     await sut({
       inputButton: true,
+      inputButtonConfig: {
+        iconType: 'pencil',
+        type: 'primary',
+      },
       clickButton: {
         emit: clickEvent,
       } as SafeAny,
     });
-    fireEvent.click(screen.getByTestId('input-button'));
-    expect(clickEvent).toHaveBeenCalled();
-  });
-
-  it('should emit an event when clicked input icon button', async () => {
-    const clickEvent = jest.fn();
-    await sut({
-      inputIconButton: true,
-      clickButton: {
-        emit: clickEvent,
-      } as SafeAny,
-    });
-    fireEvent.click(screen.getByTestId('inputIcon-button'));
+    fireEvent.click(
+      within(screen.getByTestId('input-button')).getByRole('button')
+    );
     expect(clickEvent).toHaveBeenCalled();
   });
 
