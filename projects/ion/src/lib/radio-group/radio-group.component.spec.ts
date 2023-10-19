@@ -187,32 +187,28 @@ describe('IonRadioGroup - selecting an option when there are several ion-radio-g
   });
 
   it('should select the option by clicking on the HTML text and should not select any other option', () => {
-    const htmlOption = document.getElementById(
-      `${component.languages.name}-radio-0`
-    );
-    const cssOption = document.getElementById(
-      `${component.languages.name}-radio-1`
-    );
-    const jsOption = document.getElementById(
-      `${component.languages.name}-radio-2`
-    );
+    const languageOptions = [
+      document.getElementById(`${component.languages.name}-radio-0`),
+      document.getElementById(`${component.languages.name}-radio-1`),
+      document.getElementById(`${component.languages.name}-radio-2`),
+    ];
 
-    const emailOption = document.getElementById(
-      `${component.contactMethod.name}-radio-0`
-    );
-    const phoneOption = document.getElementById(
-      `${component.contactMethod.name}-radio-1`
-    );
-    const mailOption = document.getElementById(
-      `${component.contactMethod.name}-radio-2`
-    );
+    const contactMethodOptions = [
+      document.getElementById(`${component.contactMethod.name}-radio-0`),
+      document.getElementById(`${component.contactMethod.name}-radio-1`),
+      document.getElementById(`${component.contactMethod.name}-radio-2`),
+    ];
 
-    fireEvent.click(screen.getByLabelText('HTML'));
-    expect(htmlOption).toBeChecked();
-    expect(cssOption).not.toBeChecked();
-    expect(jsOption).not.toBeChecked();
-    expect(emailOption).not.toBeChecked();
-    expect(phoneOption).not.toBeChecked();
-    expect(mailOption).not.toBeChecked();
+    const htmlOption = screen.getByLabelText('HTML');
+    fireEvent.click(htmlOption);
+    expect(languageOptions[0]).toBeChecked();
+
+    languageOptions.slice(1).forEach((option) => {
+      expect(option).not.toBeChecked();
+    });
+
+    contactMethodOptions.forEach((option) => {
+      expect(option).not.toBeChecked();
+    });
   });
 });
