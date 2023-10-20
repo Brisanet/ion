@@ -7,6 +7,7 @@ import { IonButtonModule } from '../button/button.module';
 import { IonModalComponent } from './component/modal.component';
 import { SelectMockComponent } from './mock/select-mock.component';
 import { IonModalService } from './modal.service';
+import { IonModalConfiguration } from './models/modal.interface';
 
 describe('ModalService', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
@@ -112,5 +113,18 @@ describe('ModalService', () => {
     expect(modalService.emitHeaderAction).toHaveBeenCalledWith({
       state: 'ceara',
     });
+  });
+
+  it('should change the modal configuration when reconfigModal is called', () => {
+    const newConfig: IonModalConfiguration = {
+      title: 'New title',
+    };
+
+    modalService.open(SelectMockComponent);
+    expect(screen.getByTestId('modalTitle')).toHaveTextContent('Ion Modal');
+    modalService.reconfigModal(newConfig);
+    fixture.detectChanges();
+
+    expect(screen.getByTestId('modalTitle')).toHaveTextContent(newConfig.title);
   });
 });
