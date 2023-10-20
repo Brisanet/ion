@@ -16,6 +16,9 @@ import { Component } from '@angular/core';
       <option value="ceara">Ceará</option>
       <option value="espirito-santo">Espirito Santo</option>
     </select>
+    <div style="display: flex; margin-top: 30px; justify-content: flex-end;">
+      <ion-button label="Open Popconfirm" ionPopConfirm></ion-button>
+    </div>
   `,
 })
 export class SelectMockComponent {
