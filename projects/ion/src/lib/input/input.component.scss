@@ -22,11 +22,9 @@
   z-index: 2;
   display: flex;
   align-items: center;
-  gap: spacing(1);
   background: $neutral-1;
   border: 1px solid $neutral-5;
   border-radius: 8px;
-  padding: spacing(1) spacing(1.5);
   width: 100%;
 
   & .my-input {
@@ -36,12 +34,22 @@
     color: $neutral-7;
     background: $neutral-1;
     font-size: 14px;
+    border-radius: 8px;
+    padding: spacing(1) spacing(1.5);
 
     &:disabled {
       background: $neutral-2;
       color: $neutral-4;
       cursor: not-allowed;
     }
+  }
+
+  &:has(.left-icon) .my-input {
+    padding-left: spacing(5);
+  }
+
+  &:has(.right-icon) .my-input {
+    padding-right: spacing(5);
   }
 
   ::placeholder {
@@ -66,6 +74,16 @@
     & ::ng-deep svg {
       fill: $neutral-6;
     }
+  }
+
+  .left-icon {
+    position: absolute;
+    left: spacing(1.5);
+  }
+
+  .right-icon {
+    position: absolute;
+    right: spacing(1.5);
   }
 }
 
@@ -95,9 +113,20 @@
     }
   }
 }
-
 .invalid {
   border: 1px solid $negative-6;
+
+  .right-icon {
+    right: spacing(4.5);
+  }
+
+  .my-input {
+    padding-right: spacing(4.5);
+  }
+
+  &:has(.right-icon) .my-input {
+    padding-right: spacing(7.5);
+  }
 
   &:hover {
     border-color: $negative-6;
@@ -112,6 +141,9 @@
   }
 
   & .colorInvalid {
+    position: absolute;
+    right: spacing(1.5);
+
     ::ng-deep svg {
       fill: $negative-6;
     }
@@ -129,6 +161,18 @@
 .valid {
   border: 1px solid $neutral-5;
 
+  .right-icon {
+    right: spacing(4.5);
+  }
+
+  .my-input {
+    padding-right: spacing(4.5);
+  }
+
+  &:has(.right-icon) .my-input {
+    padding-right: spacing(7.5);
+  }
+
   &:hover {
     border-color: $neutral-5;
   }
@@ -138,6 +182,9 @@
   }
 
   & .colorValid {
+    position: absolute;
+    right: spacing(1.5);
+
     ::ng-deep svg {
       fill: $positive-6;
     }
@@ -159,6 +206,7 @@
   padding: 0;
   background-color: $neutral-1;
   display: flex;
+  margin-right: spacing(1.5);
 
   &:hover {
     background-color: $primary-1;
