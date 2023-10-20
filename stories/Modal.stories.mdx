@@ -81,7 +81,7 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
 
 ## ionOnHeaderButtonAction
 
-Um subject que irá informar ao Body Component do clique no HeaderLeftButton. O usuário deve instanciar o ModalService no componente usado como body e se inscrever nesse subject.
+Um subject que irá informar ao Body Component do clique no HeaderLeftButton. O usuário deve instanciar o IonModalService no componente usado como body e se inscrever nesse subject.
 
 > Ideal para casos onde precisamos que o bodyComponent altere seu estado a partir da action do headerButton. Veja o exemplo abaixo:
 
@@ -91,9 +91,9 @@ Um subject que irá informar ao Body Component do clique no HeaderLeftButton. O 
   format={false}
   code={dedent`
     export class BodyComponent implements OnInit {
-      constructor(private modalService: IonModalService) {}
+      constructor(private ionModalService: IonModalService) {}
       ngOnInit(): void {
-      this.modalService.ionOnHeaderButtonAction.subscribe();
+      this.ionModalService.ionOnHeaderButtonAction.subscribe();
     }
   }
 `}
@@ -156,5 +156,25 @@ Função para fazer o fechamento do modal, sem emissão de valor.
     cancel(): void {
       this.ionModalService.closeModal();
     }
+`}
+/>
+
+## ReconfigModal
+
+Função que irá alterar os dados do modal config com o modal ainda aberto, possibilitando alterar a visibilidade do header button, o título e etc.
+
+> O usuário deve instanciar o serviço no componente utilizado como body para aplicar sua lógica de reconfiguração.
+
+<Source
+  language="js"
+  dark
+  format={false}
+  code={dedent`
+    export class BodyComponent implements OnInit {
+    constructor(private ionModalService: IonModalService) {}
+    doSomething() {
+    this.modalService.reconfigModal(newConfig);
+  }
+}
 `}
 />
