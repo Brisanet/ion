@@ -179,6 +179,26 @@ describe('IonInputSelectComponent', () => {
 
       expect(valueChange).toHaveBeenCalledWith(valueToEmmit);
     });
+
+    it('should emit the event when another option is selected', async () => {
+      await sut({
+        name: 'test',
+        valueChange: { emit: valueChange } as SafeAny,
+      });
+
+      valueToEmmit = {
+        optionSelected: {
+          label: 'Igual a',
+          selected: true,
+        },
+        firstValue: '',
+        secondValue: '',
+      };
+
+      selectSecondOption();
+
+      expect(valueChange).toHaveBeenCalledWith(valueToEmmit);
+    });
   });
 
   describe('IonInputSelectComponent - Default options', () => {
