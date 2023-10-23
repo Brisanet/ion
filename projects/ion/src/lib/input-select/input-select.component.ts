@@ -45,6 +45,11 @@ export class IonInputSelectComponent implements OnInit {
     this.clearInputs();
     this.currentOption = selectedOption[0];
     this.toggleDropdownVisibility();
+    this.valueChange.emit({
+      optionSelected: this.currentOption,
+      firstValue: this.value,
+      secondValue: this.secondValue,
+    });
   }
 
   public handleClick(): void {

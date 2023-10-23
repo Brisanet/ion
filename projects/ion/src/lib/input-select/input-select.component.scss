@@ -10,8 +10,11 @@
     display: flex;
 
     .input {
-      padding: 6px 12px;
       border-radius: 0 spacing(1) spacing(1) 0;
+
+      .my-input {
+        padding: spacing(0.75) spacing(1.5);
+      }
     }
   }
 }
