@@ -1,4 +1,5 @@
 export * from '../../modal/models/modal.interface';
+export * from './accordion';
 export * from './alert';
 export * from './avatar';
 export * from './badge';
@@ -30,4 +31,4 @@ export * from './tab-group';
 export * from './table';
 export * from './tag';
 export * from './tooltip';
-export * from './accordion';
+export * from './triple-toggle';
