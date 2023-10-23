@@ -90,4 +90,11 @@ export class IonModalService {
       this.modalComponentRef.destroy();
     }
   }
+
+  reconfigModal(configuration: IonModalConfiguration): void {
+    this.modalComponentRef.instance.setConfig({
+      ...this.modalComponentRef.instance.configuration,
+      ...configuration,
+    });
+  }
 }
