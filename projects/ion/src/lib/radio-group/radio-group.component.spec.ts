@@ -199,9 +199,10 @@ describe('IonRadioGroup - selecting an option when there are several ion-radio-g
       document.getElementById(`${component.contactMethod.name}-radio-2`),
     ];
 
-    const htmlOption = screen.getByLabelText('HTML');
+    const optionToSelect = languageOptions[0];
+    const htmlOption = screen.getByLabelText(optionToSelect.label);
     fireEvent.click(htmlOption);
-    expect(languageOptions[0]).toBeChecked();
+    expect(optionToSelect).toBeChecked();
 
     languageOptions.slice(1).forEach((option) => {
       expect(option).not.toBeChecked();
