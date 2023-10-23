@@ -200,7 +200,9 @@ describe('IonRadioGroup - selecting an option when there are several ion-radio-g
     ];
 
     const optionToSelect = languageOptions[0];
-    const htmlOption = screen.getByLabelText(optionToSelect.label);
+    const htmlOption = screen.getByLabelText(
+      component.languages.options[0].label
+    );
     fireEvent.click(htmlOption);
     expect(optionToSelect).toBeChecked();
 
