@@ -68,3 +68,24 @@ CustomConfiguration.args = {
     },
   ],
 };
+
+export const OnlyIcons = Template.bind({});
+OnlyIcons.args = {
+  configuration: [
+    {
+      value: true,
+      icon: 'check',
+      tooltip: 'Yes',
+    },
+    {
+      value: undefined,
+      label: '-',
+      tooltip: 'Neutral',
+    },
+    {
+      value: false,
+      icon: 'close',
+      tooltip: 'No',
+    },
+  ],
+};
