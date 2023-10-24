@@ -36,5 +36,15 @@
         border-color: $neutral-4;
       }
     }
+
+    .ion-remove-space {
+      padding: 6px 16px !important;
+    }
+  }
+
+  ion-button.right-side-icon ::ng-deep {
+    button {
+      flex-direction: row-reverse;
+    }
   }
 }

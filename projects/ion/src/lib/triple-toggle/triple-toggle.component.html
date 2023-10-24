@@ -1,13 +1,14 @@
 <div class="ion-triple-toggle" data-testid="ion-triple-toggle">
   <ion-button
     *ngFor="let item of configuration"
-    [label]="item.label"
-    [iconType]="item.icon"
+    [label]="item?.label"
+    [iconType]="item?.icon"
+    [class.right-side-icon]="item?.rightSideIcon"
     (ionOnClick)="handleClick(item)"
     [disabled]="disabled"
-    [type]="item.selected ? 'primary' : 'secondary'"
+    [type]="item?.selected ? 'primary' : 'secondary'"
     [size]="size"
     ionTooltip
-    [ionTooltipTitle]="item.tooltip"
+    [ionTooltipTitle]="item?.tooltip"
   ></ion-button>
 </div>

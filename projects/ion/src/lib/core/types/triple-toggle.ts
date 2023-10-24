@@ -5,9 +5,10 @@ import { IconType } from './icon';
 
 export interface TripleToggleSetting {
   value: SafeAny;
-  label: string;
+  label?: string;
   tooltip?: string;
   icon?: IconType;
+  rightSideIcon?: boolean;
   selected?: boolean;
 }
 
