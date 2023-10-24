@@ -6,6 +6,7 @@ import { SelectMockComponent } from '../projects/ion/src/lib/modal/mock/select-m
 import {
   IonSharedModule,
   IonModalModule,
+  IonPopConfirmModule,
 } from '../projects/ion/src/public-api';
 
 const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
@@ -15,7 +16,13 @@ const basicTemplate: Story<IonModalComponent> = (args: IonModalComponent) => ({
   },
   moduleMetadata: {
     declarations: [SelectMockComponent],
-    imports: [CommonModule, FormsModule, IonSharedModule, IonModalModule],
+    imports: [
+      CommonModule,
+      FormsModule,
+      IonSharedModule,
+      IonModalModule,
+      IonPopConfirmModule,
+    ],
     entryComponents: [SelectMockComponent],
   },
 });

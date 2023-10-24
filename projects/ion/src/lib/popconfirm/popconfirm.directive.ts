@@ -9,6 +9,7 @@ import {
   Inject,
   Injector,
   Input,
+  OnDestroy,
   Output,
   ViewContainerRef,
 } from '@angular/core';
@@ -33,7 +34,7 @@ export interface PopOffset {
 @Directive({
   selector: '[ionPopConfirm]',
 })
-export class IonPopConfirmDirective {
+export class IonPopConfirmDirective implements OnDestroy {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
   @Input() ionPopConfirmType: StatusType = 'warning';
@@ -75,9 +76,12 @@ export class IonPopConfirmDirective {
   ): PopOffset {
     const popConfirmWidth = element.offsetWidth;
 
-    const offsetToLeft = position.left - popConfirmWidth + position.width * 1.5;
+    const arrowSpacing = 24;
 
-    const offsetToRight = position.left - position.width / 2;
+    const offsetToLeft =
+      position.left + arrowSpacing - popConfirmWidth + position.width / 2;
+
+    const offsetToRight = position.left - arrowSpacing + position.width / 2;
 
     const screenOffset = docWidth - position.left;
 
@@ -191,6 +195,10 @@ export class IonPopConfirmDirective {
     return (
       this.elementChildIsEnabled(element) && this.hostElementIsEnabled(element)
     );
+  }
+
+  ngOnDestroy(): void {
+    this.closePopConfirm();
   }
 
   @HostListener('click') onClick(): void {
