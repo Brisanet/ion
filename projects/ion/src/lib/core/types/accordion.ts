@@ -1,9 +1,24 @@
-import { TemplateRef } from '@angular/core';
+import { SafeAny } from '../../utils/safe-any';
+import { TemplateRef, EventEmitter } from '@angular/core';
 
-export type TemplateHeader = TemplateRef<HTMLElement> | null;
+export type AccordionItem<T = SafeAny> = T;
+
+export type AccordionItemOutput<T = SafeAny> = T & {
+  key: number;
+  show: boolean;
+};
+
+export interface IonAccordionItemProps {
+  templateHeader: TemplateRef<HTMLElement>;
+  data?: Record<string, SafeAny>;
+  show?: boolean;
+  activeChange?: EventEmitter<void>;
+}
 
 export interface IonAccordionProps {
-  name?: string;
-  templateHeader?: TemplateHeader;
-  show?: boolean;
+  accordions: AccordionItem[];
+  templateHeader: TemplateRef<HTMLElement>;
+  templateAccordionBody: TemplateRef<HTMLElement>;
+  modeAccordion?: boolean;
+  activeChange?: EventEmitter<AccordionItemOutput>;
 }
