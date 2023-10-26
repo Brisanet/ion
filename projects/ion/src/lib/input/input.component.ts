@@ -1,14 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { IonButtonProps } from '../core/types';
 import { IconDirection, IconType } from '../core/types/icon';
 import { InputType } from '../core/types/input';
-import { IonButtonProps } from '../core/types';
 
 @Component({
   selector: 'ion-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
 })
-export class IonInputComponent {
+export class IonInputComponent implements OnInit {
   @Input() placeholder?: string;
   @Input() button = 'Button';
   @Input() iconInput: IconType;
@@ -27,6 +27,10 @@ export class IonInputComponent {
   @Output() valueChange = new EventEmitter<string>();
   @Output() clickButton = new EventEmitter();
 
+  ngOnInit(): void {
+    this.checkButtonSizeConfig();
+  }
+
   onChange(value: string): void {
     this.valueChange.emit(value);
   }
@@ -42,5 +46,11 @@ export class IonInputComponent {
 
   public isClearButtonVisible(): boolean {
     return this.clearButton && this.value.length > 0;
+  }
+
+  private checkButtonSizeConfig(): void {
+    if (this.inputButtonConfig && !this.inputButtonConfig.size) {
+      this.inputButtonConfig.size = 'md';
+    }
   }
 }
