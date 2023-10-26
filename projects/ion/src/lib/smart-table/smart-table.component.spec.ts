@@ -6,7 +6,12 @@ import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
-import { ActionTable, Column, EventTable } from '../table/utilsTable';
+import {
+  ActionTable,
+  Column,
+  ColumnType,
+  EventTable,
+} from '../table/utilsTable';
 import { IonTagModule } from '../tag/tag.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
@@ -44,6 +49,7 @@ interface Character {
   mass: number;
   icon?: string;
   status?: StatusType;
+  tooltip?: string;
 }
 const data: Character[] = [
   {
@@ -59,6 +65,17 @@ const data: Character[] = [
     mass: 96,
     icon: 'technical',
     status: 'negative',
+  },
+];
+
+const singleData: Character[] = [
+  {
+    name: 'Luke Skywalker',
+    height: 172,
+    mass: 96,
+    icon: 'user',
+    status: 'success',
+    tooltip: 'Tooltip personalizado 1',
   },
 ];
 
@@ -604,8 +621,38 @@ describe('Table > Differents columns data type', () => {
       emit: eventSelect,
     } as SafeAny,
   };
+  const tableTagTooltip: IonSmartTableProps<Character> = {
+    config: {
+      columns: [
+        {
+          key: 'mass',
+          label: 'Mass',
+          type: ColumnType.TAG,
+          sort: false,
+          tag: {
+            icon: columnIcon,
+            status: columnStatus,
+          },
+        },
+      ],
+      data: JSON.parse(JSON.stringify(singleData)),
+      pagination: {
+        total: 1,
+        itemsPerPage: 10,
+        page: 1,
+      },
+    },
+  };
 
   describe('Tag', () => {
+    it('should show tooltip in tag cell', async () => {
+      await sut(tableTagTooltip);
+      fireEvent.mouseEnter(screen.getByTestId('tag-cell'));
+      expect(document.getElementsByTagName('ion-tooltip')).toHaveLength(1);
+      fireEvent.mouseLeave(screen.getByTestId('tag-cell'));
+      expect(document.getElementsByTagName('ion-tooltip')).toHaveLength(0);
+    });
+
     it('should show icon in tag by column icon', async () => {
       await sut(tableDifferentColumns);
       expect(
