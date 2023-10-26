@@ -81,7 +81,7 @@
       </tr>
     </thead>
 
-    <tbody>
+    <tbody data-testid="tbody">
       <ng-container
         *ngFor="let row of config.data; let index = index; let last = last"
       >
@@ -152,9 +152,14 @@
               }}</span>
               <ion-tag
                 *ngIf="column.type === 'tag'"
+                data-testid="tag-cell"
                 [label]="row[column.key]"
                 [status]="row[column.tag.statusKey] || column.tag.status"
                 [icon]="row[column.tag.iconKey] || column.tag.icon"
+                ionTooltip
+                [ionTooltipTitle]="
+                  row[column.tag.tooltipKey] || row[column.key]
+                "
               ></ion-tag>
             </td>
             <td *ngIf="config.actions">

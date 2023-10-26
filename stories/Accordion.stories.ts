@@ -1,61 +1,66 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonIconModule } from '../projects/ion/src/lib/icon/icon.module';
-import { IonTooltipModule } from '../projects/ion/src/lib/tooltip/tooltip.module';
 import { IonAccordionComponent } from '../projects/ion/src/lib/accordion/accordion.component';
 import { IonAccordionModule } from '../projects/ion/src/lib/accordion/accordion.module';
+
+const accordions = [
+  {
+    name: 'Grupo 01: pastores e boiadeiros, exceto os suíços',
+    origin:
+      'Embora tenham surgido em diferentes países e ocasiões, essas raças têm em comum o fato de serem desenvolvidas a partir de cruzamentos seletivos com o objetivo de atenuar o instinto de predador com o rebanho. Assim, passaram a juntar as ovelhas sem o ímpeto de atacá-las.',
+    characteristics:
+      'Os pastores e os boiadeiros são inteligentes, ativos e adoram ter tarefas para cumprir. Não à toa, são muito usados pela polícia e pelos bombeiros, como é o caso do cachorro boiadeiro-australiano. Também são carinhosos e se adaptam bem à família. As raças mais conhecidas são: Pastor Alemão, Pastor de Shetland, Border Collie e Welsh Corgi Pembroke.',
+  },
+  {
+    name: 'Grupo 02: Pinscher e Schnauzer, molossoides, cães de montanha e boiadeiros suíços',
+    origin:
+      'Os cães desse grupo também foram desenvolvidos para ajudar no rebanho. No entanto, enquanto os pastores e os boiadeiros eram usados para reunir os animais, essas raças serviam para proteger o rebanho de outros predadores. Além disso, eram usados para trabalhos pesados, como puxar carroças.',
+    characteristics:
+      'Aprendizes vorazes, esses cães trabalhadores são fortes, ativos e muito inteligentes. Por isso, embora se adaptem bem ao convívio familiar, alguns deles precisam gastar bastante energia. O instinto é de defesa, como é o caso do cachorro Boxer. Os mais conhecidos são: Doberman, Rottweiler, Boxer, Fila, São Bernardo, Schnauzer e Pinscher.',
+  },
+];
 
 export default {
   title: 'Ion/Data Display/Accordion',
   component: IonAccordionComponent,
 } as Meta;
 
-const TemplateAccordionMainContent: Story = (args) => ({
+const Template: Story = (args) => ({
   props: args,
-  template: `<ion-accordion name="Accordion name example"><p style="margin:0">The main code should go here</p></ion-accordion>`,
+  template: `
+      <ion-accordion
+      [accordions]="accordions"
+      [modeAccordion]="modeAccordion"
+      [templateHeader]="customHeader"
+      [templateBody]="customBody"
+    >
+    </ion-accordion>
+
+    <ng-template #customHeader let-data>
+      {{ data.name }}
+    </ng-template>
+
+    <ng-template #customBody let-data>
+      <h3>Origem</h3>
+      <p>{{ data.origin }}</p>
+      <h3>Características</h3>
+      <p>{{ data.characteristics }}</p>
+    </ng-template>
+  `,
   moduleMetadata: {
+    props: args,
     imports: [CommonModule, IonIconModule, IonAccordionModule],
   },
 });
 
-export const accordion = TemplateAccordionMainContent.bind({});
+export const Accordion = Template.bind({});
+Accordion.args = {
+  accordions: accordions,
+};
 
-const TemplateAccordionCustomHeader: Story = (args) => ({
-  props: args,
-  template: `
-    <ion-accordion 
-      [templateHeader]="customHeader" 
-      color="burlywood"
-    >
-      <p>Uma terminação de linha óptica, também chamada de terminal de linha óptica, é um dispositivo que serve como ponto final do provedor de serviços de uma rede óptica passiva. </p>
-    </ion-accordion>
-    
-    <ng-template #customHeader>
-      <div style="display:flex; align-items:center; gap: 8px;">
-        <ion-icon type="olt"></ion-icon><b>OLT</b>
-        <ion-icon 
-          type="information" 
-          [size]=14 
-          color="#6868ff" 
-          ionTooltip
-          ionTooltipTitle="Terminação de Linha Óptica"
-          ionTooltipPosition="topCenter"
-          [ionTooltipArrowPointAtCenter]="true"
-          ionTooltipColorScheme="dark"
-          ionTooltipTrigger="hover"
-          ionTooltipShowDelay="0"
-        ></ion-icon>
-      </div>
-    </ng-template>
-  `,
-  moduleMetadata: {
-    imports: [
-      CommonModule,
-      IonIconModule,
-      IonAccordionModule,
-      IonTooltipModule,
-    ],
-  },
-});
-
-export const AccordionCustomHeader = TemplateAccordionCustomHeader.bind({});
+export const AccordionWithModeAccordionFalse = Template.bind({});
+AccordionWithModeAccordionFalse.args = {
+  accordions: accordions,
+  modeAccordion: false,
+};

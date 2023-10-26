@@ -48,6 +48,7 @@ import { IonTooltipModule } from './tooltip/tooltip.module';
 import { IonTripleToggleModule } from './triple-toggle/triple-toggle.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { PipesModule } from './utils/pipes/pipes.module';
+import { IonAccordionModule } from './accordion/accordion.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -98,6 +99,7 @@ import { PipesModule } from './utils/pipes/pipes.module';
     IonStepsModule,
     IonNoDataModule,
     IonInputSelectModule,
+    IonAccordionModule,
     IonTripleToggleModule,
   ],
   exports: [
@@ -146,6 +148,7 @@ import { PipesModule } from './utils/pipes/pipes.module';
     IonStepsModule,
     IonNoDataModule,
     IonInputSelectModule,
+    IonAccordionModule,
     IonTripleToggleModule,
   ],
 })
