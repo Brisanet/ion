@@ -47,6 +47,7 @@ const dataWithTag = [
   {
     id: 3,
     name: 'Hybrid Theory',
+    tooltip: 'Tooltip personalizado 1',
     deleted: false,
     year: 2000,
     icon: 'star-solid',
@@ -55,6 +56,7 @@ const dataWithTag = [
   {
     id: 4,
     name: 'Minutes to Midnight',
+    tooltip: 'Tooltip personalizado 2',
     deleted: false,
     year: 2007,
     icon: 'union',
@@ -104,6 +106,7 @@ const withTagColumns = [
     tag: {
       icon: 'check',
       status: 'success',
+      tooltipKey: 'tooltip',
     },
   },
 ];

@@ -12,6 +12,11 @@
   }
 }
 
+:host {
+  width: fit-content;
+  display: flex;
+}
+
 .ion-tag {
   display: flex;
   align-items: center;
