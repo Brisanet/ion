@@ -93,6 +93,7 @@ describe('IonInputComponent', () => {
       inputButtonConfig: {
         iconType: 'pencil',
         type: 'primary',
+        id: 'Button',
       },
     });
     const buttonContainer = screen.getByTestId('input-button');
