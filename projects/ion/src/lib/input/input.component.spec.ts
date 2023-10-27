@@ -96,7 +96,7 @@ describe('IonInputComponent', () => {
       },
     });
     const buttonContainer = screen.getByTestId('input-button');
-    expect(within(buttonContainer).getByTestId('btn-undefined')).toHaveClass(
+    expect(within(buttonContainer).getByTestId('btn-Button')).toHaveClass(
       'ion-btn-md'
     );
   });
