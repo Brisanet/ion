@@ -49,8 +49,14 @@ export class IonInputComponent implements OnInit {
   }
 
   private checkButtonSizeConfig(): void {
-    if (this.inputButtonConfig && !this.inputButtonConfig.size) {
-      this.inputButtonConfig.size = 'md';
+    if (this.inputButtonConfig) {
+      if (!this.inputButtonConfig.size) {
+        this.inputButtonConfig.size = 'md';
+      }
+      if (!this.inputButtonConfig.label) {
+        this.inputButtonConfig.id =
+          this.inputButtonConfig.iconType || this.button;
+      }
     }
   }
 }
