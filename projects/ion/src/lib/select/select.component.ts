@@ -22,6 +22,7 @@ export class IonSelectComponent implements OnInit {
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Input() required: IonSelectProps['required'] = false;
+  @Input() propLabel: IonSelectProps['propLabel'] = 'label';
   @Output() events = new EventEmitter<IonSelectProps['options']>();
   @Output() search = new EventEmitter<string>();
 
