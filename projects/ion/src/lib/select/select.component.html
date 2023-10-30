@@ -9,7 +9,7 @@
       <ng-container *ngIf="option.selected">
         <ion-select-item
           [attr.data-testid]="'ion-select-item-selected-' + i"
-          [label]="option.label"
+          [label]="option[propLabel]"
           (unselect)="unselectOption(option)"
         ></ion-select-item>
       </ng-container>
@@ -34,6 +34,7 @@
 </div>
 <ion-dropdown
   *ngIf="showDropdown"
+  [propLabel]="propLabel"
   [options]="visibleOptions"
   (selected)="selected($event)"
   [multiple]="mode === 'multiple'"
