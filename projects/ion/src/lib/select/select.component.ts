@@ -79,7 +79,9 @@ export class IonSelectComponent implements OnInit {
     this.showDropdown = true;
 
     this.visibleOptions = this.options.filter((option) => {
-      return option.label.toLowerCase().includes(this.inputValue.toLowerCase());
+      return option[this.propLabel]
+        .toLowerCase()
+        .includes(this.inputValue.toLowerCase());
     });
 
     this.search.emit(this.inputValue);
