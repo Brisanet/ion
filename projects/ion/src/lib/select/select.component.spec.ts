@@ -171,3 +171,33 @@ describe('IonSelecComponent - mode: multiple', () => {
     });
   });
 });
+
+describe('IonSelectComponent - Custom label', () => {
+  const customOptions = [
+    { label: 'option 01', key: 'option-0', name: 'Name 0' },
+    { label: 'option 02', key: 'option-1', name: 'Name 1' },
+    { label: 'option 03', key: 'option-2', name: 'Name 2' },
+  ];
+  const propLabel = 'name';
+
+  beforeEach(async () => {
+    await sut({
+      options: customOptions,
+      propLabel,
+    });
+
+    const select = screen.getByTestId('ion-select');
+    userEvent.click(select);
+  });
+
+  it('should render custom label `name` from option', async () => {
+    expect(screen.getByText(customOptions[0][propLabel]));
+  });
+
+  it('should render custom label `name` on chip when selected', async () => {
+    userEvent.click(getOption(options[0].key));
+    expect(screen.getByTestId('ion-select-item-selected-0')).toHaveTextContent(
+      customOptions[0][propLabel]
+    );
+  });
+});
