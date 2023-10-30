@@ -28,7 +28,7 @@ export class IonInputComponent implements OnInit {
   @Output() clickButton = new EventEmitter();
 
   ngOnInit(): void {
-    this.checkButtonSizeConfig();
+    this.checkAndSetButtonSize();
   }
 
   onChange(value: string): void {
@@ -48,7 +48,7 @@ export class IonInputComponent implements OnInit {
     return this.clearButton && this.value.length > 0;
   }
 
-  private checkButtonSizeConfig(): void {
+  private checkAndSetButtonSize(): void {
     if (this.inputButtonConfig && !this.inputButtonConfig.size) {
       this.inputButtonConfig.size = 'md';
     }
