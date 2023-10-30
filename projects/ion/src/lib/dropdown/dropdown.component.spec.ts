@@ -540,3 +540,27 @@ describe('IonDropdownComponent / No data', () => {
     ).toBeInTheDocument();
   });
 });
+
+describe('Custom dropdown label', () => {
+  const options = [
+    { label: 'Option 1', name: 'Corret Option One', selected: true },
+    { label: 'Option 2', name: 'Corret Option Two', selected: false },
+  ];
+
+  it('should render attribute `name` on option label', async () => {
+    const dropdownCustomLabel = {
+      propLabel: 'name',
+      options,
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    };
+
+    await sut({
+      ...dropdownCustomLabel,
+    });
+    expect(
+      screen.getByText(options[0][dropdownCustomLabel.propLabel])
+    ).toBeInTheDocument();
+  });
+});

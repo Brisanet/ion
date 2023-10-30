@@ -34,7 +34,7 @@
       [id]="'option-' + index"
     >
       <div class="container">
-        <span>{{ option.label }}</span>
+        <span>{{ option[propLabel] }}</span>
         <ion-icon
           [type]="option.hovered ? 'close' : 'check'"
           [attr.data-testid]="
