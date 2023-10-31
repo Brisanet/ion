@@ -155,7 +155,8 @@ export class IonDropdownComponent
     }
 
     const index = this.dropdownSelectedItems.findIndex(
-      (selectedOption) => selectedOption.label === option.label
+      (selectedOption) =>
+        selectedOption[this.propLabel] === option[this.propLabel]
     );
     this.dropdownSelectedItems.splice(index, 1);
 
@@ -208,7 +209,7 @@ export class IonDropdownComponent
     if (this.checkArray(this.dropdownSelectedItems)) {
       this.dropdownSelectedItems.forEach((selectedOption) => {
         const option = this.options.find(
-          (option) => option.label === selectedOption.label
+          (option) => option[this.propLabel] === selectedOption[this.propLabel]
         );
 
         if (option) {
