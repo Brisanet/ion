@@ -48,7 +48,7 @@ WithInitialValue.args = {
 
 export const CustomConfiguration = Template.bind({});
 CustomConfiguration.args = {
-  configuration: [
+  options: [
     {
       value: 'box',
       label: 'Box',
@@ -71,7 +71,7 @@ CustomConfiguration.args = {
 
 export const OnlyIcons = Template.bind({});
 OnlyIcons.args = {
-  configuration: [
+  options: [
     {
       value: true,
       icon: 'check',

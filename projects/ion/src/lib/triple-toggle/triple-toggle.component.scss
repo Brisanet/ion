@@ -30,19 +30,7 @@
 
   ion-button ::ng-deep {
     .ion-btn-primary {
-      border: 1px solid $primary-6;
-
-      &:hover {
-        border-color: $primary-5;
-      }
-
-      &:active {
-        border-color: $primary-7;
-      }
-
-      &:disabled {
-        border-color: $neutral-4;
-      }
+      border: 1px solid transparent;
     }
 
     .ion-remove-space {

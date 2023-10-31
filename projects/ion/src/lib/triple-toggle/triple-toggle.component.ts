@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Size, TripleToggleSetting } from '../core/types';
+import { Size, TripleToggleOption } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 
 @Component({
@@ -19,11 +19,19 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   @Input() value: SafeAny;
   @Input() disabled = false;
   @Input() size: Size = 'md';
-  @Input() configuration: TripleToggleSetting[];
+  @Input() options: [
+    TripleToggleOption,
+    TripleToggleOption,
+    TripleToggleOption
+  ];
 
   @Output() ionClick = new EventEmitter();
 
-  private defaultConfiguration: TripleToggleSetting[] = [
+  private defaultConfiguration: [
+    TripleToggleOption,
+    TripleToggleOption,
+    TripleToggleOption
+  ] = [
     {
       value: true,
       label: 'Sim',
@@ -39,52 +47,55 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
     },
   ];
 
-  handleClick(item: TripleToggleSetting): void {
-    this.selectItem(item);
-    this.ionClick.emit(item.value);
+  handleClick(option: TripleToggleOption): void {
+    this.selectOption(option);
   }
 
   ngOnInit(): void {
     this.checkConfiguration();
     if (this.value !== undefined) {
-      this.changeItemByValue();
+      this.changeOptionByValue();
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.value) {
-      this.changeItemByValue();
+      this.changeOptionByValue();
     }
   }
 
-  private selectItem(item: TripleToggleSetting): void {
-    this.value = item;
-    this.configuration.forEach((item) => {
-      item.selected = false;
+  private unselectAllOptions(): void {
+    this.options.forEach((option) => {
+      option.selected = false;
     });
-    item.selected = true;
   }
 
-  private changeItemByValue(): void {
-    if (!this.disabled && this.configuration) {
-      const item = this.configuration.find((item) => item.value === this.value);
-      if (item) {
-        this.selectItem(item);
-        this.checkHasSomeItemSelected();
+  private selectOption(option: TripleToggleOption): void {
+    this.value = option.value;
+    this.unselectAllOptions();
+    option.selected = true;
+    this.ionClick.emit(option.value);
+  }
+
+  private changeOptionByValue(): void {
+    if (!this.disabled && this.options) {
+      const option = this.options.find((option) => option.value === this.value);
+      if (option) {
+        this.selectOption(option);
       }
     }
   }
 
   private checkHasSomeItemSelected(): void {
-    const hasSomeSelected = this.configuration.some((item) => item.selected);
+    const hasSomeSelected = this.options.some((option) => option.selected);
     if (!hasSomeSelected) {
-      this.configuration[1].selected = true;
+      this.options[1].selected = true;
     }
   }
 
   private checkConfiguration(): void {
-    if (!this.configuration || this.configuration.length !== 3) {
-      this.configuration = this.defaultConfiguration;
+    if (!this.options) {
+      this.options = this.defaultConfiguration;
       return;
     }
     this.checkHasSomeItemSelected();

@@ -49,9 +49,6 @@ describe('IonTripleToggleComponent', () => {
       fireEvent.click(element);
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
-    afterEach(() => {
-      checkEvent.mockClear();
-    });
   });
 
   describe('component with variants', () => {
@@ -62,76 +59,46 @@ describe('IonTripleToggleComponent', () => {
       expect(screen.getByTestId(lastOptionId)).toBeDisabled();
     });
 
-    it('should not emit event when disabled', async () => {
-      const clickEvent = jest.fn();
-      await sut({
-        disabled: true,
-        ionClick: {
-          emit: clickEvent,
-        } as SafeAny,
-      });
-      const element = screen.getByTestId(firstOptionId);
-      fireEvent.click(element);
-      expect(clickEvent).not.toHaveBeenCalled();
-    });
+    const options = [firstOptionId, middleOptionId, lastOptionId];
 
-    it('should emit a event in every click', async () => {
-      const clickEvent = jest.fn();
-      await sut({
-        ionClick: {
-          emit: clickEvent,
-        } as SafeAny,
-      });
-      const amount = 5;
-      const element = screen.getByTestId(firstOptionId);
-
-      for (let i = 0; i < amount; i++) {
+    it.each(options)(
+      'should not emit event when select a disabled %s option',
+      async (option) => {
+        const clickEvent = jest.fn();
+        await sut({
+          disabled: true,
+          ionClick: {
+            emit: clickEvent,
+          } as SafeAny,
+        });
+        const element = screen.getByTestId(option);
         fireEvent.click(element);
+        expect(clickEvent).not.toHaveBeenCalled();
       }
+    );
 
-      expect(clickEvent).toHaveBeenCalledTimes(amount);
-    });
+    it.each(options)(
+      'should emit an event when click at %s option',
+      async (option) => {
+        const clickEvent = jest.fn();
+        await sut({
+          ionClick: {
+            emit: clickEvent,
+          } as SafeAny,
+        });
+        const element = screen.getByTestId(option);
+        fireEvent.click(element);
+        expect(clickEvent).toHaveBeenCalled();
+      }
+    );
 
     it('should show the selected option when started with it', async () => {
       await sut({ value: true });
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
 
-    it('should show default configuration when options applied contains less than three options', async () => {
-      await sut({
-        configuration: [
-          {
-            label: 'Test',
-            value: 'value 1',
-          },
-        ],
-      });
-      expect(screen.getByTestId(firstOptionId)).toHaveClass(notSelectedOption);
-      expect(screen.getByTestId(middleOptionId)).toHaveClass(selectedOption);
-      expect(screen.getByTestId(lastOptionId)).toHaveClass(notSelectedOption);
-    });
-
-    it('should show default configuration when options applied contains more than three options', async () => {
-      await sut({
-        configuration: [
-          {
-            label: 'Test 1',
-            value: 'value 1',
-          },
-          {
-            label: 'Test 2',
-            value: 'value 2',
-          },
-          {
-            label: 'Test 3',
-            value: 'value 3',
-          },
-          {
-            label: 'Test 4',
-            value: 'value 4',
-          },
-        ],
-      });
+    it('should show default options when has not custom options applied', async () => {
+      await sut();
       expect(screen.getByTestId(firstOptionId)).toHaveClass(notSelectedOption);
       expect(screen.getByTestId(middleOptionId)).toHaveClass(selectedOption);
       expect(screen.getByTestId(lastOptionId)).toHaveClass(notSelectedOption);
@@ -139,7 +106,7 @@ describe('IonTripleToggleComponent', () => {
 
     it('should show selected middle option when none option are selected initially', async () => {
       await sut({
-        configuration: [
+        options: [
           {
             label: 'Sim',
             value: true,
