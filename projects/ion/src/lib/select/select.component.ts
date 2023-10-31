@@ -22,6 +22,7 @@ export class IonSelectComponent implements OnInit {
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Input() required: IonSelectProps['required'] = false;
+  @Input() propLabel: IonSelectProps['propLabel'] = 'label';
   @Output() events = new EventEmitter<IonSelectProps['options']>();
   @Output() search = new EventEmitter<string>();
 
@@ -78,7 +79,9 @@ export class IonSelectComponent implements OnInit {
     this.showDropdown = true;
 
     this.visibleOptions = this.options.filter((option) => {
-      return option.label.toLowerCase().includes(this.inputValue.toLowerCase());
+      return option[this.propLabel]
+        .toLowerCase()
+        .includes(this.inputValue.toLowerCase());
     });
 
     this.search.emit(this.inputValue);

@@ -36,6 +36,7 @@ export class IonDropdownComponent
     label: 'Não há dados',
     iconType: 'exclamation-rounded',
   };
+  @Input() propLabel = 'label';
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
