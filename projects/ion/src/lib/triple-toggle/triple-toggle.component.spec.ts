@@ -45,8 +45,8 @@ describe('IonTripleToggleComponent', () => {
       );
     });
     it('should select when clicked', async () => {
-      const element = screen.getByTestId(firstOptionId);
-      fireEvent.click(element);
+      const firstOption = screen.getByTestId(firstOptionId);
+      fireEvent.click(firstOption);
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
   });
@@ -61,21 +61,18 @@ describe('IonTripleToggleComponent', () => {
 
     const options = [firstOptionId, middleOptionId, lastOptionId];
 
-    it.each(options)(
-      'should not emit event when select a disabled %s option',
-      async (option) => {
-        const clickEvent = jest.fn();
-        await sut({
-          disabled: true,
-          ionClick: {
-            emit: clickEvent,
-          } as SafeAny,
-        });
-        const element = screen.getByTestId(option);
-        fireEvent.click(element);
-        expect(clickEvent).not.toHaveBeenCalled();
-      }
-    );
+    it.each(options)('should not emit event when disabled', async (option) => {
+      const clickEvent = jest.fn();
+      await sut({
+        disabled: true,
+        ionClick: {
+          emit: clickEvent,
+        } as SafeAny,
+      });
+      const element = screen.getByTestId(option);
+      fireEvent.click(element);
+      expect(clickEvent).not.toHaveBeenCalled();
+    });
 
     it.each(options)(
       'should emit an event when click at %s option',
