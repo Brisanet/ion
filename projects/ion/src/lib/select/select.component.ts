@@ -23,7 +23,7 @@ export class IonSelectComponent implements OnChanges {
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Input() required: IonSelectProps['required'] = false;
-  @Input() loading: IonSelectProps['loading'];
+  @Input() loading: IonSelectProps['loading'] = false;
   @Input() disabled: IonSelectProps['disabled'] = false;
   @Input() propLabel: IonSelectProps['propLabel'] = 'label';
   @Output() events = new EventEmitter<IonSelectProps['options']>();
