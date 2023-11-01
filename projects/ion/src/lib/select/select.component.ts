@@ -24,6 +24,7 @@ export class IonSelectComponent implements OnChanges {
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Input() required: IonSelectProps['required'] = false;
   @Input() loading: IonSelectProps['loading'];
+  @Input() disabled: IonSelectProps['disabled'] = false;
   @Input() propLabel: IonSelectProps['propLabel'] = 'label';
   @Output() events = new EventEmitter<IonSelectProps['options']>();
   @Output() search = new EventEmitter<string>();
@@ -42,6 +43,9 @@ export class IonSelectComponent implements OnChanges {
   }
 
   handleClick(): void {
+    if (this.disabled) {
+      return;
+    }
     this.focusInput();
     this.showDropdown = !this.showDropdown;
   }

@@ -13,6 +13,7 @@ export interface IonSelectProps {
   required?: boolean;
   loading?: boolean;
   propLabel?: string;
+  disabled?: boolean;
 }
 
 export interface IonSelectItemProps {

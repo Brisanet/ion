@@ -66,12 +66,34 @@
     display: flex;
     margin-inline-end: 8px;
   }
-}
 
-.ion-select__required {
-  border-color: $negative-color;
-
-  &:hover {
+  &--required {
     border-color: $negative-color;
+
+    &:hover {
+      border-color: $negative-color;
+    }
+  }
+
+  &--disabled {
+    background-color: $neutral-2;
+    border-color: $neutral-4;
+    cursor: not-allowed;
+
+    &:hover {
+      border-color: $neutral-4;
+    }
+
+    input {
+      cursor: not-allowed;
+
+      &::placeholder {
+        color: $neutral-4;
+      }
+    }
+
+    ::ng-deep svg {
+      fill: $neutral-5;
+    }
   }
 }
