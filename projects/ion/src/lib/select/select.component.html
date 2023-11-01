@@ -2,7 +2,8 @@
   class="ion-select"
   (click)="handleClick()"
   data-testid="ion-select"
-  [class.ion-select__required]="isValid"
+  [class.ion-select--required]="isValid"
+  [class.ion-select--disabled]="disabled"
 >
   <div class="ion-select-container">
     <ng-container *ngFor="let option of options; let i = index">
@@ -22,6 +23,7 @@
       [(ngModel)]="inputValue"
       (input)="onSearchChange()"
       [required]="required"
+      [disabled]="disabled"
     />
   </div>
   <div>
