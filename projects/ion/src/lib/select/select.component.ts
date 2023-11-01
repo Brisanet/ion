@@ -3,8 +3,9 @@ import {
   EventEmitter,
   HostBinding,
   Input,
-  OnInit,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { IonSelectProps } from '../core/types/select';
@@ -15,13 +16,14 @@ import { DropdownItem } from '../core/types';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class IonSelectComponent implements OnInit {
+export class IonSelectComponent implements OnChanges {
   @ViewChild('ionSelectInput', { static: true }) ionSelectInput;
   @Input() mode: IonSelectProps['mode'] = 'default';
   @Input() placeholder = '';
   @Input() options: IonSelectProps['options'] = [];
   @Input() maxSelected?: IonSelectProps['maxSelected'];
   @Input() required: IonSelectProps['required'] = false;
+  @Input() loading: IonSelectProps['loading'];
   @Input() propLabel: IonSelectProps['propLabel'] = 'label';
   @Output() events = new EventEmitter<IonSelectProps['options']>();
   @Output() search = new EventEmitter<string>();
@@ -33,8 +35,10 @@ export class IonSelectComponent implements OnInit {
   private touched = false;
   private hasValue = false;
 
-  ngOnInit(): void {
-    this.visibleOptions = this.options;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.options) {
+      this.visibleOptions = this.options;
+    }
   }
 
   handleClick(): void {
