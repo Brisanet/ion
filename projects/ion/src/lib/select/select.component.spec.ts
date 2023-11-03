@@ -70,6 +70,25 @@ describe('IonSelecComponent - mode: default', () => {
     fireEvent.click(await getOption(options[0].key));
     expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
+
+  it('should be disabled when informed', async () => {
+    await sut({
+      options: getCopyOptions(),
+      disabled: true,
+    });
+    const selectInput = getIonSelectInput();
+
+    expect(selectInput).toBeDisabled();
+  });
+  it('should not open the dropdown when disabled', async () => {
+    await sut({
+      options: getCopyOptions(),
+      disabled: true,
+    });
+
+    fireEvent.click(getIonSelect());
+    expect(screen.queryByTestId('ion-dropdown')).not.toBeInTheDocument();
+  });
 });
 
 describe('IonSelecComponent - mode: multiple', () => {
@@ -137,7 +156,7 @@ describe('IonSelecComponent - mode: multiple', () => {
       await userEvent.click(select);
       userEvent.dblClick(document.body);
 
-      expect(select).toHaveClass('ion-select__required');
+      expect(select).toHaveClass('ion-select--required');
     });
     it('should not apply the required class if the parameter is false', async () => {
       await sut({
@@ -148,7 +167,7 @@ describe('IonSelecComponent - mode: multiple', () => {
       userEvent.click(select);
       userEvent.dblClick(document.body);
 
-      expect(select).not.toHaveClass('ion-select__required');
+      expect(select).not.toHaveClass('ion-select--required');
     });
     it('should not apply required class in multiple mode with an option checked', async () => {
       await sut({
@@ -167,7 +186,7 @@ describe('IonSelecComponent - mode: multiple', () => {
       userEvent.click(selectItem[0]);
       userEvent.dblClick(document.body);
 
-      expect(select).not.toHaveClass('ion-select__required');
+      expect(select).not.toHaveClass('ion-select--required');
     });
   });
 });
