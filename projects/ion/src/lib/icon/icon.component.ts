@@ -1,9 +1,10 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
+  OnChanges,
   Renderer2,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { iconsPaths } from './svgs/icons';
@@ -14,7 +15,7 @@ import { IconType } from '../core/types/icon';
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })
-export class IonIconComponent implements AfterViewInit {
+export class IonIconComponent implements OnChanges {
   @Input() type: IconType;
   @Input() size = 24;
   @Input() color = '#282b33';
@@ -23,8 +24,8 @@ export class IonIconComponent implements AfterViewInit {
 
   constructor(private renderer: Renderer2) {}
 
-  ngAfterViewInit(): void {
-    if (iconsPaths[this.type]) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.type && iconsPaths[this.type]) {
       const paths = iconsPaths[this.type].split('/>');
       const resultPaths = paths
         .map((path, index) => {
