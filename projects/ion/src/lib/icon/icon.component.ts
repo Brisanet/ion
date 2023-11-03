@@ -4,7 +4,6 @@ import {
   Input,
   OnChanges,
   Renderer2,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { iconsPaths } from './svgs/icons';
@@ -24,8 +23,8 @@ export class IonIconComponent implements OnChanges {
 
   constructor(private renderer: Renderer2) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.type && iconsPaths[this.type]) {
+  ngOnChanges(): void {
+    if (iconsPaths[this.type]) {
       const paths = iconsPaths[this.type].split('/>');
       const resultPaths = paths
         .map((path, index) => {
