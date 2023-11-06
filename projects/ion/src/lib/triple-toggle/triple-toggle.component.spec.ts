@@ -12,6 +12,8 @@ const lastOptionId = 'btn-Não';
 const selectedOption = 'ion-btn-primary';
 const notSelectedOption = 'ion-btn-secondary';
 
+const clickEvent = jest.fn();
+
 const sut = async (customProps: TripleToggleProps = {}): Promise<void> => {
   await render(IonTripleToggleComponent, {
     componentProperties: customProps,
@@ -21,12 +23,10 @@ const sut = async (customProps: TripleToggleProps = {}): Promise<void> => {
 
 describe('IonTripleToggleComponent', () => {
   describe('component basics', () => {
-    const checkEvent = jest.fn();
-
     beforeEach(async () => {
       await sut({
         ionClick: {
-          emit: checkEvent,
+          emit: clickEvent,
         } as SafeAny,
       });
     });
@@ -49,6 +49,12 @@ describe('IonTripleToggleComponent', () => {
       fireEvent.click(firstOption);
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
+
+    it('should show default options when has not custom options applied', async () => {
+      expect(screen.getByTestId(firstOptionId)).toHaveClass(notSelectedOption);
+      expect(screen.getByTestId(middleOptionId)).toHaveClass(selectedOption);
+      expect(screen.getByTestId(lastOptionId)).toHaveClass(notSelectedOption);
+    });
   });
 
   describe('component with variants', () => {
@@ -62,7 +68,6 @@ describe('IonTripleToggleComponent', () => {
     const options = [firstOptionId, middleOptionId, lastOptionId];
 
     it.each(options)('should not emit event when disabled', async (option) => {
-      const clickEvent = jest.fn();
       await sut({
         disabled: true,
         ionClick: {
@@ -75,9 +80,8 @@ describe('IonTripleToggleComponent', () => {
     });
 
     it.each(options)(
-      'should emit an event when click at %s option',
+      'should emit one event when click at %s option',
       async (option) => {
-        const clickEvent = jest.fn();
         await sut({
           ionClick: {
             emit: clickEvent,
@@ -85,20 +89,13 @@ describe('IonTripleToggleComponent', () => {
         });
         const element = screen.getByTestId(option);
         fireEvent.click(element);
-        expect(clickEvent).toHaveBeenCalled();
+        expect(clickEvent).toHaveBeenCalledTimes(1);
       }
     );
 
     it('should show the selected option when started with it', async () => {
       await sut({ value: true });
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
-    });
-
-    it('should show default options when has not custom options applied', async () => {
-      await sut();
-      expect(screen.getByTestId(firstOptionId)).toHaveClass(notSelectedOption);
-      expect(screen.getByTestId(middleOptionId)).toHaveClass(selectedOption);
-      expect(screen.getByTestId(lastOptionId)).toHaveClass(notSelectedOption);
     });
 
     it('should show selected middle option when none option are selected initially', async () => {
@@ -109,10 +106,6 @@ describe('IonTripleToggleComponent', () => {
             value: true,
           },
           {
-            label: '-',
-            value: undefined,
-          },
-          {
             label: 'Não',
             value: false,
           },
@@ -120,5 +113,11 @@ describe('IonTripleToggleComponent', () => {
       });
       expect(screen.getByTestId(middleOptionId)).toHaveClass(selectedOption);
     });
+  });
+
+  afterEach(() => {
+    const middleOption = screen.getByTestId(middleOptionId);
+    fireEvent.click(middleOption);
+    clickEvent.mockClear();
   });
 });

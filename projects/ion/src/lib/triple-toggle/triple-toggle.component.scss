@@ -31,6 +31,10 @@
   ion-button ::ng-deep {
     .ion-btn-primary {
       border: 1px solid transparent;
+      &:disabled {
+        background-color: $neutral-5 !important;
+        color: $neutral-1 !important;
+      }
     }
 
     .ion-remove-space {

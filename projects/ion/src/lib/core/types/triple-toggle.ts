@@ -3,9 +3,17 @@ import { SafeAny } from '../../utils/safe-any';
 import { Size } from './button';
 import { IconType } from './icon';
 
+export type TripleToggleOptionsToRender = [
+  TripleToggleOption,
+  TripleToggleOption,
+  TripleToggleOption
+];
+
+export type TripleToggleOptions = [TripleToggleOption, TripleToggleOption];
+
 export interface TripleToggleOption {
   value: SafeAny;
-  label?: string;
+  label: string;
   tooltip?: string;
   icon?: IconType;
   rightSideIcon?: boolean;
@@ -16,6 +24,7 @@ export interface TripleToggleProps {
   value?: SafeAny;
   disabled?: boolean;
   size?: Size;
-  options?: [TripleToggleOption, TripleToggleOption, TripleToggleOption];
+  options?: TripleToggleOptions;
+  onlyShowIcon?: boolean;
   ionClick?: EventEmitter<SafeAny>;
 }

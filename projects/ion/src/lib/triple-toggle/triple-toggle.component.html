@@ -1,7 +1,7 @@
 <div class="ion-triple-toggle" data-testid="ion-triple-toggle">
   <ion-button
-    *ngFor="let option of options"
-    [label]="option?.label"
+    *ngFor="let option of optionsToRender; let i = index"
+    [label]="onlyShowIcon && i !== 1 ? '' : option.label"
     [iconType]="option?.icon"
     [class.right-side-icon]="option?.rightSideIcon"
     (ionOnClick)="handleClick(option)"

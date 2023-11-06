@@ -7,8 +7,29 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Size, TripleToggleOption } from '../core/types';
+import {
+  Size,
+  TripleToggleOption,
+  TripleToggleOptions,
+  TripleToggleOptionsToRender,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
+
+const FIRST_INDEX = 0;
+const SECOND_INDEX = 1;
+const DEFAULT_LEFT_OPTION: TripleToggleOption = {
+  value: true,
+  label: 'Sim',
+};
+const DEFAULT_MIDDLE_OPTION: TripleToggleOption = {
+  value: undefined,
+  label: '-',
+  selected: true,
+};
+const DEFAULT_RIGHT_OPTION: TripleToggleOption = {
+  value: false,
+  label: 'Não',
+};
 
 @Component({
   selector: 'ion-triple-toggle',
@@ -19,40 +40,18 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   @Input() value: SafeAny;
   @Input() disabled = false;
   @Input() size: Size = 'md';
-  @Input() options: [
-    TripleToggleOption,
-    TripleToggleOption,
-    TripleToggleOption
-  ];
-
+  @Input() options: TripleToggleOptions;
+  @Input() onlyShowIcon: boolean;
   @Output() ionClick = new EventEmitter();
 
-  private defaultConfiguration: [
-    TripleToggleOption,
-    TripleToggleOption,
-    TripleToggleOption
-  ] = [
-    {
-      value: true,
-      label: 'Sim',
-    },
-    {
-      value: undefined,
-      label: '-',
-      selected: true,
-    },
-    {
-      value: false,
-      label: 'Não',
-    },
-  ];
+  public optionsToRender: TripleToggleOptionsToRender;
 
   handleClick(option: TripleToggleOption): void {
     this.selectOption(option);
   }
 
   ngOnInit(): void {
-    this.checkConfiguration();
+    this.buildOptionsToRender();
     if (this.value !== undefined) {
       this.changeOptionByValue();
     }
@@ -65,7 +64,7 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   }
 
   private unselectAllOptions(): void {
-    this.options.forEach((option) => {
+    this.optionsToRender.forEach((option) => {
       option.selected = false;
     });
   }
@@ -78,26 +77,27 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   }
 
   private changeOptionByValue(): void {
-    if (!this.disabled && this.options) {
-      const option = this.options.find((option) => option.value === this.value);
-      if (option) {
-        this.selectOption(option);
+    if (!this.disabled && this.optionsToRender) {
+      const validatedOption = this.optionsToRender.find(
+        (option) => option.value === this.value
+      );
+      if (validatedOption) {
+        this.selectOption(validatedOption);
       }
     }
   }
 
-  private checkHasSomeItemSelected(): void {
-    const hasSomeSelected = this.options.some((option) => option.selected);
-    if (!hasSomeSelected) {
-      this.options[1].selected = true;
-    }
-  }
+  private buildOptionsToRender(): void {
+    this.optionsToRender = [
+      this.options && this.options[FIRST_INDEX]
+        ? this.options[FIRST_INDEX]
+        : DEFAULT_LEFT_OPTION,
 
-  private checkConfiguration(): void {
-    if (!this.options) {
-      this.options = this.defaultConfiguration;
-      return;
-    }
-    this.checkHasSomeItemSelected();
+      DEFAULT_MIDDLE_OPTION,
+
+      this.options && this.options[SECOND_INDEX]
+        ? this.options[SECOND_INDEX]
+        : DEFAULT_RIGHT_OPTION,
+    ];
   }
 }

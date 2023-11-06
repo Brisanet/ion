@@ -1,4 +1,5 @@
 import { FormsModule } from '@angular/forms';
+import { action } from '@storybook/addon-actions';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 import { IonTripleToggleComponent } from '../projects/ion/src/lib/triple-toggle/triple-toggle.component';
@@ -21,7 +22,7 @@ const Template: Story<IonTripleToggleComponent> = (
   args: IonTripleToggleComponent
 ) => ({
   component: IonTripleToggleComponent,
-  props: args,
+  props: { ...args, ionClick: action('ionClick') },
 });
 
 export const Basic = Template.bind({});
@@ -56,11 +57,6 @@ CustomConfiguration.args = {
       tooltip: 'Box to exemplify.',
     },
     {
-      value: undefined,
-      label: '-',
-      tooltip: 'Neutral',
-    },
-    {
       value: 'star',
       label: 'Star',
       icon: 'star',
@@ -71,19 +67,17 @@ CustomConfiguration.args = {
 
 export const OnlyIcons = Template.bind({});
 OnlyIcons.args = {
+  onlyShowIcon: true,
   options: [
     {
       value: true,
+      label: 'Check',
       icon: 'check',
       tooltip: 'Yes',
     },
     {
-      value: undefined,
-      label: '-',
-      tooltip: 'Neutral',
-    },
-    {
       value: false,
+      label: 'Close',
       icon: 'close',
       tooltip: 'No',
     },
