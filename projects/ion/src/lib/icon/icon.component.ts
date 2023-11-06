@@ -1,8 +1,8 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   Input,
+  OnChanges,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -14,7 +14,7 @@ import { IconType } from '../core/types/icon';
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })
-export class IonIconComponent implements AfterViewInit {
+export class IonIconComponent implements OnChanges {
   @Input() type: IconType;
   @Input() size = 24;
   @Input() color = '#282b33';
@@ -23,7 +23,7 @@ export class IonIconComponent implements AfterViewInit {
 
   constructor(private renderer: Renderer2) {}
 
-  ngAfterViewInit(): void {
+  ngOnChanges(): void {
     if (iconsPaths[this.type]) {
       const paths = iconsPaths[this.type].split('/>');
       const resultPaths = paths
