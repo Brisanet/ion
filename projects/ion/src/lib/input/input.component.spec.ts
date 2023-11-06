@@ -1,11 +1,11 @@
-import { SafeAny } from './../utils/safe-any';
 import { CommonModule } from '@angular/common';
-import { render, screen, fireEvent, within } from '@testing-library/angular';
-import userEvent from '@testing-library/user-event';
-import { IonInputComponent } from './input.component';
 import { FormsModule } from '@angular/forms';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { InputType, IonInputProps } from '../core/types/input';
 import { IonSharedModule } from '../shared.module';
-import { IonInputProps, InputType } from '../core/types/input';
+import { SafeAny } from './../utils/safe-any';
+import { IonInputComponent } from './input.component';
 
 const sut = async (customProps?: IonInputProps): Promise<void> => {
   await render(IonInputComponent, {
@@ -85,6 +85,21 @@ describe('IonInputComponent', () => {
     const button = screen.getByTestId('input-button');
     fireEvent.click(button);
     expect(button).toBeInTheDocument();
+  });
+
+  it('should render button with md size when size is not setted', async () => {
+    await sut({
+      inputButton: true,
+      inputButtonConfig: {
+        iconType: 'pencil',
+        type: 'primary',
+        id: 'Button',
+      },
+    });
+    const buttonContainer = screen.getByTestId('input-button');
+    expect(within(buttonContainer).getByTestId('btn-Button')).toHaveClass(
+      'ion-btn-md'
+    );
   });
 
   it('should emit an event when clicked input button', async () => {

@@ -21,6 +21,7 @@ interface TagRow {
   iconKey?: string;
   status?: TagStatus;
   statusKey?: string;
+  tooltipKey?: string;
 }
 export interface Column {
   label: string;

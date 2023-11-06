@@ -73,3 +73,21 @@ Required.args = {
   placeholder: 'Select 3 fruits',
   required: true,
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  options: fruitOptions,
+  placeholder: 'Select 3 fruits',
+  disabled: true,
+};
+
+export const CustomLabel = Template.bind({});
+CustomLabel.args = {
+  options: [
+    { name: 'Custom Option 1', selected: false },
+    { name: 'Custom Option 2', selected: false },
+    { name: 'Custom Option 3', selected: false },
+  ],
+  placeholder: 'Select a option',
+  propLabel: 'name',
+};

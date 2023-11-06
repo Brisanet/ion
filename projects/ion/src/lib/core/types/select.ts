@@ -11,6 +11,8 @@ export interface IonSelectProps {
   maxSelected?: number;
   search?: EventEmitter<string>;
   required?: boolean;
+  propLabel?: string;
+  disabled?: boolean;
 }
 
 export interface IonSelectItemProps {
