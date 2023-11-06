@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -23,7 +24,7 @@ export const COLDOWN = 200;
   styleUrls: ['./dropdown.component.scss'],
 })
 export class IonDropdownComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+  implements OnInit, AfterViewChecked, OnChanges, OnDestroy
 {
   @Input() options: DropdownItem[] = [];
   @Input() maxSelected?: DropdownParams['maxSelected'];
@@ -60,7 +61,7 @@ export class IonDropdownComponent
     }
   }
 
-  public ngAfterViewInit(): void {
+  public ngAfterViewChecked(): void {
     const widthContainer = window.innerWidth;
     const element = document.getElementById('ion-dropdown');
     const elementProps = element.getBoundingClientRect();
