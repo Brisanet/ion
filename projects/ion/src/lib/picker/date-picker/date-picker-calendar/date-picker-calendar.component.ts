@@ -1,18 +1,14 @@
 import {
   Component,
+  DoCheck,
+  EventEmitter,
   Input,
   OnInit,
   Output,
-  EventEmitter,
-  DoCheck,
 } from '@angular/core';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import { Day } from '../../core/day';
-
-type DateEmitter = {
-  day: Day;
-};
 
 export type UpdateLabelCalendar = {
   month: string;
@@ -26,13 +22,20 @@ type CalendarControlActions =
   | 'nextYear';
 
 export interface IonDatePickerCalendarComponentProps {
-  currentDate?: string;
+  currentDate?: string[];
   lang?: string;
   goToMonthInCalendar?: string;
   goToYearInCalendar?: string;
   calendarControlAction?: CalendarControlActions;
-  events?: EventEmitter<DateEmitter>;
+  rangePicker?: boolean;
+  events?: EventEmitter<[Day, Day]>;
 }
+
+const SUNDAY = 'domingo';
+const SATURDAY = 'sábado';
+const INITIAL_RANGE = 0;
+const FINAL_RANGE = 1;
+
 @Component({
   selector: 'date-picker-calendar',
   templateUrl: './date-picker-calendar.component.html',
@@ -54,10 +57,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     }
   }
   @Input() calendarControlAction: CalendarControlActions;
-  @Output() events = new EventEmitter<DateEmitter>();
+  @Input() rangePicker: boolean;
+  @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
-  selectedDay: Day;
+  selectedDay: Day[] = [];
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
@@ -68,14 +72,10 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     nextYear: (): void => this.nextYear(),
   };
 
+  public finalRange = true;
+
   constructor() {
     this.setLanguage();
-  }
-
-  setLanguage(): void {
-    if (!this.lang) {
-      this.lang = window.navigator.language;
-    }
   }
 
   ngOnInit(): void {
@@ -83,23 +83,74 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.tempRenderDays();
   }
 
-  setCalendarInitialState(): void {
-    this.selectedDay = new Day(this.getInitialDate(), this.lang);
-    this.calendar = this.getCalendarInstance();
+  ngDoCheck(): void {
+    if (this.calendarControlAction) {
+      this.calendarAction[this.calendarControlAction]();
+    }
   }
 
-  getInitialDate(): Date {
-    return this.currentDate
-      ? new Date(this.currentDate.replace('-', ','))
-      : new Date();
+  handleClick(dayIndex: number): void {
+    if (this.rangePicker) {
+      if (!this.selectedDay.length || this.selectedDay[FINAL_RANGE]) {
+        this.selectedDay = [this.days[dayIndex]];
+        return;
+      }
+
+      this.selectedDay[FINAL_RANGE] = this.days[dayIndex];
+      this.arrangeDates();
+      this.emitEvent();
+      this.setDateInCalendar();
+      return;
+    }
+    this.selectedDay = [this.days[dayIndex]];
+    this.emitEvent();
+    this.setDateInCalendar();
   }
 
-  getCalendarInstance = (): Calendar =>
-    new Calendar(
-      this.selectedDay.year,
-      this.selectedDay.monthNumber,
-      this.lang
+  isToday(date: Day): boolean {
+    const TODAY = new Day(new Date(), this.lang);
+    const USELESS_INDEX = 0;
+    return this.isSameDay(date, USELESS_INDEX, TODAY);
+  }
+
+  isSelectedDate(date: Day, isFinalOfRange?: boolean): boolean {
+    return this.isSameDay(date, isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE);
+  }
+
+  isBetweenRange(date: Day): boolean {
+    if (this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE]) {
+      const INITIAL_DATE = new Date(this.selectedDay[INITIAL_RANGE].Date);
+      const FINAL_DATE = new Date(this.selectedDay[FINAL_RANGE].Date);
+      const CURRENT_DATE = new Date(date.Date);
+      return (
+        CURRENT_DATE >= INITIAL_DATE &&
+        CURRENT_DATE <= FINAL_DATE &&
+        !(date.day === SATURDAY && this.isSameDay(date, INITIAL_RANGE)) &&
+        !(date.day === SUNDAY && this.isSameDay(date, FINAL_RANGE))
+      );
+    }
+    return;
+  }
+
+  isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
+    const DAY_NAME = isFinalOfRange ? SATURDAY : SUNDAY;
+    const RANGE_TO_AVOID = isFinalOfRange ? INITIAL_RANGE : FINAL_RANGE;
+    const RANGE_TO_CONFIRM = isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE;
+    return (
+      (date.day === DAY_NAME && !this.isSameDay(date, RANGE_TO_AVOID)) ||
+      this.isSameDay(date, RANGE_TO_CONFIRM)
     );
+  }
+
+  getWeekDaysElementStrings(): string[] {
+    return this.calendar.weekDays.map(
+      (weekDay) => `${(weekDay as string).substring(0, 3)}`
+    );
+  }
+
+  getAriaLabel(day: Day): string {
+    return day.format('YYYY-MM-DD');
+  }
 
   tempRenderDays(): void {
     this.days = this.getMonthDaysGrid();
@@ -113,87 +164,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         year: String(this.calendar.year),
       });
     }, 100);
-  }
-
-  isDayMonthCurrent(day: Day): boolean {
-    return day.monthNumber === this.calendar.month.number;
-  }
-
-  getMonthDaysGrid(): Day[] {
-    const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays = this.getLastMonthFinalDays();
-    const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
-    const monthList = Array.from<Day>({ length: totalDays });
-
-    for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
-      monthList[i] = this.getCalendarDay(i + 1 - totalLastMonthFinalDays);
-    }
-
-    for (let i = 0; i < totalLastMonthFinalDays; i++) {
-      const inverted = totalLastMonthFinalDays - (i + 1);
-      monthList[i] = prevMonth.getDay(prevMonth.numberOfDays - inverted);
-    }
-
-    return monthList;
-  }
-
-  getLastMonthFinalDays(): number {
-    return this.calendar.month.getDay(1).dayNumber - 1;
-  }
-
-  getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
-    const totalDaysWithSixWeeks = 42;
-    const totalDaysWithFiveWeeks = 35;
-    const totalDaysWithFourWeeks = 28;
-
-    const totalDays =
-      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
-
-    if (totalDays > totalDaysWithFiveWeeks) {
-      return totalDaysWithSixWeeks;
-    }
-
-    if (totalDays > totalDaysWithFourWeeks) {
-      return totalDaysWithFiveWeeks;
-    }
-
-    return totalDaysWithFourWeeks;
-  }
-
-  getCalendarDay(day: number): Day {
-    return this.calendar.month.getDay(day);
-  }
-
-  getWeekDaysElementStrings(): string[] {
-    return this.calendar.weekDays.map(
-      (weekDay) => `${(weekDay as string).substring(0, 3)}`
-    );
-  }
-
-  getAriaLabel(day: Day): string {
-    return day.format('YYYY-MM-DD');
-  }
-
-  isSelectedDate(date: Day): boolean {
-    return (
-      date.date === this.selectedDay.date &&
-      date.monthNumber === this.selectedDay.monthNumber &&
-      date.year === this.selectedDay.year
-    );
-  }
-
-  dispatchActions(dayIndex: number): void {
-    this.selectedDay = this.days[dayIndex];
-    this.emitEvent();
-    this.setDateInCalendar();
-  }
-
-  emitEvent(): void {
-    this.events.emit({ day: this.selectedDay });
-  }
-
-  setDateInCalendar(): void {
-    this.calendar.goToDate(this.selectedDay.monthNumber, this.selectedDay.year);
   }
 
   previousYear(): void {
@@ -216,9 +186,135 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.tempRenderDays();
   }
 
-  ngDoCheck(): void {
-    if (this.calendarControlAction) {
-      this.calendarAction[this.calendarControlAction]();
+  private setLanguage(): void {
+    if (!this.lang) {
+      this.lang = window.navigator.language;
     }
+  }
+
+  private setCalendarInitialState(): void {
+    if (this.currentDate && this.currentDate.length) {
+      this.selectedDay[INITIAL_RANGE] = new Day(
+        this.getFormattedDate(),
+        this.lang
+      );
+
+      if (this.rangePicker && this.currentDate[FINAL_RANGE]) {
+        this.selectedDay[FINAL_RANGE] = new Day(
+          this.getFormattedDate(this.finalRange),
+          this.lang
+        );
+      }
+    }
+    this.calendar = this.getCalendarInstance();
+  }
+
+  private setDateInCalendar(): void {
+    this.calendar.goToDate(
+      this.selectedDay[INITIAL_RANGE].monthNumber,
+      this.selectedDay[INITIAL_RANGE].year
+    );
+  }
+
+  private getInitialDate(): Date {
+    return this.currentDate && this.currentDate.length
+      ? this.getFormattedDate()
+      : new Date();
+  }
+
+  private getFormattedDate(isFinalOfRange?: boolean): Date {
+    return new Date(
+      this.currentDate[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE].replace(
+        '-',
+        ','
+      )
+    );
+  }
+
+  private getCalendarInstance = (): Calendar => {
+    const initialRenderDay = new Day(this.getInitialDate(), this.lang);
+    return new Calendar(
+      initialRenderDay.year,
+      initialRenderDay.monthNumber,
+      this.lang
+    );
+  };
+
+  private getMonthDaysGrid(): Day[] {
+    const prevMonth = this.calendar.getPreviousMonth();
+    const totalLastMonthFinalDays = this.getLastMonthFinalDays();
+    const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
+    const monthList = Array.from<Day>({ length: totalDays });
+
+    for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
+      monthList[i] = this.getCalendarDay(i + 1 - totalLastMonthFinalDays);
+    }
+
+    for (let i = 0; i < totalLastMonthFinalDays; i++) {
+      const inverted = totalLastMonthFinalDays - (i + 1);
+      monthList[i] = prevMonth.getDay(prevMonth.numberOfDays - inverted);
+    }
+
+    return monthList;
+  }
+
+  private getLastMonthFinalDays(): number {
+    return this.calendar.month.getDay(1).dayNumber - 1;
+  }
+
+  private getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
+    const totalDaysWithSixWeeks = 42;
+    const totalDaysWithFiveWeeks = 35;
+    const totalDaysWithFourWeeks = 28;
+
+    const totalDays =
+      this.calendar.month.numberOfDays + totalLastMonthFinalDays;
+
+    if (totalDays > totalDaysWithFiveWeeks) {
+      return totalDaysWithSixWeeks;
+    }
+
+    if (totalDays > totalDaysWithFourWeeks) {
+      return totalDaysWithFiveWeeks;
+    }
+
+    return totalDaysWithFourWeeks;
+  }
+
+  private getCalendarDay(day: number): Day {
+    return this.calendar.month.getDay(day);
+  }
+
+  private isDayMonthCurrent(day: Day): boolean {
+    return day.monthNumber === this.calendar.month.number;
+  }
+
+  private isSameDay(
+    day: Day,
+    selectedIndex: number,
+    dayToCompare?: Day
+  ): boolean {
+    const SELECTED = dayToCompare
+      ? dayToCompare
+      : this.selectedDay[selectedIndex];
+    return (
+      SELECTED &&
+      day.date === SELECTED.date &&
+      day.monthNumber === SELECTED.monthNumber &&
+      day.year === SELECTED.year
+    );
+  }
+
+  private arrangeDates(): void {
+    this.selectedDay.sort((initial, final) => {
+      return initial.Date < final.Date ? -1 : initial.Date > final.Date ? 1 : 0;
+    });
+  }
+
+  private emitEvent(): void {
+    this.events.emit([
+      this.selectedDay[INITIAL_RANGE],
+      this.selectedDay[FINAL_RANGE],
+    ]);
   }
 }

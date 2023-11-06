@@ -1,4 +1,3 @@
-import { UpdateLabelCalendar } from './date-picker-calendar/date-picker-calendar.component';
 import {
   AfterViewInit,
   Component,
@@ -6,18 +5,14 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { IonDatePickerComponentProps } from '../../core/types/datepicker';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
 import { Day } from '../core/day';
-import { IonDatePickerComponentProps } from '../../core/types/datepicker';
+import { UpdateLabelCalendar } from './date-picker-calendar/date-picker-calendar.component';
 
-type DateEmitter = {
-  day?: Day;
-};
-
-type DateEvent = {
-  date: string;
-};
+const DEFAULT_FINAL_FORMAT = 'YYYY-MM-DD';
+const DEFAULT_INPUT_FORMAT = 'DD/MM/YYYY';
 
 @Component({
   selector: 'ion-date-picker',
@@ -25,11 +20,12 @@ type DateEvent = {
   styleUrls: ['./date-picker.component.scss'],
 })
 export class IonDatepickerComponent implements AfterViewInit {
-  @Input() format = 'YYYY-MM-DD';
+  @Input() format = DEFAULT_FINAL_FORMAT;
   @Input() formatInDateInput: IonDatePickerComponentProps['formatInDateInput'] =
-    'DD/MM/YYYY';
-  @Output() event = new EventEmitter<DateEvent>();
-  currentDate: string;
+    DEFAULT_INPUT_FORMAT;
+  @Input() rangePicker: boolean;
+  @Output() event = new EventEmitter<string[]>();
+  currentDate: string[];
   inputDate: string;
   showDatepicker = false;
   calendarMonth: string;
@@ -75,17 +71,25 @@ export class IonDatepickerComponent implements AfterViewInit {
     this.calendarYear = year;
   }
 
-  dateSelected({ day }: DateEmitter): void {
-    this.event.emit({
-      date: day.format(this.format),
-    });
-    this.currentDate = day.format('YYYY-MM-DD');
-    this.inputDate = day.format(this.formatInDateInput);
+  getFinalFormatDate(data: Day[]): string[] {
+    return this.rangePicker
+      ? [data[0].format(this.format), data[1].format(this.format)]
+      : [data[0].format(this.format)];
+  }
+
+  dateSelected(data: Day[]): void {
+    this.event.emit(this.getFinalFormatDate(data));
+    this.currentDate = this.getFinalFormatDate(data);
+    this.inputDate = this.rangePicker
+      ? data[0].format(this.formatInDateInput) +
+        ' - ' +
+        data[1].format(this.formatInDateInput)
+      : data[0].format(this.formatInDateInput);
     this.showDatepicker = false;
   }
 
   clearDate(): void {
-    this.currentDate = '';
+    this.currentDate = [];
     this.inputDate = '';
   }
 }
