@@ -8,33 +8,16 @@ import {
 } from '@angular/core';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
+import {
+  CalendarControlActions,
+  FINAL_RANGE,
+  INITIAL_RANGE,
+  IonDatePickerCalendarComponentProps,
+  SATURDAY,
+  SUNDAY,
+  UpdateLabelCalendar,
+} from '../../core/calendar-model';
 import { Day } from '../../core/day';
-
-export type UpdateLabelCalendar = {
-  month: string;
-  year: string;
-};
-
-type CalendarControlActions =
-  | 'previousYear'
-  | 'previousMonth'
-  | 'nextMonth'
-  | 'nextYear';
-
-export interface IonDatePickerCalendarComponentProps {
-  currentDate?: string[];
-  lang?: string;
-  goToMonthInCalendar?: string;
-  goToYearInCalendar?: string;
-  calendarControlAction?: CalendarControlActions;
-  rangePicker?: boolean;
-  events?: EventEmitter<[Day, Day]>;
-}
-
-const SUNDAY = 'domingo';
-const SATURDAY = 'sábado';
-const INITIAL_RANGE = 0;
-const FINAL_RANGE = 1;
 
 @Component({
   selector: 'date-picker-calendar',
@@ -129,7 +112,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         !(date.day === SUNDAY && this.isSameDay(date, FINAL_RANGE))
       );
     }
-    return;
   }
 
   isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
