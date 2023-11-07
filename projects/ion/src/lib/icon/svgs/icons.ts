@@ -358,6 +358,7 @@ import {
   orderNumber2,
   changePriority,
   change,
+  regions,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -631,6 +632,7 @@ export const iconsPaths: Record<string, string> = {
   recording1,
   recording2,
   refresh,
+  regions,
   'registration-list': registrationList,
   'remove-telephone': removeTelephone,
   'remove-user': removeUser,

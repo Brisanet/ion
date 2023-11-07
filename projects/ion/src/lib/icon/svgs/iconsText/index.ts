@@ -268,6 +268,7 @@ export { default as receiveTelephone } from './receive-telephone';
 export { default as recording1 } from './recording1';
 export { default as recording2 } from './recording2';
 export { default as refresh } from './refresh';
+export { default as regions } from './regions';
 export { default as registrationList } from './registration-list';
 export { default as removeTelephone } from './remove-telephone';
 export { default as removeUser } from './remove-user';
