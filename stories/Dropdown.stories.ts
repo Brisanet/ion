@@ -115,3 +115,23 @@ RequiredOption.args = {
   selected: action('selected'),
   optionsScroll: action('optionsScroll'),
 };
+
+export const WithTitle = Template.bind({});
+WithTitle.args = {
+  options,
+  title: 'Example Title',
+};
+
+export const WithTitleAndSearch = Template.bind({});
+WithTitleAndSearch.args = {
+  title: 'Example Title',
+  enableSearch: true,
+  options,
+  searchOptions: {
+    inputType: 'text',
+    iconInput: 'search',
+    iconDirection: 'right',
+    clearButton: true,
+    placeholder: 'Busque por algo...',
+  },
+};

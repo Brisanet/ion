@@ -4,6 +4,9 @@
   data-testid="ion-dropdown"
   (clickOutside)="clickedOutsideDropdown()"
 >
+  <span *ngIf="title" class="dropdown-title" data-testid="dropdown-title">{{
+    title
+  }}</span>
   <ion-input
     class="dropdown-search"
     *ngIf="enableSearch"

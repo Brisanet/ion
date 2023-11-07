@@ -62,6 +62,20 @@ describe('IonDropdownComponent', () => {
     }
   });
 
+  it('should not render the title as default', async () => {
+    await sut();
+    expect(screen.queryByTestId('dropdown-title')).not.toBeInTheDocument();
+  });
+
+  it('should render the title when informed', async () => {
+    await sut({
+      ...defaultDropdown,
+      title: 'Custom Title',
+    });
+
+    expect(screen.getByTestId('dropdown-title')).toBeVisible();
+  });
+
   it('should select a option', async () => {
     await sut();
     selectEvent.mockClear();
