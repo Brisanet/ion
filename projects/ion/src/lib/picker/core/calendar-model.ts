@@ -21,3 +21,8 @@ export interface IonDatePickerCalendarComponentProps {
   rangePicker?: boolean;
   events?: EventEmitter<[Day, Day]>;
 }
+
+export const SUNDAY = 'domingo';
+export const SATURDAY = 'sábado';
+export const INITIAL_RANGE = 0;
+export const FINAL_RANGE = 1;

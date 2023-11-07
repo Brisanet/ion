@@ -6,18 +6,16 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import {
-  FINAL_RANGE,
-  INITIAL_RANGE,
-  SATURDAY,
-  SUNDAY,
-  isSameDay,
-} from '../../../utils';
+import { isSameDay } from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import {
   CalendarControlActions,
+  FINAL_RANGE,
+  INITIAL_RANGE,
   IonDatePickerCalendarComponentProps,
+  SATURDAY,
+  SUNDAY,
   UpdateLabelCalendar,
 } from '../../core/calendar-model';
 import { Day } from '../../core/day';
@@ -95,12 +93,16 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   isToday(date: Day): boolean {
     const TODAY = new Day(new Date(), this.lang);
-    const USELESS_INDEX = 0;
-    return isSameDay(date, USELESS_INDEX, TODAY);
+    return isSameDay(date, TODAY);
   }
 
   isSelectedDate(date: Day, isFinalOfRange?: boolean): boolean {
-    return isSameDay(date, isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE);
+    return isSameDay(
+      date,
+      isFinalOfRange
+        ? this.selectedDay[FINAL_RANGE]
+        : this.selectedDay[INITIAL_RANGE]
+    );
   }
 
   isBetweenRange(date: Day): boolean {
@@ -122,8 +124,9 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     const RANGE_TO_AVOID = isFinalOfRange ? INITIAL_RANGE : FINAL_RANGE;
     const RANGE_TO_CONFIRM = isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE;
     return (
-      (date.day === DAY_NAME && !isSameDay(date, RANGE_TO_AVOID)) ||
-      isSameDay(date, RANGE_TO_CONFIRM)
+      (date.day === DAY_NAME &&
+        !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
+      isSameDay(date, this.selectedDay[RANGE_TO_CONFIRM])
     );
   }
 
@@ -279,7 +282,9 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     dayName: string,
     indexRange: number
   ): boolean {
-    return !(date.day === dayName && isSameDay(date, indexRange));
+    return !(
+      date.day === dayName && isSameDay(date, this.selectedDay[indexRange])
+    );
   }
 
   private arrangeDates(): void {

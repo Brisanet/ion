@@ -5,18 +5,11 @@ export const SATURDAY = 'sábado';
 export const INITIAL_RANGE = 0;
 export const FINAL_RANGE = 1;
 
-export function isSameDay(
-  day: Day,
-  selectedIndex: number,
-  dayToCompare?: Day
-): boolean {
-  const SELECTED = dayToCompare
-    ? dayToCompare
-    : this.selectedDay[selectedIndex];
+export function isSameDay(day: Day, dayToCompare?: Day): boolean {
   return (
-    SELECTED &&
-    day.date === SELECTED.date &&
-    day.monthNumber === SELECTED.monthNumber &&
-    day.year === SELECTED.year
+    dayToCompare &&
+    day.date === dayToCompare.date &&
+    day.monthNumber === dayToCompare.monthNumber &&
+    day.year === dayToCompare.year
   );
 }
