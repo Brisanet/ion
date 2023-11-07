@@ -12,6 +12,8 @@ import {
   SATURDAY,
   SUNDAY,
   getFormattedDate,
+  getInitialDate,
+  isNotRangeLimit,
   isSameDay,
 } from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
@@ -109,22 +111,24 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   isBetweenRange(date: Day): boolean {
     if (this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE]) {
-      const INITIAL_DATE = new Date(this.selectedDay[INITIAL_RANGE].Date);
-      const FINAL_DATE = new Date(this.selectedDay[FINAL_RANGE].Date);
-      const CURRENT_DATE = new Date(date.Date);
+      const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
+        new Date(this.selectedDay[INITIAL_RANGE].Date),
+        new Date(this.selectedDay[FINAL_RANGE].Date),
+        new Date(date.Date),
+      ];
       return (
         CURRENT_DATE >= INITIAL_DATE &&
         CURRENT_DATE <= FINAL_DATE &&
-        this.isNotRangeLimit(date, SATURDAY, INITIAL_RANGE) &&
-        this.isNotRangeLimit(date, SUNDAY, FINAL_RANGE)
+        isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
+        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE])
       );
     }
   }
 
   isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
-    const DAY_NAME = isFinalOfRange ? SATURDAY : SUNDAY;
-    const RANGE_TO_AVOID = isFinalOfRange ? INITIAL_RANGE : FINAL_RANGE;
-    const RANGE_TO_CONFIRM = isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE;
+    const [DAY_NAME, RANGE_TO_AVOID, RANGE_TO_CONFIRM] = isFinalOfRange
+      ? [SATURDAY, INITIAL_RANGE, FINAL_RANGE]
+      : [SUNDAY, FINAL_RANGE, INITIAL_RANGE];
     return (
       (date.day === DAY_NAME &&
         !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
@@ -206,14 +210,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     );
   }
 
-  private getInitialDate(): Date {
-    return this.currentDate && this.currentDate.length
-      ? getFormattedDate(this.currentDate)
-      : new Date();
-  }
-
   private getCalendarInstance = (): Calendar => {
-    const initialRenderDay = new Day(this.getInitialDate(), this.lang);
+    const initialRenderDay = new Day(
+      getInitialDate(this.currentDate),
+      this.lang
+    );
     return new Calendar(
       initialRenderDay.year,
       initialRenderDay.monthNumber,
@@ -268,16 +269,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
-  }
-
-  private isNotRangeLimit(
-    date: Day,
-    dayName: string,
-    indexRange: number
-  ): boolean {
-    return !(
-      date.day === dayName && isSameDay(date, this.selectedDay[indexRange])
-    );
   }
 
   private arrangeDates(): void {

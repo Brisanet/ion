@@ -14,6 +14,20 @@ export function isSameDay(day: Day, dayToCompare?: Day): boolean {
   );
 }
 
+export function isNotRangeLimit(
+  date: Day,
+  dayName: string,
+  randeDateSelected: Day
+): boolean {
+  return !(date.day === dayName && isSameDay(date, randeDateSelected));
+}
+
+export function getInitialDate(currentDate: string[]): Date {
+  return currentDate && currentDate.length
+    ? getFormattedDate(currentDate)
+    : new Date();
+}
+
 export function getFormattedDate(
   dates: string[],
   isFinalOfRange?: boolean
