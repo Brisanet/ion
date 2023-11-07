@@ -6,15 +6,18 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import {
+  FINAL_RANGE,
+  INITIAL_RANGE,
+  SATURDAY,
+  SUNDAY,
+  isSameDay,
+} from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import {
   CalendarControlActions,
-  FINAL_RANGE,
-  INITIAL_RANGE,
   IonDatePickerCalendarComponentProps,
-  SATURDAY,
-  SUNDAY,
   UpdateLabelCalendar,
 } from '../../core/calendar-model';
 import { Day } from '../../core/day';
@@ -93,11 +96,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   isToday(date: Day): boolean {
     const TODAY = new Day(new Date(), this.lang);
     const USELESS_INDEX = 0;
-    return this.isSameDay(date, USELESS_INDEX, TODAY);
+    return isSameDay(date, USELESS_INDEX, TODAY);
   }
 
   isSelectedDate(date: Day, isFinalOfRange?: boolean): boolean {
-    return this.isSameDay(date, isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE);
+    return isSameDay(date, isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE);
   }
 
   isBetweenRange(date: Day): boolean {
@@ -108,8 +111,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
       return (
         CURRENT_DATE >= INITIAL_DATE &&
         CURRENT_DATE <= FINAL_DATE &&
-        !(date.day === SATURDAY && this.isSameDay(date, INITIAL_RANGE)) &&
-        !(date.day === SUNDAY && this.isSameDay(date, FINAL_RANGE))
+        this.isNotRangeLimit(date, SATURDAY, INITIAL_RANGE) &&
+        this.isNotRangeLimit(date, SUNDAY, FINAL_RANGE)
       );
     }
   }
@@ -119,8 +122,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     const RANGE_TO_AVOID = isFinalOfRange ? INITIAL_RANGE : FINAL_RANGE;
     const RANGE_TO_CONFIRM = isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE;
     return (
-      (date.day === DAY_NAME && !this.isSameDay(date, RANGE_TO_AVOID)) ||
-      this.isSameDay(date, RANGE_TO_CONFIRM)
+      (date.day === DAY_NAME && !isSameDay(date, RANGE_TO_AVOID)) ||
+      isSameDay(date, RANGE_TO_CONFIRM)
     );
   }
 
@@ -271,20 +274,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     return day.monthNumber === this.calendar.month.number;
   }
 
-  private isSameDay(
-    day: Day,
-    selectedIndex: number,
-    dayToCompare?: Day
+  private isNotRangeLimit(
+    date: Day,
+    dayName: string,
+    indexRange: number
   ): boolean {
-    const SELECTED = dayToCompare
-      ? dayToCompare
-      : this.selectedDay[selectedIndex];
-    return (
-      SELECTED &&
-      day.date === SELECTED.date &&
-      day.monthNumber === SELECTED.monthNumber &&
-      day.year === SELECTED.year
-    );
+    return !(date.day === dayName && isSameDay(date, indexRange));
   }
 
   private arrangeDates(): void {
