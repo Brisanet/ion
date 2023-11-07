@@ -115,3 +115,9 @@ RequiredOption.args = {
   selected: action('selected'),
   optionsScroll: action('optionsScroll'),
 };
+
+export const WithLoading = Template.bind({});
+WithLoading.args = {
+  options: optionsWithMultiple,
+  loading: true,
+};
