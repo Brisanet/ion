@@ -37,6 +37,9 @@
 
 .options-list {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
 }
 
 .dropdown-item {
@@ -81,6 +84,7 @@
 .container {
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .content {
