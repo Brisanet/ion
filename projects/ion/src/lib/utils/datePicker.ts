@@ -13,3 +13,12 @@ export function isSameDay(day: Day, dayToCompare?: Day): boolean {
     day.year === dayToCompare.year
   );
 }
+
+export function getFormattedDate(
+  dates: string[],
+  isFinalOfRange?: boolean
+): Date {
+  return new Date(
+    dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE].replace('-', ',')
+  );
+}

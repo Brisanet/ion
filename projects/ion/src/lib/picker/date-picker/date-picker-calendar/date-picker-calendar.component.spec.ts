@@ -1,12 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../../../utils/safe-any';
+import { IonDatePickerCalendarComponentProps } from '../../core/calendar-model';
 import { IonButtonModule } from './../../../button/button.module';
 import { Calendar } from './../../core/calendar';
-import {
-  IonDatePickerCalendarComponent,
-  IonDatePickerCalendarComponentProps,
-} from './date-picker-calendar.component';
+import { IonDatePickerCalendarComponent } from './date-picker-calendar.component';
 
 const events = jest.fn();
 

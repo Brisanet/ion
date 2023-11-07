@@ -8,8 +8,8 @@ import {
 import { IonDatePickerComponentProps } from '../../core/types/datepicker';
 import { SafeAny } from '../../utils/safe-any';
 import { ControlEvent } from '../control-picker/control-picker.component';
+import { UpdateLabelCalendar } from '../core/calendar-model';
 import { Day } from '../core/day';
-import { UpdateLabelCalendar } from './date-picker-calendar/date-picker-calendar.component';
 
 const DEFAULT_FINAL_FORMAT = 'YYYY-MM-DD';
 const DEFAULT_INPUT_FORMAT = 'DD/MM/YYYY';

@@ -6,16 +6,19 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { isSameDay } from '../../../utils';
+import {
+  FINAL_RANGE,
+  INITIAL_RANGE,
+  SATURDAY,
+  SUNDAY,
+  getFormattedDate,
+  isSameDay,
+} from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import {
   CalendarControlActions,
-  FINAL_RANGE,
-  INITIAL_RANGE,
   IonDatePickerCalendarComponentProps,
-  SATURDAY,
-  SUNDAY,
   UpdateLabelCalendar,
 } from '../../core/calendar-model';
 import { Day } from '../../core/day';
@@ -55,7 +58,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     nextMonth: (): void => this.nextMonth(),
     nextYear: (): void => this.nextYear(),
   };
-
   public finalRange = true;
 
   constructor() {
@@ -183,13 +185,13 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   private setCalendarInitialState(): void {
     if (this.currentDate && this.currentDate.length) {
       this.selectedDay[INITIAL_RANGE] = new Day(
-        this.getFormattedDate(),
+        getFormattedDate(this.currentDate),
         this.lang
       );
 
       if (this.rangePicker && this.currentDate[FINAL_RANGE]) {
         this.selectedDay[FINAL_RANGE] = new Day(
-          this.getFormattedDate(this.finalRange),
+          getFormattedDate(this.currentDate, this.finalRange),
           this.lang
         );
       }
@@ -206,17 +208,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private getInitialDate(): Date {
     return this.currentDate && this.currentDate.length
-      ? this.getFormattedDate()
+      ? getFormattedDate(this.currentDate)
       : new Date();
-  }
-
-  private getFormattedDate(isFinalOfRange?: boolean): Date {
-    return new Date(
-      this.currentDate[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE].replace(
-        '-',
-        ','
-      )
-    );
   }
 
   private getCalendarInstance = (): Calendar => {
