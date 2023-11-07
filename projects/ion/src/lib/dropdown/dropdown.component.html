@@ -3,6 +3,7 @@
   id="ion-dropdown"
   data-testid="ion-dropdown"
   (clickOutside)="clickedOutsideDropdown()"
+  [class.container-options--loading]="loading"
 >
   <span *ngIf="title" class="dropdown-title" data-testid="dropdown-title">{{
     title
@@ -18,6 +19,7 @@
     (valueChange)="inputChange($event)"
   ></ion-input>
   <div
+    *ngIf="!loading && options?.length > 0"
     #optionList
     class="options-list"
     (scroll)="optionsScroll()"
@@ -60,8 +62,9 @@
     (ionOnClick)="clearOptions(true)"
     data-testid="button-clear"
   ></ion-button>
+  <ion-spinner [size]="24" color="primary" *ngIf="loading"></ion-spinner>
   <ion-no-data
-    *ngIf="!options || options.length === 0"
+    *ngIf="(!options || options.length === 0) && !loading"
     data-testid="ion-no-data"
     [label]="noDataConfig.label"
     [iconType]="noDataConfig.iconType"

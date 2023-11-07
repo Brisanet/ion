@@ -30,6 +30,7 @@ export class IonDropdownComponent
   @Input() maxSelected?: DropdownParams['maxSelected'];
   @Input() multiple?: DropdownParams['multiple'] = false;
   @Input() required?: DropdownParams['required'] = false;
+  @Input() loading?: DropdownParams['loading'] = false;
   @Input() enableSearch = false;
   @Input() searchOptions?: DropdownParams['searchOptions'];
   @Input() notShowClearButton?: DropdownParams['notShowClearButton'] = false;

@@ -17,6 +17,7 @@ export interface DropdownParams {
   maxSelected?: number;
   multiple?: boolean;
   required?: boolean;
+  loading?: boolean;
   enableSearch?: boolean;
   searchOptions?: IonInputProps;
   searchChange?: EventEmitter<string>;

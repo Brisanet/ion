@@ -134,4 +134,10 @@ WithTitleAndSearch.args = {
     clearButton: true,
     placeholder: 'Busque por algo...',
   },
+}
+
+export const WithLoading = Template.bind({});
+WithLoading.args = {
+  options: optionsWithMultiple,
+  loading: true,
 };
