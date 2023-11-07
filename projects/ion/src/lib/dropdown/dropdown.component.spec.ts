@@ -564,3 +564,18 @@ describe('Custom dropdown label', () => {
     ).toBeInTheDocument();
   });
 });
+
+describe('IonDropdownComponent / Loading', () => {
+  it('should show a spinner when loading', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+      loading: true,
+    });
+
+    expect(screen.getByTestId('ion-spinner')).toBeVisible();
+  });
+});
