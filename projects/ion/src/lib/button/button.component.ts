@@ -13,7 +13,7 @@ import {
   Size,
   ButtonBadgeTypes,
 } from '../core/types/button';
-import { DropdownItem } from '../core/types/dropdown';
+import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-button',
@@ -36,7 +36,10 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() circularButton? = false;
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
-  @Input() dropdownConfig? = {
+  @Input() dropdownConfig?: Pick<
+    DropdownParams,
+    'description' | 'notShowClearButton' | 'required'
+  > = {
     notShowClearButton: false,
     required: false,
   };
