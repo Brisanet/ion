@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { IonSharedModule } from '../shared.module';
 
 @NgModule({
-  declarations: [IonSpinnerComponent],
   imports: [CommonModule, IonSharedModule],
   exports: [IonSpinnerComponent],
 })

@@ -37,6 +37,9 @@
 
 .options-list {
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
 }
 
 .dropdown-item {
@@ -81,6 +84,7 @@
 .container {
   align-items: center;
   justify-content: space-between;
+  gap: spacing(1.5);
 }
 
 .content {
@@ -104,6 +108,11 @@
   box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15),
     0px 0px 2px rgba(0, 0, 0, 0.15);
   border-radius: 8px;
+
+  &--loading {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .dropdown-search {
