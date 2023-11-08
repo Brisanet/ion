@@ -62,6 +62,22 @@ describe('IonDropdownComponent', () => {
     }
   });
 
+  it('should not render the description as default', async () => {
+    await sut();
+    expect(
+      screen.queryByTestId('dropdown-description')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render the description when informed', async () => {
+    await sut({
+      ...defaultDropdown,
+      description: 'Custom description',
+    });
+
+    expect(screen.getByTestId('dropdown-description')).toBeVisible();
+  });
+
   it('should select a option', async () => {
     await sut();
     selectEvent.mockClear();

@@ -5,6 +5,12 @@
   (clickOutside)="clickedOutsideDropdown()"
   [class.container-options--loading]="loading"
 >
+  <span
+    *ngIf="description"
+    class="dropdown-description"
+    data-testid="dropdown-description"
+    >{{ description }}</span
+  >
   <ion-input
     class="dropdown-search"
     *ngIf="enableSearch"
