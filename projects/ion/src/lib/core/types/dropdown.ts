@@ -11,7 +11,7 @@ export interface DropdownItem {
 }
 
 export interface DropdownParams {
-  title?: string;
+  description?: string;
   options: DropdownItem[];
   selected: EventEmitter<DropdownItem[]>;
   maxSelected?: number;

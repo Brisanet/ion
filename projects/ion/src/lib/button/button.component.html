@@ -39,7 +39,7 @@
 </button>
 <div *ngIf="!!options && showDropdown" class="ion-btn-dropdown">
   <ion-dropdown
-    [title]="dropdownConfig.title"
+    [description]="dropdownConfig.description"
     [options]="options"
     [multiple]="multiple"
     (selected)="handleSelect($event)"

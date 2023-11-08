@@ -39,7 +39,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() dropdownConfig? = {
     notShowClearButton: false,
     required: false,
-    title: '',
+    description: '',
   };
   @Input() id?: string;
 

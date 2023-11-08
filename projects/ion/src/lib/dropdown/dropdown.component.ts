@@ -25,7 +25,7 @@ export const COLDOWN = 200;
 export class IonDropdownComponent
   implements OnInit, AfterViewInit, OnChanges, OnDestroy
 {
-  @Input() title?: DropdownParams['title'];
+  @Input() description?: DropdownParams['description'];
   @Input() options: DropdownItem[] = [];
   @Input() maxSelected?: DropdownParams['maxSelected'];
   @Input() multiple?: DropdownParams['multiple'] = false;
