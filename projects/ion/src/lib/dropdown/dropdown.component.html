@@ -6,7 +6,7 @@
   [class.container-options--loading]="loading"
 >
   <span
-    *ngIf="description && description.length > 0"
+    *ngIf="description?.length"
     class="dropdown-description"
     data-testid="dropdown-description"
     >{{ description }}</span

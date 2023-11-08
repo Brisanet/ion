@@ -39,14 +39,14 @@
 </button>
 <div *ngIf="!!options && showDropdown" class="ion-btn-dropdown">
   <ion-dropdown
-    [description]="dropdownConfig.description"
+    [description]="dropdownConfig?.description"
     [options]="options"
     [multiple]="multiple"
     (selected)="handleSelect($event)"
     (clearBadgeValue)="onClearBadgeValue()"
     (closeDropdown)="onCloseDropdown()"
-    [required]="dropdownConfig.required"
-    [notShowClearButton]="dropdownConfig.notShowClearButton"
+    [required]="dropdownConfig?.required"
+    [notShowClearButton]="dropdownConfig?.notShowClearButton"
   >
   </ion-dropdown>
 </div>
