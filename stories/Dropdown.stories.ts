@@ -116,15 +116,15 @@ RequiredOption.args = {
   optionsScroll: action('optionsScroll'),
 };
 
-export const WithTitle = Template.bind({});
-WithTitle.args = {
+export const WithDescription = Template.bind({});
+WithDescription.args = {
   options,
-  title: 'Example Title',
+  description: 'Example Title',
 };
 
-export const WithTitleAndSearch = Template.bind({});
-WithTitleAndSearch.args = {
-  title: 'Example Title',
+export const WithDescriptionAndSearch = Template.bind({});
+WithDescriptionAndSearch.args = {
+  description: 'Example Title',
   enableSearch: true,
   options,
   searchOptions: {
