@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  AfterViewChecked,
   Component,
   ElementRef,
   EventEmitter,
@@ -23,7 +23,7 @@ export const COLDOWN = 200;
   styleUrls: ['./dropdown.component.scss'],
 })
 export class IonDropdownComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+  implements OnInit, AfterViewChecked, OnChanges, OnDestroy
 {
   @Input() description?: DropdownParams['description'];
   @Input() options: DropdownItem[] = [];
@@ -62,7 +62,7 @@ export class IonDropdownComponent
     }
   }
 
-  public ngAfterViewInit(): void {
+  public ngAfterViewChecked(): void {
     const widthContainer = window.innerWidth;
     const element = document.getElementById('ion-dropdown');
     const elementProps = element.getBoundingClientRect();
