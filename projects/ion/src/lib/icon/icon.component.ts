@@ -45,8 +45,8 @@ export class IonIconComponent implements OnChanges {
         color = `${this.color}1A`;
         size = `${this.size * 2.25}px`;
       } else {
-        size = `${this.size}px`;
         color = 'transparent';
+        size = `${this.size}px`;
       }
     }
 
