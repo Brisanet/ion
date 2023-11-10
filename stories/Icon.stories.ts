@@ -1,5 +1,8 @@
 import { Story, Meta } from '@storybook/angular/types-6-0';
-import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
+import {
+  Highlight,
+  IonIconComponent,
+} from '../projects/ion/src/lib/icon/icon.component';
 
 export default {
   title: 'Ion/Design Tokens/Icons',
@@ -21,4 +24,20 @@ IconOtherSize.args = {
   type: 'trash',
   size: 60,
   color: 'orange',
+};
+
+export const SimpleHighlight = Template.bind({});
+SimpleHighlight.args = {
+  type: 'trash',
+  size: 32,
+  color: '#FF0016',
+  highlight: Highlight.SIMPLE,
+};
+
+export const DoubleHighlight = Template.bind({});
+DoubleHighlight.args = {
+  type: 'trash',
+  size: 32,
+  color: '#FF0016',
+  highlight: Highlight.DOUBLE,
 };
