@@ -1,18 +1,20 @@
 <div
-  [class.hilighted]="highlight === 'double' || highlight === 'simple'"
+  [class.highlighted]="highlight === 'double' || highlight === 'simple'"
   [ngStyle]="{
-    'background-color': outsideContainerStyle.color,
-    width: outsideContainerStyle.size,
-    height: outsideContainerStyle.size
+    'background-color': outerContainerStyle.color,
+    width: outerContainerStyle.size,
+    height: outerContainerStyle.size
   }"
+  data-testid="outside-container"
 >
   <div
-    [class.hilighted]="highlight === 'double'"
+    [class.highlighted]="highlight === 'double'"
     [ngStyle]="{
       'background-color': innerContainerStyle.color,
       width: innerContainerStyle.size,
       height: innerContainerStyle.size
     }"
+    data-testid="inner-container"
   >
     <svg
       [attr.height]="size + 'px'"

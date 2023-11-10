@@ -1,14 +1,3 @@
-export enum Highlight {
-  SIMPLE = 'simple',
-  DOUBLE = 'double',
-  NONE = 'none',
-}
-
-export type ContainerStyle = {
-  size: string;
-  color: string;
-};
-
 import {
   Component,
   ElementRef,
@@ -18,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { iconsPaths } from './svgs/icons';
-import { IconType } from '../core/types/icon';
+import { ContainerStyle, Highlight, IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-icon',
@@ -33,58 +22,62 @@ export class IonIconComponent implements OnChanges {
 
   @ViewChild('svgElement', { static: true }) svgElement: ElementRef;
 
-  get outsideContainerStyle(): ContainerStyle {
-    let color: string;
-    let size: string;
+  outerContainerStyle: ContainerStyle = {
+    color: 'transparent',
+    size: `${this.size}px`,
+  };
 
-    if (this.isHex()) {
-      switch (this.highlight) {
-        case Highlight.DOUBLE: {
-          color = `${this.color}1A`;
-          size = `${this.size * this.getCircleProportion().outsideCircle}px`;
-          break;
-        }
-
-        case Highlight.SIMPLE: {
-          color = `${this.color}1A`;
-          size = `${this.size * 2}px`;
-          break;
-        }
-
-        case Highlight.NONE: {
-          color = 'transparent';
-          size = `${this.size}px`;
-        }
-      }
-    }
-
-    return {
-      color,
-      size,
-    };
-  }
-
-  get innerContainerStyle(): ContainerStyle {
-    let color: string;
-    let size: string;
-
-    if (this.isHex()) {
-      if (this.highlight === Highlight.DOUBLE) {
-        color = `${this.color}40`;
-        size = `${this.size * this.getCircleProportion().innerCircle}px`;
-      } else {
-        color = 'transparent';
-        size = `${this.size}px`;
-      }
-    }
-
-    return {
-      color,
-      size,
-    };
-  }
+  innerContainerStyle: ContainerStyle = {
+    color: 'transparent',
+    size: `${this.size}px`,
+  };
 
   constructor(private renderer: Renderer2) {}
+
+  setOuterContainerStyle(): void {
+    const defaultStyle = {
+      color: 'transparent',
+      size: `${this.size}px`,
+    };
+
+    const stylesControl = {
+      double: {
+        color: `${this.color}1A`,
+        size: `${this.size * this.getCircleProportion().outsideCircle}px`,
+      },
+      simple: {
+        color: `${this.color}1A`,
+        size: `${this.size * 2}px`,
+      },
+      none: defaultStyle,
+    };
+
+    this.outerContainerStyle = {
+      color: stylesControl[this.highlight].color,
+      size: stylesControl[this.highlight].size,
+    };
+  }
+
+  setInnerContainerStyle(): void {
+    const defaultStyle = {
+      color: 'transparent',
+      size: `${this.size}px`,
+    };
+
+    const stylesControl = {
+      double: {
+        color: `${this.color}40`,
+        size: `${this.size * this.getCircleProportion().innerCircle}px`,
+      },
+      simple: defaultStyle,
+      none: defaultStyle,
+    };
+
+    this.innerContainerStyle = {
+      color: stylesControl[this.highlight].color,
+      size: stylesControl[this.highlight].size,
+    };
+  }
 
   ngOnChanges(): void {
     if (iconsPaths[this.type]) {
@@ -103,6 +96,11 @@ export class IonIconComponent implements OnChanges {
         resultPaths
       );
     }
+
+    if (this.isHex()) {
+      this.setInnerContainerStyle();
+      this.setOuterContainerStyle();
+    }
   }
 
   private isHex(): boolean {
@@ -113,9 +111,23 @@ export class IonIconComponent implements OnChanges {
     innerCircle: number;
     outsideCircle: number;
   } {
+    const mdIcon = 24;
+    const proportions = {
+      largeIcon: {
+        inner: 1.5,
+        outer: 2.25,
+      },
+      smallIcon: {
+        inner: 1.75,
+        outer: 2.5,
+      },
+    };
+
+    const iconSize = this.size >= mdIcon ? 'largeIcon' : 'smallIcon';
+
     return {
-      innerCircle: this.size > 24 ? 1.5 : 1.75,
-      outsideCircle: this.size > 24 ? 2.25 : 2.5,
+      innerCircle: proportions[iconSize].inner,
+      outsideCircle: proportions[iconSize].outer,
     };
   }
 }
