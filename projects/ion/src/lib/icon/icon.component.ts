@@ -41,7 +41,7 @@ export class IonIconComponent implements OnChanges {
       switch (this.highlight) {
         case Highlight.DOUBLE: {
           color = `${this.color}1A`;
-          size = `${this.size * 2.25}px`;
+          size = `${this.size * this.getCircleProportion().outsideCircle}px`;
           break;
         }
 
@@ -71,7 +71,7 @@ export class IonIconComponent implements OnChanges {
     if (this.isHex()) {
       if (this.highlight === Highlight.DOUBLE) {
         color = `${this.color}40`;
-        size = `${this.size * 1.625}px`;
+        size = `${this.size * this.getCircleProportion().innerCircle}px`;
       } else {
         color = 'transparent';
         size = `${this.size}px`;
@@ -107,5 +107,15 @@ export class IonIconComponent implements OnChanges {
 
   private isHex(): boolean {
     return this.color && this.color.includes('#') && this.color.length === 7;
+  }
+
+  private getCircleProportion(): {
+    innerCircle: number;
+    outsideCircle: number;
+  } {
+    return {
+      innerCircle: this.size > 24 ? 1.5 : 1.75,
+      outsideCircle: this.size > 24 ? 2.25 : 2.5,
+    };
   }
 }
