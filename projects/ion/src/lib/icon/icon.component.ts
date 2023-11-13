@@ -104,7 +104,7 @@ export class IonIconComponent implements OnChanges {
   }
 
   private isHex(): boolean {
-    const regex = /^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/;
+    const regex = /^#?([0-9A-Fa-f]{6})$/;
     return regex.test(this.color);
   }
 
