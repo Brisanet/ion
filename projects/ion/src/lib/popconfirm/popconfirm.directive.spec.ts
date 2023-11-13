@@ -104,6 +104,8 @@ class ButtonTestDisabledComponent {
           <button
             ionPopConfirm
             ionPopConfirmTitle="Você tem certeza?"
+            ionConfirmText="Sim"
+            ionCancelText="Não"
             (ionOnConfirm)="confirm()"
             class="get-test"
             style="margin-top: 50px;"
