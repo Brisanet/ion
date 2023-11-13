@@ -151,6 +151,7 @@ describe('ChipComponent', () => {
         { label: 'Option 1', selected: true },
         { label: 'Option 2', selected: false },
       ],
+      multiple: true,
     });
     expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(1);
   });
