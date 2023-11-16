@@ -22,5 +22,4 @@ IconOtherSize.args = {
   type: 'trash',
   size: 60,
   color: 'orange',
-  highlight: 'none',
 };

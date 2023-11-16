@@ -24,12 +24,12 @@ export class IonIconComponent implements OnChanges {
 
   outerContainerStyle: ContainerStyle = {
     color: 'transparent',
-    size: `${this.size}px`,
+    size: 'unset',
   };
 
   innerContainerStyle: ContainerStyle = {
     color: 'transparent',
-    size: `${this.size}px`,
+    size: 'unset',
   };
 
   constructor(private renderer: Renderer2) {}
@@ -37,7 +37,7 @@ export class IonIconComponent implements OnChanges {
   setOuterContainerStyle(): void {
     const defaultStyle = {
       color: 'transparent',
-      size: `${this.size}px`,
+      size: 'unset',
     };
 
     const stylesControl = {
@@ -61,7 +61,7 @@ export class IonIconComponent implements OnChanges {
   setInnerContainerStyle(): void {
     const defaultStyle = {
       color: 'transparent',
-      size: `${this.size}px`,
+      size: 'unset',
     };
 
     const stylesControl = {
