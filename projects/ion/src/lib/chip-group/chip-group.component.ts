@@ -66,7 +66,7 @@ export class IonChipGroupComponent {
     }
   }
 
-  chipEvents(event: ChipEvent) {
+  chipEvents(event: ChipEvent): void {
     if (event.closeDropdown) {
       this.clearChips();
     }
