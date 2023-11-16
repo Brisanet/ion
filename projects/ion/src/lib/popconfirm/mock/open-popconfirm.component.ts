@@ -10,7 +10,13 @@ import { Component } from '@angular/core';
       }
     </style>
     <div>
-      <ion-button label="Open Popconfirm" ionPopConfirm> </ion-button>
+      <ion-button
+        label="Open Popconfirm"
+        ionPopConfirm
+        ionConfirmText="Sim"
+        ionCancelText="Não"
+      >
+      </ion-button>
     </div>
   `,
 })
