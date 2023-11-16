@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {
+  ChipEvent,
   ChipSize,
   IconDirection,
   IonChipProps,
@@ -62,6 +63,12 @@ export class IonChipGroupComponent {
     const selectedChips = this.chips.filter((chip) => chip.selected);
     if (!selectedChips.length) {
       chipSelected.selected = true;
+    }
+  }
+
+  chipEvents(event: ChipEvent) {
+    if (event.closeDropdown) {
+      this.clearChips();
     }
   }
 

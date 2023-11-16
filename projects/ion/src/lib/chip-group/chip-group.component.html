@@ -14,6 +14,7 @@
     [iconPosition]="chip.iconPosition || iconPosition"
     [rightBadge]="chip.rightBadge || rightBadge"
     (click)="selectChip(chip)"
+    (events)="chipEvents($event)"
     (dropdownEvents)="dropdownEvents($event)"
     [attr.data-testid]="'chip-group-' + chip.label"
     [chipGroup]="true"

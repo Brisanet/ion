@@ -130,6 +130,7 @@ describe('With Dropdown', () => {
   it('should selected an item when chip has dropdown', async () => {
     await sut();
     const option = mockChips[1].options[0].label;
+    fireEvent.click(screen.getByText(mockChips[1].label));
     fireEvent.click(screen.getByText(option));
     expect(screen.queryAllByText(option)).toHaveLength(1);
   });
@@ -151,5 +152,24 @@ describe('With Dropdown', () => {
     fireEvent.click(screen.getByText('Chip 1'));
     fireEvent.click(screen.getByText('item 1'));
     expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
+  });
+
+  it('should reset chip style when clicked outside dropdown', async () => {
+    await sut({
+      chips: [
+        {
+          label: 'Chip 1',
+          selected: false,
+          options: [{ label: 'item 1' }, { label: 'item 2' }],
+          multiple: true,
+        },
+      ],
+      selected: {
+        emit: selectEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByText('Chip 1'));
+    fireEvent.click(document.body);
+    expect(screen.getByText('Chip 1')).not.toHaveClass('chip-selected');
   });
 });

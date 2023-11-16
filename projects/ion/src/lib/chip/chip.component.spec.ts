@@ -253,6 +253,7 @@ describe('Check update label', () => {
 
 describe('With Multiple Dropdown', () => {
   const dropdownEvent = jest.fn();
+  const events = jest.fn();
   const options = [
     {
       label: 'Meteora',
@@ -272,6 +273,9 @@ describe('With Multiple Dropdown', () => {
       multiple: true,
       dropdownEvents: {
         emit: dropdownEvent,
+      } as SafeAny,
+      events: {
+        emit: events,
       } as SafeAny,
     });
   });
@@ -311,6 +315,22 @@ describe('With Multiple Dropdown', () => {
     fireEvent.click(screen.getByText(options[0].label));
     fireEvent.click(screen.getByText('Limpar'));
     expect(dropdownEvent).toBeCalledWith([]);
+  });
+
+  it('should reset chip style when dropdown is closed', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(document.body);
+    expect(screen.getByText('dropdown')).not.toHaveClass('chip-selected');
+  });
+
+  it('should emit event when dropdown is closed', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(document.body);
+    expect(events).toBeCalledWith({
+      selected: false,
+      disabled: false,
+      closeDropdown: true,
+    });
   });
 
   afterEach(() => {
