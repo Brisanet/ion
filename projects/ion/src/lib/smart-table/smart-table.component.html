@@ -203,6 +203,8 @@
                         ? action.confirm.dynamicDescription(row)
                         : undefined
                     "
+                    [ionConfirmText]="action.confirm.confirmText || 'Confirmar'"
+                    [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
                     (ionOnConfirm)="handleEvent(row, action)"
                     [attr.data-testid]="'row-' + index + '-' + action.label"
                     type="ghost"

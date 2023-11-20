@@ -21,6 +21,7 @@ export type IconDirection = 'right' | 'left';
 interface ChipEvent {
   selected: boolean;
   disabled: boolean;
+  closeDropdown?: boolean;
 }
 export interface IonChipProps {
   label: string;
@@ -207,6 +208,13 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   closeDropdown(): void {
     if (this.showDropdown) {
       this.showDropdown = false;
+      this.selected = false;
+
+      this.events.emit({
+        selected: this.selected,
+        disabled: this.disabled,
+        closeDropdown: true,
+      });
     }
   }
 
