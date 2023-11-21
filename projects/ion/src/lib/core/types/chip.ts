@@ -18,6 +18,7 @@ export type ChipSize = 'sm' | 'md';
 export interface ChipEvent {
   selected: boolean;
   disabled: boolean;
+  closeDropdown?: boolean;
 }
 
 export interface IonChipProps {
