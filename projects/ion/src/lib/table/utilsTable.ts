@@ -40,6 +40,8 @@ export interface ActionConfirm {
   description?: string;
   dynamicDescription?: (row: SafeAny) => string;
   type?: StatusType;
+  confirmText?: string;
+  cancelText?: string;
 }
 
 export interface ActionTable {

@@ -144,6 +144,8 @@
                         ? action.confirm.dynamicDescription(row)
                         : undefined
                     "
+                    [ionConfirmText]="action.confirm.confirmText || 'Confirmar'"
+                    [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
                     (ionOnConfirm)="handleEvent(row, action)"
                     [title]="action.label"
                     [attr.data-testid]="'row-' + index + '-' + action.label"

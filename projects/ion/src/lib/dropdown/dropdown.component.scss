@@ -126,3 +126,12 @@
 ion-button {
   margin-top: 12px;
 }
+
+.dropdown-description {
+  @include font-size-sm;
+  font-family: 'Source Sans Pro';
+  font-weight: 600;
+  color: $neutral-7;
+
+  padding: spacing(1);
+}
