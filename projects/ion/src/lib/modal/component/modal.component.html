@@ -39,6 +39,7 @@
       ></ion-button>
       <h4 data-testid="modalTitle">{{ configuration.title }}</h4>
       <ion-button
+        *ngIf="!configuration.hideCloseButton"
         label="Deletar"
         iconType="close"
         type="ghost"
