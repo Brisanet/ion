@@ -9,6 +9,21 @@
   }"
   [class]="'chip-' + size"
 >
+  <ion-icon
+    [attr.data-testid]="'chip-icon-' + iconPosition"
+    [attr.class]="'icon-color chip-icon-' + iconPosition"
+    *ngIf="
+      (!options && !dropdownWithIcon && icon) ||
+      (options &&
+        iconPlaceholder &&
+        dropdownWithIcon &&
+        iconPosition === 'left')
+    "
+    [type]="dropdownWithIcon ? iconPlaceholder : icon"
+    [size]="size === 'sm' ? 16 : 20"
+  >
+  </ion-icon>
+
   <ion-badge
     [value]="badge.value"
     type="primary"
@@ -16,22 +31,8 @@
     data-testid="badge-multiple"
   ></ion-badge>
 
-  <div
-    data-testid="ion-chip-label"
-    class="container-icon-text"
-    [ngClass]="{
-      positionIcon: iconPosition === 'left' && icon && !options
-    }"
-  >
+  <div data-testid="ion-chip-label" class="container-icon-text">
     {{ placeholder }}
-    <ion-icon
-      data-testid="icon-dinamic"
-      class="icon-color"
-      *ngIf="icon && !options"
-      [type]="icon"
-      [size]="size === 'sm' ? 16 : 20"
-    >
-    </ion-icon>
   </div>
 
   <ion-badge

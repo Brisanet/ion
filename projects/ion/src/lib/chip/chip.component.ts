@@ -36,6 +36,7 @@ export interface IonChipProps {
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
   showToggle?: boolean;
+  dropdownWithIcon?: boolean;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
@@ -70,6 +71,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
   @Input() required = false;
+  @Input() dropdownWithIcon = false;
 
   @Input() chipGroup = false;
   @Input() chipGroupRequired = false;
@@ -87,6 +89,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   tempFilter: DropdownItem[] = [];
 
   placeholder = '';
+  iconPlaceholder?: IconType;
 
   firstCheck = true;
 
@@ -128,14 +131,15 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
         this.setBadgeValue(selecteds.length);
         return;
       }
-      this.setPlaceHolder(selecteds[0].label);
+      this.setPlaceHolder(selecteds[0].label, selecteds[0].icon);
     } else {
       this.clearBadgeValue();
     }
   }
 
-  setPlaceHolder(label: string): void {
+  setPlaceHolder(label: string, icon: IconType): void {
     this.placeholder = label || this.label;
+    this.iconPlaceholder = icon || this.icon;
     this.selected = false;
     this.toggleDropdown();
   }
@@ -173,6 +177,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   updateLabel(): void {
     this.placeholder = this.label;
+    this.iconPlaceholder = '';
     if (this.firstCheck) {
       this.firstUpdateLabel();
       return;
@@ -189,18 +194,19 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     this.placeholder = selectedOption.label;
+    this.iconPlaceholder = selectedOption.icon;
   }
 
   firstUpdateLabel(): void {
     if (!this.multiple && this.options) {
-      const optionSelected = this.options.find(
-        (option) => option.selected === true
-      );
+      const optionSelected = this.options.find((option) => option.selected);
       if (optionSelected) {
         this.placeholder = optionSelected.label || '';
+        this.iconPlaceholder = optionSelected.icon || '';
       }
     } else {
       this.placeholder = this.label;
+      this.iconPlaceholder = '';
     }
     this.firstCheck = false;
   }

@@ -137,6 +137,10 @@ button {
   position: absolute;
 }
 
+.chip-icon-right {
+  order: 10;
+}
+
 ::ng-deep {
   .container-options {
     margin-top: 5px;
