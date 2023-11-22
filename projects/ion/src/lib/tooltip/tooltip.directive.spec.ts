@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
+
 import {
   TooltipColorScheme,
   TooltipPosition,
   TooltipTrigger,
 } from '../core/types';
-import { IonTooltipModule } from './tooltip.module';
 import { IonTooltipDirective } from './tooltip.directive';
+import { IonTooltipModule } from './tooltip.module';
 
 @Component({
   template: `
@@ -15,7 +16,7 @@ import { IonTooltipDirective } from './tooltip.directive';
       data-testid="hostTooltip"
       ionTooltip
       [ionTooltipTitle]="ionTooltipTitle"
-      [ionTooltipTemplateRef]="ref"
+      [ionTooltipTemplateRef]="ionTooltipTemplateRef ? ref : null"
       [ionTooltipColorScheme]="ionTooltipColorScheme"
       [ionTooltipPosition]="ionTooltipPosition"
       [ionTooltipTrigger]="ionTooltipTrigger"
@@ -29,11 +30,12 @@ import { IonTooltipDirective } from './tooltip.directive';
   `,
 })
 class HostTestComponent {
-  ionTooltipTitle = 'Tooltip';
-  ionTooltipColorScheme: TooltipColorScheme = 'dark';
-  ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
-  ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
-  ionTooltipShowDelay = 0;
+  @Input() ionTooltipTitle = 'Tooltip';
+  @Input() ionTooltipColorScheme: TooltipColorScheme = 'dark';
+  @Input() ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
+  @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
+  @Input() ionTooltipShowDelay = 0;
+  @Input() ionTooltipTemplateRef = true;
 }
 
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
@@ -75,9 +77,9 @@ describe('Directive: Tooltip', () => {
     expect(screen.getByText(ionTooltipTitle)).toBeInTheDocument();
   });
 
-  it('should not render tooltip when ionTooltipTitle is empty', async () => {
+  it('should not render tooltip when ionTooltipTitle our ionTooltipTemplateRef is empty', async () => {
     const ionTooltipTitle = '';
-    await sut({ ionTooltipTitle });
+    await sut({ ionTooltipTitle, ionTooltipTemplateRef: false });
 
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();

@@ -8,14 +8,14 @@ import {
 } from '../projects/ion/src/lib/core/types';
 import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
 import { IonTooltipDirective } from '../projects/ion/src/lib/tooltip/tooltip.directive';
-import { IonIconModule } from '../projects/ion/src/public-api';
+import { IonButtonModule, IonIconModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Data Display/Tooltip',
   decorators: [
     moduleMetadata({
       declarations: [IonTooltipDirective, IonTooltipComponent],
-      imports: [CommonModule, IonIconModule],
+      imports: [CommonModule, IonIconModule, IonButtonModule],
       entryComponents: [IonTooltipComponent],
     }),
   ],
@@ -161,25 +161,15 @@ const WithTitleAndTemplateRef: Story = (args) => ({
         }
     </style>
     <div class="tooltip">
-      <span
-        ionTooltip
-        ionTooltipTitle="${args.ionTooltipTitle}"
-        [ionTooltipTemplateRef]="titleTemplate"
-        ionTooltipPosition="${args.ionTooltipPosition}"
-        [ionTooltipArrowPointAtCenter]="${args.ionTooltipArrowPointAtCenter}"
-        ionTooltipColorScheme="${args.ionTooltipColorScheme}"
-        ionTooltipTrigger="${args.ionTooltipTrigger}"
-        ionTooltipShowDelay="${args.ionTooltipShowDelay}"
-      >
-        Hover me
-      </span>
-      <ng-template #titleTemplate>
-        <div class="content">
-          <ion-icon type="wait" size="16" color="#FCFCFD"></ion-icon>
-          <span>Atualizado em 18/04/2022 às 16:34</span>
-        </div>
-      </ng-template>
+    <ion-button
+    label="click me"
+    [options]="[{ label: 'option 1' }, { label: 'option 2' }]"
+    showDropdown="true"
+    ionTooltip
+    ionTooltipTitle="sou um tooltipppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp"
+  ></ion-button>
     </div>
+
   `,
 });
 
