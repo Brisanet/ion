@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, TemplateRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 
 import {
