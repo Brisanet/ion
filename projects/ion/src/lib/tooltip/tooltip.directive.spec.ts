@@ -77,7 +77,7 @@ describe('Directive: Tooltip', () => {
     expect(screen.getByText(ionTooltipTitle)).toBeInTheDocument();
   });
 
-  it('should not render tooltip when ionTooltipTitle our ionTooltipTemplateRef is empty', async () => {
+  it('should not render tooltip when ionTooltipTitle and ionTooltipTemplateRef is empty', async () => {
     const ionTooltipTitle = '';
     await sut({ ionTooltipTitle, ionTooltipTemplateRef: false });
 
