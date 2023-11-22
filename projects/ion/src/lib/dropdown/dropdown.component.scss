@@ -51,6 +51,7 @@
 
   &:active {
     @include set-colors($primary-2, $primary-color);
+    @include set-icon-color($primary-color);
   }
 }
 
@@ -85,6 +86,15 @@
   align-items: center;
   justify-content: space-between;
   gap: spacing(1.5);
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    margin-right: spacing(1);
+  }
 }
 
 .content {
