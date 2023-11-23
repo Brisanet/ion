@@ -42,7 +42,14 @@
       [id]="'option-' + index"
     >
       <div class="container">
-        <span>{{ option[propLabel] }}</span>
+        <div class="option-label">
+          <ion-icon
+            [type]="option.icon"
+            [size]="iconSize"
+            *ngIf="option.icon"
+          ></ion-icon>
+          {{ option[propLabel] }}
+        </div>
         <ion-icon
           [type]="option.hovered ? 'close' : 'check'"
           [attr.data-testid]="
