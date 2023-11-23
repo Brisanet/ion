@@ -761,6 +761,45 @@ describe('Table > Differents columns data type', () => {
       const currencyFormatted = 'R$53.80';
       expect(screen.getByText(currencyFormatted)).toBeInTheDocument();
     });
+
+    it('should keep the orignal value when not found pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'wrongpipe',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      expect(screen.getByText('53.8')).toBeInTheDocument();
+    });
   });
 
   describe('Sort', () => {

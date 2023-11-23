@@ -157,16 +157,14 @@ export class TableUtils<T = SafeAny> {
       if (column.pipe) {
         const strategy = this.getPipeStrategy(column.pipe.apply);
 
-        if (strategy) {
-          this.config.data.forEach((row) => {
-            const rowValue = row[column.key];
-            row[column.key] = this.applyPipe(
-              rowValue,
-              column.pipe.format,
-              strategy
-            );
-          });
-        }
+        this.config.data.forEach((row) => {
+          const rowValue = row[column.key];
+          row[column.key] = this.applyPipe(
+            rowValue,
+            column.pipe.format,
+            strategy
+          );
+        });
       }
     });
   }
