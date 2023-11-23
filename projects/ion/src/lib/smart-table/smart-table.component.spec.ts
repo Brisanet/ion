@@ -51,6 +51,14 @@ interface Character {
   status?: StatusType;
   tooltip?: string;
 }
+
+interface Book {
+  id: number;
+  name: string;
+  value: number;
+  release_date: string;
+}
+
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
@@ -108,7 +116,7 @@ const defaultProps: IonSmartTableProps<Character> = {
 };
 
 const sut = async (
-  customProps: IonSmartTableProps<Character> = defaultProps
+  customProps: IonSmartTableProps<Character | Book> = defaultProps
 ): Promise<SafeAny> => {
   await render(IonSmartTableComponent, {
     componentProperties: customProps,
@@ -699,6 +707,60 @@ describe('Table > Differents columns data type', () => {
         ).toHaveLength(1);
       }
     );
+  });
+
+  describe('Pipes', () => {
+    it('should show values formatteds by pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                format: 'dd/MM/yyyy',
+              },
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      const dateFormatted = '27/03/2007';
+      expect(screen.getByText(dateFormatted)).toBeInTheDocument();
+
+      const currencyFormatted = 'R$53.80';
+      expect(screen.getByText(currencyFormatted)).toBeInTheDocument();
+    });
   });
 
   describe('Sort', () => {
