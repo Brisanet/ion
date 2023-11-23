@@ -15,11 +15,11 @@
     *ngIf="
       (!options && icon) ||
       (options &&
-        updateDropdownWithIcon &&
+        dropdownWithIcon &&
         iconPlaceholder &&
         iconPosition === 'left')
     "
-    [type]="options && options[0].icon ? iconPlaceholder : icon"
+    [type]="dropdownWithIcon ? iconPlaceholder : icon"
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>
