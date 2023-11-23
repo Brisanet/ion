@@ -132,6 +132,23 @@ export class TableUtils<T = SafeAny> {
       : this.fillColorArrowDown(column);
   }
 
+  public applyPipes(): void {
+    this.config.columns.forEach((column) => {
+      if (column.pipe) {
+        const strategy = this.getPipeStrategy(column.pipe.apply);
+
+        this.config.data.forEach((row) => {
+          const rowValue = row[column.key];
+          row[column.key] = this.applyPipe(
+            rowValue,
+            column.pipe.format,
+            strategy
+          );
+        });
+      }
+    });
+  }
+
   private getPipeStrategy(pipeType: string): PipeStrategy {
     switch (pipeType) {
       case 'date':
@@ -150,22 +167,5 @@ export class TableUtils<T = SafeAny> {
   ): string {
     const applicator = new PipeApplicator(strategy);
     return applicator.apply(value, format);
-  }
-
-  private applyPipes(): void {
-    this.config.columns.forEach((column) => {
-      if (column.pipe) {
-        const strategy = this.getPipeStrategy(column.pipe.apply);
-
-        this.config.data.forEach((row) => {
-          const rowValue = row[column.key];
-          row[column.key] = this.applyPipe(
-            rowValue,
-            column.pipe.format,
-            strategy
-          );
-        });
-      }
-    });
   }
 }

@@ -4,8 +4,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
@@ -33,7 +35,9 @@ const stateChange = {
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartTableComponent implements OnInit, AfterViewChecked {
+export class IonSmartTableComponent
+  implements OnInit, AfterViewChecked, OnChanges
+{
   @Input() config: ConfigSmartTable<SafeAny>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
@@ -57,6 +61,12 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
       this.sortWithDebounce = debounce((column: Column) => {
         this.sort(column);
       }, this.config.debounceOnSort);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.config) {
+      this.tableUtils.applyPipes();
     }
   }
 
