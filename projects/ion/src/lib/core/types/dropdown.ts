@@ -1,6 +1,7 @@
 import { EventEmitter } from '@angular/core';
 import { IonInputProps } from './input';
 import { IonNoDataProps } from './no-data';
+import { IconType } from './icon';
 
 export interface DropdownItem {
   label: string;
@@ -8,6 +9,7 @@ export interface DropdownItem {
   selected?: boolean;
   disabled?: boolean;
   hovered?: boolean;
+  icon?: IconType;
 }
 
 export interface DropdownParams {
