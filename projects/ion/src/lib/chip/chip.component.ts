@@ -36,7 +36,6 @@ export interface IonChipProps {
   iconPosition?: IconDirection;
   rightBadge?: RightBadge;
   showToggle?: boolean;
-  dropdownWithIcon?: boolean;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
@@ -71,7 +70,6 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Input() rightBadge?: RightBadge;
   @Input() showToggle = false;
   @Input() required = false;
-  @Input() dropdownWithIcon = false;
 
   @Input() chipGroup = false;
   @Input() chipGroupRequired = false;
@@ -80,6 +78,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  dropdownWithIcon = false;
   dropdownId: string;
   chipId: string;
   badge: Badge = {
@@ -163,6 +162,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   ngDoCheck(): void {
     this.updateLabel();
     this.setBadgeValue(this.getSelectedOptions().length);
+    this.updateDropdownWithIcon();
   }
 
   getSelectedOptions(): DropdownItem[] {
@@ -226,5 +226,12 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   private setBadgeValue(newValue: number): void {
     this.badge = { ...this.badge, value: newValue };
+  }
+
+  private updateDropdownWithIcon(): void {
+    if ((this.options && !this.options.length) || !this.options) {
+      return;
+    }
+    this.dropdownWithIcon = !!this.options[0].icon;
   }
 }

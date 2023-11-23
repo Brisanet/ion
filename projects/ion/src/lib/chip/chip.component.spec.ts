@@ -358,7 +358,6 @@ describe('With dropdown with icons', () => {
     await sut({
       label: 'dropdown',
       options: JSON.parse(JSON.stringify(options)),
-      dropdownWithIcon: true,
     });
   });
 

@@ -13,13 +13,13 @@
     [attr.data-testid]="'chip-icon-' + iconPosition"
     [attr.class]="'icon-color chip-icon-' + iconPosition"
     *ngIf="
-      (!options && !dropdownWithIcon && icon) ||
+      (!options && icon) ||
       (options &&
+        updateDropdownWithIcon &&
         iconPlaceholder &&
-        dropdownWithIcon &&
         iconPosition === 'left')
     "
-    [type]="dropdownWithIcon ? iconPlaceholder : icon"
+    [type]="options && options[0].icon ? iconPlaceholder : icon"
     [size]="size === 'sm' ? 16 : 20"
   >
   </ion-icon>

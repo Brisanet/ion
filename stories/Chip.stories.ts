@@ -105,7 +105,6 @@ WithDropdownAndIcon.args = {
     { label: 'Tiger', icon: 'box' },
   ],
   multiple: false,
-  dropdownWithIcon: true,
 };
 
 export const WithItemAlreadySelected = Template.bind({});
