@@ -2,6 +2,10 @@ import { TagStatus } from './../core/types/status';
 import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TemplateRef } from '@angular/core';
+import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
+import { DatePipeStrategy } from '../../core/pipes/date.pipe';
+import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
+import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
 
 export enum EventTable {
   SORT = 'sort',
@@ -23,6 +27,12 @@ interface TagRow {
   statusKey?: string;
   tooltipKey?: string;
 }
+
+export interface PipeColumn {
+  apply: string;
+  format?: string;
+}
+
 export interface Column {
   label: string;
   key: string;
@@ -33,6 +43,7 @@ export interface Column {
   width?: number;
   actions?: ColumnActions;
   configTooltip?: TooltipProps;
+  pipe?: PipeColumn;
 }
 
 export interface ActionConfirm {
@@ -88,6 +99,7 @@ export class TableUtils<T = SafeAny> {
 
   constructor(config: ConfigTable<T> | ConfigSmartTable<T>) {
     this.config = config;
+    this.applyPipes();
   }
 
   public hasRowSelected(): boolean {
@@ -118,5 +130,44 @@ export class TableUtils<T = SafeAny> {
     return upArrow
       ? this.fillColorArrowUp(column)
       : this.fillColorArrowDown(column);
+  }
+
+  private getPipeStrategy(pipeType: string): PipeStrategy {
+    switch (pipeType) {
+      case 'date':
+        return new DatePipeStrategy();
+      case 'currency':
+        return new CurrencyPipeStrategy();
+      default:
+        return new ReplaceEmptyPipeStrategy();
+    }
+  }
+
+  private applyPipe(
+    value: string | number,
+    format: string,
+    strategy: PipeStrategy
+  ): string {
+    const applicator = new PipeApplicator(strategy);
+    return applicator.apply(value, format);
+  }
+
+  private applyPipes(): void {
+    this.config.columns.forEach((column) => {
+      if (column.pipe) {
+        const strategy = this.getPipeStrategy(column.pipe.apply);
+
+        if (strategy) {
+          this.config.data.forEach((row) => {
+            const rowValue = row[column.key];
+            row[column.key] = this.applyPipe(
+              rowValue,
+              column.pipe.format,
+              strategy
+            );
+          });
+        }
+      }
+    });
   }
 }

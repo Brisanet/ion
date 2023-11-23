@@ -40,7 +40,6 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
   public sortWithDebounce: (column: Column) => void;
-
   private firstLoad = true;
   private tableUtils: TableUtils;
 
