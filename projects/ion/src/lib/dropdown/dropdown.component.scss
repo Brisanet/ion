@@ -44,6 +44,7 @@
 
 .dropdown-item {
   @include dropdown-commons($neutral-7);
+  @include set-icon-color($neutral-7);
 
   &:hover {
     @include set-colors($primary-1, $neutral-7);

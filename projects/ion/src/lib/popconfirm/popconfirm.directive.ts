@@ -195,13 +195,22 @@ export class IonPopConfirmDirective implements OnDestroy {
     return element.firstElementChild.getAttribute('disabled') !== '';
   }
 
+  elementChildIsLoading(element: HTMLElement): boolean {
+    if (!element.firstElementChild) {
+      return false;
+    }
+    return element.firstElementChild.getAttribute('loading') === 'true';
+  }
+
   hostElementIsEnabled(element: HTMLElement): boolean {
     return element.getAttribute('disabled') !== '';
   }
 
   elementsAreEnabled(element: HTMLElement): boolean {
     return (
-      this.elementChildIsEnabled(element) && this.hostElementIsEnabled(element)
+      this.elementChildIsEnabled(element) &&
+      !this.elementChildIsLoading(element) &&
+      this.hostElementIsEnabled(element)
     );
   }
 
