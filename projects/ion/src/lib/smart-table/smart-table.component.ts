@@ -64,13 +64,12 @@ export class IonSmartTableComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('changes.config ->', changes.config);
     if (changes.config.firstChange) {
       this.tableUtils = new TableUtils(this.config);
     }
 
     if (!changes.config.firstChange) {
-      this.tableUtils.applyPipes();
+      this.tableUtils.applyPipes(this.config);
     }
   }
 

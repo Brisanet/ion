@@ -1,11 +1,11 @@
-import { TagStatus } from './../core/types/status';
+import { TemplateRef } from '@angular/core';
+import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
+import { DatePipeStrategy } from '../../core/pipes/date.pipe';
+import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
+import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
 import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
-import { TemplateRef } from '@angular/core';
-import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
-import { DatePipeStrategy } from '../../core/pipes/date.pipe';
-import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
-import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
+import { TagStatus } from './../core/types/status';
 
 export enum EventTable {
   SORT = 'sort',
@@ -99,7 +99,7 @@ export class TableUtils<T = SafeAny> {
 
   constructor(config: ConfigTable<T> | ConfigSmartTable<T>) {
     this.config = config;
-    this.applyPipes();
+    this.applyPipes(config);
   }
 
   public hasRowSelected(): boolean {
@@ -132,7 +132,8 @@ export class TableUtils<T = SafeAny> {
       : this.fillColorArrowDown(column);
   }
 
-  public applyPipes(): void {
+  public applyPipes(config: ConfigTable<T> | ConfigSmartTable<T>): void {
+    this.config = config;
     this.config.columns.forEach((column) => {
       if (column.pipe) {
         const strategy = this.getPipeStrategy(column.pipe.apply);
