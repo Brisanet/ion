@@ -50,7 +50,6 @@ export class IonSmartTableComponent
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    console.log('ngOnInit -> ');
     if (!this.config.pagination.itemsPerPage) {
       this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
     }
@@ -65,12 +64,14 @@ export class IonSmartTableComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.tableUtils = new TableUtils(this.config);
+    console.log('changes.config ->', changes.config);
+    if (changes.config.firstChange) {
+      this.tableUtils = new TableUtils(this.config);
+    }
 
     if (!changes.config.firstChange) {
       this.tableUtils.applyPipes();
     }
-    console.log('this.tableUtils -> ', this.tableUtils);
   }
 
   ngAfterViewChecked(): void {

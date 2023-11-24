@@ -148,7 +148,7 @@
               <!-- cell types -->
 
               <span class="td-span" *ngIf="!column.type">{{
-                row[column.key] | replaceEmpty: '-'
+                row.ion_text_formmated || row[column.key] | replaceEmpty: '-'
               }}</span>
               <ion-tag
                 *ngIf="column.type === 'tag'"
