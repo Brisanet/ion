@@ -48,6 +48,7 @@ import { IonSelectModule } from './select/select.module';
 import { IonNoDataModule } from './no-data/no-data.module';
 import { IonInputSelectModule } from './input-select/input-select.module';
 import { IonAccordionModule } from './accordion/accordion.module';
+import { IonLinkModule } from './link/link.module';
 
 @NgModule({
   declarations: [IonComponent],
@@ -99,6 +100,7 @@ import { IonAccordionModule } from './accordion/accordion.module';
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
   ],
   exports: [
     IonComponent,
@@ -147,6 +149,7 @@ import { IonAccordionModule } from './accordion/accordion.module';
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
   ],
 })
 export class IonModule {}

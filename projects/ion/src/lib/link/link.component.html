@@ -1,0 +1,24 @@
+<a
+  data-testid="ion-link"
+  class="ion-link"
+  [class.ion-link--left-icon]="iconSide === 'left'"
+  [class.ion-link--icon-only]="iconLink || !label.length"
+  [attr.disabled]="disabled"
+  [target]="target"
+  [href]="link"
+  (click)="onClick()"
+>
+  <span
+    data-testid="ion-link-label"
+    *ngIf="label.length && !iconLink"
+    [attr.class]="'ion-link__label ion-link__label--' + size"
+    [class.ion-link__label--bold]="bold"
+    >{{ label }}</span
+  >
+  <ion-icon
+    data-testid="ion-link-icon"
+    *ngIf="icon"
+    [type]="icon"
+    [size]="iconSize"
+  ></ion-icon>
+</a>
