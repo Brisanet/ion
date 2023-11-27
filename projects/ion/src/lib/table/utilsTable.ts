@@ -44,6 +44,7 @@ export interface Column {
   actions?: ColumnActions;
   configTooltip?: TooltipProps;
   pipe?: PipeColumn;
+  hideLongData?: boolean;
 }
 
 export interface ActionConfirm {

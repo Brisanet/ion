@@ -42,6 +42,20 @@ const longData = [
   { id: 5, name: 'Troubled Paradise', deleted: false, year: 2021 },
 ];
 
+const doubleLongData = [
+  { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  { id: 2, name: 'One More Light', deleted: false, year: 2017 },
+  {
+    id: 3,
+    name: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+    deleted: false,
+    year: 2023,
+    desc: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vero, voluptatibus veniam reiciendis repellendus laborum nam laboriosam est natus ut, delectus iure quis consequuntur eligendi aspernatur, corporis voluptates nulla assumenda adipisci.',
+  },
+  { id: 4, name: 'Slayyyter', deleted: false, year: 2019 },
+  { id: 5, name: 'Troubled Paradise', deleted: false, year: 2021 },
+];
+
 const dataWithTag = [
   ...data,
   {
@@ -143,6 +157,34 @@ const columnsWithWidth = [
     label: 'Ano',
     sort: true,
     width: 25,
+  },
+];
+
+const columnsWithMultipleText = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+    width: 5,
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: false,
+    width: 30,
+  },
+  {
+    key: 'year',
+    label: 'Ano',
+    sort: true,
+    width: 5,
+  },
+  {
+    key: 'desc',
+    label: 'desc',
+    sort: true,
+    width: 60,
+    hideLongData: true,
   },
 ];
 
@@ -343,6 +385,17 @@ WithEllipsisOnCell.args = returnTableConfig(
   2000,
   [10, 15, 30, 50, 100],
   true
+);
+
+export const WithEllipsisInSpecificColumns = Template.bind({});
+WithEllipsisInSpecificColumns.args = returnTableConfig(
+  doubleLongData,
+  columnsWithMultipleText,
+  actions,
+  2,
+  2000,
+  [10, 15, 30, 50, 100],
+  false
 );
 
 export const WithTooltipInActions = Template.bind({});
