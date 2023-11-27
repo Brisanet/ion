@@ -78,6 +78,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   @Output() dropdownEvents = new EventEmitter<DropdownItem[]>();
   @Output() dropdownSearchEvents = new EventEmitter<string>();
 
+  dropdownWithIcon = false;
   dropdownId: string;
   chipId: string;
   badge: Badge = {
@@ -87,6 +88,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   tempFilter: DropdownItem[] = [];
 
   placeholder = '';
+  iconPlaceholder?: IconType;
 
   firstCheck = true;
 
@@ -128,14 +130,15 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
         this.setBadgeValue(selecteds.length);
         return;
       }
-      this.setPlaceHolder(selecteds[0].label);
+      this.setPlaceHolder(selecteds[0].label, selecteds[0].icon);
     } else {
       this.clearBadgeValue();
     }
   }
 
-  setPlaceHolder(label: string): void {
+  setPlaceHolder(label: string, icon: IconType): void {
     this.placeholder = label || this.label;
+    this.iconPlaceholder = icon || this.icon;
     this.selected = false;
     this.toggleDropdown();
   }
@@ -159,6 +162,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
   ngDoCheck(): void {
     this.updateLabel();
     this.setBadgeValue(this.getSelectedOptions().length);
+    this.updateDropdownWithIcon();
   }
 
   getSelectedOptions(): DropdownItem[] {
@@ -173,6 +177,7 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   updateLabel(): void {
     this.placeholder = this.label;
+    this.iconPlaceholder = '';
     if (this.firstCheck) {
       this.firstUpdateLabel();
       return;
@@ -189,18 +194,19 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
     }
 
     this.placeholder = selectedOption.label;
+    this.iconPlaceholder = selectedOption.icon;
   }
 
   firstUpdateLabel(): void {
     if (!this.multiple && this.options) {
-      const optionSelected = this.options.find(
-        (option) => option.selected === true
-      );
+      const optionSelected = this.options.find((option) => option.selected);
       if (optionSelected) {
         this.placeholder = optionSelected.label || '';
+        this.iconPlaceholder = optionSelected.icon || '';
       }
     } else {
       this.placeholder = this.label;
+      this.iconPlaceholder = '';
     }
     this.firstCheck = false;
   }
@@ -220,5 +226,12 @@ export class ChipComponent implements OnInit, AfterViewInit, DoCheck {
 
   private setBadgeValue(newValue: number): void {
     this.badge = { ...this.badge, value: newValue };
+  }
+
+  private updateDropdownWithIcon(): void {
+    if ((this.options && !this.options.length) || !this.options) {
+      return;
+    }
+    this.dropdownWithIcon = !!this.options[0].icon;
   }
 }

@@ -129,12 +129,12 @@ button {
   gap: spacing(1);
 }
 
-.positionIcon {
-  flex-direction: row-reverse;
-}
-
 .container-options {
   position: absolute;
+}
+
+.chip-icon-right {
+  order: 10;
 }
 
 ::ng-deep {
