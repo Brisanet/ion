@@ -19,6 +19,14 @@ import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { IonSmartTableComponent } from './smart-table.component';
+import { SimpleChange } from '@angular/core';
+
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+
+registerLocaleData(localePT, 'pt-BR');
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -118,7 +126,7 @@ const defaultProps: IonSmartTableProps<Character> = {
 const sut = async (
   customProps: IonSmartTableProps<Character | Book> = defaultProps
 ): Promise<SafeAny> => {
-  await render(IonSmartTableComponent, {
+  return await render(IonSmartTableComponent, {
     componentProperties: customProps,
     imports: [
       IonCheckboxModule,
@@ -710,6 +718,17 @@ describe('Table > Differents columns data type', () => {
   });
 
   describe('Pipes', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: LOCALE_ID,
+            useValue: 'pt-BR',
+          },
+        ],
+      });
+    });
+
     it('should show values formatteds by pipe', async () => {
       await sut({
         ...defaultProps,
@@ -799,6 +818,73 @@ describe('Table > Differents columns data type', () => {
         },
       });
       expect(screen.getByText('53.8')).toBeInTheDocument();
+    });
+
+    it('should detect a new change and update the component', async () => {
+      const myConfig = {
+        config: {
+          ...defaultProps.config,
+          data: [],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      };
+
+      const { fixture } = await sut(myConfig);
+      fixture.componentInstance.ngOnChanges({
+        config: new SimpleChange(null, { ...myConfig }, false),
+      });
+      fixture.detectChanges();
+
+      expect(screen.getByText('Não há dados')).toBeInTheDocument();
+    });
+
+    it('should show the month name in pt-BR', async () => {
+      const myConfig = {
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                formart: 'MMMM d, y',
+              },
+              sort: false,
+            },
+          ],
+        },
+      };
+
+      await sut(myConfig);
+      expect(screen.getByText('27 de mar de 2007')).toBeInTheDocument();
     });
   });
 
