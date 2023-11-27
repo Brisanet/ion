@@ -3,8 +3,8 @@ import { fireEvent, render, screen } from '@testing-library/angular';
 
 import { IonLinkComponent } from './link.component';
 import { FontSize, IonLinkProps } from '../core/types/link';
-import { SafeAny } from 'ion/lib/utils/safe-any';
 import { IonSharedModule } from '../shared.module';
+import { SafeAny } from '../utils/safe-any';
 
 const sizes: FontSize[] = ['sm', 'md'];
 
