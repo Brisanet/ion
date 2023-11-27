@@ -1,9 +1,18 @@
+import { IonDatePickerCalendarComponentProps } from '../picker/core/calendar-model';
 import { Day } from '../picker/core/day';
 
 export const SUNDAY = 'domingo';
 export const SATURDAY = 'sábado';
 export const INITIAL_RANGE = 0;
 export const FINAL_RANGE = 1;
+
+export function isToday(
+  date: Day,
+  lang: IonDatePickerCalendarComponentProps['lang']
+): boolean {
+  const TODAY = new Day(new Date(), lang);
+  return isSameDay(date, TODAY);
+}
 
 export function isSameDay(day: Day, dayToCompare?: Day): boolean {
   return (

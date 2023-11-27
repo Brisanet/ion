@@ -15,6 +15,7 @@ import {
   getInitialDate,
   isNotRangeLimit,
   isSameDay,
+  isToday,
 } from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
@@ -118,13 +119,10 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
-      (day as SafeAny) = {
-        ...day,
-        isToday: this.isToday(day),
-        isBetweenRange: this.isBetweenRange(day),
-        isRangeInitialLimit: this.isRangeLimit(day),
-        isRangeFinalLimit: this.isRangeLimit(day, this.finalRange),
-      };
+      day.isToday = isToday(day, this.lang);
+      day.isBetweenRange = this.isBetweenRange(day);
+      day.isRangeInitialLimit = this.isRangeLimit(day);
+      day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
     });
 
     setTimeout(() => {
@@ -244,11 +242,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
-  }
-
-  private isToday(date: Day): boolean {
-    const TODAY = new Day(new Date(), this.lang);
-    return isSameDay(date, TODAY);
   }
 
   private isBetweenRange(date: Day): boolean {
