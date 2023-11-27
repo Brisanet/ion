@@ -25,13 +25,6 @@ import {
 } from '../../core/calendar-model';
 import { Day } from '../../core/day';
 
-interface DayData extends Day {
-  isToday?: boolean;
-  isBetweenRange?: boolean;
-  isRangeInitialLimit?: boolean;
-  isRangeFinalLimit?: boolean;
-}
-
 @Component({
   selector: 'date-picker-calendar',
   templateUrl: './date-picker-calendar.component.html',
@@ -56,8 +49,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   @Input() rangePicker: boolean;
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
-  public days: DayData[] = [];
-  selectedDay: DayData[] = [];
+  public days: Day[] = [];
+  selectedDay: Day[] = [];
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
