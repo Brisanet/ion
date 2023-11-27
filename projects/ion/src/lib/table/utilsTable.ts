@@ -1,7 +1,11 @@
-import { TagStatus } from './../core/types/status';
+import { TemplateRef } from '@angular/core';
+import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
+import { DatePipeStrategy } from '../../core/pipes/date.pipe';
+import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
+import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
 import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
-import { TemplateRef } from '@angular/core';
+import { TagStatus } from './../core/types/status';
 
 export enum EventTable {
   SORT = 'sort',
@@ -23,6 +27,12 @@ interface TagRow {
   statusKey?: string;
   tooltipKey?: string;
 }
+
+export interface PipeColumn {
+  apply: string;
+  format?: string;
+}
+
 export interface Column {
   label: string;
   key: string;
@@ -33,6 +43,8 @@ export interface Column {
   width?: number;
   actions?: ColumnActions;
   configTooltip?: TooltipProps;
+  pipe?: PipeColumn;
+  hideLongData?: boolean;
 }
 
 export interface ActionConfirm {
@@ -88,6 +100,7 @@ export class TableUtils<T = SafeAny> {
 
   constructor(config: ConfigTable<T> | ConfigSmartTable<T>) {
     this.config = config;
+    this.applyPipes(config);
   }
 
   public hasRowSelected(): boolean {
@@ -118,5 +131,43 @@ export class TableUtils<T = SafeAny> {
     return upArrow
       ? this.fillColorArrowUp(column)
       : this.fillColorArrowDown(column);
+  }
+
+  public applyPipes(config: ConfigTable<T> | ConfigSmartTable<T>): void {
+    this.config = config;
+    this.config.columns.forEach((column) => {
+      if (column.pipe) {
+        const strategy = this.getPipeStrategy(column.pipe.apply);
+
+        this.config.data.forEach((row) => {
+          const rowValue = row[column.key];
+          row[column.key] = this.applyPipe(
+            rowValue,
+            column.pipe.format,
+            strategy
+          );
+        });
+      }
+    });
+  }
+
+  private getPipeStrategy(pipeType: string): PipeStrategy {
+    switch (pipeType) {
+      case 'date':
+        return new DatePipeStrategy();
+      case 'currency':
+        return new CurrencyPipeStrategy();
+      default:
+        return new ReplaceEmptyPipeStrategy();
+    }
+  }
+
+  private applyPipe(
+    value: string | number,
+    format: string,
+    strategy: PipeStrategy
+  ): string {
+    const applicator = new PipeApplicator(strategy);
+    return applicator.apply(value, format);
   }
 }

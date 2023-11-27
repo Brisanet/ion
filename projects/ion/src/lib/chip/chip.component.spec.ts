@@ -78,8 +78,8 @@ describe('ChipComponent', () => {
 
   it('should render icon on left', async (iconPosition: IconDirection = 'left', icon = 'close') => {
     await sut({ label: 'custom-position', iconPosition, icon });
-    const element = screen.getByText('custom-position');
-    expect(element).toHaveClass('container-icon-text positionIcon');
+    const chipIcon = screen.getByTestId('chip-icon-left');
+    expect(chipIcon).toHaveClass('icon-color chip-icon-left');
   });
 
   it('should render chip component disabled', async () => {
@@ -335,6 +335,37 @@ describe('With Multiple Dropdown', () => {
 
   afterEach(() => {
     dropdownEvent.mockClear();
+  });
+});
+
+describe('With dropdown with icons', () => {
+  const options = [
+    {
+      label: 'Meteora',
+      selected: false,
+      key: 'meteora',
+      icon: 'box',
+    },
+    {
+      label: 'One More Light',
+      selected: false,
+      key: 'one_more_light',
+      icon: 'block',
+    },
+  ];
+
+  beforeEach(async () => {
+    await sut({
+      label: 'dropdown',
+      options: JSON.parse(JSON.stringify(options)),
+    });
+  });
+
+  it('should set the icon to the selected option', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText(options[0].label));
+    const chipIcon = document.getElementById(`ion-icon-${options[0].icon}`);
+    expect(chipIcon).toBeVisible();
   });
 });
 

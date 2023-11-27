@@ -22,6 +22,13 @@ import { IonTableModule } from './table.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+
+registerLocaleData(localePT, 'pt-BR');
+
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
 
@@ -42,6 +49,8 @@ interface Disco {
   id: number;
   name: string;
   deleted: boolean;
+  release_date?: string;
+  value?: number;
   year?: number;
   icon?: string;
   status?: StatusType;
@@ -644,6 +653,73 @@ describe('Table > Differents columns data type', () => {
         ).toHaveLength(1);
       }
     );
+  });
+
+  describe('Pipes', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: LOCALE_ID,
+            useValue: 'pt-BR',
+          },
+        ],
+      });
+    });
+
+    it('should show values formatteds by pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+              deleted: false,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+              deleted: false,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                format: 'dd/MM/yyyy',
+              },
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      const dateFormatted = '27/03/2007';
+      expect(screen.getByText(dateFormatted)).toBeInTheDocument();
+
+      const currencyFormatted = 'R$53.80';
+      expect(screen.getByText(currencyFormatted)).toBeInTheDocument();
+    });
   });
 
   describe('Sort', () => {
