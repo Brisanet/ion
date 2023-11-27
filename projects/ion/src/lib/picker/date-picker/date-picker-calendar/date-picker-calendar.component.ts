@@ -118,10 +118,13 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
-      day.isToday = this.isToday(day);
-      day.isBetweenRange = this.isBetweenRange(day);
-      day.isRangeInitialLimit = this.isRangeLimit(day);
-      day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
+      (day as SafeAny) = {
+        ...day,
+        isToday: this.isToday(day),
+        isBetweenRange: this.isBetweenRange(day),
+        isRangeInitialLimit: this.isRangeLimit(day),
+        isRangeFinalLimit: this.isRangeLimit(day, this.finalRange),
+      };
     });
 
     setTimeout(() => {
