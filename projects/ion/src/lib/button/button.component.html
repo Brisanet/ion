@@ -3,6 +3,7 @@
   [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
+  [attr.loading]="loading"
   [class.danger]="danger"
   [class.loading]="loading"
   [class.circular-button]="circularButton"

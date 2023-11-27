@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertModule } from './alert/alert.module';
 import { IonAvatarModule } from './avatar/avatar.module';
@@ -49,6 +49,10 @@ import { IonTripleToggleModule } from './triple-toggle/triple-toggle.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { PipesModule } from './utils/pipes/pipes.module';
 import { IonAccordionModule } from './accordion/accordion.module';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+
+registerLocaleData(localePT);
 
 @NgModule({
   declarations: [IonComponent],
@@ -151,5 +155,6 @@ import { IonAccordionModule } from './accordion/accordion.module';
     IonAccordionModule,
     IonTripleToggleModule,
   ],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
 })
 export class IonModule {}

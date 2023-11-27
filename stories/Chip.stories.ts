@@ -90,6 +90,23 @@ WithDropdown.args = {
   multiple: true,
 };
 
+export const WithDropdownAndIcon = Template.bind({});
+WithDropdownAndIcon.args = {
+  label: 'Animais',
+  options: [
+    { label: 'Cat', icon: 'access' },
+    { label: 'Dog', icon: 'block' },
+    { label: 'Monkey', icon: 'award' },
+    { label: 'Human', icon: 'battery-charging' },
+    { label: 'Bird', icon: 'camera2' },
+    { label: 'Fish', icon: 'car' },
+    { label: 'Goat', icon: 'check-user' },
+    { label: 'Lion', icon: 'change' },
+    { label: 'Tiger', icon: 'box' },
+  ],
+  multiple: false,
+};
+
 export const WithItemAlreadySelected = Template.bind({});
 WithItemAlreadySelected.args = {
   label: 'Animais',

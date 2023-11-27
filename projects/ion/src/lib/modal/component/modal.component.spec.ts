@@ -175,6 +175,16 @@ describe('IonModalComponent', () => {
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
   });
 
+  it('should hide close button when informed', () => {
+    const configuration: IonModalConfiguration = {
+      hideCloseButton: true,
+    };
+    component.setConfig(configuration);
+    fixture.detectChanges();
+
+    expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
+  });
+
   it('should render the width of the default modal', () => {
     const modalElement =
       fixture.nativeElement.querySelector('.modal-container').style.width;

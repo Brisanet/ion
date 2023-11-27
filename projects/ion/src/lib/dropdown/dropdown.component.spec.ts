@@ -132,6 +132,20 @@ describe('IonDropdownComponent', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
+
+  it('should show the option with icon', async () => {
+    const iconToShow = 'close';
+    const dropdownConfig: DropdownParams = {
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false, icon: iconToShow },
+        { label: 'Option 2', selected: false },
+      ],
+    };
+
+    await sut(dropdownConfig);
+    expect(document.getElementById(`ion-icon-${iconToShow}`)).not.toBeNull();
+  });
 });
 
 describe('IonDropdownComponent / Disabled', () => {
