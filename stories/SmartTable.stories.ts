@@ -407,3 +407,72 @@ WithTooltipInActions.args = returnTableConfig(
   2000,
   [10, 15, 30, 50, 100]
 );
+
+export const DataWithPipe = Template.bind({});
+DataWithPipe.args = returnTableConfig(
+  [
+    {
+      id: 1,
+      name: 'The name of the wind',
+      deleted: false,
+      year: 2003,
+      release_date: '2007-03-27',
+      value: 53.8,
+      empty: '',
+    },
+    {
+      id: 2,
+      name: 'The Wise Mans Fear',
+      deleted: false,
+      year: 2003,
+      release_date: '2011-03-01',
+      value: 1016,
+      empty: '',
+    },
+    {
+      id: 3,
+      name: 'Today book',
+      deleted: false,
+      year: 2003,
+      release_date: new Date(),
+      value: 0.9,
+      empty: '',
+    },
+  ],
+  [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Nome',
+      sort: false,
+    },
+    {
+      key: 'release_date',
+      label: 'Lançamento',
+      pipe: {
+        apply: 'date',
+        format: 'dd/MM/yyyy',
+      },
+      sort: false,
+    },
+    {
+      key: 'value',
+      label: 'Valor',
+      pipe: {
+        apply: 'currency',
+      },
+      sort: false,
+    },
+    {
+      key: 'empty',
+      label: 'empty',
+      sort: false,
+    },
+  ],
+  actions,
+  2
+);
