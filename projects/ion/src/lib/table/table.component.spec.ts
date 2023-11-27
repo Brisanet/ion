@@ -22,6 +22,13 @@ import { IonTableModule } from './table.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+
+registerLocaleData(localePT, 'pt-BR');
+
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
 
@@ -649,6 +656,17 @@ describe('Table > Differents columns data type', () => {
   });
 
   describe('Pipes', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: LOCALE_ID,
+            useValue: 'pt-BR',
+          },
+        ],
+      });
+    });
+
     it('should show values formatteds by pipe', async () => {
       await sut({
         ...defaultProps,
