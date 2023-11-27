@@ -21,7 +21,7 @@ export class IonLinkComponent implements OnChanges {
   @Input() size: FontSize = 'sm';
   @Input() bold = false;
   @Input() disabled = false;
-  @Input() target: LinkTarget = '_blank';
+  @Input() target: LinkTarget = '_self';
   @Input() link?: string;
   @Output() ionOnClick = new EventEmitter<void>();
 
