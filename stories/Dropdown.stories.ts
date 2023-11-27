@@ -39,6 +39,15 @@ Basic.args = {
   options,
 };
 
+export const OptionWithIcon = Template.bind({});
+OptionWithIcon.args = {
+  options: [
+    { label: 'Encomendas', selected: false, icon: 'box' },
+    { label: 'Bancos', selected: false, icon: 'bank' },
+    { label: 'Conquistas', selected: false, icon: 'award' },
+  ],
+};
+
 export const NoData = Template.bind({});
 NoData.args = {
   options: [],
