@@ -1,8 +1,10 @@
+@import '../../../styles/index.scss';
+
 :host {
   position: absolute;
   display: flex;
   flex-direction: column;
-  top: 0;
+  top: spacing(2);
   right: 0;
   gap: 1rem;
 }
