@@ -8,15 +8,15 @@
     <div
       *ngFor="let day of days; let i = index"
       [attr.data-testid]="'container-' + getAriaLabel(day)"
-      [class.between-range]="isBetweenRange(day)"
-      [class.initial]="isRangeLimit(day)"
-      [class.final]="isRangeLimit(day, finalRange)"
+      [class.between-range]="day.isBetweenRange"
+      [class.initial]="day.isRangeInitialLimit"
+      [class.final]="day.isRangeFinalLimit"
     >
       <button
         [attr.data-testid]="getAriaLabel(day)"
         class="month-day"
         [class.current]="day.isDayCurrentMonth"
-        [class.today]="isToday(day)"
+        [class.today]="day.isToday"
         [class.selected]="isSelectedDate(day)"
         [class.final-range-selected]="isSelectedDate(day, finalRange)"
         [attr.aria-label]="getAriaLabel(day)"

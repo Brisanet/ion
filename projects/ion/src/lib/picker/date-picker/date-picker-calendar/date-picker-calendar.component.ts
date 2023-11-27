@@ -25,6 +25,13 @@ import {
 } from '../../core/calendar-model';
 import { Day } from '../../core/day';
 
+interface DayData extends Day {
+  isToday?: boolean;
+  isBetweenRange?: boolean;
+  isRangeInitialLimit?: boolean;
+  isRangeFinalLimit?: boolean;
+}
+
 @Component({
   selector: 'date-picker-calendar',
   templateUrl: './date-picker-calendar.component.html',
@@ -49,8 +56,8 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   @Input() rangePicker: boolean;
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
-  public days: Day[] = [];
-  selectedDay: Day[] = [];
+  public days: DayData[] = [];
+  selectedDay: DayData[] = [];
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
@@ -95,44 +102,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.setDateInCalendar();
   }
 
-  isToday(date: Day): boolean {
-    const TODAY = new Day(new Date(), this.lang);
-    return isSameDay(date, TODAY);
-  }
-
   isSelectedDate(date: Day, isFinalOfRange?: boolean): boolean {
     return isSameDay(
       date,
       isFinalOfRange
         ? this.selectedDay[FINAL_RANGE]
         : this.selectedDay[INITIAL_RANGE]
-    );
-  }
-
-  isBetweenRange(date: Day): boolean {
-    if (this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE]) {
-      const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
-        new Date(this.selectedDay[INITIAL_RANGE].Date),
-        new Date(this.selectedDay[FINAL_RANGE].Date),
-        new Date(date.Date),
-      ];
-      return (
-        CURRENT_DATE >= INITIAL_DATE &&
-        CURRENT_DATE <= FINAL_DATE &&
-        isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
-        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE])
-      );
-    }
-  }
-
-  isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
-    const [DAY_NAME, RANGE_TO_AVOID, RANGE_TO_CONFIRM] = isFinalOfRange
-      ? [SATURDAY, INITIAL_RANGE, FINAL_RANGE]
-      : [SUNDAY, FINAL_RANGE, INITIAL_RANGE];
-    return (
-      (date.day === DAY_NAME &&
-        !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
-      isSameDay(date, this.selectedDay[RANGE_TO_CONFIRM])
     );
   }
 
@@ -150,6 +125,10 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
+      day.isToday = this.isToday(day);
+      day.isBetweenRange = this.isBetweenRange(day);
+      day.isRangeInitialLimit = this.isRangeLimit(day);
+      day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
     });
 
     setTimeout(() => {
@@ -269,6 +248,38 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
+  }
+
+  private isToday(date: Day): boolean {
+    const TODAY = new Day(new Date(), this.lang);
+    return isSameDay(date, TODAY);
+  }
+
+  private isBetweenRange(date: Day): boolean {
+    if (this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE]) {
+      const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
+        this.selectedDay[INITIAL_RANGE].Date,
+        this.selectedDay[FINAL_RANGE].Date,
+        date.Date,
+      ];
+      return (
+        CURRENT_DATE >= INITIAL_DATE &&
+        CURRENT_DATE <= FINAL_DATE &&
+        isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
+        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE])
+      );
+    }
+  }
+
+  private isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
+    const [DAY_NAME, RANGE_TO_AVOID, RANGE_TO_CONFIRM] = isFinalOfRange
+      ? [SATURDAY, INITIAL_RANGE, FINAL_RANGE]
+      : [SUNDAY, FINAL_RANGE, INITIAL_RANGE];
+    return (
+      (date.day === DAY_NAME &&
+        !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
+      isSameDay(date, this.selectedDay[RANGE_TO_CONFIRM])
+    );
   }
 
   private arrangeDates(): void {
