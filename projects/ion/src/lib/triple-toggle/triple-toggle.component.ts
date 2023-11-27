@@ -41,10 +41,11 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   @Input() disabled = false;
   @Input() size: Size = 'md';
   @Input() options: TripleToggleOptions;
-  @Input() onlyShowIcon: boolean;
+  @Input() onlyShowIcon = false;
   @Output() ionClick = new EventEmitter();
 
   public optionsToRender: TripleToggleOptionsToRender;
+  public middleOptionIndex = 1;
 
   handleClick(option: TripleToggleOption): void {
     this.selectOption(option);
