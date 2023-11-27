@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonAlertModule } from './alert/alert.module';
 import { IonAvatarModule } from './avatar/avatar.module';
@@ -48,6 +48,10 @@ import { IonSelectModule } from './select/select.module';
 import { IonNoDataModule } from './no-data/no-data.module';
 import { IonInputSelectModule } from './input-select/input-select.module';
 import { IonAccordionModule } from './accordion/accordion.module';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+
+registerLocaleData(localePT);
 
 @NgModule({
   declarations: [IonComponent],
@@ -148,5 +152,6 @@ import { IonAccordionModule } from './accordion/accordion.module';
     IonInputSelectModule,
     IonAccordionModule,
   ],
+  providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
 })
 export class IonModule {}
