@@ -33,6 +33,7 @@ export interface Column {
   width?: number;
   actions?: ColumnActions;
   configTooltip?: TooltipProps;
+  hideLongData?: boolean;
 }
 
 export interface ActionConfirm {
