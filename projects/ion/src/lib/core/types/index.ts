@@ -16,6 +16,7 @@ export * from './indicator';
 export * from './info-badge';
 export * from './input-area';
 export * from './input-counter';
+export * from './link';
 export * from './message';
 export * from './notification';
 export * from './pagination';

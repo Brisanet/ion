@@ -49,6 +49,7 @@ import { IonTripleToggleModule } from './triple-toggle/triple-toggle.module';
 import { IonTypographyModule } from './typography/typography.module';
 import { PipesModule } from './utils/pipes/pipes.module';
 import { IonAccordionModule } from './accordion/accordion.module';
+import { IonLinkModule } from './link/link.module';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 
@@ -104,6 +105,7 @@ registerLocaleData(localePT);
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
     IonTripleToggleModule,
   ],
   exports: [
@@ -153,6 +155,7 @@ registerLocaleData(localePT);
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
     IonTripleToggleModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
