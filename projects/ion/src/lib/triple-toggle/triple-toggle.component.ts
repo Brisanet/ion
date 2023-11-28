@@ -59,7 +59,7 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.value) {
+    if (changes.value && !changes.value.firstChange) {
       this.changeOptionByValue();
     }
   }
