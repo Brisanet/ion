@@ -48,6 +48,7 @@ import { IonSelectModule } from './select/select.module';
 import { IonNoDataModule } from './no-data/no-data.module';
 import { IonInputSelectModule } from './input-select/input-select.module';
 import { IonAccordionModule } from './accordion/accordion.module';
+import { IonLinkModule } from './link/link.module';
 import { registerLocaleData } from '@angular/common';
 import localePT from '@angular/common/locales/pt';
 
@@ -103,6 +104,7 @@ registerLocaleData(localePT);
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
   ],
   exports: [
     IonComponent,
@@ -151,6 +153,7 @@ registerLocaleData(localePT);
     IonNoDataModule,
     IonInputSelectModule,
     IonAccordionModule,
+    IonLinkModule,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'pt-BR' }],
 })

@@ -56,3 +56,4 @@ export { default as BnTable } from './core/bn-table/bn-table';
 export * from './lib/table/utilsTable';
 export * from './lib/input-select/input-select.module';
 export * from './lib/accordion/accordion.module';
+export * from './lib/link/link.module';
