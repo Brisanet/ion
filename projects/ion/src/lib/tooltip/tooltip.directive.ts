@@ -111,7 +111,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   }
 
   attachComponentToView(): void {
-    if (this.ionTooltipTitle) {
+    if (this.ionTooltipTitle || this.ionTooltipTemplateRef) {
       document.body.appendChild(this.createComponent());
       this.setComponentProperties();
     }
@@ -121,6 +121,13 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
     if (!this.isComponentRefNull()) {
       this.componentRef.instance.ionTooltipVisible = true;
     }
+  }
+
+  shouldAttachComponent(): boolean {
+    const ionDropdownElement =
+      this.elementRef.nativeElement.querySelector('ion-dropdown');
+
+    return this.isComponentRefNull() && !ionDropdownElement;
   }
 
   destroyComponent(): void {
@@ -134,16 +141,16 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
   @HostListener('mouseenter') onMouseEnter(): void {
     if (
-      this.isComponentRefNull() &&
+      this.shouldAttachComponent() &&
       this.isTooltipTrigger(TooltipTrigger.HOVER)
     ) {
       this.attachComponentToView();
     }
   }
 
-  @HostListener('click') onclick(): void {
+  @HostListener('click') onClick(): void {
     if (this.isTooltipTrigger(TooltipTrigger.CLICK)) {
-      this.isComponentRefNull()
+      this.shouldAttachComponent()
         ? this.attachComponentToView()
         : this.destroyComponent();
     } else {

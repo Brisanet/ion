@@ -32,3 +32,4 @@ export * from './table';
 export * from './tag';
 export * from './tooltip';
 export * from './accordion';
+export * from './link';
