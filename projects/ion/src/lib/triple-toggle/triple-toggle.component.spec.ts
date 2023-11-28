@@ -1,3 +1,4 @@
+import { SimpleChange } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { TripleToggleProps } from '../core/types';
 import { IonSharedModule } from '../shared.module';
@@ -14,8 +15,8 @@ const notSelectedOption = 'ion-btn-secondary';
 
 const clickEvent = jest.fn();
 
-const sut = async (customProps: TripleToggleProps = {}): Promise<void> => {
-  await render(IonTripleToggleComponent, {
+const sut = async (customProps: TripleToggleProps = {}): Promise<SafeAny> => {
+  return await render(IonTripleToggleComponent, {
     componentProperties: customProps,
     imports: [IonSharedModule, IonTooltipModule],
   });
@@ -94,7 +95,16 @@ describe('IonTripleToggleComponent', () => {
     );
 
     it('should show the selected option when started with it', async () => {
-      await sut({ value: true });
+      const customProps: TripleToggleProps = {
+        value: true,
+      };
+
+      const { fixture } = await sut(customProps);
+      fixture.componentInstance.ngOnChanges({
+        value: new SimpleChange(null, { ...customProps }, false),
+      });
+      fixture.detectChanges();
+
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
 
