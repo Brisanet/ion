@@ -17,7 +17,6 @@ export class IonLinkComponent implements OnChanges {
   @Input() label = '';
   @Input() icon: IconType;
   @Input() iconSide: IconSide = 'right';
-  @Input() iconLink = false;
   @Input() size: FontSize = 'sm';
   @Input() bold = false;
   @Input() disabled = false;

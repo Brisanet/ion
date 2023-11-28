@@ -16,6 +16,10 @@
   }
 }
 
+.link-container {
+  cursor: not-allowed;
+}
+
 .ion-link {
   text-decoration: none;
   color: $primary-5;
@@ -91,7 +95,6 @@
   &[disabled='true']:hover,
   &[disabled='true']:active {
     pointer-events: none;
-    cursor: not-allowed;
     @include colors($neutral-6);
   }
 }

@@ -11,7 +11,6 @@ export interface IonLinkProps {
   label?: string;
   icon?: IconType;
   iconSide?: IconSide;
-  iconLink?: boolean;
   size?: FontSize;
   bold?: boolean;
   disabled?: boolean;

@@ -31,12 +31,18 @@ WithIcon.args = {
   icon: 'box',
 };
 
-export const IconOnly = Template.bind({});
-IconOnly.args = {
+export const WithLeftIcon = Template.bind({});
+WithLeftIcon.args = {
   label: 'Link',
   link: 'https://github.com/',
   icon: 'box',
-  iconLink: true,
+  iconSide: 'left',
+};
+
+export const IconOnly = Template.bind({});
+IconOnly.args = {
+  link: 'https://github.com/',
+  icon: 'box',
 };
 
 export const Disabled = Template.bind({});
@@ -56,9 +62,7 @@ DisabledWithIcon.args = {
 
 export const DisabledIconOnly = Template.bind({});
 DisabledIconOnly.args = {
-  label: 'Link',
   link: 'fakelink',
   icon: 'box',
-  iconLink: true,
   disabled: true,
 };

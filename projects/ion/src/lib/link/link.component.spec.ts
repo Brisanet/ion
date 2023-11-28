@@ -151,16 +151,6 @@ describe('IonLinkComponent', () => {
       expect(screen.queryByTestId('ion-link-label')).not.toBeInTheDocument();
     });
 
-    it('should render only the icon when informed', async () => {
-      await sut({
-        label: customLabel,
-        icon: 'box',
-        iconLink: true,
-      });
-
-      expect(screen.queryByTestId('ion-link-label')).not.toBeInTheDocument();
-    });
-
     it('should render the icon to the right by default', async () => {
       await sut({
         label: customLabel,
