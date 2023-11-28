@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { IonLinkComponent } from '../projects/ion/src/lib/link/link.component';
 import { IonLinkModule } from '../projects/ion/src/public-api';
+import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Ion/Navigation/Link',
@@ -11,7 +12,7 @@ export default {
 
 const Template: Story<IonLinkComponent> = (args: IonLinkComponent) => ({
   component: IonLinkComponent,
-  props: { ...args },
+  props: { ...args, ionOnCLick: action('click') },
   moduleMetadata: {
     imports: [CommonModule, IonLinkModule],
     entryComponents: [IonLinkComponent],
@@ -22,6 +23,12 @@ export const Default = Template.bind({});
 Default.args = {
   label: 'Link',
   link: 'https://github.com/',
+  target: '_blank',
+};
+
+export const WithoutLink = Template.bind({});
+WithoutLink.args = {
+  label: 'Link',
 };
 
 export const WithIcon = Template.bind({});

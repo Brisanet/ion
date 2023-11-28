@@ -6,7 +6,7 @@
     [class.ion-link--icon-only]="!label.length"
     [attr.disabled]="disabled"
     [target]="target"
-    [href]="link"
+    [href]="link ? link : '#'"
     rel="noreferrer"
     (click)="onClick()"
   >
