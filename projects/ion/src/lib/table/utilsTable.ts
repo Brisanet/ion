@@ -18,7 +18,6 @@ export enum EventTable {
 export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
-  LINK = 'link',
 }
 
 interface TagRow {
