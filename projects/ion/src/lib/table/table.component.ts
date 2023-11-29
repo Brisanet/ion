@@ -148,6 +148,12 @@ export class IonTableComponent implements OnInit, OnChanges {
     this.cdr.detectChanges();
   }
 
+  public handleLinkClick(row: SafeAny, action: (_: SafeAny) => void): void {
+    if (action) {
+      action(row);
+    }
+  }
+
   private setMainCheckboxState(state: CheckBoxStates): void {
     this.mainCheckBoxState = state;
   }

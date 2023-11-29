@@ -166,6 +166,23 @@
                   row[column.tag.tooltipKey] || row[column.key]
                 "
               ></ion-tag>
+              <ion-link
+                *ngIf="column.type === 'link'"
+                [label]="row[column.key]"
+                [icon]="row[column.link.iconKey] || column.link.icon"
+                [iconSide]="column.link.iconSide"
+                [size]="column.link.size || 'sm'"
+                [bold]="column.link.bold"
+                [disabled]="row[column.link.disabledKey]"
+                [target]="row[column.link.targetKey]"
+                [link]="row[column.link.linkUrlKey]"
+                (ionOnClick)="
+                  handleLinkClick(
+                    row,
+                    row[column.link.actionKey] || column.link.action
+                  )
+                "
+              ></ion-link>
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">

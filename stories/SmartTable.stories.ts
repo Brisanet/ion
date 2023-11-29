@@ -78,6 +78,94 @@ const dataWithTag = [
   },
 ];
 
+const dataWithLink = [
+  {
+    id: 1,
+    name: 'Meteora',
+    deleted: false,
+    year: 2003,
+    link: 'Album Link',
+    icon: 'box',
+  },
+  {
+    id: 2,
+    name: 'One More Light',
+    deleted: false,
+    year: 2017,
+    link: 'One More Light',
+  },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    link: 'Hybrid Theory',
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    link: 'Minutes to Midnight',
+  },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+    link: 'A Thousand Suns',
+  },
+  {
+    id: 6,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+    link: 'Living Things',
+  },
+  {
+    id: 7,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+    link: 'The Hunting Party',
+  },
+  {
+    id: 8,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+    link: 'Hybrid Theory',
+  },
+  {
+    id: 9,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+    link: 'Minutes to Midnight',
+  },
+  {
+    id: 10,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+    link: 'A Thousand Suns',
+  },
+  {
+    id: 11,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+    link: 'Living Things',
+  },
+  {
+    id: 12,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+    link: 'The Hunting Party',
+  },
+];
+
 const columns = [
   {
     key: 'id',
@@ -185,6 +273,31 @@ const columnsWithMultipleText = [
     sort: true,
     width: 60,
     hideLongData: true,
+  },
+];
+
+const columnsWithLink = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Name',
+    sort: true,
+  },
+  {
+    key: 'link',
+    label: 'URL',
+    sort: true,
+    type: 'link',
+    link: {
+      icon: 'access2',
+      labelKey: 'label',
+      iconKey: 'icon',
+      bold: true,
+    },
   },
 ];
 
@@ -406,6 +519,17 @@ WithTooltipInActions.args = returnTableConfig(
   2,
   2000,
   [10, 15, 30, 50, 100]
+);
+
+export const WithLinkInCell = Template.bind({});
+WithLinkInCell.args = returnTableConfig(
+  dataWithLink,
+  columnsWithLink,
+  actions,
+  2,
+  2000,
+  [10, 15, 30, 50, 100],
+  false
 );
 
 export const DataWithPipe = Template.bind({});

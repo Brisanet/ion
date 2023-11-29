@@ -3,7 +3,13 @@ import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
 import { DatePipeStrategy } from '../../core/pipes/date.pipe';
 import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
 import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
-import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
+import {
+  ConfigSmartTable,
+  FontSize,
+  IconType,
+  StatusType,
+  TooltipProps,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TagStatus } from './../core/types/status';
 
@@ -18,6 +24,7 @@ export enum EventTable {
 export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
+  LINK = 'link',
 }
 
 interface TagRow {
@@ -26,6 +33,19 @@ interface TagRow {
   status?: TagStatus;
   statusKey?: string;
   tooltipKey?: string;
+}
+
+interface LinkRow {
+  icon?: IconType;
+  bold?: boolean;
+  size?: FontSize;
+  action?: (_: SafeAny) => void;
+  actionKey?: string;
+  labelKey?: string;
+  iconKey?: string;
+  disabledKey?: string;
+  targetKey?: string;
+  linkUrlKey?: string;
 }
 
 export interface PipeColumn {
@@ -39,6 +59,7 @@ export interface Column {
   sort?: boolean;
   type?: ColumnType;
   tag?: TagRow;
+  link?: LinkRow;
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;

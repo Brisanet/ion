@@ -20,6 +20,7 @@ import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
+import { IonLinkModule } from './../link/link.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
 import localePT from '@angular/common/locales/pt';
@@ -99,6 +100,7 @@ const sut = async (
       IonPopConfirmModule,
       IonTooltipModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -255,6 +257,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
@@ -277,6 +280,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     propsToChange.config.data = [];
@@ -995,6 +999,7 @@ const sutCustomRowTemplate = async (
       IonPopConfirmModule,
       IonTableModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };

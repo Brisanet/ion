@@ -175,6 +175,12 @@ export class IonSmartTableComponent
     });
   }
 
+  public handleLinkClick(row: SafeAny, action: (_: SafeAny) => void): void {
+    if (action) {
+      action(row);
+    }
+  }
+
   private setMainCheckboxState(state: CheckBoxStates): void {
     this.mainCheckBoxState = state;
   }
