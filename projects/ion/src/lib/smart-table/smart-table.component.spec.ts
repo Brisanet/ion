@@ -1415,3 +1415,67 @@ describe('Table > Cell with long data', () => {
     expect(screen.getByTestId('row-0-name')).toHaveClass('hidden-content');
   });
 });
+
+describe('Table > Link in cells', () => {
+  const linkClickAction = jest.fn();
+
+  const dataWithLink = [data[0]];
+
+  const columnsWithLink: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'url',
+      label: 'URL',
+      type: ColumnType.LINK,
+      link: {
+        action: linkClickAction,
+        label: () => 'link label',
+      },
+    },
+  ];
+
+  afterEach(() => {
+    linkClickAction.mockClear();
+  });
+
+  it('should render the link component', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.getByText('link label')).toBeVisible();
+  });
+
+  it('should call the action when clicking the link', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.click(screen.getByText('link label'));
+    expect(linkClickAction).toHaveBeenCalled();
+  });
+});

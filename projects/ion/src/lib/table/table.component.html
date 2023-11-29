@@ -133,8 +133,9 @@
                 [iconSide]="column.link.iconSide"
                 [size]="column.link.size || 'sm'"
                 [bold]="column.link.bold"
-                [disabled]="column.link.disabled(row)"
+                [disabled]="column.link.disabled && column.link.disabled(row)"
                 [target]="column.link.target"
+                [link]="column.link.url && column.link.url(row)"
                 (ionOnClick)="handleLinkClick(row, column.link.action)"
               ></ion-link>
             </td>

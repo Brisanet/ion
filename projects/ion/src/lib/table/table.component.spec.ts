@@ -1019,3 +1019,59 @@ describe('Table with custom row template', () => {
     ).toBeGreaterThan(0);
   });
 });
+
+describe('Table > Link in cells', () => {
+  const linkClickAction = jest.fn();
+
+  const dataWithLink: Disco[] = [
+    { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  ];
+
+  const columnsWithLink: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'url',
+      label: 'URL',
+      type: ColumnType.LINK,
+      link: {
+        action: linkClickAction,
+        label: () => 'link label',
+      },
+    },
+  ];
+
+  afterEach(() => {
+    linkClickAction.mockClear();
+  });
+
+  it('should render the link component', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+    expect(screen.getByText('link label')).toBeVisible();
+  });
+
+  it('should call the action when clicking the link', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+
+    fireEvent.click(screen.getByText('link label'));
+    expect(linkClickAction).toHaveBeenCalled();
+  });
+});
