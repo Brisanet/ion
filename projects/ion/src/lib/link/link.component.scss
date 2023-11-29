@@ -28,7 +28,7 @@
   align-items: center;
   gap: spacing(0.5);
   box-sizing: border-box;
-  max-width: min-content;
+  max-width: max-content;
   border-bottom: 1px solid transparent;
 
   ion-icon {
