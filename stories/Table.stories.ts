@@ -215,8 +215,8 @@ const columnsWithLink = [
     sort: true,
     type: 'link',
     link: {
+      label: (row): string => row.name,
       icon: 'access2',
-      labelKey: 'label',
       iconKey: 'icon',
       bold: true,
     },

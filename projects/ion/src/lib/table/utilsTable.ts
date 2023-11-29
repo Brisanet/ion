@@ -36,12 +36,12 @@ interface TagRow {
 }
 
 interface LinkRow {
+  label?: (_: SafeAny) => SafeAny;
   icon?: IconType;
   bold?: boolean;
   size?: FontSize;
   action?: (_: SafeAny) => void;
   actionKey?: string;
-  labelKey?: string;
   iconKey?: string;
   disabledKey?: string;
   targetKey?: string;

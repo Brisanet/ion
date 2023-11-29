@@ -1,3 +1,4 @@
+import { IonLinkModule } from './../link/link.module';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 
 import { IonButtonModule } from '../button/button.module';
@@ -138,6 +139,7 @@ const sut = async (
       PipesModule,
       IonTooltipModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };

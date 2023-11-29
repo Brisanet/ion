@@ -294,9 +294,9 @@ const columnsWithLink = [
     type: 'link',
     link: {
       icon: 'access2',
-      labelKey: 'label',
       iconKey: 'icon',
       bold: true,
+      label: (row): string => row.name,
     },
   },
 ];
