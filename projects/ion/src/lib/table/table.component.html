@@ -129,19 +129,13 @@
               <ion-link
                 *ngIf="column.type === 'link'"
                 [label]="column.link.label(row)"
-                [icon]="row[column.link.iconKey] || column.link.icon"
+                [icon]="column.link.icon"
                 [iconSide]="column.link.iconSide"
                 [size]="column.link.size || 'sm'"
                 [bold]="column.link.bold"
-                [disabled]="row[column.link.disabledKey]"
-                [target]="row[column.link.targetKey]"
-                [link]="row[column.link.linkUrlKey]"
-                (ionOnClick)="
-                  handleLinkClick(
-                    row,
-                    row[column.link.actionKey] || column.link.action
-                  )
-                "
+                [disabled]="column.link.disabled(row)"
+                [target]="column.link.target"
+                (ionOnClick)="handleLinkClick(row, column.link.action)"
               ></ion-link>
             </td>
             <td *ngIf="config.actions">

@@ -28,6 +28,7 @@
   box-sizing: border-box;
   max-width: max-content;
   border-bottom: 1px solid transparent;
+  cursor: pointer;
 
   @include colors($primary-5);
 

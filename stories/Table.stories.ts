@@ -219,6 +219,7 @@ const columnsWithLink = [
       icon: 'access2',
       iconKey: 'icon',
       bold: true,
+      disabled: (): boolean => false,
     },
   },
 ];

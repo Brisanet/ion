@@ -12,6 +12,7 @@ import {
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TagStatus } from './../core/types/status';
+import { LinkTarget } from './../core/types/link';
 
 export enum EventTable {
   SORT = 'sort',
@@ -36,16 +37,14 @@ interface TagRow {
 }
 
 interface LinkRow {
-  label?: (_: SafeAny) => SafeAny;
+  label?: (_: SafeAny) => string;
   icon?: IconType;
   bold?: boolean;
   size?: FontSize;
   action?: (_: SafeAny) => void;
-  actionKey?: string;
-  iconKey?: string;
-  disabledKey?: string;
-  targetKey?: string;
-  linkUrlKey?: string;
+  disabled?: (_: SafeAny) => boolean;
+  target?: LinkTarget;
+  url?: (_: SafeAny) => string;
 }
 
 export interface PipeColumn {
