@@ -15,7 +15,12 @@ jobs:
 
       - name: Update coverage on service
         run: |
+          npm install
+          npm run test:coverage
+
+          coverage=$(grep -oP "(?<=<span class=\"strong\">)[^<]+" coverage/lcov-report/index.html | tr -d '%')
+
           curl -X PUT \
             -H "Content-Type: application/json" \
-            -d '{"id": 1, "coverage": 88}' \
+            -d '{"id": 1, "coverage": '"$coverage"'}' \
             https://collect-coverage-brisanet.koyeb.app/systems
