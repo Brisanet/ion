@@ -41,6 +41,15 @@ jobs:
         with:
           coverageCommand: yarn test:coverage
 
+      - name: Update coverage on service
+        run: |
+          coverage=$(grep -oP "(?<=<span class=\"strong\">)[^<]+" coverage/lcov-report/index.html | tr -d '%')
+
+          curl -X PUT \
+            -H "Content-Type: application/json" \
+            -d '{"id": 1, "coverage": '"$coverage"'}' \
+            https://collect-coverage-brisanet.koyeb.app/systems
+
       - name: Run Prettier
         run: yarn prettier
 
