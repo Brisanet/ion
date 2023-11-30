@@ -39,7 +39,7 @@ interface TagRow {
 interface LinkRow {
   label?: (_: SafeAny) => string;
   icon?: IconType;
-  iconSide: IconSide;
+  iconSide?: IconSide;
   size?: FontSize;
   bold?: boolean;
   disabled?: (_: SafeAny) => boolean;
