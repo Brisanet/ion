@@ -4,14 +4,13 @@
     data-testid="ion-link"
     class="ion-link"
     [class.ion-link--left-icon]="iconSide === 'left'"
-    [class.ion-link--icon-only]="!label.length"
+    [class.ion-link--icon-only]="!label || label === ''"
     [attr.disabled]="disabled"
-    [target]="target"
     (click)="onClick()"
   >
     <span
       data-testid="ion-link-label"
-      *ngIf="label.length"
+      *ngIf="label.length > 0"
       [attr.class]="'ion-link__label ion-link__label--' + size"
       [class.ion-link__label--bold]="bold"
       >{{ label }}</span
@@ -29,7 +28,7 @@
     data-testid="ion-link"
     class="ion-link"
     [class.ion-link--left-icon]="iconSide === 'left'"
-    [class.ion-link--icon-only]="!label.length"
+    [class.ion-link--icon-only]="!label || label === ''"
     [attr.disabled]="disabled"
     [target]="target"
     [href]="link"
@@ -37,7 +36,7 @@
   >
     <span
       data-testid="ion-link-label"
-      *ngIf="label.length"
+      *ngIf="label.length > 0"
       [attr.class]="'ion-link__label ion-link__label--' + size"
       [class.ion-link__label--bold]="bold"
       >{{ label }}</span

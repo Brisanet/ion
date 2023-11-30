@@ -167,7 +167,7 @@
                 "
               ></ion-tag>
               <ion-link
-                *ngIf="column.type === 'link'"
+                *ngIf="column.type === 'link' && column.link"
                 [label]="column.link.label(row)"
                 [icon]="column.link.icon"
                 [iconSide]="column.link.iconSide"

@@ -36,16 +36,16 @@ interface TagRow {
   tooltipKey?: string;
 }
 
-interface LinkRow {
-  label?: (_: SafeAny) => string;
+interface LinkRow<T> {
+  label?: (_: T) => string;
   icon?: IconType;
   iconSide?: IconSide;
   size?: FontSize;
   bold?: boolean;
-  disabled?: (_: SafeAny) => boolean;
+  disabled?: (_: T) => boolean;
   target?: LinkTarget;
-  url?: (_: SafeAny) => string;
-  action?: (_: SafeAny) => void;
+  url?: (_: T) => string;
+  action?: (_: T) => void;
 }
 
 export interface PipeColumn {
@@ -53,13 +53,13 @@ export interface PipeColumn {
   format?: string;
 }
 
-export interface Column {
+export interface Column<T = SafeAny> {
   label: string;
   key: string;
   sort?: boolean;
   type?: ColumnType;
   tag?: TagRow;
-  link?: LinkRow;
+  link?: LinkRow<T>;
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
@@ -98,7 +98,7 @@ export interface PaginationConfig {
 
 export interface ConfigTable<T> {
   data: T[];
-  columns: Column[];
+  columns: Column<T>[];
   actions?: ActionTable[];
   check?: boolean;
   pagination?: PaginationConfig;
