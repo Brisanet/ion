@@ -1,0 +1,21 @@
+name: Update coverage on service
+
+on:
+  push:
+    branches:
+      - 965-report-coverage-to-collect-coverage-service
+
+jobs:
+  update-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Update coverage on service
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"id": 1, "coverage": 88}' \
+            https://collect-coverage-brisanet.koyeb.app/systems
