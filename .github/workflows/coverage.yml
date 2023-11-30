@@ -17,5 +17,5 @@ jobs:
         run: |
           curl -X POST \
             -H "Content-Type: application/json" \
-            -d '{"id": 1, "coverage": 88}' \
+            -d '{"id": "1", "coverage": "88"}' \
             https://collect-coverage-brisanet.koyeb.app/systems
