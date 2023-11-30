@@ -43,7 +43,7 @@ jobs:
 
       - name: Update coverage on service
         run: |
-          coverage=$(grep -oP "(?<=<span class=\"strong\">)[^<]+" coverage/lcov-report/index.html | tr -d '%')
+          coverage=$(grep -oP "(?<=<span class=\"strong\">)[0-9]+(\.[0-9]+)?" coverage/lcov-report/index.html | head -n 1)
 
           curl -X PUT \
             -H "Content-Type: application/json" \
