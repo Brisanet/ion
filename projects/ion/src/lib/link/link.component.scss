@@ -16,7 +16,12 @@
 }
 
 .link-container {
-  cursor: not-allowed;
+  display: flex;
+  max-width: max-content;
+
+  &--disabled {
+    cursor: not-allowed;
+  }
 }
 
 .ion-link {
@@ -26,7 +31,6 @@
   align-items: center;
   gap: spacing(0.5);
   box-sizing: border-box;
-  max-width: max-content;
   border-bottom: 1px solid transparent;
   cursor: pointer;
 
