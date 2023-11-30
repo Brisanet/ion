@@ -176,7 +176,7 @@
                 [disabled]="column.link.disabled && column.link.disabled(row)"
                 [target]="column.link.target"
                 [link]="column.link.url && column.link.url(row)"
-                (ionOnClick)="handleLinkClick(row, column.link.action)"
+                (ionOnClick)="column.link.action(row)"
               ></ion-link>
             </td>
             <td *ngIf="config.actions">
