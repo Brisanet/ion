@@ -15,7 +15,7 @@ jobs:
 
       - name: Update coverage on service
         run: |
-          curl -X POST \
+          curl -X PUT \
             -H "Content-Type: application/json" \
-            -d '{"id": "1", "coverage": "88"}' \
+            -d '{"id": 1, "coverage": 88}' \
             https://collect-coverage-brisanet.koyeb.app/systems
