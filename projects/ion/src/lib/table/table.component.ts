@@ -21,11 +21,11 @@ import { BaseTable, Column, ConfigTable } from './utilsTable';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class IonTableComponent<T>
-  extends BaseTable<T, ConfigTable<T>, TableEvent>
+export class IonTableComponent<RowType>
+  extends BaseTable<RowType, ConfigTable<RowType>, TableEvent>
   implements OnInit, OnChanges
 {
-  @Input() config: ConfigTable<T>;
+  @Input() config: ConfigTable<RowType>;
   @Output() events = new EventEmitter<TableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';

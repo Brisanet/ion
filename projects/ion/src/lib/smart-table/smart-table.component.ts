@@ -99,7 +99,7 @@ export class IonSmartTableComponent<T>
     this.firstLoad = false;
   }
 
-  public cellEvents(row: SafeAny, column: Column, cell: SafeAny): void {
+  public cellEvents(row: T, column: Column, cell: SafeAny): void {
     this.events.emit({
       event: EventTable.CELL_SELECT,
       change_page: this.pagination,

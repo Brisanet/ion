@@ -37,16 +37,16 @@ interface TagRow {
   tooltipKey?: string;
 }
 
-interface LinkRow<T> {
-  label?: (_: T) => string;
+interface LinkRow<RowType> {
+  label?: (_: RowType) => string;
   icon?: IconType;
   iconSide?: IconSide;
   size?: FontSize;
   bold?: boolean;
-  disabled?: (_: T) => boolean;
+  disabled?: (_: RowType) => boolean;
   target?: LinkTarget;
-  url?: (_: T) => string;
-  action?: (_: T) => void;
+  url?: (_: RowType) => string;
+  action?: (_: RowType) => void;
 }
 
 export interface PipeColumn {
@@ -54,13 +54,13 @@ export interface PipeColumn {
   format?: string;
 }
 
-export interface Column<T = SafeAny> {
+export interface Column<RowType = SafeAny> {
   label: string;
   key: string;
   sort?: boolean;
   type?: ColumnType;
   tag?: TagRow;
-  link?: LinkRow<T>;
+  link?: LinkRow<RowType>;
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
@@ -69,23 +69,23 @@ export interface Column<T = SafeAny> {
   hideLongData?: boolean;
 }
 
-export interface ActionConfirm {
+export interface ActionConfirm<RowType> {
   title: string;
   description?: string;
-  dynamicDescription?: (row: SafeAny) => string;
+  dynamicDescription?: (row: RowType) => string;
   type?: StatusType;
   confirmText?: string;
   cancelText?: string;
 }
 
-export interface ActionTable {
+export interface ActionTable<RowType> {
   label: string;
   icon: string;
-  disabled?: (row: SafeAny) => boolean;
+  disabled?: (row: RowType) => boolean;
   danger?: boolean;
-  show?: (row: SafeAny) => boolean;
-  call?: (row: SafeAny) => void;
-  confirm?: ActionConfirm;
+  show?: (row: RowType) => boolean;
+  call?: (row: RowType) => void;
+  confirm?: ActionConfirm<RowType>;
   tooltipConfig?: TooltipProps;
 }
 
@@ -97,10 +97,10 @@ export interface PaginationConfig {
   page?: number;
 }
 
-export interface ConfigTable<T> {
-  data: T[];
-  columns: Column<T>[];
-  actions?: ActionTable[];
+export interface ConfigTable<RowType> {
+  data: RowType[];
+  columns: Column<RowType>[];
+  actions?: ActionTable<RowType>[];
   check?: boolean;
   pagination?: PaginationConfig;
   loading?: boolean;
@@ -125,12 +125,12 @@ export interface BaseRow {
 }
 
 export abstract class BaseTable<
-  T extends BaseRow,
-  U extends ConfigTable<T>,
-  R
+  RowType extends BaseRow,
+  ConfigType extends ConfigTable<RowType>,
+  EventType
 > {
-  public config: U;
-  public events: EventEmitter<R>;
+  public config: ConfigType;
+  public events: EventEmitter<EventType>;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
 
   private disabledArrowColor = '#CED2DB';
@@ -155,7 +155,7 @@ export abstract class BaseTable<
     this.setMainCheckboxState('enabled');
   }
 
-  public checkRow(row: T): void {
+  public checkRow(row: RowType): void {
     row.selected = !row.selected;
 
     if (this.isAllRowsSelected()) {
@@ -182,8 +182,8 @@ export abstract class BaseTable<
     return this.getRowsSelected().length === this.config.data.length;
   }
 
-  public getRowsSelected(): T[] {
-    return this.config.data.filter((rowInData: T) => rowInData.selected);
+  public getRowsSelected(): RowType[] {
+    return this.config.data.filter((rowInData: RowType) => rowInData.selected);
   }
 
   public fillColor(column: Column, upArrow: boolean): string {
@@ -204,21 +204,21 @@ export abstract class BaseTable<
     return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
   }
 
-  public handleEvent(row: T, action: ActionTable): void {
+  public handleEvent(row: RowType, action: ActionTable<RowType>): void {
     if (action.call) {
       action.call(row);
     }
   }
 
-  public showAction(row: T, action: ActionTable): boolean {
+  public showAction(row: RowType, action: ActionTable<RowType>): boolean {
     return action.show(row);
   }
 
-  public disableAction(row: T, action: ActionTable): boolean {
+  public disableAction(row: RowType, action: ActionTable<RowType>): boolean {
     return action.disabled(row);
   }
 
-  public applyPipes(config: U): void {
+  public applyPipes(config: ConfigType): void {
     this.config = config;
     this.config.columns.forEach((column) => {
       if (column.pipe) {
