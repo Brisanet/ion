@@ -3,9 +3,16 @@ import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
 import { DatePipeStrategy } from '../../core/pipes/date.pipe';
 import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
 import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
-import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
+import {
+  ConfigSmartTable,
+  FontSize,
+  IconType,
+  StatusType,
+  TooltipProps,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TagStatus } from './../core/types/status';
+import { IconSide, LinkTarget } from './../core/types/link';
 
 export enum EventTable {
   SORT = 'sort',
@@ -18,6 +25,7 @@ export enum EventTable {
 export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
+  LINK = 'link',
 }
 
 interface TagRow {
@@ -28,17 +36,30 @@ interface TagRow {
   tooltipKey?: string;
 }
 
+interface LinkRow<T> {
+  label?: (_: T) => string;
+  icon?: IconType;
+  iconSide?: IconSide;
+  size?: FontSize;
+  bold?: boolean;
+  disabled?: (_: T) => boolean;
+  target?: LinkTarget;
+  url?: (_: T) => string;
+  action?: (_: T) => void;
+}
+
 export interface PipeColumn {
   apply: string;
   format?: string;
 }
 
-export interface Column {
+export interface Column<T = SafeAny> {
   label: string;
   key: string;
   sort?: boolean;
   type?: ColumnType;
   tag?: TagRow;
+  link?: LinkRow<T>;
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
@@ -77,7 +98,7 @@ export interface PaginationConfig {
 
 export interface ConfigTable<T> {
   data: T[];
-  columns: Column[];
+  columns: Column<T>[];
   actions?: ActionTable[];
   check?: boolean;
   pagination?: PaginationConfig;
