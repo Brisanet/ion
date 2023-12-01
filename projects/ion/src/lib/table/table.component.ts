@@ -14,37 +14,38 @@ import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
 import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
 import { SafeAny } from '../utils/safe-any';
-import { ActionTable, Column, ConfigTable, TableUtils } from './utilsTable';
-
-const stateChange = {
-  checked: 'enabled',
-  enabled: 'checked',
-};
+import { BaseTable, Column, ConfigTable } from './utilsTable';
 
 @Component({
   selector: 'ion-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class IonTableComponent implements OnInit, OnChanges {
-  @Input() config: ConfigTable<SafeAny>;
+export class IonTableComponent<T>
+  extends BaseTable<T, ConfigTable<T>, TableEvent>
+  implements OnInit, OnChanges
+{
+  @Input() config: ConfigTable<T>;
   @Output() events = new EventEmitter<TableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
-  private tableUtils: TableUtils;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnChanges(change: SimpleChanges): void {
     if (!change.config.firstChange && change.config.currentValue) {
       this.config.data = change.config.currentValue.data;
       this.smartData = this.config.data;
     }
+    if (change.config) {
+      this.applyPipes(this.config);
+    }
   }
 
   ngOnInit(): void {
-    this.tableUtils = new TableUtils(this.config);
     if (this.config.pagination) {
       const defaultItemsPerPage = 10;
 
@@ -67,43 +68,6 @@ export class IonTableComponent implements OnInit, OnChanges {
     this.smartData = this.config.data;
   }
 
-  public checkState(): void {
-    if (this.mainCheckBoxState === 'indeterminate') {
-      this.uncheckAllRows();
-
-      return;
-    }
-    this.toggleAllRows();
-  }
-
-  public uncheckAllRows(): void {
-    this.config.data.forEach((row) => (row.selected = false));
-    this.setMainCheckboxState('enabled');
-  }
-
-  public checkRow(row: SafeAny): void {
-    row.selected = !row.selected;
-
-    if (this.tableUtils.isAllRowsSelected()) {
-      this.setMainCheckboxState('checked');
-    } else if (this.tableUtils.hasRowSelected()) {
-      this.setMainCheckboxState('indeterminate');
-    } else {
-      this.setMainCheckboxState('enabled');
-    }
-
-    this.emitRowsSelected();
-  }
-
-  public toggleAllRows(): void {
-    this.selectAllLike(!this.tableUtils.hasRowSelected());
-    this.emitRowsSelected();
-  }
-
-  public fillColor(column: Column, upArrow: boolean): string {
-    return this.tableUtils.fillColor(column, upArrow);
-  }
-
   public sort(column: Column): void {
     this.config.data.sort((rowA, rowB) =>
       this.orderBy(column.desc, rowA, rowB, column.key)
@@ -124,20 +88,6 @@ export class IonTableComponent implements OnInit, OnChanges {
     }
   }
 
-  public handleEvent(row: SafeAny, action: ActionTable): void {
-    if (action.call) {
-      action.call(row);
-    }
-  }
-
-  public showAction(row: SafeAny, action: ActionTable): boolean {
-    return action.show(row);
-  }
-
-  public disableAction(row: SafeAny, action: ActionTable): boolean {
-    return action.disabled(row);
-  }
-
   public paginationEvents(event: PageEvent): void {
     this.smartData = this.config.data.slice(
       event.offset,
@@ -148,22 +98,10 @@ export class IonTableComponent implements OnInit, OnChanges {
     this.cdr.detectChanges();
   }
 
-  private setMainCheckboxState(state: CheckBoxStates): void {
-    this.mainCheckBoxState = state;
-  }
-
-  private emitRowsSelected(): void {
+  public emitRowsSelected(): void {
     this.events.emit({
-      rows_selected: this.tableUtils.getRowsSelected(),
+      rows_selected: this.getRowsSelected(),
     });
-  }
-
-  private selectAllLike(selected: boolean): void {
-    this.config.data.forEach((row) => {
-      row.selected = selected;
-    });
-
-    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
   }
 
   private orderDesc(itemA, itemB): number {
