@@ -76,32 +76,99 @@ const data = [
     name: 'Minutes to Midnight',
     deleted: false,
     year: 2007,
-    icon: 'union',
-    status: 'info',
   },
   {
     id: 10,
     name: 'A Thousand Suns',
     deleted: false,
     year: 2010,
-    icon: 'union',
-    status: 'info',
   },
   {
     id: 11,
     name: 'Living Things',
     deleted: false,
     year: 2012,
-    icon: 'union',
-    status: 'info',
   },
   {
     id: 12,
     name: 'The Hunting Party',
     deleted: false,
     year: 2014,
-    icon: 'union',
-    status: 'info',
+  },
+];
+
+const dataWithLink = [
+  {
+    id: 1,
+    name: 'Meteora',
+    deleted: false,
+    year: 2003,
+  },
+  {
+    id: 2,
+    name: 'One More Light',
+    deleted: false,
+    year: 2017,
+  },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+  },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+  },
+  {
+    id: 6,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+  },
+  {
+    id: 7,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+  },
+  {
+    id: 8,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+  },
+  {
+    id: 9,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+  },
+  {
+    id: 10,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+  },
+  {
+    id: 11,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+  },
+  {
+    id: 12,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
   },
 ];
 
@@ -115,6 +182,32 @@ const columns = [
     key: 'name',
     label: 'Name',
     sort: true,
+  },
+];
+
+const columnsWithLink = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Name',
+    sort: true,
+  },
+  {
+    key: 'link',
+    label: 'URL',
+    sort: true,
+    type: 'link',
+    link: {
+      label: (row): string => row.name,
+      icon: 'access2',
+      iconKey: 'icon',
+      bold: true,
+      disabled: (): boolean => false,
+    },
   },
 ];
 
@@ -395,5 +488,13 @@ TableCustomRow.parameters = {
     }
       `,
     },
+  },
+};
+
+export const TableWithLinkInCell = Template.bind({});
+TableWithLinkInCell.args = {
+  config: {
+    data: dataWithLink,
+    columns: columnsWithLink,
   },
 };
