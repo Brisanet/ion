@@ -14,7 +14,8 @@ import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
 import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
 import { SafeAny } from '../utils/safe-any';
-import { BaseTable, Column, ConfigTable } from './utilsTable';
+import { Column, ConfigTable } from './utilsTable';
+import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-table',
