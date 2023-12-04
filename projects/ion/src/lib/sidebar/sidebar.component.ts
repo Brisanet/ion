@@ -58,4 +58,14 @@ export class IonSidebarComponent {
     unselectAllItems(this.items);
     callItemAction(this.items, groupIndex);
   }
+
+  public handleLogoClick(): void {
+    if (this.logoAction) {
+      this.logoAction();
+    }
+
+    if (this.closeOnSelect) {
+      this.toggleSidebarVisibility();
+    }
+  }
 }
