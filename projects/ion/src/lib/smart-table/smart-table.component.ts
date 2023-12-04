@@ -26,11 +26,11 @@ import { BaseTable } from '../utils/baseTable';
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartTableComponent<T>
-  extends BaseTable<T, ConfigSmartTable<T>, SmartTableEvent>
+export class IonSmartTableComponent<RowType>
+  extends BaseTable<RowType, ConfigSmartTable<RowType>, SmartTableEvent>
   implements OnInit, AfterViewChecked, OnChanges
 {
-  @Input() config: ConfigSmartTable<T>;
+  @Input() config: ConfigSmartTable<RowType>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
@@ -100,7 +100,7 @@ export class IonSmartTableComponent<T>
     this.firstLoad = false;
   }
 
-  public cellEvents(row: T, column: Column, cell: SafeAny): void {
+  public cellEvents(row: RowType, column: Column, cell: SafeAny): void {
     this.events.emit({
       event: EventTable.CELL_SELECT,
       change_page: this.pagination,
