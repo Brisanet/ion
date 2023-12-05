@@ -4,13 +4,16 @@ import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
 import { DatePipeStrategy } from '../../core/pipes/date.pipe';
 import { PipeStrategy, PipeApplicator } from '../../core/pipes/pipe-strategy';
 import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
-import { CheckBoxStates, PageEvent } from '../core/types';
+import {
+  CheckBoxEvent,
+  CheckBoxStates,
+  PageEvent,
+  StateChange,
+} from '../core/types';
 import { BaseRow, ConfigTable, Column, ActionTable } from '../table/utilsTable';
 
-const stateChange = {
-  checked: 'enabled',
-  enabled: 'checked',
-};
+const DISABLED_COLOR = '#CED2DB';
+const ENABLED_COLOR = '#0858CE';
 
 export abstract class BaseTable<
   RowType extends BaseRow,
@@ -21,9 +24,6 @@ export abstract class BaseTable<
   public events: EventEmitter<EventType>;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
 
-  private disabledArrowColor = '#CED2DB';
-  private enabledArrowColor = '#0858CE';
-
   public abstract sort(column: Column): void;
 
   public abstract paginationEvents(event: PageEvent): void;
@@ -31,7 +31,7 @@ export abstract class BaseTable<
   public abstract emitRowsSelected(): void;
 
   public checkState(): void {
-    if (this.mainCheckBoxState === 'indeterminate') {
+    if (this.mainCheckBoxState === CheckBoxEvent.indeterminate) {
       this.uncheckAllRows();
       return;
     }
@@ -46,13 +46,7 @@ export abstract class BaseTable<
   public checkRow(row: RowType): void {
     row.selected = !row.selected;
 
-    if (this.isAllRowsSelected()) {
-      this.setMainCheckboxState('checked');
-    } else if (this.hasRowSelected()) {
-      this.setMainCheckboxState('indeterminate');
-    } else {
-      this.setMainCheckboxState('enabled');
-    }
+    this.updateMainCheckboxState();
 
     this.emitRowsSelected();
   }
@@ -76,7 +70,7 @@ export abstract class BaseTable<
 
   public fillColor(column: Column, upArrow: boolean): string {
     if (column.desc === null || column.desc === undefined) {
-      return this.disabledArrowColor;
+      return DISABLED_COLOR;
     }
 
     return upArrow
@@ -85,11 +79,11 @@ export abstract class BaseTable<
   }
 
   public fillColorArrowUp(column: Column): string {
-    return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
+    return column.desc ? DISABLED_COLOR : ENABLED_COLOR;
   }
 
   public fillColorArrowDown(column: Column): string {
-    return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
+    return column.desc ? ENABLED_COLOR : DISABLED_COLOR;
   }
 
   public handleEvent(row: RowType, action: ActionTable<RowType>): void {
@@ -124,6 +118,20 @@ export abstract class BaseTable<
     });
   }
 
+  private updateMainCheckboxState(): void {
+    if (this.isAllRowsSelected()) {
+      this.setMainCheckboxState('checked');
+      return;
+    }
+
+    if (this.hasRowSelected()) {
+      this.setMainCheckboxState('indeterminate');
+      return;
+    }
+
+    this.setMainCheckboxState('enabled');
+  }
+
   private getPipeStrategy(pipeType: string): PipeStrategy {
     switch (pipeType) {
       case 'date':
@@ -153,6 +161,8 @@ export abstract class BaseTable<
       row.selected = selected;
     });
 
-    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
+    this.setMainCheckboxState(
+      StateChange[this.mainCheckBoxState] as CheckBoxStates
+    );
   }
 }
