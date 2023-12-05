@@ -78,6 +78,81 @@ const dataWithTag = [
   },
 ];
 
+const dataWithLink = [
+  {
+    id: 1,
+    name: 'Meteora',
+    deleted: false,
+    year: 2003,
+  },
+  {
+    id: 2,
+    name: 'One More Light',
+    deleted: false,
+    year: 2017,
+  },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+  },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+  },
+  {
+    id: 6,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+  },
+  {
+    id: 7,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+  },
+  {
+    id: 8,
+    name: 'Hybrid Theory',
+    deleted: true,
+    year: 2000,
+  },
+  {
+    id: 9,
+    name: 'Minutes to Midnight',
+    deleted: false,
+    year: 2007,
+  },
+  {
+    id: 10,
+    name: 'A Thousand Suns',
+    deleted: false,
+    year: 2010,
+  },
+  {
+    id: 11,
+    name: 'Living Things',
+    deleted: false,
+    year: 2012,
+  },
+  {
+    id: 12,
+    name: 'The Hunting Party',
+    deleted: false,
+    year: 2014,
+  },
+];
+
 const columns = [
   {
     key: 'id',
@@ -185,6 +260,30 @@ const columnsWithMultipleText = [
     sort: true,
     width: 60,
     hideLongData: true,
+  },
+];
+
+const columnsWithLink = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Name',
+    sort: true,
+  },
+  {
+    key: 'link',
+    label: 'URL',
+    sort: true,
+    type: 'link',
+    link: {
+      icon: 'access2',
+      bold: true,
+      label: (row): string => row.name,
+    },
   },
 ];
 
@@ -406,6 +505,17 @@ WithTooltipInActions.args = returnTableConfig(
   2,
   2000,
   [10, 15, 30, 50, 100]
+);
+
+export const WithLinkInCell = Template.bind({});
+WithLinkInCell.args = returnTableConfig(
+  dataWithLink,
+  columnsWithLink,
+  actions,
+  2,
+  2000,
+  [10, 15, 30, 50, 100],
+  false
 );
 
 export const DataWithPipe = Template.bind({});
