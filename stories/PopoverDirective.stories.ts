@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular/types-6-0';
-import { PopoverPosition } from '../projects/ion/src/lib/core/types/popover';
+import {
+  PopoverPosition,
+  PopoverTrigger,
+} from '../projects/ion/src/lib/core/types/popover';
 
 import {
   IonPopoverModule,
@@ -26,6 +29,7 @@ DirectiveWithActions.args = {
   ionPopoverIconClose: true,
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
   ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverTrigger: PopoverTrigger.DEFAULT,
 };
 
 export default {

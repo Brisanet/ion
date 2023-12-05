@@ -1,18 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Meta, Story } from '@storybook/angular/types-6-0';
-import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
-import { IonSharedModule } from '../projects/ion/src/public-api';
-import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
-import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
 import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story } from '@storybook/angular/types-6-0';
+
+import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
 import {
   PopoverPosition,
   PopoverProps,
+  PopoverTrigger,
 } from '../projects/ion/src/lib/core/types/popover';
-import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
+import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
 import { bodyMockComponent } from '../projects/ion/src/lib/popover/mock/body-mock.component';
-import { IonTooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
+import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
 import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
+import { IonSharedModule } from '../projects/ion/src/public-api';
+import { IonTooltipModule } from './../projects/ion/src/lib/tooltip/tooltip.module';
 
 const TemplateComponente: Story = (args) => ({
   props: args,
@@ -171,6 +173,7 @@ export default {
     },
   },
 } as Meta;
+
 const Template: Story = (args) => ({
   props: args,
   template: `
@@ -192,6 +195,7 @@ const Template: Story = (args) => ({
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
+        ionPopoverTrigger="${args.ionPopoverTrigger}"
         [ionPopoverActions]="null"
         label="click me"
       >
@@ -211,6 +215,18 @@ Directive.args = {
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
   ionPopoverCustomClass: 'popover-custom-class',
+  ionPopoverTrigger: PopoverTrigger.DEFAULT,
+} as PopoverProps;
+
+export const DirectiveWithTriggerHover = Template.bind({});
+DirectiveWithTriggerHover.args = {
+  ionPopoverTitle: 'Título do popover',
+  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverIconClose: false,
+  ionPopoverIcon: 'historic',
+  ionPopoverIconColor: '#282b33',
+  ionPopoverCustomClass: 'popover-custom-class',
+  ionPopoverTrigger: PopoverTrigger.HOVER,
 } as PopoverProps;
 
 const TemplateOpen: Story = (args) => ({

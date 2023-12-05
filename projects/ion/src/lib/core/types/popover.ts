@@ -21,6 +21,12 @@ export interface PopoverButtonsProps extends IonButtonProps {
   keepOpenAfterAction?: boolean;
 }
 
+export enum PopoverTrigger {
+  CLICK = 'click',
+  HOVER = 'hover',
+  DEFAULT = 'click',
+}
+
 export interface PopoverProps {
   ionPopoverTitle: string;
   ionPopoverBody: TemplateRef<void>;
@@ -31,4 +37,5 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
+  ionPopoverTrigger?: PopoverTrigger;
 }
