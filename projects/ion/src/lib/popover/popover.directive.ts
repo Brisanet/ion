@@ -15,7 +15,6 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { pick } from 'lodash';
 
 import { IconType } from '../core/types';
 import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
