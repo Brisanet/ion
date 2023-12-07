@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-
-import { PopoverPosition, PopoverTrigger } from '../../core/types/popover';
+import { PopoverPosition } from '../../core/types/popover';
 
 @Component({
   template: `
@@ -20,7 +19,6 @@ import { PopoverPosition, PopoverTrigger } from '../../core/types/popover';
         [ionPopoverIconClose]="args.ionPopoverIconClose"
         [ionPopoverPosition]="args.ionPopoverPosition"
         [ionPopoverActions]="args.ionPopoverActions"
-        [ionPopoverTrigger]="args.ionPopoverTrigger"
         label="click me"
       >
       </ion-button>
@@ -36,6 +34,5 @@ export class OpenPopoverComponent {
     ionPopoverPosition: PopoverPosition.DEFAULT,
     ionPopoverIconClose: true,
     ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
-    ionPopoverTrigger: PopoverTrigger.DEFAULT,
   };
 }

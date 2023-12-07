@@ -17,11 +17,7 @@ import {
 import { pick } from 'lodash';
 
 import { IconType } from '../core/types';
-import {
-  PopoverButtonsProps,
-  PopoverPosition,
-  PopoverTrigger,
-} from '../core/types/popover';
+import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
 import { getPositionsPopover } from './utilsPopover';
@@ -38,7 +34,6 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
   @Input() ionPopoverCustomClass?: string;
-  @Input() ionPopoverTrigger: PopoverTrigger = PopoverTrigger.DEFAULT;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -104,10 +99,6 @@ export class IonPopoverDirective implements OnDestroy {
     });
   }
 
-  isPopoverTrigger(trigger: PopoverTrigger): boolean {
-    return this.ionPopoverTrigger === trigger;
-  }
-
   handlePopoverAction(index: number): void {
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
     if (!action || !action.keepOpenAfterAction) {
@@ -162,24 +153,10 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick(): void {
-    this.handlePopoverEvent(PopoverTrigger.CLICK);
-  }
-
-  @HostListener('mouseenter') onMouseEnter(): void {
-    this.handlePopoverEvent(PopoverTrigger.HOVER);
-  }
-
-  @HostListener('mouseleave') onMouseLeave(): void {
-    if (this.isPopoverTrigger(PopoverTrigger.HOVER)) {
-      this.destroyComponent();
-    }
-  }
-
-  handlePopoverEvent(trigger: PopoverTrigger): void {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
     const position = hostElement.getBoundingClientRect();
 
-    if (this.isPopoverTrigger(trigger) && this.elementIsEnabled(hostElement)) {
+    if (this.elementIsEnabled(hostElement)) {
       this.open(position);
     }
   }
