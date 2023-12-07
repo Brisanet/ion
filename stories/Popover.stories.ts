@@ -192,8 +192,9 @@ const Template: Story = (args) => ({
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
+        [ionPopoverArrowPointAtCenter]="true"
         [ionPopoverActions]="null"
-        label="click me"
+        label="-"
       >
       </ion-button>
       <ng-template #BodyTemplate>
@@ -206,7 +207,7 @@ const Template: Story = (args) => ({
 export const Directive = Template.bind({});
 Directive.args = {
   ionPopoverTitle: 'Título do popover',
-  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverPosition: PopoverPosition.RIGHT_BOTTOM,
   ionPopoverIconClose: false,
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',

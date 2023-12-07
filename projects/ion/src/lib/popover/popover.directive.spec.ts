@@ -22,7 +22,14 @@ import { IonPopoverModule } from './popover.module';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
-const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
+const elementPosition = {
+  left: 0,
+  right: 12,
+  top: 0,
+  bottom: 0,
+  width: 0,
+  height: 0,
+} as DOMRect;
 
 const firstAction = jest.fn();
 const secondAction = jest.fn();
@@ -271,7 +278,7 @@ describe('Popover host tests', () => {
   });
 
   afterEach(() => {
-    directive && directive.closePopover();
+    directive && directive.destroyComponent();
   });
 
   it('should open the popover when clicked', () => {
@@ -294,10 +301,10 @@ describe('Popover host tests', () => {
   it.each(['icon-close', 'action-1', 'action-2'])(
     'should close popover when click in %s',
     (IonPopoverButton) => {
-      jest.spyOn(IonPopoverDirective.prototype, 'closePopover');
+      jest.spyOn(IonPopoverDirective.prototype, 'destroyComponent');
       fireEvent.click(screen.getByText(textButton));
       fireEvent.click(screen.getByTestId(`popover-${IonPopoverButton}`));
-      expect(directive.closePopover).toHaveBeenCalled();
+      expect(directive.destroyComponent).toHaveBeenCalled();
     }
   );
 
@@ -338,7 +345,7 @@ describe('Popover disabled host component', () => {
   });
 
   afterEach(() => {
-    directive && directive.closePopover();
+    directive && directive.destroyComponent();
   });
 
   it('should not open popover when the button is disabled', () => {

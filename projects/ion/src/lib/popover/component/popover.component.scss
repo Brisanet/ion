@@ -1,13 +1,17 @@
 @import '../../../styles/index.scss';
 
-$popover-spacing: spacing(1.5);
-$arrow-size: 4.5px;
+$popover-spacing: 14px;
+$popover-width: 299px;
+
+$arrow-width: 13px;
+$arrow-heigth: 13px;
+$arrow-visible-diagonal: 18px;
+$arrow-spacing-to-popover: calc($arrow-visible-diagonal / 2);
+$arrow-distance-to-border: 16px;
 
 @mixin sup-container($background, $arrowPosition, $left, $rotate, $position) {
-  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
-  background: #fff;
   display: inline-block;
-  width: 299px;
+  width: $popover-width;
   justify-content: flex-end;
   border-radius: spacing(1);
   position: relative;
@@ -16,8 +20,8 @@ $arrow-size: 4.5px;
     &::before {
       content: '';
       display: block;
-      width: 13px;
-      height: 13px;
+      width: $arrow-width;
+      height: $arrow-heigth;
       position: absolute;
       box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
       background-color: $background;
@@ -31,8 +35,8 @@ $arrow-size: 4.5px;
     &::after {
       content: '';
       display: block;
-      width: 13px;
-      height: 13px;
+      width: $arrow-width;
+      height: $arrow-heigth;
       position: absolute;
       box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
       background-color: $background;
@@ -46,75 +50,124 @@ $arrow-size: 4.5px;
 .ion-popover {
   &__sup-container {
     &--leftTop {
-      transform: translate(
-        calc(-100% - $popover-spacing),
-        calc(-100% + calc($popover-spacing + $arrow-size))
+      padding-right: $popover-spacing;
+      @include sup-container(
+        #fff,
+        $arrow-distance-to-border,
+        calc($popover-width - $arrow-width / 2),
+        135deg,
+        'footer'
       );
-      @include sup-container(#fff, 14px, 293px, 135deg, 'footer');
     }
 
     &--topLeft {
-      transform: translate(
-        calc(-100% + ($arrow-size * 2)),
-        calc(-100% - $popover-spacing - $arrow-size)
+      padding-bottom: $popover-spacing;
+      @include sup-container(
+        #fff,
+        $arrow-spacing-to-popover,
+        calc(
+          $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
+        ),
+        -135deg,
+        'footer'
       );
-      @include sup-container(#fff, -6px, 267px, -135deg, 'footer');
     }
 
     &--topCenter {
-      transform: translate(-50%, calc(-100% - $popover-spacing - $arrow-size));
-      @include sup-container(#fff, -6px, 143px, -135deg, 'footer');
+      padding-bottom: $popover-spacing;
+      @include sup-container(
+        #fff,
+        $arrow-spacing-to-popover,
+        calc($popover-width / 2) - $arrow-width / 2,
+        -135deg,
+        'footer'
+      );
     }
 
     &--topRight {
-      transform: translate(
-        ($arrow-size * -2),
-        calc(-100% - $popover-spacing - $arrow-size)
+      padding-bottom: $popover-spacing;
+      @include sup-container(
+        #fff,
+        $arrow-spacing-to-popover,
+        $arrow-distance-to-border,
+        -135deg,
+        'footer'
       );
-      @include sup-container(#fff, -6px, 16px, -135deg, 'footer');
     }
 
     &--rightTop {
-      transform: translateY(calc(-100% + calc($popover-spacing + $arrow-size)));
-      margin-left: $popover-spacing;
-      @include sup-container(#fff, 14px, -6px, -45deg, 'footer');
+      padding-left: $popover-spacing;
+      @include sup-container(
+        #fff,
+        $arrow-distance-to-border,
+        $arrow-spacing-to-popover,
+        -45deg,
+        'footer'
+      );
     }
 
     &--leftBottom {
-      transform: translate(
-        calc(-100% - $popover-spacing),
-        -($popover-spacing + $arrow-size) * 2
+      padding-right: $popover-spacing;
+      @include sup-container(
+        $neutral-2,
+        $arrow-distance-to-border,
+        calc($popover-width - $arrow-width / 2),
+        135deg,
+        'header'
       );
-      @include sup-container($neutral-2, 14px, 293px, 135deg, 'header');
     }
 
     &--bottomLeft {
-      transform: translate(
-        calc(-100% + $arrow-size * 2),
-        $popover-spacing + $arrow-size
+      padding-top: $popover-spacing;
+      @include sup-container(
+        $neutral-2,
+        $arrow-spacing-to-popover,
+        calc(
+          $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
+        ),
+        45deg,
+        'header'
       );
-      @include sup-container($neutral-2, -6px, 267px, 45deg, 'header');
     }
 
     &--bottomCenter {
-      transform: translate(-50%, $popover-spacing + $arrow-size);
-      @include sup-container($neutral-2, -6px, 143px, 45deg, 'header');
+      padding-top: $popover-spacing;
+      @include sup-container(
+        $neutral-2,
+        $arrow-spacing-to-popover,
+        calc($popover-width / 2) - $arrow-width / 2,
+        45deg,
+        'header'
+      );
     }
 
     &--bottomRight {
-      transform: translate($arrow-size * -2, $popover-spacing + $arrow-size);
-      @include sup-container($neutral-2, -6px, 16px, 45deg, 'header');
+      padding-top: $popover-spacing;
+      @include sup-container(
+        $neutral-2,
+        $arrow-spacing-to-popover,
+        $arrow-distance-to-border,
+        45deg,
+        'header'
+      );
     }
 
     &--rightBottom {
-      transform: translateY(-($popover-spacing + $arrow-size));
-      margin-left: $popover-spacing;
-      @include sup-container($neutral-2, 14px, -6px, -45deg, 'header');
+      padding-left: $popover-spacing;
+      @include sup-container(
+        $neutral-2,
+        $arrow-distance-to-border,
+        $arrow-spacing-to-popover,
+        -45deg,
+        'header'
+      );
     }
   }
 
-  .container {
+  &__container {
     z-index: $zIndexLow;
+    border-radius: spacing(1);
+    box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
   }
 
   &__header {
@@ -153,6 +206,8 @@ $arrow-size: 4.5px;
   &__content-body {
     padding: spacing(2);
     font-family: 'Source Sans Pro';
+    background-color: #fff;
+    border-radius: 0 0 spacing(1) spacing(1);
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -187,4 +242,8 @@ $arrow-size: 4.5px;
     padding: spacing(1) spacing(2) spacing(2) spacing(2);
     justify-content: flex-end;
   }
+}
+
+::ng-deep body {
+  background-color: black;
 }
