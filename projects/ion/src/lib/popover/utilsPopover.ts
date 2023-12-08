@@ -6,7 +6,7 @@ export type PopoverPositions = {
 
 const distanciaDaFlechaAteABorda = 16;
 const arrowVisibleDiagonal = 18;
-const naoSeiOQueEhIsso = 3;
+const arrowMargin = 3;
 
 export function getPositionsPopover(
   host: DOMRect,
@@ -25,7 +25,7 @@ export function getPositionsPopover(
           popoverWidth +
           arrowVisibleDiagonal / 2 +
           distanciaDaFlechaAteABorda +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.right - popoverWidth,
       top: host.top - popoverHeight,
     },
@@ -38,7 +38,7 @@ export function getPositionsPopover(
         ? hostHorizontalCenter -
           distanciaDaFlechaAteABorda -
           arrowVisibleDiagonal / 2 +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.left,
       top: host.top - popoverHeight,
     },
@@ -48,7 +48,7 @@ export function getPositionsPopover(
           popoverWidth +
           arrowVisibleDiagonal / 2 +
           distanciaDaFlechaAteABorda +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.right - popoverWidth,
       top: host.bottom,
     },
@@ -61,7 +61,7 @@ export function getPositionsPopover(
         ? hostHorizontalCenter -
           distanciaDaFlechaAteABorda -
           arrowVisibleDiagonal / 2 +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.left,
       top: host.bottom,
     },
@@ -72,7 +72,7 @@ export function getPositionsPopover(
           popoverHeight +
           distanciaDaFlechaAteABorda +
           arrowVisibleDiagonal / 2 -
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.bottom - popoverHeight,
     },
     rightTop: {
@@ -82,7 +82,7 @@ export function getPositionsPopover(
           popoverHeight +
           distanciaDaFlechaAteABorda +
           arrowVisibleDiagonal / 2 -
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.bottom - popoverHeight,
     },
     leftBottom: {
@@ -91,7 +91,7 @@ export function getPositionsPopover(
         ? hostVerticalCenter -
           distanciaDaFlechaAteABorda -
           arrowVisibleDiagonal / 2 +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.top,
     },
     rightBottom: {
@@ -100,7 +100,7 @@ export function getPositionsPopover(
         ? hostVerticalCenter -
           distanciaDaFlechaAteABorda -
           arrowVisibleDiagonal / 2 +
-          naoSeiOQueEhIsso
+          arrowMargin
         : host.top,
     },
   };
