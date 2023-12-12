@@ -48,20 +48,17 @@ $arrow-distance-to-border: 16px;
 }
 
 .ion-popover {
-  &__sup-container {
-    &--leftTop {
-      padding-right: $popover-spacing;
-      @include sup-container(
-        #fff,
-        $arrow-distance-to-border,
-        calc($popover-width - $arrow-width / 2),
-        135deg,
-        'footer'
-      );
-    }
+  opacity: 0;
 
+  &--visible {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  &__sup-container {
     &--topLeft {
       padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
       @include sup-container(
         #fff,
         $arrow-spacing-to-popover,
@@ -75,10 +72,11 @@ $arrow-distance-to-border: 16px;
 
     &--topCenter {
       padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
       @include sup-container(
         #fff,
         $arrow-spacing-to-popover,
-        calc($popover-width / 2) - $arrow-width / 2,
+        calc($popover-width / 2 - $arrow-width / 2),
         -135deg,
         'footer'
       );
@@ -86,6 +84,7 @@ $arrow-distance-to-border: 16px;
 
     &--topRight {
       padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
       @include sup-container(
         #fff,
         $arrow-spacing-to-popover,
@@ -95,13 +94,26 @@ $arrow-distance-to-border: 16px;
       );
     }
 
-    &--rightTop {
-      padding-left: $popover-spacing;
+    &--leftTop {
+      padding-right: $popover-spacing;
+      transform: translateY(-100%);
       @include sup-container(
         #fff,
         $arrow-distance-to-border,
-        $arrow-spacing-to-popover,
-        -45deg,
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
+        135deg,
+        'footer'
+      );
+    }
+
+    &--leftCenter {
+      padding-right: $popover-spacing;
+      transform: translateY(-50%);
+      @include sup-container(
+        #fff,
+        calc(50% - $arrow-heigth / 2),
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
+        135deg,
         'footer'
       );
     }
@@ -111,7 +123,7 @@ $arrow-distance-to-border: 16px;
       @include sup-container(
         $neutral-2,
         $arrow-distance-to-border,
-        calc($popover-width - $arrow-width / 2),
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
         'header'
       );
@@ -135,7 +147,7 @@ $arrow-distance-to-border: 16px;
       @include sup-container(
         $neutral-2,
         $arrow-spacing-to-popover,
-        calc($popover-width / 2) - $arrow-width / 2,
+        calc($popover-width / 2 - $arrow-width / 2),
         45deg,
         'header'
       );
@@ -149,6 +161,30 @@ $arrow-distance-to-border: 16px;
         $arrow-distance-to-border,
         45deg,
         'header'
+      );
+    }
+
+    &--rightTop {
+      padding-left: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        #fff,
+        $arrow-distance-to-border,
+        $arrow-spacing-to-popover,
+        -45deg,
+        'footer'
+      );
+    }
+
+    &--rightCenter {
+      padding-left: $popover-spacing;
+      transform: translateY(-50%);
+      @include sup-container(
+        #fff,
+        calc(50% - $arrow-heigth / 2),
+        $arrow-spacing-to-popover,
+        -45deg,
+        'footer'
       );
     }
 
@@ -168,6 +204,7 @@ $arrow-distance-to-border: 16px;
     z-index: $zIndexLow;
     border-radius: spacing(1);
     box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
+    background-color: #fff;
   }
 
   &__header {
@@ -242,8 +279,4 @@ $arrow-distance-to-border: 16px;
     padding: spacing(1) spacing(2) spacing(2) spacing(2);
     justify-content: flex-end;
   }
-}
-
-::ng-deep body {
-  background-color: black;
 }

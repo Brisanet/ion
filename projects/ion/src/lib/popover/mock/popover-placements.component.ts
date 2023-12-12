@@ -43,7 +43,15 @@ import { PopoverPosition } from '../../core/types/popover';
           ionPopoverPosition="${PopoverPosition.LEFT_TOP}"
         >
         </ion-button>
-        <br />
+        <ion-button
+          label="LC"
+          type="secondary"
+          ionPopover
+          ionPopoverTitle="Popover Title"
+          [ionPopoverBody]="contentTemplate"
+          ionPopoverPosition="${PopoverPosition.LEFT_CENTER}"
+        >
+        </ion-button>
         <ion-button
           label="LB"
           type="secondary"
@@ -65,7 +73,15 @@ import { PopoverPosition } from '../../core/types/popover';
           ionPopoverPosition="${PopoverPosition.RIGHT_TOP}"
         >
         </ion-button>
-        <br />
+        <ion-button
+          label="RC"
+          type="secondary"
+          ionPopover
+          ionPopoverTitle="Popover Title"
+          [ionPopoverBody]="contentTemplate"
+          ionPopoverPosition="${PopoverPosition.RIGHT_CENTER}"
+        >
+        </ion-button>
         <ion-button
           label="RB"
           type="secondary"

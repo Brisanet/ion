@@ -282,7 +282,7 @@ describe('Popover host tests', () => {
   });
 
   it('should open the popover when clicked', () => {
-    directive.open(elementPosition);
+    directive.open();
     expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
   });
 
@@ -294,7 +294,7 @@ describe('Popover host tests', () => {
   });
 
   it('should create element with the directive', () => {
-    directive.open(elementPosition);
+    directive.open();
     expect(screen.getByText(textButton)).toHaveAttribute('ionpopover', '');
   });
 
@@ -309,8 +309,8 @@ describe('Popover host tests', () => {
   );
 
   it('should not open a new popover when a popover is already opened', () => {
-    directive.open(elementPosition);
-    directive.open(elementPosition);
+    directive.open();
+    directive.open();
     expect(screen.queryAllByTestId('ion-popover')).toHaveLength(1);
   });
 });

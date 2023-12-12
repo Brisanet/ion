@@ -16,7 +16,7 @@ export function getPositionsPopover(
   const hostHorizontalCenter = Math.round(host.width / 2 + host.left);
   const hostVerticalCenter = Math.round(host.height / 2 + host.top);
 
-  const { offsetHeight: popoverHeight, offsetWidth: popoverWidth } = popover;
+  const { offsetWidth: popoverWidth } = popover;
 
   return {
     topLeft: {
@@ -27,11 +27,11 @@ export function getPositionsPopover(
           distanciaDaFlechaAteABorda +
           arrowMargin
         : host.right - popoverWidth,
-      top: host.top - popoverHeight,
+      top: host.top,
     },
     topCenter: {
       left: hostHorizontalCenter - popoverWidth / 2,
-      top: host.top - popoverHeight,
+      top: host.top,
     },
     topRight: {
       left: arrowAtCenter
@@ -40,7 +40,7 @@ export function getPositionsPopover(
           arrowVisibleDiagonal / 2 +
           arrowMargin
         : host.left,
-      top: host.top - popoverHeight,
+      top: host.top,
     },
     bottomLeft: {
       left: arrowAtCenter
@@ -68,22 +68,15 @@ export function getPositionsPopover(
     leftTop: {
       left: host.left - popoverWidth,
       top: arrowAtCenter
-        ? Math.round(host.top + (host.bottom - host.top) / 2) -
-          popoverHeight +
+        ? hostVerticalCenter +
           distanciaDaFlechaAteABorda +
           arrowVisibleDiagonal / 2 -
           arrowMargin
-        : host.bottom - popoverHeight,
+        : host.bottom,
     },
-    rightTop: {
-      left: host.right,
-      top: arrowAtCenter
-        ? Math.round(host.top + (host.bottom - host.top) / 2) -
-          popoverHeight +
-          distanciaDaFlechaAteABorda +
-          arrowVisibleDiagonal / 2 -
-          arrowMargin
-        : host.bottom - popoverHeight,
+    leftCenter: {
+      left: host.left - popoverWidth,
+      top: hostVerticalCenter,
     },
     leftBottom: {
       left: host.left - popoverWidth,
@@ -93,6 +86,19 @@ export function getPositionsPopover(
           arrowVisibleDiagonal / 2 +
           arrowMargin
         : host.top,
+    },
+    rightTop: {
+      left: host.right,
+      top: arrowAtCenter
+        ? hostVerticalCenter +
+          distanciaDaFlechaAteABorda +
+          arrowVisibleDiagonal / 2 -
+          arrowMargin
+        : host.bottom,
+    },
+    rightCenter: {
+      left: host.right,
+      top: hostVerticalCenter,
     },
     rightBottom: {
       left: host.right,

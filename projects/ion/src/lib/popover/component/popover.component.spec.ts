@@ -116,7 +116,7 @@ describe('PopoverComponent', () => {
 
   describe('check the arrows', () => {
     it.each(['leftTop', 'topCenter', 'leftBottom', 'bottomCenter'])(
-      'should render component with arrow $s',
+      'should render component with arrow %s',
       async (arrow: PopoverPosition) => {
         PopoverComponent.args.ionPopoverPosition = arrow;
         fixture.detectChanges();
