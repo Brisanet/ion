@@ -20,6 +20,7 @@ import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
+import { IonLinkModule } from './../link/link.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
 
 import localePT from '@angular/common/locales/pt';
@@ -99,6 +100,7 @@ const sut = async (
       IonPopConfirmModule,
       IonTooltipModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -255,6 +257,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
@@ -277,6 +280,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     propsToChange.config.data = [];
@@ -995,6 +999,7 @@ const sutCustomRowTemplate = async (
       IonPopConfirmModule,
       IonTableModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -1012,5 +1017,61 @@ describe('Table with custom row template', () => {
     expect(
       await screen.getAllByTestId('custom-name-column').length
     ).toBeGreaterThan(0);
+  });
+});
+
+describe('Table > Link in cells', () => {
+  const linkClickAction = jest.fn();
+
+  const dataWithLink: Disco[] = [
+    { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  ];
+
+  const columnsWithLink: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'url',
+      label: 'URL',
+      type: ColumnType.LINK,
+      link: {
+        action: linkClickAction,
+        label: () => 'link label',
+      },
+    },
+  ];
+
+  afterEach(() => {
+    linkClickAction.mockClear();
+  });
+
+  it('should render the link component', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+    expect(screen.getByText('link label')).toBeVisible();
+  });
+
+  it('should call the action when clicking the link', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+
+    fireEvent.click(screen.getByText('link label'));
+    expect(linkClickAction).toHaveBeenCalled();
   });
 });

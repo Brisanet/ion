@@ -7,7 +7,6 @@
 
 @mixin colors($color) {
   color: $color;
-  border-color: $color;
 
   ion-icon {
     ::ng-deep svg {
@@ -17,25 +16,25 @@
 }
 
 .link-container {
-  cursor: not-allowed;
+  display: flex;
+  max-width: max-content;
+
+  &--disabled {
+    cursor: not-allowed;
+  }
 }
 
 .ion-link {
   text-decoration: none;
-  color: $primary-5;
 
   display: flex;
   align-items: center;
   gap: spacing(0.5);
   box-sizing: border-box;
-  max-width: min-content;
   border-bottom: 1px solid transparent;
+  cursor: pointer;
 
-  ion-icon {
-    ::ng-deep svg {
-      fill: $primary-5;
-    }
-  }
+  @include colors($primary-5);
 
   &__label {
     font-weight: 400;
@@ -55,26 +54,22 @@
   }
 
   &:hover {
-    border-bottom: 1px solid;
     @include colors($primary-4);
+    border-color: $primary-4;
   }
 
   &:active {
-    border-bottom: 1px solid;
+    @include colors($primary-7);
+    border-color: $primary-7;
   }
 
-  &:visited {
-    color: $primary-7;
-
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-7;
-      }
-    }
+  &:visited,
+  &:visited:hover {
+    @include colors($primary-7);
   }
 
   &:visited:hover {
-    @include colors($primary-7);
+    border-color: $primary-7;
   }
 
   &--left-icon {

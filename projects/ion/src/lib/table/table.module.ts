@@ -9,6 +9,7 @@ import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonLinkModule } from './../link/link.module';
 
 @NgModule({
   declarations: [IonTableComponent],
@@ -22,6 +23,7 @@ import { IonSpinnerModule } from '../spinner/spinner.module';
     IonPopConfirmModule,
     IonTooltipModule,
     IonSpinnerModule,
+    IonLinkModule,
   ],
   exports: [IonTableComponent],
 })

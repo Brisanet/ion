@@ -1,11 +1,8 @@
 import { TemplateRef } from '@angular/core';
-import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
-import { DatePipeStrategy } from '../../core/pipes/date.pipe';
-import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
-import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
-import { ConfigSmartTable, StatusType, TooltipProps } from '../core/types';
+import { FontSize, IconType, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TagStatus } from './../core/types/status';
+import { IconSide, LinkTarget } from './../core/types/link';
 
 export enum EventTable {
   SORT = 'sort',
@@ -18,6 +15,7 @@ export enum EventTable {
 export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
+  LINK = 'link',
 }
 
 interface TagRow {
@@ -28,17 +26,30 @@ interface TagRow {
   tooltipKey?: string;
 }
 
+interface LinkRow<RowType> {
+  label?: (_: RowType) => string;
+  icon?: IconType;
+  iconSide?: IconSide;
+  size?: FontSize;
+  bold?: boolean;
+  disabled?: (_: RowType) => boolean;
+  target?: LinkTarget;
+  url?: (_: RowType) => string;
+  action?: (_: RowType) => void;
+}
+
 export interface PipeColumn {
   apply: string;
   format?: string;
 }
 
-export interface Column {
+export interface Column<RowType = SafeAny> {
   label: string;
   key: string;
   sort?: boolean;
   type?: ColumnType;
   tag?: TagRow;
+  link?: LinkRow<RowType>;
   desc?: boolean;
   width?: number;
   actions?: ColumnActions;
@@ -47,23 +58,23 @@ export interface Column {
   hideLongData?: boolean;
 }
 
-export interface ActionConfirm {
+export interface ActionConfirm<RowType> {
   title: string;
   description?: string;
-  dynamicDescription?: (row: SafeAny) => string;
+  dynamicDescription?: (row: RowType) => string;
   type?: StatusType;
   confirmText?: string;
   cancelText?: string;
 }
 
-export interface ActionTable {
+export interface ActionTable<RowType = SafeAny> {
   label: string;
   icon: string;
-  disabled?: (row: SafeAny) => boolean;
+  disabled?: (row: RowType) => boolean;
   danger?: boolean;
-  show?: (row: SafeAny) => boolean;
-  call?: (row: SafeAny) => void;
-  confirm?: ActionConfirm;
+  show?: (row: RowType) => boolean;
+  call?: (row: RowType) => void;
+  confirm?: ActionConfirm<RowType>;
   tooltipConfig?: TooltipProps;
 }
 
@@ -75,10 +86,10 @@ export interface PaginationConfig {
   page?: number;
 }
 
-export interface ConfigTable<T> {
-  data: T[];
-  columns: Column[];
-  actions?: ActionTable[];
+export interface ConfigTable<RowType> {
+  data: RowType[];
+  columns: Column<RowType>[];
+  actions?: ActionTable<RowType>[];
   check?: boolean;
   pagination?: PaginationConfig;
   loading?: boolean;
@@ -93,81 +104,6 @@ export interface ColumnActions {
   trigger: 'click';
 }
 
-export class TableUtils<T = SafeAny> {
-  private config: ConfigTable<T> | ConfigSmartTable<T>;
-  private disabledArrowColor = '#CED2DB';
-  private enabledArrowColor = '#0858CE';
-
-  constructor(config: ConfigTable<T> | ConfigSmartTable<T>) {
-    this.config = config;
-    this.applyPipes(config);
-  }
-
-  public hasRowSelected(): boolean {
-    return this.getRowsSelected().length > 0;
-  }
-
-  public isAllRowsSelected(): boolean {
-    return this.getRowsSelected().length === this.config.data.length;
-  }
-
-  public getRowsSelected(): SafeAny[] {
-    return this.config.data.filter((rowInData: SafeAny) => rowInData.selected);
-  }
-
-  public fillColorArrowUp(column: Column): string {
-    return column.desc ? this.disabledArrowColor : this.enabledArrowColor;
-  }
-
-  public fillColorArrowDown(column: Column): string {
-    return column.desc ? this.enabledArrowColor : this.disabledArrowColor;
-  }
-
-  public fillColor(column: Column, upArrow: boolean): string {
-    if (column.desc === null || column.desc === undefined) {
-      return this.disabledArrowColor;
-    }
-
-    return upArrow
-      ? this.fillColorArrowUp(column)
-      : this.fillColorArrowDown(column);
-  }
-
-  public applyPipes(config: ConfigTable<T> | ConfigSmartTable<T>): void {
-    this.config = config;
-    this.config.columns.forEach((column) => {
-      if (column.pipe) {
-        const strategy = this.getPipeStrategy(column.pipe.apply);
-
-        this.config.data.forEach((row) => {
-          const rowValue = row[column.key];
-          row[column.key] = this.applyPipe(
-            rowValue,
-            column.pipe.format,
-            strategy
-          );
-        });
-      }
-    });
-  }
-
-  private getPipeStrategy(pipeType: string): PipeStrategy {
-    switch (pipeType) {
-      case 'date':
-        return new DatePipeStrategy();
-      case 'currency':
-        return new CurrencyPipeStrategy();
-      default:
-        return new ReplaceEmptyPipeStrategy();
-    }
-  }
-
-  private applyPipe(
-    value: string | number,
-    format: string,
-    strategy: PipeStrategy
-  ): string {
-    const applicator = new PipeApplicator(strategy);
-    return applicator.apply(value, format);
-  }
+export interface BaseRow {
+  selected?: boolean;
 }
