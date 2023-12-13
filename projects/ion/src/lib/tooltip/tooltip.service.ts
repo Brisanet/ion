@@ -57,12 +57,15 @@ export class TooltipService {
   public checkPositions(positions: tooltipPositionChecks): TooltipPosition {
     let newPosition = this.currentPosition;
 
+    if (positions[newPosition]) {
+      return newPosition;
+    }
+
     Object.entries(positions).forEach(([position, check]) => {
       if (check) {
         newPosition = position as TooltipPosition;
       }
     });
-
     return newPosition;
   }
 
@@ -87,13 +90,26 @@ export class TooltipService {
     };
 
     return {
-      centerRight: tooltipPositions.right,
-      bottomCenter: tooltipPositions.bottom,
-      centerLeft: tooltipPositions.left,
-      topRight: tooltipPositions.top && tooltipPositions.right,
-      bottomLeft: tooltipPositions.bottom && tooltipPositions.left,
-      topLeft: tooltipPositions.top && tooltipPositions.left,
-      bottomRight: tooltipPositions.bottom && tooltipPositions.right,
+      centerRight:
+        !tooltipPositions.left &&
+        !tooltipPositions.bottom &&
+        !tooltipPositions.top,
+      bottomCenter:
+        !tooltipPositions.top &&
+        !tooltipPositions.left &&
+        !tooltipPositions.right,
+      centerLeft:
+        !tooltipPositions.right &&
+        !tooltipPositions.bottom &&
+        !tooltipPositions.top,
+      topRight: !tooltipPositions.bottom && !tooltipPositions.left,
+      bottomLeft: !tooltipPositions.top && !tooltipPositions.right,
+      topLeft: !tooltipPositions.bottom && !tooltipPositions.right,
+      bottomRight: !tooltipPositions.top && !tooltipPositions.left,
+      topCenter:
+        !tooltipPositions.bottom &&
+        !tooltipPositions.left &&
+        !tooltipPositions.right,
     };
   }
 
