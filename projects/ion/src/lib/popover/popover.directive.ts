@@ -51,7 +51,7 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
     private injector: Injector,
     private positionService: IonPositionService<PopoverPosition>,
     private readonly viewRef: ViewContainerRef,
-    private elementRef: ElementRef // private cdr: ChangeDetectorRef
+    private elementRef: ElementRef
   ) {}
 
   open(): void {

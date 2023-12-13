@@ -72,15 +72,13 @@ export class IonPositionService<T = Positions> {
   ): keyof PositionsChecks<T> {
     let newPosition = this.currentPosition;
 
-    if (positions[newPosition as keyof PositionsChecks<T>]) {
-      return newPosition;
+    if (!positions[newPosition as keyof PositionsChecks<T>]) {
+      Object.entries(positions).forEach(([position, check]) => {
+        if (check) {
+          return (newPosition = position as keyof T);
+        }
+      });
     }
-
-    Object.entries(positions).forEach(([position, check]) => {
-      if (check) {
-        newPosition = position as keyof T;
-      }
-    });
 
     return newPosition;
   }
@@ -136,11 +134,13 @@ export class IonPositionService<T = Positions> {
     hostBottom: number,
     componentHeight: number
   ): boolean {
-    return screenHeight - hostBottom < componentHeight + this.elementPadding;
+    return (
+      screenHeight - hostBottom < (componentHeight + this.elementPadding) / 2
+    );
   }
 
   private atLeftEdge(hostLeft: number, componentWidth: number): boolean {
-    return hostLeft - componentWidth - this.elementPadding < 0;
+    return hostLeft - (componentWidth + this.elementPadding) / 2 < 0;
   }
 
   private atTopEdge(hostTop: number, componentHeight: number): boolean {
