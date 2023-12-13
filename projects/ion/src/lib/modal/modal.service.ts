@@ -16,6 +16,7 @@ import {
   IonModalConfiguration,
   IonModalResponse,
 } from './models/modal.interface';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -30,8 +31,13 @@ export class IonModalService {
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector
-  ) {}
+    private injector: Injector,
+    private router: Router
+  ) {
+    this.router.events.subscribe(() => {
+      this.closeModal();
+    });
+  }
 
   open(
     component: Type<unknown>,
