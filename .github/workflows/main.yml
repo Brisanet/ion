@@ -29,11 +29,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-        env:
-          GOOGLE_CHAT_API_KEY: ${{ secrets.GOOGLE_CHAT_API_KEY }}
-          GOOGLE_CHAT_TOKEN: ${{ secrets.GOOGLE_CHAT_TOKEN }}
-          SPACE_ID: ${{ secrets.SPACE_ID }}
-
       - name: Install packages
         run: yarn install --frozen-lockfile
 
