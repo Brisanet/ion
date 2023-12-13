@@ -129,7 +129,7 @@ describe('Directive: Tooltip', () => {
     await sut();
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByTestId('ion-tooltip')).toHaveClass(
-      `ion-tooltip-position--bottomRight`
+      `ion-tooltip-position--topCenter`
     );
   });
 

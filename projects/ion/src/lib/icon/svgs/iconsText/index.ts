@@ -165,6 +165,7 @@ export { default as home } from './home';
 export { default as hook } from './hook';
 export { default as horizontalBarChart } from './horizontal-bar-chart';
 export { default as horizontal } from './horizontal';
+export { default as imageCheck } from './image-check';
 export { default as imageDown } from './image-down';
 export { default as imageLeft } from './image-left';
 export { default as imagePlus } from './image-plus';
