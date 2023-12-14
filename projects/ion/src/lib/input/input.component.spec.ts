@@ -152,9 +152,10 @@ describe('IonInputComponent', () => {
   describe('valueChange', () => {
     const mockFn = jest.fn();
     const value = 'input';
+    const maxLength = 37;
 
     beforeEach(async () => {
-      await sut({ valueChange: { emit: mockFn } as SafeAny });
+      await sut({ valueChange: { emit: mockFn } as SafeAny, maxLength });
     });
 
     afterEach(async () => {
@@ -175,12 +176,19 @@ describe('IonInputComponent', () => {
       userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenLastCalledWith(value);
     });
+
+    it('should render value and max length on input when have maxLength attribute', async () => {
+      userEvent.type(screen.getByTestId('input-element'), value);
+      expect(
+        screen.getByText(`${value.length}/${maxLength}`)
+      ).toBeInTheDocument();
+    });
   });
 
   describe('Clear Button events', () => {
     const mockFn = jest.fn();
     const value = 'input-with-clear-button';
-    let input;
+    let input: HTMLInputElement;
 
     beforeEach(async () => {
       await sut({
