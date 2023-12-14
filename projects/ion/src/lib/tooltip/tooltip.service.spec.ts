@@ -1,69 +1,65 @@
 import { TestBed, getTestBed } from '@angular/core/testing';
 import { TooltipService } from './tooltip.service';
+import { TooltipPosition } from '../core/types';
 
 const screenWidth = 1440;
 const screenHeight = 900;
 const tooltipPositions = {
-  centerRight: {
-    tooltipCoordinates: {
-      left: 1200,
-      height: 88,
-      width: 300,
-    },
-    tooltipHeight: 88,
-    hostPosition: { top: 450, bottom: 538, left: 1200, right: 1380 },
+  [TooltipPosition.TOP_LEFT]: {
+    tooltipCoordinates: { width: 208, height: 160, left: 57 },
+    hostPosition: { left: 15, right: 117, top: 15, bottom: 47 },
     screenWidth,
     screenHeight,
+    currentPosition: TooltipPosition.CENTER_RIGHT,
   },
-  bottomCenter: {
-    tooltipCoordinates: {
-      left: 700,
-      height: 88,
-      width: 300,
-    },
-    hostPosition: { top: 450, bottom: 820, left: 700, right: 880 },
+  [TooltipPosition.TOP_CENTER]: {
+    tooltipCoordinates: { width: 208, height: 160, left: 616 },
+    hostPosition: { left: 661, right: 778, top: 15, bottom: 47 },
     screenWidth,
     screenHeight,
+    currentPosition: TooltipPosition.BOTTOM_CENTER,
   },
-  centerLeft: {
-    tooltipCoordinates: {
-      left: -20,
-      height: 88,
-      width: 300,
-    },
-    hostPosition: { top: 750, bottom: 650, left: 0, right: 80 },
-    screenWidth,
-    screenHeight,
+  [TooltipPosition.TOP_RIGHT]: {
+    tooltipCoordinates: { width: 119, height: 288, left: 1264 },
+    hostPosition: { left: 1325, right: 1424, top: 15, bottom: 47 },
+    screenWidth: 1440,
+    screenHeight: 900,
+    currentPosition: TooltipPosition.BOTTOM_LEFT,
   },
-  topRight: {
-    tooltipCoordinates: {
-      left: 1380,
-      height: 88,
-      width: 300,
-    },
-    hostPosition: { top: 0, bottom: 100, left: 1440, right: 1540 },
+  [TooltipPosition.CENTER_LEFT]: {
+    tooltipCoordinates: { width: 208, height: 160, left: 116 },
+    hostPosition: { left: 15, right: 108, top: 434, bottom: 466 },
     screenWidth,
     screenHeight,
+    currentPosition: TooltipPosition.CENTER_LEFT,
   },
-  bottomLeft: {
-    tooltipCoordinates: {
-      left: -20,
-      height: 88,
-      width: 300,
-    },
-    hostPosition: { top: 880, bottom: 900, left: 0, right: 80 },
+  [TooltipPosition.CENTER_RIGHT]: {
+    tooltipCoordinates: { width: 119, height: 288, left: 1264 },
+    hostPosition: { left: 1325, right: 1424, top: 434, bottom: 466 },
     screenWidth,
     screenHeight,
+    currentPosition: TooltipPosition.CENTER_RIGHT,
   },
-  bottomRight: {
-    tooltipCoordinates: {
-      left: 1300,
-      height: 88,
-      width: 300,
-    },
-    hostPosition: { top: 880, bottom: 900, left: 1380, right: 1440 },
+  [TooltipPosition.BOTTOM_LEFT]: {
+    tooltipCoordinates: { width: 208, height: 160, left: 48 },
+    hostPosition: { left: 15, right: 99, top: 853, bottom: 885 },
     screenWidth,
     screenHeight,
+    currentPosition: TooltipPosition.TOP_RIGHT,
+  },
+  [TooltipPosition.BOTTOM_CENTER]: {
+    tooltipCoordinates: { width: 208, height: 160, left: 616 },
+    hostPosition: { left: 661, right: 778, top: 853, bottom: 885 },
+    screenWidth,
+    screenHeight,
+    currentPosition: TooltipPosition.BOTTOM_CENTER,
+  },
+  [TooltipPosition.BOTTOM_RIGHT]: {
+    tooltipCoordinates: { width: 95, height: 416, left: 1300 },
+    hostPosition: { left: 1349, right: 1425, top: 853, bottom: 885 },
+    screenWidth,
+    screenHeight,
+    currentPosition: TooltipPosition.TOP_LEFT,
   },
 };
 
@@ -87,6 +83,7 @@ describe('TooltipService', () => {
   it.each(Object.entries(tooltipPositions))(
     'should return %s as the new position if at the edges',
     async (positionKey, positionValue) => {
+      service.setCurrentPosition(positionValue.currentPosition);
       const positionChecks = service.getTooltipPositions(positionValue);
       const newPosition = service.checkPositions(positionChecks);
       expect(newPosition).toBe(positionKey);
