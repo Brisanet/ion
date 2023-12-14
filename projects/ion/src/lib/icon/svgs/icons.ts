@@ -359,6 +359,7 @@ import {
   changePriority,
   change,
   regions,
+  imageCheck,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -529,6 +530,7 @@ export const iconsPaths: Record<string, string> = {
   hook,
   'horizontal-bar-chart': horizontalBarChart,
   horizontal,
+  'image-check': imageCheck,
   'image-down': imageDown,
   'image-left': imageLeft,
   'image-plus': imagePlus,
