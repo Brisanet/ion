@@ -18,6 +18,15 @@ const iconTypes = {
   negative: 'close-solid',
 };
 
+export interface IonAlertConfiguration {
+  message: string | TemplateRef<void>;
+  type?: StatusType;
+  closable?: boolean;
+  hideBackground?: boolean;
+  noRadius?: boolean;
+  description?: string;
+}
+
 @Component({
   selector: 'ion-alert',
   templateUrl: './alert.component.html',

@@ -1,3 +1,4 @@
+import { IonAlertConfiguration } from '../../alert/alert.component';
 import { IconType, IonButtonProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
@@ -10,6 +11,7 @@ export interface IonModalConfiguration {
   ionParams?: SafeAny;
   hideCloseButton?: boolean;
   headerButton?: IonModalHeaderButton;
+  alertConfig?: Pick<IonAlertConfiguration, 'message' | 'type' | 'description'>;
 
   footer?: IonModalFooterConfiguration;
 }
