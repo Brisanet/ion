@@ -1,4 +1,5 @@
 import { PopoverPosition } from '../core/types/popover';
+import { GetPositionsCallbackProps } from '../position/position.service';
 
 export type PopoverPositions = {
   [key in PopoverPosition]: Pick<DOMRect, 'left' | 'top'>;
@@ -9,28 +10,25 @@ const arrowVisibleDiagonal = 18;
 const arrowMargin = 3;
 
 export function getPositionsPopover(
-  host: DOMRect,
-  arrowAtCenter: boolean,
-  popover: HTMLElement
+  props: GetPositionsCallbackProps
 ): PopoverPositions {
+  const { host, arrowAtCenter, element: popover } = props;
   const hostHorizontalCenter = Math.round(host.width / 2 + host.left);
   const hostVerticalCenter = Math.round(host.height / 2 + host.top);
-
-  const { offsetWidth: popoverWidth } = popover;
 
   return {
     topLeft: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
-          popoverWidth +
+          popover.width +
           arrowVisibleDiagonal / 2 +
           distanciaDaFlechaAteABorda +
           arrowMargin
-        : host.right - popoverWidth,
+        : host.right - popover.width,
       top: host.top,
     },
     topCenter: {
-      left: hostHorizontalCenter - popoverWidth / 2,
+      left: hostHorizontalCenter - popover.width / 2,
       top: host.top,
     },
     topRight: {
@@ -45,15 +43,15 @@ export function getPositionsPopover(
     bottomLeft: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
-          popoverWidth +
+          popover.width +
           arrowVisibleDiagonal / 2 +
           distanciaDaFlechaAteABorda +
           arrowMargin
-        : host.right - popoverWidth,
+        : host.right - popover.width,
       top: host.bottom,
     },
     bottomCenter: {
-      left: hostHorizontalCenter - popoverWidth / 2,
+      left: hostHorizontalCenter - popover.width / 2,
       top: host.bottom,
     },
     bottomRight: {
@@ -66,7 +64,7 @@ export function getPositionsPopover(
       top: host.bottom,
     },
     leftTop: {
-      left: host.left - popoverWidth,
+      left: host.left - popover.width,
       top: arrowAtCenter
         ? hostVerticalCenter +
           distanciaDaFlechaAteABorda +
@@ -75,11 +73,11 @@ export function getPositionsPopover(
         : host.bottom,
     },
     leftCenter: {
-      left: host.left - popoverWidth,
+      left: host.left - popover.width,
       top: hostVerticalCenter,
     },
     leftBottom: {
-      left: host.left - popoverWidth,
+      left: host.left - popover.width,
       top: arrowAtCenter
         ? hostVerticalCenter -
           distanciaDaFlechaAteABorda -

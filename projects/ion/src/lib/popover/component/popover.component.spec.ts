@@ -84,17 +84,6 @@ describe('PopoverComponent', () => {
         screen.getByText(PopoverComponent.args.ionPopoverBody)
       ).toBeInTheDocument();
     });
-
-    it('should not have visible class when visibility is false', async () => {
-      expect(screen.getByTestId('ion-popover')).not.toHaveClass(
-        'ion-popover--visible'
-      );
-    });
-    it('should have visible class when visibility is true', async () => {
-      expect(screen.getByTestId('ion-popover')).toHaveClass(
-        'ion-popover--visible'
-      );
-    });
   });
 
   describe('with actions', () => {

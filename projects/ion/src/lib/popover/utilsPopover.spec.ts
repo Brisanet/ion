@@ -12,9 +12,11 @@ const hostDimensions = {
 } as DOMRect;
 
 const popoverDimensions = {
-  offsetHeight: 0,
-  offsetWidth: 0,
-} as HTMLElement;
+  height: 0,
+  width: 0,
+  x: 1,
+  y: 1,
+} as DOMRect;
 
 const positionsAlignedToHost = [
   { position: 'topRight', pointTo: 'left' },
@@ -36,11 +38,11 @@ describe('getPositions', () => {
     );
     beforeEach(() => {
       arrowAtCenter = true;
-      positions = getPositionsPopover(
-        hostDimensions,
+      positions = getPositionsPopover({
+        host: hostDimensions,
+        element: popoverDimensions,
         arrowAtCenter,
-        popoverDimensions
-      );
+      });
     });
     it.each(['bottomLeft', 'bottomRight', 'topLeft', 'topRight'])(
       'arrow should point at center of host when position is %s',
@@ -52,11 +54,11 @@ describe('getPositions', () => {
   describe('with arrow pointing at borders of host', () => {
     beforeEach(() => {
       arrowAtCenter = false;
-      positions = getPositionsPopover(
-        hostDimensions,
+      positions = getPositionsPopover({
+        host: hostDimensions,
+        element: popoverDimensions,
         arrowAtCenter,
-        popoverDimensions
-      );
+      });
     });
     it.each(positionsAlignedToHost)(
       "when position is $position, arrow should be horizontally aligned to host's $pointTo",

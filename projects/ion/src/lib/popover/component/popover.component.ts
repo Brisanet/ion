@@ -44,7 +44,7 @@ export class IonPopoverComponent implements AfterViewChecked {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private positionService: IonPositionService<PopoverPosition>
+    private positionService: IonPositionService
   ) {}
 
   close(): void {
@@ -72,9 +72,9 @@ export class IonPopoverComponent implements AfterViewChecked {
     const coordinates = this.popover.nativeElement.getBoundingClientRect();
 
     this.positionService.setcomponentCoordinates(coordinates);
-    this.positionService.setCurrentPosition(this.ionPopoverPosition);
+    this.positionService.setChoosedPosition(this.ionPopoverPosition);
     this.ionPopoverPosition =
-      this.positionService.getNewPosition() as PopoverPosition;
+      this.positionService.getCurrentPosition() as PopoverPosition;
     this.positionService.emitReposition();
   }
 }

@@ -24,6 +24,7 @@ import { IonPositionService } from '../position/position.service';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
 import { getPositionsPopover } from './utilsPopover';
+import { element } from 'protractor';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy, OnInit {
@@ -49,7 +50,7 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private injector: Injector,
-    private positionService: IonPositionService<PopoverPosition>,
+    private positionService: IonPositionService,
     private readonly viewRef: ViewContainerRef,
     private elementRef: ElementRef
   ) {}
@@ -113,26 +114,23 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
   }
 
   setComponentPosition(): void {
-    const popoverElement = this.popoverComponentRef.location
-      .nativeElement as HTMLElement;
-
     const hostElement = this.elementRef.nativeElement.getBoundingClientRect();
+    console.log('host em setComponentPosition', hostElement);
 
     this.positionService.setHostPosition(hostElement);
 
-    const positions = getPositionsPopover(
-      hostElement,
-      this.ionPopoverArrowPointAtCenter,
-      popoverElement.firstChild as HTMLElement
-    );
-    this.positionService.setCurrentPosition(
+    this.positionService.setChoosedPosition(
       this.popoverComponentRef.instance.ionPopoverPosition
     );
-    const ionPopoverPosition = this.positionService.getNewPosition();
+
+    this.positionService.setPointAtCenter(this.ionPopoverArrowPointAtCenter);
+
+    const ionPopoverPosition =
+      this.positionService.getNewPosition(getPositionsPopover);
 
     const props = {
-      top: positions[ionPopoverPosition].top + window.scrollY,
-      left: positions[ionPopoverPosition].left + window.scrollX,
+      top: ionPopoverPosition.top + window.scrollY,
+      left: ionPopoverPosition.left + window.scrollX,
       position: 'absolute',
     };
 
@@ -172,13 +170,19 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
     }
   }
 
+  @HostListener('window:scroll') onScroll(): void {
+    this.destroyComponent();
+  }
+
   destroyComponent(): void {
     if (this.popoverComponentRef) {
       this.appRef.detachView(this.popoverComponentRef.hostView);
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
-    this.subscription$.unsubscribe();
+    if (this.subscription$) {
+      this.subscription$.unsubscribe();
+    }
   }
 
   ngOnInit(): void {

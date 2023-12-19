@@ -134,7 +134,8 @@ import { PopoverPosition } from '../../core/types/popover';
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 600px;
+        height: 1600px;
+        overflow-y: scroll;
       }
 
       div {

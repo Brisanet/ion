@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-export enum Positions {
+export enum IonPositions {
   TOP_RIGHT = 'topRight',
   TOP_CENTER = 'topCenter',
   TOP_LEFT = 'topLeft',
@@ -16,6 +16,22 @@ export enum Positions {
   BOTTOM_LEFT = 'bottomLeft',
 }
 
+export type ElementPositions = {
+  [key in IonPositions]: Pick<DOMRect, 'left' | 'top'>;
+};
+
+export type NewPosition = { key: IonPositions } & Pick<DOMRect, 'left' | 'top'>;
+
+export type GetPositionsCallback = (
+  props: GetPositionsCallbackProps
+) => ElementPositions;
+
+export interface GetPositionsCallbackProps {
+  host: DOMRect;
+  element: DOMRect;
+  arrowAtCenter: boolean;
+}
+
 export type RepositionData = {
   componentCoordinates: Partial<DOMRect>;
   hostPosition: Partial<DOMRect>;
@@ -23,21 +39,23 @@ export type RepositionData = {
   screenHeight: number;
 };
 
-export type PositionsChecks<T = Positions> = {
-  [x in keyof T]?: boolean;
+export type PositionsChecks = {
+  [x in IonPositions]?: boolean;
 };
 
 @Injectable({
   providedIn: 'root',
 })
-export class IonPositionService<T = Positions> {
+export class IonPositionService {
   public readonly reposition = new Subject();
-  private hostPosition: Partial<DOMRect>;
+  private hostPosition: DOMRect;
   private componentCoordinates: DOMRect;
   private elementPadding = 0;
-  private currentPosition: keyof T;
+  private choosedPosition: IonPositions;
+  private currentPosition: IonPositions;
+  private pointAtCenter = true;
 
-  public setHostPosition(position: Partial<DOMRect>): void {
+  public setHostPosition(position: DOMRect): void {
     this.hostPosition = position;
   }
 
@@ -45,37 +63,49 @@ export class IonPositionService<T = Positions> {
     this.componentCoordinates = coordinates;
   }
 
-  public setCurrentPosition(position: unknown): void {
-    this.currentPosition = position as keyof T;
+  public setChoosedPosition(position: unknown): void {
+    this.choosedPosition = position as IonPositions;
   }
 
-  public getNewPosition(): keyof T {
-    const { clientWidth, clientHeight } = document.body;
+  public getCurrentPosition(): unknown {
+    return this.currentPosition || this.choosedPosition;
+  }
 
+  public setPointAtCenter(value: boolean): void {
+    this.pointAtCenter = value;
+  }
+
+  public getNewPosition(
+    getPositionCallback: GetPositionsCallback
+  ): NewPosition {
     if (!this.hostPosition) {
       return;
     }
 
-    const repositionData: RepositionData = {
-      componentCoordinates: this.componentCoordinates,
-      hostPosition: this.hostPosition,
-      screenWidth: clientWidth,
-      screenHeight: clientHeight,
-    };
-    const positions = this.getPositions(repositionData);
+    const availablePositions = getPositionCallback({
+      host: this.hostPosition,
+      arrowAtCenter: this.pointAtCenter,
+      element: this.componentCoordinates,
+    });
 
-    return this.checkPositions(positions);
+    this.currentPosition = this.checkPositions(availablePositions);
+    return {
+      key: this.currentPosition,
+      ...availablePositions[this.currentPosition as keyof ElementPositions],
+    };
   }
 
   public checkPositions(
-    positions: PositionsChecks<T>
-  ): keyof PositionsChecks<T> {
-    let newPosition = this.currentPosition;
+    availablePositions: ElementPositions
+  ): keyof PositionsChecks {
+    const positions = this.getPositions();
 
-    if (!positions[newPosition as keyof PositionsChecks<T>]) {
+    let newPosition = this.choosedPosition;
+
+    if (!positions[newPosition as keyof PositionsChecks]) {
       Object.entries(positions).forEach(([position, check]) => {
-        if (check) {
-          return (newPosition = position as keyof T);
+        if (check && !!availablePositions[position]) {
+          return (newPosition = position as IonPositions);
         }
       });
     }
@@ -83,22 +113,15 @@ export class IonPositionService<T = Positions> {
     return newPosition;
   }
 
-  public getPositions(respositionData: RepositionData): PositionsChecks<T> {
-    const { height, width } = respositionData.componentCoordinates;
+  public getPositions(): PositionsChecks {
+    const { clientWidth, clientHeight } = document.body;
+    const { width, height } = this.componentCoordinates;
 
     const positions = {
-      right: this.atRightEdge(
-        respositionData.screenWidth,
-        respositionData.hostPosition.right,
-        width
-      ),
-      bottom: this.atBottomEdge(
-        respositionData.screenHeight,
-        respositionData.hostPosition.bottom,
-        height
-      ),
-      left: this.atLeftEdge(respositionData.hostPosition.left, width),
-      top: this.atTopEdge(respositionData.hostPosition.top, height),
+      right: this.atRightEdge(clientWidth, this.hostPosition.right, width),
+      bottom: this.atBottomEdge(clientHeight, this.hostPosition.bottom, height),
+      left: this.atLeftEdge(this.hostPosition.left, width),
+      top: this.atTopEdge(this.hostPosition.top, height),
     };
 
     return {
@@ -114,7 +137,7 @@ export class IonPositionService<T = Positions> {
       topLeft: !positions.top && !positions.left,
       topCenter: !positions.top && !positions.left && !positions.right,
       topRight: !positions.top && !positions.right,
-    } as unknown as PositionsChecks<T>;
+    } as PositionsChecks;
   }
 
   public emitReposition(): void {
@@ -126,7 +149,7 @@ export class IonPositionService<T = Positions> {
     hostRight: number,
     componentWidth: number
   ): boolean {
-    return screenWidth - hostRight < (componentWidth + this.elementPadding) / 2;
+    return screenWidth - hostRight < componentWidth + this.elementPadding;
   }
 
   private atBottomEdge(
@@ -134,16 +157,14 @@ export class IonPositionService<T = Positions> {
     hostBottom: number,
     componentHeight: number
   ): boolean {
-    return (
-      screenHeight - hostBottom < (componentHeight + this.elementPadding) / 2
-    );
+    return screenHeight - hostBottom < componentHeight + this.elementPadding;
   }
 
   private atLeftEdge(hostLeft: number, componentWidth: number): boolean {
-    return hostLeft - (componentWidth + this.elementPadding) / 2 < 0;
+    return hostLeft - componentWidth - this.elementPadding < 0;
   }
 
   private atTopEdge(hostTop: number, componentHeight: number): boolean {
-    return hostTop < (componentHeight + this.elementPadding) / 2;
+    return hostTop < componentHeight + this.elementPadding;
   }
 }

@@ -3,6 +3,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
+  ElementRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -258,7 +259,11 @@ describe('Popover host tests', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      providers: [IonPopoverDirective, ViewContainerRef],
+      providers: [
+        IonPopoverDirective,
+        ViewContainerRef,
+        { provide: ElementRef },
+      ],
       declarations: [
         ContainerRefTestComponent,
         IonPopoverComponent,
@@ -308,10 +313,10 @@ describe('Popover host tests', () => {
     }
   );
 
-  it('should not open a new popover when a popover is already opened', () => {
+  it('should not open a new popover when a popover is already opened', async () => {
     directive.open();
     directive.open();
-    expect(screen.queryAllByTestId('ion-popover')).toHaveLength(1);
+    expect(await screen.findAllByTestId('ion-popover')).toHaveLength(1);
   });
 });
 
@@ -322,7 +327,11 @@ describe('Popover disabled host component', () => {
 
   beforeEach(() => {
     fixtureDisabledBtn = TestBed.configureTestingModule({
-      providers: [IonPopoverDirective, ViewContainerRef],
+      providers: [
+        IonPopoverDirective,
+        ViewContainerRef,
+        { provide: ElementRef },
+      ],
       declarations: [
         ButtonTestDisabledComponent,
         IonPopoverComponent,
