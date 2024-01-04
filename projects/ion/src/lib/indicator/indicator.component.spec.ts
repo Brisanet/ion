@@ -144,15 +144,15 @@ describe('IonIndicatorComponent', () => {
   });
 
   it('should render tooltip in secondValue when it is passed', async () => {
-    const secondTooltipText = 'testing ion indicator tooltip';
+    const secondValueTooltipText = 'testing ion indicator tooltip';
     await sut({
       value: 'abc',
       secondValue: 123,
-      secondTooltipText,
+      secondValueTooltipText,
     });
 
     userEvent.hover(getElementByTestId('secondValue'));
-    expect(screen.queryByText(secondTooltipText)).toBeInTheDocument();
+    expect(screen.queryByText(secondValueTooltipText)).toBeInTheDocument();
   });
 
   it('Should render footer and button emitter when receive buttonConfig with this type', async () => {

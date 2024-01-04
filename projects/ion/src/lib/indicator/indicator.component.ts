@@ -21,7 +21,7 @@ import { IonModalService } from './../modal/modal.service';
 export class IonIndicatorComponent {
   @Input() title = 'Ion Indicator';
   @Input() tooltipText: string;
-  @Input() secondTooltipText: string;
+  @Input() secondValueTooltipText: string;
   @Input() value: number | string;
   @Input() secondValue: number | string;
   @Input() buttonConfig: IonIndicatorButtonConfiguration;
