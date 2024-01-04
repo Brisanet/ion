@@ -26,6 +26,7 @@ import {
 } from './mocks/indicator-button-config';
 import { IndicatorPopoverComponent } from './mocks/indicator-popover.component';
 import { IonAlertModule } from '../alert/alert.module';
+import userEvent from '@testing-library/user-event';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -124,7 +125,9 @@ describe('IonIndicatorComponent', () => {
     await sut({ value: valueText, secondValue: secondText });
 
     expect(getElementByTestId('value').textContent).toBe(valueText);
-    expect(getElementByTestId('secondValue').textContent).toBe(secondText);
+    expect(getElementByTestId('secondValue').textContent.trim()).toBe(
+      secondText
+    );
   });
 
   it('Should render valueElement/secondValueElement when they receive number values', async () => {
@@ -135,9 +138,21 @@ describe('IonIndicatorComponent', () => {
     expect(getElementByTestId('value').textContent).toBe(
       valueNumber.toString()
     );
-    expect(getElementByTestId('secondValue').textContent).toBe(
+    expect(getElementByTestId('secondValue').textContent.trim()).toBe(
       secondValueNumber.toString()
     );
+  });
+
+  it('should render tooltip in secondValue when it is passed', async () => {
+    const secondTooltipText = 'testing ion indicator tooltip';
+    await sut({
+      value: 'abc',
+      secondValue: 123,
+      secondTooltipText,
+    });
+
+    userEvent.hover(getElementByTestId('secondValue'));
+    expect(screen.queryByText(secondTooltipText)).toBeInTheDocument();
   });
 
   it('Should render footer and button emitter when receive buttonConfig with this type', async () => {
