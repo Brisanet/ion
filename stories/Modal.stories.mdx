@@ -142,6 +142,35 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
   </Story>
 </Canvas>
 
+<Canvas>
+  <Story
+    name="Service - Modal with Alert"
+    height="350px"
+    args={{
+      componentToBody: InputMockComponent,
+      modalConfig: {
+        alertConfig: {
+          type: 'info',
+          message: 'This is the title',
+          description: 'Add here a description supimpa to your modal',
+        },
+        footer: {
+          hide: true,
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [InputMockComponent],
+        imports: [CommonModule, FormsModule, IonSharedModule, IonModalModule],
+        entryComponents: [InputMockComponent],
+      }),
+    ]}
+  >
+    {template.bind({})}
+  </Story>
+</Canvas>
+
 <br />
 
 ## CloseModal
