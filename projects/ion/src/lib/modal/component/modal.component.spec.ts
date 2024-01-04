@@ -6,6 +6,7 @@ import { IonButtonModule } from '../../button/button.module';
 import { SelectMockComponent } from '../mock/select-mock.component';
 import { IonModalConfiguration } from './../models/modal.interface';
 import { IonModalComponent } from './modal.component';
+import { IonAlertModule } from '../../alert/alert.module';
 
 describe('IonModalComponent', () => {
   let component: IonModalComponent;
@@ -14,7 +15,7 @@ describe('IonModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [IonModalComponent, SelectMockComponent],
-      imports: [FormsModule, IonButtonModule],
+      imports: [FormsModule, IonButtonModule, IonAlertModule],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
@@ -274,6 +275,47 @@ describe('IonModalComponent', () => {
       component.setConfig(configuration);
       fixture.detectChanges();
       expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('IonModalComponent - Alert', () => {
+    const configuration: IonModalConfiguration = {
+      id: '1',
+      title: 'Ion Test',
+      alertConfig: {
+        message: 'This is an alert in modal',
+        type: 'info',
+        description: 'this is a description',
+      },
+    };
+
+    it('should render alert message', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        screen.queryByText(configuration.alertConfig.message as string)
+      ).toBeInTheDocument();
+    });
+
+    it('should render alert description', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        screen.queryByText(configuration.alertConfig.description)
+      ).toBeInTheDocument();
+    });
+
+    it('should render alert type info', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        document.getElementById(
+          `ion-icon-${configuration.alertConfig.type}-solid`
+        )
+      ).toBeDefined();
     });
   });
 });

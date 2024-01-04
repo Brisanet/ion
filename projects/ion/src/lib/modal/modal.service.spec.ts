@@ -8,6 +8,7 @@ import { IonModalComponent } from './component/modal.component';
 import { SelectMockComponent } from './mock/select-mock.component';
 import { IonModalService } from './modal.service';
 import { IonModalConfiguration } from './models/modal.interface';
+import { IonAlertModule } from '../alert/alert.module';
 
 describe('ModalService', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
@@ -28,7 +29,7 @@ describe('ModalService', () => {
         IonModalComponent,
         SelectMockComponent,
       ],
-      imports: [FormsModule, IonButtonModule],
+      imports: [FormsModule, IonButtonModule, IonAlertModule],
     }).overrideModule(BrowserDynamicTestingModule, {
       set: {
         entryComponents: [IonModalComponent, SelectMockComponent],
