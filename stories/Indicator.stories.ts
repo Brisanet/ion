@@ -41,6 +41,15 @@ WithTooltip.args = {
   secondValue: '5%',
 };
 
+export const WithSecondTooltip = Template.bind({});
+WithSecondTooltip.args = {
+  title: 'Título do Indicator',
+  secondValueTooltipText:
+    'Texto personalizado via atributo secondValueTooltipText',
+  value: 1500,
+  secondValue: '5%',
+};
+
 export const WithPreview = Template.bind({});
 WithPreview.args = {
   title: 'preview',
