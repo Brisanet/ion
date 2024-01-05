@@ -47,7 +47,17 @@
           *ngIf="!(value === null || value === undefined || value === '')"
         >
           <h4 data-testid="ion-indicator-value">{{ value }}</h4>
-          <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+          <p
+            data-testid="ion-indicator-second-value"
+            ionTooltip
+            ionTooltipPosition="bottomLeft"
+            ionTooltipColorScheme="dark"
+            ionTooltipTrigger="hover"
+            [ionTooltipTitle]="secondValueTooltipText"
+            [ionTooltipArrowPointAtCenter]="true"
+          >
+            {{ secondValue }}
+          </p>
         </ng-container>
         <ng-container
           *ngIf="value === null || value === undefined || value === ''"
