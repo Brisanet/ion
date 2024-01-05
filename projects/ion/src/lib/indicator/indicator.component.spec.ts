@@ -25,6 +25,7 @@ import {
   buttonRedirectConfig,
 } from './mocks/indicator-button-config';
 import { IndicatorPopoverComponent } from './mocks/indicator-popover.component';
+import { IonAlertModule } from '../alert/alert.module';
 
 @NgModule({
   entryComponents: [IonModalComponent, BodyMockComponent],
@@ -45,6 +46,7 @@ const sut = async (
       IonSpinnerModule,
       IonPopoverModule,
       IonNoDataModule,
+      IonAlertModule,
     ],
     declarations: [BodyMockComponent, IonIndicatorComponent, IonModalComponent],
     componentProperties: props,
@@ -58,7 +60,12 @@ const sutIndicatorWithPopover = async (): Promise<
   RenderResult<IndicatorPopoverComponent>
 > => {
   return await render(IndicatorPopoverComponent, {
-    imports: [CommonModule, IonSharedModule, IonIndicatorModule],
+    imports: [
+      CommonModule,
+      IonSharedModule,
+      IonIndicatorModule,
+      IonAlertModule,
+    ],
     declarations: [IndicatorPopoverComponent],
     componentProperties: {
       firstAction: mockFirstAction,

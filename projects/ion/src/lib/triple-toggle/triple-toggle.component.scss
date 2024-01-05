@@ -1,0 +1,50 @@
+@import '../../styles/index.scss';
+
+.ion-triple-toggle {
+  display: flex;
+  align-items: center;
+
+  ion-button:nth-child(1) ::ng-deep {
+    button {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  ion-button:nth-child(2) ::ng-deep {
+    button {
+      border-radius: 0 !important;
+      margin-left: -1px;
+      margin-right: -1px;
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  ion-button:nth-child(3) ::ng-deep {
+    button {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+
+  ion-button ::ng-deep {
+    .ion-btn-primary {
+      border: 1px solid transparent;
+      &:disabled {
+        background-color: $neutral-5 !important;
+        color: $neutral-1 !important;
+      }
+    }
+
+    .ion-remove-space {
+      padding: 6px 16px !important;
+    }
+  }
+
+  ion-button.right-side-icon ::ng-deep {
+    button {
+      flex-direction: row-reverse;
+    }
+  }
+}
