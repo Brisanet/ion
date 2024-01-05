@@ -24,7 +24,6 @@ import { IonPositionService } from '../position/position.service';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
 import { getPositionsPopover } from './utilsPopover';
-import { element } from 'protractor';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy, OnInit {
@@ -115,7 +114,6 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
 
   setComponentPosition(): void {
     const hostElement = this.elementRef.nativeElement.getBoundingClientRect();
-    console.log('host em setComponentPosition', hostElement);
 
     this.positionService.setHostPosition(hostElement);
 

@@ -20,6 +20,7 @@ import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
 import { IonPopoverDirective } from './popover.directive';
 import { IonPopoverModule } from './popover.module';
+import { IonPositionService } from '../position/position.service';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
@@ -34,6 +35,7 @@ const elementPosition = {
 
 const firstAction = jest.fn();
 const secondAction = jest.fn();
+const positionService = new IonPositionService();
 
 const CUSTOM_CLASS = 'custom-class';
 
@@ -135,6 +137,7 @@ const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
   await render(HostTestComponent, {
     componentProperties: props,
     imports: [CommonModule, IonPopoverModule, IonSharedModule],
+    providers: [{ provide: IonPositionService, useValue: positionService }],
   });
 };
 
@@ -250,6 +253,17 @@ describe('Directive: popover', () => {
     const popover = screen.getByTestId('ion-popover');
     expect(popover).toHaveClass(CUSTOM_CLASS);
   });
+
+  it('should close the popover when scrolling the page', async () => {
+    await sut();
+    const directive = IonPopoverDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+
+    fireEvent.click(screen.getByTestId('hostPopover'));
+    fireEvent.scroll(window);
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  });
 });
 
 describe('Popover host tests', () => {
@@ -262,7 +276,14 @@ describe('Popover host tests', () => {
       providers: [
         IonPopoverDirective,
         ViewContainerRef,
-        { provide: ElementRef },
+        {
+          provide: ElementRef,
+          useValue: {
+            nativeElement: {
+              getBoundingClientRect: (): DOMRect => elementPosition,
+            },
+          },
+        },
       ],
       declarations: [
         ContainerRefTestComponent,

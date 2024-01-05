@@ -1,4 +1,15 @@
-import { Story } from '@storybook/angular/types-6-0';
+import { CommonModule } from '@angular/common';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story } from '@storybook/angular/types-6-0';
+import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
+import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
+import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
+import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
+import {
+  IonSharedModule,
+  IonTooltipModule,
+} from '../projects/ion/src/public-api';
 
 import {
   PopoverPosition,
@@ -27,8 +38,7 @@ const Template: Story = (args) => ({
         ionPopoverIconColor="${args.ionPopoverIconColor}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
         [ionPopoverArrowPointAtCenter]="true"
-        [ionPopoverActions]="null"
-        label="-"
+        label="click me"
       >
       </ion-button>
       <ng-template #BodyTemplate>
@@ -41,7 +51,7 @@ const Template: Story = (args) => ({
 export const Directive = Template.bind({});
 Directive.args = {
   ionPopoverTitle: 'Título do popover',
-  ionPopoverPosition: PopoverPosition.RIGHT_BOTTOM,
+  ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverIconClose: false,
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
@@ -68,7 +78,6 @@ const TemplateOpen: Story = (args) => ({
         ionPopoverIconClose="${args.ionPopoverIconClose}"
         ionPopoverPosition="${args.ionPopoverPosition}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
-        [ionPopoverActions]="null"
         label="click me"
       >
       </ion-button>
@@ -86,3 +95,19 @@ KeepOpen.args = {
   ionPopoverIconClose: false,
   ionPopoverCustomClass: 'popover-custom-class',
 } as PopoverProps;
+
+export default {
+  title: 'Ion/Data Display/Popover',
+  decorators: [
+    moduleMetadata({
+      declarations: [
+        IonPopoverComponent,
+        IonAlertComponent,
+        IonDividerComponent,
+        IonPopoverDirective,
+      ],
+      imports: [CommonModule, IonSharedModule, IonTooltipModule],
+      entryComponents: [IonPopoverComponent, IonTooltipComponent],
+    }),
+  ],
+} as Meta;
