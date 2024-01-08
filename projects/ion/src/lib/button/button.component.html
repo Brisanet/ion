@@ -20,7 +20,7 @@
     class="icon"
   ></ion-icon>
   <ion-icon
-    *ngIf="options"
+    *ngIf="options && !circularButton"
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     [size]="iconSize"
     class="icon"
