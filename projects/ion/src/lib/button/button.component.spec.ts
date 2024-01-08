@@ -226,6 +226,23 @@ describe('ButtonComponent with dropdown', () => {
 
       expect(button).toHaveTextContent(options[0].label);
     });
+
+    it('should return to original label when unselect the option selected', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        options,
+      });
+
+      const selectedOption = options[0].label;
+      fireEvent.click(button);
+      fireEvent.click(screen.getByText(selectedOption));
+      fireEvent.click(screen.getByTestId(`btn-${selectedOption}`));
+      fireEvent.click(document.getElementById('ion-icon-check'));
+
+      expect(button).toHaveTextContent(defaultName);
+    });
   });
 
   it('should close dropdown when click outside component', async () => {
