@@ -8,7 +8,6 @@ export interface IonModalConfiguration {
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;
   preventCloseOnEscKey?: boolean;
-
   ionParams?: SafeAny;
   hideCloseButton?: boolean;
   headerButton?: IonModalHeaderButton;
