@@ -11,12 +11,10 @@ import {
   Injector,
   Input,
   OnDestroy,
-  OnInit,
   Output,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 import { IconType } from '../core/types';
 import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
@@ -26,7 +24,7 @@ import { IonPopoverComponent } from './component/popover.component';
 import { getPositionsPopover } from './utilsPopover';
 
 @Directive({ selector: '[ionPopover]' })
-export class IonPopoverDirective implements OnDestroy, OnInit {
+export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverKeep = false;
   @Input() ionPopoverBody: TemplateRef<void>;
@@ -41,7 +39,6 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
-  public subscription$: Subscription;
   private popoverComponentRef: ComponentRef<IonPopoverComponent> = null;
 
   constructor(
@@ -138,7 +135,7 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
   }
 
   showPopover(): void {
-    if (this.popoverComponentRef) {
+    if (!this.isComponentRefNull()) {
       this.popoverComponentRef.instance.ionPopoverVisible = true;
     }
   }
@@ -163,7 +160,7 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
 
   @HostListener('click') onClick(): void {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-    if (this.elementIsEnabled(hostElement)) {
+    if (this.elementIsEnabled(hostElement) && this.isComponentRefNull()) {
       this.open();
     }
   }
@@ -173,22 +170,15 @@ export class IonPopoverDirective implements OnDestroy, OnInit {
   }
 
   destroyComponent(): void {
-    if (this.popoverComponentRef) {
+    if (!this.isComponentRefNull()) {
       this.appRef.detachView(this.popoverComponentRef.hostView);
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
-    if (this.subscription$) {
-      this.subscription$.unsubscribe();
-    }
   }
 
-  ngOnInit(): void {
-    this.subscription$ = this.positionService.reposition.subscribe(() => {
-      if (this.popoverComponentRef) {
-        this.setComponentPosition();
-      }
-    });
+  isComponentRefNull(): boolean {
+    return this.popoverComponentRef === null;
   }
 
   ngOnDestroy(): void {

@@ -60,7 +60,6 @@ import { PopoverPosition } from '../../core/types/popover';
           [ionPopoverBody]="contentTemplate"
           ionPopoverPosition="${PopoverPosition.LEFT_BOTTOM}"
         >
-          LB
         </ion-button>
       </div>
       <div style="width: 50px; margin-left: 218px; flex-direction: column;">
@@ -134,8 +133,8 @@ import { PopoverPosition } from '../../core/types/popover';
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 1600px;
-        overflow-y: scroll;
+        height: 600px;
+        margin-left: 50px;
       }
 
       div {
