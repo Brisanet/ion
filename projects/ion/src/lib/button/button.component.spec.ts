@@ -109,6 +109,15 @@ describe('Icon on ButtonComponent', () => {
     await sut({ iconType: 'pencil', id: myCustomId });
     expect(screen.queryAllByTestId(`btn-${myCustomId}`)).toHaveLength(1);
   });
+
+  it('should not render chevron options when button is circular and has dropdown', async () => {
+    await sut({
+      iconType: 'pencil',
+      circularButton: true,
+      options: [{ label: 'Option 1' }],
+    });
+    expect(document.getElementById('ion-icon-semi-down')).toBeNull();
+  });
 });
 
 describe('Danger ButtonComponent', () => {
