@@ -32,3 +32,8 @@ export interface ConfigSmartTable<T> extends ConfigTable<T> {
   hideLongData?: boolean;
   cellTooltipConfig?: Partial<TooltipProps>;
 }
+
+export interface FilteredColumn {
+  column: string;
+  filter: string;
+}

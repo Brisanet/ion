@@ -225,3 +225,9 @@ table {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.actions {
+  display: flex;
+  gap: spacing(1);
+  align-items: center;
+}

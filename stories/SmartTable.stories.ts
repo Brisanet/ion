@@ -586,3 +586,18 @@ DataWithPipe.args = returnTableConfig(
   actions,
   2
 );
+
+export const WithColumnFilter = Template.bind({});
+const columnWithFilter = [
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: true,
+    filter: {
+      options: [{ label: 'Meteora' }, { label: 'One More Light' }],
+    },
+  },
+];
+
+const argsColumnFilter = returnTableConfig(data, columnWithFilter, actions, 2);
+WithColumnFilter.args = { ...argsColumnFilter };

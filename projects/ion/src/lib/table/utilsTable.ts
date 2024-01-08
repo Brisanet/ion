@@ -1,5 +1,11 @@
 import { TemplateRef } from '@angular/core';
-import { FontSize, IconType, StatusType, TooltipProps } from '../core/types';
+import {
+  DropdownItem,
+  FontSize,
+  IconType,
+  StatusType,
+  TooltipProps,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { TagStatus } from './../core/types/status';
 import { IconSide, LinkTarget } from './../core/types/link';
@@ -56,6 +62,9 @@ export interface Column<RowType = SafeAny> {
   configTooltip?: TooltipProps;
   pipe?: PipeColumn;
   hideLongData?: boolean;
+  filter?: {
+    options: DropdownItem[];
+  };
 }
 
 export interface ActionConfirm<RowType> {

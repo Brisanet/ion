@@ -9,7 +9,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { ConfigSmartTable, SmartTableEvent } from '../core/types';
+import {
+  ConfigSmartTable,
+  DropdownItem,
+  FilteredColumn,
+  SmartTableEvent,
+} from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import {
@@ -36,6 +41,8 @@ export class IonSmartTableComponent<RowType>
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
   public sortWithDebounce: (column: Column) => void;
+  public filteredColumn: FilteredColumn;
+
   private firstLoad = true;
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -120,5 +127,23 @@ export class IonSmartTableComponent<RowType>
       change_page: this.pagination,
       rows_selected: this.getRowsSelected(),
     });
+  }
+
+  public selectDropdownItem(
+    column: Column,
+    selectedFilterOption: DropdownItem[]
+  ): void {
+    if (!selectedFilterOption.length) {
+      this.filteredColumn = {
+        column: '',
+        filter: '',
+      };
+      return;
+    }
+
+    this.filteredColumn = {
+      column: column.key,
+      filter: selectedFilterOption[0].label,
+    };
   }
 }
