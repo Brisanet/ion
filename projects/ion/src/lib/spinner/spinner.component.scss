@@ -10,11 +10,24 @@
   border-left-color: $color;
 }
 
+.spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
 .ion-spinner {
   display: block;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   @include spinner-parameters(24px, 2px, solid);
+
+  &__text {
+    line-height: 114.28%;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: $neutral-6;
+  }
 }
 
 .primary {

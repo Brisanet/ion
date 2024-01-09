@@ -43,4 +43,14 @@ describe('SpinnerComponent', () => {
       height: `${customSize}px`,
     });
   });
+
+  it('should not render the text as default', async () => {
+    await sut({ ...defaultProps });
+    expect(screen.queryByTestId('ion-spinner-text')).not.toBeInTheDocument();
+  });
+
+  it('should render the text when informed', async () => {
+    await sut({ ...defaultProps, text: 'Carregando...' });
+    expect(screen.getByTestId('ion-spinner-text')).toBeVisible();
+  });
 });

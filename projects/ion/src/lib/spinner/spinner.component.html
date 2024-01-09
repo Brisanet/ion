@@ -1,8 +1,16 @@
-<span
-  class="ion-spinner"
-  data-testid="ion-spinner"
-  [ngClass]="color"
-  [style.width.px]="size"
-  [style.height.px]="size"
-  [style.border-left-color]="customColor"
-></span>
+<span [class.spinner-container]="text.length > 0">
+  <span
+    class="ion-spinner"
+    data-testid="ion-spinner"
+    [ngClass]="color"
+    [style.width.px]="size"
+    [style.height.px]="size"
+    [style.border-left-color]="customColor"
+  ></span>
+  <span
+    data-testid="ion-spinner-text"
+    class="ion-spinner__text"
+    *ngIf="text.length > 0"
+    >{{ text }}</span
+  >
+</span>

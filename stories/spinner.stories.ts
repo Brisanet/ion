@@ -29,3 +29,10 @@ export const SpinnerCustomColor = Template.bind({});
 SpinnerCustomColor.args = {
   customColor: '#c05bff',
 };
+
+export const SpinnerWithText = Template.bind({});
+SpinnerWithText.args = {
+  size: 32,
+  text: 'Carregando...',
+  textSize: 14,
+};

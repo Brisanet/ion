@@ -11,4 +11,6 @@ export class IonSpinnerComponent {
   @Input() size = 24;
   @Input() color: IonSpinnerColor = 'primary';
   @Input() customColor?: string;
+  @Input() text? = '';
+  @Input() textSize? = 12;
 }
