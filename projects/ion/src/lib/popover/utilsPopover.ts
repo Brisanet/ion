@@ -156,7 +156,7 @@ export function getPositionsPopover(
   const { host, arrowAtCenter, element: popover } = props;
   const hostHorizontalCenter = Math.round(host.width / 2 + host.left);
   const hostVerticalCenter = Math.round(host.height / 2 + host.top);
-  const propsCalculateFunctions = {
+  const calculatePositionProps = {
     host,
     popover,
     arrowAtCenter,
@@ -165,9 +165,9 @@ export function getPositionsPopover(
   };
 
   return {
-    ...calculateTopPositions(propsCalculateFunctions),
-    ...calculateBottomPositions(propsCalculateFunctions),
-    ...calculateLeftPositions(propsCalculateFunctions),
-    ...calculateRightPositions(propsCalculateFunctions),
+    ...calculateTopPositions(calculatePositionProps),
+    ...calculateBottomPositions(calculatePositionProps),
+    ...calculateLeftPositions(calculatePositionProps),
+    ...calculateRightPositions(calculatePositionProps),
   } as PopoverPositions;
 }

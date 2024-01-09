@@ -1,8 +1,4 @@
-import {
-  IonPositionService,
-  IonPositions,
-  ElementPositions,
-} from './position.service';
+import { IonPositionService, IonPositions } from './position.service';
 
 describe('IonPositionService', () => {
   let ionPositionService: IonPositionService;
