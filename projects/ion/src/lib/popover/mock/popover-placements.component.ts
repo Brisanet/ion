@@ -1,122 +1,26 @@
 import { Component } from '@angular/core';
 import { PopoverPosition } from '../../core/types/popover';
 
+interface ButtonConfig {
+  label: string;
+  position: PopoverPosition;
+}
+
 @Component({
   template: `
     <main>
-      <div style="margin-left: 50px">
+      <div
+        *ngFor="let configs of buttonConfigs; let indexed = index"
+        class="group-{{ indexed }}"
+      >
         <ion-button
-          label="TL"
+          *ngFor="let config of configs"
+          [label]="config.label"
           type="secondary"
           ionPopover
           ionPopoverTitle="Popover Title"
           [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.TOP_LEFT}"
-        >
-        </ion-button>
-        <ion-button
-          label="TC"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.TOP_CENTER}"
-        >
-        </ion-button>
-        <ion-button
-          label="TR"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.TOP_RIGHT}"
-        >
-        </ion-button>
-      </div>
-      <div style="width: 50px; float: left; flex-direction: column;">
-        <ion-button
-          label="LT"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.LEFT_TOP}"
-        >
-        </ion-button>
-        <ion-button
-          label="LC"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.LEFT_CENTER}"
-        >
-        </ion-button>
-        <ion-button
-          label="LB"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.LEFT_BOTTOM}"
-        >
-        </ion-button>
-      </div>
-      <div style="width: 50px; margin-left: 218px; flex-direction: column;">
-        <ion-button
-          label="RT"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.RIGHT_TOP}"
-        >
-        </ion-button>
-        <ion-button
-          label="RC"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.RIGHT_CENTER}"
-        >
-        </ion-button>
-        <ion-button
-          label="RB"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.RIGHT_BOTTOM}"
-        >
-        </ion-button>
-      </div>
-      <div style="margin-left: 50px; clear: both;">
-        <ion-button
-          label="BL"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.BOTTOM_LEFT}"
-        >
-        </ion-button>
-        <ion-button
-          label="BC"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.BOTTOM_CENTER}"
-        >
-        </ion-button>
-        <ion-button
-          label="BR"
-          type="secondary"
-          ionPopover
-          ionPopoverTitle="Popover Title"
-          [ionPopoverBody]="contentTemplate"
-          ionPopoverPosition="${PopoverPosition.BOTTOM_RIGHT}"
+          [ionPopoverPosition]="config.position"
         >
         </ion-button>
       </div>
@@ -141,7 +45,51 @@ import { PopoverPosition } from '../../core/types/popover';
         display: flex;
         gap: 10px;
       }
+
+      .group-0 {
+        margin-left: 50px;
+      }
+
+      .group-1 {
+        width: 50px;
+        float: left;
+        flex-direction: column;
+      }
+
+      .group-2 {
+        width: 50px;
+        margin-left: 218px;
+        flex-direction: column;
+      }
+
+      .group-3 {
+        margin-left: 50px;
+        clear: both;
+      }
     `,
   ],
 })
-export class PopoverPlacementsComponent {}
+export class PopoverPlacementsComponent {
+  buttonConfigs: ButtonConfig[][] = [
+    [
+      { label: 'TL', position: PopoverPosition.TOP_LEFT },
+      { label: 'TC', position: PopoverPosition.TOP_CENTER },
+      { label: 'TR', position: PopoverPosition.TOP_RIGHT },
+    ],
+    [
+      { label: 'LT', position: PopoverPosition.LEFT_TOP },
+      { label: 'LC', position: PopoverPosition.LEFT_CENTER },
+      { label: 'LB', position: PopoverPosition.LEFT_BOTTOM },
+    ],
+    [
+      { label: 'RT', position: PopoverPosition.RIGHT_TOP },
+      { label: 'RC', position: PopoverPosition.RIGHT_CENTER },
+      { label: 'RB', position: PopoverPosition.RIGHT_BOTTOM },
+    ],
+    [
+      { label: 'BL', position: PopoverPosition.BOTTOM_LEFT },
+      { label: 'BC', position: PopoverPosition.BOTTOM_CENTER },
+      { label: 'BR', position: PopoverPosition.BOTTOM_RIGHT },
+    ],
+  ];
+}
