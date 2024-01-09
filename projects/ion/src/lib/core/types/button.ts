@@ -1,7 +1,7 @@
 import { BadgeProps } from './badge';
 import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
-import { DropdownItem } from './dropdown';
+import { DropdownItem, DropdownParams } from './dropdown';
 import { IconType } from './icon';
 
 export type Type = 'primary' | 'secondary' | 'ghost' | 'dashed';
@@ -36,4 +36,9 @@ export interface IonButtonProps {
   id?: string;
   selected?: EventEmitter<SafeAny>;
   ionOnClick?: EventEmitter<SafeAny>;
+  dropdownConfig?: Pick<
+    DropdownParams,
+    'description' | 'notShowClearButton' | 'required' | 'enableSearch'
+  >;
+  handleDropdownSearch?: EventEmitter<string>;
 }

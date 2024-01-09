@@ -4,6 +4,7 @@ import { SafeAny } from '../utils/safe-any';
 import { FormsModule } from '@angular/forms';
 import { IonSharedModule } from '../shared.module';
 import { IonButtonProps } from '../core/types/button';
+import userEvent from '@testing-library/user-event';
 
 const defaultName = 'button';
 
@@ -108,6 +109,15 @@ describe('Icon on ButtonComponent', () => {
     const myCustomId = '1234';
     await sut({ iconType: 'pencil', id: myCustomId });
     expect(screen.queryAllByTestId(`btn-${myCustomId}`)).toHaveLength(1);
+  });
+
+  it('should not render chevron options when button is circular and has dropdown', async () => {
+    await sut({
+      iconType: 'pencil',
+      circularButton: true,
+      options: [{ label: 'Option 1' }],
+    });
+    expect(document.getElementById('ion-icon-semi-down')).toBeNull();
   });
 });
 
@@ -225,6 +235,28 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(await screen.findByText(options[0].label));
 
       expect(button).toHaveTextContent(options[0].label);
+    });
+
+    it('should emit an event when search in dropdown', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+      const searchEvent = jest.fn();
+
+      const button = await sut({
+        label: defaultName,
+        options,
+        dropdownConfig: {
+          enableSearch: true,
+        },
+        handleDropdownSearch: {
+          emit: searchEvent,
+        } as SafeAny,
+      });
+
+      fireEvent.click(button);
+
+      const typeText = 'search term';
+      userEvent.type(screen.getByTestId('input-element'), typeText);
+      expect(searchEvent).toHaveBeenLastCalledWith(typeText);
     });
   });
 

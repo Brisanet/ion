@@ -20,7 +20,7 @@
     class="icon"
   ></ion-icon>
   <ion-icon
-    *ngIf="options"
+    *ngIf="options && !circularButton"
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     [size]="iconSize"
     class="icon"
@@ -44,6 +44,8 @@
     [options]="options"
     [multiple]="multiple"
     (selected)="handleSelect($event)"
+    [enableSearch]="dropdownConfig?.enableSearch"
+    (searchChange)="onSearchChange($event)"
     (clearBadgeValue)="onClearBadgeValue()"
     (closeDropdown)="onCloseDropdown()"
     [required]="dropdownConfig?.required"

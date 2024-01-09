@@ -307,6 +307,24 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   </Story>
 </Canvas>
 
+- `enableSearch`. Adiciona um campo de busca no dropdown para realizar uma busca nas opções.
+
+<Canvas>
+  <Story
+    name="with search dropdown"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule, FormsModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Primary" [dropdownConfig]="{enableSearch: true}" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>`,
+    }}
+    secondary
+  </Story>
+</Canvas>
+
 - `circularButton`. Transforma a bordas do botão em formato de círculo. Apenas o ícone será exibido.
 
 <Canvas>
