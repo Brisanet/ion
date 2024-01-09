@@ -45,10 +45,10 @@ export class IonPopoverDirective implements OnDestroy {
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector,
     private positionService: IonPositionService,
     private readonly viewRef: ViewContainerRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private injector: Injector
   ) {}
 
   open(): void {

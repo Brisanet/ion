@@ -33,8 +33,8 @@ export class IonPopoverComponent implements AfterViewChecked {
   @Input() ionPopoverIconClose = false;
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverCustomClass = '';
-  ionPopoverVisible = false;
 
+  ionPopoverVisible = false;
   left = 0;
   top = 0;
   position = '';
