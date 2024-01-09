@@ -67,12 +67,9 @@ describe('IonPositionService', () => {
     });
 
     it('should return new position', () => {
-      const getPositionCallbackMock = jest.fn(
-        () =>
-          ({
-            [IonPositions.TOP_LEFT]: { left: 0, top: 0 },
-          } as ElementPositions)
-      );
+      const getPositionCallbackMock = jest
+        .fn()
+        .mockReturnValue({ [IonPositions.TOP_LEFT]: { left: 0, top: 0 } });
       const hostPosition = {
         left: 10,
         top: 20,
