@@ -38,7 +38,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() showDropdown? = false;
   @Input() dropdownConfig?: Pick<
     DropdownParams,
-    'description' | 'notShowClearButton' | 'required'
+    'description' | 'notShowClearButton' | 'required' | 'enableSearch'
   > = {
     notShowClearButton: false,
     required: false,
@@ -47,6 +47,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
 
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();
+  @Output() handleDropdownSearch = new EventEmitter<string>();
 
   public buttonBadge?: ButtonBadgeTypes = {
     type: 'secondary',
@@ -89,6 +90,10 @@ export class IonButtonComponent implements OnInit, OnChanges {
     if (this.showDropdown) {
       this.showDropdown = false;
     }
+  }
+
+  onSearchChange(dropdownSearch: string): void {
+    this.handleDropdownSearch.emit(dropdownSearch);
   }
 
   ngOnInit(): void {
