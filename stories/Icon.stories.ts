@@ -14,6 +14,7 @@ const Template: Story<IonIconComponent> = (args: IonIconComponent) => ({
 export const IconDefault = Template.bind({});
 IconDefault.args = {
   type: 'pencil',
+  highlight: 'none',
 };
 
 export const IconOtherSize = Template.bind({});

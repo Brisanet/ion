@@ -78,8 +78,8 @@ describe('ChipComponent', () => {
 
   it('should render icon on left', async (iconPosition: IconDirection = 'left', icon = 'close') => {
     await sut({ label: 'custom-position', iconPosition, icon });
-    const element = screen.getByText('custom-position');
-    expect(element).toHaveClass('container-icon-text positionIcon');
+    const chipIcon = screen.getByTestId('chip-icon-left');
+    expect(chipIcon).toHaveClass('icon-color chip-icon-left');
   });
 
   it('should render chip component disabled', async () => {
@@ -151,6 +151,7 @@ describe('ChipComponent', () => {
         { label: 'Option 1', selected: true },
         { label: 'Option 2', selected: false },
       ],
+      multiple: true,
     });
     expect(screen.queryAllByTestId('badge-multiple')).toHaveLength(1);
   });
@@ -252,6 +253,7 @@ describe('Check update label', () => {
 
 describe('With Multiple Dropdown', () => {
   const dropdownEvent = jest.fn();
+  const events = jest.fn();
   const options = [
     {
       label: 'Meteora',
@@ -271,6 +273,9 @@ describe('With Multiple Dropdown', () => {
       multiple: true,
       dropdownEvents: {
         emit: dropdownEvent,
+      } as SafeAny,
+      events: {
+        emit: events,
       } as SafeAny,
     });
   });
@@ -312,8 +317,55 @@ describe('With Multiple Dropdown', () => {
     expect(dropdownEvent).toBeCalledWith([]);
   });
 
+  it('should reset chip style when dropdown is closed', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(document.body);
+    expect(screen.getByText('dropdown')).not.toHaveClass('chip-selected');
+  });
+
+  it('should emit event when dropdown is closed', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(document.body);
+    expect(events).toBeCalledWith({
+      selected: false,
+      disabled: false,
+      closeDropdown: true,
+    });
+  });
+
   afterEach(() => {
     dropdownEvent.mockClear();
+  });
+});
+
+describe('With dropdown with icons', () => {
+  const options = [
+    {
+      label: 'Meteora',
+      selected: false,
+      key: 'meteora',
+      icon: 'box',
+    },
+    {
+      label: 'One More Light',
+      selected: false,
+      key: 'one_more_light',
+      icon: 'block',
+    },
+  ];
+
+  beforeEach(async () => {
+    await sut({
+      label: 'dropdown',
+      options: JSON.parse(JSON.stringify(options)),
+    });
+  });
+
+  it('should set the icon to the selected option', async () => {
+    fireEvent.click(screen.getByText('dropdown'));
+    fireEvent.click(screen.getByText(options[0].label));
+    const chipIcon = document.getElementById(`ion-icon-${options[0].icon}`);
+    expect(chipIcon).toBeVisible();
   });
 });
 

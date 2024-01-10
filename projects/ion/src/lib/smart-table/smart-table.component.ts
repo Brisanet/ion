@@ -4,8 +4,10 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { ConfigSmartTable, SmartTableEvent } from '../core/types';
 import { CheckBoxStates } from '../core/types/checkbox';
@@ -14,40 +16,33 @@ import {
   ITEMS_PER_PAGE_DEFAULT,
   LIST_OF_PAGE_OPTIONS,
 } from '../pagination/pagination.component';
-import {
-  ActionTable,
-  Column,
-  EventTable,
-  TableUtils,
-} from '../table/utilsTable';
+import { Column, EventTable } from '../table/utilsTable';
 import debounce from '../utils/debounce';
 import { SafeAny } from '../utils/safe-any';
-
-const stateChange = {
-  checked: 'enabled',
-  enabled: 'checked',
-};
+import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-smart-table',
   templateUrl: './smart-table.component.html',
   styleUrls: ['../table/table.component.scss'],
 })
-export class IonSmartTableComponent implements OnInit, AfterViewChecked {
-  @Input() config: ConfigSmartTable<SafeAny>;
+export class IonSmartTableComponent<RowType>
+  extends BaseTable<RowType, ConfigSmartTable<RowType>, SmartTableEvent>
+  implements OnInit, AfterViewChecked, OnChanges
+{
+  @Input() config: ConfigSmartTable<RowType>;
   @Output() events = new EventEmitter<SmartTableEvent>();
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
   public sortWithDebounce: (column: Column) => void;
-
   private firstLoad = true;
-  private tableUtils: TableUtils;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit(): void {
-    this.tableUtils = new TableUtils(this.config);
     if (!this.config.pagination.itemsPerPage) {
       this.config.pagination.itemsPerPage = ITEMS_PER_PAGE_DEFAULT;
     }
@@ -61,45 +56,14 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.config) {
+      this.applyPipes(this.config);
+    }
+  }
+
   ngAfterViewChecked(): void {
     this.cdr.detectChanges();
-  }
-
-  public checkState(): void {
-    if (this.mainCheckBoxState === 'indeterminate') {
-      this.uncheckAllRows();
-
-      return;
-    }
-    this.toggleAllRows();
-  }
-
-  public uncheckAllRows(): void {
-    this.config.data.forEach((row) => (row.selected = false));
-    this.setMainCheckboxState('enabled');
-  }
-
-  public checkRow(row: SafeAny): void {
-    row.selected = !row.selected;
-
-    if (this.tableUtils.isAllRowsSelected()) {
-      this.setMainCheckboxState('checked');
-    } else if (this.tableUtils.hasRowSelected()) {
-      this.setMainCheckboxState('indeterminate');
-    } else {
-      this.setMainCheckboxState('enabled');
-    }
-
-    this.emitRowsSelected();
-  }
-
-  public toggleAllRows(): void {
-    this.selectAllLike(!this.tableUtils.hasRowSelected());
-    this.emitRowsSelected();
-  }
-
-  public fillColor(column: Column, upArrow: boolean): string {
-    return this.tableUtils.fillColor(column, upArrow);
   }
 
   public sort(column: Column): void {
@@ -125,20 +89,6 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  public handleEvent(row: SafeAny, action: ActionTable): void {
-    if (action.call) {
-      action.call(row);
-    }
-  }
-
-  public showAction(row: SafeAny, action: ActionTable): boolean {
-    return action.show(row);
-  }
-
-  public disableAction(row: SafeAny, action: ActionTable): boolean {
-    return action.disabled(row);
-  }
-
   public paginationEvents(event: PageEvent): void {
     this.pagination = event;
     if (!this.config.loading && !this.firstLoad) {
@@ -150,7 +100,7 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
     this.firstLoad = false;
   }
 
-  public cellEvents(row: SafeAny, column: Column, cell: SafeAny): void {
+  public cellEvents(row: RowType, column: Column, cell: SafeAny): void {
     this.events.emit({
       event: EventTable.CELL_SELECT,
       change_page: this.pagination,
@@ -164,23 +114,11 @@ export class IonSmartTableComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  private setMainCheckboxState(state: CheckBoxStates): void {
-    this.mainCheckBoxState = state;
-  }
-
-  private emitRowsSelected(): void {
+  public emitRowsSelected(): void {
     this.events.emit({
       event: EventTable.ROW_SELECT,
       change_page: this.pagination,
-      rows_selected: this.tableUtils.getRowsSelected(),
+      rows_selected: this.getRowsSelected(),
     });
-  }
-
-  private selectAllLike(selected: boolean): void {
-    this.config.data.forEach((row) => {
-      row.selected = selected;
-    });
-
-    this.setMainCheckboxState(stateChange[this.mainCheckBoxState]);
   }
 }

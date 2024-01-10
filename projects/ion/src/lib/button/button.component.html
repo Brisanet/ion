@@ -3,6 +3,7 @@
   [attr.title]="tooltip ? tooltip : null"
   [class]="'ion-btn-' + type + ' ion-btn-' + size"
   [style.width]="!circularButton && expand ? '100%' : ''"
+  [attr.loading]="loading"
   [class.danger]="danger"
   [class.loading]="loading"
   [class.circular-button]="circularButton"
@@ -19,7 +20,7 @@
     class="icon"
   ></ion-icon>
   <ion-icon
-    *ngIf="options"
+    *ngIf="options && !circularButton"
     [type]="showDropdown ? 'semi-up' : 'semi-down'"
     [size]="iconSize"
     class="icon"
@@ -39,13 +40,16 @@
 </button>
 <div *ngIf="!!options && showDropdown" class="ion-btn-dropdown">
   <ion-dropdown
+    [description]="dropdownConfig?.description"
     [options]="options"
     [multiple]="multiple"
     (selected)="handleSelect($event)"
+    [enableSearch]="dropdownConfig?.enableSearch"
+    (searchChange)="onSearchChange($event)"
     (clearBadgeValue)="onClearBadgeValue()"
     (closeDropdown)="onCloseDropdown()"
-    [required]="dropdownConfig.required"
-    [notShowClearButton]="dropdownConfig.notShowClearButton"
+    [required]="dropdownConfig?.required"
+    [notShowClearButton]="dropdownConfig?.notShowClearButton"
   >
   </ion-dropdown>
 </div>

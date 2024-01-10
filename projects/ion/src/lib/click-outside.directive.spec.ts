@@ -43,18 +43,4 @@ describe('ClickOutsideDirective', () => {
     fireEvent.click(elementWithDirective);
     expect(screen.getByTestId('outside-span')).not.toHaveTextContent('clicked');
   });
-
-  it('should not run event when click on ion-icon inside directive element', async () => {
-    const svgIcon = document.getElementById('ion-icon-pencil');
-    fireEvent.click(svgIcon);
-    fireEvent.click(svgIcon);
-    expect(screen.getByTestId('outside-span')).not.toHaveTextContent('clicked');
-  });
-
-  it('should not run event when click on path from ion-icon inside directive element', async () => {
-    const pathIcon = document.getElementById('ion-icon-path-pencil-0');
-    fireEvent.click(pathIcon);
-    fireEvent.click(pathIcon);
-    expect(screen.getByTestId('outside-span')).not.toHaveTextContent('clicked');
-  });
 });

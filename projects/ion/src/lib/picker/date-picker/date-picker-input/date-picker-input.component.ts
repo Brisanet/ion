@@ -1,5 +1,5 @@
-import { SafeAny } from './../../../utils/safe-any';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { SafeAny } from './../../../utils/safe-any';
 
 export interface IonDatePickerInputComponentProps {
   date?: string;
@@ -13,6 +13,7 @@ export interface IonDatePickerInputComponentProps {
 })
 export class IonDatePickerInputComponent {
   @Input() date?: string;
+  @Input() rangePicker?: boolean;
   @Input() placeholder? = 'Selecione a data';
   @Output() clearDate = new EventEmitter();
 

@@ -1,3 +1,4 @@
+import { IonLinkModule } from './../link/link.module';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 
 import { IonButtonModule } from '../button/button.module';
@@ -19,6 +20,14 @@ import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { IonSmartTableComponent } from './smart-table.component';
+import { SimpleChange } from '@angular/core';
+
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+
+registerLocaleData(localePT, 'pt-BR');
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -51,6 +60,14 @@ interface Character {
   status?: StatusType;
   tooltip?: string;
 }
+
+interface Book {
+  id: number;
+  name: string;
+  value: number;
+  release_date: string;
+}
+
 const data: Character[] = [
   {
     name: 'Luke Skywalker',
@@ -108,9 +125,9 @@ const defaultProps: IonSmartTableProps<Character> = {
 };
 
 const sut = async (
-  customProps: IonSmartTableProps<Character> = defaultProps
+  customProps: IonSmartTableProps<Character | Book> = defaultProps
 ): Promise<SafeAny> => {
-  await render(IonSmartTableComponent, {
+  return await render(IonSmartTableComponent, {
     componentProperties: customProps,
     imports: [
       IonCheckboxModule,
@@ -122,6 +139,7 @@ const sut = async (
       PipesModule,
       IonTooltipModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -701,6 +719,177 @@ describe('Table > Differents columns data type', () => {
     );
   });
 
+  describe('Pipes', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: LOCALE_ID,
+            useValue: 'pt-BR',
+          },
+        ],
+      });
+    });
+
+    it('should show values formatteds by pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                format: 'dd/MM/yyyy',
+              },
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      const dateFormatted = '27/03/2007';
+      expect(screen.getByText(dateFormatted)).toBeInTheDocument();
+
+      const currencyFormatted = 'R$53.80';
+      expect(screen.getByText(currencyFormatted)).toBeInTheDocument();
+    });
+
+    it('should keep the orignal value when not found pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'wrongpipe',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      expect(screen.getByText('53.8')).toBeInTheDocument();
+    });
+
+    it('should detect a new change and update the component', async () => {
+      const myConfig = {
+        config: {
+          ...defaultProps.config,
+          data: [],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      };
+
+      const { fixture } = await sut(myConfig);
+      fixture.componentInstance.ngOnChanges({
+        config: new SimpleChange(null, { ...myConfig }, false),
+      });
+      fixture.detectChanges();
+
+      expect(screen.getByText('Não há dados')).toBeInTheDocument();
+    });
+
+    it('should show the month name in pt-BR', async () => {
+      const myConfig = {
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                formart: 'MMMM d, y',
+              },
+              sort: false,
+            },
+          ],
+        },
+      };
+
+      await sut(myConfig);
+      expect(screen.getByText('27 de mar de 2007')).toBeInTheDocument();
+    });
+  });
+
   describe('Sort', () => {
     it('should not show button sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
@@ -1224,5 +1413,69 @@ describe('Table > Cell with long data', () => {
     tableWithLongData.config.hideLongData = true;
     await sut(tableWithLongData);
     expect(screen.getByTestId('row-0-name')).toHaveClass('hidden-content');
+  });
+});
+
+describe('Table > Link in cells', () => {
+  const linkClickAction = jest.fn();
+
+  const dataWithLink = [data[0]];
+
+  const columnsWithLink: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'url',
+      label: 'URL',
+      type: ColumnType.LINK,
+      link: {
+        action: linkClickAction,
+        label: () => 'link label',
+      },
+    },
+  ];
+
+  afterEach(() => {
+    linkClickAction.mockClear();
+  });
+
+  it('should render the link component', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.getByText('link label')).toBeVisible();
+  });
+
+  it('should call the action when clicking the link', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.click(screen.getByText('link label'));
+    expect(linkClickAction).toHaveBeenCalled();
   });
 });

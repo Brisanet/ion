@@ -39,6 +39,7 @@
       ></ion-button>
       <h4 data-testid="modalTitle">{{ configuration.title }}</h4>
       <ion-button
+        *ngIf="!configuration.hideCloseButton"
         label="Deletar"
         iconType="close"
         type="ghost"
@@ -49,6 +50,16 @@
         (keydown.enter)="closeModal()"
       ></ion-button>
     </header>
+
+    <ion-alert
+      *ngIf="configuration.alertConfig"
+      [message]="configuration.alertConfig.message"
+      [type]="configuration.alertConfig.type"
+      [description]="configuration.alertConfig.description"
+      [closable]="false"
+      [hideBackground]="false"
+      [noRadius]="false"
+    ></ion-alert>
 
     <div tabindex="0" class="modal-body">
       <ng-template #modalBody></ng-template>

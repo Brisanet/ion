@@ -13,7 +13,8 @@ import {
   Output,
   ViewContainerRef,
 } from '@angular/core';
-import { StatusType } from '../core/types';
+
+import { PopConfirmProps, StatusType } from '../core/types';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopConfirmComponent } from './popconfirm.component';
 
@@ -38,6 +39,8 @@ export class IonPopConfirmDirective implements OnDestroy {
   @Input() ionPopConfirmTitle = 'Tem certeza?';
   @Input() ionPopConfirmDesc = '';
   @Input() ionPopConfirmType: StatusType = 'warning';
+  @Input() ionConfirmText: PopConfirmProps['ionConfirmText'] = 'Confirmar';
+  @Input() ionCancelText: PopConfirmProps['ionCancelText'] = 'Cancelar';
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
@@ -159,6 +162,11 @@ export class IonPopConfirmDirective implements OnDestroy {
     this.IonPopConfirmComponentRef.instance.ionPopConfirmType =
       this.ionPopConfirmType;
 
+    this.IonPopConfirmComponentRef.instance.ionConfirmText =
+      this.ionConfirmText;
+
+    this.IonPopConfirmComponentRef.instance.ionCancelText = this.ionCancelText;
+
     this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
       this.closePopConfirm();
       this.ionOnConfirm.emit();
@@ -187,13 +195,22 @@ export class IonPopConfirmDirective implements OnDestroy {
     return element.firstElementChild.getAttribute('disabled') !== '';
   }
 
+  elementChildIsLoading(element: HTMLElement): boolean {
+    if (!element.firstElementChild) {
+      return false;
+    }
+    return element.firstElementChild.getAttribute('loading') === 'true';
+  }
+
   hostElementIsEnabled(element: HTMLElement): boolean {
     return element.getAttribute('disabled') !== '';
   }
 
   elementsAreEnabled(element: HTMLElement): boolean {
     return (
-      this.elementChildIsEnabled(element) && this.hostElementIsEnabled(element)
+      this.elementChildIsEnabled(element) &&
+      !this.elementChildIsLoading(element) &&
+      this.hostElementIsEnabled(element)
     );
   }
 

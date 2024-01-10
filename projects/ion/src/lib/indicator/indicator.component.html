@@ -12,7 +12,7 @@
       <ion-icon
         data-testid="ion-indicator-tooltip"
         *ngIf="tooltipText"
-        type="exclamation-rounded"
+        type="information"
         size="16"
         ionTooltip
         ionTooltipPosition="bottomLeft"
@@ -47,7 +47,17 @@
           *ngIf="!(value === null || value === undefined || value === '')"
         >
           <h4 data-testid="ion-indicator-value">{{ value }}</h4>
-          <p data-testid="ion-indicator-second-value">{{ secondValue }}</p>
+          <p
+            data-testid="ion-indicator-second-value"
+            ionTooltip
+            ionTooltipPosition="bottomLeft"
+            ionTooltipColorScheme="dark"
+            ionTooltipTrigger="hover"
+            [ionTooltipTitle]="secondValueTooltipText"
+            [ionTooltipArrowPointAtCenter]="true"
+          >
+            {{ secondValue }}
+          </p>
         </ng-container>
         <ng-container
           *ngIf="value === null || value === undefined || value === ''"
@@ -89,6 +99,9 @@
           [ionPopoverIcon]="buttonConfig.popoverConfig.ionPopoverIcon"
           [ionPopoverIconClose]="buttonConfig.popoverConfig.ionPopoverIconClose"
           [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
+          [ionPopoverCustomClass]="
+            buttonConfig.popoverConfig.ionPopoverCustomClass
+          "
           (ionOnFirstAction)="buttonConfig.popoverConfig.firstAction()"
           (ionOnSecondAction)="buttonConfig.popoverConfig.secondAction()"
         ></ion-button>

@@ -1,6 +1,8 @@
 /*
  * Public API Surface of ion
  */
+export { default as BnTable } from './core/bn-table/bn-table';
+export * from './lib/accordion/accordion.module';
 export * from './lib/alert/alert.module';
 export * from './lib/avatar/avatar.module';
 export * from './lib/badge/badge.module';
@@ -19,6 +21,7 @@ export * from './lib/indicator/indicator.module';
 export * from './lib/info-badge/info-badge.module';
 export * from './lib/input-area/input-area.module';
 export * from './lib/input-counter/input-counter.module';
+export * from './lib/input-select/input-select.module';
 export * from './lib/input/input.module';
 export * from './lib/ion.component';
 export * from './lib/ion.module';
@@ -48,11 +51,10 @@ export * from './lib/switch/switch.module';
 export * from './lib/tab-group/tab-group.module';
 export * from './lib/tab/tab.module';
 export * from './lib/table/table.module';
+export * from './lib/table/utilsTable';
 export * from './lib/tag/tag.module';
 export * from './lib/tooltip/tooltip.module';
+export * from './lib/triple-toggle/triple-toggle.module';
 export * from './lib/typography/';
 export { default as debounce } from './lib/utils/debounce';
-export { default as BnTable } from './core/bn-table/bn-table';
-export * from './lib/table/utilsTable';
-export * from './lib/input-select/input-select.module';
-export * from './lib/accordion/accordion.module';
+export * from './lib/link/link.module';

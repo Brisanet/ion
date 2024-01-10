@@ -171,7 +171,8 @@ button {
       @include add-colors($negative-5, $neutral-1);
     }
 
-    &.loading {
+    &.loading,
+    &.loading:active {
       background-color: $negative-5;
     }
 
@@ -197,11 +198,6 @@ button {
     @include add-colors($primary-1, $primary-5);
     border: 1px solid $primary-4;
 
-    &:disabled {
-      @include add-colors($neutral-3, $neutral-5);
-      border: 1px solid $neutral-5;
-    }
-
     &:active {
       @include add-colors($primary-2, $primary-7);
       border-color: $primary-5;
@@ -214,7 +210,16 @@ button {
     }
   }
 
-  &.loading {
+  &:disabled,
+  &:disabled:hover,
+  &[disabled],
+  &[disabled]:hover {
+    @include add-colors($neutral-3, $neutral-5);
+    border: 1px solid $neutral-5;
+  }
+
+  &.loading,
+  &.loading:active {
     @include add-colors($primary-1, $primary-color);
     border-color: $primary-3;
   }
@@ -231,9 +236,12 @@ button {
       @include add-colors($negative-2 !important, $negative-7 !important);
     }
 
-    &.loading {
-      @include add-colors($negative-1, $negative-6);
+    &.loading,
+    &.loading:hover,
+    &.loading:active {
+      @include add-colors($negative-1 !important, $negative-6 !important);
       border-color: $negative-3;
+      color: $negative-color;
     }
   }
 }
@@ -287,11 +295,6 @@ button {
     @include add-colors($primary-1, $primary-5);
     border: 1px $primary-4;
     border-style: dashed;
-
-    &:disabled {
-      @include add-colors($neutral-3, $neutral-5);
-      border: 1px dashed $neutral-5;
-    }
   }
 
   &:active {
@@ -302,6 +305,14 @@ button {
   &.loading {
     @include add-colors($primary-1, $primary-color);
     border-color: $primary-3;
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &[disabled],
+  &[disabled]:hover {
+    @include add-colors($neutral-3, $neutral-5);
+    border: 1px dashed $neutral-5;
   }
 
   &.danger {

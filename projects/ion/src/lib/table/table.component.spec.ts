@@ -20,7 +20,15 @@ import { StatusType } from './../core/types/status';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
+import { IonLinkModule } from './../link/link.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
+
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import { TestBed } from '@angular/core/testing';
+
+registerLocaleData(localePT, 'pt-BR');
 
 const disabledArrowColor = '#CED2DB';
 const enabledArrowColor = '#0858CE';
@@ -42,6 +50,8 @@ interface Disco {
   id: number;
   name: string;
   deleted: boolean;
+  release_date?: string;
+  value?: number;
   year?: number;
   icon?: string;
   status?: StatusType;
@@ -90,6 +100,7 @@ const sut = async (
       IonPopConfirmModule,
       IonTooltipModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -246,6 +257,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     const newData = [{ name: 'Meteora', deleted: false, id: 2 }];
@@ -268,6 +280,7 @@ describe('Table > Changes', () => {
         IonPopConfirmModule,
         IonTooltipModule,
         IonSpinnerModule,
+        IonLinkModule,
       ],
     });
     propsToChange.config.data = [];
@@ -646,6 +659,73 @@ describe('Table > Differents columns data type', () => {
     );
   });
 
+  describe('Pipes', () => {
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        providers: [
+          {
+            provide: LOCALE_ID,
+            useValue: 'pt-BR',
+          },
+        ],
+      });
+    });
+
+    it('should show values formatteds by pipe', async () => {
+      await sut({
+        ...defaultProps,
+        config: {
+          ...defaultProps.config,
+          data: [
+            {
+              id: 1,
+              name: 'The name of the wind',
+              release_date: '2007-03-27',
+              value: 53.8,
+              deleted: false,
+            },
+            {
+              id: 2,
+              name: 'The Wise Mans Fear',
+              release_date: '2011-03-01',
+              value: 1016,
+              deleted: false,
+            },
+          ],
+          columns: [
+            {
+              key: 'name',
+              label: 'Nome',
+              sort: false,
+            },
+            {
+              key: 'release_date',
+              label: 'Lançamento',
+              pipe: {
+                apply: 'date',
+                format: 'dd/MM/yyyy',
+              },
+              sort: false,
+            },
+            {
+              key: 'value',
+              label: 'Valor',
+              pipe: {
+                apply: 'currency',
+              },
+              sort: false,
+            },
+          ],
+        },
+      });
+      const dateFormatted = '27/03/2007';
+      expect(screen.getByText(dateFormatted)).toBeInTheDocument();
+
+      const currencyFormatted = 'R$53.80';
+      expect(screen.getByText(currencyFormatted)).toBeInTheDocument();
+    });
+  });
+
   describe('Sort', () => {
     it('should not show icon sort when column not is sortable', async () => {
       await sut(tableDifferentColumns);
@@ -919,6 +999,7 @@ const sutCustomRowTemplate = async (
       IonPopConfirmModule,
       IonTableModule,
       IonSpinnerModule,
+      IonLinkModule,
     ],
   });
 };
@@ -936,5 +1017,61 @@ describe('Table with custom row template', () => {
     expect(
       await screen.getAllByTestId('custom-name-column').length
     ).toBeGreaterThan(0);
+  });
+});
+
+describe('Table > Link in cells', () => {
+  const linkClickAction = jest.fn();
+
+  const dataWithLink: Disco[] = [
+    { id: 1, name: 'Meteora', deleted: false, year: 2003 },
+  ];
+
+  const columnsWithLink: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'url',
+      label: 'URL',
+      type: ColumnType.LINK,
+      link: {
+        action: linkClickAction,
+        label: () => 'link label',
+      },
+    },
+  ];
+
+  afterEach(() => {
+    linkClickAction.mockClear();
+  });
+
+  it('should render the link component', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+    expect(screen.getByText('link label')).toBeVisible();
+  });
+
+  it('should call the action when clicking the link', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: columnsWithLink,
+      },
+    });
+
+    fireEvent.click(screen.getByText('link label'));
+    expect(linkClickAction).toHaveBeenCalled();
   });
 });

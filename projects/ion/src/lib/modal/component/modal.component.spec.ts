@@ -6,6 +6,7 @@ import { IonButtonModule } from '../../button/button.module';
 import { SelectMockComponent } from '../mock/select-mock.component';
 import { IonModalConfiguration } from './../models/modal.interface';
 import { IonModalComponent } from './modal.component';
+import { IonAlertModule } from '../../alert/alert.module';
 
 describe('IonModalComponent', () => {
   let component: IonModalComponent;
@@ -14,7 +15,7 @@ describe('IonModalComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [IonModalComponent, SelectMockComponent],
-      imports: [FormsModule, IonButtonModule],
+      imports: [FormsModule, IonButtonModule, IonAlertModule],
     })
       .overrideModule(BrowserDynamicTestingModule, {
         set: {
@@ -123,7 +124,7 @@ describe('IonModalComponent', () => {
     expect(footer().classList.contains('divider')).toBe(false);
   });
 
-  it('should close modal using esc key', () => {
+  it('should close modal using esc key when configuration allow it', () => {
     const escapeKeyCode = 27;
 
     jest.spyOn(component, 'closeModal');
@@ -134,6 +135,20 @@ describe('IonModalComponent', () => {
       charCode: escapeKeyCode,
     });
     expect(component.closeModal).toHaveBeenCalled();
+  });
+
+  it('should not close modal using esc key when configuration disallow it', () => {
+    const escapeKeyCode = 27;
+
+    jest.spyOn(component, 'closeModal');
+    component.configuration.preventCloseOnEscKey = true;
+    fireEvent.keyDown(screen.getByTestId('modalOverlay'), {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: escapeKeyCode,
+      charCode: escapeKeyCode,
+    });
+    expect(component.closeModal).not.toHaveBeenCalled();
   });
 
   it('should close modal clicking in overlay when configuration allow it', () => {
@@ -173,6 +188,16 @@ describe('IonModalComponent', () => {
 
   it('should have close button', () => {
     expect(screen.getByTestId('close-icon')).toBeInTheDocument();
+  });
+
+  it('should hide close button when informed', () => {
+    const configuration: IonModalConfiguration = {
+      hideCloseButton: true,
+    };
+    component.setConfig(configuration);
+    fixture.detectChanges();
+
+    expect(screen.queryByTestId('close-icon')).not.toBeInTheDocument();
   });
 
   it('should render the width of the default modal', () => {
@@ -264,6 +289,47 @@ describe('IonModalComponent', () => {
       component.setConfig(configuration);
       fixture.detectChanges();
       expect(screen.queryByTestId('btn-voltar')).not.toBeInTheDocument();
+    });
+  });
+
+  describe('IonModalComponent - Alert', () => {
+    const configuration: IonModalConfiguration = {
+      id: '1',
+      title: 'Ion Test',
+      alertConfig: {
+        message: 'This is an alert in modal',
+        type: 'info',
+        description: 'this is a description',
+      },
+    };
+
+    it('should render alert message', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        screen.queryByText(configuration.alertConfig.message as string)
+      ).toBeInTheDocument();
+    });
+
+    it('should render alert description', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        screen.queryByText(configuration.alertConfig.description)
+      ).toBeInTheDocument();
+    });
+
+    it('should render alert type info', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+
+      expect(
+        document.getElementById(
+          `ion-icon-${configuration.alertConfig.type}-solid`
+        )
+      ).toBeDefined();
     });
   });
 });

@@ -57,6 +57,8 @@ Função responsável pela renderização do modal. Ela recebe como parâmetros:
           disabled: () => false,
           hidden: () => false,
         },
+        hideCloseButton: true,
+        overlayCanDismiss: false,
       },
     }}
     decorators={[
@@ -123,6 +125,35 @@ Recebe como parâmetro um valor, seguindo a interface _IonModalResponse_, a ser 
     args={{
       componentToBody: InputMockComponent,
       modalConfig: {
+        footer: {
+          hide: true,
+        },
+      },
+    }}
+    decorators={[
+      moduleMetadata({
+        declarations: [InputMockComponent],
+        imports: [CommonModule, FormsModule, IonSharedModule, IonModalModule],
+        entryComponents: [InputMockComponent],
+      }),
+    ]}
+  >
+    {template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Service - Modal with Alert"
+    height="350px"
+    args={{
+      componentToBody: InputMockComponent,
+      modalConfig: {
+        alertConfig: {
+          type: 'info',
+          message: 'This is the title',
+          description: 'Add here a description supimpa to your modal',
+        },
         footer: {
           hide: true,
         },

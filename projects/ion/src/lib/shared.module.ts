@@ -8,6 +8,8 @@ import { IonIconComponent } from './icon/icon.component';
 import { IonInputComponent } from './input/input.component';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { IonNoDataComponent } from './no-data/no-data.component';
+import { IonSpinnerComponent } from './spinner/spinner.component';
+import { IonLinkComponent } from './link/link.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { IonNoDataComponent } from './no-data/no-data.component';
     IonInputComponent,
     ClickOutsideDirective,
     IonNoDataComponent,
+    IonSpinnerComponent,
+    IonLinkComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -28,6 +32,8 @@ import { IonNoDataComponent } from './no-data/no-data.component';
     IonInputComponent,
     ClickOutsideDirective,
     IonNoDataComponent,
+    IonSpinnerComponent,
+    IonLinkComponent,
   ],
 })
 export class IonSharedModule {}

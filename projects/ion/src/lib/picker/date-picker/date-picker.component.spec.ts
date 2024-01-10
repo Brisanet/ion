@@ -1,17 +1,17 @@
-import { IonInputModule } from './../../input/input.module';
-import { IonDividerModule } from './../../divider/divider.module';
-import { IonButtonModule } from './../../button/button.module';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SafeAny } from '../../utils/safe-any';
-import { IonDatepickerComponent } from './date-picker.component';
 import {
+  ControlEvent,
   IonControlPickerComponent,
   TypeEvents,
 } from '../control-picker/control-picker.component';
-import { IonDatePickerInputComponent } from './date-picker-input/date-picker-input.component';
-import { IonDatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Day } from '../core/day';
-import { ControlEvent } from '../control-picker/control-picker.component';
+import { IonButtonModule } from './../../button/button.module';
+import { IonDividerModule } from './../../divider/divider.module';
+import { IonInputModule } from './../../input/input.module';
+import { IonDatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
+import { IonDatePickerInputComponent } from './date-picker-input/date-picker-input.component';
+import { IonDatepickerComponent } from './date-picker.component';
 
 describe('DatePickerCalendar', () => {
   let component: IonDatepickerComponent;
@@ -41,18 +41,18 @@ describe('DatePickerCalendar', () => {
   });
 
   it('should update currentDate, InputDate and set showDatePicker for false when call dateSelected function', () => {
-    component.dateSelected({ day });
-    expect(component.currentDate).toBe('2023-01-01');
+    component.dateSelected([day]);
+    expect(component.currentDate).toStrictEqual(['2023-01-01']);
     expect(component.inputDate).toBe('01/01/2023');
     expect(component.showDatepicker).not.toBeTruthy();
   });
 
   it('should clear currentDate and inputDate when call clearDate function', () => {
-    component.dateSelected({ day });
-    expect(component.currentDate).toBe('2023-01-01');
+    component.dateSelected([day]);
+    expect(component.currentDate).toStrictEqual(['2023-01-01']);
     expect(component.inputDate).toBe('01/01/2023');
     component.clearDate();
-    expect(component.currentDate).toBe('');
+    expect(component.currentDate).toStrictEqual([]);
     expect(component.inputDate).toBe('');
   });
 

@@ -1,3 +1,4 @@
+import { IonLinkModule } from './../link/link.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonSmartTableComponent } from './smart-table.component';
@@ -24,6 +25,7 @@ import { IonSpinnerModule } from '../spinner/spinner.module';
     PipesModule,
     IonTooltipModule,
     IonSpinnerModule,
+    IonLinkModule,
   ],
   exports: [IonSmartTableComponent],
 })

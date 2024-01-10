@@ -39,6 +39,15 @@ Basic.args = {
   options,
 };
 
+export const OptionWithIcon = Template.bind({});
+OptionWithIcon.args = {
+  options: [
+    { label: 'Encomendas', selected: false, icon: 'box' },
+    { label: 'Bancos', selected: false, icon: 'bank' },
+    { label: 'Conquistas', selected: false, icon: 'award' },
+  ],
+};
+
 export const NoData = Template.bind({});
 NoData.args = {
   options: [],
@@ -114,4 +123,30 @@ RequiredOption.args = {
   required: true,
   selected: action('selected'),
   optionsScroll: action('optionsScroll'),
+};
+
+export const WithDescription = Template.bind({});
+WithDescription.args = {
+  options,
+  description: 'Example Title',
+};
+
+export const WithDescriptionAndSearch = Template.bind({});
+WithDescriptionAndSearch.args = {
+  description: 'Example Title',
+  enableSearch: true,
+  options,
+  searchOptions: {
+    inputType: 'text',
+    iconInput: 'search',
+    iconDirection: 'right',
+    clearButton: true,
+    placeholder: 'Busque por algo...',
+  },
+};
+
+export const WithLoading = Template.bind({});
+WithLoading.args = {
+  options: optionsWithMultiple,
+  loading: true,
 };

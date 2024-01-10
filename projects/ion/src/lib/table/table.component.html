@@ -126,6 +126,18 @@
                 [status]="row[column.tag.statusKey] || column.tag.status"
                 [icon]="row[column.tag.iconKey] || column.tag.icon"
               ></ion-tag>
+              <ion-link
+                *ngIf="column.type === 'link' && column.link"
+                [label]="column.link.label(row)"
+                [icon]="column.link.icon"
+                [iconSide]="column.link.iconSide"
+                [size]="column.link.size || 'sm'"
+                [bold]="column.link.bold"
+                [disabled]="column.link.disabled && column.link.disabled(row)"
+                [target]="column.link.target"
+                [link]="column.link.url && column.link.url(row)"
+                (ionOnClick)="column.link.action(row)"
+              ></ion-link>
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">
@@ -144,6 +156,8 @@
                         ? action.confirm.dynamicDescription(row)
                         : undefined
                     "
+                    [ionConfirmText]="action.confirm.confirmText || 'Confirmar'"
+                    [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
                     (ionOnConfirm)="handleEvent(row, action)"
                     [title]="action.label"
                     [attr.data-testid]="'row-' + index + '-' + action.label"

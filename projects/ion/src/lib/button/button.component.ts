@@ -13,7 +13,7 @@ import {
   Size,
   ButtonBadgeTypes,
 } from '../core/types/button';
-import { DropdownItem } from '../core/types/dropdown';
+import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
 @Component({
   selector: 'ion-button',
@@ -36,7 +36,10 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() circularButton? = false;
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
-  @Input() dropdownConfig? = {
+  @Input() dropdownConfig?: Pick<
+    DropdownParams,
+    'description' | 'notShowClearButton' | 'required' | 'enableSearch'
+  > = {
     notShowClearButton: false,
     required: false,
   };
@@ -44,6 +47,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
 
   @Output() ionOnClick? = new EventEmitter();
   @Output() selected = new EventEmitter<DropdownItem[]>();
+  @Output() handleDropdownSearch = new EventEmitter<string>();
 
   public buttonBadge?: ButtonBadgeTypes = {
     type: 'secondary',
@@ -86,6 +90,10 @@ export class IonButtonComponent implements OnInit, OnChanges {
     if (this.showDropdown) {
       this.showDropdown = false;
     }
+  }
+
+  onSearchChange(dropdownSearch: string): void {
+    this.handleDropdownSearch.emit(dropdownSearch);
   }
 
   ngOnInit(): void {

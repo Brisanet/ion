@@ -8,6 +8,7 @@ import { IonButtonComponent } from '../../button/button.component';
 import { IonBadgeComponent } from '../../badge/badge.component';
 import { IonDropdownComponent } from '../../dropdown/dropdown.component';
 import { IonNoDataComponent } from '../../no-data/no-data.component';
+import { IonSpinnerComponent } from '../../spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { IonNoDataComponent } from '../../no-data/no-data.component';
     IonBadgeComponent,
     IonDropdownComponent,
     IonNoDataComponent,
+    IonSpinnerComponent,
   ],
   imports: [CommonModule, FormsModule],
   exports: [
@@ -28,6 +30,7 @@ import { IonNoDataComponent } from '../../no-data/no-data.component';
     IonBadgeComponent,
     IonDropdownComponent,
     IonNoDataComponent,
+    IonSpinnerComponent,
   ],
 })
 export class ListIconsMockModule {}

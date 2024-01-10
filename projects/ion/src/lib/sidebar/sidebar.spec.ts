@@ -300,5 +300,9 @@ describe('Sidebar', () => {
       expect(itemGroup2).toHaveClass(selectedItemClass);
       expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
     });
+    it('should close sidebar when logo is clicked', async () => {
+      userEvent.click(screen.getByRole('img'));
+      expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
+    });
   });
 });

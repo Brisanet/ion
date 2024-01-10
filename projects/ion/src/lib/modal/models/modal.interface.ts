@@ -1,4 +1,4 @@
-import { IconType, IonButtonProps } from '../../core/types';
+import { IconType, IonAlertProps, IonButtonProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
 export interface IonModalConfiguration {
@@ -7,8 +7,11 @@ export interface IonModalConfiguration {
   width?: number;
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;
+  preventCloseOnEscKey?: boolean;
   ionParams?: SafeAny;
+  hideCloseButton?: boolean;
   headerButton?: IonModalHeaderButton;
+  alertConfig?: Pick<IonAlertProps, 'message' | 'type' | 'description'>;
 
   footer?: IonModalFooterConfiguration;
 }

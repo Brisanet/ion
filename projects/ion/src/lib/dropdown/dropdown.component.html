@@ -3,7 +3,14 @@
   id="ion-dropdown"
   data-testid="ion-dropdown"
   (clickOutside)="clickedOutsideDropdown()"
+  [class.container-options--loading]="loading"
 >
+  <span
+    *ngIf="description"
+    class="dropdown-description"
+    data-testid="dropdown-description"
+    >{{ description }}</span
+  >
   <ion-input
     class="dropdown-search"
     *ngIf="enableSearch"
@@ -15,6 +22,7 @@
     (valueChange)="inputChange($event)"
   ></ion-input>
   <div
+    *ngIf="!loading && options?.length > 0"
     #optionList
     class="options-list"
     (scroll)="optionsScroll()"
@@ -34,7 +42,14 @@
       [id]="'option-' + index"
     >
       <div class="container">
-        <span>{{ option[propLabel] }}</span>
+        <div class="option-label">
+          <ion-icon
+            [type]="option.icon"
+            [size]="iconSize"
+            *ngIf="option.icon"
+          ></ion-icon>
+          {{ option[propLabel] }}
+        </div>
         <ion-icon
           [type]="option.hovered ? 'close' : 'check'"
           [attr.data-testid]="
@@ -57,8 +72,9 @@
     (ionOnClick)="clearOptions(true)"
     data-testid="button-clear"
   ></ion-button>
+  <ion-spinner [size]="24" color="primary" *ngIf="loading"></ion-spinner>
   <ion-no-data
-    *ngIf="!options || options.length === 0"
+    *ngIf="(!options || options.length === 0) && !loading"
     data-testid="ion-no-data"
     [label]="noDataConfig.label"
     [iconType]="noDataConfig.iconType"

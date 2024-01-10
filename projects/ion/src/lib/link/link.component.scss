@@ -1,0 +1,96 @@
+@import '../../styles/index.scss';
+
+@mixin font-sizes($font-size, $line-height) {
+  font-size: $font-size;
+  line-height: $line-height;
+}
+
+@mixin colors($color) {
+  color: $color;
+
+  ion-icon {
+    ::ng-deep svg {
+      fill: $color;
+    }
+  }
+}
+
+.link-container {
+  display: flex;
+  max-width: max-content;
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+}
+
+.ion-link {
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  gap: spacing(0.5);
+  box-sizing: border-box;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+
+  @include colors($primary-5);
+
+  &__label {
+    font-weight: 400;
+    font-style: normal;
+
+    &--sm {
+      @include font-sizes(14px, 20px);
+    }
+
+    &--md {
+      @include font-sizes(16px, 24px);
+    }
+
+    &--bold {
+      font-weight: 600;
+    }
+  }
+
+  &:hover {
+    @include colors($primary-4);
+    border-color: $primary-4;
+  }
+
+  &:active {
+    @include colors($primary-7);
+    border-color: $primary-7;
+  }
+
+  &:visited,
+  &:visited:hover {
+    @include colors($primary-7);
+  }
+
+  &:visited:hover {
+    border-color: $primary-7;
+  }
+
+  &--left-icon {
+    flex-direction: row-reverse;
+  }
+
+  &--icon-only,
+  &--icon-only:hover {
+    border: none;
+  }
+
+  &:focus-visible {
+    padding: 2px;
+    border-radius: 4px;
+    border: 2px solid $primary-5;
+  }
+
+  &[disabled='true'],
+  &[disabled='true']:hover,
+  &[disabled='true']:active {
+    pointer-events: none;
+    @include colors($neutral-6);
+  }
+}

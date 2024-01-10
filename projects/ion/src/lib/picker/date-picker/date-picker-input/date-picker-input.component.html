@@ -1,4 +1,8 @@
-<div class="container-input" data-testid="container-input">
+<div
+  class="container-input"
+  [class.range]="rangePicker"
+  data-testid="container-input"
+>
   <ion-input
     [value]="date"
     [placeholder]="placeholder"

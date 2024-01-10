@@ -62,6 +62,22 @@ describe('IonDropdownComponent', () => {
     }
   });
 
+  it('should not render the description as default', async () => {
+    await sut();
+    expect(
+      screen.queryByTestId('dropdown-description')
+    ).not.toBeInTheDocument();
+  });
+
+  it('should render the description when informed', async () => {
+    await sut({
+      ...defaultDropdown,
+      description: 'Custom description',
+    });
+
+    expect(screen.getByTestId('dropdown-description')).toBeVisible();
+  });
+
   it('should select a option', async () => {
     await sut();
     selectEvent.mockClear();
@@ -115,6 +131,20 @@ describe('IonDropdownComponent', () => {
     fireEvent.mouseLeave(elementToHover);
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
+  });
+
+  it('should show the option with icon', async () => {
+    const iconToShow = 'close';
+    const dropdownConfig: DropdownParams = {
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false, icon: iconToShow },
+        { label: 'Option 2', selected: false },
+      ],
+    };
+
+    await sut(dropdownConfig);
+    expect(document.getElementById(`ion-icon-${iconToShow}`)).not.toBeNull();
   });
 });
 
@@ -562,5 +592,20 @@ describe('Custom dropdown label', () => {
     expect(
       screen.getByText(options[0][dropdownCustomLabel.propLabel])
     ).toBeInTheDocument();
+  });
+});
+
+describe('IonDropdownComponent / Loading', () => {
+  it('should show a spinner when loading', async () => {
+    await sut({
+      ...defaultDropdown,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+      loading: true,
+    });
+
+    expect(screen.getByTestId('ion-spinner')).toBeVisible();
   });
 });

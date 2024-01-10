@@ -91,6 +91,24 @@ class ButtonTestDisabledComponent {
 
 @Component({
   template: `
+    <ion-button
+      ionPopConfirm
+      ionPopConfirmTitle="teste demais"
+      type="ghost"
+      size="sm"
+      [loading]="loading"
+    ></ion-button>
+  `,
+})
+class ButtonTestLoadingComponent {
+  @ViewChild('container', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+
+  public loading = true;
+}
+
+@Component({
+  template: `
     <table style="width: 100%;">
       <tr>
         <th>Código</th>
@@ -104,6 +122,8 @@ class ButtonTestDisabledComponent {
           <button
             ionPopConfirm
             ionPopConfirmTitle="Você tem certeza?"
+            ionConfirmText="Sim"
+            ionCancelText="Não"
             (ionOnConfirm)="confirm()"
             class="get-test"
             style="margin-top: 50px;"
@@ -305,6 +325,54 @@ describe('Popconfirm disabled host component', () => {
     element.setAttribute('disabled', '');
     const isEnable = directive.elementsAreEnabled(element);
     expect(isEnable).toBe(false);
+  });
+});
+
+describe('Popconfirm loading host component', () => {
+  let fixtureLoadingBtn: ComponentFixture<ButtonTestLoadingComponent>;
+  let directive: IonPopConfirmDirective;
+  let input: DebugElement;
+
+  beforeEach(() => {
+    fixtureLoadingBtn = TestBed.configureTestingModule({
+      providers: [IonPopConfirmDirective, ViewContainerRef],
+      declarations: [
+        ButtonTestLoadingComponent,
+        IonPopConfirmComponent,
+        IonPopConfirmDirective,
+      ],
+      imports: [IonButtonModule, IonDividerModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    })
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: {
+          entryComponents: [IonPopConfirmComponent],
+        },
+      })
+      .createComponent(ButtonTestLoadingComponent);
+
+    fixtureLoadingBtn.detectChanges();
+    directive = fixtureLoadingBtn.debugElement.injector.get(
+      IonPopConfirmDirective
+    );
+    input = fixtureLoadingBtn.debugElement.query(
+      By.directive(IonPopConfirmDirective)
+    );
+  });
+
+  afterEach(() => {
+    directive.closePopConfirm();
+  });
+
+  it('should not open popconfirm when the button is loading', () => {
+    setTimeout(() => {
+      fixtureLoadingBtn.detectChanges();
+      const event = new Event('click');
+      input.triggerEventHandler('click', event);
+
+      expect(event).not.toBeCalled();
+      expect(screen.queryAllByText(confirmText)).toHaveLength(0);
+    });
   });
 });
 

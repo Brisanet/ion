@@ -357,6 +357,9 @@ import {
   orderNumber1,
   orderNumber2,
   changePriority,
+  change,
+  regions,
+  imageCheck,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -424,6 +427,7 @@ export const iconsPaths: Record<string, string> = {
   camera2,
   car,
   certificate,
+  change,
   'change-priority': changePriority,
   'check-list': checkList,
   'check-outlined': checkOutlined,
@@ -526,6 +530,7 @@ export const iconsPaths: Record<string, string> = {
   hook,
   'horizontal-bar-chart': horizontalBarChart,
   horizontal,
+  'image-check': imageCheck,
   'image-down': imageDown,
   'image-left': imageLeft,
   'image-plus': imagePlus,
@@ -629,6 +634,7 @@ export const iconsPaths: Record<string, string> = {
   recording1,
   recording2,
   refresh,
+  regions,
   'registration-list': registrationList,
   'remove-telephone': removeTelephone,
   'remove-user': removeUser,
