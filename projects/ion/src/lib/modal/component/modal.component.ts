@@ -61,6 +61,9 @@ export class IonModalComponent implements OnInit, OnDestroy {
   constructor(private resolver: ComponentFactoryResolver) {}
 
   @HostListener('document:keydown.Escape') closeOnEscapeKeyDown(): void {
+    if (this.configuration.preventCloseOnEscKey) {
+      return;
+    }
     this.closeModal();
   }
 

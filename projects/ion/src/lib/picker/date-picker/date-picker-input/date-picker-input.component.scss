@@ -1,3 +1,7 @@
 .container-input {
   max-width: 200px;
+
+  &.range {
+    max-width: 238px;
+  }
 }

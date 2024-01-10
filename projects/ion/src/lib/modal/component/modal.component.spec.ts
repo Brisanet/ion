@@ -124,7 +124,7 @@ describe('IonModalComponent', () => {
     expect(footer().classList.contains('divider')).toBe(false);
   });
 
-  it('should close modal using esc key', () => {
+  it('should close modal using esc key when configuration allow it', () => {
     const escapeKeyCode = 27;
 
     jest.spyOn(component, 'closeModal');
@@ -135,6 +135,20 @@ describe('IonModalComponent', () => {
       charCode: escapeKeyCode,
     });
     expect(component.closeModal).toHaveBeenCalled();
+  });
+
+  it('should not close modal using esc key when configuration disallow it', () => {
+    const escapeKeyCode = 27;
+
+    jest.spyOn(component, 'closeModal');
+    component.configuration.preventCloseOnEscKey = true;
+    fireEvent.keyDown(screen.getByTestId('modalOverlay'), {
+      key: 'Escape',
+      code: 'Escape',
+      keyCode: escapeKeyCode,
+      charCode: escapeKeyCode,
+    });
+    expect(component.closeModal).not.toHaveBeenCalled();
   });
 
   it('should close modal clicking in overlay when configuration allow it', () => {
