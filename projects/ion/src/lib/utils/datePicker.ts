@@ -1,6 +1,9 @@
 import { IonDatePickerCalendarComponentProps } from '../picker/core/calendar-model';
 import { Day } from '../picker/core/day';
 
+export const TOTAL_DAYS_WITH_SIX_WEEKS = 42;
+export const TOTAL_DAYS_WITH_FIVE_WEEKS = 35;
+export const TOTAL_DAYS_WITH_FOUR_WEEKS = 28;
 export const SUNDAY = 'domingo';
 export const SATURDAY = 'sábado';
 export const INITIAL_RANGE = 0;
@@ -21,6 +24,10 @@ export function isSameDay(day: Day, dayToCompare?: Day): boolean {
     day.monthNumber === dayToCompare.monthNumber &&
     day.year === dayToCompare.year
   );
+}
+
+export function isSameDate(INITIAL_DATE: Date, FINAL_DATE: Date): boolean {
+  return INITIAL_DATE.toString() !== FINAL_DATE.toString();
 }
 
 export function isNotRangeLimit(
