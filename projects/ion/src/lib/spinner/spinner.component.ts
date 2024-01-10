@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IonSpinnerTextSize } from '../core/types/spinner';
-
-export type IonSpinnerColor = 'primary' | 'secondary' | 'danger';
+import { IonSpinnerProps } from '../core/types/spinner';
 
 @Component({
   selector: 'ion-spinner',
@@ -9,9 +7,9 @@ export type IonSpinnerColor = 'primary' | 'secondary' | 'danger';
   styleUrls: ['spinner.component.scss'],
 })
 export class IonSpinnerComponent {
-  @Input() size = 24;
-  @Input() color: IonSpinnerColor = 'primary';
-  @Input() customColor?: string;
-  @Input() text? = '';
-  @Input() textSize?: IonSpinnerTextSize = 'sm';
+  @Input() size?: IonSpinnerProps['size'] = 24;
+  @Input() color: IonSpinnerProps['color'] = 'primary';
+  @Input() customColor?: IonSpinnerProps['customColor'];
+  @Input() text?: IonSpinnerProps['text'] = '';
+  @Input() textSize?: IonSpinnerProps['textSize'] = 'sm';
 }

@@ -1,6 +1,5 @@
-import { IonSpinnerColor } from '../../spinner/spinner.component';
-
 export type IonSpinnerTextSize = 'sm' | 'md' | 'lg';
+export type IonSpinnerColor = 'primary' | 'secondary' | 'danger';
 
 export interface IonSpinnerProps {
   size?: number;
