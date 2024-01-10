@@ -243,19 +243,20 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   }
 
   private isBetweenRange(date: Day): boolean {
-    if (this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE]) {
-      const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
-        this.selectedDay[INITIAL_RANGE].Date,
-        this.selectedDay[FINAL_RANGE].Date,
-        date.Date,
-      ];
-      const isNotLimit =
-        isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
-        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
-      const isBetween =
-        CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
-      return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
+    if (!(this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE])) {
+      return;
     }
+    const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
+      this.selectedDay[INITIAL_RANGE].Date,
+      this.selectedDay[FINAL_RANGE].Date,
+      date.Date,
+    ];
+    const isNotLimit =
+      isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
+      isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
+    const isBetween =
+      CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
+    return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
   }
 
   private isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
