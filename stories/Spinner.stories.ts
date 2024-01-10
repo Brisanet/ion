@@ -4,11 +4,9 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 export default {
   title: 'Ion/Feedback/Spinner',
   component: IonSpinnerComponent,
-} as Meta<typeof IonSpinnerComponent>;
+} as Meta;
 
-const Template: Story<typeof IonSpinnerComponent> = (
-  args: IonSpinnerComponent
-) => ({
+const Template: Story<IonSpinnerComponent> = (args: IonSpinnerComponent) => ({
   component: IonSpinnerComponent,
   props: { ...args },
 });
@@ -34,5 +32,5 @@ export const SpinnerWithText = Template.bind({});
 SpinnerWithText.args = {
   size: 32,
   text: 'Carregando...',
-  textSize: 14,
+  textSize: 'md',
 };
