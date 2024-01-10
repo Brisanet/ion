@@ -124,6 +124,22 @@ describe('ChipGroupComponent', () => {
     fireEvent.click(optionElement);
     expect(optionElement).toHaveAttribute('ng-reflect-selected', 'true');
   });
+
+  it('should not select a chip when disabled', async () => {
+    const chips = [
+      { label: 'Option 1', selected: false },
+      { label: 'Option 2', selected: false },
+    ];
+
+    await sut({
+      chips,
+      disabled: true,
+    });
+
+    const optionElement = screen.getByTestId(`chip-group-${chips[0].label}`);
+    fireEvent.click(optionElement);
+    expect(optionElement).not.toHaveClass('chip-selected');
+  });
 });
 
 describe('With Dropdown', () => {
