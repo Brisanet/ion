@@ -252,6 +252,7 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         date.Date,
       ];
       return (
+        INITIAL_DATE.toString() !== FINAL_DATE.toString() &&
         CURRENT_DATE >= INITIAL_DATE &&
         CURRENT_DATE <= FINAL_DATE &&
         isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
