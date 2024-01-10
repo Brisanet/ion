@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { IonSpinnerTextSize } from '../core/types/spinner';
 
 export type IonSpinnerColor = 'primary' | 'secondary' | 'danger';
 
@@ -12,5 +13,5 @@ export class IonSpinnerComponent {
   @Input() color: IonSpinnerColor = 'primary';
   @Input() customColor?: string;
   @Input() text? = '';
-  @Input() textSize? = 12;
+  @Input() textSize?: IonSpinnerTextSize = 'sm';
 }

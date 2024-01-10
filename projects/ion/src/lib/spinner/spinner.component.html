@@ -9,7 +9,7 @@
   ></span>
   <span
     data-testid="ion-spinner-text"
-    class="ion-spinner__text"
+    [attr.class]="'ion-spinner__text ion-spinner__text--' + textSize"
     *ngIf="text.length > 0"
     >{{ text }}</span
   >

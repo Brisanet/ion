@@ -27,6 +27,18 @@
     line-height: 114.28%;
     font-family: 'Source Sans Pro', sans-serif;
     color: $neutral-6;
+
+    &--sm {
+      font-size: 12px;
+    }
+
+    &--md {
+      font-size: 14px;
+    }
+
+    &--lg {
+      font-size: 16px;
+    }
   }
 }
 
