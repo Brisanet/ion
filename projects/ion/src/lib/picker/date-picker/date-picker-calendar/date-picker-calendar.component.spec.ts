@@ -1,12 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import { SafeAny } from '../../../utils/safe-any';
-import {
-  IonDatePickerCalendarComponent,
-  IonDatePickerCalendarComponentProps,
-} from './date-picker-calendar.component';
-import { Calendar } from './../../core/calendar';
+import { IonDatePickerCalendarComponentProps } from '../../core/calendar-model';
 import { IonButtonModule } from './../../../button/button.module';
+import { Calendar } from './../../core/calendar';
+import { IonDatePickerCalendarComponent } from './date-picker-calendar.component';
 
 const events = jest.fn();
 
@@ -26,7 +24,7 @@ const sut = async (customProps = defaultComponent): Promise<void> => {
 
 describe('IonDatePickerCalendarComponent', () => {
   it('should render 28 days in the calendar when the date is 2015-02-01', async () => {
-    const date = '2015-02-01';
+    const date = ['2015-02-01'];
     await sut({ currentDate: date });
     const buttonsDay = await screen.findAllByRole('button');
     expect(buttonsDay.length).toBe(28);
@@ -35,7 +33,7 @@ describe('IonDatePickerCalendarComponent', () => {
   });
 
   it('should render 35 days in the calendar when the date is 2023-08-01', async () => {
-    const date = '2023-08-01';
+    const date = ['2023-08-01'];
     await sut({ currentDate: date });
     const buttonsDay = await screen.findAllByRole('button');
     expect(buttonsDay.length).toBe(35);
@@ -44,12 +42,24 @@ describe('IonDatePickerCalendarComponent', () => {
   });
 
   it('should render 42 days in the calendar when the date is 2023-08-01', async () => {
-    const date = '2018-09-01';
+    const date = ['2018-09-01'];
     await sut({ currentDate: date });
     const buttonsDay = await screen.findAllByRole('button');
     expect(buttonsDay.length).toBe(42);
     expect(await screen.findByTestId('2018-09-01')).toBeTruthy();
     expect(await screen.findByTestId('2018-09-30')).toBeTruthy();
+  });
+
+  it('should has current day class in calendar', async () => {
+    const currentDate = new Date();
+    const day = currentDate.getDate();
+    const dayFormatted = day > 0 && day < 10 ? '0' + day : day;
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = currentDate.getFullYear();
+    await sut();
+    expect(
+      await screen.findByTestId(`${year}-${month}-${dayFormatted}`)
+    ).toHaveClass('today');
   });
 
   it('should render current month in calendar', async () => {
@@ -141,5 +151,57 @@ describe('DatePickerCalendar: calendarControlAction', () => {
       });
       done();
     }, 200);
+  });
+});
+
+describe('Range Picker', () => {
+  it('should fire an event when select an range of days', async () => {
+    const clickEvent = jest.fn();
+    const currentDate = new Date();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = currentDate.getFullYear();
+    await sut({
+      rangePicker: true,
+      events: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    const initialDay = screen.findByTestId(`${year}-${month}-01`);
+    const finalDay = screen.findByTestId(`${year}-${month}-03`);
+    fireEvent.click(await initialDay);
+    fireEvent.click(await finalDay);
+    expect(clickEvent).toHaveBeenCalled();
+  });
+
+  it('should has current range date selected when started with values', async () => {
+    const clickEvent = jest.fn();
+    const initialDate = '2023-11-01';
+    const finalDate = '2023-11-03';
+    await sut({
+      rangePicker: true,
+      currentDate: [initialDate, finalDate],
+      events: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    expect(await screen.findByTestId(initialDate)).toHaveClass('selected');
+    expect(await screen.findByTestId(finalDate)).toHaveClass(
+      'final-range-selected'
+    );
+  });
+
+  it('should has between range class in days inside range', async () => {
+    const clickEvent = jest.fn();
+    const initialDate = '2023-11-04';
+    const finalDate = '2023-11-12';
+    const betweenDate = 'container-' + '2023-11-06';
+    await sut({
+      rangePicker: true,
+      currentDate: [initialDate, finalDate],
+      events: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    expect(await screen.findByTestId(betweenDate)).toHaveClass('between-range');
   });
 });
