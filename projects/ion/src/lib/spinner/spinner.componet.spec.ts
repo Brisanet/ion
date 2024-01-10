@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
-import { IonSpinnerColor, IonSpinnerComponent } from './spinner.component';
+import { IonSpinnerComponent } from './spinner.component';
+import { IonSpinnerColor } from '../core/types';
 
 const colors: IonSpinnerColor[] = ['primary', 'secondary', 'danger'];
 const defaultProps: IonSpinnerComponent = { color: 'primary', size: 24 };
