@@ -1,9 +1,11 @@
 import { IonDatePickerCalendarComponentProps } from '../picker/core/calendar-model';
 import { Day } from '../picker/core/day';
 
-export const TOTAL_DAYS_WITH_SIX_WEEKS = 42;
-export const TOTAL_DAYS_WITH_FIVE_WEEKS = 35;
-export const TOTAL_DAYS_WITH_FOUR_WEEKS = 28;
+export const TOTAL_DAYS = {
+  WITH_SIX_WEEKS: 42,
+  WITH_FIVE_WEEKS: 35,
+  WITH_FOUR_WEEKS: 28,
+};
 export const SUNDAY = 'domingo';
 export const SATURDAY = 'sábado';
 export const INITIAL_RANGE = 0;

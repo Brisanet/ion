@@ -11,9 +11,7 @@ import {
   INITIAL_RANGE,
   SATURDAY,
   SUNDAY,
-  TOTAL_DAYS_WITH_FIVE_WEEKS,
-  TOTAL_DAYS_WITH_FOUR_WEEKS,
-  TOTAL_DAYS_WITH_SIX_WEEKS,
+  TOTAL_DAYS,
   getFormattedDate,
   getInitialDate,
   isNotRangeLimit,
@@ -225,15 +223,15 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     const totalDays =
       this.calendar.month.numberOfDays + totalLastMonthFinalDays;
 
-    if (totalDays > TOTAL_DAYS_WITH_FIVE_WEEKS) {
-      return TOTAL_DAYS_WITH_SIX_WEEKS;
+    if (totalDays > TOTAL_DAYS.WITH_FIVE_WEEKS) {
+      return TOTAL_DAYS.WITH_SIX_WEEKS;
     }
 
-    if (totalDays > TOTAL_DAYS_WITH_FOUR_WEEKS) {
-      return TOTAL_DAYS_WITH_FIVE_WEEKS;
+    if (totalDays > TOTAL_DAYS.WITH_FOUR_WEEKS) {
+      return TOTAL_DAYS.WITH_FIVE_WEEKS;
     }
 
-    return TOTAL_DAYS_WITH_FOUR_WEEKS;
+    return TOTAL_DAYS.WITH_FOUR_WEEKS;
   }
 
   private getCalendarDay(day: number): Day {
@@ -251,13 +249,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         this.selectedDay[FINAL_RANGE].Date,
         date.Date,
       ];
-      return (
-        isSameDate(INITIAL_DATE, FINAL_DATE) &&
-        CURRENT_DATE >= INITIAL_DATE &&
-        CURRENT_DATE <= FINAL_DATE &&
+      const isNotLimit =
         isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
-        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE])
-      );
+        isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
+      const isBetween =
+        CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
+      return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
     }
   }
 
