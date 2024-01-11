@@ -21,6 +21,7 @@ interface ButtonConfig {
           ionPopoverTitle="Popover Title"
           [ionPopoverBody]="contentTemplate"
           [ionPopoverPosition]="config.position"
+          [ionPopoverCustomClass]="indexed === 1 ? 'left-in-storybook' : ''"
         >
         </ion-button>
       </div>
@@ -65,6 +66,16 @@ interface ButtonConfig {
       .group-3 {
         margin-left: 50px;
         clear: both;
+      }
+
+      //correction of a bug that only occurs in the storybook
+      ::ng-deep .left-in-storybook {
+        margin-left: -12px !important;
+
+        &:before,
+        &:after {
+          margin-left: 14px !important;
+        }
       }
     `,
   ],
