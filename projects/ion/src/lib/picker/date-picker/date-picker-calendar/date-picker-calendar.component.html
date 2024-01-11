@@ -5,16 +5,25 @@
     </span>
   </div>
   <div class="month-days">
-    <button
-      [attr.data-testid]="getAriaLabel(day)"
+    <div
       *ngFor="let day of days; let i = index"
-      class="month-day"
-      [class.current]="day.isDayCurrentMonth"
-      [class.selected]="isSelectedDate(day)"
-      [attr.aria-label]="getAriaLabel(day)"
-      (click)="dispatchActions(i)"
+      [attr.data-testid]="'container-' + getAriaLabel(day)"
+      [class.between-range]="day.isBetweenRange"
+      [class.initial]="day.isRangeInitialLimit"
+      [class.final]="day.isRangeFinalLimit"
     >
-      {{ day.date }}
-    </button>
+      <button
+        [attr.data-testid]="getAriaLabel(day)"
+        class="month-day"
+        [class.current]="day.isDayCurrentMonth"
+        [class.today]="day.isToday"
+        [class.selected]="isSelectedDate(day)"
+        [class.final-range-selected]="isSelectedDate(day, finalRange)"
+        [attr.aria-label]="getAriaLabel(day)"
+        (click)="handleClick(i)"
+      >
+        {{ day.date }}
+      </button>
+    </div>
   </div>
 </div>

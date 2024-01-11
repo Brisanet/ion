@@ -15,6 +15,10 @@ export class Day {
   monthNumber: number;
   timestamp: number;
   week: number;
+  isToday?: boolean;
+  isBetweenRange?: boolean;
+  isRangeInitialLimit?: boolean;
+  isRangeFinalLimit?: boolean;
 
   constructor(date?: Date, public lang = 'default') {
     if (!date) {

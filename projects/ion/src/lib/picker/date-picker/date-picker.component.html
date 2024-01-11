@@ -1,5 +1,6 @@
 <date-picker-input
   [date]="inputDate"
+  [rangePicker]="rangePicker"
   (click)="setVisibleCalendar(true)"
   (clearDate)="clearDate()"
 ></date-picker-input>
@@ -21,6 +22,7 @@
       [goToMonthInCalendar]="goToMonth"
       [goToYearInCalendar]="goToYear"
       [currentDate]="currentDate"
+      [rangePicker]="rangePicker"
       (updateLabelCalendar)="updateLabelCalendar($event)"
       (events)="dateSelected($event)"
     ></date-picker-calendar>

@@ -50,6 +50,11 @@
         color: $neutral-7;
       }
 
+      &.today {
+        border-radius: 22px;
+        border: 1px solid $primary-color;
+      }
+
       &.selected {
         background-color: $primary-2;
         color: $primary-color;
@@ -57,11 +62,44 @@
         border: 1px solid $primary-color;
       }
 
+      &.selected {
+        background-color: $primary-2;
+        color: $primary-color;
+        border-radius: 22px;
+        border: 1px solid $primary-color;
+      }
+
+      &.final-range-selected {
+        background-color: $primary-6;
+        color: $neutral-1;
+        border-radius: 22px;
+        border: 1px solid $primary-6;
+      }
+
       &:not(.selected-end-date):hover {
         background-color: $primary-2;
         color: $primary-color;
         border-radius: 22px;
         border-color: $primary-color;
+      }
+    }
+
+    & .between-range {
+      display: flex;
+      justify-content: center;
+      background-color: $primary-1;
+      width: 100%;
+
+      &.initial {
+        border-radius: 22px 0 0 22px;
+        justify-content: flex-start;
+        margin-left: 13px;
+      }
+
+      &.final {
+        border-radius: 0 22px 22px 0;
+        justify-content: flex-end;
+        margin-right: 13px;
       }
     }
   }
