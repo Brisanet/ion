@@ -56,6 +56,10 @@ export class IonButtonComponent implements OnInit, OnChanges {
 
   public iconSize!: ButtonIconSizeOptions;
 
+  private originalConfig = {
+    label: '',
+  };
+
   updateBadgeValue(items: DropdownItem[]): void {
     this.buttonBadge.value = items.length;
   }
@@ -73,6 +77,11 @@ export class IonButtonComponent implements OnInit, OnChanges {
 
     if (this.multiple) {
       this.updateBadgeValue(selectedItems);
+      return;
+    }
+
+    if (!selectedItems.length) {
+      this.label = this.originalConfig.label;
       return;
     }
 
@@ -98,6 +107,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.iconSize = ButtonIconSizeOptions[this.size];
+    this.originalConfig = { label: this.label };
   }
 
   ngOnChanges(changes: SimpleChanges): void {
