@@ -137,7 +137,7 @@ export class IonPositionService {
       topLeft: !positions.top && !positions.left,
       topCenter: !positions.top && !positions.left && !positions.right,
       topRight: !positions.top && !positions.right,
-    } as PositionsChecks;
+    };
   }
 
   public emitReposition(): void {
