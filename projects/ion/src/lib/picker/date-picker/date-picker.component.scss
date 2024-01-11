@@ -1,5 +1,9 @@
 @import '../../../styles/index.scss';
 
+* {
+  box-sizing: border-box;
+}
+
 .container-calendar {
   max-width: 312px;
   min-width: 312px;
