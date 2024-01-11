@@ -26,6 +26,7 @@ export * from './radio-group';
 export * from './sidebar';
 export * from './simple-menu';
 export * from './smart-table';
+export * from './spinner';
 export * from './status';
 export * from './switch';
 export * from './tab';
