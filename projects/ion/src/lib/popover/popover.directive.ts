@@ -160,12 +160,16 @@ export class IonPopoverDirective implements OnDestroy {
 
   @HostListener('click') onClick(): void {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-    if (this.elementIsEnabled(hostElement) && this.isComponentRefNull()) {
+    if (this.elementIsEnabled(hostElement)) {
       this.open();
     }
   }
 
-  @HostListener('window:scroll') onScroll(): void {
+  @HostListener('window:scroll')
+  @HostListener('document:scroll')
+  @HostListener('body:scroll')
+  @HostListener('window:wheel')
+  onScroll(): void {
     this.destroyComponent();
   }
 
