@@ -1,10 +1,11 @@
 import {
   Component,
-  DoCheck,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import {
   FINAL_RANGE,
@@ -33,7 +34,7 @@ import { Day } from '../../core/day';
   templateUrl: './date-picker-calendar.component.html',
   styleUrls: ['./date-picker-calendar.component.scss'],
 })
-export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
+export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   @Input() currentDate: IonDatePickerCalendarComponentProps['currentDate'];
   @Input() lang: IonDatePickerCalendarComponentProps['lang'];
   @Input() set goToMonthInCalendar(month: string) {
@@ -74,8 +75,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.tempRenderDays();
   }
 
-  ngDoCheck(): void {
-    if (this.calendarControlAction) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes.calendarControlAction &&
+      changes.calendarControlAction.currentValue
+    ) {
       this.calendarAction[this.calendarControlAction]();
     }
   }

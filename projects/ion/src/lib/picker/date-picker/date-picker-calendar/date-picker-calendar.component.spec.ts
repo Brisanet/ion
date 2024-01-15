@@ -5,6 +5,7 @@ import { IonDatePickerCalendarComponentProps } from '../../core/calendar-model';
 import { IonButtonModule } from './../../../button/button.module';
 import { Calendar } from './../../core/calendar';
 import { IonDatePickerCalendarComponent } from './date-picker-calendar.component';
+import { SimpleChange, SimpleChanges } from '@angular/core';
 
 const events = jest.fn();
 
@@ -122,10 +123,16 @@ describe('DatePickerCalendar: calendarControlAction', () => {
     component = fixture.componentInstance;
   });
 
-  it('should call ngDoCheck', () => {
-    jest.spyOn(component, 'ngDoCheck').mockImplementation();
-    fixture.detectChanges();
-    expect(component.ngDoCheck).toHaveBeenCalled();
+  it('should call ngOnChanges', () => {
+    component.ngOnInit();
+    const actions = 'previousYear';
+    component.calendarControlAction = actions;
+    const changes: SimpleChanges = {
+      calendarControlAction: new SimpleChange(undefined, actions, false),
+    };
+    jest.spyOn(component, 'ngOnChanges');
+    component.ngOnChanges(changes);
+    expect(component.ngOnChanges).toHaveBeenCalled();
   });
 
   it.each(['previousYear', 'previousMonth', 'nextMonth', 'nextYear'])(
@@ -133,8 +140,18 @@ describe('DatePickerCalendar: calendarControlAction', () => {
     (
       controlAction: 'previousYear' | 'previousMonth' | 'nextMonth' | 'nextYear'
     ) => {
+      component.ngOnInit();
       component.calendarControlAction = controlAction;
+      const changes: SimpleChanges = {
+        calendarControlAction: new SimpleChange(
+          undefined,
+          controlAction,
+          false
+        ),
+      };
+      jest.spyOn(component, 'ngOnChanges');
       const spy = jest.spyOn(component, controlAction);
+      component.ngOnChanges(changes);
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
     }
