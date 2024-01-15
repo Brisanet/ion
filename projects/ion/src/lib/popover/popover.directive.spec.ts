@@ -3,6 +3,7 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
+  ElementRef,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -19,13 +20,22 @@ import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
 import { IonPopoverDirective } from './popover.directive';
 import { IonPopoverModule } from './popover.module';
+import { IonPositionService } from '../position/position.service';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
-const elementPosition = { top: 10, left: 40, bottom: 20, right: 10 };
+const elementPosition = {
+  left: 0,
+  right: 12,
+  top: 0,
+  bottom: 0,
+  width: 0,
+  height: 0,
+} as DOMRect;
 
 const firstAction = jest.fn();
 const secondAction = jest.fn();
+const positionService = new IonPositionService();
 
 const CUSTOM_CLASS = 'custom-class';
 
@@ -127,6 +137,7 @@ const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
   await render(HostTestComponent, {
     componentProperties: props,
     imports: [CommonModule, IonPopoverModule, IonSharedModule],
+    providers: [{ provide: IonPositionService, useValue: positionService }],
   });
 };
 
@@ -242,6 +253,17 @@ describe('Directive: popover', () => {
     const popover = screen.getByTestId('ion-popover');
     expect(popover).toHaveClass(CUSTOM_CLASS);
   });
+
+  it('should close the popover when scrolling the page', async () => {
+    await sut();
+    const directive = IonPopoverDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+
+    fireEvent.click(screen.getByTestId('hostPopover'));
+    fireEvent.scroll(window);
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  });
 });
 
 describe('Popover host tests', () => {
@@ -251,7 +273,18 @@ describe('Popover host tests', () => {
 
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
-      providers: [IonPopoverDirective, ViewContainerRef],
+      providers: [
+        IonPopoverDirective,
+        ViewContainerRef,
+        {
+          provide: ElementRef,
+          useValue: {
+            nativeElement: {
+              getBoundingClientRect: (): DOMRect => elementPosition,
+            },
+          },
+        },
+      ],
       declarations: [
         ContainerRefTestComponent,
         IonPopoverComponent,
@@ -271,11 +304,11 @@ describe('Popover host tests', () => {
   });
 
   afterEach(() => {
-    directive && directive.closePopover();
+    directive && directive.destroyComponent();
   });
 
   it('should open the popover when clicked', () => {
-    directive.open(elementPosition);
+    directive.open();
     expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
   });
 
@@ -287,24 +320,24 @@ describe('Popover host tests', () => {
   });
 
   it('should create element with the directive', () => {
-    directive.open(elementPosition);
+    directive.open();
     expect(screen.getByText(textButton)).toHaveAttribute('ionpopover', '');
   });
 
   it.each(['icon-close', 'action-1', 'action-2'])(
     'should close popover when click in %s',
     (IonPopoverButton) => {
-      jest.spyOn(IonPopoverDirective.prototype, 'closePopover');
+      jest.spyOn(IonPopoverDirective.prototype, 'destroyComponent');
       fireEvent.click(screen.getByText(textButton));
       fireEvent.click(screen.getByTestId(`popover-${IonPopoverButton}`));
-      expect(directive.closePopover).toHaveBeenCalled();
+      expect(directive.destroyComponent).toHaveBeenCalled();
     }
   );
 
-  it('should not open a new popover when a popover is already opened', () => {
-    directive.open(elementPosition);
-    directive.open(elementPosition);
-    expect(screen.queryAllByTestId('ion-popover')).toHaveLength(1);
+  it('should not open a new popover when a popover is already opened', async () => {
+    directive.open();
+    directive.open();
+    expect(await screen.findAllByTestId('ion-popover')).toHaveLength(1);
   });
 });
 
@@ -315,7 +348,11 @@ describe('Popover disabled host component', () => {
 
   beforeEach(() => {
     fixtureDisabledBtn = TestBed.configureTestingModule({
-      providers: [IonPopoverDirective, ViewContainerRef],
+      providers: [
+        IonPopoverDirective,
+        ViewContainerRef,
+        { provide: ElementRef },
+      ],
       declarations: [
         ButtonTestDisabledComponent,
         IonPopoverComponent,
@@ -338,7 +375,7 @@ describe('Popover disabled host component', () => {
   });
 
   afterEach(() => {
-    directive && directive.closePopover();
+    directive && directive.destroyComponent();
   });
 
   it('should not open popover when the button is disabled', () => {
