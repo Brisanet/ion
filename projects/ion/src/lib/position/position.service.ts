@@ -125,18 +125,18 @@ export class IonPositionService {
     };
 
     return {
-      rightTop: !positions.right && !positions.top,
+      rightBottom: !positions.right && !positions.top,
       rightCenter: !positions.right && !positions.bottom && !positions.top,
-      rightBottom: !positions.right && !positions.bottom,
-      leftTop: !positions.left && !positions.top,
+      rightTop: !positions.right && !positions.bottom,
+      leftBottom: !positions.left && !positions.top,
       leftCenter: !positions.left && !positions.bottom && !positions.top,
-      leftBottom: !positions.left && !positions.bottom,
-      bottomLeft: !positions.bottom && !positions.left,
+      leftTop: !positions.left && !positions.bottom,
+      bottomRight: !positions.bottom && !positions.left,
       bottomCenter: !positions.bottom && !positions.left && !positions.right,
-      bottomRight: !positions.bottom && !positions.right,
-      topLeft: !positions.top && !positions.left,
+      bottomLeft: !positions.bottom && !positions.right,
+      topRight: !positions.top && !positions.left,
       topCenter: !positions.top && !positions.left && !positions.right,
-      topRight: !positions.top && !positions.right,
+      topLeft: !positions.top && !positions.right,
     };
   }
 

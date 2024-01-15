@@ -16,7 +16,7 @@ export enum PopoverPosition {
   BOTTOM_RIGHT = 'bottomRight',
   BOTTOM_CENTER = 'bottomCenter',
   BOTTOM_LEFT = 'bottomLeft',
-  DEFAULT = 'bottomRight',
+  DEFAULT = 'bottomLeft',
 }
 
 export interface PopoverButtonsProps extends IonButtonProps {
