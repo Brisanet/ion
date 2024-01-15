@@ -1,8 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
+
 import { IonAlertComponent } from '../projects/ion/src/lib/alert/alert.component';
+import {
+  PopoverPosition,
+  PopoverProps,
+  PopoverTrigger,
+} from '../projects/ion/src/lib/core/types/popover';
 import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
+import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
 import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
 import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
@@ -10,11 +17,6 @@ import {
   IonSharedModule,
   IonTooltipModule,
 } from '../projects/ion/src/public-api';
-
-import {
-  PopoverPosition,
-  PopoverProps,
-} from '../projects/ion/src/lib/core/types/popover';
 
 const Template: Story = (args) => ({
   props: args,
@@ -38,7 +40,8 @@ const Template: Story = (args) => ({
         ionPopoverIconColor="${args.ionPopoverIconColor}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
         [ionPopoverArrowPointAtCenter]="true"
-        label="click me"
+        ionPopoverTrigger="${args.ionPopoverTrigger}"
+        label="${args.ionPopoverTrigger} me"
       >
       </ion-button>
       <ng-template #BodyTemplate>
@@ -56,6 +59,18 @@ Directive.args = {
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
   ionPopoverCustomClass: 'popover-custom-class',
+  ionPopoverTrigger: PopoverTrigger.DEFAULT,
+} as PopoverProps;
+
+export const DirectiveWithTriggerHover = Template.bind({});
+DirectiveWithTriggerHover.args = {
+  ionPopoverTitle: 'Título do popover',
+  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverIconClose: false,
+  ionPopoverIcon: 'historic',
+  ionPopoverIconColor: '#282b33',
+  ionPopoverCustomClass: 'popover-custom-class',
+  ionPopoverTrigger: PopoverTrigger.HOVER,
 } as PopoverProps;
 
 const TemplateOpen: Story = (args) => ({
@@ -110,4 +125,46 @@ export default {
       entryComponents: [IonPopoverComponent, IonTooltipComponent],
     }),
   ],
+  argTypes: {
+    ionPopoverTitle: {
+      name: 'ionPopoverTitle',
+      type: { name: 'string' },
+      defaultValue: 'Título do popover',
+    },
+    ionPopoverIconClose: {
+      name: 'ionPopoverIconClose',
+      type: { name: 'boolean' },
+      defaultValue: false,
+    },
+    ionPopoverIcon: {
+      name: 'ionPopoverIcon',
+      defaultValue: 'historic',
+      control: {
+        type: 'select',
+        options: [...Object.keys(iconsPaths)],
+      },
+    },
+    ionPopoverPosition: {
+      name: 'ionPopoverPosition',
+      control: {
+        type: 'select',
+        options: [...Object.values(PopoverPosition)],
+      },
+    },
+    ionPopoverTrigger: {
+      name: 'ionPopoverTrigger',
+      control: 'radio',
+      options: [...Object.values(PopoverTrigger)],
+    },
+    ionPopoverArrowPointAtCenter: {
+      name: 'ionPopoverArrowPointAtCenter',
+      control: 'boolean',
+      defaultValue: true,
+    },
+    ionPopoverCustomClass: {
+      name: 'ionPopoverCustomClass',
+      type: { name: 'string' },
+      defaultValue: '',
+    },
+  },
 } as Meta;

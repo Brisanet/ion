@@ -10,7 +10,11 @@ import {
 import { Subject } from 'rxjs';
 
 import { IconType } from '../../core/types';
-import { PopoverButtonsProps, PopoverPosition } from '../../core/types/popover';
+import {
+  PopoverButtonsProps,
+  PopoverPosition,
+  PopoverTrigger,
+} from '../../core/types/popover';
 import { IonPositionService } from '../../position/position.service';
 
 const PRIMARY_6 = '#0858ce';
@@ -35,6 +39,7 @@ export class IonPopoverComponent implements AfterViewChecked {
   @Input() ionPopoverCustomClass = '';
 
   ionPopoverVisible = false;
+  ionPopoverTrigger = PopoverTrigger.DEFAULT;
   left = 0;
   top = 0;
   position = '';
@@ -51,7 +56,10 @@ export class IonPopoverComponent implements AfterViewChecked {
     this.ionOnClose.next();
   }
   onClickOutside(): void {
-    if (this.ionPopoverKeep) {
+    if (
+      this.ionPopoverKeep ||
+      this.ionPopoverTrigger === PopoverTrigger.HOVER
+    ) {
       return;
     }
     this.close();

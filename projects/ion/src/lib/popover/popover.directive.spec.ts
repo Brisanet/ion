@@ -4,6 +4,7 @@ import {
   CUSTOM_ELEMENTS_SCHEMA,
   DebugElement,
   ElementRef,
+  Input,
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
@@ -14,13 +15,17 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { fireEvent, render, screen } from '@testing-library/angular';
 
 import { IonButtonModule } from '../button/button.module';
-import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
+import {
+  PopoverButtonsProps,
+  PopoverPosition,
+  PopoverTrigger,
+} from '../core/types/popover';
 import { IonDividerModule } from '../divider/divider.module';
+import { IonPositionService } from '../position/position.service';
 import { IonSharedModule } from '../shared.module';
 import { IonPopoverComponent } from './component/popover.component';
 import { IonPopoverDirective } from './popover.directive';
 import { IonPopoverModule } from './popover.module';
-import { IonPositionService } from '../position/position.service';
 
 const textButton = 'Teste';
 const confirmText = 'Você tem certeza?';
@@ -51,6 +56,7 @@ const CUSTOM_CLASS = 'custom-class';
       [ionPopoverIconClose]="ionPopoverIconClose"
       [ionPopoverPosition]="ionPopoverPosition"
       [ionPopoverActions]="ionPopoverActions"
+      [ionPopoverTrigger]="ionPopoverTrigger"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
       ionPopoverCustomClass="${CUSTOM_CLASS}"
@@ -68,16 +74,17 @@ const CUSTOM_CLASS = 'custom-class';
   `,
 })
 class HostTestComponent {
-  ionPopoverTitle = confirmText;
-  ionPopoverBody = 'e eu sou o body do popover';
-  ionPopoverPosition = PopoverPosition.DEFAULT;
-  ionPopoverKeep = false;
-  ionPopoverIconClose = true;
-  ionPopoverIcon = 'condominium';
-  ionPopoverActions: PopoverButtonsProps[] = [
+  @Input() ionPopoverTitle = confirmText;
+  @Input() ionPopoverBody = 'e eu sou o body do popover';
+  @Input() ionPopoverPosition = PopoverPosition.DEFAULT;
+  @Input() ionPopoverKeep = false;
+  @Input() ionPopoverIconClose = true;
+  @Input() ionPopoverIcon = 'condominium';
+  @Input() ionPopoverActions: PopoverButtonsProps[] = [
     { label: 'action 1' },
     { label: 'action 2' },
   ];
+  @Input() ionPopoverTrigger = PopoverTrigger.DEFAULT;
 
   ionOnFirstAction = firstAction;
   ionOnSecondAction = secondAction;
@@ -263,6 +270,26 @@ describe('Directive: popover', () => {
     fireEvent.scroll(window);
     expect(directive.onScroll).toBeCalled();
     expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  });
+
+  describe('trigger: hover', () => {
+    afterEach(async () => {
+      fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
+    });
+
+    it('should open popover when mouseEnter when trigger is hover', async () => {
+      await sut({ ionPopoverTrigger: PopoverTrigger.HOVER });
+      fireEvent.mouseEnter(screen.getByTestId('hostPopover'));
+      expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+    });
+
+    it('should remove popover when mouseLeave on element when trigger is hover', async () => {
+      await sut({ ionPopoverTrigger: PopoverTrigger.HOVER });
+      fireEvent.mouseEnter(screen.getByTestId('hostPopover'));
+      expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+      fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
+      expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+    });
   });
 });
 

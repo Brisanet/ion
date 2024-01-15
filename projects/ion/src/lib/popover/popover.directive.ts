@@ -17,7 +17,12 @@ import {
 } from '@angular/core';
 
 import { IconType } from '../core/types';
-import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
+import {
+  PopoverButtonsProps,
+  PopoverPosition,
+  PopoverProps,
+  PopoverTrigger,
+} from '../core/types/popover';
 import { IonPositionService } from '../position/position.service';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
@@ -35,6 +40,8 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverArrowPointAtCenter = true;
   @Input() ionPopoverCustomClass?: string;
+  @Input() ionPopoverTrigger: PopoverProps['ionPopoverTrigger'] =
+    PopoverTrigger.DEFAULT;
   @Output() ionOnFirstAction = new EventEmitter<void>();
   @Output() ionOnSecondAction = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
@@ -102,6 +109,10 @@ export class IonPopoverDirective implements OnDestroy {
     });
   }
 
+  isPopoverTrigger(trigger: PopoverTrigger): boolean {
+    return this.ionPopoverTrigger === trigger;
+  }
+
   handlePopoverAction(index: number): void {
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
     if (!action || !action.keepOpenAfterAction) {
@@ -127,6 +138,7 @@ export class IonPopoverDirective implements OnDestroy {
       top: ionPopoverPosition.top + window.scrollY,
       left: ionPopoverPosition.left + window.scrollX,
       position: 'absolute',
+      ionPopoverTrigger: this.ionPopoverTrigger,
     };
 
     Object.keys(props).forEach((prop) => {
@@ -159,10 +171,7 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick(): void {
-    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-    if (this.elementIsEnabled(hostElement)) {
-      this.open();
-    }
+    this.handlePopoverEvent(PopoverTrigger.CLICK);
   }
 
   @HostListener('window:scroll')
@@ -171,6 +180,51 @@ export class IonPopoverDirective implements OnDestroy {
   @HostListener('window:wheel')
   onScroll(): void {
     this.destroyComponent();
+  }
+
+  @HostListener('mouseenter') onMouseEnter(): void {
+    this.handlePopoverEvent(PopoverTrigger.HOVER);
+    if (
+      this.isPopoverTrigger(PopoverTrigger.HOVER) &&
+      !this.isComponentRefNull()
+    ) {
+      this.popoverComponentRef.location.nativeElement.addEventListener(
+        'mouseleave',
+        (e: MouseEvent) => {
+          this.closeIfHoverIsOutPopoverOrHost(e);
+        }
+      );
+    }
+  }
+
+  @HostListener('mouseleave', ['$event']) onMouseLeave(
+    event: MouseEvent
+  ): void {
+    if (
+      this.isPopoverTrigger(PopoverTrigger.HOVER) &&
+      !this.isComponentRefNull()
+    ) {
+      this.closeIfHoverIsOutPopoverOrHost(event);
+    }
+  }
+
+  closeIfHoverIsOutPopoverOrHost(event: MouseEvent): void {
+    const popoverElement = this.popoverComponentRef.location.nativeElement;
+    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+    const isInsidePopoverOrHost =
+      popoverElement.contains(event.relatedTarget as Node) ||
+      hostElement.contains(event.relatedTarget as Node);
+
+    if (!isInsidePopoverOrHost) {
+      this.destroyComponent();
+    }
+  }
+
+  handlePopoverEvent(trigger: PopoverTrigger): void {
+    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+    if (this.isPopoverTrigger(trigger) && this.elementIsEnabled(hostElement)) {
+      this.open();
+    }
   }
 
   destroyComponent(): void {
