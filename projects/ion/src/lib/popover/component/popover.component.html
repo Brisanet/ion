@@ -1,11 +1,14 @@
 <div
-  [ngClass]="ionPopoverCustomClass"
-  [class]="'ion-popover__sup-container--' + ionPopoverPosition"
+  [ngClass]="
+    ionPopoverCustomClass + ' ion-popover__sup-container--' + ionPopoverPosition
+  "
+  [class.ion-popover--visible]="ionPopoverVisible"
   data-testid="ion-popover"
   [style.top]="top + 'px'"
   [style.left]="left + 'px'"
   [style.position]="position"
   (clickOutside)="onClickOutside()"
+  #popover
 >
   <div class="ion-popover__container">
     <div class="ion-popover__header">
