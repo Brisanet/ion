@@ -15,8 +15,7 @@ import {
   TOTAL_DAYS,
   getFormattedDate,
   getInitialDate,
-  isNotRangeLimit,
-  isSameDate,
+  isBetweenRange,
   isSameDay,
   isToday,
 } from '../../../utils';
@@ -126,7 +125,7 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
       day.isToday = isToday(day, this.lang);
-      day.isBetweenRange = this.isBetweenRange(day);
+      day.isBetweenRange = isBetweenRange(day, this.selectedDay);
       day.isRangeInitialLimit = this.isRangeLimit(day);
       day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
     });
@@ -244,23 +243,6 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
 
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
-  }
-
-  private isBetweenRange(date: Day): boolean {
-    if (!(this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE])) {
-      return;
-    }
-    const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
-      this.selectedDay[INITIAL_RANGE].Date,
-      this.selectedDay[FINAL_RANGE].Date,
-      date.Date,
-    ];
-    const isNotLimit =
-      isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
-      isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
-    const isBetween =
-      CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
-    return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
   }
 
   private isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
