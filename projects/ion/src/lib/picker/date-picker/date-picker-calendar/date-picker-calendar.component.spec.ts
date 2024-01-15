@@ -125,10 +125,10 @@ describe('DatePickerCalendar: calendarControlAction', () => {
 
   it('should call ngOnChanges', () => {
     component.ngOnInit();
-    const actions = 'previousYear';
-    component.calendarControlAction = actions;
+    const action = 'previousYear';
+    component.calendarControlAction = action;
     const changes: SimpleChanges = {
-      calendarControlAction: new SimpleChange(undefined, actions, false),
+      calendarControlAction: new SimpleChange(undefined, action, false),
     };
     jest.spyOn(component, 'ngOnChanges');
     component.ngOnChanges(changes);
