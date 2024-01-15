@@ -1,8 +1,17 @@
-import { Component, Input, TemplateRef } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { IconType } from '../../core/types';
 import { PopoverButtonsProps, PopoverPosition } from '../../core/types/popover';
+import { IonPositionService } from '../../position/position.service';
 
 const PRIMARY_6 = '#0858ce';
 
@@ -12,7 +21,9 @@ const PRIMARY_6 = '#0858ce';
   styleUrls: ['./popover.component.scss'],
   exportAs: 'PopoverComponent',
 })
-export class IonPopoverComponent {
+export class IonPopoverComponent implements AfterViewChecked {
+  @ViewChild('popover', { static: true }) popover: ElementRef;
+
   @Input() ionPopoverTitle: string;
   @Input() ionPopoverKeep: boolean;
   @Input() ionPopoverBody: TemplateRef<void>;
@@ -23,12 +34,19 @@ export class IonPopoverComponent {
   @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
   @Input() ionPopoverCustomClass = '';
 
+  ionPopoverVisible = false;
   left = 0;
   top = 0;
   position = '';
   readonly ionOnClose = new Subject<void>();
   readonly ionOnFirstAction = new Subject<void>();
   readonly ionOnSecondAction = new Subject<void>();
+
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private positionService: IonPositionService
+  ) {}
+
   close(): void {
     this.ionOnClose.next();
   }
@@ -43,5 +61,20 @@ export class IonPopoverComponent {
   }
   secondAction(): void {
     this.ionOnSecondAction.next();
+  }
+
+  ngAfterViewChecked(): void {
+    this.repositionPopover();
+    this.cdr.detectChanges();
+  }
+
+  private repositionPopover(): void {
+    const coordinates = this.popover.nativeElement.getBoundingClientRect();
+
+    this.positionService.setcomponentCoordinates(coordinates);
+    this.positionService.setChoosedPosition(this.ionPopoverPosition);
+    this.ionPopoverPosition =
+      this.positionService.getCurrentPosition() as PopoverPosition;
+    this.positionService.emitReposition();
   }
 }
