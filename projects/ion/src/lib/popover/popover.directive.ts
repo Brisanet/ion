@@ -109,10 +109,6 @@ export class IonPopoverDirective implements OnDestroy {
     });
   }
 
-  isPopoverTrigger(trigger: PopoverTrigger): boolean {
-    return this.ionPopoverTrigger === trigger;
-  }
-
   handlePopoverAction(index: number): void {
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
     if (!action || !action.keepOpenAfterAction) {
@@ -174,14 +170,6 @@ export class IonPopoverDirective implements OnDestroy {
     this.handlePopoverEvent(PopoverTrigger.CLICK);
   }
 
-  @HostListener('window:scroll')
-  @HostListener('document:scroll')
-  @HostListener('body:scroll')
-  @HostListener('window:wheel')
-  onScroll(): void {
-    this.destroyComponent();
-  }
-
   @HostListener('mouseenter') onMouseEnter(): void {
     this.handlePopoverEvent(PopoverTrigger.HOVER);
     if (
@@ -206,6 +194,14 @@ export class IonPopoverDirective implements OnDestroy {
     ) {
       this.closeIfHoverIsOutPopoverOrHost(event);
     }
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('document:scroll')
+  @HostListener('body:scroll')
+  @HostListener('window:wheel')
+  onScroll(): void {
+    this.destroyComponent();
   }
 
   closeIfHoverIsOutPopoverOrHost(event: MouseEvent): void {
@@ -233,6 +229,10 @@ export class IonPopoverDirective implements OnDestroy {
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
+  }
+
+  isPopoverTrigger(trigger: PopoverTrigger): boolean {
+    return this.ionPopoverTrigger === trigger;
   }
 
   isComponentRefNull(): boolean {

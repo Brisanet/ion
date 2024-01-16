@@ -290,6 +290,14 @@ describe('Directive: popover', () => {
       fireEvent.mouseLeave(screen.getByTestId('hostPopover'));
       expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
     });
+
+    it('should remove popover when mouseLeave on popover when trigger is hover', async () => {
+      await sut({ ionPopoverTrigger: PopoverTrigger.HOVER });
+      fireEvent.mouseEnter(screen.getByTestId('hostPopover'));
+      expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+      fireEvent.mouseLeave(screen.getByTestId('ion-popover').parentElement);
+      expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+    });
   });
 });
 
