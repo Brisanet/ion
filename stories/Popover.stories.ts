@@ -39,7 +39,7 @@ const Template: Story = (args) => ({
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
         ionPopoverCustomClass="${args.ionPopoverCustomClass}"
-        [ionPopoverArrowPointAtCenter]="true"
+        ionPopoverArrowPointAtCenter="${args.ionPopoverArrowPointAtCenter}"
         ionPopoverTrigger="${args.ionPopoverTrigger}"
         label="${args.ionPopoverTrigger} me"
       >
@@ -60,7 +60,8 @@ Directive.args = {
   ionPopoverIconColor: '#282b33',
   ionPopoverCustomClass: 'popover-custom-class',
   ionPopoverTrigger: PopoverTrigger.DEFAULT,
-} as PopoverProps;
+  ionPopoverArrowPointAtCenter: true,
+};
 
 export const DirectiveWithTriggerHover = Template.bind({});
 DirectiveWithTriggerHover.args = {
@@ -71,7 +72,8 @@ DirectiveWithTriggerHover.args = {
   ionPopoverIconColor: '#282b33',
   ionPopoverCustomClass: 'popover-custom-class',
   ionPopoverTrigger: PopoverTrigger.HOVER,
-} as PopoverProps;
+  ionPopoverArrowPointAtCenter: true,
+};
 
 const TemplateOpen: Story = (args) => ({
   props: args,
