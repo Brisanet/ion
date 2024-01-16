@@ -13,6 +13,7 @@ import { IconType } from '../../core/types';
 import {
   PopoverButtonsProps,
   PopoverPosition,
+  PopoverProps,
   PopoverTrigger,
 } from '../../core/types/popover';
 import { IonPositionService } from '../../position/position.service';
@@ -28,15 +29,17 @@ const PRIMARY_6 = '#0858ce';
 export class IonPopoverComponent implements AfterViewChecked {
   @ViewChild('popover', { static: true }) popover: ElementRef;
 
-  @Input() ionPopoverTitle: string;
-  @Input() ionPopoverKeep: boolean;
-  @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: PopoverButtonsProps[];
-  @Input() ionPopoverIcon?: IconType;
-  @Input() ionPopoverIconColor? = PRIMARY_6;
-  @Input() ionPopoverIconClose = false;
-  @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
-  @Input() ionPopoverCustomClass = '';
+  @Input() ionPopoverTitle: PopoverProps['ionPopoverTitle'];
+  @Input() ionPopoverKeep: PopoverProps['ionPopoverKeep'];
+  @Input() ionPopoverBody: PopoverProps['ionPopoverBody'];
+  @Input() ionPopoverActions?: PopoverProps['ionPopoverActions'];
+  @Input() ionPopoverIcon?: PopoverProps['ionPopoverIcon'];
+  @Input() ionPopoverIconColor?: PopoverProps['ionPopoverIconColor'] =
+    PRIMARY_6;
+  @Input() ionPopoverIconClose: PopoverProps['ionPopoverIconClose'] = false;
+  @Input() ionPopoverPosition?: PopoverProps['ionPopoverPosition'] =
+    PopoverPosition.DEFAULT;
+  @Input() ionPopoverCustomClass: PopoverProps['ionPopoverCustomClass'] = '';
 
   ionPopoverVisible = false;
   ionPopoverTrigger = PopoverTrigger.DEFAULT;

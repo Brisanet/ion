@@ -12,15 +12,12 @@ import {
   Input,
   OnDestroy,
   Output,
-  TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
 
-import { IconType } from '../core/types';
 import {
-  PopoverButtonsProps,
   PopoverPosition,
-  PopoverProps,
+  PopoverDirectiveProps,
   PopoverTrigger,
 } from '../core/types/popover';
 import { IonPositionService } from '../position/position.service';
@@ -30,21 +27,29 @@ import { getPositionsPopover } from './utilsPopover';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
-  @Input() ionPopoverTitle: string;
-  @Input() ionPopoverKeep = false;
-  @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: PopoverButtonsProps[];
-  @Input() ionPopoverIcon?: IconType;
-  @Input() ionPopoverIconColor?: string;
-  @Input() ionPopoverIconClose? = false;
-  @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
-  @Input() ionPopoverArrowPointAtCenter = true;
-  @Input() ionPopoverCustomClass?: string;
-  @Input() ionPopoverTrigger: PopoverProps['ionPopoverTrigger'] =
+  @Input() ionPopoverTitle: PopoverDirectiveProps['ionPopoverTitle'];
+  @Input() ionPopoverKeep: PopoverDirectiveProps['ionPopoverKeep'] = false;
+  @Input() ionPopoverBody: PopoverDirectiveProps['ionPopoverBody'];
+  @Input() ionPopoverActions?: PopoverDirectiveProps['ionPopoverActions'];
+  @Input() ionPopoverIcon?: PopoverDirectiveProps['ionPopoverIcon'];
+  @Input() ionPopoverIconColor?: PopoverDirectiveProps['ionPopoverIconColor'];
+  @Input() ionPopoverIconClose?: PopoverDirectiveProps['ionPopoverIconClose'] =
+    false;
+  @Input() ionPopoverPosition?: PopoverDirectiveProps['ionPopoverPosition'] =
+    PopoverPosition.DEFAULT;
+  @Input()
+  ionPopoverArrowPointAtCenter: PopoverDirectiveProps['ionPopoverArrowPointAtCenter'] =
+    true;
+  @Input()
+  ionPopoverCustomClass?: PopoverDirectiveProps['ionPopoverCustomClass'];
+  @Input() ionPopoverTrigger: PopoverDirectiveProps['ionPopoverTrigger'] =
     PopoverTrigger.DEFAULT;
-  @Output() ionOnFirstAction = new EventEmitter<void>();
-  @Output() ionOnSecondAction = new EventEmitter<void>();
-  @Output() ionOnClose = new EventEmitter<void>();
+  @Output() ionOnFirstAction: PopoverDirectiveProps['ionOnFirstAction'] =
+    new EventEmitter<void>();
+  @Output() ionOnSecondAction: PopoverDirectiveProps['ionOnSecondAction'] =
+    new EventEmitter<void>();
+  @Output() ionOnClose: PopoverDirectiveProps['ionOnClose'] =
+    new EventEmitter<void>();
 
   private popoverComponentRef: ComponentRef<IonPopoverComponent> = null;
 
@@ -75,12 +80,12 @@ export class IonPopoverDirective implements OnDestroy {
 
     this.document.body.appendChild(popoverElement);
     this.popoverComponentRef.changeDetectorRef.detectChanges();
-    this.updatePopoverProps(this.popoverComponentRef.instance);
+    this.updatePopoverDirectiveProps(this.popoverComponentRef.instance);
     this.showPopover();
     this.setComponentPosition();
   }
 
-  updatePopoverProps(popoverInstance: IonPopoverComponent): void {
+  updatePopoverDirectiveProps(popoverInstance: IonPopoverComponent): void {
     const instanceProps = {
       ionPopoverTitle: this.ionPopoverTitle,
       ionPopoverKeep: this.ionPopoverKeep,

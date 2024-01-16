@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 
 import { IonButtonProps } from './button';
 import { IconType } from './icon';
@@ -40,4 +40,12 @@ export interface PopoverProps {
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
   ionPopoverTrigger?: PopoverTrigger;
+  ionOnFirstAction?: EventEmitter<void>;
+  ionOnSecondAction?: EventEmitter<void>;
+  ionOnClose?: EventEmitter<void>;
+}
+
+export interface PopoverDirectiveProps extends PopoverProps {
+  ionPopoverArrowPointAtCenter?: boolean;
+  ionPopoverKeep?: boolean;
 }
