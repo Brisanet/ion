@@ -2,6 +2,18 @@ import { Component } from '@angular/core';
 
 import { PopoverPosition, PopoverTrigger } from '../../core/types/popover';
 
+export const popoverStyleForStorybook = `
+  ::ng-deep .ion-popover__sup-container--leftBottom,
+  ::ng-deep .ion-popover__sup-container--leftCenter,
+  ::ng-deep .ion-popover__sup-container--leftTop {
+    margin-left: -12px !important;
+    
+    &:before, &:after {
+      margin-left: 14px !important;
+    }
+  }
+`;
+
 @Component({
   template: `
     <style>
@@ -27,6 +39,7 @@ import { PopoverPosition, PopoverTrigger } from '../../core/types/popover';
       <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
     </div>
   `,
+  styles: [popoverStyleForStorybook],
 })
 export class OpenPopoverComponent {
   args = {

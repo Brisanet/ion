@@ -11,6 +11,7 @@ import {
 import { IonDividerComponent } from '../projects/ion/src/lib/divider/divider.component';
 import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { IonPopoverComponent } from '../projects/ion/src/lib/popover/component/popover.component';
+import { popoverStyleForStorybook } from '../projects/ion/src/lib/popover/mock/open-popover.component';
 import { IonPopoverDirective } from '../projects/ion/src/lib/popover/popover.directive';
 import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.component';
 import {
@@ -38,10 +39,10 @@ const Template: Story = (args) => ({
         ionPopoverPosition="${args.ionPopoverPosition}"
         ionPopoverIcon="${args.ionPopoverIcon}"
         ionPopoverIconColor="${args.ionPopoverIconColor}"
-        ionPopoverCustomClass="${args.ionPopoverCustomClass}"
         ionPopoverArrowPointAtCenter="${args.ionPopoverArrowPointAtCenter}"
         ionPopoverTrigger="${args.ionPopoverTrigger}"
         label="${args.ionPopoverTrigger} me"
+        ionPopoverCustomClass="${args.ionPopoverCustomClass}"
       >
       </ion-button>
       <ng-template #BodyTemplate>
@@ -49,6 +50,8 @@ const Template: Story = (args) => ({
       </ng-template>
     </div>
   `,
+
+  styles: [popoverStyleForStorybook],
 });
 
 export const Directive = Template.bind({});
@@ -103,6 +106,7 @@ const TemplateOpen: Story = (args) => ({
       </ng-template>
     </div>
   `,
+  styles: [popoverStyleForStorybook],
 });
 
 export const KeepOpen = TemplateOpen.bind({});

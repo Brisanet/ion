@@ -5,6 +5,7 @@ import {
   PopoverPosition,
   PopoverTrigger,
 } from '../projects/ion/src/lib/core/types/popover';
+import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
 import { OpenPopoverComponent } from '../projects/ion/src/lib/popover/mock/open-popover.component';
 import {
   IonPopoverModule,
@@ -13,9 +14,8 @@ import {
 
 const Template: Story<OpenPopoverComponent> = (args: OpenPopoverComponent) => ({
   component: OpenPopoverComponent,
-  props: {
-    ...args,
-  },
+
+  props: args,
   moduleMetadata: {
     declarations: [OpenPopoverComponent],
     imports: [CommonModule, IonSharedModule, IonPopoverModule],
@@ -35,4 +35,46 @@ DirectiveWithActions.args = {
 export default {
   title: 'Ion/Data Display/Popover',
   component: OpenPopoverComponent,
+  argTypes: {
+    ionPopoverTitle: {
+      name: 'ionPopoverTitle',
+      type: { name: 'string' },
+      defaultValue: 'Título do popover',
+    },
+    ionPopoverIconClose: {
+      name: 'ionPopoverIconClose',
+      type: { name: 'boolean' },
+      defaultValue: false,
+    },
+    ionPopoverIcon: {
+      name: 'ionPopoverIcon',
+      defaultValue: 'historic',
+      control: {
+        type: 'select',
+        options: [...Object.keys(iconsPaths)],
+      },
+    },
+    ionPopoverPosition: {
+      name: 'ionPopoverPosition',
+      control: {
+        type: 'select',
+        options: [...Object.values(PopoverPosition)],
+      },
+    },
+    ionPopoverTrigger: {
+      name: 'ionPopoverTrigger',
+      control: 'radio',
+      options: [...Object.values(PopoverTrigger)],
+    },
+    ionPopoverArrowPointAtCenter: {
+      name: 'ionPopoverArrowPointAtCenter',
+      control: 'boolean',
+      defaultValue: true,
+    },
+    ionPopoverCustomClass: {
+      name: 'ionPopoverCustomClass',
+      type: { name: 'string' },
+      defaultValue: '',
+    },
+  },
 } as Meta<OpenPopoverComponent>;

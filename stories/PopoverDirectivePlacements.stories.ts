@@ -3,6 +3,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { Meta, Story } from '@storybook/angular/types-6-0';
 
 import { iconsPaths } from '../projects/ion/src/lib/icon/svgs/icons';
+import { popoverStyleForStorybook } from '../projects/ion/src/lib/popover/mock/open-popover.component';
 import {
   IonPopoverModule,
   IonSharedModule,
@@ -37,12 +38,8 @@ const TemplateOpen: Story = (args) => ({
                       ionPopoverIconColor="${args.ionPopoverIconColor}"
                       ionPopoverPosition="${config.position}"
                       ionPopoverTrigger="${args.ionPopoverTrigger}"
-                      ionPopoverArrowPointAtCenter="${
-                        args.ionPopoverArrowPointAtCenter
-                      }"
-                      ionPopoverCustomClass="${
-                        indexed === 1 ? 'left-in-storybook' : ''
-                      }"
+                      ionPopoverCustomClass="${args.ionPopoverCustomClass}"
+                      ionPopoverArrowPointAtCenter="${args.ionPopoverArrowPointAtCenter}"
                     >
                     </ion-button>
                     `
@@ -93,16 +90,8 @@ const TemplateOpen: Story = (args) => ({
         margin-left: 50px;
         clear: both;
       }
-     
-      ::ng-deep .left-in-storybook {
-        margin-left: -12px !important;
-
-        &:before,
-        &:after {
-          margin-left: 14px !important;
-        }
-      }
     `,
+    popoverStyleForStorybook,
   ],
 });
 
@@ -114,6 +103,7 @@ Placements.args = {
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
   ionPopoverArrowPointAtCenter: true,
+  ionPopoverCustomClass: 'popover-custom-class',
   buttonConfigs: [
     [
       { label: 'TL', position: PopoverPosition.TOP_LEFT },
