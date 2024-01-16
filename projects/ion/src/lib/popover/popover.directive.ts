@@ -167,11 +167,11 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick(): void {
-    this.handlePopoverEvent(PopoverTrigger.CLICK);
+    this.handlePopoverTrigger(PopoverTrigger.CLICK);
   }
 
   @HostListener('mouseenter') onMouseEnter(): void {
-    this.handlePopoverEvent(PopoverTrigger.HOVER);
+    this.handlePopoverTrigger(PopoverTrigger.HOVER);
     if (
       this.isPopoverTrigger(PopoverTrigger.HOVER) &&
       !this.isComponentRefNull()
@@ -179,7 +179,7 @@ export class IonPopoverDirective implements OnDestroy {
       this.popoverComponentRef.location.nativeElement.addEventListener(
         'mouseleave',
         (e: MouseEvent) => {
-          this.closeIfHoverIsOutPopoverOrHost(e);
+          this.handleHoverOutside(e);
         }
       );
     }
@@ -192,7 +192,7 @@ export class IonPopoverDirective implements OnDestroy {
       this.isPopoverTrigger(PopoverTrigger.HOVER) &&
       !this.isComponentRefNull()
     ) {
-      this.closeIfHoverIsOutPopoverOrHost(event);
+      this.handleHoverOutside(event);
     }
   }
 
@@ -204,7 +204,7 @@ export class IonPopoverDirective implements OnDestroy {
     this.destroyComponent();
   }
 
-  closeIfHoverIsOutPopoverOrHost(event: MouseEvent): void {
+  handleHoverOutside(event: MouseEvent): void {
     const popoverElement = this.popoverComponentRef.location.nativeElement;
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
     const isInsidePopoverOrHost =
@@ -216,7 +216,7 @@ export class IonPopoverDirective implements OnDestroy {
     }
   }
 
-  handlePopoverEvent(trigger: PopoverTrigger): void {
+  handlePopoverTrigger(trigger: PopoverTrigger): void {
     const hostElement = this.viewRef.element.nativeElement as HTMLElement;
     if (this.isPopoverTrigger(trigger) && this.elementIsEnabled(hostElement)) {
       this.open();
