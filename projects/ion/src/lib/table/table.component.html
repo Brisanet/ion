@@ -138,6 +138,9 @@
                 [link]="column.link.url && column.link.url(row)"
                 (ionOnClick)="column.link.action(row)"
               ></ion-link>
+              <span class="td-span" *ngIf="column.type === 'boolean'">
+                {{ row[column.key] ? 'Sim' : 'Não' }}
+              </span>
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">

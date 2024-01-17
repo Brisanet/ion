@@ -1,9 +1,13 @@
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
 import {
   AfterViewInit,
   Component,
+  LOCALE_ID,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 
@@ -17,16 +21,11 @@ import { IonTagModule } from '../tag/tag.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { SafeAny } from '../utils/safe-any';
 import { StatusType } from './../core/types/status';
+import { IonLinkModule } from './../link/link.module';
+import { IonSpinnerModule } from './../spinner/spinner.module';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
-import { IonSpinnerModule } from './../spinner/spinner.module';
-import { IonLinkModule } from './../link/link.module';
 import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
-
-import localePT from '@angular/common/locales/pt';
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import { TestBed } from '@angular/core/testing';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -55,6 +54,7 @@ interface Disco {
   year?: number;
   icon?: string;
   status?: StatusType;
+  ativo?: boolean;
 }
 
 const data: Disco[] = [
@@ -1073,5 +1073,52 @@ describe('Table > Link in cells', () => {
 
     fireEvent.click(screen.getByText('link label'));
     expect(linkClickAction).toHaveBeenCalled();
+  });
+});
+
+describe('Table > Boolean in cells', () => {
+  const dataWithBoolean: Disco[] = [
+    { id: 1, name: 'Meteora', deleted: false, ativo: true },
+    { id: 2, name: 'Living Things', deleted: false, ativo: false },
+  ];
+
+  const columnsWithBoolean: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'ativo',
+      label: 'boolean',
+      type: ColumnType.BOOLEAN,
+    },
+  ];
+
+  it('should render "Sim" when boolean is true', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean,
+      },
+    });
+    expect(screen.queryByText('true')).not.toBeInTheDocument();
+    expect(screen.getByText('Sim')).toBeInTheDocument();
+  });
+
+  it('should render "Não" when boolean is false', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean,
+      },
+    });
+    expect(screen.queryByText('false')).not.toBeInTheDocument();
+    expect(screen.getByText('Não')).toBeInTheDocument();
   });
 });

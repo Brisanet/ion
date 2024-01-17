@@ -16,6 +16,7 @@ export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
   LINK = 'link',
+  BOOLEAN = 'boolean',
 }
 
 interface TagRow {
