@@ -1,4 +1,7 @@
-import { IonLinkModule } from './../link/link.module';
+import { registerLocaleData } from '@angular/common';
+import localePT from '@angular/common/locales/pt';
+import { LOCALE_ID, SimpleChange } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
 
 import { IonButtonModule } from '../button/button.module';
@@ -10,6 +13,7 @@ import { IonSpinnerModule } from '../spinner/spinner.module';
 import {
   ActionTable,
   Column,
+  ColumnBooleanText,
   ColumnType,
   EventTable,
 } from '../table/utilsTable';
@@ -19,13 +23,8 @@ import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
+import { IonLinkModule } from './../link/link.module';
 import { IonSmartTableComponent } from './smart-table.component';
-import { SimpleChange } from '@angular/core';
-
-import localePT from '@angular/common/locales/pt';
-import { LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
-import { TestBed } from '@angular/core/testing';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -66,6 +65,12 @@ interface Book {
   name: string;
   value: number;
   release_date: string;
+}
+
+interface Disco {
+  id: number;
+  name: string;
+  ativo?: boolean;
 }
 
 const data: Character[] = [
@@ -125,7 +130,7 @@ const defaultProps: IonSmartTableProps<Character> = {
 };
 
 const sut = async (
-  customProps: IonSmartTableProps<Character | Book> = defaultProps
+  customProps: IonSmartTableProps<Character | Book | Disco> = defaultProps
 ): Promise<SafeAny> => {
   return await render(IonSmartTableComponent, {
     componentProperties: customProps,
@@ -1477,5 +1482,105 @@ describe('Table > Link in cells', () => {
 
     fireEvent.click(screen.getByText('link label'));
     expect(linkClickAction).toHaveBeenCalled();
+  });
+});
+
+describe('smart-Table > Boolean in cells', () => {
+  const dataWithBoolean: Disco[] = [
+    { id: 1, name: 'Meteora', ativo: true },
+    { id: 2, name: 'Living Things', ativo: false },
+  ];
+
+  const columnsWithBoolean: Column[] = [
+    {
+      key: 'id',
+      label: 'Código',
+      sort: true,
+    },
+    {
+      key: 'name',
+      label: 'Name',
+      sort: true,
+    },
+    {
+      key: 'ativo',
+      label: 'Boolean',
+      type: ColumnType.BOOLEAN,
+    },
+  ];
+
+  const booleanText: ColumnBooleanText = {
+    true: 'ativado',
+    false: 'desativado',
+  };
+
+  it('should render "Sim" when boolean is true', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.queryByText('true')).not.toBeInTheDocument();
+    expect(screen.getByText('Sim')).toBeInTheDocument();
+  });
+
+  it('should render "Não" when boolean is false', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean,
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.queryByText('false')).not.toBeInTheDocument();
+    expect(screen.getByText('Não')).toBeInTheDocument();
+  });
+
+  it('should render custom boolean when boolean is true', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean.map((column) => ({
+          ...column,
+          booleanText,
+        })),
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.queryByText('true')).not.toBeInTheDocument();
+    expect(screen.getByText('ativado')).toBeInTheDocument();
+  });
+
+  it('should render custom boolean when boolean is false', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean.map((column) => ({
+          ...column,
+          booleanText,
+        })),
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+    expect(screen.queryByText('false')).not.toBeInTheDocument();
+    expect(screen.getByText('desativado')).toBeInTheDocument();
   });
 });

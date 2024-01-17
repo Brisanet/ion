@@ -256,7 +256,7 @@ const dataWithColumnBoolean = [
   },
 ];
 
-const columnsWithBoolean = [
+const columnsWithBooleanDefault = [
   {
     key: 'id',
     label: 'Código',
@@ -272,6 +272,29 @@ const columnsWithBoolean = [
     label: 'Disponível',
     sort: true,
     type: ColumnType.BOOLEAN,
+  },
+];
+
+const columnsWithBooleanCustom = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: true,
+  },
+  {
+    key: 'available',
+    label: 'Disponível',
+    sort: true,
+    type: ColumnType.BOOLEAN,
+    booleanText: {
+      true: 'disponível',
+      false: 'indisponível',
+    },
   },
 ];
 
@@ -393,7 +416,15 @@ export const ColumnWithBoolean = Template.bind({});
 ColumnWithBoolean.args = {
   config: {
     data: dataWithColumnBoolean,
-    columns: columnsWithBoolean,
+    columns: columnsWithBooleanDefault,
+  },
+};
+
+export const ColumnWithBooleanCustom = Template.bind({});
+ColumnWithBooleanCustom.args = {
+  config: {
+    data: dataWithColumnBoolean,
+    columns: columnsWithBooleanCustom,
   },
 };
 

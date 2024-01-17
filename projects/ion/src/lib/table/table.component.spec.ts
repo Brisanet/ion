@@ -25,7 +25,13 @@ import { IonLinkModule } from './../link/link.module';
 import { IonSpinnerModule } from './../spinner/spinner.module';
 import { IonTableComponent } from './table.component';
 import { IonTableModule } from './table.module';
-import { ActionTable, Column, ColumnType, ConfigTable } from './utilsTable';
+import {
+  ActionTable,
+  Column,
+  ColumnBooleanText,
+  ColumnType,
+  ConfigTable,
+} from './utilsTable';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -1100,6 +1106,11 @@ describe('Table > Boolean in cells', () => {
     },
   ];
 
+  const booleanText: ColumnBooleanText = {
+    true: 'ativado',
+    false: 'desativado',
+  };
+
   it('should render "Sim" when boolean is true', async () => {
     await sut({
       config: {
@@ -1120,5 +1131,33 @@ describe('Table > Boolean in cells', () => {
     });
     expect(screen.queryByText('false')).not.toBeInTheDocument();
     expect(screen.getByText('Não')).toBeInTheDocument();
+  });
+
+  it('should render custom boolean when boolean is true', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean.map((column) => ({
+          ...column,
+          booleanText,
+        })),
+      },
+    });
+    expect(screen.queryByText('true')).not.toBeInTheDocument();
+    expect(screen.getByText('ativado')).toBeInTheDocument();
+  });
+
+  it('should render custom boolean when boolean is false', async () => {
+    await sut({
+      config: {
+        data: dataWithBoolean,
+        columns: columnsWithBoolean.map((column) => ({
+          ...column,
+          booleanText,
+        })),
+      },
+    });
+    expect(screen.queryByText('false')).not.toBeInTheDocument();
+    expect(screen.getByText('desativado')).toBeInTheDocument();
   });
 });

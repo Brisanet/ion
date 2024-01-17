@@ -57,6 +57,12 @@ export interface Column<RowType = SafeAny> {
   configTooltip?: TooltipProps;
   pipe?: PipeColumn;
   hideLongData?: boolean;
+  booleanText?: ColumnBooleanText;
+}
+
+export interface ColumnBooleanText {
+  true: string;
+  false: string;
 }
 
 export interface ActionConfirm<RowType> {
