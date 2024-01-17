@@ -140,11 +140,9 @@
               ></ion-link>
               <span class="td-span" *ngIf="column.type === 'boolean'">
                 {{
-                  column.booleanText
-                    ? column.booleanText[row[column.key]]
-                    : row[column.key]
-                    ? 'Sim'
-                    : 'Não'
+                  row[column.key]
+                    ? (column.booleanText && column.booleanText.on) || 'Sim'
+                    : (column.booleanText && column.booleanText.off) || 'Não'
                 }}
               </span>
             </td>
