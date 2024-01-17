@@ -101,12 +101,19 @@ describe('DatePicker', () => {
 
   describe('getFormattedDate', () => {
     it('should return the date formatted as expected', () => {
-      const dates = ['2024-01-10'];
+      const dates = ['2024-01-01', '2024-01-10'];
       const isFinalOfRange = false;
 
-      const formattedDate = getFormattedDate(dates, isFinalOfRange);
+      const result = getFormattedDate(dates, isFinalOfRange);
 
-      expect(formattedDate).toEqual(new Date());
+      const expectedDate = new Date('2024-01-01');
+      const expectedDay = expectedDate.getUTCDate();
+      const expectedMonth = expectedDate.getUTCMonth() + 1;
+      const expectedYear = expectedDate.getUTCFullYear();
+
+      expect(result.getUTCDate()).toBe(expectedDay);
+      expect(result.getUTCMonth() + 1).toBe(expectedMonth);
+      expect(result.getUTCFullYear()).toBe(expectedYear);
     });
   });
 
