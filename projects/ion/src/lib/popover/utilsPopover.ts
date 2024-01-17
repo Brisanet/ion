@@ -25,7 +25,7 @@ function calculateTopPositions({
 }: PositionParams): Partial<PopoverPositions> {
   const top = host.top;
   return {
-    topLeft: {
+    topRight: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
           popover.width +
@@ -39,7 +39,7 @@ function calculateTopPositions({
       left: hostHorizontalCenter - popover.width / 2,
       top,
     },
-    topRight: {
+    topLeft: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
           arrowToEdgeDistance -
@@ -59,7 +59,7 @@ function calculateBottomPositions({
 }: PositionParams): Partial<PopoverPositions> {
   const top = host.bottom;
   return {
-    bottomLeft: {
+    bottomRight: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
           popover.width +
@@ -73,7 +73,7 @@ function calculateBottomPositions({
       left: hostHorizontalCenter - popover.width / 2,
       top,
     },
-    bottomRight: {
+    bottomLeft: {
       left: arrowAtCenter
         ? hostHorizontalCenter -
           arrowToEdgeDistance -
@@ -93,7 +93,7 @@ function calculateLeftPositions({
 }: PositionParams): Partial<PopoverPositions> {
   const left = host.left - popover.width;
   return {
-    leftTop: {
+    leftBottom: {
       left,
       top: arrowAtCenter
         ? hostVerticalCenter +
@@ -106,7 +106,7 @@ function calculateLeftPositions({
       left,
       top: hostVerticalCenter,
     },
-    leftBottom: {
+    leftTop: {
       left,
       top: arrowAtCenter
         ? hostVerticalCenter -
@@ -125,7 +125,7 @@ function calculateRightPositions({
 }: PositionParams): Partial<PopoverPositions> {
   const left = host.right;
   return {
-    rightTop: {
+    rightBottom: {
       left,
       top: arrowAtCenter
         ? hostVerticalCenter +
@@ -138,7 +138,7 @@ function calculateRightPositions({
       left,
       top: hostVerticalCenter,
     },
-    rightBottom: {
+    rightTop: {
       left,
       top: arrowAtCenter
         ? hostVerticalCenter -

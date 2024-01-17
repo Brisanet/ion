@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 
 import { IonButtonProps } from './button';
 import { IconType } from './icon';
@@ -16,11 +16,17 @@ export enum PopoverPosition {
   BOTTOM_RIGHT = 'bottomRight',
   BOTTOM_CENTER = 'bottomCenter',
   BOTTOM_LEFT = 'bottomLeft',
-  DEFAULT = 'bottomRight',
+  DEFAULT = 'bottomLeft',
 }
 
 export interface PopoverButtonsProps extends IonButtonProps {
   keepOpenAfterAction?: boolean;
+}
+
+export enum PopoverTrigger {
+  CLICK = 'click',
+  HOVER = 'hover',
+  DEFAULT = 'click',
 }
 
 export interface PopoverProps {
@@ -33,4 +39,13 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
+  ionOnFirstAction?: EventEmitter<void>;
+  ionOnSecondAction?: EventEmitter<void>;
+  ionOnClose?: EventEmitter<void>;
+}
+
+export interface PopoverDirectiveProps extends PopoverProps {
+  ionPopoverArrowPointAtCenter?: boolean;
+  ionPopoverKeep?: boolean;
+  ionPopoverTrigger?: PopoverTrigger;
 }
