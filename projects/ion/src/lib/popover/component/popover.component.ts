@@ -4,14 +4,11 @@ import {
   Component,
   ElementRef,
   Input,
-  TemplateRef,
   ViewChild,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { IconType } from '../../core/types';
 import {
-  PopoverButtonsProps,
   PopoverPosition,
   PopoverProps,
   PopoverTrigger,

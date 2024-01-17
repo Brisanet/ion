@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 
-import {
-  PopoverDirectiveProps,
-  PopoverPosition,
-} from '../../core/types/popover';
+import { PopoverPosition } from '../../core/types/popover';
 import { popoverStyleForStorybook } from './open-popover.component';
 
 @Component({

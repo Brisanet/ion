@@ -39,7 +39,6 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
-  ionPopoverTrigger?: PopoverTrigger;
   ionOnFirstAction?: EventEmitter<void>;
   ionOnSecondAction?: EventEmitter<void>;
   ionOnClose?: EventEmitter<void>;
@@ -48,4 +47,5 @@ export interface PopoverProps {
 export interface PopoverDirectiveProps extends PopoverProps {
   ionPopoverArrowPointAtCenter?: boolean;
   ionPopoverKeep?: boolean;
+  ionPopoverTrigger?: PopoverTrigger;
 }
