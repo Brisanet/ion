@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+
 import { PopoverPosition } from '../../core/types/popover';
+import { popoverStyleForStorybook } from './open-popover.component';
 
 @Component({
   template: `
@@ -25,6 +27,7 @@ import { PopoverPosition } from '../../core/types/popover';
       <ng-template #BodyTemplate> {{ args.ionPopoverBody }} </ng-template>
     </div>
   `,
+  styles: [popoverStyleForStorybook],
 })
 export class KeepOpenPopoverActionComponent {
   args = {
