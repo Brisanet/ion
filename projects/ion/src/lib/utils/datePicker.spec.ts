@@ -83,10 +83,15 @@ describe('DatePicker', () => {
     it('should return formatted data when current data is provided', () => {
       const currentDate = ['2024-01-10'];
       const result = getInitialDate(currentDate);
+      const expectedDate = new Date();
+      const expectedDay = expectedDate.getUTCDate();
+      const expectedMonth = expectedDate.getUTCMonth() + 1;
+      const expectedYear = expectedDate.getUTCFullYear();
 
-      expect(result).toEqual(new Date());
+      expect(result.getUTCDate()).toBe(expectedDay);
+      expect(result.getUTCMonth() + 1).toBe(expectedMonth);
+      expect(result.getUTCFullYear()).toBe(expectedYear);
     });
-
     it('should return current date when no date is given', () => {
       const result = getInitialDate([]);
 
