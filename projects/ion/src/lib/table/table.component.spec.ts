@@ -1107,8 +1107,8 @@ describe('Table > Boolean in cells', () => {
   ];
 
   const booleanText: ColumnBooleanText = {
-    true: 'ativado',
-    false: 'desativado',
+    on: 'ativado',
+    off: 'desativado',
   };
 
   it('should render "Sim" when boolean is true', async () => {
