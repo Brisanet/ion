@@ -141,8 +141,10 @@
               <span class="td-span" *ngIf="column.type === 'boolean'">
                 {{
                   row[column.key]
-                    ? (column.booleanText && column.booleanText.on) || 'Sim'
-                    : (column.booleanText && column.booleanText.off) || 'Não'
+                    ? (column.booleanText && column.booleanText.positive) ||
+                      'Sim'
+                    : (column.booleanText && column.booleanText.negative) ||
+                      'Não'
                 }}
               </span>
             </td>

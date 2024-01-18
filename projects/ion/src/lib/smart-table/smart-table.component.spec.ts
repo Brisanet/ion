@@ -1510,8 +1510,8 @@ describe('smart-Table > Boolean in cells', () => {
   ];
 
   const booleanText: ColumnBooleanText = {
-    on: 'activated',
-    off: 'inactivated',
+    positive: 'activated',
+    negative: 'inactivated',
   };
 
   it('should render "Sim" when boolean is true', async () => {
