@@ -29,7 +29,7 @@
       [maxlength]="maxLength"
     />
 
-    <span class="text-counter" *ngIf="maxLength">
+    <span class="text-counter" *ngIf="maxLength && value">
       {{ value.length }}/{{ maxLength }}
     </span>
 
