@@ -70,7 +70,7 @@ interface Book {
 interface Disco {
   id: number;
   name: string;
-  ativo?: boolean;
+  active?: boolean;
 }
 
 const data: Character[] = [
@@ -1487,8 +1487,8 @@ describe('Table > Link in cells', () => {
 
 describe('smart-Table > Boolean in cells', () => {
   const dataWithBoolean: Disco[] = [
-    { id: 1, name: 'Meteora', ativo: true },
-    { id: 2, name: 'Living Things', ativo: false },
+    { id: 1, name: 'Meteora', active: true },
+    { id: 2, name: 'Living Things', active: false },
   ];
 
   const columnsWithBoolean: Column[] = [
@@ -1503,15 +1503,15 @@ describe('smart-Table > Boolean in cells', () => {
       sort: true,
     },
     {
-      key: 'ativo',
+      key: 'active',
       label: 'Boolean',
       type: ColumnType.BOOLEAN,
     },
   ];
 
   const booleanText: ColumnBooleanText = {
-    on: 'ativado',
-    off: 'desativado',
+    on: 'activated',
+    off: 'inactivated',
   };
 
   it('should render "Sim" when boolean is true', async () => {
@@ -1562,7 +1562,7 @@ describe('smart-Table > Boolean in cells', () => {
       },
     });
     expect(screen.queryByText('true')).not.toBeInTheDocument();
-    expect(screen.getByText('ativado')).toBeInTheDocument();
+    expect(screen.getByText('activated')).toBeInTheDocument();
   });
 
   it('should render custom boolean when boolean is false', async () => {
@@ -1581,6 +1581,6 @@ describe('smart-Table > Boolean in cells', () => {
       },
     });
     expect(screen.queryByText('false')).not.toBeInTheDocument();
-    expect(screen.getByText('desativado')).toBeInTheDocument();
+    expect(screen.getByText('inactivated')).toBeInTheDocument();
   });
 });
