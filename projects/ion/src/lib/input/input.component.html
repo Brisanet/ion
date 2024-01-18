@@ -29,8 +29,8 @@
       [maxlength]="maxLength"
     />
 
-    <span class="text-counter" *ngIf="maxLength && value">
-      {{ value.length }}/{{ maxLength }}
+    <span class="text-counter" *ngIf="maxLength">
+      {{ value ? value.length : 0 }}/{{ maxLength }}
     </span>
 
     <ion-icon
