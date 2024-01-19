@@ -54,3 +54,31 @@ export function getFormattedDate(
     dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE].replace('-', ',')
   );
 }
+
+export function calculateDuration(isoString: string): number {
+  const regex =
+    /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/;
+  const match = isoString.match(regex);
+
+  if (!match) {
+    throw new Error('Formato ISO 8601 inválido.');
+  }
+
+  const [_, years, months, days, hours, minutes, seconds] = match.map(Number);
+
+  const durationInMilliseconds =
+    (years || 0) * 365 * 24 * 60 * 60 * 1000 +
+    (months || 0) * 30 * 24 * 60 * 60 * 1000 +
+    (days || 0) * 24 * 60 * 60 * 1000 +
+    (hours || 0) * 60 * 60 * 1000 +
+    (minutes || 0) * 60 * 1000 +
+    (seconds || 0) * 1000;
+
+  return durationInMilliseconds;
+}
+
+export function arrangeDates(selectedDay: Day[]) {
+  selectedDay.sort((initial, final) => {
+    return initial.Date < final.Date ? -1 : initial.Date > final.Date ? 1 : 0;
+  });
+}

@@ -6,18 +6,20 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+
 import {
+  arrangeDates,
   FINAL_RANGE,
-  INITIAL_RANGE,
-  SATURDAY,
-  SUNDAY,
-  TOTAL_DAYS,
   getFormattedDate,
   getInitialDate,
+  INITIAL_RANGE,
   isNotRangeLimit,
   isSameDate,
   isSameDay,
   isToday,
+  SATURDAY,
+  SUNDAY,
+  TOTAL_DAYS,
 } from '../../../utils';
 import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
@@ -35,7 +37,8 @@ import { Day } from '../../core/day';
 })
 export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   @Input() currentDate: IonDatePickerCalendarComponentProps['currentDate'];
-  @Input() lang: IonDatePickerCalendarComponentProps['lang'];
+  @Input() lang: IonDatePickerCalendarComponentProps['lang'] =
+    window.navigator.language;
   @Input() set goToMonthInCalendar(month: string) {
     if (this.calendar) {
       this.calendar.goToDate(Number(month) + 1, this.calendar.year);
@@ -49,11 +52,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     }
   }
   @Input() calendarControlAction: CalendarControlActions;
+  @Input() selectedDay: Day[] = [];
   @Input() rangePicker: boolean;
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
-  selectedDay: Day[] = [];
   monthYear: string;
   calendar: Calendar;
   selectedDayElement: HTMLButtonElement;
@@ -65,11 +68,24 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   };
   public finalRange = true;
 
-  constructor() {
-    this.setLanguage();
+  previousYear(): void {
+    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
+  }
+
+  previousMonth(): void {
+    this.calendar.goToPreviousMonth();
+  }
+
+  nextMonth(): void {
+    this.calendar.goToNextMonth();
+  }
+
+  nextYear(): void {
+    this.calendar.goToNextYear(this.calendar.month.number - 1);
   }
 
   ngOnInit(): void {
+    arrangeDates(this.selectedDay);
     this.setCalendarInitialState();
     this.tempRenderDays();
   }
@@ -77,6 +93,7 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
   ngDoCheck(): void {
     if (this.calendarControlAction) {
       this.calendarAction[this.calendarControlAction]();
+      this.tempRenderDays();
     }
   }
 
@@ -88,7 +105,7 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
       }
 
       this.selectedDay[FINAL_RANGE] = this.days[dayIndex];
-      this.arrangeDates();
+      arrangeDates(this.selectedDay);
       this.emitEvent();
       this.setDateInCalendar();
       return;
@@ -105,16 +122,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         ? this.selectedDay[FINAL_RANGE]
         : this.selectedDay[INITIAL_RANGE]
     );
-  }
-
-  getWeekDaysElementStrings(): string[] {
-    return this.calendar.weekDays.map(
-      (weekDay) => `${(weekDay as string).substring(0, 3)}`
-    );
-  }
-
-  getAriaLabel(day: Day): string {
-    return day.format('YYYY-MM-DD');
   }
 
   tempRenderDays(): void {
@@ -135,34 +142,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     }, 100);
   }
 
-  previousYear(): void {
-    this.calendar.goToPreviousYear(this.calendar.month.number - 1);
-    this.tempRenderDays();
-  }
-
-  previousMonth(): void {
-    this.calendar.goToPreviousMonth();
-    this.tempRenderDays();
-  }
-
-  nextMonth(): void {
-    this.calendar.goToNextMonth();
-    this.tempRenderDays();
-  }
-
-  nextYear(): void {
-    this.calendar.goToNextYear(this.calendar.month.number - 1);
-    this.tempRenderDays();
-  }
-
-  private setLanguage(): void {
-    if (!this.lang) {
-      this.lang = window.navigator.language;
-    }
-  }
-
   private setCalendarInitialState(): void {
-    if (this.currentDate && this.currentDate.length) {
+    if (
+      this.currentDate &&
+      this.currentDate.length &&
+      !this.selectedDay.length
+    ) {
       this.selectedDay[INITIAL_RANGE] = new Day(
         getFormattedDate(this.currentDate),
         this.lang
@@ -199,12 +184,12 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private getMonthDaysGrid(): Day[] {
     const prevMonth = this.calendar.getPreviousMonth();
-    const totalLastMonthFinalDays = this.getLastMonthFinalDays();
+    const totalLastMonthFinalDays = this.calendar.getLastMonthFinalDays();
     const totalDays = this.getTotalDaysForCalendar(totalLastMonthFinalDays);
     const monthList = Array.from<Day>({ length: totalDays });
 
     for (let i = totalLastMonthFinalDays; i < totalDays; i++) {
-      monthList[i] = this.getCalendarDay(i + 1 - totalLastMonthFinalDays);
+      monthList[i] = this.calendar.getDay(i + 1 - totalLastMonthFinalDays);
     }
 
     for (let i = 0; i < totalLastMonthFinalDays; i++) {
@@ -213,10 +198,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     }
 
     return monthList;
-  }
-
-  private getLastMonthFinalDays(): number {
-    return this.calendar.month.getDay(1).dayNumber - 1;
   }
 
   private getTotalDaysForCalendar(totalLastMonthFinalDays: number): number {
@@ -234,10 +215,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     return TOTAL_DAYS.WITH_FOUR_WEEKS;
   }
 
-  private getCalendarDay(day: number): Day {
-    return this.calendar.month.getDay(day);
-  }
-
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
   }
@@ -250,7 +227,7 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
       this.selectedDay[INITIAL_RANGE].Date,
       this.selectedDay[FINAL_RANGE].Date,
       date.Date,
-    ];
+    ].map((dateInRange) => new Date(dateInRange.setHours(0, 0, 0, 0)));
     const isNotLimit =
       isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
       isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
@@ -268,12 +245,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
         !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
       isSameDay(date, this.selectedDay[RANGE_TO_CONFIRM])
     );
-  }
-
-  private arrangeDates(): void {
-    this.selectedDay.sort((initial, final) => {
-      return initial.Date < final.Date ? -1 : initial.Date > final.Date ? 1 : 0;
-    });
   }
 
   private emitEvent(): void {

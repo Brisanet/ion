@@ -8,10 +8,7 @@ import { Day } from '../core/day';
 import { IonButtonModule } from './../../button/button.module';
 import { IonDividerModule } from './../../divider/divider.module';
 import { IonInputModule } from './../../input/input.module';
-import {
-  DEFAULT_FINAL_FORMAT,
-  IonDatepickerComponent,
-} from './date-picker.component';
+import { IonDatepickerComponent } from './date-picker.component';
 import { IonDatePickerModule } from './date-picker.module';
 import { calculateDuration } from '../../utils';
 
@@ -99,14 +96,12 @@ describe('DatePickerCalendar', () => {
 
   describe('PreDefinedRangePicker', () => {
     const today = new Date().getTime();
+    const todayText = new Day().format(DEFAULT_FINAL_FORMAT);
     const weekDuration = 'P7D';
     const durationTime = calculateDuration(weekDuration);
 
-    const [todayText, sevenDaysAgo, sevenDaysAfter] = [
-      new Date(),
-      today - durationTime,
-      today + durationTime,
-    ].map((date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT));
+    const sevenDaysAgo = new Date(today - durationTime);
+    const sevenDaysAfter = new Day(new Date(today + durationTime)).format();
 
     it('should filter for the last week', () => {
       const week = {

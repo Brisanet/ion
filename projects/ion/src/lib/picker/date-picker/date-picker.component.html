@@ -9,22 +9,34 @@
   *ngIf="showDatepicker"
   data-testid="container-calendar"
 >
-  <div class="header">
-    <ion-control-picker
-      [month]="calendarMonth"
-      [year]="calendarYear"
-      (controlPickerEvent)="events($event)"
-    ></ion-control-picker>
+  <div class="container-body" [class.container-range-body]="rangePicker">
+    <div class="header">
+      <ion-control-picker
+        [month]="calendarMonth"
+        [year]="calendarYear"
+        (controlPickerEvent)="events($event)"
+      ></ion-control-picker>
+    </div>
+    <div class="content">
+      <date-picker-calendar
+        [calendarControlAction]="calendarControlAction"
+        [goToMonthInCalendar]="goToMonth"
+        [goToYearInCalendar]="goToYear"
+        [currentDate]="currentDate"
+        [rangePicker]="rangePicker"
+        [selectedDay]="selectedDay"
+        (updateLabelCalendar)="updateLabelCalendar($event)"
+        (events)="dateSelected($event)"
+      ></date-picker-calendar>
+    </div>
   </div>
-  <div class="content">
-    <date-picker-calendar
-      [calendarControlAction]="calendarControlAction"
-      [goToMonthInCalendar]="goToMonth"
-      [goToYearInCalendar]="goToYear"
-      [currentDate]="currentDate"
-      [rangePicker]="rangePicker"
-      (updateLabelCalendar)="updateLabelCalendar($event)"
-      (events)="dateSelected($event)"
-    ></date-picker-calendar>
-  </div>
+  <ng-container *ngIf="rangePicker">
+    <!-- <ion-divider></ion-divider> -->
+    <div class="container-footer">
+      <ion-predefined-range-picker
+        [config]="preDefinedRanges"
+        (definedRangePicker)="onSelectPredefinedRange($event)"
+      ></ion-predefined-range-picker>
+    </div>
+  </ng-container>
 </div>

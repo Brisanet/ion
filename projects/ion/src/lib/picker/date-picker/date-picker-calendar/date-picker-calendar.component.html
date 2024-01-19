@@ -1,25 +1,27 @@
 <div class="container-date-picker-calendar">
   <div class="week-days" id="week-days">
-    <span *ngFor="let weeKDay of getWeekDaysElementStrings()">
+    <span *ngFor="let weeKDay of calendar.getWeekDaysElementStrings()">
       {{ weeKDay }}
     </span>
   </div>
+
+  <!-- <button (click)="lastWeek()">semana</button> -->
   <div class="month-days">
     <div
       *ngFor="let day of days; let i = index"
-      [attr.data-testid]="'container-' + getAriaLabel(day)"
+      [attr.data-testid]="'container-' + day.getAriaLabel()"
       [class.between-range]="day.isBetweenRange"
       [class.initial]="day.isRangeInitialLimit"
       [class.final]="day.isRangeFinalLimit"
     >
       <button
-        [attr.data-testid]="getAriaLabel(day)"
+        [attr.data-testid]="day.getAriaLabel()"
         class="month-day"
         [class.current]="day.isDayCurrentMonth"
         [class.today]="day.isToday"
         [class.selected]="isSelectedDate(day)"
         [class.final-range-selected]="isSelectedDate(day, finalRange)"
-        [attr.aria-label]="getAriaLabel(day)"
+        [attr.aria-label]="day.getAriaLabel()"
         (click)="handleClick(i)"
       >
         {{ day.date }}
