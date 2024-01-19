@@ -61,8 +61,8 @@ export interface Column<RowType = SafeAny> {
 }
 
 export interface ColumnBooleanText {
-  positive: string;
-  negative: string;
+  truthy: string;
+  falsy: string;
 }
 
 export interface ActionConfirm<RowType> {

@@ -292,8 +292,8 @@ const columnsWithBooleanCustom = [
     sort: true,
     type: ColumnType.BOOLEAN,
     booleanText: {
-      positive: 'disponível',
-      negative: 'indisponível',
+      truthy: 'disponível',
+      falsy: 'indisponível',
     },
   },
 ];
