@@ -15,22 +15,17 @@ describe('DatePicker', () => {
   let result: boolean;
   describe('isToday', () => {
     let currentDate: Day;
-    let lang: string;
+    const lang = 'pt-BR';
 
     it('should return true if day is today', () => {
       currentDate = new Day(today);
-      lang = 'pt-BR';
-
       result = isToday(currentDate, lang);
-
       expect(result).toBe(true);
     });
+    
     it('should return false if day is not today', () => {
       currentDate = new Day(new Date('2024-01-03'));
-      lang = 'pt-BR';
-
       result = isToday(currentDate, lang);
-
       expect(result).toBe(false);
     });
   });
