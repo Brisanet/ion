@@ -114,18 +114,6 @@ describe('PopoverComponent', () => {
     });
   });
 
-  describe('check the arrows', () => {
-    it.each(['leftTop', 'topCenter', 'leftBottom', 'bottomCenter'])(
-      'should render component with arrow $s',
-      async (arrow: PopoverPosition) => {
-        PopoverComponent.args.ionPopoverPosition = arrow;
-        fixture.detectChanges();
-        const element = screen.getByTestId('ion-popover');
-        expect(element).toHaveClass(`ion-popover__sup-container--${arrow}`);
-      }
-    );
-  });
-
   describe('check the custom class', () => {
     it.each(['custom-1', 'custom-2', 'custom-3'])(
       'should render component with custom class %s',

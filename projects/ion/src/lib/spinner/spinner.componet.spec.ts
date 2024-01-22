@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/angular';
-import { IonSpinnerColor, IonSpinnerComponent } from './spinner.component';
+import { IonSpinnerComponent } from './spinner.component';
+import { IonSpinnerColor } from '../core/types';
 
 const colors: IonSpinnerColor[] = ['primary', 'secondary', 'danger'];
 const defaultProps: IonSpinnerComponent = { color: 'primary', size: 24 };
@@ -42,5 +43,15 @@ describe('SpinnerComponent', () => {
       width: `${customSize}px`,
       height: `${customSize}px`,
     });
+  });
+
+  it('should not render the text as default', async () => {
+    await sut({ ...defaultProps });
+    expect(screen.queryByTestId('ion-spinner-text')).not.toBeInTheDocument();
+  });
+
+  it('should render the text when informed', async () => {
+    await sut({ ...defaultProps, text: 'Carregando...' });
+    expect(screen.getByTestId('ion-spinner-text')).toBeVisible();
   });
 });
