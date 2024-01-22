@@ -16,6 +16,7 @@ export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
   LINK = 'link',
+  BOOLEAN = 'boolean',
 }
 
 interface TagRow {
@@ -56,6 +57,12 @@ export interface Column<RowType = SafeAny> {
   configTooltip?: TooltipProps;
   pipe?: PipeColumn;
   hideLongData?: boolean;
+  booleanText?: ColumnBooleanText;
+}
+
+export interface ColumnBooleanText {
+  truthy: string;
+  falsy: string;
 }
 
 export interface ActionConfirm<RowType> {
