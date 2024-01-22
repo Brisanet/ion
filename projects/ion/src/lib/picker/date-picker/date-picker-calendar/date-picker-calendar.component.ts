@@ -1,10 +1,11 @@
 import {
   Component,
-  DoCheck,
   EventEmitter,
   Input,
+  OnChanges,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import {
   FINAL_RANGE,
@@ -14,8 +15,7 @@ import {
   TOTAL_DAYS,
   getFormattedDate,
   getInitialDate,
-  isNotRangeLimit,
-  isSameDate,
+  isBetweenRange,
   isSameDay,
   isToday,
 } from '../../../utils';
@@ -33,7 +33,7 @@ import { Day } from '../../core/day';
   templateUrl: './date-picker-calendar.component.html',
   styleUrls: ['./date-picker-calendar.component.scss'],
 })
-export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
+export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   @Input() currentDate: IonDatePickerCalendarComponentProps['currentDate'];
   @Input() lang: IonDatePickerCalendarComponentProps['lang'];
   @Input() set goToMonthInCalendar(month: string) {
@@ -74,8 +74,11 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.tempRenderDays();
   }
 
-  ngDoCheck(): void {
-    if (this.calendarControlAction) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      changes.calendarControlAction &&
+      changes.calendarControlAction.currentValue
+    ) {
       this.calendarAction[this.calendarControlAction]();
     }
   }
@@ -122,7 +125,7 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
       day.isToday = isToday(day, this.lang);
-      day.isBetweenRange = this.isBetweenRange(day);
+      day.isBetweenRange = isBetweenRange(day, this.selectedDay);
       day.isRangeInitialLimit = this.isRangeLimit(day);
       day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
     });
@@ -240,23 +243,6 @@ export class IonDatePickerCalendarComponent implements OnInit, DoCheck {
 
   private isDayMonthCurrent(day: Day): boolean {
     return day.monthNumber === this.calendar.month.number;
-  }
-
-  private isBetweenRange(date: Day): boolean {
-    if (!(this.selectedDay[INITIAL_RANGE] && this.selectedDay[FINAL_RANGE])) {
-      return;
-    }
-    const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
-      this.selectedDay[INITIAL_RANGE].Date,
-      this.selectedDay[FINAL_RANGE].Date,
-      date.Date,
-    ];
-    const isNotLimit =
-      isNotRangeLimit(date, SATURDAY, this.selectedDay[INITIAL_RANGE]) &&
-      isNotRangeLimit(date, SUNDAY, this.selectedDay[FINAL_RANGE]);
-    const isBetween =
-      CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
-    return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
   }
 
   private isRangeLimit(date: Day, isFinalOfRange?: boolean): boolean {
