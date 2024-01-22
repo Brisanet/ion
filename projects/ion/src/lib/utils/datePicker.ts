@@ -54,3 +54,19 @@ export function getFormattedDate(
     dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE].replace('-', ',')
   );
 }
+
+export function isBetweenRange(currentDay: Day, selectedDays: Day[]): boolean {
+  if (!(selectedDays[INITIAL_RANGE] && selectedDays[FINAL_RANGE])) {
+    return;
+  }
+  const [INITIAL_DATE, FINAL_DATE, CURRENT_DATE] = [
+    selectedDays[INITIAL_RANGE].Date,
+    selectedDays[FINAL_RANGE].Date,
+    currentDay.Date,
+  ];
+  const isNotLimit =
+    isNotRangeLimit(currentDay, SATURDAY, selectedDays[INITIAL_RANGE]) &&
+    isNotRangeLimit(currentDay, SUNDAY, selectedDays[FINAL_RANGE]);
+  const isBetween = CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
+  return isSameDate(INITIAL_DATE, FINAL_DATE) && isBetween && isNotLimit;
+}
