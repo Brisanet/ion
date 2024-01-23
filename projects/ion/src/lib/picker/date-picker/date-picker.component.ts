@@ -31,7 +31,7 @@ export class IonDatepickerComponent implements AfterViewInit {
   @Input() formatInDateInput: IonDatePickerComponentProps['formatInDateInput'] =
     DEFAULT_INPUT_FORMAT;
   @Input() rangePicker: boolean;
-  @Input() preDefinedRanges: PreDefinedRangeConfig[] = [
+  @Input() predefinedRanges?: PreDefinedRangeConfig[] = [
     { label: 'Últimos 7 dias', duration: 'P7D', isFuture: true },
     { label: 'Últimos 15 dias', duration: 'P15D' },
     { label: 'Últimos 30 dias', duration: 'P30D' },
@@ -96,17 +96,28 @@ export class IonDatepickerComponent implements AfterViewInit {
       : [data[INITIAL_RANGE].format(this.format)];
   }
 
+  /**
+   * @param predefinedRange - defines ranges.
+   * @param predefinedRange.label - name of the range.
+   * @param predefinedRange.duration - period of the range, it has to be in ISO 8601 format
+   * @param [predefinedRange.isFuture=false]  - defines if the period is previously or posteriorly
+   * @description - This function is called when a predefined range is selected.
+   * @returns void
+   */
+
   onSelectPredefinedRange(predefinedRange: PreDefinedRangeConfig): void {
-    const { duration, isFuture } = predefinedRange;
-    const firstDate = new Day();
-    const directionMultiplier = isFuture ? 1 : -1;
-    const secondDate = new Day(
-      new Date(
-        firstDate.Date.getTime() +
-          calculateDuration(duration) * directionMultiplier
-      )
-    );
-    this.dateSelected([firstDate, secondDate]);
+    if (this.rangePicker) {
+      const { duration, isFuture } = predefinedRange;
+      const firstDate = new Day();
+      const directionMultiplier = isFuture ? 1 : -1;
+      const secondDate = new Day(
+        new Date(
+          firstDate.Date.getTime() +
+            calculateDuration(duration) * directionMultiplier
+        )
+      );
+      this.dateSelected([firstDate, secondDate]);
+    }
   }
 
   dateSelected(data: Day[]): void {

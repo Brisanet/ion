@@ -31,10 +31,9 @@
     </div>
   </div>
   <ng-container *ngIf="rangePicker">
-    <!-- <ion-divider></ion-divider> -->
     <div class="container-footer">
       <ion-predefined-range-picker
-        [config]="preDefinedRanges"
+        [config]="predefinedRanges"
         (definedRangePicker)="onSelectPredefinedRange($event)"
       ></ion-predefined-range-picker>
     </div>

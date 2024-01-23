@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { screen } from '@testing-library/angular';
 import { IonPredefinedRangePickerComponent } from './predefined-range-picker.component';
 import { IonDatePickerModule } from '../date-picker/date-picker.module';
@@ -21,5 +21,12 @@ describe('PredefinedRangePickerComponent', () => {
 
   it('should render component', async () => {
     expect(await screen.findByTestId('chip-range')).toBeInTheDocument();
+  });
+
+  it('shoudl emit events', () => {
+    const spy = jest.spyOn(component, 'handlePreDefinedRange');
+    const event = { label: 'ultimos 7 dias', duration: 'P7D' };
+    component.handlePreDefinedRange(event);
+    expect(spy).toHaveBeenCalledWith(event);
   });
 });

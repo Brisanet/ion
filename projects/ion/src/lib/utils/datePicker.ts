@@ -61,7 +61,7 @@ export function calculateDuration(isoString: string): number {
   const match = isoString.match(regex);
 
   if (!match) {
-    throw new Error('Formato ISO 8601 inválido.');
+    throw new Error('Invalid ISO 8601 format.');
   }
 
   const [_, years, months, days, hours, minutes, seconds] = match.map(Number);
@@ -77,7 +77,7 @@ export function calculateDuration(isoString: string): number {
   return durationInMilliseconds;
 }
 
-export function arrangeDates(selectedDay: Day[]) {
+export function arrangeDates(selectedDay: Day[]): void {
   selectedDay.sort((initial, final) => {
     return initial.Date < final.Date ? -1 : initial.Date > final.Date ? 1 : 0;
   });
@@ -91,7 +91,7 @@ export function isBetweenRange(currentDay: Day, selectedDays: Day[]): boolean {
     selectedDays[INITIAL_RANGE].Date,
     selectedDays[FINAL_RANGE].Date,
     currentDay.Date,
-  ];
+  ].map((dateInRange) => new Date(dateInRange.setHours(0, 0, 0, 0)));
   const isNotLimit =
     isNotRangeLimit(currentDay, SATURDAY, selectedDays[INITIAL_RANGE]) &&
     isNotRangeLimit(currentDay, SUNDAY, selectedDays[FINAL_RANGE]);
