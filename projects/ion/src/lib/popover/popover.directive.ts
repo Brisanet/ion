@@ -4,6 +4,7 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   Directive,
+  ElementRef,
   EventEmitter,
   HostListener,
   Inject,
@@ -11,47 +12,60 @@ import {
   Input,
   OnDestroy,
   Output,
-  TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { pick } from 'lodash';
 
-import { IconType } from '../core/types';
-import { PopoverButtonsProps, PopoverPosition } from '../core/types/popover';
+import {
+  PopoverPosition,
+  PopoverDirectiveProps,
+  PopoverTrigger,
+} from '../core/types/popover';
+import { IonPositionService } from '../position/position.service';
 import { SafeAny } from './../utils/safe-any';
 import { IonPopoverComponent } from './component/popover.component';
 import { getPositionsPopover } from './utilsPopover';
 
 @Directive({ selector: '[ionPopover]' })
 export class IonPopoverDirective implements OnDestroy {
-  @Input() ionPopoverTitle: string;
-  @Input() ionPopoverKeep = false;
-  @Input() ionPopoverBody: TemplateRef<void>;
-  @Input() ionPopoverActions?: PopoverButtonsProps[];
-  @Input() ionPopoverIcon?: IconType;
-  @Input() ionPopoverIconColor?: string;
-  @Input() ionPopoverIconClose? = false;
-  @Input() ionPopoverPosition?: PopoverPosition = PopoverPosition.DEFAULT;
-  @Input() ionPopoverArrowPointAtCenter = true;
-  @Input() ionPopoverCustomClass?: string;
-  @Output() ionOnFirstAction = new EventEmitter<void>();
-  @Output() ionOnSecondAction = new EventEmitter<void>();
-  @Output() ionOnClose = new EventEmitter<void>();
+  @Input() ionPopoverTitle: PopoverDirectiveProps['ionPopoverTitle'];
+  @Input() ionPopoverKeep: PopoverDirectiveProps['ionPopoverKeep'] = false;
+  @Input() ionPopoverBody: PopoverDirectiveProps['ionPopoverBody'];
+  @Input() ionPopoverActions?: PopoverDirectiveProps['ionPopoverActions'];
+  @Input() ionPopoverIcon?: PopoverDirectiveProps['ionPopoverIcon'];
+  @Input() ionPopoverIconColor?: PopoverDirectiveProps['ionPopoverIconColor'];
+  @Input() ionPopoverIconClose?: PopoverDirectiveProps['ionPopoverIconClose'] =
+    false;
+  @Input() ionPopoverPosition?: PopoverDirectiveProps['ionPopoverPosition'] =
+    PopoverPosition.DEFAULT;
+  @Input()
+  ionPopoverArrowPointAtCenter: PopoverDirectiveProps['ionPopoverArrowPointAtCenter'] =
+    true;
+  @Input()
+  ionPopoverCustomClass?: PopoverDirectiveProps['ionPopoverCustomClass'];
+  @Input() ionPopoverTrigger: PopoverDirectiveProps['ionPopoverTrigger'] =
+    PopoverTrigger.DEFAULT;
+  @Output() ionOnFirstAction: PopoverDirectiveProps['ionOnFirstAction'] =
+    new EventEmitter<void>();
+  @Output() ionOnSecondAction: PopoverDirectiveProps['ionOnSecondAction'] =
+    new EventEmitter<void>();
+  @Output() ionOnClose: PopoverDirectiveProps['ionOnClose'] =
+    new EventEmitter<void>();
 
-  private popoverComponentRef!: ComponentRef<IonPopoverComponent>;
+  private popoverComponentRef: ComponentRef<IonPopoverComponent> = null;
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
-    private injector: Injector,
-    private readonly viewRef: ViewContainerRef
+    private positionService: IonPositionService,
+    private readonly viewRef: ViewContainerRef,
+    private elementRef: ElementRef,
+    private injector: Injector
   ) {}
 
-  open(position: SafeAny): void {
+  open(): void {
     this.closeAllPopovers();
     this.createPopover();
-    this.setComponentPosition(position);
   }
 
   createPopover(): void {
@@ -66,10 +80,12 @@ export class IonPopoverDirective implements OnDestroy {
 
     this.document.body.appendChild(popoverElement);
     this.popoverComponentRef.changeDetectorRef.detectChanges();
-    this.updatePopoverProps(this.popoverComponentRef.instance);
+    this.updatePopoverDirectiveProps(this.popoverComponentRef.instance);
+    this.showPopover();
+    this.setComponentPosition();
   }
 
-  updatePopoverProps(popoverInstance: IonPopoverComponent): void {
+  updatePopoverDirectiveProps(popoverInstance: IonPopoverComponent): void {
     const instanceProps = {
       ionPopoverTitle: this.ionPopoverTitle,
       ionPopoverKeep: this.ionPopoverKeep,
@@ -93,7 +109,6 @@ export class IonPopoverDirective implements OnDestroy {
     eventSubscriptions.forEach(([event, emitter], index) => {
       popoverInstance[event].subscribe(() => {
         this.handlePopoverAction(index);
-
         emitter.emit();
       });
     });
@@ -102,45 +117,49 @@ export class IonPopoverDirective implements OnDestroy {
   handlePopoverAction(index: number): void {
     const action = this.ionPopoverActions && this.ionPopoverActions[index];
     if (!action || !action.keepOpenAfterAction) {
-      this.closePopover();
+      this.destroyComponent();
     }
   }
 
-  setComponentPosition(hostElement: DOMRect): void {
-    const hostPositions = pick(hostElement, ['left', 'right', 'top', 'bottom']);
-    const positions = getPositionsPopover(
-      hostPositions,
-      this.ionPopoverArrowPointAtCenter
+  setComponentPosition(): void {
+    const hostElement = this.elementRef.nativeElement.getBoundingClientRect();
+
+    this.positionService.setHostPosition(hostElement);
+
+    this.positionService.setChoosedPosition(
+      this.popoverComponentRef.instance.ionPopoverPosition
     );
 
+    this.positionService.setPointAtCenter(this.ionPopoverArrowPointAtCenter);
+
+    const ionPopoverPosition =
+      this.positionService.getNewPosition(getPositionsPopover);
+
     const props = {
-      left: positions[this.ionPopoverPosition].left,
-      top: positions[this.ionPopoverPosition].top,
+      top: ionPopoverPosition.top + window.scrollY,
+      left: ionPopoverPosition.left + window.scrollX,
       position: 'absolute',
+      ionPopoverTrigger: this.ionPopoverTrigger,
     };
 
     Object.keys(props).forEach((prop) => {
       this.popoverComponentRef.instance[prop] = props[prop];
     });
+  }
 
-    this.popoverComponentRef.changeDetectorRef.detectChanges();
+  showPopover(): void {
+    if (!this.isComponentRefNull()) {
+      this.popoverComponentRef.instance.ionPopoverVisible = true;
+    }
   }
 
   closeAllPopovers(): void {
     const existingPopovers = document.querySelectorAll('ion-popover');
     if (existingPopovers) {
-      this.closePopover();
       existingPopovers.forEach((popover) => {
         popover.remove();
       });
-    }
-  }
-
-  closePopover(): void {
-    if (this.popoverComponentRef) {
-      this.appRef.detachView(this.popoverComponentRef.hostView);
-      this.popoverComponentRef.destroy();
-      this.popoverComponentRef = null;
+      this.destroyComponent();
     }
   }
 
@@ -153,20 +172,76 @@ export class IonPopoverDirective implements OnDestroy {
   }
 
   @HostListener('click') onClick(): void {
-    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
-    const position = hostElement.getBoundingClientRect();
+    this.handlePopoverTrigger(PopoverTrigger.CLICK);
+  }
 
-    if (this.elementIsEnabled(hostElement)) {
-      this.open(position);
+  @HostListener('mouseenter') onMouseEnter(): void {
+    this.handlePopoverTrigger(PopoverTrigger.HOVER);
+    if (
+      this.isPopoverTrigger(PopoverTrigger.HOVER) &&
+      !this.isComponentRefNull()
+    ) {
+      this.popoverComponentRef.location.nativeElement.addEventListener(
+        'mouseleave',
+        (e: MouseEvent) => {
+          this.handleHoverOutside(e);
+        }
+      );
+    }
+  }
+
+  @HostListener('mouseleave', ['$event']) onMouseLeave(
+    event: MouseEvent
+  ): void {
+    if (
+      this.isPopoverTrigger(PopoverTrigger.HOVER) &&
+      !this.isComponentRefNull()
+    ) {
+      this.handleHoverOutside(event);
+    }
+  }
+
+  @HostListener('window:scroll')
+  @HostListener('document:scroll')
+  @HostListener('body:scroll')
+  @HostListener('window:wheel')
+  onScroll(): void {
+    this.destroyComponent();
+  }
+
+  handleHoverOutside(event: MouseEvent): void {
+    const popoverElement = this.popoverComponentRef.location.nativeElement;
+    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+    const isInsidePopoverOrHost =
+      popoverElement.contains(event.relatedTarget as Node) ||
+      hostElement.contains(event.relatedTarget as Node);
+
+    if (!isInsidePopoverOrHost) {
+      this.destroyComponent();
+    }
+  }
+
+  handlePopoverTrigger(trigger: PopoverTrigger): void {
+    const hostElement = this.viewRef.element.nativeElement as HTMLElement;
+    if (this.isPopoverTrigger(trigger) && this.elementIsEnabled(hostElement)) {
+      this.open();
     }
   }
 
   destroyComponent(): void {
-    if (this.popoverComponentRef) {
+    if (!this.isComponentRefNull()) {
       this.appRef.detachView(this.popoverComponentRef.hostView);
       this.popoverComponentRef.destroy();
       this.popoverComponentRef = null;
     }
+  }
+
+  isPopoverTrigger(trigger: PopoverTrigger): boolean {
+    return this.ionPopoverTrigger === trigger;
+  }
+
+  isComponentRefNull(): boolean {
+    return this.popoverComponentRef === null;
   }
 
   ngOnDestroy(): void {

@@ -30,7 +30,7 @@
     />
 
     <span class="text-counter" *ngIf="maxLength">
-      {{ value.length }}/{{ maxLength }}
+      {{ value ? value.length : 0 }}/{{ maxLength }}
     </span>
 
     <ion-icon

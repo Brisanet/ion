@@ -1,7 +1,9 @@
 import { Meta, Story } from '@storybook/angular';
+
 import { IonTableComponent } from '../projects/ion/src/lib/table/table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
+  ColumnType,
   IonTableModule,
   TooltipPosition,
   TooltipTrigger,
@@ -12,7 +14,9 @@ export default {
   component: IonTableComponent,
 } as Meta;
 
-const Template: Story<IonTableComponent> = (args: IonTableComponent) => ({
+const Template: Story<IonTableComponent<unknown>> = (
+  args: IonTableComponent<unknown>
+) => ({
   component: IonTableComponent,
   props: args,
   moduleMetadata: {
@@ -185,6 +189,115 @@ const columns = [
   },
 ];
 
+const dataWithColumnBoolean = [
+  { id: 1, name: 'Meteora', available: true },
+  { id: 2, name: 'One More Light', available: false },
+  {
+    id: 3,
+    name: 'Hybrid Theory',
+    available: true,
+    icon: 'star-solid',
+    status: 'warning',
+  },
+  {
+    id: 4,
+    name: 'Minutes to Midnight',
+    available: false,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 5,
+    name: 'A Thousand Suns',
+    available: true,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 6,
+    name: 'Living Things',
+    available: false,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 7,
+    name: 'The Hunting Party',
+    available: false,
+    icon: 'union',
+    status: 'info',
+  },
+  {
+    id: 8,
+    name: 'Hybrid Theory',
+    available: false,
+    icon: 'star-solid',
+    status: 'warning',
+  },
+  {
+    id: 9,
+    name: 'Minutes to Midnight',
+    available: true,
+  },
+  {
+    id: 10,
+    name: 'A Thousand Suns',
+    available: true,
+  },
+  {
+    id: 11,
+    name: 'Living Things',
+    available: false,
+  },
+  {
+    id: 12,
+    name: 'The Hunting Party',
+    available: true,
+  },
+];
+
+const columnsWithBooleanDefault = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: true,
+  },
+  {
+    key: 'available',
+    label: 'Disponível',
+    sort: true,
+    type: ColumnType.BOOLEAN,
+  },
+];
+
+const columnsWithBooleanCustom = [
+  {
+    key: 'id',
+    label: 'Código',
+    sort: true,
+  },
+  {
+    key: 'name',
+    label: 'Nome',
+    sort: true,
+  },
+  {
+    key: 'available',
+    label: 'Disponível',
+    sort: true,
+    type: ColumnType.BOOLEAN,
+    booleanText: {
+      truthy: 'disponível',
+      falsy: 'indisponível',
+    },
+  },
+];
+
 const columnsWithLink = [
   {
     key: 'id',
@@ -296,6 +409,22 @@ CustomWidthCell.args = {
   config: {
     data,
     columns: customWidth,
+  },
+};
+
+export const ColumnWithBoolean = Template.bind({});
+ColumnWithBoolean.args = {
+  config: {
+    data: dataWithColumnBoolean,
+    columns: columnsWithBooleanDefault,
+  },
+};
+
+export const ColumnWithBooleanCustom = Template.bind({});
+ColumnWithBooleanCustom.args = {
+  config: {
+    data: dataWithColumnBoolean,
+    columns: columnsWithBooleanCustom,
   },
 };
 
