@@ -139,7 +139,7 @@ describe('ModalService', () => {
     expect(modalService.closeModal).toHaveBeenCalled();
   });
 
-  it('should close modals when call closeModal', () => {
+  it('should close two modals when call closeModal twice', () => {
     jest.spyOn(modalService, 'closeModal');
 
     modalService.open(SelectMockComponent, { id: 'modal-1' });
