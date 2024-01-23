@@ -28,7 +28,7 @@ interface ModalComponentRef {
 })
 export class IonModalService {
   public readonly ionOnHeaderButtonAction = new Subject<SafeAny>();
-  private modalsComponentRefs: ModalComponentRef[] = [];
+  public modalsComponentRefs: ModalComponentRef[] = [];
 
   private get modalComponentRef(): ModalComponentRef {
     return this.modalsComponentRefs[this.modalsComponentRefs.length - 1];
