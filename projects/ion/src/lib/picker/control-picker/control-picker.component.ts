@@ -6,8 +6,7 @@ export type TypeEvents =
   | 'nextMonth'
   | 'nextYear'
   | 'changeMonth'
-  | 'changeYear'
-  | 'week';
+  | 'changeYear';
 
 type Events = {
   type: TypeEvents;
