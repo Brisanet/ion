@@ -128,4 +128,38 @@ describe('ModalService', () => {
 
     expect(screen.getByTestId('modalTitle')).toHaveTextContent(newConfig.title);
   });
+
+  it('should close modal when call closeModal with id', () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent, { id: 'modal' });
+    modalService.closeModal('modal');
+    fixture.detectChanges();
+
+    expect(modalService.closeModal).toHaveBeenCalled();
+  });
+
+  it('should close modals when call closeModal', () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent, { id: 'modal-1' });
+    modalService.open(SelectMockComponent, { id: 'modal-2' });
+    modalService.closeModal();
+    expect(screen.getByTestId('modal')).toHaveAttribute('id', 'modal-1');
+    modalService.closeModal();
+    expect(modalService.closeModal).toHaveBeenCalledTimes(2);
+    expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
+  });
+
+  it(`should close modal when call closeModal with id and it's not the latest open`, () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent, { id: 'modal-1' });
+    modalService.open(SelectMockComponent, { id: 'modal-2' });
+    modalService.closeModal('modal-1');
+    fixture.detectChanges();
+
+    expect(modalService.closeModal).toHaveBeenCalled();
+    expect(screen.getByTestId('modal')).toHaveAttribute('id', 'modal-2');
+  });
 });

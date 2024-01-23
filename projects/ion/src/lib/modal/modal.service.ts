@@ -16,14 +16,27 @@ import {
   IonModalConfiguration,
   IonModalResponse,
 } from './models/modal.interface';
+import { generateIDs } from '../utils';
+
+interface ModalComponentRef {
+  ref: ComponentRef<IonModalComponent>;
+  subscriber: Subject<IonModalResponse | unknown>;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class IonModalService {
   public readonly ionOnHeaderButtonAction = new Subject<SafeAny>();
-  private modalComponentRef!: ComponentRef<IonModalComponent>;
-  private componentSubscriber!: Subject<IonModalResponse | unknown>;
+  private modalsComponentRefs: ModalComponentRef[] = [];
+
+  private get modalComponentRef(): ModalComponentRef {
+    return this.modalsComponentRefs[this.modalsComponentRefs.length - 1];
+  }
+
+  private set modalComponentRef(ref: ModalComponentRef) {
+    this.modalsComponentRefs.push(ref);
+  }
 
   constructor(
     // TODO: SafeAny used due to an issue in Angular 8 (https://github.com/angular/angular/issues/20351). When projects are updated to v9, change "SafeAny" to "Document";
@@ -41,19 +54,25 @@ export class IonModalService {
       .resolveComponentFactory(IonModalComponent)
       .create(this.injector);
 
-    this.modalComponentRef = modal;
-    this.modalComponentRef.instance.componentToBody = component;
-    this.modalComponentRef.instance.setDefaultConfig();
+    this.modalComponentRef = {
+      ref: modal,
+      subscriber: new Subject<IonModalResponse | unknown>(),
+    };
+    this.modalComponentRef.ref.instance.componentToBody = component;
+    this.modalComponentRef.ref.instance.setDefaultConfig();
     if (configuration) {
-      this.modalComponentRef.instance.setConfig(configuration);
+      if (!configuration.id) {
+        configuration.id = generateIDs('modal-', 'modal');
+      }
+      this.modalComponentRef.ref.instance.setConfig(configuration);
     }
-    this.appRef.attachView(this.modalComponentRef.hostView);
-    this.modalComponentRef.changeDetectorRef.detectChanges();
+    this.appRef.attachView(this.modalComponentRef.ref.hostView);
+    this.modalComponentRef.ref.changeDetectorRef.detectChanges();
 
-    const modalElement = this.modalComponentRef.location.nativeElement;
+    const modalElement = this.modalComponentRef.ref.location.nativeElement;
     this.document.body.appendChild(modalElement);
 
-    this.modalComponentRef.instance.ionOnClose.subscribe(
+    this.modalComponentRef.ref.instance.ionOnClose.subscribe(
       (valueFromModal: IonModalResponse) => {
         if (!valueFromModal) {
           this.closeModal();
@@ -64,18 +83,17 @@ export class IonModalService {
       }
     );
 
-    this.modalComponentRef.instance.ionOnHeaderButtonAction.subscribe(
+    this.modalComponentRef.ref.instance.ionOnHeaderButtonAction.subscribe(
       (valueFromModal: IonModalResponse) => {
         this.emitHeaderAction(valueFromModal);
       }
     );
 
-    this.componentSubscriber = new Subject<IonModalResponse | unknown>();
-    return this.componentSubscriber.asObservable();
+    return this.modalComponentRef.subscriber.asObservable();
   }
 
   emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown): void {
-    this.componentSubscriber.next(valueToEmit);
+    this.modalComponentRef.subscriber.next(valueToEmit);
     this.closeModal();
   }
 
@@ -83,18 +101,38 @@ export class IonModalService {
     this.ionOnHeaderButtonAction.next(valueToEmit);
   }
 
-  closeModal(): void {
-    if (this.modalComponentRef) {
-      this.appRef.detachView(this.modalComponentRef.hostView);
-      this.componentSubscriber.complete();
-      this.modalComponentRef.destroy();
+  closeModal(id?: string): void {
+    const modalComponentRef = id
+      ? this.findModalComponentRefById(id)
+      : this.modalComponentRef;
+
+    if (modalComponentRef) {
+      this.closeModalComponentRef(modalComponentRef);
     }
   }
 
   reconfigModal(configuration: IonModalConfiguration): void {
-    this.modalComponentRef.instance.setConfig({
-      ...this.modalComponentRef.instance.configuration,
+    this.modalComponentRef.ref.instance.setConfig({
+      ...this.modalComponentRef.ref.instance.configuration,
       ...configuration,
     });
+  }
+
+  private findModalComponentRefById(id: string): ModalComponentRef | undefined {
+    return this.modalsComponentRefs.find(
+      (modal) => modal.ref.instance.configuration.id === id
+    );
+  }
+
+  private closeModalComponentRef(modalComponentRef: ModalComponentRef): void {
+    this.appRef.detachView(modalComponentRef.ref.hostView);
+    modalComponentRef.subscriber.complete();
+    modalComponentRef.ref.destroy();
+
+    this.modalsComponentRefs = this.modalsComponentRefs.filter(
+      (modal) =>
+        modal.ref.instance.configuration.id !==
+        modalComponentRef.ref.instance.configuration.id
+    );
   }
 }
