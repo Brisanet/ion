@@ -31,11 +31,7 @@ export class IonDatepickerComponent implements AfterViewInit {
   @Input() formatInDateInput: IonDatePickerComponentProps['formatInDateInput'] =
     DEFAULT_INPUT_FORMAT;
   @Input() rangePicker: boolean;
-  @Input() predefinedRanges?: PreDefinedRangeConfig[] = [
-    { label: 'Últimos 7 dias', duration: 'P7D' },
-    { label: 'Últimos 15 dias', duration: 'P15D' },
-    { label: 'Últimos 30 dias', duration: 'P30D' },
-  ];
+  @Input() predefinedRanges?: PreDefinedRangeConfig[] = [];
   @Output() event = new EventEmitter<string[]>();
   currentDate: string[];
   inputDate: string;

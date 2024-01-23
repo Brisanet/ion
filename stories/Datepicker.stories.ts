@@ -31,4 +31,9 @@ Basic.args = {};
 export const RangePicker = Template.bind({});
 RangePicker.args = {
   rangePicker: true,
+  predefinedRanges: [
+    { label: 'Últimos 7 dias', duration: 'P7D' },
+    { label: 'Últimos 15 dias', duration: 'P15D' },
+    { label: 'Últimos 30 dias', duration: 'P30D' },
+  ],
 };
