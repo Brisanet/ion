@@ -10,7 +10,6 @@ import {
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
-import { generateIDs } from '../utils';
 import { SafeAny } from './../utils/safe-any';
 import { IonModalComponent } from './component/modal.component';
 import {
@@ -63,9 +62,6 @@ export class IonModalService {
     this.modalComponentControl.ref.instance.componentToBody = component;
     this.modalComponentControl.ref.instance.setDefaultConfig();
     if (configuration) {
-      if (!configuration.id) {
-        configuration.id = generateIDs('modal-', 'modal');
-      }
       this.modalComponentControl.ref.instance.setConfig(configuration);
     }
     this.appRef.attachView(this.modalComponentControl.ref.hostView);

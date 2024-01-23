@@ -14,6 +14,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
+import { generateIDs } from '../../utils';
 import {
   IonModalConfiguration,
   IonModalResponse,
@@ -42,6 +43,7 @@ export class IonModalComponent implements OnInit, OnDestroy {
   private componentFactory: ComponentRef<unknown>;
   private _defaultModal: IonModalConfiguration = {
     title: 'Ion Modal',
+    id: generateIDs('modal-', 'modal'),
     width: this.DEFAULT_WIDTH,
     showOverlay: true,
     overlayCanDismiss: true,
