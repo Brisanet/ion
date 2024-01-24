@@ -52,7 +52,7 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
     }
   }
   @Input() calendarControlAction: CalendarControlActions;
-  @Input() selectedDay: Day[] = [];
+  @Input() selectedDays: Day[] = [];
   @Input() rangePicker: boolean;
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
@@ -85,7 +85,9 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    arrangeDates(this.selectedDay);
+    if (this.selectedDays.length) {
+      arrangeDates(this.selectedDays);
+    }
     this.setCalendarInitialState();
     this.tempRenderDays();
   }
@@ -102,18 +104,18 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
 
   handleClick(dayIndex: number): void {
     if (this.rangePicker) {
-      if (!this.selectedDay.length || this.selectedDay[FINAL_RANGE]) {
-        this.selectedDay = [this.days[dayIndex]];
+      if (!this.selectedDays.length || this.selectedDays[FINAL_RANGE]) {
+        this.selectedDays = [this.days[dayIndex]];
         return;
       }
 
-      this.selectedDay[FINAL_RANGE] = this.days[dayIndex];
-      arrangeDates(this.selectedDay);
+      this.selectedDays[FINAL_RANGE] = this.days[dayIndex];
+      arrangeDates(this.selectedDays);
       this.emitEvent();
       this.setDateInCalendar();
       return;
     }
-    this.selectedDay = [this.days[dayIndex]];
+    this.selectedDays = [this.days[dayIndex]];
     this.emitEvent();
     this.setDateInCalendar();
   }
@@ -122,8 +124,8 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
     return isSameDay(
       date,
       isFinalOfRange
-        ? this.selectedDay[FINAL_RANGE]
-        : this.selectedDay[INITIAL_RANGE]
+        ? this.selectedDays[FINAL_RANGE]
+        : this.selectedDays[INITIAL_RANGE]
     );
   }
 
@@ -132,7 +134,7 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
     this.days.map((day) => {
       (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
       day.isToday = isToday(day, this.lang);
-      day.isBetweenRange = isBetweenRange(day, this.selectedDay);
+      day.isBetweenRange = isBetweenRange(day, this.selectedDays);
       day.isRangeInitialLimit = this.isRangeLimit(day);
       day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
     });
@@ -149,15 +151,15 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
     if (
       this.currentDate &&
       this.currentDate.length &&
-      !this.selectedDay.length
+      !this.selectedDays.length
     ) {
-      this.selectedDay[INITIAL_RANGE] = new Day(
+      this.selectedDays[INITIAL_RANGE] = new Day(
         getFormattedDate(this.currentDate),
         this.lang
       );
 
       if (this.rangePicker && this.currentDate[FINAL_RANGE]) {
-        this.selectedDay[FINAL_RANGE] = new Day(
+        this.selectedDays[FINAL_RANGE] = new Day(
           getFormattedDate(this.currentDate, this.finalRange),
           this.lang
         );
@@ -168,8 +170,8 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
 
   private setDateInCalendar(): void {
     this.calendar.goToDate(
-      this.selectedDay[INITIAL_RANGE].monthNumber,
-      this.selectedDay[INITIAL_RANGE].year
+      this.selectedDays[INITIAL_RANGE].monthNumber,
+      this.selectedDays[INITIAL_RANGE].year
     );
   }
 
@@ -228,15 +230,15 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
       : [SUNDAY, FINAL_RANGE, INITIAL_RANGE];
     return (
       (date.day === DAY_NAME &&
-        !isSameDay(date, this.selectedDay[RANGE_TO_AVOID])) ||
-      isSameDay(date, this.selectedDay[RANGE_TO_CONFIRM])
+        !isSameDay(date, this.selectedDays[RANGE_TO_AVOID])) ||
+      isSameDay(date, this.selectedDays[RANGE_TO_CONFIRM])
     );
   }
 
   private emitEvent(): void {
     this.events.emit([
-      this.selectedDay[INITIAL_RANGE],
-      this.selectedDay[FINAL_RANGE],
+      this.selectedDays[INITIAL_RANGE],
+      this.selectedDays[FINAL_RANGE],
     ]);
   }
 }

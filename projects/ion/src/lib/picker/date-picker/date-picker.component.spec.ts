@@ -15,6 +15,18 @@ import {
 import { IonDatePickerModule } from './date-picker.module';
 import { calculateDuration } from '../../utils';
 
+const previouslyRangeDates = [
+  { label: 'Last 7 days', duration: 'P7D', isFuture: false },
+  { label: 'Last 15 days', duration: 'P15D', isFuture: false },
+  { label: 'Last 31 days', duration: 'P31D', isFuture: false },
+];
+
+const posteriorlyRangeDates = [
+  { label: 'Next 7 days', duration: 'P7D', isFuture: true },
+  { label: 'Next 15 days', duration: 'P15D', isFuture: true },
+  { label: 'Next 31 days', duration: 'P31D', isFuture: true },
+];
+
 describe('DatePickerCalendar', () => {
   let component: IonDatepickerComponent;
   let fixture: ComponentFixture<IonDatepickerComponent>;
@@ -96,45 +108,40 @@ describe('DatePickerCalendar', () => {
       }, 0);
     }
   );
-
   describe('PreDefinedRangePicker', () => {
     const today = new Date().getTime();
-    const weekDuration = 'P7D';
-    const durationTime = calculateDuration(weekDuration);
+    describe.each(previouslyRangeDates)('Previously Dates', (range) => {
+      const durationTime = calculateDuration(range.duration);
+      const [todayText, qtdDaysAgo] = [new Date(), today - durationTime].map(
+        (date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT)
+      );
+      it(`should filter for the ${range.label}`, () => {
+        const spy = jest.spyOn(component, 'dateSelected');
 
-    const [todayText, sevenDaysAgo, sevenDaysAfter] = [
-      new Date(),
-      today - durationTime,
-      today + durationTime,
-    ].map((date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT));
+        component.rangePicker = true;
+        component.onSelectPredefinedRange(range);
+        fixture.detectChanges();
 
-    it('should filter for the last week', () => {
-      const week = {
-        label: 'Ultimos 7 dias',
-        duration: weekDuration,
-      };
-      const spy = jest.spyOn(component, 'dateSelected');
-      component.rangePicker = true;
-
-      component.onSelectPredefinedRange(week);
-      fixture.detectChanges();
-      expect(spy).toHaveBeenCalled();
-      expect(component.currentDate).toEqual([sevenDaysAgo, todayText]);
+        expect(spy).toHaveBeenCalled();
+        expect(component.currentDate).toEqual([qtdDaysAgo, todayText]);
+      });
     });
 
-    it('should filter for the following week', () => {
-      const week = {
-        label: 'Ultimos 7 dias',
-        duration: weekDuration,
-        isFuture: true,
-      };
-      const spy = jest.spyOn(component, 'dateSelected');
-      component.rangePicker = true;
+    describe.each(posteriorlyRangeDates)('Posteriorly Dates', (range) => {
+      const durationTime = calculateDuration(range.duration);
+      const [todayText, qtdDaysAfter] = [new Date(), today + durationTime].map(
+        (date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT)
+      );
+      it(`should filter for the ${range.label}`, () => {
+        const spy = jest.spyOn(component, 'dateSelected');
 
-      component.onSelectPredefinedRange(week);
-      fixture.detectChanges();
-      expect(spy).toHaveBeenCalled();
-      expect(component.currentDate).toEqual([todayText, sevenDaysAfter]);
+        component.rangePicker = true;
+        component.onSelectPredefinedRange(range);
+        fixture.detectChanges();
+
+        expect(spy).toHaveBeenCalled();
+        expect(component.currentDate).toEqual([todayText, qtdDaysAfter]);
+      });
     });
   });
 });
