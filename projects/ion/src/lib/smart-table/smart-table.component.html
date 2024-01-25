@@ -237,9 +237,7 @@
                     [iconType]="action.icon"
                     [label]="action.label"
                     [circularButton]="!action.showLabel"
-                    [rightSideIcon]="
-                      action.showLabel ? action.rightSideIcon : false
-                    "
+                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
                     "
@@ -280,9 +278,7 @@
                     [iconType]="action.icon"
                     [label]="action.label"
                     [circularButton]="!action.showLabel"
-                    [rightSideIcon]="
-                      action.showLabel ? action.rightSideIcon : false
-                    "
+                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
                     (ionOnClick)="handleEvent(row, action)"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
