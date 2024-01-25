@@ -30,7 +30,7 @@
       ></date-picker-calendar>
     </div>
   </div>
-  <ng-container *ngIf="rangePicker">
+  <ng-container *ngIf="rangePicker && predefinedRanges.length">
     <div class="container-footer">
       <ion-predefined-range-picker
         [config]="predefinedRanges"
