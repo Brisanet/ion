@@ -22,7 +22,7 @@ describe('DatePicker', () => {
       result = isToday(currentDate, lang);
       expect(result).toBe(true);
     });
-    
+
     it('should return false if day is not today', () => {
       currentDate = new Day(new Date('2024-01-03'));
       result = isToday(currentDate, lang);

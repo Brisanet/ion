@@ -235,7 +235,11 @@
                     size="sm"
                     [danger]="!!action.danger"
                     [iconType]="action.icon"
-                    [circularButton]="true"
+                    [label]="action.label"
+                    [circularButton]="!action.showLabel"
+                    [rightSideIcon]="
+                      action.showLabel ? action.rightSideIcon : false
+                    "
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
                     "
@@ -274,7 +278,11 @@
                     size="sm"
                     [danger]="!!action.danger"
                     [iconType]="action.icon"
-                    [circularButton]="true"
+                    [label]="action.label"
+                    [circularButton]="!action.showLabel"
+                    [rightSideIcon]="
+                      action.showLabel ? action.rightSideIcon : false
+                    "
                     (ionOnClick)="handleEvent(row, action)"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false

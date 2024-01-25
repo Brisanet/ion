@@ -83,6 +83,8 @@ export interface ActionTable<RowType = SafeAny> {
   call?: (row: RowType) => void;
   confirm?: ActionConfirm<RowType>;
   tooltipConfig?: TooltipProps;
+  showLabel?: boolean;
+  rightSideIcon?: boolean;
 }
 
 export interface PaginationConfig {
