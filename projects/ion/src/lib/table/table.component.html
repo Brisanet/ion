@@ -148,7 +148,7 @@
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">
-                <div *ngFor="let action of config.actions">
+                <ng-container *ngFor="let action of config.actions">
                   <ion-button
                     *ngIf="
                       action.confirm &&
@@ -172,7 +172,9 @@
                     size="sm"
                     [danger]="!!action.danger"
                     [iconType]="action.icon"
-                    [circularButton]="true"
+                    [label]="action.label"
+                    [circularButton]="!action.showLabel"
+                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
                     "
@@ -189,13 +191,15 @@
                     size="sm"
                     [danger]="!!action.danger"
                     [iconType]="action.icon"
-                    [circularButton]="true"
+                    [label]="action.label"
+                    [circularButton]="!action.showLabel"
+                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
                     (ionOnClick)="handleEvent(row, action)"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
-                </div>
+                </ng-container>
               </div>
             </td>
           </ng-template>
