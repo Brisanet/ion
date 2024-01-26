@@ -55,6 +55,34 @@ export function getFormattedDate(
   );
 }
 
+export function calculateDuration(isoString: string): number {
+  const regex =
+    /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?)?$/;
+  const match = isoString.match(regex);
+
+  if (!match) {
+    throw new Error('Invalid ISO 8601 format.');
+  }
+
+  const [_, years, months, days, hours, minutes, seconds] = match.map(Number);
+
+  const durationInMilliseconds =
+    (years || 0) * 365 * 24 * 60 * 60 * 1000 +
+    (months || 0) * 30 * 24 * 60 * 60 * 1000 +
+    (days || 0) * 24 * 60 * 60 * 1000 +
+    (hours || 0) * 60 * 60 * 1000 +
+    (minutes || 0) * 60 * 1000 +
+    (seconds || 0) * 1000;
+
+  return durationInMilliseconds;
+}
+
+export function arrangeDates(selectedDay: Day[]): void {
+  selectedDay.sort((initial, final) => {
+    return initial.Date < final.Date ? -1 : initial.Date > final.Date ? 1 : 0;
+  });
+}
+
 export function isBetweenRange(currentDay: Day, selectedDays: Day[]): boolean {
   if (!(selectedDays[INITIAL_RANGE] && selectedDays[FINAL_RANGE])) {
     return;
@@ -63,7 +91,7 @@ export function isBetweenRange(currentDay: Day, selectedDays: Day[]): boolean {
     selectedDays[INITIAL_RANGE].Date,
     selectedDays[FINAL_RANGE].Date,
     currentDay.Date,
-  ];
+  ].map((dateInRange) => new Date(dateInRange.setHours(0, 0, 0, 0)));
   const isNotLimit =
     isNotRangeLimit(currentDay, SATURDAY, selectedDays[INITIAL_RANGE]) &&
     isNotRangeLimit(currentDay, SUNDAY, selectedDays[FINAL_RANGE]);

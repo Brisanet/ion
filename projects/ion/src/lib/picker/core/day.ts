@@ -64,4 +64,8 @@ export class Day {
       .replace(/\bMM\b/, this.monthNumber.toString().padStart(2, '0'))
       .replace(/\bM\b/, this.monthNumber.toString());
   }
+
+  getAriaLabel(): string {
+    return this.format('YYYY-MM-DD');
+  }
 }
