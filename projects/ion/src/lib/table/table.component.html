@@ -148,7 +148,7 @@
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">
-                <div *ngFor="let action of config.actions">
+                <ng-container *ngFor="let action of config.actions">
                   <ion-button
                     *ngIf="
                       action.confirm &&
@@ -199,7 +199,7 @@
                       action.disabled ? disableAction(row, action) : false
                     "
                   ></ion-button>
-                </div>
+                </ng-container>
               </div>
             </td>
           </ng-template>
