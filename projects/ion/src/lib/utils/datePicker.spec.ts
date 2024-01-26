@@ -1,5 +1,6 @@
 import { Day } from '../picker/core/day';
 import {
+  calculateDuration,
   getFormattedDate,
   getInitialDate,
   isBetweenRange,
@@ -22,7 +23,7 @@ describe('DatePicker', () => {
       result = isToday(currentDate, lang);
       expect(result).toBe(true);
     });
-    
+
     it('should return false if day is not today', () => {
       currentDate = new Day(new Date('2024-01-03'));
       result = isToday(currentDate, lang);
@@ -133,6 +134,23 @@ describe('DatePicker', () => {
       result = isBetweenRange(currentDay, selectedDays);
 
       expect(result).toBe(false);
+    });
+  });
+
+  describe('calculateDuration', () => {
+    it('should calculate duration in miliseconds', () => {
+      const isoString = 'P1M7D';
+      const isoStringInMiliSeconds = 3196800000;
+      const result = calculateDuration(isoString);
+
+      expect(result).toBe(isoStringInMiliSeconds);
+    });
+
+    it('should throw error if string formater is not valid', () => {
+      const isoString = 'OneDay';
+      expect(() => calculateDuration(isoString)).toThrowError(
+        'Invalid ISO 8601 format.'
+      );
     });
   });
 });
