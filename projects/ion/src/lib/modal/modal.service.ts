@@ -94,11 +94,11 @@ export class IonModalService {
 
   closeModal(id?: string): void {
     const modalComponentControl = id
-      ? this.findModalComponentRefById(id)
+      ? this.findModalControlById(id)
       : this.currentModalControl;
 
     if (modalComponentControl) {
-      this.closeModalComponentRef(modalComponentControl);
+      this.destroyModalControl(modalComponentControl);
     }
   }
 
@@ -109,21 +109,21 @@ export class IonModalService {
     });
   }
 
-  public findModalComponentRefById(id: string): ModalControl | undefined {
+  public findModalControlById(id: string): ModalControl | undefined {
     return this.modalsControls.find(
       (modal) => modal.ref.instance.configuration.id === id
     );
   }
 
-  private closeModalComponentRef(modalComponentControl: ModalControl): void {
-    this.appRef.detachView(modalComponentControl.ref.hostView);
-    modalComponentControl.subscriber.complete();
-    modalComponentControl.ref.destroy();
+  private destroyModalControl(modalControl: ModalControl): void {
+    this.appRef.detachView(modalControl.ref.hostView);
+    modalControl.subscriber.complete();
+    modalControl.ref.destroy();
 
     this.modalsControls = this.modalsControls.filter(
       (modal) =>
         modal.ref.instance.configuration.id !==
-        modalComponentControl.ref.instance.configuration.id
+        modalControl.ref.instance.configuration.id
     );
   }
 }
