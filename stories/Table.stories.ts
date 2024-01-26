@@ -344,6 +344,30 @@ const actions = [
   },
 ];
 
+const actionsWithLabel = [
+  {
+    label: 'Excluir',
+    icon: 'trash',
+    show: (row: SafeAny): boolean => {
+      return !row.deleted;
+    },
+    call: (row: SafeAny): void => {
+      row.name += ' DELETED';
+    },
+    confirm: {
+      title: 'Você realmente deseja deletar?',
+    },
+    showLabel: true,
+    rightSideIcon: false,
+  },
+  {
+    label: 'Editar',
+    icon: 'pencil',
+    showLabel: true,
+    rightSideIcon: false,
+  },
+];
+
 const mockTooltip = {
   ionTooltipTitle: 'Eu sou um tooltip',
   ionTooltipPosition: TooltipPosition.DEFAULT,
@@ -390,6 +414,15 @@ WithActions.args = {
     data,
     columns,
     actions,
+  },
+};
+
+export const WithActionsWithLabel = Template.bind({});
+WithActionsWithLabel.args = {
+  config: {
+    data,
+    columns,
+    actions: actionsWithLabel,
   },
 };
 

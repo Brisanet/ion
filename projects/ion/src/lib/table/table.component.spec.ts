@@ -10,6 +10,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+import { cloneDeep } from 'lodash';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
@@ -317,6 +318,7 @@ describe('Table > Actions', () => {
       call: (row: SafeAny): void => {
         row.name = 'editado!';
       },
+      showLabel: true,
     },
   ];
   const tableWithActions = {
@@ -357,9 +359,7 @@ describe('Table > Actions', () => {
   });
 
   it('should render trash button enabled when the item is not deleted', async () => {
-    const tableItemDeleted = {
-      ...tableWithActions,
-    } as IonTableProps<Disco>;
+    const tableItemDeleted = cloneDeep(tableWithActions);
 
     tableItemDeleted.config.data = [
       { id: 1, name: 'Item Deleted', deleted: false },
@@ -373,9 +373,7 @@ describe('Table > Actions', () => {
   });
 
   it('should render trash button disabled when the item is deleted', async () => {
-    const tableItemDeleted = {
-      ...tableWithActions,
-    } as IonTableProps<Disco>;
+    const tableItemDeleted = cloneDeep(tableWithActions);
 
     tableItemDeleted.config.data = [
       { id: 1, name: 'Item Deleted', deleted: true },
@@ -389,9 +387,7 @@ describe('Table > Actions', () => {
   });
 
   it('should not render when the show is false', async () => {
-    const tableItemDeleted = {
-      ...tableWithActions,
-    } as IonTableProps<Disco>;
+    const tableItemDeleted = cloneDeep(tableWithActions);
 
     tableItemDeleted.config.data = [{ id: 1, name: '', deleted: true }];
 
@@ -411,6 +407,12 @@ describe('Table > Actions', () => {
     expect(screen.getByTestId(`row-0-${actions[0].label}`)).not.toHaveAttribute(
       'ng-reflect-ion-pop-confirm-title'
     );
+  });
+
+  it('should render action with label when showLabel is true', async () => {
+    await sut(tableWithActions);
+    const action = actions.find((action) => action.showLabel);
+    expect(screen.getAllByText(action.label)).toHaveLength(data.length);
   });
 });
 
