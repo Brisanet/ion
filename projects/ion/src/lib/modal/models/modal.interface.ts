@@ -1,5 +1,8 @@
+import { ComponentRef } from '@angular/core';
 import { IconType, IonAlertProps, IonButtonProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
+import { IonModalComponent } from '../component/modal.component';
+import { Subject } from 'rxjs';
 
 export interface IonModalConfiguration {
   id?: string;
@@ -33,4 +36,9 @@ interface IonModalHeaderButton {
 
 export interface IonModalResponse {
   [key: string]: unknown;
+}
+
+export interface ModalControl {
+  ref: ComponentRef<IonModalComponent>;
+  subscriber: Subject<IonModalResponse | unknown>;
 }
