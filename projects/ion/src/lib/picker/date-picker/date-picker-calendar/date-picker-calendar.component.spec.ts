@@ -6,6 +6,8 @@ import { IonButtonModule } from './../../../button/button.module';
 import { Calendar } from './../../core/calendar';
 import { IonDatePickerCalendarComponent } from './date-picker-calendar.component';
 import { SimpleChange, SimpleChanges } from '@angular/core';
+import { Day } from '../../core/day';
+import { arrangeDates } from '../../../utils/datePicker';
 
 const events = jest.fn();
 
@@ -168,6 +170,15 @@ describe('DatePickerCalendar: calendarControlAction', () => {
       });
       done();
     }, 200);
+  });
+
+  it('should call arrangeDates if initiate with a selected date', () => {
+    const firstDay = new Day(new Date('2024-01-18'));
+    const secondDay = new Day(new Date('2024-01-04'));
+    component.selectedDays = [firstDay, secondDay];
+    component.ngOnInit();
+    arrangeDates(component.selectedDays);
+    expect(component.selectedDays).toEqual([secondDay, firstDay]);
   });
 });
 
