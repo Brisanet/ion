@@ -102,4 +102,18 @@ export class Calendar {
       this.lang
     );
   }
+
+  getDay(day: number): Day {
+    return this.month.getDay(day);
+  }
+
+  getLastMonthFinalDays(): number {
+    return this.month.getDay(1).dayNumber - 1;
+  }
+
+  getWeekDaysElementStrings(): string[] {
+    return this.weekDays.map(
+      (weekDay) => `${(weekDay as string).substring(0, 3)}`
+    );
+  }
 }

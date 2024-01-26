@@ -8,8 +8,19 @@
   max-width: 312px;
   min-width: 312px;
   margin: spacing(1) spacing(0);
-  padding: spacing(3);
   border: 1px solid $neutral-4;
   background-color: $neutral-1;
   border-radius: 8px;
+
+  .container-body {
+    padding: spacing(3) spacing(3) spacing(3);
+  }
+
+  .container-range-body {
+    padding: spacing(3) spacing(3) spacing(2);
+  }
+
+  .header {
+    margin-bottom: spacing(2);
+  }
 }

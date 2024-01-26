@@ -2,16 +2,30 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SafeAny } from '../../utils/safe-any';
 import {
   ControlEvent,
-  IonControlPickerComponent,
   TypeEvents,
 } from '../control-picker/control-picker.component';
 import { Day } from '../core/day';
 import { IonButtonModule } from './../../button/button.module';
 import { IonDividerModule } from './../../divider/divider.module';
 import { IonInputModule } from './../../input/input.module';
-import { IonDatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
-import { IonDatePickerInputComponent } from './date-picker-input/date-picker-input.component';
-import { IonDatepickerComponent } from './date-picker.component';
+import {
+  DEFAULT_FINAL_FORMAT,
+  IonDatepickerComponent,
+} from './date-picker.component';
+import { IonDatePickerModule } from './date-picker.module';
+import { calculateDuration } from '../../utils';
+
+const previouslyRangeDates = [
+  { label: 'Last 7 days', duration: 'P7D', isFuture: false },
+  { label: 'Last 15 days', duration: 'P15D', isFuture: false },
+  { label: 'Last 31 days', duration: 'P31D', isFuture: false },
+];
+
+const posteriorlyRangeDates = [
+  { label: 'Next 7 days', duration: 'P7D', isFuture: true },
+  { label: 'Next 15 days', duration: 'P15D', isFuture: true },
+  { label: 'Next 31 days', duration: 'P31D', isFuture: true },
+];
 
 describe('DatePickerCalendar', () => {
   let component: IonDatepickerComponent;
@@ -19,13 +33,12 @@ describe('DatePickerCalendar', () => {
   const day = new Day(new Date(2023, 0, 1));
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        IonDatepickerComponent,
-        IonControlPickerComponent,
-        IonDatePickerInputComponent,
-        IonDatePickerCalendarComponent,
+      imports: [
+        IonButtonModule,
+        IonDividerModule,
+        IonInputModule,
+        IonDatePickerModule,
       ],
-      imports: [IonButtonModule, IonDividerModule, IonInputModule],
     }).compileComponents();
   });
 
@@ -95,4 +108,40 @@ describe('DatePickerCalendar', () => {
       }, 0);
     }
   );
+  describe('PreDefinedRangePicker', () => {
+    const today = new Date().getTime();
+    describe.each(previouslyRangeDates)('Previously Dates', (range) => {
+      const durationTime = calculateDuration(range.duration);
+      const [todayText, qtdDaysAgo] = [new Date(), today - durationTime].map(
+        (date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT)
+      );
+      it(`should filter for the ${range.label}`, () => {
+        const spy = jest.spyOn(component, 'dateSelected');
+
+        component.rangePicker = true;
+        component.onSelectPredefinedRange(range);
+        fixture.detectChanges();
+
+        expect(spy).toHaveBeenCalled();
+        expect(component.currentDate).toEqual([qtdDaysAgo, todayText]);
+      });
+    });
+
+    describe.each(posteriorlyRangeDates)('Posteriorly Dates', (range) => {
+      const durationTime = calculateDuration(range.duration);
+      const [todayText, qtdDaysAfter] = [new Date(), today + durationTime].map(
+        (date) => new Day(new Date(date)).format(DEFAULT_FINAL_FORMAT)
+      );
+      it(`should filter for the ${range.label}`, () => {
+        const spy = jest.spyOn(component, 'dateSelected');
+
+        component.rangePicker = true;
+        component.onSelectPredefinedRange(range);
+        fixture.detectChanges();
+
+        expect(spy).toHaveBeenCalled();
+        expect(component.currentDate).toEqual([todayText, qtdDaysAfter]);
+      });
+    });
+  });
 });
