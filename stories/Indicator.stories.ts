@@ -113,3 +113,23 @@ withOpenModal.args = {
   tooltipText: 'Texto personalizado via atributo tooltipText',
   buttonConfig: buttonModalConfig,
 };
+
+export const WithTitleIcon = Template.bind({});
+WithTitleIcon.args = {
+  title: 'Título personalizado via atributo title',
+  tooltipText: 'Texto personalizado via atributo tooltipText',
+  value: 1500,
+  secondValue: '5%',
+  headerTitleIconConfig: {
+    type: 'box',
+    color: '#FF0016',
+  },
+};
+
+export const WithLongTitle = Template.bind({});
+WithLongTitle.args = {
+  title:
+    'Título personalizado via atributo title via atributo titlevia atributo title',
+  value: 1500,
+  secondValue: '5%',
+};

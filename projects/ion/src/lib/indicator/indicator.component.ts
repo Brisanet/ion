@@ -12,6 +12,7 @@ import {
 } from '../core/types/indicator';
 import { IonModalResponse } from '../modal/models/modal.interface';
 import { IonModalService } from './../modal/modal.service';
+import { IonIconProps } from '../core/types';
 
 @Component({
   selector: 'ion-indicator',
@@ -20,6 +21,7 @@ import { IonModalService } from './../modal/modal.service';
 })
 export class IonIndicatorComponent {
   @Input() title = 'Ion Indicator';
+  @Input() headerTitleIconConfig?: IonIconProps;
   @Input() tooltipText: string;
   @Input() secondValueTooltipText: string;
   @Input() value: number | string;

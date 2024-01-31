@@ -8,6 +8,12 @@
   </div>
   <div *ngIf="!preview">
     <header class="title">
+      <ion-icon
+        *ngIf="headerTitleIconConfig"
+        [type]="headerTitleIconConfig.type"
+        [size]="headerTitleIconConfig.size || 16"
+        [color]="headerTitleIconConfig.color"
+      ></ion-icon>
       <h1
         data-testid="ion-indicator-title"
         ionTooltip
