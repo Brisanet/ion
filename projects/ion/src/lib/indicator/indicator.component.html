@@ -8,7 +8,16 @@
   </div>
   <div *ngIf="!preview">
     <header class="title">
-      <h1 data-testid="ion-indicator-title">{{ title }}</h1>
+      <h1
+        data-testid="ion-indicator-title"
+        ionTooltip
+        [ionTooltipTitle]="
+          indicatorTitle.offsetWidth < indicatorTitle.scrollWidth && title
+        "
+        #indicatorTitle
+      >
+        {{ title }}
+      </h1>
       <ion-icon
         data-testid="ion-indicator-tooltip"
         *ngIf="tooltipText"
