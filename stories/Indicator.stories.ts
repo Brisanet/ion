@@ -122,7 +122,6 @@ WithTitleIcon.args = {
   secondValue: '5%',
   headerTitleIconConfig: {
     type: 'box',
-    color: '#FF0016',
   },
 };
 

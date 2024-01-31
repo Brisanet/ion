@@ -21,7 +21,7 @@ import { IonIconProps } from '../core/types';
 })
 export class IonIndicatorComponent {
   @Input() title = 'Ion Indicator';
-  @Input() headerTitleIconConfig?: IonIconProps;
+  @Input() headerTitleIconConfig?: Pick<IonIconProps, 'type' | 'color'>;
   @Input() tooltipText: string;
   @Input() secondValueTooltipText: string;
   @Input() value: number | string;
