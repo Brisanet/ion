@@ -168,7 +168,7 @@ describe('IonIndicatorComponent', () => {
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
   });
 
-  it('shoul not render the header title icon when informed', async () => {
+  it('shoul not render the header title icon by default', async () => {
     await sut({
       title: 'Título personalizado via atributo title',
       tooltipText: 'Texto personalizado via atributo tooltipText',
