@@ -120,7 +120,7 @@ WithTitleIcon.args = {
   tooltipText: 'Texto personalizado via atributo tooltipText',
   value: 1500,
   secondValue: '5%',
-  headerTitleIconConfig: {
+  headerIcon: {
     type: 'box',
   },
 };

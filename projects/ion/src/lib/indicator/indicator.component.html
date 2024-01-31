@@ -9,10 +9,10 @@
   <div *ngIf="!preview">
     <header class="title">
       <ion-icon
-        *ngIf="headerTitleIconConfig"
-        [type]="headerTitleIconConfig.type"
+        *ngIf="headerIcon"
+        [type]="headerIcon.type"
         [size]="16"
-        [color]="headerTitleIconConfig.color || '#505566'"
+        [color]="headerIcon.color || '#505566'"
       ></ion-icon>
       <h1
         data-testid="ion-indicator-title"

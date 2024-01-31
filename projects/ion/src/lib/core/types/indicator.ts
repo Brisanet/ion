@@ -12,7 +12,7 @@ export enum IonIndicatorButtonType {
 
 export interface IonIndicatorProps {
   title?: string;
-  headerTitleIconConfig?: Pick<IonIconProps, 'type' | 'color'>;
+  headerIcon?: Pick<IonIconProps, 'type' | 'color'>;
   tooltipText?: string;
   secondValueTooltipText?: string;
   value?: string | number;
