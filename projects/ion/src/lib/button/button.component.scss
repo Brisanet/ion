@@ -389,4 +389,10 @@ button {
   ::ng-deep .container-options {
     margin-top: 4px;
   }
+
+  &.above {
+    ::ng-deep .container-options {
+      bottom: auto !important;
+    }
+  }
 }
