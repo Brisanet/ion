@@ -45,7 +45,9 @@ export class IonTableComponent<RowType>
     if (change.config) {
       this.applyPipes(this.config);
     }
-    this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
+    if (this.config.pagination) {
+      this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
+    }
   }
 
   ngOnInit(): void {
