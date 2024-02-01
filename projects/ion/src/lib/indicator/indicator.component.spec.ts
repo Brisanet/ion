@@ -98,7 +98,7 @@ describe('IonIndicatorComponent', () => {
     await sut();
     const defaultTitle = 'Ion Indicator';
     expect(screen.getByTestId('ion-indicator')).toBeInTheDocument();
-    expect(getElementByTestId('title').textContent).toBe(defaultTitle);
+    expect(getElementByTestId('title').textContent.trim()).toBe(defaultTitle);
     expect(screen.queryByTestId('ion-indicator-value')).toBeFalsy();
     expect(screen.queryByTestId('ion-indicator-second-value')).toBeFalsy();
     expect(getElementByTestId('tooltip')).not.toBeInTheDocument();
@@ -109,7 +109,7 @@ describe('IonIndicatorComponent', () => {
     const testTitle = 'testing ion indicator title';
     await sut({ title: testTitle });
 
-    expect(getElementByTestId('title').textContent).toBe(testTitle);
+    expect(getElementByTestId('title').textContent.trim()).toBe(testTitle);
   });
 
   it('Should render ion-icon when passed tooltipText', async () => {
@@ -153,6 +153,48 @@ describe('IonIndicatorComponent', () => {
 
     userEvent.hover(getElementByTestId('secondValue'));
     expect(screen.queryByText(secondValueTooltipText)).toBeInTheDocument();
+  });
+
+  it('should show a tooltip when it has a long title', async () => {
+    const longTitleSut = {
+      title:
+        'Título personalizado via atributo title via atributo titlevia atributo title',
+      value: 1500,
+      secondValue: '5%',
+    };
+    await sut(longTitleSut);
+
+    userEvent.hover(screen.getByTestId(elements.title));
+    expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
+  });
+
+  it('shoul not render the header title icon by default', async () => {
+    await sut({
+      title: 'Título personalizado via atributo title',
+      tooltipText: 'Texto personalizado via atributo tooltipText',
+      value: 1500,
+      secondValue: '5%',
+    });
+
+    const headerTitleIcon = document.getElementById('ion-icon-box');
+
+    expect(headerTitleIcon).not.toBeInTheDocument();
+  });
+
+  it('shoul render the header title icon when informed', async () => {
+    await sut({
+      title: 'Título personalizado via atributo title',
+      tooltipText: 'Texto personalizado via atributo tooltipText',
+      value: 1500,
+      secondValue: '5%',
+      headerIcon: {
+        type: 'box',
+      },
+    });
+
+    const headerTitleIcon = document.getElementById('ion-icon-box');
+
+    expect(headerTitleIcon).toBeInTheDocument();
   });
 
   it('Should render footer and button emitter when receive buttonConfig with this type', async () => {

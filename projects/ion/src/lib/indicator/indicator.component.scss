@@ -1,7 +1,7 @@
 @import '../../styles/index.scss';
 
 @mixin icon-style {
-  ion-icon {
+  ion-icon:not(:first-child) {
     ::ng-deep svg {
       fill: $neutral-6;
     }
@@ -34,6 +34,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: spacing(1);
     background: $neutral-2;
     padding: 8px 16px;
     height: 36px;
@@ -51,6 +52,7 @@
       font-weight: 600;
       font-size: 14px;
       max-width: 230px;
+      margin-right: auto;
 
       @extend .ellipsis-in-text;
     }
