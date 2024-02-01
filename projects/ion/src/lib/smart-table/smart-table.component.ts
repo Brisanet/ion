@@ -55,7 +55,7 @@ export class IonSmartTableComponent<RowType>
         this.sort(column);
       }, this.config.debounceOnSort);
     }
-    this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
+    this.openItemsPerPageAbove = !!this.config.pagination.openItemsPerPageAbove;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
