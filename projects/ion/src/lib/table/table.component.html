@@ -242,7 +242,9 @@
         [itemsPerPage]="config.pagination.itemsPerPage"
         [page]="config.pagination.page"
         [pageSizeOptions]="config.pagination.pageSizeOptions"
-        [openItemsPerPageAbove]="openItemsPerPageAbove"
+        [openItemsPerPageAbove]="
+          config.pagination && !!config.pagination.openItemsPerPageAbove
+        "
         size="md"
         (events)="paginationEvents($event)"
       ></ion-pagination>

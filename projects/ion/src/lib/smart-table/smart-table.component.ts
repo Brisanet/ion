@@ -35,7 +35,6 @@ export class IonSmartTableComponent<RowType>
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
-  public openItemsPerPageAbove = false;
   public sortWithDebounce: (column: Column) => void;
   private firstLoad = true;
 
@@ -55,7 +54,6 @@ export class IonSmartTableComponent<RowType>
         this.sort(column);
       }, this.config.debounceOnSort);
     }
-    this.openItemsPerPageAbove = !!this.config.pagination.openItemsPerPageAbove;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

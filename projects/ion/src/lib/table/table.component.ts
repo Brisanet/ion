@@ -31,7 +31,6 @@ export class IonTableComponent<RowType>
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
-  public openItemsPerPageAbove = false;
 
   constructor(private cdr: ChangeDetectorRef) {
     super();
@@ -44,10 +43,6 @@ export class IonTableComponent<RowType>
     }
     if (change.config) {
       this.applyPipes(this.config);
-    }
-    if (this.config.pagination) {
-      this.openItemsPerPageAbove =
-        !!this.config.pagination.openItemsPerPageAbove;
     }
   }
 

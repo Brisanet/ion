@@ -334,7 +334,7 @@
         size="md"
         (events)="paginationEvents($event)"
         [allowChangeQtdItems]="true"
-        [openItemsPerPageAbove]="openItemsPerPageAbove"
+        [openItemsPerPageAbove]="!!config.pagination.openItemsPerPageAbove"
       ></ion-pagination>
     </div>
   </div>
