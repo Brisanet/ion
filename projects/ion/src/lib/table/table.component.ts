@@ -13,9 +13,9 @@ import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
 import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
+import { BaseTable } from '../utils/baseTable';
 import { SafeAny } from '../utils/safe-any';
 import { Column, ConfigTable } from './utilsTable';
-import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-table',
@@ -31,6 +31,7 @@ export class IonTableComponent<RowType>
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
+  public openItemsPerPageAbove = false;
 
   constructor(private cdr: ChangeDetectorRef) {
     super();
@@ -44,6 +45,7 @@ export class IonTableComponent<RowType>
     if (change.config) {
       this.applyPipes(this.config);
     }
+    this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
   }
 
   ngOnInit(): void {

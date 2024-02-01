@@ -17,9 +17,9 @@ import {
   LIST_OF_PAGE_OPTIONS,
 } from '../pagination/pagination.component';
 import { Column, EventTable } from '../table/utilsTable';
+import { BaseTable } from '../utils/baseTable';
 import debounce from '../utils/debounce';
 import { SafeAny } from '../utils/safe-any';
-import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-smart-table',
@@ -35,6 +35,7 @@ export class IonSmartTableComponent<RowType>
 
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public pagination!: PageEvent;
+  public openItemsPerPageAbove = false;
   public sortWithDebounce: (column: Column) => void;
   private firstLoad = true;
 
@@ -54,6 +55,7 @@ export class IonSmartTableComponent<RowType>
         this.sort(column);
       }, this.config.debounceOnSort);
     }
+    this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
   }
 
   ngOnChanges(changes: SimpleChanges): void {

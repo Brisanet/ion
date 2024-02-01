@@ -1,8 +1,8 @@
 import { TemplateRef } from '@angular/core';
 import { FontSize, IconType, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
-import { TagStatus } from './../core/types/status';
 import { IconSide, LinkTarget } from './../core/types/link';
+import { TagStatus } from './../core/types/status';
 
 export enum EventTable {
   SORT = 'sort',
@@ -93,6 +93,7 @@ export interface PaginationConfig {
   pageSizeOptions?: number[];
   offset?: number;
   page?: number;
+  openItemsPerPageAbove?: boolean;
 }
 
 export interface ConfigTable<RowType> {
