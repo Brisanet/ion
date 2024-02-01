@@ -46,7 +46,8 @@ export class IonTableComponent<RowType>
       this.applyPipes(this.config);
     }
     if (this.config.pagination) {
-      this.openItemsPerPageAbove = this.config.pagination.openItemsPerPageAbove;
+      this.openItemsPerPageAbove =
+        !!this.config.pagination.openItemsPerPageAbove;
     }
   }
 
