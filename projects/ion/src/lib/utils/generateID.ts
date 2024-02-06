@@ -4,10 +4,10 @@ export const ID_SELECTOR = '#';
 
 export const COOLDOWN_TIME = 400;
 
-export const generateIDs = (prefix: string, testeid: string): string => {
+export const generateIDs = (prefix: string, testid: string): string => {
   let id = 1;
   const allElements = document.querySelectorAll(
-    '*[data-testid="' + testeid + '"]'
+    '*[data-testid="' + testid + '"]'
   );
   const arrayElements = Array.from(allElements);
   arrayElements.map((element) => {

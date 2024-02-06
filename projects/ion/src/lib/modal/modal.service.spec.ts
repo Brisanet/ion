@@ -3,12 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, screen } from '@testing-library/angular';
+
+import { IonAlertModule } from '../alert/alert.module';
 import { IonButtonModule } from '../button/button.module';
 import { IonModalComponent } from './component/modal.component';
 import { SelectMockComponent } from './mock/select-mock.component';
 import { IonModalService } from './modal.service';
 import { IonModalConfiguration } from './models/modal.interface';
-import { IonAlertModule } from '../alert/alert.module';
 
 describe('ModalService', () => {
   let fixture: ComponentFixture<ContainerRefTestComponent>;
@@ -127,5 +128,39 @@ describe('ModalService', () => {
     fixture.detectChanges();
 
     expect(screen.getByTestId('modalTitle')).toHaveTextContent(newConfig.title);
+  });
+
+  it('should close modal when call closeModal with id', () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent, { id: 'modal' });
+    modalService.closeModal('modal');
+    fixture.detectChanges();
+
+    expect(modalService.closeModal).toHaveBeenCalled();
+  });
+
+  it('should close two modals when call closeModal twice', () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent);
+    modalService.open(SelectMockComponent);
+    modalService.closeModal();
+    expect(screen.getByTestId('modal')).toHaveAttribute('id', 'modal-1');
+    modalService.closeModal();
+    expect(modalService.closeModal).toHaveBeenCalledTimes(2);
+    expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
+  });
+
+  it(`should close modal when call closeModal with id and it's not the latest open`, () => {
+    jest.spyOn(modalService, 'closeModal');
+
+    modalService.open(SelectMockComponent, { id: 'modal-1' });
+    modalService.open(SelectMockComponent, { id: 'modal-2' });
+    modalService.closeModal('modal-1');
+    fixture.detectChanges();
+
+    expect(modalService.closeModal).toHaveBeenCalled();
+    expect(screen.getByTestId('modal')).toHaveAttribute('id', 'modal-2');
   });
 });
