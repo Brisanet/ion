@@ -1,6 +1,7 @@
 import { Type } from '@angular/core';
 import { IonModalConfiguration } from '../../modal/models/modal.interface';
 import { PopoverProps } from './popover';
+import { IonIconProps } from './icon';
 
 export enum IonIndicatorButtonType {
   Redirect = 'redirect',
@@ -11,6 +12,7 @@ export enum IonIndicatorButtonType {
 
 export interface IonIndicatorProps {
   title?: string;
+  headerIcon?: Pick<IonIconProps, 'type' | 'color'>;
   tooltipText?: string;
   secondValueTooltipText?: string;
   value?: string | number;

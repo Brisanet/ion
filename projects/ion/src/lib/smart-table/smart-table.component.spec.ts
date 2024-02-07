@@ -3,6 +3,7 @@ import localePT from '@angular/common/locales/pt';
 import { LOCALE_ID, SimpleChange } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { fireEvent, render, screen, within } from '@testing-library/angular';
+import { cloneDeep } from 'lodash';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
@@ -357,6 +358,21 @@ describe('Table > Actions', () => {
   it.each(actions)('should render icon action', async ({ icon }) => {
     await sut(tableWithActions);
     expect(document.getElementById(`ion-icon-${icon}`)).toBeInTheDocument();
+  });
+
+  it('should render action with label when showLabel is true', async () => {
+    const tableItemDeleted = cloneDeep(tableWithActions);
+    tableItemDeleted.config.actions = [
+      {
+        ...actions[0],
+        showLabel: true,
+      },
+    ];
+    const action = tableItemDeleted.config.actions.find(
+      (action) => action.showLabel
+    );
+    await sut(tableItemDeleted);
+    expect(screen.getAllByText(action.label)).toHaveLength(data.length);
   });
 
   it('should render action with danger class when action has danger config', async () => {
