@@ -46,7 +46,9 @@ const Template: Story = (args) => ({
       >
       </ion-button>
       <ng-template #BodyTemplate>
-        Aqui segue algum tipo de conteúdo. Muito bacana, não é verdade?!
+        <p style="font-family: 'Arial', sans-serif; line-height: 1.5; color: #333; margin-top: -5px;">
+          "In the End" é uma música icônica do Linkin Park, lançada em 2001. Combinando rock alternativo e nu-metal, a canção aborda a luta e a inevitabilidade da mudança. A letra reflexiva destaca a importância de esforços, mesmo que os resultados nem sempre sejam como desejado. A fusão de vocais intensos e arranjos emotivos faz de "In the End" uma experiência atemporal, ressoando com milhões de fãs ao redor do mundo.
+      </p>
       </ng-template>
     </div>
   `,
