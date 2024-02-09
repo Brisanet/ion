@@ -201,12 +201,15 @@ export class IonPopoverDirective implements OnDestroy {
     }
   }
 
-  @HostListener('window:scroll')
-  @HostListener('document:scroll')
-  @HostListener('body:scroll')
-  @HostListener('window:wheel')
-  onScroll(): void {
-    this.destroyComponent();
+  @HostListener('window:scroll', ['$event'])
+  @HostListener('document:scroll', ['$event'])
+  @HostListener('body:scroll', ['$event'])
+  @HostListener('window:wheel', ['$event'])
+  onScroll(event: Event): void {
+    const targetElement = event.target as HTMLElement;
+    if (!targetElement.closest('ion-popover')) {
+      this.destroyComponent();
+    }
   }
 
   handleHoverOutside(event: MouseEvent): void {
