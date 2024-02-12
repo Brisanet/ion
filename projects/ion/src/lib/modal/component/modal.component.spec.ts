@@ -332,7 +332,7 @@ describe('IonModalComponent', () => {
       ).toBeDefined();
     });
 
-    it('should alert with no border radius', () => {
+    it('should render alert without border radius', () => {
       component.setConfig(configuration);
       fixture.detectChanges();
 
