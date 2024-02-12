@@ -335,8 +335,6 @@ describe('IonModalComponent', () => {
     it('should render alert without border radius', () => {
       component.setConfig(configuration);
       fixture.detectChanges();
-
-      screen.debug(screen.getByTestId('ion-alert'), 100000);
       expect(
         screen.getByTestId('ion-alert').classList.contains('no-border-radius')
       );
