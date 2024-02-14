@@ -234,8 +234,7 @@ describe('ButtonComponent with dropdown', () => {
 
       fireEvent.click(button);
 
-      const aux = document.querySelector('.above');
-      expect(aux).toBeInTheDocument();
+      expect(document.querySelector('.above')).toBeInTheDocument();
     });
 
     it('should change label when an option is selected', async () => {
