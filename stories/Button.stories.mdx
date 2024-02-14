@@ -3,7 +3,10 @@ import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonButtonComponent } from '../projects/ion/src/lib/button/button.component';
-import { IonSharedModule } from '../projects/ion/src/public-api';
+import {
+  IonSharedModule,
+  IonSkeletonModule,
+} from '../projects/ion/src/public-api';
 
 <Meta title="Ion/Navigation/Button" component={IonButtonComponent} />
 
@@ -320,6 +323,32 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
   >
     {{
       template: `<ion-button label="Primary" [dropdownConfig]="{enableSearch: true}" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>`,
+    }}
+    secondary
+  </Story>
+</Canvas>
+
+- `showDropdownAbove`. Abre dropdown na direção acima do botão.
+
+<Canvas>
+  <Story
+    name="with dropdown above button"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule, IonSkeletonModule],
+      }),
+    ]}
+  >
+    {{
+      template: `
+      <ion-skeleton
+        variant="rect"
+        [radius]="NaN"
+        [width]="200"
+        [height]="500"
+      ></ion-skeleton>
+      <ion-button label="Primary" [showDropdownAbove]= "true"  [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>
+      `,
     }}
     secondary
   </Story>

@@ -19,5 +19,6 @@ export interface IonPaginationProps {
   allowChangeQtdItems?: boolean;
   loading?: boolean;
   page?: number;
+  openItemsPerPageAbove?: boolean;
   pageSizeOptions?: number[];
 }

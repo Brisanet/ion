@@ -31,6 +31,7 @@ export class IonPaginationComponent implements OnChanges, OnInit {
   @Input() allowChangeQtdItems: IonPaginationProps['allowChangeQtdItems'];
   @Input() loading = false;
   @Input() page = 0;
+  @Input() openItemsPerPageAbove? = false;
   @Output() events = new EventEmitter<PageEvent>();
 
   public optionsPage?: DropdownItem[] = [];

@@ -4,8 +4,8 @@ import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/paginat
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
 import {
-  IonSmartTableModule,
   ConfigSmartTable,
+  IonSmartTableModule,
   IonSpinnerModule,
 } from '../projects/ion/src/public-api';
 
@@ -384,6 +384,21 @@ Loading.args = {
 
 export const NoData = Template.bind({});
 NoData.args = returnTableConfig([], columns, actions, 0);
+
+export const ItemsPerPageOpenAboveButton = Template.bind({});
+ItemsPerPageOpenAboveButton.args = {
+  config: {
+    check: true,
+    data,
+    columns,
+    actions,
+    pagination: {
+      total: 2,
+      pageSizeOptions: LIST_OF_PAGE_OPTIONS,
+      openItemsPerPageAbove: true,
+    },
+  },
+};
 
 export const SelectableCells = Template.bind({});
 SelectableCells.args = returnTableConfig(data, selectableColumns, actions, 2);

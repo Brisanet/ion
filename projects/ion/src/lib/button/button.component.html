@@ -38,7 +38,11 @@
     data-testid="badge-multiple"
   ></ion-badge>
 </button>
-<div *ngIf="!!options && showDropdown" class="ion-btn-dropdown">
+<div
+  *ngIf="!!options && showDropdown"
+  class="ion-btn-dropdown"
+  [class.above]="showDropdownAbove"
+>
   <ion-dropdown
     [description]="dropdownConfig?.description"
     [options]="options"

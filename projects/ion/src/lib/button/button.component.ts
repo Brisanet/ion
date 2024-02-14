@@ -1,17 +1,18 @@
 import {
+  AfterViewChecked,
   Component,
-  Input,
-  Output,
   EventEmitter,
-  OnInit,
+  Input,
   OnChanges,
+  OnInit,
+  Output,
   SimpleChanges,
 } from '@angular/core';
 import {
-  ButtonIconSizeOptions,
-  Type,
-  Size,
   ButtonBadgeTypes,
+  ButtonIconSizeOptions,
+  Size,
+  Type,
 } from '../core/types/button';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 
@@ -20,7 +21,7 @@ import { DropdownItem, DropdownParams } from '../core/types/dropdown';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class IonButtonComponent implements OnInit, OnChanges {
+export class IonButtonComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() label?: string;
   @Input() tooltip?: string;
   @Input() type?: Type = 'primary';
@@ -36,6 +37,7 @@ export class IonButtonComponent implements OnInit, OnChanges {
   @Input() circularButton? = false;
   @Input() options?: DropdownItem[];
   @Input() showDropdown? = false;
+  @Input() showDropdownAbove? = false;
   @Input() dropdownConfig?: Pick<
     DropdownParams,
     'description' | 'notShowClearButton' | 'required' | 'enableSearch'
@@ -69,6 +71,19 @@ export class IonButtonComponent implements OnInit, OnChanges {
       this.showDropdown = !this.showDropdown;
 
       this.ionOnClick.emit();
+    }
+  }
+
+  shouldDropdownAbove(): void {
+    if (this.showDropdown && this.showDropdownAbove) {
+      const element = document.getElementById('ion-dropdown');
+      const container = document.querySelector('.above') as HTMLElement;
+      if (element && container) {
+        const elementHeight = element.getBoundingClientRect().height;
+        const buttomHeight = 40;
+        const movementSize = buttomHeight + elementHeight;
+        container.style.top = '-' + movementSize + 'px';
+      }
     }
   }
 
@@ -114,5 +129,9 @@ export class IonButtonComponent implements OnInit, OnChanges {
     if (changes.disabled && changes.disabled.currentValue) {
       this.loading = false;
     }
+  }
+
+  ngAfterViewChecked(): void {
+    this.shouldDropdownAbove();
   }
 }
