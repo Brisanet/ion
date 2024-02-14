@@ -331,5 +331,11 @@ describe('IonModalComponent', () => {
         )
       ).toBeDefined();
     });
+
+    it('should render alert without border radius', () => {
+      component.setConfig(configuration);
+      fixture.detectChanges();
+      expect(screen.getByTestId('ion-alert')).toHaveClass('no-radius');
+    });
   });
 });
