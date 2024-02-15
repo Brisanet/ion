@@ -1,6 +1,6 @@
-import { BadgeProps } from './badge';
 import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
+import { BadgeProps } from './badge';
 import { DropdownItem, DropdownParams } from './dropdown';
 import { IconType } from './icon';
 
@@ -32,6 +32,7 @@ export interface IonButtonProps {
   rightSideIcon?: boolean;
   options?: DropdownItem[];
   showDropdown?: boolean;
+  showDropdownAbove?: boolean;
   circularButton?: boolean;
   id?: string;
   selected?: EventEmitter<SafeAny>;

@@ -17,9 +17,9 @@ import {
   LIST_OF_PAGE_OPTIONS,
 } from '../pagination/pagination.component';
 import { Column, EventTable } from '../table/utilsTable';
+import { BaseTable } from '../utils/baseTable';
 import debounce from '../utils/debounce';
 import { SafeAny } from '../utils/safe-any';
-import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-smart-table',

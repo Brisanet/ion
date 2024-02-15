@@ -261,13 +261,24 @@ describe('Directive: popover', () => {
     expect(popover).toHaveClass(CUSTOM_CLASS);
   });
 
-  it('should close the popover when scrolling the page', async () => {
+  it('should not close the popover when scrolling the popover', async () => {
     await sut();
     const directive = IonPopoverDirective.prototype;
     jest.spyOn(directive, 'onScroll');
 
     fireEvent.click(screen.getByTestId('hostPopover'));
-    fireEvent.scroll(window);
+    fireEvent.wheel(screen.getByTestId('ion-popover'));
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.getByTestId('ion-popover')).toBeInTheDocument();
+  });
+
+  it('should close the popover when scrolling the page', async () => {
+    await sut();
+    const directive = IonPopoverDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+    const hostElement = screen.getByTestId('hostPopover');
+    fireEvent.click(hostElement);
+    fireEvent.wheel(hostElement);
     expect(directive.onScroll).toBeCalled();
     expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
   });

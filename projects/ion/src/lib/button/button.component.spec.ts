@@ -1,10 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
-import { IonButtonComponent } from './button.component';
-import { SafeAny } from '../utils/safe-any';
 import { FormsModule } from '@angular/forms';
-import { IonSharedModule } from '../shared.module';
-import { IonButtonProps } from '../core/types/button';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
+import { IonButtonProps } from '../core/types/button';
+import { IonSharedModule } from '../shared.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonButtonComponent } from './button.component';
 
 const defaultName = 'button';
 
@@ -209,7 +209,7 @@ describe('ButtonComponent with dropdown', () => {
       expect(screen.queryByTestId(options[0].label)).toBeNull();
     });
 
-    it('should close the dropdown when the button is clicked "', async () => {
+    it('should close the dropdown when the button is clicked', async () => {
       const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
 
       const button = await sut({
@@ -221,6 +221,20 @@ describe('ButtonComponent with dropdown', () => {
       fireEvent.click(button);
 
       expect(screen.queryByTestId('ion-dropdown')).toBeNull();
+    });
+
+    it('should has "above" class when dropdown is show and its configured to open above button', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      const button = await sut({
+        label: defaultName,
+        showDropdownAbove: true,
+        options,
+      });
+
+      fireEvent.click(button);
+
+      expect(document.querySelector('.above')).toBeInTheDocument();
     });
 
     it('should change label when an option is selected', async () => {

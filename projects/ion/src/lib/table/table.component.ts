@@ -13,9 +13,9 @@ import { CheckBoxStates } from '../core/types/checkbox';
 import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
 import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
+import { BaseTable } from '../utils/baseTable';
 import { SafeAny } from '../utils/safe-any';
 import { Column, ConfigTable } from './utilsTable';
-import { BaseTable } from '../utils/baseTable';
 
 @Component({
   selector: 'ion-table',
