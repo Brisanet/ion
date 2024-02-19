@@ -360,6 +360,7 @@ import {
   change,
   regions,
   imageCheck,
+  bookOpen,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -398,6 +399,7 @@ export const iconsPaths: Record<string, string> = {
   'bell-off': bellOff,
   'bell-ringing': bellRinging,
   block,
+  'book-open': bookOpen,
   'box-block': boxBlock,
   'box-clock': boxClock,
   'box-left': boxLeft,
