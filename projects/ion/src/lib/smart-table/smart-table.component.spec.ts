@@ -1025,6 +1025,29 @@ describe('Table > Pagination', () => {
     await sut(tableWithLoading);
     expect(screen.getByTestId('ion-spinner')).toBeInTheDocument();
   });
+
+  it('should render table in page 2', async () => {
+    const myProps = {
+      config: {
+        data,
+        columns,
+        pagination: {
+          total: 32,
+          itemsPerPage: 10,
+          page: 1,
+        },
+        loading: false,
+      },
+      events: {
+        emit: events,
+      } as SafeAny,
+    };
+
+    myProps.config.pagination.page = 2;
+
+    await sut(myProps);
+    expect(screen.getByTestId('page-2')).toHaveClass('selected');
+  });
 });
 
 describe('Table > Action with confirm', () => {
