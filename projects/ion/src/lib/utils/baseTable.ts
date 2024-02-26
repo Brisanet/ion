@@ -86,9 +86,9 @@ export abstract class BaseTable<
     return column.desc ? ENABLED_COLOR : DISABLED_COLOR;
   }
 
-  public handleEvent(row: RowType, action: ActionTable<RowType>): void {
-    if (action.call) {
-      action.call(row);
+  public handleEvent(action: () => void): void {
+    if (action) {
+      action();
     }
   }
 

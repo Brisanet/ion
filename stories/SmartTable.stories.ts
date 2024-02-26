@@ -8,14 +8,15 @@ import {
   IonSmartTableModule,
   IonSpinnerModule,
 } from '../projects/ion/src/public-api';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
   component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<IonSmartTableComponent> = (
-  args: IonSmartTableComponent
+const Template: Story<IonSmartTableComponent<null>> = (
+  args: IonSmartTableComponent<null>
 ) => ({
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
@@ -291,7 +292,6 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-
     disabled: (row: SafeAny): boolean => {
       return !row.deleted;
     },
@@ -484,6 +484,26 @@ PopConfirmDynamicDescription.args = returnTableConfig(
           return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
         },
         type: 'info',
+      },
+      disabled: (): boolean => {
+        return false;
+      },
+    },
+    {
+      label: 'Teste',
+      icon: 'pencil',
+      show: (): boolean => {
+        return false;
+      },
+      call: (): void => {
+        return;
+      },
+      tooltipConfig: {
+        ionTooltipTitle: 'Tooltip customizada',
+      },
+      popover: {
+        ionPopoverTitle: 'Popover customizado',
+        ionPopoverActions: [{ label: 'Ação 1', icon: 'pencil' }],
       },
     },
   ],

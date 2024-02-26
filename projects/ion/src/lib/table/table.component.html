@@ -165,7 +165,7 @@
                     "
                     [ionConfirmText]="action.confirm.confirmText || 'Confirmar'"
                     [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
-                    (ionOnConfirm)="handleEvent(row, action)"
+                    (ionOnConfirm)="handleEvent(action.call(row))"
                     [title]="action.label"
                     [attr.data-testid]="'row-' + index + '-' + action.label"
                     type="ghost"
@@ -194,7 +194,7 @@
                     [label]="action.label"
                     [circularButton]="!action.showLabel"
                     [rightSideIcon]="action.showLabel && action.rightSideIcon"
-                    (ionOnClick)="handleEvent(row, action)"
+                    (ionOnClick)="handleEvent(action.call(row))"
                     [disabled]="
                       action.disabled ? disableAction(row, action) : false
                     "
