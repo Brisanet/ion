@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { DropdownItem } from 'ion/public-api';
+import { DropdownItem } from '../core/types/dropdown';
 
 export interface BreadcrumbItem {
   label: string;
