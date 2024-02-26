@@ -1,36 +1,39 @@
 <nav class="breadcrumbs-nav">
   <ol class="ol-navigator">
     <ng-container *ngFor="let breadcrumb of breadcrumbs; let index = index">
-      <li *ngIf="truncate && index === 1 && breadcrumbs.length > truncateLimit">
+      <li
+        *ngIf="
+          !truncate ||
+          (truncate && index <= 1) ||
+          index >= breadcrumbs.length - truncateLimit
+        "
+      >
         <ion-icon
+          *ngIf="truncate && index === 1 && breadcrumbs.length > truncateLimit"
           class="breadcrumbs-ellipsis"
           data-testid="breadcrumbs-ellipsis"
           type="more"
           [size]="16"
           (click)="openDropdown()"
         ></ion-icon>
+
+        <a
+          *ngIf="!truncate || (truncate && index !== 1)"
+          class="breacrumbs-link"
+          (click)="onSelected(breadcrumb)"
+        >
+          {{ breadcrumb.label }}
+        </a>
+
         <ion-icon class="icon" type="right2" [size]="16"></ion-icon>
 
         <ion-dropdown
-          *ngIf="isDropdownOpen"
+          *ngIf="isDropdownOpen && index === 1"
           data-testid="breadcrumbs-dropdown"
           class="breadcrumbs-dropdown"
           [options]="breadcrumbsInDropdown"
           (selected)="selectDropdownItem($event)"
         ></ion-dropdown>
-      </li>
-
-      <li
-        *ngIf="
-          !truncate ||
-          (truncate && index === 0) ||
-          index >= breadcrumbs.length - truncateLimit
-        "
-      >
-        <a (click)="onSelected(breadcrumb)" class="breacrumbs-link">
-          {{ breadcrumb.label }}
-        </a>
-        <ion-icon class="icon" type="right2" [size]="16"></ion-icon>
       </li>
     </ng-container>
   </ol>

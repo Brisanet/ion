@@ -1,6 +1,16 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { BreadcrumbItem, BreadcrumbProps } from '../core/types';
 import { DropdownItem } from 'ion/public-api';
+
+export interface BreadcrumbItem {
+  label: string;
+  link: string;
+}
+
+export interface BreadcrumbProps {
+  breadcrumbItems: BreadcrumbItem[];
+  selected: EventEmitter<BreadcrumbItem>;
+  truncate?: boolean;
+}
 
 @Component({
   selector: 'ion-breadcrumb',
