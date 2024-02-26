@@ -1,8 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 
-import { BreadcrumbItem, BreadcrumbProps } from '../core/types';
 import { IonIconModule } from './../icon/icon.module';
-import { IonBreadcrumbComponent } from './breadcrumb.component';
+import {
+  BreadcrumbItem,
+  BreadcrumbProps,
+  IonBreadcrumbComponent,
+} from './breadcrumb.component';
 import { EventEmitter } from '@angular/core';
 import { IonDropdownModule } from '../dropdown/dropdown.module';
 
