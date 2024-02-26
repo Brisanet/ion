@@ -23,6 +23,8 @@ export class IonBreadcrumbComponent implements OnInit {
   @Output() selected = new EventEmitter<BreadcrumbItem>();
 
   public readonly truncateLimit = 5;
+  public readonly ellipsesIndex = 1;
+
   public breadcrumbsInDropdown: DropdownItem[] = [];
   public isDropdownOpen = false;
 
@@ -48,7 +50,10 @@ export class IonBreadcrumbComponent implements OnInit {
     if (this.truncate) {
       this.breadcrumbsInDropdown = this.breadcrumbs.reduce(
         (acc, breadcrumb, index) => {
-          if (index && index < this.breadcrumbs.length - this.truncateLimit) {
+          if (
+            index >= this.ellipsesIndex &&
+            index < this.breadcrumbs.length - this.truncateLimit
+          ) {
             acc.push({ key: breadcrumb.link, label: breadcrumb.label });
           }
           return acc;
