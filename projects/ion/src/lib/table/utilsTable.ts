@@ -95,7 +95,7 @@ export interface ActionTable<RowType = SafeAny> {
   tooltipConfig?: TooltipProps;
   showLabel?: boolean;
   rightSideIcon?: boolean;
-  popover?: ActionPopover;
+  popover?: (row?: RowType) => ActionPopover;
 }
 
 export interface PaginationConfig {

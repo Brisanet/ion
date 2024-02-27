@@ -1,34 +1,30 @@
-import {
-  AfterViewInit,
-  Component,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+
+import { PopoverProps } from '../../core/types';
 
 @Component({
   template: `
     <ion-smart-table [config]="config"></ion-smart-table>
-    <ng-template #BodyTemplate>
-      <div data-testid="ion-popover-body">
-        A Brisanet é uma empresa brasileira de telecomunicações fundada em 1997.
-        Focada em serviços de internet, TV por assinatura e telefonia, a empresa
-        se destaca pela qualidade de sua infraestrutura de rede. Com um
-        compromisso de levar conectividade para áreas antes carentes desse
-        serviço, a Brisanet contribui para a inclusão digital e o
-        desenvolvimento de comunidades. Reconhecida pela velocidade e
-        estabilidade da internet, a empresa investe em tecnologia de ponta para
-        proporcionar uma experiência superior aos seus clientes. Atenta às
-        demandas do mercado, busca constantemente inovações e parcerias
-        estratégicas para ampliar seu portfólio. Além disso, a Brisanet valoriza
-        a responsabilidade social e ambiental, buscando contribuir para o
-        desenvolvimento sustentável das regiões em que atua. Em resumo, a
-        Brisanet é uma empresa comprometida com a qualidade, inovação e inclusão
-        digital no Brasil.
-      </div>
+    <ng-template #BodyTemplate let-row>
+      <span>
+        O álbum '{{ row.name }}' da banda Linkin Park é amplamente reconhecido e
+        apreciado globalmente. Com sonoridade distintiva e letras impactantes,
+        conquistou um lugar especial no coração dos fãs. Sua popularidade se
+        reflete nas playlists e nas significativas reproduções em plataformas de
+        streaming. A fusão única de rock alternativo, nu-metal e elementos
+        eletrônicos destaca a versatilidade musical da banda. Cada faixa
+        contribui para uma narrativa sonora envolvente, conectando-se com os
+        ouvintes em um nível pessoal. Os riffs poderosos, batidas intensas e
+        letras que ressoam com experiências comuns fazem do álbum '{{
+          row.name
+        }}' um marco na discografia do Linkin Park. Sua duradoura influência é
+        evidenciada pelo contínuo carinho dos fãs, que redescobrem as nuances
+        cativantes deste trabalho musical notável.
+      </span>
     </ng-template>
   `,
 })
-export class TableActionPopoverComponent implements AfterViewInit {
+export class TableActionPopoverComponent {
   @ViewChild('BodyTemplate', { static: true }) popoverBody!: TemplateRef<void>;
   config = {
     check: true,
@@ -37,30 +33,21 @@ export class TableActionPopoverComponent implements AfterViewInit {
       { id: 2, name: 'One More Light', deleted: false, year: 2017 },
     ],
     columns: [
-      {
-        key: 'id',
-        label: 'Código',
-        sort: true,
-      },
-      {
-        key: 'name',
-        label: 'Nome',
-        sort: false,
-      },
+      { key: 'id', label: 'Código', sort: true },
+      { key: 'name', label: 'Nome', sort: false },
     ],
     actions: [
       {
-        label: 'Detalhes',
+        label: 'Detalheseeee',
         icon: 'pencil',
         danger: false,
         tooltipConfig: {
           ionTooltipTitle: 'Tooltip customizada',
         },
-        popover: {
-          ionPopoverTitle: 'Popover customizado',
-          ionPopoverActions: [{ label: 'Ação 1', icon: 'pencil' }],
+        popover: (row: { name: string }): Partial<PopoverProps> => ({
+          ionPopoverTitle: `Detalhes do álbum ${row.name}`,
           ionPopoverBody: this.popoverBody,
-        },
+        }),
       },
     ],
     pagination: {
@@ -69,8 +56,4 @@ export class TableActionPopoverComponent implements AfterViewInit {
     },
     debounceOnSort: 0,
   };
-
-  ngAfterViewInit(): void {
-    this.config.actions[0].popover.ionPopoverBody = this.popoverBody;
-  }
 }

@@ -7,6 +7,7 @@ import { cloneDeep } from 'lodash';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { PopoverProps } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
@@ -1239,18 +1240,18 @@ describe('Table > Action with popover', () => {
     const actionConfig = {
       label: 'Excluir',
       icon: 'trash',
-      popover: {
+      popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
         ionPopoverBody: null,
-      },
+      }),
     };
-    withPopover.config.actions = [actionConfig];
+    withPopover.config.actions = [actionConfig] as ActionTable[];
 
     await sut(withPopover);
     const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-popover-title',
-      actionConfig.popover.ionPopoverTitle
+      actionConfig.popover().ionPopoverTitle
     );
   });
 
@@ -1263,19 +1264,19 @@ describe('Table > Action with popover', () => {
     const actionConfig = {
       label: 'Excluir',
       icon: 'trash',
-      popover: {
+      popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
         ionPopoverBody: null,
-      },
+      }),
     };
-    withPopover.config.actions = [actionConfig];
+    withPopover.config.actions = [actionConfig] as ActionTable[];
 
     await sut(withPopover);
     const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
 
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-popover-title',
-      actionConfig.popover.ionPopoverTitle
+      actionConfig.popover().ionPopoverTitle
     );
   });
 
@@ -1289,13 +1290,13 @@ describe('Table > Action with popover', () => {
     const actionConfig = {
       label: 'Excluir',
       icon: 'trash',
-      popover: {
+      popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
         ionPopoverBody: null,
         ionPopoverActions: [{ label: cancelTextOnPopover }],
-      },
+      }),
     };
-    withPopover.config.actions = [actionConfig];
+    withPopover.config.actions = [actionConfig] as ActionTable[];
 
     await sut(withPopover);
 

@@ -273,24 +273,27 @@
                         "
                         ionPopover
                         [ionPopoverTitle]="
-                          action.popover.ionPopoverTitle || action.label
+                          action.popover(row)['ionPopoverTitle'] || action.label
                         "
                         [ionPopoverBody]="ActionPopoverBody"
-                        [ionPopoverActions]="action.popover.ionPopoverActions"
-                        [ionPopoverIcon]="action.popover.ionPopoverIcon"
+                        [ionPopoverActions]="
+                          action.popover(row)['ionPopoverActions']
+                        "
+                        [ionPopoverIcon]="action.popover(row)['ionPopoverIcon']"
                         [ionPopoverIconClose]="
-                          action.popover.ionPopoverIconClose
+                          action.popover(row)['ionPopoverIconClose']
                         "
                         [ionPopoverPosition]="
-                          action.popover.ionPopoverPosition || 'bottomRight'
+                          action.popover(row)['ionPopoverPosition'] ||
+                          'bottomRight'
                         "
-                        [ionPopoverKeep]="action.popover.ionPopoverKeep"
+                        [ionPopoverKeep]="action.popover(row)['ionPopoverKeep']"
                         [ionPopoverCustomClass]="
-                          action.popover.ionPopoverCustomClass
+                          action.popover(row)['ionPopoverCustomClass']
                         "
                         [ionPopoverArrowPointAtCenter]="true"
                         [ionPopoverTrigger]="
-                          action.popover.ionPopoverTrigger || 'click'
+                          action.popover(row)['ionPopoverTrigger'] || 'click'
                         "
                         (ionOnFirstAction)="handleEvent(action.call(row))"
                         (ionOnSecondAction)="
@@ -312,7 +315,10 @@
                       ></ion-button>
                       <ng-template #ActionPopoverBody>
                         <ng-container
-                          [ngTemplateOutlet]="action.popover.ionPopoverBody"
+                          [ngTemplateOutlet]="
+                            action.popover(row)['ionPopoverBody']
+                          "
+                          [ngTemplateOutletContext]="{ $implicit: row }"
                         ></ng-container>
                       </ng-template>
                     </ng-container>
