@@ -10,6 +10,7 @@ import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
 import {
   ActionTable,
@@ -26,7 +27,6 @@ import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { IonLinkModule } from './../link/link.module';
 import { IonSmartTableComponent } from './smart-table.component';
-import { IonPopoverModule } from '../popover/popover.module';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -1248,8 +1248,6 @@ describe('Table > Action with popover', () => {
 
     await sut(withPopover);
     const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
-
-    screen.debug(actionBtn);
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-popover-title',
       actionConfig.popover.ionPopoverTitle
@@ -1281,11 +1279,12 @@ describe('Table > Action with popover', () => {
     );
   });
 
-  it.skip('should close popover when click outside', async () => {
+  it('should close popover when click outside', async () => {
     const withPopover = JSON.parse(
       JSON.stringify(propsWithPopover)
     ) as IonSmartTableProps<Character>;
     withPopover.events = { emit: jest.fn() } as SafeAny;
+    const cancelTextOnPopover = 'Cancel action';
 
     const actionConfig = {
       label: 'Excluir',
@@ -1293,13 +1292,12 @@ describe('Table > Action with popover', () => {
       popover: {
         ionPopoverTitle: 'Você tem certeza?',
         ionPopoverBody: null,
-        ionPopoverActions: [{ label: 'Cancelar' }],
+        ionPopoverActions: [{ label: cancelTextOnPopover }],
       },
     };
     withPopover.config.actions = [actionConfig];
 
     await sut(withPopover);
-    const cancelTextOnPopover = 'Cancelar';
 
     fireEvent.click(screen.getByTestId('row-0-Excluir'));
     expect(screen.getByText(cancelTextOnPopover)).toBeInTheDocument();

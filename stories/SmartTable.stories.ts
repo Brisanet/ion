@@ -1,5 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
+
 import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
@@ -8,7 +9,6 @@ import {
   IonSmartTableModule,
   IonSpinnerModule,
 } from '../projects/ion/src/public-api';
-import { Component, TemplateRef, ViewChild } from '@angular/core';
 
 export default {
   title: 'Ion/Data Display/SmartTable',
