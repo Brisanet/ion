@@ -15,8 +15,8 @@ export default {
   component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<IonSmartTableComponent<null>> = (
-  args: IonSmartTableComponent<null>
+const Template: Story<IonSmartTableComponent<unknown>> = (
+  args: IonSmartTableComponent<unknown>
 ) => ({
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
