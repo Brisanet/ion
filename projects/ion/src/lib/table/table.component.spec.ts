@@ -990,9 +990,14 @@ describe('Table > Action with popover', () => {
     const actionConfig = {
       label: 'Excluir',
       icon: 'trash',
+      call: (): void => {
+        return;
+      },
+      secondCall: (): void => {
+        return;
+      },
       popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
-        ionPopoverBody: null,
         ionPopoverActions: [{ label: cancelTextOnPopover }],
       }),
     };

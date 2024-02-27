@@ -1242,38 +1242,12 @@ describe('Table > Action with popover', () => {
       icon: 'trash',
       popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
-        ionPopoverBody: null,
       }),
     };
     withPopover.config.actions = [actionConfig] as ActionTable[];
 
     await sut(withPopover);
     const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
-    expect(actionBtn).toHaveAttribute(
-      'ng-reflect-ion-popover-title',
-      actionConfig.popover().ionPopoverTitle
-    );
-  });
-
-  it('should render popover with title in action', async () => {
-    const withPopover = JSON.parse(
-      JSON.stringify(propsWithPopover)
-    ) as IonSmartTableProps<Character>;
-    withPopover.events = { emit: jest.fn() } as SafeAny;
-
-    const actionConfig = {
-      label: 'Excluir',
-      icon: 'trash',
-      popover: (): Partial<PopoverProps> => ({
-        ionPopoverTitle: 'Você tem certeza?',
-        ionPopoverBody: null,
-      }),
-    };
-    withPopover.config.actions = [actionConfig] as ActionTable[];
-
-    await sut(withPopover);
-    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
-
     expect(actionBtn).toHaveAttribute(
       'ng-reflect-ion-popover-title',
       actionConfig.popover().ionPopoverTitle
@@ -1292,7 +1266,6 @@ describe('Table > Action with popover', () => {
       icon: 'trash',
       popover: (): Partial<PopoverProps> => ({
         ionPopoverTitle: 'Você tem certeza?',
-        ionPopoverBody: null,
         ionPopoverActions: [{ label: cancelTextOnPopover }],
       }),
     };
@@ -1303,7 +1276,7 @@ describe('Table > Action with popover', () => {
     fireEvent.click(screen.getByTestId('row-0-Excluir'));
     expect(screen.getByText(cancelTextOnPopover)).toBeInTheDocument();
 
-    fireEvent.click(screen.getByTestId('column-name'));
+    fireEvent.click(screen.getByText(cancelTextOnPopover));
     expect(screen.queryAllByText(cancelTextOnPopover)).toHaveLength(0);
   });
 });

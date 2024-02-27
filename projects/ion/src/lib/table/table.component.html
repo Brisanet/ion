@@ -168,7 +168,7 @@
                         action.confirm.confirmText || 'Confirmar'
                       "
                       [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
-                      (ionOnConfirm)="handleEvent(action.call(row))"
+                      (ionOnConfirm)="handleEvent(row, action.call)"
                       [attr.data-testid]="'row-' + index + '-' + action.label"
                       type="ghost"
                       size="sm"
@@ -208,9 +208,9 @@
                         [ionPopoverTrigger]="
                           action.popover(row)['ionPopoverTrigger'] || 'click'
                         "
-                        (ionOnFirstAction)="handleEvent(action.call(row))"
+                        (ionOnFirstAction)="handleEvent(row, action.call)"
                         (ionOnSecondAction)="
-                          handleEvent(action.secondCall(row))
+                          handleEvent(row, action.secondCall)
                         "
                         [attr.data-testid]="'row-' + index + '-' + action.label"
                         type="ghost"
@@ -246,7 +246,7 @@
                       [label]="action.label"
                       [circularButton]="!action.showLabel"
                       [rightSideIcon]="action.showLabel && action.rightSideIcon"
-                      (ionOnClick)="handleEvent(action.call(row))"
+                      (ionOnClick)="handleEvent(row, action.call)"
                       [disabled]="
                         action.disabled ? disableAction(row, action) : false
                       "
