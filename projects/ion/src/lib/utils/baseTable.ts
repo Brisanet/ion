@@ -87,9 +87,7 @@ export abstract class BaseTable<
   }
 
   public handleEvent(action: () => void): void {
-    if (action) {
-      action();
-    }
+    action();
   }
 
   public showAction(row: RowType, action: ActionTable<RowType>): boolean {
