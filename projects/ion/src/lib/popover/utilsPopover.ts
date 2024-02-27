@@ -7,7 +7,7 @@ export type PopoverPositions = {
 
 const arrowToEdgeDistance = 16;
 const arrowVisibleDiagonal = 18;
-const arrowMargin = 6;
+const arrowMargin = 3;
 
 interface PositionParams {
   host: DOMRect;

@@ -149,56 +149,104 @@
             <td *ngIf="config.actions">
               <div class="icons-td">
                 <ng-container *ngFor="let action of config.actions">
-                  <ion-button
-                    *ngIf="
-                      action.confirm &&
-                      (action.show ? !showAction(row, action) : true)
-                    "
-                    ionPopConfirm
-                    [ionPopConfirmTitle]="action.confirm.title"
-                    [ionPopConfirmDesc]="
-                      !!action.confirm.description
-                        ? action.confirm.description
-                        : !!action.confirm.dynamicDescription
-                        ? action.confirm.dynamicDescription(row)
-                        : undefined
-                    "
-                    [ionConfirmText]="action.confirm.confirmText || 'Confirmar'"
-                    [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
-                    (ionOnConfirm)="handleEvent(action.call(row))"
-                    [title]="action.label"
-                    [attr.data-testid]="'row-' + index + '-' + action.label"
-                    type="ghost"
-                    size="sm"
-                    [danger]="!!action.danger"
-                    [iconType]="action.icon"
-                    [label]="action.label"
-                    [circularButton]="!action.showLabel"
-                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
-                    [disabled]="
-                      action.disabled ? disableAction(row, action) : false
-                    "
-                  ></ion-button>
+                  <ng-container
+                    *ngIf="action.show ? !showAction(row, action) : true"
+                  >
+                    <ion-button
+                      *ngIf="action.confirm && !action.popover"
+                      ionPopConfirm
+                      [ionPopConfirmTitle]="action.confirm.title"
+                      [ionPopConfirmType]="action.confirm.type"
+                      [ionPopConfirmDesc]="
+                        !!action.confirm.description
+                          ? action.confirm.description
+                          : !!action.confirm.dynamicDescription
+                          ? action.confirm.dynamicDescription(row)
+                          : undefined
+                      "
+                      [ionConfirmText]="
+                        action.confirm.confirmText || 'Confirmar'
+                      "
+                      [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
+                      (ionOnConfirm)="handleEvent(action.call(row))"
+                      [attr.data-testid]="'row-' + index + '-' + action.label"
+                      type="ghost"
+                      size="sm"
+                      [danger]="!!action.danger"
+                      [iconType]="action.icon"
+                      [label]="action.label"
+                      [circularButton]="!action.showLabel"
+                      [rightSideIcon]="action.showLabel && action.rightSideIcon"
+                      [disabled]="
+                        action.disabled ? disableAction(row, action) : false
+                      "
+                    ></ion-button>
 
-                  <ion-button
-                    *ngIf="
-                      !action.confirm &&
-                      (action.show ? !showAction(row, action) : true)
-                    "
-                    [title]="action.label"
-                    [attr.data-testid]="'row-' + index + '-' + action.label"
-                    type="ghost"
-                    size="sm"
-                    [danger]="!!action.danger"
-                    [iconType]="action.icon"
-                    [label]="action.label"
-                    [circularButton]="!action.showLabel"
-                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
-                    (ionOnClick)="handleEvent(action.call(row))"
-                    [disabled]="
-                      action.disabled ? disableAction(row, action) : false
-                    "
-                  ></ion-button>
+                    <ng-container *ngIf="action.popover && !action.confirm">
+                      <ion-button
+                        ionPopover
+                        [ionPopoverTitle]="
+                          action.popover.ionPopoverTitle || action.label
+                        "
+                        [ionPopoverBody]="ActionPopoverBody"
+                        [ionPopoverActions]="action.popover.ionPopoverActions"
+                        [ionPopoverIcon]="action.popover.ionPopoverIcon"
+                        [ionPopoverIconClose]="
+                          action.popover.ionPopoverIconClose
+                        "
+                        [ionPopoverPosition]="
+                          action.popover.ionPopoverPosition || 'bottomRight'
+                        "
+                        [ionPopoverKeep]="action.popover.ionPopoverKeep"
+                        [ionPopoverCustomClass]="
+                          action.popover.ionPopoverCustomClass
+                        "
+                        [ionPopoverArrowPointAtCenter]="true"
+                        [ionPopoverTrigger]="
+                          action.popover.ionPopoverTrigger || 'click'
+                        "
+                        (ionOnFirstAction)="handleEvent(action.call(row))"
+                        (ionOnSecondAction)="
+                          handleEvent(action.secundCall(row))
+                        "
+                        [attr.data-testid]="'row-' + index + '-' + action.label"
+                        type="ghost"
+                        size="sm"
+                        [danger]="true"
+                        [iconType]="action.icon"
+                        [label]="action.label"
+                        [circularButton]="!action.showLabel"
+                        [rightSideIcon]="
+                          action.showLabel && action.rightSideIcon
+                        "
+                        [disabled]="
+                          action.disabled ? disableAction(row, action) : false
+                        "
+                      ></ion-button>
+                      <ng-template #ActionPopoverBody>
+                        <ng-container
+                          [ngTemplateOutlet]="action.popover.ionPopoverBody"
+                        ></ng-container>
+                      </ng-template>
+                    </ng-container>
+
+                    <ion-button
+                      *ngIf="!action.confirm && !action.popover"
+                      [title]="action.label"
+                      [attr.data-testid]="'row-' + index + '-' + action.label"
+                      type="ghost"
+                      size="sm"
+                      [danger]="!!action.danger"
+                      [iconType]="action.icon"
+                      [label]="action.label"
+                      [circularButton]="!action.showLabel"
+                      [rightSideIcon]="action.showLabel && action.rightSideIcon"
+                      (ionOnClick)="handleEvent(action.call(row))"
+                      [disabled]="
+                        action.disabled ? disableAction(row, action) : false
+                      "
+                    ></ion-button>
+                  </ng-container>
                 </ng-container>
               </div>
             </td>

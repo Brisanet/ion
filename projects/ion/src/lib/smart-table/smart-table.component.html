@@ -193,7 +193,7 @@
                     *ngIf="action.show ? !showAction(row, action) : true"
                   >
                     <ion-button
-                      *ngIf="action.confirm"
+                      *ngIf="action.confirm && !action.popover"
                       ionTooltip
                       [ionTooltipTitle]="
                         action.tooltipConfig?.ionTooltipTitle || action.label
@@ -245,8 +245,80 @@
                       "
                     ></ion-button>
 
+                    <ng-container *ngIf="action.popover && !action.confirm">
+                      <ion-button
+                        ionTooltip
+                        [ionTooltipTitle]="
+                          action.tooltipConfig?.ionTooltipTitle || action.label
+                        "
+                        [ionTooltipPosition]="
+                          action.tooltipConfig?.ionTooltipPosition ||
+                          'topCenter'
+                        "
+                        [ionTooltipArrowPointAtCenter]="
+                          action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                          false
+                        "
+                        [ionTooltipColorScheme]="
+                          action.tooltipConfig?.ionTooltipColorScheme || 'dark'
+                        "
+                        [ionTooltipTrigger]="
+                          action.tooltipConfig?.ionTooltipTrigger || 'hover'
+                        "
+                        [ionTooltipShowDelay]="
+                          action.tooltipConfig?.ionTooltipShowDelay || 0
+                        "
+                        [ionTooltipTemplateRef]="
+                          action.tooltipConfig?.ionTooltipTemplateRef || null
+                        "
+                        ionPopover
+                        [ionPopoverTitle]="
+                          action.popover.ionPopoverTitle || action.label
+                        "
+                        [ionPopoverBody]="ActionPopoverBody"
+                        [ionPopoverActions]="action.popover.ionPopoverActions"
+                        [ionPopoverIcon]="action.popover.ionPopoverIcon"
+                        [ionPopoverIconClose]="
+                          action.popover.ionPopoverIconClose
+                        "
+                        [ionPopoverPosition]="
+                          action.popover.ionPopoverPosition || 'bottomRight'
+                        "
+                        [ionPopoverKeep]="action.popover.ionPopoverKeep"
+                        [ionPopoverCustomClass]="
+                          action.popover.ionPopoverCustomClass
+                        "
+                        [ionPopoverArrowPointAtCenter]="true"
+                        [ionPopoverTrigger]="
+                          action.popover.ionPopoverTrigger || 'click'
+                        "
+                        (ionOnFirstAction)="handleEvent(action.call(row))"
+                        (ionOnSecondAction)="
+                          handleEvent(action.secundCall(row))
+                        "
+                        [attr.data-testid]="'row-' + index + '-' + action.label"
+                        type="ghost"
+                        size="sm"
+                        [danger]="true"
+                        [iconType]="action.icon"
+                        [label]="action.label"
+                        [circularButton]="!action.showLabel"
+                        [rightSideIcon]="
+                          action.showLabel && action.rightSideIcon
+                        "
+                        [disabled]="
+                          action.disabled ? disableAction(row, action) : false
+                        "
+                      ></ion-button>
+                      <ng-template #ActionPopoverBody>
+                        <ng-container
+                          [ngTemplateOutlet]="action.popover.ionPopoverBody"
+                        ></ng-container>
+                      </ng-template>
+                    </ng-container>
+
                     <ion-button
-                      *ngIf="action.popover"
+                      *ngIf="!action.confirm && !action.popover"
                       ionTooltip
                       [ionTooltipTitle]="
                         action.tooltipConfig?.ionTooltipTitle || action.label
@@ -270,88 +342,20 @@
                       [ionTooltipTemplateRef]="
                         action.tooltipConfig?.ionTooltipTemplateRef || null
                       "
-                      ionPopover
-                      [ionPopoverTitle]="
-                        action.popover.ionPopoverTitle || action.label
-                      "
-                      [ionPopoverBody]="ActionPopoverBody"
-                      [ionPopoverActions]="action.popover.ionPopoverActions"
-                      [ionPopoverIcon]="action.popover.ionPopoverIcon"
-                      [ionPopoverIconClose]="action.popover.ionPopoverIconClose"
-                      [ionPopoverPosition]="
-                        action.popover.ionPopoverPosition || 'bottomRight'
-                      "
-                      [ionPopoverKeep]="action.popover.ionPopoverKeep"
-                      [ionPopoverCustomClass]="
-                        action.popover.ionPopoverCustomClass
-                      "
-                      [ionPopoverArrowPointAtCenter]="true"
-                      [ionPopoverTrigger]="
-                        action.popover.ionPopoverTrigger || 'click'
-                      "
-                      (ionOnFirstAction)="handleEvent(action.call(row))"
-                      (ionOnSecondAction)="handleEvent(action.secundCall(row))"
                       [attr.data-testid]="'row-' + index + '-' + action.label"
                       type="ghost"
                       size="sm"
-                      [danger]="true"
+                      [danger]="!!action.danger"
                       [iconType]="action.icon"
                       [label]="action.label"
                       [circularButton]="!action.showLabel"
                       [rightSideIcon]="action.showLabel && action.rightSideIcon"
+                      (ionOnClick)="handleEvent(action.call(row))"
                       [disabled]="
                         action.disabled ? disableAction(row, action) : false
                       "
                     ></ion-button>
-                    <ng-template #ActionPopoverBody>
-                      <ng-container
-                        [ngTemplateOutlet]="action.popover.ionPopoverBody"
-                      ></ng-container>
-                    </ng-template>
                   </ng-container>
-
-                  <ion-button
-                    *ngIf="
-                      !action.confirm &&
-                      !action.popover &&
-                      (action.show ? !showAction(row, action) : true)
-                    "
-                    ionTooltip
-                    [ionTooltipTitle]="
-                      action.tooltipConfig?.ionTooltipTitle || action.label
-                    "
-                    [ionTooltipPosition]="
-                      action.tooltipConfig?.ionTooltipPosition || 'topCenter'
-                    "
-                    [ionTooltipArrowPointAtCenter]="
-                      action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
-                      false
-                    "
-                    [ionTooltipColorScheme]="
-                      action.tooltipConfig?.ionTooltipColorScheme || 'dark'
-                    "
-                    [ionTooltipTrigger]="
-                      action.tooltipConfig?.ionTooltipTrigger || 'hover'
-                    "
-                    [ionTooltipShowDelay]="
-                      action.tooltipConfig?.ionTooltipShowDelay || 0
-                    "
-                    [ionTooltipTemplateRef]="
-                      action.tooltipConfig?.ionTooltipTemplateRef || null
-                    "
-                    [attr.data-testid]="'row-' + index + '-' + action.label"
-                    type="ghost"
-                    size="sm"
-                    [danger]="!!action.danger"
-                    [iconType]="action.icon"
-                    [label]="action.label"
-                    [circularButton]="!action.showLabel"
-                    [rightSideIcon]="action.showLabel && action.rightSideIcon"
-                    (ionOnClick)="handleEvent(action.call(row))"
-                    [disabled]="
-                      action.disabled ? disableAction(row, action) : false
-                    "
-                  ></ion-button>
                 </ng-container>
               </div>
             </td>
