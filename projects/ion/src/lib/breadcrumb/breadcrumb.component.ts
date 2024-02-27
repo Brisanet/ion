@@ -3,7 +3,6 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnInit,
   OnChanges,
 } from '@angular/core';
 import { DropdownItem } from '../core/types/dropdown';
