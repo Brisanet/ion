@@ -90,7 +90,7 @@ export interface ActionTable<RowType = SafeAny> {
   danger?: boolean;
   show?: (row: RowType) => boolean;
   call?: (row: RowType) => void;
-  secundCall?: (row: RowType) => void;
+  secondCall?: (row: RowType) => void;
   confirm?: ActionConfirm<RowType>;
   tooltipConfig?: TooltipProps;
   showLabel?: boolean;
