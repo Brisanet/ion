@@ -19,11 +19,6 @@ export enum EventTable {
   REFRESH_FILTER = 'refresh_filter',
 }
 
-export enum ActionType {
-  POPCONFIRM = 'popconfirm',
-  POPOVER = 'popover',
-}
-
 export enum ColumnType {
   TAG = 'tag',
   TEXT = 'text',
