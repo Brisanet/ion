@@ -37,7 +37,7 @@ const defaultProps: BreadcrumbProps = {
   selected: {
     emit: selectEvent,
   } as unknown as EventEmitter<BreadcrumbItem>,
-  breadcrumbItems: items,
+  breadcrumbs: items,
   truncate: false,
 };
 

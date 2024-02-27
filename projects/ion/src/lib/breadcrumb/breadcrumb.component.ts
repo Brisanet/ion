@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnChanges,
+} from '@angular/core';
 import { DropdownItem } from '../core/types/dropdown';
 
 export interface BreadcrumbItem {
@@ -7,7 +14,7 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
-  breadcrumbItems: BreadcrumbItem[];
+  breadcrumbs: BreadcrumbItem[];
   selected: EventEmitter<BreadcrumbItem>;
   truncate?: boolean;
 }
@@ -17,8 +24,8 @@ export interface BreadcrumbProps {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })
-export class IonBreadcrumbComponent implements OnInit {
-  @Input() breadcrumbs: BreadcrumbProps['breadcrumbItems'];
+export class IonBreadcrumbComponent implements OnChanges {
+  @Input() breadcrumbs: BreadcrumbProps['breadcrumbs'];
   @Input() truncate: BreadcrumbProps['truncate'] = true;
   @Output() selected = new EventEmitter<BreadcrumbItem>();
 
@@ -29,7 +36,6 @@ export class IonBreadcrumbComponent implements OnInit {
   public isDropdownOpen = false;
 
   public onSelected(item: BreadcrumbItem): void {
-    this.isDropdownOpen = false;
     if (item !== this.breadcrumbs[this.breadcrumbs.length - 1]) {
       this.selected.emit(item);
     }
@@ -39,6 +45,10 @@ export class IonBreadcrumbComponent implements OnInit {
     this.isDropdownOpen = true;
   }
 
+  public closeDropdown(): void {
+    this.isDropdownOpen = false;
+  }
+
   public selectDropdownItem(selecteds: DropdownItem[]): void {
     const [item] = selecteds;
     if (item) {
@@ -46,20 +56,26 @@ export class IonBreadcrumbComponent implements OnInit {
     }
   }
 
-  public ngOnInit(): void {
+  public ngOnChanges(): void {
+    this.breadcrumbsInDropdown = [];
+
     if (this.truncate) {
-      this.breadcrumbsInDropdown = this.breadcrumbs.reduce(
-        (acc, breadcrumb, index) => {
-          if (
-            index >= this.ellipsesIndex &&
-            index < this.breadcrumbs.length - this.truncateLimit
-          ) {
-            acc.push({ key: breadcrumb.link, label: breadcrumb.label });
-          }
-          return acc;
-        },
-        [] as DropdownItem[]
-      );
+      this.formatDropdownItems();
     }
+  }
+
+  private formatDropdownItems(): void {
+    this.breadcrumbsInDropdown = this.breadcrumbs.reduce(
+      (acc, { link, label }, index) => {
+        if (
+          index >= this.ellipsesIndex &&
+          index < this.breadcrumbs.length - this.truncateLimit
+        ) {
+          acc.push({ key: link, label });
+        }
+        return acc;
+      },
+      [] as DropdownItem[]
+    );
   }
 }

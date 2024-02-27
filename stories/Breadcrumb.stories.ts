@@ -2,8 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 
 import { IonBreadcrumbComponent } from '../projects/ion/src/lib/breadcrumb/breadcrumb.component';
-import { IonDropdownModule } from '../projects/ion/src/lib/dropdown/dropdown.module';
-import { IonIconModule } from './../projects/ion/src/lib/icon/icon.module';
+import {
+  IonBreadcrumbModule,
+  IonDropdownModule,
+  IonIconModule,
+} from '../projects/ion/src/public-api';
+import { BreadcrumbTruncatedComponent } from '../projects/ion/src/lib/breadcrumb/mock/breadcrumb-truncated.component';
 
 export default {
   title: 'Ion/Navigation/Breadcrumb',
@@ -21,25 +25,27 @@ const Template: Story<IonBreadcrumbComponent> = (
   },
 });
 
-const breadcrumbs = [
-  { label: 'Titulo 1', link: '/titulo1' },
-  { label: 'Titulo 2', link: '/titulo2' },
-  { label: 'Titulo 3', link: '/titulo3' },
-  { label: 'Titulo 4', link: '/titulo4' },
-  { label: 'Titulo 5', link: '/titulo5' },
-  { label: 'Titulo 6', link: '/titulo6' },
-  { label: 'Titulo 7', link: '/titulo7' },
-  { label: 'Titulo 8', link: '/titulo8' },
-  { label: 'Titulo 9', link: '/titulo9' },
-];
-
-export const Initials = Template.bind({});
-Initials.args = {
-  breadcrumbs,
+export const WithoutTruncation = Template.bind({});
+WithoutTruncation.args = {
+  breadcrumbs: [
+    { label: 'Home', link: '/home' },
+    { label: 'Recursos', link: '/recursos' },
+    { label: 'Técnico', link: '/recursos/1' },
+  ],
+  truncate: false,
 };
 
-export const WithTruncation = Template.bind({});
-WithTruncation.args = {
-  breadcrumbs,
-  truncate: true,
-};
+const TemplateTruncated: Story<BreadcrumbTruncatedComponent> = (
+  args: BreadcrumbTruncatedComponent
+) => ({
+  component: BreadcrumbTruncatedComponent,
+  props: args,
+  moduleMetadata: {
+    declarations: [BreadcrumbTruncatedComponent],
+    entryComponents: [BreadcrumbTruncatedComponent],
+    imports: [IonBreadcrumbModule],
+  },
+});
+
+export const WithTruncation = TemplateTruncated.bind({});
+WithTruncation.args = {};
