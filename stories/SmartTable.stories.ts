@@ -489,23 +489,6 @@ PopConfirmDynamicDescription.args = returnTableConfig(
         return false;
       },
     },
-    {
-      label: 'Teste',
-      icon: 'pencil',
-      show: (): boolean => {
-        return false;
-      },
-      call: (): void => {
-        return;
-      },
-      tooltipConfig: {
-        ionTooltipTitle: 'Tooltip customizada',
-      },
-      popover: {
-        ionPopoverTitle: 'Popover customizado',
-        ionPopoverActions: [{ label: 'Ação 1', icon: 'pencil' }],
-      },
-    },
   ],
   2
 );
