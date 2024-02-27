@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-table-action-popover',
   template: `
     <ion-smart-table [config]="config"></ion-smart-table>
     <ng-template #BodyTemplate>
