@@ -44,8 +44,8 @@ export class TableActionPopoverComponent {
         tooltipConfig: {
           ionTooltipTitle: 'Tooltip customizada',
         },
-        call: (row: { name: string }): void => {
-          console.log('Detalhes do álbum', row.name);
+        call: (): void => {
+          return;
         },
         popover: (row: { name: string }): Partial<PopoverProps> => ({
           ionPopoverTitle: `Detalhes do álbum ${row.name}`,
