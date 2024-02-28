@@ -36,7 +36,7 @@ WithPopoverAction.args = {
     ],
     actions: [
       {
-        label: 'Detalheseeee',
+        label: 'Detalhes',
         icon: 'pencil',
         danger: false,
         tooltipConfig: {
