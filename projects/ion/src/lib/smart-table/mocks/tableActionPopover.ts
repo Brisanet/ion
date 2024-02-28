@@ -39,11 +39,8 @@ export class TableActionPopoverComponent {
     actions: [
       {
         label: 'Detalhes',
-        icon: 'pencil',
+        icon: 'doc',
         danger: false,
-        tooltipConfig: {
-          ionTooltipTitle: 'Tooltip customizada',
-        },
         call: (): void => {
           return;
         },
