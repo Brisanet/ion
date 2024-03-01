@@ -18,11 +18,34 @@
   gap: 8px;
   align-items: center;
   text-align: center;
+  position: relative;
 
-  ion-icon {
-    ::ng-deep svg {
-      fill: $neutral-5;
+  ::ng-deep {
+    ion-icon {
+      svg {
+        fill: $neutral-5;
+      }
+
+      &.breadcrumbs-ellipsis {
+        cursor: pointer;
+
+        &:hover svg,
+        &:active svg,
+        &:focus svg {
+          fill: $primary-6;
+        }
+
+        &:focus svg {
+          box-shadow: 0px 0px 0px $neutral-1, 0px 0px 0px $primary-5;
+        }
+      }
     }
+  }
+
+  .breadcrumbs-dropdown {
+    position: absolute;
+    bottom: 0;
+    left: -10px;
   }
 }
 

@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+} from '@angular/core';
+import { DropdownItem } from '../core/types/dropdown';
 
 export interface BreadcrumbItem {
   label: string;
@@ -6,8 +13,9 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
-  breadcrumbItems: BreadcrumbItem[];
+  breadcrumbs: BreadcrumbItem[];
   selected: EventEmitter<BreadcrumbItem>;
+  truncate?: boolean;
 }
 
 @Component({
@@ -15,13 +23,58 @@ export interface BreadcrumbProps {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })
-export class IonBreadcrumbComponent {
-  @Input() breadcrumbs: Array<BreadcrumbItem>;
+export class IonBreadcrumbComponent implements OnChanges {
+  @Input() breadcrumbs: BreadcrumbProps['breadcrumbs'];
+  @Input() truncate: BreadcrumbProps['truncate'] = true;
   @Output() selected = new EventEmitter<BreadcrumbItem>();
 
-  onSelected(item: BreadcrumbItem): void {
+  public readonly truncateLimit = 5;
+  public readonly ellipsesIndex = 1;
+
+  public breadcrumbsInDropdown: DropdownItem[] = [];
+  public isDropdownOpen = false;
+
+  public onSelected(item: BreadcrumbItem): void {
     if (item !== this.breadcrumbs[this.breadcrumbs.length - 1]) {
       this.selected.emit(item);
     }
+  }
+
+  public openDropdown(): void {
+    this.isDropdownOpen = true;
+  }
+
+  public closeDropdown(): void {
+    this.isDropdownOpen = false;
+  }
+
+  public selectDropdownItem(selecteds: DropdownItem[]): void {
+    const [item] = selecteds;
+    if (item) {
+      this.onSelected(this.breadcrumbs.find(({ link }) => link === item.key));
+    }
+  }
+
+  public ngOnChanges(): void {
+    this.breadcrumbsInDropdown = [];
+
+    if (this.truncate) {
+      this.formatDropdownItems();
+    }
+  }
+
+  private formatDropdownItems(): void {
+    this.breadcrumbsInDropdown = this.breadcrumbs.reduce(
+      (acc, { link, label }, index) => {
+        if (
+          index >= this.ellipsesIndex &&
+          index < this.breadcrumbs.length - this.truncateLimit
+        ) {
+          acc.push({ key: link, label });
+        }
+        return acc;
+      },
+      [] as DropdownItem[]
+    );
   }
 }
