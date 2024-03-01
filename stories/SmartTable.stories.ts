@@ -1,5 +1,6 @@
 import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/angular';
+
 import { LIST_OF_PAGE_OPTIONS } from '../projects/ion/src/lib/pagination/pagination.component';
 import { IonSmartTableComponent } from '../projects/ion/src/lib/smart-table/smart-table.component';
 import { SafeAny } from '../projects/ion/src/lib/utils/safe-any';
@@ -14,8 +15,8 @@ export default {
   component: IonSmartTableComponent,
 } as Meta;
 
-const Template: Story<IonSmartTableComponent> = (
-  args: IonSmartTableComponent
+const Template: Story<IonSmartTableComponent<unknown>> = (
+  args: IonSmartTableComponent<unknown>
 ) => ({
   component: IonSmartTableComponent,
   props: { ...args, events: action('events') },
@@ -291,7 +292,6 @@ const actions = [
   {
     label: 'Excluir',
     icon: 'trash',
-
     disabled: (row: SafeAny): boolean => {
       return !row.deleted;
     },
@@ -484,6 +484,9 @@ PopConfirmDynamicDescription.args = returnTableConfig(
           return `Você estará excluindo o disco ${row.name} da sua base de dados!`;
         },
         type: 'info',
+      },
+      disabled: (): boolean => {
+        return false;
       },
     },
   ],

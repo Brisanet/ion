@@ -7,9 +7,11 @@ import { cloneDeep } from 'lodash';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
+import { PopoverProps } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
 import {
   ActionTable,
@@ -130,6 +132,22 @@ const defaultProps: IonSmartTableProps<Character> = {
   } as SafeAny,
 };
 
+const propsWithPopover: IonSmartTableProps<Character> = {
+  config: {
+    data,
+    columns,
+    pagination: {
+      total: 32,
+      itemsPerPage: 10,
+      page: 1,
+    },
+    loading: false,
+  },
+  events: {
+    emit: events,
+  } as SafeAny,
+};
+
 const sut = async (
   customProps: IonSmartTableProps<Character | Book | Disco> = defaultProps
 ): Promise<SafeAny> => {
@@ -139,6 +157,7 @@ const sut = async (
       IonCheckboxModule,
       IonTagModule,
       IonPopConfirmModule,
+      IonPopoverModule,
       IonButtonModule,
       IonIconModule,
       IonPaginationModule,
@@ -1208,6 +1227,57 @@ describe('Table > Action with confirm', () => {
     // click in button again
     fireEvent.click(screen.getByTestId('row-0-Excluir'));
     expect(screen.getByText(cancelTextOnPopconfirm)).toBeInTheDocument();
+  });
+});
+
+describe('Table > Action with popover', () => {
+  it('should render popover with title in action', async () => {
+    const withPopover = JSON.parse(
+      JSON.stringify(propsWithPopover)
+    ) as IonSmartTableProps<Character>;
+    withPopover.events = { emit: jest.fn() } as SafeAny;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      popover: (): Partial<PopoverProps> => ({
+        ionPopoverTitle: 'Você tem certeza?',
+      }),
+    };
+    withPopover.config.actions = [actionConfig] as ActionTable[];
+
+    await sut(withPopover);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-popover-title',
+      actionConfig.popover().ionPopoverTitle
+    );
+  });
+
+  it('should close popover when click outside', async () => {
+    const withPopover = JSON.parse(
+      JSON.stringify(propsWithPopover)
+    ) as IonSmartTableProps<Character>;
+    withPopover.events = { emit: jest.fn() } as SafeAny;
+    const cancelTextOnPopover = 'Cancel action';
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      popover: (): Partial<PopoverProps> => ({
+        ionPopoverTitle: 'Você tem certeza?',
+        ionPopoverActions: [{ label: cancelTextOnPopover }],
+      }),
+    };
+    withPopover.config.actions = [actionConfig] as ActionTable[];
+
+    await sut(withPopover);
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopover)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText(cancelTextOnPopover));
+    expect(screen.queryAllByText(cancelTextOnPopover)).toHaveLength(0);
   });
 });
 

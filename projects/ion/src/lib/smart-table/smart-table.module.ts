@@ -1,16 +1,18 @@
-import { IonLinkModule } from './../link/link.module';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonSmartTableComponent } from './smart-table.component';
-import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonTagModule } from '../tag/tag.module';
-import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { NgModule } from '@angular/core';
+
 import { IonButtonModule } from '../button/button.module';
+import { IonCheckboxModule } from '../checkbox/checkbox.module';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
-import { PipesModule } from '../utils/pipes/pipes.module';
-import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonSpinnerModule } from '../spinner/spinner.module';
+import { IonTagModule } from '../tag/tag.module';
+import { IonTooltipModule } from '../tooltip/tooltip.module';
+import { PipesModule } from '../utils/pipes/pipes.module';
+import { IonLinkModule } from './../link/link.module';
+import { IonSmartTableComponent } from './smart-table.component';
 
 @NgModule({
   declarations: [IonSmartTableComponent],
@@ -19,6 +21,7 @@ import { IonSpinnerModule } from '../spinner/spinner.module';
     IonCheckboxModule,
     IonTagModule,
     IonPopConfirmModule,
+    IonPopoverModule,
     IonButtonModule,
     IonIconModule,
     IonPaginationModule,

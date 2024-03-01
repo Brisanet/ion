@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 
 import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
 import { DatePipeStrategy } from '../../core/pipes/date.pipe';
-import { PipeStrategy, PipeApplicator } from '../../core/pipes/pipe-strategy';
+import { PipeApplicator, PipeStrategy } from '../../core/pipes/pipe-strategy';
 import { ReplaceEmptyPipeStrategy } from '../../core/pipes/replace-empty.pipe';
 import {
   CheckBoxEvent,
@@ -10,7 +10,7 @@ import {
   PageEvent,
   StateChange,
 } from '../core/types';
-import { BaseRow, ConfigTable, Column, ActionTable } from '../table/utilsTable';
+import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utilsTable';
 
 const DISABLED_COLOR = '#CED2DB';
 const ENABLED_COLOR = '#0858CE';
@@ -86,9 +86,9 @@ export abstract class BaseTable<
     return column.desc ? ENABLED_COLOR : DISABLED_COLOR;
   }
 
-  public handleEvent(row: RowType, action: ActionTable<RowType>): void {
-    if (action.call) {
-      action.call(row);
+  public handleEvent(row: RowType, action: (row: RowType) => void): void {
+    if (action) {
+      action(row);
     }
   }
 

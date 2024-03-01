@@ -14,10 +14,11 @@ import { cloneDeep } from 'lodash';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonCheckboxModule } from '../checkbox/checkbox.module';
-import { IonTableProps } from '../core/types';
+import { IonTableProps, PopoverProps } from '../core/types';
 import { IonIconModule } from '../icon/icon.module';
 import { IonPaginationModule } from '../pagination/pagination.module';
 import { IonPopConfirmModule } from '../popconfirm/popconfirm.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonTagModule } from '../tag/tag.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { SafeAny } from '../utils/safe-any';
@@ -92,6 +93,24 @@ const defaultProps: IonTableProps<Disco> = {
   },
 };
 
+const events = jest.fn();
+
+const propsWithPopover: IonTableProps<Disco> = {
+  config: {
+    data,
+    columns,
+    pagination: {
+      total: 32,
+      itemsPerPage: 10,
+      page: 1,
+    },
+    loading: false,
+  },
+  events: {
+    emit: events,
+  } as SafeAny,
+};
+
 const sut = async (
   customProps: IonTableProps<Disco> = defaultProps
 ): Promise<SafeAny> => {
@@ -105,6 +124,7 @@ const sut = async (
       IonPaginationModule,
       IonTagModule,
       IonPopConfirmModule,
+      IonPopoverModule,
       IonTooltipModule,
       IonSpinnerModule,
       IonLinkModule,
@@ -262,6 +282,7 @@ describe('Table > Changes', () => {
         IonPaginationModule,
         IonTagModule,
         IonPopConfirmModule,
+        IonPopoverModule,
         IonTooltipModule,
         IonSpinnerModule,
         IonLinkModule,
@@ -285,6 +306,7 @@ describe('Table > Changes', () => {
         IonPaginationModule,
         IonTagModule,
         IonPopConfirmModule,
+        IonPopoverModule,
         IonTooltipModule,
         IonSpinnerModule,
         IonLinkModule,
@@ -934,6 +956,63 @@ describe('Table > Action with confirm', () => {
   });
 });
 
+describe('Table > Action with popover', () => {
+  it('should render popover with title in action', async () => {
+    const withPopover = JSON.parse(
+      JSON.stringify(propsWithPopover)
+    ) as IonTableProps<Disco>;
+    withPopover.events = { emit: jest.fn() } as SafeAny;
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      popover: (): Partial<PopoverProps> => ({
+        ionPopoverTitle: 'Você tem certeza?',
+      }),
+    };
+    withPopover.config.actions = [actionConfig] as ActionTable[];
+
+    await sut(withPopover);
+    const actionBtn = screen.getByTestId(`row-0-${actionConfig.label}`);
+    expect(actionBtn).toHaveAttribute(
+      'ng-reflect-ion-popover-title',
+      actionConfig.popover().ionPopoverTitle
+    );
+  });
+
+  it('should close popover when click outside', async () => {
+    const withPopover = JSON.parse(
+      JSON.stringify(propsWithPopover)
+    ) as IonTableProps<Disco>;
+    withPopover.events = { emit: jest.fn() } as SafeAny;
+    const cancelTextOnPopover = 'Cancel action';
+
+    const actionConfig = {
+      label: 'Excluir',
+      icon: 'trash',
+      call: (): void => {
+        return;
+      },
+      secondCall: (): void => {
+        return;
+      },
+      popover: (): Partial<PopoverProps> => ({
+        ionPopoverTitle: 'Você tem certeza?',
+        ionPopoverActions: [{ label: cancelTextOnPopover }],
+      }),
+    };
+    withPopover.config.actions = [actionConfig] as ActionTable[];
+
+    await sut(withPopover);
+
+    fireEvent.click(screen.getByTestId('row-0-Excluir'));
+    expect(screen.getByText(cancelTextOnPopover)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByTestId('column-name'));
+    expect(screen.queryAllByText(cancelTextOnPopover)).toHaveLength(0);
+  });
+});
+
 describe('Table without Data', () => {
   const tableWithoutData: IonTableProps<Disco> = {
     config: {
@@ -1005,6 +1084,7 @@ const sutCustomRowTemplate = async (
       IonPaginationModule,
       IonTagModule,
       IonPopConfirmModule,
+      IonPopoverModule,
       IonTableModule,
       IonSpinnerModule,
       IonLinkModule,

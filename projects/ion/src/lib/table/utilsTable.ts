@@ -1,5 +1,12 @@
 import { TemplateRef } from '@angular/core';
-import { FontSize, IconType, StatusType, TooltipProps } from '../core/types';
+
+import {
+  FontSize,
+  IconType,
+  PopoverProps,
+  StatusType,
+  TooltipProps,
+} from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { IconSide, LinkTarget } from './../core/types/link';
 import { TagStatus } from './../core/types/status';
@@ -74,6 +81,8 @@ export interface ActionConfirm<RowType> {
   cancelText?: string;
 }
 
+export type ActionPopover = PopoverProps;
+
 export interface ActionTable<RowType = SafeAny> {
   label: string;
   icon: string;
@@ -81,10 +90,12 @@ export interface ActionTable<RowType = SafeAny> {
   danger?: boolean;
   show?: (row: RowType) => boolean;
   call?: (row: RowType) => void;
+  secondCall?: (row: RowType) => void;
   confirm?: ActionConfirm<RowType>;
   tooltipConfig?: TooltipProps;
   showLabel?: boolean;
   rightSideIcon?: boolean;
+  popover?: (row?: RowType) => ActionPopover;
 }
 
 export interface PaginationConfig {

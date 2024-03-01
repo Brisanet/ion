@@ -46,6 +46,5 @@ export interface PopoverProps {
 
 export interface PopoverDirectiveProps extends PopoverProps {
   ionPopoverArrowPointAtCenter?: boolean;
-  ionPopoverKeep?: boolean;
   ionPopoverTrigger?: PopoverTrigger;
 }
