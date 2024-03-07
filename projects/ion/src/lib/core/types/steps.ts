@@ -1,24 +1,34 @@
-export type StatusType = 'default' | 'selected' | 'checked' | 'error';
-
 export interface StepType {
   label: string;
   description?: string;
   index?: number;
-  status?: StatusType;
+  status?: StepStatus;
+  lines?: StepLines;
+  clickableWhenHasError?: boolean;
 }
 
-export type LineType = 'initial' | 'final';
+export interface StepLines {
+  isPreviousBolded: boolean;
+  isNextBolded: boolean;
+}
 
 export type StepConfig = {
   current: number;
   disabled?: boolean;
   steps: StepType[];
   clickable?: boolean;
+  direction?: StepDirection;
+  preventStepChange?: boolean;
 };
 
-export enum Status {
-  default = 'default',
-  selected = 'selected',
-  checked = 'checked',
-  error = 'error',
+export enum StepStatus {
+  DEFAULT = 'default',
+  SELECTED = 'selected',
+  CHECKED = 'checked',
+  ERROR = 'error',
+}
+
+export enum StepDirection {
+  HORIZONTAL = 'horizontal',
+  VERTICAL = 'vertical',
 }

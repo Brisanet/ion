@@ -28,6 +28,7 @@ export * from './simple-menu';
 export * from './smart-table';
 export * from './spinner';
 export * from './status';
+export * from './steps';
 export * from './switch';
 export * from './tab';
 export * from './tab-group';

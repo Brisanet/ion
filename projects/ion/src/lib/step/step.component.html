@@ -1,25 +1,34 @@
-<section class="steps-container" data-testid="ion-steps">
+<section
+  class="steps-container"
+  data-testid="ion-steps"
+  [ngClass]="'step-direction-' + direction"
+>
   <div
     [class]="'step ' + step.status"
     [class.clickable]="
       clickable &&
       !disabled &&
       step.status !== 'selected' &&
-      step.status !== 'error'
+      (step.status !== 'error' ||
+        (step.status === 'error' && step.clickableWhenHasError))
     "
     [class.disabled]="disabled"
     [attr.data-testid]="'step-' + step.index + '-' + step.status"
     *ngFor="let step of steps; let index = index"
     (click)="goesTo(step.index)"
   >
+    <ng-container
+      *ngIf="direction === 'vertical' && step.index !== FIRST_STEP"
+      [ngTemplateOutlet]="line"
+      [ngTemplateOutletContext]="{ $implicit: step, inLeft: true }"
+    ></ng-container>
+
     <div class="step-draw">
-      <div
-        class="line"
-        [class.bolded]="
-          steps[index - 1] && steps[index - 1].status === 'checked'
-        "
-        [class.transparent]="step.index === FIRST_STEP"
-      ></div>
+      <ng-container
+        *ngIf="direction === 'horizontal'"
+        [ngTemplateOutlet]="line"
+        [ngTemplateOutletContext]="{ $implicit: step, inLeft: true }"
+      ></ng-container>
 
       <div class="circle">
         <span *ngIf="step.status !== 'checked'; else checkedStatus">
@@ -32,31 +41,51 @@
         </ng-template>
       </div>
 
-      <div
-        class="line"
-        [class.bolded]="
-          steps[index].status === 'checked' ||
-          (steps[index + 1] && steps[index + 1].status !== 'default')
-        "
-        [class.transparent]="step.index === steps.length"
-      ></div>
+      <ng-container
+        [ngTemplateOutlet]="direction === 'horizontal' ? line : label"
+        [ngTemplateOutletContext]="{ $implicit: step }"
+      ></ng-container>
     </div>
 
-    <div
+    <ng-container
+      *ngIf="direction !== 'vertical' || step.index !== steps.length"
+      [ngTemplateOutlet]="direction === 'vertical' ? line : label"
+      [ngTemplateOutletContext]="{ $implicit: step }"
+    ></ng-container>
+  </div>
+</section>
+
+<ng-template #label let-step>
+  <div class="text-container">
+    <span
       class="label"
       [class.selected]="step.status === 'selected' || step.status === 'error'"
       [class.disabled]="disabled"
     >
       {{ step.label }}
-    </div>
+    </span>
 
-    <div
+    <span
+      *ngIf="step.description"
       class="description"
       [class.disabled]="disabled"
       [attr.data-testid]="'description-' + step.index"
-      *ngIf="step.description"
     >
-      {{ step.description }}
-    </div>
+      {{ step.description | ellipsis: 58 }}
+    </span>
   </div>
-</section>
+</ng-template>
+
+<ng-template #line let-step let-inLeft="inLeft">
+  <div
+    *ngIf="step.lines"
+    [ngClass]="'line line-direction-' + direction"
+    [class.bolded]="
+      inLeft ? step.lines.isPreviousBolded : step.lines.isNextBolded
+    "
+    [class.transparent]="
+      (inLeft && step.index === FIRST_STEP) ||
+      (!inLeft && step.index === steps.length)
+    "
+  ></div>
+</ng-template>

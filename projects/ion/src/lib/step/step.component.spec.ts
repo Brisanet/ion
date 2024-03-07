@@ -2,9 +2,15 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import { StepConfig, StepType } from '../core/types/steps';
+import {
+  StepConfig,
+  StepType,
+  StepDirection,
+  StepStatus,
+} from '../core/types/steps';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonStepsComponent } from './step.component';
+import { PipesModule } from '../utils/pipes/pipes.module';
 
 const defaultValue: StepType[] = [
   {
@@ -27,20 +33,30 @@ const sut = async (
   customProps: StepConfig = defaultProps
 ): Promise<HTMLElement> => {
   await render(IonStepsComponent, {
-    componentProperties: {
-      current: customProps.current,
-      steps: customProps.steps,
-      clickable: customProps.clickable,
-      disabled: customProps.disabled,
-    },
+    componentProperties: customProps,
     declarations: [IonIconComponent],
-    imports: [FormsModule],
+    imports: [FormsModule, PipesModule],
   });
   return screen.findByTestId('ion-steps');
 };
 
 describe('Static IonStepsComponent', () => {
   const stepsLabels = ['Step 1', 'Step 2', 'Step 3'];
+
+  it('should render step in horizontal direction by default', async () => {
+    await sut();
+    expect(screen.getByTestId('ion-steps')).toHaveClass(
+      'step-direction-horizontal'
+    );
+  });
+
+  it('should render step in vertical direction', async () => {
+    await sut({ ...defaultProps, direction: StepDirection.VERTICAL });
+    expect(screen.getByTestId('ion-steps')).toHaveClass(
+      'step-direction-vertical'
+    );
+  });
+
   it.each(stepsLabels)(
     'should render step component with 3 steps',
     async (label: string) => {
@@ -54,7 +70,7 @@ describe('Static IonStepsComponent', () => {
       steps: [
         {
           label: 'Step 1',
-          status: 'checked',
+          status: StepStatus.CHECKED,
         },
         {
           label: 'Step 2',
@@ -65,7 +81,9 @@ describe('Static IonStepsComponent', () => {
       ],
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
-    expect(screen.getByTestId('step-1-checked')).toHaveClass('checked');
+    expect(screen.getByTestId('step-1-checked')).toHaveClass(
+      StepStatus.CHECKED
+    );
   });
   it('should render first step checked and second with error and description', async () => {
     await sut({
@@ -73,11 +91,11 @@ describe('Static IonStepsComponent', () => {
       steps: [
         {
           label: 'Step 1',
-          status: 'checked',
+          status: StepStatus.CHECKED,
         },
         {
           label: 'Step 2',
-          status: 'error',
+          status: StepStatus.ERROR,
           description: 'Error',
         },
         {
@@ -86,7 +104,9 @@ describe('Static IonStepsComponent', () => {
       ],
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
-    expect(screen.getByTestId('step-1-checked')).toHaveClass('checked');
+    expect(screen.getByTestId('step-1-checked')).toHaveClass(
+      StepStatus.CHECKED
+    );
     expect(screen.getByTestId('step-2-error')).toBeTruthy();
     expect(screen.getByTestId('step-2-error')).toHaveClass('error');
     expect(screen.getByText('Error')).toHaveClass(`description`);
@@ -104,20 +124,20 @@ describe('Static IonStepsComponent', () => {
         steps: [
           {
             label: 'Step 1',
-            status: 'checked',
+            status: StepStatus.CHECKED,
           },
           {
             label: 'Step 2',
-            status: 'checked',
+            status: StepStatus.CHECKED,
           },
           {
             label: 'Step 3',
-            status: 'checked',
+            status: StepStatus.CHECKED,
           },
         ],
       });
       expect(screen.getByTestId(stepId)).toBeTruthy();
-      expect(screen.getByTestId(stepId)).toHaveClass('checked');
+      expect(screen.getByTestId(stepId)).toHaveClass(StepStatus.CHECKED);
     }
   );
   it('should go to step 3 when it be clicked', async () => {
@@ -134,9 +154,14 @@ describe('Static IonStepsComponent', () => {
 });
 
 @Component({
-  template: `<ion-steps [steps]="steps" [current]="current"></ion-steps>`,
+  template: `<ion-steps
+    [steps]="steps"
+    [current]="current"
+    [preventStepChange]="preventStepChange"
+  ></ion-steps>`,
 })
 class TestHostComponent {
+  preventStepChange = false;
   steps: StepType[] = defaultValue;
   current = 1;
 }
@@ -146,6 +171,7 @@ describe('Passing through the IonStepsComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [PipesModule],
       declarations: [IonStepsComponent, TestHostComponent, IonIconComponent],
     });
     fixture = TestBed.createComponent(TestHostComponent);
@@ -179,5 +205,33 @@ describe('Passing through the IonStepsComponent', () => {
     testHost.current = 4;
     fixture.detectChanges();
     expect(screen.getByTestId('step-3-selected')).toBeTruthy();
+  });
+
+  it("shouldn't pass to other step when preventStepChange is true", async () => {
+    testHost.preventStepChange = true;
+    fixture.detectChanges();
+    fireEvent.click(screen.getByTestId('step-2-default'));
+    fixture.detectChanges();
+    expect(screen.getByTestId('step-1-selected')).toBeTruthy();
+    expect(screen.getByTestId('step-2-default')).toBeTruthy();
+  });
+
+  it('should render steps when steps change', async () => {
+    testHost.steps = [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' },
+    ];
+    fixture.detectChanges();
+    const newSteps = [
+      { label: 'Step 4' },
+      { label: 'Step 5' },
+      { label: 'Step 6' },
+    ];
+    testHost.steps = newSteps;
+    fixture.detectChanges();
+    newSteps.forEach((step) => {
+      expect(screen.getByText(step.label)).toBeInTheDocument();
+    });
   });
 });
