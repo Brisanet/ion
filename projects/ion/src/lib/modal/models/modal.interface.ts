@@ -16,8 +16,9 @@ export interface IonModalConfiguration {
   hideCloseButton?: boolean;
   headerButton?: IonModalHeaderButton;
   alertConfig?: Pick<IonAlertProps, 'message' | 'type' | 'description'>;
-
+  preventCloseOnConfirm?: boolean;
   footer?: IonModalFooterConfiguration;
+  customClass?: string;
 }
 
 export interface IonModalFooterConfiguration {

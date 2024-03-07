@@ -82,7 +82,7 @@ describe('ModalService', () => {
     expect(modalService.closeModal).toHaveBeenCalled();
   });
 
-  it('should call emitValueAndCloseModal when ionOnClose fires without value', () => {
+  it('should call emitValueAndCloseModal when ionOnClose fires with value', () => {
     jest.spyOn(modalService, 'emitValueAndCloseModal');
 
     modalService.open(SelectMockComponent);
@@ -162,5 +162,19 @@ describe('ModalService', () => {
 
     expect(modalService.closeModal).toHaveBeenCalled();
     expect(screen.getByTestId('modal')).toHaveAttribute('id', 'modal-2');
+  });
+
+  it('should not close modal by clicking the primary button when preventCloseOnConfirm is informed', () => {
+    jest.spyOn(modalService, 'emitValue');
+
+    modalService.open(SelectMockComponent, { preventCloseOnConfirm: true });
+
+    fireEvent.click(screen.getByText('Confirmar'));
+    fixture.detectChanges();
+
+    expect(modalService.emitValue).toHaveBeenCalledWith({
+      state: 'ceara',
+    });
+    expect(screen.getByTestId('modal')).toBeVisible();
   });
 });
