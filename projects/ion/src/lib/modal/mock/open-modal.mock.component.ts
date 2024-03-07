@@ -21,7 +21,7 @@ export class OpenModalButtonComponent {
 
   openModal(): void {
     this.ionModalService
-      .open(this.componentToBody)
+      .open(this.componentToBody, this.modalConfig)
       .subscribe((response: IonModalResponse) => {
         this.valueFromModal = response;
       });
