@@ -17,6 +17,14 @@
 
 .steps-container {
   display: flex;
+
+  &.step-direction-vertical {
+    flex-direction: column;
+  }
+
+  &.step-direction-horizontal .step {
+    align-items: center;
+  }
 }
 
 .step {
@@ -26,20 +34,6 @@
   .step-draw {
     display: flex;
     align-items: center;
-
-    .line {
-      width: 64.5px;
-      height: 1px;
-      background-color: $neutral-4;
-
-      &.bolded {
-        background-color: $primary-6;
-      }
-
-      &.transparent {
-        background-color: transparent !important;
-      }
-    }
 
     .circle {
       box-sizing: content-box;
@@ -60,36 +54,63 @@
     }
   }
 
-  .label,
-  .description {
-    color: $neutral-6;
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    word-break: break-all;
-    padding: spacing(0.5) spacing(1);
-    box-sizing: border-box;
-    text-align: center;
-    max-width: 183px;
-  }
+  .line {
+    width: 64.5px;
+    height: 1px;
+    background-color: $neutral-4;
 
-  .label {
-    font-size: 14px;
-    line-height: 20px;
-
-    &.selected {
-      color: $neutral-7;
+    &.bolded {
+      background-color: $primary-6;
     }
 
-    &.disabled,
-    &.disabled.selected {
-      color: $neutral-5;
+    &.transparent {
+      background-color: transparent !important;
+    }
+
+    &.line-direction-vertical {
+      width: 1px;
+      height: 64.5px;
+      margin-left: 27px;
     }
   }
 
-  .description {
-    font-size: 12px;
-    line-height: 16px;
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+
+    .label,
+    .description {
+      color: $neutral-6;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+      font-weight: 400;
+      word-break: break-all;
+      padding: 0 spacing(1);
+      box-sizing: border-box;
+      text-align: center;
+      max-width: 183px;
+    }
+
+    .label {
+      font-size: 14px;
+      line-height: 20px;
+
+      &.selected {
+        color: $neutral-7;
+      }
+
+      &.disabled,
+      &.disabled.selected {
+        color: $neutral-5;
+      }
+    }
+
+    .description {
+      font-size: 12px;
+      line-height: 16px;
+    }
   }
 
   &.default {
@@ -125,11 +146,15 @@
 
 .step.clickable {
   cursor: pointer;
+
   &:hover,
   &:active {
-    .label,
-    .description {
+    .text-container * {
       color: $primary-5;
+    }
+
+    &.error .text-container * {
+      color: $negative-5;
     }
   }
 
