@@ -70,6 +70,14 @@ export class IonModalService {
           return;
         }
 
+        if (
+          this.currentModalControl.ref.instance.configuration
+            .preventCloseOnConfirm
+        ) {
+          this.emitValue(valueFromModal);
+          return;
+        }
+
         this.emitValueAndCloseModal(valueFromModal);
       }
     );
@@ -81,6 +89,10 @@ export class IonModalService {
     );
 
     return this.currentModalControl.subscriber.asObservable();
+  }
+
+  emitValue(valueToEmit: IonModalResponse | unknown): void {
+    this.currentModalControl.subscriber.next(valueToEmit);
   }
 
   emitValueAndCloseModal(valueToEmit: IonModalResponse | unknown): void {

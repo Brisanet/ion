@@ -1,10 +1,22 @@
-import { SimpleChange } from '@angular/core';
+import { Component, SimpleChange } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { TripleToggleProps } from '../core/types';
 import { IonSharedModule } from '../shared.module';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { SafeAny } from '../utils/safe-any';
 import { IonTripleToggleComponent } from './triple-toggle.component';
+import userEvent from '@testing-library/user-event';
+
+@Component({
+  template: `
+    <div>
+      <ion-triple-toggle data-testid="first-triple-toggle"></ion-triple-toggle>
+      <ion-triple-toggle data-testid="second-triple-toggle"></ion-triple-toggle>
+    </div>
+  `,
+  selector: 'test-multiple-triple-toggle',
+})
+class MultipleTripleToggleComponent {}
 
 const tripleToggleId = 'ion-triple-toggle';
 const firstOptionId = 'btn-Sim';
@@ -130,4 +142,24 @@ describe('IonTripleToggleComponent', () => {
     fireEvent.click(middleOption);
     clickEvent.mockClear();
   });
+});
+
+describe('MultipleTripleToggleComponent', () => {
+  const options = [firstOptionId, middleOptionId, lastOptionId];
+
+  it.each(options)(
+    'should select %s from the first triple Toggle, without modifying the second tripleToggle',
+    async (btns) => {
+      await render(MultipleTripleToggleComponent, {
+        declarations: [IonTripleToggleComponent],
+        imports: [IonSharedModule, IonTooltipModule],
+      });
+      const btnNeltralSecond = screen.getAllByRole('button')[4];
+      const [btn1] = screen.getAllByTestId(btns);
+
+      await userEvent.click(btn1);
+      expect(btn1).toHaveClass(selectedOption);
+      expect(btnNeltralSecond).toHaveClass(selectedOption);
+    }
+  );
 });
