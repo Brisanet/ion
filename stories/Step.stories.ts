@@ -1,6 +1,5 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 
-import { StepDirection } from '../projects/ion/src/lib/core/types/steps';
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonStepsComponent } from '../projects/ion/src/lib/step/step.component';
 import { PipesModule } from '../projects/ion/src/lib/utils/pipes/pipes.module';
@@ -42,7 +41,7 @@ export default {
     direction: {
       name: 'direction',
       control: 'radio',
-      options: [...Object.values(StepDirection)],
+      options: ['horizontal', 'vertical'],
       defaultValue: 'horizontal',
     },
   },
@@ -155,6 +154,7 @@ WithLongDescription.args = {
 
 export const PreventStepChange = Template.bind({});
 PreventStepChange.args = {
+  clickable: true,
   preventStepChange: true,
   steps: [
     {

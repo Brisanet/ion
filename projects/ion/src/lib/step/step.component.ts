@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { StepStatus, StepType, StepConfig, StepDirection } from '../core/types';
+import { StepStatus, StepType, StepConfig } from '../core/types';
 
 @Component({
   selector: 'ion-steps',
@@ -15,12 +15,12 @@ import { StepStatus, StepType, StepConfig, StepDirection } from '../core/types';
   styleUrls: ['./step.component.scss'],
 })
 export class IonStepsComponent implements OnInit, OnChanges {
-  @Input() current = 1;
-  @Input() steps: StepType[];
-  @Input() disabled = false;
-  @Input() clickable: boolean;
-  @Input() preventStepChange = false;
-  @Input() direction: StepConfig['direction'] = StepDirection.HORIZONTAL;
+  @Input() current: StepConfig['current'] = 1;
+  @Input() steps: StepConfig['steps'];
+  @Input() disabled: StepConfig['disabled'] = false;
+  @Input() clickable: StepConfig['clickable'];
+  @Input() preventStepChange: StepConfig['preventStepChange'] = false;
+  @Input() direction: StepConfig['direction'] = 'horizontal';
   @Output() indexChange = new EventEmitter<number>();
 
   public firstCatchStatus = true;

@@ -1,3 +1,5 @@
+import { DirectionType } from './direction';
+
 export interface StepType {
   label: string;
   description?: string;
@@ -17,7 +19,7 @@ export type StepConfig = {
   disabled?: boolean;
   steps: StepType[];
   clickable?: boolean;
-  direction?: StepDirection;
+  direction?: DirectionType;
   preventStepChange?: boolean;
 };
 
@@ -26,9 +28,4 @@ export enum StepStatus {
   SELECTED = 'selected',
   CHECKED = 'checked',
   ERROR = 'error',
-}
-
-export enum StepDirection {
-  HORIZONTAL = 'horizontal',
-  VERTICAL = 'vertical',
 }

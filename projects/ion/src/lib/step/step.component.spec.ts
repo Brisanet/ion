@@ -2,12 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { fireEvent, render, screen } from '@testing-library/angular';
-import {
-  StepConfig,
-  StepType,
-  StepDirection,
-  StepStatus,
-} from '../core/types/steps';
+import { StepConfig, StepType, StepStatus } from '../core/types/steps';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonStepsComponent } from './step.component';
 import { PipesModule } from '../utils/pipes/pipes.module';
@@ -51,7 +46,7 @@ describe('Static IonStepsComponent', () => {
   });
 
   it('should render step in vertical direction', async () => {
-    await sut({ ...defaultProps, direction: StepDirection.VERTICAL });
+    await sut({ ...defaultProps, direction: 'vertical' });
     expect(screen.getByTestId('ion-steps')).toHaveClass(
       'step-direction-vertical'
     );
