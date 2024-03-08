@@ -31,6 +31,9 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   @Input() onlyShowIcon = false;
   @Output() ionClick = new EventEmitter();
 
+  public optionsToRender: TripleToggleOptionsToRender;
+  public middleOptionIndex = 1;
+
   private DEFAULT_LEFT_OPTION: TripleToggleOption = {
     value: true,
     label: 'Sim',
@@ -44,9 +47,6 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
     value: false,
     label: 'Não',
   };
-
-  public optionsToRender: TripleToggleOptionsToRender;
-  public middleOptionIndex = 1;
 
   handleClick(option: TripleToggleOption): void {
     this.selectOption(option);
