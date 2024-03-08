@@ -34,6 +34,7 @@ const Template: Story = (args) => ({
       [modeAccordion]="modeAccordion"
       [templateHeader]="customHeader"
       [templateBody]="customBody"
+      [hideChevron]="hideChevron"
     >
     </ion-accordion>
 
@@ -57,6 +58,7 @@ const Template: Story = (args) => ({
 export const Accordion = Template.bind({});
 Accordion.args = {
   accordions: accordions,
+  hideChevron: false,
 };
 
 export const AccordionWithModeAccordionFalse = Template.bind({});

@@ -9,13 +9,18 @@ import { IonAccordionItemProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
 @Component({
-  template: `<ion-accordion-item [templateHeader]="customHeader" [data]="data">
+  template: `<ion-accordion-item
+      [templateHeader]="customHeader"
+      [data]="data"
+      [hideChevron]="hideChevron"
+    >
       <p data-testid="ion-accordion-item__main-paragraph">Context Main</p>
     </ion-accordion-item>
     <ng-template #customHeader> {{ data.name }}</ng-template>`,
 })
 class AccordionItemTestComponent {
   data = { name: 'Accordion header' };
+  hideChevron = false;
 }
 
 @NgModule({
@@ -51,6 +56,16 @@ describe('IonAccordionItem', () => {
     expect(screen.getByTestId('ion-accordion-item__header')).toHaveTextContent(
       accordionHeader
     );
+  });
+
+  it('should render the chevron by default', async () => {
+    expect(document.getElementById('ion-icon-semi-down')).toBeTruthy();
+  });
+
+  it('should not render the chevron when informed', async () => {
+    accordionTestComponent.hideChevron = true;
+    fixture.detectChanges();
+    expect(document.getElementById('ion-icon-semi-down')).toBeFalsy();
   });
 
   it('should render main when clicking on header', async () => {

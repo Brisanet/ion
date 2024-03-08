@@ -12,6 +12,7 @@ export interface IonAccordionItemProps {
   templateHeader: TemplateRef<HTMLElement>;
   data?: Record<string, SafeAny>;
   show?: boolean;
+  hideChevron?: boolean;
   activeChange?: EventEmitter<void>;
 }
 
@@ -20,5 +21,6 @@ export interface IonAccordionProps {
   templateHeader: TemplateRef<HTMLElement>;
   templateAccordionBody: TemplateRef<HTMLElement>;
   modeAccordion?: boolean;
+  hideChevron?: boolean;
   activeChange?: EventEmitter<AccordionItemOutput>;
 }
