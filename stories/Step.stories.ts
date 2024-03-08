@@ -1,6 +1,8 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
+
 import { IonIconComponent } from '../projects/ion/src/lib/icon/icon.component';
 import { IonStepsComponent } from '../projects/ion/src/lib/step/step.component';
+import { PipesModule } from '../projects/ion/src/lib/utils/pipes/pipes.module';
 
 export default {
   title: 'Ion/Navigation/Steps',
@@ -8,8 +10,41 @@ export default {
   decorators: [
     moduleMetadata({
       declarations: [IonIconComponent],
+      imports: [PipesModule],
     }),
   ],
+  argTypes: {
+    current: {
+      name: 'current',
+      control: 'number',
+      defaultValue: 1,
+    },
+    steps: {
+      name: 'steps',
+      type: { name: 'array' },
+    },
+    disabled: {
+      name: 'disabled',
+      type: { name: 'boolean' },
+      defaultValue: false,
+    },
+    clickable: {
+      name: 'clickable',
+      type: { name: 'boolean' },
+      defaultValue: false,
+    },
+    preventStepChange: {
+      name: 'preventStepChange',
+      type: { name: 'boolean' },
+      defaultValue: false,
+    },
+    direction: {
+      name: 'direction',
+      control: 'radio',
+      options: ['horizontal', 'vertical'],
+      defaultValue: 'horizontal',
+    },
+  },
 } as Meta;
 
 const Template: Story<IonStepsComponent> = (args: IonStepsComponent) => ({
@@ -87,5 +122,74 @@ WithError.args = {
     {
       label: 'Fourty',
     },
+  ],
+};
+
+export const Vertical = Template.bind({});
+Vertical.args = {
+  direction: 'vertical',
+  steps: [
+    {
+      label: 'First',
+      description: '(optional)',
+    },
+    { label: 'Second' },
+    { label: 'Third' },
+  ],
+};
+
+export const WithLongDescription = Template.bind({});
+WithLongDescription.args = {
+  direction: 'vertical',
+  steps: [
+    {
+      label: 'First',
+      description:
+        'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.',
+    },
+    { label: 'Second' },
+    { label: 'Third' },
+  ],
+};
+
+export const PreventStepChange = Template.bind({});
+PreventStepChange.args = {
+  clickable: true,
+  preventStepChange: true,
+  steps: [
+    {
+      label: 'First',
+      description: '(optional)',
+    },
+    { label: 'Second' },
+    { label: 'Third' },
+  ],
+};
+
+export const WithErrorInOtherStep = Template.bind({});
+WithErrorInOtherStep.args = {
+  steps: [
+    {
+      label: 'First',
+      description: '(optional)',
+      status: 'error',
+    },
+    { label: 'Second', status: 'checked' },
+    { label: 'Third', status: 'selected' },
+  ],
+};
+
+export const WithStepClickableWhenHasError = Template.bind({});
+WithStepClickableWhenHasError.args = {
+  clickable: true,
+  steps: [
+    {
+      label: 'First',
+      description: '(optional)',
+      status: 'error',
+      clickableWhenHasError: true,
+    },
+    { label: 'Second', status: 'checked' },
+    { label: 'Third', status: 'selected' },
   ],
 };

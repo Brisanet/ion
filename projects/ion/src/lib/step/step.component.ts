@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { Status, StatusType, StepType } from '../core/types/steps';
+import { StepStatus, StepType, StepConfig } from '../core/types';
 
 @Component({
   selector: 'ion-steps',
@@ -15,28 +15,30 @@ import { Status, StatusType, StepType } from '../core/types/steps';
   styleUrls: ['./step.component.scss'],
 })
 export class IonStepsComponent implements OnInit, OnChanges {
-  @Input() current = 1;
-  @Input() steps: StepType[];
-  @Input() disabled = false;
-  @Input() clickable: boolean;
+  @Input() current: StepConfig['current'] = 1;
+  @Input() steps: StepConfig['steps'];
+  @Input() disabled: StepConfig['disabled'] = false;
+  @Input() clickable: StepConfig['clickable'];
+  @Input() preventStepChange: StepConfig['preventStepChange'] = false;
+  @Input() direction: StepConfig['direction'] = 'horizontal';
   @Output() indexChange = new EventEmitter<number>();
 
   public firstCatchStatus = true;
 
   FIRST_STEP = 1;
 
-  stepStatus(step: StepType, currentIndex: number): StatusType {
-    if (step.index < currentIndex) return Status.checked;
-    if (step.index === currentIndex) return Status.selected;
-    return Status.default;
+  stepStatus(step: StepType, currentIndex: number): StepStatus {
+    if (step.index < currentIndex) return StepStatus.CHECKED;
+    if (step.index === currentIndex) return StepStatus.SELECTED;
+    return StepStatus.DEFAULT;
   }
 
-  checkStartedStatus(step: StepType, currentIndex: number): StatusType {
+  checkStartedStatus(step: StepType, currentIndex: number): StepStatus {
     return step.status ? step.status : this.stepStatus(step, currentIndex);
   }
 
   changeStep(currentIndex: number): void {
-    if (currentIndex < 1 || currentIndex > this.steps.length) {
+    if (currentIndex < this.FIRST_STEP || currentIndex > this.steps.length) {
       return;
     }
 
@@ -49,13 +51,16 @@ export class IonStepsComponent implements OnInit, OnChanges {
       };
     });
 
+    this.formatStepLines();
     this.firstCatchStatus = false;
   }
 
   goesTo(index: number): void {
     if (this.clickable && !this.disabled) {
       this.indexChange.emit(index);
-      this.changeStep(index);
+      if (!this.preventStepChange) {
+        this.changeStep(index);
+      }
     }
   }
 
@@ -67,6 +72,9 @@ export class IonStepsComponent implements OnInit, OnChanges {
     if (changes.current && !changes.current.firstChange) {
       this.changeStep(changes.current.currentValue);
     }
+    if (changes.steps && !changes.steps.firstChange) {
+      this.formatStepLines();
+    }
   }
 
   private generateIndexesForStep(): void {
@@ -74,5 +82,26 @@ export class IonStepsComponent implements OnInit, OnChanges {
       step.index = index + 1;
     });
     this.changeStep(this.current);
+  }
+
+  private formatStepLines(): void {
+    this.steps = this.steps.map((step, index) => ({
+      ...step,
+      lines: {
+        isPreviousBolded: this.shouldConnectSteps(this.steps[index - 1], step),
+        isNextBolded: this.shouldConnectSteps(step, this.steps[index + 1]),
+      },
+    }));
+  }
+
+  private shouldConnectSteps(
+    firstStep?: StepType,
+    secondStep?: StepType
+  ): boolean {
+    return (
+      !!firstStep &&
+      !!secondStep &&
+      ![firstStep.status, secondStep.status].includes(StepStatus.DEFAULT)
+    );
   }
 }
