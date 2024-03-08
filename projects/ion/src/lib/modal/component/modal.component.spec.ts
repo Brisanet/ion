@@ -222,6 +222,37 @@ describe('IonModalComponent', () => {
     expect(modalElement).toBe(`${modalConfig.width}px`);
   });
 
+  it('should render the modal with a custom class when informed', () => {
+    const customClass = 'custom-modal';
+    const configuration: IonModalConfiguration = {
+      id: '1',
+      title: 'Ion Test',
+
+      footer: {
+        showDivider: false,
+        primaryButton: {
+          label: 'Ion Cancel',
+          iconType: 'icon',
+        },
+        secondaryButton: {
+          label: 'Ion Confirm',
+          iconType: 'icon',
+        },
+      },
+      customClass,
+
+      headerButton: {
+        icon: 'left',
+        label: 'voltar',
+      },
+    };
+    component.setConfig(configuration);
+    component.ngOnInit();
+    fixture.detectChanges();
+
+    expect(screen.getByTestId('modalOverlay')).toHaveClass(customClass);
+  });
+
   describe('IonModalComponent - Header left button', () => {
     const configuration: IonModalConfiguration = {
       id: '1',

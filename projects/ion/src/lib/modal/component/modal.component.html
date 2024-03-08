@@ -1,6 +1,9 @@
 <div
+  [ngClass]="
+    (configuration.customClass ? configuration.customClass : '') +
+    ' modal-overlay'
+  "
   [class.hide]="!configuration.showOverlay"
-  class="modal-overlay"
   data-testid="modalOverlay"
   (click)="configuration.overlayCanDismiss && closeModal()"
 >
