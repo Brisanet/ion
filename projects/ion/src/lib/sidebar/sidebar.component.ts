@@ -1,4 +1,10 @@
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { IonSidebarProps } from '../core/types/sidebar';
 import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
@@ -12,6 +18,9 @@ export class IonSidebarComponent {
   @Input() logoAction?: () => void;
   @Input() items: IonSidebarProps['items'] = [];
   @Input() closeOnSelect = false;
+  @Input() shrinkMode = false;
+  @Input() sidebarFooter?: TemplateRef<void>;
+  @Output() ionOnSidebarToggle = new EventEmitter<boolean>();
 
   public closed = true;
 
@@ -30,6 +39,8 @@ export class IonSidebarComponent {
 
   public toggleSidebarVisibility(): void {
     this.closed = !this.closed;
+    this.ionOnSidebarToggle.emit(this.closed);
+
     if (!this.closed) {
       setTimeout(() => {
         document.addEventListener('click', this.checkClikOnPageAccess);

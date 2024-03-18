@@ -21,10 +21,22 @@ export class IonSidebarGroupComponent implements OnChanges {
   @Input() items: Item[] = [];
   @Input() selected = false;
   @Input() haveGroupAction = false;
+  @Input() shrinkMode = false;
+  @Input() sidebarClosed = true;
   @Output() atClick = new EventEmitter();
   @Output() atGroupClick = new EventEmitter();
 
   public closed = true;
+
+  headerIconHovered = false;
+
+  public changeIconHover(mouseEnter: boolean): void {
+    if ((this.shrinkMode && !this.sidebarClosed) || !this.shrinkMode) {
+      return;
+    }
+
+    this.headerIconHovered = mouseEnter;
+  }
 
   public toggleItemsVisibility(): void {
     this.closed = !this.closed;

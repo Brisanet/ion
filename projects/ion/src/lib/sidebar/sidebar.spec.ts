@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { render, screen, within } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
-import { IonSidebarProps } from '../core/types/sidebar';
+import { IonTooltipModule } from './../tooltip/tooltip.module';
 import { IonIconModule } from '../icon/icon.module';
+import { IonSidebarProps } from '../core/types/sidebar';
 import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { IonSidebarComponent } from './sidebar.component';
@@ -61,7 +62,7 @@ const sut = async (
   await render(IonSidebarComponent, {
     componentProperties: { ...props },
     declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
-    imports: [CommonModule, IonIconModule, IonButtonModule],
+    imports: [CommonModule, IonIconModule, IonButtonModule, IonTooltipModule],
   });
 };
 
@@ -220,7 +221,12 @@ describe('Sidebar', () => {
 
       await render(IonSidebarComponent, {
         declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
-        imports: [CommonModule, IonIconModule, IonButtonModule],
+        imports: [
+          CommonModule,
+          IonIconModule,
+          IonButtonModule,
+          IonTooltipModule,
+        ],
       });
 
       userEvent.click(getByTestId('toggleVisibility').firstElementChild);
@@ -303,6 +309,50 @@ describe('Sidebar', () => {
     it('should close sidebar when logo is clicked', async () => {
       userEvent.click(screen.getByRole('img'));
       expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
+    });
+  });
+
+  describe('Sidebar - Shrink Mode', () => {
+    const toggleSidebar = (): void => {
+      fireEvent.click(
+        within(screen.getByTestId('ion-sidebar__toggle-visibility')).getByRole(
+          'button'
+        )
+      );
+    };
+
+    beforeEach(async () => {
+      await sut({ items, logo, shrinkMode: true });
+    });
+
+    describe('Sidebar - Shrink Mode - Shrinked', () => {
+      it('should not render the logo when shrinked', () => {
+        expect(
+          screen.queryByTestId('ion-sidebar__logo')
+        ).not.toBeInTheDocument();
+      });
+
+      it('should not render the item and group titles when shrinked', () => {
+        const titles = screen.queryAllByTestId('ion-sidebar-item__text');
+        titles.forEach((title) => {
+          expect(title).not.toBeInTheDocument();
+        });
+      });
+    });
+
+    describe('Sidebar - Shrink Mode - Expanded', () => {
+      beforeEach(toggleSidebar);
+      afterEach(toggleSidebar);
+      it('should render the logo when expanded', () => {
+        expect(screen.queryByTestId('ion-sidebar__logo')).toBeVisible();
+      });
+
+      it('should render the item and group titles when shrinked', () => {
+        const titles = screen.queryAllByTestId('ion-sidebar-item__text');
+        titles.forEach((title) => {
+          expect(title).toBeInTheDocument();
+        });
+      });
     });
   });
 });

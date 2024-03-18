@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonIconModule } from '../../icon/icon.module';
+import { IonTooltipModule } from './../../tooltip/tooltip.module';
 import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { IonSidebarGroupComponent } from './sidebar-group.component';
 
@@ -36,6 +37,7 @@ const mockGroup: Partial<IonSidebarGroupComponent> = {
       action: actionMock,
     },
   ],
+  sidebarClosed: false,
 };
 
 const sut = async (
@@ -44,7 +46,7 @@ const sut = async (
   await render(IonSidebarGroupComponent, {
     componentProperties: { ...props },
     declarations: [IonSidebarItemComponent],
-    imports: [IonIconModule],
+    imports: [IonIconModule, IonTooltipModule],
   });
 };
 
@@ -150,5 +152,21 @@ describe('Sidebar Group - with disabled items', () => {
   });
   it('should render item disabled', () => {
     expect(getByTestId('firstItem').firstElementChild).toBeDisabled();
+  });
+});
+
+describe('Sidebar Group - Shrink mode', () => {
+  beforeEach(async () => {
+    await sut({
+      ...mockGroup,
+      shrinkMode: true,
+      sidebarClosed: true,
+    });
+  });
+
+  it('should change the icon on hover when the sidebar is shrinked', () => {
+    fireEvent.mouseEnter(screen.getByTestId(components.header));
+    expect(document.getElementById('ion-icon-box')).toBeFalsy();
+    expect(document.getElementById('ion-icon-semi-down')).toBeInTheDocument();
   });
 });

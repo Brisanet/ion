@@ -16,20 +16,21 @@
   position: absolute;
   z-index: 999;
   width: 256px;
-  min-height: 100vh;
+  height: 100vh;
   left: 0px;
   top: 0px;
   background: $neutral-1;
   box-shadow: 4px 0px 8px rgba(4, 42, 98, 0.15);
-  padding: spacing(3);
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
   transform: translateX(-110%);
-  transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s ease-in-out, width 0.25s ease-in-out;
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: spacing(4);
+    padding: spacing(3) spacing(3) spacing(2) spacing(3);
     @include icon-color($primary-color);
     img {
       width: 75%;
@@ -41,13 +42,70 @@
     flex-direction: column;
     align-items: stretch;
     gap: 16px;
+    padding: spacing(2) spacing(3);
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+  }
+
+  &__footer {
+    justify-self: stretch;
+    border-top: 1px solid $neutral-4;
+    padding: spacing(3);
+    display: flex;
+    justify-content: center;
+  }
+
+  &--shrinked {
+    transform: translateX(0);
+    width: 100px;
+
+    .ion-sidebar__header {
+      padding: spacing(3) spacing(3) spacing(2);
+      justify-content: center;
+    }
+
+    .ion-sidebar__items {
+      align-items: center !important;
+      padding: spacing(2) spacing(2.5);
+      padding-left: spacing(3);
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+    }
+
+    .ion-sidebar__footer {
+      max-width: 100%;
+      overflow-x: hidden;
+      padding: spacing(3) spacing(2.5);
+    }
   }
 
   &--opened {
     transform: translateX(0px);
-    transition: transform 0.25s ease-in-out;
+    transition: transform 0.25s ease-in-out, width 0.25s ease-in-out;
   }
+
   &__logo--pointer {
     cursor: pointer;
   }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: $neutral-3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $neutral-4;
 }

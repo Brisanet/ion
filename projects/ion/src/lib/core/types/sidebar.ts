@@ -13,4 +13,5 @@ export interface IonSidebarProps {
   logoAction?: () => void;
   items: (Item & { options?: [Item, ...Item[]] })[];
   closeOnSelect?: boolean;
+  shrinkMode?: boolean;
 }

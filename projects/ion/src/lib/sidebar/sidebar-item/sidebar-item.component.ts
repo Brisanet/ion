@@ -11,6 +11,9 @@ export class IonSidebarItemComponent {
   @Input() icon: IconType = '';
   @Input() selected = false;
   @Input() disabled = false;
+  @Input() shrinkMode = false;
+  @Input() sidebarClosed = true;
+  @Input() inGroup = false;
   @Output() atClick = new EventEmitter();
 
   public selectItem(): void {
