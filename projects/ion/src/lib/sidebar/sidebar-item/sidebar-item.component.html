@@ -2,7 +2,7 @@
   data-testid="ion-sidebar-item"
   class="ion-sidebar-item"
   ionTooltip
-  [ionTooltipTitle]="title"
+  [ionTooltipTitle]="sidebarClosed && title"
   ionTooltipPosition="centerLeft"
   [class.ion-sidebar-item--selected]="selected"
   [class.ion-sidebar-item--shrunk]="shrinkMode && sidebarClosed"
@@ -13,6 +13,12 @@
   <div>
     <ion-icon class="ion-sidebar-item__icon" [type]="icon"></ion-icon>
     <span
+      ionTooltip
+      [ionTooltipTitle]="
+        itemTitle.offsetWidth < itemTitle.scrollWidth ? title : ''
+      "
+      ionTooltipPosition="centerLeft"
+      #itemTitle
       class="ion-sidebar-item__text"
       data-testid="ion-sidebar-item__text"
       *ngIf="(shrinkMode && !sidebarClosed) || !shrinkMode"

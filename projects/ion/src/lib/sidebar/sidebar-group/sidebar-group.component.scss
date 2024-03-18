@@ -33,6 +33,7 @@
       display: flex;
       align-items: center;
       gap: spacing(1);
+      overflow: hidden;
     }
   }
 
@@ -64,6 +65,12 @@
     .sidebar-group__toggle-icon {
       cursor: pointer;
     }
+  }
+
+  &__text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &--opened {
@@ -115,12 +122,22 @@
       padding-bottom: 12px;
       @include icon-color($primary-7);
       transition: padding 0.25s ease-in-out;
+
+      & div {
+        @include icon-color($primary-7);
+        background-color: $primary-2;
+      }
     }
 
     &.sidebar-group--opened:has(.sidebar-group__header:active) {
       padding-bottom: 0;
       max-height: -8px;
       overflow: hidden;
+
+      & div {
+        @include icon-color($primary-7);
+        background-color: $primary-2;
+      }
     }
   }
 }

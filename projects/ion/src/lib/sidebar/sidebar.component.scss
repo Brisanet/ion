@@ -35,6 +35,7 @@
     img {
       width: 75%;
     }
+    overflow: hidden;
   }
 
   &__items {
@@ -44,6 +45,7 @@
     gap: 16px;
     padding: spacing(2) spacing(3);
     overflow-y: scroll;
+    overflow-x: hidden;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -56,6 +58,7 @@
     padding: spacing(3);
     display: flex;
     justify-content: center;
+    overflow: hidden;
   }
 
   &--shrinked {

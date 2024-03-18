@@ -35,7 +35,7 @@
     class="sidebar-group__header sidebar-group__header--with-action"
     data-testid="sidebar-group__header"
     ionTooltip
-    [ionTooltipTitle]="title"
+    [ionTooltipTitle]="sidebarClosed && title"
     ionTooltipPosition="centerLeft"
   >
     <div (click)="groupSelected()">
@@ -44,6 +44,12 @@
         [type]="icon"
       ></ion-icon>
       <span
+        ionTooltip
+        [ionTooltipTitle]="
+          itemTitle.offsetWidth < itemTitle.scrollWidth ? title : ''
+        "
+        ionTooltipPosition="centerLeft"
+        #itemTitle
         data-testid="sidebar-group__title"
         *ngIf="(shrinkMode && !sidebarClosed) || !shrinkMode"
         >{{ title }}</span
@@ -83,6 +89,13 @@
         "
       ></ion-icon>
       <span
+        ionTooltip
+        [ionTooltipTitle]="
+          itemTitle.offsetWidth < itemTitle.scrollWidth ? title : ''
+        "
+        ionTooltipPosition="centerLeft"
+        #itemTitle
+        class="sidebar-group__text"
         data-testid="sidebar-group__title"
         *ngIf="(shrinkMode && !sidebarClosed) || !shrinkMode"
         >{{ title }}</span
