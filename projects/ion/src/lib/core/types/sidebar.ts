@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { IconType } from './icon';
 
 export interface Item {
@@ -14,4 +15,5 @@ export interface IonSidebarProps {
   items: (Item & { options?: [Item, ...Item[]] })[];
   closeOnSelect?: boolean;
   shrinkMode?: boolean;
+  ionOnSidebarToggle?: EventEmitter<boolean>;
 }

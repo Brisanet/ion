@@ -8,6 +8,7 @@ import { IonSidebarProps } from '../core/types/sidebar';
 import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { IonSidebarComponent } from './sidebar.component';
+import { SafeAny } from '../utils/safe-any';
 
 const components = {
   sidebar: 'ion-sidebar',
@@ -309,6 +310,26 @@ describe('Sidebar', () => {
     it('should close sidebar when logo is clicked', async () => {
       userEvent.click(screen.getByRole('img'));
       expect(getByTestId('sidebar')).not.toHaveClass('ion-sidebar--opened');
+    });
+  });
+
+  describe('Event emission', () => {
+    it('should emit an event when the sidebar state changes', async () => {
+      const toggleEvent = jest.fn();
+      await sut({
+        items,
+        logo,
+        ionOnSidebarToggle: {
+          emit: toggleEvent,
+        } as SafeAny,
+      });
+
+      fireEvent.click(
+        within(screen.getByTestId(components.toggleVisibility)).getByRole(
+          'button'
+        )
+      );
+      expect(toggleEvent).toBeCalled();
     });
   });
 
