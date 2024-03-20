@@ -28,7 +28,7 @@ import { action } from '@storybook/addon-actions';
           (ionOnSidebarToggle)="updateSidebarState($event)"
         ></ion-sidebar>
         <ng-template #footerTemplate>
-          <div class="footer-content">
+          <div class="footer-content" data-testid="footer-content">
             <div class="avatar-circle"></div>
             <h3 *ngIf="!sidebarClosed">Footer Title</h3>
           </div>
@@ -38,8 +38,8 @@ import { action } from '@storybook/addon-actions';
   `,
 })
 export class SidebarWithFooterComponent {
-  sidebarClosed = true;
   logo = require('../../../../../../stories/assets/sidebar-logo.svg');
+  sidebarClosed = true;
   items = [
     {
       title: 'Gerenciamento',

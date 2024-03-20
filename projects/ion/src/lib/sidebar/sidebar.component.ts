@@ -1,4 +1,6 @@
 import {
+  AfterViewChecked,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -13,7 +15,7 @@ import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class IonSidebarComponent {
+export class IonSidebarComponent implements AfterViewChecked {
   @Input() logo!: string;
   @Input() logoAction?: () => void;
   @Input() items: IonSidebarProps['items'] = [];
@@ -23,6 +25,12 @@ export class IonSidebarComponent {
   @Output() ionOnSidebarToggle = new EventEmitter<boolean>();
 
   public closed = true;
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
+  }
 
   public checkClikOnPageAccess = (event): void => {
     const containerElement = document.querySelector('.ion-sidebar--opened');

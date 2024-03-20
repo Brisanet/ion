@@ -1,10 +1,7 @@
 import { Meta, Story } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { SidebarWithFooterComponent } from '../projects/ion/src/lib/sidebar/mocks/sidebarWithFooter.component';
-import {
-  IonButtonModule,
-  IonSidebarModule,
-} from '../projects/ion/src/public-api';
+import { IonSidebarModule } from '../projects/ion/src/public-api';
 
 export default {
   title: 'Ion/Navigation/Sidebar',
@@ -12,13 +9,13 @@ export default {
 } as Meta<SidebarWithFooterComponent>;
 
 const Template: Story<SidebarWithFooterComponent> = (args) => ({
+  component: SidebarWithFooterComponent,
   props: {
     ...args,
   },
-  component: SidebarWithFooterComponent,
   moduleMetadata: {
     declarations: [SidebarWithFooterComponent],
-    imports: [CommonModule, IonSidebarModule, IonButtonModule],
+    imports: [CommonModule, IonSidebarModule],
     entryComponents: [SidebarWithFooterComponent],
   },
 });

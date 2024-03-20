@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { fireEvent, render, screen, within } from '@testing-library/angular';
+import {
+  RenderResult,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { IonButtonModule } from '../button/button.module';
 import { IonTooltipModule } from './../tooltip/tooltip.module';
@@ -9,6 +15,8 @@ import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.componen
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { IonSidebarComponent } from './sidebar.component';
 import { SafeAny } from '../utils/safe-any';
+import { IonSidebarModule } from './sidebar.module';
+import { Component } from '@angular/core';
 
 const components = {
   sidebar: 'ion-sidebar',
@@ -64,6 +72,36 @@ const sut = async (
     componentProperties: { ...props },
     declarations: [IonSidebarItemComponent, IonSidebarGroupComponent],
     imports: [CommonModule, IonIconModule, IonButtonModule, IonTooltipModule],
+  });
+};
+
+@Component({
+  template: `
+    <div>
+      <div>
+        <ion-sidebar
+          [items]="items"
+          [shrinkMode]="true"
+          [sidebarFooter]="footerTemplate"
+        ></ion-sidebar>
+      </div>
+    </div>
+    <ng-template #footerTemplate>
+      <div class="footer-content" data-testid="footer-content"></div>
+    </ng-template>
+  `,
+})
+export class SidebarWithFooterTestComponent {
+  sidebarClosed = true;
+  items = items;
+}
+
+const sidebarWithFooter = async (): Promise<
+  RenderResult<SidebarWithFooterTestComponent>
+> => {
+  return await render(SidebarWithFooterTestComponent, {
+    imports: [CommonModule, IonSidebarModule],
+    declarations: [SidebarWithFooterTestComponent],
   });
 };
 
@@ -374,6 +412,13 @@ describe('Sidebar', () => {
           expect(title).toBeInTheDocument();
         });
       });
+    });
+  });
+
+  describe('Sidebar - With footer', () => {
+    it('should show the custom footer informed', async () => {
+      await sidebarWithFooter();
+      expect(screen.getByTestId('footer-content')).toBeVisible();
     });
   });
 });
