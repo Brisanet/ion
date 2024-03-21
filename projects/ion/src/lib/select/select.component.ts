@@ -63,6 +63,7 @@ export class IonSelectComponent implements OnChanges {
       const [option] = selectedOptions;
       if (option) {
         option.selected = true;
+        this.showDropdown = false;
       }
     }
     this.hasValue = !!selectedOptions.length;
