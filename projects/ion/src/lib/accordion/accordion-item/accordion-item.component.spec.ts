@@ -1,26 +1,21 @@
-import { screen, fireEvent, render } from '@testing-library/angular';
-import { Component, NgModule } from '@angular/core';
-import { IonAccordionModule } from '../accordion.module';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import { Component, NgModule } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { screen, fireEvent, render } from '@testing-library/angular';
+import { IonAccordionModule } from '../accordion.module';
 import { IonIconModule } from '../../icon/icon.module';
 import { IonAccordionItemComponent } from './accordion-item.component';
 import { IonAccordionItemProps } from '../../core/types';
 import { SafeAny } from '../../utils/safe-any';
 
 @Component({
-  template: `<ion-accordion-item
-      [templateHeader]="customHeader"
-      [data]="data"
-      [hideChevron]="hideChevron"
-    >
+  template: `<ion-accordion-item [templateHeader]="customHeader" [data]="data">
       <p data-testid="ion-accordion-item__main-paragraph">Context Main</p>
     </ion-accordion-item>
     <ng-template #customHeader> {{ data.name }}</ng-template>`,
 })
 class AccordionItemTestComponent {
   data = { name: 'Accordion header' };
-  hideChevron = false;
 }
 
 @NgModule({
@@ -60,12 +55,6 @@ describe('IonAccordionItem', () => {
 
   it('should render the chevron by default', async () => {
     expect(document.getElementById('ion-icon-semi-down')).toBeTruthy();
-  });
-
-  it('should not render the chevron when informed', async () => {
-    accordionTestComponent.hideChevron = true;
-    fixture.detectChanges();
-    expect(document.getElementById('ion-icon-semi-down')).toBeFalsy();
   });
 
   it('should render main when clicking on header', async () => {

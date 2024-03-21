@@ -18,7 +18,6 @@ export class IonAccordionComponent implements OnInit {
   @Input() templateBody: TemplateRef<HTMLElement>;
   @Input() modeAccordion = true;
   @Input() templateHeader: TemplateRef<HTMLElement>;
-  @Input() hideChevron = false;
   @Output()
   activeChange = new EventEmitter<AccordionItemOutput>();
 

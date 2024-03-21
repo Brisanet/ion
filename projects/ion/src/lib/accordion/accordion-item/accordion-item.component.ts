@@ -17,7 +17,6 @@ export class IonAccordionItemComponent implements OnInit {
   @Input() templateHeader: TemplateRef<HTMLElement>;
   @Input() show? = false;
   @Input() data?: SafeAny;
-  @Input() hideChevron = false;
   @Output() activeChange? = new EventEmitter<void>();
 
   iconSize = 24;
