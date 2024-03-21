@@ -67,6 +67,7 @@ describe('IonSelecComponent - mode: default', () => {
     });
     fireEvent.click(await getIonSelect());
     fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(await getIonSelect());
     fireEvent.click(await getOption(options[0].key));
     expect(await screen.queryByTestId('ion-select-item-selected-0')).toBeNull();
   });
@@ -88,6 +89,24 @@ describe('IonSelecComponent - mode: default', () => {
 
     fireEvent.click(getIonSelect());
     expect(screen.queryByTestId('ion-dropdown')).not.toBeInTheDocument();
+  });
+  it('should close the dropdown when a option is selected', async () => {
+    await sut({
+      options: getCopyOptions(),
+    });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    expect(screen.queryByTestId('ion-dropdown')).not.toBeInTheDocument();
+  });
+  it('should not close the dropdown when a option is unselected', async () => {
+    await sut({
+      options: getCopyOptions(),
+    });
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    fireEvent.click(await getIonSelect());
+    fireEvent.click(await getOption(options[0].key));
+    expect(screen.queryByTestId('ion-dropdown')).toBeVisible();
   });
 });
 
