@@ -29,6 +29,7 @@
   max-width: 208px;
   height: 40px;
   padding: spacing(1) spacing(2);
+  border: 1.5px solid transparent;
   background: $neutral-1;
   border-radius: 33px;
   color: $primary-color;
@@ -36,7 +37,7 @@
   font-size: 16px;
   line-height: 24px;
   cursor: pointer;
-  transition: all ease-in-out 0.1s;
+  transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
   @include icon-color($primary-color);
 
   & > div {
@@ -97,4 +98,15 @@
       border: 1.5px solid $primary-7;
     }
   }
+
+  &--shrunk {
+    padding: spacing(1);
+    height: unset;
+    justify-content: center;
+    width: unset;
+  }
+}
+
+.ion-sidebar-subitem {
+  padding: spacing(0.5);
 }

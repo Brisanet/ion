@@ -1,19 +1,22 @@
 <nav
   class="ion-sidebar"
   [class.ion-sidebar--opened]="!closed"
+  [class.ion-sidebar--shrinked]="closed && shrinkMode"
   data-testid="ion-sidebar"
 >
   <header class="ion-sidebar__header">
     <img
+      data-testid="ion-sidebar__logo"
+      *ngIf="(!closed && shrinkMode) || !shrinkMode"
       (click)="handleLogoClick()"
       [class.ion-sidebar__logo--pointer]="!!logoAction"
       [src]="logo"
       alt="logo"
     />
     <ion-button
-      *ngIf="!closed"
+      *ngIf="(!closed && !shrinkMode) || shrinkMode"
       data-testid="ion-sidebar__toggle-visibility"
-      iconType="left3"
+      [iconType]="closed ? 'right3' : 'left3'"
       size="lg"
       type="ghost"
       (ionOnClick)="toggleSidebarVisibility()"
@@ -27,6 +30,8 @@
           [icon]="item.icon"
           [selected]="item.selected"
           [disabled]="item.disabled"
+          [shrinkMode]="shrinkMode"
+          [sidebarClosed]="closed"
           [attr.data-testid]="'ion-sidebar__item-' + i"
           (atClick)="itemSelected(i)"
         ></ion-sidebar-item>
@@ -39,16 +44,22 @@
           [selected]="item.selected"
           [items]="item.options"
           [haveGroupAction]="!!item.action"
+          [shrinkMode]="shrinkMode"
+          [sidebarClosed]="closed"
           (atClick)="itemOnGroupSelected(i)"
           (atGroupClick)="groupSelected(i)"
         ></ion-sidebar-group>
       </ng-container>
     </ng-container>
   </section>
+  <footer *ngIf="sidebarFooter" class="ion-sidebar__footer">
+    <ng-container [ngTemplateOutlet]="sidebarFooter"></ng-container>
+  </footer>
 </nav>
 
 <span data-testid="ion-sidebar__outside-container">
   <ion-button
+    *ngIf="!shrinkMode"
     data-testid="ion-sidebar__toggle-visibility"
     iconType="sandwich"
     size="lg"

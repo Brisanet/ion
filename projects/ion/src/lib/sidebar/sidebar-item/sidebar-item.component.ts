@@ -9,12 +9,19 @@ import { IconType } from '../../core/types';
 export class IonSidebarItemComponent {
   @Input() title = '';
   @Input() icon: IconType = '';
+  @Input() selectable = true;
   @Input() selected = false;
   @Input() disabled = false;
+  @Input() shrinkMode = false;
+  @Input() sidebarClosed = true;
+  @Input() inGroup = false;
   @Output() atClick = new EventEmitter();
 
   public selectItem(): void {
-    this.selected = true;
     this.atClick.emit();
+    if (!this.selectable) {
+      return;
+    }
+    this.selected = true;
   }
 }

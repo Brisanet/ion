@@ -3,10 +3,12 @@
   class="sidebar-group"
   [class.sidebar-group--selected]="selected"
   [class.sidebar-group--opened]="!closed"
+  [class.sidebar-group--shrinked]="shrinkMode && sidebarClosed"
 >
   <ng-container
     [ngTemplateOutlet]="haveGroupAction ? headerWithAction : headerClickable"
   ></ng-container>
+
   <ul
     class="sidebar-group__items"
     data-testid="sidebar-group__items"
@@ -20,6 +22,9 @@
       [selected]="item.selected"
       [disabled]="item.disabled"
       [hidden]="closed && !item.selected"
+      [shrinkMode]="shrinkMode"
+      [sidebarClosed]="sidebarClosed"
+      [inGroup]="true"
       (atClick)="itemSelected(i)"
     ></ion-sidebar-item>
   </ul>
@@ -29,15 +34,29 @@
   <header
     class="sidebar-group__header sidebar-group__header--with-action"
     data-testid="sidebar-group__header"
+    ionTooltip
+    [ionTooltipTitle]="sidebarClosed && title"
+    ionTooltipPosition="centerLeft"
   >
     <div (click)="groupSelected()">
       <ion-icon
         data-testid="sidebar-group__title-icon"
         [type]="icon"
       ></ion-icon>
-      <span data-testid="sidebar-group__title">{{ title }}</span>
+      <span
+        ionTooltip
+        [ionTooltipTitle]="
+          itemTitle.offsetWidth < itemTitle.scrollWidth ? title : ''
+        "
+        ionTooltipPosition="centerLeft"
+        #itemTitle
+        data-testid="sidebar-group__title"
+        *ngIf="(shrinkMode && !sidebarClosed) || !shrinkMode"
+        >{{ title }}</span
+      >
     </div>
     <ion-icon
+      *ngIf="!sidebarClosed"
       class="sidebar-group__toggle-icon"
       data-testid="sidebar-group__toggle-icon"
       type="semi-down"
@@ -49,18 +68,41 @@
 
 <ng-template #headerClickable>
   <header
-    class="sidebar-group__header"
+    class="sidebar-group__header sidebar-group__header--clickable"
     data-testid="sidebar-group__header"
+    ionTooltip
+    [ionTooltipTitle]="sidebarClosed && title"
+    ionTooltipPosition="centerLeft"
     (click)="toggleItemsVisibility()"
+    (mouseenter)="changeIconHover(true)"
+    (mouseleave)="changeIconHover(false)"
   >
     <div>
       <ion-icon
         data-testid="sidebar-group__title-icon"
-        [type]="icon"
+        [type]="
+          headerIconHovered && shrinkMode
+            ? closed
+              ? 'semi-down'
+              : 'semi-up'
+            : icon
+        "
       ></ion-icon>
-      <span data-testid="sidebar-group__title">{{ title }}</span>
+      <span
+        ionTooltip
+        [ionTooltipTitle]="
+          itemTitle.offsetWidth < itemTitle.scrollWidth ? title : ''
+        "
+        ionTooltipPosition="centerLeft"
+        #itemTitle
+        class="sidebar-group__text"
+        data-testid="sidebar-group__title"
+        *ngIf="(shrinkMode && !sidebarClosed) || !shrinkMode"
+        >{{ title }}</span
+      >
     </div>
     <ion-icon
+      *ngIf="!sidebarClosed"
       class="sidebar-group__toggle-icon"
       data-testid="sidebar-group__toggle-icon"
       type="semi-down"

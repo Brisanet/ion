@@ -1,4 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { IonSidebarProps } from '../core/types/sidebar';
 import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
@@ -7,13 +15,22 @@ import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class IonSidebarComponent {
+export class IonSidebarComponent implements AfterViewChecked {
   @Input() logo!: string;
   @Input() logoAction?: () => void;
   @Input() items: IonSidebarProps['items'] = [];
   @Input() closeOnSelect = false;
+  @Input() shrinkMode = false;
+  @Input() sidebarFooter?: TemplateRef<void>;
+  @Output() ionOnSidebarToggle = new EventEmitter<boolean>();
 
   public closed = true;
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  ngAfterViewChecked(): void {
+    this.cdr.detectChanges();
+  }
 
   public checkClikOnPageAccess = (event): void => {
     const containerElement = document.querySelector('.ion-sidebar--opened');
@@ -30,6 +47,8 @@ export class IonSidebarComponent {
 
   public toggleSidebarVisibility(): void {
     this.closed = !this.closed;
+    this.ionOnSidebarToggle.emit(this.closed);
+
     if (!this.closed) {
       setTimeout(() => {
         document.addEventListener('click', this.checkClikOnPageAccess);
