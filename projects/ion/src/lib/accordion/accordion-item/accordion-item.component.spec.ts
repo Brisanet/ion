@@ -1,8 +1,8 @@
-import { screen, fireEvent, render } from '@testing-library/angular';
-import { Component, NgModule } from '@angular/core';
-import { IonAccordionModule } from '../accordion.module';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { CommonModule } from '@angular/common';
+import { Component, NgModule } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { screen, fireEvent, render } from '@testing-library/angular';
+import { IonAccordionModule } from '../accordion.module';
 import { IonIconModule } from '../../icon/icon.module';
 import { IonAccordionItemComponent } from './accordion-item.component';
 import { IonAccordionItemProps } from '../../core/types';
@@ -51,6 +51,10 @@ describe('IonAccordionItem', () => {
     expect(screen.getByTestId('ion-accordion-item__header')).toHaveTextContent(
       accordionHeader
     );
+  });
+
+  it('should render the chevron by default', async () => {
+    expect(document.getElementById('ion-icon-semi-down')).toBeTruthy();
   });
 
   it('should render main when clicking on header', async () => {
