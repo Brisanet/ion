@@ -9,6 +9,7 @@ import { IconType } from '../../core/types';
 export class IonSidebarItemComponent {
   @Input() title = '';
   @Input() icon: IconType = '';
+  @Input() selectable = true;
   @Input() selected = false;
   @Input() disabled = false;
   @Input() shrinkMode = false;
@@ -17,7 +18,10 @@ export class IonSidebarItemComponent {
   @Output() atClick = new EventEmitter();
 
   public selectItem(): void {
-    this.selected = true;
     this.atClick.emit();
+    if (!this.selectable) {
+      return;
+    }
+    this.selected = true;
   }
 }

@@ -43,11 +43,19 @@ describe('SidebarItem', () => {
       `${defaultClass}--selected`
     );
   });
-  it('should select on click', async () => {
+  it('should select on click by default', async () => {
     await sut();
     const element = screen.getByTestId(defaultTestId);
     userEvent.click(element);
     expect(element).toHaveClass(`${defaultClass}--selected`);
+  });
+  it('should not select on click when informed', async () => {
+    await sut({
+      selectable: false,
+    });
+    const element = screen.getByTestId(defaultTestId);
+    userEvent.click(element);
+    expect(element).not.toHaveClass(`${defaultClass}--selected`);
   });
   it('should render disabled when prop is passed as true', async () => {
     await sut({ disabled: true });
