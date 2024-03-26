@@ -27,4 +27,5 @@ export interface TripleToggleProps {
   options?: TripleToggleOptions;
   onlyShowIcon?: boolean;
   ionClick?: EventEmitter<SafeAny>;
+  middleValue?: SafeAny;
 }

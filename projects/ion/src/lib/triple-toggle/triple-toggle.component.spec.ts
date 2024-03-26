@@ -120,6 +120,18 @@ describe('IonTripleToggleComponent', () => {
       expect(screen.getByTestId(firstOptionId)).toHaveClass(selectedOption);
     });
 
+    it.only('should show the selected option when started with it', async () => {
+      await sut({
+        ionClick: {
+          emit: clickEvent,
+        } as SafeAny,
+        middleValue: null,
+      });
+      const element = screen.getByTestId(middleOptionId);
+      fireEvent.click(element);
+      expect(clickEvent).toHaveBeenCalledWith(null);
+    });
+
     it('should show selected middle option when none option are selected initially', async () => {
       await sut({
         options: [

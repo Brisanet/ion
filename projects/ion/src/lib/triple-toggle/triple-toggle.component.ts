@@ -29,6 +29,8 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
   @Input() size: Size = 'md';
   @Input() options: TripleToggleOptions;
   @Input() onlyShowIcon = false;
+  @Input() middleValue = undefined;
+
   @Output() ionClick = new EventEmitter();
 
   public optionsToRender: TripleToggleOptionsToRender;
@@ -39,7 +41,7 @@ export class IonTripleToggleComponent implements OnInit, OnChanges {
     label: 'Sim',
   };
   private DEFAULT_MIDDLE_OPTION: TripleToggleOption = {
-    value: undefined,
+    value: this.middleValue,
     label: '-',
     selected: true,
   };
