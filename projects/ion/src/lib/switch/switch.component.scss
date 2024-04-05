@@ -10,8 +10,7 @@ $base-lg-size: 4px;
   border-radius: calc($base * 7.5);
 
   &:focus-visible {
-    box-shadow: 0px 0px 0px $base $neutral-1,
-      0px 0px 0px calc($base * 2) $primary-5;
+    @include focus;
     border-radius: calc($base * 7.5);
   }
 
