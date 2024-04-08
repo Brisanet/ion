@@ -1,4 +1,8 @@
 $shadow-1: 0px 0px 4px #00000026;
 $shadow-2: 0px 8px 6px -4px #00000026;
 $double-shadow: 0px 8px 6px -4px #00000026, 0px 0px 2px #00000026;
-$focus: 0px 0px 0px 2px #fcfcfd, 0px 0px 0px 4px #146ff5;
+
+@mixin focus {
+  outline: 2px solid #146ff5;
+  outline-offset: 2px;
+}

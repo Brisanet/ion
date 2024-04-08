@@ -28,8 +28,7 @@
 
 @mixin tab-focus {
   @include tab-colors($primary-5, $primary-1, $primary-3);
-  outline: 2px solid $primary-5;
-  outline-offset: 2px;
+  @include focus;
   @include icon-color($primary-5);
   position: relative;
 }

@@ -29,6 +29,7 @@
   justify-content: center;
   margin: 0px;
   flex-shrink: 0;
+  background-color: $primary-1;
 
   &:hover {
     border: 1.5px solid $primary-2;
@@ -47,9 +48,7 @@
 
   &:focus-visible {
     border: 1px solid $primary-3;
-    outline: 2px solid $primary-color;
-    outline-offset: 2px;
-    background-color: $primary-1;
+    @include focus;
   }
 
   &:active {
@@ -97,6 +96,7 @@
   justify-content: center;
   margin: 0px;
   flex-shrink: 0;
+  background-color: $primary-1;
 
   &:hover {
     border: 4px solid $primary-5;

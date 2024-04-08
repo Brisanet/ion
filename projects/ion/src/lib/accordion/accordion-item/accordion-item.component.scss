@@ -51,7 +51,7 @@ section {
   }
 
   &:focus-visible {
-    outline: 2px solid $primary-4;
+    @include focus;
   }
 
   &.open {
