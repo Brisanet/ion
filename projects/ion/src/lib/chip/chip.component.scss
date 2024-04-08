@@ -37,8 +37,7 @@
 
   &:focus-visible {
     border: 1px solid $primary-3;
-    outline: 2px solid $primary-color;
-    outline-offset: 2px;
+    @include focus;
     @include add-colors($primary-1, $primary-5);
     @include icon-color($primary-5);
   }
@@ -80,8 +79,7 @@
 
   &:focus-visible {
     border: 2px solid $primary-3;
-    outline: 2px solid $primary-color;
-    outline-offset: 2px;
+    @include focus;
     @include add-colors($primary-1, $primary-5);
     @include icon-color($primary-5);
   }
