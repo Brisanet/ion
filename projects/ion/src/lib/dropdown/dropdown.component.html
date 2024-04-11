@@ -51,9 +51,11 @@
           {{ option[propLabel] }}
         </div>
         <ion-icon
-          [type]="option.hovered ? 'close' : 'check'"
+          [type]="option.hovered && canDeselect ? 'close' : 'check'"
           [attr.data-testid]="
-            'ion-' + (option.hovered ? 'close' : 'check') + '-selected'
+            'ion-' +
+            (option.hovered && canDeselect ? 'close' : 'check') +
+            '-selected'
           "
           [size]="iconSize"
           *ngIf="option.selected"

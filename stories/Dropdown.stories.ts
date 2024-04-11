@@ -75,6 +75,12 @@ const optionsWithMultiple = [
   { label: 'Horse', selected: true },
 ];
 
+const optionsWithRequired = [
+  { label: 'Dog', selected: false },
+  { label: 'Cat', selected: false },
+  { label: 'Horse', selected: true },
+];
+
 export const MultipleSelect = Template.bind({});
 MultipleSelect.args = {
   options: optionsWithMultiple,
@@ -119,7 +125,7 @@ WithCleanSearch.args = {
 
 export const RequiredOption = Template.bind({});
 RequiredOption.args = {
-  options: optionsWithMultiple,
+  options: optionsWithRequired,
   required: true,
   selected: action('selected'),
   optionsScroll: action('optionsScroll'),
