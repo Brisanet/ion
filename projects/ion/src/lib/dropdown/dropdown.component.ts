@@ -11,9 +11,9 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { SafeAny } from '../utils/safe-any';
-import { IonNoDataProps } from '../core/types/no-data';
 
 export const COLDOWN = 200;
 
@@ -25,20 +25,20 @@ export const COLDOWN = 200;
 export class IonDropdownComponent
   implements OnInit, AfterViewChecked, OnChanges, OnDestroy
 {
-  @Input() description?: DropdownParams['description'];
+  @Input() description: DropdownParams['description'];
   @Input() options: DropdownItem[] = [];
-  @Input() maxSelected?: DropdownParams['maxSelected'];
-  @Input() multiple?: DropdownParams['multiple'] = false;
-  @Input() required?: DropdownParams['required'] = false;
-  @Input() loading?: DropdownParams['loading'] = false;
+  @Input() maxSelected: DropdownParams['maxSelected'];
+  @Input() multiple: DropdownParams['multiple'] = false;
+  @Input() required: DropdownParams['required'] = false;
+  @Input() loading: DropdownParams['loading'] = false;
   @Input() enableSearch = false;
-  @Input() searchOptions?: DropdownParams['searchOptions'];
-  @Input() notShowClearButton?: DropdownParams['notShowClearButton'] = false;
-  @Input() noDataConfig?: IonNoDataProps = {
+  @Input() searchOptions: DropdownParams['searchOptions'];
+  @Input() notShowClearButton: DropdownParams['notShowClearButton'] = false;
+  @Input() noDataConfig: DropdownParams['noDataConfig'] = {
     label: 'Não há dados',
     iconType: 'exclamation-rounded',
   };
-  @Input() propLabel = 'label';
+  @Input() propLabel: DropdownParams['propLabel'] = 'label';
   @Output() selected = new EventEmitter<DropdownItem[]>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() clearBadgeValue = new EventEmitter();
