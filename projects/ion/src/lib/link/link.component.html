@@ -5,7 +5,6 @@
     class="ion-link"
     [class.ion-link--left-icon]="iconSide === 'left'"
     [class.ion-link--icon-only]="!label || label === ''"
-    [attr.disabled]="disabled"
     (click)="onClick()"
   >
     <span
@@ -29,7 +28,6 @@
     class="ion-link"
     [class.ion-link--left-icon]="iconSide === 'left'"
     [class.ion-link--icon-only]="!label || label === ''"
-    [attr.disabled]="disabled"
     [target]="target"
     [href]="link"
     rel="noreferrer"
