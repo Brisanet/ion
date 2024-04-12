@@ -26,12 +26,12 @@ export class IonDropdownComponent
   implements OnInit, AfterViewChecked, OnChanges, OnDestroy
 {
   @Input() description: DropdownParams['description'];
-  @Input() options: DropdownItem[] = [];
+  @Input() options: DropdownParams['options'] = [];
   @Input() maxSelected: DropdownParams['maxSelected'];
   @Input() multiple: DropdownParams['multiple'] = false;
   @Input() required: DropdownParams['required'] = false;
   @Input() loading: DropdownParams['loading'] = false;
-  @Input() enableSearch = false;
+  @Input() enableSearch: DropdownParams['enableSearch'] = false;
   @Input() searchOptions: DropdownParams['searchOptions'];
   @Input() notShowClearButton: DropdownParams['notShowClearButton'] = false;
   @Input() noDataConfig: DropdownParams['noDataConfig'] = {
