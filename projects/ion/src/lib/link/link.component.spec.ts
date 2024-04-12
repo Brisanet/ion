@@ -86,9 +86,9 @@ describe('IonLinkComponent', () => {
       label: customLabel,
     });
 
-    const linkComponent = getLinkComponentRef();
-
-    expect(linkComponent).toHaveAttribute('disabled', 'false');
+    expect(screen.getByTestId('link-container')).not.toHaveClass(
+      'link-container--disabled'
+    );
   });
 
   it('should be disabled when informed', async () => {
@@ -97,9 +97,9 @@ describe('IonLinkComponent', () => {
       disabled: true,
     });
 
-    const linkComponent = getLinkComponentRef();
-
-    expect(linkComponent).toHaveAttribute('disabled', 'true');
+    expect(screen.getByTestId('link-container')).toHaveClass(
+      'link-container--disabled'
+    );
   });
 
   describe('IonLinkComponent - Event Emittion', () => {
