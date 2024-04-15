@@ -81,6 +81,18 @@ Disabled.args = {
   disabled: true,
 };
 
+export const DisabledSelectedOptions = Template.bind({});
+DisabledSelectedOptions.args = {
+  options: [
+    ...fruitOptions,
+    { label: 'Melon', selected: true },
+    { label: 'Avocado', selected: true },
+    { label: 'Strawberry', selected: true },
+  ],
+  placeholder: 'Select 3 fruits',
+  disabled: true,
+};
+
 export const CustomLabel = Template.bind({});
 CustomLabel.args = {
   options: [
