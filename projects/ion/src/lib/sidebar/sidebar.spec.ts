@@ -421,4 +421,20 @@ describe('Sidebar', () => {
       expect(screen.getByTestId('footer-content')).toBeVisible();
     });
   });
+
+  describe('Sidebar - Shrink mode with keep shrunken', () => {
+    beforeEach(async () => {
+      await sut({ items, logo, shrinkMode: true, keepShrunken: true });
+    });
+
+    it('should not show the header when keep shrunken is informed', async () => {
+      expect(screen.queryByTestId('io-sidebar__logo')).not.toBeInTheDocument();
+    });
+
+    it('should have the class that updates the grid template', () => {
+      expect(screen.getByTestId('ion-sidebar')).toHaveClass(
+        'ion-sidebar--without-header'
+      );
+    });
+  });
 });
