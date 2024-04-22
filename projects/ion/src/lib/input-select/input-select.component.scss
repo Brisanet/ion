@@ -68,6 +68,39 @@
       @include add-colors($primary-5, 2px solid, $primary-2);
     }
   }
+
+  &--disabled {
+    .dropdown-container__button {
+      cursor: not-allowed;
+      border: 1px solid $neutral-4;
+      color: $neutral-5;
+    }
+
+    & .first-input {
+      border-left: none;
+    }
+
+    & .first-input:hover,
+    & .second-input:hover,
+    & .first-input:active,
+    & .second-input:active {
+      border: 1px solid $neutral-4;
+      border-left: none;
+      outline: none;
+    }
+
+    & .first-input:hover,
+    & .first-input:active {
+      border-right: none;
+    }
+
+    & .separator {
+      border-color: $neutral-4 !important;
+      background-color: $neutral-2;
+      border: 1px solid;
+      cursor: not-allowed;
+    }
+  }
 }
 
 .separator {
