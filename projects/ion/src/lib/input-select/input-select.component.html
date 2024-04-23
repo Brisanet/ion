@@ -1,6 +1,7 @@
 <div class="input-wraper" data-testid="ion-input-select">
   <div
     class="input-select-container"
+    [class.multiple-input--disabled]="disabled"
     [class.multiple-input]="currentOption?.multiple"
   >
     <div class="dropdown-container" (clickOutside)="onClickOutside()">
