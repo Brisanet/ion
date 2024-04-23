@@ -62,14 +62,14 @@ export class IonSidebarComponent implements AfterViewChecked {
 
   public itemSelected(itemIndex: number): void {
     selectItemByIndex(this.items, itemIndex);
-    if (this.closeOnSelect) {
+    if (this.closeOnSelect && !(this.shrinkMode && this.closed)) {
       this.toggleSidebarVisibility();
     }
   }
 
   public itemOnGroupSelected(groupIndex: number): void {
     unselectAllItems(this.items, groupIndex);
-    if (this.closeOnSelect) {
+    if (this.closeOnSelect && !(this.shrinkMode && this.closed)) {
       this.toggleSidebarVisibility();
     }
   }
