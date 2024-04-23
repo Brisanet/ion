@@ -18,5 +18,6 @@ export interface IonSelectProps {
 
 export interface IonSelectItemProps {
   label: string;
+  disabled?: boolean;
   unselect?: EventEmitter<void>;
 }
