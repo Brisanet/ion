@@ -38,6 +38,11 @@ const Template: Story<IonInputSelectComponent> = (
 export const InputSelect = Template.bind({});
 InputSelect.args = {};
 
+export const InputSelectDisabled = Template.bind({});
+InputSelectDisabled.args = {
+  disabled: true,
+};
+
 export const InputSelectWithCustomOptions = Template.bind({});
 InputSelectWithCustomOptions.args = {
   selectOptions: customSelectOptions,
