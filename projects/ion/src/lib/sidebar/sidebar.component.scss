@@ -95,6 +95,10 @@
   &__logo--pointer {
     cursor: pointer;
   }
+
+  &--without-header {
+    grid-template-rows: 1fr max-content;
+  }
 }
 
 /* Track */
