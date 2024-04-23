@@ -18,9 +18,10 @@
   position: relative;
   display: flex;
   align-items: center;
+  padding: 4px 6px 4px 4px;
 
-  height: 32px;
   min-width: 120px;
+  min-height: 26px;
 
   border-radius: 8px;
   border: 1px solid $neutral-5;
@@ -45,10 +46,10 @@
     flex: 1;
     flex-direction: row;
     overflow: hidden;
+    gap: 4px;
   }
 
   input {
-    margin-inline-start: 12px;
     padding: 0;
     background: transparent;
     border: none;
@@ -64,7 +65,6 @@
 
   .icon {
     display: flex;
-    margin-inline-end: 8px;
   }
 
   &--required {

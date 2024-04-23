@@ -15,5 +15,6 @@ export interface IonSidebarProps {
   items: (Item & { options?: [Item, ...Item[]] })[];
   closeOnSelect?: boolean;
   shrinkMode?: boolean;
+  keepShrunken?: boolean;
   ionOnSidebarToggle?: EventEmitter<boolean>;
 }

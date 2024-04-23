@@ -22,6 +22,7 @@ export class IonSidebarComponent implements AfterViewChecked {
   @Input() closeOnSelect = false;
   @Input() shrinkMode = false;
   @Input() sidebarFooter?: TemplateRef<void>;
+  @Input() keepShrunken = false;
   @Output() ionOnSidebarToggle = new EventEmitter<boolean>();
 
   public closed = true;
