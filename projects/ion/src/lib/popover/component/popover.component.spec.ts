@@ -84,6 +84,12 @@ describe('PopoverComponent', () => {
         screen.getByText(PopoverComponent.args.ionPopoverBody)
       ).toBeInTheDocument();
     });
+
+    it('should not render the header when the title is not informed', () => {
+      PopoverComponent.args.ionPopoverTitle = '';
+      fixture.detectChanges();
+      expect(screen.queryByTestId('popover-header')).not.toBeInTheDocument();
+    });
   });
 
   describe('with actions', () => {

@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class IonSelectItemComponent {
   @Input() label = '';
+  @Input() disabled = false;
   @Output() unselect = new EventEmitter<void>();
 
   onUnselect(): void {
