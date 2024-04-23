@@ -17,6 +17,10 @@ $arrow-distance-to-border: 16px;
   position: relative;
   z-index: $zIndexMid;
 
+  &.without-header::before {
+    background-color: #fff;
+  }
+
   @if ($position == 'header') {
     &::before {
       content: '';
@@ -253,25 +257,6 @@ $arrow-distance-to-border: 16px;
     color: $neutral-6;
     max-height: 92px;
     overflow-y: auto;
-
-    scrollbar-width: thin;
-    scrollbar-color: $primary-color;
-
-    // Chrome, Edge, and Safari
-    &::-webkit-scrollbar {
-      width: 8px;
-      height: 9px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #ffffff;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: $neutral-2;
-      border-radius: 20px;
-      border: 3px solid $neutral-2;
-    }
   }
 
   &__footer {
@@ -280,4 +265,38 @@ $arrow-distance-to-border: 16px;
     padding: spacing(1) spacing(2) spacing(2) spacing(2);
     justify-content: flex-end;
   }
+}
+
+.without-header {
+  & .ion-popover__container {
+    padding: 16px 4px 16px 16px;
+  }
+
+  & .ion-popover__content-body {
+    border-radius: spacing(1);
+    padding: 0 8px 0 0;
+  }
+
+  &:has(.ion-popover__footer) {
+    .ion-popover__container {
+      padding: 0;
+    }
+
+    .ion-popover__content-body {
+      padding: 16px 16px 12px;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: $neutral-5;
 }

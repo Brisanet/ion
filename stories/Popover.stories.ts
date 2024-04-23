@@ -80,6 +80,18 @@ DirectiveWithTriggerHover.args = {
   ionPopoverArrowPointAtCenter: true,
 };
 
+export const DirectiveWithoutHeader = Template.bind({});
+DirectiveWithoutHeader.args = {
+  ionPopoverTitle: '',
+  ionPopoverPosition: PopoverPosition.DEFAULT,
+  ionPopoverIconClose: false,
+  ionPopoverIcon: 'historic',
+  ionPopoverIconColor: '#282b33',
+  ionPopoverCustomClass: 'popover-custom-class',
+  ionPopoverTrigger: PopoverTrigger.DEFAULT,
+  ionPopoverArrowPointAtCenter: true,
+};
+
 const TemplateOpen: Story = (args) => ({
   props: args,
   template: `
