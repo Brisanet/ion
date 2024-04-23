@@ -2,6 +2,7 @@ import { EventEmitter, TemplateRef } from '@angular/core';
 
 import { IonButtonProps } from './button';
 import { IconType } from './icon';
+import { Subject } from 'rxjs';
 
 export enum PopoverPosition {
   TOP_RIGHT = 'topRight',
@@ -39,6 +40,7 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
+  ionPopoverClose?: Subject<void>;
   ionOnFirstAction?: EventEmitter<void>;
   ionOnSecondAction?: EventEmitter<void>;
   ionOnClose?: EventEmitter<void>;
