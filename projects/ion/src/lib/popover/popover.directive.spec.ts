@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { fireEvent, render, screen } from '@testing-library/angular';
+import { Subject } from 'rxjs';
 
 import { IonButtonModule } from '../button/button.module';
 import {
@@ -41,6 +42,7 @@ const elementPosition = {
 const firstAction = jest.fn();
 const secondAction = jest.fn();
 const positionService = new IonPositionService();
+const closePopover = new Subject<void>();
 
 const CUSTOM_CLASS = 'custom-class';
 
@@ -57,6 +59,7 @@ const CUSTOM_CLASS = 'custom-class';
       [ionPopoverPosition]="ionPopoverPosition"
       [ionPopoverActions]="ionPopoverActions"
       [ionPopoverTrigger]="ionPopoverTrigger"
+      [ionPopoverStopCloseOnScroll]="ionPopoverStopCloseOnScroll"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
       ionPopoverCustomClass="${CUSTOM_CLASS}"
@@ -80,6 +83,7 @@ class HostTestComponent {
   @Input() ionPopoverKeep = false;
   @Input() ionPopoverIconClose = true;
   @Input() ionPopoverIcon = 'condominium';
+  @Input() ionPopoverStopCloseOnScroll = false;
   @Input() ionPopoverActions: PopoverButtonsProps[] = [
     { label: 'action 1' },
     { label: 'action 2' },
@@ -147,6 +151,32 @@ const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
     providers: [{ provide: IonPositionService, useValue: positionService }],
   });
 };
+
+@Component({
+  template: `
+    <ion-button
+      data-testid="hostPopoverWithClose"
+      ionPopover
+      [ionPopoverClose]="closePopover"
+      [ionPopoverTitle]="ionPopoverTitle"
+      [ionPopoverBody]="ref"
+      label="${textButton}"
+    >
+    </ion-button>
+    <ng-template #ref>
+      <span data-testid="templateRef"
+        >Ao concluir essa ação as ordens de serviço alocadas para o recurso
+        ficarão órfãs.</span
+      >
+    </ng-template>
+  `,
+})
+class HostTestWithClosePopoverComponent {
+  ionPopoverTitle = confirmText;
+  ionPopoverBody = 'e eu sou o body do popover';
+  ionPopoverPosition = PopoverPosition.DEFAULT;
+  closePopover = closePopover;
+}
 
 describe('Directive: popover', () => {
   it('should render without popover', async () => {
@@ -281,6 +311,19 @@ describe('Directive: popover', () => {
     fireEvent.wheel(hostElement);
     expect(directive.onScroll).toBeCalled();
     expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  });
+
+  it('should not close the popover on scroll when its informed', async () => {
+    await sut({
+      ionPopoverStopCloseOnScroll: true,
+    });
+    const directive = IonPopoverDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+    const hostElement = screen.getByTestId('hostPopover');
+    fireEvent.click(hostElement);
+    fireEvent.wheel(hostElement);
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.queryByTestId('ion-popover')).toBeVisible();
   });
 
   describe('trigger: hover', () => {
@@ -439,5 +482,19 @@ describe('Popover disabled host component', () => {
     element.setAttribute('ng-reflect-disabled', 'true');
     const isEnable = directive.elementIsEnabled(element);
     expect(isEnable).toBe(false);
+  });
+});
+
+describe('Popover close subject', () => {
+  it('should close the popover when the subject emits', async () => {
+    await render(HostTestWithClosePopoverComponent, {
+      componentProperties: {},
+      imports: [CommonModule, IonPopoverModule, IonSharedModule],
+      providers: [{ provide: IonPositionService, useValue: positionService }],
+    });
+    fireEvent.click(screen.getByTestId('hostPopoverWithClose'));
+
+    closePopover.next();
+    expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
   });
 });
