@@ -45,6 +45,9 @@ export class IonPopoverDirective implements OnDestroy {
   @Input() ionPopoverTrigger: PopoverDirectiveProps['ionPopoverTrigger'] =
     PopoverTrigger.DEFAULT;
   @Input() ionPopoverClose?: PopoverDirectiveProps['ionPopoverClose'];
+  @Input()
+  ionPopoverStopCloseOnScroll: PopoverDirectiveProps['ionPopoverStopCloseOnScroll'] =
+    false;
   @Output() ionOnFirstAction: PopoverDirectiveProps['ionOnFirstAction'] =
     new EventEmitter<void>();
   @Output() ionOnSecondAction: PopoverDirectiveProps['ionOnSecondAction'] =
@@ -216,6 +219,7 @@ export class IonPopoverDirective implements OnDestroy {
   onScroll(event: Event): void {
     const targetElement = event.target;
     if (
+      !this.ionPopoverStopCloseOnScroll &&
       targetElement instanceof HTMLElement &&
       !targetElement.closest('ion-popover')
     ) {

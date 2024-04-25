@@ -40,13 +40,14 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
-  ionPopoverClose?: Subject<void>;
   ionOnFirstAction?: EventEmitter<void>;
   ionOnSecondAction?: EventEmitter<void>;
   ionOnClose?: EventEmitter<void>;
 }
 
 export interface PopoverDirectiveProps extends PopoverProps {
+  ionPopoverStopCloseOnScroll?: boolean;
+  ionPopoverClose?: Subject<void>;
   ionPopoverArrowPointAtCenter?: boolean;
   ionPopoverTrigger?: PopoverTrigger;
 }

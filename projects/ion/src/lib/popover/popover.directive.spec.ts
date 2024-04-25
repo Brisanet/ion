@@ -59,6 +59,7 @@ const CUSTOM_CLASS = 'custom-class';
       [ionPopoverPosition]="ionPopoverPosition"
       [ionPopoverActions]="ionPopoverActions"
       [ionPopoverTrigger]="ionPopoverTrigger"
+      [ionPopoverStopCloseOnScroll]="ionPopoverStopCloseOnScroll"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
       ionPopoverCustomClass="${CUSTOM_CLASS}"
@@ -82,6 +83,7 @@ class HostTestComponent {
   @Input() ionPopoverKeep = false;
   @Input() ionPopoverIconClose = true;
   @Input() ionPopoverIcon = 'condominium';
+  @Input() ionPopoverStopCloseOnScroll = false;
   @Input() ionPopoverActions: PopoverButtonsProps[] = [
     { label: 'action 1' },
     { label: 'action 2' },
@@ -309,6 +311,19 @@ describe('Directive: popover', () => {
     fireEvent.wheel(hostElement);
     expect(directive.onScroll).toBeCalled();
     expect(screen.queryByTestId('ion-popover')).not.toBeInTheDocument();
+  });
+
+  it('should not close the popover on scroll when its informed', async () => {
+    await sut({
+      ionPopoverStopCloseOnScroll: true,
+    });
+    const directive = IonPopoverDirective.prototype;
+    jest.spyOn(directive, 'onScroll');
+    const hostElement = screen.getByTestId('hostPopover');
+    fireEvent.click(hostElement);
+    fireEvent.wheel(hostElement);
+    expect(directive.onScroll).toBeCalled();
+    expect(screen.queryByTestId('ion-popover')).toBeVisible();
   });
 
   describe('trigger: hover', () => {
