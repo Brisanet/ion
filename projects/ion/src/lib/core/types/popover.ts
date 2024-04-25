@@ -40,6 +40,7 @@ export interface PopoverProps {
   ionPopoverPosition?: PopoverPosition;
   ionPopoverKeep?: boolean;
   ionPopoverCustomClass?: string;
+  ionPopoverStopCloseOnScroll?: boolean;
   ionPopoverClose?: Subject<void>;
   ionOnFirstAction?: EventEmitter<void>;
   ionOnSecondAction?: EventEmitter<void>;
