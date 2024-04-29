@@ -6,5 +6,6 @@ export interface IonDatePickerComponentProps {
   format?: string;
   formatInDateInput?: FormatDateInput;
   rangePicker?: boolean;
+  disabledDate?: (currentDate: Date) => boolean;
   event?: EventEmitter<string>;
 }

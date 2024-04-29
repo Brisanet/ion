@@ -6,6 +6,11 @@ import { IonTooltipComponent } from '../projects/ion/src/lib/tooltip/tooltip.com
 import { IonDatePickerModule } from '../projects/ion/src/public-api';
 import { IonDatepickerComponent } from './../projects/ion/src/lib/picker/date-picker/date-picker.component';
 
+const disabledDate = (currDate: Date): boolean => {
+  const today = new Date();
+  return currDate > today;
+};
+
 export default {
   title: 'Ion/Data Entry/Datepicker',
   component: IonDatepickerComponent,
@@ -35,6 +40,7 @@ RangePicker.args = {
 
 export const RangerPickerWithPeriods = Template.bind({});
 RangerPickerWithPeriods.args = {
+  disabledDate,
   rangePicker: true,
   predefinedRanges: [
     { label: 'Últimos 7 dias', duration: 'P7D' },
