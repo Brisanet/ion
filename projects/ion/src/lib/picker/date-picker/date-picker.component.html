@@ -6,6 +6,8 @@
 ></date-picker-input>
 <div
   class="container-calendar"
+  [class.calendar-down]="direction === 'DOWN'"
+  [class.calendar-up]="direction === 'UP'"
   *ngIf="showDatepicker"
   data-testid="container-calendar"
 >
