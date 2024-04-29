@@ -3,8 +3,10 @@ import { EventEmitter } from '@angular/core';
 type FormatDateInput = 'YYYY-MM-DD' | 'DD/MM/YYYY';
 
 export enum CalendarDirection {
-  up = 'UP',
-  down = 'DOWN',
+  topLeft = 'TOPLEFT',
+  topRight = 'TOPRIGHT',
+  bottomLeft = 'BOTTOMLEFT',
+  bottomRight = 'BOTTOMRIGHT',
 }
 
 export interface IonDatePickerComponentProps {

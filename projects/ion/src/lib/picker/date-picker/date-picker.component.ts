@@ -36,7 +36,7 @@ export class IonDatepickerComponent implements AfterViewInit {
   @Input() rangePicker: boolean;
   @Input() predefinedRanges?: PreDefinedRangeConfig[] = [];
   @Input() direction?: IonDatePickerComponentProps['direction'] =
-    CalendarDirection.down;
+    CalendarDirection.bottomLeft;
   @Input() disabledDate?: IonDatePickerComponentProps['disabledDate'];
   @Output() event = new EventEmitter<string[]>();
   currentDate: string[];
