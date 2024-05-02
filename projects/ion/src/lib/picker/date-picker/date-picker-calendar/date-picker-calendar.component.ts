@@ -103,10 +103,11 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   }
 
   handleClick(dayIndex: number): void {
+    if (this.days[dayIndex].disabled) {
+      return;
+    }
+
     if (this.rangePicker) {
-      if (this.days[dayIndex].disabled) {
-        return;
-      }
       if (!this.selectedDays.length || this.selectedDays[FINAL_RANGE]) {
         this.selectedDays = [this.days[dayIndex]];
         return;

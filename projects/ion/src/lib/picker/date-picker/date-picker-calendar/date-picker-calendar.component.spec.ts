@@ -9,6 +9,12 @@ import { SimpleChange, SimpleChanges } from '@angular/core';
 import { Day } from '../../core/day';
 import { arrangeDates } from '../../../utils/datePicker';
 
+const mockDisableFutureDate = jest
+  .fn()
+  .mockImplementation((currrDate: Date) => {
+    const today = new Date();
+    return currrDate > today;
+  });
 const events = jest.fn();
 
 const defaultComponent: IonDatePickerCalendarComponentProps = {
@@ -107,6 +113,28 @@ describe('IonDatePickerCalendarComponent', () => {
     const buttonsDay = document.getElementsByClassName('month-day');
     fireEvent.click(buttonsDay[0]);
     expect(clickEvent).toHaveBeenCalled();
+  });
+
+  it('should disable only day buttons that match the rule of disabledDate', async () => {
+    await sut({
+      disabledDate: mockDisableFutureDate,
+    });
+    expect(screen.getByTestId('container-2024-05-02')).not.toHaveClass(
+      'disabled'
+    );
+    expect(screen.getByTestId('container-2024-05-03')).toHaveClass('disabled');
+  });
+
+  it('should not fire an event when clicking a disabled day button', async () => {
+    const clickEvent = jest.fn();
+    await sut({
+      disabledDate: mockDisableFutureDate,
+      events: {
+        emit: clickEvent,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByTestId('2024-05-03'));
+    expect(clickEvent).not.toHaveBeenCalled();
   });
 });
 
