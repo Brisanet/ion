@@ -53,7 +53,7 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   @Input() calendarControlAction: CalendarControlActions;
   @Input() selectedDays: Day[] = [];
   @Input() rangePicker: boolean;
-  @Input() disabledDate?: IonDatePickerCalendarComponentProps['disabledDate'];
+  @Input() disabledDate: IonDatePickerCalendarComponentProps['disabledDate'];
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];

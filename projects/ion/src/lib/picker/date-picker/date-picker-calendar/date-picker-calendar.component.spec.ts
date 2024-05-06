@@ -12,8 +12,8 @@ import { arrangeDates } from '../../../utils/datePicker';
 const mockDisableFutureDate = jest
   .fn()
   .mockImplementation((currrDate: Date) => {
-    const today = new Date();
-    return currrDate > today;
+    const mockPresentDay = new Date('2024-05-02T03:00:00');
+    return currrDate > mockPresentDay;
   });
 const events = jest.fn();
 
@@ -117,6 +117,7 @@ describe('IonDatePickerCalendarComponent', () => {
 
   it('should disable only day buttons that match the rule of disabledDate', async () => {
     await sut({
+      currentDate: ['2024-05-02'],
       disabledDate: mockDisableFutureDate,
     });
     expect(screen.getByTestId('container-2024-05-02')).not.toHaveClass(
@@ -128,6 +129,7 @@ describe('IonDatePickerCalendarComponent', () => {
   it('should not fire an event when clicking a disabled day button', async () => {
     const clickEvent = jest.fn();
     await sut({
+      currentDate: ['2024-05-02'],
       disabledDate: mockDisableFutureDate,
       events: {
         emit: clickEvent,
