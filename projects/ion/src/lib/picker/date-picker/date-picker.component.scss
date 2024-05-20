@@ -1,16 +1,40 @@
 @import '../../../styles/index.scss';
 
+:host {
+  position: relative;
+}
+
 * {
   box-sizing: border-box;
 }
 
 .container-calendar {
+  position: absolute;
+  z-index: $zIndexMax;
   max-width: 312px;
   min-width: 312px;
   margin: spacing(1) spacing(0);
   border: 1px solid $neutral-4;
   background-color: $neutral-1;
   border-radius: 8px;
+
+  &--BOTTOMLEFT {
+    top: 100%;
+  }
+
+  &--BOTTOMRIGHT {
+    top: 100%;
+    right: 0;
+  }
+
+  &--TOPLEFT {
+    bottom: 100%;
+  }
+
+  &--TOPRIGHT {
+    bottom: 100%;
+    right: 0;
+  }
 
   .container-body {
     padding: spacing(3) spacing(3) spacing(3);

@@ -102,5 +102,19 @@
         margin-right: 13px;
       }
     }
+
+    .disabled,
+    .disabled button {
+      width: 100%;
+      background-color: $neutral-3 !important;
+      color: $neutral-5;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $neutral-3 !important;
+        cursor: not-allowed;
+        color: $neutral-5;
+      }
+    }
   }
 }

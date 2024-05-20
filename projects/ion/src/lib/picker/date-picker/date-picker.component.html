@@ -5,7 +5,7 @@
   (clearDate)="clearDate()"
 ></date-picker-input>
 <div
-  class="container-calendar"
+  [class]="'container-calendar container-calendar--' + direction"
   *ngIf="showDatepicker"
   data-testid="container-calendar"
 >
@@ -25,6 +25,7 @@
         [currentDate]="currentDate"
         [rangePicker]="rangePicker"
         [selectedDays]="selectedDay"
+        [disabledDate]="disabledDate"
         (updateLabelCalendar)="updateLabelCalendar($event)"
         (events)="dateSelected($event)"
       ></date-picker-calendar>

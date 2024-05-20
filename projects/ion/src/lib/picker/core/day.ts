@@ -15,6 +15,8 @@ export class Day {
   monthNumber: number;
   timestamp: number;
   week: number;
+  disabled?: boolean;
+  isDayCurrentMonth?: boolean;
   isToday?: boolean;
   isBetweenRange?: boolean;
   isRangeInitialLimit?: boolean;
