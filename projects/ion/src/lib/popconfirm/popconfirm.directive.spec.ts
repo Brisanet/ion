@@ -9,7 +9,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
-import { fireEvent, screen, within } from '@testing-library/angular';
+import { CommonModule } from '@angular/common';
+import {
+  RenderResult,
+  fireEvent,
+  render,
+  screen,
+  within,
+} from '@testing-library/angular';
 import { IonButtonModule } from '../button/button.module';
 import { IonDividerModule } from '../divider/divider.module';
 import { IonPopConfirmComponent } from './popconfirm.component';
@@ -18,6 +25,8 @@ import {
   PopOffset,
   PopPosition,
 } from './popconfirm.directive';
+import { OpenPopconfirmComponent } from './mock/open-popconfirm.component';
+import { IonPopConfirmModule } from './popconfirm.module';
 
 const textButton = 'Teste';
 const tableTextButton = 'Teste na table';
@@ -57,6 +66,7 @@ const openToUpOffset: PopOffset = {
       *ngIf="buttonVisibility"
       ionPopConfirm
       ionPopConfirmTitle="Você tem certeza?"
+      ionPopConfirmCloseOnScroll="true"
       (ionOnConfirm)="confirm()"
       class="get-test"
       style="margin-top: 50px;"
@@ -457,5 +467,34 @@ describe('Popconfirm position when it opens', () => {
 
     expect(spyAnimationFrame).toHaveBeenCalled();
     expect(spyQuerySelector).toHaveBeenCalledWith('.sup-container');
+  });
+});
+
+describe('Popconfirm close on scroll', () => {
+  const sut = async (
+    props: Partial<OpenPopconfirmComponent>
+  ): Promise<RenderResult<OpenPopconfirmComponent>> => {
+    return await render(OpenPopconfirmComponent, {
+      componentProperties: props,
+      imports: [CommonModule, IonPopConfirmModule, IonButtonModule],
+    });
+  };
+
+  it('should not close the popconfirm on scroll by default', async () => {
+    await sut({});
+    const hostElement = screen.getByTestId('btn-Open Popconfirm');
+    fireEvent.click(hostElement);
+    fireEvent.wheel(hostElement);
+    expect(screen.getByTestId('sup-container')).toBeVisible();
+  });
+
+  it('should close the popconfirm on scroll when informed', async () => {
+    await sut({
+      ionPopConfirmCloseOnScroll: true,
+    });
+    const hostElement = screen.getByTestId('btn-Open Popconfirm');
+    fireEvent.click(hostElement);
+    fireEvent.wheel(hostElement);
+    expect(screen.queryByTestId('sup-container')).not.toBeInTheDocument();
   });
 });
