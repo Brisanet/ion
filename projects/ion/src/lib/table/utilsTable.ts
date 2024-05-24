@@ -5,6 +5,8 @@ import {
   IconType,
   PopoverProps,
   StatusType,
+  TooltipColorScheme,
+  TooltipPosition,
   TooltipProps,
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
@@ -44,6 +46,15 @@ interface LinkRow<RowType> {
   target?: LinkTarget;
   url?: (_: RowType) => string;
   action?: (_: RowType) => void;
+  tooltipConfig?: LinkTooltip<RowType>;
+}
+
+interface LinkTooltip<RowType> {
+  text?: (_: RowType) => string;
+  colorScheme?: TooltipColorScheme;
+  position?: TooltipPosition;
+  arrowPointAtCenter?: boolean;
+  delay?: number;
 }
 
 export interface PipeColumn {

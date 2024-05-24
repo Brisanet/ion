@@ -284,6 +284,9 @@ const columnsWithLink = [
       icon: 'access2',
       bold: true,
       label: (row): string => row.name,
+      tooltipConfig: {
+        text: (row): string => row.name,
+      },
     },
   },
 ];

@@ -121,6 +121,7 @@
                 (config.hideLongData && !column.hideLongData) ||
                 column.hideLongData
               "
+              [class.link-cell]="column.link"
               [attr.data-testid]="'row-' + index + '-' + column.key"
               [style.cursor]="column.actions && 'pointer'"
               (click)="
@@ -176,6 +177,18 @@
                 [disabled]="column.link.disabled && column.link.disabled(row)"
                 [target]="column.link.target"
                 [link]="column.link.url && column.link.url(row)"
+                ionTooltip
+                [ionTooltipTitle]="column.link.tooltipConfig?.text(row)"
+                [ionTooltipColorScheme]="
+                  column.link.tooltipConfig?.colorScheme || 'dark'
+                "
+                [ionTooltipPosition]="
+                  column.link.tooltipConfig?.position || 'topCenter'
+                "
+                [ionTooltipArrowPointAtCenter]="
+                  column.link.tooltipConfig?.arrowPointAtCenter || true
+                "
+                [ionTooltipShowDelay]="column.link.tooltipConfig?.delay || 0"
                 (ionOnClick)="column.link.action(row)"
               ></ion-link>
               <span class="td-span" *ngIf="column.type === 'boolean'">
