@@ -15,6 +15,11 @@
   }
 }
 
+:host {
+  display: block;
+  max-width: max-content;
+}
+
 .link-container {
   display: flex;
   max-width: max-content;
