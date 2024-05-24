@@ -117,6 +117,22 @@ describe('IonDropdownComponent', () => {
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
   });
 
+  it('should not change icon to close when mouse enter in option selected, dropdown is required and simple', async () => {
+    await sut({
+      ...defaultDropdown,
+      required: true,
+      options: [
+        { label: 'Option 1', selected: false },
+        { label: 'Option 2', selected: false },
+      ],
+    });
+    const elementToHover = document.getElementById('option-0');
+    fireEvent.click(elementToHover);
+    fireEvent.mouseEnter(elementToHover);
+    expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
+    expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
+  });
+
   it('should show check icon when mouse leave of option selected', async () => {
     await sut({
       ...defaultDropdown,
@@ -236,6 +252,33 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(
       optionsWithMultiple.length
     );
+    expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
+  });
+
+  it('should not change icon to close when mouse enter in option selected, dropdown is required', async () => {
+    await sut({
+      ...defaultMultiple,
+      required: true,
+    });
+    const elementToHover = document.getElementById('option-0');
+    fireEvent.mouseEnter(elementToHover);
+    expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(2);
+    expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(1);
+  });
+
+  it('should not change icon to close when mouse enter in option selected, dropdown is required, multiple and have only one selected', async () => {
+    await sut({
+      ...defaultMultiple,
+      required: true,
+      options: [
+        { label: 'Dog', selected: true },
+        { label: 'Cat', selected: false },
+        { label: 'Horse', selected: false },
+      ],
+    });
+    const elementToHover = document.getElementById('option-0');
+    fireEvent.mouseEnter(elementToHover);
+    expect(screen.queryAllByTestId('ion-check-selected')).toHaveLength(1);
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
 
@@ -459,12 +502,12 @@ describe('IonDropdownComponent / Changes detection', () => {
     TestBed.resetTestingModule();
   });
 
-  it('should update options and call setSelected', fakeAsync(() => {
+  it('should update options and call updateSelectedItems', fakeAsync(() => {
     const newOptions = [{ label: 'Option 1', selected: true }];
     const changes: SimpleChanges = {
       options: new SimpleChange(undefined, newOptions, false),
     };
-    const spy = jest.spyOn(component, 'setSelected');
+    const spy = jest.spyOn(component, 'updateSelectedItems');
 
     component.options = newOptions;
     component.ngOnChanges(changes);

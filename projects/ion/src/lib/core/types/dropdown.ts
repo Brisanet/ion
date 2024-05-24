@@ -25,4 +25,5 @@ export interface DropdownParams {
   searchChange?: EventEmitter<string>;
   notShowClearButton?: boolean;
   noDataConfig?: IonNoDataProps;
+  propLabel?: string;
 }
