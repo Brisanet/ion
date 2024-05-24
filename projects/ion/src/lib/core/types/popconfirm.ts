@@ -6,4 +6,5 @@ export interface PopConfirmProps {
   ionPopConfirmDesc?: string;
   ionConfirmText?: string;
   ionCancelText?: string;
+  ionPopConfirmCloseOnScroll?: boolean;
 }
