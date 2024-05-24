@@ -41,6 +41,8 @@ export class IonPopConfirmDirective implements OnDestroy {
   @Input() ionPopConfirmType: StatusType = 'warning';
   @Input() ionConfirmText: PopConfirmProps['ionConfirmText'] = 'Confirmar';
   @Input() ionCancelText: PopConfirmProps['ionCancelText'] = 'Cancelar';
+  @Input()
+  ionPopConfirmCloseOnScroll: PopConfirmProps['ionPopConfirmCloseOnScroll'] = false;
   @Output() ionOnConfirm = new EventEmitter<void>();
   @Output() ionOnClose = new EventEmitter<void>();
 
@@ -243,6 +245,20 @@ export class IonPopConfirmDirective implements OnDestroy {
           this.setStyle(popconfirmElement, offsetPosition);
         }
       });
+    }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  @HostListener('document:scroll', ['$event'])
+  @HostListener('body:scroll', ['$event'])
+  @HostListener('window:wheel', ['$event'])
+  onScroll({ target }: Event): void {
+    if (
+      this.ionPopConfirmCloseOnScroll &&
+      target instanceof HTMLElement &&
+      !target.closest('ion-popconfirm')
+    ) {
+      this.closeAllPopsConfirm();
     }
   }
 }
