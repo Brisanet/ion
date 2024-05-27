@@ -1535,27 +1535,15 @@ describe('Table > Link in cells', () => {
 
   const dataWithLink = [data[0]];
 
-  const columnsWithLink: Column[] = [
-    {
-      key: 'id',
-      label: 'Código',
-      sort: true,
+  const linkConfig = {
+    key: 'url',
+    label: 'URL',
+    type: ColumnType.LINK,
+    link: {
+      action: linkClickAction,
+      label: (): string => 'link label',
     },
-    {
-      key: 'name',
-      label: 'Name',
-      sort: true,
-    },
-    {
-      key: 'url',
-      label: 'URL',
-      type: ColumnType.LINK,
-      link: {
-        action: linkClickAction,
-        label: () => 'link label',
-      },
-    },
-  ];
+  };
 
   afterEach(() => {
     linkClickAction.mockClear();
@@ -1565,7 +1553,7 @@ describe('Table > Link in cells', () => {
     await sut({
       config: {
         data: dataWithLink,
-        columns: columnsWithLink,
+        columns: [...columns, linkConfig],
         pagination: {
           total: 82,
           itemsPerPage: 10,
@@ -1580,7 +1568,7 @@ describe('Table > Link in cells', () => {
     await sut({
       config: {
         data: dataWithLink,
-        columns: columnsWithLink,
+        columns: [...columns, linkConfig],
         pagination: {
           total: 82,
           itemsPerPage: 10,
@@ -1591,6 +1579,52 @@ describe('Table > Link in cells', () => {
 
     fireEvent.click(screen.getByText('link label'));
     expect(linkClickAction).toHaveBeenCalled();
+  });
+
+  it('should not open the tooltip if the config is not informed', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: [...columns, linkConfig],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.mouseEnter(screen.getByText('link label'));
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+    fireEvent.mouseLeave(screen.getByText('link label'));
+  });
+
+  it('should open the tooltip when the config is informed', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: [
+          ...columns,
+          {
+            ...linkConfig,
+            link: {
+              ...linkConfig.link,
+              tooltipConfig: {
+                text: (row): string => row.name,
+              },
+            },
+          },
+        ],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.mouseEnter(screen.getByTestId('link-element'));
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
   });
 });
 

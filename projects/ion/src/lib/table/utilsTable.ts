@@ -10,6 +10,7 @@ import {
 import { SafeAny } from '../utils/safe-any';
 import { IconSide, LinkTarget } from './../core/types/link';
 import { TagStatus } from './../core/types/status';
+import { Omit } from '../utils/types';
 
 export enum EventTable {
   SORT = 'sort',
@@ -44,6 +45,11 @@ interface LinkRow<RowType> {
   target?: LinkTarget;
   url?: (_: RowType) => string;
   action?: (_: RowType) => void;
+  tooltipConfig?: LinkTooltip<RowType>;
+}
+
+interface LinkTooltip<RowType> extends Omit<TooltipProps, 'ionTooltipTitle'> {
+  text?: (_: RowType) => string;
 }
 
 export interface PipeColumn {
