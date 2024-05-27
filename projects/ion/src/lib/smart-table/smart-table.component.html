@@ -181,15 +181,18 @@
                 ionTooltip
                 [ionTooltipTitle]="column.link.tooltipConfig?.text(row)"
                 [ionTooltipColorScheme]="
-                  column.link.tooltipConfig?.colorScheme || 'dark'
+                  column.link.tooltipConfig?.ionTooltipColorScheme || 'dark'
                 "
                 [ionTooltipPosition]="
-                  column.link.tooltipConfig?.position || 'topCenter'
+                  column.link.tooltipConfig?.ionTooltipPosition || 'topCenter'
                 "
                 [ionTooltipArrowPointAtCenter]="
-                  column.link.tooltipConfig?.arrowPointAtCenter || true
+                  column.link.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                  true
                 "
-                [ionTooltipShowDelay]="column.link.tooltipConfig?.delay || 0"
+                [ionTooltipShowDelay]="
+                  column.link.tooltipConfig?.ionTooltipShowDelay || 0
+                "
                 (ionOnClick)="column.link.action(row)"
               ></ion-link>
               <span class="td-span" *ngIf="column.type === 'boolean'">

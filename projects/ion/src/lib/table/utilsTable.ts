@@ -5,13 +5,12 @@ import {
   IconType,
   PopoverProps,
   StatusType,
-  TooltipColorScheme,
-  TooltipPosition,
   TooltipProps,
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { IconSide, LinkTarget } from './../core/types/link';
 import { TagStatus } from './../core/types/status';
+import { Omit } from '../utils/types';
 
 export enum EventTable {
   SORT = 'sort',
@@ -49,12 +48,8 @@ interface LinkRow<RowType> {
   tooltipConfig?: LinkTooltip<RowType>;
 }
 
-interface LinkTooltip<RowType> {
+interface LinkTooltip<RowType> extends Omit<TooltipProps, 'ionTooltipTitle'> {
   text?: (_: RowType) => string;
-  colorScheme?: TooltipColorScheme;
-  position?: TooltipPosition;
-  arrowPointAtCenter?: boolean;
-  delay?: number;
 }
 
 export interface PipeColumn {
