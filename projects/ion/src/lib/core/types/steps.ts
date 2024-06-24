@@ -7,6 +7,7 @@ export interface StepType {
   status?: StepStatus;
   lines?: StepLines;
   clickableWhenHasError?: boolean;
+  disabled?: boolean;
 }
 
 export interface StepLines {
