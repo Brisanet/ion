@@ -73,6 +73,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
       this.changeStep(changes.current.currentValue);
     }
     if (changes.steps && !changes.steps.firstChange) {
+      this.steps = changes.steps.currentValue;
       this.formatStepLines();
     }
   }
