@@ -1,5 +1,17 @@
 @import '../../styles/index.scss';
 
+@mixin setBorderBgColor($border, $bg, $color) {
+  border: 1px solid $border;
+  background-color: $bg;
+  color: $color;
+}
+
+@mixin setPageSizeBorder($size, $borderRadius) {
+  min-width: $size;
+  height: $size;
+  border-radius: $borderRadius;
+}
+
 $radius: 8px;
 
 @keyframes dot-animation {
@@ -53,6 +65,17 @@ table {
     cursor: pointer;
     border: none;
     background-color: white;
+
+    &--disabled,
+    &--disabled:hover,
+    &--disabled:focus-visible {
+      @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+      cursor: not-allowed !important;
+
+      &:hover {
+        @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+      }
+    }
 
     &:hover {
       background-color: $primary-1;
