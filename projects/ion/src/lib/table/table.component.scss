@@ -1,7 +1,6 @@
 @import '../../styles/index.scss';
 
-@mixin setBorderBgColor($border, $bg, $color) {
-  border: 1px solid $border;
+@mixin setBorderBgColor($bg, $color) {
   background-color: $bg;
   color: $color;
 }
@@ -69,11 +68,11 @@ table {
     &--disabled,
     &--disabled:hover,
     &--disabled:focus-visible {
-      @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+      @include setBorderBgColor($neutral-3, $neutral-5);
       cursor: not-allowed !important;
 
       &:hover {
-        @include setBorderBgColor($neutral-5, $neutral-3, $neutral-5);
+        @include setBorderBgColor($neutral-3, $neutral-5);
       }
     }
 
