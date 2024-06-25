@@ -73,9 +73,23 @@ export class IonStepsComponent implements OnInit, OnChanges {
       this.changeStep(changes.current.currentValue);
     }
     if (changes.steps && !changes.steps.firstChange) {
-      this.steps = changes.steps.currentValue;
+      this.updateChangedSteps(changes.steps.currentValue);
       this.formatStepLines();
     }
+  }
+
+  private updateChangedSteps(newSteps: StepType[]): void {
+    this.steps = newSteps.map<StepType>((step, index) => {
+      const localStep = this.steps[index];
+      return {
+        ...localStep,
+        ...step,
+        status:
+          localStep.status !== step.status && step.status
+            ? step.status
+            : localStep.status,
+      };
+    });
   }
 
   private generateIndexesForStep(): void {
