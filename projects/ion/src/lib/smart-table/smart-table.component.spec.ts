@@ -1067,6 +1067,18 @@ describe('Table > Pagination', () => {
     await sut(myProps);
     expect(screen.getByTestId('page-2')).toHaveClass('selected');
   });
+
+  it('should not order while loading', async () => {
+    events.mockClear();
+    const tableWithLoading = JSON.parse(
+      JSON.stringify(defaultProps)
+    ) as IonSmartTableProps<Character>;
+    tableWithLoading.config.loading = true;
+    await sut(tableWithLoading);
+    const orderBy = columns[0].key;
+    fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+    expect(events).not.toHaveBeenCalled();
+  });
 });
 
 describe('Table > Action with confirm', () => {
