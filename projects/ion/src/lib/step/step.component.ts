@@ -56,7 +56,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
   }
 
   goesTo(index: number): void {
-    if (this.clickable && !this.disabled) {
+    if (this.clickable && !this.disabled && !this.steps[index - 1].disabled) {
       this.indexChange.emit(index);
       if (!this.preventStepChange) {
         this.changeStep(index);

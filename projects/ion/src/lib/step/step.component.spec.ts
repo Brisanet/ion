@@ -146,6 +146,19 @@ describe('Static IonStepsComponent', () => {
     expect(screen.findByTestId('step-3-selected')).toBeTruthy();
     expect(screen.getByTestId('step-3-selected')).toHaveClass('selected');
   });
+  it('should disable only the "Step 3"', async () => {
+    const steps: StepType[] = JSON.parse(JSON.stringify(defaultValue));
+    steps[2].disabled = true;
+
+    await sut({
+      disabled: false,
+      current: 1,
+      steps,
+    });
+    expect(screen.getByTestId('step-1-selected')).not.toHaveClass('disabled');
+    expect(screen.getByTestId('step-2-default')).not.toHaveClass('disabled');
+    expect(screen.getByTestId('step-3-default')).toHaveClass('disabled');
+  });
 });
 
 @Component({
