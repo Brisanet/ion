@@ -999,6 +999,18 @@ describe('Table > Differents columns data type', () => {
       jest.advanceTimersByTime(debounceTime);
       expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
     });
+
+    it('should not order while loading', async () => {
+      events.mockClear();
+      const tableWithLoading = JSON.parse(
+        JSON.stringify(defaultProps)
+      ) as IonSmartTableProps<Character>;
+      tableWithLoading.config.loading = true;
+      await sut(tableWithLoading);
+      const orderBy = columns[0].key;
+      fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+      expect(events).not.toHaveBeenCalled();
+    });
   });
 
   afterAll(() => {

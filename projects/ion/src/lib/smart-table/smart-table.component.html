@@ -48,6 +48,7 @@
 
             <button
               class="svg"
+              [class.svg--disabled]="config.loading"
               (click)="
                 !!config.debounceOnSort
                   ? sortWithDebounce(column)
