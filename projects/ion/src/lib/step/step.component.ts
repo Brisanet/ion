@@ -37,12 +37,17 @@ export class IonStepsComponent implements OnInit, OnChanges {
     return step.status ? step.status : this.stepStatus(step, currentIndex);
   }
 
-  changeStep(currentIndex: number): void {
+  changeStep(currentIndex: number, onlyStepChanged = false): void {
     if (currentIndex < this.FIRST_STEP || currentIndex > this.steps.length) {
       return;
     }
-
     this.steps = this.steps.map((step) => {
+      if (
+        step.status &&
+        (step.status === StepStatus.ERROR || onlyStepChanged)
+      ) {
+        return step;
+      }
       return {
         ...step,
         status: this.firstCatchStatus
@@ -73,19 +78,8 @@ export class IonStepsComponent implements OnInit, OnChanges {
       this.changeStep(changes.current.currentValue);
     }
     if (changes.steps && !changes.steps.firstChange) {
-      this.updateChangedSteps(changes.steps.currentValue);
-      this.formatStepLines();
+      this.changeStep(this.current, true);
     }
-  }
-
-  private updateChangedSteps(newSteps: StepType[]): void {
-    this.steps = newSteps.map<StepType>((step, index) => {
-      const localStep = this.steps[index];
-      return {
-        ...localStep,
-        ...step,
-      };
-    });
   }
 
   private generateIndexesForStep(): void {
