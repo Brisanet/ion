@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { fireEvent, render, screen } from '@testing-library/angular';
-import { StepConfig, StepType, StepStatus } from '../core/types/steps';
+import {
+  RenderResult,
+  fireEvent,
+  render,
+  screen,
+} from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { StepConfig, StepStatus, StepType } from '../core/types/steps';
 import { IonIconComponent } from '../icon/icon.component';
-import { IonStepsComponent } from './step.component';
 import { PipesModule } from '../utils/pipes/pipes.module';
+import { SafeAny } from '../utils/safe-any';
+import { IonStepsComponent } from './step.component';
 
 const defaultValue: StepType[] = [
   {
@@ -26,13 +33,12 @@ const defaultProps: StepConfig = {
 
 const sut = async (
   customProps: StepConfig = defaultProps
-): Promise<HTMLElement> => {
-  await render(IonStepsComponent, {
+): Promise<RenderResult<IonStepsComponent, IonStepsComponent>> => {
+  return await render(IonStepsComponent, {
     componentProperties: customProps,
     declarations: [IonIconComponent],
     imports: [FormsModule, PipesModule],
   });
-  return screen.findByTestId('ion-steps');
 };
 
 describe('Static IonStepsComponent', () => {
@@ -159,6 +165,39 @@ describe('Static IonStepsComponent', () => {
     expect(screen.getByTestId('step-2-default')).not.toHaveClass('disabled');
     expect(screen.getByTestId('step-3-default')).toHaveClass('disabled');
   });
+
+  it('should emit event when step 3 be clicked', async () => {
+    const steps: StepType[] = JSON.parse(JSON.stringify(defaultValue));
+    const indexChange = jest.fn();
+    await sut({
+      disabled: false,
+      clickable: true,
+      current: 1,
+      steps,
+      indexChange: {
+        emit: indexChange,
+      } as SafeAny,
+    });
+    userEvent.click(screen.getByTestId('step-3-default'));
+    expect(indexChange).toHaveBeenCalled();
+  });
+
+  it('should not emit event when step 3 is disabled', async () => {
+    const steps: StepType[] = JSON.parse(JSON.stringify(defaultValue));
+    steps[2].disabled = true;
+    const indexChange = jest.fn();
+    await sut({
+      disabled: false,
+      current: 1,
+      clickable: true,
+      steps,
+      indexChange: {
+        emit: indexChange,
+      } as SafeAny,
+    });
+    fireEvent.click(screen.getByTestId('step-3-default'));
+    expect(indexChange).not.toHaveBeenCalled();
+  });
 });
 
 @Component({
@@ -241,5 +280,17 @@ describe('Passing through the IonStepsComponent', () => {
     newSteps.forEach((step) => {
       expect(screen.getByText(step.label)).toBeInTheDocument();
     });
+  });
+  it('should render error on change step config', async () => {
+    testHost.steps = [
+      { label: 'Step 1' },
+      { label: 'Step 2' },
+      { label: 'Step 3' },
+    ];
+    fixture.detectChanges();
+    testHost.steps[2].status = StepStatus.ERROR;
+    testHost.steps = JSON.parse(JSON.stringify(testHost.steps));
+    fixture.detectChanges();
+    expect(screen.getByTestId('step-3-error')).toBeInTheDocument();
   });
 });

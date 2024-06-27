@@ -1,3 +1,4 @@
+import { EventEmitter } from '@angular/core';
 import { DirectionType } from './direction';
 
 export interface StepType {
@@ -22,6 +23,7 @@ export type StepConfig = {
   clickable?: boolean;
   direction?: DirectionType;
   preventStepChange?: boolean;
+  indexChange?: EventEmitter<number>;
 };
 
 export enum StepStatus {

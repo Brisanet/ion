@@ -21,7 +21,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
   @Input() clickable: StepConfig['clickable'];
   @Input() preventStepChange: StepConfig['preventStepChange'] = false;
   @Input() direction: StepConfig['direction'] = 'horizontal';
-  @Output() indexChange = new EventEmitter<number>();
+  @Output() indexChange: StepConfig['indexChange'] = new EventEmitter<number>();
 
   public firstCatchStatus = true;
 
@@ -84,10 +84,6 @@ export class IonStepsComponent implements OnInit, OnChanges {
       return {
         ...localStep,
         ...step,
-        status:
-          localStep.status !== step.status && step.status
-            ? step.status
-            : localStep.status,
       };
     });
   }
