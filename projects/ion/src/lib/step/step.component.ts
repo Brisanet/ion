@@ -52,7 +52,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
   getStep(
     currentIndex: number,
     step: StepType,
-    onlyStepChanged = false
+    onlyStepChanged?: boolean
   ): StepType {
     if (step.status && (step.status === StepStatus.ERROR || onlyStepChanged)) {
       return step;
