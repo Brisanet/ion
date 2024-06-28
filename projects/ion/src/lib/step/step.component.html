@@ -7,12 +7,12 @@
     [class]="'step ' + step.status"
     [class.clickable]="
       clickable &&
-      !disabled &&
+      (!disabled || !step.disabled) &&
       step.status !== 'selected' &&
       (step.status !== 'error' ||
         (step.status === 'error' && step.clickableWhenHasError))
     "
-    [class.disabled]="disabled"
+    [class.disabled]="disabled || step.disabled"
     [attr.data-testid]="'step-' + step.index + '-' + step.status"
     *ngFor="let step of steps; let index = index"
     (click)="goesTo(step.index)"
@@ -60,7 +60,7 @@
     <span
       class="label"
       [class.selected]="step.status === 'selected' || step.status === 'error'"
-      [class.disabled]="disabled"
+      [class.disabled]="disabled || step.disabled"
     >
       {{ step.label }}
     </span>
@@ -68,7 +68,7 @@
     <span
       *ngIf="step.description"
       class="description"
-      [class.disabled]="disabled"
+      [class.disabled]="disabled || step.disabled"
       [attr.data-testid]="'description-' + step.index"
     >
       {{ step.description | ellipsis: 58 }}
