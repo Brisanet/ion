@@ -42,22 +42,27 @@ export class IonStepsComponent implements OnInit, OnChanges {
       return;
     }
     this.steps = this.steps.map((step) => {
-      if (
-        step.status &&
-        (step.status === StepStatus.ERROR || onlyStepChanged)
-      ) {
-        return step;
-      }
-      return {
-        ...step,
-        status: this.firstCatchStatus
-          ? this.checkStartedStatus(step, currentIndex)
-          : this.stepStatus(step, currentIndex),
-      };
+      return this.getStep(currentIndex, step, onlyStepChanged);
     });
 
     this.formatStepLines();
     this.firstCatchStatus = false;
+  }
+
+  getStep(
+    currentIndex: number,
+    step: StepType,
+    onlyStepChanged = false
+  ): StepType {
+    if (step.status && (step.status === StepStatus.ERROR || onlyStepChanged)) {
+      return step;
+    }
+    return {
+      ...step,
+      status: this.firstCatchStatus
+        ? this.checkStartedStatus(step, currentIndex)
+        : this.stepStatus(step, currentIndex),
+    };
   }
 
   goesTo(index: number): void {
