@@ -21,7 +21,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
   @Input() clickable: StepConfig['clickable'];
   @Input() preventStepChange: StepConfig['preventStepChange'] = false;
   @Input() direction: StepConfig['direction'] = 'horizontal';
-  @Output() indexChange = new EventEmitter<number>();
+  @Output() indexChange: StepConfig['indexChange'] = new EventEmitter<number>();
 
   public firstCatchStatus = true;
 
@@ -37,26 +37,42 @@ export class IonStepsComponent implements OnInit, OnChanges {
     return step.status ? step.status : this.stepStatus(step, currentIndex);
   }
 
-  changeStep(currentIndex: number): void {
+  changeStep(currentIndex: number, onlyStepChanged = false): void {
     if (currentIndex < this.FIRST_STEP || currentIndex > this.steps.length) {
       return;
     }
-
     this.steps = this.steps.map((step) => {
-      return {
-        ...step,
-        status: this.firstCatchStatus
-          ? this.checkStartedStatus(step, currentIndex)
-          : this.stepStatus(step, currentIndex),
-      };
+      return this.getStep(currentIndex, step, onlyStepChanged);
     });
 
     this.formatStepLines();
     this.firstCatchStatus = false;
   }
 
+  getStep(
+    currentIndex: number,
+    step: StepType,
+    onlyStepChanged?: boolean
+  ): StepType {
+    if (
+      step.status &&
+      (step.status === StepStatus.ERROR ||
+        onlyStepChanged ||
+        this.disabled ||
+        step.disabled)
+    ) {
+      return step;
+    }
+    return {
+      ...step,
+      status: this.firstCatchStatus
+        ? this.checkStartedStatus(step, currentIndex)
+        : this.stepStatus(step, currentIndex),
+    };
+  }
+
   goesTo(index: number): void {
-    if (this.clickable && !this.disabled) {
+    if (this.clickable && !this.disabled && !this.steps[index - 1].disabled) {
       this.indexChange.emit(index);
       if (!this.preventStepChange) {
         this.changeStep(index);
@@ -73,7 +89,7 @@ export class IonStepsComponent implements OnInit, OnChanges {
       this.changeStep(changes.current.currentValue);
     }
     if (changes.steps && !changes.steps.firstChange) {
-      this.formatStepLines();
+      this.changeStep(this.current, true);
     }
   }
 
