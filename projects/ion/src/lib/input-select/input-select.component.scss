@@ -101,6 +101,60 @@
       cursor: not-allowed;
     }
   }
+
+  &--valid {
+    & .first-input,
+    & .second-input {
+      & .colorInvalid {
+        position: absolute;
+        right: spacing(1.5);
+
+        ::ng-deep svg {
+          fill: $positive-6;
+        }
+      }
+    }
+  }
+
+  &--invalid {
+    & .colorInvalid {
+      position: absolute;
+      right: spacing(1.5);
+
+      ::ng-deep svg {
+        fill: $negative-6;
+      }
+    }
+
+    .dropdown-container__button {
+      cursor: not-allowed;
+      border: 1px solid $negative-6;
+      color: $neutral-5;
+      border-right: none;
+    }
+
+    & .first-input,
+    & .second-input {
+      border: 1px solid $negative-5;
+    }
+
+    & .first-input:hover,
+    & .second-input:hover,
+    & .first-input:active,
+    & .second-input:active {
+      border: 1px solid $negative-6;
+      outline: none;
+    }
+
+    & .separator {
+      border-color: $negative-6 !important;
+      border: 1px solid;
+      cursor: not-allowed;
+      outline: none;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
 }
 
 .separator {

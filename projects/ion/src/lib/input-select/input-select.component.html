@@ -1,6 +1,8 @@
 <div class="input-wraper" data-testid="ion-input-select">
   <div
     class="input-select-container"
+    [class.multiple-input--invalid]="valid === false"
+    [class.multiple-input--valid]="valid"
     [class.multiple-input--disabled]="disabled"
     [class.multiple-input]="currentOption?.multiple"
   >
@@ -40,6 +42,22 @@
           [(ngModel)]="value"
           (ngModelChange)="handleChange()"
         />
+        <ion-icon
+          data-testid="icon-valid"
+          class="colorValid"
+          *ngIf="valid && !currentOption?.multiple"
+          type="check-solid"
+          size="16"
+        >
+        </ion-icon>
+        <ion-icon
+          data-testid="icon-invalid"
+          class="colorInvalid"
+          *ngIf="valid === false && !currentOption?.multiple"
+          type="close-solid"
+          size="16"
+        >
+        </ion-icon>
       </div>
     </div>
     <div *ngIf="currentOption?.multiple" class="separator">-</div>
@@ -55,6 +73,22 @@
           [(ngModel)]="secondValue"
           (ngModelChange)="handleChange()"
         />
+        <ion-icon
+          data-testid="icon-valid"
+          class="colorValid"
+          *ngIf="valid"
+          type="check-solid"
+          size="16"
+        >
+        </ion-icon>
+        <ion-icon
+          data-testid="icon-invalid"
+          class="colorInvalid"
+          *ngIf="valid === false"
+          type="close-solid"
+          size="16"
+        >
+        </ion-icon>
       </div>
     </div>
   </div>
