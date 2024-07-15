@@ -1,9 +1,12 @@
-import { IonSharedModule } from './../projects/ion/src/lib/shared.module';
-import { Story, Meta } from '@storybook/angular/types-6-0';
-import { moduleMetadata } from '@storybook/angular';
-import { IonInputSelectComponent } from '../projects/ion/src/lib/input-select/input-select.component';
 import { FormsModule } from '@angular/forms';
 import { action } from '@storybook/addon-actions';
+import { moduleMetadata } from '@storybook/angular';
+import { Meta, Story } from '@storybook/angular/types-6-0';
+import {
+  defaultSelectOptions,
+  IonInputSelectComponent,
+} from '../projects/ion/src/lib/input-select/input-select.component';
+import { IonSharedModule } from './../projects/ion/src/lib/shared.module';
 
 const customSelectOptions = [
   {
@@ -18,8 +21,8 @@ const customSelectOptions = [
 export default {
   title: 'Ion/Data Entry/Input Select',
   component: IonInputSelectComponent,
-  parameters: {
-    docs: false,
+  args: {
+    selectOptions: defaultSelectOptions,
   },
   decorators: [
     moduleMetadata({

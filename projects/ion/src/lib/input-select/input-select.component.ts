@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { SelectOption, ValueToEmmit } from '../core/types/input-select';
 
-const defaultSelectOptions: SelectOption[] = [
+export const defaultSelectOptions: SelectOption[] = [
   {
     label: 'Entre',
     multiple: true,

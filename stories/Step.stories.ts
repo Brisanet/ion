@@ -193,3 +193,20 @@ WithStepClickableWhenHasError.args = {
     { label: 'Third', status: 'selected' },
   ],
 };
+
+export const DisabledItem = Template.bind({});
+DisabledItem.args = {
+  steps: [
+    {
+      label: 'First',
+    },
+    {
+      label: 'Second',
+      disabled: true,
+    },
+    {
+      label: 'Third',
+      status: 'checked',
+    },
+  ],
+};
