@@ -54,6 +54,13 @@ table {
     border: none;
     background-color: white;
 
+    &--disabled,
+    &--disabled:hover,
+    &--disabled:focus-visible {
+      cursor: not-allowed !important;
+      background-color: $neutral-3 !important;
+    }
+
     &:hover {
       background-color: $primary-1;
     }
