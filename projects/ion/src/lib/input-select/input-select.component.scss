@@ -103,15 +103,12 @@
   }
 
   &--valid {
-    & .first-input,
-    & .second-input {
-      & .colorInvalid {
-        position: absolute;
-        right: spacing(1.5);
+    & .colorValid {
+      position: absolute;
+      right: spacing(1.5);
 
-        ::ng-deep svg {
-          fill: $positive-6;
-        }
+      ::ng-deep svg {
+        fill: $positive-6;
       }
     }
   }
@@ -127,9 +124,7 @@
     }
 
     .dropdown-container__button {
-      cursor: not-allowed;
       border: 1px solid $negative-6;
-      color: $neutral-5;
       border-right: none;
     }
 
