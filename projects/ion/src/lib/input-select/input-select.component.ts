@@ -36,6 +36,7 @@ export class IonInputSelectComponent implements OnInit {
   @Input() value = '';
   @Input() secondValue = '';
   @Input() selectOptions: SelectOption[] = defaultSelectOptions;
+  @Input() valid: boolean | null = null;
   @Output() valueChange = new EventEmitter<ValueToEmmit>();
 
   public dropdownVisible = false;
