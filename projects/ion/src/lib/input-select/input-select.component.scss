@@ -136,16 +136,16 @@
     & .first-input:hover,
     & .second-input:hover,
     & .first-input:active,
-    & .second-input:active {
+    & .second-input:active,
+    & .first-input:focus-within,
+    & .second-input:focus-within {
       border: 1px solid $negative-6;
-      outline: none;
+      @include add-colors($negative-5, 2px solid, $negative-2);
     }
 
     & .separator {
       border-color: $negative-6 !important;
       border: 1px solid;
-      cursor: not-allowed;
-      outline: none;
       border-left: 0;
       border-right: 0;
     }
