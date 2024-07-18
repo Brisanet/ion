@@ -44,11 +44,11 @@
           (ngModelChange)="handleChange()"
         />
         <ng-container
-          *ngIf="valid"
+          *ngIf="valid && !currentOption?.multiple"
           [ngTemplateOutlet]="validIcon"
         ></ng-container>
         <ng-container
-          *ngIf="valid === false"
+          *ngIf="valid === false && !currentOption?.multiple"
           [ngTemplateOutlet]="invalidIcon"
         ></ng-container>
       </div>
