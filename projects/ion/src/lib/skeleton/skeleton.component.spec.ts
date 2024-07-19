@@ -35,6 +35,16 @@ describe('Skeleton', () => {
     expect(getSkeleton()).toHaveStyle('width: 100px; height: 50px');
   });
 
+  it('should render a rectangular with a percentage width and height', async () => {
+    await sut({
+      variant: 'rect',
+      width: '100%',
+      height: '50%',
+    } as IonSkeletonComponent);
+
+    expect(getSkeleton()).toHaveStyle('width: 100%; height: 50%');
+  });
+
   it('should works on circular mode', async () => {
     await sut({ variant: 'circular' } as IonSkeletonComponent);
     expect(getSkeleton()).toHaveStyle('border-radius: 50%');
@@ -43,5 +53,10 @@ describe('Skeleton', () => {
   it('should accepts a custom border radius', async () => {
     await sut({ variant: 'rect', radius: 12 } as IonSkeletonComponent);
     expect(getSkeleton()).toHaveStyle('border-radius: 12px');
+  });
+
+  it('should render a skeleton with a percentage radius', async () => {
+    await sut({ variant: 'rect', radius: '25%' } as IonSkeletonComponent);
+    expect(getSkeleton()).toHaveStyle('border-radius: 25%');
   });
 });

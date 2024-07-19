@@ -31,3 +31,12 @@ withCustomRadius.args = {
   width: 400,
   radius: 12,
 } as IonSkeletonComponent;
+
+export const RectangularWithPercentage: Story<IonSkeletonComponent> = () => ({
+  component: IonSkeletonComponent,
+  template: `
+    <div style="width: 500px; height: 200px;">
+      <ion-skeleton width="100%" height="100%"></ion-skeleton>
+    </div>
+  `,
+});
