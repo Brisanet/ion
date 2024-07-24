@@ -153,49 +153,57 @@
               #cell
             >
               <!-- cell types -->
-
-              <span class="td-span" *ngIf="!column.type">{{
-                row[column.key] | replaceEmpty: '-'
-              }}</span>
-              <ion-tag
-                *ngIf="column.type === 'tag'"
-                data-testid="tag-cell"
-                [label]="row[column.key]"
-                [status]="row[column.tag.statusKey] || column.tag.status"
-                [icon]="row[column.tag.iconKey] || column.tag.icon"
-                ionTooltip
-                [ionTooltipTitle]="
-                  row[column.tag.tooltipKey] || row[column.key]
-                "
-              ></ion-tag>
-              <ion-link
-                *ngIf="column.type === 'link' && column.link"
-                data-testid="link-element"
-                [label]="column.link.label(row)"
-                [icon]="column.link.icon"
-                [iconSide]="column.link.iconSide"
-                [size]="column.link.size || 'sm'"
-                [bold]="column.link.bold"
-                [disabled]="column.link.disabled && column.link.disabled(row)"
-                [target]="column.link.target"
-                [link]="column.link.url && column.link.url(row)"
-                ionTooltip
-                [ionTooltipTitle]="column.link.tooltipConfig?.text(row)"
-                [ionTooltipColorScheme]="
-                  column.link.tooltipConfig?.ionTooltipColorScheme || 'dark'
-                "
-                [ionTooltipPosition]="
-                  column.link.tooltipConfig?.ionTooltipPosition || 'topCenter'
-                "
-                [ionTooltipArrowPointAtCenter]="
-                  column.link.tooltipConfig?.ionTooltipArrowPointAtCenter ||
-                  true
-                "
-                [ionTooltipShowDelay]="
-                  column.link.tooltipConfig?.ionTooltipShowDelay || 0
-                "
-                (ionOnClick)="column.link.action(row)"
-              ></ion-link>
+              <span
+                class="td-span"
+                *ngIf="!column.type || column.type === 'text'"
+                >{{ row[column.key] | replaceEmpty: '-' }}</span
+              >
+              <ng-container *ngIf="column.type === 'tag'">
+                <ion-tag
+                  *ngIf="row[column.key]; else emptyCell"
+                  data-testid="tag-cell"
+                  [label]="row[column.key]"
+                  [status]="row[column.tag.statusKey] || column.tag.status"
+                  [icon]="row[column.tag.iconKey] || column.tag.icon"
+                  ionTooltip
+                  [ionTooltipTitle]="
+                    row[column.tag.tooltipKey] || row[column.key]
+                  "
+                ></ion-tag>
+              </ng-container>
+              <ng-container *ngIf="column.type === 'link' && column.link">
+                <ion-link
+                  *ngIf="
+                    !column.link.show || column.link.show(row);
+                    else emptyCell
+                  "
+                  data-testid="link-element"
+                  [label]="column.link.label(row)"
+                  [icon]="column.link.icon"
+                  [iconSide]="column.link.iconSide"
+                  [size]="column.link.size || 'sm'"
+                  [bold]="column.link.bold"
+                  [disabled]="column.link.disabled && column.link.disabled(row)"
+                  [target]="column.link.target"
+                  [link]="column.link.url && column.link.url(row)"
+                  ionTooltip
+                  [ionTooltipTitle]="column.link.tooltipConfig?.text(row)"
+                  [ionTooltipColorScheme]="
+                    column.link.tooltipConfig?.ionTooltipColorScheme || 'dark'
+                  "
+                  [ionTooltipPosition]="
+                    column.link.tooltipConfig?.ionTooltipPosition || 'topCenter'
+                  "
+                  [ionTooltipArrowPointAtCenter]="
+                    column.link.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                    true
+                  "
+                  [ionTooltipShowDelay]="
+                    column.link.tooltipConfig?.ionTooltipShowDelay || 0
+                  "
+                  (ionOnClick)="column.link.action(row)"
+                ></ion-link>
+              </ng-container>
               <span class="td-span" *ngIf="column.type === 'boolean'">
                 {{
                   row[column.key]
@@ -400,6 +408,10 @@
   <ng-template #noData>
     <ion-icon size="40" type="exclamation-rounded"></ion-icon>
     <span>Não há dados</span>
+  </ng-template>
+
+  <ng-template #emptyCell>
+    <span class="td-span"> - </span>
   </ng-template>
 
   <div
