@@ -1662,7 +1662,7 @@ describe('Table > Link in cells', () => {
             ...linkConfig,
             link: {
               ...linkConfig.link,
-              show: (row): boolean => !!row.name,
+              hide: (row): boolean => !row.name,
             },
           },
         ],

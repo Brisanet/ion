@@ -46,7 +46,7 @@ interface LinkRow<RowType> {
   url?: (_: RowType) => string;
   action?: (_: RowType) => void;
   tooltipConfig?: LinkTooltip<RowType>;
-  show?: (_: RowType) => boolean;
+  hide?: (_: RowType) => boolean;
 }
 
 interface LinkTooltip<RowType> extends Omit<TooltipProps, 'ionTooltipTitle'> {

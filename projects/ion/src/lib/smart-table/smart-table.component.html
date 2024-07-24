@@ -174,7 +174,7 @@
               <ng-container *ngIf="column.type === 'link' && column.link">
                 <ion-link
                   *ngIf="
-                    !column.link.show || column.link.show(row);
+                    !column.link.hide || !column.link.hide(row);
                     else emptyCell
                   "
                   data-testid="link-element"
