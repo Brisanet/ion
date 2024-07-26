@@ -103,8 +103,6 @@ export class IonPositionService {
     availablePositions: ElementPositions
   ): keyof PositionsChecks {
     const positions = this.getPositions();
-    console.log('🚀 ~ IonPositionService ~ positions:', positions);
-
     let newPosition = this.choosedPosition;
 
     if (!positions[newPosition as keyof PositionsChecks]) {
@@ -128,10 +126,6 @@ export class IonPositionService {
       left: this.atLeftEdge(this.hostPosition.left, width),
       top: this.atTopEdge(this.hostPosition.top, height),
     };
-    console.log(
-      '🚀 ~ IonPositionService ~ getPositions ~ positions:',
-      positions
-    );
 
     return {
       rightBottom: !positions.right && !positions.top,
@@ -174,7 +168,6 @@ export class IonPositionService {
   }
 
   private atTopEdge(hostTop: number, componentHeight: number): boolean {
-    console.log(hostTop, componentHeight);
     return hostTop < componentHeight + this.elementPadding;
   }
 }
