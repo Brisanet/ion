@@ -10,6 +10,7 @@ import {
   Inject,
   Injector,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
@@ -26,7 +27,9 @@ import { IonTourService } from './tour.service';
 import { SafeAny } from '../utils/safe-any';
 
 @Directive({ selector: '[ionTourStep]' })
-export class IonTourStepDirective implements OnInit, AfterViewInit, OnDestroy {
+export class IonTourStepDirective
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy
+{
   @Input() public ionTourId!: IonTourStepProps['ionTourId'];
   @Input() public ionStepId!: IonTourStepProps['ionStepId'];
   @Input() public ionStepTitle?: IonTourStepProps['ionStepTitle'];
@@ -90,19 +93,28 @@ export class IonTourStepDirective implements OnInit, AfterViewInit, OnDestroy {
     this.tourService.addStep(this.getStepProps());
   }
 
+  public ngOnChanges(): void {
+    this.tourService.updateStep(this.getStepProps());
+    this.checkPopoverVisibility();
+  }
+
   public ngOnDestroy(): void {
     this.viewRef.clear();
   }
 
   private checkPopoverVisibility(): void {
-    if (this.isTourActive && this.isStepSelected && !this.popoverRef) {
+    if (this.isTourActive && this.isStepSelected) {
       this.createPopoverElement();
-    } else if (!this.isTourActive || !this.isStepSelected) {
+    } else {
       this.destroyPopoverElement();
     }
   }
 
   private createPopoverElement(): void {
+    if (this.popoverRef) {
+      this.destroyPopoverElement();
+    }
+
     this.popoverRef = this.componentFactoryResolver
       .resolveComponentFactory(IonTourPopoverComponent)
       .create(this.injector);
@@ -114,7 +126,7 @@ export class IonTourStepDirective implements OnInit, AfterViewInit, OnDestroy {
 
     this.document.body.appendChild(popoverElement);
     this.popoverRef.changeDetectorRef.detectChanges();
-    this.popoverRef.instance.step = this.getStepProps();
+    Object.assign(this.popoverRef.instance, this.getStepProps());
   }
 
   private destroyPopoverElement(): void {

@@ -69,8 +69,6 @@ import { IonTourService } from '../tour.service';
   `,
 })
 export class TourBasicDemoComponent {
-  public args = {};
-
   public tourId = 'basic-demo';
 
   public steps: Record<string, string> = {

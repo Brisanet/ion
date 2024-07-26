@@ -1,24 +1,10 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
 
-import { IonTourStepPositions, IonTourStepProps } from '../../core/types';
+import { IonTourStepPositions } from '../../core/types';
 import { IonTourService } from '../tour.service';
 
-export const tourStepsDemoDefaultArgs: Partial<IonTourStepProps> = {
-  ionStepTitle: 'Title Example',
-  ionStepContent: 'You can change the props of this step in Storybook controls',
-  ionStepPrevBtnTitle: 'Voltar',
-  ionStepNextBtnTitle: 'Continuar',
-  ionStepFinishBtnTitle: 'Finalizar',
-  ionStepZIndex: 123,
-  ionStepPosition: IonTourStepPositions.TOP_CENTER,
-  ionStepMarginToContent: 5,
-  ionStepWidth: 300,
-  ionStepHeight: 150,
-  ionStepBackdropPadding: 20,
-  ionStepBackdropdZIndex: 100,
-};
-
 @Component({
+  selector: 'tour-step-props',
   template: `
     <style>
       div {
@@ -38,21 +24,20 @@ export const tourStepsDemoDefaultArgs: Partial<IonTourStepProps> = {
         ionTourStep
         ionStepId="demo-step"
         ionTourId="demo-tour"
-        [ionStepContent]="args.ionStepContent"
-        [ionStepTitle]="args.ionStepTitle"
-        [ionStepContent]="args.ionStepContent"
-        [ionStepPrevBtnTitle]="args.ionStepPrevBtnTitle"
-        [ionStepNextBtnTitle]="args.ionStepNextBtnTjitle"
-        [ionStepFinishBtnTitle]="args.ionStepFinishBtnTitle"
-        [ionPrevStepId]="args.ionPrevStepId"
-        [ionNextStepId]="args.ionNextStepId"
-        [ionStepZIndex]="args.ionStepZIndex"
-        [ionStepPosition]="args.ionStepPosition"
-        [ionStepMarginToContent]="args.ionStepMarginToContent"
-        [ionStepWidth]="args.ionStepWidth"
-        [ionStepHeight]="args.ionStepHeight"
-        [ionStepBackdropPadding]="args.ionStepBackdropPadding"
-        [ionStepBackdropdZIndex]="args.ionStepBackdropdZIndex"
+        [ionStepContent]="ionStepContent"
+        [ionStepTitle]="ionStepTitle"
+        [ionStepPrevBtnTitle]="ionStepPrevBtnTitle"
+        [ionStepNextBtnTitle]="ionStepNextBtnTitle"
+        [ionStepFinishBtnTitle]="ionStepFinishBtnTitle"
+        [ionPrevStepId]="ionPrevStepId"
+        [ionNextStepId]="ionNextStepId"
+        [ionStepZIndex]="ionStepZIndex"
+        [ionStepPosition]="ionStepPosition"
+        [ionStepMarginToContent]="ionStepMarginToContent"
+        [ionStepWidth]="ionStepWidth"
+        [ionStepHeight]="ionStepHeight"
+        [ionStepBackdropPadding]="ionStepBackdropPadding"
+        [ionStepBackdropdZIndex]="ionStepBackdropdZIndex"
         (ionOnPrevStep)="onPrevStep()"
         (ionOnNextStep)="onNextStep()"
         (ionOnFinishTour)="onFinishTour()"
@@ -60,8 +45,21 @@ export const tourStepsDemoDefaultArgs: Partial<IonTourStepProps> = {
     </div>
   `,
 })
-export class TourStepPropsComponent implements AfterViewInit {
-  public args: Partial<IonTourStepProps> = tourStepsDemoDefaultArgs;
+export class TourStepPropsComponent implements AfterViewInit, OnChanges {
+  @Input() public ionStepTitle: string;
+  @Input() public ionStepContent: string;
+  @Input() public ionStepPrevBtnTitle: string;
+  @Input() public ionStepNextBtnTitle: string;
+  @Input() public ionStepFinishBtnTitle: string;
+  @Input() public ionPrevStepId: string;
+  @Input() public ionNextStepId: string;
+  @Input() public ionStepZIndex: number;
+  @Input() public ionStepPosition: IonTourStepPositions;
+  @Input() public ionStepMarginToContent: number;
+  @Input() public ionStepWidth: string;
+  @Input() public ionStepHeight: string;
+  @Input() public ionStepBackdropPadding: number;
+  @Input() public ionStepBackdropdZIndex: number;
 
   constructor(private readonly ionTourService: IonTourService) {}
 
@@ -79,6 +77,10 @@ export class TourStepPropsComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.ionTourService.start();
+  }
+
+  public ngOnChanges(): void {
+    this.restartTour();
   }
 
   public restartTour(): void {

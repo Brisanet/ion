@@ -92,21 +92,22 @@ function calculateLeftPositions({
 }: PositionParams): Partial<PopoverPositions> {
   const left = host.left - popover.width - marginToContent;
   return {
-    leftBottom: { left, top: host.bottom },
-    leftCenter: { left, top: hostVerticalCenter },
+    leftBottom: { left, top: host.bottom - popover.height },
+    leftCenter: { left, top: hostVerticalCenter - popover.height / 2 },
     leftTop: { left, top: host.top },
   };
 }
 
 function calculateRightPositions({
   host,
+  popover,
   marginToContent,
   hostVerticalCenter,
 }: PositionParams): Partial<PopoverPositions> {
   const left = host.right + marginToContent;
   return {
-    rightBottom: { left, top: host.bottom },
-    rightCenter: { left, top: hostVerticalCenter },
+    rightBottom: { left, top: host.bottom - popover.height },
+    rightCenter: { left, top: hostVerticalCenter - popover.height / 2 },
     rightTop: { left, top: host.top },
   };
 }

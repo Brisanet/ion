@@ -15,18 +15,18 @@ export class IonTourBackdropComponent implements OnInit {
   public isTransitioning = true;
 
   public get clipPath(): SafeStyle {
-    const { target, ionStepBackdropPadding: padding } = this.currentStep!;
+    const { target, ionStepBackdropPadding: padding } = this.currentStep;
     const { top, left, bottom, right } = target;
 
     return this.sanitizer.bypassSecurityTrustStyle(`polygon(
       0 0,
       0 100%,
-      ${left - padding!}px 100%,
-      ${left - padding!}px ${top - padding!}px,
-      ${right + padding!}px ${top - padding!}px,
-      ${right + padding!}px ${bottom + padding!}px,
-      ${left - padding!}px ${bottom + padding!}px,
-      ${left - padding!}px 100%,
+      ${left - padding}px 100%,
+      ${left - padding}px ${top - padding}px,
+      ${right + padding}px ${top - padding}px,
+      ${right + padding}px ${bottom + padding}px,
+      ${left - padding}px ${bottom + padding}px,
+      ${left - padding}px 100%,
       100% 100%,
       100% 0
     )`);

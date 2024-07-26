@@ -1,10 +1,9 @@
 <div
-  *ngIf="step"
-  [ngClass]="'tour-popover tour-popover--' + step.ionStepPosition"
+  [ngClass]="'tour-popover tour-popover--' + ionStepPosition"
   [style.top]="top + 'px'"
   [style.left]="left + 'px'"
-  [style.width]="step.ionStepWidth"
-  [style.height]="step.ionStepHeight"
+  [style.width]="ionStepWidth"
+  [style.height]="ionStepHeight"
 >
   <ion-button
     size="sm"
@@ -17,35 +16,35 @@
   </ion-button>
 
   <main class="tour-popover__body">
-    <strong *ngIf="step.ionStepTitle" class="tour-popover__title">
-      {{ step.ionStepTitle }}
+    <strong *ngIf="ionStepTitle" class="tour-popover__title">
+      {{ ionStepTitle }}
     </strong>
 
     <div
-      *ngIf="isString(step.ionStepContent); else contentTemplate"
+      *ngIf="isString(ionStepContent); else contentTemplate"
       class="tour-popover__text-content"
     >
-      {{ step.ionStepContent }}
+      {{ ionStepContent }}
     </div>
 
     <ng-template #contentTemplate>
-      <ng-container *ngTemplateOutlet="step.ionStepContent"></ng-container>
+      <ng-container *ngTemplateOutlet="ionStepContent"></ng-container>
     </ng-template>
   </main>
 
   <footer class="tour-popover__actions">
     <ion-button
-      *ngIf="step.ionPrevStepId"
-      [label]="step.ionStepPrevBtnTitle"
+      *ngIf="ionPrevStepId"
+      [label]="ionStepPrevBtnTitle"
       type="secondary"
       size="sm"
       (ionOnClick)="prev()"
     >
     </ion-button>
     <ion-button
-      *ngIf="step.ionNextStepId; else endButton"
+      *ngIf="ionNextStepId; else endButton"
       size="sm"
-      [label]="step.ionStepNextBtnTitle"
+      [label]="ionStepNextBtnTitle"
       (ionOnClick)="next()"
     >
     </ion-button>
@@ -53,7 +52,7 @@
     <ng-template #endButton>
       <ion-button
         size="sm"
-        [label]="step.ionStepFinishBtnTitle"
+        [label]="ionStepFinishBtnTitle"
         (ionOnClick)="finish()"
       >
       </ion-button>

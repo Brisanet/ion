@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnChanges,
 } from '@angular/core';
 import { isString } from 'lodash';
 
@@ -20,8 +21,35 @@ import { IonTourService } from '../tour.service';
   templateUrl: './tour-popover.component.html',
   styleUrls: ['./tour-popover.component.scss'],
 })
-export class IonTourPopoverComponent implements AfterViewChecked {
-  @Input() public step?: IonTourPopoverProps;
+export class IonTourPopoverComponent
+  implements AfterViewChecked, OnChanges, IonTourPopoverProps
+{
+  @Input() public target: IonTourPopoverProps['target'];
+  @Input() public ionStepId: IonTourPopoverProps['ionStepId'];
+  @Input() public ionTourId: IonTourPopoverProps['ionTourId'];
+  @Input() public ionStepTitle?: IonTourPopoverProps['ionStepTitle'];
+  @Input() public ionStepContent?: IonTourPopoverProps['ionStepContent'];
+  @Input()
+  public ionStepPrevBtnTitle?: IonTourPopoverProps['ionStepPrevBtnTitle'];
+  @Input()
+  public ionStepNextBtnTitle?: IonTourPopoverProps['ionStepNextBtnTitle'];
+  @Input()
+  public ionStepFinishBtnTitle?: IonTourPopoverProps['ionStepFinishBtnTitle'];
+  @Input() public ionPrevStepId?: IonTourPopoverProps['ionPrevStepId'];
+  @Input() public ionNextStepId?: IonTourPopoverProps['ionNextStepId'];
+  @Input() public ionStepZIndex?: IonTourPopoverProps['ionStepZIndex'];
+  @Input() public ionStepPosition?: IonTourPopoverProps['ionStepPosition'];
+  @Input()
+  public ionStepMarginToContent?: IonTourPopoverProps['ionStepMarginToContent'];
+  @Input() public ionStepWidth?: IonTourPopoverProps['ionStepWidth'];
+  @Input() public ionStepHeight?: IonTourPopoverProps['ionStepHeight'];
+  @Input()
+  public ionStepBackdropPadding?: IonTourPopoverProps['ionStepBackdropPadding'];
+  @Input()
+  public ionStepBackdropdZIndex?: IonTourPopoverProps['ionStepBackdropdZIndex'];
+  @Input() public ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
+  @Input() public ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
+  @Input() public ionOnFinishTour: IonTourPopoverProps['ionOnFinishTour'];
 
   public top = 0;
   public left = 0;
@@ -37,31 +65,35 @@ export class IonTourPopoverComponent implements AfterViewChecked {
 
   public next(): void {
     this.tourService.nextStep();
-    this.step!.ionOnNextStep.emit();
+    this.ionOnNextStep.emit();
   }
 
   public prev(): void {
     this.tourService.prevStep();
-    this.step!.ionOnPrevStep.emit();
+    this.ionOnPrevStep.emit();
   }
 
   public finish(): void {
     this.tourService.finish();
-    this.step!.ionOnFinishTour.emit();
+    this.ionOnFinishTour.emit();
   }
 
   public ngAfterViewChecked(): void {
     this.repositionPopover();
   }
 
+  public ngOnChanges(): void {
+    console.log('changes');
+  }
+
   private repositionPopover(): void {
     const currentStep = this.tourService.currentStep.value;
     this.isActive =
-      !!this.step &&
+      this.ionStepId &&
       !!currentStep &&
-      currentStep.ionStepId === this.step.ionStepId;
+      currentStep.ionStepId === this.ionStepId;
 
-    if (this.step && this.elementRef.nativeElement.children.length) {
+    if (this.ionStepId && this.elementRef.nativeElement.children.length) {
       const newPosition = this.getNewPosition();
       this.top = newPosition.top + window.scrollY;
       this.left = newPosition.left + window.scrollX;
@@ -70,22 +102,18 @@ export class IonTourPopoverComponent implements AfterViewChecked {
   }
 
   private getNewPosition(): NewPosition {
-    const {
-      target,
-      ionStepPosition,
-      ionStepMarginToContent,
-      ionStepBackdropPadding,
-    } = this.step!;
-
-    this.positionService.setHostPosition(target);
-    this.positionService.setChoosedPosition(ionStepPosition);
-    this.positionService.setElementPadding(ionStepMarginToContent!);
+    this.positionService.setHostPosition(this.target);
+    this.positionService.setChoosedPosition(this.ionStepPosition);
+    this.positionService.setElementPadding(this.ionStepMarginToContent);
     this.positionService.setcomponentCoordinates(
       this.elementRef.nativeElement.children[0].getBoundingClientRect()
     );
 
     return this.positionService.getNewPosition(
-      generatePositionCallback(ionStepBackdropPadding!, ionStepMarginToContent!)
+      generatePositionCallback(
+        this.ionStepBackdropPadding,
+        this.ionStepMarginToContent
+      )
     );
   }
 }

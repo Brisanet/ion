@@ -57,6 +57,12 @@ export class IonTourService {
     this._tours[step.ionTourId].set(step.ionStepId, step);
   }
 
+  public updateStep(step: IonTourPopoverProps): void {
+    if (this._tours[step.ionTourId]) {
+      this._tours[step.ionTourId].set(step.ionStepId, step);
+    }
+  }
+
   public start(props: IonStartTourProps = {}): void {
     setTimeout(() => {
       if (isEmpty(this._tours)) {
@@ -78,13 +84,14 @@ export class IonTourService {
 
   public finish(): void {
     this.activeTour.next(null);
+    this.currentStep.next(null);
     this.destroyBackdrop();
   }
 
   public prevStep(): void {
-    const currentStep = this.currentStep.getValue()!;
+    const currentStep = this.currentStep.getValue();
     const prevStep = this._tours[this.activeTourId].get(
-      currentStep.ionPrevStepId!
+      currentStep.ionPrevStepId
     );
 
     if (prevStep) {
@@ -93,9 +100,9 @@ export class IonTourService {
   }
 
   public nextStep(): void {
-    const currentStep = this.currentStep.getValue()!;
+    const currentStep = this.currentStep.getValue();
     const nextStep = this._tours[this.activeTourId].get(
-      currentStep.ionNextStepId!
+      currentStep.ionNextStepId
     );
 
     if (nextStep) {
@@ -110,7 +117,7 @@ export class IonTourService {
   ): IonTourPopoverProps {
     if (step.ionPrevStepId) {
       return this.getFirstStep(
-        this._tours[this.activeTourId].get(step.ionPrevStepId)!
+        this._tours[this.activeTourId].get(step.ionPrevStepId)
       );
     }
     return step;
@@ -121,6 +128,10 @@ export class IonTourService {
   }
 
   private createBackdrop(): void {
+    if (this.backdropRef) {
+      this.destroyBackdrop();
+    }
+
     this.backdropRef = this.componentFactoryResolver
       .resolveComponentFactory(IonTourBackdropComponent)
       .create(this.injector);
