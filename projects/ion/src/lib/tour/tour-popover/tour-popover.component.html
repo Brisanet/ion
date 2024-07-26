@@ -1,0 +1,62 @@
+<div
+  *ngIf="step"
+  [ngClass]="'tour-popover tour-popover--' + step.ionStepPosition"
+  [style.top]="top + 'px'"
+  [style.left]="left + 'px'"
+  [style.width]="step.ionStepWidth"
+  [style.height]="step.ionStepHeight"
+>
+  <ion-button
+    size="sm"
+    type="ghost"
+    class="tour-popover__close-button"
+    circularButton="true"
+    iconType="close"
+    (ionOnClick)="finish()"
+  >
+  </ion-button>
+
+  <main class="tour-popover__body">
+    <strong *ngIf="step.ionStepTitle" class="tour-popover__title">
+      {{ step.ionStepTitle }}
+    </strong>
+
+    <div
+      *ngIf="isString(step.ionStepContent); else contentTemplate"
+      class="tour-popover__text-content"
+    >
+      {{ step.ionStepContent }}
+    </div>
+
+    <ng-template #contentTemplate>
+      <ng-container *ngTemplateOutlet="step.ionStepContent"></ng-container>
+    </ng-template>
+  </main>
+
+  <footer class="tour-popover__actions">
+    <ion-button
+      *ngIf="step.ionPrevStepId"
+      [label]="step.ionStepPrevBtnTitle"
+      type="secondary"
+      size="sm"
+      (ionOnClick)="prev()"
+    >
+    </ion-button>
+    <ion-button
+      *ngIf="step.ionNextStepId; else endButton"
+      size="sm"
+      [label]="step.ionStepNextBtnTitle"
+      (ionOnClick)="next()"
+    >
+    </ion-button>
+
+    <ng-template #endButton>
+      <ion-button
+        size="sm"
+        [label]="step.ionStepFinishBtnTitle"
+        (ionOnClick)="finish()"
+      >
+      </ion-button>
+    </ng-template>
+  </footer>
+</div>
