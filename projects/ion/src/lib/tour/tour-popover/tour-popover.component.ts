@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { isString } from 'lodash';
 
-import { IonTourPopoverProps } from '../../core/types/tour';
+import { IonTourPopoverProps } from '../../core/types';
 import {
   IonPositionService,
   NewPosition,
@@ -53,7 +53,6 @@ export class IonTourPopoverComponent
 
   public top = 0;
   public left = 0;
-  public isActive = false;
   public isString = isString;
 
   constructor(
@@ -83,16 +82,10 @@ export class IonTourPopoverComponent
   }
 
   public ngOnChanges(): void {
-    console.log('changes');
+    this.repositionPopover();
   }
 
   private repositionPopover(): void {
-    const currentStep = this.tourService.currentStep.value;
-    this.isActive =
-      this.ionStepId &&
-      !!currentStep &&
-      currentStep.ionStepId === this.ionStepId;
-
     if (this.ionStepId && this.elementRef.nativeElement.children.length) {
       const newPosition = this.getNewPosition();
       this.top = newPosition.top + window.scrollY;

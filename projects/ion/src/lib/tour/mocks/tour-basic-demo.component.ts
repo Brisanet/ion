@@ -32,6 +32,7 @@ import { IonTourService } from '../tour.service';
           label="Upload"
           type="secondary"
           ionTourStep
+          ionStepTitle="Upload Action"
           [ionTourId]="tourId"
           [ionStepId]="steps.UPLOAD"
           [ionNextStepId]="steps.SAVE"
@@ -60,7 +61,8 @@ import { IonTourService } from '../tour.service';
     </div>
 
     <ng-template #uploadStepContent>
-      <span>Put your files here.</span>
+      <span>Here is a random image:</span>
+      <img src="https://picsum.photos/200/100" alt="Random Image" />
     </ng-template>
 
     <ng-template #optionsStepContent>

@@ -47,7 +47,7 @@ export class IonTourService {
     private injector: Injector
   ) {}
 
-  public addStep(step: IonTourPopoverProps): void {
+  public saveStep(step: IonTourPopoverProps): void {
     if (!this._tours[step.ionTourId]) {
       this._tours[step.ionTourId] = new Map();
     }
@@ -57,10 +57,8 @@ export class IonTourService {
     this._tours[step.ionTourId].set(step.ionStepId, step);
   }
 
-  public updateStep(step: IonTourPopoverProps): void {
-    if (this._tours[step.ionTourId]) {
-      this._tours[step.ionTourId].set(step.ionStepId, step);
-    }
+  public removeStep(stepId: IonTourPopoverProps['ionStepId']): void {
+    this._tours[this.activeTourId].delete(stepId);
   }
 
   public start(props: IonStartTourProps = {}): void {

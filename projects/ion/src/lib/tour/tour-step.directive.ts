@@ -1,6 +1,5 @@
 import { DOCUMENT } from '@angular/common';
 import {
-  AfterViewInit,
   ApplicationRef,
   ComponentFactoryResolver,
   ComponentRef,
@@ -22,14 +21,12 @@ import {
   IonTourStepPositions,
   IonTourStepProps,
 } from '../core/types/tour';
+import { SafeAny } from '../utils/safe-any';
 import { IonTourPopoverComponent } from './tour-popover';
 import { IonTourService } from './tour.service';
-import { SafeAny } from '../utils/safe-any';
 
 @Directive({ selector: '[ionTourStep]' })
-export class IonTourStepDirective
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy
-{
+export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() public ionTourId!: IonTourStepProps['ionTourId'];
   @Input() public ionStepId!: IonTourStepProps['ionStepId'];
   @Input() public ionStepTitle?: IonTourStepProps['ionStepTitle'];
@@ -78,6 +75,8 @@ export class IonTourStepDirective
   ) {}
 
   public ngOnInit(): void {
+    this.tourService.saveStep(this.getStepProps());
+
     this.tourService.activeTour$.subscribe((isActive) => {
       this.isTourActive = isActive === this.ionTourId;
       this.checkPopoverVisibility();
@@ -89,32 +88,27 @@ export class IonTourStepDirective
     });
   }
 
-  public ngAfterViewInit(): void {
-    this.tourService.addStep(this.getStepProps());
-  }
-
   public ngOnChanges(): void {
-    this.tourService.updateStep(this.getStepProps());
+    this.tourService.saveStep(this.getStepProps());
     this.checkPopoverVisibility();
   }
 
   public ngOnDestroy(): void {
     this.viewRef.clear();
+    this.destroyPopoverElement();
+    this.tourService.removeStep(this.ionStepId);
   }
 
   private checkPopoverVisibility(): void {
+    this.tourService.saveStep(this.getStepProps());
+    this.destroyPopoverElement();
+
     if (this.isTourActive && this.isStepSelected) {
       this.createPopoverElement();
-    } else {
-      this.destroyPopoverElement();
     }
   }
 
   private createPopoverElement(): void {
-    if (this.popoverRef) {
-      this.destroyPopoverElement();
-    }
-
     this.popoverRef = this.componentFactoryResolver
       .resolveComponentFactory(IonTourPopoverComponent)
       .create(this.injector);
