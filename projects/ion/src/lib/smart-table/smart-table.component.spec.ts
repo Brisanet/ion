@@ -757,6 +757,19 @@ describe('Table > Differents columns data type', () => {
         ).toHaveLength(1);
       }
     );
+
+    it('should show an empty cell when the data is undefined on a tag column', async () => {
+      const columns = tableDifferentColumns.config.columns;
+      const lastColumn = columns.length - 1;
+      const tagKey = 'notFound';
+      columns[lastColumn] = {
+        ...columns[lastColumn],
+        key: tagKey,
+      };
+      await sut(tableDifferentColumns);
+      const cell = screen.getByTestId(`row-0-${tagKey}`);
+      expect(cell).toHaveTextContent('-');
+    });
   });
 
   describe('Pipes', () => {
@@ -1637,6 +1650,31 @@ describe('Table > Link in cells', () => {
 
     fireEvent.mouseEnter(screen.getByTestId('link-element'));
     expect(screen.getByTestId('ion-tooltip')).toBeVisible();
+  });
+
+  it('should show an empty cell when the show function returns false', async () => {
+    await sut({
+      config: {
+        data: [{ ...dataWithLink[0], name: '' }],
+        columns: [
+          ...columns,
+          {
+            ...linkConfig,
+            link: {
+              ...linkConfig.link,
+              hide: (row): boolean => !row.name,
+            },
+          },
+        ],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    expect(screen.getByTestId('row-0-url')).toHaveTextContent('-');
   });
 });
 

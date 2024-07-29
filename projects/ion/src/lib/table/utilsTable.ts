@@ -8,9 +8,9 @@ import {
   TooltipProps,
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
+import { Omit } from '../utils/types';
 import { IconSide, LinkTarget } from './../core/types/link';
 import { TagStatus } from './../core/types/status';
-import { Omit } from '../utils/types';
 
 export enum EventTable {
   SORT = 'sort',
@@ -46,6 +46,7 @@ interface LinkRow<RowType> {
   url?: (_: RowType) => string;
   action?: (_: RowType) => void;
   tooltipConfig?: LinkTooltip<RowType>;
+  hide?: (_: RowType) => boolean;
 }
 
 interface LinkTooltip<RowType> extends Omit<TooltipProps, 'ionTooltipTitle'> {
