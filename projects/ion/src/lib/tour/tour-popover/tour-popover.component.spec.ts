@@ -14,7 +14,7 @@ import { IonTourService } from '../tour.service';
 import { IonTourPopoverComponent } from './tour-popover.component';
 import { cloneDeep } from 'lodash';
 
-export const tourServiceMock: Partial<IonTourService> = {
+const tourServiceMock: Partial<IonTourService> = {
   saveStep: jest.fn(),
   removeStep: jest.fn(),
   start: jest.fn(),
@@ -24,7 +24,7 @@ export const tourServiceMock: Partial<IonTourService> = {
   currentStep$: EMPTY,
 };
 
-export const DEFAULT_PROPS: Partial<IonTourPopoverComponent> = {
+const DEFAULT_PROPS: Partial<IonTourPopoverComponent> = {
   target: {
     x: 300,
     y: 300,
@@ -46,7 +46,7 @@ export const DEFAULT_PROPS: Partial<IonTourPopoverComponent> = {
   ionStepBackdropPadding: 20,
 };
 
-export const TOUR_POPOVER_TESTING_MODULE: RenderComponentOptions<IonTourPopoverComponent> =
+const TOUR_POPOVER_TESTING_MODULE: RenderComponentOptions<IonTourPopoverComponent> =
   {
     declarations: [IonTourPopoverComponent],
     imports: [IonButtonModule],
@@ -56,7 +56,7 @@ export const TOUR_POPOVER_TESTING_MODULE: RenderComponentOptions<IonTourPopoverC
     ],
   };
 
-export enum TestIDs {
+enum TestIDs {
   POPOVER = 'ion-tour-popover',
   CLOSE_BUTTON = 'btn-tour-popover__close-button',
   TITLE = 'ion-tour-popover-title',
@@ -77,6 +77,8 @@ const sut = async (props: Partial<IonTourPopoverComponent> = {}) => {
 };
 
 describe('IonTourPopoverComponent', () => {
+  afterEach(jest.clearAllMocks);
+
   it('should create', async () => {
     await sut();
     expect(screen.queryByTestId(TestIDs.POPOVER)).toBeInTheDocument();
@@ -168,6 +170,7 @@ describe('IonTourPopoverComponent', () => {
         userEvent.click(screen.getByTestId('btn-Back'));
 
         expect(spy).toHaveBeenCalledTimes(1);
+        expect(tourServiceMock.prevStep).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -201,6 +204,7 @@ describe('IonTourPopoverComponent', () => {
         userEvent.click(screen.getByTestId('btn-Next'));
 
         expect(spy).toHaveBeenCalledTimes(1);
+        expect(tourServiceMock.nextStep).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -234,6 +238,7 @@ describe('IonTourPopoverComponent', () => {
         userEvent.click(screen.getByTestId('btn-Finish'));
 
         expect(spy).toHaveBeenCalledTimes(1);
+        expect(tourServiceMock.finish).toHaveBeenCalledTimes(1);
       });
     });
 
