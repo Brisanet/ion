@@ -30,6 +30,7 @@ createOptions();
 
 const selectEvent = jest.fn();
 const scrollFinal = jest.fn();
+const clearButtonEvent = jest.fn();
 const defaultDropdown: DropdownParams = {
   options,
   selected: {
@@ -229,16 +230,13 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     scrollFinal: {
       emit: scrollFinal,
     } as SafeAny,
+    clearButton: {
+      emit: clearButtonEvent,
+    },
   };
 
   beforeEach(() => {
     selectEvent.mockClear();
-  });
-
-  it('should render with clear button when options selected is passed', async () => {
-    await sut(defaultMultiple);
-    const clearButton = screen.getByTestId('button-clear');
-    expect(clearButton).toBeInTheDocument();
   });
 
   it('should render with clear button when options selected is passed', async () => {
@@ -255,7 +253,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     expect(screen.queryAllByTestId('ion-close-selected')).toHaveLength(0);
   });
 
-  it('should not change icon to close when mouse enter in option selected, dropdown is required', async () => {
+  it('should not change icon to close when mouse enter in option selected and dropdown is required', async () => {
     await sut({
       ...defaultMultiple,
       required: true,
@@ -315,6 +313,7 @@ describe('IonDropdownComponent / Multiple / Clear Options', () => {
     const buttonClear = screen.getByTestId('btn-Limpar');
     fireEvent.click(buttonClear);
     expect(options.every((option) => option.selected)).toBe(false);
+    expect(clearButtonEvent).toHaveBeenCalled();
     expect(buttonClear).not.toBeInTheDocument();
   });
 
