@@ -12,9 +12,13 @@ export class IonTourBackdropComponent implements OnInit {
   @Input() public currentStep: IonTourPopoverProps | null = null;
   @Input() public isActive = false;
 
-  public isTransitioning = true;
+  public inTransition = true;
 
   public get clipPath(): SafeStyle {
+    if (!this.currentStep) {
+      return '';
+    }
+
     const { target, ionStepBackdropPadding: padding } = this.currentStep;
     const { top, left, bottom, right } = target;
 
@@ -35,6 +39,15 @@ export class IonTourBackdropComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer) {}
 
   public ngOnInit(): void {
-    setTimeout(() => (this.isTransitioning = false));
+    setTimeout(() => (this.inTransition = false));
+  }
+
+  public performFinalTransition(callback: () => void): void {
+    this.inTransition = true;
+
+    setTimeout(() => {
+      this.inTransition = false;
+      callback();
+    }, 400);
   }
 }

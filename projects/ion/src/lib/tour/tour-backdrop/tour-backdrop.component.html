@@ -1,7 +1,7 @@
 <svg
-  *ngIf="isActive && currentStep"
+  *ngIf="(isActive && currentStep) || inTransition"
   class="ion-tour-backdrop"
-  [ngClass]="{ 'initial-transition': isTransitioning }"
+  [ngClass]="{ 'ion-tour-backdrop-transition': inTransition }"
   [style.clip-path]="clipPath"
-  [style.z-index]="currentStep.ionStepBackdropdZIndex"
+  [style.z-index]="currentStep ? currentStep.ionStepBackdropdZIndex : 100"
 ></svg>

@@ -9,7 +9,7 @@
   background-color: $black-transparence-45;
   transition: clip-path 0.4s ease;
 
-  &.initial-transition {
+  &-transition {
     clip-path: polygon(
       0px 0px,
       0px 100%,

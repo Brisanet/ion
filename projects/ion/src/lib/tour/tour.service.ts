@@ -98,7 +98,7 @@ export class IonTourService {
   public finish(): void {
     this.activeTour.next(null);
     this.currentStep.next(null);
-    this.destroyBackdrop();
+    this.closeBackdrop();
   }
 
   public prevStep(): void {
@@ -175,6 +175,16 @@ export class IonTourService {
           this.backdropRef.instance.isActive = !isNull(activeTour);
         }
       });
+  }
+
+  private closeBackdrop(): void {
+    if (this.backdropRef) {
+      this.backdropRef.instance.performFinalTransition(() => {
+        if (this.backdropRef && !this.activeTour.value) {
+          this.destroyBackdrop();
+        }
+      });
+    }
   }
 
   private destroyBackdrop(): void {
