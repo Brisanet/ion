@@ -6,6 +6,7 @@ import { TourStepPropsComponent } from '../projects/ion/src/lib/tour/mocks';
 import {
   IonSharedModule,
   IonTourStepPositions,
+  IonTourStepProps,
 } from '../projects/ion/src/public-api';
 
 const Template: Story<TourStepPropsComponent> = (
@@ -27,13 +28,10 @@ TourStep.args = {
   ionStepPrevBtnTitle: 'Voltar',
   ionStepNextBtnTitle: 'Continuar',
   ionStepFinishBtnTitle: 'Finalizar',
-  ionStepZIndex: 123,
   ionStepPosition: IonTourStepPositions.TOP_CENTER,
   ionStepMarginToContent: 5,
-  ionStepWidth: '200px',
   ionStepBackdropPadding: 20,
-  ionStepBackdropdZIndex: 100,
-};
+} as IonTourStepProps;
 
 export default {
   title: 'Ion/Data Display/Tour',
@@ -46,7 +44,6 @@ export default {
     ionStepFinishBtnTitle: { control: 'text' },
     ionPrevStepId: { control: 'text' },
     ionNextStepId: { control: 'text' },
-    ionStepZIndex: { control: 'number' },
     ionStepPosition: {
       control: {
         type: 'select',
@@ -54,9 +51,8 @@ export default {
       },
     },
     ionStepMarginToContent: { control: 'number' },
-    ionStepWidth: { control: 'text' },
-    ionStepHeight: { control: 'text' },
     ionStepBackdropPadding: { control: 'number' },
-    ionStepBackdropdZIndex: { control: 'number' },
+    ionStepCustomClass: { control: 'text' },
+    ionStepBackdropCustomClass: { control: 'text' },
   },
 } as Meta<TourStepPropsComponent>;

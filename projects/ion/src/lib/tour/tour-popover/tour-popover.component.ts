@@ -6,12 +6,10 @@ import {
   Input,
   OnChanges,
   OnDestroy,
-  OnInit,
   Output,
 } from '@angular/core';
 import { isString } from 'lodash';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { IonTourPopoverProps } from '../../core/types';
 import {
@@ -27,36 +25,31 @@ import { IonTourService } from '../tour.service';
   styleUrls: ['./tour-popover.component.scss'],
 })
 export class IonTourPopoverComponent
-  implements
-    OnInit,
-    AfterViewChecked,
-    OnChanges,
-    OnDestroy,
-    IonTourPopoverProps
+  implements AfterViewChecked, OnChanges, OnDestroy, IonTourPopoverProps
 {
   @Input() public target: IonTourPopoverProps['target'];
   @Input() public ionStepId: IonTourPopoverProps['ionStepId'];
   @Input() public ionTourId: IonTourPopoverProps['ionTourId'];
-  @Input() public ionStepTitle?: IonTourPopoverProps['ionStepTitle'];
-  @Input() public ionStepContent?: IonTourPopoverProps['ionStepContent'];
+  @Input() public ionStepTitle: IonTourPopoverProps['ionStepTitle'];
+  @Input() public ionStepContent: IonTourPopoverProps['ionStepContent'];
   @Input()
-  public ionStepPrevBtnTitle?: IonTourPopoverProps['ionStepPrevBtnTitle'];
+  public ionStepPrevBtnTitle: IonTourPopoverProps['ionStepPrevBtnTitle'];
   @Input()
-  public ionStepNextBtnTitle?: IonTourPopoverProps['ionStepNextBtnTitle'];
+  public ionStepNextBtnTitle: IonTourPopoverProps['ionStepNextBtnTitle'];
   @Input()
-  public ionStepFinishBtnTitle?: IonTourPopoverProps['ionStepFinishBtnTitle'];
+  public ionStepFinishBtnTitle: IonTourPopoverProps['ionStepFinishBtnTitle'];
   @Input() public ionPrevStepId?: IonTourPopoverProps['ionPrevStepId'];
   @Input() public ionNextStepId?: IonTourPopoverProps['ionNextStepId'];
-  @Input() public ionStepZIndex?: IonTourPopoverProps['ionStepZIndex'];
-  @Input() public ionStepPosition?: IonTourPopoverProps['ionStepPosition'];
+  @Input() public ionStepPosition: IonTourPopoverProps['ionStepPosition'];
   @Input()
-  public ionStepMarginToContent?: IonTourPopoverProps['ionStepMarginToContent'];
-  @Input() public ionStepWidth?: IonTourPopoverProps['ionStepWidth'];
-  @Input() public ionStepHeight?: IonTourPopoverProps['ionStepHeight'];
+  public ionStepMarginToContent: IonTourPopoverProps['ionStepMarginToContent'];
   @Input()
-  public ionStepBackdropPadding?: IonTourPopoverProps['ionStepBackdropPadding'];
+  public ionStepBackdropPadding: IonTourPopoverProps['ionStepBackdropPadding'];
   @Input()
-  public ionStepBackdropdZIndex?: IonTourPopoverProps['ionStepBackdropdZIndex'];
+  public ionStepCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'] =
+    '';
+  @Input()
+  public ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
 
   @Output() public ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
   @Output() public ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
@@ -64,7 +57,6 @@ export class IonTourPopoverComponent
 
   public top = 0;
   public left = 0;
-  public isActive = false;
   public isString = isString;
 
   private destroy$ = new Subject<void>();
@@ -75,15 +67,6 @@ export class IonTourPopoverComponent
     private readonly elementRef: ElementRef,
     private readonly cdr: ChangeDetectorRef
   ) {}
-
-  public ngOnInit(): void {
-    this.tourService.currentStep$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((step) => {
-        this.isActive =
-          this.ionStepId && !!step && step.ionStepId === this.ionStepId;
-      });
-  }
 
   public ngAfterViewChecked(): void {
     this.repositionPopover();

@@ -1,28 +1,37 @@
 <div
-  [ngClass]="'tour-popover tour-popover--' + ionStepPosition"
+  [ngClass]="
+    ionStepCustomClass +
+    ' ion-tour-popover ion-tour-popover--' +
+    ionStepPosition
+  "
+  data-testid="ion-tour-popover"
   [style.top]="top + 'px'"
   [style.left]="left + 'px'"
-  [style.width]="ionStepWidth"
-  [style.height]="ionStepHeight"
 >
   <ion-button
+    id="tour-popover__close-button"
     size="sm"
     type="ghost"
-    class="tour-popover__close-button"
+    class="ion-tour-popover__close-button"
     circularButton="true"
     iconType="close"
     (ionOnClick)="finish()"
   >
   </ion-button>
 
-  <main class="tour-popover__body">
-    <strong *ngIf="ionStepTitle" class="tour-popover__title">
+  <main class="ion-tour-popover__body">
+    <strong
+      *ngIf="ionStepTitle"
+      class="ion-tour-popover__title"
+      data-testid="ion-tour-popover-title"
+    >
       {{ ionStepTitle }}
     </strong>
 
     <div
       *ngIf="isString(ionStepContent); else contentTemplate"
-      class="tour-popover__text-content"
+      class="ion-tour-popover__text-content"
+      data-testid="ion-tour-popover-content"
     >
       {{ ionStepContent }}
     </div>
@@ -32,9 +41,10 @@
     </ng-template>
   </main>
 
-  <footer class="tour-popover__actions">
+  <footer class="ion-tour-popover__actions">
     <ion-button
       *ngIf="ionPrevStepId"
+      data-testid="tour-popover__prev-button"
       [label]="ionStepPrevBtnTitle"
       type="secondary"
       size="sm"
@@ -42,16 +52,18 @@
     >
     </ion-button>
     <ion-button
-      *ngIf="ionNextStepId; else endButton"
+      *ngIf="ionNextStepId; else finishButton"
+      data-testid="tour-popover__next-button"
       size="sm"
       [label]="ionStepNextBtnTitle"
       (ionOnClick)="next()"
     >
     </ion-button>
 
-    <ng-template #endButton>
+    <ng-template #finishButton>
       <ion-button
         size="sm"
+        data-testid="tour-popover__finish-button"
         [label]="ionStepFinishBtnTitle"
         (ionOnClick)="finish()"
       >

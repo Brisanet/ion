@@ -43,17 +43,16 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     'Finish';
   @Input() public ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
   @Input() public ionNextStepId?: IonTourStepProps['ionNextStepId'];
-  @Input() public ionStepZIndex?: IonTourStepProps['ionStepZIndex'] = 101;
   @Input() public ionStepPosition: IonTourStepProps['ionStepPosition'] =
     IonTourStepPositions.BOTTOM_CENTER;
   @Input()
   public ionStepMarginToContent: IonTourStepProps['ionStepMarginToContent'] = 5;
-  @Input() public ionStepWidth: IonTourStepProps['ionStepWidth'] = 'auto';
-  @Input() public ionStepHeight: IonTourStepProps['ionStepHeight'] = 'auto';
   @Input()
   public ionStepBackdropPadding: IonTourStepProps['ionStepBackdropPadding'] = 10;
   @Input()
-  public ionStepBackdropdZIndex: IonTourStepProps['ionStepBackdropdZIndex'] = 100;
+  public ionStepCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
+  @Input()
+  public ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
 
   @Output() public ionOnPrevStep: IonTourStepProps['ionOnPrevStep'] =
     new EventEmitter();
@@ -159,13 +158,11 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       ionStepFinishBtnTitle: this.ionStepFinishBtnTitle,
       ionPrevStepId: this.ionPrevStepId,
       ionNextStepId: this.ionNextStepId,
-      ionStepZIndex: this.ionStepZIndex,
       ionStepPosition: this.ionStepPosition,
       ionStepMarginToContent: this.ionStepMarginToContent,
-      ionStepWidth: this.ionStepWidth,
-      ionStepHeight: this.ionStepHeight,
       ionStepBackdropPadding: this.ionStepBackdropPadding,
-      ionStepBackdropdZIndex: this.ionStepBackdropdZIndex,
+      ionStepCustomClass: this.ionStepCustomClass,
+      ionStepBackdropCustomClass: this.ionStepBackdropCustomClass,
       ionOnPrevStep: this.ionOnPrevStep,
       ionOnNextStep: this.ionOnNextStep,
       ionOnFinishTour: this.ionOnFinishTour,

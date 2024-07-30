@@ -31,13 +31,11 @@ import { IonTourService } from '../tour.service';
         [ionStepFinishBtnTitle]="ionStepFinishBtnTitle"
         [ionPrevStepId]="ionPrevStepId"
         [ionNextStepId]="ionNextStepId"
-        [ionStepZIndex]="ionStepZIndex"
         [ionStepPosition]="ionStepPosition"
         [ionStepMarginToContent]="ionStepMarginToContent"
-        [ionStepWidth]="ionStepWidth"
-        [ionStepHeight]="ionStepHeight"
         [ionStepBackdropPadding]="ionStepBackdropPadding"
-        [ionStepBackdropdZIndex]="ionStepBackdropdZIndex"
+        [ionStepCustomClass]="ionStepCustomClass"
+        [ionStepBackdropCustomClass]="ionStepBackdropCustomClass"
         (ionOnPrevStep)="onPrevStep()"
         (ionOnNextStep)="onNextStep()"
         (ionOnFinishTour)="onFinishTour()"
@@ -53,13 +51,11 @@ export class TourStepPropsComponent implements AfterViewInit, OnChanges {
   @Input() public ionStepFinishBtnTitle: string;
   @Input() public ionPrevStepId: string;
   @Input() public ionNextStepId: string;
-  @Input() public ionStepZIndex: number;
   @Input() public ionStepPosition: IonTourStepPositions;
   @Input() public ionStepMarginToContent: number;
-  @Input() public ionStepWidth: string;
-  @Input() public ionStepHeight: string;
   @Input() public ionStepBackdropPadding: number;
-  @Input() public ionStepBackdropdZIndex: number;
+  @Input() public ionStepCustomClass: string;
+  @Input() public ionStepBackdropCustomClass: string;
 
   constructor(private readonly ionTourService: IonTourService) {}
 

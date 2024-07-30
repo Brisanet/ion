@@ -10,13 +10,11 @@ export interface IonTourStepProps {
   ionStepFinishBtnTitle?: string;
   ionPrevStepId?: IonTourStepProps['ionStepId'];
   ionNextStepId?: IonTourStepProps['ionStepId'];
-  ionStepZIndex?: number;
   ionStepPosition?: IonTourStepPositions;
   ionStepMarginToContent?: number;
-  ionStepWidth?: string | number;
-  ionStepHeight?: string | number;
   ionStepBackdropPadding?: number;
-  ionStepBackdropdZIndex?: number;
+  ionStepCustomClass?: string;
+  ionStepBackdropCustomClass?: string;
   ionOnPrevStep: EventEmitter<void>;
   ionOnNextStep: EventEmitter<void>;
   ionOnFinishTour: EventEmitter<void>;

@@ -59,13 +59,8 @@ export class IonTourService {
     if (
       current &&
       current.ionStepId === step.ionStepId &&
-      !this.areDOMRectsEqual(step.target, current.target)
+      !isEqual(step.target.toJSON(), current.target.toJSON())
     ) {
-      console.log(
-        isEqual(step.target, current.target),
-        step.target,
-        current.target
-      );
       this.navigateToStep(step);
     }
 
@@ -195,18 +190,5 @@ export class IonTourService {
       this.destroyBackdrop$.next();
       this.destroyBackdrop$.complete();
     }
-  }
-
-  private areDOMRectsEqual(rect1: DOMRect, rect2: DOMRect) {
-    return (
-      rect1.x === rect2.x &&
-      rect1.y === rect2.y &&
-      rect1.width === rect2.width &&
-      rect1.height === rect2.height &&
-      rect1.top === rect2.top &&
-      rect1.right === rect2.right &&
-      rect1.bottom === rect2.bottom &&
-      rect1.left === rect2.left
-    );
   }
 }
