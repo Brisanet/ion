@@ -30,20 +30,20 @@ import { IonTourService } from './tour.service';
 
 @Directive({ selector: '[ionTourStep]' })
 export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
-  @Input() public ionTourId!: IonTourStepProps['ionTourId'];
-  @Input() public ionStepId!: IonTourStepProps['ionStepId'];
-  @Input() public ionStepTitle?: IonTourStepProps['ionStepTitle'];
-  @Input() public ionStepContent?: IonTourStepProps['ionStepContent'];
-  @Input() public ionStepPrevBtnTitle: IonTourStepProps['ionStepPrevBtnTitle'] =
+  @Input() ionTourId!: IonTourStepProps['ionTourId'];
+  @Input() ionStepId!: IonTourStepProps['ionStepId'];
+  @Input() ionStepTitle?: IonTourStepProps['ionStepTitle'];
+  @Input() ionStepContent?: IonTourStepProps['ionStepContent'];
+  @Input() ionStepPrevBtnTitle: IonTourStepProps['ionStepPrevBtnTitle'] =
     'Previous';
   @Input()
   public ionStepNextBtnTitle?: IonTourStepProps['ionStepNextBtnTitle'] = 'Next';
   @Input()
   public ionStepFinishBtnTitle?: IonTourStepProps['ionStepFinishBtnTitle'] =
     'Finish';
-  @Input() public ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
-  @Input() public ionNextStepId?: IonTourStepProps['ionNextStepId'];
-  @Input() public ionStepPosition: IonTourStepProps['ionStepPosition'] =
+  @Input() ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
+  @Input() ionNextStepId?: IonTourStepProps['ionNextStepId'];
+  @Input() ionStepPosition: IonTourStepProps['ionStepPosition'] =
     IonTourStepPositions.BOTTOM_CENTER;
   @Input()
   public ionStepMarginToContent: IonTourStepProps['ionStepMarginToContent'] = 5;
@@ -54,11 +54,11 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input()
   public ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
 
-  @Output() public ionOnPrevStep: IonTourStepProps['ionOnPrevStep'] =
+  @Output() ionOnPrevStep: IonTourStepProps['ionOnPrevStep'] =
     new EventEmitter();
-  @Output() public ionOnNextStep: IonTourStepProps['ionOnNextStep'] =
+  @Output() ionOnNextStep: IonTourStepProps['ionOnNextStep'] =
     new EventEmitter();
-  @Output() public ionOnFinishTour: IonTourStepProps['ionOnFinishTour'] =
+  @Output() ionOnFinishTour: IonTourStepProps['ionOnFinishTour'] =
     new EventEmitter();
 
   private popoverRef: ComponentRef<IonTourPopoverComponent> | null = null;

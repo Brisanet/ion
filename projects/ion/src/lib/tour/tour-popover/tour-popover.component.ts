@@ -27,20 +27,20 @@ import { IonTourService } from '../tour.service';
 export class IonTourPopoverComponent
   implements AfterViewChecked, OnChanges, OnDestroy, IonTourPopoverProps
 {
-  @Input() public target: IonTourPopoverProps['target'];
-  @Input() public ionStepId: IonTourPopoverProps['ionStepId'];
-  @Input() public ionTourId: IonTourPopoverProps['ionTourId'];
-  @Input() public ionStepTitle: IonTourPopoverProps['ionStepTitle'];
-  @Input() public ionStepContent: IonTourPopoverProps['ionStepContent'];
+  @Input() target: IonTourPopoverProps['target'];
+  @Input() ionStepId: IonTourPopoverProps['ionStepId'];
+  @Input() ionTourId: IonTourPopoverProps['ionTourId'];
+  @Input() ionStepTitle: IonTourPopoverProps['ionStepTitle'];
+  @Input() ionStepContent: IonTourPopoverProps['ionStepContent'];
   @Input()
   public ionStepPrevBtnTitle: IonTourPopoverProps['ionStepPrevBtnTitle'];
   @Input()
   public ionStepNextBtnTitle: IonTourPopoverProps['ionStepNextBtnTitle'];
   @Input()
   public ionStepFinishBtnTitle: IonTourPopoverProps['ionStepFinishBtnTitle'];
-  @Input() public ionPrevStepId?: IonTourPopoverProps['ionPrevStepId'];
-  @Input() public ionNextStepId?: IonTourPopoverProps['ionNextStepId'];
-  @Input() public ionStepPosition: IonTourPopoverProps['ionStepPosition'];
+  @Input() ionPrevStepId?: IonTourPopoverProps['ionPrevStepId'];
+  @Input() ionNextStepId?: IonTourPopoverProps['ionNextStepId'];
+  @Input() ionStepPosition: IonTourPopoverProps['ionStepPosition'];
   @Input()
   public ionStepMarginToContent: IonTourPopoverProps['ionStepMarginToContent'];
   @Input()
@@ -51,9 +51,9 @@ export class IonTourPopoverComponent
   @Input()
   public ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
 
-  @Output() public ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
-  @Output() public ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
-  @Output() public ionOnFinishTour: IonTourPopoverProps['ionOnFinishTour'];
+  @Output() ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
+  @Output() ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
+  @Output() ionOnFinishTour: IonTourPopoverProps['ionOnFinishTour'];
 
   public top = 0;
   public left = 0;

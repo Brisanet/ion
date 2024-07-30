@@ -9,8 +9,8 @@ import { IonTourPopoverProps } from '../../core/types/tour';
   styleUrls: ['./tour-backdrop.component.scss'],
 })
 export class IonTourBackdropComponent implements OnInit {
-  @Input() public currentStep: IonTourPopoverProps | null = null;
-  @Input() public isActive = false;
+  @Input() currentStep: IonTourPopoverProps | null = null;
+  @Input() isActive = false;
 
   public inTransition = true;
 

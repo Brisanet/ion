@@ -44,18 +44,18 @@ import { IonTourService } from '../tour.service';
   `,
 })
 export class TourStepPropsComponent implements AfterViewInit, OnChanges {
-  @Input() public ionStepTitle: string;
-  @Input() public ionStepContent: string;
-  @Input() public ionStepPrevBtnTitle: string;
-  @Input() public ionStepNextBtnTitle: string;
-  @Input() public ionStepFinishBtnTitle: string;
-  @Input() public ionPrevStepId: string;
-  @Input() public ionNextStepId: string;
-  @Input() public ionStepPosition: IonTourStepPositions;
-  @Input() public ionStepMarginToContent: number;
-  @Input() public ionStepBackdropPadding: number;
-  @Input() public ionStepCustomClass: string;
-  @Input() public ionStepBackdropCustomClass: string;
+  @Input() ionStepTitle: string;
+  @Input() ionStepContent: string;
+  @Input() ionStepPrevBtnTitle: string;
+  @Input() ionStepNextBtnTitle: string;
+  @Input() ionStepFinishBtnTitle: string;
+  @Input() ionPrevStepId: string;
+  @Input() ionNextStepId: string;
+  @Input() ionStepPosition: IonTourStepPositions;
+  @Input() ionStepMarginToContent: number;
+  @Input() ionStepBackdropPadding: number;
+  @Input() ionStepCustomClass: string;
+  @Input() ionStepBackdropCustomClass: string;
 
   constructor(private readonly ionTourService: IonTourService) {}
 
