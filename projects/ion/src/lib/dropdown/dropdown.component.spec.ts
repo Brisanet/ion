@@ -611,6 +611,11 @@ describe('IonDropdownComponent / No data', () => {
       document.getElementById(`ion-icon-${noDataConfig.iconType}`)
     ).toBeInTheDocument();
   });
+
+  it('should not render button clear when there are no options', async () => {
+    await sut(defaultNoData);
+    expect(screen.queryByTestId('button-clear')).not.toBeInTheDocument();
+  });
 });
 
 describe('Custom dropdown label', () => {
@@ -638,16 +643,26 @@ describe('Custom dropdown label', () => {
 });
 
 describe('IonDropdownComponent / Loading', () => {
-  it('should show a spinner when loading', async () => {
-    await sut({
-      ...defaultDropdown,
-      options: [
-        { label: 'Option 1', selected: false },
-        { label: 'Option 2', selected: false },
-      ],
-      loading: true,
-    });
+  const defaultPropsWithLoading = {
+    ...defaultDropdown,
+    options: [
+      { label: 'Option 1', selected: false },
+      { label: 'Option 2', selected: false },
+    ],
+    loading: true,
+  };
 
+  beforeEach(async () => {
+    await sut({
+      ...defaultPropsWithLoading,
+    });
+  });
+
+  it('should show a spinner when loading', () => {
     expect(screen.getByTestId('ion-spinner')).toBeVisible();
+  });
+
+  it('should not render button clear when loading', () => {
+    expect(screen.queryByTestId('button-clear')).not.toBeInTheDocument();
   });
 });
