@@ -58,12 +58,10 @@ export class IonDropdownComponent
   canDeselect = true;
 
   setClearButtonIsVisible(): void {
-    const hasItems = this.checkArray(this.options);
     const hasItemsSelected = this.checkArray(this.dropdownSelectedItems);
     const showClearButton = !this.notShowClearButton;
 
     this.clearButtonIsVisible =
-      hasItems &&
       hasItemsSelected &&
       this.multiple &&
       showClearButton &&
