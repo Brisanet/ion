@@ -15,9 +15,9 @@ export interface IonTourStepProps {
   ionStepBackdropPadding?: number;
   ionStepCustomClass?: string;
   ionStepBackdropCustomClass?: string;
-  ionOnPrevStep: EventEmitter<void>;
-  ionOnNextStep: EventEmitter<void>;
-  ionOnFinishTour: EventEmitter<void>;
+  ionOnPrevStep?: EventEmitter<void>;
+  ionOnNextStep?: EventEmitter<void>;
+  ionOnFinishTour?: EventEmitter<void>;
 }
 
 export interface IonTourPopoverProps extends IonTourStepProps {

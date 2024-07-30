@@ -20,8 +20,8 @@ type StepsMap = Map<IonTourPopoverProps['ionStepId'], IonTourPopoverProps>;
 @Injectable()
 export class IonTourService {
   public currentStep = new BehaviorSubject<IonTourPopoverProps | null>(null);
+  public activeTour = new BehaviorSubject<string | null>(null);
 
-  private activeTour = new BehaviorSubject<string | null>(null);
   private _tours: Record<string, StepsMap> = {};
   private backdropRef: ComponentRef<IonTourBackdropComponent> | null = null;
   private destroyBackdrop$ = new Subject<void>();
