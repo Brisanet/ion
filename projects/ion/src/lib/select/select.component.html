@@ -10,6 +10,7 @@
       <ng-container *ngIf="option.selected">
         <ion-select-item
           [attr.data-testid]="'ion-select-item-selected-' + i"
+          [disabled]="disabled"
           [label]="option[propLabel]"
           (unselect)="unselectOption(option)"
         ></ion-select-item>

@@ -67,6 +67,9 @@ export class IonSmartTableComponent<RowType>
   }
 
   public sort(column: Column): void {
+    if (this.config.loading) {
+      return;
+    }
     column.desc = !column.desc;
 
     this.config.order = {

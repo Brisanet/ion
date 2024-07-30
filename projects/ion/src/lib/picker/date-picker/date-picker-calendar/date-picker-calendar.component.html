@@ -11,6 +11,7 @@
       [class.between-range]="day.isBetweenRange"
       [class.initial]="day.isRangeInitialLimit"
       [class.final]="day.isRangeFinalLimit"
+      [class.disabled]="day.disabled"
     >
       <button
         [attr.data-testid]="day.getAriaLabel()"

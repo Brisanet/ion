@@ -372,6 +372,7 @@ describe('Sidebar', () => {
   });
 
   describe('Sidebar - Shrink Mode', () => {
+    const selectedItemClass = 'ion-sidebar-item--selected';
     const toggleSidebar = (): void => {
       fireEvent.click(
         within(screen.getByTestId('ion-sidebar__toggle-visibility')).getByRole(
@@ -381,7 +382,12 @@ describe('Sidebar', () => {
     };
 
     beforeEach(async () => {
-      await sut({ items, logo, shrinkMode: true });
+      await sut({
+        items,
+        logo,
+        shrinkMode: true,
+        closeOnSelect: closeOnSelectConfig,
+      });
     });
 
     describe('Sidebar - Shrink Mode - Shrinked', () => {
@@ -396,6 +402,28 @@ describe('Sidebar', () => {
         titles.forEach((title) => {
           expect(title).not.toBeInTheDocument();
         });
+      });
+
+      it('should not open when item is selected and closeOnSelect is true', () => {
+        const button_item = within(
+          screen.getByTestId('ion-sidebar__item-0')
+        ).getByRole('button');
+        userEvent.click(button_item);
+        expect(button_item).toHaveClass(selectedItemClass);
+        expect(screen.queryByTestId('ion-sidebar')).not.toHaveClass(
+          'ion-sidebar--opened'
+        );
+      });
+
+      it('should not open when group item is selected and closeOnSelect is true', () => {
+        const button_item = screen.getAllByTestId('ion-sidebar-item')[2];
+        userEvent.click(button_item);
+        expect(screen.getAllByTestId('ion-sidebar-item')[2]).toHaveClass(
+          selectedItemClass
+        );
+        expect(screen.queryByTestId('ion-sidebar')).not.toHaveClass(
+          'ion-sidebar--opened'
+        );
       });
     });
 
@@ -419,6 +447,22 @@ describe('Sidebar', () => {
     it('should show the custom footer informed', async () => {
       await sidebarWithFooter();
       expect(screen.getByTestId('footer-content')).toBeVisible();
+    });
+  });
+
+  describe('Sidebar - Shrink mode with keep shrunken', () => {
+    beforeEach(async () => {
+      await sut({ items, logo, shrinkMode: true, keepShrunken: true });
+    });
+
+    it('should not show the header when keep shrunken is informed', async () => {
+      expect(screen.queryByTestId('io-sidebar__logo')).not.toBeInTheDocument();
+    });
+
+    it('should have the class that updates the grid template', () => {
+      expect(screen.getByTestId('ion-sidebar')).toHaveClass(
+        'ion-sidebar--without-header'
+      );
     });
   });
 });

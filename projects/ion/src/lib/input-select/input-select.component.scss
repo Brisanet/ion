@@ -68,6 +68,88 @@
       @include add-colors($primary-5, 2px solid, $primary-2);
     }
   }
+
+  &--disabled {
+    .dropdown-container__button {
+      cursor: not-allowed;
+      border: 1px solid $neutral-4;
+      color: $neutral-5;
+    }
+
+    & .first-input {
+      border-left: none;
+    }
+
+    & .first-input:hover,
+    & .second-input:hover,
+    & .first-input:active,
+    & .second-input:active {
+      border: 1px solid $neutral-4;
+      border-left: none;
+      outline: none;
+    }
+
+    & .first-input:hover,
+    & .first-input:active {
+      border-right: none;
+    }
+
+    & .separator {
+      border-color: $neutral-4 !important;
+      background-color: $neutral-2;
+      border: 1px solid;
+      cursor: not-allowed;
+    }
+  }
+
+  &--valid {
+    & .colorValid {
+      position: absolute;
+      right: spacing(1.5);
+
+      ::ng-deep svg {
+        fill: $positive-6;
+      }
+    }
+  }
+
+  &--invalid {
+    & .colorInvalid {
+      position: absolute;
+      right: spacing(1.5);
+
+      ::ng-deep svg {
+        fill: $negative-6;
+      }
+    }
+
+    .dropdown-container__button {
+      border: 1px solid $negative-6;
+      border-right: none;
+    }
+
+    & .first-input,
+    & .second-input {
+      border: 1px solid $negative-5;
+    }
+
+    & .first-input:hover,
+    & .second-input:hover,
+    & .first-input:active,
+    & .second-input:active,
+    & .first-input:focus-within,
+    & .second-input:focus-within {
+      border: 1px solid $negative-6;
+      @include add-colors($negative-5, 2px solid, $negative-2);
+    }
+
+    & .separator {
+      border-color: $negative-6 !important;
+      border: 1px solid;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
 }
 
 .separator {

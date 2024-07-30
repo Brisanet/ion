@@ -8,6 +8,7 @@ import {
   TooltipProps,
 } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
+import { Omit } from '../utils/types';
 import { IconSide, LinkTarget } from './../core/types/link';
 import { TagStatus } from './../core/types/status';
 
@@ -44,6 +45,12 @@ interface LinkRow<RowType> {
   target?: LinkTarget;
   url?: (_: RowType) => string;
   action?: (_: RowType) => void;
+  tooltipConfig?: LinkTooltip<RowType>;
+  hide?: (_: RowType) => boolean;
+}
+
+interface LinkTooltip<RowType> extends Omit<TooltipProps, 'ionTooltipTitle'> {
+  text?: (_: RowType) => string;
 }
 
 export interface PipeColumn {

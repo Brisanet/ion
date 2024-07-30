@@ -168,7 +168,7 @@ describe('IonIndicatorComponent', () => {
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
   });
 
-  it('shoul not render the header title icon by default', async () => {
+  it('should not render the header title icon by default', async () => {
     await sut({
       title: 'Título personalizado via atributo title',
       tooltipText: 'Texto personalizado via atributo tooltipText',
@@ -181,7 +181,7 @@ describe('IonIndicatorComponent', () => {
     expect(headerTitleIcon).not.toBeInTheDocument();
   });
 
-  it('shoul render the header title icon when informed', async () => {
+  it('should render the header title icon when informed', async () => {
     await sut({
       title: 'Título personalizado via atributo title',
       tooltipText: 'Texto personalizado via atributo tooltipText',
@@ -198,21 +198,21 @@ describe('IonIndicatorComponent', () => {
   });
 
   it('Should render footer and button emitter when receive buttonConfig with this type', async () => {
-    await sut({ buttonConfig: buttonEmitterConfig });
+    await sut({ value: '10', buttonConfig: buttonEmitterConfig });
 
     expect(getElementByTestId('footer')).toBeInTheDocument();
     expect(getElementByTestId('buttonEmitter')).toBeInTheDocument();
   });
 
   it('Should render footer and button redirect when receive buttonConfig with this type', async () => {
-    await sut({ buttonConfig: buttonRedirectConfig });
+    await sut({ value: '10', buttonConfig: buttonRedirectConfig });
 
     expect(getElementByTestId('footer')).toBeInTheDocument();
     expect(getElementByTestId('buttonRedirect')).toBeInTheDocument();
   });
 
   it('Should render footer and button modal when receive buttonConfig with this type', async () => {
-    await sut({ buttonConfig: buttonModalConfig });
+    await sut({ value: '10', buttonConfig: buttonModalConfig });
 
     expect(getElementByTestId('footer')).toBeInTheDocument();
     expect(getElementByTestId('buttonModal')).toBeInTheDocument();
@@ -294,15 +294,26 @@ describe('IonIndicatorComponent', () => {
     expect(getElementByTestId('error')).toBeInTheDocument();
   });
 
-  const notValidValues = [null, undefined, ''];
+  const invalidValues = [null, undefined, ''];
 
-  it.each(notValidValues)(
+  it.each(invalidValues)(
     'Should render no value msg when value is %s',
     async (notValidValue) => {
       await sut({
         value: notValidValue,
       });
       expect(getElementByTestId('noData')).toBeInTheDocument();
+    }
+  );
+  it.each(invalidValues)(
+    'should not render the footer when the button config is informed but the value is not valid',
+    async (invalidValue) => {
+      await sut({
+        value: invalidValue,
+        buttonConfig: buttonEmitterConfig,
+      });
+
+      expect(screen.queryByTestId(elements.footer)).not.toBeInTheDocument();
     }
   );
 });

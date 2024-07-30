@@ -19,5 +19,6 @@ export interface IonDatePickerCalendarComponentProps {
   goToYearInCalendar?: string;
   calendarControlAction?: CalendarControlActions;
   rangePicker?: boolean;
+  disabledDate?: (currentDate: Date) => boolean;
   events?: EventEmitter<[Day, Day]>;
 }

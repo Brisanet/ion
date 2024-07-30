@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { IonModalConfiguration } from '../../modal/models/modal.interface';
-import { PopoverProps } from './popover';
+import { PopoverDirectiveProps } from './popover';
 import { IonIconProps } from './icon';
 
 export enum IonIndicatorButtonType {
@@ -81,7 +81,7 @@ export interface IonIndicatorButtonConfiguration {
   popoverConfig?: PopoverConfig;
 }
 
-export interface PopoverConfig extends PopoverProps {
+export interface PopoverConfig extends PopoverDirectiveProps {
   firstAction?: () => void;
   secondAction?: () => void;
 }

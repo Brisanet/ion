@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { screen } from '@testing-library/angular';
+
 import { SafeAny } from '../../utils/safe-any';
 import {
   ControlEvent,
@@ -14,6 +16,7 @@ import {
 } from './date-picker.component';
 import { IonDatePickerModule } from './date-picker.module';
 import { calculateDuration } from '../../utils';
+import { CalendarDirection } from '../../core/types/datepicker';
 
 const previouslyRangeDates = [
   { label: 'Last 7 days', duration: 'P7D', isFuture: false },
@@ -26,6 +29,8 @@ const posteriorlyRangeDates = [
   { label: 'Next 15 days', duration: 'P15D', isFuture: true },
   { label: 'Next 31 days', duration: 'P31D', isFuture: true },
 ];
+
+const calendarDirections = Object.values(CalendarDirection);
 
 describe('DatePickerCalendar', () => {
   let component: IonDatepickerComponent;
@@ -108,6 +113,19 @@ describe('DatePickerCalendar', () => {
       }, 0);
     }
   );
+
+  it.each(calendarDirections)(
+    'should render in the %s position',
+    async (containerClass) => {
+      component.direction = containerClass;
+      component.showDatepicker = true;
+      fixture.detectChanges();
+      expect(screen.getByTestId('container-calendar')).toHaveClass(
+        `container-calendar--${containerClass}`
+      );
+    }
+  );
+
   describe('PreDefinedRangePicker', () => {
     const today = new Date().getTime();
     describe.each(previouslyRangeDates)('Previously Dates', (range) => {

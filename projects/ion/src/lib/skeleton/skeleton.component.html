@@ -1,7 +1,9 @@
 <span
-  [style.width.px]="width"
-  [style.height.px]="height"
-  [style.borderRadius]="radius ? radius + 'px' : variantRadius[variant]"
+  [style.width]="convertedValue(width)"
+  [style.height]="convertedValue(height)"
+  [style.borderRadius]="
+    radius ? convertedValue(radius) : variantRadius[variant]
+  "
   class="skeleton-box"
   data-testid="ion-skeleton"
 >

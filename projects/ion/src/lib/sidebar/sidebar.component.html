@@ -2,9 +2,10 @@
   class="ion-sidebar"
   [class.ion-sidebar--opened]="!closed"
   [class.ion-sidebar--shrinked]="closed && shrinkMode"
+  [class.ion-sidebar--without-header]="keepShrunken && shrinkMode"
   data-testid="ion-sidebar"
 >
-  <header class="ion-sidebar__header">
+  <header class="ion-sidebar__header" *ngIf="!keepShrunken">
     <img
       data-testid="ion-sidebar__logo"
       *ngIf="(!closed && shrinkMode) || !shrinkMode"

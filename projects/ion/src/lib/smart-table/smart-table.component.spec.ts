@@ -757,6 +757,19 @@ describe('Table > Differents columns data type', () => {
         ).toHaveLength(1);
       }
     );
+
+    it('should show an empty cell when the data is undefined on a tag column', async () => {
+      const columns = tableDifferentColumns.config.columns;
+      const lastColumn = columns.length - 1;
+      const tagKey = 'notFound';
+      columns[lastColumn] = {
+        ...columns[lastColumn],
+        key: tagKey,
+      };
+      await sut(tableDifferentColumns);
+      const cell = screen.getByTestId(`row-0-${tagKey}`);
+      expect(cell).toHaveTextContent('-');
+    });
   });
 
   describe('Pipes', () => {
@@ -998,6 +1011,18 @@ describe('Table > Differents columns data type', () => {
 
       jest.advanceTimersByTime(debounceTime);
       expect(tableDifferentColumns.events.emit).toHaveBeenCalled();
+    });
+
+    it('should not order while loading', async () => {
+      events.mockClear();
+      const tableWithLoading = JSON.parse(
+        JSON.stringify(defaultProps)
+      ) as IonSmartTableProps<Character>;
+      tableWithLoading.config.loading = true;
+      await sut(tableWithLoading);
+      const orderBy = columns[0].key;
+      fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+      expect(events).not.toHaveBeenCalled();
     });
   });
 
@@ -1535,27 +1560,15 @@ describe('Table > Link in cells', () => {
 
   const dataWithLink = [data[0]];
 
-  const columnsWithLink: Column[] = [
-    {
-      key: 'id',
-      label: 'Código',
-      sort: true,
+  const linkConfig = {
+    key: 'url',
+    label: 'URL',
+    type: ColumnType.LINK,
+    link: {
+      action: linkClickAction,
+      label: (): string => 'link label',
     },
-    {
-      key: 'name',
-      label: 'Name',
-      sort: true,
-    },
-    {
-      key: 'url',
-      label: 'URL',
-      type: ColumnType.LINK,
-      link: {
-        action: linkClickAction,
-        label: () => 'link label',
-      },
-    },
-  ];
+  };
 
   afterEach(() => {
     linkClickAction.mockClear();
@@ -1565,7 +1578,7 @@ describe('Table > Link in cells', () => {
     await sut({
       config: {
         data: dataWithLink,
-        columns: columnsWithLink,
+        columns: [...columns, linkConfig],
         pagination: {
           total: 82,
           itemsPerPage: 10,
@@ -1580,7 +1593,7 @@ describe('Table > Link in cells', () => {
     await sut({
       config: {
         data: dataWithLink,
-        columns: columnsWithLink,
+        columns: [...columns, linkConfig],
         pagination: {
           total: 82,
           itemsPerPage: 10,
@@ -1591,6 +1604,77 @@ describe('Table > Link in cells', () => {
 
     fireEvent.click(screen.getByText('link label'));
     expect(linkClickAction).toHaveBeenCalled();
+  });
+
+  it('should not open the tooltip if the config is not informed', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: [...columns, linkConfig],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.mouseEnter(screen.getByText('link label'));
+    expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
+    fireEvent.mouseLeave(screen.getByText('link label'));
+  });
+
+  it('should open the tooltip when the config is informed', async () => {
+    await sut({
+      config: {
+        data: dataWithLink,
+        columns: [
+          ...columns,
+          {
+            ...linkConfig,
+            link: {
+              ...linkConfig.link,
+              tooltipConfig: {
+                text: (row): string => row.name,
+              },
+            },
+          },
+        ],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    fireEvent.mouseEnter(screen.getByTestId('link-element'));
+    expect(screen.getByTestId('ion-tooltip')).toBeVisible();
+  });
+
+  it('should show an empty cell when the show function returns false', async () => {
+    await sut({
+      config: {
+        data: [{ ...dataWithLink[0], name: '' }],
+        columns: [
+          ...columns,
+          {
+            ...linkConfig,
+            link: {
+              ...linkConfig.link,
+              hide: (row): boolean => !row.name,
+            },
+          },
+        ],
+        pagination: {
+          total: 82,
+          itemsPerPage: 10,
+          page: 1,
+        },
+      },
+    });
+
+    expect(screen.getByTestId('row-0-url')).toHaveTextContent('-');
   });
 });
 

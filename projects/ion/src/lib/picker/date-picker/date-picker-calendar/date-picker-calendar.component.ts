@@ -21,7 +21,6 @@ import {
   SUNDAY,
   TOTAL_DAYS,
 } from '../../../utils';
-import { SafeAny } from '../../../utils/safe-any';
 import { Calendar } from '../../core/calendar';
 import {
   CalendarControlActions,
@@ -54,6 +53,7 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   @Input() calendarControlAction: CalendarControlActions;
   @Input() selectedDays: Day[] = [];
   @Input() rangePicker: boolean;
+  @Input() disabledDate: IonDatePickerCalendarComponentProps['disabledDate'];
   @Output() events = new EventEmitter<[Day, Day]>();
   @Output() updateLabelCalendar = new EventEmitter<UpdateLabelCalendar>();
   public days: Day[] = [];
@@ -103,6 +103,10 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   }
 
   handleClick(dayIndex: number): void {
+    if (this.days[dayIndex].disabled) {
+      return;
+    }
+
     if (this.rangePicker) {
       if (!this.selectedDays.length || this.selectedDays[FINAL_RANGE]) {
         this.selectedDays = [this.days[dayIndex]];
@@ -132,11 +136,14 @@ export class IonDatePickerCalendarComponent implements OnInit, OnChanges {
   tempRenderDays(): void {
     this.days = this.getMonthDaysGrid();
     this.days.map((day) => {
-      (day as SafeAny).isDayCurrentMonth = this.isDayMonthCurrent(day);
+      day.isDayCurrentMonth = this.isDayMonthCurrent(day);
       day.isToday = isToday(day, this.lang);
       day.isBetweenRange = isBetweenRange(day, this.selectedDays);
       day.isRangeInitialLimit = this.isRangeLimit(day);
       day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
+      if (this.disabledDate) {
+        day.disabled = this.disabledDate(day.Date);
+      }
     });
 
     setTimeout(() => {

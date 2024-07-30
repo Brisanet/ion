@@ -85,7 +85,12 @@
       </header>
       <footer
         data-testid="ion-indicator-footer"
-        *ngIf="buttonConfig && !loading && !error"
+        *ngIf="
+          buttonConfig &&
+          !loading &&
+          !error &&
+          !(value === null || value === undefined || value === '')
+        "
       >
         <ion-button
           *ngIf="buttonConfig.type !== 'popover'"
@@ -116,6 +121,9 @@
           [ionPopoverPosition]="buttonConfig.popoverConfig.ionPopoverPosition"
           [ionPopoverCustomClass]="
             buttonConfig.popoverConfig.ionPopoverCustomClass
+          "
+          [ionPopoverStopCloseOnScroll]="
+            buttonConfig.popoverConfig.ionPopoverStopCloseOnScroll
           "
           (ionOnFirstAction)="buttonConfig.popoverConfig.firstAction()"
           (ionOnSecondAction)="buttonConfig.popoverConfig.secondAction()"

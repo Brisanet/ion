@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   template: `
@@ -13,6 +13,7 @@ import { Component } from '@angular/core';
       <ion-button
         label="Open Popconfirm"
         ionPopConfirm
+        [ionPopConfirmCloseOnScroll]="ionPopConfirmCloseOnScroll"
         ionConfirmText="Sim"
         ionCancelText="Não"
       >
@@ -20,4 +21,6 @@ import { Component } from '@angular/core';
     </div>
   `,
 })
-export class OpenPopconfirmComponent {}
+export class OpenPopconfirmComponent {
+  @Input() ionPopConfirmCloseOnScroll = false;
+}
