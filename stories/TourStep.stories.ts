@@ -30,8 +30,7 @@ TourStep.args = {
   ionStepZIndex: 123,
   ionStepPosition: IonTourStepPositions.TOP_CENTER,
   ionStepMarginToContent: 5,
-  ionStepWidth: 300,
-  ionStepHeight: 150,
+  ionStepWidth: '200px',
   ionStepBackdropPadding: 20,
   ionStepBackdropdZIndex: 100,
 };

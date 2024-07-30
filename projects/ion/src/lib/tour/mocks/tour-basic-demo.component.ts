@@ -33,6 +33,7 @@ import { IonTourService } from '../tour.service';
           type="secondary"
           ionTourStep
           ionStepTitle="Upload Action"
+          ionStepPosition="bottomLeft"
           [ionTourId]="tourId"
           [ionStepId]="steps.UPLOAD"
           [ionNextStepId]="steps.SAVE"
@@ -51,6 +52,7 @@ import { IonTourService } from '../tour.service';
           iconType="option"
           type="secondary"
           ionTourStep
+          ionStepPosition="rightCenter"
           [ionTourId]="tourId"
           ionStepTitle="Other Actions"
           [ionStepId]="steps.MORE_OPTIONS"

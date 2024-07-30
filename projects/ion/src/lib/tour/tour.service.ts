@@ -7,12 +7,13 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { isEmpty, isNull } from 'lodash';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { isEmpty, isEqual, isNull } from 'lodash';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { IonTourBackdropComponent } from './tour-backdrop';
 import { IonStartTourProps, IonTourPopoverProps } from '../core/types/tour';
 import { SafeAny } from '../utils/safe-any';
+import { IonTourBackdropComponent } from './tour-backdrop';
 
 type StepsMap = Map<IonTourPopoverProps['ionStepId'], IonTourPopoverProps>;
 
@@ -23,6 +24,7 @@ export class IonTourService {
   private activeTour = new BehaviorSubject<string | null>(null);
   private _tours: Record<string, StepsMap> = {};
   private backdropRef: ComponentRef<IonTourBackdropComponent> | null = null;
+  private destroyBackdrop$ = new Subject<void>();
 
   public get currentStep$(): Observable<IonTourPopoverProps | null> {
     return this.currentStep.asObservable();
@@ -51,9 +53,22 @@ export class IonTourService {
     if (!this._tours[step.ionTourId]) {
       this._tours[step.ionTourId] = new Map();
     }
-    if (!this._tours[step.ionTourId].size) {
+
+    const current = this.currentStep.value;
+
+    if (
+      current &&
+      current.ionStepId === step.ionStepId &&
+      !this.areDOMRectsEqual(step.target, current.target)
+    ) {
+      console.log(
+        isEqual(step.target, current.target),
+        step.target,
+        current.target
+      );
       this.navigateToStep(step);
     }
+
     this._tours[step.ionTourId].set(step.ionStepId, step);
   }
 
@@ -145,17 +160,21 @@ export class IonTourService {
   }
 
   private updateBackdropProps(): void {
-    this.currentStep$.subscribe((step) => {
-      if (this.backdropRef) {
-        this.backdropRef.instance.currentStep = step;
-      }
-    });
+    this.currentStep$
+      .pipe(takeUntil(this.destroyBackdrop$))
+      .subscribe((step) => {
+        if (this.backdropRef) {
+          this.backdropRef.instance.currentStep = step;
+        }
+      });
 
-    this.activeTour$.subscribe((activeTour) => {
-      if (this.backdropRef) {
-        this.backdropRef.instance.isActive = !isNull(activeTour);
-      }
-    });
+    this.activeTour$
+      .pipe(takeUntil(this.destroyBackdrop$))
+      .subscribe((activeTour) => {
+        if (this.backdropRef) {
+          this.backdropRef.instance.isActive = !isNull(activeTour);
+        }
+      });
   }
 
   private destroyBackdrop(): void {
@@ -163,6 +182,21 @@ export class IonTourService {
       this.appRef.detachView(this.backdropRef.hostView);
       this.backdropRef.destroy();
       this.backdropRef = null;
+      this.destroyBackdrop$.next();
+      this.destroyBackdrop$.complete();
     }
+  }
+
+  private areDOMRectsEqual(rect1: DOMRect, rect2: DOMRect) {
+    return (
+      rect1.x === rect2.x &&
+      rect1.y === rect2.y &&
+      rect1.width === rect2.width &&
+      rect1.height === rect2.height &&
+      rect1.top === rect2.top &&
+      rect1.right === rect2.right &&
+      rect1.bottom === rect2.bottom &&
+      rect1.left === rect2.left
+    );
   }
 }

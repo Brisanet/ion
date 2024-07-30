@@ -6,6 +6,7 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  HostListener,
   Inject,
   Injector,
   Input,
@@ -15,6 +16,8 @@ import {
   Output,
   ViewContainerRef,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import {
   IonTourPopoverProps,
@@ -44,7 +47,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() public ionStepPosition: IonTourStepProps['ionStepPosition'] =
     IonTourStepPositions.BOTTOM_CENTER;
   @Input()
-  public ionStepMarginToContent: IonTourStepProps['ionStepMarginToContent'] = 15;
+  public ionStepMarginToContent: IonTourStepProps['ionStepMarginToContent'] = 5;
   @Input() public ionStepWidth: IonTourStepProps['ionStepWidth'] = 'auto';
   @Input() public ionStepHeight: IonTourStepProps['ionStepHeight'] = 'auto';
   @Input()
@@ -63,6 +66,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
 
   private isStepSelected = false;
   private isTourActive = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
@@ -74,22 +78,30 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     private tourService: IonTourService
   ) {}
 
+  @HostListener('window:resize', ['$event'])
+  public onResize(): void {
+    this.checkPopoverVisibility();
+  }
+
   public ngOnInit(): void {
-    this.tourService.saveStep(this.getStepProps());
+    this.tourService.saveStep(this.getPopoverProps());
 
-    this.tourService.activeTour$.subscribe((isActive) => {
-      this.isTourActive = isActive === this.ionTourId;
-      this.checkPopoverVisibility();
-    });
+    this.tourService.activeTour$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((isActive) => {
+        this.isTourActive = isActive === this.ionTourId;
+        this.checkPopoverVisibility();
+      });
 
-    this.tourService.currentStep$.subscribe((step) => {
-      this.isStepSelected = step && step.ionStepId === this.ionStepId;
-      this.checkPopoverVisibility();
-    });
+    this.tourService.currentStep$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((step) => {
+        this.isStepSelected = step && step.ionStepId === this.ionStepId;
+        this.checkPopoverVisibility();
+      });
   }
 
   public ngOnChanges(): void {
-    this.tourService.saveStep(this.getStepProps());
     this.checkPopoverVisibility();
   }
 
@@ -97,10 +109,12 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.viewRef.clear();
     this.destroyPopoverElement();
     this.tourService.removeStep(this.ionStepId);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private checkPopoverVisibility(): void {
-    this.tourService.saveStep(this.getStepProps());
+    this.tourService.saveStep(this.getPopoverProps());
     this.destroyPopoverElement();
 
     if (this.isTourActive && this.isStepSelected) {
@@ -120,7 +134,10 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
 
     this.document.body.appendChild(popoverElement);
     this.popoverRef.changeDetectorRef.detectChanges();
-    Object.assign(this.popoverRef.instance, this.getStepProps());
+
+    for (const [key, value] of Object.entries(this.getPopoverProps())) {
+      this.popoverRef.instance[key] = value;
+    }
   }
 
   private destroyPopoverElement(): void {
@@ -131,7 +148,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private getStepProps(): IonTourPopoverProps {
+  private getPopoverProps(): IonTourPopoverProps {
     return {
       ionStepId: this.ionStepId,
       ionTourId: this.ionTourId,

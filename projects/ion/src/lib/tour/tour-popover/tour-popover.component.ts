@@ -5,8 +5,13 @@ import {
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
 } from '@angular/core';
 import { isString } from 'lodash';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { IonTourPopoverProps } from '../../core/types';
 import {
@@ -22,7 +27,12 @@ import { IonTourService } from '../tour.service';
   styleUrls: ['./tour-popover.component.scss'],
 })
 export class IonTourPopoverComponent
-  implements AfterViewChecked, OnChanges, IonTourPopoverProps
+  implements
+    OnInit,
+    AfterViewChecked,
+    OnChanges,
+    OnDestroy,
+    IonTourPopoverProps
 {
   @Input() public target: IonTourPopoverProps['target'];
   @Input() public ionStepId: IonTourPopoverProps['ionStepId'];
@@ -47,13 +57,17 @@ export class IonTourPopoverComponent
   public ionStepBackdropPadding?: IonTourPopoverProps['ionStepBackdropPadding'];
   @Input()
   public ionStepBackdropdZIndex?: IonTourPopoverProps['ionStepBackdropdZIndex'];
-  @Input() public ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
-  @Input() public ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
-  @Input() public ionOnFinishTour: IonTourPopoverProps['ionOnFinishTour'];
+
+  @Output() public ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
+  @Output() public ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
+  @Output() public ionOnFinishTour: IonTourPopoverProps['ionOnFinishTour'];
 
   public top = 0;
   public left = 0;
+  public isActive = false;
   public isString = isString;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private readonly tourService: IonTourService,
@@ -61,6 +75,28 @@ export class IonTourPopoverComponent
     private readonly elementRef: ElementRef,
     private readonly cdr: ChangeDetectorRef
   ) {}
+
+  public ngOnInit(): void {
+    this.tourService.currentStep$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((step) => {
+        this.isActive =
+          this.ionStepId && !!step && step.ionStepId === this.ionStepId;
+      });
+  }
+
+  public ngAfterViewChecked(): void {
+    this.repositionPopover();
+  }
+
+  public ngOnChanges(): void {
+    this.repositionPopover();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
   public next(): void {
     this.tourService.nextStep();
@@ -75,14 +111,6 @@ export class IonTourPopoverComponent
   public finish(): void {
     this.tourService.finish();
     this.ionOnFinishTour.emit();
-  }
-
-  public ngAfterViewChecked(): void {
-    this.repositionPopover();
-  }
-
-  public ngOnChanges(): void {
-    this.repositionPopover();
   }
 
   private repositionPopover(): void {
