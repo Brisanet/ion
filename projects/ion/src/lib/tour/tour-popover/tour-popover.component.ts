@@ -5,11 +5,9 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  OnDestroy,
   Output,
 } from '@angular/core';
 import { isString } from 'lodash';
-import { Subject } from 'rxjs';
 
 import { IonTourPopoverProps } from '../../core/types';
 import {
@@ -25,7 +23,7 @@ import { IonTourService } from '../tour.service';
   styleUrls: ['./tour-popover.component.scss'],
 })
 export class IonTourPopoverComponent
-  implements AfterViewChecked, OnChanges, OnDestroy, IonTourPopoverProps
+  implements AfterViewChecked, OnChanges, IonTourPopoverProps
 {
   @Input() target: IonTourPopoverProps['target'];
   @Input() ionStepId: IonTourPopoverProps['ionStepId'];
@@ -58,8 +56,6 @@ export class IonTourPopoverComponent
   public left = 0;
   public isString = isString;
 
-  private destroy$ = new Subject<void>();
-
   constructor(
     private readonly tourService: IonTourService,
     private readonly positionService: IonPositionService,
@@ -73,11 +69,6 @@ export class IonTourPopoverComponent
 
   public ngOnChanges(): void {
     this.repositionPopover();
-  }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   public next(): void {
