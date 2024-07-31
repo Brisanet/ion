@@ -34,7 +34,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() ionStepId!: IonTourStepProps['ionStepId'];
   @Input() ionStepTitle?: IonTourStepProps['ionStepTitle'];
   @Input() ionStepContent?: IonTourStepProps['ionStepContent'];
-  @Input() ionStepPrevBtnTitle: IonTourStepProps['ionStepPrevBtnTitle'] =
+  @Input() ionStepPrevBtnTitle?: IonTourStepProps['ionStepPrevBtnTitle'] =
     'Previous';
   @Input()
   public ionStepNextBtnTitle?: IonTourStepProps['ionStepNextBtnTitle'] = 'Next';
@@ -43,12 +43,12 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     'Finish';
   @Input() ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
   @Input() ionNextStepId?: IonTourStepProps['ionNextStepId'];
-  @Input() ionStepPosition: IonTourStepProps['ionStepPosition'] =
+  @Input() ionStepPosition?: IonTourStepProps['ionStepPosition'] =
     IonTourStepPositions.BOTTOM_CENTER;
   @Input()
-  public ionStepMarginToContent: IonTourStepProps['ionStepMarginToContent'] = 5;
+  public ionStepMarginToContent?: IonTourStepProps['ionStepMarginToContent'] = 5;
   @Input()
-  public ionStepBackdropPadding: IonTourStepProps['ionStepBackdropPadding'] = 10;
+  public ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 10;
   @Input()
   public ionStepCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
   @Input()

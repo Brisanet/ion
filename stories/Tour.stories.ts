@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 
 import { IonTourModule } from '../projects/ion/src/lib/tour';
-import { TourBasicDemoComponent } from '../projects/ion/src/lib/tour/mocks';
+import { TourBasicDemoComponent } from '../projects/ion/src/lib/tour/mocks/tour-basic-demo.component';
 import { IonSharedModule } from '../projects/ion/src/public-api';
 
 const Template: Story<TourBasicDemoComponent> = () => ({

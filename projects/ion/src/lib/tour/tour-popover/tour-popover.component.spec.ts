@@ -135,8 +135,6 @@ describe('IonTourPopoverComponent', () => {
         ionStepContent
       );
     });
-
-    it.todo('should render content as template');
   });
 
   describe('actions', () => {

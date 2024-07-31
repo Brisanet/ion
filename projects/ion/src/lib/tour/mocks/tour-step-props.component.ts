@@ -22,8 +22,8 @@ import { IonTourService } from '../tour.service';
         type="secondary"
         (ionOnClick)="restartTour()"
         ionTourStep
-        ionStepId="demo-step"
-        ionTourId="demo-tour"
+        [ionStepId]="ionStepId"
+        [ionTourId]="ionTourId"
         [ionStepContent]="ionStepContent"
         [ionStepTitle]="ionStepTitle"
         [ionStepPrevBtnTitle]="ionStepPrevBtnTitle"
@@ -36,14 +36,13 @@ import { IonTourService } from '../tour.service';
         [ionStepBackdropPadding]="ionStepBackdropPadding"
         [ionStepCustomClass]="ionStepCustomClass"
         [ionStepBackdropCustomClass]="ionStepBackdropCustomClass"
-        (ionOnPrevStep)="onPrevStep()"
-        (ionOnNextStep)="onNextStep()"
-        (ionOnFinishTour)="onFinishTour()"
       ></ion-button>
     </div>
   `,
 })
-export class TourStepPropsComponent implements AfterViewInit, OnChanges {
+export class TourStepDemoComponent implements AfterViewInit, OnChanges {
+  @Input() ionStepId = 'demo-step';
+  @Input() ionTourId = 'demo-tour';
   @Input() ionStepTitle: string;
   @Input() ionStepContent: string;
   @Input() ionStepPrevBtnTitle: string;
@@ -58,18 +57,6 @@ export class TourStepPropsComponent implements AfterViewInit, OnChanges {
   @Input() ionStepBackdropCustomClass: string;
 
   constructor(private readonly ionTourService: IonTourService) {}
-
-  public onPrevStep(): void {
-    console.log('Prev Step');
-  }
-
-  public onNextStep(): void {
-    console.log('Next Step');
-  }
-
-  public onFinishTour(): void {
-    console.log('Finish Tour');
-  }
 
   public ngAfterViewInit(): void {
     this.ionTourService.start();

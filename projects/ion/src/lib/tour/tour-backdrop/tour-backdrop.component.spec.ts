@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/angular';
 
-import { IonTourPopoverProps, IonTourStepProps } from '../../core/types';
+import { IonTourPopoverProps } from '../../core/types';
 import { IonTourBackdropComponent } from './tour-backdrop.component';
 
 const DEFAULT_PROPS: Partial<IonTourBackdropComponent> = {};

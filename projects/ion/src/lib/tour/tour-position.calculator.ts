@@ -1,18 +1,14 @@
-import { PopoverPosition } from '../core/types';
+import { IonTourStepPositions } from '../core/types';
 import { GetPositionsCallbackProps } from '../position/position.service';
 
-type PopoverPositions = {
-  [key in PopoverPosition]: Pick<DOMRect, 'left' | 'top'>;
+type TourPopoverPositions = {
+  [key in IonTourStepPositions]: Pick<DOMRect, 'left' | 'top'>;
 };
-
-type GetPositionsCallback = (
-  props: GetPositionsCallbackProps
-) => PopoverPositions;
 
 export function generatePositionCallback(
   contentPadding: number,
   marginToContent: number
-): GetPositionsCallback {
+): (props: GetPositionsCallbackProps) => TourPopoverPositions {
   return (props) => getPositionsPopover(props, contentPadding, marginToContent);
 }
 
@@ -20,7 +16,7 @@ export function getPositionsPopover(
   props: GetPositionsCallbackProps,
   contentPadding: number,
   marginToContent: number
-): PopoverPositions {
+): TourPopoverPositions {
   const { host: rawHost, element: popover } = props;
 
   const hostHorizontalCenter = Math.round(rawHost.width / 2 + rawHost.left);

@@ -2,22 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Meta, Story } from '@storybook/angular';
 
 import { IonTourModule } from '../projects/ion/src/lib/tour';
-import { TourStepPropsComponent } from '../projects/ion/src/lib/tour/mocks';
+import { TourStepDemoComponent } from '../projects/ion/src/lib/tour/mocks/tour-step-props.component';
 import {
   IonSharedModule,
   IonTourStepPositions,
   IonTourStepProps,
 } from '../projects/ion/src/public-api';
 
-const Template: Story<TourStepPropsComponent> = (
-  args: TourStepPropsComponent
+const Template: Story<TourStepDemoComponent> = (
+  args: TourStepDemoComponent
 ) => ({
-  component: TourStepPropsComponent,
+  component: TourStepDemoComponent,
   props: args,
   moduleMetadata: {
-    declarations: [TourStepPropsComponent],
+    declarations: [TourStepDemoComponent],
     imports: [CommonModule, IonSharedModule, IonTourModule],
-    entryComponents: [TourStepPropsComponent],
+    entryComponents: [TourStepDemoComponent],
   },
 });
 
@@ -35,7 +35,7 @@ TourStep.args = {
 
 export default {
   title: 'Ion/Data Display/Tour',
-  component: TourStepPropsComponent,
+  component: TourStepDemoComponent,
   argTypes: {
     ionStepTitle: { control: 'text' },
     ionStepContent: { control: 'text' },
@@ -55,4 +55,4 @@ export default {
     ionStepCustomClass: { control: 'text' },
     ionStepBackdropCustomClass: { control: 'text' },
   },
-} as Meta<TourStepPropsComponent>;
+} as Meta<TourStepDemoComponent>;
