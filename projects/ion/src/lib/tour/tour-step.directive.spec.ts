@@ -1,5 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
-import userEvent from '@testing-library/user-event';
+import {
+  fireEvent,
+  render,
+  RenderResult,
+  screen,
+} from '@testing-library/angular';
 import { cloneDeep } from 'lodash';
 import { EMPTY, of } from 'rxjs';
 
@@ -30,15 +34,17 @@ const tourServiceMock: Partial<IonTourService> = {
   currentStep$: EMPTY,
 };
 
-function setActiveTour(tourId: string) {
+function setActiveTour(tourId: string): void {
   Object.defineProperty(tourServiceMock, 'activeTour$', { value: of(tourId) });
 }
 
-function setCurrentStep(step: Partial<IonTourPopoverProps>) {
+function setCurrentStep(step: Partial<IonTourPopoverProps>): void {
   Object.defineProperty(tourServiceMock, 'currentStep$', { value: of(step) });
 }
 
-const sut = async (props: Partial<TourStepDemoComponent> = {}) => {
+const sut = async (
+  props: Partial<TourStepDemoComponent> = {}
+): Promise<RenderResult<TourStepDemoComponent>> => {
   return render(TourStepDemoComponent, {
     imports: [IonButtonModule, IonTourModule],
     providers: [{ provide: IonTourService, useValue: tourServiceMock }],

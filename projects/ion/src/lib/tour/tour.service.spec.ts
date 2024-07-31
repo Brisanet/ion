@@ -1,24 +1,36 @@
 import {
   ApplicationRef,
+  ComponentFactory,
   ComponentFactoryResolver,
   Injector,
 } from '@angular/core';
 
 import { IonTourPopoverProps } from '../core/types/tour';
+import { IonTourBackdropComponent } from './tour-backdrop';
 import { IonTourService } from './tour.service';
 
 jest.useFakeTimers();
+
+function performFinalTransition(callback: () => void): void {
+  callback();
+}
+
+function resolveComponentFactory(): ComponentFactory<IonTourBackdropComponent> {
+  return {
+    create: () => backdropComponentMock,
+  } as unknown as ComponentFactory<IonTourBackdropComponent>;
+}
 
 const backdropComponentMock = {
   hostView: {},
   location: { nativeElement: document.createElement('div') },
   changeDetectorRef: { detectChanges: jest.fn() },
-  instance: { performFinalTransition: (callback: () => void) => callback() },
+  instance: { performFinalTransition },
   destroy: jest.fn(),
 };
 
 const componentFactoryResolverMock = {
-  resolveComponentFactory: () => ({ create: () => backdropComponentMock }),
+  resolveComponentFactory,
 } as unknown as ComponentFactoryResolver;
 
 const applicationRefMock = {

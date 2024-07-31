@@ -2,9 +2,11 @@ import { EventEmitter } from '@angular/core';
 import {
   render,
   RenderComponentOptions,
+  RenderResult,
   screen,
 } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
+import { cloneDeep } from 'lodash';
 import { EMPTY } from 'rxjs';
 
 import { IonButtonModule } from '../../button/button.module';
@@ -12,7 +14,6 @@ import { IonTourStepPositions } from '../../core/types';
 import { IonPositionService } from '../../position/position.service';
 import { IonTourService } from '../tour.service';
 import { IonTourPopoverComponent } from './tour-popover.component';
-import { cloneDeep } from 'lodash';
 
 const tourServiceMock: Partial<IonTourService> = {
   saveStep: jest.fn(),
@@ -66,7 +67,9 @@ enum TestIDs {
   FINISH_BUTTON = 'tour-popover__finish-button',
 }
 
-const sut = async (props: Partial<IonTourPopoverComponent> = {}) => {
+const sut = async (
+  props: Partial<IonTourPopoverComponent> = {}
+): Promise<RenderResult<IonTourPopoverComponent>> => {
   return render(IonTourPopoverComponent, {
     ...TOUR_POPOVER_TESTING_MODULE,
     componentProperties: {

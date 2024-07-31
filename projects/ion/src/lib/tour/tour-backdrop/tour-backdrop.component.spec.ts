@@ -1,11 +1,13 @@
-import { render, screen } from '@testing-library/angular';
+import { render, RenderResult, screen } from '@testing-library/angular';
 
 import { IonTourPopoverProps } from '../../core/types';
 import { IonTourBackdropComponent } from './tour-backdrop.component';
 
 const DEFAULT_PROPS: Partial<IonTourBackdropComponent> = {};
 
-const sut = async (props: Partial<IonTourBackdropComponent> = {}) => {
+const sut = async (
+  props: Partial<IonTourBackdropComponent> = {}
+): Promise<RenderResult<IonTourBackdropComponent>> => {
   return render(IonTourBackdropComponent, {
     declarations: [IonTourBackdropComponent],
     componentProperties: {
