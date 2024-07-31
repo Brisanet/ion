@@ -33,23 +33,22 @@ export class IonTourPopoverComponent
   @Input() ionStepTitle: IonTourPopoverProps['ionStepTitle'];
   @Input() ionStepContent: IonTourPopoverProps['ionStepContent'];
   @Input()
-  public ionStepPrevBtnTitle: IonTourPopoverProps['ionStepPrevBtnTitle'];
+  ionStepPrevBtnTitle: IonTourPopoverProps['ionStepPrevBtnTitle'];
   @Input()
-  public ionStepNextBtnTitle: IonTourPopoverProps['ionStepNextBtnTitle'];
+  ionStepNextBtnTitle: IonTourPopoverProps['ionStepNextBtnTitle'];
   @Input()
-  public ionStepFinishBtnTitle: IonTourPopoverProps['ionStepFinishBtnTitle'];
+  ionStepFinishBtnTitle: IonTourPopoverProps['ionStepFinishBtnTitle'];
   @Input() ionPrevStepId?: IonTourPopoverProps['ionPrevStepId'];
   @Input() ionNextStepId?: IonTourPopoverProps['ionNextStepId'];
   @Input() ionStepPosition: IonTourPopoverProps['ionStepPosition'];
   @Input()
-  public ionStepMarginToContent: IonTourPopoverProps['ionStepMarginToContent'];
+  ionStepMarginToContent: IonTourPopoverProps['ionStepMarginToContent'];
   @Input()
-  public ionStepBackdropPadding: IonTourPopoverProps['ionStepBackdropPadding'];
+  ionStepBackdropPadding: IonTourPopoverProps['ionStepBackdropPadding'];
   @Input()
-  public ionStepCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'] =
-    '';
+  ionStepCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'] = '';
   @Input()
-  public ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
+  ionStepBackdropCustomClass?: IonTourPopoverProps['ionStepBackdropCustomClass'];
 
   @Output() ionOnPrevStep: IonTourPopoverProps['ionOnPrevStep'];
   @Output() ionOnNextStep: IonTourPopoverProps['ionOnNextStep'];
