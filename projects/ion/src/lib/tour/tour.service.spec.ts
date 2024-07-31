@@ -62,8 +62,8 @@ describe('IonTourService', () => {
     service = new IonTourService(
       document,
       componentFactoryResolverMock,
-      applicationRefMock,
-      {} as Injector
+      {} as Injector,
+      applicationRefMock
     );
   });
 
