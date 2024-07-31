@@ -43,11 +43,12 @@ export class IonTourBackdropComponent implements OnInit {
   }
 
   public performFinalTransition(callback: () => void): void {
+    const transitionDuration = 400;
     this.inTransition = true;
 
     setTimeout(() => {
       this.inTransition = false;
       callback();
-    }, 400);
+    }, transitionDuration);
   }
 }

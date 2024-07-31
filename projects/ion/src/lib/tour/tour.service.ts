@@ -45,8 +45,8 @@ export class IonTourService {
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private appRef: ApplicationRef,
-    private injector: Injector
+    private injector: Injector,
+    private appRef: ApplicationRef
   ) {}
 
   public saveStep(step: IonTourPopoverProps): void {
