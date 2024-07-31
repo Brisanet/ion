@@ -103,6 +103,7 @@ export class IonPositionService {
     availablePositions: ElementPositions
   ): keyof PositionsChecks {
     const positions = this.getPositions();
+
     let newPosition = this.choosedPosition;
 
     if (!positions[newPosition as keyof PositionsChecks]) {
