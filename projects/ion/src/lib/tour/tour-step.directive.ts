@@ -28,11 +28,6 @@ import { SafeAny } from '../utils/safe-any';
 import { generatePositionCallback } from './tour-position.calculator';
 import { IonTourService } from './tour.service';
 
-interface Position {
-  top: number;
-  left: number;
-}
-
 @Directive({ selector: '[ionTourStep]' })
 export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() ionTourId!: IonTourStepProps['ionTourId'];
@@ -73,11 +68,6 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   private isTourActive = false;
   private destroy$ = new Subject<void>();
 
-  private popoverPosition: Position = {
-    top: 0,
-    left: 0,
-  };
-
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -92,7 +82,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   public onResize(): void {
-    this.checkPopoverVisibility();
+    this.repositionPopover();
   }
 
   public ngOnInit(): void {
@@ -130,11 +120,13 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.destroyPopoverElement();
 
     if (this.isTourActive && this.isStepSelected) {
-      this.createPopoverElement();
+      setTimeout(() => this.createPopoverElement());
     }
   }
 
   private createPopoverElement(): void {
+    this.destroyPopoverElement();
+
     this.popoverRef = this.componentFactoryResolver
       .resolveComponentFactory(IonPopoverComponent)
       .create(this.injector);
@@ -163,7 +155,6 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       ionPopoverCustomClass: 'ion-tour-popover ' + this.ionStepCustomClass,
       ionPopoverIconClose: true,
       ionPopoverKeep: true,
-      ...this.popoverPosition,
     };
 
     for (const [key, value] of Object.entries(popoverProps)) {
@@ -200,7 +191,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private repositionPopover(): void {
-    if (this.ionStepId) {
+    if (this.ionStepId && this.popoverRef) {
       const contentRect =
         this.popoverRef.instance.popover.nativeElement.getBoundingClientRect();
 
@@ -211,14 +202,17 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       this.positionService.setElementPadding(this.ionStepMarginToContent);
       this.positionService.setcomponentCoordinates(contentRect);
 
-      this.popoverPosition = this.positionService.getNewPosition(
+      const position = this.positionService.getNewPosition(
         generatePositionCallback(
           this.ionStepBackdropPadding,
           this.ionStepMarginToContent
         )
       );
 
-      this.updatePopoverProps();
+      this.popoverRef.instance.top = position.top + window.scrollY;
+      this.popoverRef.instance.left = position.left + window.scrollX;
+
+      this.tourService.saveStep(this.toJSON());
     }
   }
 

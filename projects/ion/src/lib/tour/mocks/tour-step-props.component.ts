@@ -8,8 +8,8 @@ import { IonTourService } from '../tour.service';
   template: `
     <style>
       div {
-        height: 400px;
-        width: 400px;
+        height: 800px;
+        width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;

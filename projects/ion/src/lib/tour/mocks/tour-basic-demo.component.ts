@@ -6,7 +6,8 @@ import { IonTourService } from '../tour.service';
   template: `
     <style>
       div {
-        height: 400px;
+        height: 100%;
+        margin-top: 200px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -66,7 +67,12 @@ import { IonTourService } from '../tour.service';
 
     <ng-template #uploadStepContent>
       <span>Here is a random image:</span>
-      <img src="https://picsum.photos/200/100" alt="Random Image" />
+      <img
+        src="https://picsum.photos/200/100"
+        alt="Random Image"
+        width="200px"
+        height="100px"
+      />
     </ng-template>
 
     <ng-template #saveStep>

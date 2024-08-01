@@ -29,4 +29,8 @@
 ::ng-deep .ion-tour-popover {
   position: absolute !important;
   transform: translate(0) !important;
+
+  .ion-popover__content-body {
+    max-height: unset !important;
+  }
 }
