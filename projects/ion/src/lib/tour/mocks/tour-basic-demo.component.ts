@@ -1,6 +1,39 @@
 import { Component } from '@angular/core';
 
 import { IonTourService } from '../tour.service';
+import { IonTourStepProps, PopoverPosition } from '../../core/types';
+
+export enum DemoSteps {
+  UPLOAD = 'upload',
+  SAVE = 'save',
+  MORE_OPTIONS = 'more_options',
+}
+
+export const STEP1_MOCK: IonTourStepProps = {
+  ionStepTitle: 'Upload Action',
+  ionTourId: 'basic-demo',
+  ionStepId: DemoSteps.UPLOAD,
+  ionNextStepId: DemoSteps.SAVE,
+  ionStepPosition: PopoverPosition.BOTTOM_CENTER,
+  ionStepSkipBtnTitle: 'Skip',
+};
+
+export const STEP2_MOCK: IonTourStepProps = {
+  ionStepTitle: 'Save Action',
+  ionTourId: 'basic-demo',
+  ionStepId: DemoSteps.SAVE,
+  ionPrevStepId: DemoSteps.UPLOAD,
+  ionNextStepId: DemoSteps.MORE_OPTIONS,
+  ionStepPosition: PopoverPosition.BOTTOM_CENTER,
+};
+
+export const STEP3_MOCK: IonTourStepProps = {
+  ionStepTitle: 'More Options',
+  ionTourId: 'basic-demo',
+  ionStepId: DemoSteps.MORE_OPTIONS,
+  ionPrevStepId: DemoSteps.SAVE,
+  ionStepPosition: PopoverPosition.RIGHT_CENTER,
+};
 
 @Component({
   template: `
@@ -34,32 +67,33 @@ import { IonTourService } from '../tour.service';
           label="Upload"
           type="secondary"
           ionTourStep
-          ionStepTitle="Upload Action"
-          ionStepPosition="bottomCenter"
-          [ionTourId]="tourId"
-          [ionStepId]="steps.UPLOAD"
-          [ionNextStepId]="steps.SAVE"
+          [ionStepTitle]="step1.ionStepTitle"
+          [ionStepPosition]="step1.ionStepPosition"
+          [ionTourId]="step1.ionTourId"
+          [ionStepId]="step1.ionStepId"
+          [ionNextStepId]="step1.ionNextStepId"
+          [ionStepSkipBtnTitle]="step1.ionStepSkipBtnTitle"
           [ionStepBody]="uploadStepContent"
         ></ion-button>
         <ion-button
           label="Save"
           ionTourStep
-          ionStepTitle="Save Changes"
-          [ionTourId]="tourId"
-          [ionStepId]="steps.SAVE"
-          [ionPrevStepId]="steps.UPLOAD"
-          [ionNextStepId]="steps.MORE_OPTIONS"
+          [ionTourId]="step2.ionTourId"
+          [ionStepId]="step2.ionStepId"
+          [ionPrevStepId]="step2.ionPrevStepId"
+          [ionNextStepId]="step2.ionNextStepId"
+          [ionStepTitle]="step2.ionStepTitle"
           [ionStepBody]="saveStep"
         ></ion-button>
         <ion-button
           iconType="option"
           type="secondary"
           ionTourStep
-          ionStepPosition="rightCenter"
-          [ionTourId]="tourId"
-          ionStepTitle="Other Actions"
-          [ionStepId]="steps.MORE_OPTIONS"
-          [ionPrevStepId]="steps.SAVE"
+          [ionStepPosition]="step3.ionStepPosition"
+          [ionTourId]="step3.ionTourId"
+          [ionStepId]="step3.ionStepId"
+          [ionPrevStepId]="step3.ionPrevStepId"
+          [ionStepTitle]="step3.ionStepTitle"
           [ionStepBody]="optionsStepContent"
         ></ion-button>
       </main>
@@ -87,11 +121,9 @@ import { IonTourService } from '../tour.service';
 export class TourBasicDemoComponent {
   public tourId = 'basic-demo';
 
-  public steps: Record<string, string> = {
-    UPLOAD: 'upload',
-    SAVE: 'save',
-    MORE_OPTIONS: 'more_options',
-  };
+  public step1 = STEP1_MOCK;
+  public step2 = STEP2_MOCK;
+  public step3 = STEP3_MOCK;
 
   constructor(private readonly ionTourService: IonTourService) {}
 

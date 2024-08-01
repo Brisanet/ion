@@ -262,6 +262,19 @@ describe('IonTourService', () => {
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
     });
+
+    it('should finish the tour if there is no previous step and prevStep is called', () => {
+      const [step] = stepsMock;
+
+      service.saveStep(step);
+      service.start({ tourId: step.ionTourId });
+      jest.runAllTimers();
+
+      service.prevStep();
+
+      expect(service.currentStep.value).toBeNull();
+      expect(service.activeTour.value).toBeNull();
+    });
   });
 
   describe('finish tour', () => {

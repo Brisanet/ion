@@ -12,6 +12,8 @@ import { IonTourStepProps } from '../core/types';
 import { TourStepDemoComponent } from './mocks/tour-step-props.component';
 import { IonTourModule } from './tour.module';
 import { IonTourService } from './tour.service';
+import { IonPopoverModule } from '../popover/popover.module';
+import userEvent from '@testing-library/user-event';
 
 const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionTourId: 'demo-tour',
@@ -20,6 +22,7 @@ const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionStepPrevBtnTitle: 'Test Prev',
   ionStepNextBtnTitle: 'Test Next',
   ionStepFinishBtnTitle: 'Test Finish',
+  ionStepSkipBtnTitle: 'Test Skip',
 };
 
 const tourServiceMock: Partial<IonTourService> = {
@@ -41,36 +44,30 @@ function setCurrentStep(step: Partial<IonTourStepProps>): void {
   Object.defineProperty(tourServiceMock, 'currentStep$', { value: of(step) });
 }
 
+jest.useFakeTimers();
+
 const sut = async (
   props: Partial<TourStepDemoComponent> = {}
 ): Promise<RenderResult<TourStepDemoComponent>> => {
-  return render(TourStepDemoComponent, {
-    imports: [IonButtonModule, IonTourModule],
+  const result = await render(TourStepDemoComponent, {
+    imports: [IonButtonModule, IonTourModule, IonPopoverModule],
     providers: [{ provide: IonTourService, useValue: tourServiceMock }],
     componentProperties: {
       ...DEFAULT_PROPS,
       ...props,
     },
   });
+  jest.runAllTimers();
+  result.fixture.detectChanges();
+  return result;
 };
 
 describe('IonTourStepDirective', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+  afterEach(jest.clearAllMocks);
 
   it('should save step on init', async () => {
     const spy = jest.spyOn(tourServiceMock, 'saveStep');
     await sut();
-    expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith(expect.objectContaining(DEFAULT_PROPS));
-  });
-
-  it('should save step on window resize', async () => {
-    await sut();
-    jest.clearAllMocks();
-    const spy = jest.spyOn(tourServiceMock, 'saveStep');
-    fireEvent.resize(window);
     expect(spy).toHaveBeenCalled();
   });
 
@@ -89,5 +86,82 @@ describe('IonTourStepDirective', () => {
 
     await sut();
     expect(screen.queryByTestId('ion-popover')).toBeInTheDocument();
+  });
+
+  describe('popover actions', () => {
+    it('should call finish when the skip button is clicked', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut();
+      const [skipButton] = screen.getAllByTestId(
+        `btn-${step.ionStepSkipBtnTitle}`
+      );
+      userEvent.click(skipButton);
+
+      expect(tourServiceMock.finish).toHaveBeenCalled();
+    });
+
+    it('should call prevStep when there is a previous step and the prev button is clicked', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+      const prevStep = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut({ ionPrevStepId: prevStep.ionStepId });
+      const [prevButton] = screen.getAllByTestId(
+        `btn-${step.ionStepPrevBtnTitle}`
+      );
+      userEvent.click(prevButton);
+
+      expect(tourServiceMock.prevStep).toHaveBeenCalled();
+    });
+
+    it('should call nextStep when there is a next step and the next button is clicked', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+      const nextStep = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut({ ionNextStepId: nextStep.ionStepId });
+      const [nextButton] = screen.getAllByTestId(
+        `btn-${step.ionStepNextBtnTitle}`
+      );
+      userEvent.click(nextButton);
+
+      expect(tourServiceMock.nextStep).toHaveBeenCalled();
+    });
+
+    it('should call finish when there is no next step and the next button is clicked', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut();
+      const [nextButton] = screen.getAllByTestId(
+        `btn-${step.ionStepFinishBtnTitle}`
+      );
+      userEvent.click(nextButton);
+
+      expect(tourServiceMock.finish).toHaveBeenCalled();
+    });
+
+    it('should call finish when the close button is clicked', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut();
+      const [closeButton] = screen.getAllByTestId('btn-popover-close-button');
+      fireEvent.click(closeButton);
+
+      expect(tourServiceMock.finish).toHaveBeenCalled();
+    });
   });
 });

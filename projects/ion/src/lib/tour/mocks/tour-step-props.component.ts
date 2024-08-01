@@ -27,6 +27,7 @@ import { IonTourService } from '../tour.service';
         [ionStepBody]="stepBody"
         [ionStepTitle]="ionStepTitle"
         [ionStepPrevBtnTitle]="ionStepPrevBtnTitle"
+        [ionStepSkipBtnTitle]="ionStepSkipBtnTitle"
         [ionStepNextBtnTitle]="ionStepNextBtnTitle"
         [ionStepFinishBtnTitle]="ionStepFinishBtnTitle"
         [ionPrevStepId]="ionPrevStepId"
@@ -49,6 +50,7 @@ export class TourStepDemoComponent implements AfterViewInit, OnChanges {
   @Input() ionTourId = 'demo-tour';
   @Input() ionStepTitle: string;
   @Input() ionStepPrevBtnTitle: string;
+  @Input() ionStepSkipBtnTitle: string;
   @Input() ionStepNextBtnTitle: string;
   @Input() ionStepFinishBtnTitle: string;
   @Input() ionPrevStepId: string;

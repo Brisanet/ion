@@ -80,11 +80,6 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     private positionService: IonPositionService
   ) {}
 
-  @HostListener('window:resize', ['$event'])
-  public onResize(): void {
-    this.repositionPopover();
-  }
-
   public ngOnInit(): void {
     this.tourService.saveStep(this.toJSON());
 
@@ -113,6 +108,33 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.tourService.removeStep(this.ionStepId);
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  private repositionPopover(): void {
+    if (this.ionStepId && this.popoverRef) {
+      const contentRect =
+        this.popoverRef.instance.popover.nativeElement.getBoundingClientRect();
+
+      this.positionService.setHostPosition(
+        this.elementRef.nativeElement.getBoundingClientRect()
+      );
+      this.positionService.setChoosedPosition(this.ionStepPosition);
+      this.positionService.setElementPadding(this.ionStepMarginToContent);
+      this.positionService.setcomponentCoordinates(contentRect);
+
+      const position = this.positionService.getNewPosition(
+        generatePositionCallback(
+          this.ionStepBackdropPadding,
+          this.ionStepMarginToContent
+        )
+      );
+
+      this.popoverRef.instance.top = position.top + window.scrollY;
+      this.popoverRef.instance.left = position.left + window.scrollX;
+
+      this.tourService.saveStep(this.toJSON());
+    }
   }
 
   private checkPopoverVisibility(): void {
@@ -178,42 +200,16 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
 
   private listenToPopoverEvents(): void {
     const eventHandlers: [string, () => void][] = [
-      ['ionOnFirstAction', () => this.tourService.prevStep()],
-      ['ionOnSecondAction', () => this.tourService.nextStep()],
-      ['ionOnClose', () => this.tourService.finish()],
+      ['ionOnFirstAction', this.tourService.prevStep],
+      ['ionOnSecondAction', this.tourService.nextStep],
+      ['ionOnClose', this.tourService.finish],
     ];
 
     eventHandlers.forEach(([event, action]) => {
       this.popoverRef.instance[event]
         .pipe(takeUntil(this.destroy$))
-        .subscribe(action);
+        .subscribe(action.bind(this.tourService));
     });
-  }
-
-  private repositionPopover(): void {
-    if (this.ionStepId && this.popoverRef) {
-      const contentRect =
-        this.popoverRef.instance.popover.nativeElement.getBoundingClientRect();
-
-      this.positionService.setHostPosition(
-        this.elementRef.nativeElement.getBoundingClientRect()
-      );
-      this.positionService.setChoosedPosition(this.ionStepPosition);
-      this.positionService.setElementPadding(this.ionStepMarginToContent);
-      this.positionService.setcomponentCoordinates(contentRect);
-
-      const position = this.positionService.getNewPosition(
-        generatePositionCallback(
-          this.ionStepBackdropPadding,
-          this.ionStepMarginToContent
-        )
-      );
-
-      this.popoverRef.instance.top = position.top + window.scrollY;
-      this.popoverRef.instance.left = position.left + window.scrollX;
-
-      this.tourService.saveStep(this.toJSON());
-    }
   }
 
   private destroyPopoverElement(): void {
