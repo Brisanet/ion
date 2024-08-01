@@ -30,7 +30,7 @@ TourStep.args = {
   ionStepFinishBtnTitle: 'Finalizar',
   ionStepPosition: PopoverPosition.TOP_CENTER,
   ionStepMarginToContent: 5,
-  ionStepBackdropPadding: 20,
+  ionStepBackdropPadding: 5,
 } as IonTourStepProps;
 
 export default {

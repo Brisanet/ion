@@ -47,9 +47,9 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() ionStepPosition?: IonTourStepProps['ionStepPosition'] =
     PopoverPosition.BOTTOM_CENTER;
   @Input()
-  ionStepMarginToContent?: IonTourStepProps['ionStepMarginToContent'] = 5;
+  ionStepMarginToContent?: IonTourStepProps['ionStepMarginToContent'] = 0;
   @Input()
-  ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 10;
+  ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 6;
   @Input()
   ionStepCustomClass?: IonTourStepProps['ionStepBackdropCustomClass'];
   @Input()
