@@ -32,7 +32,7 @@ export enum PopoverTrigger {
 
 export interface PopoverProps {
   ionPopoverTitle: string;
-  ionPopoverBody: TemplateRef<void>;
+  ionPopoverBody: TemplateRef<unknown>;
   ionPopoverActions?: PopoverButtonsProps[];
   ionPopoverIcon?: IconType;
   ionPopoverIconColor?: string;

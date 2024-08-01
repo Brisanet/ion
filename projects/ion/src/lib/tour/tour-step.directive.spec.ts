@@ -8,7 +8,7 @@ import { cloneDeep } from 'lodash';
 import { EMPTY, of } from 'rxjs';
 
 import { IonButtonModule } from '../button/button.module';
-import { IonTourPopoverProps } from '../core/types';
+import { IonTourStepProps } from '../core/types';
 import { TourStepDemoComponent } from './mocks/tour-step-props.component';
 import { IonTourModule } from './tour.module';
 import { IonTourService } from './tour.service';
@@ -17,7 +17,6 @@ const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionTourId: 'demo-tour',
   ionStepId: 'demo-step',
   ionStepTitle: 'Test Title',
-  ionStepContent: 'Test Content',
   ionStepPrevBtnTitle: 'Test Prev',
   ionStepNextBtnTitle: 'Test Next',
   ionStepFinishBtnTitle: 'Test Finish',
@@ -38,7 +37,7 @@ function setActiveTour(tourId: string): void {
   Object.defineProperty(tourServiceMock, 'activeTour$', { value: of(tourId) });
 }
 
-function setCurrentStep(step: Partial<IonTourPopoverProps>): void {
+function setCurrentStep(step: Partial<IonTourStepProps>): void {
   Object.defineProperty(tourServiceMock, 'currentStep$', { value: of(step) });
 }
 
@@ -83,12 +82,12 @@ describe('IonTourStepDirective', () => {
   });
 
   it('should create the popover element when tourService says it is active', async () => {
-    const step = cloneDeep(DEFAULT_PROPS) as IonTourPopoverProps;
+    const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
 
     setActiveTour(step.ionTourId);
     setCurrentStep(step);
 
     await sut();
-    expect(screen.queryByTestId('ion-tour-popover')).toBeInTheDocument();
+    expect(screen.queryByTestId('ion-popover')).toBeInTheDocument();
   });
 });

@@ -103,6 +103,7 @@ export class IonPositionService {
     availablePositions: ElementPositions
   ): keyof PositionsChecks {
     const positions = this.getPositions();
+    console.log('🚀 ~ IonPositionService ~ positions:', positions);
 
     let newPosition = this.choosedPosition;
 
@@ -127,6 +128,10 @@ export class IonPositionService {
       left: this.atLeftEdge(this.hostPosition.left, width),
       top: this.atTopEdge(this.hostPosition.top, height),
     };
+    console.log(
+      '🚀 ~ IonPositionService ~ getPositions ~ positions:',
+      positions
+    );
 
     return {
       rightBottom: !positions.right && !positions.top,

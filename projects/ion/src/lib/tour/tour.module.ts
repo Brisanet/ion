@@ -2,20 +2,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { IonButtonModule } from '../button/button.module';
+import { IonPopoverModule } from '../popover/popover.module';
 import { IonTourBackdropComponent } from './tour-backdrop';
-import { IonTourPopoverComponent } from './tour-popover';
 import { IonTourStepDirective } from './tour-step.directive';
 import { IonTourService } from './tour.service';
 
 @NgModule({
-  declarations: [
-    IonTourPopoverComponent,
-    IonTourBackdropComponent,
-    IonTourStepDirective,
-  ],
-  entryComponents: [IonTourPopoverComponent, IonTourBackdropComponent],
+  declarations: [IonTourBackdropComponent, IonTourStepDirective],
+  entryComponents: [IonTourBackdropComponent],
   providers: [IonTourService],
-  imports: [CommonModule, IonButtonModule],
+  imports: [CommonModule, IonPopoverModule, IonButtonModule],
   exports: [IonTourStepDirective],
 })
 export class IonTourModule {}

@@ -5,7 +5,7 @@ import { IonTourModule } from '../projects/ion/src/lib/tour';
 import { TourStepDemoComponent } from '../projects/ion/src/lib/tour/mocks/tour-step-props.component';
 import {
   IonSharedModule,
-  IonTourStepPositions,
+  PopoverPosition,
   IonTourStepProps,
 } from '../projects/ion/src/public-api';
 
@@ -24,11 +24,11 @@ const Template: Story<TourStepDemoComponent> = (
 export const TourStep = Template.bind({});
 TourStep.args = {
   ionStepTitle: 'Title Example',
-  ionStepContent: 'You can change the props of this step in Storybook controls',
+  ionStepBody: 'You can change the props of this step in Storybook controls',
   ionStepPrevBtnTitle: 'Voltar',
   ionStepNextBtnTitle: 'Continuar',
   ionStepFinishBtnTitle: 'Finalizar',
-  ionStepPosition: IonTourStepPositions.TOP_CENTER,
+  ionStepPosition: PopoverPosition.TOP_CENTER,
   ionStepMarginToContent: 5,
   ionStepBackdropPadding: 20,
 } as IonTourStepProps;
@@ -38,7 +38,7 @@ export default {
   component: TourStepDemoComponent,
   argTypes: {
     ionStepTitle: { control: 'text' },
-    ionStepContent: { control: 'text' },
+    ionStepBody: { control: 'text' },
     ionStepPrevBtnTitle: { control: 'text' },
     ionStepNextBtnTitle: { control: 'text' },
     ionStepFinishBtnTitle: { control: 'text' },
@@ -47,7 +47,7 @@ export default {
     ionStepPosition: {
       control: {
         type: 'select',
-        options: Object.values(IonTourStepPositions),
+        options: Object.values(PopoverPosition),
       },
     },
     ionStepMarginToContent: { control: 'number' },

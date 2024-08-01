@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
-import { IonTourPopoverProps } from '../../core/types/tour';
+import { IonTourStepProps } from '../../core/types';
 
 @Component({
   selector: 'ion-tour-backdrop',
@@ -9,7 +9,7 @@ import { IonTourPopoverProps } from '../../core/types/tour';
   styleUrls: ['./tour-backdrop.component.scss'],
 })
 export class IonTourBackdropComponent implements OnInit {
-  @Input() currentStep: IonTourPopoverProps | null = null;
+  @Input() currentStep: IonTourStepProps | null = null;
   @Input() isActive = false;
 
   public inTransition = true;

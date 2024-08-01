@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
 
-import { IonTourStepPositions } from '../../core/types';
+import { PopoverPosition } from '../../core/types';
 import { IonTourService } from '../tour.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { IonTourService } from '../tour.service';
         ionTourStep
         [ionStepId]="ionStepId"
         [ionTourId]="ionTourId"
-        [ionStepContent]="ionStepContent"
+        [ionStepBody]="stepBody"
         [ionStepTitle]="ionStepTitle"
         [ionStepPrevBtnTitle]="ionStepPrevBtnTitle"
         [ionStepNextBtnTitle]="ionStepNextBtnTitle"
@@ -38,19 +38,22 @@ import { IonTourService } from '../tour.service';
         [ionStepBackdropCustomClass]="ionStepBackdropCustomClass"
       ></ion-button>
     </div>
+
+    <ng-template #stepBody>
+      <p>Step body content</p>
+    </ng-template>
   `,
 })
 export class TourStepDemoComponent implements AfterViewInit, OnChanges {
   @Input() ionStepId = 'demo-step';
   @Input() ionTourId = 'demo-tour';
   @Input() ionStepTitle: string;
-  @Input() ionStepContent: string;
   @Input() ionStepPrevBtnTitle: string;
   @Input() ionStepNextBtnTitle: string;
   @Input() ionStepFinishBtnTitle: string;
   @Input() ionPrevStepId: string;
   @Input() ionNextStepId: string;
-  @Input() ionStepPosition: IonTourStepPositions;
+  @Input() ionStepPosition: PopoverPosition;
   @Input() ionStepMarginToContent: number;
   @Input() ionStepBackdropPadding: number;
   @Input() ionStepCustomClass: string;

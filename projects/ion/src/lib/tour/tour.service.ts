@@ -11,22 +11,22 @@ import { isEmpty, isEqual, isNull } from 'lodash';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { IonStartTourProps, IonTourPopoverProps } from '../core/types/tour';
+import { IonStartTourProps, IonTourStepProps } from '../core/types/tour';
 import { SafeAny } from '../utils/safe-any';
 import { IonTourBackdropComponent } from './tour-backdrop';
 
-type StepsMap = Map<IonTourPopoverProps['ionStepId'], IonTourPopoverProps>;
+type StepsMap = Map<IonTourStepProps['ionStepId'], IonTourStepProps>;
 
 @Injectable()
 export class IonTourService {
-  public currentStep = new BehaviorSubject<IonTourPopoverProps | null>(null);
+  public currentStep = new BehaviorSubject<IonTourStepProps | null>(null);
   public activeTour = new BehaviorSubject<string | null>(null);
 
   private _tours: Record<string, StepsMap> = {};
   private backdropRef: ComponentRef<IonTourBackdropComponent> | null = null;
   private destroyBackdrop$ = new Subject<void>();
 
-  public get currentStep$(): Observable<IonTourPopoverProps | null> {
+  public get currentStep$(): Observable<IonTourStepProps | null> {
     return this.currentStep.asObservable();
   }
 
@@ -34,7 +34,7 @@ export class IonTourService {
     return this.activeTour.asObservable();
   }
 
-  public get steps(): IonTourPopoverProps[] {
+  public get steps(): IonTourStepProps[] {
     return Array.from(this._tours[this.activeTourId].values());
   }
 
@@ -49,7 +49,7 @@ export class IonTourService {
     private appRef: ApplicationRef
   ) {}
 
-  public saveStep(step: IonTourPopoverProps): void {
+  public saveStep(step: IonTourStepProps): void {
     if (!this._tours[step.ionTourId]) {
       this._tours[step.ionTourId] = new Map();
     }
@@ -67,7 +67,7 @@ export class IonTourService {
     this._tours[step.ionTourId].set(step.ionStepId, step);
   }
 
-  public removeStep(stepId: IonTourPopoverProps['ionStepId']): void {
+  public removeStep(stepId: IonTourStepProps['ionStepId']): void {
     this._tours[this.activeTourId].delete(stepId);
   }
 
@@ -104,6 +104,8 @@ export class IonTourService {
 
     if (prevStep) {
       this.navigateToStep(prevStep);
+    } else {
+      this.finish();
     }
   }
 
@@ -121,8 +123,8 @@ export class IonTourService {
   }
 
   private getFirstStep(
-    step: IonTourPopoverProps = this.steps[0]
-  ): IonTourPopoverProps {
+    step: IonTourStepProps = this.steps[0]
+  ): IonTourStepProps {
     if (step.ionPrevStepId) {
       return this.getFirstStep(
         this._tours[this.activeTourId].get(step.ionPrevStepId)
@@ -131,7 +133,7 @@ export class IonTourService {
     return step;
   }
 
-  private navigateToStep(step: IonTourPopoverProps): void {
+  private navigateToStep(step: IonTourStepProps): void {
     this.currentStep.next(step);
   }
 

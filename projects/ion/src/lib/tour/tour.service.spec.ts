@@ -5,7 +5,7 @@ import {
   Injector,
 } from '@angular/core';
 
-import { IonTourPopoverProps } from '../core/types/tour';
+import { IonTourStepProps } from '../core/types/tour';
 import { IonTourBackdropComponent } from './tour-backdrop';
 import { IonTourService } from './tour.service';
 
@@ -50,7 +50,7 @@ const TARGET_MOCK = {
   toJSON: () => ({ x: 300, y: 300, width: 100, height: 100 }),
 } as DOMRect;
 
-const stepsMock: IonTourPopoverProps[] = [
+const stepsMock: IonTourStepProps[] = [
   {
     ionTourId: 'tour1',
     ionStepId: 'step1',
@@ -119,7 +119,7 @@ describe('IonTourService', () => {
       const updatedStep = {
         ...step1,
         target: { toJSON: () => ({ ...TARGET_MOCK, x: 400 }) },
-      } as IonTourPopoverProps;
+      } as IonTourStepProps;
 
       service.saveStep(step1);
       service.start();

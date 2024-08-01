@@ -1,16 +1,19 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
 
+import { PopoverPosition } from './popover';
+
 export interface IonTourStepProps {
   ionStepId: string;
   ionTourId: string;
   ionStepTitle?: string;
-  ionStepContent?: TemplateRef<unknown> | string;
+  ionStepBody?: TemplateRef<unknown>;
   ionStepPrevBtnTitle?: string;
+  ionStepSkipBtnTitle?: string;
   ionStepNextBtnTitle?: string;
   ionStepFinishBtnTitle?: string;
   ionPrevStepId?: IonTourStepProps['ionStepId'];
   ionNextStepId?: IonTourStepProps['ionStepId'];
-  ionStepPosition?: IonTourStepPositions;
+  ionStepPosition?: PopoverPosition;
   ionStepMarginToContent?: number;
   ionStepBackdropPadding?: number;
   ionStepCustomClass?: string;
@@ -18,25 +21,7 @@ export interface IonTourStepProps {
   ionOnPrevStep?: EventEmitter<void>;
   ionOnNextStep?: EventEmitter<void>;
   ionOnFinishTour?: EventEmitter<void>;
-}
-
-export interface IonTourPopoverProps extends IonTourStepProps {
-  target: DOMRect;
-}
-
-export enum IonTourStepPositions {
-  TOP_RIGHT = 'topRight',
-  TOP_CENTER = 'topCenter',
-  TOP_LEFT = 'topLeft',
-  RIGHT_TOP = 'rightTop',
-  RIGHT_CENTER = 'rightCenter',
-  RIGHT_BOTTOM = 'rightBottom',
-  LEFT_TOP = 'leftTop',
-  LEFT_CENTER = 'leftCenter',
-  LEFT_BOTTOM = 'leftBottom',
-  BOTTOM_RIGHT = 'bottomRight',
-  BOTTOM_CENTER = 'bottomCenter',
-  BOTTOM_LEFT = 'bottomLeft',
+  target?: DOMRect;
 }
 
 export interface IonStartTourProps {

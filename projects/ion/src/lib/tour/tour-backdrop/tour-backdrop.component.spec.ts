@@ -1,6 +1,6 @@
 import { render, RenderResult, screen } from '@testing-library/angular';
 
-import { IonTourPopoverProps } from '../../core/types';
+import { IonTourStepProps } from '../../core/types';
 import { IonTourBackdropComponent } from './tour-backdrop.component';
 
 const DEFAULT_PROPS: Partial<IonTourBackdropComponent> = {};
@@ -28,7 +28,7 @@ const STEP_MOCK = {
     left: 300,
     top: 300,
   } as DOMRect,
-} as IonTourPopoverProps;
+} as IonTourStepProps;
 
 describe('IonTourBackdropComponent', () => {
   it('should render', async () => {

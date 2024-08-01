@@ -10,6 +10,7 @@ import { IonTourService } from '../tour.service';
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: center;
         gap: 100px;
 
         main {
@@ -33,20 +34,21 @@ import { IonTourService } from '../tour.service';
           type="secondary"
           ionTourStep
           ionStepTitle="Upload Action"
-          ionStepPosition="bottomLeft"
+          ionStepPosition="bottomCenter"
           [ionTourId]="tourId"
           [ionStepId]="steps.UPLOAD"
           [ionNextStepId]="steps.SAVE"
-          [ionStepContent]="uploadStepContent"
+          [ionStepBody]="uploadStepContent"
         ></ion-button>
         <ion-button
           label="Save"
           ionTourStep
+          ionStepTitle="Save Changes"
           [ionTourId]="tourId"
           [ionStepId]="steps.SAVE"
           [ionPrevStepId]="steps.UPLOAD"
           [ionNextStepId]="steps.MORE_OPTIONS"
-          ionStepContent="Save your changes."
+          [ionStepBody]="saveStep"
         ></ion-button>
         <ion-button
           iconType="option"
@@ -57,7 +59,7 @@ import { IonTourService } from '../tour.service';
           ionStepTitle="Other Actions"
           [ionStepId]="steps.MORE_OPTIONS"
           [ionPrevStepId]="steps.SAVE"
-          [ionStepContent]="optionsStepContent"
+          [ionStepBody]="optionsStepContent"
         ></ion-button>
       </main>
     </div>
@@ -65,6 +67,10 @@ import { IonTourService } from '../tour.service';
     <ng-template #uploadStepContent>
       <span>Here is a random image:</span>
       <img src="https://picsum.photos/200/100" alt="Random Image" />
+    </ng-template>
+
+    <ng-template #saveStep>
+      <span>Save your changes.</span>
     </ng-template>
 
     <ng-template #optionsStepContent>
