@@ -32,8 +32,8 @@ Passos para usar o tour em uma tela:
 - `ionTourId` é o identificador de um tour. Toda etapa de um tour deve ter o mesmo identificador;
 - `ionStepTitle` é o título que será exibido na etapa do tour;
 - `ionStepBody` é o conteúdo que será exibido na etapa do tour. Pode ser um texto ou um template customizado.
-- `ionStepPrevBtnTitle` é o texto do botão de voltar para a etapa anterior. O botão só será exibido se houver uma etapa anterior;
-- `ionStepNextBtnTitle` é o texto do botão de avançar para a próxima etapa. O botão só será exibido se houver uma etapa seguinte;
+- `ionPrevStepBtn` é o texto do botão de voltar para a etapa anterior;
+- `ionNextStepBtn` é o texto do botão de avançar para a próxima etapa;
 - `ionPrevStepId` é o `ionStepId` da etapa anterior. Deve ser preenchido se houver uma etapa anterior;
 - `ionNextStepId` é o `ionStepId` da próxima etapa. Deve ser preenchido se houver uma etapa seguinte;
 - `ionStepPosition` é a posição do balão de fala da etapa. Pode assumir 12 valores definidos pelo enum `PopoverPosition` ;
@@ -43,7 +43,7 @@ Passos para usar o tour em uma tela:
 - `ionStepBackdropCustomClas` é uma classe customizada que pode ser aplicada ao backdrop da etapa;
 - `ionOnPrevStep` é um evento que será disparado ao clicar no botão de voltar para a etapa anterior;
 - `ionOnNextStep` é um evento que será disparado ao clicar no botão de avançar para a próxima etapa;
-- `ionOnCloseStep` é um evento que será disparado ao clicar no botão de fechar o tour;
+- `ionOnCloseStep` é um evento que será disparado ao clicar no botão de fechar o tour.
 
 2. No arquivo .ts do seu componente, use o serviço `IonTourService` para iniciar o tour:
 

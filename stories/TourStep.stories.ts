@@ -6,7 +6,6 @@ import { TourStepDemoComponent } from '../projects/ion/src/lib/tour/mocks/tour-s
 import {
   IonSharedModule,
   PopoverPosition,
-  IonTourStepProps,
 } from '../projects/ion/src/public-api';
 
 const Template: Story<TourStepDemoComponent> = (
@@ -25,8 +24,8 @@ export const TourStep = Template.bind({});
 TourStep.args = {
   ionStepTitle: 'Title Example',
   ionStepBody: 'You can change the props of this step in Storybook controls',
-  ionStepPrevBtnTitle: 'Close',
-  ionStepNextBtnTitle: 'Finish',
+  ionPrevStepBtn: { label: 'Close' },
+  ionNextStepBtn: { label: 'Finish' },
   ionStepPosition: PopoverPosition.TOP_CENTER,
   ionStepMarginToContent: 5,
   ionStepBackdropPadding: 5,
@@ -38,8 +37,8 @@ export default {
   argTypes: {
     ionStepTitle: { control: 'text' },
     ionStepBody: { control: 'text' },
-    ionStepPrevBtnTitle: { control: 'text' },
-    ionStepNextBtnTitle: { control: 'text' },
+    ionPrevStepBtn: { control: 'text' },
+    ionNextStepBtn: { control: 'text' },
     ionPrevStepId: { control: 'text' },
     ionNextStepId: { control: 'text' },
     ionStepPosition: {

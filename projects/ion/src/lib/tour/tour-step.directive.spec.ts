@@ -19,8 +19,8 @@ const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionTourId: 'demo-tour',
   ionStepId: 'demo-step',
   ionStepTitle: 'Test Title',
-  ionStepPrevBtnTitle: 'Test Prev',
-  ionStepNextBtnTitle: 'Test Next',
+  ionPrevStepBtn: { label: 'Test Prev' },
+  ionNextStepBtn: { label: 'Test Next' },
 };
 
 const tourServiceMock: Partial<IonTourService> = {
@@ -98,7 +98,7 @@ describe('IonTourStepDirective', () => {
 
       await sut();
       const [prevButton] = screen.getAllByTestId(
-        `btn-${step.ionStepPrevBtnTitle}`
+        `btn-${step.ionPrevStepBtn.label}`
       );
       userEvent.click(prevButton);
 
@@ -113,7 +113,7 @@ describe('IonTourStepDirective', () => {
 
       await sut();
       const [nextButton] = screen.getAllByTestId(
-        `btn-${step.ionStepNextBtnTitle}`
+        `btn-${step.ionNextStepBtn.label}`
       );
       userEvent.click(nextButton);
 

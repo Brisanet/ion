@@ -8,6 +8,7 @@
   height: 100%;
   background-color: $black-transparence-45;
   transition: all 0.4s ease;
+  z-index: $zIndexMid;
 
   &-transition {
     background-color: #00000000;

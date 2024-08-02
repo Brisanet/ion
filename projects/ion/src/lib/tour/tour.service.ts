@@ -74,12 +74,14 @@ export class IonTourService {
   public start(props: IonStartTourProps = {}): void {
     setTimeout(() => {
       if (isEmpty(this._tours)) {
+        // eslint-disable-next-line no-console
         console.error('No steps found!');
         return;
       }
 
       const tour = props.tourId || Object.keys(this._tours)[0];
       if (!(tour in this._tours)) {
+        // eslint-disable-next-line no-console
         console.error('Tour not found!');
         return;
       }

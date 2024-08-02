@@ -21,7 +21,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { PopoverPosition } from '../core/types';
-import { IonTourStepProps } from '../core/types/tour';
+import { IonTourStepProps as StepProps } from '../core/types/tour';
 import { IonPopoverComponent } from '../popover/component/popover.component';
 import { IonPositionService } from '../position/position.service';
 import { SafeAny } from '../utils/safe-any';
@@ -30,33 +30,24 @@ import { IonTourService } from './tour.service';
 
 @Directive({ selector: '[ionTourStep]' })
 export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
-  @Input() ionTourId!: IonTourStepProps['ionTourId'];
-  @Input() ionStepId!: IonTourStepProps['ionStepId'];
-  @Input() ionStepTitle?: IonTourStepProps['ionStepTitle'];
-  @Input() ionStepBody?: IonTourStepProps['ionStepBody'];
-  @Input() ionStepPrevBtnTitle?: IonTourStepProps['ionStepPrevBtnTitle'] =
-    'Previous';
-  @Input()
-  ionStepNextBtnTitle?: IonTourStepProps['ionStepNextBtnTitle'] = 'Next';
-  @Input() ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
-  @Input() ionNextStepId?: IonTourStepProps['ionNextStepId'];
-  @Input() ionStepPosition?: IonTourStepProps['ionStepPosition'] =
+  @Input() ionTourId!: StepProps['ionTourId'];
+  @Input() ionStepId!: StepProps['ionStepId'];
+  @Input() ionStepTitle?: StepProps['ionStepTitle'];
+  @Input() ionStepBody?: StepProps['ionStepBody'];
+  @Input() ionPrevStepBtn?: StepProps['ionPrevStepBtn'];
+  @Input() ionNextStepBtn?: StepProps['ionNextStepBtn'];
+  @Input() ionPrevStepId?: StepProps['ionPrevStepId'];
+  @Input() ionNextStepId?: StepProps['ionNextStepId'];
+  @Input() ionStepPosition?: StepProps['ionStepPosition'] =
     PopoverPosition.BOTTOM_CENTER;
-  @Input()
-  ionStepMarginToContent?: IonTourStepProps['ionStepMarginToContent'] = 0;
-  @Input()
-  ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 8;
-  @Input()
-  ionStepCustomClass?: IonTourStepProps['ionStepBackdropCustomClass'];
-  @Input()
-  ionStepBackdropCustomClass?: IonTourStepProps['ionStepBackdropCustomClass'];
+  @Input() ionStepMarginToContent?: StepProps['ionStepMarginToContent'] = 0;
+  @Input() ionStepBackdropPadding?: StepProps['ionStepBackdropPadding'] = 8;
+  @Input() ionStepCustomClass?: StepProps['ionStepBackdropCustomClass'];
+  @Input() ionStepBackdropCustomClass?: StepProps['ionStepBackdropCustomClass'];
 
-  @Output() ionOnPrevStep: IonTourStepProps['ionOnPrevStep'] =
-    new EventEmitter();
-  @Output() ionOnNextStep: IonTourStepProps['ionOnNextStep'] =
-    new EventEmitter();
-  @Output() ionOnFinishTour: IonTourStepProps['ionOnFinishTour'] =
-    new EventEmitter();
+  @Output() ionOnPrevStep: StepProps['ionOnPrevStep'] = new EventEmitter();
+  @Output() ionOnNextStep: StepProps['ionOnNextStep'] = new EventEmitter();
+  @Output() ionOnFinishTour: StepProps['ionOnFinishTour'] = new EventEmitter();
 
   private popoverRef: ComponentRef<IonPopoverComponent> | null = null;
 
@@ -164,18 +155,20 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private updatePopoverProps(): void {
+    const ionPopoverActions = [
+      this.ionPrevStepBtn || { label: 'Voltar' },
+      this.ionNextStepBtn || { label: 'Continuar' },
+    ];
+
     const popoverProps: Partial<IonPopoverComponent> = {
       ionPopoverTitle: this.ionStepTitle,
       ionPopoverBody: this.ionStepBody,
-      ionPopoverActions: [
-        { label: this.ionStepPrevBtnTitle },
-        { label: this.ionStepNextBtnTitle },
-      ],
       ionPopoverPosition:
         this.positionService.getCurrentPosition() as PopoverPosition,
-      ionPopoverCustomClass: 'ion-tour-popover ' + this.ionStepCustomClass,
       ionPopoverIconClose: true,
       ionPopoverKeep: true,
+      ionPopoverCustomClass: 'ion-tour-popover ' + this.ionStepCustomClass,
+      ionPopoverActions,
     };
 
     for (const [key, value] of Object.entries(popoverProps)) {
@@ -207,14 +200,14 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  private toJSON(): IonTourStepProps {
+  private toJSON(): StepProps {
     return {
       ionStepId: this.ionStepId,
       ionTourId: this.ionTourId,
       ionStepTitle: this.ionStepTitle,
       ionStepBody: this.ionStepBody,
-      ionStepPrevBtnTitle: this.ionStepPrevBtnTitle,
-      ionStepNextBtnTitle: this.ionStepNextBtnTitle,
+      ionPrevStepBtn: this.ionPrevStepBtn,
+      ionNextStepBtn: this.ionNextStepBtn,
       ionPrevStepId: this.ionPrevStepId,
       ionNextStepId: this.ionNextStepId,
       ionStepPosition: this.ionStepPosition,

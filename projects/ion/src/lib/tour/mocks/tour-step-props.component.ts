@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
 
-import { PopoverPosition } from '../../core/types';
+import { PopoverButtonsProps, PopoverPosition } from '../../core/types';
 import { IonTourService } from '../tour.service';
 
 @Component({
@@ -26,8 +26,8 @@ import { IonTourService } from '../tour.service';
         [ionTourId]="ionTourId"
         [ionStepBody]="stepBody"
         [ionStepTitle]="ionStepTitle"
-        [ionStepPrevBtnTitle]="ionStepPrevBtnTitle"
-        [ionStepNextBtnTitle]="ionStepNextBtnTitle"
+        [ionPrevStepBtn]="ionPrevStepBtn"
+        [ionNextStepBtn]="ionNextStepBtn"
         [ionPrevStepId]="ionPrevStepId"
         [ionNextStepId]="ionNextStepId"
         [ionStepPosition]="ionStepPosition"
@@ -47,8 +47,8 @@ export class TourStepDemoComponent implements AfterViewInit, OnChanges {
   @Input() ionStepId = 'demo-step';
   @Input() ionTourId = 'demo-tour';
   @Input() ionStepTitle: string;
-  @Input() ionStepPrevBtnTitle: string;
-  @Input() ionStepNextBtnTitle: string;
+  @Input() ionPrevStepBtn: PopoverButtonsProps;
+  @Input() ionNextStepBtn: PopoverButtonsProps;
   @Input() ionPrevStepId: string;
   @Input() ionNextStepId: string;
   @Input() ionStepPosition: PopoverPosition;

@@ -1,16 +1,16 @@
 import { EventEmitter } from '@angular/core';
 
-import { PopoverPosition, PopoverProps } from './popover';
+import { PopoverButtonsProps, PopoverPosition, PopoverProps } from './popover';
 
 export interface IonTourStepProps {
   ionStepId: string;
   ionTourId: string;
   ionStepTitle?: PopoverProps['ionPopoverTitle'];
   ionStepBody?: PopoverProps['ionPopoverBody'];
-  ionStepPrevBtnTitle?: string;
-  ionStepNextBtnTitle?: string;
   ionPrevStepId?: IonTourStepProps['ionStepId'];
   ionNextStepId?: IonTourStepProps['ionStepId'];
+  ionPrevStepBtn?: PopoverButtonsProps;
+  ionNextStepBtn?: PopoverButtonsProps;
   ionStepPosition?: PopoverPosition;
   ionStepMarginToContent?: number;
   ionStepBackdropPadding?: number;
