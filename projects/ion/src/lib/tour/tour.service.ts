@@ -91,6 +91,9 @@ export class IonTourService {
   }
 
   public finish(): void {
+    if (this.currentStep.value) {
+      this.currentStep.value.ionOnFinishTour.emit();
+    }
     this.activeTour.next(null);
     this.currentStep.next(null);
     this.closeBackdrop();
@@ -103,6 +106,7 @@ export class IonTourService {
     );
 
     if (prevStep) {
+      currentStep.ionOnPrevStep.emit();
       this.navigateToStep(prevStep);
     } else {
       this.finish();
@@ -116,6 +120,7 @@ export class IonTourService {
     );
 
     if (nextStep) {
+      currentStep.ionOnNextStep.emit();
       this.navigateToStep(nextStep);
     } else {
       this.finish();

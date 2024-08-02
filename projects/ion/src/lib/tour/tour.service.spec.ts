@@ -2,6 +2,7 @@ import {
   ApplicationRef,
   ComponentFactory,
   ComponentFactoryResolver,
+  EventEmitter,
   Injector,
 } from '@angular/core';
 
@@ -57,6 +58,9 @@ const stepsMock: IonTourStepProps[] = [
     target: TARGET_MOCK,
     ionStepTitle: 'Step 1',
     ionNextStepId: 'step2',
+    ionOnPrevStep: new EventEmitter(),
+    ionOnNextStep: new EventEmitter(),
+    ionOnFinishTour: new EventEmitter(),
   },
   {
     ionTourId: 'tour1',
@@ -64,6 +68,9 @@ const stepsMock: IonTourStepProps[] = [
     target: TARGET_MOCK,
     ionStepTitle: 'Step 2',
     ionPrevStepId: 'step1',
+    ionOnPrevStep: new EventEmitter(),
+    ionOnNextStep: new EventEmitter(),
+    ionOnFinishTour: new EventEmitter(),
   },
 ];
 
@@ -228,9 +235,11 @@ describe('IonTourService', () => {
 
       expect(service.currentStep.value).toEqual(step1);
 
+      const spy = jest.spyOn(step1.ionOnNextStep, 'emit');
       service.nextStep();
 
       expect(service.currentStep.value).toEqual(step2);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should navigate to the previous step', () => {
@@ -245,9 +254,11 @@ describe('IonTourService', () => {
 
       expect(service.currentStep.value).toEqual(step2);
 
+      const spy = jest.spyOn(step2.ionOnPrevStep, 'emit');
       service.prevStep();
 
       expect(service.currentStep.value).toEqual(step1);
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should finish the tour if there is no next step and nextStep is called', () => {
@@ -257,10 +268,12 @@ describe('IonTourService', () => {
       service.start({ tourId: step.ionTourId });
       jest.runAllTimers();
 
+      const spy = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.nextStep();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should finish the tour if there is no previous step and prevStep is called', () => {
@@ -270,19 +283,29 @@ describe('IonTourService', () => {
       service.start({ tourId: step.ionTourId });
       jest.runAllTimers();
 
+      const spy = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.prevStep();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
   });
 
   describe('finish tour', () => {
     it('should finish the tour', () => {
+      const spy = jest.spyOn(stepsMock[0].ionOnFinishTour, 'emit');
+
+      const [step] = stepsMock;
+      service.saveStep(step);
+      service.start();
+      jest.runAllTimers();
+
       service.finish();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
+      expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should destroy the backdrop when finishing the tour', () => {

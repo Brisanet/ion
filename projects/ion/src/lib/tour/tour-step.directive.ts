@@ -49,7 +49,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input()
   ionStepMarginToContent?: IonTourStepProps['ionStepMarginToContent'] = 0;
   @Input()
-  ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 6;
+  ionStepBackdropPadding?: IonTourStepProps['ionStepBackdropPadding'] = 8;
   @Input()
   ionStepCustomClass?: IonTourStepProps['ionStepBackdropCustomClass'];
   @Input()
