@@ -101,12 +101,13 @@ export class IonTourService {
 
   public prevStep(): void {
     const currentStep = this.currentStep.getValue();
+    currentStep.ionOnPrevStep.emit();
+
     const prevStep = this._tours[this.activeTourId].get(
       currentStep.ionPrevStepId
     );
 
     if (prevStep) {
-      currentStep.ionOnPrevStep.emit();
       this.navigateToStep(prevStep);
     } else {
       this.finish();
@@ -115,12 +116,13 @@ export class IonTourService {
 
   public nextStep(): void {
     const currentStep = this.currentStep.getValue();
+    currentStep.ionOnNextStep.emit();
+
     const nextStep = this._tours[this.activeTourId].get(
       currentStep.ionNextStepId
     );
 
     if (nextStep) {
-      currentStep.ionOnNextStep.emit();
       this.navigateToStep(nextStep);
     } else {
       this.finish();

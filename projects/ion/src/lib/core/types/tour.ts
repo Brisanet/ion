@@ -8,9 +8,7 @@ export interface IonTourStepProps {
   ionStepTitle?: PopoverProps['ionPopoverTitle'];
   ionStepBody?: PopoverProps['ionPopoverBody'];
   ionStepPrevBtnTitle?: string;
-  ionStepSkipBtnTitle?: string;
   ionStepNextBtnTitle?: string;
-  ionStepFinishBtnTitle?: string;
   ionPrevStepId?: IonTourStepProps['ionStepId'];
   ionNextStepId?: IonTourStepProps['ionStepId'];
   ionStepPosition?: PopoverPosition;

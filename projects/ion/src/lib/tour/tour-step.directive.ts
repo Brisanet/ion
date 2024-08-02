@@ -20,7 +20,7 @@ import {
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { PopoverButtonsProps, PopoverPosition } from '../core/types';
+import { PopoverPosition } from '../core/types';
 import { IonTourStepProps } from '../core/types/tour';
 import { IonPopoverComponent } from '../popover/component/popover.component';
 import { IonPositionService } from '../position/position.service';
@@ -36,12 +36,8 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   @Input() ionStepBody?: IonTourStepProps['ionStepBody'];
   @Input() ionStepPrevBtnTitle?: IonTourStepProps['ionStepPrevBtnTitle'] =
     'Previous';
-  @Input() ionStepSkipBtnTitle?: IonTourStepProps['ionStepSkipBtnTitle'] =
-    'Skip';
   @Input()
   ionStepNextBtnTitle?: IonTourStepProps['ionStepNextBtnTitle'] = 'Next';
-  @Input()
-  ionStepFinishBtnTitle?: IonTourStepProps['ionStepFinishBtnTitle'] = 'Finish';
   @Input() ionPrevStepId?: IonTourStepProps['ionPrevStepId'];
   @Input() ionNextStepId?: IonTourStepProps['ionNextStepId'];
   @Input() ionStepPosition?: IonTourStepProps['ionStepPosition'] =
@@ -171,7 +167,10 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     const popoverProps: Partial<IonPopoverComponent> = {
       ionPopoverTitle: this.ionStepTitle,
       ionPopoverBody: this.ionStepBody,
-      ionPopoverActions: this.generatePopoverActions(),
+      ionPopoverActions: [
+        { label: this.ionStepPrevBtnTitle },
+        { label: this.ionStepNextBtnTitle },
+      ],
       ionPopoverPosition:
         this.positionService.getCurrentPosition() as PopoverPosition,
       ionPopoverCustomClass: 'ion-tour-popover ' + this.ionStepCustomClass,
@@ -184,18 +183,6 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     this.cdr.detectChanges();
-  }
-
-  private generatePopoverActions(): PopoverButtonsProps[] {
-    const firstButtonLabel = this.ionPrevStepId
-      ? this.ionStepPrevBtnTitle
-      : this.ionStepSkipBtnTitle;
-
-    const secondButtonLabel = this.ionNextStepId
-      ? this.ionStepNextBtnTitle
-      : this.ionStepFinishBtnTitle;
-
-    return [firstButtonLabel, secondButtonLabel].map((label) => ({ label }));
   }
 
   private listenToPopoverEvents(): void {
@@ -227,9 +214,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       ionStepTitle: this.ionStepTitle,
       ionStepBody: this.ionStepBody,
       ionStepPrevBtnTitle: this.ionStepPrevBtnTitle,
-      ionStepSkipBtnTitle: this.ionStepPrevBtnTitle,
       ionStepNextBtnTitle: this.ionStepNextBtnTitle,
-      ionStepFinishBtnTitle: this.ionStepFinishBtnTitle,
       ionPrevStepId: this.ionPrevStepId,
       ionNextStepId: this.ionNextStepId,
       ionStepPosition: this.ionStepPosition,

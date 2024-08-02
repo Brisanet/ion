@@ -15,7 +15,7 @@ export const STEP1_MOCK: IonTourStepProps = {
   ionStepId: DemoSteps.UPLOAD,
   ionNextStepId: DemoSteps.SAVE,
   ionStepPosition: PopoverPosition.BOTTOM_CENTER,
-  ionStepSkipBtnTitle: 'Skip',
+  ionStepPrevBtnTitle: 'Close',
 };
 
 export const STEP2_MOCK: IonTourStepProps = {
@@ -33,6 +33,7 @@ export const STEP3_MOCK: IonTourStepProps = {
   ionStepId: DemoSteps.MORE_OPTIONS,
   ionPrevStepId: DemoSteps.SAVE,
   ionStepPosition: PopoverPosition.RIGHT_CENTER,
+  ionStepNextBtnTitle: 'Finish',
 };
 
 @Component({
@@ -72,7 +73,7 @@ export const STEP3_MOCK: IonTourStepProps = {
           [ionTourId]="step1.ionTourId"
           [ionStepId]="step1.ionStepId"
           [ionNextStepId]="step1.ionNextStepId"
-          [ionStepSkipBtnTitle]="step1.ionStepSkipBtnTitle"
+          [ionStepPrevBtnTitle]="step1.ionStepPrevBtnTitle"
           [ionStepBody]="uploadStepContent"
         ></ion-button>
         <ion-button
@@ -95,6 +96,7 @@ export const STEP3_MOCK: IonTourStepProps = {
           [ionPrevStepId]="step3.ionPrevStepId"
           [ionStepTitle]="step3.ionStepTitle"
           [ionStepBody]="optionsStepContent"
+          [ionStepNextBtnTitle]="step3.ionStepNextBtnTitle"
         ></ion-button>
       </main>
     </div>

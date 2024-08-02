@@ -268,12 +268,14 @@ describe('IonTourService', () => {
       service.start({ tourId: step.ionTourId });
       jest.runAllTimers();
 
-      const spy = jest.spyOn(step.ionOnFinishTour, 'emit');
+      const spyNext = jest.spyOn(step.ionOnNextStep, 'emit');
+      const spyFinish = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.nextStep();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
-      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spyNext).toHaveBeenCalledTimes(1);
+      expect(spyFinish).toHaveBeenCalledTimes(1);
     });
 
     it('should finish the tour if there is no previous step and prevStep is called', () => {
@@ -283,12 +285,14 @@ describe('IonTourService', () => {
       service.start({ tourId: step.ionTourId });
       jest.runAllTimers();
 
-      const spy = jest.spyOn(step.ionOnFinishTour, 'emit');
+      const spyPrev = jest.spyOn(step.ionOnPrevStep, 'emit');
+      const spyFinish = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.prevStep();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();
-      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spyPrev).toHaveBeenCalledTimes(1);
+      expect(spyFinish).toHaveBeenCalledTimes(1);
     });
   });
 

@@ -25,13 +25,12 @@ export const TourStep = Template.bind({});
 TourStep.args = {
   ionStepTitle: 'Title Example',
   ionStepBody: 'You can change the props of this step in Storybook controls',
-  ionStepPrevBtnTitle: 'Voltar',
-  ionStepNextBtnTitle: 'Continuar',
-  ionStepFinishBtnTitle: 'Finalizar',
+  ionStepPrevBtnTitle: 'Close',
+  ionStepNextBtnTitle: 'Finish',
   ionStepPosition: PopoverPosition.TOP_CENTER,
   ionStepMarginToContent: 5,
   ionStepBackdropPadding: 5,
-} as IonTourStepProps;
+};
 
 export default {
   title: 'Ion/Data Display/Tour',
@@ -41,7 +40,6 @@ export default {
     ionStepBody: { control: 'text' },
     ionStepPrevBtnTitle: { control: 'text' },
     ionStepNextBtnTitle: { control: 'text' },
-    ionStepFinishBtnTitle: { control: 'text' },
     ionPrevStepId: { control: 'text' },
     ionNextStepId: { control: 'text' },
     ionStepPosition: {
