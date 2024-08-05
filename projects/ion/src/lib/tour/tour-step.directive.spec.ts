@@ -89,7 +89,51 @@ describe('IonTourStepDirective', () => {
     expect(screen.queryByTestId('ion-popover')).toBeInTheDocument();
   });
 
+  it('should update popover when it is active and some prop changes', async () => {
+    const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+    setActiveTour(step.ionTourId);
+    setCurrentStep(step);
+
+    const { rerender, fixture } = await sut();
+    const newlabel = 'Next button new label';
+    rerender({ ionPrevStepBtn: { label: newlabel } });
+    fixture.detectChanges();
+
+    expect(screen.queryByText(newlabel)).toBeInTheDocument();
+  });
+
   describe('popover actions', () => {
+    it('should render a default previous button', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut({ ionPrevStepBtn: undefined });
+
+      const defaultPrevButtonlabel = 'Voltar';
+      const [prevButton] = screen.getAllByTestId(
+        `btn-${defaultPrevButtonlabel}`
+      );
+      expect(prevButton).toBeInTheDocument();
+    });
+
+    it('should render a default next button', async () => {
+      const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
+
+      setActiveTour(step.ionTourId);
+      setCurrentStep(step);
+
+      await sut({ ionNextStepBtn: undefined });
+
+      const defaultNextButtonlabel = 'Continuar';
+      const [nextButton] = screen.getAllByTestId(
+        `btn-${defaultNextButtonlabel}`
+      );
+      expect(nextButton).toBeInTheDocument();
+    });
+
     it('should call prevStep when prev button is clicked', async () => {
       const step = cloneDeep(DEFAULT_PROPS) as unknown as IonTourStepProps;
 
