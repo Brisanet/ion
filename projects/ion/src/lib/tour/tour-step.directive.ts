@@ -86,7 +86,9 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   public ngOnChanges(): void {
-    this.checkPopoverVisibility();
+    if (this.popoverRef) {
+      this.updatePopoverProps();
+    }
   }
 
   public ngOnDestroy(): void {

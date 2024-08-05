@@ -37,8 +37,8 @@ export default {
   argTypes: {
     ionStepTitle: { control: 'text' },
     ionStepBody: { control: 'text' },
-    ionPrevStepBtn: { control: 'text' },
-    ionNextStepBtn: { control: 'text' },
+    ionPrevStepBtn: { control: 'object' },
+    ionNextStepBtn: { control: 'object' },
     ionPrevStepId: { control: 'text' },
     ionNextStepId: { control: 'text' },
     ionStepPosition: {
