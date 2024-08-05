@@ -44,6 +44,7 @@ export class IonDropdownComponent
   @Output() clearBadgeValue = new EventEmitter();
   @Output() scrollFinal = new EventEmitter();
   @Output() closeDropdown = new EventEmitter();
+  @Output() clearButton = new EventEmitter();
 
   @ViewChild('optionList', { static: false })
   optionList: ElementRef;
@@ -57,11 +58,15 @@ export class IonDropdownComponent
   canDeselect = true;
 
   setClearButtonIsVisible(): void {
-    const hasItems = this.checkArray(this.dropdownSelectedItems);
+    const hasItemsSelected = this.checkArray(this.dropdownSelectedItems);
     const showClearButton = !this.notShowClearButton;
-    if (this.multiple) {
-      this.clearButtonIsVisible = showClearButton && hasItems && !this.required;
-    }
+
+    this.clearButtonIsVisible =
+      hasItemsSelected &&
+      this.multiple &&
+      showClearButton &&
+      !this.required &&
+      !this.loading;
   }
 
   public ngAfterViewChecked(): void {
@@ -97,7 +102,10 @@ export class IonDropdownComponent
     });
     this.dropdownSelectedItems = [];
     this.clearButtonIsVisible = false;
-    isClearButton && this.selected.emit([]);
+    if (isClearButton) {
+      this.selected.emit([]);
+      this.clearButton.emit();
+    }
   }
 
   optionsScroll(): void {
