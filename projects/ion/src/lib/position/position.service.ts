@@ -55,6 +55,10 @@ export class IonPositionService {
   private currentPosition: IonPositions;
   private pointAtCenter = true;
 
+  public setElementPadding(padding: number): void {
+    this.elementPadding = padding;
+  }
+
   public setHostPosition(position: DOMRect): void {
     this.hostPosition = position;
   }
