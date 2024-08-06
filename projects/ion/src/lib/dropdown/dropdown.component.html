@@ -63,6 +63,13 @@
       </div>
     </div>
   </div>
+  <ion-spinner [size]="24" color="primary" *ngIf="loading"></ion-spinner>
+  <ion-no-data
+    *ngIf="(!options || options.length === 0) && !loading"
+    data-testid="ion-no-data"
+    [label]="noDataConfig.label"
+    [iconType]="noDataConfig.iconType"
+  ></ion-no-data>
   <ion-button
     *ngIf="clearButtonIsVisible"
     label="Limpar"
@@ -74,11 +81,4 @@
     (ionOnClick)="clearOptions(true)"
     data-testid="button-clear"
   ></ion-button>
-  <ion-spinner [size]="24" color="primary" *ngIf="loading"></ion-spinner>
-  <ion-no-data
-    *ngIf="(!options || options.length === 0) && !loading"
-    data-testid="ion-no-data"
-    [label]="noDataConfig.label"
-    [iconType]="noDataConfig.iconType"
-  ></ion-no-data>
 </div>

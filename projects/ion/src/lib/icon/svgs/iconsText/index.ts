@@ -109,6 +109,7 @@ export { default as cto } from './cto';
 export { default as cursor } from './cursor';
 export { default as database } from './database';
 export { default as diamond } from './diamond';
+export { default as displace } from './displace';
 export { default as divide } from './divide';
 export { default as doc } from './doc';
 export { default as docAdd } from './doc-add';
