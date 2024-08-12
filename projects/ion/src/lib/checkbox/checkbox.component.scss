@@ -17,6 +17,7 @@ $color-neutral-4: 'ced2db';
 .ion-checkbox {
   width: 16px;
   height: 16px;
+  margin: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +25,7 @@ $color-neutral-4: 'ced2db';
 }
 
 .ion-checkbox:enabled {
-  -webkit-appearance: none;
+  appearance: none;
   border: 1px solid $neutral-5;
   border-radius: 4px;
   background: $neutral-1;
@@ -59,9 +60,7 @@ $color-neutral-4: 'ced2db';
 }
 
 .ion-checkbox:disabled {
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  appearance: none;
   background-color: $neutral-2;
   border: 1px solid $neutral-4;
   border-radius: 4px;
@@ -97,16 +96,18 @@ $color-neutral-4: 'ced2db';
 
 .ion-input-checkbox {
   display: flex;
-  gap: 12px;
+  gap: spacing(1);
   align-items: center;
 }
 
-label {
+.ion-checkbox__label {
   cursor: pointer;
   color: $neutral-7;
-}
+  font-size: 14px;
+  line-height: 20px;
 
-.labelDisabled {
-  cursor: not-allowed;
-  color: $neutral-5;
+  &--disabled {
+    cursor: not-allowed;
+    color: $neutral-5;
+  }
 }
