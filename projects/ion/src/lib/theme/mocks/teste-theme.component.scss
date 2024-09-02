@@ -1,0 +1,8 @@
+@import '../../../styles/colors/theme.scss';
+
+div {
+  display: flex;
+  gap: 10px;
+  background-color: themeValue('primary-1');
+  margin: 10px;
+}
