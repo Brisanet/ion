@@ -1,36 +1,21 @@
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
-@mixin add-colors($background, $color) {
-  background-color: $background;
-  color: $color;
-}
+$sizes: sm md lg xl;
+$variants: primary secondary ghost dashed;
 
-@mixin button-parameters(
-  $buttonSize,
-  $paddingTopBottom,
-  $paddingLeftRight,
-  $fontSize,
-  $lineHeight
-) {
-  height: $buttonSize;
-  min-width: $buttonSize;
-  padding: $paddingTopBottom $paddingLeftRight;
+@mixin button-style($prefix) {
+  background-color: ion-theme(#{$prefix}-background-color);
+  color: ion-theme(#{$prefix}-text-color);
+  border: ion-theme(#{$prefix}-border);
 
-  span {
-    font-size: $fontSize;
-    line-height: $lineHeight;
+  span.spinner {
+    border-left-color: ion-theme(#{$prefix}-spinner-color);
   }
-}
 
-@mixin circular-button($circleSize, $iconSize) {
-  &.circular-button {
-    height: $circleSize;
-    width: $circleSize;
-    border-radius: 50%;
-    padding: 0;
-
-    .spinner {
-      margin-right: 0;
+  ion-icon {
+    ::ng-deep svg {
+      fill: ion-theme(#{$prefix}-icon-color);
     }
   }
 }
@@ -40,79 +25,44 @@ button {
   justify-content: center;
   align-items: center;
   gap: 8px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 600;
-  border-radius: spacing(1);
-  border: 0;
-  color: $neutral-1;
+  font-family: ion-theme(button-text-font-family);
+  font-weight: ion-theme(button-text-font-weight);
+  border-radius: ion-theme(button-border-radius);
   cursor: pointer;
   transition: all 300ms;
 
   &:focus-visible {
     @include focus;
   }
+}
 
-  &:disabled,
-  &:disabled:hover,
-  &[disabled],
-  &[disabled]:hover {
-    @include add-colors($neutral-3 !important, $neutral-5 !important);
-    cursor: not-allowed;
+@each $size in $sizes {
+  .ion-btn-#{$size} {
+    height: ion-theme(button-size-#{$size}-size);
+    min-width: ion-theme(button-size-#{$size}-size);
+    padding: ion-theme(button-size-#{$size}-padding);
 
-    &:disabled.spinner {
-      border-left-color: $neutral-3;
+    .spinner {
+      width: ion-theme(button-size-#{$size}-spinner-size);
+      height: ion-theme(button-size-#{$size}-spinner-size);
     }
 
-    ion-icon {
-      ::ng-deep svg {
-        fill: $neutral-5 !important;
+    span {
+      font-size: ion-theme(button-size-#{$size}-text-font-size);
+      line-height: ion-theme(button-size-#{$size}-text-line-height);
+    }
+
+    &.circular-button {
+      height: ion-theme(button-size-#{$size}-size);
+      width: ion-theme(button-size-#{$size}-size);
+      border-radius: 50%;
+      padding: 0;
+
+      .spinner {
+        margin-right: 0;
       }
     }
   }
-
-  ion-icon {
-    ::ng-deep svg {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      fill: $neutral-1;
-    }
-  }
-}
-
-.ion-btn-sm {
-  @include button-parameters(24px, 4px, 12px, 12px, 16px);
-
-  .spinner {
-    width: 10px;
-    height: 10px;
-  }
-
-  border-radius: 6px;
-
-  @include circular-button(24px, 13px);
-}
-
-.ion-btn-md {
-  @include button-parameters(32px, 6px, 16px, 14px, 20px);
-
-  @include circular-button(32px, 16px);
-}
-
-.ion-btn-lg {
-  @include button-parameters(40px, 8px, 20px, 16px, 24px);
-
-  @include circular-button(40px, 20px);
-
-  border-radius: 10px;
-}
-
-.ion-btn-xl {
-  @include button-parameters(48px, 12px, 24px, 16px, 24px);
-
-  @include circular-button(48px, 20px);
-
-  border-radius: 10px;
 }
 
 @keyframes spin {
@@ -148,223 +98,54 @@ button {
   }
 }
 
-.ion-btn-primary {
-  background-color: $primary-color;
-
-  &:hover {
-    background-color: $primary-5;
-  }
-
-  &:active {
-    background-color: $primary-7;
-  }
-
-  &.loading {
-    background-color: $primary-5;
-  }
-
-  &.danger {
-    background-color: $negative-6;
+@each $variant in $variants {
+  .ion-btn-#{$variant} {
+    @include button-style(button-#{$variant});
 
     &:hover {
-      @include add-colors($negative-5, $neutral-1);
+      @include button-style(button-#{$variant}-hover);
     }
 
-    &.loading,
-    &.loading:active {
-      background-color: $negative-5;
+    &:active {
+      @include button-style(button-#{$variant}-active);
+    }
+
+    &.loading {
+      @include button-style(button-#{$variant}-loading);
+    }
+
+    &.danger {
+      background-color: ion-theme(button-#{$variant}-background-color-danger);
+
+      &:hover {
+        background-color: ion-theme(
+          button-#{$variant}-background-color-hover-danger
+        );
+      }
+
+      &.loading {
+        background-color: ion-theme(
+          button-#{$variant}-background-color-loading-danger
+        );
+      }
+
+      &:active {
+        background-color: ion-theme(
+          button-#{$variant}-background-color-active-danger
+        );
+      }
     }
 
     span.spinner {
-      border-left-color: $neutral-1;
+      border-left-color: ion-theme(button-#{$variant}-spinner-color);
     }
 
-    &:active {
-      background-color: $negative-7;
-    }
-  }
-
-  span.spinner {
-    border-left-color: $neutral-1;
-  }
-}
-
-.ion-btn-secondary {
-  @include add-colors($neutral-1, $primary-color);
-  border: 1px solid $neutral-4;
-
-  &:hover {
-    @include add-colors($primary-1, $primary-5);
-    border: 1px solid $primary-4;
-
-    &:active {
-      @include add-colors($primary-2, $primary-7);
-      border-color: $primary-5;
-
-      ion-icon {
-        ::ng-deep svg {
-          fill: $primary-7;
-        }
-      }
-    }
-  }
-
-  &:disabled,
-  &:disabled:hover,
-  &[disabled],
-  &[disabled]:hover {
-    @include add-colors($neutral-3, $neutral-5);
-    border: 1px solid $neutral-5;
-  }
-
-  &.loading,
-  &.loading:active {
-    @include add-colors($primary-1, $primary-color);
-    border-color: $primary-3;
-  }
-
-  &.danger {
-    color: $negative-color;
-
-    &.danger:hover {
-      @include add-colors($negative-1, $negative-5);
-      border: 1px solid $negative-3;
-    }
-
-    &:active {
-      @include add-colors($negative-2 !important, $negative-7 !important);
-    }
-
-    &.loading,
-    &.loading:hover,
-    &.loading:active {
-      @include add-colors($negative-1 !important, $negative-6 !important);
-      border-color: $negative-3;
-      color: $negative-color;
-    }
-  }
-}
-
-.ion-btn-ghost {
-  @include add-colors(transparent, $primary-color);
-
-  &:disabled {
-    @include add-colors(transparent !important, $neutral-5);
-  }
-
-  &:hover {
-    @include add-colors($primary-1, $primary-5);
-
-    &:disabled {
-      background-color: transparent !important;
-    }
-  }
-
-  &:active {
-    @include add-colors($primary-2, $primary-7);
-  }
-
-  &.loading {
-    @include add-colors($primary-1, $primary-color);
-  }
-
-  &.danger {
-    color: $negative-6;
-
-    &:hover {
-      @include add-colors($negative-1, $negative-5);
-    }
-
-    &:active {
-      @include add-colors($negative-2, $negative-7);
-    }
-
-    &.loading {
-      @include add-colors($negative-1, $negative-6);
-    }
-  }
-}
-
-.ion-btn-dashed {
-  @include add-colors(transparent, $primary-color);
-  border: 1px $neutral-4;
-  border-style: dashed;
-
-  &:hover {
-    @include add-colors($primary-1, $primary-5);
-    border: 1px $primary-4;
-    border-style: dashed;
-  }
-
-  &:active {
-    @include add-colors($primary-2, $primary-7);
-    border-color: $primary-5;
-  }
-
-  &.loading {
-    @include add-colors($primary-1, $primary-color);
-    border-color: $primary-3;
-  }
-
-  &:disabled,
-  &:disabled:hover,
-  &[disabled],
-  &[disabled]:hover {
-    @include add-colors($neutral-3, $neutral-5);
-    border: 1px dashed $neutral-5;
-  }
-
-  &.danger {
-    border: 1px dashed $neutral-4;
-    color: $negative-6;
-
-    &:hover {
-      @include add-colors($negative-1, $negative-5);
-      border: 1px dashed $negative-3;
-    }
-
-    &:active {
-      @include add-colors($negative-2, $negative-7);
-      border-color: #de5462;
-    }
-
-    &.loading {
-      @include add-colors($negative-1, $negative-6);
-      border-color: $negative-3;
-    }
-  }
-}
-
-.ion-btn-secondary,
-.ion-btn-ghost,
-.ion-btn-dashed {
-  ion-icon {
-    ::ng-deep svg {
-      fill: $primary-color;
-    }
-  }
-
-  &:hover {
-    ion-icon {
-      ::ng-deep svg {
-        fill: $primary-5;
-      }
-    }
-  }
-
-  &.danger {
-    ion-icon {
-      ::ng-deep svg {
-        fill: $negative-color;
-      }
-    }
-  }
-
-  &.danger:hover {
-    ion-icon {
-      ::ng-deep svg {
-        fill: $negative-5;
-      }
+    &:disabled,
+    &:disabled:hover,
+    &[disabled],
+    &[disabled]:hover {
+      @include button-style(button-#{$variant}-disabled);
+      cursor: not-allowed;
     }
   }
 }

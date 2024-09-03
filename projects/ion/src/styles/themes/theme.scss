@@ -22,11 +22,11 @@ $themes: (
     @if type-of($value) == 'map' {
       @include map-to-css-vars($value, $new-prefix);
     } @else {
-      --#{$new-prefix}: #{$value};
+      --ion-#{$new-prefix}: #{$value};
     }
   }
 }
 
 @function ion-theme($key) {
-  @return var(--#{$key});
+  @return var(--ion-#{$key});
 }
