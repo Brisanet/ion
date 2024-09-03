@@ -9,9 +9,20 @@ $themes: (
 @mixin install-ion-themes() {
   @each $theme, $map in $themes {
     ::ng-deep body[ion-theme='#{$theme}'] {
-      @each $var, $value in map-merge($defaults, $map) {
-        --#{$var}: #{$value};
-      }
+      @include map-to-css-vars(map-merge($defaults, $map));
+    }
+  }
+}
+
+// Recursively converts a map to CSS variables
+@mixin map-to-css-vars($map, $prefix: ()) {
+  @each $key, $value in $map {
+    $new-prefix: if(length($prefix) > 0, '#{$prefix}-#{$key}', $key);
+
+    @if type-of($value) == 'map' {
+      @include map-to-css-vars($value, $new-prefix);
+    } @else {
+      --#{$new-prefix}: #{$value};
     }
   }
 }

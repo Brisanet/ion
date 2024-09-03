@@ -3,11 +3,46 @@ $defaults: (
     'Source Sans Pro',
     sans-serif,
   ),
-  
-  alert-border-radius: 8px,
-  alert-text-font-size: 14px,
-  alert-text-font-weight: 400,
-  alert-text-line-height: 20px,
-  alert-close-icon-size: 18px,
-  alert-text-font-family: var(--font-family-main),
+  alert: (
+    border-radius: 8px,
+    close-icon-size: 18px,
+    text: (
+      font-size: var(--alert-text-font-size),
+      font-weight: var(--alert-text-font-weight),
+      line-height: var(--alert-text-line-height),
+      font-family: var(--alert-text-font-family),
+    ),
+    success: (
+      background-color: var(--positive-1),
+      border-color: var(--positive-6),
+      icon-color: var(--positive-6),
+      close-icon-color: var(--primary-6),
+      text-color: var(--neutral-7),
+    ),
+    info: (
+      background-color: var(--info-1),
+      border-color: var(--info-6),
+      icon-color: var(--info-6),
+      close-icon-color: var(--primary-6),
+      text-color: var(--neutral-7),
+    ),
+    warning: (
+      background-color: var(--warning-1),
+      border-color: var(--warning-6),
+      icon-color: var(--warning-6),
+      close-icon-color: var(--primary-6),
+      text-color: var(--neutral-7),
+    ),
+    negative: (
+      background-color: var(--negative-1),
+      border-color: var(--negative-6),
+      icon-color: var(--negative-6),
+      close-icon-color: var(--primary-6),
+      text-color: var(--neutral-7),
+    ),
+    with-description: (
+      background-color: var(--neutral-2),
+      text-color: var(--neutral-7),
+    ),
+  ),
 );

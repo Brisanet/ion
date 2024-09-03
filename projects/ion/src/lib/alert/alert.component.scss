@@ -65,7 +65,7 @@ $statuses: success, info, warning, negative;
     border: none !important;
     background-color: ion-theme(alert-with-description-background-color);
     padding: spacing(2) spacing(3) !important;
-    color: ion-theme(alert-description-text-color);
+    color: ion-theme(alert-with-description-text-color);
     gap: 4px;
 
     .message-text {
