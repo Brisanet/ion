@@ -4,12 +4,14 @@ import { IonThemes, IonThemeService } from '../theme.service';
 @Component({
   selector: 'ion-teste-theme',
   template: `
-    <div>
-      <button (click)="setTheme(ionThemes.LIGHT)">Tema claro</button>
-      <button (click)="setTheme(ionThemes.DARK)">Tema escuro</button>
-    </div>
+    <main>
+      <div>
+        <button (click)="setTheme(ionThemes.LIGHT)">Tema claro</button>
+        <button (click)="setTheme(ionThemes.DARK)">Tema escuro</button>
+      </div>
 
-    <ion-alert message="oi"></ion-alert>
+      <ion-alert message="oi"></ion-alert>
+    </main>
   `,
   styleUrls: ['./teste-theme.component.scss'],
 })

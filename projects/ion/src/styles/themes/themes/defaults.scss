@@ -1,0 +1,13 @@
+$defaults: (
+  font-family-main: (
+    'Source Sans Pro',
+    sans-serif,
+  ),
+  
+  alert-border-radius: 8px,
+  alert-text-font-size: 14px,
+  alert-text-font-weight: 400,
+  alert-text-line-height: 20px,
+  alert-close-icon-size: 18px,
+  alert-text-font-family: var(--font-family-main),
+);

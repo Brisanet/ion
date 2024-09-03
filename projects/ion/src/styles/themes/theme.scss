@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import './themes';
 
 $themes: (
@@ -5,16 +6,16 @@ $themes: (
   dark: $dark-theme,
 );
 
-@mixin ion-install-all-themes() {
+@mixin install-ion-themes() {
   @each $theme, $map in $themes {
     ::ng-deep body[ion-theme='#{$theme}'] {
-      @each $var, $value in $map {
+      @each $var, $value in map-merge($defaults, $map) {
         --#{$var}: #{$value};
       }
     }
   }
 }
 
-@function themeValue($key) {
+@function ion-theme($key) {
   @return var(--#{$key});
 }
