@@ -14,6 +14,7 @@ $variants: primary secondary ghost dashed;
   }
 
   ion-icon ::ng-deep svg {
+    transition: fill 300ms;
     fill: ion-theme(#{$prefix}-icon-color);
   }
 }

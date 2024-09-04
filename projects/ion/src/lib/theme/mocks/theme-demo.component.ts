@@ -19,19 +19,32 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-button>
       </div>
 
-      <div *ngFor="let attribute of object.keys(buttonAtributes)">
-        <span class="switch-label">{{ attribute }}</span>
-        <ion-switch
-          [value]="buttonAtributes[attribute]"
-          (atValueChange)="handleSwitch(attribute, $event)"
-        ></ion-switch>
+      <div class="flex-column">
+        <ion-alert
+          *ngFor="let variant of alertVariantOptions"
+          [message]="variant"
+          [type]="variant"
+        ></ion-alert>
+
+        <ion-alert
+          message="alert with description"
+          description="This is a description"
+        ></ion-alert>
       </div>
 
-      <ion-alert message="oi"></ion-alert>
+      <div class="flex">
+        <div *ngFor="let attribute of object.keys(buttonAtributes)">
+          <span class="switch-label">{{ attribute }}</span>
+          <ion-switch
+            [value]="buttonAtributes[attribute]"
+            (atValueChange)="handleSwitch(attribute, $event)"
+          ></ion-switch>
+        </div>
+      </div>
 
       <table>
         <tr *ngFor="let size of sizeOptions">
-          <td *ngFor="let variant of variantOptions">
+          <td *ngFor="let variant of buttonVariantOptions">
             <ion-button
               [label]="variant + ' ' + size"
               [type]="variant"
@@ -41,6 +54,7 @@ import { IonThemes, IonThemeService } from '../theme.service';
               [danger]="buttonAtributes.danger"
               [loading]="buttonAtributes.loading"
               [disabled]="buttonAtributes.disabled"
+              [circularButton]="buttonAtributes.circularButton"
             ></ion-button>
           </td>
         </tr>
@@ -58,11 +72,13 @@ export class ThemeDemoComponent {
     loading: false,
     disabled: false,
     rightSideIcon: true,
+    circularButton: false,
   };
 
   sizeOptions = ['sm', 'md', 'lg', 'xl'];
 
-  variantOptions = ['primary', 'secondary', 'ghost', 'dashed'];
+  buttonVariantOptions = ['primary', 'secondary', 'ghost', 'dashed'];
+  alertVariantOptions = ['success', 'warning', 'negative', 'info'];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
