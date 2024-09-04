@@ -1,12 +1,13 @@
 @import '../../../styles/themes/theme.scss';
 
 main {
-  background-color: ion-theme('neutral-1'); // Pode ser usado dessa forma
+  background-color: ion-theme(neutral-1); // Pode ser usado dessa forma
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
   left: 0;
+  overflow-y: scroll;
 
   .switch-label {
     color: var(--ion-neutral-8); // Ou dessa forma

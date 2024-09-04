@@ -1,24 +1,20 @@
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+$sizes: sm md lg;
+$states: active inactive;
 
 $base-sm-size: 2px;
 $base-md-size: 3px;
 $base-lg-size: 4px;
 
-@mixin switch-sizes($base) {
-  width: calc($base * 12);
-  height: calc($base * 8);
-  border-radius: calc($base * 7.5);
-
-  &:focus-visible {
-    @include focus;
-    border-radius: calc($base * 7.5);
-  }
+@mixin switch-style($prefix) {
+  background-color: ion-theme(switch-#{$prefix}-background-color);
+  border: none;
+  outline: none;
 
   &::before {
-    top: $base;
-    left: $base;
-    width: calc($base * 6);
-    height: calc($base * 6);
+    background-color: ion-theme(switch-#{$prefix}-indicator-background-color);
   }
 }
 
@@ -49,7 +45,8 @@ $base-lg-size: 4px;
       box-shadow: none;
     }
     20% {
-      box-shadow: 0 0 0 calc($base * 2) $primary-1;
+      box-shadow: 0 0 0 calc(ion-theme(switch-size-#{$base}-indicator-size) * 2)
+        $primary-1;
       background: $primary-4;
     }
     100% {
@@ -60,102 +57,66 @@ $base-lg-size: 4px;
 
 .ion-switch {
   display: flex;
-  background: $primary-2;
-  border: none;
-  outline: none;
   cursor: pointer;
   position: relative;
   transition: all ease-out 100ms;
 
-  &:hover {
-    background: $primary-3;
-  }
-
-  &:active:not(:disabled) {
-    background: $primary-4;
-    @include translateEllipse();
+  &:focus-visible {
+    @include focus;
   }
 
   &::before {
     content: '';
-    background: #ffffff;
     position: absolute;
     border-radius: 50%;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   }
 
-  &:disabled {
-    background: $neutral-3;
-    cursor: not-allowed;
-
-    &::before {
-      background: $neutral-5;
-    }
-  }
-
-  &[size='sm'] {
-    @include switch-sizes($base-sm-size);
-  }
-
-  &[size='md'] {
-    @include switch-sizes($base-md-size);
-  }
-
-  &[size='lg'] {
-    @include switch-sizes($base-lg-size);
-  }
-
-  &--inactive {
-    &[size='sm'] {
-      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
-    }
-
-    &[size='md'] {
-      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
-    }
-
-    &[size='lg'] {
-      @include addShadowAnimation($base-md-size, 'shadowAnimationOut');
-    }
-  }
-
-  &--active {
-    background: $primary-color;
-
-    &[size='sm'] {
-      @include addShadowAnimation($base-sm-size);
-    }
-
-    &[size='md'] {
-      @include addShadowAnimation($base-md-size);
-    }
-
-    &[size='lg'] {
-      @include addShadowAnimation($base-lg-size);
-    }
-
-    &:hover {
-      background: $primary-5;
-    }
-
-    &::before {
-      transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
-    }
-
-    @include translateEllipse('full');
-
-    &:active:not(:disabled) {
-      background: $primary-7;
-
-      @include translateEllipse();
-    }
-
-    &:disabled {
-      background: $neutral-5;
-      cursor: not-allowed;
+  @each $size in $sizes {
+    &[size='#{$size}'] {
+      width: ion-theme(switch-size-#{$size}-width);
+      height: ion-theme(switch-size-#{$size}-height);
+      border-radius: ion-theme(switch-size-#{$size}-border-radius);
 
       &::before {
-        background: $neutral-2;
+        top: ion-theme(switch-size-#{$size}-indicator-distance);
+        left: ion-theme(switch-size-#{$size}-indicator-distance);
+        width: ion-theme(switch-size-#{$size}-indicator-size);
+        height: ion-theme(switch-size-#{$size}-indicator-size);
+      }
+
+      &.ion-switch--inactive {
+        @include addShadowAnimation($size, shadowAnimationOut);
+      }
+
+      &.ion-switch--active {
+        @include addShadowAnimation($size);
+        @include translateEllipse('full');
+
+        &::before {
+          transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+        }
+      }
+    }
+  }
+
+  @each $state in $states {
+    &.ion-switch--#{$state} {
+      @debug ion-switch--#{$state};
+      @include switch-style($state);
+
+      &:hover {
+        @include switch-style(#{$state}-hover);
+      }
+
+      &:active {
+        @include switch-style(#{$state}-active);
+        @include translateEllipse();
+      }
+
+      &:disabled {
+        @include switch-style(#{$state}-disabled);
+        cursor: not-allowed;
       }
     }
   }

@@ -149,9 +149,7 @@ button {
     margin-top: 4px;
   }
 
-  &.above {
-    ::ng-deep .container-options {
-      bottom: auto !important;
-    }
+  &.above ::ng-deep .container-options {
+    bottom: auto !important;
   }
 }
