@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { IonThemes, IonThemeService } from '../theme.service';
 
 @Component({
@@ -18,6 +19,14 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-button>
       </div>
 
+      <div *ngFor="let attribute of object.keys(buttonAtributes)">
+        <span class="switch-label">{{ attribute }}</span>
+        <ion-switch
+          [value]="buttonAtributes[attribute]"
+          (atValueChange)="handleSwitch(attribute, $event)"
+        ></ion-switch>
+      </div>
+
       <ion-alert message="oi"></ion-alert>
 
       <table>
@@ -27,29 +36,39 @@ import { IonThemes, IonThemeService } from '../theme.service';
               [label]="variant + ' ' + size"
               [type]="variant"
               [size]="size"
-              [danger]="danger"
-              [loading]="loading"
-              [disabled]="true"
+              iconType="send"
+              [rightSideIcon]="buttonAtributes.rightSideIcon"
+              [danger]="buttonAtributes.danger"
+              [loading]="buttonAtributes.loading"
+              [disabled]="buttonAtributes.disabled"
             ></ion-button>
           </td>
         </tr>
       </table>
     </main>
   `,
-  styleUrls: ['./teste-theme.component.scss'],
+  styleUrls: ['./theme-demo.component.scss'],
 })
-export class TesteThemeComponent {
+export class ThemeDemoComponent {
   public ionThemes = IonThemes;
+  public object = Object;
 
-  danger = false;
-  loading = false;
-  disabled = true;
+  public buttonAtributes = {
+    danger: false,
+    loading: false,
+    disabled: false,
+    rightSideIcon: true,
+  };
 
   sizeOptions = ['sm', 'md', 'lg', 'xl'];
 
   variantOptions = ['primary', 'secondary', 'ghost', 'dashed'];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
+
+  public handleSwitch(key: string, value: boolean): void {
+    this.buttonAtributes[key] = value;
+  }
 
   public setTheme(theme: IonThemes): void {
     this.ionThemeService.setTheme(theme);

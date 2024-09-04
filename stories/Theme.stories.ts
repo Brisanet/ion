@@ -1,21 +1,15 @@
 import { Meta, Story } from '@storybook/angular';
-import { TesteThemeComponent } from '../projects/ion/src/lib/theme/mocks/teste-theme.component';
-import {
-  IonAlertModule,
-  IonSharedModule,
-} from '../projects/ion/src/public-api';
+import { ThemeDemoComponent } from '../projects/ion/src/lib/theme/mocks/theme-demo.component';
+import { ThemeDemoModule } from '../projects/ion/src/lib/theme/mocks/theme-demo.module';
 
-const Template: Story<TesteThemeComponent> = () => ({
-  component: TesteThemeComponent,
-  moduleMetadata: {
-    imports: [IonAlertModule, IonSharedModule],
-    declarations: [TesteThemeComponent],
-  },
+const Template: Story<ThemeDemoComponent> = () => ({
+  component: ThemeDemoComponent,
+  moduleMetadata: { imports: [ThemeDemoModule] },
 });
 
 export const Teste = Template.bind({});
 
 export default {
   title: 'Ion/Design Tokens/Theme',
-  component: TesteThemeComponent,
+  component: ThemeDemoComponent,
 } as Meta;
