@@ -12,17 +12,12 @@ main {
   .switch-label {
     color: var(--ion-neutral-8); // Ou dessa forma
   }
-
-  div {
-    display: flex;
-    gap: 10px;
-    margin: 10px;
-  }
 }
 
 .flex {
   display: flex;
   gap: 10px;
+  margin: 10px 5px;
 }
 
 .flex-column {

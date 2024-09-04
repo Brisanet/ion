@@ -6,7 +6,7 @@ import { IonThemes, IonThemeService } from '../theme.service';
   selector: 'ion-teste-theme',
   template: `
     <main>
-      <div>
+      <div class="flex">
         <ion-button
           label="Tema claro"
           type="secondary"
@@ -32,18 +32,24 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-alert>
       </div>
 
-      <div class="flex">
-        <div *ngFor="let attribute of object.keys(buttonAtributes)">
-          <span class="switch-label">{{ attribute }}</span>
-          <ion-switch
-            [value]="buttonAtributes[attribute]"
-            (atValueChange)="handleSwitch(attribute, $event)"
-          ></ion-switch>
+      <div *ngFor="let size of switchSizeOptions">
+        <div class="flex">
+          <div
+            class="flex"
+            *ngFor="let attribute of object.keys(buttonAtributes)"
+          >
+            <span class="switch-label">{{ attribute }}</span>
+            <ion-switch
+              [size]="size"
+              [value]="buttonAtributes[attribute]"
+              (atValueChange)="handleSwitch(attribute, $event)"
+            ></ion-switch>
+          </div>
         </div>
       </div>
 
       <table>
-        <tr *ngFor="let size of sizeOptions">
+        <tr *ngFor="let size of buttonSizeOptions">
           <td *ngFor="let variant of buttonVariantOptions">
             <ion-button
               [label]="variant + ' ' + size"
@@ -75,8 +81,9 @@ export class ThemeDemoComponent {
     circularButton: false,
   };
 
-  sizeOptions = ['sm', 'md', 'lg', 'xl'];
+  switchSizeOptions = ['sm', 'md', 'lg'];
 
+  buttonSizeOptions = ['sm', 'md', 'lg', 'xl'];
   buttonVariantOptions = ['primary', 'secondary', 'ghost', 'dashed'];
   alertVariantOptions = ['success', 'warning', 'negative', 'info'];
 

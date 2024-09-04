@@ -415,6 +415,11 @@ $defaults: (
         indicator-background-color: var(--ion-neutral-2),
       ),
     ),
+    shadow-animation: (
+      shadow-color: var(--ion-primary-1),
+      background-color: var(--ion-primary-4),
+      scale: 2,
+    ),
     size: (
       sm: (
         width: 24px,

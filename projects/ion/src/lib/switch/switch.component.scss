@@ -1,53 +1,29 @@
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
-$sizes: sm md lg;
-$states: active inactive;
-
-$base-sm-size: 2px;
-$base-md-size: 3px;
-$base-lg-size: 4px;
-
 @mixin switch-style($prefix) {
-  background-color: ion-theme(switch-#{$prefix}-background-color);
-  border: none;
-  outline: none;
+  background-color: ion-theme(#{$prefix}-background-color);
 
   &::before {
-    background-color: ion-theme(switch-#{$prefix}-indicator-background-color);
-  }
-}
-
-@mixin translateEllipse($side: 'half') {
-  $base: 2;
-  @if $side == 'full' {
-    $base: 4;
-  }
-
-  &[size='sm']::before {
-    transform: translateX(calc($base-sm-size * $base));
-  }
-
-  &[size='md']::before {
-    transform: translateX(calc($base-md-size * $base));
-  }
-
-  &[size='lg']::before {
-    transform: translateX(calc($base-lg-size * $base));
+    background-color: ion-theme(#{$prefix}-indicator-background-color);
   }
 }
 
 @mixin addShadowAnimation($base, $changeName: 'animateShadow') {
   animation: $changeName 300ms ease-in-out;
 
+  $size: calc(
+    ion-theme(switch-size-#{$base}-indicator-distance) *
+      ion-theme(switch-shadow-animation-scale)
+  );
+
   @keyframes #{$changeName} {
     0% {
       box-shadow: none;
     }
     20% {
-      box-shadow: 0 0 0 calc(ion-theme(switch-size-#{$base}-indicator-size) * 2)
-        $primary-1;
-      background: $primary-4;
+      box-shadow: 0 0 0 $size ion-theme(switch-shadow-animation-shadow-color);
+      background: ion-theme(switch-shadow-animation-background-color);
     }
     100% {
       box-shadow: none;
@@ -60,6 +36,8 @@ $base-lg-size: 4px;
   cursor: pointer;
   position: relative;
   transition: all ease-out 100ms;
+  border: none;
+  outline: none;
 
   &:focus-visible {
     @include focus;
@@ -72,7 +50,7 @@ $base-lg-size: 4px;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   }
 
-  @each $size in $sizes {
+  @each $size in sm md lg {
     &[size='#{$size}'] {
       width: ion-theme(switch-size-#{$size}-width);
       height: ion-theme(switch-size-#{$size}-height);
@@ -91,31 +69,30 @@ $base-lg-size: 4px;
 
       &.ion-switch--active {
         @include addShadowAnimation($size);
-        @include translateEllipse('full');
 
         &::before {
-          transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+          transform: translateX(
+            calc(ion-theme(switch-size-#{$size}-indicator-distance) * 4)
+          ); // TODO: what this "4" means?
         }
       }
     }
   }
 
-  @each $state in $states {
+  @each $state in active inactive {
     &.ion-switch--#{$state} {
-      @debug ion-switch--#{$state};
-      @include switch-style($state);
+      @include switch-style(switch-#{$state});
 
       &:hover {
-        @include switch-style(#{$state}-hover);
+        @include switch-style(switch-#{$state}-hover);
       }
 
       &:active {
-        @include switch-style(#{$state}-active);
-        @include translateEllipse();
+        @include switch-style(switch-#{$state}-active);
       }
 
       &:disabled {
-        @include switch-style(#{$state}-disabled);
+        @include switch-style(switch-#{$state}-disabled);
         cursor: not-allowed;
       }
     }
