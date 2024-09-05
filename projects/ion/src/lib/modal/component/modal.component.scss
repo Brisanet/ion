@@ -35,6 +35,10 @@
     display: flex;
     flex-direction: column;
 
+    &:focus-visible {
+      outline: none;
+    }
+
     header {
       @extend %defaultPadding;
 
