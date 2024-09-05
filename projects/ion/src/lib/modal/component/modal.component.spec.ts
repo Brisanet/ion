@@ -2,11 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing'; // DO not forget to Import
 import { fireEvent, screen } from '@testing-library/angular';
+import { IonAlertModule } from '../../alert/alert.module';
 import { IonButtonModule } from '../../button/button.module';
 import { SelectMockComponent } from '../mock/select-mock.component';
 import { IonModalConfiguration } from './../models/modal.interface';
 import { IonModalComponent } from './modal.component';
-import { IonAlertModule } from '../../alert/alert.module';
 
 describe('IonModalComponent', () => {
   let component: IonModalComponent;
@@ -251,6 +251,19 @@ describe('IonModalComponent', () => {
     fixture.detectChanges();
 
     expect(screen.getByTestId('modalOverlay')).toHaveClass(customClass);
+  });
+
+  it('should focus on dialog when open', () => {
+    jest.useFakeTimers();
+
+    component.ngOnInit();
+    component.ngAfterViewInit();
+    jest.runAllTimers();
+    fixture.detectChanges();
+
+    expect(screen.getByTestId('modal')).toHaveFocus();
+
+    jest.useRealTimers();
   });
 
   describe('IonModalComponent - Header left button', () => {
