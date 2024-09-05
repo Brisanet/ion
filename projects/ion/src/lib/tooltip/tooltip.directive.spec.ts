@@ -21,6 +21,7 @@ import { IonTooltipModule } from './tooltip.module';
       [ionTooltipPosition]="ionTooltipPosition"
       [ionTooltipTrigger]="ionTooltipTrigger"
       [ionTooltipShowDelay]="ionTooltipShowDelay"
+      [ionTooltipCustomClass]="ionTooltipCustomClass"
     >
       Hover me
     </p>
@@ -36,6 +37,7 @@ class HostTestComponent {
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
   @Input() ionTooltipTemplateRef = true;
+  @Input() ionTooltipCustomClass: string;
 }
 
 const sut = async (props: Partial<HostTestComponent> = {}): Promise<void> => {
@@ -75,6 +77,16 @@ describe('Directive: Tooltip', () => {
 
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByText(ionTooltipTitle)).toBeInTheDocument();
+  });
+
+  it('should render tooltip with a custom class', async () => {
+    const ionTooltipCustomClass = 'custom-class';
+    await sut({ ionTooltipCustomClass });
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByTestId('ion-tooltip')).toHaveClass(
+      ionTooltipCustomClass
+    );
   });
 
   it('should not render tooltip when ionTooltipTitle and ionTooltipTemplateRef is empty', async () => {
