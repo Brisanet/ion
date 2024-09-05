@@ -1,4 +1,3 @@
-import { TooltipPosition } from './../core/types/tooltip';
 import {
   ApplicationRef,
   ComponentFactoryResolver,
@@ -13,12 +12,13 @@ import {
   OnInit,
   TemplateRef,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { TooltipColorScheme, TooltipTrigger } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
+import { TooltipPosition } from './../core/types/tooltip';
 import { IonTooltipComponent } from './tooltip.component';
-import { getPositions } from './utilsTooltip';
 import { TooltipService } from './tooltip.service';
-import { Subscription } from 'rxjs';
+import { getPositions } from './utilsTooltip';
 
 @Directive({
   selector: '[ionTooltip]',
@@ -31,6 +31,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
   @Input() ionTooltipArrowPointAtCenter = true;
   @Input() ionTooltipTrigger: TooltipTrigger = TooltipTrigger.DEFAULT;
   @Input() ionTooltipShowDelay = 0;
+  @Input() ionTooltipCustomClass: string;
 
   public subscription$: Subscription;
   private componentRef: ComponentRef<IonTooltipComponent> = null;
@@ -76,12 +77,17 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
   setComponentProperties(): void {
     if (!this.isComponentRefNull()) {
-      this.componentRef.instance.ionTooltipTitle = this.ionTooltipTitle;
-      this.componentRef.instance.ionTooltipTemplateRef =
-        this.ionTooltipTemplateRef;
-      this.componentRef.instance.ionTooltipColorScheme =
-        this.ionTooltipColorScheme;
-      this.componentRef.instance.ionTooltipPosition = this.ionTooltipPosition;
+      const instanceProps = {
+        ionTooltipTitle: this.ionTooltipTitle,
+        ionTooltipTemplateRef: this.ionTooltipTemplateRef,
+        ionTooltipColorScheme: this.ionTooltipColorScheme,
+        ionTooltipPosition: this.ionTooltipPosition,
+        ionTooltipCustomClass: this.ionTooltipCustomClass,
+      };
+
+      Object.keys(instanceProps).forEach((prop) => {
+        this.componentRef.instance[prop] = instanceProps[prop];
+      });
 
       this.delayTimeout = window.setTimeout(
         this.showTooltip.bind(this),

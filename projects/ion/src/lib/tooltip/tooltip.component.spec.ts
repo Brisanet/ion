@@ -50,4 +50,11 @@ describe('IonTooltipComponent', () => {
       'ion-tooltip--visible'
     );
   });
+  it('should have custom class', async () => {
+    const ionTooltipCustomClass = 'custom-class';
+    await sut({ ionTooltipCustomClass });
+    expect(screen.getByTestId(tooltipTestId)).toHaveClass(
+      ionTooltipCustomClass
+    );
+  });
 });

@@ -2,7 +2,7 @@
   data-testid="ion-tooltip"
   class="ion-tooltip"
   [ngClass]="[
-    'ion-tooltip-' + ionTooltipColorScheme,
+    ionTooltipCustomClass + ' ion-tooltip-' + ionTooltipColorScheme,
     'ion-tooltip-position--' + ionTooltipPosition
   ]"
   [class.ion-tooltip--visible]="ionTooltipVisible"
