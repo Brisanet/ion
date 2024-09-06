@@ -3,8 +3,11 @@
 $default: (
   border-radius: 50%,
   background-color: var(--ion-primary-2),
-  text-color: var(--ion-primary-7),
   icon-color: var(--ion-primary-7),
+  text: (
+    color: var(--ion-primary-7),
+    font-family: var(--ion-font-family-main),
+  ),
   size: (
     xs: (
       size: 16px,

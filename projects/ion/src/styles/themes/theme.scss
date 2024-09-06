@@ -1,6 +1,10 @@
 @use 'sass:map';
 @import './themes';
 
+$defaults: (
+  font-family-main: 'Source Sans Pro',
+);
+
 $themes: (
   light: $light-theme,
   dark: $dark-theme,
@@ -9,7 +13,7 @@ $themes: (
 // Registering the themes
 @each $theme, $map in $themes {
   ::ng-deep body[ion-theme='#{$theme}'] {
-    @each $key, $value in $map {
+    @each $key, $value in map-merge($defaults, $map) {
       --ion-#{$key}: #{$value};
     }
   }

@@ -1,6 +1,5 @@
 @use 'avatar.theme';
 
-@import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
 .ion-avatar {
@@ -14,6 +13,7 @@
   span {
     text-align: center;
     font-weight: 600;
+    font-family: ion-theme(avatar-text-font-family);
     color: ion-theme(avatar-text-color);
   }
 
