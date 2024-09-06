@@ -22,6 +22,7 @@ export class IonTooltipComponent implements AfterViewChecked {
   ionTooltipColorScheme: TooltipColorScheme = 'dark';
   ionTooltipPosition: TooltipPosition = TooltipPosition.DEFAULT;
   ionTooltipVisible = false;
+  ionTooltipCustomClass = '';
   left = 0;
   top = 0;
 
