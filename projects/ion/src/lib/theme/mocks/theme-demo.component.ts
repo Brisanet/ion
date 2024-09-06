@@ -8,14 +8,10 @@ import { IonThemes, IonThemeService } from '../theme.service';
     <main>
       <div class="flex">
         <ion-button
-          label="Tema claro"
+          *ngFor="let theme of object.values(ionThemes)"
+          [label]="theme"
           type="secondary"
-          (ionOnClick)="setTheme(ionThemes.LIGHT)"
-        ></ion-button>
-        <ion-button
-          label="Tema escuro"
-          type="secondary"
-          (ionOnClick)="setTheme(ionThemes.DARK)"
+          (ionOnClick)="setTheme(theme)"
         ></ion-button>
       </div>
 
@@ -94,6 +90,6 @@ export class ThemeDemoComponent {
   }
 
   public setTheme(theme: IonThemes): void {
-    this.ionThemeService.setTheme(theme);
+    this.ionThemeService.theme = theme;
   }
 }
