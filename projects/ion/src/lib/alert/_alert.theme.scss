@@ -1,0 +1,52 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  border-radius: 8px,
+  close-icon-size: 18px,
+  text: (
+    font-size: 14px,
+    font-weight: 400,
+    line-height: 20px,
+    font-family: var(--ion-font-family-main),
+  ),
+  success: (
+    background-color: var(--ion-positive-1),
+    border-color: var(--ion-positive-6),
+    icon-color: var(--ion-positive-6),
+    close-icon-color: var(--ion-primary-6),
+    text-color: var(--ion-neutral-7),
+  ),
+  info: (
+    background-color: var(--ion-info-1),
+    border-color: var(--ion-info-6),
+    icon-color: var(--ion-info-6),
+    close-icon-color: var(--ion-primary-6),
+    text-color: var(--ion-neutral-7),
+  ),
+  warning: (
+    background-color: var(--ion-warning-1),
+    border-color: var(--ion-warning-6),
+    icon-color: var(--ion-warning-6),
+    close-icon-color: var(--ion-primary-6),
+    text-color: var(--ion-neutral-7),
+  ),
+  negative: (
+    background-color: var(--ion-negative-1),
+    border-color: var(--ion-negative-6),
+    icon-color: var(--ion-negative-6),
+    close-icon-color: var(--ion-primary-6),
+    text-color: var(--ion-neutral-7),
+  ),
+  with-description: (
+    background-color: var(--ion-neutral-2),
+    text-color: var(--ion-neutral-7),
+  ),
+);
+
+@include register-component(
+  alert,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

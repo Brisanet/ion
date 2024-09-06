@@ -1,7 +1,7 @@
+@use 'alert.theme';
+
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
-
-@include install-ion-themes();
 
 $statuses: success, info, warning, negative;
 

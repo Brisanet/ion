@@ -6,10 +6,19 @@ $themes: (
   dark: $dark-theme,
 );
 
-@mixin install-ion-themes() {
-  @each $theme, $map in $themes {
-    ::ng-deep body[ion-theme='#{$theme}'] {
-      @include map-to-css-vars(map-merge($defaults, $map));
+// Registering the themes
+@each $theme, $map in $themes {
+  ::ng-deep body[ion-theme='#{$theme}'] {
+    @each $key, $value in $map {
+      --ion-#{$key}: #{$value};
+    }
+  }
+}
+
+@mixin register-component($component, $theme) {
+  @each $themeName, $themeMap in $theme {
+    ::ng-deep body[ion-theme='#{$themeName}'] {
+      @include map-to-css-vars((#{$component}: $themeMap));
     }
   }
 }

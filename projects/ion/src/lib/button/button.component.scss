@@ -1,8 +1,7 @@
+@use 'button.theme';
+
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
-
-$sizes: sm md lg xl;
-$variants: primary secondary ghost dashed;
 
 @mixin button-style($prefix) {
   background-color: ion-theme(#{$prefix}-background-color);
@@ -35,7 +34,7 @@ button {
   }
 }
 
-@each $size in $sizes {
+@each $size in sm md lg xl {
   .ion-btn-#{$size} {
     height: ion-theme(button-size-#{$size}-size);
     min-width: ion-theme(button-size-#{$size}-size);
@@ -79,7 +78,7 @@ button {
   margin-right: 10px;
 }
 
-@each $variant in $variants {
+@each $variant in primary secondary ghost dashed {
   .ion-btn-#{$variant} {
     @include button-style(button-#{$variant});
 
