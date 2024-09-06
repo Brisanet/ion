@@ -61,6 +61,22 @@ import { IonThemes, IonThemeService } from '../theme.service';
           </td>
         </tr>
       </table>
+
+      <div class="flex" *ngFor="let size of avatarSizeOption">
+        <ion-avatar
+          type="initials"
+          [size]="size"
+          value="Vinicius Guedes"
+        ></ion-avatar>
+
+        <ion-avatar type="icon" [size]="size"></ion-avatar>
+
+        <ion-avatar
+          type="photo"
+          [size]="size"
+          image="https://64.media.tumblr.com/40e2174ab5e68b1eabbc3dfc78607cef/c1effc67d5c3a1fd-20/s540x810/9d6ce72fcddf97841e7410a0652dd9d5f018b35d.pnj"
+        ></ion-avatar>
+      </div>
     </main>
   `,
   styleUrls: ['./theme-demo.component.scss'],
@@ -81,7 +97,10 @@ export class ThemeDemoComponent {
 
   buttonSizeOptions = ['sm', 'md', 'lg', 'xl'];
   buttonVariantOptions = ['primary', 'secondary', 'ghost', 'dashed'];
+
   alertVariantOptions = ['success', 'warning', 'negative', 'info'];
+
+  avatarSizeOption = ['xs', 'sm', 'md', 'lg'];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
