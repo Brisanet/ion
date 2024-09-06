@@ -77,6 +77,13 @@ import { IonThemes, IonThemeService } from '../theme.service';
           image="https://64.media.tumblr.com/40e2174ab5e68b1eabbc3dfc78607cef/c1effc67d5c3a1fd-20/s540x810/9d6ce72fcddf97841e7410a0652dd9d5f018b35d.pnj"
         ></ion-avatar>
       </div>
+
+      <div class="flex">
+        <ng-container *ngFor="let type of badgeTypes">
+          <ion-badge [type]="type" [value]="10"></ion-badge>
+          <ion-badge [type]="type" label="teste"></ion-badge>
+        </ng-container>
+      </div>
     </main>
   `,
   styleUrls: ['./theme-demo.component.scss'],
@@ -101,6 +108,8 @@ export class ThemeDemoComponent {
   alertVariantOptions = ['success', 'warning', 'negative', 'info'];
 
   avatarSizeOption = ['xs', 'sm', 'md', 'lg'];
+
+  badgeTypes = ['primary', 'secondary', 'neutral', 'negative'];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
