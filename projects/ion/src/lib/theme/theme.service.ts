@@ -11,8 +11,6 @@ export enum IonThemes {
 export class IonThemeService {
   private nativeTheme: IonThemes;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-
   public get theme(): IonThemes | null {
     return localStorage.getItem('ion-theme') as IonThemes | null;
   }
@@ -24,15 +22,17 @@ export class IonThemeService {
     localStorage.setItem('ion-theme', theme);
   }
 
-  private applyTheme(theme: IonThemes): void {
-    this.document.body.setAttribute('ion-theme', theme);
-  }
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public init(): void {
     this.listenToNativeThemeChanges();
 
     const storedTheme = this.theme;
     this.theme = storedTheme || IonThemes.LIGHT;
+  }
+
+  private applyTheme(theme: IonThemes): void {
+    this.document.body.setAttribute('ion-theme', theme);
   }
 
   private listenToNativeThemeChanges(): void {
