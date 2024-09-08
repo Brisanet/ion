@@ -1,0 +1,93 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  border-radius: 100px,
+  text: (
+    font-weight: 600,
+    font-family: var(--ion-font-family-main),
+  ),
+  size: (
+    sm: (
+      height: 24px,
+      padding: 4px 8px,
+      text-font-size: 12px,
+      text-line-height: 16px,
+    ),
+    md: (
+      height: 32px,
+      padding: 6px 12px,
+      text-font-size: 14px,
+      text-line-height: 20px,
+    ),
+  ),
+  unselected: (
+    background-color: var(--ion-neutral-1),
+    text-color: var(--ion-primary-6),
+    icon-color: var(--ion-primary-6),
+    border-color: var(--ion-neutral-4),
+    border-width: 1px,
+    hover: (
+      background-color: var(--ion-primary-1),
+      text-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-5),
+      border-color: var(--ion-primary-3),
+    ),
+    focus: (
+      background-color: var(--ion-primary-1),
+      text-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-5),
+      border-color: var(--ion-primary-3),
+    ),
+    active: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-7),
+      icon-color: var(--ion-primary-7),
+      border-color: var(--ion-primary-5),
+    ),
+    disabled: (
+      background-color: var(--ion-neutral-3),
+      text-color: var(--ion-neutral-5),
+      icon-color: var(--ion-neutral-5),
+      border-color: var(--ion-neutral-5),
+    ),
+  ),
+  selected: (
+    background-color: var(--ion-primary-1),
+    text-color: var(--ion-primary-6),
+    icon-color: var(--ion-primary-6),
+    border-color: var(--ion-primary-5),
+    border-width: 1.5px,
+    hover: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-5),
+      border-color: var(--ion-primary-5),
+    ),
+    focus: (
+      background-color: var(--ion-primary-1),
+      text-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-5),
+      border-color: var(--ion-primary-3),
+    ),
+    active: (
+      background-color: var(--ion-primary-3),
+      text-color: var(--ion-primary-7),
+      icon-color: var(--ion-primary-7),
+      border-color: var(--ion-primary-7),
+    ),
+    disabled: (
+      background-color: var(--ion-neutral-3),
+      text-color: var(--ion-neutral-5),
+      icon-color: var(--ion-neutral-5),
+      border-color: var(--ion-neutral-5),
+    ),
+  ),
+);
+
+@include register-component(
+  chip,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

@@ -84,6 +84,22 @@ import { IonThemes, IonThemeService } from '../theme.service';
           <ion-badge [type]="type" label="teste"></ion-badge>
         </ng-container>
       </div>
+
+      <div class="flex">
+        <ng-container *ngFor="let size of chipSizes">
+          <ion-chip [label]="'chip ' + size" [size]="size"></ion-chip>
+          <ion-chip
+            [label]="'chip ' + size"
+            [size]="size"
+            [selected]="true"
+          ></ion-chip>
+          <ion-chip
+            [label]="'chip ' + size"
+            [size]="size"
+            [disabled]="true"
+          ></ion-chip>
+        </ng-container>
+      </div>
     </main>
   `,
   styleUrls: ['./theme-demo.component.scss'],
@@ -110,6 +126,8 @@ export class ThemeDemoComponent {
   avatarSizeOption = ['xs', 'sm', 'md', 'lg'];
 
   badgeTypes = ['primary', 'secondary', 'neutral', 'negative'];
+
+  chipSizes = ['sm', 'md'];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
