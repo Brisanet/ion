@@ -1,0 +1,65 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  size: 16px,
+  margin: 4px,
+  border-radius: 4px,
+  enabled: (
+    background-color: var(--ion-neutral-1),
+    border-color: var(--ion-neutral-5),
+    hover: (
+      background-color: var(--ion-neutral-1),
+      shadow-color: var(--ion-primary-2),
+      border-color: var(--ion-primary-3),
+      icon-color: var(--ion-primary-2),
+    ),
+    active: (
+      background-color: var(--ion-primary-2),
+      border-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-1),
+    ),
+    checked: (
+      background-color: var(--ion-primary-6),
+      icon-color: var(--ion-primary-1),
+      hover-background-color: var(--ion-primary-5),
+      active-background-color: var(--ion-primary-7),
+    ),
+  ),
+  disabled: (
+    background-color: var(--ion-neutral-2),
+    border-color: var(--ion-neutral-4),
+    icon-color: var(--ion-neutral-4),
+    checked: (
+      background-color: var(--ion-neutral-2),
+      icon-color: var(--ion-neutral-4),
+    ),
+  ),
+  indeterminate: (
+    background-color: var(--ion-primary-6),
+    border-radius: 4px,
+    icon-color: var(--ion-primary-1),
+    hover: (
+      background-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-1),
+    ),
+    disabled: (
+      icon-color: var(--ion-neutral-4),
+    ),
+  ),
+  label: (
+    font-size: 14px,
+    line-height: 20px,
+    color: var(--ion-neutral-7),
+    disabled: (
+      text-color: var(--ion-neutral-5),
+    ),
+  ),
+);
+
+@include register-component(
+  checkbox,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

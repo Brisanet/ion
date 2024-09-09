@@ -4,6 +4,7 @@ import { BodyMockComponent } from '../../card/mock/body-mock.component';
 import {
   BadgeType,
   BreadcrumbItem,
+  CheckBoxStates,
   ChipSize,
   DropdownItem,
   IonButtonProps,
@@ -141,6 +142,26 @@ import { IonThemes, IonThemeService } from '../theme.service';
         <ion-card [configuration]="cardConfiguration"></ion-card>
       </div>
 
+      <ion-divider type="text" label="checkbox"></ion-divider>
+
+      <table>
+        <tr *ngFor="let checkBoxState of checkBoxStates">
+          <td>
+            <ion-checkbox
+              [state]="checkBoxState"
+              [label]="checkBoxState"
+            ></ion-checkbox>
+          </td>
+          <td>
+            <ion-checkbox
+              [state]="checkBoxState"
+              [label]="checkBoxState"
+              [disabled]="true"
+            ></ion-checkbox>
+          </td>
+        </tr>
+      </table>
+
       <ion-divider type="text" label="chip"></ion-divider>
 
       <div class="flex-col">
@@ -253,6 +274,12 @@ export class ThemeDemoComponent {
       },
     },
   };
+
+  public checkBoxStates: CheckBoxStates[] = [
+    'enabled',
+    'checked',
+    'indeterminate',
+  ];
 
   public chipSizes: ChipSize[] = ['sm', 'md'];
 
