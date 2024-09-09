@@ -9,6 +9,7 @@ export interface StepType {
   lines?: StepLines;
   clickableWhenHasError?: boolean;
   disabled?: boolean;
+  clickable?: boolean;
 }
 
 export interface StepLines {
@@ -20,7 +21,6 @@ export type StepConfig = {
   current: number;
   disabled?: boolean;
   steps: StepType[];
-  clickable?: boolean;
   direction?: DirectionType;
   preventStepChange?: boolean;
   indexChange?: EventEmitter<number>;

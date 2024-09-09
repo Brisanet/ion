@@ -7,7 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { StepStatus, StepType, StepConfig } from '../core/types';
+import { StepConfig, StepStatus, StepType } from '../core/types';
 
 @Component({
   selector: 'ion-steps',
@@ -18,7 +18,6 @@ export class IonStepsComponent implements OnInit, OnChanges {
   @Input() current: StepConfig['current'] = 1;
   @Input() steps: StepConfig['steps'];
   @Input() disabled: StepConfig['disabled'] = false;
-  @Input() clickable: StepConfig['clickable'];
   @Input() preventStepChange: StepConfig['preventStepChange'] = false;
   @Input() direction: StepConfig['direction'] = 'horizontal';
   @Output() indexChange: StepConfig['indexChange'] = new EventEmitter<number>();
@@ -72,7 +71,11 @@ export class IonStepsComponent implements OnInit, OnChanges {
   }
 
   goesTo(index: number): void {
-    if (this.clickable && !this.disabled && !this.steps[index - 1].disabled) {
+    if (
+      this.steps[index - 1].clickable &&
+      !this.disabled &&
+      !this.steps[index - 1].disabled
+    ) {
       this.indexChange.emit(index);
       if (!this.preventStepChange) {
         this.changeStep(index);
