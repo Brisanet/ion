@@ -1,10 +1,15 @@
 import { Meta, Story } from '@storybook/angular';
 import { ThemeDemoComponent } from '../projects/ion/src/lib/theme/mocks/theme-demo.component';
 import { ThemeDemoModule } from '../projects/ion/src/lib/theme/mocks/theme-demo.module';
+import { BodyMockComponent } from '../projects/ion/src/lib/card/mock/body-mock.component';
 
 const Template: Story<ThemeDemoComponent> = () => ({
   component: ThemeDemoComponent,
-  moduleMetadata: { imports: [ThemeDemoModule] },
+  moduleMetadata: {
+    declarations: [BodyMockComponent],
+    imports: [ThemeDemoModule],
+    entryComponents: [BodyMockComponent],
+  },
 });
 
 export const Teste = Template.bind({});
