@@ -15,6 +15,8 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-button>
       </div>
 
+      <ion-divider></ion-divider>
+
       <div class="flex-column">
         <ion-alert
           *ngFor="let variant of alertVariantOptions"
@@ -27,6 +29,8 @@ import { IonThemes, IonThemeService } from '../theme.service';
           description="This is a description"
         ></ion-alert>
       </div>
+
+      <ion-divider></ion-divider>
 
       <div *ngFor="let size of switchSizeOptions">
         <div class="flex">
@@ -62,6 +66,8 @@ import { IonThemes, IonThemeService } from '../theme.service';
         </tr>
       </table>
 
+      <ion-divider></ion-divider>
+
       <div class="flex" *ngFor="let size of avatarSizeOption">
         <ion-avatar
           type="initials"
@@ -78,15 +84,19 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-avatar>
       </div>
 
-      <div class="flex">
-        <ng-container *ngFor="let type of badgeTypes">
+      <ion-divider></ion-divider>
+
+      <div>
+        <div class="flex" *ngFor="let type of badgeTypes">
           <ion-badge [type]="type" [value]="10"></ion-badge>
           <ion-badge [type]="type" label="teste"></ion-badge>
-        </ng-container>
+        </div>
       </div>
 
-      <div class="flex">
-        <ng-container *ngFor="let size of chipSizes">
+      <ion-divider></ion-divider>
+
+      <div class="flex-col">
+        <div class="flex" *ngFor="let size of chipSizes">
           <ion-chip [label]="'chip ' + size" [size]="size"></ion-chip>
           <ion-chip
             [label]="'chip ' + size"
@@ -98,8 +108,10 @@ import { IonThemes, IonThemeService } from '../theme.service';
             [size]="size"
             [disabled]="true"
           ></ion-chip>
-        </ng-container>
+        </div>
       </div>
+
+      <ion-divider></ion-divider>
 
       <ion-breadcrumb [breadcrumbs]="breadcrumbs"></ion-breadcrumb>
       <ion-breadcrumb [breadcrumbs]="bigBreadcrumbs"></ion-breadcrumb>

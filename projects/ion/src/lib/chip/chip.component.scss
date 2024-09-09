@@ -25,6 +25,7 @@
   border-radius: ion-theme(chip-border-radius);
   font-family: ion-theme(chip-text-font-family);
   font-weight: ion-theme(chip-text-font-weight);
+  transition: all 300ms;
 
   @include chip-style(chip-unselected);
 
