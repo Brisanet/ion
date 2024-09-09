@@ -1,0 +1,74 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  background-color: var(--ion-neutral-1),
+  shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15) 0px 0px 2px rgba(0, 0, 0, 0.15),
+  border-radius: 8px,
+  text: (
+    font-family: var(--ion-font-family-main),
+    font-style: normal,
+    font-weight: 400,
+    font-size: 14px,
+    line-height: 20px,
+  ),
+  item: (
+    background-color: var(--ion-neutral-1),
+    text-color: var(--ion-neutral-7),
+    icon-color: var(--ion-neutral-7),
+    border-radius: 8px,
+    padding: 8px 16px,
+    hover: (
+      background-color: var(--ion-primary-1),
+      text-color: var(--ion-neutral-7),
+      icon-color: var(--ion-neutral-7),
+    ),
+    active: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-6),
+      icon-color: var(--ion-primary-6),
+    ),
+    disabled: (
+      background-color: var(--ion-neutral-1),
+      text-color: var(--ion-neutral-5),
+      icon-color: var(--ion-neutral-5),
+    ),
+  ),
+  item-selected: (
+    text-color: var(--ion-primary-6),
+    background-color: var(--ion-primary-1),
+    icon-color: var(--ion-primary-6),
+    hover: (
+      background-color: var(--ion-primary-1),
+      text-color: var(--ion-primary-4),
+      icon-color: var(--ion-primary-4),
+    ),
+    active: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-7),
+      icon-color: var(--ion-primary-7),
+    ),
+    disabled: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-5),
+      icon-color: var(--ion-primary-5),
+    ),
+  ),
+  description: (
+    padding: 8px,
+    text: (
+      font-family: var(--ion-font-family-main),
+      font-weight: 600,
+      font-size: 14px,
+      line-height: 20px,
+      color: var(--ion-neutral-7),
+    ),
+  ),
+);
+
+@include register-component(
+  dropdown,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

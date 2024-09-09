@@ -1,9 +1,9 @@
 @import '../../../styles/themes/theme.scss';
 
 main {
-  background-color: ion-theme(base); // Pode ser usado dessa forma
-  width: 100%;
-  height: 100%;
+  background-color: ion-theme(base);
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
   position: absolute;
   padding: 16px;
   top: 0;
@@ -11,7 +11,12 @@ main {
   overflow-y: scroll;
 
   .switch-label {
-    color: var(--ion-neutral-8); // Ou dessa forma
+    color: ion-theme(neutral-8);
+  }
+
+  ion-divider {
+    padding: 8px 0;
+    display: block;
   }
 }
 
