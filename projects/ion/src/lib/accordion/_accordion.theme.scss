@@ -1,0 +1,36 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  border-radius: 8px,
+  divider-color: var(--ion-neutral-4),
+  text: (
+    font-size: 16px,
+    font-weight: 600,
+    line-height: 24px,
+  ),
+  item: (
+    background-color: var(--ion-neutral-1),
+    text-color: var(--ion-neutral-7),
+    padding: 16px 20px,
+    hover: (
+      background-color: var(--ion-neutral-2),
+      text-color: var(--ion-primary-3),
+    ),
+    active: (
+      background-color: var(--ion-primary-2),
+      text-color: var(--ion-primary-4),
+    ),
+    open: (
+      background-color: var(--ion-neutral-1),
+      text-color: var(--ion-primary-4),
+    ),
+  ),
+);
+
+@include register-component(
+  accordion,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

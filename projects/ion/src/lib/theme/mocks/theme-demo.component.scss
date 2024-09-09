@@ -31,3 +31,10 @@ main {
   flex-direction: column;
   gap: 5px;
 }
+
+.accordion-content {
+  &,
+  * {
+    color: ion-theme(neutral-8);
+  }
+}

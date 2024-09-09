@@ -30,6 +30,26 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-button>
       </div>
 
+      <ion-divider type="text" label="accordion"></ion-divider>
+      <ion-accordion
+        [accordions]="accordions"
+        [modeAccordion]="modeAccordion"
+        [templateHeader]="customHeader"
+        [templateBody]="customBody"
+      >
+      </ion-accordion>
+
+      <ng-template #customHeader let-data>{{ data.name }}</ng-template>
+
+      <ng-template #customBody let-data>
+        <div class="accordion-content">
+          <h3>Origem</h3>
+          <p>{{ data.origin }}</p>
+          <h3>Características</h3>
+          <p>{{ data.characteristics }}</p>
+        </div>
+      </ng-template>
+
       <ion-divider type="text" label="alert"></ion-divider>
 
       <div class="flex-column">
@@ -156,6 +176,23 @@ import { IonThemes, IonThemeService } from '../theme.service';
 export class ThemeDemoComponent {
   public ionThemes = IonThemes;
   public object = Object;
+
+  public accordions = [
+    {
+      name: 'Grupo 01: pastores e boiadeiros, exceto os suíços',
+      origin:
+        'Embora tenham surgido em diferentes países e ocasiões, essas raças têm em comum o fato de serem desenvolvidas a partir de cruzamentos seletivos com o objetivo de atenuar o instinto de predador com o rebanho. Assim, passaram a juntar as ovelhas sem o ímpeto de atacá-las.',
+      characteristics:
+        'Os pastores e os boiadeiros são inteligentes, ativos e adoram ter tarefas para cumprir. Não à toa, são muito usados pela polícia e pelos bombeiros, como é o caso do cachorro boiadeiro-australiano. Também são carinhosos e se adaptam bem à família. As raças mais conhecidas são: Pastor Alemão, Pastor de Shetland, Border Collie e Welsh Corgi Pembroke.',
+    },
+    {
+      name: 'Grupo 02: Pinscher e Schnauzer, molossoides, cães de montanha e boiadeiros suíços',
+      origin:
+        'Os cães desse grupo também foram desenvolvidos para ajudar no rebanho. No entanto, enquanto os pastores e os boiadeiros eram usados para reunir os animais, essas raças serviam para proteger o rebanho de outros predadores. Além disso, eram usados para trabalhos pesados, como puxar carroças.',
+      characteristics:
+        'Aprendizes vorazes, esses cães trabalhadores são fortes, ativos e muito inteligentes. Por isso, embora se adaptem bem ao convívio familiar, alguns deles precisam gastar bastante energia. O instinto é de defesa, como é o caso do cachorro Boxer. Os mais conhecidos são: Doberman, Rottweiler, Boxer, Fila, São Bernardo, Schnauzer e Pinscher.',
+    },
+  ];
 
   public alertVariantOptions: StatusType[] = [
     'success',
