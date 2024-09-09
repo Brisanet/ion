@@ -1,0 +1,40 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  text-font-size: 14px,
+  text-line-height: 20px,
+  border-radius: 6px,
+  text-font-weight: 400,
+  divider-color: var(--ion-neutral-5),
+  ellipsis-color: var(--ion-neutral-5),
+  text-color: var(--ion-neutral-6),
+  hover: (
+    ellipsis-color: var(--ion-primary-5),
+    text-color: var(--ion-primary-5),
+    text-font-weight: 400,
+  ),
+  press: (
+    ellipsis-color: var(--ion-primary-8),
+    text-color: var(--ion-primary-8),
+    text-font-weight: 400,
+  ),
+  focus: (
+    ellipsis-color: var(--ion-primary-5),
+    text-color: var(--ion-primary-5),
+    text-font-weight: 400,
+    background-color: var(--ion-neutral-1),
+  ),
+  active: (
+    ellipsis-color: var(--ion-primary-6),
+    text-color: var(--ion-primary-6),
+    text-font-weight: 600,
+  ),
+);
+
+@include register-component(
+  breadcrumb,
+  (
+    light: $default,
+    dark: $default,
+  )
+);

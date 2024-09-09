@@ -100,6 +100,9 @@ import { IonThemes, IonThemeService } from '../theme.service';
           ></ion-chip>
         </ng-container>
       </div>
+
+      <ion-breadcrumb [breadcrumbs]="breadcrumbs"></ion-breadcrumb>
+      <ion-breadcrumb [breadcrumbs]="bigBreadcrumbs"></ion-breadcrumb>
     </main>
   `,
   styleUrls: ['./theme-demo.component.scss'],
@@ -128,6 +131,17 @@ export class ThemeDemoComponent {
   badgeTypes = ['primary', 'secondary', 'neutral', 'negative'];
 
   chipSizes = ['sm', 'md'];
+
+  breadcrumbs = [
+    { label: 'Home', link: '/home' },
+    { label: 'Recursos', link: '/recursos' },
+    { label: 'Técnico', link: '/recursos/1' },
+  ];
+
+  bigBreadcrumbs = Array.from({ length: 10 }, (_, i) => ({
+    label: `Breadcrumb ${i}`,
+    link: `/breadcrumb/${i}`,
+  }));
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
