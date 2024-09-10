@@ -14,7 +14,6 @@ $default: (
 @include register-component(
   divider,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

@@ -29,7 +29,6 @@ $default: (
 @include register-component(
   badge,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

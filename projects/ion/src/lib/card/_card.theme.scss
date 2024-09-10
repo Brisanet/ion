@@ -24,7 +24,6 @@ $default: (
 @include register-component(
   card,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

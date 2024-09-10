@@ -72,7 +72,6 @@ $default: (
 @include register-component(
   switch,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

@@ -46,7 +46,6 @@ $default: (
 @include register-component(
   alert,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

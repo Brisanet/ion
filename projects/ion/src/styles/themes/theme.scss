@@ -8,6 +8,8 @@ $defaults: (
 $themes: (
   light: $light-theme,
   dark: $dark-theme,
+  orange-light: $orange-light-theme,
+  orange-dark: $orange-dark-theme,
 );
 
 // Registering the themes
@@ -20,9 +22,11 @@ $themes: (
 }
 
 @mixin register-component($component, $theme) {
-  @each $themeName, $themeMap in $theme {
+  @each $themeName in map-keys($themes) {
+    $key: if(map-has-key($theme, $themeName), $themeName, default);
+
     ::ng-deep body[ion-theme='#{$themeName}'] {
-      @include map-to-css-vars((#{$component}: $themeMap));
+      @include map-to-css-vars((#{$component}: map-get($theme, $key)));
     }
   }
 }

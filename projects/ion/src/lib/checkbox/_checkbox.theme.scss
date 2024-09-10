@@ -59,7 +59,6 @@ $default: (
 @include register-component(
   checkbox,
   (
-    light: $default,
-    dark: $default,
+    default: $default,
   )
 );

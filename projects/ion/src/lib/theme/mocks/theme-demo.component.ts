@@ -19,7 +19,11 @@ import {
 } from '../../core/types';
 import { SizeType } from '../../core/types/size';
 import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
-import { IonThemes, IonThemeService } from '../theme.service';
+import {
+  IonFormattedThemes,
+  IonThemeOptions,
+  IonThemeService,
+} from '../theme.service';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -27,8 +31,8 @@ import { IonThemes, IonThemeService } from '../theme.service';
     <main>
       <div class="flex">
         <ion-button
-          *ngFor="let theme of object.values(ionThemes)"
-          [label]="theme"
+          *ngFor="let theme of ionThemeService.themeOptions"
+          [label]="theme.label"
           type="secondary"
           (ionOnClick)="setTheme(theme)"
         ></ion-button>
@@ -245,7 +249,7 @@ import { IonThemes, IonThemeService } from '../theme.service';
   styleUrls: ['./theme-demo.component.scss'],
 })
 export class ThemeDemoComponent {
-  public ionThemes = IonThemes;
+  public ionThemes = IonThemeOptions;
   public object = Object;
 
   public accordions = [
@@ -362,13 +366,13 @@ export class ThemeDemoComponent {
     'negative',
   ];
 
-  constructor(private readonly ionThemeService: IonThemeService) {}
+  constructor(readonly ionThemeService: IonThemeService) {}
 
   public handleSwitch(key: string, value: boolean): void {
     this.buttonAtributes[key] = value;
   }
 
-  public setTheme(theme: IonThemes): void {
+  public setTheme(theme: IonFormattedThemes): void {
     this.ionThemeService.theme = theme;
   }
 }

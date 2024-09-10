@@ -1,38 +1,100 @@
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 
-export enum IonThemes {
+export enum IonThemeOptions {
+  DEFAULT = 'ion-default',
+  ORANGE = 'orange',
+}
+
+enum IonThemeScheme {
   LIGHT = 'light',
   DARK = 'dark',
-  AUTOMATIC = 'automatic',
 }
+
+type IonSCSSThemeKeys = 'light' | 'dark' | 'orange-light' | 'orange-dark';
+
+export interface IonFormattedThemes {
+  key: IonSCSSThemeKeys | IonThemeOptions;
+  label: string;
+  scheme: IonThemeScheme | 'automatic';
+}
+
+interface IonThemeConfiguration {
+  key: IonThemeOptions;
+  label: string;
+  schemes: Record<IonThemeScheme, IonSCSSThemeKeys>;
+}
+
+const THEMES_CONFIGURATION: IonThemeConfiguration[] = [
+  {
+    key: IonThemeOptions.DEFAULT,
+    label: 'Ion',
+    schemes: {
+      [IonThemeScheme.LIGHT]: 'light',
+      [IonThemeScheme.DARK]: 'dark',
+    },
+  },
+  {
+    key: IonThemeOptions.ORANGE,
+    label: 'Brisaneto',
+    schemes: {
+      [IonThemeScheme.LIGHT]: 'orange-light',
+      [IonThemeScheme.DARK]: 'orange-dark',
+    },
+  },
+];
 
 @Injectable({ providedIn: 'root' })
 export class IonThemeService {
-  private nativeTheme: IonThemes;
+  public themeOptions: IonFormattedThemes[];
 
-  public get theme(): IonThemes | null {
-    return localStorage.getItem('ion-theme') as IonThemes | null;
+  private nativeColorScheme: IonThemeScheme;
+
+  public get theme(): IonFormattedThemes | null {
+    return JSON.parse(localStorage.getItem('ion-theme')) as IonFormattedThemes;
   }
 
-  public set theme(theme: IonThemes) {
-    const selectedTheme =
-      theme === IonThemes.AUTOMATIC ? this.nativeTheme : theme;
-    this.applyTheme(selectedTheme);
-    localStorage.setItem('ion-theme', theme);
+  public set theme(theme: IonFormattedThemes) {
+    localStorage.setItem('ion-theme', JSON.stringify(theme));
+    this.applyTheme(theme);
+  }
+
+  public get colorScheme(): IonThemeScheme | null {
+    return localStorage.getItem('ion-color-scheme') as IonThemeScheme;
+  }
+
+  public set colorScheme(colorScheme: IonThemeScheme) {
+    localStorage.setItem('ion-color-scheme', colorScheme);
   }
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
 
   public init(): void {
-    this.listenToNativeThemeChanges();
+    this.buildThemeOptions();
 
-    const storedTheme = this.theme;
-    this.theme = storedTheme || IonThemes.LIGHT;
+    if (!this.colorScheme) {
+      this.colorScheme = IonThemeScheme.LIGHT;
+    }
+
+    if (!this.theme) {
+      this.theme = this.themeOptions[0];
+    }
+
+    this.listenToNativeThemeChanges();
+    this.applyTheme();
   }
 
-  private applyTheme(theme: IonThemes): void {
-    this.document.body.setAttribute('ion-theme', theme);
+  private applyTheme(theme: IonFormattedThemes = this.theme): void {
+    if (theme.scheme !== 'automatic') {
+      this.document.body.setAttribute('ion-theme', theme.key);
+      return;
+    }
+
+    this.colorScheme = this.nativeColorScheme;
+    const key = THEMES_CONFIGURATION.find(({ key }) => key === theme.key)
+      .schemes[this.nativeColorScheme];
+
+    this.document.body.setAttribute('ion-theme', key);
   }
 
   private listenToNativeThemeChanges(): void {
@@ -41,13 +103,35 @@ export class IonThemeService {
 
     mediaQuery.addEventListener('change', (event) => {
       this.updateNativeTheme(event.matches);
-      if (this.theme === IonThemes.AUTOMATIC) {
-        this.applyTheme(this.nativeTheme);
+      if (this.theme.scheme === 'automatic') {
+        this.colorScheme = this.nativeColorScheme;
+        this.applyTheme();
       }
     });
   }
 
   private updateNativeTheme(isDark: boolean): void {
-    this.nativeTheme = isDark ? IonThemes.DARK : IonThemes.LIGHT;
+    this.nativeColorScheme = isDark
+      ? IonThemeScheme.DARK
+      : IonThemeScheme.LIGHT;
+  }
+
+  private buildThemeOptions(): void {
+    this.themeOptions = THEMES_CONFIGURATION.reduce((acc, config) => {
+      const { key, label, schemes } = config;
+
+      const options = Object.entries(schemes).map(([scheme, value]) => ({
+        key: value,
+        label: `${label} (${scheme})`,
+        scheme: scheme as IonThemeScheme,
+      }));
+      acc.push(...options);
+
+      if (schemes[IonThemeScheme.LIGHT] && schemes[IonThemeScheme.DARK]) {
+        acc.push({ key, label: `${label} (Automático)`, scheme: 'automatic' });
+      }
+
+      return acc;
+    }, [] as IonFormattedThemes[]);
   }
 }
