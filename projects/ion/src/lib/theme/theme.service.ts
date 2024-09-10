@@ -85,16 +85,22 @@ export class IonThemeService {
   }
 
   private applyTheme(theme: IonFormattedThemes = this.theme): void {
-    if (theme.scheme !== 'automatic') {
-      this.document.body.setAttribute('ion-theme', theme.key);
-      return;
+    let key = theme.key;
+
+    if (theme.scheme === 'automatic') {
+      this.colorScheme = this.nativeColorScheme;
+
+      key = THEMES_CONFIGURATION.find(({ key }) => key === theme.key).schemes[
+        this.nativeColorScheme
+      ];
     }
 
-    this.colorScheme = this.nativeColorScheme;
-    const key = THEMES_CONFIGURATION.find(({ key }) => key === theme.key)
-      .schemes[this.nativeColorScheme];
-
+    this.document.body.classList.add('ion-theme-transition');
     this.document.body.setAttribute('ion-theme', key);
+
+    setTimeout(() => {
+      this.document.body.classList.remove('ion-theme-transition');
+    }, 200);
   }
 
   private listenToNativeThemeChanges(): void {

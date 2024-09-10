@@ -47,3 +47,7 @@ $themes: (
 @function ion-theme($key) {
   @return var(--ion-#{$key});
 }
+
+::ng-deep body.ion-theme-transition * {
+  transition: all 0.2s;
+}
