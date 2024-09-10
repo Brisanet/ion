@@ -1,12 +1,7 @@
-@import '../../styles/index.scss';
+@use 'indicator.theme';
 
-@mixin icon-style {
-  ion-icon:not(:first-child) {
-    ::ng-deep svg {
-      fill: $neutral-6;
-    }
-  }
-}
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .ellipsis-in-text {
   text-overflow: ellipsis;
@@ -15,13 +10,13 @@
 }
 
 .container {
-  font-family: 'Source Sans Pro';
   position: relative;
   min-width: 120px;
   max-width: 320px;
-  box-shadow: $shadow-1;
-  border: 0.5px solid $neutral-5;
-  border-radius: 8px;
+  font-family: ion-theme(indicator-text-font-family);
+  box-shadow: ion-theme(indicator-shadow);
+  border: 0.5px solid ion-theme(indicator-border-color);
+  border-radius: ion-theme(indicator-border-radius);
   overflow: hidden;
 
   h1,
@@ -35,40 +30,38 @@
     justify-content: space-between;
     align-items: center;
     gap: spacing(1);
-    background: $neutral-2;
-    padding: 8px 16px;
-    height: 36px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    background: ion-theme(indicator-header-background-color);
+    padding: ion-theme(indicator-header-padding);
+    height: ion-theme(indicator-header-height);
+    border-top-left-radius: ion-theme(indicator-header-border-radius);
+    border-top-right-radius: ion-theme(indicator-header-border-radius);
 
     &.no-data {
       justify-content: center !important;
     }
 
-    @include icon-style();
+    ion-icon:not(:first-child) ::ng-deep svg {
+      fill: ion-theme(indicator-header-icon-color);
+    }
 
     h1 {
-      color: $neutral-7;
-      font-weight: 600;
-      font-size: 14px;
-      max-width: 230px;
+      color: ion-theme(indicator-header-title-color);
+      font-weight: ion-theme(indicator-header-title-weight);
+      font-size: ion-theme(indicator-header-title-size);
+      max-width: ion-theme(indicator-header-title-max-width);
       margin-right: auto;
 
       @extend .ellipsis-in-text;
     }
   }
 
-  .content,
-  footer {
-    background: $neutral-1;
-  }
-
   .content {
-    padding: 12px 16px;
-    box-sizing: border-box;
-    min-height: 84px;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
+    background-color: ion-theme(indicator-content-background-color);
+    padding: ion-theme(indicator-content-padding);
+    min-height: ion-theme(indicator-content-min-height);
 
     header {
       all: unset;
@@ -78,29 +71,30 @@
       align-items: center;
 
       h4 {
-        max-width: 160px;
-        font-weight: 600;
-        font-size: 20px;
-        color: $neutral-7;
+        max-width: ion-theme(indicator-content-main-value-text-max-width);
+        color: ion-theme(indicator-content-main-value-text-color);
+        font-weight: ion-theme(indicator-content-main-value-text-font-weight);
+        font-size: ion-theme(indicator-content-main-value-text-font-size);
         @extend .ellipsis-in-text;
       }
 
       p {
-        max-width: 80px;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 16px;
-        color: $neutral-7;
+        max-width: ion-theme(indicator-content-second-value-text-max-width);
+        color: ion-theme(indicator-content-second-value-text-color);
+        font-weight: ion-theme(indicator-content-second-value-text-font-weight);
+        font-size: ion-theme(indicator-content-second-value-text-font-size);
         @extend .ellipsis-in-text;
       }
     }
 
     .error-container {
-      color: $neutral-6;
       display: flex;
       align-items: center;
+      color: ion-theme(indicator-content-error-text-color);
 
-      @include icon-style();
+      ion-icon ::ng-deep svg {
+        fill: ion-theme(indicator-content-error-icon-color);
+      }
 
       span {
         padding-left: 4px;
@@ -124,13 +118,14 @@
     }
 
     footer {
-      width: 100%;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       box-sizing: border-box;
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
+      width: 100%;
+      background-color: ion-theme(indicator-footer-background-color);
+      border-bottom-left-radius: ion-theme(indicator-footer-border-radius);
+      border-bottom-right-radius: ion-theme(indicator-footer-border-radius);
     }
   }
 }

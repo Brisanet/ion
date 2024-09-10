@@ -17,6 +17,7 @@ import {
 } from '../../core/types';
 import { SizeType } from '../../core/types/size';
 import { IonThemes, IonThemeService } from '../theme.service';
+import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -201,6 +202,17 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-icon>
       </div>
 
+      <ion-divider type="text" label="indicator"></ion-divider>
+
+      <ion-indicator
+        [title]="'Preview'"
+        value="1500"
+        secondValue="5%"
+        tooltipText="Texto personalizado via atributo tooltipText"
+        [headerIcon]="{ type: 'box' }"
+        [buttonConfig]="indicatorButtonConfig"
+      ></ion-indicator>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -312,6 +324,8 @@ export class ThemeDemoComponent {
     'var(--ion-negative-5)',
     'var(--ion-info-5)',
   ];
+
+  public indicatorButtonConfig = buttonEmitterConfig;
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
