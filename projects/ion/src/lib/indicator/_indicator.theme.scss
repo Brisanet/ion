@@ -1,48 +1,48 @@
 @import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
 $default: (
-  text-font-family: var(--ion-font-family-main),
+  text-font-family: ion-theme(font-family-main),
   shadow: 0px 0px 4px #00000026,
   border: (
-    color: var(--ion-neutral-5),
+    color: ion-theme(neutral-5),
     radius: 8px,
   ),
   header: (
-    background-color: var(--ion-neutral-2),
+    background-color: ion-theme(neutral-2),
     padding: 8px 16px,
     height: 36px,
     border-radius: 8px,
-    icon-color: var(--ion-neutral-6),
+    icon-color: ion-theme(neutral-6),
     title: (
-      color: var(--ion-neutral-7),
+      color: ion-theme(neutral-7),
       weight: 600,
       size: 14px,
       max-width: 230px,
     ),
   ),
   content: (
-    background-color: var(--ion-neutral-1),
+    background-color: ion-theme(neutral-1),
     padding: 12px 16px,
     min-height: 84px,
     main-value-text: (
-      color: var(--ion-neutral-7),
+      color: ion-theme(neutral-7),
       font-weight: 600,
       font-size: 20px,
       max-width: 160px,
     ),
     second-value-text: (
-      color: var(--ion-neutral-7),
+      color: ion-theme(neutral-7),
       font-weight: 400,
       font-size: 16px,
       max-width: 80px,
     ),
     error: (
-      text-color: var(--ion-neutral-6),
-      icon-color: var(--ion-neutral-6),
+      text-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-6),
     ),
   ),
   footer: (
-    background-color: var(--ion-neutral-1),
+    background-color: ion-theme(neutral-1),
     border-radius: 8px,
   ),
 );

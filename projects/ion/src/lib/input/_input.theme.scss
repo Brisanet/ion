@@ -1,0 +1,10 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: ();
+
+@include register-component(
+  input,
+  (
+    default: $default,
+  )
+);

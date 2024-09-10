@@ -1,13 +1,13 @@
 @import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
 $default: (
-  color: var(--ion-neutral-4),
+  color: ion-theme(neutral-4),
   text: (
     font-weight: 400,
-    font-family: var(--ion-font-family-main),
+    font-family: ion-theme(font-family-main),
     font-size: 14px,
     line-height: 20px,
-    color: var(--ion-neutral-7),
+    color: ion-theme(neutral-7),
   ),
 );
 

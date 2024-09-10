@@ -6,19 +6,19 @@ $default: (
     md: 16px,
   ),
   text: (
-    font-family: var(--ion-font-family-main),
+    font-family: ion-theme(font-family-main),
     font-size: 14px,
     font-weight: 400,
     line-height: 20px,
-    color: var(--ion-neutral-7),
+    color: ion-theme(neutral-7),
   ),
   icon-color: white,
   variant: (
-    primary-color: var(--ion-primary-6),
-    warning-color: var(--ion-warning-6),
-    negative-color: var(--ion-negative-6),
-    success-color: var(--ion-positive-6),
-    info-color: var(--ion-info-6),
+    primary-color: ion-theme(primary-6),
+    warning-color: ion-theme(warning-6),
+    negative-color: ion-theme(negative-6),
+    success-color: ion-theme(positive-6),
+    info-color: ion-theme(info-6),
   ),
 );
 

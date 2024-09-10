@@ -2,11 +2,11 @@
 
 $default: (
   border-radius: 50%,
-  background-color: var(--ion-primary-2),
-  icon-color: var(--ion-primary-7),
+  background-color: ion-theme(primary-2),
+  icon-color: ion-theme(primary-7),
   text: (
-    color: var(--ion-primary-7),
-    font-family: var(--ion-font-family-main),
+    color: ion-theme(primary-7),
+    font-family: ion-theme(font-family-main),
   ),
   size: (
     xs: (

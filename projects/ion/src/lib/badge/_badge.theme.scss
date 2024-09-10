@@ -6,23 +6,23 @@ $default: (
     font-size: 12px,
     font-weight: 600,
     line-height: 16px,
-    font-family: var(--ion-font-family-main),
+    font-family: ion-theme(font-family-main),
   ),
   primary: (
-    background-color: var(--ion-primary-6),
-    text-color: var(--ion-neutral-1),
+    background-color: ion-theme(primary-6),
+    text-color: ion-theme(neutral-1),
   ),
   secondary: (
-    background-color: var(--ion-primary-1),
-    text-color: var(--ion-primary-6),
+    background-color: ion-theme(primary-1),
+    text-color: ion-theme(primary-6),
   ),
   neutral: (
-    background-color: var(--ion-neutral-4),
-    text-color: var(--ion-neutral-8),
+    background-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-8),
   ),
   negative: (
-    background-color: var(--ion-negative-6),
-    text-color: var(--ion-positive-1),
+    background-color: ion-theme(negative-6),
+    text-color: ion-theme(positive-1),
   ),
 );
 

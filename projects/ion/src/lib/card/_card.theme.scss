@@ -3,18 +3,18 @@
 $default: (
   border-radius: 8px,
   shadow: 0 4px 4px rgba(101, 108, 129, 0.2),
-  background-color: var(--ion-neutral-1),
-  divider-color: var(--ion-neutral-4),
+  background-color: ion-theme(neutral-1),
+  divider-color: ion-theme(neutral-4),
   header: (
     padding: 16px 24px,
-    icon-color: var(--ion-neutral-8),
+    icon-color: ion-theme(neutral-8),
     title: (
       font-weight: 600,
       font-size: 20px,
       line-height: 28px,
-      color: var(--ion-neutral-8),
+      color: ion-theme(neutral-8),
     ),
-    info-icon-color: var(--ion-neutral-6),
+    info-icon-color: ion-theme(neutral-6),
   ),
   footer: (
     padding: 16px 24px,

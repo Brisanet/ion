@@ -2,27 +2,27 @@
 
 $default: (
   border-radius: 8px,
-  divider-color: var(--ion-neutral-4),
+  divider-color: ion-theme(neutral-4),
   text: (
     font-size: 16px,
     font-weight: 600,
     line-height: 24px,
   ),
   item: (
-    background-color: var(--ion-neutral-1),
-    text-color: var(--ion-neutral-7),
+    background-color: ion-theme(neutral-1),
+    text-color: ion-theme(neutral-7),
     padding: 16px 20px,
     hover: (
-      background-color: var(--ion-neutral-2),
-      text-color: var(--ion-primary-3),
+      background-color: ion-theme(neutral-2),
+      text-color: ion-theme(primary-3),
     ),
     active: (
-      background-color: var(--ion-primary-2),
-      text-color: var(--ion-primary-4),
+      background-color: ion-theme(primary-2),
+      text-color: ion-theme(primary-4),
     ),
     open: (
-      background-color: var(--ion-neutral-1),
-      text-color: var(--ion-primary-4),
+      background-color: ion-theme(neutral-1),
+      text-color: ion-theme(primary-4),
     ),
   ),
 );
