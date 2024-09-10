@@ -190,6 +190,17 @@ import { IonThemes, IonThemeService } from '../theme.service';
         ></ion-dropdown>
       </div>
 
+      <ion-divider type="text" label="icon"></ion-divider>
+
+      <div class="flex">
+        <ion-icon
+          *ngFor="let color of iconColorsDemo"
+          type="box"
+          [size]="24"
+          [color]="color"
+        ></ion-icon>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -292,6 +303,15 @@ export class ThemeDemoComponent {
   ];
 
   public switchSizeOptions: SwitchSize[] = ['sm', 'md', 'lg'];
+
+  public iconColorsDemo: string[] = [
+    'var(--ion-primary-5)',
+    'var(--ion-neutral-8)',
+    'var(--ion-positive-5)',
+    'var(--ion-warning-5)',
+    'var(--ion-negative-5)',
+    'var(--ion-info-5)',
+  ];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 
