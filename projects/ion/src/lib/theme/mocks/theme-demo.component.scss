@@ -38,3 +38,8 @@ main {
     color: ion-theme(neutral-8);
   }
 }
+
+ion-dropdown {
+  position: relative;
+  transform: translateY(40px);
+}

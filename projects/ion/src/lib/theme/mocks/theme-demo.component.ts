@@ -182,9 +182,10 @@ import { IonThemes, IonThemeService } from '../theme.service';
 
       <ion-divider type="text" label="dropdown"></ion-divider>
 
-      <div class="flex" style="position: relative; height: 250px;">
+      <div class="flex" style="height: 260px;">
         <ion-dropdown
           description="Hello, dropdown!"
+          [enableSearch]="true"
           [options]="dropdownOptions"
         ></ion-dropdown>
       </div>
