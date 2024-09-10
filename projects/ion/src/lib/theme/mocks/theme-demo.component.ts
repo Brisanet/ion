@@ -7,6 +7,8 @@ import {
   CheckBoxStates,
   ChipSize,
   DropdownItem,
+  InfoBadgeSize,
+  InfoBadgeStatus,
   IonButtonProps,
   IonCard,
   Size,
@@ -16,8 +18,8 @@ import {
   Type,
 } from '../../core/types';
 import { SizeType } from '../../core/types/size';
-import { IonThemes, IonThemeService } from '../theme.service';
 import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
+import { IonThemes, IonThemeService } from '../theme.service';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -213,6 +215,30 @@ import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-conf
         [buttonConfig]="indicatorButtonConfig"
       ></ion-indicator>
 
+      <ion-divider type="text" label="info badge"></ion-divider>
+
+      <table>
+        <tr *ngFor="let variant of infoBadgeVariants">
+          <ng-container *ngFor="let size of infoBadgeSizes">
+            <td>
+              <ion-info-badge
+                icon="check"
+                [variant]="variant"
+                [size]="size"
+              ></ion-info-badge>
+            </td>
+
+            <td>
+              <ion-info-badge
+                [text]="variant + ' ' + size"
+                [variant]="variant"
+                [size]="size"
+              ></ion-info-badge>
+            </td>
+          </ng-container>
+        </tr>
+      </table>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -326,6 +352,15 @@ export class ThemeDemoComponent {
   ];
 
   public indicatorButtonConfig = buttonEmitterConfig;
+
+  public infoBadgeSizes: InfoBadgeSize[] = ['sm', 'md'];
+  public infoBadgeVariants: InfoBadgeStatus[] = [
+    'primary',
+    'success',
+    'info',
+    'warning',
+    'negative',
+  ];
 
   constructor(private readonly ionThemeService: IonThemeService) {}
 

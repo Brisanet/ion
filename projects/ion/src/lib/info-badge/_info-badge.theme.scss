@@ -1,0 +1,31 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  size: (
+    sm: 12px,
+    md: 16px,
+  ),
+  text: (
+    font-family: var(--ion-font-family-main),
+    font-size: 14px,
+    font-weight: 400,
+    line-height: 20px,
+    color: var(--ion-neutral-7),
+  ),
+  icon-color: white,
+  variant: (
+    primary-color: var(--ion-primary-6),
+    warning-color: var(--ion-warning-6),
+    negative-color: var(--ion-negative-6),
+    success-color: var(--ion-positive-6),
+    info-color: var(--ion-info-6),
+  ),
+);
+
+@include register-component(
+  info-badge,
+  (
+    light: $default,
+    dark: $default,
+  )
+);
