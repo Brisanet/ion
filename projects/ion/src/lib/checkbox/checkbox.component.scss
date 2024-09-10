@@ -5,8 +5,6 @@
 
 @mixin setBackgroundChecked($color) {
   position: relative;
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M12.8839 6.28075C13.3721 5.79258 13.3721 5.00113 12.8839 4.51298C12.3957 4.02483 11.6043 4.02484 11.1161 4.513L6.7939 8.83535L4.88385 6.9253C4.3957 6.43714 3.60424 6.43714 3.11609 6.9253C2.62793 7.41345 2.62793 8.20491 3.11609 8.69307L5.91003 11.487C6.14445 11.7214 6.4624 11.8531 6.79392 11.8531C7.12545 11.8531 7.44339 11.7214 7.67781 11.487L12.8839 6.28075Z' fill='%2300000000'/%3E%3C/svg%3E%0A");
-  background-size: cover;
 
   &::after {
     content: '';
@@ -16,8 +14,6 @@
     bottom: 0;
     left: 0;
     background-color: ion-theme($color);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M12.8839 6.28075C13.3721 5.79258 13.3721 5.00113 12.8839 4.51298C12.3957 4.02483 11.6043 4.02484 11.1161 4.513L6.7939 8.83535L4.88385 6.9253C4.3957 6.43714 3.60424 6.43714 3.11609 6.9253C2.62793 7.41345 2.62793 8.20491 3.11609 8.69307L5.91003 11.487C6.14445 11.7214 6.4624 11.8531 6.79392 11.8531C7.12545 11.8531 7.44339 11.7214 7.67781 11.487L12.8839 6.28075Z' fill='%23fff'/%3E%3C/svg%3E%0A")
-      center/cover;
     mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M12.8839 6.28075C13.3721 5.79258 13.3721 5.00113 12.8839 4.51298C12.3957 4.02483 11.6043 4.02484 11.1161 4.513L6.7939 8.83535L4.88385 6.9253C4.3957 6.43714 3.60424 6.43714 3.11609 6.9253C2.62793 7.41345 2.62793 8.20491 3.11609 8.69307L5.91003 11.487C6.14445 11.7214 6.4624 11.8531 6.79392 11.8531C7.12545 11.8531 7.44339 11.7214 7.67781 11.487L12.8839 6.28075Z' fill='%23fff'/%3E%3C/svg%3E%0A")
       center/cover;
   }
@@ -25,8 +21,6 @@
 
 @mixin setBackgroundDash($color) {
   position: relative;
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M3 7C3 6.44772 3.44772 6 4 6H12C12.5523 6 13 6.44772 13 7V9C13 9.55228 12.5523 10 12 10H4C3.44772 10 3 9.55228 3 9V7Z' fill='%23000000'/%3E%3C/svg%3E%0A");
-  background-size: cover;
 
   &::after {
     content: '';
@@ -36,8 +30,6 @@
     bottom: 0;
     left: 0;
     background-color: ion-theme($color);
-    -webkit-mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M3 7C3 6.44772 3.44772 6 4 6H12C12.5523 6 13 6.44772 13 7V9C13 9.55228 12.5523 10 12 10H4C3.44772 10 3 9.55228 3 9V7Z' fill='%23fff'/%3E%3C/svg%3E%0A")
-      center/cover;
     mask: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='16' height='16' rx='4' fill='none'/%3E%3Cpath d='M3 7C3 6.44772 3.44772 6 4 6H12C12.5523 6 13 6.44772 13 7V9C13 9.55228 12.5523 10 12 10H4C3.44772 10 3 9.55228 3 9V7Z' fill='%23fff'/%3E%3C/svg%3E%0A")
       center/cover;
   }
@@ -63,7 +55,7 @@
   &:hover {
     box-shadow: 0 0 2px 2px ion-theme(checkbox-enabled-hover-shadow-color);
     border-color: ion-theme(checkbox-enabled-hover-border-color);
-    @include setBackgroundChecked(check-enabled-hover-icon-color);
+    @include setBackgroundChecked(checkbox-enabled-hover-icon-color);
   }
 
   &:active {
@@ -110,7 +102,7 @@
 }
 
 .ion-checkbox:indeterminate {
-  :enabled {
+  &:enabled {
     border: none;
     cursor: pointer;
     background-color: ion-theme(checkbox-indeterminate-background-color);
