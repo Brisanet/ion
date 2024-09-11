@@ -24,6 +24,7 @@ import {
   IonThemeOptions,
   IonThemeService,
 } from '../theme.service';
+import { IonInputProps } from '../../core/types/input';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -119,7 +120,7 @@ import {
             <ion-switch
               [size]="size"
               [value]="buttonAtributes[attribute]"
-              (atValueChange)="handleSwitch(attribute, $event)"
+              (atValueChange)="handleSwitchBtn(attribute, $event)"
             ></ion-switch>
           </div>
         </div>
@@ -242,6 +243,36 @@ import {
           </ng-container>
         </tr>
       </table>
+
+      <ion-divider type="text" label="input"></ion-divider>
+
+      <div>
+        <ion-input
+          placeholder="Input demo"
+          iconInput="box"
+          [disabled]="inputAtributes.disabled"
+          [valid]="inputAtributes.valid"
+          [invalid]="inputAtributes.invalid"
+          [inputButton]="inputAtributes.inputButton"
+          [clearButton]="inputAtributes.clearButton"
+          [readonly]="inputAtributes.readonly"
+          [inputButtonConfig]="inputButtonConfig"
+          maxLength="20"
+          errorMsg="Tá errado aí, ó!"
+        ></ion-input>
+
+        <div class="flex">
+          <ng-container *ngFor="let attribute of object.keys(inputAtributes)">
+            <ion-switch
+              [value]="inputAtributes[attribute]"
+              (atValueChange)="handleSwitchInput(attribute, $event)"
+            ></ion-switch>
+            <span class="switch-label" style="margin-right: 16px;">
+              {{ attribute }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
 
       <ion-divider></ion-divider>
     </main>
@@ -366,10 +397,28 @@ export class ThemeDemoComponent {
     'negative',
   ];
 
+  public inputAtributes: Partial<Record<keyof IonInputProps, boolean>> = {
+    disabled: false,
+    valid: false,
+    invalid: false,
+    inputButton: false,
+    clearButton: false,
+    readonly: false,
+  };
+  public inputButtonConfig: IonButtonProps = {
+    label: 'Button',
+    size: 'md',
+    type: 'secondary',
+  };
+
   constructor(readonly ionThemeService: IonThemeService) {}
 
-  public handleSwitch(key: string, value: boolean): void {
+  public handleSwitchBtn(key: string, value: boolean): void {
     this.buttonAtributes[key] = value;
+  }
+
+  public handleSwitchInput(key: string, value: boolean): void {
+    this.inputAtributes[key] = value;
   }
 
   public setTheme(theme: IonFormattedThemes): void {
