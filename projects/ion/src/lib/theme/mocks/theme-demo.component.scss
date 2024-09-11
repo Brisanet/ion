@@ -10,7 +10,7 @@ main {
   left: 0;
   overflow-y: scroll;
 
-  .switch-label {
+  .switch-label, span {
     color: ion-theme(neutral-8);
   }
 

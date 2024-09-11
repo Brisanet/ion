@@ -9,6 +9,7 @@ import {
   DropdownItem,
   InfoBadgeSize,
   InfoBadgeStatus,
+  InputCountSize,
   IonButtonProps,
   IonCard,
   Size,
@@ -298,6 +299,15 @@ import { IonInputProps } from '../../core/types/input';
         </div>
       </div>
 
+      <ion-divider type="text" label="input counter"></ion-divider>
+
+      <div class="flex-column">
+        <div class="flex" *ngFor="let size of inputCountSizeOptions">
+          <span>size {{ size }}: </span>
+          <ion-input-counter [inputSize]="size"></ion-input-counter>
+        </div>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -438,6 +448,8 @@ export class ThemeDemoComponent {
   public inputAreaAtributes: Partial<Record<keyof IonInputProps, boolean>> = {
     disabled: false,
   };
+
+  public inputCountSizeOptions: InputCountSize[] = ['sm', 'md'];
 
   constructor(readonly ionThemeService: IonThemeService) {}
 
