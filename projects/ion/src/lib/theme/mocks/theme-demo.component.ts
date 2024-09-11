@@ -40,6 +40,7 @@ import { IonInputProps } from '../../core/types/input';
       </div>
 
       <ion-divider type="text" label="accordion"></ion-divider>
+
       <ion-accordion
         [accordions]="accordions"
         [modeAccordion]="modeAccordion"
@@ -274,6 +275,29 @@ import { IonInputProps } from '../../core/types/input';
         </div>
       </div>
 
+      <ion-divider type="text" label="input area"></ion-divider>
+
+      <div>
+        <ion-input-area
+          placeholder="Input area demo"
+          [disabled]="inputAreaAtributes.disabled"
+        ></ion-input-area>
+
+        <div class="flex">
+          <ng-container
+            *ngFor="let attribute of object.keys(inputAreaAtributes)"
+          >
+            <ion-switch
+              [value]="inputAreaAtributes[attribute]"
+              (atValueChange)="handleSwitchInputArea(attribute, $event)"
+            ></ion-switch>
+            <span class="switch-label" style="margin-right: 16px;">
+              {{ attribute }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -411,6 +435,10 @@ export class ThemeDemoComponent {
     type: 'secondary',
   };
 
+  public inputAreaAtributes: Partial<Record<keyof IonInputProps, boolean>> = {
+    disabled: false,
+  };
+
   constructor(readonly ionThemeService: IonThemeService) {}
 
   public handleSwitchBtn(key: string, value: boolean): void {
@@ -419,6 +447,10 @@ export class ThemeDemoComponent {
 
   public handleSwitchInput(key: string, value: boolean): void {
     this.inputAtributes[key] = value;
+  }
+
+  public handleSwitchInputArea(key: string, value: boolean): void {
+    this.inputAreaAtributes[key] = value;
   }
 
   public setTheme(theme: IonFormattedThemes): void {

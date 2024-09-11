@@ -132,6 +132,14 @@ div.disabled {
   cursor: not-allowed;
   border-color: ion-theme(input-disabled-border-color) !important;
 
+  input {
+    color: ion-theme(input-disabled-text-color) !important;
+    
+    &::placeholder {
+      color: ion-theme(input-element-disabled-placeholder-color);
+    }
+  }
+
   &:hover,
   &:focus-within,
   &:active {
@@ -139,9 +147,6 @@ div.disabled {
     box-shadow: none;
   }
 
-  &::placeholder {
-    color: ion-theme(input-element-disabled-placeholder-color);
-  }
 
   ion-icon ::ng-deep svg {
     fill: ion-theme(input-disabled-icon-color);
