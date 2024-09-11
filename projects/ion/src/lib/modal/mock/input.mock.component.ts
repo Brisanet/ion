@@ -17,6 +17,13 @@ import { IonModalService } from '../modal.service';
       (ionOnClick)="this.save()"
     ></ion-button>
   `,
+  styles: [
+    `
+      label {
+        color: var(--ion-neutral-7);
+      }
+    `,
+  ],
 })
 export class InputMockComponent {
   name: string;

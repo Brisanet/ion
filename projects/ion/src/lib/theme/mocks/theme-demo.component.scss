@@ -44,3 +44,7 @@ ion-dropdown {
   position: relative;
   transform: translateY(40px);
 }
+
+::ng-deep .theme-demo-message .ion-message {
+  z-index: 1 !important;
+}

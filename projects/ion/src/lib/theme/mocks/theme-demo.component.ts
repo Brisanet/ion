@@ -21,14 +21,16 @@ import {
   TooltipPosition,
   Type,
 } from '../../core/types';
+import { IonInputProps } from '../../core/types/input';
 import { SizeType } from '../../core/types/size';
 import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
+import { IonModalService } from '../../modal/modal.service';
 import {
   IonFormattedThemes,
   IonThemeOptions,
   IonThemeService,
 } from '../theme.service';
-import { IonInputProps } from '../../core/types/input';
+import { InputMockComponent } from '../../modal/mock/input.mock.component';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -386,11 +388,16 @@ import { IonInputProps } from '../../core/types/input';
       <div class="flex-column">
         <ion-message
           *ngFor="let status of messageStatusTypes"
+          class="theme-demo-message"
           [type]="status"
           [label]="'status ' + status"
         >
         </ion-message>
       </div>
+
+      <ion-divider type="text" label="modal"></ion-divider>
+
+      <ion-button label="Open Modal" (ionOnClick)="openModal()"></ion-button>
 
       <ion-divider></ion-divider>
     </main>
@@ -557,7 +564,10 @@ export class ThemeDemoComponent {
     'custom',
   ];
 
-  constructor(readonly ionThemeService: IonThemeService) {}
+  constructor(
+    readonly ionThemeService: IonThemeService,
+    private ionModalService: IonModalService
+  ) {}
 
   public setTheme(theme: IonFormattedThemes): void {
     this.ionThemeService.theme = theme;
@@ -572,6 +582,17 @@ export class ThemeDemoComponent {
     this.inputSelectAtributes
   );
   public handleSwitchLink = this.createSwitchHandler(this.linkAtributes);
+
+  public openModal(): void {
+    this.ionModalService.open(InputMockComponent, {
+      title: 'Modal Title',
+      alertConfig: {
+        type: 'info',
+        message: 'This is the title',
+        description: 'Add here a description supimpa to your modal',
+      },
+    });
+  }
 
   private createSwitchHandler(config: Record<string, unknown>) {
     return (key: string, value: boolean): void => {
