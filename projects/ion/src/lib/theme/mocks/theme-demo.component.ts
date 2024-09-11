@@ -7,11 +7,13 @@ import {
   CheckBoxStates,
   ChipSize,
   DropdownItem,
+  FontSize,
   InfoBadgeSize,
   InfoBadgeStatus,
   InputCountSize,
   IonButtonProps,
   IonCard,
+  IonLinkProps,
   Size,
   StatusType,
   SwitchSize,
@@ -332,6 +334,52 @@ import { IonInputProps } from '../../core/types/input';
         </div>
       </div>
 
+      <ion-divider type="text" label="link"></ion-divider>
+
+      <div>
+        <table>
+          <tr *ngFor="let size of linkSizes">
+            <td>
+              <ion-link
+                [label]="'Link ' + size"
+                [size]="size"
+                [bold]="linkAtributes.bold"
+                [disabled]="linkAtributes.disabled"
+              ></ion-link>
+            </td>
+
+            <td>
+              <ion-link
+                [label]="'Link ' + size"
+                [size]="size"
+                [bold]="linkAtributes.bold"
+                [disabled]="linkAtributes.disabled"
+                icon="access"
+              ></ion-link>
+            </td>
+
+            <td>
+              <ion-link
+                [label]="'Link ' + size"
+                [size]="size"
+                [bold]="linkAtributes.bold"
+                [disabled]="linkAtributes.disabled"
+                icon="access"
+                iconSide="left"
+              ></ion-link>
+            </td>
+          </tr>
+        </table>
+
+        <div class="flex" *ngFor="let attribute of object.keys(linkAtributes)">
+          <span class="switch-label">{{ attribute }}</span>
+          <ion-switch
+            [value]="linkAtributes[attribute]"
+            (atValueChange)="handleSwitchLink(attribute, $event)"
+          ></ion-switch>
+        </div>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -482,6 +530,12 @@ export class ThemeDemoComponent {
     valid: null,
   };
 
+  public linkSizes: FontSize[] = ['sm', 'md'];
+  public linkAtributes: Partial<Record<keyof IonLinkProps, boolean>> = {
+    disabled: false,
+    bold: false,
+  };
+
   constructor(readonly ionThemeService: IonThemeService) {}
 
   public setTheme(theme: IonFormattedThemes): void {
@@ -496,6 +550,7 @@ export class ThemeDemoComponent {
   public handleSwitchInputSelect = this.createSwitchHandler(
     this.inputSelectAtributes
   );
+  public handleSwitchLink = this.createSwitchHandler(this.linkAtributes);
 
   private createSwitchHandler(config: Record<string, unknown>) {
     return (key: string, value: boolean): void => {
