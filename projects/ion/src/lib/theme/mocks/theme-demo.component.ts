@@ -14,6 +14,7 @@ import {
   IonButtonProps,
   IonCard,
   IonLinkProps,
+  MessageStatusType,
   Size,
   StatusType,
   SwitchSize,
@@ -380,6 +381,17 @@ import { IonInputProps } from '../../core/types/input';
         </div>
       </div>
 
+      <ion-divider type="text" label="message"></ion-divider>
+
+      <div class="flex-column">
+        <ion-message
+          *ngFor="let status of messageStatusTypes"
+          [type]="status"
+          [label]="'status ' + status"
+        >
+        </ion-message>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -535,6 +547,15 @@ export class ThemeDemoComponent {
     disabled: false,
     bold: false,
   };
+
+  public messageStatusTypes: MessageStatusType[] = [
+    'positive',
+    'negative_alert',
+    'negative_erro',
+    'warning',
+    'info',
+    'custom',
+  ];
 
   constructor(readonly ionThemeService: IonThemeService) {}
 
