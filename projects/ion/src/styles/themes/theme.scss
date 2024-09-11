@@ -3,6 +3,7 @@
 
 $defaults: (
   font-family-main: 'Source Sans Pro',
+  base-transparecence-90: color-mix(in srgb, var(--ion-base) 90%, transparent),
 );
 
 $themes: (

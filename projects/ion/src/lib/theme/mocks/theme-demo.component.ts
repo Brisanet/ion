@@ -24,13 +24,14 @@ import {
 import { IonInputProps } from '../../core/types/input';
 import { SizeType } from '../../core/types/size';
 import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
+import { InputMockComponent } from '../../modal/mock/input.mock.component';
 import { IonModalService } from '../../modal/modal.service';
+import { IonNotificationService } from '../../notification/service/notification.service';
 import {
   IonFormattedThemes,
   IonThemeOptions,
   IonThemeService,
 } from '../theme.service';
-import { InputMockComponent } from '../../modal/mock/input.mock.component';
 
 @Component({
   selector: 'ion-teste-theme',
@@ -403,6 +404,17 @@ import { InputMockComponent } from '../../modal/mock/input.mock.component';
 
       <ion-no-data></ion-no-data>
 
+      <ion-divider type="text" label="notification"></ion-divider>
+
+      <div class="flex">
+        <ion-button
+          *ngFor="let type of nofificationTypes"
+          [label]="type"
+          type="secondary"
+          (ionOnClick)="openNotification(type)"
+        ></ion-button>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -568,9 +580,12 @@ export class ThemeDemoComponent {
     'custom',
   ];
 
+  public nofificationTypes = ['success', 'info', 'warning', 'error'];
+
   constructor(
     readonly ionThemeService: IonThemeService,
-    private ionModalService: IonModalService
+    private ionModalService: IonModalService,
+    private ionNotificationService: IonNotificationService
   ) {}
 
   public setTheme(theme: IonFormattedThemes): void {
@@ -596,6 +611,13 @@ export class ThemeDemoComponent {
         description: 'Add here a description supimpa to your modal',
       },
     });
+  }
+
+  public openNotification(type: string): void {
+    this.ionNotificationService[type](
+      type,
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit...'
+    );
   }
 
   private createSwitchHandler(config: Record<string, unknown>) {
