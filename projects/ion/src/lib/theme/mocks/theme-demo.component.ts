@@ -441,19 +441,19 @@ export class ThemeDemoComponent {
 
   constructor(readonly ionThemeService: IonThemeService) {}
 
-  public handleSwitchBtn(key: string, value: boolean): void {
-    this.buttonAtributes[key] = value;
-  }
-
-  public handleSwitchInput(key: string, value: boolean): void {
-    this.inputAtributes[key] = value;
-  }
-
-  public handleSwitchInputArea(key: string, value: boolean): void {
-    this.inputAreaAtributes[key] = value;
-  }
-
   public setTheme(theme: IonFormattedThemes): void {
     this.ionThemeService.theme = theme;
+  }
+
+  public handleSwitchBtn = this.createSwitchHandler(this.buttonAtributes);
+  public handleSwitchInput = this.createSwitchHandler(this.inputAtributes);
+  public handleSwitchInputArea = this.createSwitchHandler(
+    this.inputAreaAtributes
+  );
+
+  private createSwitchHandler(config: Record<string, unknown>) {
+    return (key: string, value: boolean): void => {
+      config[key] = value;
+    };
   }
 }
