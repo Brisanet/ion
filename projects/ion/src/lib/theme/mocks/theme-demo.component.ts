@@ -399,6 +399,10 @@ import { InputMockComponent } from '../../modal/mock/input.mock.component';
 
       <ion-button label="Open Modal" (ionOnClick)="openModal()"></ion-button>
 
+      <ion-divider type="text" label="no data"></ion-divider>
+
+      <ion-no-data></ion-no-data>
+
       <ion-divider></ion-divider>
     </main>
   `,
