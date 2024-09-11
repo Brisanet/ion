@@ -3,17 +3,6 @@
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
-@mixin add-colors($border, $outlineConfig, $color) {
-  border-color: $border;
-  outline: $outlineConfig;
-  outline-color: $color;
-}
-
-@mixin outline-none($border, $outline) {
-  border-color: $border;
-  outline: $outline;
-}
-
 .input-container {
   display: flex;
   line-height: 0;
@@ -134,7 +123,7 @@ div.disabled {
 
   input {
     color: ion-theme(input-disabled-text-color) !important;
-    
+
     &::placeholder {
       color: ion-theme(input-element-disabled-placeholder-color);
     }
@@ -146,7 +135,6 @@ div.disabled {
     border-color: ion-theme(input-disabled-border-color);
     box-shadow: none;
   }
-
 
   ion-icon ::ng-deep svg {
     fill: ion-theme(input-disabled-icon-color);

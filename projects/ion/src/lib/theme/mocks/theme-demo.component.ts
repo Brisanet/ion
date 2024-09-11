@@ -308,6 +308,30 @@ import { IonInputProps } from '../../core/types/input';
         </div>
       </div>
 
+      <ion-divider type="text" label="input select"></ion-divider>
+
+      <div>
+        <ion-input-select
+          placeholder="Input select demo"
+          [disabled]="inputSelectAtributes.disabled"
+          [valid]="inputSelectAtributes.valid"
+        ></ion-input-select>
+
+        <div class="flex">
+          <ng-container
+            *ngFor="let attribute of object.keys(inputSelectAtributes)"
+          >
+            <ion-switch
+              [value]="inputSelectAtributes[attribute]"
+              (atValueChange)="handleSwitchInputSelect(attribute, $event)"
+            ></ion-switch>
+            <span class="switch-label" style="margin-right: 16px;">
+              {{ attribute }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -451,6 +475,13 @@ export class ThemeDemoComponent {
 
   public inputCountSizeOptions: InputCountSize[] = ['sm', 'md'];
 
+  public inputSelectAtributes: Partial<
+    Record<keyof IonInputProps, boolean | null>
+  > = {
+    disabled: false,
+    valid: null,
+  };
+
   constructor(readonly ionThemeService: IonThemeService) {}
 
   public setTheme(theme: IonFormattedThemes): void {
@@ -461,6 +492,9 @@ export class ThemeDemoComponent {
   public handleSwitchInput = this.createSwitchHandler(this.inputAtributes);
   public handleSwitchInputArea = this.createSwitchHandler(
     this.inputAreaAtributes
+  );
+  public handleSwitchInputSelect = this.createSwitchHandler(
+    this.inputSelectAtributes
   );
 
   private createSwitchHandler(config: Record<string, unknown>) {
