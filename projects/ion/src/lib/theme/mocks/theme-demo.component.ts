@@ -421,10 +421,10 @@ import {
         <ion-pagination
           *ngFor="let size of paginationSizes"
           [size]="size"
-          [total]="46"
+          [total]="1000"
           [allowChangeQtdItems]="true"
           [itemsPerPage]="10"
-          [pageSizeOptions]="[10, 20, 30, 40, 46]"
+          [pageSizeOptions]="[10, 20, 30, 40]"
         ></ion-pagination>
       </div>
 
