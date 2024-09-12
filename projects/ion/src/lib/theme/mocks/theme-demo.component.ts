@@ -415,6 +415,19 @@ import {
         ></ion-button>
       </div>
 
+      <ion-divider type="text" label="pagination"></ion-divider>
+
+      <div class="flex-column">
+        <ion-pagination
+          *ngFor="let size of paginationSizes"
+          [size]="size"
+          [total]="46"
+          [allowChangeQtdItems]="true"
+          [itemsPerPage]="10"
+          [pageSizeOptions]="[10, 20, 30, 40, 46]"
+        ></ion-pagination>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
@@ -581,6 +594,8 @@ export class ThemeDemoComponent {
   ];
 
   public nofificationTypes = ['success', 'info', 'warning', 'error'];
+
+  public paginationSizes = ['sm', 'md'];
 
   constructor(
     readonly ionThemeService: IonThemeService,
