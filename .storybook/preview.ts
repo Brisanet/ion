@@ -1,12 +1,11 @@
 import { setCompodocJson } from '@storybook/addon-docs/angular';
-import docJson from '../documentation.json';
 import { moduleMetadata } from '@storybook/angular';
-import { themingInitializer } from '../projects/ion/src/lib/theme/theme-initializer';
+
+import docJson from '../documentation.json';
+import { ionThemeInitializer } from '../projects/ion/src/lib/theme';
 
 export const decorators = [
-  moduleMetadata({
-    providers: [themingInitializer()],
-  }),
+  moduleMetadata({ providers: [ionThemeInitializer()] }),
 ];
 
 setCompodocJson(docJson);

@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 export enum IonThemeOptions {
   DEFAULT = 'ion-default',
@@ -67,8 +66,6 @@ export class IonThemeService {
     localStorage.setItem('ion-color-scheme', colorScheme);
   }
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
-
   public init(): void {
     this.buildThemeOptions();
 
@@ -95,12 +92,7 @@ export class IonThemeService {
       ];
     }
 
-    this.document.body.classList.add('ion-theme-transition');
-    this.document.body.setAttribute('ion-theme', key);
-
-    setTimeout(() => {
-      this.document.body.classList.remove('ion-theme-transition');
-    }, 200);
+    document.body.setAttribute('ion-theme', key);
   }
 
   private listenToNativeThemeChanges(): void {
