@@ -455,6 +455,21 @@ import {
         </ion-button>
       </div>
 
+      <ion-divider type="text" label="popover"></ion-divider>
+
+      <div style="width: fit-content;">
+        <ion-button
+          ionPopover
+          ionPopoverTitle="Popover title"
+          [ionPopoverIconClose]="true"
+          [ionPopoverBody]="PopoverBodyTemplate"
+          [ionPopoverActions]="[{ label: 'action 1' }, { label: 'action 2' }]"
+          label="Open Popover"
+        >
+        </ion-button>
+        <ng-template #PopoverBodyTemplate> Body </ng-template>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
