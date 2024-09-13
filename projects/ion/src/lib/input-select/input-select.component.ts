@@ -65,7 +65,7 @@ export class IonInputSelectComponent implements OnInit {
     });
   }
 
-  public onClickOutside(): void {
+  public closeDropdown(): void {
     this.dropdownVisible = false;
   }
 
