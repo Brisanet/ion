@@ -48,7 +48,7 @@
   cursor: pointer;
 
   &:focus-visible {
-    @include focus();
+    @include focus;
   }
 
   &:hover {

@@ -467,7 +467,21 @@ import {
           label="Open Popover"
         >
         </ion-button>
-        <ng-template #PopoverBodyTemplate> Body </ng-template>
+        <ng-template #PopoverBodyTemplate>Body</ng-template>
+      </div>
+
+      <ion-divider type="text" label="radio"></ion-divider>
+
+      <div class="flex-column">
+        <ng-container *ngFor="let checked of [true, false]">
+          <ion-radio
+            *ngFor="let disabled of [true, false]"
+            [label]="'checked: ' + checked + ' | disabled: ' + disabled"
+            [checked]="checked"
+            [disabled]="disabled"
+          >
+          </ion-radio>
+        </ng-container>
       </div>
 
       <ion-divider></ion-divider>
@@ -638,6 +652,12 @@ export class ThemeDemoComponent {
   public nofificationTypes = ['success', 'info', 'warning', 'error'];
 
   public paginationSizes = ['sm', 'md'];
+
+  public checkboxStates: CheckBoxStates[] = [
+    'enabled',
+    'checked',
+    'indeterminate',
+  ];
 
   constructor(
     readonly ionThemeService: IonThemeService,
