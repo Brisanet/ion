@@ -441,6 +441,20 @@ import {
         ></ion-date-picker>
       </div>
 
+      <ion-divider type="text" label="popconfirm"></ion-divider>
+
+      <div style="width: fit-content;">
+        <ion-button
+          label="Open Popconfirm"
+          ionPopConfirm
+          [ionPopConfirmCloseOnScroll]="true"
+          ionPopConfirmDesc="Ao concluir essa ação as ordens de serviço alocadas para o recurso ficarão órfãs."
+          ionConfirmText="Sim"
+          ionCancelText="Não"
+        >
+        </ion-button>
+      </div>
+
       <ion-divider></ion-divider>
     </main>
   `,
