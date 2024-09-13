@@ -1,4 +1,5 @@
 @import '../../../../styles/index.scss';
+@import '../../../../styles/themes/theme.scss';
 
 .container-date-picker-calendar {
   display: flex;
@@ -16,12 +17,12 @@
       justify-content: center;
       align-items: center;
       width: 24px;
-      line-height: spacing(2);
-      font-size: 12px;
-      font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      color: $neutral-6;
+      line-height: ion-theme(date-picker-week-day-text-line-height);
+      font-size: ion-theme(date-picker-week-day-text-font-size);
+      font-weight: ion-theme(date-picker-week-day-text-font-weight);
+      color: ion-theme(date-picker-week-day-text-color);
     }
   }
 
@@ -38,66 +39,69 @@
       justify-content: center;
       width: 24px;
       height: 24px;
-      padding: 0px;
-      font-size: 14px;
-      font-weight: 400;
-      color: $neutral-5;
+      padding: 0;
+      font-size: ion-theme(date-picker-month-day-text-font-size);
+      font-weight: ion-theme(date-picker-month-day-text-font-weight);
+      color: ion-theme(date-picker-month-day-text-color);
       background-color: transparent;
       border: none;
       cursor: pointer;
+      border-radius: 50%;
 
       &.current {
-        color: $neutral-7;
+        color: ion-theme(date-picker-month-day-text-current-color);
       }
 
       &.today {
-        border-radius: 22px;
-        border: 1px solid $primary-color;
+        border: 1px solid
+          ion-theme(date-picker-month-day-text-today-border-color);
       }
 
       &.selected {
-        background-color: $primary-2;
-        color: $primary-color;
-        border-radius: 22px;
-        border: 1px solid $primary-color;
-      }
-
-      &.selected {
-        background-color: $primary-2;
-        color: $primary-color;
-        border-radius: 22px;
-        border: 1px solid $primary-color;
+        background-color: ion-theme(
+          date-picker-month-day-text-selected-background-color
+        );
+        color: ion-theme(date-picker-month-day-text-selected-color);
+        border: 1px solid
+          ion-theme(date-picker-month-day-text-selected-border-color);
       }
 
       &.final-range-selected {
-        background-color: $primary-6;
-        color: $neutral-1;
-        border-radius: 22px;
-        border: 1px solid $primary-6;
+        background-color: ion-theme(
+          date-picker-month-day-text-final-range-selected-background-color
+        );
+        color: ion-theme(date-picker-month-day-text-final-range-selected-color);
+        border: 1px solid
+          ion-theme(
+            date-picker-month-day-text-final-range-selected-border-color
+          );
       }
 
       &:not(.selected-end-date):hover {
-        background-color: $primary-2;
-        color: $primary-color;
-        border-radius: 22px;
-        border-color: $primary-color;
+        background-color: ion-theme(
+          date-picker-month-day-text-hover-background-color
+        );
+        color: ion-theme(date-picker-month-day-text-hover-color);
+        border-color: ion-theme(date-picker-month-day-text-hover-border-color);
       }
     }
 
     & .between-range {
       display: flex;
       justify-content: center;
-      background-color: $primary-1;
+      background-color: ion-theme(
+        date-picker-month-day-text-beetwen-range-background-color
+      );
       width: 100%;
 
       &.initial {
-        border-radius: 22px 0 0 22px;
+        border-radius: 50% 0 0 50%;
         justify-content: flex-start;
         margin-left: 13px;
       }
 
       &.final {
-        border-radius: 0 22px 22px 0;
+        border-radius: 0 50% 50% 0;
         justify-content: flex-end;
         margin-right: 13px;
       }
@@ -105,15 +109,14 @@
 
     .disabled,
     .disabled button {
-      width: 100%;
-      background-color: $neutral-3 !important;
-      color: $neutral-5;
-      cursor: not-allowed;
-
+      &,
       &:hover {
-        background-color: $neutral-3 !important;
+        width: 100%;
+        background-color: ion-theme(
+          date-picker-month-day-text-disabled-background-color
+        ) !important;
+        color: ion-theme(date-picker-month-day-text-disabled-color);
         cursor: not-allowed;
-        color: $neutral-5;
       }
     }
   }
