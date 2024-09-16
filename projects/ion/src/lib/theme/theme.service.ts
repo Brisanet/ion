@@ -5,7 +5,7 @@ export enum IonThemeOptions {
   ORANGE = 'orange',
 }
 
-enum IonThemeScheme {
+export enum IonThemeScheme {
   LIGHT = 'light',
   DARK = 'dark',
 }
@@ -47,7 +47,7 @@ const THEMES_CONFIGURATION: IonThemeConfiguration[] = [
 export class IonThemeService {
   public themeOptions: IonFormattedThemes[];
 
-  private nativeColorScheme: IonThemeScheme;
+  private browserColorScheme: IonThemeScheme;
 
   public get theme(): IonFormattedThemes | null {
     return JSON.parse(localStorage.getItem('ion-theme')) as IonFormattedThemes;
@@ -67,7 +67,7 @@ export class IonThemeService {
   }
 
   public init(): void {
-    this.buildThemeOptions();
+    this.formatThemeOptions();
 
     if (!this.colorScheme) {
       this.colorScheme = IonThemeScheme.LIGHT;
@@ -77,7 +77,7 @@ export class IonThemeService {
       this.theme = this.themeOptions[0];
     }
 
-    this.listenToNativeThemeChanges();
+    this.listenToBrowserColorSchemeChanges();
     this.applyTheme();
   }
 
@@ -85,36 +85,41 @@ export class IonThemeService {
     let key = theme.key;
 
     if (theme.scheme === 'automatic') {
-      this.colorScheme = this.nativeColorScheme;
+      this.colorScheme = this.browserColorScheme;
 
       key = THEMES_CONFIGURATION.find(({ key }) => key === theme.key).schemes[
-        this.nativeColorScheme
+        this.browserColorScheme
       ];
     }
 
     document.body.setAttribute('ion-theme', key);
   }
 
-  private listenToNativeThemeChanges(): void {
+  private listenToBrowserColorSchemeChanges(): void {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    this.updateNativeTheme(mediaQuery.matches);
+    this.updateBrowserColorScheme(mediaQuery.matches);
 
-    mediaQuery.addEventListener('change', (event) => {
-      this.updateNativeTheme(event.matches);
-      if (this.theme.scheme === 'automatic') {
-        this.colorScheme = this.nativeColorScheme;
-        this.applyTheme();
-      }
-    });
+    mediaQuery.addEventListener(
+      'change',
+      this.onChangeBrowserColorScheme.bind(this)
+    );
   }
 
-  private updateNativeTheme(isDark: boolean): void {
-    this.nativeColorScheme = isDark
+  private onChangeBrowserColorScheme(event: MediaQueryListEvent): void {
+    this.updateBrowserColorScheme(event.matches);
+    if (this.theme.scheme === 'automatic') {
+      this.colorScheme = this.browserColorScheme;
+      this.applyTheme();
+    }
+  }
+
+  private updateBrowserColorScheme(isDark: boolean): void {
+    this.browserColorScheme = isDark
       ? IonThemeScheme.DARK
       : IonThemeScheme.LIGHT;
   }
 
-  private buildThemeOptions(): void {
+  private formatThemeOptions(): void {
     this.themeOptions = THEMES_CONFIGURATION.reduce((acc, config) => {
       const { key, label, schemes } = config;
 
