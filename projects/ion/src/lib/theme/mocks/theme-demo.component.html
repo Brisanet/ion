@@ -507,5 +507,22 @@
 
   <ion-table [config]="tableConfig"></ion-table>
 
+  <ion-divider type="text" label="spinner"></ion-divider>
+
+  <div class="flex" *ngFor="let textSize of ['sm', 'md', 'lg']">
+    <ion-spinner
+      *ngFor="let color of ['primary', 'secondary', 'danger']"
+      [text]="'Spinner ' + textSize + ' ' + color"
+      [textSize]="textSize"
+      [color]="color"
+    ></ion-spinner>
+
+    <ion-spinner
+      [text]="'Spinner ' + textSize + ' custom color'"
+      [textSize]="textSize"
+      customColor="green"
+    ></ion-spinner>
+  </div>
+
   <ion-divider></ion-divider>
 </main>
