@@ -470,5 +470,21 @@
     ></ion-switch>
   </div>
 
+  <ion-divider type="text" label="simple menu"></ion-divider>
+
+  <div class="flex">
+    <ion-simple-menu
+      [options]="[
+        { label: 'Agendamentos', iconType: 'calendar' },
+        { label: 'Recursos', iconType: 'pencil' }
+      ]"
+      [profile]="{
+        imageUrl:
+          'https://ovicio.com.br/wp-content/uploads/2022/01/20220123-rocket-raccoon-guardians-of-the-galaxy.jpeg',
+        name: 'Rocket Raccoon'
+      }"
+    ></ion-simple-menu>
+  </div>
+
   <ion-divider></ion-divider>
 </main>
