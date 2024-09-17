@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { isEqual } from 'lodash';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export enum IonThemeOptions {
   DEFAULT = 'ion-default',
@@ -15,7 +17,8 @@ type IonSCSSThemeKeys = 'light' | 'dark' | 'orange-light' | 'orange-dark';
 export interface IonFormattedThemes {
   key: IonSCSSThemeKeys | IonThemeOptions;
   label: string;
-  scheme: IonThemeScheme | 'automatic';
+  scheme: IonThemeScheme;
+  useBrowserScheme?: boolean;
 }
 
 interface IonThemeConfiguration {
@@ -47,6 +50,7 @@ const THEMES_CONFIGURATION: IonThemeConfiguration[] = [
 export class IonThemeService {
   public themeOptions: IonFormattedThemes[];
 
+  private themeSubject = new BehaviorSubject<IonFormattedThemes | null>(null);
   private browserColorScheme: IonThemeScheme;
 
   public get theme(): IonFormattedThemes | null {
@@ -54,24 +58,18 @@ export class IonThemeService {
   }
 
   public set theme(theme: IonFormattedThemes) {
-    localStorage.setItem('ion-theme', JSON.stringify(theme));
-    this.applyTheme(theme);
+    if (!isEqual(theme, this.theme)) {
+      localStorage.setItem('ion-theme', JSON.stringify(theme));
+      this.applyTheme(theme);
+    }
   }
 
-  public get colorScheme(): IonThemeScheme | null {
-    return localStorage.getItem('ion-color-scheme') as IonThemeScheme;
-  }
-
-  public set colorScheme(colorScheme: IonThemeScheme) {
-    localStorage.setItem('ion-color-scheme', colorScheme);
+  public get theme$(): Observable<IonFormattedThemes> {
+    return this.themeSubject.asObservable();
   }
 
   public init(): void {
     this.formatThemeOptions();
-
-    if (!this.colorScheme) {
-      this.colorScheme = IonThemeScheme.LIGHT;
-    }
 
     if (!this.theme) {
       this.theme = this.themeOptions[0];
@@ -84,15 +82,23 @@ export class IonThemeService {
   private applyTheme(theme: IonFormattedThemes = this.theme): void {
     let key = theme.key;
 
-    if (theme.scheme === 'automatic') {
-      this.colorScheme = this.browserColorScheme;
-
+    if (theme.useBrowserScheme) {
       key = THEMES_CONFIGURATION.find(({ key }) => key === theme.key).schemes[
         this.browserColorScheme
       ];
     }
 
     document.body.setAttribute('ion-theme', key);
+    this.emitThemeChange(theme);
+  }
+
+  private emitThemeChange(theme: IonFormattedThemes): void {
+    const newValue: IonFormattedThemes = {
+      ...theme,
+      scheme: theme.useBrowserScheme ? this.browserColorScheme : theme.scheme,
+    };
+    this.theme = newValue;
+    this.themeSubject.next(newValue);
   }
 
   private listenToBrowserColorSchemeChanges(): void {
@@ -107,8 +113,7 @@ export class IonThemeService {
 
   private onChangeBrowserColorScheme(event: MediaQueryListEvent): void {
     this.updateBrowserColorScheme(event.matches);
-    if (this.theme.scheme === 'automatic') {
-      this.colorScheme = this.browserColorScheme;
+    if (this.theme.useBrowserScheme) {
       this.applyTheme();
     }
   }
@@ -131,7 +136,12 @@ export class IonThemeService {
       acc.push(...options);
 
       if (schemes[IonThemeScheme.LIGHT] && schemes[IonThemeScheme.DARK]) {
-        acc.push({ key, label: `${label} (Automático)`, scheme: 'automatic' });
+        acc.push({
+          key,
+          label: `${label} (Automático)`,
+          scheme: IonThemeScheme.LIGHT,
+          useBrowserScheme: true,
+        });
       }
 
       return acc;

@@ -8,6 +8,15 @@
     ></ion-button>
   </div>
 
+  <ion-divider type="text" label="sidebar"></ion-divider>
+
+  <div class="flex">
+    <ion-sidebar
+      [items]="sidebarProps.items"
+      [logo]="sidebarProps.logo"
+    ></ion-sidebar>
+  </div>
+
   <ion-divider type="text" label="accordion"></ion-divider>
 
   <ion-accordion
@@ -366,7 +375,7 @@
 
   <div class="flex">
     <ion-button
-      *ngFor="let type of nofificationTypes"
+      *ngFor="let type of ['success', 'info', 'warning', 'error']"
       [label]="type"
       type="secondary"
       (ionOnClick)="openNotification(type)"
@@ -377,7 +386,7 @@
 
   <div class="flex-column">
     <ion-pagination
-      *ngFor="let size of paginationSizes"
+      *ngFor="let size of ['sm', 'md']"
       [size]="size"
       [total]="1000"
       [allowChangeQtdItems]="true"

@@ -19,6 +19,12 @@ const MATCH_MEDIA_DARK_MOCK = {
 
 window.matchMedia = jest.fn().mockImplementation(() => MATCH_MEDIA_LIGHT_MOCK);
 
+const getOpositeColorScheme = (scheme: IonThemeScheme): IonThemeScheme => {
+  return scheme === IonThemeScheme.LIGHT
+    ? IonThemeScheme.DARK
+    : IonThemeScheme.LIGHT;
+};
+
 describe('IonThemeService', () => {
   let service: IonThemeService;
 
@@ -58,18 +64,6 @@ describe('IonThemeService', () => {
     expect(localStorage.getItem('ion-theme')).toEqual(JSON.stringify(theme));
   });
 
-  it('should get colorScheme from localStorage', () => {
-    localStorage.setItem('ion-color-scheme', IonThemeScheme.DARK);
-
-    expect(service.colorScheme).toBe(IonThemeScheme.DARK);
-  });
-
-  it('should set colorScheme to localStorage', () => {
-    service.colorScheme = IonThemeScheme.LIGHT;
-
-    expect(localStorage.getItem('ion-color-scheme')).toBe(IonThemeScheme.LIGHT);
-  });
-
   it('should format theme options on init', () => {
     expect(service.themeOptions).toEqual([
       {
@@ -85,7 +79,8 @@ describe('IonThemeService', () => {
       {
         label: 'Ion (Automático)',
         key: 'ion-default',
-        scheme: 'automatic',
+        scheme: expect.any(String),
+        useBrowserScheme: true,
       },
       {
         label: 'Brisaneto (light)',
@@ -100,7 +95,8 @@ describe('IonThemeService', () => {
       {
         label: 'Brisaneto (Automático)',
         key: 'orange',
-        scheme: 'automatic',
+        scheme: expect.any(String),
+        useBrowserScheme: true,
       },
     ]);
   });
@@ -128,10 +124,11 @@ describe('IonThemeService', () => {
       service.theme = {
         key: IonThemeOptions.ORANGE,
         label: 'Brisaneto (Automático)',
-        scheme: 'automatic',
+        scheme: getOpositeColorScheme(colorScheme),
+        useBrowserScheme: true,
       };
 
-      expect(service.colorScheme).toBe(colorScheme);
+      expect(service.theme.scheme).toBe(colorScheme);
     }
   );
 
@@ -144,15 +141,31 @@ describe('IonThemeService', () => {
     service.theme = {
       key: IonThemeOptions.ORANGE,
       label: 'Brisaneto (Automático)',
-      scheme: 'automatic',
+      scheme: IonThemeScheme.DARK,
+      useBrowserScheme: true,
     };
 
-    expect(service.colorScheme).toBe(IonThemeScheme.LIGHT);
+    expect(service.theme.scheme).toBe(IonThemeScheme.LIGHT);
 
     service['onChangeBrowserColorScheme'](
       MATCH_MEDIA_DARK_MOCK as unknown as MediaQueryListEvent
     );
 
-    expect(service.colorScheme).toBe(IonThemeScheme.DARK);
+    expect(service.theme.scheme).toBe(IonThemeScheme.DARK);
+  });
+
+  it('should emit a observable when theme changes', () => {
+    const spy = jest.fn();
+    service.theme$.subscribe(spy);
+    jest.clearAllMocks();
+
+    service.theme = {
+      key: IonThemeOptions.ORANGE,
+      label: 'Brisaneto (light)',
+      scheme: IonThemeScheme.LIGHT,
+    };
+
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(service.theme);
   });
 });

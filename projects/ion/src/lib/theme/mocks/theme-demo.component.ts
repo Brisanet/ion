@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BodyMockComponent } from '../../card/mock/body-mock.component';
 import {
@@ -6,7 +6,6 @@ import {
   BreadcrumbItem,
   CheckBoxStates,
   ChipSize,
-  DropdownItem,
   FontSize,
   InfoBadgeSize,
   InfoBadgeStatus,
@@ -22,20 +21,25 @@ import {
   Type,
 } from '../../core/types';
 import { IonInputProps } from '../../core/types/input';
+import { IonSelectProps } from '../../core/types/select';
 import { SizeType } from '../../core/types/size';
 import { buttonEmitterConfig } from '../../indicator/mocks/indicator-button-config';
 import { InputMockComponent } from '../../modal/mock/input.mock.component';
 import { IonModalService } from '../../modal/modal.service';
 import { IonNotificationService } from '../../notification/service/notification.service';
-import { IonFormattedThemes, IonThemeService } from '../theme.service';
-import { IonSelectProps } from '../../core/types/select';
+import { SIDEBAR_WITH_FOOTER_PROPS } from '../../sidebar/mocks/sidebarWithFooter.component';
+import {
+  IonFormattedThemes,
+  IonThemeScheme,
+  IonThemeService,
+} from '../theme.service';
 
 @Component({
   selector: 'ion-teste-theme',
   templateUrl: './theme-demo.component.html',
   styleUrls: ['./theme-demo.component.scss'],
 })
-export class ThemeDemoComponent {
+export class ThemeDemoComponent implements OnInit {
   public object = Object;
 
   public accordions = Array.from({ length: 3 }, (_, i) => ({
@@ -175,15 +179,13 @@ export class ThemeDemoComponent {
     'custom',
   ];
 
-  public nofificationTypes = ['success', 'info', 'warning', 'error'];
-
-  public paginationSizes = ['sm', 'md'];
-
   public selectAtributes: Partial<Record<keyof IonSelectProps, boolean>> = {
     required: false,
     loading: false,
     disabled: false,
   };
+
+  public sidebarProps = SIDEBAR_WITH_FOOTER_PROPS;
 
   constructor(
     readonly ionThemeService: IonThemeService,
@@ -191,8 +193,13 @@ export class ThemeDemoComponent {
     private ionNotificationService: IonNotificationService
   ) {}
 
+  public ngOnInit(): void {
+    this.updateSidebarLogo();
+  }
+
   public setTheme(theme: IonFormattedThemes): void {
     this.ionThemeService.theme = theme;
+    this.updateSidebarLogo();
   }
 
   public handleSwitchBtn = this.createSwitchHandler(this.buttonAtributes);
@@ -228,5 +235,12 @@ export class ThemeDemoComponent {
     return (key: string, value: boolean): void => {
       config[key] = value;
     };
+  }
+
+  private updateSidebarLogo(): void {
+    this.sidebarProps.logo =
+      this.ionThemeService.theme.scheme === IonThemeScheme.DARK
+        ? require('../../../../../../stories/assets/sidebar-logo-dark.svg')
+        : require('../../../../../../stories/assets/sidebar-logo.svg');
   }
 }

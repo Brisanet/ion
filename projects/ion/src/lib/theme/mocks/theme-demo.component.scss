@@ -1,5 +1,9 @@
 @import '../../../styles/themes/theme.scss';
 
+ion-sidebar {
+  z-index: 1;
+}
+
 main {
   background-color: ion-theme(base);
   width: calc(100% - 32px);
