@@ -6,7 +6,7 @@
     [class.multiple-input--disabled]="disabled"
     [class.multiple-input]="currentOption?.multiple"
   >
-    <div class="dropdown-container" (clickOutside)="onClickOutside()">
+    <div class="dropdown-container">
       <button
         type="button"
         data-testid="ion-select-button"
@@ -24,6 +24,7 @@
           (selected)="handleSelect($event)"
           [multiple]="false"
           [required]="true"
+          (closeDropdown)="closeDropdown()"
         >
         </ion-dropdown>
       </div>
