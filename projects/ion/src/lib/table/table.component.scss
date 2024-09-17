@@ -182,7 +182,7 @@ table {
   background: rgba(255, 255, 255, 0.45);
   border-top: 1px solid $neutral-4;
   backdrop-filter: blur(5px);
-  border-radius: 0px 0px $radius $radius;
+  border-radius: 0 0 $radius $radius;
 
   font-family: 'Source Sans Pro';
   font-style: normal;

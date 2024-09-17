@@ -45,7 +45,7 @@ div.input {
     &:focus-within,
     &:active {
       border-color: ion-theme(input-element-active-border-color);
-      box-shadow: 0px 0px 0px 2px ion-theme(input-element-active-shadow-color);
+      box-shadow: 0 0 0 2px ion-theme(input-element-active-shadow-color);
     }
   }
 
@@ -112,7 +112,7 @@ div.invalid {
   &:focus-within,
   &:active {
     border-color: ion-theme(input-invalid-focus-border-color) !important;
-    box-shadow: 0px 0px 0px 2px ion-theme(input-invalid-focus-shadow-color) !important;
+    box-shadow: 0 0 0 2px ion-theme(input-invalid-focus-shadow-color) !important;
   }
 }
 
@@ -161,7 +161,7 @@ div.disabled {
 }
 
 .errorMsg p {
-  margin: 4px 0px 0px;
+  margin: 4px 0 0;
   color: ion-theme(input-error-message-text-color);
 }
 
