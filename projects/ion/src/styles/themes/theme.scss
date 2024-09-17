@@ -4,6 +4,7 @@
 $defaults: (
   font-family-main: 'Source Sans Pro',
   base-transparecence-90: color-mix(in srgb, var(--ion-base) 90%, transparent),
+  base-transparecence-45: color-mix(in srgb, var(--ion-base) 45%, transparent),
 );
 
 $themes: (

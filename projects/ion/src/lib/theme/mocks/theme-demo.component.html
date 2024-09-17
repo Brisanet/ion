@@ -202,8 +202,12 @@
   <ion-divider type="text" label="info badge"></ion-divider>
 
   <table>
-    <tr *ngFor="let variant of infoBadgeVariants">
-      <ng-container *ngFor="let size of infoBadgeSizes">
+    <tr
+      *ngFor="
+        let variant of ['primary', 'success', 'info', 'warning', 'negative']
+      "
+    >
+      <ng-container *ngFor="let size of ['sm', 'md']">
         <td>
           <ion-info-badge
             icon="check"
@@ -277,7 +281,7 @@
   <ion-divider type="text" label="input counter"></ion-divider>
 
   <div class="flex-column">
-    <div class="flex" *ngFor="let size of inputCountSizeOptions">
+    <div class="flex" *ngFor="let size of ['sm', 'md']">
       <span>size {{ size }}: </span>
       <ion-input-counter [inputSize]="size"></ion-input-counter>
     </div>
@@ -309,7 +313,7 @@
 
   <div>
     <table>
-      <tr *ngFor="let size of linkSizes">
+      <tr *ngFor="let size of ['sm', 'md']">
         <td>
           <ion-link
             [label]="'Link ' + size"
@@ -355,7 +359,16 @@
 
   <div class="flex-column">
     <ion-message
-      *ngFor="let status of messageStatusTypes"
+      *ngFor="
+        let status of [
+          'positive',
+          'negative_alert',
+          'negative_erro',
+          'warning',
+          'info',
+          'custom'
+        ]
+      "
       class="theme-demo-message"
       [type]="status"
       [label]="'status ' + status"
@@ -489,6 +502,10 @@
   <ion-divider type="text" label="skeleton"></ion-divider>
 
   <ion-skeleton [width]="400" [height]="100" [radius]="10"></ion-skeleton>
+
+  <ion-divider type="text" label="table"></ion-divider>
+
+  <ion-table [config]="tableConfig"></ion-table>
 
   <ion-divider></ion-divider>
 </main>

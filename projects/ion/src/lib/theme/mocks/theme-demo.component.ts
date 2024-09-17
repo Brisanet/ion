@@ -6,14 +6,9 @@ import {
   BreadcrumbItem,
   CheckBoxStates,
   ChipSize,
-  FontSize,
-  InfoBadgeSize,
-  InfoBadgeStatus,
-  InputCountSize,
   IonButtonProps,
   IonCard,
   IonLinkProps,
-  MessageStatusType,
   Size,
   StatusType,
   SwitchSize,
@@ -28,6 +23,8 @@ import { InputMockComponent } from '../../modal/mock/input.mock.component';
 import { IonModalService } from '../../modal/modal.service';
 import { IonNotificationService } from '../../notification/service/notification.service';
 import { SIDEBAR_WITH_FOOTER_PROPS } from '../../sidebar/mocks/sidebarWithFooter.component';
+import { ConfigTable } from '../../table/utilsTable';
+import { SafeAny } from '../../utils/safe-any';
 import {
   IonFormattedThemes,
   IonThemeScheme,
@@ -128,15 +125,6 @@ export class ThemeDemoComponent implements OnInit {
 
   public indicatorButtonConfig = buttonEmitterConfig;
 
-  public infoBadgeSizes: InfoBadgeSize[] = ['sm', 'md'];
-  public infoBadgeVariants: InfoBadgeStatus[] = [
-    'primary',
-    'success',
-    'info',
-    'warning',
-    'negative',
-  ];
-
   public inputAtributes: Partial<Record<keyof IonInputProps, boolean>> = {
     disabled: false,
     valid: false,
@@ -155,8 +143,6 @@ export class ThemeDemoComponent implements OnInit {
     disabled: false,
   };
 
-  public inputCountSizeOptions: InputCountSize[] = ['sm', 'md'];
-
   public inputSelectAtributes: Partial<
     Record<keyof IonInputProps, boolean | null>
   > = {
@@ -164,20 +150,10 @@ export class ThemeDemoComponent implements OnInit {
     valid: null,
   };
 
-  public linkSizes: FontSize[] = ['sm', 'md'];
   public linkAtributes: Partial<Record<keyof IonLinkProps, boolean>> = {
     disabled: false,
     bold: false,
   };
-
-  public messageStatusTypes: MessageStatusType[] = [
-    'positive',
-    'negative_alert',
-    'negative_erro',
-    'warning',
-    'info',
-    'custom',
-  ];
 
   public selectAtributes: Partial<Record<keyof IonSelectProps, boolean>> = {
     required: false,
@@ -186,6 +162,30 @@ export class ThemeDemoComponent implements OnInit {
   };
 
   public sidebarProps = SIDEBAR_WITH_FOOTER_PROPS;
+
+  public tableConfig: ConfigTable<SafeAny> = {
+    columns: [
+      { label: 'ID', key: 'id', sort: true },
+      { label: 'Name', key: 'name', sort: true },
+      { label: 'Year', key: 'year', sort: true },
+    ],
+    data: Array.from({ length: 10 }, (_, i) => ({
+      id: i + 1,
+      name: `Client ${i + 1}`,
+      year: Math.floor(Math.random() * 10) + 2010,
+    })),
+    actions: [
+      { label: 'Editar', icon: 'pencil' },
+      {
+        label: 'Excluir',
+        icon: 'trash',
+        call: (row: SafeAny): void => {
+          row.name += ' DELETED';
+        },
+        confirm: { title: 'Você realmente deseja deletar?' },
+      },
+    ],
+  };
 
   constructor(
     readonly ionThemeService: IonThemeService,
