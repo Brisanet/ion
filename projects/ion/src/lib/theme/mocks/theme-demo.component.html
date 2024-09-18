@@ -524,5 +524,17 @@
     ></ion-spinner>
   </div>
 
+  <ion-divider type="text" label="step"></ion-divider>
+
+  <ion-steps
+    [clickable]="true"
+    [steps]="[
+      { label: 'First', status: 'checked' },
+      { label: 'Second', status: 'error', description: 'Atenção neste passo' },
+      { label: 'Third' },
+      { label: 'Fourty' }
+    ]"
+  ></ion-steps>
+
   <ion-divider></ion-divider>
 </main>
