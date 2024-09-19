@@ -758,6 +758,23 @@ describe('Table > Differents columns data type', () => {
       }
     );
 
+    it.each(['#be531c', '#ab2328', '#572d2d', '#6666ff', '#cc66ff'])(
+      'should render tag with custom color: %s',
+      async (color) => {
+        const columns = tableDifferentColumns.config.columns;
+        const lastColumn = columns.length - 1;
+        columns[lastColumn].tag = {
+          color,
+        };
+
+        await sut(tableDifferentColumns);
+        const tags = document.getElementsByClassName('ion-tag');
+        for (let i = 0; i < tags.length; i++) {
+          expect(tags[i]).toHaveStyle(`color: ${color};`);
+        }
+      }
+    );
+
     it('should show an empty cell when the data is undefined on a tag column', async () => {
       const columns = tableDifferentColumns.config.columns;
       const lastColumn = columns.length - 1;

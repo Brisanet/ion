@@ -33,6 +33,8 @@ interface TagRow {
   status?: TagStatus;
   statusKey?: string;
   tooltipKey?: string;
+  color?: string;
+  colorKey?: string;
 }
 
 interface LinkRow<RowType> {
