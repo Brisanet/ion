@@ -125,6 +125,7 @@
                 [label]="row[column.key]"
                 [status]="row[column.tag.statusKey] || column.tag.status"
                 [icon]="row[column.tag.iconKey] || column.tag.icon"
+                [color]="row[column.tag.colorKey] || column.tag.color"
               ></ion-tag>
               <ion-link
                 *ngIf="column.type === 'link' && column.link"
