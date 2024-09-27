@@ -40,6 +40,12 @@ Configure Prettier Extension by Vscode
 - Set `"editor.formatOnSave"` true;
 - Set `"prettier.eslintIntegration"` true.
 
+## Contribute
+Always open discussion to new changes
+
+![image](https://github.com/user-attachments/assets/e9a324c7-adec-4f90-9bc6-b2a7c09ab4ac)
+
+
 ## Commit pattern
 
 Commits should follow the [convention](https://conventionalcommits.org/).
