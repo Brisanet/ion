@@ -1,16 +1,25 @@
+@use 'input-counter.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .counter {
   display: inline-flex;
-  border: 1px solid $neutral-5;
-  border-radius: 6px;
+  border: 1px solid ion-theme(input-counter-border-color);
+  border-radius: ion-theme(input-counter-border-radius);
+  background-color: ion-theme(input-counter-background-color);
 
   & input {
     border: none;
     outline: none;
     text-align: center;
-    font-size: 12px;
-    color: $neutral-5;
+    background-color: transparent;
+    font-size: ion-theme(input-counter-text-font-size);
+    color: ion-theme(input-counter-text-color);
+  }
+
+  ::ng-deep button {
+    background-color: transparent;
   }
 }
 

@@ -54,6 +54,7 @@ export * from './lib/tab/tab.module';
 export * from './lib/table/table.module';
 export * from './lib/table/utilsTable';
 export * from './lib/tag/tag.module';
+export * from './lib/theme';
 export * from './lib/tooltip/tooltip.module';
 export * from './lib/tour';
 export * from './lib/triple-toggle/triple-toggle.module';

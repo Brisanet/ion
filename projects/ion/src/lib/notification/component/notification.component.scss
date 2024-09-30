@@ -1,9 +1,12 @@
+@use 'notification.theme';
+
 @import '../../../styles/index.scss';
 @import '../../utils/fadeAnimations.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   ::ng-deep svg {
-    fill: $color;
+    fill: ion-theme($color);
   }
 }
 
@@ -19,10 +22,9 @@
   max-width: 500px;
   min-width: 250px;
 
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15),
-    0px 0px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
+  background: ion-theme(notification-background-color);
+  box-shadow: ion-theme(notification-shadow);
+  border-radius: ion-theme(notification-border-radius);
 
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
@@ -33,7 +35,7 @@
 }
 
 .default-icon {
-  @include icon-color($neutral-6);
+  @include icon-color(notification-default-icon-color);
   margin-right: spacing(1);
 }
 
@@ -44,38 +46,28 @@
 }
 
 .notification-title {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  color: $neutral-8;
+  font-weight: ion-theme(notification-title-font-weight);
+  font-size: ion-theme(notification-title-font-size);
+  line-height: ion-theme(notification-title-line-height);
+  color: ion-theme(notification-title-color);
 }
 
 .notification-message {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: $neutral-7;
+  font-weight: ion-theme(notification-message-font-weight);
+  font-size: ion-theme(notification-message-font-size);
+  line-height: ion-theme(notification-message-line-height);
+  color: ion-theme(notification-message-color);
 }
 
 .close-icon {
-  @include icon-color($primary-color);
+  @include icon-color(notification-close-icon-color);
   cursor: pointer;
 }
 
-.success-icon {
-  @include icon-color($success-color);
-}
-
-.info-icon {
-  @include icon-color($info-color);
-}
-
-.warning-icon {
-  @include icon-color($warning-color);
-}
-
-.negative-icon {
-  @include icon-color($negative-color);
+@each $variant in success, info, warning, negative {
+  .#{$variant}-icon {
+    @include icon-color(notification-variant-#{$variant}-icon-color);
+  }
 }
 
 .notification-container:nth-child(2) {

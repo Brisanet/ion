@@ -1,24 +1,29 @@
+@use '../accordion.theme';
+
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin accordion-style($bgColor, $color) {
   header {
-    color: $color;
-    border-bottom: 1px solid $color;
-    background-color: $bgColor;
+    color: ion-theme($color);
+    border-bottom: 1px solid ion-theme($color);
+    background-color: ion-theme($bgColor);
 
-    ion-icon {
-      ::ng-deep svg {
-        fill: $color;
-      }
+    ion-icon ::ng-deep svg {
+      fill: ion-theme($color);
     }
   }
 }
 
 section {
-  @include accordion-style($neutral-1, $neutral-7);
+  @include accordion-style(
+    accordion-item-background-color,
+    accordion-item-text-color
+  );
+
   header,
   main {
-    padding: 16px 20px;
+    padding: ion-theme(accordion-item-padding);
   }
 
   header {
@@ -31,23 +36,29 @@ section {
 
     div {
       div {
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 24px;
+        font-size: ion-theme(accordion-item-text-font-size);
+        font-weight: ion-theme(accordion-item-text-font-weight);
+        line-height: ion-theme(accordion-item-text-line-height);
       }
     }
   }
 
   main {
-    background-color: $neutral-1;
+    background-color: ion-theme(accordion-item-background-color);
   }
 
   &:hover {
-    @include accordion-style($neutral-2, $primary-3);
+    @include accordion-style(
+      accordion-item-hover-background-color,
+      accordion-item-hover-text-color
+    );
   }
 
   &:active {
-    @include accordion-style($primary-2, $primary-4);
+    @include accordion-style(
+      accordion-item-active-background-color,
+      accordion-item-active-text-color
+    );
   }
 
   &:focus-visible {
@@ -55,12 +66,15 @@ section {
   }
 
   &.open {
-    @include accordion-style($primary-1, $primary-4);
+    @include accordion-style(
+      accordion-item-open-background-color,
+      accordion-item-open-text-color
+    );
   }
 
   &.close {
     header {
-      border-bottom: 1px solid $neutral-4;
+      border-bottom: 1px solid ion-theme(accordion-divider-color);
     }
   }
 }

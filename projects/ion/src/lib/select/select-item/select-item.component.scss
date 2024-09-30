@@ -1,4 +1,5 @@
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 .ion-select-item {
   display: flex;
@@ -6,7 +7,8 @@
   justify-content: center;
   gap: 4px;
   padding: 4px;
-  background-color: $neutral-2;
+  color: ion-theme(select-item-text-color);
+  background-color: ion-theme(select-item-background-color);
   border-radius: 4px;
   font-size: 14px;
   cursor: default;
@@ -19,20 +21,18 @@
     cursor: pointer;
 
     ::ng-deep svg {
-      fill: $neutral-5;
+      fill: ion-theme(select-item-icon-color);
     }
 
-    &:hover {
-      ::ng-deep svg {
-        fill: $neutral-7;
-      }
+    &:hover ::ng-deep svg {
+      fill: ion-theme(select-item-hover-icon-color);
     }
   }
 
   &--disabled {
-    background-color: $neutral-3;
-    color: $neutral-5;
-    border: 1px solid $neutral-4;
+    background-color: ion-theme(select-item-disabled-background-color);
+    color: ion-theme(select-item-disabled-text-color);
+    border: 1px solid ion-theme(select-item-disabled-border-color);
     cursor: not-allowed;
   }
 }

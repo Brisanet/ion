@@ -1,35 +1,20 @@
-@import '../../styles/index.scss';
+@use 'avatar.theme';
 
-$avatar-primary-color: $primary-7;
-$avatar-secondary-color: $primary-2;
-
-@mixin sizes($size) {
-  width: $size;
-  height: $size;
-}
-
-@mixin circle($size) {
-  border-radius: 50%;
-  @include sizes($size);
-}
-
-@mixin icon-size($size) {
-  ::ng-deep svg {
-    @include sizes($size);
-  }
-}
+@import '../../styles/themes/theme.scss';
 
 .ion-avatar {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: $avatar-secondary-color;
+  background-color: ion-theme(avatar-background-color);
+  border-radius: ion-theme(avatar-border-radius);
   overflow: hidden;
 
   span {
     text-align: center;
     font-weight: 600;
-    color: $avatar-primary-color;
+    font-family: ion-theme(avatar-text-font-family);
+    color: ion-theme(avatar-text-color);
   }
 
   ion-icon {
@@ -39,7 +24,7 @@ $avatar-secondary-color: $primary-2;
       align-items: center;
 
       path {
-        fill: $avatar-primary-color;
+        fill: ion-theme(avatar-icon-color);
       }
     }
   }
@@ -51,26 +36,15 @@ $avatar-secondary-color: $primary-2;
   }
 }
 
-.size-xs {
-  @include circle(16px);
-  @include icon-size(12px);
-  font-size: 10px;
-}
+@each $size in xs, sm, md, lg {
+  .size-#{$size} {
+    width: ion-theme(avatar-size-#{$size}-size);
+    height: ion-theme(avatar-size-#{$size}-size);
+    font-size: ion-theme(avatar-size-#{$size}-font-size);
 
-.size-sm {
-  @include circle(24px);
-  @include icon-size(16px);
-  font-size: 12px;
-}
-
-.size-md {
-  @include circle(32px);
-  @include icon-size(20px);
-  font-size: 14px;
-}
-
-.size-lg {
-  @include circle(40px);
-  @include icon-size(24px);
-  font-size: 16px;
+    ::ng-deep svg {
+      width: ion-theme(avatar-size-#{$size}-icon-size);
+      height: ion-theme(avatar-size-#{$size}-icon-size);
+    }
+  }
 }

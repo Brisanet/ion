@@ -1,9 +1,10 @@
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   ::ng-deep svg {
     transition: fill 0.25s ease-in-out;
-    fill: $color;
+    fill: ion-theme($color);
   }
 }
 
@@ -11,18 +12,18 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background: $neutral-1;
-  border: 1.5px solid $neutral-4;
+  background: transparent;
+  border: 1.5px solid ion-theme(sidebar-group-border-color);
   border-radius: 20px;
   padding: spacing(1);
-  @include icon-color($primary-6);
+  @include icon-color(sidebar-group-icon-color);
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 spacing(1);
-    color: $primary-color;
+    color: ion-theme(sidebar-group-header-text-color);
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
@@ -77,8 +78,8 @@
     gap: spacing(1.25);
 
     .sidebar-group__header {
-      color: $primary-7;
-      @include icon-color($primary-7);
+      color: ion-theme(sidebar-group-opened-text-color);
+      @include icon-color(sidebar-group-opened-icon-color);
     }
 
     .sidebar-group__toggle-icon {
@@ -87,7 +88,7 @@
   }
 
   &--selected {
-    border-color: $primary-color;
+    border-color: ion-theme(sidebar-group-selected-border-color);
     gap: spacing(1.25);
   }
 
@@ -105,38 +106,8 @@
       }
 
       &:hover {
-        @include icon-color($primary-5);
-        background-color: $primary-1;
-      }
-    }
-
-    &.sidebar-group--opened .sidebar-group__header {
-      background-color: $primary-1;
-
-      &:hover {
-        @include icon-color($primary-5);
-      }
-    }
-
-    &:has(.sidebar-group__header--clickable:active) {
-      padding-bottom: 12px;
-      @include icon-color($primary-7);
-      transition: padding 0.25s ease-in-out;
-
-      & div {
-        @include icon-color($primary-7);
-        background-color: $primary-2;
-      }
-    }
-
-    &.sidebar-group--opened:has(.sidebar-group__header:active) {
-      padding-bottom: 0;
-      max-height: -8px;
-      overflow: hidden;
-
-      & div {
-        @include icon-color($primary-7);
-        background-color: $primary-2;
+        @include icon-color(sidebar-group-shrinked-icon-color);
+        background-color: ion-theme(sidebar-group-shrinked-background-color);
       }
     }
   }

@@ -8,25 +8,32 @@
           index >= breadcrumbs.length - truncateLimit
         "
       >
-        <ion-icon
+        <button
           *ngIf="
             truncate && index === ellipsesIndex && breadcrumbsInDropdown.length;
             else linkItem
           "
           class="breadcrumbs-ellipsis"
-          data-testid="breadcrumbs-ellipsis"
-          type="more"
-          [size]="16"
-          (click)="openDropdown()"
-        ></ion-icon>
+        >
+          <ion-icon
+            data-testid="breadcrumbs-ellipsis"
+            type="more"
+            [size]="16"
+            (click)="openDropdown()"
+          ></ion-icon>
+        </button>
 
         <ng-template #linkItem>
-          <a class="breacrumbs-link" (click)="onSelected(breadcrumb)">
+          <button class="breacrumbs-link" (click)="onSelected(breadcrumb)">
             {{ breadcrumb.label }}
-          </a>
+          </button>
         </ng-template>
 
-        <ion-icon class="icon" type="right2" [size]="16"></ion-icon>
+        <ion-icon
+          class="icon breadcrumb-divider"
+          type="right2"
+          [size]="16"
+        ></ion-icon>
 
         <ion-dropdown
           *ngIf="isDropdownOpen && index === ellipsesIndex"

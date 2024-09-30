@@ -1,4 +1,7 @@
+@use 'date-picker.theme';
+
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 :host {
   position: relative;
@@ -14,9 +17,9 @@
   max-width: 312px;
   min-width: 312px;
   margin: spacing(1) spacing(0);
-  border: 1px solid $neutral-4;
-  background-color: $neutral-1;
-  border-radius: 8px;
+  border: 1px solid ion-theme(date-picker-border-color);
+  background-color: ion-theme(date-picker-background-color);
+  border-radius: ion-theme(date-picker-border-radius);
 
   &--BOTTOMLEFT {
     top: 100%;

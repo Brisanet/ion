@@ -1,8 +1,9 @@
-$shadow-1: 0px 0px 4px #00000026;
-$shadow-2: 0px 8px 6px -4px #00000026;
-$double-shadow: 0px 8px 6px -4px #00000026, 0px 0px 2px #00000026;
+// TODO - Remover esses shadows e usar os do tema
+$shadow-1: 0 0 4px #00000026;
+$shadow-2: 0 8px 6px -4px #00000026;
+$double-shadow: 0 8px 6px -4px #00000026, 0 0 2px #00000026;
 
 @mixin focus {
-  outline: 2px solid #146ff5;
+  outline: 2px solid var(--ion-primary-5);
   outline-offset: 2px;
 }

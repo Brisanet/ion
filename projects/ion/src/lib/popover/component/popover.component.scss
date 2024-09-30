@@ -1,4 +1,7 @@
+@use 'popover.theme';
+
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 $popover-spacing: 14px;
 $popover-width: 299px;
@@ -18,7 +21,7 @@ $arrow-distance-to-border: 16px;
   z-index: $zIndexMid;
 
   &.without-header::before {
-    background-color: #fff;
+    background-color: ion-theme(arrow-body-color);
   }
 
   @if ($position == 'header') {
@@ -28,8 +31,8 @@ $arrow-distance-to-border: 16px;
       width: $arrow-width;
       height: $arrow-heigth;
       position: absolute;
-      box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
-      background-color: $background;
+      box-shadow: ion-theme(popover-arrow-shadow);
+      background-color: ion-theme($background);
       top: $arrowPosition;
       left: $left;
       transform: rotate($rotate);
@@ -43,8 +46,8 @@ $arrow-distance-to-border: 16px;
       width: $arrow-width;
       height: $arrow-heigth;
       position: absolute;
-      box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
-      background-color: $background;
+      box-shadow: ion-theme(popover-arrow-shadow);
+      background-color: ion-theme($background);
       bottom: $arrowPosition;
       left: $left;
       transform: rotate($rotate);
@@ -65,7 +68,7 @@ $arrow-distance-to-border: 16px;
       padding-bottom: $popover-spacing;
       transform: translateY(-100%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         $arrow-spacing-to-popover,
         calc(
           $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
@@ -79,7 +82,7 @@ $arrow-distance-to-border: 16px;
       padding-bottom: $popover-spacing;
       transform: translateY(-100%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         $arrow-spacing-to-popover,
         calc($popover-width / 2 - $arrow-width / 2),
         -135deg,
@@ -91,7 +94,7 @@ $arrow-distance-to-border: 16px;
       padding-bottom: $popover-spacing;
       transform: translateY(-100%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         $arrow-spacing-to-popover,
         $arrow-distance-to-border,
         -135deg,
@@ -103,7 +106,7 @@ $arrow-distance-to-border: 16px;
       padding-right: $popover-spacing;
       transform: translateY(-100%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         $arrow-distance-to-border,
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
@@ -115,7 +118,7 @@ $arrow-distance-to-border: 16px;
       padding-right: $popover-spacing;
       transform: translateY(-50%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         calc(50% - $arrow-heigth / 2),
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
@@ -126,7 +129,7 @@ $arrow-distance-to-border: 16px;
     &--leftTop {
       padding-right: $popover-spacing;
       @include sup-container(
-        $neutral-2,
+        popover-arrow-body-color,
         $arrow-distance-to-border,
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
@@ -137,7 +140,7 @@ $arrow-distance-to-border: 16px;
     &--bottomRight {
       padding-top: $popover-spacing;
       @include sup-container(
-        $neutral-2,
+        popover-arrow-body-color,
         $arrow-spacing-to-popover,
         calc(
           $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
@@ -150,7 +153,7 @@ $arrow-distance-to-border: 16px;
     &--bottomCenter {
       padding-top: $popover-spacing;
       @include sup-container(
-        $neutral-2,
+        popover-arrow-body-color,
         $arrow-spacing-to-popover,
         calc($popover-width / 2 - $arrow-width / 2),
         45deg,
@@ -161,7 +164,7 @@ $arrow-distance-to-border: 16px;
     &--bottomLeft {
       padding-top: $popover-spacing;
       @include sup-container(
-        $neutral-2,
+        popover-arrow-body-color,
         $arrow-spacing-to-popover,
         $arrow-distance-to-border,
         45deg,
@@ -173,7 +176,7 @@ $arrow-distance-to-border: 16px;
       padding-left: $popover-spacing;
       transform: translateY(-100%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         $arrow-distance-to-border,
         $arrow-spacing-to-popover,
         -45deg,
@@ -185,7 +188,7 @@ $arrow-distance-to-border: 16px;
       padding-left: $popover-spacing;
       transform: translateY(-50%);
       @include sup-container(
-        #fff,
+        popover-arrow-header-color,
         calc(50% - $arrow-heigth / 2),
         $arrow-spacing-to-popover,
         -45deg,
@@ -196,7 +199,7 @@ $arrow-distance-to-border: 16px;
     &--rightTop {
       padding-left: $popover-spacing;
       @include sup-container(
-        $neutral-2,
+        popover-arrow-body-color,
         $arrow-distance-to-border,
         $arrow-spacing-to-popover,
         -45deg,
@@ -208,13 +211,13 @@ $arrow-distance-to-border: 16px;
   &__container {
     z-index: $zIndexMid;
     border-radius: spacing(1);
-    box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
-    background-color: #fff;
+    box-shadow: ion-theme(popover-shadow);
+    background-color: ion-theme(popover-background-color);
   }
 
   &__header {
     display: flex;
-    background-color: $neutral-2;
+    background-color: ion-theme(popover-header-background-color);
     justify-content: space-between;
     border-radius: spacing(1) spacing(1) 0 0;
     align-items: center;
@@ -230,31 +233,29 @@ $arrow-distance-to-border: 16px;
   }
 
   &__title {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 20px;
-    color: $neutral-8;
+    font-family: ion-theme(font-family-main);
+    font-weight: ion-theme(popover-header-title-text-font-weight);
+    font-size: ion-theme(popover-header-title-text-font-size);
+    line-height: ion-theme(popover-header-title-text-line-height);
+    color: ion-theme(popover-header-title-text-color);
   }
 
   &__icon-close {
     cursor: pointer;
     ::ng-deep svg {
-      fill: $primary-6;
+      fill: ion-theme(popover-header-close-icon-color);
     }
   }
 
   &__content-body {
     padding: spacing(2);
-    font-family: 'Source Sans Pro';
-    background-color: #fff;
+    background-color: ion-theme(popover-body-background-color);
     border-radius: 0 0 spacing(1) spacing(1);
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    color: $neutral-6;
+    font-family: ion-theme(popover-body-text-font-family);
+    font-weight: ion-theme(popover-body-text-font-weight);
+    font-size: ion-theme(popover-body-text-font-size);
+    line-height: ion-theme(popover-body-text-line-height);
+    color: ion-theme(popover-body-text-color);
     max-height: 92px;
     overflow-y: auto;
   }
@@ -298,5 +299,5 @@ $arrow-distance-to-border: 16px;
 
 ::-webkit-scrollbar-thumb {
   border-radius: 20px;
-  background: $neutral-5;
+  background: ion-theme(popover-scrollbar-thumb-color);
 }

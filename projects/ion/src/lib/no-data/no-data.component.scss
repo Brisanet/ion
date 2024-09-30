@@ -1,4 +1,7 @@
+@use 'no-data.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .ion-no-data-container {
   width: 100%;
@@ -10,10 +13,11 @@
   background-color: transparent;
 
   &__label {
-    color: $neutral-6;
-    font-family: 'Source Sans Pro';
-    font-weight: 600;
     margin: 0;
-    @include font-size-xs;
+    font-family: ion-theme(no-data-text-font-family);
+    font-weight: ion-theme(no-data-text-font-weight);
+    font-size: ion-theme(no-data-text-font-size);
+    line-height: ion-theme(no-data-text-line-height);
+    color: ion-theme(no-data-text-color);
   }
 }

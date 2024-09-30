@@ -1,4 +1,7 @@
+@use 'info-badge.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 @mixin set-size($size) {
   width: $size;
@@ -17,24 +20,22 @@
     background-color: $background;
   }
 
-  .tab-icon {
-    ::ng-deep svg {
-      fill: $background;
-      color: #fff;
-    }
+  .tab-icon ::ng-deep svg {
+    fill: $background;
+    color: #fff;
   }
 }
 
 div {
-  color: $neutral-7;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  font-style: normal;
-  font-family: 'Source Sans Pro', sans-serif;
+
+  font-family: ion-theme(info-badge-text-font-family);
+  font-size: ion-theme(info-badge-text-font-size);
+  font-weight: ion-theme(info-badge-text-font-weight);
+  line-height: ion-theme(info-badge-text-line-height);
+  color: ion-theme(info-badge-text-color);
 
   & span {
     display: flex;
@@ -49,30 +50,14 @@ div {
   }
 }
 
-.info-badge-sm {
-  @include set-size(12px);
+@each $size in sm, md {
+  .info-badge-#{$size} {
+    @include set-size(ion-theme(info-badge-size-#{$size}));
+  }
 }
 
-.info-badge-md {
-  @include set-size(16px);
-}
-
-.primary {
-  @include set-background($primary-color);
-}
-
-.warning {
-  @include set-background($warning-6);
-}
-
-.negative {
-  @include set-background($negative-6);
-}
-
-.success {
-  @include set-background($positive-6);
-}
-
-.info {
-  @include set-background($info-6);
+@each $variant in primary, warning, negative, success, info {
+  .#{$variant} {
+    @include set-background(ion-theme(info-badge-variant-#{$variant}-color));
+  }
 }

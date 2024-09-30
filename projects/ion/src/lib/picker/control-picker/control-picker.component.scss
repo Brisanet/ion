@@ -1,4 +1,7 @@
+@use 'control-picker.theme';
+
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 :host {
   position: relative;
@@ -10,7 +13,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $neutral-1;
+  background-color: transparent;
 }
 
 .container-buttons {
@@ -23,7 +26,7 @@
       height: 24px;
       width: 24px !important;
       min-width: 24px !important;
-      border: 1px solid $neutral-5;
+      border: 1px solid ion-theme(control-picker-buttons-border-color);
     }
   }
 }
@@ -34,15 +37,15 @@
   gap: 4px;
 
   label {
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: $neutral-8;
     cursor: pointer;
+    text-align: center;
+    font-weight: ion-theme(control-picker-label-font-weight);
+    font-size: ion-theme(control-picker-label-font-size);
+    line-height: ion-theme(control-picker-label-line-height);
+    color: ion-theme(control-picker-label-color);
 
     &:hover {
-      color: $primary-6;
+      color: ion-theme(control-picker-label-hover-color);
     }
   }
 }
@@ -52,7 +55,7 @@
   position: absolute;
   height: 280px;
   border-radius: 8px;
-  background: $neutral-1;
+  background: ion-theme(control-picker-choose-month-or-year-background-color);
   left: -24px;
   top: -24px;
   right: -24px;
@@ -83,17 +86,15 @@
     margin-top: 4px;
 
     span {
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 24px;
       text-align: center;
-      color: $neutral-8;
+      font-weight: ion-theme(control-picker-choose-year-title-font-weight);
+      font-size: ion-theme(control-picker-choose-year-title-font-size);
+      line-height: ion-theme(control-picker-choose-year-title-line-height);
+      color: ion-theme(control-picker-choose-year-title-color);
     }
 
-    & ion-button {
-      ::ng-deep button.ion-btn-md {
-        border: 1px solid $neutral-5;
-      }
+    & ion-button ::ng-deep button.ion-btn-md {
+      border: 1px solid ion-theme(control-picker-buttons-border-color);
     }
   }
 
