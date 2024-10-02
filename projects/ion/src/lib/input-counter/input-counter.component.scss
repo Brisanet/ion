@@ -5,12 +5,22 @@
   border: 1px solid $neutral-5;
   border-radius: 6px;
 
+  ::ng-deep .ion-btn-ghost:disabled {
+    background-color: $neutral-2 !important;
+  }
+
   & input {
     border: none;
     outline: none;
     text-align: center;
     font-size: 12px;
     color: $neutral-5;
+
+    &:disabled {
+      background: $neutral-2;
+      color: $neutral-4;
+      cursor: not-allowed;
+    }
   }
 }
 
