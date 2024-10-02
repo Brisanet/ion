@@ -14,6 +14,12 @@ export class IonInputCounterComponent implements OnInit {
   @Input() count = 0;
   @Output() changedValue = new EventEmitter();
 
+  ngOnInit(): void {
+    if (this.minValue && !this.count) {
+      this.count = this.minValue;
+    }
+  }
+
   public emitEvent(): void {
     this.changedValue.emit({ newValue: this.count });
   }
@@ -52,11 +58,5 @@ export class IonInputCounterComponent implements OnInit {
       return this.maxValue;
     }
     return this.count;
-  }
-
-  ngOnInit(): void {
-    if (this.minValue) {
-      this.count = this.minValue;
-    }
   }
 }
