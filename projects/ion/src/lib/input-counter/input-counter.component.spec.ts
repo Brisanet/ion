@@ -81,6 +81,7 @@ describe('InputCounter', () => {
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
     const value = '111';
     userEvent.type(inputCounter, value);
+    fireEvent.blur(inputCounter);
     expect(inputCounter.value).toBe(value);
     userEvent.type(inputCounter, 'abc');
     expect(inputCounter.value).toBe(value);
@@ -116,10 +117,19 @@ describe('InputCounter / Limits', () => {
     fireEvent.blur(inputCounter);
     expect(inputCounter).toHaveValue(minValue.toString());
   });
+
+  it('should dont exceed the max value by the increase button when it is clicked', async () => {
+    const maxValue = 100;
+    await sut({ maxValue, count: maxValue });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const addButton = screen.getByTestId('iconAdd');
+    userEvent.click(addButton.firstChild as HTMLElement);
+    expect(inputCounter).toHaveValue(maxValue.toString());
+  });
 });
 
 describe('InputCounter / Disabled', () => {
-  it('should show the disabled state when it is setted ', async () => {
+  it('should show the disabled state when it is setted', async () => {
     await sut({ disabled: true });
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
     const subButton = screen.getByTestId('iconSub');

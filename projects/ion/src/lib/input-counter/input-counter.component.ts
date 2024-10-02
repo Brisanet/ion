@@ -41,8 +41,6 @@ export class IonInputCounterComponent implements OnInit {
     const countNumeric = Number(count);
     if (!isNaN(countNumeric)) {
       this.count = countNumeric;
-    } else {
-      this.count = this.minValue;
     }
   }
 
