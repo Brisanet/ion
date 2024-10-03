@@ -4,9 +4,16 @@
   display: inline-flex;
   border: 1px solid $neutral-5;
   border-radius: 6px;
+  overflow: hidden;
 
-  ::ng-deep .ion-btn-ghost:disabled {
-    background-color: $neutral-2 !important;
+  ::ng-deep .ion-btn-ghost {
+    border-radius: 0;
+
+    &:disabled {
+      background-color: $neutral-2 !important;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
   }
 
   & input {
