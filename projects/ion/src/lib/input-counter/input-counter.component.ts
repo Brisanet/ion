@@ -12,6 +12,7 @@ export class IonInputCounterComponent implements OnInit {
   @Input() minValue = 0;
   @Input() disabled = false;
   @Input() count = 0;
+  @Input() maxDigits = 9;
   @Output() changedValue = new EventEmitter();
 
   ngOnInit(): void {

@@ -11,8 +11,11 @@
 
     &:disabled {
       background-color: $neutral-2 !important;
-      pointer-events: none;
       cursor: not-allowed;
+
+      &:hover {
+        background-color: $neutral-2 !important;
+      }
     }
   }
 
