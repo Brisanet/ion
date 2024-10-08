@@ -4,9 +4,10 @@
   [ngClass]="'step-direction-' + direction"
 >
   <div
+    *ngFor="let step of steps; let index = index"
     [class]="'step ' + step.status"
     [class.clickable]="
-      clickable &&
+      step.clickable &&
       (!disabled || !step.disabled) &&
       step.status !== 'selected' &&
       (step.status !== 'error' ||
@@ -14,7 +15,6 @@
     "
     [class.disabled]="disabled || step.disabled"
     [attr.data-testid]="'step-' + step.index + '-' + step.status"
-    *ngFor="let step of steps; let index = index"
     (click)="goesTo(step.index)"
   >
     <ng-container
