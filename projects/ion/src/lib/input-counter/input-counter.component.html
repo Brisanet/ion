@@ -1,5 +1,6 @@
 <div class="counter">
   <ion-button
+    [disabled]="disabled"
     data-testid="iconSub"
     iconType="sub"
     type="ghost"
@@ -9,14 +10,18 @@
 
   <input
     type="text"
-    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
-    [(ngModel)]="count"
     data-testid="input-count"
-    (ngModelChange)="changeCount($event)"
+    [maxlength]="maxDigits"
     [value]="count"
+    [(ngModel)]="count"
+    [disabled]="disabled"
+    (blur)="onBlurInput()"
+    (ngModelChange)="changeCount($event)"
+    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
   />
 
   <ion-button
+    [disabled]="disabled"
     data-testid="iconAdd"
     iconType="add"
     type="ghost"
