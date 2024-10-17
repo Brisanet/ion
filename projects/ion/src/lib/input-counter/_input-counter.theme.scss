@@ -6,6 +6,10 @@ $default: (
   border-radius: 6px,
   text-color: ion-theme(neutral-5),
   text-font-size: 12px,
+  disabled: (
+    background-color: ion-theme(neutral-2),
+    text-color: ion-theme(neutral-4),
+  )
 );
 
 @include register-component(

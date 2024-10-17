@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { IonInputCount } from '../core/types';
 
 @Component({
@@ -6,12 +6,20 @@ import { IonInputCount } from '../core/types';
   templateUrl: './input-counter.component.html',
   styleUrls: ['./input-counter.component.scss'],
 })
-export class IonInputCounterComponent {
+export class IonInputCounterComponent implements OnInit {
   @Input() inputSize: IonInputCount['inputSize'] = 'md';
+  @Input() maxValue?: number;
+  @Input() minValue = 0;
+  @Input() disabled = false;
   @Input() count = 0;
+  @Input() maxDigits = 9;
   @Output() changedValue = new EventEmitter();
 
-  private minValue = 0;
+  ngOnInit(): void {
+    if (this.minValue && !this.count) {
+      this.count = this.minValue;
+    }
+  }
 
   public emitEvent(): void {
     this.changedValue.emit({ newValue: this.count });
@@ -25,6 +33,7 @@ export class IonInputCounterComponent {
   }
 
   public countIncrement(): void {
+    if (this.maxValue && this.maxValue === this.count) return;
     this.count++;
     this.emitEvent();
   }
@@ -33,7 +42,20 @@ export class IonInputCounterComponent {
     const countNumeric = Number(count);
     if (!isNaN(countNumeric)) {
       this.count = countNumeric;
-      this.emitEvent();
     }
+  }
+
+  public onBlurInput(): void {
+    this.count = this.getValidCount();
+    this.emitEvent();
+  }
+
+  private getValidCount(): number {
+    if (this.count < this.minValue) {
+      return this.minValue;
+    } else if (this.maxValue && this.count > this.maxValue) {
+      return this.maxValue;
+    }
+    return this.count;
   }
 }

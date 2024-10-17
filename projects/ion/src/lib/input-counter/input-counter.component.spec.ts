@@ -81,6 +81,7 @@ describe('InputCounter', () => {
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
     const value = '111';
     userEvent.type(inputCounter, value);
+    fireEvent.blur(inputCounter);
     expect(inputCounter.value).toBe(value);
     userEvent.type(inputCounter, 'abc');
     expect(inputCounter.value).toBe(value);
@@ -94,5 +95,48 @@ describe('InputCounter / Size', () => {
       'ng-reflect-size',
       'sm'
     );
+  });
+});
+
+describe('InputCounter / Limits', () => {
+  it('should set the maximum value when a bigger number is texted', async () => {
+    const maxValue = 50;
+    await sut({ maxValue });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    userEvent.type(inputCounter, '1588');
+    fireEvent.blur(inputCounter);
+    expect(inputCounter).toHaveValue(maxValue.toString());
+  });
+
+  it('should set the minimum value when a smaller number is texted', async () => {
+    const minValue = 50;
+    await sut({ minValue });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    userEvent.clear(inputCounter);
+    userEvent.type(inputCounter, '10');
+    fireEvent.blur(inputCounter);
+    expect(inputCounter).toHaveValue(minValue.toString());
+  });
+
+  it('should dont exceed the max value by the increase button when it is clicked', async () => {
+    const maxValue = 100;
+    await sut({ maxValue, count: maxValue });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const addButton = screen.getByTestId('iconAdd');
+    userEvent.click(addButton.firstChild as HTMLElement);
+    expect(inputCounter).toHaveValue(maxValue.toString());
+  });
+});
+
+describe('InputCounter / Disabled', () => {
+  it('should show the disabled state when it is setted', async () => {
+    await sut({ disabled: true });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const subButton = screen.getByTestId('iconSub');
+    const addButton = screen.getByTestId('iconAdd');
+
+    expect(inputCounter).toBeDisabled();
+    expect(subButton.firstChild).toBeDisabled();
+    expect(addButton.firstChild).toBeDisabled();
   });
 });
