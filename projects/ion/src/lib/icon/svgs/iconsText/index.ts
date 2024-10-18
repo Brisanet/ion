@@ -370,3 +370,8 @@ export { default as zap } from './zap';
 export { default as zapOff } from './zap-off';
 export { default as zoomIn } from './zoom-in';
 export { default as zoomOut } from './zoom-out';
+export { default as imageUser } from './image-user';
+export { default as imageUserCheck } from './image-user-check';
+export { default as imageUserDown } from './image-user-down';
+export { default as imageUserPlus } from './image-user-plus';
+export { default as imageUserX } from './image-user-x';
