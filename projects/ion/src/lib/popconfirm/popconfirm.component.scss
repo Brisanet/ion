@@ -1,9 +1,12 @@
+@use 'popconfirm.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 @mixin arrowPosition($top, $left, $right) {
   margin-top: 10px;
-  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
-  background: #fff;
+  box-shadow: ion-theme(popconfirm-shadow);
+  background: ion-theme(popconfirm-background-color);
   display: inline-block;
   max-width: 346px;
   justify-content: flex-end;
@@ -16,13 +19,13 @@
     display: block;
     width: 13px;
     height: 13px;
-    background-color: #fff;
+    background-color: ion-theme(popconfirm-arrow-color);
     position: absolute;
     top: $top;
     left: $left;
     right: $right;
     transform: rotate(45deg);
-    box-shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%);
+    box-shadow: ion-theme(popconfirm-arrow-shadow);
   }
 }
 
@@ -35,19 +38,8 @@
 }
 
 .sup-container-bottom {
-  --height: calc(100% - 9px);
-  @include arrowPosition(var(--height), none, 16px);
-}
-
-.arrow {
-  background-color: #fff;
-  width: spacing(2);
-  height: spacing(2);
-  transform: translateY(-8px) rotate(45deg);
-  position: absolute;
-  box-shadow: 0px 0px 6px rgba(4, 42, 98, 0.15);
-  margin-left: 26px;
-  z-index: -1;
+  $height: calc(100% - 9px);
+  @include arrowPosition($height, none, 16px);
 }
 
 .containter {
@@ -62,15 +54,14 @@
 .msg-container {
   padding: spacing(2) spacing(3) spacing(1) spacing(3);
 
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: $neutral-7;
+  font-family: ion-theme(popconfirm-text-font-family);
+  font-weight: ion-theme(popconfirm-text-font-weight);
+  font-size: ion-theme(popconfirm-text-font-size);
+  line-height: ion-theme(popconfirm-text-line-height);
+  color: ion-theme(popconfirm-text-color);
 
   ::ng-deep ion-alert div {
-    padding: 0px;
+    padding: 0;
     font-size: 16px;
     font-weight: 600;
   }

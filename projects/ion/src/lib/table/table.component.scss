@@ -1,6 +1,7 @@
-@import '../../styles/index.scss';
+@use 'table.theme';
 
-$radius: 8px;
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 @keyframes dot-animation {
   0% {
@@ -21,7 +22,7 @@ $radius: 8px;
 }
 
 .ion-table {
-  border-radius: $radius;
+  border-radius: ion-theme(table-border-radius);
 }
 
 table {
@@ -32,14 +33,14 @@ table {
   overflow-y: auto;
 
   & .border-header {
-    border-bottom: 1px solid $neutral-4;
+    border-bottom: 1px solid ion-theme(table-header-divider-color);
 
     & th:first-child {
-      border-top-left-radius: $radius;
+      border-top-left-radius: ion-theme(table-border-radius);
     }
 
     & th:last-child {
-      border-top-right-radius: $radius;
+      border-top-right-radius: ion-theme(table-border-radius);
     }
   }
 
@@ -52,37 +53,38 @@ table {
     border-radius: 100%;
     cursor: pointer;
     border: none;
-    background-color: white;
+    background-color: transparent;
 
     &--disabled,
     &--disabled:hover,
     &--disabled:focus-visible {
       cursor: not-allowed !important;
-      background-color: $neutral-3 !important;
+      background-color: ion-theme(
+        table-sort-button-disabled-hover-background-color
+      ) !important;
     }
 
     &:hover {
-      background-color: $primary-1;
+      background-color: ion-theme(table-sort-button-hover-background-color);
     }
 
     &:focus-visible {
-      outline: 2px solid $primary-color;
-      outline-offset: 2px;
-      background-color: $primary-1;
+      @include focus;
+      background-color: ion-theme(table-sort-button-focus-background-color);
     }
 
     &:active {
       cursor: pointer;
-      background-color: $primary-3;
+      background-color: ion-theme(table-sort-button-active-background-color);
     }
   }
 
-  & tr:not(:first-child):hover {
-    background-color: $primary-1;
+  & tr:hover {
+    background-color: ion-theme(table-row-hover-background-color);
   }
 
   & th {
-    background-color: rgb(255, 255, 255);
+    background-color: ion-theme(table-row-th-background-color);
     padding: spacing(2);
     position: sticky;
     top: 0;
@@ -90,10 +92,10 @@ table {
 
     & .th-span,
     &.th-actions {
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 22px;
-      color: $neutral-8;
+      font-size: ion-theme(table-row-th-text-font-size);
+      font-weight: ion-theme(table-row-th-text-font-weight);
+      line-height: ion-theme(table-row-th-text-line-height);
+      color: ion-theme(table-row-th-text-color);
     }
 
     &.th-actions {
@@ -110,10 +112,10 @@ table {
     padding: spacing(2);
 
     & .td-span {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 20px;
-      color: $neutral-7;
+      font-size: ion-theme(table-row-td-text-font-size);
+      font-weight: ion-theme(table-row-td-text-font-weight);
+      line-height: ion-theme(table-row-td-text-line-height);
+      color: ion-theme(table-row-td-text-color);
     }
 
     & input {
@@ -128,7 +130,7 @@ table {
       width: 15px;
       height: 16.66px;
       ::ng-deep svg {
-        fill: $primary-color;
+        fill: ion-theme(table-row-td-icon-color);
       }
     }
 
@@ -146,26 +148,26 @@ table {
     align-items: center;
   }
 
-  & .old {
-    background-color: $neutral-1;
+  & .odd {
+    background-color: ion-theme(table-row-odd-background-color);
   }
 
   & .even {
-    background-color: $neutral-2;
+    background-color: ion-theme(table-row-even-background-color);
   }
 
   & .checked {
-    box-shadow: -2px 0 0 0 $primary-color;
+    box-shadow: -2px 0 0 0 ion-theme(table-row-checkbox-shadow);
   }
 }
 
 .last-row {
   td:first-child {
-    border-radius: 0 0 0 $radius;
+    border-radius: 0 0 0 ion-theme(table-border-radius);
   }
 
   td:last-child {
-    border-radius: 0 0 $radius 0;
+    border-radius: 0 0 ion-theme(table-border-radius) 0;
   }
 }
 
@@ -179,17 +181,18 @@ table {
   position: sticky;
   bottom: 0;
 
-  background: rgba(255, 255, 255, 0.45);
-  border-top: 1px solid $neutral-4;
+  background: ion-theme(table-footer-background-color);
+  border-top: 1px solid ion-theme(table-footer-divider-color);
   backdrop-filter: blur(5px);
-  border-radius: 0px 0px $radius $radius;
+  border-radius: 0 0 ion-theme(table-border-radius)
+    ion-theme(table-border-radius);
 
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: $neutral-7;
+  font-family: ion-theme(table-footer-text-font-family);
+  font-style: ion-theme(table-footer-text-font-style);
+  font-weight: ion-theme(table-footer-text-font-weight);
+  font-size: ion-theme(table-footer-text-font-size);
+  line-height: ion-theme(table-footer-text-line-height);
+  color: ion-theme(table-footer-text-color);
 
   .loading-message:after {
     content: '...';
@@ -210,8 +213,8 @@ table {
   justify-content: center;
   align-items: center;
 
-  color: $neutral-6;
-  background-color: $neutral-1;
+  color: ion-theme(table-no-data-text-color);
+  background-color: ion-theme(table-no-data-background-color);
   font-weight: 600;
   line-height: 17px;
   font-size: medium;
@@ -222,7 +225,7 @@ table {
   }
 
   ::ng-deep ion-icon svg {
-    fill: $neutral-6;
+    fill: ion-theme(table-no-data-icon-color);
   }
 }
 

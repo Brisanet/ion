@@ -1,0 +1,10 @@
+@import '../../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+@include register-component(
+  predefined-range-picker,
+  (
+    default: (
+      divider-color: ion-theme(neutral-4),
+    ),
+  )
+);

@@ -12,8 +12,8 @@ import {
 } from '../core/types';
 import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utilsTable';
 
-const DISABLED_COLOR = '#CED2DB';
-const ENABLED_COLOR = '#0858CE';
+const DISABLED_COLOR = 'var(--ion-neutral-4)';
+const ENABLED_COLOR = 'var(--ion-primary-6)';
 
 export abstract class BaseTable<
   RowType extends BaseRow,

@@ -1,5 +1,45 @@
-import { Component } from '@angular/core';
-import { action } from '@storybook/addon-actions';
+import { Component, OnInit } from '@angular/core';
+import { IonSidebarProps } from '../../core/types';
+import { IonThemeScheme, IonThemeService } from '../../theme';
+
+export const SIDEBAR_WITH_FOOTER_PROPS: IonSidebarProps = {
+  logo: '',
+  items: [
+    {
+      title: 'Gerenciamento',
+      icon: 'working',
+      options: [
+        { title: 'Gerência', icon: 'user' },
+        { title: 'Grupos', icon: 'union' },
+        { title: 'Pausas', icon: 'wait' },
+        { title: 'Comissões', icon: 'calendar-money' },
+      ],
+    },
+    { title: 'Fila de atendimento', icon: 'headset' },
+    { title: 'Cadastros', icon: 'plus-solid' },
+    { title: 'Comissões', icon: 'calendar-money', disabled: true },
+    {
+      title: 'Gerenciamento',
+      icon: 'working',
+      options: [
+        { title: 'Gerência', icon: 'user' },
+        { title: 'Grupos', icon: 'union' },
+        { title: 'Pausas', icon: 'wait' },
+        { title: 'Comissões', icon: 'calendar-money' },
+      ],
+    },
+    {
+      title: 'Permissões',
+      icon: 'config',
+      options: [
+        { title: 'Gerência', icon: 'user' },
+        { title: 'Grupos', icon: 'union' },
+        { title: 'Pausas', icon: 'wait' },
+        { title: 'Comissões', icon: 'calendar-money', disabled: true },
+      ],
+    },
+  ],
+};
 
 @Component({
   template: `
@@ -10,19 +50,20 @@ import { action } from '@storybook/addon-actions';
         align-items: center;
         justify-content: space-around;
         gap: 8px;
+        color: var(--ion-neutral-7);
       }
       .avatar-circle {
         width: 50px;
         height: 50px;
         border-radius: 50%;
-        background-color: #008000;
+        background-color: var(--ion-primary-5);
       }
     </style>
     <div>
       <div>
         <ion-sidebar
-          [logo]="logo"
-          [items]="items"
+          [logo]="props.logo"
+          [items]="props.items"
           [shrinkMode]="true"
           [sidebarFooter]="footerTemplate"
           (ionOnSidebarToggle)="updateSidebarState($event)"
@@ -37,135 +78,22 @@ import { action } from '@storybook/addon-actions';
     </div>
   `,
 })
-export class SidebarWithFooterComponent {
-  logo = require('../../../../../../stories/assets/sidebar-logo.svg');
-  sidebarClosed = true;
-  items = [
-    {
-      title: 'Gerenciamento',
-      icon: 'working',
-      options: [
-        {
-          title: 'Gerência',
-          icon: 'user',
-          action: action('Gerência'),
-        },
-        {
-          title: 'Grupos',
-          icon: 'union',
-          action: action('Grupos'),
-        },
-        {
-          title: 'Pausas',
-          icon: 'wait',
-          action: action('Pausas'),
-        },
-        {
-          title: 'Comissões',
-          icon: 'calendar-money',
-          action: action('Comissões'),
-        },
-      ],
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    {
-      title: 'Fila de atendimento',
-      icon: 'headset',
-      action: action('Fila de atendimento'),
-    },
-    { title: 'Cadastros', icon: 'plus-solid', action: action('Cadastros') },
-    {
-      title: 'Comissões',
-      icon: 'calendar-money',
-      action: action('Comissões'),
-      disabled: true,
-    },
-    {
-      title: 'Gerenciamento',
-      icon: 'working',
-      options: [
-        {
-          title: 'Gerência',
-          icon: 'user',
-          action: action('Gerência'),
-        },
-        {
-          title: 'Grupos',
-          icon: 'union',
-          action: action('Grupos'),
-        },
-        {
-          title: 'Pausas',
-          icon: 'wait',
-          action: action('Pausas'),
-        },
-        {
-          title: 'Comissões',
-          icon: 'calendar-money',
-          action: action('Comissões'),
-        },
-      ],
-    },
-    {
-      title: 'Permissões',
-      icon: 'config',
-      action: action('Permissões'),
-      options: [
-        {
-          title: 'Gerência',
-          icon: 'user',
-          action: action('Gerência'),
-        },
-        {
-          title: 'Grupos',
-          icon: 'union',
-          action: action('Grupos'),
-        },
-        {
-          title: 'Pausas',
-          icon: 'wait',
-          action: action('Pausas'),
-        },
-        {
-          title: 'Comissões',
-          icon: 'calendar-money',
-          action: action('Comissões'),
-          disabled: true,
-        },
-      ],
-    },
-  ];
+export class SidebarWithFooterComponent implements OnInit {
+  public sidebarClosed = true;
+  public props = SIDEBAR_WITH_FOOTER_PROPS;
 
-  updateSidebarState(isClosed: boolean): void {
+  constructor(private themeService: IonThemeService) {}
+
+  public updateSidebarState(isClosed: boolean): void {
     this.sidebarClosed = isClosed;
+  }
+
+  public ngOnInit(): void {
+    this.themeService.theme$.subscribe((theme) => {
+      SIDEBAR_WITH_FOOTER_PROPS.logo =
+        theme.scheme === IonThemeScheme.DARK
+          ? require('../../../../../../stories/assets/sidebar-logo-dark.svg')
+          : require('../../../../../../stories/assets/sidebar-logo.svg');
+    });
   }
 }

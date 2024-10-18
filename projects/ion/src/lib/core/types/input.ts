@@ -18,6 +18,7 @@ export interface IonInputProps {
   inputButtonConfig?: IonButtonProps;
   value?: string;
   clearButton?: boolean;
+  readonly?: boolean;
   inputType?: InputType;
   valueChange?: EventEmitter<string>;
   maxLength?: string | number | null;

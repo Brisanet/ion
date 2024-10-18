@@ -1,4 +1,7 @@
+@use 'modal.theme';
+
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 %defaultPadding {
   padding: spacing(2) spacing(3);
@@ -12,7 +15,7 @@
   left: 0;
   width: 100%;
   min-height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: ion-theme(modal-overlay-background);
 
   display: flex;
   justify-content: center;
@@ -25,12 +28,11 @@
 
   .modal-container {
     width: 500px;
-    border-radius: 12px;
-    background: #ffffff;
+    border-radius: ion-theme(modal-container-border-radius);
+    background-color: ion-theme(modal-container-background-color);
     border: none;
     padding: 0;
-    box-shadow: 0 8px 6px -4px rgba(0, 0, 0, 0.15),
-      0px 0px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: ion-theme(modal-container-shadow);
 
     display: flex;
     flex-direction: column;
@@ -43,7 +45,7 @@
       @extend %defaultPadding;
 
       min-height: 64px;
-      border-bottom: 1px solid $neutral-3;
+      border-bottom: 1px solid ion-theme(modal-header-divider-color);
 
       display: flex;
       justify-content: space-between;
@@ -52,14 +54,14 @@
 
       h4 {
         margin: 0;
-
-        font-family: 'Source Sans Pro', sans-serif;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 28px;
-        color: $neutral-color;
         margin-right: auto;
+
+        font-family: ion-theme(modal-header-title-text-font-family);
+        font-style: ion-theme(modal-header-title-text-font-style);
+        font-weight: ion-theme(modal-header-title-text-font-weight);
+        font-size: ion-theme(modal-header-title-text-font-size);
+        line-height: ion-theme(modal-header-title-text-line-height);
+        color: ion-theme(modal-header-title-text-color);
       }
 
       .close-icon {
@@ -77,7 +79,7 @@
       overflow: auto;
 
       scrollbar-width: thin;
-      scrollbar-color: $neutral-5;
+      scrollbar-color: ion-theme(modal-body-scrollbar-color);
 
       // Chrome, Edge, and Safari
       &::-webkit-scrollbar {
@@ -86,13 +88,13 @@
       }
 
       &::-webkit-scrollbar-track {
-        background: #ffffff;
+        background: ion-theme(modal-body-scrollbar-track-color);
       }
 
       &::-webkit-scrollbar-thumb {
-        background-color: $neutral-5;
+        background-color: ion-theme(modal-body-scrollbar-thumb-color);
         border-radius: 20px;
-        border: 3px solid $neutral-5;
+        border: 3px solid ion-theme(modal-body-scrollbar-thumb-color);
       }
     }
 
@@ -101,7 +103,7 @@
       justify-content: flex-end;
 
       &.divider-line {
-        border-top: 1px solid $neutral-3;
+        border-top: 1px solid ion-theme(modal-footer-divider-color);
       }
 
       & :first-child {

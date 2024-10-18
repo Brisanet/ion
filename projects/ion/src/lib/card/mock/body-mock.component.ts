@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  template: `
-    <p style="padding: 24px">
-      {{ text }}
-    </p>
-  `,
+  template: ` <p>{{ text }}</p> `,
+  styles: [
+    `
+      p {
+        padding: 24px;
+        color: var(--ion-neutral-8);
+      }
+    `,
+  ],
 })
 export class BodyMockComponent {
   @Input()
