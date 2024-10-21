@@ -1,20 +1,28 @@
+@use 'input-counter.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .counter {
   display: inline-flex;
-  border: 1px solid $neutral-5;
-  border-radius: 6px;
+  border: 1px solid ion-theme(input-counter-border-color);
+  border-radius: ion-theme(input-counter-border-radius);
+  background-color: ion-theme(input-counter-background-color);
   overflow: hidden;
 
   ::ng-deep .ion-btn-ghost {
     border-radius: 0;
 
     &:disabled {
-      background-color: $neutral-2 !important;
+      background-color: ion-theme(
+        input-counter-disabled-background-color
+      ) !important;
       cursor: not-allowed;
 
       &:hover {
-        background-color: $neutral-2 !important;
+        background-color: ion-theme(
+          input-counter-disabled-background-color
+        ) !important;
       }
     }
   }
@@ -23,12 +31,13 @@
     border: none;
     outline: none;
     text-align: center;
-    font-size: 12px;
-    color: $neutral-5;
+    background-color: transparent;
+    font-size: ion-theme(input-counter-text-font-size);
+    color: ion-theme(input-counter-text-color);
 
     &:disabled {
-      background: $neutral-2;
-      color: $neutral-4;
+      background: ion-theme(input-counter-disabled-background-color);
+      color: ion-theme(input-counter-disabled-text-color);
       cursor: not-allowed;
     }
   }

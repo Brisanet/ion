@@ -1,0 +1,54 @@
+@use 'sass:map';
+@import './themes';
+
+$defaults: (
+  font-family-main: 'Source Sans Pro',
+  // TODO: Add more transparent colors
+  base-transparecence-90: color-mix(in srgb, var(--ion-base) 90%, transparent),
+  base-transparecence-45: color-mix(in srgb, var(--ion-base) 45%, transparent),
+);
+
+// TODO: Create a function to  register the themes instead of setting them manually
+$themes: (
+  light: $light-theme,
+  dark: $dark-theme,
+  orange-light: $orange-light-theme,
+  orange-dark: $orange-dark-theme,
+);
+
+// Registering the themes
+// TODO: Check if should have some kind of validation to don't register the same theme twice
+@each $theme, $map in $themes {
+  ::ng-deep body[ion-theme='#{$theme}'] {
+    @each $key, $value in map-merge($defaults, $map) {
+      --ion-#{$key}: #{$value};
+    }
+  }
+}
+
+@mixin register-component($component, $theme) {
+  @each $themeName in map-keys($themes) {
+    $key: if(map-has-key($theme, $themeName), $themeName, default);
+
+    ::ng-deep body[ion-theme='#{$themeName}'] {
+      @include map-to-css-vars((#{$component}: map-get($theme, $key)));
+    }
+  }
+}
+
+// Recursively converts a map to CSS variables
+@mixin map-to-css-vars($map, $prefix: ()) {
+  @each $key, $value in $map {
+    $new-prefix: if(length($prefix) > 0, '#{$prefix}-#{$key}', $key);
+
+    @if type-of($value) == 'map' {
+      @include map-to-css-vars($value, $new-prefix);
+    } @else {
+      --ion-#{$new-prefix}: #{$value};
+    }
+  }
+}
+
+@function ion-theme($key) {
+  @return var(--ion-#{$key});
+}

@@ -15,7 +15,7 @@
         [disabled]="disabled"
       >
         <span>{{ currentOption?.label }}</span>
-        <ion-icon type="semi-down" color="#8D93A5"></ion-icon>
+        <ion-icon type="semi-down" color="var(--ion-neutral-6)"></ion-icon>
       </button>
 
       <div *ngIf="!!selectOptions && dropdownVisible" class="ion-btn-dropdown">
@@ -83,7 +83,7 @@
 <ng-template #validIcon>
   <ion-icon
     data-testid="icon-valid"
-    class="colorValid"
+    class="color-valid"
     type="check-solid"
     size="16"
   >
@@ -93,7 +93,7 @@
 <ng-template #invalidIcon>
   <ion-icon
     data-testid="icon-invalid"
-    class="colorInvalid"
+    class="color-invalid"
     type="close-solid"
     size="16"
   >

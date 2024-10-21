@@ -1,4 +1,7 @@
+@use 'divider.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 hr {
   border: 0;
@@ -10,12 +13,12 @@ hr {
 }
 
 .ion-divider-horizontal {
-  border-top: 1px solid $neutral-4;
+  border-top: 1px solid ion-theme(divider-color);
   width: 100%;
 }
 
 .ion-divider-vertical {
-  border-left: 1px solid $neutral-4;
+  border-left: 1px solid ion-theme(divider-color);
   min-height: 15px;
   height: 100%;
 }
@@ -25,16 +28,16 @@ hr {
   align-items: center;
   justify-content: space-between;
   gap: spacing(1);
-  color: $neutral-7;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-weight: 400;
-  line-height: 20px;
-  font-size: 14px;
+  color: ion-theme(divider-text-color);
+  font-family: ion-theme(divider-text-font-family);
+  font-weight: ion-theme(divider-text-font-weight);
+  line-height: ion-theme(divider-text-line-height);
+  font-size: ion-theme(divider-text-font-size);
 
   hr {
     flex: 1;
     border: none;
     height: 1px;
-    background: $neutral-4;
+    background: ion-theme(divider-color);
   }
 }
