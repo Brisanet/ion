@@ -1,21 +1,19 @@
+@use 'skeleton.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .skeleton-box {
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: $neutral-1;
+  background-color: ion-theme(skeleton-background-color);
 
   &::after {
     position: absolute;
     inset: 0;
     transform: translateX(-100%);
-    background: linear-gradient(
-      90deg,
-      rgba(246, 247, 248, 0.2) 0%,
-      rgba(155, 160, 177, 0.2) 48.52%,
-      rgba(246, 247, 248, 0.2) 100%
-    );
+    background: ion-theme(skeleton-background-gradient);
     animation: shimmer 1.5s infinite ease-in-out;
     content: '';
   }

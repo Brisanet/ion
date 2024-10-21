@@ -1,27 +1,30 @@
+@use 'card.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .card-ion {
   min-width: fit-content;
-  background: #ffffff;
-  box-shadow: 0px 4px 4px rgba(101, 108, 129, 0.2);
-  border-radius: 8px;
+  background: ion-theme(card-background-color);
+  box-shadow: ion-theme(card-shadow);
+  border-radius: ion-theme(card-border-radius);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   &-header {
-    padding: spacing(2) spacing(3);
+    padding: ion-theme(card-header-padding);
     display: flex;
     justify-content: space-between;
     align-items: center;
 
     h4 {
       margin: 0;
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 28px;
-      color: $neutral-7;
+      font-weight: ion-theme(card-header-title-font-weight);
+      font-size: ion-theme(card-header-title-font-size);
+      line-height: ion-theme(card-header-title-line-height);
+      color: ion-theme(card-header-title-color);
     }
 
     &-title {
@@ -32,9 +35,13 @@
       gap: spacing(1);
     }
 
-    .icon-info {
-      ::ng-deep svg {
-        fill: $neutral-6;
+    ::ng-deep {
+      .icon-title svg {
+        fill: ion-theme(card-header-icon-color);
+      }
+
+      .icon-info svg {
+        fill: ion-theme(card-header-info-icon-color);
       }
     }
 
@@ -52,7 +59,7 @@
   }
 
   &-container {
-    border-top: 1px solid $neutral-4;
+    border-top: 1px solid ion-theme(card-divider-color);
   }
 
   &-footer {
@@ -61,8 +68,8 @@
     align-items: center;
     justify-content: space-between;
 
-    padding: spacing(2) spacing(3);
-    border-top: 1px solid $neutral-4;
+    padding: ion-theme(card-footer-padding);
+    border-top: 1px solid ion-theme(card-divider-color);
 
     &-container-buttons {
       display: flex;

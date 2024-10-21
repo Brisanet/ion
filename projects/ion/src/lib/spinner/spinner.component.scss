@@ -1,14 +1,7 @@
+@use 'spinner.theme';
+
 @import '../../styles/index.scss';
-
-@mixin spinner-parameters($size, $border-width, $border-style) {
-  width: $size;
-  height: $size;
-  border: $border-width $border-style transparent;
-}
-
-@mixin spinner-color($color) {
-  border-left-color: $color;
-}
+@import '../../styles/themes/theme.scss';
 
 .spinner-container {
   display: flex;
@@ -21,37 +14,27 @@
   display: block;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  @include spinner-parameters(24px, 2px, solid);
+  width: 24px;
+  height: 24px;
+  border: 2px solid transparent;
 
   &__text {
-    line-height: 114.28%;
-    font-family: 'Source Sans Pro', sans-serif;
-    color: $neutral-6;
+    line-height: ion-theme(spinner-text-line-height);
+    font-family: ion-theme(spinner-text-font-family);
+    color: ion-theme(spinner-text-color);
 
-    &--sm {
-      font-size: 12px;
-    }
-
-    &--md {
-      font-size: 14px;
-    }
-
-    &--lg {
-      font-size: 16px;
+    @each $size in sm, md, lg {
+      &--#{$size} {
+        font-size: ion-theme(spinner-text-font-size-#{$size});
+      }
     }
   }
 }
 
-.primary {
-  @include spinner-color($primary-color);
-}
-
-.secondary {
-  @include spinner-color($secondary-color);
-}
-
-.danger {
-  @include spinner-color($negative-color);
+@each $variant in primary, secondary, danger {
+  .#{$variant} {
+    border-left-color: ion-theme(spinner-variant-#{$variant}-color);
+  }
 }
 
 @keyframes spin {

@@ -1,10 +1,9 @@
 @import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
-  .ion-sidebar-item__icon {
-    ::ng-deep svg {
-      fill: $color;
-    }
+  .ion-sidebar-item__icon ::ng-deep svg {
+    fill: ion-theme($color);
   }
 }
 
@@ -30,15 +29,15 @@
   height: 40px;
   padding: spacing(1) spacing(2);
   border: 1.5px solid transparent;
-  background: $neutral-1;
+  background: ion-theme(sidebar-item-background-color);
   border-radius: 33px;
-  color: $primary-color;
+  color: ion-theme(sidebar-item-text-color);
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
   cursor: pointer;
   transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
-  @include icon-color($primary-color);
+  @include icon-color(sidebar-item-icon-color);
 
   & > div {
     display: flex;
@@ -48,34 +47,31 @@
   }
 
   &:hover {
-    background: $primary-1;
-    color: $primary-5;
-    @include icon-color($primary-5);
+    background: ion-theme(sidebar-item-hover-background-color);
+    color: ion-theme(sidebar-item-hover-text-color);
+    @include icon-color(sidebar-item-hover-icon-color);
   }
 
   &:focus-visible {
-    outline: none;
-    box-shadow: 0px 0px 0px 2px $neutral-1, 0px 0px 0px 4px $primary-5;
+    @include focus;
   }
 
   &:active {
-    background: $primary-2;
-    color: $primary-7;
-    @include icon-color($primary-7);
+    background: ion-theme(sidebar-item-active-background-color);
+    color: ion-theme(sidebar-item-active-text-color);
+    @include icon-color(sidebar-item-active-icon-color);
   }
 
   &:disabled,
   &[disabled] {
-    background: $neutral-1;
-    color: $neutral-6;
-    @include icon-color($neutral-6);
+    background: ion-theme(sidebar-item-disabled-background-color);
+    color: ion-theme(sidebar-item-disabled-text-color);
+    @include icon-color(sidebar-item-disabled-icon-color);
     cursor: not-allowed;
   }
 
-  &__icon {
-    &--disabled {
-      @include icon-color($neutral-6);
-    }
+  &__icon &--disabled {
+    @include icon-color(sidebar-item-disabled-icon-color);
   }
 
   &__text {
@@ -85,17 +81,17 @@
   }
 
   &--selected {
-    background: $primary-1;
-    color: $primary-color;
-    border: 1.5px solid $primary-color;
-    @include icon-color($primary-color);
+    background: ion-theme(sidebar-item-selected-background-color);
+    color: ion-theme(sidebar-item-selected-text-color);
+    border: 1.5px solid ion-theme(sidebar-item-selected-border-color);
+    @include icon-color(sidebar-item-selected-icon-color);
 
     &:hover {
-      border: 1.5px solid $primary-5;
+      border-color: ion-theme(sidebar-item-selected-hover-border-color);
     }
 
     &:active {
-      border: 1.5px solid $primary-7;
+      border-color: ion-theme(sidebar-item-selected-active-border-color);
     }
   }
 

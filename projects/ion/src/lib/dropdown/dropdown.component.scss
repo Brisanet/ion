@@ -1,37 +1,14 @@
+@use 'dropdown.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
-@mixin set-colors($bgColor, $color) {
-  background-color: $bgColor;
-  color: $color;
-}
+@mixin dropdown-theme($prefix) {
+  background-color: ion-theme(#{$prefix}-background-color);
+  color: ion-theme(#{$prefix}-text-color);
 
-@mixin set-icon-color($color) {
-  ::ng-deep {
-    ion-icon svg {
-      fill: $color;
-    }
-  }
-}
-
-@mixin set-theme($bgColor, $fontColor) {
-  @include set-colors($bgColor, $fontColor);
-  @include set-icon-color($fontColor);
-}
-
-@mixin dropdown-commons($fontColor) {
-  cursor: pointer;
-  padding: spacing(1) spacing(2);
-  background-color: $neutral-1;
-  border-radius: 8px;
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 20px;
-  color: $fontColor;
-
-  :first-child {
-    display: flex;
+  ::ng-deep ion-icon svg {
+    fill: ion-theme(#{$prefix}-icon-color);
   }
 }
 
@@ -42,45 +19,84 @@
   gap: spacing(0.5);
 }
 
-.dropdown-item {
-  @include dropdown-commons($neutral-7);
-  @include set-icon-color($neutral-7);
+.container-options {
+  position: absolute;
+  z-index: $zIndexLow;
+  display: flex;
+  flex-direction: column;
+  gap: spacing(0.5);
+  padding: 12px 8px;
+  max-height: 244px;
+  min-width: 182px;
+  width: max-content;
+  overflow-y: auto;
+
+  background-color: ion-theme(dropdown-background-color);
+  box-shadow: ion-theme(dropdown-shadow);
+  border-radius: ion-theme(dropdown-border-radius);
+
+  &--loading {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+
+.ion-dropdown-item {
+  cursor: pointer;
+  padding: ion-theme(dropdown-item-padding);
+  border-radius: ion-theme(dropdown-item-border-radius);
+
+  font-family: ion-theme(dropdown-text-font-family);
+  font-style: ion-theme(dropdown-text-font-style);
+  font-weight: ion-theme(dropdown-text-font-weight);
+  font-size: ion-theme(dropdown-text-font-size);
+  line-height: ion-theme(dropdown-text-line-height);
+
+  @include dropdown-theme(dropdown-item);
+
+  :first-child {
+    display: flex;
+  }
 
   &:hover {
-    @include set-colors($primary-1, $neutral-7);
+    @include dropdown-theme(dropdown-item-hover);
   }
 
   &:active {
-    @include set-colors($primary-2, $primary-color);
-    @include set-icon-color($primary-color);
+    @include dropdown-theme(dropdown-item-active);
   }
 }
 
 .dropdown-item-selected {
-  @include dropdown-commons($primary-color);
-  @include set-colors($primary-1, $primary-color);
+  @include dropdown-theme(dropdown-item-selected);
 
   &:hover {
-    @include set-theme($primary-1, $primary-4);
+    @include dropdown-theme(dropdown-item-selected-hover);
   }
 
   &:active {
-    @include set-theme($primary-2, $primary-7);
+    @include dropdown-theme(dropdown-item-selected-active);
   }
-
-  @include set-icon-color($primary-color);
 }
 
 .dropdown-disabled {
-  @include dropdown-commons($neutral-5);
-  @include set-colors($neutral-1, $neutral-5);
   cursor: not-allowed;
+
+  &,
+  &:hover,
+  &:active {
+    @include dropdown-theme(dropdown-item-disabled);
+  }
 }
 
 .dropdown-disabled-selected {
-  @include dropdown-commons($neutral-5);
-  @include set-theme($neutral-2, $neutral-5);
   cursor: not-allowed;
+
+  &,
+  &:hover,
+  &:active {
+    @include dropdown-theme(dropdown-item-selected-disabled);
+  }
 }
 
 .container {
@@ -103,29 +119,6 @@
   justify-content: flex-end;
 }
 
-.container-options {
-  position: absolute;
-  z-index: $zIndexLow;
-  display: flex;
-  flex-direction: column;
-  gap: spacing(0.5);
-  padding: 12px 8px;
-  max-height: 244px;
-  min-width: 182px;
-  width: max-content;
-  overflow-y: auto;
-
-  background-color: $neutral-1;
-  box-shadow: 0px 8px 6px -4px rgba(0, 0, 0, 0.15),
-    0px 0px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-
-  &--loading {
-    flex-direction: row;
-    justify-content: center;
-  }
-}
-
 .dropdown-search {
   margin-bottom: 4px;
 }
@@ -139,10 +132,11 @@ ion-button {
 }
 
 .dropdown-description {
-  @include font-size-sm;
-  font-family: 'Source Sans Pro';
-  font-weight: 600;
-  color: $neutral-7;
+  padding: ion-theme(dropdown-description-padding);
 
-  padding: spacing(1);
+  font-family: ion-theme(dropdown-description-text-font-family);
+  font-weight: ion-theme(dropdown-description-text-font-weight);
+  font-size: ion-theme(dropdown-description-text-font-size);
+  line-height: ion-theme(dropdown-description-text-line-height);
+  color: ion-theme(dropdown-description-text-color);
 }

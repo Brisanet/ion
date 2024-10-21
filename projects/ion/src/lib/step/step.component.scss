@@ -1,17 +1,20 @@
+@use 'step.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 @mixin setStepColorsStatus($border, $bg, $color) {
   .step-draw .circle {
-    border-color: $border;
-    background-color: $bg;
-    color: $color;
+    border-color: ion-theme($border);
+    background-color: ion-theme($bg);
+    color: ion-theme($color);
   }
 }
 
 @mixin setIconColorStatus($color) {
   ::ng-deep svg {
     margin-top: 5px;
-    fill: $color;
+    fill: ion-theme($color);
   }
 }
 
@@ -46,21 +49,21 @@
       height: 28px;
       border-radius: 20px;
       border: 1px solid;
-      font-family: 'Source Sans Pro', sans-serif;
-      font-style: normal;
-      font-weight: 600;
-      font-size: 14px;
-      line-height: 20px;
+      font-family: ion-theme(step-circle-text-font-family);
+      font-style: ion-theme(step-circle-text-font-style);
+      font-weight: ion-theme(step-circle-text-font-weight);
+      font-size: ion-theme(step-circle-text-font-size);
+      line-height: ion-theme(step-circle-text-line-height);
     }
   }
 
   .line {
     width: 64.5px;
     height: 1px;
-    background-color: $neutral-4;
+    background-color: ion-theme(step-line-color);
 
     &.bolded {
-      background-color: $primary-6;
+      background-color: ion-theme(step-line-bolded-color);
     }
 
     &.transparent {
@@ -82,10 +85,10 @@
 
     .label,
     .description {
-      color: $neutral-6;
-      font-family: 'Inter', sans-serif;
-      font-style: normal;
-      font-weight: 400;
+      color: ion-theme(step-label-text-color);
+      font-family: ion-theme(step-label-text-font-family);
+      font-style: ion-theme(step-label-text-font-style);
+      font-weight: ion-theme(step-label-text-font-weight);
       word-break: break-all;
       padding: 0 spacing(1);
       box-sizing: border-box;
@@ -98,12 +101,12 @@
       line-height: 20px;
 
       &.selected {
-        color: $neutral-7;
+        color: ion-theme(step-label-text-selected-color);
       }
 
       &.disabled,
       &.disabled.selected {
-        color: $neutral-5;
+        color: ion-theme(step-label-text-disabled-color);
       }
     }
 
@@ -113,18 +116,48 @@
     }
   }
 
-  &.default {
-    @include setStepColorsStatus($neutral-6, $neutral-1, $neutral-8);
+  @each $status in default, selected, checked, error {
+    &.#{$status} {
+      @include setStepColorsStatus(
+        step-status-#{$status}-border-color,
+        step-status-#{$status}-background-color,
+        step-status-#{$status}-text-color
+      );
+
+      &.clickable {
+        &:hover {
+          @include setStepColorsStatus(
+            step-status-#{$status}-hover-border-color,
+            step-status-#{$status}-hover-background-color,
+            step-status-#{$status}-hover-text-color
+          );
+        }
+
+        &:active {
+          @include setStepColorsStatus(
+            step-status-#{$status}-active-border-color,
+            step-status-#{$status}-active-background-color,
+            step-status-#{$status}-active-text-color
+          );
+        }
+      }
+    }
   }
-  &.selected {
-    @include setStepColorsStatus($primary-6, $primary-6, $neutral-1);
-  }
+
   &.checked {
-    @include setStepColorsStatus($primary-6, $primary-1, $primary-6);
-    @include setIconColorStatus($primary-6);
-  }
-  &.error {
-    @include setStepColorsStatus($negative-6, $negative-6, $neutral-1);
+    @include setIconColorStatus(step-status-checked-check-icon-color);
+
+    &.clickable {
+      &:hover {
+        @include setIconColorStatus(step-status-checked-hover-check-icon-color);
+      }
+
+      &:active {
+        @include setIconColorStatus(
+          step-status-checked-active-check-icon-color
+        );
+      }
+    }
   }
 
   &.disabled {
@@ -132,13 +165,17 @@
     &.selected,
     &.checked,
     &.error {
-      @include setStepColorsStatus($neutral-4, $neutral-4, $neutral-5);
-      @include setIconColorStatus($neutral-5);
+      @include setStepColorsStatus(
+        step-status-disabled-border-color,
+        step-status-disabled-background-color,
+        step-status-disabled-text-color
+      );
+      @include setIconColorStatus(step-status-disabled-check-icon-color);
     }
     .step-draw {
       .line,
       .line.bolded {
-        background-color: $neutral-4;
+        background-color: ion-theme(step-status-disabled-line-color);
       }
     }
   }
@@ -150,49 +187,11 @@
   &:hover,
   &:active {
     .text-container * {
-      color: $primary-5;
+      color: ion-theme(step-label-text-hover-active-color);
     }
 
     &.error .text-container * {
-      color: $negative-5;
-    }
-  }
-
-  &:hover {
-    &.default {
-      @include setStepColorsStatus($primary-4, $neutral-1, $primary-7);
-    }
-
-    &.selected {
-      @include setStepColorsStatus($primary-5, $primary-5, $neutral-1);
-    }
-
-    &.checked {
-      @include setStepColorsStatus($primary-6, $primary-2, $primary-6);
-      @include setIconColorStatus($primary-6);
-    }
-
-    &.error {
-      @include setStepColorsStatus($negative-5, $negative-5, $neutral-1);
-    }
-  }
-
-  &:active {
-    &.default {
-      @include setStepColorsStatus($primary-6, $primary-1, $primary-7);
-    }
-
-    &.selected {
-      @include setStepColorsStatus($primary-7, $primary-7, $neutral-1);
-    }
-
-    &.checked {
-      @include setStepColorsStatus($primary-6, $primary-1, $primary-7);
-      @include setIconColorStatus($primary-7);
-    }
-
-    &.error {
-      @include setStepColorsStatus($negative-7, $negative-7, $neutral-1);
+      color: ion-theme(step-label-text-hover-active-error-color);
     }
   }
 }

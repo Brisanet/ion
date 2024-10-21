@@ -1,10 +1,14 @@
+@use 'accordion.theme';
+
 @import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 section {
   ::ng-deep ion-accordion-item:first-child {
     section {
       header {
-        border-radius: 8px 8px 0 0;
+        border-radius: ion-theme(accordion-border-radius)
+          ion-theme(accordion-border-radius) 0 0;
       }
     }
   }
@@ -13,7 +17,7 @@ section {
     section {
       header,
       main {
-        border: 1px solid $neutral-4;
+        border: 1px solid ion-theme(accordion-divider-color);
       }
     }
   }
@@ -21,7 +25,8 @@ section {
   ::ng-deep ion-accordion-item:last-child {
     section {
       header {
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 ion-theme(accordion-border-radius)
+          ion-theme(accordion-border-radius);
       }
     }
 
@@ -31,7 +36,8 @@ section {
       }
 
       main {
-        border-radius: 0 0 8px 8px;
+        border-radius: 0 0 ion-theme(accordion-border-radius)
+          ion-theme(accordion-border-radius);
       }
     }
   }

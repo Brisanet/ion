@@ -68,7 +68,9 @@ export class IonTourService {
   }
 
   public removeStep(stepId: IonTourStepProps['ionStepId']): void {
-    this._tours[this.activeTourId].delete(stepId);
+    if (this._tours[this.activeTourId]) {
+      this._tours[this.activeTourId].delete(stepId);
+    }
   }
 
   public start(props: IonStartTourProps = {}): void {

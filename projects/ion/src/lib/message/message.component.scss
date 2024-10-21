@@ -1,43 +1,29 @@
+@use 'message.theme';
+
 @import '../../styles/index.scss';
-@mixin icons-details($color) {
-  ::ng-deep svg {
-    fill: $color;
-  }
-}
+@import '../../styles/themes/theme.scss';
+
+$variants: custom, positive, negative_alert, negative_erro, warning, info;
 
 .ion-message {
   display: flex;
-  gap: spacing(1);
-  position: relative;
-  z-index: $zIndexMax;
-  box-shadow: 0px 8px 6px -4px rgb(0 0 0 / 15%), 0px 0px 2px rgb(0 0 0 / 15%);
-  font-size: 14px;
-  line-height: 20px;
-  color: $neutral-7;
   align-items: center;
   width: fit-content;
-  border-radius: 8px;
+  gap: spacing(1);
   padding: spacing(1) spacing(2);
+  position: relative;
+  z-index: $zIndexMax;
+  box-shadow: ion-theme(message-shadow);
+  font-size: ion-theme(message-text-font-size);
+  line-height: ion-theme(message-text-line-height);
+  color: ion-theme(message-text-color);
+  border-radius: ion-theme(message-border-radius);
+  background-color: ion-theme(message-background);
   cursor: pointer;
 
-  &.custom {
-    @include icons-details($neutral-6);
-  }
-
-  &.positive {
-    @include icons-details($positive-6);
-  }
-
-  &.negative_alert,
-  &.negative_erro {
-    @include icons-details($negative-6);
-  }
-
-  &.warning {
-    @include icons-details($warning-6);
-  }
-
-  &.info {
-    @include icons-details($info-6);
+  @each $variant in $variants {
+    &.#{$variant} ::ng-deep svg {
+      fill: ion-theme(message-variant-#{$variant});
+    }
   }
 }

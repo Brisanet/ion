@@ -37,8 +37,8 @@ import {
 
 registerLocaleData(localePT, 'pt-BR');
 
-const disabledArrowColor = '#CED2DB';
-const enabledArrowColor = '#0858CE';
+const disabledArrowColor = 'var(--ion-neutral-4)';
+const enabledArrowColor = 'var(--ion-primary-6)';
 
 const columns: Column[] = [
   {

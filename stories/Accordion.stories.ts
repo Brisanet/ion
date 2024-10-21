@@ -48,6 +48,13 @@ const Template: Story = (args) => ({
       <p>{{ data.characteristics }}</p>
     </ng-template>
   `,
+  styles: [
+    `
+    * {
+      color: var(--ion-neutral-8);
+    }
+`,
+  ],
   moduleMetadata: {
     props: args,
     imports: [CommonModule, IonIconModule, IonAccordionModule],

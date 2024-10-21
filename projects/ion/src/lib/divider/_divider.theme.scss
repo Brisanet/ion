@@ -1,0 +1,19 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  color: ion-theme(neutral-4),
+  text: (
+    font-weight: 400,
+    font-family: ion-theme(font-family-main),
+    font-size: 14px,
+    line-height: 20px,
+    color: ion-theme(neutral-7),
+  ),
+);
+
+@include register-component(
+  divider,
+  (
+    default: $default,
+  )
+);
