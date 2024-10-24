@@ -58,8 +58,8 @@
       transition: color 0.25s ease-in-out;
 
       &:hover {
-        color: $primary-5;
-        @include icon-color($primary-5);
+        color: ion-theme(sidebar-group-header-text-color);
+        @include icon-color(sidebar-group-icon-color);
       }
     }
 
