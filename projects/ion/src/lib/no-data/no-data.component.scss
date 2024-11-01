@@ -20,4 +20,8 @@
     line-height: ion-theme(no-data-text-line-height);
     color: ion-theme(no-data-text-color);
   }
+
+  ::ng-deep ion-icon svg {
+    fill: ion-theme(no-data-icon-color);
+  }
 }
