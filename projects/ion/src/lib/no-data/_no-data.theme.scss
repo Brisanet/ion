@@ -8,7 +8,6 @@ $default: (
     font-size: 12px,
     line-height: 16px,
   ),
-  icon-color: ion-theme(neutral-6),
 );
 
 @include register-component(
