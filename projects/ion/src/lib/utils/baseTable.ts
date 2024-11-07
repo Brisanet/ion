@@ -15,6 +15,9 @@ import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utilsTable';
 const DISABLED_COLOR = 'var(--ion-neutral-4)';
 const ENABLED_COLOR = 'var(--ion-primary-6)';
 
+const DARK_DISABLED_COLOR = 'var(--ion-neutral-3)';
+const DARK_ENABLED_COLOR = 'var(--ion-primary-3)';
+
 export abstract class BaseTable<
   RowType extends BaseRow,
   ConfigType extends ConfigTable<RowType>,
@@ -74,16 +77,26 @@ export abstract class BaseTable<
     }
 
     return upArrow
-      ? this.fillColorArrowUp(column)
-      : this.fillColorArrowDown(column);
+      ? this.fillArrow(column, 'up')
+      : this.fillArrow(column, 'down');
   }
 
-  public fillColorArrowUp(column: Column): string {
-    return column.desc ? DISABLED_COLOR : ENABLED_COLOR;
-  }
+  public fillArrow(column: Column, direction: string): string {
+    const theme = JSON.parse(localStorage.getItem('ion-theme'));
+    const isDarkTheme = theme.key === 'dark';
 
-  public fillColorArrowDown(column: Column): string {
-    return column.desc ? ENABLED_COLOR : DISABLED_COLOR;
+    const themeMap = {
+      up: {
+        dark: column.desc ? DARK_DISABLED_COLOR : DARK_ENABLED_COLOR,
+        light: column.desc ? DISABLED_COLOR : ENABLED_COLOR,
+      },
+      down: {
+        dark: column.desc ? DARK_ENABLED_COLOR : DARK_DISABLED_COLOR,
+        light: column.desc ? ENABLED_COLOR : DISABLED_COLOR,
+      },
+    };
+
+    return isDarkTheme ? themeMap[direction].dark : themeMap[direction].light;
   }
 
   public handleEvent(row: RowType, action: (row: RowType) => void): void {
