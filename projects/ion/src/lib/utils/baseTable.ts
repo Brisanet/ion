@@ -1,3 +1,4 @@
+import { IonThemeService } from './../theme/theme.service';
 import { EventEmitter } from '@angular/core';
 
 import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
@@ -27,12 +28,13 @@ export abstract class BaseTable<
   public events: EventEmitter<EventType>;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
 
+  protected abstract ionThemeService: IonThemeService;
+
   public abstract sort(column: Column): void;
 
   public abstract paginationEvents(event: PageEvent): void;
 
   public abstract emitRowsSelected(): void;
-
   public checkState(): void {
     if (this.mainCheckBoxState === CheckBoxEvent.indeterminate) {
       this.uncheckAllRows();
@@ -82,8 +84,7 @@ export abstract class BaseTable<
   }
 
   public fillArrow(column: Column, direction: string): string {
-    const theme = JSON.parse(localStorage.getItem('ion-theme'));
-    const isDarkTheme = theme.key === 'dark';
+    const isDarkTheme = this.ionThemeService.theme.key === 'dark';
 
     const themeMap = {
       up: {

@@ -28,6 +28,7 @@ import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { IonLinkModule } from './../link/link.module';
 import { IonSmartTableComponent } from './smart-table.component';
+import { ionThemeInitializer, IonThemeService } from '../theme';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -148,6 +149,13 @@ const propsWithPopover: IonSmartTableProps<Character> = {
   } as SafeAny,
 };
 
+const MATCH_MEDIA_DARK_MOCK = {
+  matches: true,
+  addEventListener: jest.fn(),
+};
+
+window.matchMedia = jest.fn().mockImplementation(() => MATCH_MEDIA_DARK_MOCK);
+
 const sut = async (
   customProps: IonSmartTableProps<Character | Book | Disco> = defaultProps
 ): Promise<SafeAny> => {
@@ -166,6 +174,7 @@ const sut = async (
       IonSpinnerModule,
       IonLinkModule,
     ],
+    providers: [IonThemeService, ionThemeInitializer()],
   });
 };
 
@@ -173,7 +182,6 @@ describe('IonSmartTableComponent', () => {
   beforeEach(async () => {
     await sut();
   });
-
   it('should render table', async () => {
     expect(screen.getByTestId('ion-table'));
   });

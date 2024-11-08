@@ -34,6 +34,7 @@ import {
   ColumnType,
   ConfigTable,
 } from './utilsTable';
+import { ionThemeInitializer, IonThemeService } from '../theme';
 
 registerLocaleData(localePT, 'pt-BR');
 
@@ -111,6 +112,13 @@ const propsWithPopover: IonTableProps<Disco> = {
   } as SafeAny,
 };
 
+const MATCH_MEDIA_DARK_MOCK = {
+  matches: true,
+  addEventListener: jest.fn(),
+};
+
+window.matchMedia = jest.fn().mockImplementation(() => MATCH_MEDIA_DARK_MOCK);
+
 const sut = async (
   customProps: IonTableProps<Disco> = defaultProps
 ): Promise<SafeAny> => {
@@ -129,6 +137,7 @@ const sut = async (
       IonSpinnerModule,
       IonLinkModule,
     ],
+    providers: [IonThemeService, ionThemeInitializer()],
   });
 };
 

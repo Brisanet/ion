@@ -1,3 +1,4 @@
+import { IonThemeService } from './../theme/theme.service';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -38,7 +39,10 @@ export class IonSmartTableComponent<RowType>
   public sortWithDebounce: (column: Column) => void;
   private firstLoad = true;
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    protected ionThemeService: IonThemeService
+  ) {
     super();
   }
 
