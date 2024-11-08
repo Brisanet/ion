@@ -13,11 +13,11 @@ import {
 } from '../core/types';
 import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utilsTable';
 
-const DISABLED_COLOR = 'var(--ion-neutral-4)';
-const ENABLED_COLOR = 'var(--ion-primary-6)';
+export const DISABLED_COLOR = 'var(--ion-neutral-4)';
+export const ENABLED_COLOR = 'var(--ion-primary-6)';
 
-const DARK_DISABLED_COLOR = 'var(--ion-neutral-3)';
-const DARK_ENABLED_COLOR = 'var(--ion-primary-3)';
+export const DARK_DISABLED_COLOR = 'var(--ion-neutral-3)';
+export const DARK_ENABLED_COLOR = 'var(--ion-primary-3)';
 
 export abstract class BaseTable<
   RowType extends BaseRow,
@@ -74,8 +74,9 @@ export abstract class BaseTable<
   }
 
   public fillColor(column: Column, upArrow: boolean): string {
+    const isDarkTheme = this.ionThemeService.theme.key === 'dark';
     if (column.desc === null || column.desc === undefined) {
-      return DISABLED_COLOR;
+      return isDarkTheme ? DARK_DISABLED_COLOR : DISABLED_COLOR;
     }
 
     return upArrow

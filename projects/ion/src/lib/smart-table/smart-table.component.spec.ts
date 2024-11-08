@@ -21,6 +21,7 @@ import {
   EventTable,
 } from '../table/utilsTable';
 import { IonTagModule } from '../tag/tag.module';
+import { IonFormattedThemes, IonThemeService } from '../theme';
 import { IonTooltipModule } from '../tooltip/tooltip.module';
 import { PipesModule } from '../utils/pipes/pipes.module';
 import { SafeAny } from '../utils/safe-any';
@@ -28,12 +29,14 @@ import { IonSmartTableProps } from './../core/types/smart-table';
 import { StatusType } from './../core/types/status';
 import { IonLinkModule } from './../link/link.module';
 import { IonSmartTableComponent } from './smart-table.component';
-import { ionThemeInitializer, IonThemeService } from '../theme';
+import {
+  DARK_DISABLED_COLOR,
+  DARK_ENABLED_COLOR,
+  DISABLED_COLOR,
+  ENABLED_COLOR,
+} from '../utils/baseTable';
 
 registerLocaleData(localePT, 'pt-BR');
-
-const disabledArrowColor = 'var(--ion-neutral-4)';
-const enabledArrowColor = 'var(--ion-primary-6)';
 
 const columnTrigger = 'click';
 
@@ -149,12 +152,17 @@ const propsWithPopover: IonSmartTableProps<Character> = {
   } as SafeAny,
 };
 
-const MATCH_MEDIA_DARK_MOCK = {
-  matches: true,
-  addEventListener: jest.fn(),
-};
+const DEFAULT_THEME_CONFIG = {
+  key: 'light',
+} as IonFormattedThemes;
 
-window.matchMedia = jest.fn().mockImplementation(() => MATCH_MEDIA_DARK_MOCK);
+const DARK_THEME_CONFIG = {
+  key: 'dark',
+} as IonFormattedThemes;
+
+const ionThemeServiceMock: Partial<IonThemeService> = {
+  theme: DEFAULT_THEME_CONFIG,
+};
 
 const sut = async (
   customProps: IonSmartTableProps<Character | Book | Disco> = defaultProps
@@ -174,7 +182,7 @@ const sut = async (
       IonSpinnerModule,
       IonLinkModule,
     ],
-    providers: [IonThemeService, ionThemeInitializer()],
+    providers: [{ provide: IonThemeService, useValue: ionThemeServiceMock }],
   });
 };
 
@@ -974,47 +982,57 @@ describe('Table > Differents columns data type', () => {
       expect(screen.queryAllByTestId('sort-by-year')).toHaveLength(0);
     });
 
-    it('should render arrow down blue when sort desc', async () => {
-      const orderBy = columns[0].key;
-      await sut(tableDifferentColumns);
-      fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
-      const arrowUp = screen.getByTestId('sort-by-' + orderBy).children[0];
-      const arrowDown = screen.getByTestId('sort-by-' + orderBy).children[1];
-      expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
-      expect(arrowDown).toHaveAttribute('fill', enabledArrowColor);
-    });
+    describe.each([
+      {
+        label: 'default',
+        themeConfig: DEFAULT_THEME_CONFIG,
+        enabledArrowColor: ENABLED_COLOR,
+        disabledArrowColor: DISABLED_COLOR,
+      },
+      {
+        label: 'dark',
+        themeConfig: DARK_THEME_CONFIG,
+        enabledArrowColor: DARK_ENABLED_COLOR,
+        disabledArrowColor: DARK_DISABLED_COLOR,
+      },
+    ])(
+      '$label theme',
+      ({ themeConfig, enabledArrowColor, disabledArrowColor }) => {
+        beforeEach(async () => {
+          ionThemeServiceMock.theme = cloneDeep(themeConfig);
+          tableDifferentColumns.config.columns = [
+            { label: 'Albuns', sort: true, key: 'albuns' },
+          ];
+          await sut(tableDifferentColumns);
+        });
 
-    it('should render arrow up blue when sort asc', async () => {
-      tableDifferentColumns.config.columns = [
-        {
-          label: 'Albuns',
-          sort: true,
-          key: 'albuns',
-        },
-      ];
-      await sut(tableDifferentColumns);
-      fireEvent.click(screen.getByTestId('sort-by-albuns'));
-      fireEvent.click(screen.getByTestId('sort-by-albuns'));
-      const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
-      const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
-      expect(arrowUp).toHaveAttribute('fill', enabledArrowColor);
-      expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
-    });
+        it('should render arrow down in primary color when sort desc', () => {
+          const orderBy = tableDifferentColumns.config.columns[0].key;
+          fireEvent.click(screen.getByTestId('sort-by-' + orderBy));
+          const arrowUp = screen.getByTestId('sort-by-' + orderBy).children[0];
+          const arrowDown = screen.getByTestId('sort-by-' + orderBy)
+            .children[1];
+          expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
+          expect(arrowDown).toHaveAttribute('fill', enabledArrowColor);
+        });
 
-    it('should render arrow up and arrow down gray when not sorted', async () => {
-      tableDifferentColumns.config.columns = [
-        {
-          label: 'Albuns',
-          sort: true,
-          key: 'albuns',
-        },
-      ];
-      await sut(tableDifferentColumns);
-      const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
-      const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
-      expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
-      expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
-    });
+        it('should render arrow up in primary color when sort asc', () => {
+          fireEvent.click(screen.getByTestId('sort-by-albuns'));
+          fireEvent.click(screen.getByTestId('sort-by-albuns'));
+          const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
+          const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
+          expect(arrowUp).toHaveAttribute('fill', enabledArrowColor);
+          expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
+        });
+
+        it('should render arrow up and arrow down in neutral color when not sorted', () => {
+          const arrowUp = screen.getByTestId('sort-by-albuns').children[0];
+          const arrowDown = screen.getByTestId('sort-by-albuns').children[1];
+          expect(arrowUp).toHaveAttribute('fill', disabledArrowColor);
+          expect(arrowDown).toHaveAttribute('fill', disabledArrowColor);
+        });
+      }
+    );
 
     it('should only emit sort action after a given debounce time', async () => {
       const debounceTime = 2000;
