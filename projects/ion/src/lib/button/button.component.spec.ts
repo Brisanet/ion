@@ -341,6 +341,17 @@ describe('ButtonComponent with dropdown', () => {
       expect(screen.getByTestId('badge-multiple')).toBeInTheDocument();
       expect(screen.getByTestId('badge-multiple')).toHaveTextContent('0');
     });
+
+    it('should not render an ion-badge when the dropdown is set to multiple but the button is circular', async () => {
+      await sut({
+        label: defaultName,
+        multiple: true,
+        circularButton: true,
+        options: [{ label: 'Option 1' }, { label: 'Option 2' }],
+      });
+
+      expect(screen.queryByTestId('badge-multiple')).not.toBeInTheDocument();
+    });
   });
 
   it('should emit an event when option is selected', async () => {
