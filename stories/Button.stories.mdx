@@ -303,10 +303,11 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
       template: `
         <ion-button
           type="ghost"
-          iconType="option"
+          iconType="config"
           [options]="[{ label: 'option 1' }, {label: 'option 2'}]"
-          circularButton="true"
-          multiple="true"
+          [dropdownConfig]="{notShowClearButton: true}"
+          [circularButton]="true"
+          [multiple]="true"
         ></ion-button>
       `,
     }}
