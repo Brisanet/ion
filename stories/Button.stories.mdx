@@ -304,8 +304,15 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
         <ion-button
           type="ghost"
           iconType="config"
-          [options]="[{ label: 'option 1' }, {label: 'option 2'}]"
-          [dropdownConfig]="{notShowClearButton: true}"
+          [options]="[
+            { label: 'Ocioso', icon: 'clock-stopwatch' },
+            { label: 'Em deslocamento', icon: 'motorcycle' },
+            { label: 'Trabalhando', icon: 'working' }
+          ]"
+          [dropdownConfig]="{
+            notShowClearButton: true,
+            description: 'Status para acompanhar'
+          }"
           [circularButton]="true"
           [multiple]="true"
         ></ion-button>
