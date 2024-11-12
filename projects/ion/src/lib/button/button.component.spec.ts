@@ -289,6 +289,22 @@ describe('ButtonComponent with dropdown', () => {
       userEvent.type(screen.getByTestId('input-element'), typeText);
       expect(searchEvent).toHaveBeenLastCalledWith(typeText);
     });
+
+    it('should not render the dropdown arrow when loading', async () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+
+      await sut({
+        label: defaultName,
+        loading: true,
+        options,
+      });
+
+      const arrowDownIcon = document.getElementById('ion-icon-semi-down');
+      const arrowUpIcon = document.getElementById('ion-icon-semi-up');
+
+      expect(arrowDownIcon).not.toBeInTheDocument();
+      expect(arrowUpIcon).not.toBeInTheDocument();
+    });
   });
 
   it('should close dropdown when click outside component', async () => {
