@@ -299,9 +299,11 @@ describe('ButtonComponent with dropdown', () => {
         options,
       });
 
-      const arrowIcon = document.getElementById('ion-icon-semi-down');
+      const arrowDownIcon = document.getElementById('ion-icon-semi-down');
+      const arrowUpIcon = document.getElementById('ion-icon-semi-up');
 
-      expect(arrowIcon).toBeFalsy();
+      expect(arrowDownIcon).not.toBeInTheDocument();
+      expect(arrowUpIcon).not.toBeInTheDocument();
     });
   });
 
