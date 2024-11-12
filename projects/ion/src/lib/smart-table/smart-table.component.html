@@ -90,7 +90,7 @@
           [attr.data-testid]="'row-' + index"
           [class.last-row]="last && !config.pagination"
           [ngClass]="{
-            old: index % 2 === 0,
+            odd: index % 2 === 0,
             even: index % 2 !== 0,
             checked: row.selected
           }"

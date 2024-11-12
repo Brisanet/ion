@@ -1,3 +1,4 @@
+import { IonThemeService } from './../theme/theme.service';
 import {
   ChangeDetectorRef,
   Component,
@@ -32,7 +33,10 @@ export class IonTableComponent<RowType>
   public mainCheckBoxState: CheckBoxStates = 'enabled';
   public smartData = [];
 
-  constructor(private cdr: ChangeDetectorRef) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    protected ionThemeService: IonThemeService
+  ) {
     super();
   }
 
