@@ -1,3 +1,4 @@
+import { IonThemeService } from './../theme/theme.service';
 import { EventEmitter } from '@angular/core';
 
 import { CurrencyPipeStrategy } from '../../core/pipes/currency.pipe';
@@ -12,8 +13,11 @@ import {
 } from '../core/types';
 import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utilsTable';
 
-const DISABLED_COLOR = 'var(--ion-neutral-4)';
-const ENABLED_COLOR = 'var(--ion-primary-6)';
+export const DISABLED_COLOR = 'var(--ion-neutral-4)';
+export const ENABLED_COLOR = 'var(--ion-primary-6)';
+
+export const DARK_DISABLED_COLOR = 'var(--ion-neutral-3)';
+export const DARK_ENABLED_COLOR = 'var(--ion-primary-3)';
 
 export abstract class BaseTable<
   RowType extends BaseRow,
@@ -24,12 +28,13 @@ export abstract class BaseTable<
   public events: EventEmitter<EventType>;
   public mainCheckBoxState: CheckBoxStates = 'enabled';
 
+  protected abstract ionThemeService: IonThemeService;
+
   public abstract sort(column: Column): void;
 
   public abstract paginationEvents(event: PageEvent): void;
 
   public abstract emitRowsSelected(): void;
-
   public checkState(): void {
     if (this.mainCheckBoxState === CheckBoxEvent.indeterminate) {
       this.uncheckAllRows();
@@ -69,21 +74,31 @@ export abstract class BaseTable<
   }
 
   public fillColor(column: Column, upArrow: boolean): string {
+    const isDarkTheme = this.ionThemeService.theme.key === 'dark';
     if (column.desc === null || column.desc === undefined) {
-      return DISABLED_COLOR;
+      return isDarkTheme ? DARK_DISABLED_COLOR : DISABLED_COLOR;
     }
 
     return upArrow
-      ? this.fillColorArrowUp(column)
-      : this.fillColorArrowDown(column);
+      ? this.fillArrow(column, 'up')
+      : this.fillArrow(column, 'down');
   }
 
-  public fillColorArrowUp(column: Column): string {
-    return column.desc ? DISABLED_COLOR : ENABLED_COLOR;
-  }
+  public fillArrow(column: Column, direction: string): string {
+    const isDarkTheme = this.ionThemeService.theme.key === 'dark';
 
-  public fillColorArrowDown(column: Column): string {
-    return column.desc ? ENABLED_COLOR : DISABLED_COLOR;
+    const themeMap = {
+      up: {
+        dark: column.desc ? DARK_DISABLED_COLOR : DARK_ENABLED_COLOR,
+        light: column.desc ? DISABLED_COLOR : ENABLED_COLOR,
+      },
+      down: {
+        dark: column.desc ? DARK_ENABLED_COLOR : DARK_DISABLED_COLOR,
+        light: column.desc ? ENABLED_COLOR : DISABLED_COLOR,
+      },
+    };
+
+    return isDarkTheme ? themeMap[direction].dark : themeMap[direction].light;
   }
 
   public handleEvent(row: RowType, action: (row: RowType) => void): void {
