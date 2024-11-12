@@ -122,10 +122,11 @@ div.disabled {
   border-color: ion-theme(input-disabled-border-color) !important;
 
   input {
+    cursor: not-allowed;
     color: ion-theme(input-disabled-text-color) !important;
 
     &::placeholder {
-      color: ion-theme(input-element-disabled-placeholder-color);
+      color: ion-theme(input-disabled-element-placeholder-color) !important;
     }
   }
 
@@ -138,6 +139,10 @@ div.disabled {
 
   ion-icon ::ng-deep svg {
     fill: ion-theme(input-disabled-icon-color);
+  }
+
+  .text-counter {
+    color: ion-theme(input-disabled-element-count-text-color);
   }
 }
 
@@ -152,7 +157,9 @@ div.disabled {
   display: flex;
 
   &:hover {
-    background-color: ion-theme(input-clear-button-hover-background-color);
+    background-color: ion-theme(
+      input-clear-button-hover-background-color
+    ) !important;
   }
 
   ion-icon ::ng-deep svg {
@@ -192,6 +199,6 @@ div.disabled {
 
 .text-counter {
   padding: 6px 12px;
-  font-size: ion-theme(input-counter-text-font-size);
-  color: ion-theme(input-counter-text-color);
+  font-size: ion-theme(input-count-text-font-size);
+  color: ion-theme(input-count-text-color) !important;
 }
