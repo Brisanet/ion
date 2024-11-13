@@ -1,5 +1,8 @@
 import { StatusType } from './../../core/types/status';
-import { NotificationConfigOptions } from './../../core/types/notification';
+import {
+  NotificationConfigOptions,
+  NotificationServiceConfig,
+} from './../../core/types/notification';
 import { IonNotificationComponent } from './../component/notification.component';
 import {
   Injectable,
@@ -25,6 +28,7 @@ enum NOTIFICATION_TYPES {
   providedIn: 'root',
 })
 export class IonNotificationService {
+  public notificationServiceConfig: NotificationServiceConfig = { maxStack: 8 };
   private notificationContainerComponentRef: ComponentRef<IonNotificationContainerComponent>;
   private componentSubscriber!: Subject<SafeAny>;
 
@@ -183,7 +187,8 @@ export class IonNotificationService {
     notification.changeDetectorRef.detectChanges();
 
     this.notificationContainerComponentRef.instance.addNotification(
-      notification
+      notification,
+      this.notificationServiceConfig.maxStack
     );
 
     this.notificationContainerComponentRef.changeDetectorRef.detectChanges();
