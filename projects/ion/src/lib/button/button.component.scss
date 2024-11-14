@@ -130,6 +130,10 @@ button {
 
 .right-side-icon {
   flex-direction: row-reverse;
+
+  .spinner {
+    margin-right: 0;
+  }
 }
 
 .ion-remove-space {

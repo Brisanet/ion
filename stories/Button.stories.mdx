@@ -332,6 +332,19 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     }}
     secondary
   </Story>
+  <Story
+    name="with dropdown: loading"
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {{
+      template: `<ion-button label="Primary" rightSideIcon="true" loading="true" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"></ion-button>`,
+    }}
+    secondary
+  </Story>
 </Canvas>
 
 - `enableSearch`. Adiciona um campo de busca no dropdown para realizar uma busca nas opções.
