@@ -16,3 +16,7 @@ export interface NotificationConfigOptions {
   fadeOut?: fadeOutDirection;
   ionOnClose?: EventEmitter<void>;
 }
+
+export interface NotificationServiceConfig {
+  maxStack?: number;
+}
