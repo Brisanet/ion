@@ -296,6 +296,30 @@ O Ion, Suporta 4 tamanhos padrões para botões. Basta configurar a propriedade 
     }}
   </Story>
   <Story
+    name="with dropdown: circular button with multiple choices"
+    decorators={[moduleMetadata({ imports: [CommonModule, IonSharedModule] })]}
+  >
+    {{
+      template: `
+        <ion-button
+          type="ghost"
+          iconType="config"
+          [options]="[
+            { label: 'Ocioso', icon: 'clock-stopwatch' },
+            { label: 'Em deslocamento', icon: 'motorcycle' },
+            { label: 'Trabalhando', icon: 'working' }
+          ]"
+          [dropdownConfig]="{
+            notShowClearButton: true,
+            description: 'Status para acompanhar'
+          }"
+          [circularButton]="true"
+          [multiple]="true"
+        ></ion-button>
+      `,
+    }}
+  </Story>
+  <Story
     name="with dropdown with title"
     decorators={[
       moduleMetadata({

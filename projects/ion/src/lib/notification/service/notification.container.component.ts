@@ -7,11 +7,27 @@ import { Component, ComponentRef, Renderer2, ElementRef } from '@angular/core';
   styleUrls: ['notification.container.scss'],
 })
 export class IonNotificationContainerComponent {
+  private notificationRefControl: ComponentRef<IonNotificationComponent>[] = [];
   constructor(private renderer: Renderer2, private element: ElementRef) {}
 
-  addNotification(notification: ComponentRef<IonNotificationComponent>): void {
+  addNotification(
+    notification: ComponentRef<IonNotificationComponent>,
+    maxStack: number
+  ): void {
+    if (this.notificationRefControl.length === maxStack) {
+      this.notificationRefControl[0].instance.ionOnClose.complete();
+      this.removeNotification(
+        this.notificationRefControl[0].location.nativeElement
+      );
+      this.notificationRefControl.shift();
+    }
+
+    this.notificationRefControl.push(notification);
     notification.instance.ionOnClose.subscribe(() => {
       this.removeNotification(notification.location.nativeElement);
+      this.notificationRefControl = this.notificationRefControl.filter(
+        (value) => value !== notification
+      );
     });
 
     this.renderer.appendChild(
