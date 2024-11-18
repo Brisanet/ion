@@ -81,6 +81,7 @@ export { default as clipboardLocalization } from './clipboard-localization';
 export { default as clipboardPlus } from './clipboard-plus';
 export { default as clipboardX } from './clipboard-x';
 export { default as clockPlus } from './clock-plus';
+export { default as clockSnooze } from './clock-snooze';
 export { default as clockSolid } from './clock-solid';
 export { default as clockStopwatch } from './clock-stopwatch';
 export { default as close } from './close';
