@@ -162,3 +162,33 @@ describe('NotificationService -> notification types', () => {
     }
   );
 });
+
+describe('NotificationService -> notification maxStack', () => {
+  let notificationService: IonNotificationService;
+
+  it('should not exceed the maxStack', () => {
+    const removeNotification = screen.getAllByTestId('btn-remove');
+    removeNotification.forEach((element) => fireEvent.click(element));
+
+    TestBed.configureTestingModule({
+      imports: [TestModule],
+    }).compileComponents();
+
+    notificationService = TestBed.get(IonNotificationService);
+
+    notificationService.notificationServiceConfig = { maxStack: 2 };
+    notificationService.success(
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message
+    );
+    notificationService.error(
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message
+    );
+    notificationService.error(
+      DEFAULT_NOTIFICATION_OPTIONS.title,
+      DEFAULT_NOTIFICATION_OPTIONS.message
+    );
+    expect(screen.getAllByTestId('ion-notification').length).toBe(2);
+  });
+});
