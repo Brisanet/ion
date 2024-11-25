@@ -32,9 +32,42 @@ $default: (
   scrollbar-thumb-color: ion-theme(neutral-5),
 );
 
+$dark: (
+  background-color: ion-theme(neutral-5),
+  shadow: 0 0 6px rgba(4, 42, 98, 0.15),
+  header: (
+    background-color: ion-theme(neutral-6),
+    close-icon-color: ion-theme(primary-3),
+    title-text: (
+      font-family: ion-theme(font-family-main),
+      font-weight: 600,
+      font-size: 14px,
+      line-height: 20px,
+      color: ion-theme(neutral-1),
+    ),
+  ),
+  body: (
+    background-color: ion-theme(neutral-5),
+    text: (
+      font-family: ion-theme(font-family-main),
+      font-weight: 400,
+      font-size: 14px,
+      line-height: 20px,
+      color: ion-theme(neutral-1),
+    ),
+  ),
+  arrow: (
+    shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%),
+    header-color: ion-theme(neutral-6),
+    body-color: ion-theme(neutral-6),
+  ),
+  scrollbar-thumb-color: ion-theme(neutral-2),
+);
+
 @include register-component(
   popover,
   (
     default: $default,
+    dark: $dark,
   )
 );
