@@ -15,7 +15,10 @@
         [disabled]="disabled"
       >
         <span>{{ currentOption?.label }}</span>
-        <ion-icon type="semi-down" color="var(--ion-neutral-6)"></ion-icon>
+        <ion-icon
+          type="semi-down"
+          color="var(--ion-input-select-button-icon-color)"
+        ></ion-icon>
       </button>
 
       <div *ngIf="!!selectOptions && dropdownVisible" class="ion-btn-dropdown">

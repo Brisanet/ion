@@ -4,6 +4,7 @@ $default: (
   background-color: ion-theme(neutral-1),
   button: (
     background-color: ion-theme(neutral-2),
+    icon-color: ion-theme(neutral-7),
     border-color: ion-theme(neutral-5),
     text: (
       color: ion-theme(neutral-7),
@@ -30,9 +31,41 @@ $default: (
   ),
 );
 
+$dark: (
+  background-color: ion-theme(neutral-5),
+  button: (
+    background-color: ion-theme(neutral-6),
+    border-color: ion-theme(primary-3),
+    icon-color: ion-theme(primary-3),
+    text: (
+      color: ion-theme(primary-3),
+      line-height: 20px,
+      font-size: 14px,
+      font-weight: 400,
+    ),
+  ),
+  valid-icon-color: ion-theme(positive-6),
+  invalid: (
+    icon-color: ion-theme(negative-6),
+    border-color: ion-theme(negative-5),
+    hover: (
+      border-color: ion-theme(negative-6),
+      outline-color: ion-theme(negative-2),
+    ),
+  ),
+  separator-color: ion-theme(neutral-3),
+  disabled: (
+    background-color: ion-theme(neutral-7),
+    border-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-4),
+    icon-color: ion-theme(neutral-4),
+  ),
+);
+
 @include register-component(
   input-select,
   (
     default: $default,
+    dark: $dark,
   )
 );

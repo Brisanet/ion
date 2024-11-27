@@ -11,6 +11,7 @@
 
   .input-select-container {
     display: flex;
+    border-radius: spacing(1);
 
     .input {
       border-radius: 0 spacing(1) spacing(1) 0;
