@@ -39,6 +39,12 @@ textarea {
   }
 }
 
+.disabled {
+  &::placeholder {
+    color: ion-theme(input-area-disabled-text-color);
+  }
+}
+
 textarea::-webkit-scrollbar {
   width: 8px;
   border-radius: 100px;
