@@ -14,6 +14,7 @@ $default: (
     line-height: 20px,
     color: ion-theme(neutral-7),
   ),
+  border-color: ion-theme(neutral-1),
 );
 
 $dark: (
@@ -30,6 +31,7 @@ $dark: (
     line-height: 20px,
     color: ion-theme(neutral-1),
   ),
+  border-color: ion-theme(neutral-3),
 );
 
 @include register-component(
