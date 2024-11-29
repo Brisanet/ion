@@ -19,7 +19,7 @@
   }
 }
 
-@each $variant in primary, secondary, neutral, negative {
+@each $variant in primary, secondary, neutral, negative, warning {
   .badge-#{$variant} {
     background-color: ion-theme(badge-#{$variant}-background-color);
     color: ion-theme(badge-#{$variant}-text-color);

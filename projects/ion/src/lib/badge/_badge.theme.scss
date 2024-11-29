@@ -24,6 +24,10 @@ $default: (
     background-color: ion-theme(negative-6),
     text-color: ion-theme(positive-1),
   ),
+  warning: (
+    background-color: ion-theme(warning-6),
+    text-color: ion-theme(neutral-1),
+  ),
 );
 
 @include register-component(
