@@ -24,6 +24,7 @@ $default: (
   ),
   default-icon-color: ion-theme(neutral-6),
   close-icon-color: ion-theme(primary-6),
+  border-color: ion-theme(neutral-1),
 );
 
 $dark: (
@@ -50,6 +51,7 @@ $dark: (
   ),
   default-icon-color: ion-theme(neutral-3),
   close-icon-color: ion-theme(primary-3),
+  border-color: ion-theme(neutral-3),
 );
 
 @include register-component(
