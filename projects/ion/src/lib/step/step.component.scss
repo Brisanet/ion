@@ -107,6 +107,7 @@
       &.disabled,
       &.disabled.selected {
         color: ion-theme(step-label-text-disabled-color);
+        cursor: not-allowed;
       }
     }
 
@@ -171,6 +172,7 @@
         step-status-disabled-text-color
       );
       @include setIconColorStatus(step-status-disabled-check-icon-color);
+      cursor: not-allowed;
     }
     .step-draw {
       .line,
