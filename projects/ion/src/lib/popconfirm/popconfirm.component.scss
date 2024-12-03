@@ -26,6 +26,8 @@
     right: $right;
     transform: rotate(45deg);
     box-shadow: ion-theme(popconfirm-arrow-shadow);
+    border-top: 1px solid ion-theme(popconfirm-border-color);
+    border-left: 1px solid ion-theme(popconfirm-border-color);
   }
 }
 
@@ -44,6 +46,8 @@
 
 .containter {
   z-index: $zIndexMid;
+  border-radius: spacing(1);
+  border: 1px solid ion-theme(popconfirm-border-color);
 }
 
 .description {
