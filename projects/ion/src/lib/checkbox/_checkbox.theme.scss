@@ -56,9 +56,66 @@ $default: (
   ),
 );
 
+$dark: (
+  size: 16px,
+  margin: 4px,
+  border-radius: 4px,
+  enabled: (
+    background-color: transparent,
+    border-color: ion-theme(neutral-1),
+    hover: (
+      background-color: ion-theme(neutral-1),
+      shadow-color: ion-theme(primary-2),
+      border-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-2),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      border-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-1),
+    ),
+    checked: (
+      background-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-1),
+      hover-background-color: ion-theme(primary-5),
+      active-background-color: ion-theme(primary-7),
+    ),
+  ),
+  disabled: (
+    background-color: ion-theme(neutral-7),
+    border-color: ion-theme(neutral-3),
+    icon-color: ion-theme(neutral-3),
+    checked: (
+      background-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-3),
+    ),
+  ),
+  indeterminate: (
+    background-color: ion-theme(primary-6),
+    border-radius: 4px,
+    icon-color: ion-theme(primary-1),
+    hover: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-1),
+    ),
+    disabled: (
+      icon-color: ion-theme(neutral-3),
+    ),
+  ),
+  label: (
+    font-size: 14px,
+    line-height: 20px,
+    color: ion-theme(neutral-1),
+    disabled: (
+      text-color: ion-theme(neutral-3),
+    ),
+  ),
+);
+
 @include register-component(
   checkbox,
   (
     default: $default,
+    dark: $dark,
   )
 );
