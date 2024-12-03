@@ -30,9 +30,40 @@ $default: (
   ),
 );
 
+$dark: (
+  text-color: ion-theme(neutral-3),
+  border-color: ion-theme(neutral-3),
+  border-radius: 8px,
+  background-color: ion-theme(neutral-5),
+  placeholder-text: (
+    color: ion-theme(neutral-3),
+    font-weight: 400,
+    font-size: 14px,
+  ),
+  hover-border-color: ion-theme(primary-4),
+  disabled: (
+    background-color: ion-theme(neutral-7),
+    text-color: ion-theme(neutral-4),
+    border-color: ion-theme(neutral-4),
+  ),
+  active: (
+    border-color: ion-theme(primary-3),
+    outline-color: ion-theme(primary-4),
+  ),
+  scrollbar: (
+    thumb-color: ion-theme(neutral-6),
+    track-color: ion-theme(neutral-3),
+    button: (
+      border-color: ion-theme(neutral-4),
+      hover-border-color: ion-theme(neutral-7),
+    ),
+  ),
+);
+
 @include register-component(
   input-area,
   (
     default: $default,
+    dark: $dark,
   )
 );

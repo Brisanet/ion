@@ -96,9 +96,106 @@ $default: (
   ),
 );
 
+$dark: (
+  circle-text: (
+    font-family: ion-theme(font-family-main),
+    font-style: normal,
+    font-weight: 600,
+    font-size: 14px,
+    line-height: 20px,
+  ),
+  label-text: (
+    font-family: 'Inter, sans-serif',
+    font-style: normal,
+    font-weight: 400,
+    color: ion-theme(neutral-3),
+    selected-color: ion-theme(neutral-1),
+    disabled-color: ion-theme(neutral-4),
+    hover-active-color: ion-theme(primary-3),
+    hover-active-error-color: ion-theme(negative-3),
+  ),
+  line: (
+    color: ion-theme(neutral-1),
+    bolded-color: ion-theme(primary-6),
+  ),
+  status: (
+    default: (
+      border-color: ion-theme(neutral-2),
+      background-color: ion-theme(neutral-5),
+      text-color: ion-theme(neutral-1),
+      hover: (
+        border-color: ion-theme(primary-2),
+        background-color: ion-theme(neutral-5),
+        text-color: ion-theme(primary-2),
+      ),
+      active: (
+        border-color: ion-theme(primary-6),
+        background-color: ion-theme(primary-1),
+        text-color: ion-theme(primary-7),
+      ),
+    ),
+    selected: (
+      border-color: ion-theme(primary-6),
+      background-color: ion-theme(primary-6),
+      text-color: ion-theme(neutral-1),
+      hover: (
+        border-color: ion-theme(primary-5),
+        background-color: ion-theme(primary-5),
+        text-color: ion-theme(neutral-1),
+      ),
+      active: (
+        border-color: ion-theme(primary-7),
+        background-color: ion-theme(primary-7),
+        text-color: ion-theme(neutral-1),
+      ),
+    ),
+    checked: (
+      border-color: ion-theme(primary-6),
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-6),
+      check-icon-color: ion-theme(primary-6),
+      hover: (
+        border-color: ion-theme(primary-6),
+        background-color: ion-theme(primary-2),
+        text-color: ion-theme(primary-6),
+        check-icon-color: ion-theme(primary-6),
+      ),
+      active: (
+        border-color: ion-theme(primary-6),
+        background-color: ion-theme(primary-1),
+        text-color: ion-theme(primary-7),
+        check-icon-color: ion-theme(primary-7),
+      ),
+    ),
+    error: (
+      border-color: ion-theme(negative-6),
+      background-color: ion-theme(negative-6),
+      text-color: ion-theme(neutral-1),
+      hover: (
+        border-color: ion-theme(negative-5),
+        background-color: ion-theme(negative-5),
+        text-color: ion-theme(neutral-1),
+      ),
+      active: (
+        border-color: ion-theme(negative-7),
+        background-color: ion-theme(negative-7),
+        text-color: ion-theme(neutral-1),
+      ),
+    ),
+    disabled: (
+      border-color: ion-theme(neutral-4),
+      background-color: ion-theme(neutral-7),
+      text-color: ion-theme(neutral-4),
+      check-icon-color: ion-theme(neutral-4),
+      line-color: ion-theme(neutral-4),
+    ),
+  ),
+);
+
 @include register-component(
   step,
   (
     default: $default,
+    dark: $dark,
   )
 );
