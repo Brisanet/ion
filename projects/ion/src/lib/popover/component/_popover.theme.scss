@@ -3,6 +3,7 @@
 $default: (
   background-color: ion-theme(neutral-1),
   shadow: 0 0 6px rgba(4, 42, 98, 0.15),
+  border-color: ion-themes(neutral-2),
   header: (
     background-color: ion-theme(neutral-2),
     close-icon-color: ion-theme(primary-6),
@@ -35,6 +36,7 @@ $default: (
 $dark: (
   background-color: ion-theme(neutral-5),
   shadow: 0 0 6px rgba(4, 42, 98, 0.15),
+  border-color: ion-theme(neutral-3),
   header: (
     background-color: ion-theme(neutral-6),
     close-icon-color: ion-theme(primary-3),
@@ -58,7 +60,7 @@ $dark: (
   ),
   arrow: (
     shadow: -2px -2px 4px -2px rgb(4 42 98 / 15%),
-    header-color: ion-theme(neutral-6),
+    header-color: ion-theme(neutral-5),
     body-color: ion-theme(neutral-6),
   ),
   scrollbar-thumb-color: ion-theme(neutral-2),

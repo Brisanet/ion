@@ -80,6 +80,10 @@ $statuses: success, info, warning, negative;
   &.without-background {
     background-color: transparent;
     border: none !important;
+
+    span {
+      color: ion-theme(alert-without-background-text-color);
+    }
   }
 
   &.no-radius {
