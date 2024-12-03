@@ -36,6 +36,8 @@ $arrow-distance-to-border: 16px;
       top: $arrowPosition;
       left: $left;
       transform: rotate($rotate);
+      border-top: 1px solid ion-theme(popover-border-color);
+      border-left: 1px solid ion-theme(popover-border-color);
     }
   }
 
@@ -51,6 +53,8 @@ $arrow-distance-to-border: 16px;
       bottom: $arrowPosition;
       left: $left;
       transform: rotate($rotate);
+      border-top: 1px solid ion-theme(popover-border-color);
+      border-left: 1px solid ion-theme(popover-border-color);
     }
   }
 }
@@ -213,6 +217,7 @@ $arrow-distance-to-border: 16px;
     border-radius: spacing(1);
     box-shadow: ion-theme(popover-shadow);
     background-color: ion-theme(popover-background-color);
+    border: 1px solid ion-theme(popover-border-color);
   }
 
   &__header {
