@@ -122,15 +122,18 @@ export class IonTourService {
     const currentStep = this.currentStep.getValue();
     currentStep.ionOnNextStep.emit();
 
-    const nextStep = this._tours[this.activeTourId].get(
-      currentStep.ionNextStepId
-    );
-
-    if (nextStep) {
-      this.navigateToStep(nextStep);
-    } else {
+    if (!currentStep.ionNextStepId) {
       this.finish();
+      return;
     }
+
+    setTimeout(() => {
+      const nextStep = this._tours[this.activeTourId].get(
+        currentStep.ionNextStepId
+      );
+
+      this.navigateToStep(nextStep);
+    });
   }
 
   private getFirstStep(
