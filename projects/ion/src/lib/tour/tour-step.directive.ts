@@ -11,6 +11,7 @@ import {
   Inject,
   Injector,
   Input,
+  NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -55,6 +56,9 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   private isTourActive = false;
   private destroy$ = new Subject<void>();
 
+  private observer: NodeJS.Timer;
+  private hostPosition: DOMRect;
+
   constructor(
     @Inject(DOCUMENT) private document: SafeAny,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -64,7 +68,8 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     private injector: Injector,
     private cdr: ChangeDetectorRef,
     private tourService: IonTourService,
-    private positionService: IonPositionService
+    private positionService: IonPositionService,
+    private ngZone: NgZone
   ) {}
 
   public ngOnInit(): void {
@@ -80,16 +85,12 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.tourService.currentStep$
       .pipe(takeUntil(this.destroy$))
       .subscribe((step) => {
-        if (!this.isStepSelected && step && step.ionStepId === this.ionStepId) {
-          this.isStepSelected = true;
-          this.checkPopoverVisibility();
-        } else if (
-          this.isStepSelected &&
-          step &&
-          step.ionStepId !== this.ionStepId
-        ) {
-          this.isStepSelected = false;
-          this.checkPopoverVisibility();
+        if (step) {
+          const isSameStep = step.ionStepId === this.ionStepId;
+          if (this.isStepSelected !== isSameStep) {
+            this.isStepSelected = isSameStep;
+            this.checkPopoverVisibility();
+          }
         }
       });
   }
@@ -106,6 +107,21 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.tourService.removeStep(this.ionStepId);
     this.destroy$.next();
     this.destroy$.complete();
+    if (this.observer) {
+      clearInterval(this.observer);
+    }
+  }
+
+  private observeHostPosition(): void {
+    this.ngZone.runOutsideAngular(() => {
+      this.observer = setInterval(() => {
+        this.ngZone.run(() => {
+          if (this.hostPositionChanged()) {
+            this.repositionPopover();
+          }
+        });
+      }, 0);
+    });
   }
 
   @HostListener('window:resize', ['$event'])
@@ -114,9 +130,8 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       const contentRect =
         this.popoverRef.instance.popover.nativeElement.getBoundingClientRect();
 
-      this.positionService.setHostPosition(
-        this.elementRef.nativeElement.getBoundingClientRect()
-      );
+      this.hostPosition = this.elementRef.nativeElement.getBoundingClientRect();
+      this.positionService.setHostPosition(this.hostPosition);
       this.positionService.setChoosedPosition(this.ionStepPosition);
       this.positionService.setElementPadding(this.ionStepMarginToContent);
       this.positionService.setcomponentCoordinates(contentRect);
@@ -140,7 +155,10 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.destroyPopoverElement();
 
     if (this.isTourActive && this.isStepSelected) {
-      setTimeout(() => this.createPopoverElement());
+      setTimeout(() => {
+        this.createPopoverElement();
+        this.observeHostPosition();
+      });
     }
   }
 
@@ -202,6 +220,13 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe(action.bind(this.tourService));
     });
+  }
+
+  private hostPositionChanged(): boolean {
+    return (
+      this.elementRef.nativeElement.getBoundingClientRect().toJSON() !==
+      this.hostPosition.toJSON()
+    );
   }
 
   private destroyPopoverElement(): void {
