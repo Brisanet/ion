@@ -55,7 +55,7 @@ const stepsMock: IonTourStepProps[] = [
   {
     ionTourId: 'tour1',
     ionStepId: 'step1',
-    target: TARGET_MOCK,
+    getTarget: () => TARGET_MOCK,
     ionStepTitle: 'Step 1',
     ionNextStepId: 'step2',
     ionOnPrevStep: new EventEmitter(),
@@ -65,7 +65,7 @@ const stepsMock: IonTourStepProps[] = [
   {
     ionTourId: 'tour1',
     ionStepId: 'step2',
-    target: TARGET_MOCK,
+    getTarget: () => TARGET_MOCK,
     ionStepTitle: 'Step 2',
     ionPrevStepId: 'step1',
     ionOnPrevStep: new EventEmitter(),
@@ -237,6 +237,7 @@ describe('IonTourService', () => {
 
       const spy = jest.spyOn(step1.ionOnNextStep, 'emit');
       service.nextStep();
+      jest.runAllTimers();
 
       expect(service.currentStep.value).toEqual(step2);
       expect(spy).toHaveBeenCalledTimes(1);
@@ -251,6 +252,7 @@ describe('IonTourService', () => {
       jest.runAllTimers();
 
       service.nextStep();
+      jest.runAllTimers();
 
       expect(service.currentStep.value).toEqual(step2);
 
@@ -271,9 +273,10 @@ describe('IonTourService', () => {
       const spyNext = jest.spyOn(step.ionOnNextStep, 'emit');
       const spyFinish = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.nextStep();
+      jest.runAllTimers();
 
-      expect(service.currentStep.value).toBeNull();
-      expect(service.activeTour.value).toBeNull();
+      expect(service.currentStep.value).toBeUndefined();
+      expect(service.activeTour.value).toBeUndefined();
       expect(spyNext).toHaveBeenCalledTimes(1);
       expect(spyFinish).toHaveBeenCalledTimes(1);
     });

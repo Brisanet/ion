@@ -72,16 +72,25 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
 
     this.tourService.activeTour$
       .pipe(takeUntil(this.destroy$))
-      .subscribe((isActive) => {
-        this.isTourActive = isActive === this.ionTourId;
+      .subscribe((activeTourId) => {
+        this.isTourActive = activeTourId === this.ionTourId;
         this.checkPopoverVisibility();
       });
 
     this.tourService.currentStep$
       .pipe(takeUntil(this.destroy$))
       .subscribe((step) => {
-        this.isStepSelected = step && step.ionStepId === this.ionStepId;
-        this.checkPopoverVisibility();
+        if (!this.isStepSelected && step && step.ionStepId === this.ionStepId) {
+          this.isStepSelected = true;
+          this.checkPopoverVisibility();
+        } else if (
+          this.isStepSelected &&
+          step &&
+          step.ionStepId !== this.ionStepId
+        ) {
+          this.isStepSelected = false;
+          this.checkPopoverVisibility();
+        }
       });
   }
 
@@ -178,6 +187,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     this.cdr.detectChanges();
+    this.repositionPopover();
   }
 
   private listenToPopoverEvents(): void {
@@ -220,7 +230,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
       ionOnPrevStep: this.ionOnPrevStep,
       ionOnNextStep: this.ionOnNextStep,
       ionOnFinishTour: this.ionOnFinishTour,
-      target: this.elementRef.nativeElement.getBoundingClientRect(),
+      getTarget: () => this.elementRef.nativeElement.getBoundingClientRect(),
     };
   }
 }
