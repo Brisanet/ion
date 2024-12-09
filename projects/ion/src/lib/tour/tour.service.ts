@@ -59,7 +59,7 @@ export class IonTourService {
     if (
       current &&
       current.ionStepId === step.ionStepId &&
-      !isEqual(step.getTarget().toJSON(), current.getTarget().toJSON())
+      !isEqual(step.getTarget(), current.getTarget())
     ) {
       this.navigateToStep(step);
     }
@@ -105,12 +105,12 @@ export class IonTourService {
 
   public prevStep(): void {
     const currentStep = this.currentStep.getValue();
+    currentStep.ionOnPrevStep.emit();
+
     if (!currentStep.ionPrevStepId) {
       this.finish();
       return;
     }
-
-    currentStep.ionOnPrevStep.emit();
 
     setTimeout(() => {
       const prevStep = this._tours[this.activeTourId].get(
@@ -125,12 +125,12 @@ export class IonTourService {
 
   public nextStep(): void {
     const currentStep = this.currentStep.getValue();
+    currentStep.ionOnNextStep.emit();
+
     if (!currentStep.ionNextStepId) {
       this.finish();
       return;
     }
-
-    currentStep.ionOnNextStep.emit();
 
     setTimeout(() => {
       const nextStep = this._tours[this.activeTourId].get(

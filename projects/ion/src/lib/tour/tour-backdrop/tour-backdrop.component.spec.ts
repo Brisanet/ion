@@ -15,7 +15,7 @@ const sut = async (
 };
 
 const STEP_MOCK = {
-  target: {
+  getTarget: () => ({
     x: 300,
     y: 300,
     width: 100,
@@ -24,7 +24,7 @@ const STEP_MOCK = {
     right: 400,
     left: 300,
     top: 300,
-  } as DOMRect,
+  }),
 } as IonTourStepProps;
 
 describe('IonTourBackdropComponent', () => {

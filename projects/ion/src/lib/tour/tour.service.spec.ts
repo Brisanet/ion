@@ -125,7 +125,7 @@ describe('IonTourService', () => {
 
       const updatedStep = {
         ...step1,
-        target: { toJSON: () => ({ ...TARGET_MOCK, x: 400 }) },
+        getTarget: () => ({ toJSON: () => ({ ...TARGET_MOCK, x: 400 }) }),
       } as IonTourStepProps;
 
       service.saveStep(step1);
@@ -134,6 +134,7 @@ describe('IonTourService', () => {
 
       expect(service.currentStep.value).toEqual(step1);
       service.saveStep(updatedStep);
+      jest.runAllTimers();
       expect(service.currentStep.value).toEqual(updatedStep);
     });
   });
@@ -258,13 +259,14 @@ describe('IonTourService', () => {
 
       const spy = jest.spyOn(step2.ionOnPrevStep, 'emit');
       service.prevStep();
+      jest.runAllTimers();
 
       expect(service.currentStep.value).toEqual(step1);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it('should finish the tour if there is no next step and nextStep is called', () => {
-      const [step] = stepsMock;
+      const step = { ...stepsMock[0], ionNextStepId: undefined };
 
       service.saveStep(step);
       service.start({ tourId: step.ionTourId });
@@ -275,8 +277,8 @@ describe('IonTourService', () => {
       service.nextStep();
       jest.runAllTimers();
 
-      expect(service.currentStep.value).toBeUndefined();
-      expect(service.activeTour.value).toBeUndefined();
+      expect(service.currentStep.value).toBeNull();
+      expect(service.activeTour.value).toBeNull();
       expect(spyNext).toHaveBeenCalledTimes(1);
       expect(spyFinish).toHaveBeenCalledTimes(1);
     });
@@ -291,6 +293,7 @@ describe('IonTourService', () => {
       const spyPrev = jest.spyOn(step.ionOnPrevStep, 'emit');
       const spyFinish = jest.spyOn(step.ionOnFinishTour, 'emit');
       service.prevStep();
+      jest.runAllTimers();
 
       expect(service.currentStep.value).toBeNull();
       expect(service.activeTour.value).toBeNull();

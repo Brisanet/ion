@@ -28,6 +28,7 @@ import { IonPositionService } from '../position/position.service';
 import { SafeAny } from '../utils/safe-any';
 import { generatePositionCallback } from './tour-position.calculator';
 import { IonTourService } from './tour.service';
+import { isEqual } from 'lodash';
 
 @Directive({ selector: '[ionTourStep]' })
 export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
@@ -56,7 +57,7 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   private isTourActive = false;
   private destroy$ = new Subject<void>();
 
-  private observer: NodeJS.Timer;
+  private interval: ReturnType<typeof setInterval>;
   private hostPosition: DOMRect;
 
   constructor(
@@ -107,20 +108,21 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
     this.tourService.removeStep(this.ionStepId);
     this.destroy$.next();
     this.destroy$.complete();
-    if (this.observer) {
-      clearInterval(this.observer);
+    if (this.interval) {
+      clearInterval(this.interval);
     }
   }
 
   private observeHostPosition(): void {
     this.ngZone.runOutsideAngular(() => {
-      this.observer = setInterval(() => {
+      const interval30FPSinMs = 1000 / 30;
+      this.interval = setInterval(() => {
         this.ngZone.run(() => {
           if (this.hostPositionChanged()) {
             this.repositionPopover();
           }
         });
-      }, 0);
+      }, interval30FPSinMs);
     });
   }
 
@@ -223,9 +225,9 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private hostPositionChanged(): boolean {
-    return (
-      this.elementRef.nativeElement.getBoundingClientRect().toJSON() !==
-      this.hostPosition.toJSON()
+    return !isEqual(
+      this.hostPosition,
+      this.elementRef.nativeElement.getBoundingClientRect()
     );
   }
 
