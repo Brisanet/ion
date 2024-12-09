@@ -19,8 +19,8 @@ export class IonTourBackdropComponent implements OnInit {
       return '';
     }
 
-    const { target, ionStepBackdropPadding: padding } = this.currentStep;
-    const { top, left, bottom, right } = target;
+    const { getTarget, ionStepBackdropPadding: padding } = this.currentStep;
+    const { top, left, bottom, right } = getTarget();
 
     return this.sanitizer.bypassSecurityTrustStyle(`polygon(
       0 0,

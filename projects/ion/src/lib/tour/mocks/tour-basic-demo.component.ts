@@ -85,8 +85,10 @@ export const STEP3_MOCK: IonTourStepProps = {
           [ionNextStepId]="step2.ionNextStepId"
           [ionStepTitle]="step2.ionStepTitle"
           [ionStepBody]="saveStep"
+          (ionOnNextStep)="markOptionStepAsVisible()"
         ></ion-button>
         <ion-button
+          *ngIf="isOptionStepVisible"
           iconType="option"
           type="secondary"
           ionTourStep
@@ -127,9 +129,15 @@ export class TourBasicDemoComponent {
   public step2 = STEP2_MOCK;
   public step3 = STEP3_MOCK;
 
+  public isOptionStepVisible = false;
+
   constructor(private readonly ionTourService: IonTourService) {}
 
   public startTour(): void {
     this.ionTourService.start();
+  }
+
+  public markOptionStepAsVisible(): void {
+    this.isOptionStepVisible = true;
   }
 }

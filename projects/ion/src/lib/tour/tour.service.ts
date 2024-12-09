@@ -59,7 +59,7 @@ export class IonTourService {
     if (
       current &&
       current.ionStepId === step.ionStepId &&
-      !isEqual(step.target.toJSON(), current.target.toJSON())
+      !isEqual(step.getTarget(), current.getTarget())
     ) {
       this.navigateToStep(step);
     }
@@ -107,30 +107,38 @@ export class IonTourService {
     const currentStep = this.currentStep.getValue();
     currentStep.ionOnPrevStep.emit();
 
-    const prevStep = this._tours[this.activeTourId].get(
-      currentStep.ionPrevStepId
-    );
-
-    if (prevStep) {
-      this.navigateToStep(prevStep);
-    } else {
+    if (!currentStep.ionPrevStepId) {
       this.finish();
+      return;
     }
+
+    setTimeout(() => {
+      const prevStep = this._tours[this.activeTourId].get(
+        currentStep.ionPrevStepId
+      );
+
+      if (prevStep) {
+        this.navigateToStep(prevStep);
+      }
+    });
   }
 
   public nextStep(): void {
     const currentStep = this.currentStep.getValue();
     currentStep.ionOnNextStep.emit();
 
-    const nextStep = this._tours[this.activeTourId].get(
-      currentStep.ionNextStepId
-    );
-
-    if (nextStep) {
-      this.navigateToStep(nextStep);
-    } else {
+    if (!currentStep.ionNextStepId) {
       this.finish();
+      return;
     }
+
+    setTimeout(() => {
+      const nextStep = this._tours[this.activeTourId].get(
+        currentStep.ionNextStepId
+      );
+
+      this.navigateToStep(nextStep);
+    });
   }
 
   private getFirstStep(
@@ -159,10 +167,10 @@ export class IonTourService {
 
     this.appRef.attachView(this.backdropRef.hostView);
 
-    const popoverElement = this.backdropRef.location
+    const backdropElement = this.backdropRef.location
       .nativeElement as HTMLElement;
 
-    this.document.body.appendChild(popoverElement);
+    this.document.body.appendChild(backdropElement);
     this.backdropRef.changeDetectorRef.detectChanges();
     this.updateBackdropProps();
   }
