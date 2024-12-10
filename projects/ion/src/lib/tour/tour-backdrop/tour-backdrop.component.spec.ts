@@ -57,6 +57,14 @@ describe('IonTourBackdropComponent', () => {
       expect(screen.queryByTestId('ion-tour-backdrop')).not.toBeInTheDocument();
     });
 
+    it('should backdrop with empty clip-path when the step is not active', async () => {
+      const { fixture } = await sut();
+      fixture.componentInstance.updateStep(null);
+      expect(screen.queryByTestId('ion-tour-backdrop')).toHaveStyle({
+        clipPath: '',
+      });
+    });
+
     it('should stop rendering when performFinalTransition is called', async () => {
       jest.useFakeTimers();
       const { fixture } = await sut({ inTransition: true });
