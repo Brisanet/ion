@@ -91,6 +91,8 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
             this.isStepSelected = isSameStep;
             this.checkPopoverVisibility();
           }
+        } else {
+          this.isStepSelected = false;
         }
       });
   }
