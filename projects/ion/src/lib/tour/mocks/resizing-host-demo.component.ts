@@ -60,6 +60,12 @@ export class TourResizingHostComponent implements OnInit, OnDestroy {
     this.animateButtonSize();
   }
 
+  public ngOnDestroy(): void {
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+  }
+
   private animateButtonSize(): void {
     this.interval = setInterval(() => {
       this.top = this.getRandomNumber(0, 700);
@@ -70,11 +76,5 @@ export class TourResizingHostComponent implements OnInit, OnDestroy {
 
   private getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
-  public ngOnDestroy(): void {
-    if (this.interval) {
-      clearInterval(this.interval);
-    }
   }
 }

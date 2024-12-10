@@ -28,7 +28,6 @@ import { IonPositionService } from '../position/position.service';
 import { SafeAny } from '../utils/safe-any';
 import { generatePositionCallback } from './tour-position.calculator';
 import { IonTourService } from './tour.service';
-import { isEqual } from 'lodash';
 
 @Directive({ selector: '[ionTourStep]' })
 export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {

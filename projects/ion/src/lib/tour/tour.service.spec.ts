@@ -125,7 +125,9 @@ describe('IonTourService', () => {
 
       const updatedStep = {
         ...step1,
-        getTarget: () => ({ toJSON: () => ({ ...TARGET_MOCK, x: 400 }) }),
+        getTarget: () => ({
+          toJSON: (): DOMRect => ({ ...TARGET_MOCK, x: 400 }),
+        }),
       } as IonTourStepProps;
 
       service.saveStep(step1);

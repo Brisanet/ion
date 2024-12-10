@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, ElementRef, ViewContainerRef } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   fireEvent,
   render,
@@ -13,12 +13,12 @@ import { EMPTY, of } from 'rxjs';
 import { IonButtonModule } from '../button/button.module';
 import { IonTourStepProps } from '../core/types';
 import { IonPopoverModule } from '../popover/popover.module';
+import { IonPositionService } from '../position/position.service';
 import { TourResizingHostComponent } from './mocks/resizing-host-demo.component';
 import { TourStepDemoComponent } from './mocks/tour-step-props.component';
+import { IonTourStepDirective } from './tour-step.directive';
 import { IonTourModule } from './tour.module';
 import { IonTourService } from './tour.service';
-import { IonTourStepDirective } from './tour-step.directive';
-import { IonPositionService } from '../position/position.service';
 
 const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionTourId: 'demo-tour',
