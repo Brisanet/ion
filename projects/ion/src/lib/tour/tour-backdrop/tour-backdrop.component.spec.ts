@@ -15,7 +15,7 @@ const sut = async (
 };
 
 const STEP_MOCK = {
-  target: {
+  getTarget: () => ({
     x: 300,
     y: 300,
     width: 100,
@@ -24,7 +24,7 @@ const STEP_MOCK = {
     right: 400,
     left: 300,
     top: 300,
-  } as DOMRect,
+  }),
 } as IonTourStepProps;
 
 describe('IonTourBackdropComponent', () => {
@@ -36,9 +36,7 @@ describe('IonTourBackdropComponent', () => {
   it('should render with custom class', async () => {
     const ionStepBackdropCustomClass = 'custom-class';
 
-    await sut({
-      currentStep: { ...STEP_MOCK, ionStepBackdropCustomClass },
-    });
+    await sut({ currentStep: { ...STEP_MOCK, ionStepBackdropCustomClass } });
 
     expect(screen.queryByTestId('ion-tour-backdrop')).toHaveClass(
       ionStepBackdropCustomClass
@@ -57,6 +55,14 @@ describe('IonTourBackdropComponent', () => {
       const { rerender } = await sut({ inTransition: true, isActive: false });
       rerender({ inTransition: false });
       expect(screen.queryByTestId('ion-tour-backdrop')).not.toBeInTheDocument();
+    });
+
+    it('should backdrop with empty clip-path when the step is not active', async () => {
+      const { fixture } = await sut();
+      fixture.componentInstance.updateStep(null);
+      expect(screen.queryByTestId('ion-tour-backdrop')).toHaveStyle({
+        clipPath: '',
+      });
     });
 
     it('should stop rendering when performFinalTransition is called', async () => {

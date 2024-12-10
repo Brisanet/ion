@@ -19,7 +19,7 @@ export interface IonTourStepProps {
   ionOnPrevStep?: EventEmitter<void>;
   ionOnNextStep?: EventEmitter<void>;
   ionOnFinishTour?: EventEmitter<void>;
-  target?: DOMRect;
+  getTarget?: () => DOMRect;
 }
 
 export interface IonStartTourProps {
