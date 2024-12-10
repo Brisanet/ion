@@ -149,7 +149,6 @@ export class IonTourService {
 
   private navigateToStep(step: IonTourStepProps): void {
     this.currentStep.next(step);
-    console.log('step', step);
   }
 
   private createBackdrop(): void {
