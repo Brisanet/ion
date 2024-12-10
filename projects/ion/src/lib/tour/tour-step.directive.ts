@@ -225,9 +225,14 @@ export class IonTourStepDirective implements OnInit, OnChanges, OnDestroy {
   }
 
   private hostPositionChanged(): boolean {
-    return !isEqual(
-      this.hostPosition,
-      this.elementRef.nativeElement.getBoundingClientRect()
+    const newPosition = this.elementRef.nativeElement.getBoundingClientRect();
+    return (
+      this.hostPosition &&
+      newPosition &&
+      this.hostPosition.x === newPosition.x &&
+      this.hostPosition.y === newPosition.y &&
+      this.hostPosition.width === newPosition.width &&
+      this.hostPosition.height === newPosition.height
     );
   }
 

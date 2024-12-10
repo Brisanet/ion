@@ -26,7 +26,7 @@ const backdropComponentMock = {
   hostView: {},
   location: { nativeElement: document.createElement('div') },
   changeDetectorRef: { detectChanges: jest.fn() },
-  instance: { performFinalTransition },
+  instance: { performFinalTransition, updateStep: jest.fn() },
   destroy: jest.fn(),
 };
 

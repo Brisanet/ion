@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 import { IonTourStepProps } from '../../core/types';
@@ -9,20 +9,46 @@ import { IonTourStepProps } from '../../core/types';
   styleUrls: ['./tour-backdrop.component.scss'],
 })
 export class IonTourBackdropComponent implements OnInit {
-  @Input() currentStep: IonTourStepProps | null = null;
   @Input() isActive = false;
 
+  public currentStep: IonTourStepProps | null = null;
   public inTransition = true;
+  public clipPath: SafeStyle = '';
 
-  public get clipPath(): SafeStyle {
+  constructor(
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  public ngOnInit(): void {
+    setTimeout(() => (this.inTransition = false));
+  }
+
+  public updateStep(step: IonTourStepProps | null): void {
+    this.currentStep = step;
+    this.updateClipPath();
+  }
+
+  public performFinalTransition(callback: () => void): void {
+    const transitionDuration = 400;
+    this.inTransition = true;
+
+    setTimeout(() => {
+      this.inTransition = false;
+      callback();
+    }, transitionDuration);
+  }
+
+  private updateClipPath(): void {
     if (!this.currentStep) {
-      return '';
+      this.clipPath = '';
+      return;
     }
 
     const { getTarget, ionStepBackdropPadding: padding } = this.currentStep;
     const { top, left, bottom, right } = getTarget();
 
-    return this.sanitizer.bypassSecurityTrustStyle(`polygon(
+    this.clipPath = this.sanitizer.bypassSecurityTrustStyle(`polygon(
       0 0,
       0 100%,
       ${left - padding}px 100%,
@@ -34,21 +60,7 @@ export class IonTourBackdropComponent implements OnInit {
       100% 100%,
       100% 0
     )`);
-  }
 
-  constructor(private sanitizer: DomSanitizer) {}
-
-  public ngOnInit(): void {
-    setTimeout(() => (this.inTransition = false));
-  }
-
-  public performFinalTransition(callback: () => void): void {
-    const transitionDuration = 400;
-    this.inTransition = true;
-
-    setTimeout(() => {
-      this.inTransition = false;
-      callback();
-    }, transitionDuration);
+    this.cdr.detectChanges();
   }
 }

@@ -36,9 +36,7 @@ describe('IonTourBackdropComponent', () => {
   it('should render with custom class', async () => {
     const ionStepBackdropCustomClass = 'custom-class';
 
-    await sut({
-      currentStep: { ...STEP_MOCK, ionStepBackdropCustomClass },
-    });
+    await sut({ currentStep: { ...STEP_MOCK, ionStepBackdropCustomClass } });
 
     expect(screen.queryByTestId('ion-tour-backdrop')).toHaveClass(
       ionStepBackdropCustomClass

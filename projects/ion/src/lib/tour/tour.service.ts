@@ -55,12 +55,7 @@ export class IonTourService {
     }
 
     const current = this.currentStep.value;
-
-    if (
-      current &&
-      current.ionStepId === step.ionStepId &&
-      !isEqual(step.getTarget(), current.getTarget())
-    ) {
+    if (current && current.ionStepId === step.ionStepId) {
       this.navigateToStep(step);
     }
 
@@ -154,6 +149,7 @@ export class IonTourService {
 
   private navigateToStep(step: IonTourStepProps): void {
     this.currentStep.next(step);
+    console.log('step', step);
   }
 
   private createBackdrop(): void {
@@ -180,7 +176,7 @@ export class IonTourService {
       .pipe(takeUntil(this.destroyBackdrop$))
       .subscribe((step) => {
         if (this.backdropRef) {
-          this.backdropRef.instance.currentStep = step;
+          this.backdropRef.instance.updateStep(step);
         }
       });
 
