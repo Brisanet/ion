@@ -1,19 +1,24 @@
+import { ChangeDetectorRef, ElementRef, ViewContainerRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import {
   fireEvent,
   render,
   RenderResult,
   screen,
 } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { cloneDeep } from 'lodash';
 import { EMPTY, of } from 'rxjs';
 
 import { IonButtonModule } from '../button/button.module';
 import { IonTourStepProps } from '../core/types';
+import { IonPopoverModule } from '../popover/popover.module';
+import { IonPositionService } from '../position/position.service';
+import { TourResizingHostComponent } from './mocks/resizing-host-demo.component';
 import { TourStepDemoComponent } from './mocks/tour-step-props.component';
+import { IonTourStepDirective } from './tour-step.directive';
 import { IonTourModule } from './tour.module';
 import { IonTourService } from './tour.service';
-import { IonPopoverModule } from '../popover/popover.module';
-import userEvent from '@testing-library/user-event';
 
 const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionTourId: 'demo-tour',
@@ -23,7 +28,7 @@ const DEFAULT_PROPS: Partial<TourStepDemoComponent> = {
   ionNextStepBtn: { label: 'Test Next' },
 };
 
-const tourServiceMock: Partial<IonTourService> = {
+const tourServiceMock = {
   saveStep: jest.fn(),
   removeStep: jest.fn(),
   start: jest.fn(),
@@ -32,6 +37,26 @@ const tourServiceMock: Partial<IonTourService> = {
   nextStep: jest.fn(),
   activeTour$: EMPTY,
   currentStep$: EMPTY,
+};
+
+const generateRandomDOMRect = (): DOMRect => {
+  const data = {
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    width: Math.random() * 200 + 50,
+    height: Math.random() * 200 + 50,
+    bottom: Math.random() * 100 + 200,
+    right: Math.random() * 100 + 200,
+    left: Math.random() * 50,
+    top: Math.random() * 50,
+  };
+  return { ...data, toJSON: () => data } as DOMRect;
+};
+
+const elementRefMock = {
+  nativeElement: {
+    getBoundingClientRect: jest.fn().mockImplementation(generateRandomDOMRect),
+  },
 };
 
 function setActiveTour(tourId: string): void {
@@ -49,15 +74,41 @@ const sut = async (
 ): Promise<RenderResult<TourStepDemoComponent>> => {
   const result = await render(TourStepDemoComponent, {
     imports: [IonButtonModule, IonTourModule, IonPopoverModule],
-    providers: [{ provide: IonTourService, useValue: tourServiceMock }],
+    providers: [
+      { provide: ElementRef, useValue: elementRefMock },
+      { provide: IonTourService, useValue: tourServiceMock },
+    ],
     componentProperties: {
       ...DEFAULT_PROPS,
       ...props,
     },
   });
-  jest.runAllTimers();
+  jest.runOnlyPendingTimers();
   result.fixture.detectChanges();
   return result;
+};
+
+const sutResizingHostDemo = (): void => {
+  TestBed.configureTestingModule({
+    imports: [IonButtonModule, IonTourModule, IonPopoverModule],
+    declarations: [TourResizingHostComponent],
+    providers: [
+      IonTourService,
+      IonTourStepDirective,
+      IonPositionService,
+      ViewContainerRef,
+      ChangeDetectorRef,
+      { provide: ElementRef, useValue: elementRefMock },
+    ],
+  });
+
+  TestBed.get(IonTourStepDirective)['hostPositionChanged'] = jest
+    .fn()
+    .mockReturnValue(true);
+
+  TestBed.createComponent(TourResizingHostComponent).detectChanges();
+
+  jest.runOnlyPendingTimers();
 };
 
 describe('IonTourStepDirective', () => {
@@ -101,6 +152,18 @@ describe('IonTourStepDirective', () => {
     fixture.detectChanges();
 
     expect(screen.queryByText(newlabel)).toBeInTheDocument();
+  });
+
+  it('should reposition popover when host position changes', async () => {
+    sutResizingHostDemo();
+
+    const directive = TestBed.get(IonTourStepDirective);
+    const spy = jest.spyOn(directive, 'repositionPopover');
+    directive.observeHostPosition();
+
+    jest.runOnlyPendingTimers();
+
+    expect(spy).toHaveBeenCalled();
   });
 
   describe('popover actions', () => {
