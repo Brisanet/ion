@@ -6,7 +6,8 @@ $default: (
     border-color: transparent,
     text-color: ion-theme(primary-6),
     disabled-color: ion-theme(neutral-1),
-    disabled-text-color: ion-theme(neutral-5),
+    disabled-bg-color: ion-theme(neutral-5),
+    disabled-border-color: ion-theme(neutral-3),
   ),
   secondary: (
     border: ion-theme(neutral-4),
@@ -24,6 +25,7 @@ $dark: (
     text-color: ion-theme(neutral-1),
     disabled-color: ion-theme(neutral-3),
     disabled-bg-color: ion-theme(neutral-6),
+    disabled-border-color: ion-theme(neutral-3),
   ),
   secondary: (
     border: ion-theme(primary-3),

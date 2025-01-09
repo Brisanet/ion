@@ -34,10 +34,14 @@
   ion-button ::ng-deep {
     .ion-btn-primary {
       border: 1px solid ion-theme(triple-toggle-primary-border-color);
+
       &:disabled {
         background-color: ion-theme(
           triple-toggle-primary-disabled-bg-color
         ) !important;
+
+        border: 1px solid ion-theme(triple-toggle-primary-disabled-border-color);
+
         color: ion-theme(triple-toggle-primary-disabled-color) !important;
       }
     }
