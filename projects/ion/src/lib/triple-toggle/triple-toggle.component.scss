@@ -48,6 +48,15 @@
       ion-icon svg {
         fill: ion-theme(triple-toggle-icon-color);
       }
+
+      &:hover {
+        color: ion-theme(triple-toggle-secondary-hover-text-color);
+
+        ion-icon svg {
+          fill: ion-theme(triple-toggle-secondary-hover-text-color);
+        }
+      }
+
       &:disabled {
         color: ion-theme(triple-toggle-secondary-disabled-color);
         background-color: ion-theme(
