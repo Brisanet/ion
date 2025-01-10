@@ -6,7 +6,7 @@
 @mixin tab-colors($prefix) {
   color: ion-theme(#{$prefix}-text-color);
   background-color: ion-theme(#{$prefix}-background-color);
-  border-color: ion-theme(#{$prefix}-border-color);
+  border-color: ion-theme(#{$prefix}-border-color) !important;
 }
 
 @mixin icon-color($color) {
