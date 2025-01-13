@@ -5,7 +5,7 @@ import { Meta, Story } from '@storybook/angular/types-6-0';
 import { TableActionPopoverComponent } from '../projects/ion/src/lib/smart-table/mocks/tableActionPopover';
 import {
   IonSmartTableModule,
-  PopoverProps,
+  PopoverDirectiveProps,
 } from '../projects/ion/src/public-api';
 
 const Template: Story<TableActionPopoverComponent> = (
@@ -42,7 +42,7 @@ WithPopoverAction.args = {
         tooltipConfig: {
           ionTooltipTitle: 'Tooltip customizada',
         },
-        popover: (row: { name: string }): Partial<PopoverProps> => ({
+        popover: (row: { name: string }): Partial<PopoverDirectiveProps> => ({
           ionPopoverTitle: `Detalhes do álbum ${row.name}`,
           ionPopoverBody: {
             template: `
