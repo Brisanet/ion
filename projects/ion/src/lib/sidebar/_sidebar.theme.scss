@@ -4,6 +4,7 @@ $default: (
   background-color: ion-theme(neutral-1),
   shadow-color: rgba(4, 42, 98, 0.15),
   footer-divider-color: ion-theme(neutral-4),
+  border-color: ion-theme(neutral-1),
   scrollbar: (
     background-color: transparent,
     thumb-color: ion-theme(neutral-3),
@@ -57,6 +58,7 @@ $dark: (
   background-color: ion-theme(neutral-5),
   shadow-color: rgba(4, 42, 98, 0.15),
   footer-divider-color: ion-theme(neutral-3),
+  border-color: ion-theme(neutral-3),
   scrollbar: (
     background-color: transparent,
     thumb-color: ion-theme(neutral-3),

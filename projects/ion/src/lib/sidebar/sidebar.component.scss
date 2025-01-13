@@ -28,7 +28,8 @@
   grid-template-rows: max-content 1fr max-content;
   transform: translateX(-110%);
   transition: transform 0.25s ease-in-out, width 0.25s ease-in-out;
-
+  border-right: 1px solid ion-theme(sidebar-border-color);
+  
   &__header {
     display: flex;
     align-items: center;

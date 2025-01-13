@@ -34,10 +34,14 @@
   ion-button ::ng-deep {
     .ion-btn-primary {
       border: 1px solid ion-theme(triple-toggle-primary-border-color);
+
       &:disabled {
         background-color: ion-theme(
           triple-toggle-primary-disabled-bg-color
         ) !important;
+
+        border: 1px solid ion-theme(triple-toggle-primary-disabled-border-color);
+
         color: ion-theme(triple-toggle-primary-disabled-color) !important;
       }
     }
@@ -48,6 +52,15 @@
       ion-icon svg {
         fill: ion-theme(triple-toggle-icon-color);
       }
+
+      &:hover {
+        color: ion-theme(triple-toggle-secondary-hover-text-color);
+
+        ion-icon svg {
+          fill: ion-theme(triple-toggle-secondary-hover-text-color);
+        }
+      }
+
       &:disabled {
         color: ion-theme(triple-toggle-secondary-disabled-color);
         background-color: ion-theme(
