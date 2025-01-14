@@ -3,7 +3,7 @@ import { TemplateRef } from '@angular/core';
 import {
   FontSize,
   IconType,
-  PopoverProps,
+  PopoverDirectiveProps,
   StatusType,
   TooltipProps,
 } from '../core/types';
@@ -90,7 +90,7 @@ export interface ActionConfirm<RowType> {
   cancelText?: string;
 }
 
-export type ActionPopover = PopoverProps;
+export type ActionPopover = PopoverDirectiveProps;
 
 export interface ActionTable<RowType = SafeAny> {
   label: string;
