@@ -1,15 +1,18 @@
-@import '../../styles/index.scss';
+@use 'tab.theme';
 
-@mixin tab-colors($color, $background, $border) {
-  color: $color;
-  background-color: $background;
-  border-color: $border !important;
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin tab-colors($prefix) {
+  color: ion-theme(#{$prefix}-text-color);
+  background-color: ion-theme(#{$prefix}-background-color);
+  border-color: ion-theme(#{$prefix}-border-color) !important;
 }
 
 @mixin icon-color($color) {
   .tab-icon {
     ::ng-deep svg {
-      fill: $color;
+      fill: ion-theme($color);
     }
   }
 }
@@ -27,9 +30,9 @@
 }
 
 @mixin tab-focus {
-  @include tab-colors($primary-5, $primary-1, $primary-3);
+  @include tab-colors(tab-focus);
   @include focus;
-  @include icon-color($primary-5);
+  @include icon-color(tab-focus-icon-color);
   position: relative;
 }
 
@@ -39,29 +42,30 @@
   color: $neutral-7;
 
   border: none;
-  background-color: $neutral-1;
+  color: ion-theme(tab-inactive-text-color);
+  background-color: ion-theme(tab-inactive-background-color);
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: spacing(1);
-  @include icon-color($neutral-7);
+  @include icon-color(tab-inactive-icon-color);
 
   &:hover {
-    @include tab-colors($primary-5, $primary-1, $primary-3);
-    @include icon-color($primary-5);
+    @include tab-colors(tab-hover);
+    @include icon-color(tab-hover-icon-color);
   }
   &:focus-visible {
     @include tab-focus();
   }
   &:active {
-    @include tab-colors($primary-7, $primary-2, $primary-5);
+    @include tab-colors(tab-active);
     outline: none;
-    @include icon-color($primary-7);
+    @include icon-color(tab-active-icon-color);
   }
   &:disabled {
-    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
+    @include tab-colors(tab-disabled);
     cursor: not-allowed;
-    @include icon-color($neutral-5);
+    @include icon-color(tab-disabled-icon-color);
   }
 }
 
@@ -69,28 +73,28 @@
   font-style: normal;
   font-weight: 600;
   border: none;
-  @include tab-colors($primary-color, $neutral-1, $primary-color);
+  @include tab-colors(tab-selected);
   cursor: pointer;
   display: flex;
   align-items: center;
-  @include icon-color($primary-color);
+  @include icon-color(tab-selected-icon-color);
 
   &:hover {
-    @include tab-colors($primary-5, $primary-1, $primary-3);
-    @include icon-color($primary-5);
+    @include tab-colors(tab-hover);
+    @include icon-color(tab-hover-icon-color);
   }
   &:focus-visible {
     @include tab-focus();
   }
   &:active {
-    @include tab-colors($primary-7, $primary-2, $primary-5);
+    @include tab-colors(tab-active);
     outline: none;
-    @include icon-color($primary-7);
+    @include icon-color(tab-active-icon-color);
   }
   &:disabled {
-    @include tab-colors($neutral-5, $neutral-3, $neutral-5);
+    @include tab-colors(tab-disabled);
     cursor: not-allowed;
-    @include icon-color($neutral-5);
+    @include icon-color(tab-disabled-icon-color);
   }
 }
 
