@@ -34,7 +34,7 @@
   background-color: ion-theme(dropdown-background-color);
   box-shadow: ion-theme(dropdown-shadow);
   border-radius: ion-theme(dropdown-border-radius);
-  border: 1px solid ion-theme(dropdown-border-color) !important;
+  border: 1px solid ion-theme(dropdown-border-color);
 
   &--loading {
     flex-direction: row;
