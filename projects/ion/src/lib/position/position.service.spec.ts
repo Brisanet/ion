@@ -1,4 +1,9 @@
-import { IonPositionService, IonPositions } from './position.service';
+import {
+  ElementPositions,
+  GetPositionsCallback,
+  IonPositions,
+  IonPositionService,
+} from './position.service';
 
 describe('IonPositionService', () => {
   let ionPositionService: IonPositionService;
@@ -52,6 +57,11 @@ describe('IonPositionService', () => {
     expect(ionPositionService['pointAtCenter']).toBeTruthy();
   });
 
+  it('should set auto reposition', () => {
+    ionPositionService.setAutoReposition(true);
+    expect(ionPositionService['setAutoReposition']).toBeTruthy();
+  });
+
   describe('getNewPosition', () => {
     it('should return undefined if host position is not set', () => {
       const getPositionCallbackMock = jest.fn();
@@ -96,6 +106,40 @@ describe('IonPositionService', () => {
         key: IonPositions.TOP_LEFT,
         left: 0,
         top: 0,
+      });
+    });
+
+    it('should return the chosen position when autoReposition is false', () => {
+      const hostPosition = {
+        left: 10,
+        top: 20,
+        right: 30,
+        bottom: 40,
+      } as DOMRect;
+      const componentCoordinates = {
+        left: 5,
+        top: 15,
+        right: 25,
+        bottom: 35,
+      } as DOMRect;
+      ionPositionService.setHostPosition(hostPosition);
+      ionPositionService.setcomponentCoordinates(componentCoordinates);
+      ionPositionService.setChoosedPosition(IonPositions.LEFT_BOTTOM);
+      ionPositionService.setAutoReposition(false);
+      const defaultPosition = { left: 0, top: 0 };
+      const mockPositions: ElementPositions = Object.values(
+        IonPositions
+      ).reduce((acc, key) => {
+        acc[key] = defaultPosition;
+        return acc;
+      }, {} as ElementPositions);
+      mockPositions[IonPositions.LEFT_BOTTOM] = { left: 100, top: 200 };
+      const mockGetPositions: GetPositionsCallback = () => mockPositions;
+      const result = ionPositionService.getNewPosition(mockGetPositions);
+      expect(result).toEqual({
+        key: IonPositions.LEFT_BOTTOM,
+        left: 100,
+        top: 200,
       });
     });
   });
