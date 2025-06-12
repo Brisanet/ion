@@ -59,7 +59,7 @@ describe('IonPositionService', () => {
 
   it('should set auto reposition', () => {
     ionPositionService.setAutoReposition(true);
-    expect(ionPositionService['setAutoReposition']).toBeTruthy();
+    expect(ionPositionService['autoReposition']).toBeTruthy();
   });
 
   describe('getNewPosition', () => {
