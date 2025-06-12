@@ -30,6 +30,7 @@ DirectiveWithActions.args = {
   ionPopoverActions: [{ label: 'action 1' }, { label: 'action 2' }],
   ionPopoverPosition: PopoverPosition.DEFAULT,
   ionPopoverTrigger: PopoverTrigger.DEFAULT,
+  ionPopoverAutoReposition: true,
 };
 
 export default {
@@ -75,6 +76,11 @@ export default {
       name: 'ionPopoverCustomClass',
       type: { name: 'string' },
       defaultValue: '',
+    },
+    ionPopoverAutoReposition: {
+      name: 'ionPopoverAutoReposition',
+      type: { name: 'boolean' },
+      defaultValue: true,
     },
   },
 } as Meta<OpenPopoverComponent>;

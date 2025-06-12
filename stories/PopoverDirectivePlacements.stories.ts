@@ -103,6 +103,7 @@ Placements.args = {
   ionPopoverIcon: 'historic',
   ionPopoverIconColor: '#282b33',
   ionPopoverArrowPointAtCenter: true,
+  ionPopoverAutoReposition: true,
   ionPopoverCustomClass: 'popover-custom-class',
   buttonConfigs: [
     [
@@ -168,6 +169,11 @@ export default {
       name: 'ionPopoverCustomClass',
       type: { name: 'string' },
       defaultValue: '',
+    },
+    ionPopoverAutoReposition: {
+      name: 'ionPopoverAutoReposition',
+      type: { name: 'boolean' },
+      defaultValue: true,
     },
   },
 } as Meta;

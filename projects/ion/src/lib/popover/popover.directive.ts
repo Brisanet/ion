@@ -48,6 +48,9 @@ export class IonPopoverDirective implements OnDestroy {
   @Input()
   ionPopoverStopCloseOnScroll: PopoverDirectiveProps['ionPopoverStopCloseOnScroll'] =
     false;
+  @Input()
+  ionPopoverAutoReposition: PopoverDirectiveProps['ionPopoverAutoReposition'] =
+    true;
   @Output() ionOnFirstAction: PopoverDirectiveProps['ionOnFirstAction'] =
     new EventEmitter<void>();
   @Output() ionOnSecondAction: PopoverDirectiveProps['ionOnSecondAction'] =
@@ -142,6 +145,7 @@ export class IonPopoverDirective implements OnDestroy {
     );
 
     this.positionService.setPointAtCenter(this.ionPopoverArrowPointAtCenter);
+    this.positionService.setAutoReposition(this.ionPopoverAutoReposition);
 
     const ionPopoverPosition =
       this.positionService.getNewPosition(getPositionsPopover);

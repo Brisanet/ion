@@ -50,4 +50,5 @@ export interface PopoverDirectiveProps extends PopoverProps {
   ionPopoverClose?: Subject<void>;
   ionPopoverArrowPointAtCenter?: boolean;
   ionPopoverTrigger?: PopoverTrigger;
+  ionPopoverAutoReposition?: boolean;
 }

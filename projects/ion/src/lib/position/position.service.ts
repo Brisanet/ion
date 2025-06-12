@@ -54,6 +54,7 @@ export class IonPositionService {
   private choosedPosition: IonPositions;
   private currentPosition: IonPositions;
   private pointAtCenter = true;
+  private autoReposition = true;
 
   public setElementPadding(padding: number): void {
     this.elementPadding = padding;
@@ -79,6 +80,10 @@ export class IonPositionService {
     this.pointAtCenter = value;
   }
 
+  public setAutoReposition(value: boolean): void {
+    this.autoReposition = value;
+  }
+
   public getNewPosition(
     getPositionCallback: GetPositionsCallback
   ): NewPosition {
@@ -102,6 +107,9 @@ export class IonPositionService {
   public checkPositions(
     availablePositions: ElementPositions
   ): keyof PositionsChecks {
+    if (!this.autoReposition) {
+      return this.choosedPosition;
+    }
     const positions = this.getPositions();
 
     let newPosition = this.choosedPosition;
