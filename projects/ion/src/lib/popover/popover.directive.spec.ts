@@ -60,6 +60,7 @@ const CUSTOM_CLASS = 'custom-class';
       [ionPopoverActions]="ionPopoverActions"
       [ionPopoverTrigger]="ionPopoverTrigger"
       [ionPopoverStopCloseOnScroll]="ionPopoverStopCloseOnScroll"
+      [ionPopoverAutoReposition]="true"
       (ionOnFirstAction)="ionOnFirstAction()"
       (ionOnSecondAction)="ionOnSecondAction()"
       ionPopoverCustomClass="${CUSTOM_CLASS}"
