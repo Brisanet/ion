@@ -183,6 +183,7 @@ export { default as inbox } from './inbox';
 export { default as info } from './info';
 export { default as infoSolid } from './info-solid';
 export { default as information } from './information';
+export { default as intermittent } from './intermittent';
 export { default as intersection } from './intersection';
 export { default as key } from './key';
 export { default as laptop } from './laptop';
