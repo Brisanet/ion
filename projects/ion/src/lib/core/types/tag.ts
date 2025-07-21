@@ -6,4 +6,5 @@ export interface IonTagProps {
   color?: string;
   label: string;
   icon?: string;
+  backgroundColor?: string;
 }
