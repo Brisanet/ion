@@ -9,7 +9,7 @@ $default: (
   disabled: (
     background-color: ion-theme(neutral-2),
     text-color: ion-theme(neutral-4),
-  )
+  ),
 );
 
 @include register-component(

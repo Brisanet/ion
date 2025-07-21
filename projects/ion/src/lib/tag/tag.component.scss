@@ -1,13 +1,16 @@
-@import '../../styles/index.scss';
+@use 'tag.theme';
 
-@mixin tag-context($backgroud, $color) {
-  background-color: $backgroud;
-  border-color: $color;
-  color: $color;
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin tag-context($prefix) {
+  background-color: ion-theme(#{$prefix}-background-color);
+  border-color: ion-theme(#{$prefix}-border-color) !important;
+  color: ion-theme(#{$prefix}-color);
 
   .tag-icon {
     ::ng-deep svg {
-      fill: $color;
+      fill: ion-theme(#{$prefix}-color);
     }
   }
 }
@@ -41,22 +44,8 @@
   border: 1px solid;
 }
 
-.success {
-  @include tag-context($positive-1, $positive-7);
-}
-
-.warning {
-  @include tag-context($warning-1, $warning-7);
-}
-
-.info {
-  @include tag-context($info-1, $info-7);
-}
-
-.negative {
-  @include tag-context($negative-1, $negative-7);
-}
-
-.neutral {
-  @include tag-context($neutral-2, $neutral-7);
+@each $variant in success, warning, info, negative, neutral {
+  .#{$variant} {
+    @include tag-context(tag-#{$variant});
+  }
 }
