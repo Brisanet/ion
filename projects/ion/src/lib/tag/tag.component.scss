@@ -46,6 +46,6 @@
 
 @each $variant in success, warning, info, negative, neutral {
   .#{$variant} {
-     @include tag-context(tag-#{$variant});
+    @include tag-context(tag-#{$variant});
   }
 }
