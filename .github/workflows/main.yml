@@ -24,11 +24,11 @@ jobs:
       - name: Run Tests
         run: yarn test:coverage
 
-      - uses: paambaati/codeclimate-action@v3.0.0
+      - uses: qltysh/qlty-action/coverage@v1
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
         with:
-          coverageCommand: yarn test:coverage
+          files: ./coverage/lcov.info
 
       - name: Run Prettier
         run: yarn prettier
