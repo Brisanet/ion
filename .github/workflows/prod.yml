@@ -25,4 +25,5 @@ jobs:
         env:
           QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
         with:
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: ./coverage/lcov.info
