@@ -216,6 +216,32 @@ Por meio do parâmetro `color` pode ser passado cores customizadas para a tag
   </Story>
 </Canvas>
 
+## Fundo customizado (background)
+
+Por meio do parâmetro `background` pode ser passada uma cor de fundo customizada para a tag.
+
+- Esse atributo aceita cores em hexadecimal.
+- Caso seja passado juntamente com o `status`, a tag irá priorizar o status e desconsiderará a cor de fundo passada.
+- Se a propriedade `color` for usada em conjunto, ela definirá a cor do texto e da borda, enquanto `background` definirá a cor de fundo.
+
+<Canvas>
+  <Story
+    name="type: background"
+    args={{
+      label: 'Fundo customizado',
+      backgroundColor: '#E6F3FF',
+      color: '#0065D9',
+    }}
+    decorators={[
+      moduleMetadata({
+        imports: [CommonModule, IonSharedModule],
+      }),
+    ]}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ## Icone(icon)
 
 Por meio do parâmetro `icon` pode ser passado diferentes tipos de icones(dentro do IonIconComponent)

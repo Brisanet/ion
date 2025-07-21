@@ -130,4 +130,45 @@ describe('IonTagComponent', () => {
     await sut({ ...defaultValue, color: invalid_color });
     expect(screen.getByTestId(IDs.tag)).toHaveStyle(`color: ${defaultColor};`);
   });
+
+  it.each(customColors)(
+    'should render with background color derived from custom color: %s',
+    async (color) => {
+      await sut({ ...defaultValue, color: color });
+      expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
+        `background: ${color}1A;`
+      );
+    }
+  );
+
+  it.each(customColors)(
+    'should render with a specific custom background color: %s',
+    async (backgroundColor) => {
+      await sut({ ...defaultValue, backgroundColor: backgroundColor });
+      expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
+        `background: ${backgroundColor};`
+      );
+    }
+  );
+
+  it('should use default background color when an invalid background color is provided', async () => {
+    const invalidColor = 'invalid-color';
+    await sut({ ...defaultValue, backgroundColor: invalidColor });
+    expect(screen.getByTestId(IDs.tag)).toHaveStyle(
+      `background: ${defaultColor}1A;`
+    );
+  });
+
+  it('should not apply a custom background color when a status is defined', async () => {
+    const backgroundColor = '#19243B';
+    await sut({
+      ...defaultValue,
+      status: 'success',
+      backgroundColor: backgroundColor,
+    });
+    expect(screen.getByTestId(IDs.tag)).not.toHaveStyle(
+      `background: ${backgroundColor};`
+    );
+    expect(screen.getByTestId(IDs.tag)).toHaveStyle('background:;');
+  });
 });

@@ -15,6 +15,7 @@ export class IonTagComponent implements OnInit, OnChanges {
   @Input() label!: string;
   @Input() status?: TagStatus;
   @Input() color?: string = defaultColor;
+  @Input() backgroundColor?: string;
   @Input() icon?: IconType;
 
   ngOnInit(): void {
@@ -37,6 +38,18 @@ export class IonTagComponent implements OnInit, OnChanges {
 
   getTagColor(): string {
     return validateHexColor(this.color) ? this.color : defaultColor;
+  }
+
+  tagBackgroundColor(): string {
+    if (this.status) {
+      return '';
+    }
+
+    if (this.backgroundColor && validateHexColor(this.backgroundColor)) {
+      return this.backgroundColor;
+    }
+
+    return this.tagStyle() + '1A';
   }
 
   hasLabel(): boolean {
