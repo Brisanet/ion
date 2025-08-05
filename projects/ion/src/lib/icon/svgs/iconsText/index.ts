@@ -379,3 +379,4 @@ export { default as imageUserCheck } from './image-user-check';
 export { default as imageUserDown } from './image-user-down';
 export { default as imageUserPlus } from './image-user-plus';
 export { default as imageUserX } from './image-user-x';
+export { default as cpe } from './cpe';
