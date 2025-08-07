@@ -21,9 +21,8 @@ jobs:
       - name: Install packages
         run: yarn install --frozen-lockfile
 
-      - uses: qltysh/qlty-action/coverage@v1
-        env:
-          QLTY_COVERAGE_TOKEN: ${{ secrets.QLTY_COVERAGE_TOKEN }}
+      - name: Upload coverage to Qlty
+        uses: qltysh/qlty-action/coverage@v1
         with:
           token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: ./coverage/lcov.info
+          files: coverage/lcov.info
