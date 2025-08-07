@@ -1,7 +1,7 @@
-exclude_patterns:
-  - '../src/test.ts'
-  - '../src/**/*.spec.ts'
-  - '../projects/**/*.spec.ts'
+exclude:
+  - 'src/test.ts'
+  - 'src/**/*.spec.ts'
+  - 'projects/**/*.spec.ts'
   - 'config/'
   - 'db/'
   - 'dist/'
@@ -17,6 +17,6 @@ exclude_patterns:
   - '**/*.d.ts'
   - '**/*.spec.ts'
 
-checks:
-  similar-code:
+plugins:
+  duplication:
     enabled: false
