@@ -2,8 +2,8 @@
 
 ### Angular version
 
-<a href="https://codeclimate.com/github/Brisanet/ion/maintainability"><img src="https://api.codeclimate.com/v1/badges/7ae5966c0de8137d95b0/maintainability" /></a>
-<a href="https://codeclimate.com/github/Brisanet/ion/test_coverage"><img src="https://api.codeclimate.com/v1/badges/7ae5966c0de8137d95b0/test_coverage" /></a>
+<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/maintainability.svg" alt="Maintainability" /></a>
+<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/coverage.svg" alt="Code Coverage" /></a>
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
 [![npm version](https://badge.fury.io/js/@brisanet%2Fion.svg)](https://www.npmjs.com/package/@brisanet/ion)
 
