@@ -1,17 +1,17 @@
 exclude:
-  - 'src/test.ts'
+  - src/test.ts
   - 'src/**/*.spec.ts'
   - 'projects/**/*.spec.ts'
-  - 'config/'
-  - 'db/'
-  - 'dist/'
-  - 'features/'
+  - config/
+  - db/
+  - dist/y
+  - features/
   - '**/node_modules/'
-  - 'script/'
+  - script/
   - '**/spec/'
   - '**/test/'
   - '**/tests/'
-  - 'Tests/'
+  - Tests/
   - '**/vendor/'
   - '**/*_test.go'
   - '**/*.d.ts'

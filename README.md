@@ -2,8 +2,12 @@
 
 ### Angular version
 
-<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/maintainability.svg" alt="Maintainability" /></a>
-<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/coverage.svg" alt="Code Coverage" /></a>
+<a href="https://qlty.sh/gh/Brisanet/projects/ion">
+    <img src="https://qlty.sh/gh/Brisanet/projects/ion/maintainability.svg" alt="Maintainability" />
+</a>
+<a href="https://qlty.sh/gh/Brisanet/projects/ion">
+    <img src="https://qlty.sh/gh/Brisanet/projects/ion/coverage.svg" alt="Code Coverage" />
+</a>
 [![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
 [![npm version](https://badge.fury.io/js/@brisanet%2Fion.svg)](https://www.npmjs.com/package/@brisanet/ion)
 
