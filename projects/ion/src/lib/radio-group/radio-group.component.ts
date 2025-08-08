@@ -1,6 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RadioOptions, RadioSelectedOption } from '../core/types/radio-group';
 import { SafeAny } from '../utils/safe-any';
-import { RadioOptions } from '../core/types/radio-group';
 
 @Component({
   selector: 'ion-radio-group',
@@ -11,10 +11,14 @@ export class IonRadioGroupComponent {
   @Input() name = 'radio-group';
   @Input() options!: RadioOptions[];
   @Input() value!: SafeAny;
-  @Output() valueChange = new EventEmitter<SafeAny>();
+  @Output() valueChange = new EventEmitter<RadioSelectedOption>();
 
-  setValue(optionValue: SafeAny): void {
-    this.value = optionValue;
-    this.valueChange.emit(this.value);
+  setValue(option: RadioOptions): void {
+    this.value = option.value;
+    this.valueChange.emit({
+      label: option.label,
+      value: option.value,
+      groupName: this.name,
+    });
   }
 }
