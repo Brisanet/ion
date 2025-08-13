@@ -24,12 +24,6 @@ jobs:
       - name: Run Tests
         run: yarn test:coverage
 
-      - name: Upload coverage to Qlty
-        uses: qltysh/qlty-action/coverage@v1
-        with:
-          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
-          files: coverage/lcov.info
-
       - name: Run Prettier
         run: yarn prettier
 
