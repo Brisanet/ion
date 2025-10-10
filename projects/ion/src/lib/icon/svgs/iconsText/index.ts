@@ -211,6 +211,7 @@ export { default as list } from './list';
 export { default as listX } from './list-x';
 export { default as list2 } from './list2';
 export { default as localization } from './localization';
+export { default as lock } from './lock';
 export { default as lockPlus } from './lock-plus';
 export { default as lockUnlocked } from './lock-unlocked';
 export { default as mail } from './mail';
