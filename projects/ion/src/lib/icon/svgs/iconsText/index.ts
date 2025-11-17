@@ -346,6 +346,7 @@ export { default as total } from './total';
 export { default as trash } from './trash';
 export { default as trophy } from './trophy';
 export { default as tv } from './tv';
+export { default as table } from './table';
 export { default as union } from './union';
 export { default as up } from './up';
 export { default as up3 } from './up3';
