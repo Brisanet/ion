@@ -34,7 +34,7 @@
           [shrinkMode]="shrinkMode"
           [sidebarClosed]="closed"
           [attr.data-testid]="'ion-sidebar__item-' + i"
-          (atClick)="itemSelected(i)"
+          (atClick)="itemSelected(i, $event)"
         ></ion-sidebar-item>
       </ng-container>
       <ng-container *ngIf="item.options">
@@ -48,7 +48,7 @@
           [shrinkMode]="shrinkMode"
           [sidebarClosed]="closed"
           (atClick)="itemOnGroupSelected(i)"
-          (atGroupClick)="groupSelected(i)"
+          (atGroupClick)="groupSelected(i, $event)"
         ></ion-sidebar-group>
       </ng-container>
     </ng-container>

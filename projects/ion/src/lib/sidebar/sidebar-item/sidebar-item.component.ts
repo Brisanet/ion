@@ -15,10 +15,10 @@ export class IonSidebarItemComponent {
   @Input() shrinkMode = false;
   @Input() sidebarClosed = true;
   @Input() inGroup = false;
-  @Output() atClick = new EventEmitter();
+  @Output() atClick = new EventEmitter<MouseEvent>();
 
-  public selectItem(): void {
-    this.atClick.emit();
+  public selectItem(event: MouseEvent): void {
+    this.atClick.emit(event);
     if (!this.selectable) {
       return;
     }

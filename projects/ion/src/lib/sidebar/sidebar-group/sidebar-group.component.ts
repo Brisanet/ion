@@ -23,7 +23,7 @@ export class IonSidebarGroupComponent implements OnChanges {
   @Input() haveGroupAction = false;
   @Input() shrinkMode = false;
   @Input() sidebarClosed = true;
-  @Output() atClick = new EventEmitter();
+  @Output() atClick = new EventEmitter<MouseEvent>();
   @Output() atGroupClick = new EventEmitter();
 
   public closed = true;
@@ -42,10 +42,10 @@ export class IonSidebarGroupComponent implements OnChanges {
     this.closed = !this.closed;
   }
 
-  public itemSelected(itemIndex: number): void {
+  public itemSelected(itemIndex: number, event: MouseEvent): void {
     this.selected = true;
-    selectItemByIndex(this.items, itemIndex);
-    this.atClick.emit();
+    selectItemByIndex(this.items, itemIndex, event);
+    this.atClick.emit(event);
   }
 
   public groupSelected(): void {

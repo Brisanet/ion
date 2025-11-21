@@ -60,8 +60,8 @@ export class IonSidebarComponent implements AfterViewChecked {
     document.removeEventListener('click', this.checkClikOnPageAccess);
   }
 
-  public itemSelected(itemIndex: number): void {
-    selectItemByIndex(this.items, itemIndex);
+  public itemSelected(itemIndex: number, event: MouseEvent): void {
+    selectItemByIndex(this.items, itemIndex, event);
     if (this.closeOnSelect && !(this.shrinkMode && this.closed)) {
       this.toggleSidebarVisibility();
     }
@@ -74,9 +74,9 @@ export class IonSidebarComponent implements AfterViewChecked {
     }
   }
 
-  public groupSelected(groupIndex: number): void {
+  public groupSelected(groupIndex: number, event: MouseEvent): void {
     unselectAllItems(this.items);
-    callItemAction(this.items, groupIndex);
+    callItemAction(this.items, groupIndex, event);
   }
 
   public handleLogoClick(): void {
