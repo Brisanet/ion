@@ -61,7 +61,7 @@ export class IonButtonComponent implements AfterViewChecked {
   constructor() {
     effect(() => {
       this._label.set(this.label());
-    }, { allowSignalWrites: true });
+    });
   }
 
   updateBadgeValue(items: DropdownItem[]): void {

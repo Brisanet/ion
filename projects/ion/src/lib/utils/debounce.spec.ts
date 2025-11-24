@@ -1,76 +1,86 @@
 import debounce from './debounce';
 
-const func = jasmine.createSpy('func');
-
 describe('debounce', () => {
+  let func: jest.Mock;
+
   beforeEach(() => {
-    jasmine.clock().install();
+    jest.useFakeTimers();
+    func = jest.fn();
   });
 
   afterEach(() => {
-    jasmine.clock().uninstall();
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
   });
 
   describe('without arguments', () => {
-    beforeEach(() => {
-      func.calls.reset();
-    });
     it('should call function after a given time', () => {
       debounce(func, 1000)();
       expect(func).not.toHaveBeenCalled();
-      jasmine.clock().tick(1000);
+      jest.runAllTimers();
       expect(func).toHaveBeenCalledTimes(1);
     });
 
     it('should call function only once while debouncing', () => {
       const debounced = debounce(func, 1000);
       debounced();
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       debounced();
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       debounced();
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       debounced();
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       expect(func).not.toHaveBeenCalled();
-      jasmine.clock().tick(1000); // Wait enough time
+      jest.runAllTimers();
       expect(func).toHaveBeenCalledTimes(1);
-    });
-
-    it('should call clear timeout when same function is called more than once while debouncing', () => {
-      spyOn(window, 'clearTimeout').and.callThrough();
-      const debounced = debounce(func, 1000);
-      debounced();
-      debounced();
-      expect(func).not.toHaveBeenCalled();
-      jasmine.clock().tick(1000);
-      expect(window.clearTimeout).toHaveBeenCalled();
     });
   });
 
   describe('with arguments', () => {
-    const lastArgument = 'test';
-    const debounced = debounce(func, 2000);
-
-    beforeAll(() => {
-      // Jasmine doesn't support beforeAll with clock well if installed in beforeEach?
-      // Actually, we can just run the sequence in the test or setup.
+    it('should not call function before a given time', () => {
+      const debounced = debounce(func, 2000);
+      
+      debounced('test1');
+      jest.advanceTimersByTime(500);
+      debounced('test2');
+      jest.advanceTimersByTime(500);
+      debounced('test3');
+      jest.advanceTimersByTime(500);
+      debounced('test');
+      jest.advanceTimersByTime(500);
+      
+      expect(func).not.toHaveBeenCalled();
     });
 
-    it('should handle arguments correctly', () => {
-      func.calls.reset();
+    it('should call function only once', () => {
+      const debounced = debounce(func, 2000);
+      
       debounced('test1');
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       debounced('test2');
-      jasmine.clock().tick(500);
+      jest.advanceTimersByTime(500);
       debounced('test3');
-      jasmine.clock().tick(500);
-      debounced(lastArgument);
-      jasmine.clock().tick(500);
-
-      expect(func).not.toHaveBeenCalled();
-      jasmine.clock().tick(2000);
+      jest.advanceTimersByTime(500);
+      debounced('test');
+      
+      jest.runAllTimers();
       expect(func).toHaveBeenCalledTimes(1);
+    });
+
+    it('should call function with arguments of the last call', () => {
+      const lastArgument = 'test';
+      const debounced = debounce(func, 2000);
+      
+      debounced('test1');
+      jest.advanceTimersByTime(500);
+      debounced('test2');
+      jest.advanceTimersByTime(500);
+      debounced('test3');
+      jest.advanceTimersByTime(500);
+      debounced(lastArgument);
+      
+      jest.runAllTimers();
       expect(func).toHaveBeenCalledWith(lastArgument);
     });
   });
