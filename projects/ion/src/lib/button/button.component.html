@@ -24,8 +24,7 @@
     [size]="options()?.length ? 16 : 24"
   ></ion-icon>
   } @if (options() && !circularButton() && !loading()) {
-  <!-- <ion-icon [type]="showDropdown() ? 'semi-up' : 'semi-down'" [size]="iconSize()" class="icon"></ion-icon> -->
-  <span class="icon-placeholder">v</span>
+  <ion-icon [type]="showDropdown() ? 'semi-up' : 'semi-down'" [size]="iconSize()" class="icon"></ion-icon>
   } @if (!circularButton() && _label()) { @if (!loading() || (loading() &&
   !loadingMessage())) {
   <span>{{ _label() }}</span>
@@ -39,7 +38,19 @@
 
 @if (!!options() && showDropdown()) {
 <div class="ion-btn-dropdown" [class.above]="showDropdownAbove()">
-  <!-- <ion-dropdown ...></ion-dropdown> -->
-  <div class="dropdown-placeholder">Dropdown Placeholder</div>
+  <ion-dropdown
+    [options]="options()!"
+    [multiple]="multiple()"
+    [required]="dropdownConfig()?.required || false"
+    [enableSearch]="dropdownConfig()?.enableSearch || false"
+    [searchOptions]="dropdownConfig()?.searchOptions"
+    [notShowClearButton]="dropdownConfig()?.notShowClearButton || false"
+    [description]="dropdownConfig()?.description"
+    (selected)="handleSelect($event)"
+    (searchChange)="onSearchChange($event)"
+    (clearBadgeValue)="onClearBadgeValue()"
+    (closeDropdown)="onCloseDropdown()"
+    data-testid="ion-dropdown"
+  ></ion-dropdown>
 </div>
 }

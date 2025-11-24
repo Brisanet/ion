@@ -29,6 +29,11 @@
       <ion-button label="Right Icon" iconType="star" [rightSideIcon]="true"></ion-button>
       <ion-button iconType="plus" [circularButton]="true"></ion-button>
       <ion-button iconType="close" [circularButton]="true" type="ghost"></ion-button>
+      <ion-button
+        label="Primary"
+        [options]="[{ label: 'option 1' }, {label: 'option 2'}]"
+        [dropdownConfig]="{required: true}"
+      ></ion-button>
     </div>
   </section>
 

@@ -12,11 +12,12 @@ import { ButtonBadgeTypes, ButtonIconSizeOptions, Size, Type } from '../core/typ
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'ion-button',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonIconComponent],
+  imports: [CommonModule, IonIconComponent, IonDropdownComponent],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
@@ -37,7 +38,7 @@ export class IonButtonComponent implements AfterViewChecked {
   options = input<DropdownItem[]>();
   showDropdownInput = input(false, { alias: 'showDropdown' });
   showDropdownAbove = input(false);
-  dropdownConfig = input<Pick<DropdownParams, 'description' | 'notShowClearButton' | 'required' | 'enableSearch'>>({
+  dropdownConfig = input<Pick<DropdownParams, 'description' | 'notShowClearButton' | 'required' | 'enableSearch' | 'searchOptions'>>({
     notShowClearButton: false,
     required: false,
   });
