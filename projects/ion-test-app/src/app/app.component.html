@@ -1,0 +1,32 @@
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+  <h1>Ion Consumer App</h1>
+  
+  <section>
+    <h2>Button Variants</h2>
+    <div style="display: flex; gap: 10px;">
+      <ion-button label="Primary"></ion-button>
+      <ion-button label="Secondary" type="secondary"></ion-button>
+      <ion-button label="Ghost" type="ghost"></ion-button>
+      <ion-button label="Dashed" type="dashed"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Button Sizes</h2>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <ion-button label="Small" size="sm"></ion-button>
+      <ion-button label="Medium" size="md"></ion-button>
+      <ion-button label="Large" size="lg"></ion-button>
+      <ion-button label="X-Large" size="xl"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>States</h2>
+    <div style="display: flex; gap: 10px;">
+      <ion-button label="Loading" [loading]="true"></ion-button>
+      <ion-button label="Disabled" [disabled]="true"></ion-button>
+      <ion-button label="Danger" [danger]="true"></ion-button>
+    </div>
+  </section>
+</div>

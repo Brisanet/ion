@@ -1,81 +1,82 @@
+import { CommonModule } from '@angular/common';
 import {
   AfterViewChecked,
   Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
 } from '@angular/core';
-import {
-  ButtonBadgeTypes,
-  ButtonIconSizeOptions,
-  Size,
-  Type,
-} from '../core/types/button';
+import { ButtonBadgeTypes, ButtonIconSizeOptions, Size, Type } from '../core/types/button';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
+// import { IonIconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ion-button',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class IonButtonComponent implements OnInit, OnChanges, AfterViewChecked {
-  @Input() label?: string;
-  @Input() tooltip?: string;
-  @Input() type?: Type = 'primary';
-  @Input() size?: Size = 'md';
-  @Input() expand? = false;
-  @Input() danger? = false;
-  @Input() disabled? = false;
-  @Input() loading? = false;
-  @Input() loadingMessage?: string;
-  @Input() multiple? = false;
-  @Input() iconType? = '';
-  @Input() rightSideIcon? = false;
-  @Input() circularButton? = false;
-  @Input() options?: DropdownItem[];
-  @Input() showDropdown? = false;
-  @Input() showDropdownAbove? = false;
-  @Input() dropdownConfig?: Pick<
-    DropdownParams,
-    'description' | 'notShowClearButton' | 'required' | 'enableSearch'
-  > = {
+export class IonButtonComponent implements AfterViewChecked {
+  label = input<string>();
+  tooltip = input<string>();
+  type = input<Type>('primary');
+  size = input<Size>('md');
+  expand = input(false);
+  danger = input(false);
+  disabled = input(false);
+  loading = input(false);
+  loadingMessage = input<string>();
+  multiple = input(false);
+  iconType = input('');
+  rightSideIcon = input(false);
+  circularButton = input(false);
+  options = input<DropdownItem[]>();
+  showDropdownInput = input(false, { alias: 'showDropdown' });
+  showDropdownAbove = input(false);
+  dropdownConfig = input<Pick<DropdownParams, 'description' | 'notShowClearButton' | 'required' | 'enableSearch'>>({
     notShowClearButton: false,
     required: false,
-  };
-  @Input() id?: string;
+  });
+  id = input<string>();
 
-  @Output() ionOnClick? = new EventEmitter();
-  @Output() selected = new EventEmitter<DropdownItem[]>();
-  @Output() handleDropdownSearch = new EventEmitter<string>();
+  ionOnClick = output<void>();
+  selected = output<DropdownItem[]>();
+  handleDropdownSearch = output<string>();
 
-  public buttonBadge?: ButtonBadgeTypes = {
+  public buttonBadge = signal<ButtonBadgeTypes>({
     type: 'secondary',
     value: 0,
-  };
+  });
 
-  public iconSize!: ButtonIconSizeOptions;
+  public showDropdown = signal(false);
+  public _label = signal<string | undefined>(undefined);
 
-  private originalConfig = {
-    label: '',
-  };
+  // Computed
+  public iconSize = computed(() => ButtonIconSizeOptions[this.size()]);
+
+
+  constructor() {
+    effect(() => {
+      this._label.set(this.label());
+    }, { allowSignalWrites: true });
+  }
 
   updateBadgeValue(items: DropdownItem[]): void {
-    this.buttonBadge.value = items.length;
+    this.buttonBadge.update(badge => ({ ...badge, value: items.length }));
   }
 
   handleClick(): void {
-    if (!this.loading && !this.disabled) {
-      this.showDropdown = !this.showDropdown;
-
+    if (!this.loading() && !this.disabled()) {
+      this.showDropdown.update(v => !v);
       this.ionOnClick.emit();
     }
   }
 
   shouldDropdownAbove(): void {
-    if (this.showDropdown && this.showDropdownAbove) {
+    if (this.showDropdown() && this.showDropdownAbove()) {
       const element = document.getElementById('ion-dropdown');
       const container = document.querySelector('.above') as HTMLElement;
       if (element && container) {
@@ -90,45 +91,33 @@ export class IonButtonComponent implements OnInit, OnChanges, AfterViewChecked {
   handleSelect(selectedItems: DropdownItem[]): void {
     this.selected.emit(selectedItems);
 
-    if (this.multiple) {
+    if (this.multiple()) {
       this.updateBadgeValue(selectedItems);
       return;
     }
 
     if (!selectedItems.length) {
-      this.label = this.originalConfig.label;
+      this._label.set(this.label());
       return;
     }
 
     const [item] = selectedItems;
-    this.label = item.label;
-
-    this.showDropdown = false;
+    this._label.set(item.label);
+    this.showDropdown.set(false);
   }
 
   onClearBadgeValue(): void {
-    this.buttonBadge.value = 0;
+    this.buttonBadge.update(badge => ({ ...badge, value: 0 }));
   }
 
   onCloseDropdown(): void {
-    if (this.showDropdown) {
-      this.showDropdown = false;
+    if (this.showDropdown()) {
+      this.showDropdown.set(false);
     }
   }
 
   onSearchChange(dropdownSearch: string): void {
     this.handleDropdownSearch.emit(dropdownSearch);
-  }
-
-  ngOnInit(): void {
-    this.iconSize = ButtonIconSizeOptions[this.size];
-    this.originalConfig = { label: this.label };
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.disabled && changes.disabled.currentValue) {
-      this.loading = false;
-    }
   }
 
   ngAfterViewChecked(): void {

@@ -1,0 +1,123 @@
+{
+  "name": "ion",
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --project=ion",
+    "test": "jest -i --passWithNoTests",
+    "test:coverage": "jest -i --coverage",
+    "test:watch": "jest -i --watchAll",
+    "lint": "eslint .",
+    "e2e": "ng e2e",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "storybook": "npm run docs:json && start-storybook -p 6006",
+    "build-storybook": "npm run docs:json && build-storybook",
+    "prettier": "prettier --write .",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "commit": "git-cz",
+    "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-once-uploaded"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "~8.1.0",
+    "@angular/cdk": "8.1.0",
+    "@angular/common": "~8.1.0",
+    "@angular/compiler": "~8.1.0",
+    "@angular/core": "~8.1.0",
+    "@angular/forms": "~8.1.0",
+    "@angular/platform-browser": "~8.1.0",
+    "@angular/platform-browser-dynamic": "~8.1.0",
+    "@angular/router": "~8.1.0",
+    "rxjs": "~6.4.0",
+    "sass": "^1.53.0",
+    "trim": "0.0.3",
+    "tslib": "^1.9.0",
+    "zone.js": "~0.9.1"
+  },
+  "devDependencies": {
+    "@angular-builders/jest": "^12.1.2",
+    "@angular-devkit/build-angular": "~0.801.3",
+    "@angular-devkit/build-ng-packagr": "~0.801.3",
+    "@angular-eslint/eslint-plugin": "^14.1.2",
+    "@angular/cli": "~8.1.0",
+    "@angular/compiler-cli": "~8.1.0",
+    "@angular/language-service": "~8.1.0",
+    "@babel/core": "^7.18.6",
+    "@commitlint/cli": "16.1.0",
+    "@commitlint/config-conventional": "^16.2.4",
+    "@commitlint/cz-commitlint": "15.0.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@storybook/addon-actions": "^6.5.9",
+    "@storybook/addon-essentials": "^6.5.9",
+    "@storybook/addon-interactions": "^6.5.9",
+    "@storybook/addon-links": "^6.5.9",
+    "@storybook/angular": "^6.5.9",
+    "@storybook/builder-webpack4": "^6.5.9",
+    "@storybook/manager-webpack4": "^6.5.9",
+    "@storybook/testing-library": "0.0.13",
+    "@testing-library/angular": "^10.11.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@types/jest": "^27.0.1",
+    "@types/node": "~8.9.4",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "babel-jest": "^27.1.0",
+    "babel-loader": "^8.2.5",
+    "chromatic": "^6.7.3",
+    "codelyzer": "^5.0.0",
+    "commitizen": "^4.2.5",
+    "cz-conventional-changelog": "3.3.0",
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-css": "^0.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "7.0.4",
+    "jest": "^27.1.0",
+    "jest-diff": "25.5.0",
+    "jest-preset-angular": "^9.0.7",
+    "lint-staged": "12.5.0",
+    "ng-packagr": "^5.1.0",
+    "prettier": "^2.7.1",
+    "protractor": "~5.4.0",
+    "ts-node": "~7.0.0",
+    "tsickle": "^0.35.0",
+    "tslint": "~5.15.0",
+    "typescript": "~3.4.3"
+  },
+  "engines": {
+    "node": "12.22.x"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupJest.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "<rootDir>/projects/ion/tsconfig.spec.json",
+        "stringifyContentPathRegex": "\\.html$"
+      }
+    },
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json",
+      "html",
+      "lcov"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  }
+}

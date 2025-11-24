@@ -1,0 +1,166 @@
+@mixin animation-config($animation-reference) {
+  -webkit-animation-name: $animation-reference;
+  animation-name: $animation-reference;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@mixin simple-animation($type) {
+  $initial: 0;
+  $final: 0;
+
+  @if $type == 'fadeIn' {
+    $final: 1;
+  }
+  @if $type == 'fadeOut' {
+    $initial: 1;
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {
+      opacity: $initial;
+    }
+    100% {
+      opacity: $final;
+    }
+  }
+  @keyframes #{$type} {
+    0% {
+      opacity: $initial;
+    }
+    100% {
+      opacity: $final;
+    }
+  }
+}
+
+@mixin directional-fadeIn($type) {
+  $transform: 0;
+
+  @if $type == 'fadeInLeft' {
+    $transform: translate3d(-100%, 0, 0);
+  }
+  @if $type == 'fadeInUp' {
+    $transform: translate3d(0, 100%, 0);
+  }
+  @if $type == 'fadeInRight' {
+    $transform: translate3d(100%, 0, 0);
+  }
+  @if $type == 'fadeInDown' {
+    $transform: translate3d(0, -100%, 0);
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+  @keyframes #{$type} {
+    0% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+    100% {
+      opacity: 1;
+      -webkit-transform: none;
+      transform: none;
+    }
+  }
+}
+
+@mixin directional-fadeOut($type) {
+  $transform: 0;
+
+  @if $type == 'fadeOutDown' {
+    $transform: translate3d(0, 100%, 0);
+  }
+  @if $type == 'fadeOutUp' {
+    $transform: translate3d(0, -100%, 0);
+  }
+  @if $type == 'fadeOutLeft' {
+    $transform: translate3d(-100%, 0, 0);
+  }
+  @if $type == 'fadeOutRight' {
+    $transform: translate3d(100%, 0, 0);
+  }
+
+  @-webkit-keyframes #{$type} {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+  }
+  @keyframes #{$type} {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      -webkit-transform: $transform;
+      transform: $transform;
+    }
+  }
+}
+
+.fadeIn {
+  @include animation-config(fadeIn);
+  @include simple-animation(fadeIn);
+}
+
+.fadeInLeft {
+  @include animation-config(fadeInLeft);
+  @include directional-fadeIn(fadeInLeft);
+}
+
+.fadeInRight {
+  @include animation-config(fadeInRight);
+  @include directional-fadeIn(fadeInRight);
+}
+
+.fadeInUp {
+  @include animation-config(fadeInUp);
+  @include directional-fadeIn(fadeInUp);
+}
+
+.fadeInDown {
+  @include animation-config(fadeInDown);
+  @include directional-fadeIn(fadeInDown);
+}
+
+.fadeOut {
+  @include animation-config(fadeOut);
+  @include simple-animation(fadeOut);
+}
+
+.fadeOutDown {
+  @include animation-config(fadeOutDown);
+  @include directional-fadeOut(fadeOutDown);
+}
+
+.fadeOutLeft {
+  @include animation-config(fadeOutLeft);
+  @include directional-fadeOut(fadeOutLeft);
+}
+
+.fadeOutRight {
+  @include animation-config(fadeOutRight);
+  @include directional-fadeOut(fadeOutRight);
+}
+.fadeOutUp {
+  @include animation-config(fadeOutUp);
+  @include directional-fadeOut(fadeOutUp);
+}

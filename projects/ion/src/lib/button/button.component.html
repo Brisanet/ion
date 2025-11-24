@@ -1,59 +1,42 @@
 <button
-  [attr.data-testid]="'btn-' + (label || id)"
-  [attr.title]="tooltip ? tooltip : null"
-  [class]="'ion-btn-' + type + ' ion-btn-' + size"
-  [style.width]="!circularButton && expand ? '100%' : ''"
-  [attr.loading]="loading"
-  [class.danger]="danger"
-  [class.loading]="loading"
-  [class.circular-button]="circularButton"
-  [class.ion-remove-space]="iconType && !!!label"
-  [class.right-side-icon]="rightSideIcon"
-  [disabled]="disabled"
+  [attr.data-testid]="'btn-' + (_label() || id())"
+  [attr.title]="tooltip() ? tooltip() : null"
+  [class]="'ion-btn-' + type() + ' ion-btn-' + size()"
+  [style.width]="!circularButton() && expand() ? '100%' : ''"
+  [attr.loading]="loading()"
+  [class.danger]="danger()"
+  [class.loading]="loading()"
+  [class.circular-button]="circularButton()"
+  [class.ion-remove-space]="iconType() && !!!_label()"
+  [class.right-side-icon]="rightSideIcon()"
+  [disabled]="disabled()"
   (click)="handleClick()"
 >
-  <span *ngIf="loading" class="spinner"></span>
-  <ion-icon
-    *ngIf="iconType && !loading"
-    [type]="iconType"
-    [size]="iconSize"
-    class="icon"
-  ></ion-icon>
-  <ion-icon
-    *ngIf="options && !circularButton && !loading"
-    [type]="showDropdown ? 'semi-up' : 'semi-down'"
-    [size]="iconSize"
-    class="icon"
-  ></ion-icon>
-  <ng-container *ngIf="!circularButton && label">
-    <span *ngIf="!loading || (loading && !loadingMessage)">{{ label }}</span>
-    <span *ngIf="loading && loadingMessage">
-      {{ loadingMessage }}
-    </span>
-  </ng-container>
-  <ion-badge
-    [value]="buttonBadge?.value"
-    [type]="buttonBadge?.type"
-    *ngIf="multiple && !loading && !circularButton"
-    data-testid="badge-multiple"
-  ></ion-badge>
+  @if (loading()) {
+  <span class="spinner"></span>
+  }
+
+  <!-- Icon placeholder until IonIcon is migrated -->
+  @if (iconType() && !loading()) {
+  <!-- <ion-icon [type]="iconType()" [size]="iconSize()" class="icon"></ion-icon> -->
+  <span class="icon-placeholder">{{ iconType() }}</span>
+  } @if (options() && !circularButton() && !loading()) {
+  <!-- <ion-icon [type]="showDropdown() ? 'semi-up' : 'semi-down'" [size]="iconSize()" class="icon"></ion-icon> -->
+  <span class="icon-placeholder">v</span>
+  } @if (!circularButton() && _label()) { @if (!loading() || (loading() &&
+  !loadingMessage())) {
+  <span>{{ _label() }}</span>
+  } @if (loading() && loadingMessage()) {
+  <span>{{ loadingMessage() }}</span>
+  } } @if (multiple() && !loading() && !circularButton()) {
+  <!-- <ion-badge [value]="buttonBadge().value" [type]="buttonBadge().type" data-testid="badge-multiple"></ion-badge> -->
+  <span class="badge-placeholder">{{ buttonBadge().value }}</span>
+  }
 </button>
-<div
-  *ngIf="!!options && showDropdown"
-  class="ion-btn-dropdown"
-  [class.above]="showDropdownAbove"
->
-  <ion-dropdown
-    [description]="dropdownConfig?.description"
-    [options]="options"
-    [multiple]="multiple"
-    (selected)="handleSelect($event)"
-    [enableSearch]="dropdownConfig?.enableSearch"
-    (searchChange)="onSearchChange($event)"
-    (clearBadgeValue)="onClearBadgeValue()"
-    (closeDropdown)="onCloseDropdown()"
-    [required]="dropdownConfig?.required"
-    [notShowClearButton]="dropdownConfig?.notShowClearButton"
-  >
-  </ion-dropdown>
+
+@if (!!options() && showDropdown()) {
+<div class="ion-btn-dropdown" [class.above]="showDropdownAbove()">
+  <!-- <ion-dropdown ...></ion-dropdown> -->
+  <div class="dropdown-placeholder">Dropdown Placeholder</div>
 </div>
+}

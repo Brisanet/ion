@@ -1,70 +1,59 @@
-<img src="stories/assets/capa.svg">
+# IonDs
 
-### Angular version
+This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
 
-<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/maintainability.svg" alt="Maintainability" /></a>
-<a href="https://qlty.sh/gh/Brisanet/projects/ion"><img src="https://qlty.sh/gh/Brisanet/projects/ion/coverage.svg" alt="Code Coverage" /></a>
-[![Production](https://github.com/iurynogueira/ion/actions/workflows/prod.yml/badge.svg?branch=main)](https://github.com/iurynogueira/ion/actions/workflows/prod.yml)
-[![npm version](https://badge.fury.io/js/@brisanet%2Fion.svg)](https://www.npmjs.com/package/@brisanet/ion)
+## Development server
 
-React version here: https://github.com/iurynogueira/ion-react
+To start a local development server, run:
 
-## Install in your project
-
-```
-npm i @brisanet/ion
+```bash
+ng serve
 ```
 
-## Install and run project
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-To run this project, You will need to use [node v.12](https://nodejs.org/en/)
+## Code scaffolding
 
-- Run `git clone https://github.com/Brisanet/ion.git` to get a copy of the repository;
-- Run `yarn install` to install all dependencies for the project;
-- Run `yarn run storybook` to open the storybook in your localhost.
+Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-## Create a component
+```bash
+ng generate component component-name
+```
 
-Run `ng generate component component-name --project=ion` to generate a new component.
+For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-## Build
+```bash
+ng generate --help
+```
 
-Run `ng build --project=ion` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Building
 
-## Install, Configure and Use Prettier
+To build the project run:
 
-Configure Prettier Extension by Vscode
+```bash
+ng build
+```
 
-- Install Prettier - Code formatter extension;
-- Go to `Settings(JSON)` ;
-- Set `"editor.formatOnSave"` true;
-- Set `"prettier.eslintIntegration"` true.
+This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
-## Contribute
+## Running unit tests
 
-Always open discussion to new changes
+To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
 
-![image](https://github.com/user-attachments/assets/e9a324c7-adec-4f90-9bc6-b2a7c09ab4ac)
+```bash
+ng test
+```
 
-## Commit pattern
+## Running end-to-end tests
 
-Commits should follow the [convention](https://conventionalcommits.org/).
-We have the following types:
+For end-to-end (e2e) testing, run:
 
-- feat: A new feature;
-- fix: A bug fix;
-- docs: Documentation only changes;
-- style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc);
-- refactor: A code change that neither fixes a bug nor adds a feature;
-- test: Adding missing tests or correcting existing ones;
-- chore: Changes to the build process or auxiliary tools and libraries such as documentation generation;
-- perf: A code that improves performance;
-- ci: Changes to the CI/CD process;
-- build: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm);
-- temp: Temporary commits that won't be included in your CHANGELOG.
+```bash
+ng e2e
+```
 
-Example: `feat: add feature #issue_id`
+Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Deploy 🚀
+## Additional Resources
 
-<a href="https://main--62eab350a45bdb0a5818520e.chromatic.com/"> Storybook </a>
+For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
