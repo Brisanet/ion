@@ -1,0 +1,14 @@
+:host {
+  display: inline-flex;
+}
+
+div {
+  display: inline-flex;
+}
+
+.highlighted {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}

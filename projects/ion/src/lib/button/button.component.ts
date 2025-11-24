@@ -10,12 +10,13 @@ import {
 } from '@angular/core';
 import { ButtonBadgeTypes, ButtonIconSizeOptions, Size, Type } from '../core/types/button';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
-// import { IonIconComponent } from '../icon/icon.component';
+import { IonIconComponent } from '../icon/icon.component';
+import { IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, IonIconComponent, IonIconComponent],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

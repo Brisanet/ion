@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { IonButtonComponent } from 'ion';
+import { IonButtonComponent, IonIconComponent } from 'ion';
 
 @Component({
   selector: 'app-root',
-  imports: [IonButtonComponent],
+  imports: [IonButtonComponent, IonIconComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

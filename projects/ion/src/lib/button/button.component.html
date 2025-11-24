@@ -18,8 +18,11 @@
 
   <!-- Icon placeholder until IonIcon is migrated -->
   @if (iconType() && !loading()) {
-  <!-- <ion-icon [type]="iconType()" [size]="iconSize()" class="icon"></ion-icon> -->
-  <span class="icon-placeholder">{{ iconType() }}</span>
+  <ion-icon
+    class="icon-right"
+    [type]="iconType()!"
+    [size]="options()?.length ? 16 : 24"
+  ></ion-icon>
   } @if (options() && !circularButton() && !loading()) {
   <!-- <ion-icon [type]="showDropdown() ? 'semi-up' : 'semi-down'" [size]="iconSize()" class="icon"></ion-icon> -->
   <span class="icon-placeholder">v</span>

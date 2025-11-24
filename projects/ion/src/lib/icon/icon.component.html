@@ -1,0 +1,30 @@
+<div
+  [class.highlighted]="highlight() === 'double' || highlight() === 'simple'"
+  [ngStyle]="{
+    'background-color': outerContainerStyle().color,
+    width: outerContainerStyle().size,
+    height: outerContainerStyle().size
+  }"
+  data-testid="outside-container"
+>
+  <div
+    [class.highlighted]="highlight() === 'double'"
+    [ngStyle]="{
+      'background-color': innerContainerStyle().color,
+      width: innerContainerStyle().size,
+      height: innerContainerStyle().size
+    }"
+    data-testid="inner-container"
+  >
+    <svg
+      [attr.height]="size() + 'px'"
+      [attr.width]="size() + 'px'"
+      [attr.fill]="color()"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      [id]="'ion-icon-' + type()"
+      [innerHTML]="paths()"
+      #svgElement
+    ></svg>
+  </div>
+</div>

@@ -104,10 +104,10 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
       
       const button = fixture.nativeElement.querySelector('button');
-      const iconPlaceholder = button.querySelector('.icon-placeholder');
+      const icon = button.querySelector('ion-icon');
       
-      expect(iconPlaceholder).toBeTruthy();
-      expect(iconPlaceholder.textContent).toContain('pencil');
+      expect(icon).toBeTruthy();
+      expect(icon.getAttribute('ng-reflect-type')).toBe('pencil');
     });
 
     it('Right side icon', () => {
@@ -116,9 +116,9 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
       
       const button = fixture.nativeElement.querySelector('button');
-      const iconPlaceholder = button.querySelector('.icon-placeholder');
+      const icon = button.querySelector('ion-icon');
       
-      expect(iconPlaceholder).toBeTruthy();
+      expect(icon).toBeTruthy();
       expect(button.classList.contains('right-side-icon')).toBe(true);
     });
 
@@ -128,9 +128,9 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
       
       const button = fixture.nativeElement.querySelector('button');
-      const iconPlaceholder = button.querySelector('.icon-placeholder');
+      const icon = button.querySelector('ion-icon');
       
-      expect(iconPlaceholder).toBeTruthy();
+      expect(icon).toBeTruthy();
       expect(button.classList.contains('circular-button')).toBe(true);
     });
 

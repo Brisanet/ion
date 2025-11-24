@@ -22,11 +22,29 @@
   </section>
 
   <section>
+    <h2>Button with Icons</h2>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <ion-button label="Edit" iconType="pencil"></ion-button>
+      <ion-button label="Delete" iconType="trash" type="secondary"></ion-button>
+      <ion-button label="Right Icon" iconType="star" [rightSideIcon]="true"></ion-button>
+      <ion-button iconType="plus" [circularButton]="true"></ion-button>
+      <ion-button iconType="close" [circularButton]="true" type="ghost"></ion-button>
+    </div>
+  </section>
+
+  <section>
     <h2>States</h2>
     <div style="display: flex; gap: 10px;">
       <ion-button label="Loading" [loading]="true"></ion-button>
       <ion-button label="Disabled" [disabled]="true"></ion-button>
       <ion-button label="Danger" [danger]="true"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Icons</h2>
+    <div>
+      <ion-icon type="check"></ion-icon>
     </div>
   </section>
 </div>
