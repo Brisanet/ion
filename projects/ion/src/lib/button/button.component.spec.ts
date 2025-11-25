@@ -275,4 +275,56 @@ describe('ButtonComponent', () => {
       });
     });
   });
+
+  describe('ButtonComponent with badge', () => {
+    it('should render badge when multiple is true and not loading', () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+      
+      fixture.componentRef.setInput('label', 'Select');
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('options', options);
+      fixture.detectChanges();
+      
+      const badge = fixture.nativeElement.querySelector('[data-testid="badge-multiple"]');
+      expect(badge).toBeTruthy();
+    });
+
+    it('should not render badge when loading', () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+      
+      fixture.componentRef.setInput('label', 'Select');
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('loading', true);
+      fixture.componentRef.setInput('options', options);
+      fixture.detectChanges();
+      
+      const badge = fixture.nativeElement.querySelector('[data-testid="badge-multiple"]');
+      expect(badge).toBeFalsy();
+    });
+
+    it('should not render badge when circularButton is true', () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+      
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('circularButton', true);
+      fixture.componentRef.setInput('options', options);
+      fixture.componentRef.setInput('iconType', 'check');
+      fixture.detectChanges();
+      
+      const badge = fixture.nativeElement.querySelector('[data-testid="badge-multiple"]');
+      expect(badge).toBeFalsy();
+    });
+
+    it('should display badge value of 0 initially', () => {
+      const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
+      
+      fixture.componentRef.setInput('label', 'Select');
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('options', options);
+      fixture.detectChanges();
+      
+      const badge = fixture.nativeElement.querySelector('[data-testid="badge-multiple"] span');
+      expect(badge.textContent).toBe('0');
+    });
+  });
 });

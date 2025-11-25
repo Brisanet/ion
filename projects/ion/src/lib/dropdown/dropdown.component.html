@@ -80,13 +80,14 @@
   }
 
   @if (clearButtonIsVisible()) {
-  <button
-    class="clear-button"
-    (click)="clearOptions(true)"
-    data-testid="button-clear"
-  >
-    <ion-icon type="trash" [size]="iconSize()"></ion-icon>
-    <span data-testid="btn-Limpar">Limpar</span>
-  </button>
+    <button
+      class="clear-button"
+      (click)="clearOptions(true)"
+      data-testid="button-clear"
+    >
+      <ion-icon type="trash" [size]="iconSize()"></ion-icon>
+      <span data-testid="btn-Limpar">Limpar</span>
+    </button>
   }
 </div>
+

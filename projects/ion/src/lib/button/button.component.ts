@@ -13,11 +13,12 @@ import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { IonBadgeComponent } from '../badge/badge.component';
 
 @Component({
   selector: 'ion-button',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonDropdownComponent],
+  imports: [CommonModule, IonIconComponent, IonDropdownComponent, IonBadgeComponent],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
