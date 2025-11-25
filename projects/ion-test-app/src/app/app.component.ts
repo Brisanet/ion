@@ -6,12 +6,13 @@ import {
   IonBadgeComponent, 
   IonButtonComponent, 
   IonCheckboxComponent,
-  IonIconComponent 
+  IonIconComponent,
+  IonInfoBadgeComponent
 } from 'ion';
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

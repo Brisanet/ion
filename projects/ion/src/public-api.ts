@@ -7,4 +7,6 @@ export * from './lib/button/button.component';
 export * from './lib/checkbox/checkbox.component';
 export * from './lib/core/types/checkbox';
 export * from './lib/icon/icon.component';
+export * from './lib/info-badge/info-badge.component';
+export * from './lib/core/types/info-badge';
 export * from './lib/dropdown/dropdown.component';

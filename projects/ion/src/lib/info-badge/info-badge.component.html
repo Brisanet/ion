@@ -1,0 +1,12 @@
+<div data-testid="info-badge" [class]="variant()">
+  <span [class]="'info-badge-' + size()">
+    @if (icon()) {
+      <ion-icon
+        data-testid="info-badge-icon"
+        class="tab-icon"
+        [type]="icon()!"
+      ></ion-icon>
+    }
+  </span>
+  {{ !icon() ? text() : '' }}
+</div>
