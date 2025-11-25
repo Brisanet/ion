@@ -1,0 +1,19 @@
+<div class="ion-input-checkbox">
+  <input
+    data-testid="ion-checkbox"
+    [id]="value()"
+    [name]="value()"
+    [value]="value()"
+    class="ion-checkbox"
+    type="checkbox"
+    (click)="changeState()"
+    #checkBox
+  />
+  @if (label()) {
+    <label
+      class="ion-checkbox__label"
+      [class.ion-checkbox__label--disabled]="disabled()"
+      [attr.for]="value()"
+    >{{ label() }}</label>
+  }
+</div>

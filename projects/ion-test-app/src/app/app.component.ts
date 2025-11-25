@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
-import { AvatarType, IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonIconComponent } from 'ion';
+import { 
+  AvatarType, 
+  CheckBoxStates,
+  IonAvatarComponent, 
+  IonBadgeComponent, 
+  IonButtonComponent, 
+  IonCheckboxComponent,
+  IonIconComponent 
+} from 'ion';
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonIconComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

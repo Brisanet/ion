@@ -95,6 +95,24 @@
   </section>
 
   <section>
+    <h2>Checkbox States</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <ion-checkbox label="Enabled (unchecked)" value="enabled-checkbox"></ion-checkbox>
+      <ion-checkbox label="Checked" value="checked-checkbox" state="checked"></ion-checkbox>
+      <ion-checkbox label="Indeterminate" value="indeterminate-checkbox" state="indeterminate"></ion-checkbox>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checkbox Disabled</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <ion-checkbox label="Disabled (unchecked)" value="disabled-unchecked" [disabled]="true"></ion-checkbox>
+      <ion-checkbox label="Disabled (checked)" value="disabled-checked" state="checked" [disabled]="true"></ion-checkbox>
+      <ion-checkbox label="Disabled (indeterminate)" value="disabled-indeterminate" state="indeterminate" [disabled]="true"></ion-checkbox>
+    </div>
+  </section>
+
+  <section>
     <h2>Icons</h2>
     <div>
       <ion-icon type="check"></ion-icon>

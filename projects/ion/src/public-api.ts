@@ -4,5 +4,7 @@ export * from './lib/avatar/avatar.component';
 export * from './lib/core/types/avatar';
 export * from './lib/badge/badge.component';
 export * from './lib/button/button.component';
+export * from './lib/checkbox/checkbox.component';
+export * from './lib/core/types/checkbox';
 export * from './lib/icon/icon.component';
 export * from './lib/dropdown/dropdown.component';
