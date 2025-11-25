@@ -1,0 +1,16 @@
+<div
+  data-testid="ion-avatar"
+  [class]="'ion-avatar size-' + size()"
+>
+  @switch (type()) {
+    @case ('initials') {
+      <span>{{ initials() }}</span>
+    }
+    @case ('icon') {
+      <ion-icon [type]="icon"></ion-icon>
+    }
+    @case ('photo') {
+      <img [src]="image()" [alt]="'Avatar'" />
+    }
+  }
+</div>

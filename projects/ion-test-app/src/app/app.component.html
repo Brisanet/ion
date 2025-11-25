@@ -74,6 +74,27 @@
   </section>
 
   <section>
+    <h2>Avatar Types</h2>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <ion-avatar [type]="AvatarType.initials" value="Taylor Swift"></ion-avatar>
+      <ion-avatar [type]="AvatarType.initials" value="Beyoncé Knowles"></ion-avatar>
+      <ion-avatar [type]="AvatarType.icon"></ion-avatar>
+      <ion-avatar [type]="AvatarType.photo" image="https://i.pravatar.cc/150?img=1"></ion-avatar>
+      <ion-avatar [type]="AvatarType.photo" image="https://i.pravatar.cc/150?img=5"></ion-avatar>
+    </div>
+  </section>
+
+  <section>
+    <h2>Avatar Sizes</h2>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <ion-avatar [type]="AvatarType.initials" value="XS Size" size="xs"></ion-avatar>
+      <ion-avatar [type]="AvatarType.initials" value="SM Size" size="sm"></ion-avatar>
+      <ion-avatar [type]="AvatarType.initials" value="MD Size" size="md"></ion-avatar>
+      <ion-avatar [type]="AvatarType.initials" value="LG Size" size="lg"></ion-avatar>
+    </div>
+  </section>
+
+  <section>
     <h2>Icons</h2>
     <div>
       <ion-icon type="check"></ion-icon>
