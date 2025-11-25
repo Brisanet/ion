@@ -224,7 +224,7 @@ describe('ButtonComponent', () => {
   });
 
   describe('ButtonComponent with dropdown', () => {
-    describe.skip('ButtonComponent with single selection dropdown', () => {
+    describe('ButtonComponent with single selection dropdown', () => {
       it('should render a single-selection dropdown when button is clicked', () => {
         const options = [{ label: 'Option 1' }, { label: 'Option 2' }];
         

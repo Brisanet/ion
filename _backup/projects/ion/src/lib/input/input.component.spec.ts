@@ -139,12 +139,12 @@ describe('IonInputComponent', () => {
     expect(element.value).toBe(text);
   });
 
-  it.skip('should render input icon valid', async () => {
+  it('should render input icon valid', async () => {
     await sut();
     expect(document.getElementById('icon-valid')).toBeTruthy();
   });
 
-  it.skip('should render input icon invalid', async () => {
+  it('should render input icon invalid', async () => {
     await sut();
     expect(document.getElementById('icon-invalid')).toBeTruthy();
   });
