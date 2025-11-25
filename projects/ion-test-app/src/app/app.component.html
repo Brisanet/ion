@@ -1,6 +1,6 @@
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px;">
   <h1>Ion Consumer App</h1>
-  
+
   <section>
     <h2>Button Variants</h2>
     <div style="display: flex; gap: 10px;">
@@ -29,11 +29,8 @@
       <ion-button label="Right Icon" iconType="star" [rightSideIcon]="true"></ion-button>
       <ion-button iconType="plus" [circularButton]="true"></ion-button>
       <ion-button iconType="close" [circularButton]="true" type="ghost"></ion-button>
-      <ion-button
-        label="Primary"
-        [options]="[{ label: 'option 1' }, {label: 'option 2'}]"
-        [dropdownConfig]="{required: true}"
-      ></ion-button>
+      <ion-button label="Primary" [options]="[{ label: 'option 1' }, {label: 'option 2'}]"
+        [dropdownConfig]="{required: true}"></ion-button>
     </div>
   </section>
 
@@ -43,6 +40,28 @@
       <ion-button label="Loading" [loading]="true"></ion-button>
       <ion-button label="Disabled" [disabled]="true"></ion-button>
       <ion-button label="Danger" [danger]="true"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Badge Variants</h2>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <ion-badge label="Primary" type="primary"></ion-badge>
+      <ion-badge label="Secondary" type="secondary"></ion-badge>
+      <ion-badge label="Neutral" type="neutral"></ion-badge>
+      <ion-badge label="Negative" type="negative"></ion-badge>
+      <ion-badge label="Warning" type="warning"></ion-badge>
+    </div>
+  </section>
+
+  <section>
+    <h2>Badge with Values</h2>
+    <div style="display: flex; gap: 15px; align-items: center;">
+      <ion-badge [value]="5" type="primary"></ion-badge>
+      <ion-badge [value]="10" type="secondary"></ion-badge>
+      <ion-badge [value]="99" type="neutral"></ion-badge>
+      <ion-badge [value]="100" type="negative"></ion-badge>
+      <ion-badge [value]="1000" type="warning"></ion-badge>
     </div>
   </section>
 
