@@ -1,0 +1,94 @@
+<div
+  class="input-container"
+  [class.input-button]="inputButton() && inputButtonConfig()"
+>
+  <div
+    data-testid="input-div"
+    class="input"
+    [class.disabled]="disabled()"
+    [class.invalid]="invalid()"
+    [class.valid]="valid()"
+  >
+    @if (iconDirection() === 'left') {
+      <ion-icon
+        data-testid="icon-left"
+        class="left-icon"
+        [type]="iconInput()!"
+        [size]="20"
+      ></ion-icon>
+    }
+    <input
+      #input
+      [type]="inputType()"
+      [attr.placeholder]="placeholder()"
+      name="input"
+      class="my-input"
+      [disabled]="disabled()"
+      [ngModel]="value()"
+      (ngModelChange)="onModelChange($event)"
+      data-testid="input-element"
+      [readonly]="readonly()"
+      [maxlength]="maxLength()"
+    />
+
+    @if (maxLength()) {
+      <span class="text-counter">
+        {{ value() ? value().length : 0 }}/{{ maxLength() }}
+      </span>
+    }
+
+    @if (!isClearButtonVisible() && iconDirection() === 'right') {
+      <ion-icon
+        data-testid="icon-right"
+        class="right-icon"
+        [type]="iconInput()!"
+        [size]="20"
+      ></ion-icon>
+    }
+    @if (valid()) {
+      <ion-icon
+        data-testid="icon-valid"
+        class="icon-valid"
+        type="check-solid"
+        [size]="16"
+      ></ion-icon>
+    }
+    @if (invalid()) {
+      <ion-icon
+        data-testid="icon-invalid"
+        class="icon-invalid"
+        type="close-solid"
+        [size]="16"
+      ></ion-icon>
+    }
+    @if (isClearButtonVisible()) {
+      <button
+        data-testid="clear-button"
+        class="clearButton"
+        (click)="clearInput(); input.value = ''"
+      >
+        <ion-icon type="close-rounded" [size]="18"></ion-icon>
+      </button>
+    }
+  </div>
+
+  @if (inputButton() && inputButtonConfig(); as config) {
+    <ion-button
+      data-testid="input-button"
+      [label]="config.label || ''"
+      [type]="config.type || 'primary'"
+      [disabled]="config.disabled || false"
+      [loading]="config.loading || false"
+      [attr.iconType]="config.iconType"
+      [id]="config.id"
+      [size]="config.size || 'md'"
+      (ionOnClick)="handleClick()"
+    ></ion-button>
+  }
+</div>
+
+@if (invalid() && errorMsg()) {
+  <div class="errorMsg">
+    <p>{{ errorMsg() }}</p>
+  </div>
+}

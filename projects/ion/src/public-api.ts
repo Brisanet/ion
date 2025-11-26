@@ -9,4 +9,6 @@ export * from './lib/core/types/checkbox';
 export * from './lib/icon/icon.component';
 export * from './lib/info-badge/info-badge.component';
 export * from './lib/core/types/info-badge';
+export * from './lib/input/input.component';
+export * from './lib/core/types/input';
 export * from './lib/dropdown/dropdown.component';

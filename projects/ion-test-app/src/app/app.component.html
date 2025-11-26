@@ -151,4 +151,87 @@
       <ion-info-badge variant="negative" text="Error status"></ion-info-badge>
     </div>
   </section>
+
+  <section>
+    <h2>Input - Basic</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Enter your name"></ion-input>
+      <ion-input placeholder="Email address" inputType="email"></ion-input>
+      <ion-input placeholder="Password" inputType="password"></ion-input>
+      <ion-input placeholder="Phone number" inputType="number"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - With Icons</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Search" iconInput="search" iconDirection="left"></ion-input>
+      <ion-input placeholder="Username" iconInput="user" iconDirection="left"></ion-input>
+      <ion-input placeholder="Email" iconInput="mail" iconDirection="right"></ion-input>
+      <ion-input placeholder="Lock" iconInput="lock" iconDirection="right"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - Validation States</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Valid input" [valid]="true"></ion-input>
+      <ion-input placeholder="Invalid input" [invalid]="true" errorMsg="This field is required"></ion-input>
+      <ion-input placeholder="Invalid email" [invalid]="true" errorMsg="Please enter a valid email"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - With Clear Button</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Type something..." [clearButton]="true"></ion-input>
+      <ion-input placeholder="Search with clear" iconInput="search" iconDirection="left" [clearButton]="true"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - Max Length</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Max 10 characters" [maxLength]="10"></ion-input>
+      <ion-input placeholder="Max 50 characters" [maxLength]="50"></ion-input>
+      <ion-input placeholder="Tweet (280 chars)" [maxLength]="280"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - States</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input placeholder="Disabled input" [disabled]="true"></ion-input>
+      <ion-input placeholder="Readonly input" [readonly]="true"></ion-input>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input - With Button</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 400px;">
+      <ion-input 
+        placeholder="Search..." 
+        [inputButton]="true" 
+        [inputButtonConfig]="{label: 'Search', type: 'primary'}">
+      </ion-input>
+      <ion-input 
+        placeholder="Enter email" 
+        inputType="email"
+        [inputButton]="true" 
+        [inputButtonConfig]="{label: 'Subscribe', type: 'primary'}">
+      </ion-input>
+      <ion-input 
+        placeholder="Coupon code" 
+        [inputButton]="true" 
+        [inputButtonConfig]="{label: 'Apply', type: 'secondary'}">
+      </ion-input>
+      <ion-input 
+        placeholder="Search files" 
+        iconInput="search"
+        iconDirection="left"
+        [inputButton]="true" 
+        [inputButtonConfig]="{iconType: 'search', type: 'primary'}">
+      </ion-input>
+    </div>
+  </section>
 </div>
