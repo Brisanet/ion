@@ -151,4 +151,32 @@
       <ion-info-badge variant="negative" text="Error status"></ion-info-badge>
     </div>
   </section>
+
+  <section>
+    <h2>Accordion</h2>
+    <div style="width: 500px;">
+      <ng-template #header let-data>
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <ion-icon type="info"></ion-icon>
+          <span>{{ data.label }}</span>
+        </div>
+      </ng-template>
+
+      <ng-template #body let-data>
+        <div style="padding: 16px;">
+          <p>{{ data.content }}</p>
+        </div>
+      </ng-template>
+
+      <ion-accordion
+        [accordions]="[
+          { label: 'Accordion 1', content: 'Content for accordion 1', show: false },
+          { label: 'Accordion 2', content: 'Content for accordion 2', show: false },
+          { label: 'Accordion 3', content: 'Content for accordion 3', show: false }
+        ]"
+        [templateHeader]="header"
+        [templateBody]="body"
+      ></ion-accordion>
+    </div>
+  </section>
 </div>

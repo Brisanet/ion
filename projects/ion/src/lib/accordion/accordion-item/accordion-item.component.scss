@@ -1,0 +1,80 @@
+@use '../accordion.theme';
+
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
+
+@mixin accordion-style($bgColor, $color) {
+  header {
+    color: ion-theme($color);
+    border-bottom: 1px solid ion-theme($color);
+    background-color: ion-theme($bgColor);
+
+    ion-icon ::ng-deep svg {
+      fill: ion-theme($color);
+    }
+  }
+}
+
+section {
+  @include accordion-style(
+    accordion-item-background-color,
+    accordion-item-text-color
+  );
+
+  header,
+  main {
+    padding: ion-theme(accordion-item-padding);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 64px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    div {
+      div {
+        font-size: ion-theme(accordion-item-text-font-size);
+        font-weight: ion-theme(accordion-item-text-font-weight);
+        line-height: ion-theme(accordion-item-text-line-height);
+      }
+    }
+  }
+
+  main {
+    background-color: ion-theme(accordion-item-background-color);
+  }
+
+  &:hover {
+    @include accordion-style(
+      accordion-item-hover-background-color,
+      accordion-item-hover-text-color
+    );
+  }
+
+  &:active {
+    @include accordion-style(
+      accordion-item-active-background-color,
+      accordion-item-active-text-color
+    );
+  }
+
+  &:focus-visible {
+    @include focus;
+  }
+
+  &.open {
+    @include accordion-style(
+      accordion-item-open-background-color,
+      accordion-item-open-text-color
+    );
+  }
+
+  &.close {
+    header {
+      border-bottom: 1px solid ion-theme(accordion-divider-color);
+    }
+  }
+}

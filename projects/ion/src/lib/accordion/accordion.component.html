@@ -1,0 +1,17 @@
+<section data-testid="ion-accordion">
+  @for (accordion of accordions(); track $index) {
+  <ion-accordion-item
+    [show]="accordion.show"
+    [data]="accordion"
+    [templateHeader]="templateHeader()"
+    (activeChange)="toggle($index)"
+  >
+    @if (templateBody()) {
+    <ng-container
+      [ngTemplateOutlet]="templateBody()!"
+      [ngTemplateOutletContext]="{ $implicit: accordion }"
+    ></ng-container>
+    }
+  </ion-accordion-item>
+  }
+</section>
