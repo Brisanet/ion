@@ -1,0 +1,54 @@
+@import '../../styles/themes/theme.scss';
+
+$default: (
+  border-radius: 8px,
+  text: (
+    font-family: ion-theme(font-family-main),
+    font-weight: 400,
+    line-height: 20px,
+    font-size: 14px,
+  ),
+  close-icon-size: 16px,
+  success: (
+    background-color: ion-theme(positive-1),
+    border-color: ion-theme(positive-4),
+    icon-color: ion-theme(positive-6),
+    text-color: ion-theme(neutral-7),
+    close-icon-color: ion-theme(neutral-6),
+  ),
+  info: (
+    background-color: ion-theme(info-1),
+    border-color: ion-theme(info-4),
+    icon-color: ion-theme(info-6),
+    text-color: ion-theme(neutral-7),
+    close-icon-color: ion-theme(neutral-6),
+  ),
+  warning: (
+    background-color: ion-theme(warning-1),
+    border-color: ion-theme(warning-4),
+    icon-color: ion-theme(warning-6),
+    text-color: ion-theme(neutral-7),
+    close-icon-color: ion-theme(neutral-6),
+  ),
+  negative: (
+    background-color: ion-theme(negative-1),
+    border-color: ion-theme(negative-4),
+    icon-color: ion-theme(negative-6),
+    text-color: ion-theme(neutral-7),
+    close-icon-color: ion-theme(neutral-6),
+  ),
+  with-description: (
+    background-color: ion-theme(neutral-2),
+    text-color: ion-theme(neutral-7),
+  ),
+  without-background: (
+    text-color: ion-theme(neutral-7),
+  ),
+);
+
+@include register-component(
+  alert,
+  (
+    default: $default,
+  )
+);

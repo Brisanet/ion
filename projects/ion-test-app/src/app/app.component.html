@@ -179,4 +179,18 @@
       ></ion-accordion>
     </div>
   </section>
+
+  <section>
+    <h2>Alerts</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <ion-alert message="This is a success alert" type="success"></ion-alert>
+      <ion-alert message="This is a warning alert" type="warning"></ion-alert>
+      <ion-alert message="This is an info alert" type="info"></ion-alert>
+      <ion-alert message="This is a negative alert" type="negative"></ion-alert>
+      <ion-alert message="This is a closable alert" [closable]="true"></ion-alert>
+      <ion-alert message="This is an alert without background" [hideBackground]="true"></ion-alert>
+      <ion-alert message="This is an alert without radius" [noRadius]="true"></ion-alert>
+      <ion-alert message="This is an alert with description" description="This is the description text"></ion-alert>
+    </div>
+  </section>
 </div>

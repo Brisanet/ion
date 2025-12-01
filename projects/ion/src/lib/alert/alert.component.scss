@@ -1,0 +1,99 @@
+@use 'alert.theme';
+@import "../../styles/themes/theme.scss";
+
+$statuses: success, info, warning, negative;
+
+.ion-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid;
+  border-radius: ion-theme(alert-border-radius);
+  font-family: ion-theme(alert-text-font-family);
+  font-weight: ion-theme(alert-text-font-weight);
+  line-height: ion-theme(alert-text-line-height);
+  font-size: ion-theme(alert-text-font-size);
+
+  @each $status in $statuses {
+    &.#{$status} {
+      background-color: ion-theme(alert-#{$status}-background-color);
+      border-color: ion-theme(alert-#{$status}-border-color) !important;
+
+      .alert-icon {
+        display: flex;
+        align-items: center;
+
+        ::ng-deep svg {
+          fill: ion-theme(alert-#{$status}-icon-color);
+        }
+      }
+
+      span {
+        width: 95%;
+        color: ion-theme(alert-#{$status}-text-color);
+      }
+
+      .close-icon {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        ::ng-deep svg {
+          height: ion-theme(alert-close-icon-size);
+          width: ion-theme(alert-close-icon-size);
+          fill: ion-theme(alert-#{$status}-close-icon-color);
+        }
+      }
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  &.with-description {
+    border: none !important;
+    background-color: ion-theme(alert-with-description-background-color);
+    padding: 16px 24px !important;
+    color: ion-theme(alert-with-description-text-color);
+    gap: 4px;
+
+    .message-text {
+      font-weight: 600;
+    }
+
+    .description {
+      width: 100%;
+    }
+  }
+
+  &.without-background {
+    background-color: transparent;
+    border: none !important;
+
+    span {
+      color: ion-theme(alert-without-background-text-color);
+    }
+  }
+
+  &.no-radius {
+    border-radius: 0;
+  }
+
+  &.closable-true {
+    padding: 8px 16px;
+  }
+
+  &.closable-false {
+    padding: 8px 16px 8px 12px;
+    border-left: 8px solid;
+  }
+}
