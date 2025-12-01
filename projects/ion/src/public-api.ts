@@ -2,6 +2,7 @@ export * from './lib/ion.service';
 export * from './lib/ion.component';
 export * from './lib/avatar/avatar.component';
 export * from './lib/badge/badge.component';
+export { IonBreadcrumbComponent } from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/button/button.component';
 export * from './lib/checkbox/checkbox.component';
 export * from './lib/dropdown/dropdown.component';

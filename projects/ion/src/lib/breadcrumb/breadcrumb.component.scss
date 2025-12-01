@@ -1,0 +1,109 @@
+@use 'breadcrumb.theme';
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+.breadcrumbs-nav {
+  text-decoration: none;
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+.ol-navigator {
+  display: inline-flex;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    text-align: center;
+    position: relative;
+
+    ::ng-deep {
+      ion-icon.breadcrumb-divider svg {
+        fill: ion-theme(breadcrumb-divider-color);
+      }
+
+      .breadcrumbs-ellipsis {
+        display: flex;
+        justify-content: center;
+        border-radius: ion-theme(breadcrumb-border-radius);
+        align-items: center;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+
+        svg {
+          fill: ion-theme(breadcrumb-ellipsis-color);
+        }
+
+        &:hover svg {
+          fill: ion-theme(breadcrumb-hover-ellipsis-color);
+        }
+
+        &:focus-visible {
+          @include focus;
+          svg {
+            fill: ion-theme(breadcrumb-focus-ellipsis-color);
+          }
+        }
+
+        &:active svg {
+          fill: ion-theme(breadcrumb-press-ellipsis-color);
+        }
+      }
+    }
+
+    .breadcrumbs-dropdown {
+      position: absolute;
+      bottom: 0;
+      left: -10px;
+    }
+
+    .breacrumbs-link {
+      text-decoration: none;
+      cursor: pointer;
+      color: ion-theme(breadcrumb-text-color);
+      font-weight: ion-theme(breadcrumb-text-font-weight);
+      font-size: ion-theme(breadcrumb-text-font-size);
+      line-height: ion-theme(breadcrumb-text-line-height);
+      border-radius: ion-theme(breadcrumb-border-radius);
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 10px 0;
+
+      &:hover {
+        color: ion-theme(breadcrumb-hover-text-color);
+        font-weight: ion-theme(breadcrumb-hover-text-font-weight);
+      }
+
+      &:focus-visible {
+        @include focus;
+        color: ion-theme(breadcrumb-focus-text-color);
+        font-weight: ion-theme(breadcrumb-focus-text-font-weight);
+        background-color: ion-theme(breadcrumb-focus-background-color);
+      }
+
+      &:active {
+        color: ion-theme(breadcrumb-press-text-color);
+        font-weight: ion-theme(breadcrumb-press-text-font-weight);
+      }
+    }
+
+    &:last-child {
+      .breacrumbs-link {
+        cursor: text;
+        color: ion-theme(breadcrumb-active-text-color);
+        font-weight: ion-theme(breadcrumb-active-text-font-weight);
+      }
+
+      ion-icon {
+        display: none;
+      }
+    }
+  }
+}
