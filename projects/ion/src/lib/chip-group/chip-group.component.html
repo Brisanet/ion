@@ -1,0 +1,24 @@
+<div data-testid="ion-chip-group" class="chip-group">
+  @for (chip of chips(); track chip.label) {
+    <ion-chip
+      [chipGroupRequired]="required()"
+      [label]="chip.label"
+      [disabled]="chip.disabled || disabled()"
+      [selected]="!!chip.selected"
+      [showDropdown]="!!(chip.selected && chip.options)"
+      [showToggle]="!!chip.options"
+      [size]="chip.size || size()"
+      [options]="chip.options || []"
+      [icon]="chip.icon"
+      [multiple]="!!chip.multiple"
+      [infoBadge]="chip.infoBadge || infoBadge()"
+      [iconPosition]="chip.iconPosition || iconPosition()"
+      [rightBadge]="chip.rightBadge || rightBadge()"
+      (click)="selectChip(chip)"
+      (events)="chipEvents($event)"
+      (dropdownEvents)="dropdownEvents($event)"
+      [attr.data-testid]="'chip-group-' + chip.label"
+      [chipGroup]="true"
+    ></ion-chip>
+  }
+</div>

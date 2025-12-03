@@ -6,6 +6,7 @@ import {
   input,
   output,
   effect,
+  model,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../icon/icon.component';
@@ -90,7 +91,7 @@ export class IonChipComponent {
   dropdownSearchEvents = output<string>();
 
   // Internal state
-  showDropdown = signal<boolean>(false);
+  showDropdown = model<boolean>(false);
   internalSelected = signal<boolean>(false);
   badge = signal<Badge>({ value: 0 });
   placeholder = signal<string>('');
@@ -160,7 +161,7 @@ export class IonChipComponent {
     }
 
     if (this.options().length > 0) {
-      this.showDropdown.update(val => !val);
+      this.showDropdown.update((val: boolean) => !val);
     }
   }
 

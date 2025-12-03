@@ -259,4 +259,42 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Chip Groups</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <!-- Basic Group -->
+      <div>
+        <h3>Basic</h3>
+        <ion-chip-group [chips]="chipGroupBasic"></ion-chip-group>
+      </div>
+
+      <!-- Multiple Selection -->
+      <div>
+        <h3>Multiple Selection</h3>
+        <ion-chip-group [chips]="chipGroupMultiple" [multiple]="true"></ion-chip-group>
+      </div>
+
+      <!-- Required Selection -->
+      <div>
+        <h3>Required Selection</h3>
+        <ion-chip-group [chips]="chipGroupRequired" [required]="true"></ion-chip-group>
+      </div>
+
+      <!-- Sizes -->
+      <div>
+        <h3>Sizes</h3>
+        <div style="display: flex; gap: 20px;">
+          <ion-chip-group [chips]="[{label: 'Small', selected: false}]" size="sm"></ion-chip-group>
+          <ion-chip-group [chips]="[{label: 'Medium', selected: false}]" size="md"></ion-chip-group>
+        </div>
+      </div>
+
+      <!-- Disabled -->
+      <div>
+        <h3>Disabled Group</h3>
+        <ion-chip-group [chips]="[{label: 'Disabled 1', selected: false}, {label: 'Disabled 2', selected: true}]" [disabled]="true"></ion-chip-group>
+      </div>
+    </div>
+  </section>
 </div>

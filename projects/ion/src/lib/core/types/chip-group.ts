@@ -1,20 +1,38 @@
-import { EventEmitter } from '@angular/core';
-import { ChipSize, IonChipProps } from './chip';
+import {
+  ChipSize,
+  IconDirection,
+  IconType,
+  InfoBadgeStatus,
+  RightBadge,
+} from '.';
+import { DropdownItem } from './dropdown';
 
-export interface ChipInGroup extends IonChipProps {
+export interface ChipInGroup {
+  label: string;
+  icon?: IconType;
   selected?: boolean;
+  options?: DropdownItem[];
+  disabled?: boolean;
+  multiple?: boolean;
+  size?: ChipSize;
+  infoBadge?: InfoBadgeStatus;
+  iconPosition?: IconDirection;
+  rightBadge?: RightBadge;
 }
+
 export interface ChipGroupProps {
-  chips?: Array<IonChipProps>;
+  chips: ChipInGroup[];
   disabled?: boolean;
   size?: ChipSize;
   multiple?: boolean;
+  events?: {
+    emit?: (data: ChipInGroup) => void;
+  };
+  selected?: {
+    emit?: (data: ChipInGroup) => void;
+  };
+  dropdown?: {
+    emit?: (data: DropdownItem[]) => void;
+  };
   required?: boolean;
-  events?: EventEmitter<ChipEvent>;
-  selected?: EventEmitter<ChipInGroup>;
-}
-
-interface ChipEvent {
-  selected: boolean;
-  disabled: boolean;
 }
