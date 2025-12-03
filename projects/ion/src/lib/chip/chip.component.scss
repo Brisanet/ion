@@ -1,0 +1,99 @@
+@use 'chip.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin chip-style($prefix) {
+  background-color: ion-theme(#{$prefix}-background-color);
+  border: 1px solid ion-theme(#{$prefix}-border-color);
+  color: ion-theme(#{$prefix}-text-color);
+
+  .icon-color ::ng-deep svg {
+    fill: ion-theme(#{$prefix}-icon-color);
+  }
+}
+
+.ion-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+  border-radius: ion-theme(chip-border-radius);
+  font-family: ion-theme(chip-text-font-family);
+  font-weight: ion-theme(chip-text-font-weight);
+  transition: all 300ms;
+
+  @include chip-style(chip-unselected);
+
+  &:hover {
+    @include chip-style(chip-unselected-hover);
+  }
+
+  &:focus-visible {
+    @include focus;
+    @include chip-style(chip-unselected-focus);
+  }
+
+  &:active {
+    outline: none;
+    @include chip-style(chip-unselected-active);
+  }
+
+  &:disabled {
+    outline: none;
+    cursor: not-allowed;
+    @include chip-style(chip-unselected-disabled);
+  }
+}
+
+.chip-selected {
+  @include chip-style(chip-selected);
+
+  &:hover {
+    @include chip-style(chip-selected-hover);
+  }
+
+  &:focus-visible {
+    @include chip-style(chip-selected-focus);
+  }
+
+  &:active {
+    @include chip-style(chip-selected-active);
+  }
+
+  &:disabled {
+    @include chip-style(chip-selected-disabled);
+  }
+}
+
+@each $size in sm, md {
+  .chip-#{$size} {
+    height: ion-theme(chip-size-#{$size}-height);
+    padding: ion-theme(chip-size-#{$size}-padding);
+    font-size: ion-theme(chip-size-#{$size}-text-font-size);
+    line-height: ion-theme(chip-size-#{$size}-text-line-height);
+  }
+}
+
+.container-icon-text {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 8px;
+}
+
+.container-options {
+  position: absolute;
+}
+
+.chip-icon-right {
+  order: 10;
+}
+
+::ng-deep .container-options {
+  margin-top: 5px;
+}

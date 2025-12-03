@@ -5,6 +5,7 @@ export * from './lib/badge/badge.component';
 export { IonBreadcrumbComponent } from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/button/button.component';
 export * from './lib/checkbox/checkbox.component';
+export { IonChipComponent } from './lib/chip/chip.component';
 export * from './lib/dropdown/dropdown.component';
 export * from './lib/icon/icon.component';
 export * from './lib/info-badge/info-badge.component';

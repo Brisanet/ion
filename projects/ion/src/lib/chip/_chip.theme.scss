@@ -1,0 +1,177 @@
+@import '../../styles/themes/theme.scss';
+
+$default: (
+  border-radius: 100px,
+  text: (
+    font-weight: 600,
+    font-family: ion-theme(font-family-main),
+  ),
+  size: (
+    sm: (
+      height: 24px,
+      padding: 4px 8px,
+      text-font-size: 12px,
+      text-line-height: 16px,
+    ),
+    md: (
+      height: 32px,
+      padding: 6px 12px,
+      text-font-size: 14px,
+      text-line-height: 20px,
+    ),
+  ),
+  unselected: (
+    background-color: ion-theme(neutral-1),
+    text-color: ion-theme(primary-6),
+    icon-color: ion-theme(primary-6),
+    border-color: ion-theme(neutral-4),
+    border-width: 1px,
+    hover: (
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-5),
+      border-color: ion-theme(primary-3),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-5),
+      border-color: ion-theme(primary-3),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      text-color: ion-theme(primary-7),
+      icon-color: ion-theme(primary-7),
+      border-color: ion-theme(primary-5),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-3),
+      text-color: ion-theme(neutral-5),
+      icon-color: ion-theme(neutral-5),
+      border-color: ion-theme(neutral-5),
+    ),
+  ),
+  selected: (
+    background-color: ion-theme(primary-1),
+    text-color: ion-theme(primary-6),
+    icon-color: ion-theme(primary-6),
+    border-color: ion-theme(primary-5),
+    border-width: 1.5px,
+    hover: (
+      background-color: ion-theme(primary-2),
+      text-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-5),
+      border-color: ion-theme(primary-5),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-5),
+      border-color: ion-theme(primary-3),
+    ),
+    active: (
+      background-color: ion-theme(primary-3),
+      text-color: ion-theme(primary-7),
+      icon-color: ion-theme(primary-7),
+      border-color: ion-theme(primary-7),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-3),
+      text-color: ion-theme(neutral-5),
+      icon-color: ion-theme(neutral-5),
+      border-color: ion-theme(neutral-5),
+    ),
+  ),
+);
+
+$dark: (
+  border-radius: 100px,
+  text: (
+    font-weight: 600,
+    font-family: ion-theme(font-family-main),
+  ),
+  size: (
+    sm: (
+      height: 24px,
+      padding: 4px 8px,
+      text-font-size: 12px,
+      text-line-height: 16px,
+    ),
+    md: (
+      height: 32px,
+      padding: 6px 12px,
+      text-font-size: 14px,
+      text-line-height: 20px,
+    ),
+  ),
+  unselected: (
+    background-color: ion-theme(neutral-6),
+    text-color: ion-theme(primary-3),
+    icon-color: ion-theme(primary-3),
+    border-color: ion-theme(neutral-5),
+    border-width: 1px,
+    hover: (
+      background-color: ion-theme(primary-3),
+      text-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    focus: (
+      background-color: ion-theme(primary-3),
+      text-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    active: (
+      background-color: ion-theme(primary-5),
+      text-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-1),
+      border-color: ion-theme(primary-1),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-7),
+      text-color: ion-theme(neutral-4),
+      icon-color: ion-theme(neutral-4),
+      border-color: ion-theme(neutral-4),
+    ),
+  ),
+  selected: (
+    background-color: ion-theme(neutral-6),
+    text-color: ion-theme(primary-3),
+    icon-color: ion-theme(primary-3),
+    border-color: ion-theme(primary-3),
+    border-width: 1.5px,
+    hover: (
+      background-color: ion-theme(primary-4),
+      text-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    focus: (
+      background-color: ion-theme(primary-4),
+      text-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    active: (
+      background-color: ion-theme(primary-6),
+      text-color: ion-theme(neutral-1),
+      icon-color: ion-theme(neutral-1),
+      border-color: ion-theme(neutral-1),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-7),
+      text-color: ion-theme(neutral-4),
+      icon-color: ion-theme(neutral-4),
+      border-color: ion-theme(neutral-4),
+    ),
+  ),
+);
+
+@include register-component(
+  chip,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);

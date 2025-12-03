@@ -5,6 +5,7 @@ export * from './badge';
 export * from './breadcrumb';
 export * from './button';
 export * from './checkbox';
+export * from './chip';
 export * from './dropdown';
 export * from './icon';
 export * from './info-badge';
