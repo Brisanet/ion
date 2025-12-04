@@ -11,6 +11,7 @@ import {
   IonAccordionComponent,
   IonDividerComponent,
   IonSkeletonComponent,
+  IonSpinnerComponent,
   IonAlertComponent,
   IonBreadcrumbComponent,
   IonChipComponent,
@@ -20,7 +21,7 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

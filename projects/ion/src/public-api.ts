@@ -15,4 +15,5 @@ export * from './lib/accordion/accordion.component';
 export * from './lib/accordion/accordion-item/accordion-item.component';
 export * from './lib/divider/divider.component';
 export * from './lib/skeleton/skeleton.component';
+export * from './lib/spinner/spinner.component';
 export * from './lib/core/types';
