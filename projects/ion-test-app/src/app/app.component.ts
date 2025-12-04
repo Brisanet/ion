@@ -9,6 +9,7 @@ import {
   IonIconComponent,
   IonInfoBadgeComponent,
   IonAccordionComponent,
+  IonDividerComponent,
   IonAlertComponent,
   IonBreadcrumbComponent,
   IonChipComponent,
@@ -18,13 +19,13 @@ import {
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'ion-test-app';
-  
+
   // Avatar types for template
   AvatarType = AvatarType;
 

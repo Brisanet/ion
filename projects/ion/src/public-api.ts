@@ -12,4 +12,6 @@ export * from './lib/icon/icon.component';
 export * from './lib/info-badge/info-badge.component';
 export * from './lib/alert/alert.component';
 export * from './lib/accordion/accordion.component';
+export * from './lib/accordion/accordion-item/accordion-item.component';
+export * from './lib/divider/divider.component';
 export * from './lib/core/types';
