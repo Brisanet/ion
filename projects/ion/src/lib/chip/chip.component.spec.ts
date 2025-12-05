@@ -74,7 +74,11 @@ describe('ChipComponent', () => {
   );
 
   it('should render icon on left', async () => {
-    await sut({ label: 'custom-position', iconPosition: 'left', icon: 'close' });
+    await sut({
+      label: 'custom-position',
+      iconPosition: 'left',
+      icon: 'close',
+    });
     const chipIcon = screen.getByTestId('chip-icon-left');
     expect(chipIcon).toHaveClass('icon-color chip-icon-left');
   });
@@ -89,7 +93,7 @@ describe('ChipComponent', () => {
     const selectEvent = jest.fn();
     const { fixture } = await sut({ label: 'with event' });
     fixture.componentInstance.events.subscribe(selectEvent);
-    
+
     const element = screen.getByTestId('ion-chip');
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
@@ -151,7 +155,7 @@ describe('ChipComponent', () => {
 
   describe('With Dropdown', () => {
     let dropdownEvent: jest.Mock;
-    
+
     beforeEach(async () => {
       dropdownEvent = jest.fn();
       const { fixture } = await sut({
@@ -244,7 +248,7 @@ describe('With Multiple Dropdown', () => {
       key: 'one_more_light',
     },
   ];
-  
+
   beforeEach(async () => {
     dropdownEvent = jest.fn();
     eventsEmit = jest.fn();
@@ -355,7 +359,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     const { fixture } = await sut({
       label,
-      options: [],
+      options: [{ label: 'Option 1' }],
       dropdownSearchConfig: {
         enableSearch: true,
         searchOptions: {
