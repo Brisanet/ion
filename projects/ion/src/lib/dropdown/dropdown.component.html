@@ -8,7 +8,8 @@
   <span class="dropdown-description" data-testid="dropdown-description">
     {{ description() }}
   </span>
-  } @if (enableSearch()) {
+  }
+  @if (enableSearch()) {
   <div class="dropdown-search">
     <!-- Placeholder for ion-input - will be migrated later -->
     <input
@@ -19,7 +20,8 @@
       (input)="inputChange($any($event.target).value)"
     />
   </div>
-  } @if (!loading() && options().length > 0) {
+  }
+  @if (!loading() && options().length > 0) {
   <div
     #optionList
     class="options-list"
@@ -60,9 +62,11 @@
     </div>
     }
   </div>
-  } @if (loading()) {
+  }
+  @if (loading()) {
   <div data-testid="ion-spinner">Loading...</div>
-  } @if ((!options() || options().length === 0) && !loading()) {
+  }
+  @if ((!options() || options().length === 0) && !loading()) {
   <div data-testid="ion-no-data">
     <ion-icon
       [type]="noDataConfig()!.iconType!"
@@ -71,7 +75,8 @@
     ></ion-icon>
     <span>{{ noDataConfig()!.label }}</span>
   </div>
-  } @if (clearButtonIsVisible()) {
+  }
+  @if (clearButtonIsVisible()) {
   <button
     class="clear-button"
     (click)="clearOptions(true)"
