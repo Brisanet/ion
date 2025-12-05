@@ -4,6 +4,7 @@ import {
   ElementRef,
   computed,
   effect,
+  inject,
   input,
   output,
   signal,
@@ -21,6 +22,9 @@ export const COLDOWN = 200;
   imports: [CommonModule, IonIconComponent],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  host: {
+    '(document:click)': 'onDocumentClick($event)',
+  },
 })
 export class IonDropdownComponent implements AfterViewChecked {
   // Inputs
@@ -57,18 +61,20 @@ export class IonDropdownComponent implements AfterViewChecked {
   canDeselect = signal(true);
   searchValue = signal('');
 
+  private elementRef = inject(ElementRef);
+
   constructor() {
     // Update clear button visibility when relevant inputs change
     effect(() => {
       const hasItemsSelected = this.dropdownSelectedItems().length > 0;
       const showClearButton = !this.notShowClearButton();
-      
+
       this.clearButtonIsVisible.set(
         hasItemsSelected &&
-        this.multiple() &&
-        showClearButton &&
-        !this.required() &&
-        !this.loading()
+          this.multiple() &&
+          showClearButton &&
+          !this.required() &&
+          !this.loading()
       );
     });
 
@@ -80,7 +86,9 @@ export class IonDropdownComponent implements AfterViewChecked {
         (!this.required() ||
           (this.required() && this.dropdownSelectedItems().length > 1));
 
-      this.canDeselect.set(isSingleSelectionAllowed || isMultipleSelectionAllowed);
+      this.canDeselect.set(
+        isSingleSelectionAllowed || isMultipleSelectionAllowed
+      );
     });
 
     // Initialize selected items when options change
@@ -97,7 +105,7 @@ export class IonDropdownComponent implements AfterViewChecked {
     const widthContainer = window.innerWidth;
     const element = document.getElementById('ion-dropdown');
     if (!element) return;
-    
+
     const elementProps = element.getBoundingClientRect();
     const elementRight = elementProps.right;
     elementRight > widthContainer && (element.style.right = '0');
@@ -206,15 +214,21 @@ export class IonDropdownComponent implements AfterViewChecked {
 
   updateSelectedItems(): void {
     const opts = this.options();
-    const selectedItems = opts && opts.length > 0
-      ? opts.filter((option) => option.selected)
-      : [];
-    
+    const selectedItems =
+      opts && opts.length > 0 ? opts.filter((option) => option.selected) : [];
+
     this.dropdownSelectedItems.set(selectedItems);
     this.selected.emit(selectedItems);
   }
 
   clickedOutsideDropdown(): void {
     this.closeDropdown.emit(this.dropdownSelectedItems());
+  }
+
+  onDocumentClick(event: MouseEvent): void {
+    const dropdownElement = this.elementRef.nativeElement as HTMLElement;
+    if (!dropdownElement.contains(event.target as Node)) {
+      this.clickedOutsideDropdown();
+    }
   }
 }
