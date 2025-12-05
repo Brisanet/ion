@@ -37,6 +37,7 @@ export class IonDropdownComponent implements AfterViewChecked {
   enableSearch = input<boolean>(false);
   searchOptions = input<DropdownParams['searchOptions']>();
   notShowClearButton = input<boolean>(false);
+  closeOnClickOutside = input<boolean>(true);
   noDataConfig = input<DropdownParams['noDataConfig']>({
     label: 'Não há dados',
     iconType: 'exclamation-rounded',
@@ -226,6 +227,10 @@ export class IonDropdownComponent implements AfterViewChecked {
   }
 
   onDocumentClick(event: MouseEvent): void {
+    if (!this.closeOnClickOutside()) {
+      return;
+    }
+
     const dropdownElement = this.elementRef.nativeElement as HTMLElement;
     if (!dropdownElement.contains(event.target as Node)) {
       this.clickedOutsideDropdown();

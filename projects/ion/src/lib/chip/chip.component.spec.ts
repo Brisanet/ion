@@ -377,14 +377,14 @@ describe('With Dropdown with search input', () => {
 
   it('should emit search event when search input change', async () => {
     const input = 'folklore';
-    userEvent.type(screen.getByTestId('input-element'), input);
+    await userEvent.type(screen.getByTestId('input-element'), input);
     expect(screen.getByTestId('input-element')).toHaveValue(input);
     expect(searchEvent).toHaveBeenCalledWith(input);
   });
 
   it('should toggle dropdown when click', async () => {
     expect(getContainerDropdown()).toBeTruthy();
-    userEvent.click(screen.getByText('dropdown'));
+    await userEvent.click(screen.getByText('dropdown'));
     expect(getContainerDropdown()).toBe(null);
   });
 
@@ -420,7 +420,7 @@ describe('IonChipComponent / Option showToggle', () => {
     await sut({
       label: 'dropdown',
       showToggle: true,
-      options: [],
+      options: [{ label: 'Option 1' }],
     });
 
     fireEvent.click(screen.getByText('dropdown'));
