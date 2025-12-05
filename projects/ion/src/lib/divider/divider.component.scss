@@ -1,0 +1,43 @@
+@use 'divider.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+hr {
+  border: 0;
+  background: inherit;
+}
+
+.ion-divider-dashed {
+  border-style: dashed !important;
+}
+
+.ion-divider-horizontal {
+  border-top: 1px solid ion-theme(divider-color);
+  width: 100%;
+}
+
+.ion-divider-vertical {
+  border-left: 1px solid ion-theme(divider-color);
+  min-height: 15px;
+  height: 100%;
+}
+
+.ion-divider-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: spacing(1);
+  color: ion-theme(divider-text-color);
+  font-family: ion-theme(divider-text-font-family);
+  font-weight: ion-theme(divider-text-font-weight);
+  line-height: ion-theme(divider-text-line-height);
+  font-size: ion-theme(divider-text-font-size);
+
+  hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background: ion-theme(divider-color);
+  }
+}

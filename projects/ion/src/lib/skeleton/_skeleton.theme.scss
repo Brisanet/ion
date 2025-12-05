@@ -1,0 +1,19 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  background-color: ion-theme(neutral-1),
+  background-gradient:
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, ion-theme(neutral-1) 20%, transparent) 0%,
+      color-mix(in srgb, ion-theme(neutral-5) 20%, transparent) 48.52%,
+      color-mix(in srgb, ion-theme(neutral-1) 20%, transparent) 100%
+    ),
+);
+
+@include register-component(
+  skeleton,
+  (
+    default: $default,
+  )
+);

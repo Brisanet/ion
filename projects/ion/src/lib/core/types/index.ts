@@ -13,3 +13,5 @@ export * from './info-badge';
 export * from './direction';
 export * from './status';
 export * from './size';
+export * from './skeleton';
+export * from './spinner';
