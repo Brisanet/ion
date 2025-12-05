@@ -1,6 +1,9 @@
 export * from './lib/ion.service';
 export * from './lib/ion.component';
 export * from './lib/avatar/avatar.component';
+export * from './lib/ion.service';
+export * from './lib/ion.component';
+export * from './lib/avatar/avatar.component';
 export * from './lib/badge/badge.component';
 export { IonBreadcrumbComponent } from './lib/breadcrumb/breadcrumb.component';
 export * from './lib/button/button.component';
@@ -8,6 +11,7 @@ export * from './lib/checkbox/checkbox.component';
 export { IonChipComponent } from './lib/chip/chip.component';
 export { IonChipGroupComponent } from './lib/chip-group/chip-group.component';
 export * from './lib/dropdown/dropdown.component';
+export * from './lib/radio/radio.component';
 export * from './lib/icon/icon.component';
 export * from './lib/info-badge/info-badge.component';
 export * from './lib/alert/alert.component';

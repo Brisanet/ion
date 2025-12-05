@@ -297,4 +297,19 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Radio</h2>
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      <ion-radio label="Unchecked"></ion-radio>
+      <ion-radio label="Checked" [checked]="true"></ion-radio>
+      <ion-radio label="Disabled" [disabled]="true"></ion-radio>
+      <ion-radio label="Disabled Checked" [disabled]="true" [checked]="true"></ion-radio>
+      
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <ion-radio label="Interactive" [(checked)]="radioValue"></ion-radio>
+        <span>Value: {{ radioValue }}</span>
+      </div>
+    </div>
+  </section>
 </div>
