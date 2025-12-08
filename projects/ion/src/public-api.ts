@@ -25,4 +25,6 @@ export * from './lib/pagination/pagination.component';
 export * from './lib/tooltip/tooltip.component';
 export * from './lib/tooltip/tooltip.directive';
 export * from './lib/tooltip/tooltip.service';
+export * from './lib/input/input.component';
+
 

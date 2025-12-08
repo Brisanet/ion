@@ -441,4 +441,126 @@
       </span>
     </div>
   </section>
+
+  <section>
+    <h2>Input</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px;">
+      <div>
+        <h3>Basic Input</h3>
+        <ion-input 
+          placeholder="Enter text here..."
+          [(value)]="basicInputValue"
+        ></ion-input>
+        <p>Value: {{ basicInputValue }}</p>
+      </div>
+
+      <div>
+        <h3>Input with Left Icon</h3>
+        <ion-input 
+          placeholder="Search..."
+          iconInput="search"
+          iconDirection="left"
+          [(value)]="searchInputValue"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Input with Right Icon</h3>
+        <ion-input 
+          placeholder="Enter email"
+          iconInput="email"
+          iconDirection="right"
+          inputType="email"
+          [(value)]="emailInputValue"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Password Input</h3>
+        <ion-input 
+          placeholder="Enter password"
+          inputType="password"
+          [(value)]="passwordInputValue"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Input with Clear Button</h3>
+        <ion-input 
+          placeholder="Type to see clear button"
+          [clearButton]="true"
+          [(value)]="basicInputValue"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Input with Max Length (10 chars)</h3>
+        <ion-input 
+          placeholder="Max 10 characters"
+          [maxLength]="10"
+          [(value)]="inputWithMaxLength"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Valid Input</h3>
+        <ion-input 
+          placeholder="Valid input"
+          [valid]="true"
+          value="valid@email.com"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Invalid Input with Error</h3>
+        <ion-input 
+          placeholder="Invalid input"
+          [invalid]="true"
+          errorMsg="This field is required"
+          value="invalid"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Disabled Input</h3>
+        <ion-input 
+          placeholder="Disabled input"
+          [disabled]="true"
+          value="Cannot edit this"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Readonly Input</h3>
+        <ion-input 
+          placeholder="Readonly input"
+          [readonly]="true"
+          value="Read only value"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Input with Button</h3>
+        <ion-input 
+          placeholder="Search with button"
+          [inputButton]="true"
+          [inputButtonConfig]="{
+            label: 'Search',
+            type: 'primary',
+            iconType: 'search'
+          }"
+          (clickButton)="handleInputButtonClick()"
+          [(value)]="searchInputValue"
+        ></ion-input>
+      </div>
+
+      <div>
+        <h3>Number Input</h3>
+        <ion-input 
+          placeholder="Enter number"
+          inputType="number"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
 </div>
