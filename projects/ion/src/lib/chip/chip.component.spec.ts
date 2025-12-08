@@ -74,7 +74,11 @@ describe('ChipComponent', () => {
   );
 
   it('should render icon on left', async () => {
-    await sut({ label: 'custom-position', iconPosition: 'left', icon: 'close' });
+    await sut({
+      label: 'custom-position',
+      iconPosition: 'left',
+      icon: 'close',
+    });
     const chipIcon = screen.getByTestId('chip-icon-left');
     expect(chipIcon).toHaveClass('icon-color chip-icon-left');
   });
@@ -89,7 +93,7 @@ describe('ChipComponent', () => {
     const selectEvent = jest.fn();
     const { fixture } = await sut({ label: 'with event' });
     fixture.componentInstance.events.subscribe(selectEvent);
-    
+
     const element = screen.getByTestId('ion-chip');
     fireEvent.click(element);
     expect(element).toHaveClass('chip-selected');
@@ -151,7 +155,7 @@ describe('ChipComponent', () => {
 
   describe('With Dropdown', () => {
     let dropdownEvent: jest.Mock;
-    
+
     beforeEach(async () => {
       dropdownEvent = jest.fn();
       const { fixture } = await sut({
@@ -244,7 +248,7 @@ describe('With Multiple Dropdown', () => {
       key: 'one_more_light',
     },
   ];
-  
+
   beforeEach(async () => {
     dropdownEvent = jest.fn();
     eventsEmit = jest.fn();
@@ -355,7 +359,7 @@ describe('With Dropdown with search input', () => {
   beforeEach(async () => {
     const { fixture } = await sut({
       label,
-      options: [],
+      options: [{ label: 'Option 1' }],
       dropdownSearchConfig: {
         enableSearch: true,
         searchOptions: {
@@ -373,14 +377,14 @@ describe('With Dropdown with search input', () => {
 
   it('should emit search event when search input change', async () => {
     const input = 'folklore';
-    userEvent.type(screen.getByTestId('input-element'), input);
+    await userEvent.type(screen.getByTestId('input-element'), input);
     expect(screen.getByTestId('input-element')).toHaveValue(input);
     expect(searchEvent).toHaveBeenCalledWith(input);
   });
 
   it('should toggle dropdown when click', async () => {
     expect(getContainerDropdown()).toBeTruthy();
-    userEvent.click(screen.getByText('dropdown'));
+    await userEvent.click(screen.getByText('dropdown'));
     expect(getContainerDropdown()).toBe(null);
   });
 
@@ -416,7 +420,7 @@ describe('IonChipComponent / Option showToggle', () => {
     await sut({
       label: 'dropdown',
       showToggle: true,
-      options: [],
+      options: [{ label: 'Option 1' }],
     });
 
     fireEvent.click(screen.getByText('dropdown'));

@@ -8,21 +8,18 @@
   <span class="dropdown-description" data-testid="dropdown-description">
     {{ description() }}
   </span>
-  }
-  
-  @if (enableSearch()) {
+  } @if (enableSearch()) {
   <div class="dropdown-search">
     <!-- Placeholder for ion-input - will be migrated later -->
     <input
+      data-testid="input-element"
       type="text"
       [placeholder]="searchOptions()?.placeholder || ''"
       [disabled]="searchOptions()?.disabled || false"
       (input)="inputChange($any($event.target).value)"
     />
   </div>
-  }
-
-  @if (!loading() && options().length > 0) {
+  } @if (!loading() && options().length > 0) {
   <div
     #optionList
     class="options-list"
@@ -44,17 +41,18 @@
       <div class="container">
         <div class="option-label">
           @if (option.icon) {
-          <ion-icon
-            [type]="option.icon"
-            [size]="iconSize()"
-          ></ion-icon>
+          <ion-icon [type]="option.icon" [size]="iconSize()"></ion-icon>
           }
-          {{ $any(option)[propLabel() || 'label'] }}
+          {{ $any(option)[propLabel() || "label"] }}
         </div>
         @if (option.selected) {
         <ion-icon
           [type]="option.hovered && canDeselect() ? 'close' : 'check'"
-          [attr.data-testid]="'ion-' + (option.hovered && canDeselect() ? 'close' : 'check') + '-selected'"
+          [attr.data-testid]="
+            'ion-' +
+            (option.hovered && canDeselect() ? 'close' : 'check') +
+            '-selected'
+          "
           [size]="iconSize()"
         ></ion-icon>
         }
@@ -62,13 +60,9 @@
     </div>
     }
   </div>
-  }
-
-  @if (loading()) {
+  } @if (loading()) {
   <div data-testid="ion-spinner">Loading...</div>
-  }
-
-  @if ((!options() || options().length === 0) && !loading()) {
+  } @if ((!options() || options().length === 0) && !loading()) {
   <div data-testid="ion-no-data">
     <ion-icon
       [type]="noDataConfig()!.iconType!"
@@ -77,17 +71,14 @@
     ></ion-icon>
     <span>{{ noDataConfig()!.label }}</span>
   </div>
-  }
-
-  @if (clearButtonIsVisible()) {
-    <button
-      class="clear-button"
-      (click)="clearOptions(true)"
-      data-testid="button-clear"
-    >
-      <ion-icon type="trash" [size]="iconSize()"></ion-icon>
-      <span data-testid="btn-Limpar">Limpar</span>
-    </button>
+  } @if (clearButtonIsVisible()) {
+  <button
+    class="clear-button"
+    (click)="clearOptions(true)"
+    data-testid="button-clear"
+  >
+    <ion-icon type="trash" [size]="iconSize()"></ion-icon>
+    <span data-testid="btn-Limpar">Limpar</span>
+  </button>
   }
 </div>
-

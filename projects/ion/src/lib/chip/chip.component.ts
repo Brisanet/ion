@@ -142,10 +142,12 @@ export class IonChipComponent {
     this.toggleDropdown();
 
     if (
-      (!this.options().length && this.chipGroup() && !this.chipGroupRequired()) ||
+      (!this.options().length &&
+        this.chipGroup() &&
+        !this.chipGroupRequired()) ||
       !this.chipGroup()
     ) {
-      this.internalSelected.update(val => !val);
+      this.internalSelected.update((val) => !val);
     }
 
     this.events.emit({
@@ -179,6 +181,7 @@ export class IonChipComponent {
       this.setPlaceHolder(selecteds[0].label, selecteds[0].icon);
     } else {
       this.clearBadgeValue();
+      this.updateLabel();
     }
   }
 
@@ -217,8 +220,12 @@ export class IonChipComponent {
     const opts = this.options();
     this.placeholder.set(this.label());
     this.iconPlaceholder.set(undefined);
-
-    if (this.multiple() || !opts || opts.length === 0) {
+    if (
+      this.multiple() ||
+      !opts ||
+      opts.length === 0 ||
+      opts.every((o) => !o.selected)
+    ) {
       return;
     }
 
