@@ -367,4 +367,26 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Pagination</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <h3>Basic</h3>
+        <ion-pagination [total]="50"></ion-pagination>
+      </div>
+      <div>
+        <h3>With Items Per Page</h3>
+        <ion-pagination [total]="100" [allowChangeQtdItems]="true"></ion-pagination>
+      </div>
+      <div>
+        <h3>Advanced</h3>
+        <ion-pagination [total]="200" [allowChangeQtdItems]="true"></ion-pagination>
+      </div>
+      <div>
+        <h3>Small Size</h3>
+        <ion-pagination [total]="50" size="sm"></ion-pagination>
+      </div>
+    </div>
+  </section>
 </div>

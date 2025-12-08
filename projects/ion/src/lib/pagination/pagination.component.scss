@@ -1,0 +1,71 @@
+@use 'pagination.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin setBorderBgColor($prefix) {
+  border: 1px solid ion-theme(#{$prefix}-border-color);
+  background-color: ion-theme(#{$prefix}-background-color);
+  color: ion-theme(#{$prefix}-text-color);
+}
+
+.pag-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+@each $size in sm, md {
+  .page-#{$size} {
+    min-width: ion-theme(pagination-size-#{$size}-size);
+    height: ion-theme(pagination-size-#{$size}-size);
+    border-radius: ion-theme(pagination-size-#{$size}-border-radius);
+  }
+}
+
+.pages-list {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+  max-width: 352px;
+}
+
+.square-pag {
+  @include setBorderBgColor(pagination-page);
+
+  font-family: ion-theme(pagination-text-font-family);
+  font-weight: ion-theme(pagination-text-font-weight);
+  font-size: ion-theme(pagination-text-font-size);
+
+  transition: all 300ms;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus;
+  }
+
+  &:hover {
+    @include setBorderBgColor(pagination-page-hover);
+  }
+
+  &:active {
+    @include setBorderBgColor(pagination-page-active);
+  }
+}
+
+.selected {
+  @include setBorderBgColor(pagination-page-selected);
+}
+
+.disabled,
+.disabled:hover {
+  @include setBorderBgColor(pagination-page-disabled);
+  cursor: not-allowed;
+}

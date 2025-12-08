@@ -21,3 +21,4 @@ export * from './lib/divider/divider.component';
 export * from './lib/skeleton/skeleton.component';
 export * from './lib/spinner/spinner.component';
 export * from './lib/core/types';
+export * from './lib/pagination/pagination.component';

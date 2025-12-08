@@ -19,10 +19,11 @@ import {
   ChipInGroup,
   IonRadioComponent
 } from 'ion';
+import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent, IonRadioComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent, IonRadioComponent, IonPaginationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
