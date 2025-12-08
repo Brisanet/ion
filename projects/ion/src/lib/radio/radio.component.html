@@ -1,0 +1,19 @@
+<form class="ion-input-radio">
+  <input
+    (click)="check()"
+    [name]="label()"
+    [id]="label()"
+    [value]="value() || label()"
+    [disabled]="disabled()"
+    type="radio"
+    [checked]="checked()"
+    [class.radio]="!checked()"
+    [class.radio-checked]="checked()"
+  />
+  <label
+    [class.labelDisabled]="!disabled()"
+    [class.labelDisabled-checked]="disabled()"
+    (click)="check()"
+    >{{ label() }}</label
+  >
+</form>

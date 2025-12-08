@@ -16,12 +16,13 @@ import {
   IonBreadcrumbComponent,
   IonChipComponent,
   IonChipGroupComponent,
-  ChipInGroup
+  ChipInGroup,
+  IonRadioComponent
 } from 'ion';
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent],
+  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent, IonRadioComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -48,4 +49,6 @@ export class AppComponent {
     { label: 'Required 1', selected: true },
     { label: 'Required 2', selected: false }
   ];
+
+  radioValue = false;
 }
