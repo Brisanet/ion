@@ -5,6 +5,7 @@ import {
   input,
   output,
   signal,
+  untracked,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonButtonComponent } from '../button/button.component';
@@ -83,7 +84,9 @@ export class IonPaginationComponent {
 
     effect(
       () => {
-        this.remountPages();
+        this.total();
+        this.currentItemsPerPage();
+        untracked(() => this.remountPages());
       },
       { allowSignalWrites: true }
     );
