@@ -17,13 +17,34 @@ import {
   IonChipComponent,
   IonChipGroupComponent,
   ChipInGroup,
-  IonRadioComponent
+  IonRadioComponent,
+  IonTooltipDirective,
+  TooltipPosition,
+  TooltipTrigger
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
 @Component({
   selector: 'app-root',
-  imports: [IonAvatarComponent, IonBadgeComponent, IonButtonComponent, IonCheckboxComponent, IonIconComponent, IonInfoBadgeComponent, IonAccordionComponent, IonDividerComponent, IonSkeletonComponent, IonSpinnerComponent, IonAlertComponent, IonBreadcrumbComponent, IonChipComponent, IonChipGroupComponent, IonRadioComponent, IonPaginationComponent],
+  imports: [
+    IonAvatarComponent, 
+    IonBadgeComponent, 
+    IonButtonComponent, 
+    IonCheckboxComponent, 
+    IonIconComponent, 
+    IonInfoBadgeComponent, 
+    IonAccordionComponent, 
+    IonDividerComponent, 
+    IonSkeletonComponent, 
+    IonSpinnerComponent, 
+    IonAlertComponent, 
+    IonBreadcrumbComponent, 
+    IonChipComponent, 
+    IonChipGroupComponent, 
+    IonRadioComponent, 
+    IonPaginationComponent,
+    IonTooltipDirective
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -52,4 +73,8 @@ export class AppComponent {
   ];
 
   radioValue = false;
+
+  // Tooltip enums for template
+  TooltipPosition = TooltipPosition;
+  TooltipTrigger = TooltipTrigger;
 }

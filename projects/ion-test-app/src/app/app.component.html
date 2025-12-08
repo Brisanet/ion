@@ -388,4 +388,57 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Tooltip</h2>
+    <div style="display: flex; gap: 30px; flex-wrap: wrap; align-items: center; margin-top: 50px;">
+      <span ionTooltip ionTooltipTitle="Simple hover tooltip">Hover me</span>
+      
+      <ion-button
+        label="Tooltip on Button"
+        ionTooltip
+        ionTooltipTitle="I am a tooltip on a button"
+        [ionTooltipPosition]="TooltipPosition.BOTTOM_CENTER"
+      ></ion-button>
+
+      <span
+        ionTooltip
+        ionTooltipTitle="Click to toggle"
+        [ionTooltipTrigger]="TooltipTrigger.CLICK"
+      >
+        Click me
+      </span>
+
+      <ng-template #customTooltip>
+        <div style="padding: 4px;">
+          <strong>Custom Content</strong>
+          <p style="margin: 4px 0 0 0;">With HTML support</p>
+        </div>
+      </ng-template>
+
+      <span
+        ionTooltip
+        [ionTooltipTemplateRef]="customTooltip"
+        [ionTooltipPosition]="TooltipPosition.TOP_RIGHT"
+      >
+        Custom Template
+      </span>
+
+      <span
+        ionTooltip
+        ionTooltipTitle="Light theme tooltip"
+        ionTooltipColorScheme="light"
+      >
+        Light Theme
+      </span>
+
+      <span
+        ionTooltip
+        ionTooltipTitle="Tooltip with custom class"
+        ionTooltipCustomClass="my-custom-tooltip"
+      >
+        Custom Class
+      </span>
+    </div>
+  </section>
 </div>

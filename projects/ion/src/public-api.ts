@@ -22,3 +22,7 @@ export * from './lib/skeleton/skeleton.component';
 export * from './lib/spinner/spinner.component';
 export * from './lib/core/types';
 export * from './lib/pagination/pagination.component';
+export * from './lib/tooltip/tooltip.component';
+export * from './lib/tooltip/tooltip.directive';
+export * from './lib/tooltip/tooltip.service';
+
