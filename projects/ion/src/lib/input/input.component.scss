@@ -1,0 +1,204 @@
+@use 'input.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+.input-container {
+  display: flex;
+  line-height: 0;
+  width: 100%;
+}
+
+div.input {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  background: ion-theme(input-background-color);
+  border-radius: ion-theme(input-border-radius);
+  box-shadow: none;
+  width: 100%;
+  border: 1px solid ion-theme(input-element-border-color);
+
+  & input.my-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    border-radius: ion-theme(input-border-radius);
+    color: ion-theme(input-element-text-color);
+    font-size: ion-theme(input-element-text-font-size);
+    padding: ion-theme(input-element-padding);
+
+    &::placeholder {
+      color: ion-theme(input-element-placeholder-color);
+      font-weight: ion-theme(input-element-placeholder-text-font-weight);
+      font-size: ion-theme(input-element-placeholder-text-font-size);
+    }
+  }
+
+  &:not(.disabled) {
+    &:hover {
+      border-color: ion-theme(input-element-hover-border-color);
+    }
+
+    &:focus-within,
+    &:active {
+      border-color: ion-theme(input-element-active-border-color);
+      box-shadow: 0 0 0 2px ion-theme(input-element-active-shadow-color);
+    }
+  }
+
+  &:has(.left-icon) .my-input {
+    padding-left: ion-theme(input-element-side-icon-distance);
+  }
+
+  &:has(.icon-valid),
+  &:has(.icon-invalid),
+  &:has(.right-icon),
+  &:has(.clearButton) {
+    .my-input {
+      padding-right: ion-theme(input-element-side-icon-distance);
+    }
+
+    .text-counter {
+      margin-right: spacing(3);
+    }
+  }
+
+  ion-icon ::ng-deep svg {
+    fill: ion-theme(input-icon-color);
+  }
+
+  .left-icon {
+    position: absolute;
+    left: spacing(1.5);
+  }
+
+  .right-icon {
+    position: absolute;
+    right: spacing(1.5);
+  }
+}
+
+@each $state in valid, invalid {
+  div.#{$state} {
+    .icon-#{$state} {
+      position: absolute;
+      right: spacing(1.5);
+
+      ::ng-deep svg {
+        fill: ion-theme(input-#{$state}-icon-color);
+      }
+    }
+
+    .right-icon {
+      right: spacing(4.5);
+    }
+
+    &:has(.right-icon) .my-input {
+      padding-right: spacing(7.5);
+    }
+  }
+}
+
+div.invalid {
+  border-color: ion-theme(input-invalid-border-color) !important;
+
+  &:hover {
+    border-color: ion-theme(input-invalid-hover-border-color) !important;
+  }
+
+  &:focus-within,
+  &:active {
+    border-color: ion-theme(input-invalid-focus-border-color) !important;
+    box-shadow: 0 0 0 2px ion-theme(input-invalid-focus-shadow-color) !important;
+  }
+}
+
+div.disabled {
+  background: ion-theme(input-disabled-background);
+  cursor: not-allowed;
+  border-color: ion-theme(input-disabled-border-color) !important;
+
+  input {
+    cursor: not-allowed;
+    color: ion-theme(input-disabled-text-color) !important;
+
+    &::placeholder {
+      color: ion-theme(input-disabled-element-placeholder-color) !important;
+    }
+  }
+
+  &:hover,
+  &:focus-within,
+  &:active {
+    border-color: ion-theme(input-disabled-border-color);
+    box-shadow: none;
+  }
+
+  ion-icon ::ng-deep svg {
+    fill: ion-theme(input-disabled-icon-color);
+  }
+
+  .text-counter {
+    color: ion-theme(input-disabled-element-count-text-color);
+  }
+}
+
+.clearButton {
+  position: absolute;
+  right: spacing(1.5);
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+  background-color: transparent;
+  display: flex;
+
+  &:hover {
+    background-color: ion-theme(
+      input-clear-button-hover-background-color
+    ) !important;
+  }
+
+  ion-icon ::ng-deep svg {
+    fill: ion-theme(input-clear-button-icon-color) !important;
+  }
+}
+
+.errorMsg p {
+  margin: 4px 0 0;
+  color: ion-theme(input-error-message-text-color);
+}
+
+.input-button {
+  .input,
+  input {
+    border-radius: ion-theme(input-border-radius) 0 0
+      ion-theme(input-border-radius) !important;
+  }
+
+  ::ng-deep button:not(.clearButton) {
+    height: 100%;
+    padding: spacing(0.75) spacing(1.5);
+    border-radius: 0 ion-theme(input-border-radius)
+      ion-theme(input-border-radius) 0;
+    border-left: none;
+    transition: none;
+
+    &:not(:hover).ion-btn-secondary {
+      border-color: ion-theme(input-element-border-color);
+    }
+
+    &.ion-remove-space {
+      padding: 0 spacing(1) !important;
+    }
+  }
+}
+
+.text-counter {
+  padding: 6px 12px;
+  font-size: ion-theme(input-count-text-font-size);
+  color: ion-theme(input-count-text-color) !important;
+}

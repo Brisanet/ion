@@ -20,7 +20,8 @@ import {
   IonRadioComponent,
   IonTooltipDirective,
   TooltipPosition,
-  TooltipTrigger
+  TooltipTrigger,
+  IonInputComponent
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -43,7 +44,8 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonChipGroupComponent, 
     IonRadioComponent, 
     IonPaginationComponent,
-    IonTooltipDirective
+    IonTooltipDirective,
+    IonInputComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -77,4 +79,15 @@ export class AppComponent {
   // Tooltip enums for template
   TooltipPosition = TooltipPosition;
   TooltipTrigger = TooltipTrigger;
+
+  // Input examples
+  basicInputValue = '';
+  emailInputValue = '';
+  passwordInputValue = '';
+  searchInputValue = '';
+  inputWithMaxLength = '';
+  
+  handleInputButtonClick(): void {
+    console.log('Input button clicked!');
+  }
 }
