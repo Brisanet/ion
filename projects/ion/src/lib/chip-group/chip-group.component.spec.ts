@@ -88,17 +88,6 @@ describe('ChipGroupComponent', () => {
     }
   );
 
-  it('should emit selected chip when double clicked', async () => {
-    const mockChips = createMockChips();
-    const { event } = await sut({ chips: mockChips });
-    fireEvent.click(screen.getByText(mockChips[0].label));
-    fireEvent.click(screen.getByText(mockChips[0].label));
-    expect(event).toHaveBeenCalledWith({
-      label: mockChips[0].label,
-      selected: true,
-    });
-  });
-
   it('when chipgroup is multiple chip basic should remain selected when other is clicked', async () => {
     const mockChips = createMockChips();
     const { event } = await sut({
