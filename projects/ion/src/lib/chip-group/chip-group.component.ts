@@ -42,9 +42,10 @@ export class IonChipGroupComponent {
     if (this.disabled() || chipSelected.disabled) {
       return;
     }
-    const isChipSelectedOrMultiple =
-      chipSelected.multiple && chipSelected.selected;
-    if (isChipSelectedOrMultiple) {
+
+    const isMultipleDropdownChip =
+      chipSelected.multiple && chipSelected.selected && chipSelected.options;
+    if (isMultipleDropdownChip) {
       return;
     }
 
@@ -61,21 +62,12 @@ export class IonChipGroupComponent {
       this.clearChips();
     }
 
-    const isSingleOrSelectedChip = !chipSelected.multiple || !isChipSelected;
-
-    if (isSingleOrSelectedChip) {
-      chipSelected.selected = !isChipSelected;
-    }
+    chipSelected.selected = !isChipSelected;
 
     if (this.required()) {
       this.checkRequired(chipSelected);
     }
-    
-    // Update the model to trigger change detection if needed, 
-    // though mutating objects inside the array might not trigger signal updates directly 
-    // without creating a new array reference. 
-    // For now, we keep the mutation approach as it matches the original logic, 
-    // but we might need to update the signal with a new array reference if the UI doesn't update.
+
     this.chips.update(chips => [...chips]);
 
     return chipSelected;
