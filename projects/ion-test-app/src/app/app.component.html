@@ -563,4 +563,122 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Tabs</h2>
+    <div style="display: flex; flex-direction: column; gap: 40px; margin-top: 20px;">
+      <!-- Basic Tabs -->
+      <div>
+        <h3>Basic Tabs (Small)</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Home" [selected]="true"></ion-tab>
+          <ion-tab label="Profile"></ion-tab>
+          <ion-tab label="Settings"></ion-tab>
+          <ion-tab label="About"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Medium Size -->
+      <div>
+        <h3>Medium Size Tabs</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Dashboard" tabSize="md" [selected]="true"></ion-tab>
+          <ion-tab label="Analytics" tabSize="md"></ion-tab>
+          <ion-tab label="Reports" tabSize="md"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Large Size -->
+      <div>
+        <h3>Large Size Tabs</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Overview" tabSize="lg" [selected]="true"></ion-tab>
+          <ion-tab label="Details" tabSize="lg"></ion-tab>
+          <ion-tab label="History" tabSize="lg"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Tabs with Icons -->
+      <div>
+        <h3>Tabs with Icons</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Home" iconType="home" [selected]="true"></ion-tab>
+          <ion-tab label="Search" iconType="search"></ion-tab>
+          <ion-tab label="Settings" iconType="config"></ion-tab>
+          <ion-tab label="User" iconType="user"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Tabs with Badges -->
+      <div>
+        <h3>Tabs with Badges</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Messages" [badge]="{ value: 5 }" [selected]="true"></ion-tab>
+          <ion-tab label="Notifications" [badge]="{ value: 12 }"></ion-tab>
+          <ion-tab label="Alerts" [badge]="{ value: 3 }"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Tabs with Icons and Badges -->
+      <div>
+        <h3>Tabs with Icons and Badges</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab 
+            label="Inbox" 
+            iconType="email" 
+            [badge]="{ value: 8 }" 
+            [selected]="true"
+          ></ion-tab>
+          <ion-tab 
+            label="Tasks" 
+            iconType="check" 
+            [badge]="{ value: 15 }"
+          ></ion-tab>
+          <ion-tab 
+            label="Calendar" 
+            iconType="calendar" 
+            [badge]="{ value: 2 }"
+          ></ion-tab>
+        </div>
+      </div>
+
+      <!-- Disabled State -->
+      <div>
+        <h3>Disabled Tabs</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Active" [selected]="true"></ion-tab>
+          <ion-tab label="Disabled" [disabled]="true"></ion-tab>
+          <ion-tab label="Also Disabled" [disabled]="true"></ion-tab>
+        </div>
+      </div>
+
+      <!-- Different Border Directions -->
+      <div>
+        <h3>Border Direction: Top</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tab label="Tab 1" direction="top" [selected]="true"></ion-tab>
+          <ion-tab label="Tab 2" direction="top"></ion-tab>
+          <ion-tab label="Tab 3" direction="top"></ion-tab>
+        </div>
+      </div>
+
+      <div>
+        <h3>Border Direction: Right</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 200px;">
+          <ion-tab label="Tab 1" direction="right" [selected]="true"></ion-tab>
+          <ion-tab label="Tab 2" direction="right"></ion-tab>
+          <ion-tab label="Tab 3" direction="right"></ion-tab>
+        </div>
+      </div>
+
+      <div>
+        <h3>Border Direction: Left</h3>
+        <div style="display: flex; flex-direction: column; gap: 10px; max-width: 200px;">
+          <ion-tab label="Tab 1" direction="left" [selected]="true"></ion-tab>
+          <ion-tab label="Tab 2" direction="left"></ion-tab>
+          <ion-tab label="Tab 3" direction="left"></ion-tab>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

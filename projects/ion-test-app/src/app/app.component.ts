@@ -21,7 +21,9 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent
+  IonInputComponent,
+  IonTabComponent,
+  TabSize
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -45,7 +47,8 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonRadioComponent, 
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent
+    IonInputComponent,
+    IonTabComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

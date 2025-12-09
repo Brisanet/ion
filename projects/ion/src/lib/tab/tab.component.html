@@ -1,0 +1,23 @@
+<button
+  (click)="select()"
+  [disabled]="disabled()"
+  [class.tab]="!selected()"
+  [class.tab-selected]="selected()"
+  [class.tab-sm]="tabSize() === 'sm'"
+  [class.tab-md]="tabSize() === 'md'"
+  [class.tab-lg]="tabSize() === 'lg'"
+  [class]="'border-' + direction()"
+>
+  @if (iconType()) {
+    <ion-icon class="tab-icon" [type]="iconType()!"></ion-icon>
+  }
+  {{ label() || 'Configure uma label' }}
+
+  @if (badge()) {
+    <ion-badge
+      data-testid="badge-tab"
+      [value]="badge()!.value"
+      type="primary"
+    ></ion-badge>
+  }
+</button>

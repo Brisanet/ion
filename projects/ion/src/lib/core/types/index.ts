@@ -16,4 +16,6 @@ export * from './size';
 export * from './skeleton';
 export * from './spinner';
 export * from './tooltip';
+export * from './popover';
+export * from './tab';
 
