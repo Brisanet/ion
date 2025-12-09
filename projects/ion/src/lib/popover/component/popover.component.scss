@@ -1,0 +1,308 @@
+@use 'popover.theme';
+
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
+
+$popover-spacing: 14px;
+$popover-width: 299px;
+
+$arrow-width: 13px;
+$arrow-heigth: 13px;
+$arrow-visible-diagonal: 18px;
+$arrow-spacing-to-popover: calc($arrow-visible-diagonal / 2);
+$arrow-distance-to-border: 16px;
+
+@mixin sup-container($background, $arrowPosition, $left, $rotate, $position) {
+  display: inline-block;
+  width: $popover-width;
+  justify-content: flex-end;
+  border-radius: spacing(1);
+  position: relative;
+  z-index: $zIndexMid;
+
+  &.without-header::before {
+    background-color: ion-theme(arrow-body-color);
+  }
+
+  @if ($position == 'header') {
+    &::before {
+      content: '';
+      display: block;
+      width: $arrow-width;
+      height: $arrow-heigth;
+      position: absolute;
+      box-shadow: ion-theme(popover-arrow-shadow);
+      background-color: ion-theme($background);
+      top: $arrowPosition;
+      left: $left;
+      transform: rotate($rotate);
+      border-top: 1px solid ion-theme(popover-border-color);
+      border-left: 1px solid ion-theme(popover-border-color);
+    }
+  }
+
+  @if ($position == 'footer') {
+    &::after {
+      content: '';
+      display: block;
+      width: $arrow-width;
+      height: $arrow-heigth;
+      position: absolute;
+      box-shadow: ion-theme(popover-arrow-shadow);
+      background-color: ion-theme($background);
+      bottom: $arrowPosition;
+      left: $left;
+      transform: rotate($rotate);
+      border-top: 1px solid ion-theme(popover-border-color);
+      border-left: 1px solid ion-theme(popover-border-color);
+    }
+  }
+}
+
+.ion-popover {
+  opacity: 0;
+
+  &--visible {
+    opacity: 1;
+    transition: opacity 0.3s;
+  }
+
+  &__sup-container {
+    &--topRight {
+      padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        popover-arrow-header-color,
+        $arrow-spacing-to-popover,
+        calc(
+          $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
+        ),
+        -135deg,
+        'footer'
+      );
+    }
+
+    &--topCenter {
+      padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        popover-arrow-header-color,
+        $arrow-spacing-to-popover,
+        calc($popover-width / 2 - $arrow-width / 2),
+        -135deg,
+        'footer'
+      );
+    }
+
+    &--topLeft {
+      padding-bottom: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        popover-arrow-header-color,
+        $arrow-spacing-to-popover,
+        $arrow-distance-to-border,
+        -135deg,
+        'footer'
+      );
+    }
+
+    &--leftBottom {
+      padding-right: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        popover-arrow-header-color,
+        $arrow-distance-to-border,
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
+        135deg,
+        'footer'
+      );
+    }
+
+    &--leftCenter {
+      padding-right: $popover-spacing;
+      transform: translateY(-50%);
+      @include sup-container(
+        popover-arrow-header-color,
+        calc(50% - $arrow-heigth / 2),
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
+        135deg,
+        'footer'
+      );
+    }
+
+    &--leftTop {
+      padding-right: $popover-spacing;
+      @include sup-container(
+        popover-arrow-body-color,
+        $arrow-distance-to-border,
+        calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
+        135deg,
+        'header'
+      );
+    }
+
+    &--bottomRight {
+      padding-top: $popover-spacing;
+      @include sup-container(
+        popover-arrow-body-color,
+        $arrow-spacing-to-popover,
+        calc(
+          $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
+        ),
+        45deg,
+        'header'
+      );
+    }
+
+    &--bottomCenter {
+      padding-top: $popover-spacing;
+      @include sup-container(
+        popover-arrow-body-color,
+        $arrow-spacing-to-popover,
+        calc($popover-width / 2 - $arrow-width / 2),
+        45deg,
+        'header'
+      );
+    }
+
+    &--bottomLeft {
+      padding-top: $popover-spacing;
+      @include sup-container(
+        popover-arrow-body-color,
+        $arrow-spacing-to-popover,
+        $arrow-distance-to-border,
+        45deg,
+        'header'
+      );
+    }
+
+    &--rightBottom {
+      padding-left: $popover-spacing;
+      transform: translateY(-100%);
+      @include sup-container(
+        popover-arrow-header-color,
+        $arrow-distance-to-border,
+        $arrow-spacing-to-popover,
+        -45deg,
+        'footer'
+      );
+    }
+
+    &--rightCenter {
+      padding-left: $popover-spacing;
+      transform: translateY(-50%);
+      @include sup-container(
+        popover-arrow-header-color,
+        calc(50% - $arrow-heigth / 2),
+        $arrow-spacing-to-popover,
+        -45deg,
+        'footer'
+      );
+    }
+
+    &--rightTop {
+      padding-left: $popover-spacing;
+      @include sup-container(
+        popover-arrow-body-color,
+        $arrow-distance-to-border,
+        $arrow-spacing-to-popover,
+        -45deg,
+        'header'
+      );
+    }
+  }
+
+  &__container {
+    z-index: $zIndexMid;
+    border-radius: spacing(1);
+    box-shadow: ion-theme(popover-shadow);
+    background-color: ion-theme(popover-background-color);
+    border: 1px solid ion-theme(popover-border-color);
+  }
+
+  &__header {
+    display: flex;
+    background-color: ion-theme(popover-header-background-color);
+    justify-content: space-between;
+    border-radius: spacing(1) spacing(1) 0 0;
+    align-items: center;
+    padding: spacing(1.5) spacing(2) spacing(1);
+
+    & > div {
+      display: flex;
+      align-items: center;
+      gap: 10.5px;
+      overflow: hidden;
+      align-items: center;
+    }
+  }
+
+  &__title {
+    font-family: ion-theme(font-family-main);
+    font-weight: ion-theme(popover-header-title-text-font-weight);
+    font-size: ion-theme(popover-header-title-text-font-size);
+    line-height: ion-theme(popover-header-title-text-line-height);
+    color: ion-theme(popover-header-title-text-color);
+  }
+
+  &__icon-close {
+    cursor: pointer;
+    ::ng-deep svg {
+      fill: ion-theme(popover-header-close-icon-color);
+    }
+  }
+
+  &__content-body {
+    padding: spacing(2);
+    background-color: ion-theme(popover-body-background-color);
+    border-radius: 0 0 spacing(1) spacing(1);
+    font-family: ion-theme(popover-body-text-font-family);
+    font-weight: ion-theme(popover-body-text-font-weight);
+    font-size: ion-theme(popover-body-text-font-size);
+    line-height: ion-theme(popover-body-text-line-height);
+    color: ion-theme(popover-body-text-color);
+    max-height: 92px;
+    overflow-y: auto;
+  }
+
+  &__footer {
+    display: flex;
+    gap: spacing(2);
+    padding: spacing(1) spacing(2) spacing(2) spacing(2);
+    justify-content: flex-end;
+  }
+}
+
+.without-header {
+  & .ion-popover__container {
+    padding: 16px 4px 16px 16px;
+  }
+
+  & .ion-popover__content-body {
+    border-radius: spacing(1);
+    padding: 0 8px 0 0;
+  }
+
+  &:has(.ion-popover__footer) {
+    .ion-popover__container {
+      padding: 0;
+    }
+
+    .ion-popover__content-body {
+      padding: 16px 16px 12px;
+    }
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: ion-theme(popover-scrollbar-thumb-color);
+}

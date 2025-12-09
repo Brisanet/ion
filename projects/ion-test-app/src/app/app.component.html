@@ -443,6 +443,219 @@
   </section>
 
   <section>
+    <h2>Popover</h2>
+    <div style="display: flex; flex-direction: column; gap: 30px; margin-top: 50px;">
+      <!-- Basic Popover -->
+      <div>
+        <h3>Basic Popover (Click)</h3>
+        <ion-button
+          label="Click for Popover"
+          ionPopover
+          ionPopoverTitle="Basic Popover"
+          ionPopoverBody="This is a simple popover with just a title and body text."
+        ></ion-button>
+      </div>
+
+      <!-- Popover with Icon -->
+      <div>
+        <h3>Popover with Icon</h3>
+        <ion-button
+          label="Popover with Icon"
+          ionPopover
+          ionPopoverTitle="Information"
+          ionPopoverBody="This popover includes an icon in the header."
+          ionPopoverIcon="info"
+          ionPopoverIconColor="#0858ce"
+        ></ion-button>
+      </div>
+
+      <!-- Popover with Close Icon -->
+      <div>
+        <h3>Popover with Close Button</h3>
+        <ion-button
+          label="Closable Popover"
+          ionPopover
+          ionPopoverTitle="Closable"
+          ionPopoverBody="This popover has a close button in the header."
+          [ionPopoverIconClose]="true"
+        ></ion-button>
+      </div>
+
+      <!-- Popover with Actions -->
+      <div>
+        <h3>Popover with Actions</h3>
+        <ng-template #popoverContent>
+          <div style="padding: 8px;">
+            <p>Are you sure you want to proceed?</p>
+          </div>
+        </ng-template>
+
+        <ion-button
+          label="Confirm Action"
+          ionPopover
+          ionPopoverTitle="Confirmation"
+          [ionPopoverBody]="popoverContent"
+          [ionPopoverActions]="[
+            { label: 'Cancel' },
+            { label: 'Confirm' }
+          ]"
+        ></ion-button>
+      </div>
+
+      <!-- Popover Positions -->
+      <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin: 100px 0;">
+        <h3 style="width: 100%; text-align: center;">Different Positions</h3>
+        
+        <ion-button
+          label="Top Left"
+          ionPopover
+          ionPopoverTitle="Top Left"
+          ionPopoverBody="Positioned at top left"
+          [ionPopoverPosition]="PopoverPosition.TOP_LEFT"
+        ></ion-button>
+
+        <ion-button
+          label="Top Center"
+          ionPopover
+          ionPopoverTitle="Top Center"
+          ionPopoverBody="Positioned at top center"
+          [ionPopoverPosition]="PopoverPosition.TOP_CENTER"
+        ></ion-button>
+
+        <ion-button
+          label="Top Right"
+          ionPopover
+          ionPopoverTitle="Top Right"
+          ionPopoverBody="Positioned at top right"
+          [ionPopoverPosition]="PopoverPosition.TOP_RIGHT"
+        ></ion-button>
+
+        <ion-button
+          label="Bottom Left"
+          ionPopover
+          ionPopoverTitle="Bottom Left"
+          ionPopoverBody="Positioned at bottom left"
+          [ionPopoverPosition]="PopoverPosition.BOTTOM_LEFT"
+        ></ion-button>
+
+        <ion-button
+          label="Bottom Center"
+          ionPopover
+          ionPopoverTitle="Bottom Center"
+          ionPopoverBody="Positioned at bottom center"
+          [ionPopoverPosition]="PopoverPosition.BOTTOM_CENTER"
+        ></ion-button>
+
+        <ion-button
+          label="Bottom Right"
+          ionPopover
+          ionPopoverTitle="Bottom Right"
+          ionPopoverBody="Positioned at bottom right"
+          [ionPopoverPosition]="PopoverPosition.BOTTOM_RIGHT"
+        ></ion-button>
+
+        <ion-button
+          label="Left Top"
+          ionPopover
+          ionPopoverTitle="Left Top"
+          ionPopoverBody="Positioned at left top"
+          [ionPopoverPosition]="PopoverPosition.LEFT_TOP"
+        ></ion-button>
+
+        <ion-button
+          label="Left Center"
+          ionPopover
+          ionPopoverTitle="Left Center"
+          ionPopoverBody="Positioned at left center"
+          [ionPopoverPosition]="PopoverPosition.LEFT_CENTER"
+        ></ion-button>
+
+        <ion-button
+          label="Left Bottom"
+          ionPopover
+          ionPopoverTitle="Left Bottom"
+          ionPopoverBody="Positioned at left bottom"
+          [ionPopoverPosition]="PopoverPosition.LEFT_BOTTOM"
+        ></ion-button>
+
+        <ion-button
+          label="Right Top"
+          ionPopover
+          ionPopoverTitle="Right Top"
+          ionPopoverBody="Positioned at right top"
+          [ionPopoverPosition]="PopoverPosition.RIGHT_TOP"
+        ></ion-button>
+
+        <ion-button
+          label="Right Center"
+          ionPopover
+          ionPopoverTitle="Right Center"
+          ionPopoverBody="Positioned at right center"
+          [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER"
+        ></ion-button>
+
+        <ion-button
+          label="Right Bottom"
+          ionPopover
+          ionPopoverTitle="Right Bottom"
+          ionPopoverBody="Positioned at right bottom"
+          [ionPopoverPosition]="PopoverPosition.RIGHT_BOTTOM"
+        ></ion-button>
+      </div>
+
+      <!-- Hover Trigger -->
+      <div>
+        <h3>Hover Trigger</h3>
+        <ion-button
+          label="Hover Me"
+          ionPopover
+          ionPopoverTitle="Hover Popover"
+          ionPopoverBody="This popover appears on hover instead of click."
+          [ionPopoverTrigger]="PopoverTrigger.HOVER"
+        ></ion-button>
+      </div>
+
+      <!-- Custom Template Content -->
+      <div>
+        <h3>Custom Template Content</h3>
+        <ng-template #customContent>
+          <div style="padding: 12px;">
+            <h4 style="margin: 0 0 8px 0;">Custom Content</h4>
+            <p style="margin: 0 0 8px 0;">You can use any HTML content here:</p>
+            <ul style="margin: 0; padding-left: 20px;">
+              <li>Lists</li>
+              <li>Images</li>
+              <li>Forms</li>
+              <li>Anything!</li>
+            </ul>
+          </div>
+        </ng-template>
+
+        <ion-button
+          label="Custom Content"
+          ionPopover
+          ionPopoverTitle="Rich Content"
+          [ionPopoverBody]="customContent"
+          ionPopoverIcon="star"
+          [ionPopoverIconClose]="true"
+        ></ion-button>
+      </div>
+
+      <!-- Popover with Custom Class -->
+      <div>
+        <h3>Popover with Custom Class</h3>
+        <ion-button
+          label="Custom Styled"
+          ionPopover
+          ionPopoverTitle="Custom Style"
+          ionPopoverBody="This popover has a custom CSS class applied."
+          ionPopoverCustomClass="my-custom-popover"
+        ></ion-button>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>Input</h2>
     <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px;">
       <div>

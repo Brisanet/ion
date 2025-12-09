@@ -1,0 +1,81 @@
+<div
+  [class]="ionPopoverCustomClass() + ' ion-popover__sup-container--' + ionPopoverPosition()"
+  [class.ion-popover--visible]="ionPopoverVisible()"
+  [class.without-header]="!ionPopoverTitle()"
+  data-testid="ion-popover"
+  [style.top]="top() + 'px'"
+  [style.left]="left() + 'px'"
+  [style.position]="position()"
+  (clickOutside)="onClickOutside()"
+  #popover
+>
+  <div class="ion-popover__container">
+    @if (ionPopoverTitle()) {
+      <div
+        data-testid="popover-header"
+        class="ion-popover__header"
+      >
+        <div>
+          @if (ionPopoverIcon()) {
+            <ion-icon
+              [type]="ionPopoverIcon()!"
+              [color]="ionPopoverIconColor()"
+            ></ion-icon>
+          }
+
+          <span class="ion-popover__title">{{ ionPopoverTitle() }}</span>
+        </div>
+
+        @if (ionPopoverIconClose()) {
+          <ion-button
+            data-testid="popover-icon-close"
+            id="popover-close-button"
+            iconType="close"
+            class="ion-popover__icon-close"
+            type="ghost"
+            [circularButton]="true"
+            (ionOnClick)="close()"
+          ></ion-button>
+        }
+      </div>
+    }
+
+    @if (ionPopoverBody()) {
+      <div class="ion-popover__content-body">
+        <ng-container [ngTemplateOutlet]="ionPopoverBody()!"></ng-container>
+      </div>
+    }
+
+    @if (ionPopoverActions()) {
+      <ion-divider></ion-divider>
+    }
+
+    @if (ionPopoverActions()) {
+      <div class="ion-popover__footer">
+        @for (action of ionPopoverActions(); track $index; let i = $index) {
+          @if (action && i < 2) {
+            <ion-button
+              [attr.data-testid]="'popover-action-' + (i + 1)"
+              [label]="action.label"
+              [tooltip]="action.tooltip"
+              [type]="i === 0 ? 'ghost' : 'primary'"
+              size="sm"
+              [expand]="action.expand ?? false"
+              [danger]="action.danger ?? false"
+              [disabled]="action.disabled ?? false"
+              [loading]="action.loading ?? false"
+              [loadingMessage]="action.loadingMessage"
+              [multiple]="action.multiple ?? false"
+              [iconType]="action.iconType ?? ''"
+              [rightSideIcon]="action.rightSideIcon ?? false"
+              [circularButton]="action.circularButton ?? false"
+              [options]="action.options"
+              [showDropdown]="action.showDropdown ?? false"
+              (ionOnClick)="i === 0 ? firstAction() : secondAction()"
+            ></ion-button>
+          }
+        }
+      </div>
+    }
+  </div>
+</div>

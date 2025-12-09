@@ -21,7 +21,10 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent
+  IonInputComponent,
+  IonPopoverDirective,
+  PopoverPosition,
+  PopoverTrigger
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -45,7 +48,8 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonRadioComponent, 
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent
+    IonInputComponent,
+    IonPopoverDirective
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -79,6 +83,10 @@ export class AppComponent {
   // Tooltip enums for template
   TooltipPosition = TooltipPosition;
   TooltipTrigger = TooltipTrigger;
+
+  // Popover enums for template
+  PopoverPosition = PopoverPosition;
+  PopoverTrigger = PopoverTrigger;
 
   // Input examples
   basicInputValue = '';
