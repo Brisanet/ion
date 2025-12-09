@@ -136,17 +136,21 @@ export class IonChipComponent {
         this.dropdownWithIcon.set(false);
       }
     });
+
+    // Sync selected input with internal state when in chip-group
+    effect(() => {
+      if (this.chipGroup()) {
+        this.internalSelected.set(this.selected());
+      }
+    });
   }
 
   select(): void {
     this.toggleDropdown();
 
-    if (
-      (!this.options().length &&
-        this.chipGroup() &&
-        !this.chipGroupRequired()) ||
-      !this.chipGroup()
-    ) {
+    // Only toggle internal state if not in a chip-group
+    // When in chip-group, the parent manages the selection state
+    if (!this.chipGroup()) {
       this.internalSelected.update((val) => !val);
     }
 
