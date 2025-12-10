@@ -1,7 +1,7 @@
-@use 'radio.theme';
+@use "radio.theme";
 
-@import '../../styles/index.scss';
-@import '../../styles/themes/theme.scss';
+@import "../../styles/index.scss";
+@import "../../styles/themes/theme.scss";
 
 .ion-input-radio {
   display: flex;
@@ -22,9 +22,16 @@
 .radio {
   cursor: pointer;
   appearance: none;
+
+  box-sizing: border-box;
   outline: none;
-  width: spacing(4);
-  height: spacing(4);
+
+  width: spacing(2);
+  height: spacing(2);
+
+  min-width: spacing(2);
+  min-height: spacing(2);
+
   border-radius: 50%;
   border: 1px solid ion-theme(radio-border-color);
   display: flex;
@@ -40,7 +47,7 @@
     outline: 4px solid ion-theme(radio-hover-outline-color);
 
     &::before {
-      content: '';
+      content: "";
       border: 1px solid ion-theme(radio-hover-indicator-border-color);
       width: 2px;
       height: 2px;
@@ -56,7 +63,7 @@
 
   &:active {
     outline: none;
-    content: '';
+    content: "";
     border: 1px solid ion-theme(radio-active-border-color);
     background-color: ion-theme(radio-active-background-color);
 
@@ -79,11 +86,17 @@
 
 .radio-checked {
   appearance: none;
+  box-sizing: border-box;
   outline: none;
+
   border: 4px solid ion-theme(radio-checked-border-color);
   border-radius: 50%;
-  width: spacing(4);
-  height: spacing(4);
+
+  width: spacing(2);
+  height: spacing(2);
+  min-width: spacing(2);
+  min-height: spacing(2);
+
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -117,7 +130,7 @@
     outline: none;
 
     &::before {
-      content: '';
+      content: "";
       width: 4px;
       height: 4px;
       border: 1px solid ion-theme(radio-checked-disabled-indicator-border-color);
