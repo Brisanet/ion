@@ -239,7 +239,6 @@ describe('Advanced Pagination', () => {
   describe('basics - more right button', () => {
     beforeEach(async () => {
       await sut({ ...defaultComponent, total: 110 });
-      // screen.logTestingPlaygroundURL();
       await userEvent.click(screen.getByTestId('page-1'));
     });
     it('should show right more button with more icon', () => {
@@ -259,7 +258,6 @@ describe('Advanced Pagination', () => {
         'button'
       );
       await userEvent.click(moreRightBtn);
-      screen.logTestingPlaygroundURL();
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
@@ -276,12 +274,12 @@ describe('Advanced Pagination', () => {
       expect(screen.queryByTestId('more-right')).toBeNull();
     });
     it('should show arrow left icon when hover on more left button', async () => {
-      userEvent.hover(screen.getByTestId('more-left'));
+      await userEvent.hover(screen.getByTestId('more-left'));
       expect(document.getElementById('ion-icon-left3')).toBeVisible();
     });
-    it('should go back five pages when click on more left button', () => {
+    it('should go back five pages when click on more left button', async () => {
       const moreLeftBtn = screen.getByTestId('more-left');
-      userEvent.click(within(moreLeftBtn).getByRole('button'));
+      await userEvent.click(within(moreLeftBtn).getByRole('button'));
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
@@ -330,7 +328,7 @@ describe('Advanced Pagination', () => {
     describe('when page 4 is selected', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-4'));
+        await userEvent.click(screen.getByTestId('page-4'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
@@ -346,7 +344,7 @@ describe('Advanced Pagination', () => {
     describe('when a middle page is selected', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-5'));
+        await userEvent.click(screen.getByTestId('page-5'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
