@@ -38,7 +38,6 @@ export class IonChipGroupComponent {
   dropdown = output<DropdownItem[]>();
 
   selectChip(chipSelected: ChipInGroup): void {
-    console.log('selectChip called', chipSelected);
     if (this.disabled() || chipSelected.disabled) {
       return;
     }
@@ -50,7 +49,6 @@ export class IonChipGroupComponent {
     }
 
     chipSelected = this.setChip(chipSelected);
-    console.log('chipSelected after setChip', chipSelected);
 
     this.selected.emit(chipSelected);
   }
@@ -68,7 +66,7 @@ export class IonChipGroupComponent {
       this.checkRequired(chipSelected);
     }
 
-    this.chips.update(chips => [...chips]);
+    this.chips.update((chips) => [...chips]);
 
     return chipSelected;
   }
@@ -83,7 +81,7 @@ export class IonChipGroupComponent {
   chipEvents(event: ChipEvent): void {
     if (event.closeDropdown) {
       this.clearChips();
-      this.chips.update(chips => [...chips]);
+      this.chips.update((chips) => [...chips]);
     }
   }
 
