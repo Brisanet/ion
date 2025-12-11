@@ -739,6 +739,85 @@
       ></ion-heading>
     </div>
   </section>
+
+  <section>
+    <h2>Triple Toggle</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <div>
+        <h3>Basic (Default Options)</h3>
+        <ion-triple-toggle
+          [value]="tripleToggleValue"
+          (ionClick)="
+            tripleToggleValue = $event; handleTripleToggleChange($event)
+          "
+        ></ion-triple-toggle>
+        <p>Value: {{ tripleToggleValue }}</p>
+      </div>
+
+      <div>
+        <h3>Custom Options</h3>
+        <ion-triple-toggle
+          [options]="[
+            { label: 'Ativo', value: 'active' },
+            { label: 'Inativo', value: 'inactive' }
+          ]"
+          (ionClick)="handleTripleToggleChange($event)"
+        ></ion-triple-toggle>
+      </div>
+
+      <div>
+        <h3>With Icons</h3>
+        <ion-triple-toggle
+          [value]="tripleToggleWithIconsValue"
+          [options]="[
+            { label: 'Sim', value: true, icon: 'check' },
+            { label: 'Não', value: false, icon: 'close' }
+          ]"
+          (ionClick)="
+            tripleToggleWithIconsValue = $event;
+            handleTripleToggleChange($event)
+          "
+        ></ion-triple-toggle>
+        <p>Value: {{ tripleToggleWithIconsValue }}</p>
+      </div>
+
+      <div>
+        <h3>Only Icons (No Labels)</h3>
+        <ion-triple-toggle
+          [onlyShowIcon]="true"
+          [options]="[
+            { label: 'Like', value: 'like', icon: 'star' },
+            { label: 'Dislike', value: 'dislike', icon: 'close' }
+          ]"
+          (ionClick)="handleTripleToggleChange($event)"
+        ></ion-triple-toggle>
+      </div>
+
+      <div>
+        <h3>Disabled</h3>
+        <ion-triple-toggle [disabled]="true" [value]="true"></ion-triple-toggle>
+      </div>
+
+      <div>
+        <h3>Small Size</h3>
+        <ion-triple-toggle
+          size="sm"
+          [options]="[
+            { label: 'Sim', value: true },
+            { label: 'Não', value: false }
+          ]"
+        ></ion-triple-toggle>
+      </div>
+
+      <div>
+        <h3>Large Size</h3>
+        <ion-triple-toggle
+          size="lg"
+          [options]="[
+            { label: 'Sim', value: true },
+            { label: 'Não', value: false }
+          ]"
+        ></ion-triple-toggle>
   
   <section>
     <h2>Tags</h2>
