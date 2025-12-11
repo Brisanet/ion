@@ -23,6 +23,7 @@ import {
   TooltipTrigger,
   IonInputComponent,
   IonHeadingComponent,
+  IonTripleToggleComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -48,6 +49,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonTooltipDirective,
     IonInputComponent,
     IonHeadingComponent,
+    IonTripleToggleComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -91,5 +93,13 @@ export class AppComponent {
 
   handleInputButtonClick(): void {
     console.log('Input button clicked!');
+  }
+
+  // Triple Toggle examples
+  tripleToggleValue: any = undefined;
+  tripleToggleWithIconsValue: any = true;
+
+  handleTripleToggleChange(value: any): void {
+    console.log('Triple toggle value changed:', value);
   }
 }
