@@ -818,99 +818,200 @@
             { label: 'Não', value: false }
           ]"
         ></ion-triple-toggle>
-  
-  <section>
-    <h2>Tags</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px;">
-      <div>
-        <h3>Default</h3>
-        <ion-tag label="Default Tag"></ion-tag>
-      </div>
 
-      <div>
-        <h3>Status</h3>
-        <div style="display: flex; gap: 10px;">
-          <ion-tag label="Success" status="success"></ion-tag>
-          <ion-tag label="Warning" status="warning"></ion-tag>
-          <ion-tag label="Info" status="info"></ion-tag>
-          <ion-tag label="Negative" status="negative"></ion-tag>
-          <ion-tag label="Neutral" status="neutral"></ion-tag>
-        </div>
-      </div>
+        <section>
+          <h2>Tags</h2>
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <h3>Default</h3>
+              <ion-tag label="Default Tag"></ion-tag>
+            </div>
 
-      <div>
-        <h3>Custom Colors</h3>
-        <div style="display: flex; gap: 10px;">
-          <ion-tag label="Custom Hex" color="#be531c"></ion-tag>
-          <ion-tag label="Custom Hex 2" color="#6666ff"></ion-tag>
-        </div>
-      </div>
+            <div>
+              <h3>Status</h3>
+              <div style="display: flex; gap: 10px">
+                <ion-tag label="Success" status="success"></ion-tag>
+                <ion-tag label="Warning" status="warning"></ion-tag>
+                <ion-tag label="Info" status="info"></ion-tag>
+                <ion-tag label="Negative" status="negative"></ion-tag>
+                <ion-tag label="Neutral" status="neutral"></ion-tag>
+              </div>
+            </div>
 
-      <div>
-        <h3>With Icons</h3>
-        <div style="display: flex; gap: 10px;">
-          <ion-tag label="With Icon" icon="check"></ion-tag>
-          <ion-tag label="Success Icon" status="success" icon="check"></ion-tag>
-          <ion-tag label="Warning Icon" status="warning" icon="alert"></ion-tag>
-        </div>
-      </div>
+            <div>
+              <h3>Custom Colors</h3>
+              <div style="display: flex; gap: 10px">
+                <ion-tag label="Custom Hex" color="#be531c"></ion-tag>
+                <ion-tag label="Custom Hex 2" color="#6666ff"></ion-tag>
+              </div>
+            </div>
 
-      <div>
-        <h3>No Outline</h3>
-        <div style="display: flex; gap: 10px;">
-          <ion-tag label="No Outline" [outline]="false"></ion-tag>
-          <ion-tag label="Success No Outline" status="success" [outline]="false"></ion-tag>
-        </div>
-      </div>
+            <div>
+              <h3>With Icons</h3>
+              <div style="display: flex; gap: 10px">
+                <ion-tag label="With Icon" icon="check"></ion-tag>
+                <ion-tag
+                  label="Success Icon"
+                  status="success"
+                  icon="check"
+                ></ion-tag>
+                <ion-tag
+                  label="Warning Icon"
+                  status="warning"
+                  icon="alert"
+                ></ion-tag>
+              </div>
+            </div>
 
-      <div>
-        <h3>Custom Background</h3>
-        <div style="display: flex; gap: 10px;">
-          <ion-tag label="Custom BG" backgroundColor="#f0f0f0"></ion-tag>
-          <ion-tag label="Custom BG Color" color="#be531c" backgroundColor="#ffe0d0"></ion-tag>
-        </div>
-      </div>
-    </div>
-  </section>
+            <div>
+              <h3>No Outline</h3>
+              <div style="display: flex; gap: 10px">
+                <ion-tag label="No Outline" [outline]="false"></ion-tag>
+                <ion-tag
+                  label="Success No Outline"
+                  status="success"
+                  [outline]="false"
+                ></ion-tag>
+              </div>
+            </div>
 
-  <section>
-    <h2>Links</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px;">
-      <div>
-        <h3>Default</h3>
-        <ion-link label="Default Link"></ion-link>
-      </div>
+            <div>
+              <h3>Custom Background</h3>
+              <div style="display: flex; gap: 10px">
+                <ion-tag label="Custom BG" backgroundColor="#f0f0f0"></ion-tag>
+                <ion-tag
+                  label="Custom BG Color"
+                  color="#be531c"
+                  backgroundColor="#ffe0d0"
+                ></ion-tag>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      <div>
-        <h3>Sizes</h3>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <ion-link label="Small (default)" size="sm"></ion-link>
-          <ion-link label="Medium" size="md"></ion-link>
-        </div>
-      </div>
+        <section>
+          <h2>Links</h2>
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <h3>Default</h3>
+              <ion-link label="Default Link"></ion-link>
+            </div>
 
-      <div>
-        <h3>Bold</h3>
-        <ion-link label="Bold Link" [bold]="true"></ion-link>
-      </div>
+            <div>
+              <h3>Sizes</h3>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <ion-link label="Small (default)" size="sm"></ion-link>
+                <ion-link label="Medium" size="md"></ion-link>
+              </div>
+            </div>
 
-      <div>
-        <h3>With Icons</h3>
-        <div style="display: flex; gap: 10px; align-items: center;">
-          <ion-link label="Right Icon" icon="box"></ion-link>
-          <ion-link label="Left Icon" icon="box" iconSide="left"></ion-link>
-          <ion-link icon="box"></ion-link>
-        </div>
-      </div>
+            <div>
+              <h3>Bold</h3>
+              <ion-link label="Bold Link" [bold]="true"></ion-link>
+            </div>
 
-      <div>
-        <h3>Disabled</h3>
-        <ion-link label="Disabled Link" [disabled]="true"></ion-link>
-      </div>
+            <div>
+              <h3>With Icons</h3>
+              <div style="display: flex; gap: 10px; align-items: center">
+                <ion-link label="Right Icon" icon="box"></ion-link>
+                <ion-link
+                  label="Left Icon"
+                  icon="box"
+                  iconSide="left"
+                ></ion-link>
+                <ion-link icon="box"></ion-link>
+              </div>
+            </div>
 
-      <div>
-        <h3>External Link</h3>
-        <ion-link label="Go to Google" link="https://google.com" target="_blank" icon="right3"></ion-link>
+            <div>
+              <h3>Disabled</h3>
+              <ion-link label="Disabled Link" [disabled]="true"></ion-link>
+            </div>
+
+            <div>
+              <h3>External Link</h3>
+              <ion-link
+                label="Go to Google"
+                link="https://google.com"
+                target="_blank"
+                icon="right3"
+              ></ion-link>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Switch</h2>
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <div>
+              <h3>Basic (Small)</h3>
+              <ion-switch
+                [value]="switchSmValue"
+                size="sm"
+                (atValueChange)="
+                  switchSmValue = $event; handleSwitchChange($event)
+                "
+              ></ion-switch>
+              <p>Value: {{ switchSmValue }}</p>
+            </div>
+
+            <div>
+              <h3>Medium Size</h3>
+              <ion-switch
+                [value]="switchMdValue"
+                size="md"
+                (atValueChange)="
+                  switchMdValue = $event; handleSwitchChange($event)
+                "
+              ></ion-switch>
+              <p>Value: {{ switchMdValue }}</p>
+            </div>
+
+            <div>
+              <h3>Large Size</h3>
+              <ion-switch
+                [value]="switchLgValue"
+                size="lg"
+                (atValueChange)="
+                  switchLgValue = $event; handleSwitchChange($event)
+                "
+              ></ion-switch>
+              <p>Value: {{ switchLgValue }}</p>
+            </div>
+
+            <div>
+              <h3>Disabled (Off)</h3>
+              <ion-switch
+                [value]="false"
+                [disabled]="true"
+                size="md"
+              ></ion-switch>
+            </div>
+
+            <div>
+              <h3>Disabled (On)</h3>
+              <ion-switch
+                [value]="true"
+                [disabled]="true"
+                size="md"
+              ></ion-switch>
+            </div>
+
+            <div>
+              <h3>Interactive Example</h3>
+              <div style="display: flex; align-items: center; gap: 10px">
+                <ion-switch
+                  [value]="switchValue"
+                  size="md"
+                  (atValueChange)="
+                    switchValue = $event; handleSwitchChange($event)
+                  "
+                ></ion-switch>
+                <span>{{ switchValue ? "ON" : "OFF" }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   </section>

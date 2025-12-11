@@ -18,3 +18,4 @@ export * from './spinner';
 export * from './tooltip';
 export * from './link';
 export * from './triple-toggle';
+export * from './switch';
