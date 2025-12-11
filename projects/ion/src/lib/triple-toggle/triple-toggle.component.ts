@@ -20,6 +20,22 @@ import { SafeAny } from '../utils/safe-any';
 const FIRST_INDEX = 0;
 const SECOND_INDEX = 1;
 
+const DEFAULT_LEFT_OPTION: TripleToggleOption = {
+  value: true,
+  label: 'Sim',
+};
+
+const DEFAULT_MIDDLE_OPTION: TripleToggleOption = {
+  value: undefined,
+  label: '-',
+  selected: true,
+};
+
+const DEFAULT_RIGHT_OPTION: TripleToggleOption = {
+  value: false,
+  label: 'Não',
+};
+
 @Component({
   selector: 'ion-triple-toggle',
   standalone: true,
@@ -38,32 +54,18 @@ export class IonTripleToggleComponent {
 
   public middleOptionIndex = 1;
 
-  private DEFAULT_LEFT_OPTION: TripleToggleOption = {
-    value: true,
-    label: 'Sim',
-  };
-  private DEFAULT_MIDDLE_OPTION: TripleToggleOption = {
-    value: undefined,
-    label: '-',
-    selected: true,
-  };
-  private DEFAULT_RIGHT_OPTION: TripleToggleOption = {
-    value: false,
-    label: 'Não',
-  };
-
   private selectedIndexSignal = signal<number>(1);
 
   public optionsToRender = computed<TripleToggleOptionsToRender>(() => {
     const opts = this.options();
     const selectedIndex = this.selectedIndexSignal();
 
-    const leftOption = opts?.[FIRST_INDEX] || this.DEFAULT_LEFT_OPTION;
-    const rightOption = opts?.[SECOND_INDEX] || this.DEFAULT_RIGHT_OPTION;
+    const leftOption = opts?.[FIRST_INDEX] || DEFAULT_LEFT_OPTION;
+    const rightOption = opts?.[SECOND_INDEX] || DEFAULT_RIGHT_OPTION;
 
     return [
       { ...leftOption, selected: selectedIndex === 0 },
-      { ...this.DEFAULT_MIDDLE_OPTION, selected: selectedIndex === 1 },
+      { ...DEFAULT_MIDDLE_OPTION, selected: selectedIndex === 1 },
       { ...rightOption, selected: selectedIndex === 2 },
     ];
   });
