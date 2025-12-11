@@ -25,7 +25,10 @@ import {
   IonHeadingComponent,
   IonLinkComponent,
   IonTripleToggleComponent,
-  IonTagComponent
+  IonTagComponent,
+  IonTableComponent,
+  ConfigTable,
+  Column
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -54,6 +57,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonTagComponent,
     IonLinkComponent,
     IonTripleToggleComponent,
+    IonTableComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -106,4 +110,39 @@ export class AppComponent {
   handleTripleToggleChange(value: any): void {
     console.log('Triple toggle value changed:', value);
   }
+
+  // Table Example
+  tableConfig: ConfigTable<any> = {
+    data: [
+      { id: 1, name: 'Meteora', type: 'CD', year: 2003 },
+      { id: 2, name: 'One More Light', type: 'CD', year: 2017 },
+      { id: 3, name: 'Hybrid Theory', type: 'CD', year: 2000 },
+      { id: 4, name: 'Minutes to Midnight', type: 'CD', year: 2007 },
+    ],
+    columns: [
+      { label: 'ID', key: 'id', sort: true },
+      { label: 'Name', key: 'name', sort: true },
+      { label: 'Type', key: 'type', sort: true },
+      { label: 'Year', key: 'year', sort: true },
+    ],
+    actions: [
+      {
+        label: 'Edit',
+        icon: 'pencil',
+        call: (row) => console.log('Edit row:', row),
+      },
+      {
+        label: 'Delete',
+        icon: 'trash',
+        danger: true,
+        call: (row) => console.log('Delete row:', row),
+      },
+    ],
+    pagination: {
+      total: 4,
+      itemsPerPage: 10,
+      page: 1,
+    },
+    check: true,
+  };
 }
