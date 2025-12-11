@@ -25,7 +25,8 @@ import {
   IonHeadingComponent,
   IonLinkComponent,
   IonTripleToggleComponent,
-  IonTagComponent
+  IonSwitchComponent,
+  IonTagComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -54,6 +55,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonTagComponent,
     IonLinkComponent,
     IonTripleToggleComponent,
+    IonSwitchComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -105,5 +107,15 @@ export class AppComponent {
 
   handleTripleToggleChange(value: any): void {
     console.log('Triple toggle value changed:', value);
+  }
+
+  // Switch examples
+  switchValue = false;
+  switchSmValue = false;
+  switchMdValue = true;
+  switchLgValue = false;
+
+  handleSwitchChange(value: boolean): void {
+    console.log('Switch value changed:', value);
   }
 }
