@@ -1,0 +1,79 @@
+@import "../../../styles/index.scss";
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.font-weight-medium {
+  font-weight: 600;
+}
+
+.font-weight-bold {
+  font-weight: 700;
+}
+
+.color-primary {
+  color: $neutral-8;
+}
+
+.color-secondary {
+  color: $neutral-7;
+}
+
+.color-dark-primary {
+  color: $neutral-1;
+}
+
+.color-dark-secondary {
+  color: $neutral-3;
+}
+
+h1 {
+  &.font-size-small {
+    @include font-size-xl;
+  }
+
+  &.font-size-medium {
+    @include font-size-2xl;
+  }
+  &.font-size-normal {
+    @include font-size-3xl;
+  }
+}
+
+h2 {
+  &.font-size-small {
+    @include font-size-lg;
+  }
+  &.font-size-medium {
+    @include font-size-xl;
+  }
+  &.font-size-normal {
+    @include font-size-2xl;
+  }
+}
+
+h3 {
+  &.font-size-small {
+    @include font-size-md;
+  }
+  &.font-size-medium {
+    @include font-size-lg;
+  }
+  &.font-size-normal {
+    @include font-size-xl;
+  }
+}
+
+h4 {
+  &.font-size-medium {
+    @include font-size-md;
+  }
+  &.font-size-normal {
+    @include font-size-lg;
+  }
+}
