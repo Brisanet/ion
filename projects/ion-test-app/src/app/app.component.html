@@ -872,4 +872,46 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Links</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <h3>Default</h3>
+        <ion-link label="Default Link"></ion-link>
+      </div>
+
+      <div>
+        <h3>Sizes</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <ion-link label="Small (default)" size="sm"></ion-link>
+          <ion-link label="Medium" size="md"></ion-link>
+        </div>
+      </div>
+
+      <div>
+        <h3>Bold</h3>
+        <ion-link label="Bold Link" [bold]="true"></ion-link>
+      </div>
+
+      <div>
+        <h3>With Icons</h3>
+        <div style="display: flex; gap: 10px; align-items: center;">
+          <ion-link label="Right Icon" icon="box"></ion-link>
+          <ion-link label="Left Icon" icon="box" iconSide="left"></ion-link>
+          <ion-link icon="box"></ion-link>
+        </div>
+      </div>
+
+      <div>
+        <h3>Disabled</h3>
+        <ion-link label="Disabled Link" [disabled]="true"></ion-link>
+      </div>
+
+      <div>
+        <h3>External Link</h3>
+        <ion-link label="Go to Google" link="https://google.com" target="_blank" icon="right3"></ion-link>
+      </div>
+    </div>
+  </section>
 </div>

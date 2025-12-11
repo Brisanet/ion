@@ -1,0 +1,95 @@
+@use 'link.theme';
+
+@use '../../styles/index.scss';
+@use '../../styles/themes/theme.scss';
+
+@mixin colors($color) {
+  color: theme.ion-theme($color);
+
+  ion-icon ::ng-deep svg {
+    fill: theme.ion-theme($color);
+  }
+}
+
+:host {
+  display: block;
+  max-width: max-content;
+}
+
+.link-container {
+  display: flex;
+  max-width: max-content;
+
+  &--disabled {
+    cursor: not-allowed;
+
+    & > a,
+    & > a:hover,
+    & > a:active {
+      pointer-events: none;
+      @include colors(link-disabled-color);
+    }
+  }
+}
+
+.ion-link {
+  text-decoration: none;
+
+  display: flex;
+  align-items: center;
+  gap: 4px; // spacing(0.5)
+  box-sizing: border-box;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+
+  @include colors(link-color);
+
+  &__label {
+    font-weight: theme.ion-theme(link-text-font-weight);
+    font-style: normal;
+
+    @each $size in sm, md {
+      &--#{$size} {
+        font-size: theme.ion-theme(link-size-#{$size}-text-font-size);
+        line-height: theme.ion-theme(link-size-#{$size}-text-line-height);
+      }
+    }
+
+    &--bold {
+      font-weight: theme.ion-theme(link-bold-text-font-weight);
+    }
+  }
+
+  &:hover {
+    @include colors(link-hover-color);
+    border-color: theme.ion-theme(link-hover-border-color);
+  }
+
+  &:active {
+    @include colors(link-active-color);
+    border-color: theme.ion-theme(link-active-border-color);
+  }
+
+  &:visited {
+    @include colors(link-visited-color);
+
+    &:hover {
+      border-color: theme.ion-theme(link-visited-hover-border-color);
+    }
+  }
+
+  &--left-icon {
+    flex-direction: row-reverse;
+  }
+
+  &--icon-only,
+  &--icon-only:hover {
+    border: none;
+  }
+
+  &:focus-visible {
+    padding: 2px;
+    border-radius: 4px;
+    border: 2px solid theme.ion-theme(link-focus-border-color);
+  }
+}

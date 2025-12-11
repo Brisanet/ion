@@ -1,0 +1,61 @@
+<span
+  data-testid="link-container"
+  class="link-container"
+  [class.link-container--disabled]="disabled()"
+>
+  @if (!link()) {
+    <a
+      data-testid="ion-link"
+      class="ion-link"
+      [class.ion-link--left-icon]="iconSide() === 'left'"
+      [class.ion-link--icon-only]="!label()"
+      (click)="onClick()"
+    >
+      @if (label()) {
+        <span
+          data-testid="ion-link-label"
+          [class]="'ion-link__label ion-link__label--' + size()"
+          [class.ion-link__label--bold]="bold()"
+        >
+          {{ label() }}
+        </span>
+      }
+      @if (icon()) {
+        <ion-icon
+          data-testid="ion-link-icon"
+          [type]="icon()!"
+          [size]="iconSize()"
+        ></ion-icon>
+      }
+    </a>
+  }
+
+  @if (link()) {
+    <a
+      data-testid="ion-link"
+      class="ion-link"
+      [class.ion-link--left-icon]="iconSide() === 'left'"
+      [class.ion-link--icon-only]="!label()"
+      [target]="target()"
+      [href]="link()"
+      rel="noreferrer"
+    >
+      @if (label()) {
+        <span
+          data-testid="ion-link-label"
+          [class]="'ion-link__label ion-link__label--' + size()"
+          [class.ion-link__label--bold]="bold()"
+        >
+          {{ label() }}
+        </span>
+      }
+      @if (icon()) {
+        <ion-icon
+          data-testid="ion-link-icon"
+          [type]="icon()!"
+          [size]="iconSize()"
+        ></ion-icon>
+      }
+    </a>
+  }
+</span>
