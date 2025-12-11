@@ -23,7 +23,8 @@ import {
   TooltipTrigger,
   IonInputComponent,
   IonHeadingComponent,
-  IonTagComponent
+  IonTagComponent,
+  IonLinkComponent
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -49,7 +50,8 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonTooltipDirective,
     IonInputComponent,
     IonHeadingComponent,
-    IonTagComponent
+    IonTagComponent,
+    IonLinkComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
