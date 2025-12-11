@@ -17,3 +17,4 @@ export * from './skeleton';
 export * from './spinner';
 export * from './tooltip';
 export * from './triple-toggle';
+export * from './switch';

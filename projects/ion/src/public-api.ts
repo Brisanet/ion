@@ -28,4 +28,5 @@ export * from './lib/tooltip/tooltip.service';
 export * from './lib/input/input.component';
 export * from './lib/typography/heading/heading.component';
 export * from './lib/triple-toggle/triple-toggle.component';
+export * from './lib/switch/switch.component';
 export * from './lib/tag/ion-tag.component';
