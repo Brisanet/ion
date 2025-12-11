@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { 
-  AvatarType, 
+import {
+  AvatarType,
   CheckBoxStates,
-  IonAvatarComponent, 
-  IonBadgeComponent, 
-  IonButtonComponent, 
+  IonAvatarComponent,
+  IonBadgeComponent,
+  IonButtonComponent,
   IonCheckboxComponent,
   IonIconComponent,
   IonInfoBadgeComponent,
@@ -21,34 +21,36 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent
+  IonInputComponent,
+  IonHeadingComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
 @Component({
   selector: 'app-root',
   imports: [
-    IonAvatarComponent, 
-    IonBadgeComponent, 
-    IonButtonComponent, 
-    IonCheckboxComponent, 
-    IonIconComponent, 
-    IonInfoBadgeComponent, 
-    IonAccordionComponent, 
-    IonDividerComponent, 
-    IonSkeletonComponent, 
-    IonSpinnerComponent, 
-    IonAlertComponent, 
-    IonBreadcrumbComponent, 
-    IonChipComponent, 
-    IonChipGroupComponent, 
-    IonRadioComponent, 
+    IonAvatarComponent,
+    IonBadgeComponent,
+    IonButtonComponent,
+    IonCheckboxComponent,
+    IonIconComponent,
+    IonInfoBadgeComponent,
+    IonAccordionComponent,
+    IonDividerComponent,
+    IonSkeletonComponent,
+    IonSpinnerComponent,
+    IonAlertComponent,
+    IonBreadcrumbComponent,
+    IonChipComponent,
+    IonChipGroupComponent,
+    IonRadioComponent,
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent
+    IonInputComponent,
+    IonHeadingComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'ion-test-app';
@@ -60,18 +62,18 @@ export class AppComponent {
   chipGroupBasic: ChipInGroup[] = [
     { label: 'Chip 1', selected: false },
     { label: 'Chip 2', selected: false },
-    { label: 'Chip 3', selected: false }
+    { label: 'Chip 3', selected: false },
   ];
 
   chipGroupMultiple: ChipInGroup[] = [
     { label: 'Option A', selected: false, multiple: true },
     { label: 'Option B', selected: false, multiple: true },
-    { label: 'Option C', selected: false, multiple: true }
+    { label: 'Option C', selected: false, multiple: true },
   ];
 
   chipGroupRequired: ChipInGroup[] = [
     { label: 'Required 1', selected: true },
-    { label: 'Required 2', selected: false }
+    { label: 'Required 2', selected: false },
   ];
 
   radioValue = false;
@@ -86,7 +88,7 @@ export class AppComponent {
   passwordInputValue = '';
   searchInputValue = '';
   inputWithMaxLength = '';
-  
+
   handleInputButtonClick(): void {
     console.log('Input button clicked!');
   }
