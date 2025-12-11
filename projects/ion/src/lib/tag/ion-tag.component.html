@@ -1,0 +1,19 @@
+@if (label()) {
+  <div
+    data-testid="ion-tag"
+    [style.color]="tagStyle()"
+    [style.background]="tagBackgroundColor()"
+    [class]="tagType()"
+  >
+    @if (icon()) {
+      <ion-icon
+        data-testid="tag-icon"
+        class="tag-icon"
+        [size]="12"
+        [type]="icon()!"
+        [color]="tagStyle() || ''"
+      ></ion-icon>
+    }
+    {{ label() }}
+  </div>
+}

@@ -24,6 +24,7 @@ import {
   IonInputComponent,
   IonHeadingComponent,
   IonTripleToggleComponent,
+  IonTagComponent
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -50,6 +51,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonInputComponent,
     IonHeadingComponent,
     IonTripleToggleComponent,
+    IonTagComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

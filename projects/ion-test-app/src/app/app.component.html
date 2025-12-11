@@ -818,6 +818,57 @@
             { label: 'Não', value: false }
           ]"
         ></ion-triple-toggle>
+  
+  <section>
+    <h2>Tags</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+      <div>
+        <h3>Default</h3>
+        <ion-tag label="Default Tag"></ion-tag>
+      </div>
+
+      <div>
+        <h3>Status</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tag label="Success" status="success"></ion-tag>
+          <ion-tag label="Warning" status="warning"></ion-tag>
+          <ion-tag label="Info" status="info"></ion-tag>
+          <ion-tag label="Negative" status="negative"></ion-tag>
+          <ion-tag label="Neutral" status="neutral"></ion-tag>
+        </div>
+      </div>
+
+      <div>
+        <h3>Custom Colors</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tag label="Custom Hex" color="#be531c"></ion-tag>
+          <ion-tag label="Custom Hex 2" color="#6666ff"></ion-tag>
+        </div>
+      </div>
+
+      <div>
+        <h3>With Icons</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tag label="With Icon" icon="check"></ion-tag>
+          <ion-tag label="Success Icon" status="success" icon="check"></ion-tag>
+          <ion-tag label="Warning Icon" status="warning" icon="alert"></ion-tag>
+        </div>
+      </div>
+
+      <div>
+        <h3>No Outline</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tag label="No Outline" [outline]="false"></ion-tag>
+          <ion-tag label="Success No Outline" status="success" [outline]="false"></ion-tag>
+        </div>
+      </div>
+
+      <div>
+        <h3>Custom Background</h3>
+        <div style="display: flex; gap: 10px;">
+          <ion-tag label="Custom BG" backgroundColor="#f0f0f0"></ion-tag>
+          <ion-tag label="Custom BG Color" color="#be531c" backgroundColor="#ffe0d0"></ion-tag>
+        </div>
       </div>
     </div>
   </section>
