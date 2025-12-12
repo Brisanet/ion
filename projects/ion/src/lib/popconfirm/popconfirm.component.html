@@ -1,0 +1,36 @@
+<div class="sup-container" data-testid="sup-container">
+  <div class="containter">
+    <div class="msg-container">
+      <ion-alert
+        [message]="ionPopConfirmTitle()"
+        [type]="ionPopConfirmType()"
+        [closable]="false"
+        [hideBackground]="true"
+      ></ion-alert>
+
+      @if (ionPopConfirmDesc()) {
+        <div class="description">
+          <span>{{ ionPopConfirmDesc() }}</span>
+        </div>
+      }
+    </div>
+
+    <ion-divider></ion-divider>
+
+    <div class="footer">
+      <ion-button
+        data-testid="pop-cancel-btn"
+        (ionOnClick)="close()"
+        [label]="ionCancelText()"
+        type="ghost"
+        size="sm"
+      ></ion-button>
+      <ion-button
+        data-testid="pop-confirm-btn"
+        (ionOnClick)="handleConfirm()"
+        [label]="ionConfirmText()"
+        size="sm"
+      ></ion-button>
+    </div>
+  </div>
+</div>

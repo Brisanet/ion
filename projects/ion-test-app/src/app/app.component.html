@@ -1020,6 +1020,38 @@
           </div>
         </section>
 
+        <section>
+          <h2>Popconfirm</h2>
+          <div style="display: flex; gap: 20px; align-items: center">
+            <ion-button
+              label="Basic Popconfirm"
+              ionPopConfirm
+              ionPopConfirmTitle="Are you sure?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="With Description"
+              type="secondary"
+              ionPopConfirm
+              ionPopConfirmTitle="Delete Item?"
+              ionPopConfirmDesc="This action cannot be undone."
+              ionPopConfirmType="negative"
+              ionConfirmText="Yes, delete"
+              ionCancelText="No, keep it"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Close on Scroll"
+              type="ghost"
+              ionPopConfirm
+              ionPopConfirmTitle="Scroll to close"
+              [ionPopConfirmCloseOnScroll]="true"
+            ></ion-button>
+          </div>
+        </section>
+
       </div>
     </div>
   </section>

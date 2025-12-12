@@ -30,6 +30,7 @@ import {
   ConfigTable,
   Column,
   IonSwitchComponent,
+  IonPopConfirmDirective,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -60,6 +61,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonTripleToggleComponent,
     IonTableComponent,
     IonSwitchComponent,
+    IonPopConfirmDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
