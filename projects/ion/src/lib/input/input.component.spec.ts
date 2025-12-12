@@ -14,9 +14,9 @@ describe('IonInputComponent', () => {
   it('should render input with an empty placeholder if none is passed', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.detectChanges();
-    
+
     const input = screen.getByTestId('input-element');
-    expect(input).not.toHaveAttribute('placeholder');
+    expect(input).toHaveAttribute('placeholder', '');
   });
 
   it('should render input with a given placeholder', () => {
@@ -24,7 +24,7 @@ describe('IonInputComponent', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.componentRef.setInput('placeholder', placeholder);
     fixture.detectChanges();
-    
+
     const input = screen.getByTestId('input-element');
     expect(input).toHaveAttribute('placeholder', placeholder);
   });
@@ -32,7 +32,7 @@ describe('IonInputComponent', () => {
   it('should allow letters to be inputted', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.detectChanges();
-    
+
     const inputValue = 'input';
     fireEvent.change(screen.getByTestId('input-element'), {
       target: { value: inputValue },
@@ -46,17 +46,20 @@ describe('IonInputComponent', () => {
       const fixture = TestBed.createComponent(IonInputComponent);
       fixture.componentRef.setInput('inputType', type);
       fixture.detectChanges();
-      
+
       expect(screen.getByTestId('input-element')).toHaveAttribute('type', type);
     }
   );
 
-  it('should render input component disabled', () => {
+  it('should render input component disabled', async () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.componentRef.setInput('disabled', true);
+
     fixture.detectChanges();
-    
+    await fixture.whenStable();
+
     const element = screen.getByTestId('input-element');
+
     expect(element).toBeDisabled();
   });
 
@@ -66,7 +69,7 @@ describe('IonInputComponent', () => {
     fixture.componentRef.setInput('iconDirection', 'left');
     fixture.componentRef.setInput('iconInput', icon);
     fixture.detectChanges();
-    
+
     expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
@@ -76,14 +79,14 @@ describe('IonInputComponent', () => {
     fixture.componentRef.setInput('iconDirection', 'right');
     fixture.componentRef.setInput('iconInput', icon);
     fixture.detectChanges();
-    
+
     expect(document.getElementById('ion-icon-' + icon)).toBeTruthy();
   });
 
   it('should not render the input button as default', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.detectChanges();
-    
+
     const button = screen.queryByTestId('input-button');
     expect(button).not.toBeInTheDocument();
   });
@@ -92,7 +95,7 @@ describe('IonInputComponent', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.componentRef.setInput('inputButton', true);
     fixture.detectChanges();
-    
+
     const button = screen.queryByTestId('input-button');
     expect(button).not.toBeInTheDocument();
   });
@@ -105,7 +108,7 @@ describe('IonInputComponent', () => {
       type: 'primary',
     });
     fixture.detectChanges();
-    
+
     const button = screen.getByTestId('input-button');
     fireEvent.click(button);
     expect(button).toBeInTheDocument();
@@ -120,7 +123,7 @@ describe('IonInputComponent', () => {
       id: 'Button',
     });
     fixture.detectChanges();
-    
+
     const buttonContainer = screen.getByTestId('input-button');
     expect(within(buttonContainer).getByTestId('btn-Button')).toHaveClass(
       'ion-btn-md'
@@ -137,7 +140,7 @@ describe('IonInputComponent', () => {
     });
     fixture.componentInstance.clickButton.subscribe(clickEvent);
     fixture.detectChanges();
-    
+
     fireEvent.click(
       within(screen.getByTestId('input-button')).getByRole('button')
     );
@@ -146,25 +149,27 @@ describe('IonInputComponent', () => {
 
   it.each(['4', 4])(
     'should render input component with text "valu" when the typed "values" and maxLength = 4',
-    (maxLength) => {
+    async (maxLength) => {
       const exampleText = 'values';
       const fixture = TestBed.createComponent(IonInputComponent);
+
       fixture.componentRef.setInput('maxLength', maxLength);
       fixture.detectChanges();
-      
+
       const element: HTMLInputElement = screen.getByTestId('input-element');
-      userEvent.type(element, exampleText);
+      await userEvent.type(element, exampleText);
+
       expect(element.value).toBe(exampleText.substring(0, Number(maxLength)));
     }
   );
 
-  it("should render input component without maxLength when don't sent this prop", () => {
+  it("should render input component without maxLength when don't sent this prop", async () => {
     const text = 'text for input element test';
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.detectChanges();
-    
+
     const element: HTMLInputElement = screen.getByTestId('input-element');
-    userEvent.type(element, text);
+    await userEvent.type(element, text);
     expect(element.value).toBe(text);
   });
 
@@ -172,7 +177,7 @@ describe('IonInputComponent', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.componentRef.setInput('valid', true);
     fixture.detectChanges();
-    
+
     expect(screen.getByTestId('icon-valid')).toBeInTheDocument();
   });
 
@@ -180,7 +185,7 @@ describe('IonInputComponent', () => {
     const fixture = TestBed.createComponent(IonInputComponent);
     fixture.componentRef.setInput('invalid', true);
     fixture.detectChanges();
-    
+
     expect(screen.getByTestId('icon-invalid')).toBeInTheDocument();
   });
 
@@ -201,23 +206,27 @@ describe('IonInputComponent', () => {
       mockFn.mockClear();
     });
 
-    it('should change value when something is typed on input', () => {
-      userEvent.type(screen.getByTestId('input-element'), value);
+    it('should change value when something is typed on input', async () => {
+      await userEvent.type(screen.getByTestId('input-element'), value);
       expect(screen.getByTestId('input-element')).toHaveValue(value);
     });
 
-    it('should emit valueChange everytime a key is typed on input', () => {
-      userEvent.type(screen.getByTestId('input-element'), value);
+    it('should emit valueChange everytime a key is typed on input', async () => {
+      await userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenCalledTimes(value.length);
     });
 
-    it('should emit the value on the last emit', () => {
-      userEvent.type(screen.getByTestId('input-element'), value);
+    it('should emit the value on the last emit', async () => {
+      await userEvent.type(screen.getByTestId('input-element'), value);
       expect(mockFn).toHaveBeenLastCalledWith(value);
     });
 
-    it('should render value and max length on input when have maxLength attribute', () => {
-      userEvent.type(screen.getByTestId('input-element'), value);
+    it('should render value and max length on input when have maxLength attribute', async () => {
+      await userEvent.type(screen.getByTestId('input-element'), value);
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
       expect(
         screen.getByText(`${value.length}/${maxLength}`)
       ).toBeInTheDocument();
@@ -242,28 +251,44 @@ describe('IonInputComponent', () => {
       mockFn.mockClear();
     });
 
-    it('should render the clear button when informed and input have value', () => {
-      userEvent.type(input, value);
+    it('should render the clear button when informed and input have value', async () => {
+      await userEvent.type(input, value);
       fireEvent.blur(input);
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
       const clearButton = screen.getByTestId('clear-button');
       expect(clearButton).toBeInTheDocument();
     });
 
-    it('should change value to empty when clear button press', () => {
-      userEvent.type(input, value);
+    it('should change value to empty when clear button press', async () => {
+      await userEvent.type(input, value);
+
+      fixture.detectChanges();
+      await fixture.whenStable();
+
       fireEvent.click(screen.getByTestId('clear-button'));
+
       expect(input).toHaveValue('');
     });
 
-    it('should emit valueChange when clear button press', () => {
-      userEvent.type(input, value);
+    it('should emit valueChange when clear button press', async () => {
+      await userEvent.type(input, value);
+      fixture.detectChanges();
+      await fixture.whenStable();
       fireEvent.click(screen.getByTestId('clear-button'));
+
       expect(mockFn).toHaveBeenCalled();
     });
 
-    it('should emit empty value when clear button press', () => {
-      userEvent.type(input, value);
+    it('should emit empty value when clear button press', async () => {
+      await userEvent.type(input, value);
+      fixture.detectChanges();
+      await fixture.whenStable();
+
       fireEvent.click(screen.getByTestId('clear-button'));
+
       expect(mockFn).toHaveBeenLastCalledWith('');
     });
   });

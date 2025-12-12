@@ -30,9 +30,8 @@ export class IonPaginationComponent {
   itemsPerPage = input<IonPaginationProps['itemsPerPage']>(
     ITEMS_PER_PAGE_DEFAULT
   );
-  pageSizeOptions = input<IonPaginationProps['pageSizeOptions']>(
-    LIST_OF_PAGE_OPTIONS
-  );
+  pageSizeOptions =
+    input<IonPaginationProps['pageSizeOptions']>(LIST_OF_PAGE_OPTIONS);
   size = input<IonPaginationProps['size']>('md');
   allowChangeQtdItems = input<IonPaginationProps['allowChangeQtdItems']>(false);
   loading = input<boolean>(false);
@@ -69,34 +68,47 @@ export class IonPaginationComponent {
       pages
     );
 
-    return pages.slice(startPageIndex, endPageIndex + 1);
+    return this.getMiddlePages(pages, startPageIndex, endPageIndex);
   });
 
+  private getMiddlePages(
+    pages: Page[],
+    startPageIndex: number,
+    endPageIndex: number
+  ) {
+    // Recorta as páginas do meio
+    const middle = pages.slice(startPageIndex, endPageIndex + 1);
+
+    // Se houver 2 páginas ou menos, nada a excluir
+    if (pages.length <= 2) return middle;
+
+    // Identifica a primeira e última página da lista completa
+    const firstPageNumber = pages[0].page_number;
+    const lastPageNumber = pages[pages.length - 1].page_number;
+
+    // Remove do meio as páginas inicial e final
+    return middle.filter(
+      (p) =>
+        p.page_number !== firstPageNumber && p.page_number !== lastPageNumber
+    );
+  }
+
   constructor() {
-    effect(
-      () => {
-        // Initialize state from inputs
-        this.currentItemsPerPage.set(this.itemsPerPage() as number);
-        this.currentPage.set(this.page() || 1);
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => {
+      // Initialize state from inputs
+      this.currentItemsPerPage.set(this.itemsPerPage() as number);
+      this.currentPage.set(this.page() || 1);
+    });
 
-    effect(
-      () => {
-        this.total();
-        this.currentItemsPerPage();
-        untracked(() => this.remountPages());
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => {
+      this.total();
+      this.currentItemsPerPage();
+      untracked(() => this.remountPages());
+    });
 
-    effect(
-      () => {
-        this.updateOptionsPage();
-      },
-      { allowSignalWrites: true }
-    );
+    effect(() => {
+      this.updateOptionsPage();
+    });
   }
 
   changeIconHover(side: 'left' | 'right', value: boolean): void {

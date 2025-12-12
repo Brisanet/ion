@@ -23,29 +23,29 @@
       [type]="iconType()!"
       [size]="options()?.length ? 16 : 24"
     ></ion-icon>
-  } 
-  
+  }
+
   @if (options() && !circularButton() && !loading()) {
-    <ion-icon 
-      [type]="showDropdown() ? 'semi-up' : 'semi-down'" 
-      [size]="iconSize()" 
+    <ion-icon
+      [type]="showDropdown() ? 'semi-up' : 'semi-down'"
+      [size]="iconSize()"
       class="icon"
     ></ion-icon>
-  } 
-  
-  @if (!circularButton() && _label()) { 
+  }
+
+  @if (!circularButton() && _label()) {
     @if (!loading() || (loading() && !loadingMessage())) {
       <span>{{ _label() }}</span>
-    } 
+    }
     @if (loading() && loadingMessage()) {
       <span>{{ loadingMessage() }}</span>
-    } 
-  } 
-  
+    }
+  }
+
   @if (multiple() && !loading() && !circularButton()) {
-    <ion-badge 
-      [value]="buttonBadge().value" 
-      [type]="buttonBadge().type" 
+    <ion-badge
+      [value]="buttonBadge().value"
+      [type]="buttonBadge().type"
       data-testid="badge-multiple"
     ></ion-badge>
   }
@@ -65,7 +65,6 @@
       (searchChange)="onSearchChange($event)"
       (clearBadgeValue)="onClearBadgeValue()"
       (closeDropdown)="onCloseDropdown()"
-      data-testid="ion-dropdown"
     ></ion-dropdown>
   </div>
 }

@@ -11,9 +11,6 @@ import {
 const pageEvent = jest.fn();
 const defaultComponent: IonPaginationProps = {
   total: 46,
-  events: {
-    emit: pageEvent,
-  } as SafeAny,
   page: 1,
 };
 
@@ -22,11 +19,13 @@ const LOADING_STATUS = [true, false];
 const sut = async (
   customProps: IonPaginationProps = defaultComponent
 ): Promise<void> => {
+  const { events, ...componentInputs } = customProps as SafeAny;
+
   await render(IonPaginationComponent, {
-    componentInputs: customProps as SafeAny,
+    componentInputs: componentInputs as SafeAny,
     imports: [IonButtonComponent],
     on: {
-      events: pageEvent,
+      events: events?.emit ?? pageEvent,
     },
   });
 };
@@ -111,7 +110,7 @@ describe('Pagination > Page sizes', () => {
       'should show items per page %d',
       async (label) => {
         await sut({ ...defaultComponent, allowChangeQtdItems: true });
-        userEvent.click(
+        await userEvent.click(
           screen.getByRole('button', {
             name: /10 \/ página/i,
           })
@@ -148,7 +147,7 @@ describe('Pagination > Page sizes', () => {
           pageSizeOptions: customPageSizeOptions,
           allowChangeQtdItems: true,
         });
-        userEvent.click(
+        await userEvent.click(
           screen.getByRole('button', {
             name: /10 \/ página/i,
           })
@@ -240,7 +239,7 @@ describe('Advanced Pagination', () => {
   describe('basics - more right button', () => {
     beforeEach(async () => {
       await sut({ ...defaultComponent, total: 110 });
-      userEvent.click(screen.getByTestId('page-1'));
+      await userEvent.click(screen.getByTestId('page-1'));
     });
     it('should show right more button with more icon', () => {
       expect(screen.getByTestId('more-right')).toBeVisible();
@@ -250,19 +249,22 @@ describe('Advanced Pagination', () => {
       expect(screen.queryByTestId('more-left')).toBeNull();
     });
     it('should show arrow right icon when hover on more right button', async () => {
-      userEvent.hover(screen.getByTestId('more-right'));
+      await userEvent.hover(screen.getByTestId('more-right'));
+      await userEvent.hover(screen.getByTestId('more-right'));
       expect(document.getElementById('ion-icon-right3')).toBeVisible();
     });
-    it('should skip five pages when click on more right button', () => {
-      const moreRightBtn = screen.getByTestId('more-right');
-      userEvent.click(within(moreRightBtn).getByRole('button'));
+    it('should skip five pages when click on more right button', async () => {
+      const moreRightBtn = within(screen.getByTestId('more-right')).getByRole(
+        'button'
+      );
+      await userEvent.click(moreRightBtn);
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
   describe('basics - more left button', () => {
     beforeEach(async () => {
       await sut({ ...defaultComponent, total: 110 });
-      userEvent.click(screen.getByTestId('page-11'));
+      await userEvent.click(screen.getByTestId('page-11'));
     });
     it('should show left more button with more icon', () => {
       expect(screen.getByTestId('more-left')).toBeVisible();
@@ -272,19 +274,19 @@ describe('Advanced Pagination', () => {
       expect(screen.queryByTestId('more-right')).toBeNull();
     });
     it('should show arrow left icon when hover on more left button', async () => {
-      userEvent.hover(screen.getByTestId('more-left'));
+      await userEvent.hover(screen.getByTestId('more-left'));
       expect(document.getElementById('ion-icon-left3')).toBeVisible();
     });
-    it('should go back five pages when click on more left button', () => {
+    it('should go back five pages when click on more left button', async () => {
       const moreLeftBtn = screen.getByTestId('more-left');
-      userEvent.click(within(moreLeftBtn).getByRole('button'));
+      await userEvent.click(within(moreLeftBtn).getByRole('button'));
       expect(screen.getByTestId('page-6')).toHaveClass('selected');
     });
   });
   describe('more left and right button', () => {
     beforeEach(async () => {
       await sut({ ...defaultComponent, total: 110 });
-      userEvent.click(screen.getByTestId('page-5'));
+      await userEvent.click(screen.getByTestId('page-5'));
     });
     it('should show left more button with more icon', () => {
       expect(screen.getByTestId('more-left')).toBeVisible();
@@ -294,15 +296,15 @@ describe('Advanced Pagination', () => {
       expect(screen.getByTestId('more-right')).toBeVisible();
       expect(document.getElementById('ion-icon-more')).toBeVisible();
     });
-    it('should go back to first page when its not possible to go back five pages', () => {
+    it('should go back to first page when its not possible to go back five pages', async () => {
       const moreLeftBtn = screen.getByTestId('more-left');
-      userEvent.click(within(moreLeftBtn).getByRole('button'));
+      await userEvent.click(within(moreLeftBtn).getByRole('button'));
       expect(screen.getByTestId('page-1')).toHaveClass('selected');
     });
-    it('should go to last page when its not possible to go forward five pages', () => {
+    it('should go to last page when its not possible to go forward five pages', async () => {
       const moreRightBtn = screen.getByTestId('more-right');
-      userEvent.click(screen.getByTestId('page-7'));
-      userEvent.click(within(moreRightBtn).getByRole('button'));
+      await userEvent.click(screen.getByTestId('page-7'));
+      await userEvent.click(within(moreRightBtn).getByRole('button'));
       expect(screen.getByTestId('page-11')).toHaveClass('selected');
     });
   });
@@ -326,7 +328,7 @@ describe('Advanced Pagination', () => {
     describe('when page 4 is selected', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-4'));
+        await userEvent.click(screen.getByTestId('page-4'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
@@ -342,7 +344,7 @@ describe('Advanced Pagination', () => {
     describe('when a middle page is selected', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-5'));
+        await userEvent.click(screen.getByTestId('page-5'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
@@ -359,8 +361,8 @@ describe('Advanced Pagination', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
         const moreRightBtn = screen.getByTestId('more-right');
-        userEvent.click(screen.getByTestId('page-3'));
-        userEvent.click(within(moreRightBtn).getByRole('button'));
+        await userEvent.click(screen.getByTestId('page-3'));
+        await userEvent.click(within(moreRightBtn).getByRole('button'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
@@ -376,8 +378,8 @@ describe('Advanced Pagination', () => {
     describe('when page selected is two pages before last page', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-11'));
-        userEvent.click(screen.getByTestId('page-9'));
+        await userEvent.click(screen.getByTestId('page-11'));
+        await userEvent.click(screen.getByTestId('page-9'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();
@@ -393,8 +395,8 @@ describe('Advanced Pagination', () => {
     describe('when page selected is the page before the last', () => {
       beforeEach(async () => {
         await sut({ ...defaultComponent, total: 110 });
-        userEvent.click(screen.getByTestId('page-11'));
-        userEvent.click(screen.getByTestId('page-10'));
+        await userEvent.click(screen.getByTestId('page-11'));
+        await userEvent.click(screen.getByTestId('page-10'));
       });
       it('should show first and last page', () => {
         expect(screen.getByTestId('page-1')).toBeVisible();

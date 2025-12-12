@@ -27,5 +27,13 @@ export * from './lib/tooltip/tooltip.directive';
 export * from './lib/tooltip/tooltip.service';
 export * from './lib/input/input.component';
 export * from './lib/tab/tab.component';
-
-
+export * from './lib/typography/heading/heading.component';
+export * from './lib/triple-toggle/triple-toggle.component';
+export * from './lib/switch/switch.component';
+export * from './lib/tag/ion-tag.component';
+export * from './lib/link/ion-link.component';
+export * from './lib/table/ion-table.component';
+export * from './lib/table/utils';
+export * from './lib/theme/theme.service';
+export * from './lib/popconfirm/popconfirm.component';
+export * from './lib/popconfirm/popconfirm.directive';

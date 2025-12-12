@@ -1,0 +1,34 @@
+<ng-container [ngSwitch]="type()">
+  <h1
+    *ngSwitchCase="'h1'"
+    [class]="classes()"
+    data-testid="ion-heading"
+    [id]="type()"
+  >
+    {{ text() }}
+  </h1>
+  <h2
+    *ngSwitchCase="'h2'"
+    [class]="classes()"
+    data-testid="ion-heading"
+    [id]="type()"
+  >
+    {{ text() }}
+  </h2>
+  <h3
+    *ngSwitchCase="'h3'"
+    [class]="classes()"
+    data-testid="ion-heading"
+    [id]="type()"
+  >
+    {{ text() }}
+  </h3>
+  <h4
+    *ngSwitchCase="'h4'"
+    [class]="classes()"
+    data-testid="ion-heading"
+    [id]="type()"
+  >
+    {{ text() }}
+  </h4>
+</ng-container>

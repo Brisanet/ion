@@ -1,0 +1,9 @@
+<button
+  data-testid="ion-switch"
+  class="ion-switch"
+  [class.ion-switch--active]="currentValue()"
+  [class.ion-switch--inactive]="!currentValue()"
+  [attr.size]="size()"
+  [disabled]="disabled()"
+  (click)="handleClick()"
+></button>
