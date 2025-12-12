@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
 import {
   AvatarType,
   CheckBoxStates,
@@ -27,6 +28,9 @@ import {
   IonTripleToggleComponent,
   IonSwitchComponent,
   IonTagComponent,
+  IonPopoverDirective,
+  PopoverPosition,
+  PopoverTrigger,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -56,6 +60,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonLinkComponent,
     IonTripleToggleComponent,
     IonSwitchComponent,
+    IonPopoverDirective,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -117,5 +122,34 @@ export class AppComponent {
 
   handleSwitchChange(value: boolean): void {
     console.log('Switch value changed:', value);
+  }
+
+  // Popover enums for template
+  PopoverPosition = PopoverPosition;
+  PopoverTrigger = PopoverTrigger;
+
+  // Popover examples
+  popoverBodyContent =
+    'This is the popover content. It can contain any text or HTML.';
+
+  handlePopoverFirstAction(): void {
+    window.alert('Popover first action clicked');
+  }
+
+  handlePopoverSecondAction(): void {
+    window.alert('Popover second action clicked');
+  }
+
+  popoverPositions = Object.values(PopoverPosition);
+
+  handlePopoverClose(): void {
+    console.log('Popover closed');
+  }
+
+  // Popover External Close Control
+  popoverCloseSubject = new Subject<void>();
+
+  closePopoverManually(): void {
+    this.popoverCloseSubject.next();
   }
 }
