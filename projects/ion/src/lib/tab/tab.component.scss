@@ -1,0 +1,136 @@
+@use 'tab.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin tab-colors($prefix) {
+  color: ion-theme(#{$prefix}-text-color);
+  background-color: ion-theme(#{$prefix}-background-color);
+  border-color: ion-theme(#{$prefix}-border-color) !important;
+}
+
+@mixin icon-color($color) {
+  .tab-icon {
+    ::ng-deep svg {
+      fill: ion-theme($color);
+    }
+  }
+}
+
+@mixin icon-size($size) {
+  .tab-icon {
+    ::ng-deep svg {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: $size;
+      height: $size;
+    }
+  }
+}
+
+@mixin tab-focus {
+  @include tab-colors(tab-focus);
+  @include focus;
+  @include icon-color(tab-focus-icon-color);
+  position: relative;
+}
+
+.tab {
+  font-style: normal;
+  font-weight: 600;
+  color: $neutral-7;
+
+  border: none;
+  color: ion-theme(tab-inactive-text-color);
+  background-color: ion-theme(tab-inactive-background-color);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: spacing(1);
+  @include icon-color(tab-inactive-icon-color);
+
+  &:hover {
+    @include tab-colors(tab-hover);
+    @include icon-color(tab-hover-icon-color);
+  }
+  &:focus-visible {
+    @include tab-focus();
+  }
+  &:active {
+    @include tab-colors(tab-active);
+    outline: none;
+    @include icon-color(tab-active-icon-color);
+  }
+  &:disabled {
+    @include tab-colors(tab-disabled);
+    cursor: not-allowed;
+    @include icon-color(tab-disabled-icon-color);
+  }
+}
+
+.tab-selected {
+  font-style: normal;
+  font-weight: 600;
+  border: none;
+  @include tab-colors(tab-selected);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  @include icon-color(tab-selected-icon-color);
+
+  &:hover {
+    @include tab-colors(tab-hover);
+    @include icon-color(tab-hover-icon-color);
+  }
+  &:focus-visible {
+    @include tab-focus();
+  }
+  &:active {
+    @include tab-colors(tab-active);
+    outline: none;
+    @include icon-color(tab-active-icon-color);
+  }
+  &:disabled {
+    @include tab-colors(tab-disabled);
+    cursor: not-allowed;
+    @include icon-color(tab-disabled-icon-color);
+  }
+}
+
+.tab-sm {
+  padding: 8px 16px;
+  font-size: 12px;
+  line-height: 16px;
+  @include icon-size(16px);
+  gap: spacing(1);
+}
+.tab-md {
+  padding: 10px 24px;
+  font-size: 14px;
+  line-height: 20px;
+  @include icon-size(20px);
+  gap: spacing(1.5);
+}
+.tab-lg {
+  padding: 12px 32px;
+  font-size: 16px;
+  line-height: 24px;
+  @include icon-size(24px);
+  gap: spacing(2);
+}
+
+.border-bottom {
+  border-bottom: 2px solid $neutral-3;
+  border-radius: 6px 6px 0 0;
+}
+.border-top {
+  border-top: 2px solid $neutral-3;
+  border-radius: 0 0 6px 6px;
+}
+.border-right {
+  border-right: 2px solid $neutral-3;
+}
+.border-left {
+  border-left: 2px solid $neutral-3;
+}
