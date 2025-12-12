@@ -40,3 +40,4 @@ export * from './lib/table/utils';
 export * from './lib/theme/theme.service';
 export * from './lib/popconfirm/popconfirm.component';
 export * from './lib/popconfirm/popconfirm.directive';
+export * from './lib/no-data/no-data.component';

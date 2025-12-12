@@ -37,6 +37,7 @@ import {
   Column,
   IonSwitchComponent,
   IonPopConfirmDirective,
+  IonNoDataComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -70,6 +71,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonSwitchComponent,
     IonPopoverDirective,
     IonPopConfirmDirective,
+    IonNoDataComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
