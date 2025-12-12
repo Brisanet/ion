@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { ConfigTable } from '../../table/utilsTable';
+import { ConfigTable } from '../../table/utils';
 import { SafeAny } from '../../utils/safe-any';
 
 export interface TableEvent {

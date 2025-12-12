@@ -31,3 +31,6 @@ export * from './lib/triple-toggle/triple-toggle.component';
 export * from './lib/switch/switch.component';
 export * from './lib/tag/ion-tag.component';
 export * from './lib/link/ion-link.component';
+export * from './lib/table/ion-table.component';
+export * from './lib/table/utils';
+export * from './lib/theme/theme.service';
