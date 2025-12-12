@@ -28,7 +28,8 @@ import {
   IonTagComponent,
   IonTableComponent,
   ConfigTable,
-  Column
+  Column,
+  IonSwitchComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -58,6 +59,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonLinkComponent,
     IonTripleToggleComponent,
     IonTableComponent,
+    IonSwitchComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -145,4 +147,14 @@ export class AppComponent {
     },
     check: true,
   };
+
+  // Switch examples
+  switchValue = false;
+  switchSmValue = false;
+  switchMdValue = true;
+  switchLgValue = false;
+
+  handleSwitchChange(value: boolean): void {
+    console.log('Switch value changed:', value);
+  }
 }
