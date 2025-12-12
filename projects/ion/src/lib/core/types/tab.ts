@@ -2,9 +2,9 @@ import { IconType } from './icon';
 
 export type TabSize = 'sm' | 'md' | 'lg';
 
-type Direction = 'bottom' | 'top' | 'right' | 'left';
+export type TabDirection = 'bottom' | 'top' | 'right' | 'left';
 
-interface BadgeOptions {
+export interface TabBadge {
   value: number;
 }
 
@@ -13,7 +13,7 @@ export interface IonTabProps {
   tabSize?: TabSize;
   disabled?: boolean;
   selected?: boolean;
-  direction?: Direction;
+  direction?: TabDirection;
   iconType?: IconType;
-  badge?: BadgeOptions;
+  badge?: TabBadge;
 }

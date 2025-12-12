@@ -1,0 +1,113 @@
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  border-radius: 8px,
+  header-divider-color: ion-theme(neutral-4),
+  sort-button: (
+    hover-background-color: ion-theme(primary-1),
+    focus-background-color: ion-theme(primary-1),
+    active-background-color: ion-theme(primary-3),
+    disabled-hover-background-color: ion-theme(neutral-3),
+  ),
+  row: (
+    th: (
+      background-color: ion-theme(base),
+      text: (
+        font-size: 16px,
+        font-weight: 600,
+        line-height: 22px,
+        color: ion-theme(neutral-8),
+      ),
+    ),
+    td: (
+      icon-color: ion-theme(primary-6),
+      text: (
+        font-size: 14px,
+        font-weight: 400,
+        line-height: 20px,
+        color: ion-theme(neutral-7),
+      ),
+    ),
+    hover-background-color: ion-theme(primary-1),
+    odd-background-color: ion-theme(neutral-1),
+    even-background-color: ion-theme(neutral-2),
+    checkbox-shadow: -2px 0 0 0 ion-theme(primary-6),
+  ),
+  no-data: (
+    text-color: ion-theme(neutral-6),
+    background-color: ion-theme(neutral-1),
+    icon-color: ion-theme(neutral-6),
+  ),
+  footer: (
+    divider-color: ion-theme(neutral-4),
+    background-color: ion-theme(base-transparecence-45),
+    text: (
+      font-family: ion-theme(font-family-main),
+      font-style: normal,
+      font-weight: 400,
+      font-size: 14px,
+      line-height: 20px,
+      color: ion-theme(neutral-7),
+    ),
+  ),
+);
+
+$dark: (
+  border-radius: 8px,
+  header-divider-color: ion-theme(neutral-1),
+  sort-button: (
+    hover-background-color: ion-theme(neutral-7),
+    focus-background-color: ion-theme(primary-1),
+    active-background-color: ion-theme(primary-4),
+    disabled-hover-background-color: ion-theme(neutral-6),
+  ),
+  row: (
+    th: (
+      background-color: ion-theme(neutral-5),
+      text: (
+        font-size: 16px,
+        font-weight: 600,
+        line-height: 22px,
+        color: ion-theme(neutral-1),
+      ),
+    ),
+    td: (
+      icon-color: ion-theme(primary-3),
+      text: (
+        font-size: 14px,
+        font-weight: 400,
+        line-height: 20px,
+        color: ion-theme(neutral-1),
+      ),
+    ),
+    hover-background-color: ion-theme(primary-8),
+    odd-background-color: ion-theme(neutral-6),
+    even-background-color: ion-theme(neutral-5),
+    checkbox-shadow: -2px 0 0 0 ion-theme(primary-8),
+  ),
+  no-data: (
+    text-color: ion-theme(neutral-1),
+    background-color: ion-theme(neutral-5),
+    icon-color: ion-theme(neutral-1),
+  ),
+  footer: (
+    divider-color: ion-theme(neutral-3),
+    background-color: ion-theme(neutral-5),
+    text: (
+      font-family: ion-theme(font-family-main),
+      font-style: normal,
+      font-weight: 400,
+      font-size: 14px,
+      line-height: 20px,
+      color: ion-theme(neutral-1),
+    ),
+  ),
+);
+
+@include register-component(
+  table,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);

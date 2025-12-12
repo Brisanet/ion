@@ -1,0 +1,257 @@
+<div class="ion-table">
+  <table data-testid="ion-table">
+    <thead>
+      <tr class="border-header">
+        @if (config.check) {
+          <th width="16">
+            <ion-checkbox
+              data-testid="table-check-all"
+              id="check-all"
+              name="check-all"
+              [state]="mainCheckBoxState"
+              (click)="checkState()"
+              [disabled]="!config?.data?.length"
+            >
+            </ion-checkbox>
+          </th>
+        }
+        @for (column of config.columns; track column.key) {
+          <th
+            [attr.data-testid]="'column-' + column.key"
+            [ngStyle]="{ width: column.width + '%' }"
+          >
+            <div class="header-style">
+              <span
+                [attr.data-testid]="'th-span-' + column.key"
+                class="th-span"
+                ionTooltip
+                [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
+                [ionTooltipPosition]="
+                  column.configTooltip?.ionTooltipPosition || $any('topCenter')
+                "
+                [ionTooltipArrowPointAtCenter]="
+                  column.configTooltip?.ionTooltipArrowPointAtCenter || true
+                "
+                [ionTooltipColorScheme]="
+                  column.configTooltip?.ionTooltipColorScheme || 'dark'
+                "
+                [ionTooltipTrigger]="
+                  column.configTooltip?.ionTooltipTrigger || $any('hover')
+                "
+                [ionTooltipShowDelay]="
+                  column.configTooltip?.ionTooltipShowDelay || 0
+                "
+                [ionTooltipTemplateRef]="
+                  column.configTooltip?.ionTooltipTemplateRef || null
+                "
+              >
+                {{ column.label }}
+              </span>
+              @if (column.sort) {
+                <button
+                  class="svg"
+                  [attr.data-testid]="'btn-sort-by-' + column.key"
+                  (click)="sort(column)"
+                >
+                  <svg
+                    [attr.data-testid]="'sort-by-' + column.key"
+                    width="8"
+                    height="16"
+                    viewBox="0 0 8 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
+                      [attr.fill]="fillColor(column, true)"
+                    />
+                    <path
+                      d="M3.81985 15.8966C3.8995 16.0345 4.1005 16.0345 4.18015 15.8966L7.97236 9.33307C8.0514 9.19627 7.95152 9.02605 7.79221 9.02605L0.207794 9.02605C0.0484809 9.02605 -0.0513966 9.19627 0.0276449 9.33307L3.81985 15.8966Z"
+                      [attr.fill]="fillColor(column, false)"
+                    />
+                  </svg>
+                </button>
+              }
+            </div>
+          </th>
+        }
+        @if (config.actions && config.actions.length) {
+          <th class="th-actions">
+            Ações
+          </th>
+        }
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (row of smartData; track row; let index = $index; let last = $last) {
+        <tr
+          [attr.data-testid]="'row-' + index"
+          [class.last-row]="last && !config.pagination"
+          [ngClass]="{
+            odd: index % 2 === 0,
+            even: index % 2 !== 0,
+            checked: row.selected
+          }"
+        >
+          @if (config.customRowTemplate) {
+            <ng-container
+              [ngTemplateOutlet]="config.customRowTemplate"
+              [ngTemplateOutletContext]="{ $implicit: row }"
+            >
+            </ng-container>
+          } @else {
+            @if (config.check) {
+              <td [attr.data-testid]="'row-' + index + '-td'">
+                <ion-checkbox
+                  name="check-all"
+                  id="check-all"
+                  [state]="row.selected ? 'checked' : 'enabled'"
+                  [attr.data-testid]="'row-' + index + '-check'"
+                  (click)="checkRow(row)"
+                >
+                </ion-checkbox>
+              </td>
+            }
+            @for (column of config.columns; track column.key) {
+              <td [attr.data-testid]="'row-' + index + '-' + column.key">
+                <!-- cell types -->
+
+                @if (!column.type) {
+                  <span class="td-span">{{ row[column.key] }}</span>
+                }
+                @if (column.type === 'tag') {
+                  <ion-tag
+                    [label]="row[column.key]"
+                    [status]="row[column.tag!.statusKey!] || column.tag!.status"
+                    [icon]="row[column.tag!.iconKey!] || column.tag!.icon"
+                    [color]="row[column.tag!.colorKey!] || column.tag!.color"
+                  ></ion-tag>
+                }
+                @if (column.type === 'link' && column.link) {
+                  <ion-link
+                    [label]="column.link.label!(row)"
+                    [icon]="column.link.icon"
+                    [iconSide]="column.link.iconSide!"
+                    [size]="column.link.size || 'sm'"
+                    [bold]="!!column.link.bold"
+                    [disabled]="column.link.disabled ? column.link.disabled(row) : false"
+                    [target]="column.link.target!"
+                    [link]="column.link.url ? column.link.url(row) : undefined"
+                    (ionOnClick)="column.link.action ? column.link.action(row) : null"
+                  ></ion-link>
+                }
+                @if (column.type === 'boolean') {
+                  <span class="td-span">
+                    {{
+                      row[column.key]
+                        ? (column.booleanText && column.booleanText.truthy) || 'Sim'
+                        : (column.booleanText && column.booleanText.falsy) || 'Não'
+                    }}
+                  </span>
+                }
+              </td>
+            }
+            @if (config.actions) {
+              <td>
+                <div class="icons-td">
+                  @for (action of config.actions; track action.label) {
+                    @if (action.show ? !showAction(row, action) : true) {
+                      <!-- PopConfirm not migrated yet, assuming standard button for now or commented out if complex -->
+                      <!-- Assuming ionPopConfirm is not available or needs migration too. Keeping it simple for now as requested for popover -->
+                      
+                      @if (action.confirm && !action.popover) {
+                         <!-- TODO: Migrate ionPopConfirm -->
+                         <ion-button
+                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                          type="ghost"
+                          size="sm"
+                          [danger]="!!action.danger"
+                          [iconType]="action.icon"
+                          [label]="action.label"
+                          [circularButton]="!action.showLabel"
+                          [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
+                          [disabled]="action.disabled ? disableAction(row, action) : false"
+                          (ionOnClick)="handleEvent(row, action.call!)"
+                         ></ion-button>
+                      }
+
+                      @if (action.popover && !action.confirm) {
+                        <!-- Popover usage commented out as requested -->
+                        <!--
+                        <ion-button
+                          ionPopover
+                          [ionPopoverTitle]="action.popover(row)['ionPopoverTitle'] || action.label"
+                          ...
+                        ></ion-button>
+                        -->
+                      }
+
+                      @if (!action.confirm && !action.popover) {
+                        <ion-button
+                          [title]="action.label"
+                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                          type="ghost"
+                          size="sm"
+                          [danger]="!!action.danger"
+                          [iconType]="action.icon"
+                          [label]="action.label"
+                          [circularButton]="!action.showLabel"
+                          [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
+                          (ionOnClick)="handleEvent(row, action.call!)"
+                          [disabled]="action.disabled ? disableAction(row, action) : false"
+                        ></ion-button>
+                      }
+                    }
+                  }
+                </div>
+              </td>
+            }
+          }
+        </tr>
+      }
+    </tbody>
+  </table>
+  @if (smartData.length === 0) {
+    <div class="noData">
+      @if (config.loading) {
+        <ion-spinner [size]="42" color="primary"></ion-spinner>
+      } @else {
+        <ion-icon [size]="40" type="exclamation-rounded"></ion-icon>
+        <span>Não há dados</span>
+      }
+    </div>
+  }
+
+  @if (config.pagination) {
+    <div
+      data-testid="pagination-container"
+      class="footer-table"
+    >
+      @if (!config.loading) {
+        <span>{{ config.pagination.total }}</span>
+      }
+
+      @if (config.loading) {
+        <span class="loading-message" data-testid="loading-pagination">
+          Carregando página
+        </span>
+      }
+
+      <div style="overflow-x: auto">
+        <ion-pagination
+          [loading]="config.loading || false"
+          [total]="config.pagination.total"
+          [itemsPerPage]="config.pagination.itemsPerPage"
+          [page]="config.pagination.page || 1"
+          [pageSizeOptions]="config.pagination.pageSizeOptions"
+          [openItemsPerPageAbove]="
+            config.pagination && !!config.pagination.openItemsPerPageAbove
+          "
+          size="md"
+          (events)="paginationEvents($event)"
+        ></ion-pagination>
+      </div>
+    </div>
+  }
+</div>
