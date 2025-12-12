@@ -1,0 +1,17 @@
+<div data-testid="ion-tab-group" class="tab-group">
+  <div [class.tab-group-column-inner]="_direction() === 'vertical'">
+    @for (tab of tabs(); track tab.label) {
+    <ion-tab
+      [selected]="tab.selected"
+      [label]="tab.label"
+      [iconType]="tab.iconType"
+      (onSelect)="selectTab(tab)"
+      [tabSize]="size()"
+      [direction]="_border()"
+      [badge]="tab.badge"
+      [disabled]="!!tab.disabled"
+    >
+    </ion-tab>
+    }
+  </div>
+</div>
