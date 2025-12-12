@@ -1174,3 +1174,187 @@
     </div>
   </section>
 
+  <section>
+    <h2>Popover</h2>
+    <ng-template #popoverTemplate>
+      <div style="padding: 16px">
+        <h3 style="margin-top: 0">Custom Content</h3>
+        <p>{{ popoverBodyContent }}</p>
+      </div>
+    </ng-template>
+
+    <div
+      style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 200px"
+    >
+      <!-- Basic Click Popover -->
+      <ion-button
+        label="Click Me"
+        ionPopover
+        ionPopoverTitle="Click Popover"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.BOTTOM_CENTER"
+        [ionPopoverTrigger]="PopoverTrigger.CLICK"
+      ></ion-button>
+
+      <!-- Hover Popover -->
+      <ion-button
+        label="Hover Me"
+        type="secondary"
+        ionPopover
+        ionPopoverTitle="Hover Popover"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.TOP_CENTER"
+        [ionPopoverTrigger]="PopoverTrigger.HOVER"
+      ></ion-button>
+
+      <!-- Popover with Actions -->
+      <ion-button
+        label="With Actions"
+        type="ghost"
+        ionPopover
+        ionPopoverTitle="Action Popover"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER"
+        [ionPopoverActions]="[
+          { label: 'Cancel' },
+          { label: 'Confirm', type: 'primary' }
+        ]"
+        (ionOnFirstAction)="handlePopoverFirstAction()"
+        (ionOnSecondAction)="handlePopoverSecondAction()"
+      ></ion-button>
+
+      <!-- Popover with Close Button -->
+      <ion-button
+        label="Closable"
+        ionPopover
+        ionPopoverTitle="Closable Popover"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverIconClose]="true"
+        [ionPopoverPosition]="PopoverPosition.LEFT_CENTER"
+        (ionOnClose)="handlePopoverClose()"
+      ></ion-button>
+
+      <!-- Custom Styled Popover -->
+      <ion-button
+        label="Custom Style"
+        type="dashed"
+        ionPopover
+        ionPopoverTitle="Custom Style"
+        [ionPopoverBody]="popoverTemplate"
+        ionPopoverCustomClass="custom-popover-class"
+        [ionPopoverPosition]="PopoverPosition.BOTTOM_LEFT"
+        [ionPopoverArrowPointAtCenter]="true"
+      ></ion-button>
+
+      <!-- Popover with Header Icon -->
+      <ion-button
+        label="Header Icon"
+        type="secondary"
+        ionPopover
+        ionPopoverTitle="With Icon"
+        ionPopoverIcon="star"
+        ionPopoverIconColor="#fab005"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.TOP_RIGHT"
+      ></ion-button>
+
+      <!-- Keep Open After Action -->
+      <ion-button
+        label="Keep Open"
+        ionPopover
+        ionPopoverTitle="Keep Open"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverKeep]="true"
+        [ionPopoverActions]="[{ label: 'Action 1' }, { label: 'Action 2' }]"
+        (ionOnFirstAction)="handlePopoverFirstAction()"
+      ></ion-button>
+
+      <!-- External Control -->
+      <ion-button
+        label="External Close"
+        ionPopover
+        ionPopoverTitle="Remote Control"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverClose]="popoverCloseSubject"
+      ></ion-button>
+      <!-- Popover with Buttons/Actions -->
+      <ion-button
+        label="With Actions"
+        type="primary"
+        ionPopover
+        ionPopoverTitle="Confirm Action?"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverActions]="[
+          { label: 'Cancel' },
+          { label: 'Confirm', type: 'primary' }
+        ]"
+        (ionOnFirstAction)="handlePopoverClose()"
+        (ionOnSecondAction)="handlePopoverSecondAction()"
+        [ionPopoverIconClose]="true"
+        [ionPopoverPosition]="PopoverPosition.BOTTOM_LEFT"
+      ></ion-button>
+
+      <!-- Hover Trigger -->
+      <ion-button
+        label="Hover Me"
+        type="dashed"
+        ionPopover
+        ionPopoverTitle="Hover Trigger"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverTrigger]="PopoverTrigger.HOVER"
+        [ionPopoverPosition]="PopoverPosition.RIGHT_TOP"
+      ></ion-button>
+
+      <!-- Without Header (Title) -->
+      <ion-button
+        label="No Header"
+        ionPopover
+        ionPopoverTitle=""
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.BOTTOM_LEFT"
+        [ionPopoverArrowPointAtCenter]="true"
+      ></ion-button>
+
+      <!-- Custom Body Content (Template) -->
+      <ion-button
+        label="Rich Content"
+        ionPopover
+        ionPopoverTitle="Rich Content"
+        [ionPopoverBody]="customBodyTemplate"
+        [ionPopoverPosition]="PopoverPosition.TOP_CENTER"
+        ionPopoverCustomClass="popover-custom-class"
+      ></ion-button>
+
+      <ng-template #customBodyTemplate>
+        <div style="padding: 8px">
+          <p
+            style="
+              font-family: 'Arial', sans-serif;
+              line-height: 1.5;
+              color: #333;
+              margin: 0;
+            "
+          >
+            "In the End" is an iconic song by Linkin Park from 2001. Combining
+            alternative rock and nu-metal, it addresses the struggle and
+            inevitability of change.
+          </p>
+        </div>
+      </ng-template>
+    </div>
+
+    <ion-divider></ion-divider>
+    <ion-heading type="h3" text="Popover Positions"></ion-heading>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; padding: 20px 0">
+      @for (position of popoverPositions; track position) {
+      <ion-button
+        [label]="position"
+        ionPopover
+        [ionPopoverTitle]="position"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="position"
+      ></ion-button>
+      }
+    </div>
+  </section>
+</div>

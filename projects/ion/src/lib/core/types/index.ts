@@ -21,4 +21,5 @@ export * from './tab';
 export * from './link';
 export * from './triple-toggle';
 export * from './switch';
+export * from './popover';
 export * from './popconfirm';
