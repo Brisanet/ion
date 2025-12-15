@@ -49,6 +49,7 @@ import {
   IonRadioGroupComponent,
   IonTabGroupComponent,
   TabInGroup,
+  IonInputCounterComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -91,6 +92,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonSmartTableComponent,
     IonRadioGroupComponent,
     IonTabGroupComponent,
+    IonInputCounterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -382,5 +384,14 @@ export class AppComponent implements OnInit {
   handleTabSelected(tab: TabInGroup): void {
     console.log('Tab selected:', tab);
     this.selectedTabLabel = tab.label;
+  }
+
+  // Input Counter Examples
+  counterValue = 0;
+  counterWithLimits = 5;
+  counterSmall = 10;
+
+  handleCounterChange(event: { newValue: number }): void {
+    console.log('Counter value changed:', event.newValue);
   }
 }
