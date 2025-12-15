@@ -1,0 +1,117 @@
+@import "../../styles/themes/theme.scss"; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  background-color: ion-theme(neutral-1),
+  shadow-color: rgba(4, 42, 98, 0.15),
+  footer-divider-color: ion-theme(neutral-4),
+  border-color: ion-theme(neutral-1),
+  scrollbar: (
+    background-color: transparent,
+    thumb-color: ion-theme(neutral-3),
+    hover-thumb-color: ion-theme(neutral-4),
+  ),
+  item: (
+    background-color: ion-theme(neutral-1),
+    text-color: ion-theme(primary-6),
+    icon-color: ion-theme(primary-6),
+    hover: (
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-5),
+      icon-color: ion-theme(primary-5),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      text-color: ion-theme(primary-7),
+      icon-color: ion-theme(primary-7),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-1),
+      text-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-6),
+    ),
+    selected: (
+      background-color: ion-theme(primary-1),
+      text-color: ion-theme(primary-6),
+      icon-color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+      hover-border-color: ion-theme(primary-5),
+      active-border-color: ion-theme(primary-7),
+    ),
+  ),
+  group: (
+    border-color: ion-theme(neutral-4),
+    icon-color: ion-theme(primary-6),
+    header-text-color: ion-theme(primary-6),
+    selected-border-color: ion-theme(primary-6),
+    opened: (
+      text-color: ion-theme(primary-7),
+      icon-color: ion-theme(primary-7),
+    ),
+    shrinked: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-5),
+    ),
+  ),
+);
+
+$dark: (
+  background-color: ion-theme(neutral-5),
+  shadow-color: rgba(4, 42, 98, 0.15),
+  footer-divider-color: ion-theme(neutral-3),
+  border-color: ion-theme(neutral-3),
+  scrollbar: (
+    background-color: transparent,
+    thumb-color: ion-theme(neutral-3),
+    hover-thumb-color: ion-theme(neutral-4),
+  ),
+  item: (
+    background-color: ion-theme(neutral-5),
+    text-color: ion-theme(neutral-1),
+    icon-color: ion-theme(neutral-1),
+    hover: (
+      background-color: ion-theme(neutral-6),
+      text-color: ion-theme(neutral-1),
+      icon-color: ion-theme(neutral-1),
+    ),
+    active: (
+      background-color: ion-theme(neutral-6),
+      text-color: ion-theme(neutral-1),
+      icon-color: ion-theme(neutral-1),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-1),
+      text-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-6),
+    ),
+    selected: (
+      background-color: ion-theme(neutral-6),
+      text-color: ion-theme(neutral-1),
+      icon-color: ion-theme(neutral-1),
+      border-color: ion-theme(neutral-1),
+      hover-border-color: ion-theme(neutral-1),
+      active-border-color: ion-theme(neutral-1),
+    ),
+  ),
+  group: (
+    border-color: ion-theme(neutral-4),
+    icon-color: ion-theme(neutral-1),
+    header-text-color: ion-theme(neutral-1),
+    selected-border-color: ion-theme(neutral-1),
+    opened: (
+      text-color: ion-theme(neutral-1),
+      icon-color: ion-theme(neutral-1),
+    ),
+    shrinked: (
+      background-color: ion-theme(neutral-5),
+      icon-color: ion-theme(neutral-1),
+    ),
+  ),
+);
+
+@include register-component(
+  sidebar,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);

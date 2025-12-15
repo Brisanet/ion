@@ -1,0 +1,53 @@
+<nav
+  class="ion-sidebar"
+  [class.ion-sidebar--opened]="!closed()"
+  [class.ion-sidebar--shrinked]="shrinkMode()"
+  data-testid="ion-sidebar"
+>
+  <div class="ion-sidebar__header">
+    <div class="ion-sidebar__header--logo">
+      @if(logo() && !shrinkMode()) {
+      <img [src]="logo()" alt="Logo" />
+      }
+    </div>
+
+    <div class="ion-sidebar__toggle">
+      <ion-button
+        [iconType]="closed() ? 'right3' : 'left3'"
+        type="ghost"
+        shape="circle"
+        (click)="toggleVisibility()"
+        data-testid="sidebar-toggle"
+      ></ion-button>
+    </div>
+  </div>
+
+  <div class="ion-sidebar__items">
+    @for (item of items(); track $index) {
+    <ion-sidebar-item
+      [title]="item.title"
+      [icon]="item.icon"
+      [selected]="!!item.selected"
+      [disabled]="!!item.disabled"
+      [shrinkMode]="shrinkMode()"
+      [sidebarClosed]="closed()"
+      (atClick)="itemSelected($index)"
+    >
+      @if (item.options && item.options.length > 0) {
+      <ion-sidebar-group
+        [title]="item.title"
+        [icon]="item.icon"
+        [items]="item.options"
+        [shrinkMode]="shrinkMode()"
+        [sidebarClosed]="closed()"
+        (atClick)="itemOnGroupSelected($index)"
+      ></ion-sidebar-group>
+      }
+    </ion-sidebar-item>
+    }
+  </div>
+
+  <div class="ion-sidebar__footer">
+    <!-- Footer content -->
+  </div>
+</nav>

@@ -1,0 +1,87 @@
+@use "sidebar.theme";
+@import "../../styles/index.scss";
+@import "../../styles/themes/theme.scss";
+
+$sidebar-width: 280px;
+$sidebar-shrunk-width: 64px;
+$transition-duration: 0.3s;
+
+.ion-sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 0; // Default closed/hidden if not shrink mode? Or just closed.
+  background-color: var(--ion-neutral-1);
+  border-right: 1px solid var(--ion-neutral-3);
+  transition: width $transition-duration ease-in-out;
+  overflow: hidden;
+  position: absolute; // Or relative? Absolute is safer for "overlay" effect without CDK
+  top: 0;
+  left: 0;
+  z-index: 990;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+
+  &--opened {
+    width: $sidebar-width;
+  }
+
+  &--shrinked {
+    width: $sidebar-shrunk-width;
+
+    &.ion-sidebar--opened {
+      width: $sidebar-width; // When opened in shrink mode, it expands? Or does it stay shrunk?
+      // Usually "Shrink Mode" means it *can* shrink.
+      // If "Closed" in shrink mode -> show icons (shrunk width).
+      // If "Opened" in shrink mode -> show full width.
+    }
+
+    // Logic check:
+    // If shrinkMode = true:
+    //   closed = true  -> width = $sidebar-shrunk-width
+    //   closed = false -> width = $sidebar-width
+  }
+
+  // Handling the specific visibility logic based on flags
+  // If NOT shrinkMode and closed -> width 0 (hidden)
+  // If shrinkMode and closed -> width shrunk
+
+  &:not(.ion-sidebar--shrinked) {
+    &.ion-sidebar--opened {
+      width: $sidebar-width;
+    }
+    &:not(.ion-sidebar--opened) {
+      width: 0;
+      border: none;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    height: 64px;
+    box-sizing: border-box;
+
+    &--logo {
+      img {
+        max-height: 32px;
+      }
+    }
+  }
+
+  &__items {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 16px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__footer {
+    padding: 16px;
+    border-top: 1px solid var(--ion-neutral-3);
+  }
+}

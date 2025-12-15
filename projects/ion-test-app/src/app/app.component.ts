@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import {
   AvatarType,
@@ -38,6 +38,7 @@ import {
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
+  IonSidebarComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -72,6 +73,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonPopoverDirective,
     IonPopConfirmDirective,
     IonNoDataComponent,
+    IonSidebarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -197,5 +199,53 @@ export class AppComponent {
 
   closePopoverManually(): void {
     this.popoverCloseSubject.next();
+  }
+
+  // Sidebar Logic
+  sidebarShrinkMode = false;
+  sidebarCloseOnSelect = false;
+  sidebarItems: (any & { options?: any[] })[] = [
+    {
+      title: 'Dashboard',
+      icon: 'home',
+      selected: true,
+      action: () => console.log('Dashboard clicked'),
+    },
+    {
+      title: 'Users',
+      icon: 'user',
+      options: [
+        {
+          title: 'List',
+          icon: 'list',
+          action: () => console.log('User List clicked'),
+        },
+        {
+          title: 'Create',
+          icon: 'plus',
+          action: () => console.log('User Create clicked'),
+        },
+      ],
+    },
+    {
+      title: 'Settings',
+      icon: 'config',
+      action: () => console.log('Settings clicked'),
+    },
+    {
+      title: 'Help',
+      icon: 'info',
+      disabled: true,
+    },
+  ];
+
+  @ViewChild(IonSidebarComponent) sidebar!: IonSidebarComponent;
+
+  handleSidebarToggle(isOpen: boolean): void {
+    console.log('Sidebar toggled. Is Open:', isOpen);
+  }
+
+  toggleSidebar(): void {
+    this.sidebar.toggleVisibility();
   }
 }
