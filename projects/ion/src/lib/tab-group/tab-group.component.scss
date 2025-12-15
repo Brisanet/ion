@@ -1,0 +1,20 @@
+.tab-group {
+  display: flex;
+
+  :first-child {
+    display: flex;
+  }
+}
+
+.tab-group-column-inner {
+  flex-direction: column;
+
+  ::ng-deep {
+    ion-tab {
+      button {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+}

@@ -1558,4 +1558,111 @@
       <p>Selected Value: {{ radioGroupValue }}</p>
     </div>
   </section>
+
+  <section>
+    <h2>Tab Group</h2>
+    <div style="display: flex; flex-direction: column; gap: 30px">
+      <div>
+        <h3>Interactive Example - Tab State Changes</h3>
+        <p style="margin-bottom: 10px">
+          <strong>Selected Tab:</strong>
+          <span
+            style="
+              color: #1890ff;
+              font-weight: bold;
+              margin-left: 8px;
+              padding: 4px 8px;
+              background: #e6f7ff;
+              border-radius: 4px;
+            "
+          >
+            {{ selectedTabLabel }}
+          </span>
+        </p>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Horizontal Tabs (Default)</h3>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Vertical Tabs</h3>
+        <ion-tab-group
+          [tabs]="tabGroupVertical"
+          direction="vertical"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Tabs with Badges</h3>
+        <ion-tab-group
+          [tabs]="tabGroupWithBadge"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Tabs with Disabled State</h3>
+        <ion-tab-group
+          [tabs]="tabGroupWithDisabled"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Small Size Tabs</h3>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="sm"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Medium Size Tabs</h3>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="md"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Large Size Tabs</h3>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="lg"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Vertical with Left Border</h3>
+        <ion-tab-group
+          [tabs]="tabGroupVertical"
+          direction="vertical"
+          border="left"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+
+      <div>
+        <h3>Horizontal with Top Border</h3>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          border="top"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
+      </div>
+    </div>
+  </section>
 </div>
