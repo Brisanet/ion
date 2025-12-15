@@ -46,6 +46,7 @@ import {
   IonSmartTableComponent,
   ConfigSmartTable,
   SmartTableEvent,
+  IonRadioGroupComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -86,6 +87,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonStepsComponent,
     IonInputAreaComponent,
     IonSmartTableComponent,
+    IonRadioGroupComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -337,4 +339,12 @@ export class AppComponent implements OnInit {
   smartTableEvents(event: SmartTableEvent): void {
     console.log('Smart Table Event:', event);
   }
+
+  // Radio Group Examples
+  radioGroupValue = 'option1';
+  radioGroupOptions = [
+    { label: 'Option 1', value: 'option1' },
+    { label: 'Option 2', value: 'option2' },
+    { label: 'Disabled Option', value: 'option3', disabled: true },
+  ];
 }

@@ -1546,4 +1546,16 @@
       ></ion-smart-table>
     </div>
   </section>
+
+  <section>
+    <h2>Radio Group</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-radio-group
+        name="my-group"
+        [options]="radioGroupOptions"
+        [(value)]="radioGroupValue"
+      ></ion-radio-group>
+      <p>Selected Value: {{ radioGroupValue }}</p>
+    </div>
+  </section>
 </div>
