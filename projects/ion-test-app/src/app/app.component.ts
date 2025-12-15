@@ -40,6 +40,7 @@ import {
   IonNoDataComponent,
   IonStepsComponent,
   StepType,
+  IonInputAreaComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -76,6 +77,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonPopConfirmDirective,
     IonNoDataComponent,
     IonStepsComponent,
+    IonInputAreaComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -215,4 +217,8 @@ export class AppComponent {
     console.log('Step changed:', index);
     this.stepCurrent = index;
   }
+
+  // Input Area examples
+  inputAreaValue = '';
+  disabledInputAreaValue = 'This is disabled';
 }
