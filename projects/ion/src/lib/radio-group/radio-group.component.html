@@ -1,0 +1,12 @@
+<div class="ion-radio-group" data-testid="ion-radio-group">
+  @for (option of options(); track option.value; let i = $index) {
+  <ion-radio
+    [label]="option.label"
+    [value]="option.value"
+    [disabled]="disabled() || !!option.disabled"
+    [checked]="value() === option.value"
+    [id]="name() + '-radio-' + i"
+    (checkedChange)="handleSelection(option.value)"
+  ></ion-radio>
+  }
+</div>

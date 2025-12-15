@@ -1,0 +1,28 @@
+@import '../../styles/themes/theme.scss';
+
+$default: (
+  text-color: ion-theme(neutral-7),
+  border-color: ion-theme(neutral-4),
+  border-radius: 8px,
+  background-color: ion-theme(neutral-1),
+  placeholder-text-color: ion-theme(neutral-5),
+  placeholder-text-font-weight: 400,
+  placeholder-text-font-size: 14px,
+  hover-border-color: ion-theme(primary-5),
+  active-border-color: ion-theme(primary-5),
+  active-outline-color: ion-theme(primary-2),
+  disabled-background-color: ion-theme(neutral-2),
+  disabled-text-color: ion-theme(neutral-5),
+  disabled-border-color: ion-theme(neutral-4),
+  scrollbar-thumb-color: ion-theme(neutral-4),
+  scrollbar-track-color: ion-theme(neutral-3),
+  scrollbar-button-border-color: ion-theme(neutral-4),
+  scrollbar-button-hover-border-color: ion-theme(neutral-6),
+);
+
+@include register-component(
+  input-area,
+  (
+    default: $default,
+  )
+);

@@ -1429,4 +1429,133 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Sidebar</h2>
+    <div
+      style="margin-bottom: 20px; display: flex; gap: 20px; align-items: center"
+    >
+      <div style="display: flex; gap: 10px; align-items: center">
+        <span>Shrink Mode:</span>
+        <ion-switch
+          [value]="sidebarShrinkMode"
+          (atValueChange)="sidebarShrinkMode = $event"
+        ></ion-switch>
+      </div>
+      <div style="display: flex; gap: 10px; align-items: center">
+        <span>Close on Select:</span>
+        <ion-switch
+          [value]="sidebarCloseOnSelect"
+          (atValueChange)="sidebarCloseOnSelect = $event"
+        ></ion-switch>
+      </div>
+      <div style="margin-left: auto">
+        <ion-button
+          label="Toggle Sidebar"
+          (click)="toggleSidebar()"
+        ></ion-button>
+      </div>
+    </div>
+    <div
+      style="
+        position: relative;
+        height: 500px;
+        border: 1px solid #ddd;
+        overflow: hidden;
+        display: flex;
+        background-color: #f4f4f4;
+      "
+    >
+      <ion-sidebar
+        [items]="sidebarItems"
+        [shrinkMode]="sidebarShrinkMode"
+        [closeOnSelect]="sidebarCloseOnSelect"
+        (ionOnSidebarToggle)="handleSidebarToggle($event)"
+      ></ion-sidebar>
+      <div
+        style="
+          padding: 20px;
+          flex: 1;
+          margin-left: 64px;
+          transition: margin 0.3s;
+        "
+      >
+        <!-- margin-left allows space for shrunk bar, if overlay is used, but here it is absolute -->
+        <h3>Main Content Area</h3>
+        <p>
+          The sidebar sits to the left of this content. Toggle shrinking/closing
+          to see behavior.
+        </p>
+        <p>
+          Current State: <br />
+          Shrink Mode: {{ sidebarShrinkMode }} <br />
+          Close On Select: {{ sidebarCloseOnSelect }}
+        </p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Steps</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-steps
+        [steps]="steps"
+        [current]="stepCurrent"
+        [clickable]="true"
+        (indexChange)="handleStepChange($event)"
+      ></ion-steps>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input Area</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px; width: 500px">
+      <div>
+        <h3>Basic</h3>
+        <ion-input-area
+          placeholder="Type something..."
+          [(value)]="inputAreaValue"
+        ></ion-input-area>
+        <p>Value: {{ inputAreaValue }}</p>
+      </div>
+
+      <div>
+        <h3>Custom Rows/Cols</h3>
+        <ion-input-area
+          rows="3"
+          cols="50"
+          placeholder="3 rows, 50 cols"
+        ></ion-input-area>
+      </div>
+
+      <div>
+        <h3>Disabled</h3>
+        <ion-input-area
+          [disabled]="true"
+          [(value)]="disabledInputAreaValue"
+        ></ion-input-area>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Smart Table</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-smart-table
+        [config]="smartTableConfig"
+        (events)="smartTableEvents($event)"
+      ></ion-smart-table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Radio Group</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-radio-group
+        name="my-group"
+        [options]="radioGroupOptions"
+        [(value)]="radioGroupValue"
+      ></ion-radio-group>
+      <p>Selected Value: {{ radioGroupValue }}</p>
+    </div>
+  </section>
 </div>

@@ -1,0 +1,42 @@
+@import '../../styles/themes/theme.scss';
+
+$default: (
+  border-radius: 8px,
+  header-divider-color: ion-theme(neutral-4),
+  sort-button-disabled-hover-background-color: transparent,
+  sort-button-hover-background-color: ion-theme(neutral-3),
+  sort-button-focus-background-color: ion-theme(neutral-3),
+  sort-button-active-background-color: ion-theme(neutral-4),
+  row-hover-background-color: ion-theme(neutral-2),
+  row-th-background-color: ion-theme(neutral-2),
+  row-th-text-font-size: 14px,
+  row-th-text-font-weight: 600,
+  row-th-text-line-height: 20px,
+  row-th-text-color: ion-theme(neutral-7),
+  row-td-text-font-size: 14px,
+  row-td-text-font-weight: 400,
+  row-td-text-line-height: 20px,
+  row-td-text-color: ion-theme(neutral-7),
+  row-td-icon-color: ion-theme(neutral-7),
+  row-odd-background-color: ion-theme(neutral-1),
+  row-even-background-color: ion-theme(neutral-1),
+  row-checkbox-shadow: ion-theme(primary-5),
+  footer-background-color: rgba(255, 255, 255, 0.5),
+  footer-divider-color: ion-theme(neutral-4),
+  footer-text-font-family: 'Source Sans Pro',
+  footer-text-font-style: normal,
+  footer-text-font-weight: 400,
+  footer-text-font-size: 14px,
+  footer-text-line-height: 20px,
+  footer-text-color: ion-theme(neutral-7),
+  no-data-text-color: ion-theme(neutral-7),
+  no-data-background-color: ion-theme(neutral-1),
+  no-data-icon-color: ion-theme(neutral-5),
+);
+
+@include register-component(
+  table,
+  (
+    default: $default,
+  )
+);
