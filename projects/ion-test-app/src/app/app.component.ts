@@ -47,6 +47,8 @@ import {
   ConfigSmartTable,
   SmartTableEvent,
   IonRadioGroupComponent,
+  IonTabGroupComponent,
+  TabInGroup,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -88,6 +90,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonInputAreaComponent,
     IonSmartTableComponent,
     IonRadioGroupComponent,
+    IonTabGroupComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -347,4 +350,37 @@ export class AppComponent implements OnInit {
     { label: 'Option 2', value: 'option2' },
     { label: 'Disabled Option', value: 'option3', disabled: true },
   ];
+
+  // Tab Group Examples
+  tabGroupHorizontal: TabInGroup[] = [
+    { label: 'Home', selected: true, iconType: 'home' },
+    { label: 'Profile', selected: false, iconType: 'user' },
+    { label: 'Settings', selected: false, iconType: 'config' },
+  ];
+
+  tabGroupVertical: TabInGroup[] = [
+    { label: 'Dashboard', selected: true },
+    { label: 'Analytics', selected: false },
+    { label: 'Reports', selected: false },
+    { label: 'Users', selected: false },
+  ];
+
+  tabGroupWithBadge: TabInGroup[] = [
+    { label: 'Inbox', selected: true, badge: { value: 5 } },
+    { label: 'Sent', selected: false, badge: { value: 12 } },
+    { label: 'Drafts', selected: false },
+  ];
+
+  tabGroupWithDisabled: TabInGroup[] = [
+    { label: 'Active', selected: true },
+    { label: 'Pending', selected: false },
+    { label: 'Disabled', selected: false, disabled: true },
+  ];
+
+  selectedTabLabel = 'Home';
+
+  handleTabSelected(tab: TabInGroup): void {
+    console.log('Tab selected:', tab);
+    this.selectedTabLabel = tab.label;
+  }
 }
