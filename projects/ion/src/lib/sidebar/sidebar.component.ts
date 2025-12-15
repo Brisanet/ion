@@ -12,7 +12,6 @@ import { Item } from '../core/types/sidebar';
   imports: [
     CommonModule,
     IonButtonComponent,
-    IonIconComponent,
     IonSidebarGroupComponent,
     IonSidebarItemComponent,
   ],
