@@ -1494,4 +1494,56 @@
       </div>
     </div>
   </section>
+  <section>
+    <h2>Steps</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-steps
+        [steps]="steps"
+        [current]="stepCurrent"
+        [clickable]="true"
+        (indexChange)="handleStepChange($event)"
+      ></ion-steps>
+    </div>
+  </section>
+
+  <section>
+    <h2>Input Area</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px; width: 500px">
+      <div>
+        <h3>Basic</h3>
+        <ion-input-area
+          placeholder="Type something..."
+          [(value)]="inputAreaValue"
+        ></ion-input-area>
+        <p>Value: {{ inputAreaValue }}</p>
+      </div>
+
+      <div>
+        <h3>Custom Rows/Cols</h3>
+        <ion-input-area
+          rows="3"
+          cols="50"
+          placeholder="3 rows, 50 cols"
+        ></ion-input-area>
+      </div>
+
+      <div>
+        <h3>Disabled</h3>
+        <ion-input-area
+          [disabled]="true"
+          [(value)]="disabledInputAreaValue"
+        ></ion-input-area>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Smart Table</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-smart-table
+        [config]="smartTableConfig"
+        (events)="smartTableEvents($event)"
+      ></ion-smart-table>
+    </div>
+  </section>
 </div>

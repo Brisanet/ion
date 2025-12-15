@@ -1,4 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import {
   AvatarType,
@@ -39,6 +40,12 @@ import {
   IonPopConfirmDirective,
   IonNoDataComponent,
   IonSidebarComponent,
+  IonStepsComponent,
+  StepType,
+  IonInputAreaComponent,
+  IonSmartTableComponent,
+  ConfigSmartTable,
+  SmartTableEvent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -72,13 +79,18 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonSwitchComponent,
     IonPopoverDirective,
     IonPopConfirmDirective,
+    IonPopConfirmDirective,
     IonNoDataComponent,
     IonSidebarComponent,
+    IonStepsComponent,
+    IonStepsComponent,
+    IonInputAreaComponent,
+    IonSmartTableComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'ion-test-app';
 
   // Avatar types for template
@@ -247,5 +259,82 @@ export class AppComponent {
 
   toggleSidebar(): void {
     this.sidebar.toggleVisibility();
+  }
+  // Steps examples
+  stepCurrent = 1;
+  steps: StepType[] = [
+    { label: 'Step 1' },
+    { label: 'Step 2' },
+    { label: 'Step 3' },
+  ];
+
+  handleStepChange(index: number) {
+    console.log('Step changed:', index);
+    this.stepCurrent = index;
+  }
+
+  // Input Area examples
+  inputAreaValue = '';
+  disabledInputAreaValue = 'This is disabled';
+
+  // Smart Table HTTP Example
+  private http = inject(HttpClient);
+
+  smartTableConfig: ConfigSmartTable<any> = {
+    data: [],
+    columns: [
+      { key: 'id', label: 'ID', sort: true },
+      { key: 'firstName', label: 'Name', sort: true },
+      { key: 'email', label: 'Email', sort: true },
+      { key: 'username', label: 'Username', sort: true },
+    ],
+    pagination: {
+      total: 0,
+      itemsPerPage: 30,
+      page: 1,
+    },
+    loading: false,
+    actions: [
+      {
+        label: 'Delete',
+        icon: 'trash',
+        danger: true,
+        call: (row: any) => this.handleDelete(row),
+      },
+    ],
+  };
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers(): void {
+    this.smartTableConfig.loading = true;
+    this.http.get('https://dummyjson.com/users').subscribe((response: any) => {
+      this.smartTableConfig = {
+        ...this.smartTableConfig,
+        data: response.users,
+        pagination: {
+          ...this.smartTableConfig.pagination,
+          total: response.total,
+        },
+        loading: false,
+      };
+    });
+  }
+
+  handleDelete(row: any): void {
+    this.smartTableConfig = {
+      ...this.smartTableConfig,
+      data: this.smartTableConfig.data.filter((item) => item.id !== row.id),
+      pagination: {
+        ...this.smartTableConfig.pagination,
+        total: this.smartTableConfig.pagination.total - 1,
+      },
+    };
+  }
+
+  smartTableEvents(event: SmartTableEvent): void {
+    console.log('Smart Table Event:', event);
   }
 }
