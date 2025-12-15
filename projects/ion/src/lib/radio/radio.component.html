@@ -2,7 +2,7 @@
   <input
     (click)="check()"
     [name]="label()"
-    [id]="label()"
+    [id]="id() || label()"
     [value]="value() || label()"
     [disabled]="disabled()"
     type="radio"
@@ -11,6 +11,7 @@
     [class.radio-checked]="checked()"
   />
   <label
+    [for]="id() || label()"
     [class.labelDisabled]="!disabled()"
     [class.labelDisabled-checked]="disabled()"
     (click)="check()"

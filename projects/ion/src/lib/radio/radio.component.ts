@@ -16,8 +16,9 @@ import {
 export class IonRadioComponent {
   label = input<string>();
   checked = model<boolean>(false);
-  disabled  = input<boolean>(false);
+  disabled = input<boolean>(false);
   value = input<string>();
+  id = input<string>();
 
   check(): void {
     if (!this.disabled()) {

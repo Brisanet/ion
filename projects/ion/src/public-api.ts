@@ -44,6 +44,7 @@ export * from './lib/no-data/no-data.component';
 export * from './lib/sidebar/sidebar-item/sidebar-item.component';
 export * from './lib/sidebar/sidebar-group/sidebar-group.component';
 export * from './lib/sidebar/sidebar.component';
+export * from './lib/radio-group/radio-group.component';
 export * from './lib/core/types';
 export * from './lib/step/ion-step.component';
 export * from './lib/input-area/input-area.component';
