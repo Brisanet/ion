@@ -64,7 +64,7 @@ describe('InputCounter', () => {
   it('should render with md size by default', () => {
     const addButtonContainer = screen.getByTestId('iconAdd');
     const button = within(addButtonContainer).getByRole('button');
-    expect(button).toHaveClass('md');
+    expect(button).toHaveClass('ion-btn-md');
   });
 
   it('should enter non-numeric characters and not affect the value of input-number', async () => {
@@ -87,7 +87,7 @@ describe('InputCounter / Size', () => {
     await sut({ inputSize: 'sm' });
     const addButtonContainer = screen.getByTestId('iconAdd');
     const button = within(addButtonContainer).getByRole('button');
-    expect(button).toHaveClass('sm');
+    expect(button).toHaveClass('ion-btn-sm');
   });
 });
 
