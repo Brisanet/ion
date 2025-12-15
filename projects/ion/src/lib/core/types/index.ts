@@ -11,6 +11,7 @@ export * from './dropdown';
 export * from './icon';
 export * from './info-badge';
 export * from './direction';
+export * from './input-counter';
 export * from './smart-table';
 export * from './status';
 export * from './size';

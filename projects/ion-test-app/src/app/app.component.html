@@ -1665,4 +1665,92 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Input Counter</h2>
+    <div style="display: flex; flex-direction: column; gap: 30px">
+      <div>
+        <h3>Basic Counter</h3>
+        <p style="margin-bottom: 10px">
+          <strong>Current Value:</strong>
+          <span
+            style="
+              color: #1890ff;
+              font-weight: bold;
+              margin-left: 8px;
+              padding: 4px 8px;
+              background: #e6f7ff;
+              border-radius: 4px;
+            "
+          >
+            {{ counterValue }}
+          </span>
+        </p>
+        <ion-input-counter
+          [(count)]="counterValue"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
+      </div>
+
+      <div>
+        <h3>Counter with Min/Max Limits (Min: 0, Max: 10)</h3>
+        <p style="margin-bottom: 10px">
+          <strong>Current Value:</strong>
+          <span
+            style="
+              color: #1890ff;
+              font-weight: bold;
+              margin-left: 8px;
+              padding: 4px 8px;
+              background: #e6f7ff;
+              border-radius: 4px;
+            "
+          >
+            {{ counterWithLimits }}
+          </span>
+        </p>
+        <ion-input-counter
+          [(count)]="counterWithLimits"
+          [minValue]="0"
+          [maxValue]="10"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
+      </div>
+
+      <div>
+        <h3>Small Size Counter (Min: 5, Max: 20)</h3>
+        <ion-input-counter
+          [(count)]="counterSmall"
+          inputSize="sm"
+          [minValue]="5"
+          [maxValue]="20"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
+      </div>
+
+      <div>
+        <h3>Medium Size Counter (Default)</h3>
+        <ion-input-counter
+          [count]="0"
+          inputSize="md"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
+      </div>
+
+      <div>
+        <h3>Disabled Counter</h3>
+        <ion-input-counter [count]="15" [disabled]="true"></ion-input-counter>
+      </div>
+
+      <div>
+        <h3>Counter with Custom Max Digits (3 digits)</h3>
+        <ion-input-counter
+          [count]="99"
+          [maxDigits]="3"
+          [maxValue]="999"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
+      </div>
+    </div>
+  </section>
 </div>
