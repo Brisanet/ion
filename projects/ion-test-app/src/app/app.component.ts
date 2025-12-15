@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ViewChild, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import {
@@ -39,6 +39,7 @@ import {
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
+  IonSidebarComponent,
   IonStepsComponent,
   StepType,
   IonInputAreaComponent,
@@ -80,6 +81,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonPopConfirmDirective,
     IonPopConfirmDirective,
     IonNoDataComponent,
+    IonSidebarComponent,
     IonStepsComponent,
     IonStepsComponent,
     IonInputAreaComponent,
@@ -211,6 +213,53 @@ export class AppComponent implements OnInit {
     this.popoverCloseSubject.next();
   }
 
+  // Sidebar Logic
+  sidebarShrinkMode = false;
+  sidebarCloseOnSelect = false;
+  sidebarItems: (any & { options?: any[] })[] = [
+    {
+      title: 'Dashboard',
+      icon: 'home',
+      selected: true,
+      action: () => console.log('Dashboard clicked'),
+    },
+    {
+      title: 'Users',
+      icon: 'user',
+      options: [
+        {
+          title: 'List',
+          icon: 'list',
+          action: () => console.log('User List clicked'),
+        },
+        {
+          title: 'Create',
+          icon: 'plus',
+          action: () => console.log('User Create clicked'),
+        },
+      ],
+    },
+    {
+      title: 'Settings',
+      icon: 'config',
+      action: () => console.log('Settings clicked'),
+    },
+    {
+      title: 'Help',
+      icon: 'info',
+      disabled: true,
+    },
+  ];
+
+  @ViewChild(IonSidebarComponent) sidebar!: IonSidebarComponent;
+
+  handleSidebarToggle(isOpen: boolean): void {
+    console.log('Sidebar toggled. Is Open:', isOpen);
+  }
+
+  toggleSidebar(): void {
+    this.sidebar.toggleVisibility();
+  }
   // Steps examples
   stepCurrent = 1;
   steps: StepType[] = [

@@ -1,0 +1,100 @@
+@import "../../../styles/index.scss";
+
+.ion-sidebar-item {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  gap: 16px;
+  padding: 8px 16px;
+  border: none;
+  background-color: transparent;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.25s;
+  color: var(--ion-neutral-7);
+
+  @include font-size-md;
+
+  .ion-sidebar-item__icon {
+    ::ng-deep svg {
+      fill: var(--ion-neutral-6);
+    }
+  }
+
+  &__text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+  }
+
+  &__icon {
+    display: flex;
+    justify-content: center;
+  }
+
+  &:hover {
+    background-color: var(--ion-primary-1);
+    color: var(--ion-primary-5);
+
+    .ion-sidebar-item__icon {
+      ::ng-deep svg {
+        fill: var(--ion-primary-5);
+      }
+    }
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: transparent;
+    color: var(--ion-neutral-5);
+
+    .ion-sidebar-item__icon {
+      ::ng-deep svg {
+        fill: var(--ion-neutral-5);
+      }
+    }
+  }
+
+  &--selected:not(:disabled) {
+    background-color: var(--ion-primary-1);
+    color: var(--ion-primary-6);
+
+    .ion-sidebar-item__icon {
+      ::ng-deep svg {
+        fill: var(--ion-primary-6);
+      }
+    }
+  }
+
+  &--shrunk {
+    justify-content: center;
+    padding: 0;
+  }
+
+  & > div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+.ion-sidebar-subitem {
+  position: relative;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: var(--ion-primary-6);
+    border-radius: 50%;
+    left: 28px;
+    top: 6px;
+  }
+}
