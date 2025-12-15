@@ -3,7 +3,7 @@ import {
   ConfigTable,
   EventTable,
   PaginationConfig,
-} from '../../table/utilsTable';
+} from '../../table/utils';
 import { SafeAny } from '../../utils/safe-any';
 import { PageEvent } from './pagination';
 import { TooltipProps } from './tooltip';

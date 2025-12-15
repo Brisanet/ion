@@ -44,3 +44,4 @@ export * from './lib/no-data/no-data.component';
 export * from './lib/core/types';
 export * from './lib/step/ion-step.component';
 export * from './lib/input-area/input-area.component';
+export * from './lib/smart-table/smart-table.component';

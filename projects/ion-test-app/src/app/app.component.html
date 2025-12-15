@@ -1472,4 +1472,14 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Smart Table</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-smart-table
+        [config]="smartTableConfig"
+        (events)="smartTableEvents($event)"
+      ></ion-smart-table>
+    </div>
+  </section>
 </div>
