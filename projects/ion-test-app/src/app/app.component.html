@@ -1429,4 +1429,16 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Steps</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px">
+      <ion-steps
+        [steps]="steps"
+        [current]="stepCurrent"
+        [clickable]="true"
+        (indexChange)="handleStepChange($event)"
+      ></ion-steps>
+    </div>
+  </section>
 </div>

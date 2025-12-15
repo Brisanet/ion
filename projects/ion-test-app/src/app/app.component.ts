@@ -38,6 +38,8 @@ import {
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
+  IonStepsComponent,
+  StepType,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -71,7 +73,9 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonSwitchComponent,
     IonPopoverDirective,
     IonPopConfirmDirective,
+    IonPopConfirmDirective,
     IonNoDataComponent,
+    IonStepsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -197,5 +201,18 @@ export class AppComponent {
 
   closePopoverManually(): void {
     this.popoverCloseSubject.next();
+  }
+
+  // Steps examples
+  stepCurrent = 1;
+  steps: StepType[] = [
+    { label: 'Step 1' },
+    { label: 'Step 2' },
+    { label: 'Step 3' },
+  ];
+
+  handleStepChange(index: number) {
+    console.log('Step changed:', index);
+    this.stepCurrent = index;
   }
 }

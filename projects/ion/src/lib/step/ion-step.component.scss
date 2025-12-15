@@ -1,0 +1,199 @@
+@use 'step.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+@mixin setStepColorsStatus($border, $bg, $color) {
+  .step-draw .circle {
+    border-color: ion-theme($border);
+    background-color: ion-theme($bg);
+    color: ion-theme($color);
+  }
+}
+
+@mixin setIconColorStatus($color) {
+  ::ng-deep svg {
+    margin-top: 5px;
+    fill: ion-theme($color);
+  }
+}
+
+.steps-container {
+  display: flex;
+
+  &.step-direction-vertical {
+    flex-direction: column;
+  }
+
+  &.step-direction-horizontal .step {
+    align-items: center;
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+
+  .step-draw {
+    display: flex;
+    align-items: center;
+
+    .circle {
+      box-sizing: content-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: spacing(1);
+      padding: spacing(0.5);
+      min-width: 28px;
+      height: 28px;
+      border-radius: 20px;
+      border: 1px solid;
+      font-family: ion-theme(step-circle-text-font-family);
+      font-style: ion-theme(step-circle-text-font-style);
+      font-weight: ion-theme(step-circle-text-font-weight);
+      font-size: ion-theme(step-circle-text-font-size);
+      line-height: ion-theme(step-circle-text-line-height);
+    }
+  }
+
+  .line {
+    width: 64.5px;
+    height: 1px;
+    background-color: ion-theme(step-line-color);
+
+    &.bolded {
+      background-color: ion-theme(step-line-bolded-color);
+    }
+
+    &.transparent {
+      background-color: transparent !important;
+    }
+
+    &.line-direction-vertical {
+      width: 1px;
+      height: 64.5px;
+      margin-left: 27px;
+    }
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: fit-content;
+
+    .label,
+    .description {
+      color: ion-theme(step-label-text-color);
+      font-family: ion-theme(step-label-text-font-family);
+      font-style: ion-theme(step-label-text-font-style);
+      font-weight: ion-theme(step-label-text-font-weight);
+      word-break: break-all;
+      padding: 0 spacing(1);
+      box-sizing: border-box;
+      text-align: center;
+      max-width: 183px;
+    }
+
+    .label {
+      font-size: 14px;
+      line-height: 20px;
+
+      &.selected {
+        color: ion-theme(step-label-text-selected-color);
+      }
+
+      &.disabled,
+      &.disabled.selected {
+        color: ion-theme(step-label-text-disabled-color);
+        cursor: not-allowed;
+      }
+    }
+
+    .description {
+      font-size: 12px;
+      line-height: 16px;
+    }
+  }
+
+  @each $status in default, selected, checked, error {
+    &.#{$status} {
+      @include setStepColorsStatus(
+        step-status-#{$status}-border-color,
+        step-status-#{$status}-background-color,
+        step-status-#{$status}-text-color
+      );
+
+      &.clickable {
+        &:hover {
+          @include setStepColorsStatus(
+            step-status-#{$status}-hover-border-color,
+            step-status-#{$status}-hover-background-color,
+            step-status-#{$status}-hover-text-color
+          );
+        }
+
+        &:active {
+          @include setStepColorsStatus(
+            step-status-#{$status}-active-border-color,
+            step-status-#{$status}-active-background-color,
+            step-status-#{$status}-active-text-color
+          );
+        }
+      }
+    }
+  }
+
+  &.checked {
+    @include setIconColorStatus(step-status-checked-check-icon-color);
+
+    &.clickable {
+      &:hover {
+        @include setIconColorStatus(step-status-checked-hover-check-icon-color);
+      }
+
+      &:active {
+        @include setIconColorStatus(
+          step-status-checked-active-check-icon-color
+        );
+      }
+    }
+  }
+
+  &.disabled {
+    &.default,
+    &.selected,
+    &.checked,
+    &.error {
+      @include setStepColorsStatus(
+        step-status-disabled-border-color,
+        step-status-disabled-background-color,
+        step-status-disabled-text-color
+      );
+      @include setIconColorStatus(step-status-disabled-check-icon-color);
+      cursor: not-allowed;
+    }
+    .step-draw {
+      .line,
+      .line.bolded {
+        background-color: ion-theme(step-status-disabled-line-color);
+      }
+    }
+  }
+}
+
+.step.clickable {
+  cursor: pointer;
+
+  &:hover,
+  &:active {
+    .text-container * {
+      color: ion-theme(step-label-text-hover-active-color);
+    }
+
+    &.error .text-container * {
+      color: ion-theme(step-label-text-hover-active-error-color);
+    }
+  }
+}
