@@ -1,0 +1,30 @@
+<div [class]="containerClass()" data-testid="ion-notification" #notificationRef>
+  <div class="notification-inner">
+    <div>
+      <ion-icon
+        data-testid="notification-icon"
+        [class]="iconClass()"
+        [type]="iconToDisplay()"
+      >
+      </ion-icon>
+    </div>
+    <div class="notification-text">
+      <div class="notification-title">
+        <span>{{ title() }}</span>
+      </div>
+      <div class="notification-message">
+        <span>{{ message() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <ion-icon
+      data-testid="btn-remove"
+      (click)="closeNotification()"
+      class="close-icon"
+      [size]="16"
+      type="close"
+    ></ion-icon>
+  </div>
+</div>
