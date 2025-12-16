@@ -43,6 +43,7 @@ export * from './lib/theme/theme.service';
 export * from './lib/popconfirm/popconfirm.component';
 export * from './lib/popconfirm/popconfirm.directive';
 export * from './lib/no-data/no-data.component';
+export * from './lib/message/message.component';
 export * from './lib/sidebar/sidebar-item/sidebar-item.component';
 export * from './lib/sidebar/sidebar-group/sidebar-group.component';
 export * from './lib/sidebar/sidebar.component';

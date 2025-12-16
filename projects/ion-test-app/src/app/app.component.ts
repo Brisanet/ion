@@ -50,6 +50,7 @@ import {
   IonTabGroupComponent,
   TabInGroup,
   IonInputCounterComponent,
+  IonMessageComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -93,6 +94,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonRadioGroupComponent,
     IonTabGroupComponent,
     IonInputCounterComponent,
+    IonMessageComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

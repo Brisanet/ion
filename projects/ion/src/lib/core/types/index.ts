@@ -26,4 +26,5 @@ export * from './triple-toggle';
 export * from './switch';
 export * from './popover';
 export * from './popconfirm';
+export * from './message';
 export * from './steps';
