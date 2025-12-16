@@ -21,6 +21,7 @@ export interface NotificationItem extends NotificationProps {
         [fixed]="notification.fixed || false"
         [fadeIn]="notification.fadeIn || 'fadeIn'"
         [fadeOut]="notification.fadeOut || 'fadeOut'"
+        [pauseOnHover]="notification.pauseOnHover ?? true"
         (ionOnClose)="removeNotification(notification.id)"
       ></ion-notification>
       }

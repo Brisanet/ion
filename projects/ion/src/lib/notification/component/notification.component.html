@@ -1,4 +1,10 @@
-<div [class]="containerClass()" data-testid="ion-notification" #notificationRef>
+<div
+  [class]="containerClass()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  data-testid="ion-notification"
+  #notificationRef
+>
   <div class="notification-inner">
     <div>
       <ion-icon

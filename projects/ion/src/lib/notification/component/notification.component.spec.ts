@@ -21,6 +21,15 @@ const sut = async (customProps: Partial<NotificationProps> = {}) => {
 };
 
 describe('IonNotificationComponent', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
   it('should show title', async () => {
     await sut();
     expect(screen.getByText(defaultNotification.title)).toBeInTheDocument();
@@ -102,7 +111,7 @@ describe('IonNotificationComponent', () => {
 
     const btnRemove = screen.getByTestId('btn-remove');
     fireEvent.click(btnRemove);
-    await sleep(1500); // 1000ms animation + buffer
+    jest.advanceTimersByTime(1500); // 1000ms animation + buffer
     expect(ionOnCloseSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -117,7 +126,7 @@ describe('IonNotificationComponent', () => {
         ionOnClose: ionOnCloseSpy,
       },
     });
-    await sleep(2500);
+    jest.advanceTimersByTime(2500);
     // Should NOT have emitted close
     expect(ionOnCloseSpy).not.toHaveBeenCalled();
     // Element should still be there (since parent handles removal)
@@ -126,6 +135,15 @@ describe('IonNotificationComponent', () => {
 });
 
 describe('Time by words', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
   it('should emit close event after calculated time', async () => {
     const ionOnCloseSpy = jest.fn();
     await render(IonNotificationComponent, {
@@ -140,11 +158,72 @@ describe('Time by words', () => {
       },
     });
 
-    await sleep(2500); // 1000ms delay + 1000ms animation + buffer
+    jest.advanceTimersByTime(2500); // 1000ms delay + 1000ms animation + buffer
     expect(ionOnCloseSpy).toHaveBeenCalled();
   });
 });
 
-const sleep = (ms: number): Promise<unknown> => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+describe('Pause on hover', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
+
+  it('should pause timer on hover by default', async () => {
+    const ionOnCloseSpy = jest.fn();
+    await render(IonNotificationComponent, {
+      componentInputs: {
+        ...defaultNotification,
+        message: 'one two three', // 3 words -> 2000ms duration
+        fixed: false,
+      },
+      on: {
+        ionOnClose: ionOnCloseSpy,
+      },
+    });
+
+    const notification = screen.getByTestId('ion-notification');
+
+    // Hover immediately to pause
+    fireEvent.mouseEnter(notification);
+
+    // Wait longer than the original duration (2000ms + 1000ms anim = 3000ms)
+    jest.advanceTimersByTime(3500);
+    expect(ionOnCloseSpy).not.toHaveBeenCalled();
+
+    // Leave, should restart timer (2000ms)
+    fireEvent.mouseLeave(notification);
+
+    // Wait for it to close (2000ms timer + 1000ms anim + buffer)
+    jest.advanceTimersByTime(3500);
+    expect(ionOnCloseSpy).toHaveBeenCalled();
+  });
+
+  it('should NOT pause timer on hover if pauseOnHover is false', async () => {
+    const ionOnCloseSpy = jest.fn();
+    await render(IonNotificationComponent, {
+      componentInputs: {
+        ...defaultNotification,
+        message: 'one two three', // 2000ms
+        fixed: false,
+        pauseOnHover: false,
+      },
+      on: {
+        ionOnClose: ionOnCloseSpy,
+      },
+    });
+
+    const notification = screen.getByTestId('ion-notification');
+
+    jest.advanceTimersByTime(500);
+    fireEvent.mouseEnter(notification);
+
+    // Should close ignoring hover (2000ms + 1000ms = 3000ms)
+    jest.advanceTimersByTime(3500);
+    expect(ionOnCloseSpy).toHaveBeenCalled();
+  });
+});
