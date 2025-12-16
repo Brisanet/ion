@@ -1,0 +1,35 @@
+<div class="container-date-picker-calendar">
+  <div class="week-days" id="week-days">
+    @for (weekDay of calendar()?.getWeekDaysElementStrings() ?? []; track weekDay) {
+      <span>
+        {{ weekDay }}
+      </span>
+    }
+  </div>
+  <div class="month-days">
+    @for (day of days(); track day.getAriaLabel(); let i = $index) {
+      <div
+        [attr.data-testid]="'container-' + day.getAriaLabel()"
+        [class.between-range]="day.isBetweenRange"
+        [class.initial]="day.isRangeInitialLimit"
+        [class.final]="day.isRangeFinalLimit"
+        [class.disabled]="day.disabled"
+      >
+        <button
+          [attr.data-testid]="day.getAriaLabel()"
+          class="month-day"
+          [class.current]="day.isDayCurrentMonth"
+          [class.today]="day.isToday"
+          [class.selected]="isSelectedDate(day)"
+          [class.final-range-selected]="isSelectedDate(day, finalRange)"
+          [attr.aria-label]="day.getAriaLabel()"
+          type="button"
+          (click)="handleClick(i)"
+        >
+          {{ day.date }}
+        </button>
+      </div>
+    }
+  </div>
+</div>
+

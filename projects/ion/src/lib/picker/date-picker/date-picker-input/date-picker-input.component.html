@@ -1,0 +1,17 @@
+<div
+  class="container-input"
+  [class.range]="rangePicker()"
+  data-testid="container-input"
+>
+  <ion-input
+    [value]="date() || ''"
+    [placeholder]="placeholder()"
+    [iconInput]="date() ? '' : 'calendar'"
+    iconDirection="right"
+    [inputButton]="!!date()"
+    [inputButtonConfig]="clearButtonConfig"
+    [readonly]="true"
+    (clickButton)="clearDateValue()"
+  ></ion-input>
+</div>
+

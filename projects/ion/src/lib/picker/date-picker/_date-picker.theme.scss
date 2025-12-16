@@ -1,0 +1,50 @@
+@import '../../../styles/themes/theme.scss';
+
+$default: (
+  border-radius: 8px,
+  background-color: ion-theme(neutral-1),
+  border-color: ion-theme(neutral-4),
+  week-day-text: (
+    color: ion-theme(neutral-6),
+    font-size: 12px,
+    font-weight: 600,
+    line-height: 16px,
+  ),
+  month-day-text: (
+    color: ion-theme(neutral-5),
+    font-size: 14px,
+    font-weight: 400,
+    current-color: ion-theme(neutral-7),
+    hover: (
+      background-color: ion-theme(primary-2),
+      color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    today: (
+      border-color: ion-theme(primary-6),
+    ),
+    selected: (
+      background-color: ion-theme(primary-2),
+      color: ion-theme(primary-6),
+      border-color: ion-theme(primary-6),
+    ),
+    final-range-selected: (
+      background-color: ion-theme(primary-6),
+      color: ion-theme(neutral-1),
+      border-color: ion-theme(primary-6),
+    ),
+    beetwen-range-background-color: ion-theme(primary-1),
+    disabled: (
+      color: ion-theme(neutral-5),
+      background-color: ion-theme(neutral-3),
+    ),
+  ),
+);
+
+@include register-component(
+  date-picker,
+  (
+    default: $default,
+  )
+);
+

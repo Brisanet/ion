@@ -1,0 +1,49 @@
+<date-picker-input
+  cdkOverlayOrigin
+  #trigger="cdkOverlayOrigin"
+  [date]="inputDate()"
+  [rangePicker]="rangePicker()"
+  (click)="setVisibleCalendar(!showDatepicker())"
+  (clearDate)="clearDate()"
+></date-picker-input>
+
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="trigger"
+  [cdkConnectedOverlayOpen]="showDatepicker()"
+  [cdkConnectedOverlayPositions]="overlayPositions()"
+  (overlayOutsideClick)="setVisibleCalendar(false)"
+>
+  <div class="container-calendar" data-testid="container-calendar">
+    <div class="container-body" [class.container-range-body]="rangePicker()">
+      <div class="header">
+        <ion-control-picker
+          [month]="calendarMonth()"
+          [year]="calendarYear()"
+          (controlPickerEvent)="events($event)"
+        ></ion-control-picker>
+      </div>
+      <div class="content">
+        <date-picker-calendar
+          [calendarControlAction]="calendarControlAction()"
+          [goToMonthInCalendar]="goToMonth()"
+          [goToYearInCalendar]="goToYear()"
+          [currentDate]="currentDate()"
+          [rangePicker]="rangePicker()"
+          [selectedDaysInput]="selectedDay()"
+          [disabledDate]="disabledDate()"
+          (updateLabelCalendar)="updateLabelCalendar($event)"
+          (events)="dateSelected($event)"
+        ></date-picker-calendar>
+      </div>
+    </div>
+    @if (rangePicker() && predefinedRanges().length) {
+    <div class="container-footer">
+      <ion-predefined-range-picker
+        [config]="predefinedRanges()"
+        (definedRangePicker)="onSelectPredefinedRange($event)"
+      ></ion-predefined-range-picker>
+    </div>
+    }
+  </div>
+</ng-template>

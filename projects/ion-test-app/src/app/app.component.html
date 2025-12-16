@@ -1819,4 +1819,99 @@
       ></ion-button>
     </div>
   </section>
+
+  <section>
+    <h2>Date Picker</h2>
+    <div style="display: flex; flex-direction: column; gap: 30px">
+      <div>
+        <h3>Basic Date Picker</h3>
+        <ion-date-picker
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
+        @if (datePickerValue.length) {
+          <p style="margin-top: 10px">
+            <strong>Selected Date:</strong> {{ datePickerValue[0] }}
+          </p>
+        }
+      </div>
+
+      <div>
+        <h3>Date Range Picker</h3>
+        <ion-date-picker
+          [rangePicker]="true"
+          (event)="handleDateRangePickerChange($event)"
+        ></ion-date-picker>
+        @if (dateRangePickerValue.length) {
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} - {{ dateRangePickerValue[1] }}
+          </p>
+        }
+      </div>
+
+      <div>
+        <h3>Date Range with Predefined Ranges</h3>
+        <ion-date-picker
+          [rangePicker]="true"
+          [predefinedRanges]="predefinedRanges"
+          (event)="handleDatePickerWithPredefinedChange($event)"
+        ></ion-date-picker>
+        @if (datePickerWithPredefinedValue.length) {
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong> {{ datePickerWithPredefinedValue[0] }} - {{ datePickerWithPredefinedValue[1] }}
+          </p>
+        }
+      </div>
+
+      <div>
+        <h3>Date Picker with Disabled Dates (Past dates disabled)</h3>
+        <ion-date-picker
+          [disabledDate]="disabledDateExample"
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
+      </div>
+
+      <div>
+        <h3>Date Picker - Custom Format (DD/MM/YYYY)</h3>
+        <ion-date-picker
+          format="DD/MM/YYYY"
+          formatInDateInput="DD/MM/YYYY"
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
+      </div>
+
+      <div>
+        <h3>Date Picker - Different Directions</h3>
+        <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px">
+          <div>
+            <h4>Bottom Left (Default)</h4>
+            <ion-date-picker
+              [direction]="CalendarDirection.bottomLeft"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
+          </div>
+          <div>
+            <h4>Bottom Right</h4>
+            <ion-date-picker
+              [direction]="CalendarDirection.bottomRight"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
+          </div>
+          <div>
+            <h4>Top Left</h4>
+            <ion-date-picker
+              [direction]="CalendarDirection.topLeft"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
+          </div>
+          <div>
+            <h4>Top Right</h4>
+            <ion-date-picker
+              [direction]="CalendarDirection.topRight"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
