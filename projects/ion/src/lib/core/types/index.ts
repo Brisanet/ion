@@ -27,4 +27,5 @@ export * from './switch';
 export * from './popover';
 export * from './popconfirm';
 export * from './message';
+export * from './notification';
 export * from './steps';

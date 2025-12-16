@@ -1,0 +1,35 @@
+@import "../../styles/themes/theme.scss"; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+
+$default: (
+  border-radius: 8px,
+  shadow: "0px 8px 6px -4px rgb(0 0 0 / 15%), 0 0 2px rgb(0 0 0 / 15%)",
+  border-color: "transparent",
+  background-color: ion-theme(neutral-1),
+  default-icon-color: ion-theme(neutral-5),
+  close-icon-color: ion-theme(neutral-5),
+  title: (
+    font-weight: 600,
+    font-size: 16px,
+    line-height: 24px,
+    color: ion-theme(neutral-7),
+  ),
+  message: (
+    font-weight: 400,
+    font-size: 14px,
+    line-height: 20px,
+    color: ion-theme(neutral-6),
+  ),
+  variant: (
+    success-icon-color: ion-theme(positive-5),
+    info-icon-color: ion-theme(info-5),
+    warning-icon-color: ion-theme(warning-5),
+    negative-icon-color: ion-theme(negative-5),
+  ),
+);
+
+@include register-component(
+  notification,
+  (
+    default: $default,
+  )
+);

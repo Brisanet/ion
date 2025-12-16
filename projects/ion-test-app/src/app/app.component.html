@@ -1797,4 +1797,26 @@
       </div>
     </div>
   </section>
+
+  <section>
+    <h2>Notifications</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap">
+      <ion-button
+        label="Success"
+        (ionOnClick)="showNotification('success')"
+      ></ion-button>
+      <ion-button
+        label="Info"
+        (ionOnClick)="showNotification('info')"
+      ></ion-button>
+      <ion-button
+        label="Warning"
+        (ionOnClick)="showNotification('warning')"
+      ></ion-button>
+      <ion-button
+        label="Error"
+        (ionOnClick)="showNotification('error')"
+      ></ion-button>
+    </div>
+  </section>
 </div>

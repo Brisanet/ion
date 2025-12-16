@@ -49,8 +49,9 @@ import {
   IonRadioGroupComponent,
   IonTabGroupComponent,
   TabInGroup,
-  IonInputCounterComponent,
+  IonNotificationService,
   IonMessageComponent,
+  IonInputCounterComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -100,6 +101,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  private notificationService = inject(IonNotificationService);
   title = 'ion-test-app';
 
   // Avatar types for template
@@ -395,5 +397,12 @@ export class AppComponent implements OnInit {
 
   handleCounterChange(event: { newValue: number }): void {
     console.log('Counter value changed:', event.newValue);
+  }
+
+  showNotification(type: 'success' | 'info' | 'warning' | 'error') {
+    this.notificationService[type](
+      'Notification Title',
+      'This is a notification message'
+    );
   }
 }
