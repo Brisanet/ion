@@ -1,0 +1,11 @@
+@import '../../../styles/themes/theme.scss';
+
+@include register-component(
+  predefined-range-picker,
+  (
+    default: (
+      divider-color: ion-theme(neutral-4),
+    ),
+  )
+);
+

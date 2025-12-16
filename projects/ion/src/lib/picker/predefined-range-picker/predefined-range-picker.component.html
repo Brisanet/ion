@@ -1,0 +1,9 @@
+<div class="date-picker-predefined-ranges" data-testid="chip-range">
+  @for (chip of config(); track chip.label) {
+    <ion-chip
+      [label]="chip.label"
+      (click)="handlePreDefinedRange(chip)"
+    ></ion-chip>
+  }
+</div>
+

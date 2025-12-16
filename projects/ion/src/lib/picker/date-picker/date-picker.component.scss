@@ -1,0 +1,32 @@
+@use "date-picker.theme";
+
+@import "../../../styles/index.scss";
+@import "../../../styles/themes/theme.scss";
+
+:host {
+  position: relative;
+  display: inline-block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container-calendar {
+  width: 312px;
+  border: 1px solid ion-theme(date-picker-border-color);
+  background-color: ion-theme(date-picker-background-color);
+  border-radius: ion-theme(date-picker-border-radius);
+
+  .container-body {
+    padding: spacing(3) spacing(3) spacing(3);
+  }
+
+  .container-range-body {
+    padding: spacing(3) spacing(3) spacing(2);
+  }
+
+  .header {
+    margin-bottom: spacing(2);
+  }
+}
