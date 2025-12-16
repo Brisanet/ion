@@ -30,6 +30,7 @@ export class IonNotificationComponent implements OnInit, OnDestroy {
   fixed = input(false);
   fadeIn = input<fadeInDirection>('fadeIn');
   fadeOut = input<fadeOutDirection>('fadeOut');
+  pauseOnHover = input(true);
 
   ionOnClose = output<void>();
 
@@ -70,16 +71,31 @@ export class IonNotificationComponent implements OnInit, OnDestroy {
     }
     this.isClosing = true;
 
-    // Clear auto-close timer if manual close is triggered
     clearTimeout(this.autoCloseTimer);
 
     const element = this.notification.nativeElement;
     element.classList.add(this.fadeOut());
 
     this.closeAnimationTimer = setTimeout(() => {
-      // Double check not destroyed just in case
       this.ionOnClose.emit();
     }, 1000);
+  }
+
+  onMouseEnter(): void {
+    if (this.fixed() || !this.pauseOnHover() || this.isClosing) {
+      return;
+    }
+    clearTimeout(this.autoCloseTimer);
+  }
+
+  onMouseLeave(): void {
+    if (this.fixed() || !this.pauseOnHover() || this.isClosing) {
+      return;
+    }
+    const timeToClose = this.timeByWords(this.message());
+    this.autoCloseTimer = setTimeout(() => {
+      this.closeNotification();
+    }, timeToClose);
   }
 
   ngOnInit(): void {

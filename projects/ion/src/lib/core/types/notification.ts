@@ -15,6 +15,7 @@ export interface NotificationConfigOptions {
   fadeIn?: fadeInDirection;
   fadeOut?: fadeOutDirection;
   ionOnClose?: EventEmitter<void>;
+  pauseOnHover?: boolean;
 }
 
 export interface NotificationServiceConfig {
