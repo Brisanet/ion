@@ -1,0 +1,74 @@
+@use "../_notification.theme";
+
+@import "../../../styles/index.scss";
+@import "../../utils/fadeAnimations.scss";
+@import "../../../styles/themes/theme.scss";
+
+@mixin icon-color($color) {
+  ::ng-deep svg {
+    fill: ion-theme($color);
+  }
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: spacing(1.5) spacing(2);
+  margin-bottom: spacing(0.5); // Added gap for overlay stacking
+  pointer-events: auto; // Ensure clicks are registered in overlay
+
+  position: relative;
+  z-index: $zIndexMax;
+  max-width: 500px;
+  min-width: 250px;
+
+  background: ion-theme(notification-background-color);
+  box-shadow: ion-theme(notification-shadow);
+  border-radius: ion-theme(notification-border-radius);
+  border: 1px solid ion-theme(notification-border-color);
+
+  font-family: "Source Sans Pro", sans-serif;
+  font-style: normal;
+}
+
+.notification-inner {
+  display: flex;
+}
+
+.default-icon {
+  @include icon-color(notification-default-icon-color);
+  margin-right: spacing(1);
+}
+
+.notification-text {
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-title {
+  font-weight: ion-theme(notification-title-font-weight);
+  font-size: ion-theme(notification-title-font-size);
+  line-height: ion-theme(notification-title-line-height);
+  color: ion-theme(notification-title-color);
+}
+
+.notification-message {
+  font-weight: ion-theme(notification-message-font-weight);
+  font-size: ion-theme(notification-message-font-size);
+  line-height: ion-theme(notification-message-line-height);
+  color: ion-theme(notification-message-color);
+}
+
+.close-icon {
+  @include icon-color(notification-close-icon-color);
+  cursor: pointer;
+}
+
+@each $variant in success, info, warning, negative {
+  .#{$variant}-icon {
+    @include icon-color(notification-variant-#{$variant}-icon-color);
+  }
+}
