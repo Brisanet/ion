@@ -60,3 +60,4 @@ export * from './lib/picker/date-picker/date-picker-calendar/date-picker-calenda
 export * from './lib/picker/date-picker/date-picker-input/date-picker-input.component';
 export * from './lib/picker/control-picker/control-picker.component';
 export * from './lib/picker/predefined-range-picker/predefined-range-picker.component';
+export * from './lib/simple-menu/simple-menu.component';

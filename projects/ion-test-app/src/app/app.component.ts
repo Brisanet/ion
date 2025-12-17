@@ -55,6 +55,7 @@ import {
   IonDatepickerComponent,
   CalendarDirection,
   PreDefinedRangeConfig,
+  IonSimpleMenuComponent,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -100,6 +101,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     IonInputCounterComponent,
     IonMessageComponent,
     IonDatepickerComponent,
+    IonSimpleMenuComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -444,4 +446,35 @@ export class AppComponent implements OnInit {
     today.setHours(0, 0, 0, 0);
     return currentDate < today;
   };
+
+  simpleMenuProfile = {
+    imageUrl: 'https://i.pravatar.cc/150?img=12',
+    name: 'João Silva',
+  };
+
+  simpleMenuOptions: TabInGroup[] = [
+    { label: 'Dashboard', selected: true, iconType: 'home' },
+    { label: 'Projetos', selected: false, iconType: 'folder' },
+    { label: 'Equipe', selected: false, iconType: 'user' },
+    { label: 'Configurações', selected: false, iconType: 'config' },
+    { label: 'Relatórios', selected: false, iconType: 'document' },
+  ];
+
+  simpleMenuLogo = {
+    src: 'https://via.placeholder.com/120x40/4CAF50/FFFFFF?text=LOGO',
+    alt: 'Company Logo',
+  };
+
+  handleSimpleMenuSelect(option: TabInGroup): void {
+    console.log('Menu option selected:', option);
+    this.simpleMenuOptions = this.simpleMenuOptions.map((opt) => ({
+      ...opt,
+      selected: opt.label === option.label,
+    }));
+  }
+
+  handleSimpleMenuLogout(): void {
+    console.log('Logout clicked');
+    window.alert('Logout functionality would be triggered here');
+  }
 }

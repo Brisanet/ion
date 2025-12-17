@@ -1829,9 +1829,9 @@
           (event)="handleDatePickerChange($event)"
         ></ion-date-picker>
         @if (datePickerValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Date:</strong> {{ datePickerValue[0] }}
-          </p>
+        <p style="margin-top: 10px">
+          <strong>Selected Date:</strong> {{ datePickerValue[0] }}
+        </p>
         }
       </div>
 
@@ -1842,9 +1842,10 @@
           (event)="handleDateRangePickerChange($event)"
         ></ion-date-picker>
         @if (dateRangePickerValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} - {{ dateRangePickerValue[1] }}
-          </p>
+        <p style="margin-top: 10px">
+          <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
+          {{ dateRangePickerValue[1] }}
+        </p>
         }
       </div>
 
@@ -1856,9 +1857,11 @@
           (event)="handleDatePickerWithPredefinedChange($event)"
         ></ion-date-picker>
         @if (datePickerWithPredefinedValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong> {{ datePickerWithPredefinedValue[0] }} - {{ datePickerWithPredefinedValue[1] }}
-          </p>
+        <p style="margin-top: 10px">
+          <strong>Selected Range:</strong>
+          {{ datePickerWithPredefinedValue[0] }} -
+          {{ datePickerWithPredefinedValue[1] }}
+        </p>
         }
       </div>
 
@@ -1881,7 +1884,14 @@
 
       <div>
         <h3>Date Picker - Different Directions</h3>
-        <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 20px">
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+          "
+        >
           <div>
             <h4>Bottom Left (Default)</h4>
             <ion-date-picker
@@ -1910,6 +1920,34 @@
               (event)="handleDatePickerChange($event)"
             ></ion-date-picker>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Simple Menu</h2>
+    <div style="display: flex; flex-direction: column; gap: 30px">
+      <div>
+        <h3>Basic Simple Menu</h3>
+        <div style="height: 600px; width: 280px; border: 1px solid #ddd">
+          <ion-simple-menu
+            [profile]="simpleMenuProfile"
+            [options]="simpleMenuOptions"
+            (selected)="handleSimpleMenuSelect($event)"
+            (logoutClick)="handleSimpleMenuLogout()"
+          ></ion-simple-menu>
+        </div>
+      </div>
+      <div>
+        <h3>Simple Menu with Logo</h3>
+        <div style="height: 600px; width: 280px; border: 1px solid #ddd">
+          <ion-simple-menu
+            [profile]="simpleMenuProfile"
+            [options]="simpleMenuOptions"
+            [logo]="simpleMenuLogo"
+            (selected)="handleSimpleMenuSelect($event)"
+            (logoutClick)="handleSimpleMenuLogout()"
+          ></ion-simple-menu>
         </div>
       </div>
     </div>

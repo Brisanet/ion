@@ -32,4 +32,3 @@ export class IonDatePickerInputComponent {
     this.clearDate.emit();
   }
 }
-

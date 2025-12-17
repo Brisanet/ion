@@ -24,4 +24,3 @@ export class IonPredefinedRangePickerComponent {
     this.definedRangePicker.emit(event);
   }
 }
-

@@ -22,4 +22,3 @@ export interface IonDatePickerCalendarComponentProps {
   disabledDate?: (currentDate: Date) => boolean;
   events?: EventEmitter<[Day, Day]>;
 }
-
