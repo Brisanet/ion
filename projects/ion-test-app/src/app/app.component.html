@@ -1952,4 +1952,26 @@
       </div>
     </div>
   </section>
+  <section>
+    <h2>Modal (CDK Overlay)</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap">
+      <ion-button label="Abrir Modal" (ionOnClick)="openModal()"></ion-button>
+      <ion-button
+        label="Abrir Modal com Dados"
+        (ionOnClick)="openModalWithData()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal Largo"
+        (ionOnClick)="openModalCustomWidth()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal Persistente"
+        (ionOnClick)="openModalPersistent()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal com Muita Altura"
+        (ionOnClick)="openModalLongContent()"
+      ></ion-button>
+    </div>
+  </section>
 </div>

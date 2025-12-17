@@ -1,0 +1,61 @@
+@import "../../styles/themes/theme.scss";
+
+$default: (
+  overlay-background: rgba(0, 0, 0, 0.3),
+  container: (
+    border-radius: 12px,
+    background-color: ion-theme(neutral-1),
+    shadow: "0 8px 6px -4px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.15)",
+  ),
+  header: (
+    divider-color: ion-theme(neutral-3),
+    title-text: (
+      font-family: ion-theme(font-family-main),
+      font-style: normal,
+      font-weight: 600,
+      font-size: 20px,
+      line-height: 28px,
+      color: ion-theme(neutral-6),
+    ),
+  ),
+  body-scrollbar: (
+    color: ion-theme(neutral-5),
+    track-color: ion-theme(base),
+    thumb-color: ion-theme(neutral-5),
+  ),
+  footer-divider-color: ion-theme(neutral-3),
+);
+
+$dark: (
+  overlay-background: rgba(0, 0, 0, 0.3),
+  container: (
+    border-radius: 12px,
+    background-color: ion-theme(neutral-5),
+    shadow: "0 8px 6px -4px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.15)",
+  ),
+  header: (
+    divider-color: ion-theme(neutral-2),
+    title-text: (
+      font-family: ion-theme(font-family-main),
+      font-style: normal,
+      font-weight: 600,
+      font-size: 20px,
+      line-height: 28px,
+      color: ion-theme(neutral-1),
+    ),
+  ),
+  body-scrollbar: (
+    color: ion-theme(neutral-5),
+    track-color: ion-theme(base),
+    thumb-color: ion-theme(neutral-5),
+  ),
+  footer-divider-color: ion-theme(neutral-2),
+);
+
+@include register-component(
+  modal,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);
