@@ -69,4 +69,3 @@ export class Day {
     return this.format('YYYY-MM-DD');
   }
 }
-
