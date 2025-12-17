@@ -56,8 +56,41 @@ import {
   CalendarDirection,
   PreDefinedRangeConfig,
   IonSimpleMenuComponent,
+  IonModalService,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
+
+@Component({
+  standalone: true,
+  template: `
+    <div style="padding: 16px;">
+      <p>This is a component rendered inside the modal!</p>
+      @if (data) {
+      <p>
+        Data received: <strong>{{ data }}</strong>
+      </p>
+      }
+      <p>You can pass data to it and receive values back.</p>
+    </div>
+  `,
+})
+class ModalExampleComponent {
+  data?: string;
+}
+
+@Component({
+  standalone: true,
+  template: `
+    <div style="padding: 16px;">
+      @for (item of items; track $index) {
+      <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+      }
+    </div>
+  `,
+})
+class ModalLongContentComponent {
+  items = new Array(50).fill(0);
+}
 
 @Component({
   selector: 'app-root',
@@ -108,6 +141,7 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
 })
 export class AppComponent implements OnInit {
   private notificationService = inject(IonNotificationService);
+  private modalService: IonModalService = inject(IonModalService);
   title = 'ion-test-app';
 
   // Avatar types for template
@@ -476,5 +510,72 @@ export class AppComponent implements OnInit {
   handleSimpleMenuLogout(): void {
     console.log('Logout clicked');
     window.alert('Logout functionality would be triggered here');
+  }
+
+  openModal(): void {
+    this.modalService
+      .open(ModalExampleComponent, {
+        title: 'Exemplo de Modal',
+        footer: {
+          primaryButton: {
+            label: 'Confirmar',
+          },
+          secondaryButton: {
+            label: 'Cancelar',
+          },
+        },
+      })
+      .subscribe((result: unknown) => {
+        console.log('Modal fechado com resultado:', result);
+      });
+  }
+
+  openModalWithData(): void {
+    this.modalService
+      .open(ModalExampleComponent, {
+        title: 'Modal com Dados',
+        ionParams: {
+          data: 'Informação vinda do componente pai!',
+        },
+      })
+      .subscribe((result: unknown) => {
+        console.log('Modal com dados fechado:', result);
+      });
+  }
+
+  openModalCustomWidth(): void {
+    this.modalService.open(ModalExampleComponent, {
+      title: 'Modal Largo',
+      width: 800,
+    });
+  }
+
+  openModalPersistent(): void {
+    const modalConfig = {
+      title: 'Modal Persistente',
+      preventCloseOnConfirm: true,
+      footer: {
+        primaryButton: {
+          label: 'Confirmar (Não fecha)',
+        },
+      },
+    };
+
+    const modalObservable = this.modalService.open(
+      ModalExampleComponent,
+      modalConfig
+    );
+
+    modalObservable.subscribe((result: unknown) => {
+      console.log('Confirmar clicado, mas o modal continua aberto:', result);
+      // Você pode fechar o modal manualmente depois se quiser
+      // this.modalService.closeModal();
+    });
+  }
+
+  openModalLongContent(): void {
+    this.modalService.open(ModalLongContentComponent, {
+      title: 'Modal com Longo Conteúdo',
+    });
   }
 }

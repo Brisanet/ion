@@ -30,3 +30,4 @@ export * from './message';
 export * from './notification';
 export * from './steps';
 export * from './datepicker';
+export * from './modal';

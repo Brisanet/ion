@@ -61,3 +61,5 @@ export * from './lib/picker/date-picker/date-picker-input/date-picker-input.comp
 export * from './lib/picker/control-picker/control-picker.component';
 export * from './lib/picker/predefined-range-picker/predefined-range-picker.component';
 export * from './lib/simple-menu/simple-menu.component';
+export * from './lib/modal/modal.component';
+export * from './lib/modal/modal.service';
