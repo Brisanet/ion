@@ -85,7 +85,6 @@ export class IonModalComponent {
   }
 
 
-
   getChildComponentPropertiesValue(): IonModalResponse {
     return this.componentRef.instance as { [key: string]: unknown };
   }
@@ -122,5 +121,4 @@ export class IonModalComponent {
       }
     });
   }
-
 }
