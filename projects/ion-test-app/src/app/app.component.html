@@ -1456,10 +1456,28 @@
         ></ion-button>
       </div>
     </div>
+
+    <ng-template #sidebarFooterTemplate>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          color: #666;
+          padding: 8px;
+        "
+      >
+        <ion-icon type="out"></ion-icon>
+        @if(!sidebarComp.closed()) {
+        <span>Sair do App</span>
+        }
+      </div>
+    </ng-template>
+
     <div
       style="
         position: relative;
-        height: 500px;
+        height: 600px;
         border: 1px solid #ddd;
         overflow: hidden;
         display: flex;
@@ -1467,16 +1485,19 @@
       "
     >
       <ion-sidebar
+        #sidebarComp
+        logo="https://placehold.co/250x50"
         [items]="sidebarItems"
         [shrinkMode]="sidebarShrinkMode"
         [closeOnSelect]="sidebarCloseOnSelect"
+        [sidebarFooter]="sidebarFooterTemplate"
         (ionOnSidebarToggle)="handleSidebarToggle($event)"
       ></ion-sidebar>
       <div
         style="
           padding: 20px;
           flex: 1;
-          margin-left: 64px;
+          margin-left: 256px;
           transition: margin 0.3s;
         "
       >
