@@ -279,26 +279,35 @@ export class AppComponent implements OnInit {
       icon: 'user',
       options: [
         {
-          title: 'List',
-          icon: 'list',
-          action: () => console.log('User List clicked'),
+          title: 'Direct Sales',
+          icon: 'pencil',
+          action: () => console.log('Direct Sales clicked'),
         },
-        {
-          title: 'Create',
-          icon: 'plus',
-          action: () => console.log('User Create clicked'),
-        },
+        ...new Array(10).fill(0).map((_, i) => ({
+          title: `Vendor ${i + 1}`,
+          icon: 'user',
+          action: () => console.log(`Vendor ${i + 1} clicked`),
+        })),
       ],
     },
+    ...new Array(10).fill(0).map((_, i) => ({
+      title: `General Item ${i + 1}`,
+      icon: 'pencil',
+      action: () => console.log(`General Item ${i + 1} clicked`),
+    })),
     {
-      title: 'Settings',
+      title: 'Complex Settings',
       icon: 'config',
-      action: () => console.log('Settings clicked'),
+      options: new Array(15).fill(0).map((_, i) => ({
+        title: `Config Option ${i + 1}`,
+        icon: 'config',
+        action: () => console.log(`Config Option ${i + 1} clicked`),
+      })),
     },
     {
-      title: 'Help',
-      icon: 'info',
-      disabled: true,
+      title: 'Logout',
+      icon: 'out',
+      action: () => console.log('Logout clicked'),
     },
   ];
 

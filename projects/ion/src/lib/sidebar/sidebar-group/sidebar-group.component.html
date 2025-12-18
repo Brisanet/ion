@@ -13,7 +13,7 @@
     [ionTooltipTitle]="sidebarClosed() ? title() : ''"
     [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
   >
-    <div (click)="groupSelected()">
+    <div (click)="groupSelected($event)">
       <ion-icon
         data-testid="sidebar-group__title-icon"
         [type]="icon()"
@@ -93,7 +93,7 @@
     data-testid="sidebar-group__items"
     [hidden]="closed() && !selected()"
   >
-    @for (item of items(); track i; let i = $index) {
+    @for (item of items(); track $index; let i = $index) {
     <ion-sidebar-item
       [attr.data-testid]="'sidebar-group__item-' + i"
       [title]="item.title"

@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
   EventEmitter,
   input,
   OnInit,
@@ -48,7 +47,7 @@ const defaultModal: IonModalConfiguration = {
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IonModalComponent implements OnInit, AfterViewInit {
+export class IonModalComponent {
   @ViewChild('modalBody', { read: ViewContainerRef, static: true })
   modalBody!: ViewContainerRef;
 
@@ -85,9 +84,6 @@ export class IonModalComponent implements OnInit, AfterViewInit {
     }
   }
 
-  setDefaultConfig(): void {
-    // Already initialized with _defaultModal
-  }
 
   getChildComponentPropertiesValue(): IonModalResponse {
     return this.componentRef.instance as { [key: string]: unknown };
@@ -124,15 +120,5 @@ export class IonModalComponent implements OnInit, AfterViewInit {
         this.componentRef.changeDetectorRef.detectChanges();
       }
     });
-  }
-
-  ngOnInit(): void {
-    if (!this.configuration().id) {
-      this.setDefaultConfig();
-    }
-  }
-
-  ngAfterViewInit(): void {
-    // Focus management is handled by CDK or manually if needed
   }
 }

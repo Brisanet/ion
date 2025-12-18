@@ -37,7 +37,7 @@ export class IonSidebarGroupComponent {
   shrinkMode = input<boolean>(false);
   sidebarClosed = input<boolean>(true);
   atClick = output<MouseEvent>();
-  atGroupClick = output<void>();
+  atGroupClick = output<MouseEvent>();
 
   public closed = signal<boolean>(true);
   public headerIconHovered = signal<boolean>(false);
@@ -59,8 +59,8 @@ export class IonSidebarGroupComponent {
     this.atClick.emit(event);
   }
 
-  public groupSelected(): void {
-    this.atGroupClick.emit();
+  public groupSelected(event: MouseEvent): void {
+    this.atGroupClick.emit(event);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 import { IconType } from './icon';
 
 export interface Item {
@@ -12,9 +12,10 @@ export interface Item {
 export interface IonSidebarProps {
   logo: string;
   logoAction?: () => void;
-  items: (Item & { options?: [Item, ...Item[]] })[];
+  items: (Item & { options?: Item[] })[];
   closeOnSelect?: boolean;
   shrinkMode?: boolean;
   keepShrunken?: boolean;
+  sidebarFooter?: TemplateRef<void>;
   ionOnSidebarToggle?: EventEmitter<boolean>;
 }
