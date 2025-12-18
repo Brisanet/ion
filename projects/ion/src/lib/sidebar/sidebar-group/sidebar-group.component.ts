@@ -6,8 +6,10 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+
 import { IconType } from '../../core/types';
 import { Item } from '../../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 import { selectItemByIndex, unselectAllItems } from '../utils';
 
 @Component({
@@ -43,7 +45,10 @@ export class IonSidebarGroupComponent implements OnChanges {
   }
 
   public itemSelected(itemIndex: number, event: MouseEvent): void {
-    this.selected = true;
+    if (event.button === MOUSE_BUTTONS.LEFT) {
+      this.selected = true;
+    }
+
     selectItemByIndex(this.items, itemIndex, event);
     this.atClick.emit(event);
   }

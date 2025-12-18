@@ -7,7 +7,9 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
+
 import { IonSidebarProps } from '../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../utils/mouse-buttons';
 import { callItemAction, selectItemByIndex, unselectAllItems } from './utils';
 
 @Component({
@@ -62,7 +64,11 @@ export class IonSidebarComponent implements AfterViewChecked {
 
   public itemSelected(itemIndex: number, event: MouseEvent): void {
     selectItemByIndex(this.items, itemIndex, event);
-    if (this.closeOnSelect && !(this.shrinkMode && this.closed)) {
+    if (
+      event.button !== MOUSE_BUTTONS.MIDDLE &&
+      this.closeOnSelect &&
+      !(this.shrinkMode && this.closed)
+    ) {
       this.toggleSidebarVisibility();
     }
   }

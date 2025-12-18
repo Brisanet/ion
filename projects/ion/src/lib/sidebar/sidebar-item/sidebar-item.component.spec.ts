@@ -1,9 +1,11 @@
-import { render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { IonTooltipModule } from './../../tooltip/tooltip.module';
+
 import { IonIconComponent } from '../../icon/icon.component';
-import { IonSidebarItemComponent } from './sidebar-item.component';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 import { SafeAny } from '../../utils/safe-any';
+import { IonTooltipModule } from './../../tooltip/tooltip.module';
+import { IonSidebarItemComponent } from './sidebar-item.component';
 
 const defaultTestId = 'ion-sidebar-item';
 const defaultClass = 'ion-sidebar-item';
@@ -55,6 +57,18 @@ describe('SidebarItem', () => {
     });
     const element = screen.getByTestId(defaultTestId);
     userEvent.click(element);
+    expect(element).not.toHaveClass(`${defaultClass}--selected`);
+  });
+  it('should select on mousedown with left button by default', async () => {
+    await sut();
+    const element = screen.getByTestId(defaultTestId);
+    fireEvent.mouseDown(element, { button: MOUSE_BUTTONS.LEFT });
+    expect(element).toHaveClass(`${defaultClass}--selected`);
+  });
+  it('should not select on mousedown when middle button is clicked', async () => {
+    await sut();
+    const element = screen.getByTestId(defaultTestId);
+    fireEvent.mouseDown(element, { button: MOUSE_BUTTONS.MIDDLE });
     expect(element).not.toHaveClass(`${defaultClass}--selected`);
   });
   it('should render disabled when prop is passed as true', async () => {

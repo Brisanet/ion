@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  Output,
+} from '@angular/core';
+
 import { IconType } from '../../core/types';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 
 @Component({
   selector: 'ion-sidebar-item',
@@ -17,11 +25,22 @@ export class IonSidebarItemComponent {
   @Input() inGroup = false;
   @Output() atClick = new EventEmitter<MouseEvent>();
 
-  public selectItem(event: MouseEvent): void {
-    this.atClick.emit(event);
-    if (!this.selectable) {
-      return;
+  @HostListener('mousedown', ['$event'])
+  public onMouseDown(event: MouseEvent): void {
+    if (
+      event.button === MOUSE_BUTTONS.LEFT ||
+      event.button === MOUSE_BUTTONS.MIDDLE
+    ) {
+      if (event.button === MOUSE_BUTTONS.MIDDLE) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      this.atClick.emit(event);
+
+      if (event.button === MOUSE_BUTTONS.LEFT && this.selectable) {
+        this.selected = true;
+      }
     }
-    this.selected = true;
   }
 }
