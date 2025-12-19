@@ -57,9 +57,9 @@ import {
   PreDefinedRangeConfig,
   IonSimpleMenuComponent,
   IonModalService,
+  SidebarItem,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
-import { SidebarItem } from 'ion/lib/core/types/sidebar';
 
 @Component({
   standalone: true,
