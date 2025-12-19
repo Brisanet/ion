@@ -27,7 +27,6 @@ $transition-duration: 0.25s;
   transition: transform $transition-duration ease-in-out,
     width $transition-duration ease-in-out;
   border-right: 1px solid ion-theme(sidebar-border-color);
-  overflow: hidden;
 
   &__header {
     display: flex;
@@ -48,7 +47,6 @@ $transition-duration: 0.25s;
     padding: spacing(2) spacing(3);
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 0;
 
     &::-webkit-scrollbar {
       width: 8px;
@@ -74,13 +72,12 @@ $transition-duration: 0.25s;
     }
 
     .ion-sidebar__items {
-      align-items: center;
-      padding: spacing(2) spacing(1);
-      overflow-y: auto;
-      min-height: 0;
+      align-items: center !important;
+      padding: spacing(2) spacing(2.5);
+      padding-left: spacing(3);
 
       &::-webkit-scrollbar {
-        width: 8px;
+        width: 4px;
       }
     }
 
@@ -93,7 +90,8 @@ $transition-duration: 0.25s;
 
   &--opened {
     transform: translateX(0px);
-    width: $sidebar-width;
+    transition: transform $transition-duration ease-in-out,
+      width $transition-duration ease-in-out;
   }
 
   &__logo--pointer {

@@ -5,6 +5,7 @@ import { IonIconComponent } from '../icon/icon.component';
 import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
 import { Item } from '../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../utils/mouse-buttons';
 import { callItemAction, unselectAllItems } from './utils';
 
 @Component({
@@ -32,17 +33,45 @@ export class IonSidebarComponent {
 
   public closed = signal(true);
 
+  public checkClickOnPageAccess = (event: MouseEvent): void => {
+    const containerElement = document.querySelector('.ion-sidebar--opened');
+    const innerElement = event.target as HTMLElement;
+    if (containerElement && !containerElement.contains(innerElement)) {
+      const closeButton = document.querySelector(
+        '.ion-sidebar--opened .ion-sidebar__header button'
+      ) as HTMLElement;
+      if (closeButton) {
+        closeButton.click();
+      }
+    }
+  };
+
   public toggleVisibility(): void {
     this.closed.update((value) => !value);
     this.ionOnSidebarToggle.emit(!this.closed());
+
+    if (!this.closed()) {
+      setTimeout(() => {
+        document.addEventListener('click', this.checkClickOnPageAccess);
+      });
+
+      return;
+    }
+    document.removeEventListener('click', this.checkClickOnPageAccess);
   }
 
   public itemSelected(itemIndex: number, event: MouseEvent): void {
     unselectAllItems(this.items());
-    this.items()[itemIndex].selected = true;
+    if (event.button !== MOUSE_BUTTONS.MIDDLE) {
+      this.items()[itemIndex].selected = true;
+    }
     callItemAction(this.items(), itemIndex, event);
-    if (this.closeOnSelect()) {
-      this.closed.set(true);
+    if (
+      event.button !== MOUSE_BUTTONS.MIDDLE &&
+      this.closeOnSelect() &&
+      !(this.shrinkMode() && this.closed())
+    ) {
+      this.toggleVisibility();
     }
   }
 

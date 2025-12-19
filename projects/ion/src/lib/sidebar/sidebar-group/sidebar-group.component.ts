@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { IconType, TooltipPosition } from '../../core/types';
 import { Item } from '../../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 import { IonIconComponent } from '../../icon/icon.component';
 import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { selectItemByIndex, unselectAllItems } from '../utils';
@@ -55,6 +56,9 @@ export class IonSidebarGroupComponent {
   }
 
   public itemSelected(itemIndex: number, event: MouseEvent): void {
+    if (event.button !== MOUSE_BUTTONS.MIDDLE) {
+      this.items()[itemIndex].selected = true;
+    }
     selectItemByIndex(this.items(), itemIndex, event);
     this.atClick.emit(event);
   }
