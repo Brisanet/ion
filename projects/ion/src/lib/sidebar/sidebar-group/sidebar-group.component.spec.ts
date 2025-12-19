@@ -3,7 +3,7 @@ import { IonSidebarGroupComponent } from './sidebar-group.component';
 import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { IonIconComponent } from '../../icon/icon.component';
 import { SafeAny } from '../../utils/safe-any';
-import { Item } from '../../core/types/sidebar';
+import { SidebarItem } from '../../core/types/sidebar';
 
 const defaultProps = {
   title: 'Group Title',

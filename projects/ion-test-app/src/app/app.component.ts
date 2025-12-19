@@ -57,6 +57,7 @@ import {
   PreDefinedRangeConfig,
   IonSimpleMenuComponent,
   IonModalService,
+  SidebarItem,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -267,7 +268,7 @@ export class AppComponent implements OnInit {
   // Sidebar Logic
   sidebarShrinkMode = false;
   sidebarCloseOnSelect = false;
-  sidebarItems: (any & { options?: any[] })[] = [
+  sidebarItems: (SidebarItem & { options?: SidebarItem[] })[] = [
     {
       title: 'Dashboard',
       icon: 'home',

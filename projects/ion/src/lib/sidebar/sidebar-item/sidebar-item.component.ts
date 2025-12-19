@@ -8,6 +8,7 @@ import {
 import { IonIconComponent } from '../../icon/icon.component';
 import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
 import { IconType, TooltipPosition } from '../../core/types';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 
 @Component({
   selector: 'ion-sidebar-item',
@@ -16,6 +17,9 @@ import { IconType, TooltipPosition } from '../../core/types';
   templateUrl: './sidebar-item.component.html',
   styleUrls: ['./sidebar-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(mousedown)': 'onMouseDown($event)',
+  },
 })
 export class IonSidebarItemComponent {
   public TooltipPosition = TooltipPosition;
@@ -29,10 +33,21 @@ export class IonSidebarItemComponent {
   inGroup = input<boolean>(false);
   atClick = output<MouseEvent>();
 
-  public selectItem(event: MouseEvent): void {
+  public onMouseDown(event: MouseEvent): void {
     if (this.disabled()) {
       return;
     }
-    this.atClick.emit(event);
+
+    if (
+      event.button === MOUSE_BUTTONS.LEFT ||
+      event.button === MOUSE_BUTTONS.MIDDLE
+    ) {
+      if (event.button === MOUSE_BUTTONS.MIDDLE) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      this.atClick.emit(event);
+    }
   }
 }
