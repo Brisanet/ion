@@ -1,0 +1,103 @@
+@import "../../styles/themes/theme.scss";
+
+$default: (
+  text-font-family: ion-theme(font-family-main),
+  shadow: 0 0 4px #00000026,
+  border: (
+    color: ion-theme(neutral-5),
+    radius: 8px,
+  ),
+  header: (
+    background-color: ion-theme(neutral-2),
+    padding: 8px 16px,
+    height: 36px,
+    border-radius: 8px,
+    icon-color: ion-theme(neutral-6),
+    title: (
+      color: ion-theme(neutral-7),
+      weight: 600,
+      size: 14px,
+      max-width: 230px,
+    ),
+  ),
+  content: (
+    background-color: ion-theme(neutral-1),
+    padding: 12px 16px,
+    min-height: 84px,
+    main-value-text: (
+      color: ion-theme(neutral-7),
+      font-weight: 600,
+      font-size: 20px,
+      max-width: 160px,
+    ),
+    second-value-text: (
+      color: ion-theme(neutral-7),
+      font-weight: 400,
+      font-size: 16px,
+      max-width: 80px,
+    ),
+    error: (
+      text-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-6),
+    ),
+  ),
+  footer: (
+    background-color: ion-theme(neutral-1),
+    border-radius: 8px,
+  ),
+);
+
+$dark: (
+  text-font-family: ion-theme(font-family-main),
+  shadow: 0 0 4px #00000026,
+  border: (
+    color: ion-theme(neutral-3),
+    radius: 8px,
+  ),
+  header: (
+    background-color: ion-theme(neutral-6),
+    padding: 8px 16px,
+    height: 36px,
+    border-radius: 8px,
+    icon-color: ion-theme(neutral-1),
+    title: (
+      color: ion-theme(neutral-1),
+      weight: 600,
+      size: 14px,
+      max-width: 230px,
+    ),
+  ),
+  content: (
+    background-color: ion-theme(neutral-5),
+    padding: 12px 16px,
+    min-height: 84px,
+    main-value-text: (
+      color: ion-theme(neutral-1),
+      font-weight: 600,
+      font-size: 20px,
+      max-width: 160px,
+    ),
+    second-value-text: (
+      color: ion-theme(neutral-1),
+      font-weight: 400,
+      font-size: 16px,
+      max-width: 80px,
+    ),
+    error: (
+      text-color: ion-theme(neutral-3),
+      icon-color: ion-theme(neutral-3),
+    ),
+  ),
+  footer: (
+    background-color: ion-theme(neutral-5),
+    border-radius: 8px,
+  ),
+);
+
+@include register-component(
+  indicator,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);

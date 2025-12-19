@@ -1995,4 +1995,53 @@
       ></ion-button>
     </div>
   </section>
+  <section>
+    <h2>Indicator</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap">
+      <ion-indicator title="Basic Indicator" value="1.234"></ion-indicator>
+
+      <ion-indicator
+        title="Indicator with Second Value"
+        value="R$ 1.500,00"
+        secondValue="+ 15%"
+        secondValueTooltipText="Crescimento em relação ao mês anterior"
+      ></ion-indicator>
+
+      <ion-indicator
+        title="Indicator with Icon"
+        value="98%"
+        [headerIcon]="{ type: 'check', color: '#00FF00' }"
+        tooltipText="Taxa de sucesso das operações"
+      ></ion-indicator>
+
+      <ion-indicator title="Loading Indicator" [loading]="true"></ion-indicator>
+
+      <ion-indicator title="Error Indicator" [error]="true"></ion-indicator>
+
+      <ion-indicator
+        title="Indicator with Button (Redirect)"
+        value="Visit GitHub"
+        [buttonConfig]="indicatorWithRedirect"
+      ></ion-indicator>
+
+      <ion-indicator
+        title="Indicator with Button (Emitter)"
+        value="Click me"
+        [buttonConfig]="indicatorWithEmitter"
+        (ionClick)="handleIndicatorClick()"
+      ></ion-indicator>
+
+      <ion-indicator title="Empty Indicator" value=""></ion-indicator>
+
+      <ion-indicator title="Preview Indicator" [preview]="true"></ion-indicator>
+
+      <div style="width: 100%; margin-top: 16px">
+        <ion-indicator
+          title="Full Width Indicator"
+          value="100%"
+          [fullWidth]="true"
+        ></ion-indicator>
+      </div>
+    </div>
+  </section>
 </div>
