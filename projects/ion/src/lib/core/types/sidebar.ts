@@ -1,7 +1,7 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
 import { IconType } from './icon';
 
-export interface Item {
+export interface SidebarItem {
   title: string;
   icon: IconType;
   selected?: boolean;
@@ -12,7 +12,7 @@ export interface Item {
 export interface IonSidebarProps {
   logo: string;
   logoAction?: () => void;
-  items: (Item & { options?: Item[] })[];
+  items: (SidebarItem & { options?: SidebarItem[] })[];
   closeOnSelect?: boolean;
   shrinkMode?: boolean;
   keepShrunken?: boolean;

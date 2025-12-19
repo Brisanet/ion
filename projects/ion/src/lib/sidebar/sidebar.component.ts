@@ -4,7 +4,7 @@ import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonSidebarGroupComponent } from './sidebar-group/sidebar-group.component';
 import { IonSidebarItemComponent } from './sidebar-item/sidebar-item.component';
-import { Item } from '../core/types/sidebar';
+import { SidebarItem } from '../core/types/sidebar';
 import { MOUSE_BUTTONS } from '../utils/mouse-buttons';
 import { callItemAction, unselectAllItems } from './utils';
 
@@ -22,7 +22,7 @@ import { callItemAction, unselectAllItems } from './utils';
 })
 export class IonSidebarComponent {
   logo = input<string>('');
-  items = input<(Item & { options?: Item[] })[]>([]);
+  items = input<(SidebarItem & { options?: SidebarItem[] })[]>([]);
   closeOnSelect = input<boolean>(false);
   shrinkMode = input<boolean>(false);
   sidebarFooter = input<TemplateRef<void>>();
@@ -100,7 +100,7 @@ export class IonSidebarComponent {
   }
 
   private recalculateItems(
-    items: (Item & { options?: Item[] })[],
+    items: (SidebarItem & { options?: SidebarItem[] })[],
     itemIndex?: number
   ): void {
     items.forEach((item, index) => {

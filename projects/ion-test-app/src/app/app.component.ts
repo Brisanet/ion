@@ -59,7 +59,7 @@ import {
   IonModalService,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
-import { Item } from 'ion/lib/core/types/sidebar';
+import { SidebarItem } from 'ion/lib/core/types/sidebar';
 
 @Component({
   standalone: true,
@@ -268,7 +268,7 @@ export class AppComponent implements OnInit {
   // Sidebar Logic
   sidebarShrinkMode = false;
   sidebarCloseOnSelect = false;
-  sidebarItems: (Item & { options?: Item[] })[] = [
+  sidebarItems: (SidebarItem & { options?: SidebarItem[] })[] = [
     {
       title: 'Dashboard',
       icon: 'home',
