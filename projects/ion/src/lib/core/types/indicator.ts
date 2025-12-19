@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { IonModalConfiguration } from '../../modal/models/modal.interface';
+import { IonModalConfiguration } from './modal';
 import { PopoverDirectiveProps } from './popover';
 import { IonIconProps } from './icon';
 
@@ -21,6 +21,7 @@ export interface IonIndicatorProps {
   preview?: boolean;
   loading?: boolean;
   error?: boolean;
+  fullWidth?: boolean;
 }
 
 export interface IonIndicatorButtonConfiguration {

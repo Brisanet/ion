@@ -58,6 +58,8 @@ import {
   IonSimpleMenuComponent,
   IonModalService,
   SidebarItem,
+  IonIndicatorComponent,
+  IonIndicatorButtonType,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -136,6 +138,7 @@ class ModalLongContentComponent {
     IonMessageComponent,
     IonDatepickerComponent,
     IonSimpleMenuComponent,
+    IonIndicatorComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -587,5 +590,21 @@ export class AppComponent implements OnInit {
     this.modalService.open(ModalLongContentComponent, {
       title: 'Modal com Longo Conteúdo',
     });
+  }
+
+  // Indicator Examples
+  indicatorWithRedirect = {
+    label: 'Acessar site',
+    type: IonIndicatorButtonType.Redirect,
+    redirectLink: 'https://ion.brisanet.com.br/',
+  };
+
+  indicatorWithEmitter = {
+    label: 'Emitir evento',
+    type: IonIndicatorButtonType.Emitter,
+  };
+
+  handleIndicatorClick(): void {
+    window.alert('Evento emitido pelo Indicator!');
   }
 }

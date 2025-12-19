@@ -63,3 +63,4 @@ export * from './lib/picker/predefined-range-picker/predefined-range-picker.comp
 export * from './lib/simple-menu/simple-menu.component';
 export * from './lib/modal/modal.component';
 export * from './lib/modal/modal.service';
+export * from './lib/indicator/indicator.component';
