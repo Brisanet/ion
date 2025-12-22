@@ -1,0 +1,40 @@
+<div class="ion-select-container">
+  <div
+    class="ion-select"
+    [class.disabled]="disabled()"
+    [class.invalid]="invalid()"
+    [class.open]="showDropdown()"
+    (click)="toggleDropdown()"
+    tabindex="0"
+    (keydown.enter)="toggleDropdown()"
+    (keydown.space)="toggleDropdown(); $event.preventDefault()"
+    data-testid="ion-select"
+  >
+    @if (dropdownSelectedItems().length === 0) {
+      <span class="placeholder">{{ placeholder() }}</span>
+    } @else {
+      <span class="selected-value">
+        {{ getSelectedLabel() }}
+      </span>
+    }
+
+    <ion-icon
+      [type]="showDropdown() ? 'semi-up' : 'semi-down'"
+      [size]="20"
+    ></ion-icon>
+  </div>
+
+  @if (showDropdown()) {
+    <div class="dropdown-container">
+      <ion-dropdown
+        [options]="options()"
+        [multiple]="multiple()"
+        [required]="required()"
+        [enableSearch]="enableSearch()"
+        [searchOptions]="searchOptions()"
+        (selected)="handleSelect($event)"
+        (closeDropdown)="closeDropdown()"
+      ></ion-dropdown>
+    </div>
+  }
+</div>

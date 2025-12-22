@@ -60,6 +60,8 @@ import {
   SidebarItem,
   IonIndicatorComponent,
   IonIndicatorButtonType,
+  IonSelectComponent,
+  DropdownItem,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 
@@ -139,6 +141,7 @@ class ModalLongContentComponent {
     IonDatepickerComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
+    IonSelectComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -606,5 +609,18 @@ export class AppComponent implements OnInit {
 
   handleIndicatorClick(): void {
     window.alert('Evento emitido pelo Indicator!');
+  }
+
+  // Select Examples
+  selectOptions = [
+    { label: 'Apple', key: 'apple' },
+    { label: 'Banana', key: 'banana' },
+    { label: 'Grape', key: 'grape', disabled: true },
+    { label: 'Orange', key: 'orange' },
+    { label: 'Strawberry', key: 'strawberry' },
+  ];
+
+  handleSelectChange(event: DropdownItem[]): void {
+    console.log('Select changed:', event);
   }
 }

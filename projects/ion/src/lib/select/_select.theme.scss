@@ -1,0 +1,61 @@
+@import "../../styles/themes/theme.scss";
+
+$default: (
+  background-color: ion-theme(neutral-1),
+  border-radius: 8px,
+  placeholder-color: ion-theme(neutral-5),
+  text-color: ion-theme(neutral-7),
+  border-color: ion-theme(neutral-5),
+  hover-border-color: ion-theme(primary-4),
+  active: (
+    border-color: ion-theme(primary-4),
+    shadow-color: ion-theme(primary-2),
+  ),
+  disabled: (
+    background: ion-theme(neutral-2),
+    border-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-5),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-5),
+    hover-border-color: ion-theme(negative-6),
+    focus: (
+      shadow-color: ion-theme(negative-2),
+      border-color: ion-theme(negative-6),
+    ),
+  ),
+);
+
+$dark: (
+  background-color: ion-theme(neutral-5),
+  border-radius: 8px,
+  placeholder-color: ion-theme(neutral-3),
+  text-color: ion-theme(neutral-3),
+  border-color: ion-theme(neutral-3),
+  hover-border-color: ion-theme(primary-4),
+  active: (
+    border-color: ion-theme(primary-4),
+    shadow-color: ion-theme(primary-4),
+  ),
+  disabled: (
+    background: ion-theme(neutral-7),
+    border-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-4),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-6),
+    focus: (
+      shadow-color: ion-theme(negative-6),
+      border-color: ion-theme(neutral-3),
+    ),
+  ),
+);
+
+@include register-component(
+  select,
+  (
+    default: $default,
+    dark: $dark,
+  )
+);

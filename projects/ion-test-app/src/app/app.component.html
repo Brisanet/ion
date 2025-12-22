@@ -716,6 +716,58 @@
   </section>
 
   <section>
+    <h2>Select</h2>
+    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px">
+      <div>
+        <h3>Basic Select</h3>
+        <ion-select
+          placeholder="Selecione uma fruta"
+          [options]="selectOptions"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
+      </div>
+
+      <div>
+        <h3>Searchable Select</h3>
+        <ion-select
+          placeholder="Busque uma fruta"
+          [options]="selectOptions"
+          [enableSearch]="true"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
+      </div>
+
+      <div>
+        <h3>Multiple Selection</h3>
+        <ion-select
+          placeholder="Escolha várias frutas"
+          [options]="selectOptions"
+          [multiple]="true"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
+      </div>
+
+      <div>
+        <h3>Invalid State</h3>
+        <ion-select
+          placeholder="Selecione"
+          [options]="selectOptions"
+          [invalid]="true"
+        ></ion-select>
+      </div>
+
+      <div>
+        <h3>Disabled State</h3>
+        <ion-select
+          placeholder="Desabilitado"
+          [options]="selectOptions"
+          [disabled]="true"
+        ></ion-select>
+      </div>
+    </div>
+  </section>
+
+  <section>
     <h2>Typography</h2>
     <div style="display: flex; flex-direction: column; gap: 10px">
       <ion-heading text="Heading 1" type="h1"></ion-heading>
