@@ -74,11 +74,8 @@
   }
 
   .selected-value {
-    color: ion-theme(select-text-color);
-    font-size: 14px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    display: flex;
+    gap: 8px;
   }
 }
 

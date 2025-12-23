@@ -13,9 +13,16 @@
     @if (dropdownSelectedItems().length === 0) {
       <span class="placeholder">{{ placeholder() }}</span>
     } @else {
-      <span class="selected-value">
-        {{ getSelectedLabel() }}
-      </span>
+      <div class="selected-value">
+        @for (item of dropdownSelectedItems(); track $index) {
+          <ion-chip
+            [label]="item.label"
+            icon="close"
+            iconPosition="right"
+            (events)="handleChipEvents(item)"
+          ></ion-chip>
+        }
+      </div>
     }
 
     <ion-icon

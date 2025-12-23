@@ -11,11 +11,12 @@ import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
+import { IonChipComponent } from '../chip/chip.component';
 
 @Component({
   selector: 'ion-select',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonDropdownComponent],
+  imports: [CommonModule, IonIconComponent, IonDropdownComponent, IonChipComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -85,5 +86,19 @@ export class IonSelectComponent {
     }
 
     return (selected[0] as any)[prop] || (selected[0] as any)[this.propLabel()];
+  }
+
+  handleChipEvents(item: DropdownItem): void {
+    const currentItems = this.dropdownSelectedItems();
+    const updatedItems = currentItems.filter((i) => i !== item);
+    this.dropdownSelectedItems.set(updatedItems);
+    this.selected.emit(updatedItems);
+
+    // Update the options to reflect the removal
+    this.options().forEach((option) => {
+      if (option.label === item.label && option.key === item.key) {
+        option.selected = false;
+      }
+    });
   }
 }
