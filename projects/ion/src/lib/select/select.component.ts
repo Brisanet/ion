@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   inject,
+  effect,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../icon/icon.component';
@@ -44,6 +45,16 @@ export class IonSelectComponent {
   dropdownSelectedItems = signal<DropdownItem[]>([]);
 
   private elementRef = inject(ElementRef);
+
+  constructor() {
+    effect(() => {
+      const options = this.options();
+      const selected = options.filter((option) => option.selected);
+      if (selected.length > 0) {
+        this.dropdownSelectedItems.set(selected);
+      }
+    }, { allowSignalWrites: true });
+  }
 
   toggleDropdown(): void {
     if (this.disabled()) {

@@ -94,4 +94,15 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     expect(screen.queryByTestId('ion-dropdown')).toBeFalsy();
   });
+
+  it('should initialize with pre-selected options', async () => {
+    const optionsWithSelection = [
+      { label: 'Apple', key: 'apple', selected: true },
+      { label: 'Banana', key: 'banana' },
+    ];
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', optionsWithSelection);
+    fixture.detectChanges();
+    expect(screen.getByText('Apple')).toBeTruthy();
+  });
 });

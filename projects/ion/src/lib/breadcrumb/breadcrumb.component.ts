@@ -9,12 +9,9 @@ import {
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { BreadcrumbItem } from '../core/types/breadcrumb';
 import { DropdownItem } from '../core/types/dropdown';
 
-export interface BreadcrumbItem {
-  label: string;
-  link: string;
-}
 
 @Component({
   selector: 'ion-breadcrumb',
