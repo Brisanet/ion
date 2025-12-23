@@ -64,6 +64,10 @@ import {
   DropdownItem,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
+import { BnFormComponent } from "../../../ion/src/lib/core/bn-form/bn-form.component";
+import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service';
+import { BnFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
+import { Validators } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -141,14 +145,16 @@ class ModalLongContentComponent {
     IonDatepickerComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
-    IonSelectComponent
-  ],
+    IonSelectComponent,
+    BnFormComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   private notificationService = inject(IonNotificationService);
   private modalService: IonModalService = inject(IonModalService);
+  private bnFormService = inject(BnFormService);
   title = 'ion-test-app';
 
   // Avatar types for template
@@ -185,8 +191,8 @@ export class AppComponent implements OnInit {
   searchInputValue = '';
   inputWithMaxLength = '';
 
-  handleInputButtonClick(): void {
-    console.log('Input button clicked!');
+  handleInputButtonClick(value?: string): void {
+    console.log('Input button clicked!', value);
   }
 
   // Triple Toggle examples
@@ -623,4 +629,181 @@ export class AppComponent implements OnInit {
   handleSelectChange(event: DropdownItem[]): void {
     console.log('Select changed:', event);
   }
+
+  formFields: BnFormField[] = [
+    {
+      key: 'nome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Nome',
+      placeholder: 'Digite seu nome',
+      initialValue: 'Iury',
+    },
+    {
+      key: 'sobrenome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Sobrenome',
+      placeholder: 'Digite seu sobrenome',
+    },
+    {
+      key: 'email',
+      className: 'col-6',
+      type: 'email',
+      label: 'Email',
+      placeholder: 'Digite seu email',
+      required: true,
+      validators: [Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$')],
+    },
+    {
+      type: 'select',
+      key: 'select',
+      className: 'col-6',
+      label: 'Selecione',
+      placeholder: 'Selecione',
+      options: this.selectOptions,
+      initialValue: ['apple'],
+    }
+    // {
+    //   key: 'basicInput',
+    //   className: 'col-4',
+    //   label: 'Basic Input',
+    //   placeholder: 'Enter text here...',
+    // },
+    // {
+    //   key: 'searchLeft',
+    //   className: 'col-4',
+    //   label: 'Input with Left Icon',
+    //   placeholder: 'Search...',
+    //   iconInput: 'search',
+    //   iconDirection: 'left',
+    // },
+    // {
+    //   key: 'searchRight',
+    //   className: 'col-4',
+    //   label: 'Input with Right Icon',
+    //   placeholder: 'Search...',
+    //   iconInput: 'search',
+    //   iconDirection: 'right',
+    // },
+    // {
+    //   key: 'password',
+    //   label: 'Password Input',
+    //   placeholder: 'Enter password',
+    //   type: 'password',
+    // },
+    // {
+    //   key: 'clearable',
+    //   label: 'Input with Clear Button',
+    //   placeholder: 'Type to see clear button',
+    //   clearButton: true,
+    // },
+    // {
+    //   key: 'maxLength',
+    //   label: 'Input with Max Length (10 chars)',
+    //   placeholder: 'Max 10 characters',
+    //   maxLength: 10,
+    // },
+    // {
+    //   key: 'valid',
+    //   label: 'Valid Input',
+    //   placeholder: 'Valid input',
+    //   initialValue: 'valid@email.com',
+    // },
+    // {
+    //   key: 'invalid',
+    //   label: 'Invalid Input with Error',
+    //   placeholder: 'Invalid input',
+    //   initialValue: 'invalid',
+    //   validators: [Validators.required, Validators.email],
+    //   errorMsg: 'Please enter a valid email',
+    // },
+    // {
+    //   key: 'disabled',
+    //   label: 'Disabled Input',
+    //   placeholder: 'Disabled input',
+    //   initialValue: 'Cannot edit this',
+    //   disabled: true,
+    // },
+    // {
+    //   key: 'readonly',
+    //   label: 'Readonly Input',
+    //   placeholder: 'Readonly input',
+    //   initialValue: 'Read only value',
+    //   readonly: true,
+    // },
+    // {
+    //   key: 'withButton',
+    //   label: 'Input with Button',
+    //   placeholder: 'Search with button',
+    //   inputButton: true,
+    //   inputButtonConfig: {
+    //     label: 'Search',
+    //     type: 'primary',
+    //     iconType: 'search',
+    //   },
+    //   onClickButton: (value) => this.handleInputButtonClick(value),
+    // },
+    // {
+    //   key: 'number',
+    //   label: 'Number Input',
+    //   placeholder: 'Enter number',
+    //   type: 'number',
+    //   className: 'col-4',
+    // },
+    // {
+    //   key: 'tripleToggle',
+    //   label: 'Triple Toggle',
+    //   type: 'triple-toggle',
+    //   className: 'col-4',
+    //   options: [
+    //     { value: 'yes', label: 'Yes', icon: 'check' },
+    //     { value: 'no', label: 'No', icon: 'close' },
+    //   ],
+    //   initialValue: 'yes',
+    // },
+    // {
+    //   key: 'switchBasic',
+    //   label: 'Basic Switch',
+    //   type: 'switch',
+    //   className: 'col-md-4',
+    //   initialValue: true,
+    // },
+    // {
+    //   key: 'datepickerBasic',
+    //   label: 'Basic Date Picker',
+    //   type: 'datepicker',
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'datepickerRange',
+    //   label: 'Date Range Picker',
+    //   type: 'datepicker',
+    //   rangePicker: true,
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'datepickerPredefined',
+    //   label: 'Date Range with Predefined',
+    //   type: 'datepicker',
+    //   rangePicker: true,
+    //   predefinedRanges: [
+    //     { label: 'Últimos 7 dias', duration: 'P7D', isFuture: false },
+    //     { label: 'Últimos 30 dias', duration: 'P30D', isFuture: false },
+    //   ],
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'name',
+    //   label: 'Name',
+    //   placeholder: 'Enter name',
+    // }
+  ];
+
+  formGroup = this.bnFormService.createFormGroup(this.formFields);
+
+  submitForm(): void {
+    console.log('Form submitted:', this.formGroup.value);
+  }
+
 }

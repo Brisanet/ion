@@ -1,6 +1,11 @@
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
   <h1>Ion Consumer App</h1>
 
+  <div style="display: flex; flex-direction: column; gap: 10px; border: 1px solid #ccc; padding: 10px;">
+    <bn-form [formGroup]="formGroup" [fields]="formFields"></bn-form>
+    <ion-button label="Enviar" (click)="submitForm()"></ion-button>
+  </div>
+
   <section>
     <h2>Button Variants</h2>
     <div style="display: flex; gap: 10px">

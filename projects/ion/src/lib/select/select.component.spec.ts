@@ -105,4 +105,20 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     expect(screen.getByText('Apple')).toBeTruthy();
   });
+  it('should initialize with value input (single key)', async () => {
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('value', 'banana');
+    fixture.detectChanges();
+    expect(screen.getByText('Banana')).toBeTruthy();
+  });
+
+  it('should initialize with value input (array of keys)', async () => {
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('multiple', true);
+    fixture.componentRef.setInput('value', ['apple', 'grape']);
+    fixture.detectChanges();
+    expect(screen.getByText('Apple, Grape')).toBeTruthy();
+  });
 });

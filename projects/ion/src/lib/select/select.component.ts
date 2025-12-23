@@ -36,6 +36,7 @@ export class IonSelectComponent {
   enableSearch = input<boolean>(false);
   searchOptions = input<DropdownParams['searchOptions']>();
   propLabel = input<string>('label');
+  value = input<any>(null); // New input for initial value or binding
 
   // Outputs
   selected = output<DropdownItem[]>();
@@ -49,11 +50,38 @@ export class IonSelectComponent {
   constructor() {
     effect(() => {
       const options = this.options();
-      const selected = options.filter((option) => option.selected);
-      if (selected.length > 0) {
-        this.dropdownSelectedItems.set(selected);
+      const value = this.value();
+
+      if (value) {
+        let selected: DropdownItem[] = [];
+        if (Array.isArray(value)) {
+           // Handle array of values (keys or objects)
+           selected = options.filter(opt => 
+             value.some(val => (typeof val === 'object' ? val.key === opt.key : val === opt.key))
+           );
+        } else {
+           // Handle single value
+           selected = options.filter(opt => 
+            (typeof value === 'object' ? value.key === opt.key : value === opt.key)
+           );
+        }
+         // Only update if finding matches, or if we want to clear when value is empty (but here value is checked as truthy)
+        if (selected.length > 0) {
+           this.dropdownSelectedItems.set(selected);
+           // We might want to mark them as selected in the options array too if that's how dropdown works, 
+           // but dropdownSelectedItems is the local truth for display.
+           // However, if options are re-supplied, we need to ensure consistency.
+           options.filter(opt => selected.some(s => s.key === opt.key)).forEach(opt => opt.selected = true);
+        }
+      } else {
+        // Fallback to options marked as selected if no value input is provided
+        const selected = options.filter((option) => option.selected);
+        if (selected.length > 0) {
+          this.dropdownSelectedItems.set(selected);
+        }
       }
     }, { allowSignalWrites: true });
+    // TODO: allowSignalWrites deprecated, update this
   }
 
   toggleDropdown(): void {
