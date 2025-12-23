@@ -123,14 +123,108 @@
 
 .dropdown-search {
   margin-bottom: 4px;
+
+  &-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: ion-theme(input-background-color);
+    border-radius: ion-theme(input-border-radius);
+    border: 1px solid ion-theme(input-element-border-color);
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      border-color: ion-theme(input-element-hover-border-color);
+    }
+
+    &:focus-within {
+      border-color: ion-theme(input-element-active-border-color);
+      box-shadow: 0 0 0 2px ion-theme(input-element-active-shadow-color);
+    }
+
+    ion-icon {
+      position: absolute;
+      right: spacing(1.5);
+      ::ng-deep svg {
+        fill: ion-theme(input-icon-color);
+      }
+    }
+  }
+
+  &-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: ion-theme(input-element-padding);
+    padding-right: spacing(4.5);
+    color: ion-theme(input-element-text-color);
+    font-size: ion-theme(input-element-text-font-size);
+    font-family: inherit;
+
+    &::placeholder {
+      color: ion-theme(input-element-placeholder-color);
+      font-weight: ion-theme(input-element-placeholder-text-font-weight);
+      font-size: ion-theme(input-element-placeholder-text-font-size);
+    }
+  }
 }
 
 .to-right {
   right: 0;
 }
 
-ion-button {
+.clear-button {
   margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-family: ion-theme(font-family-main);
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 300ms;
+  border: none;
+  background-color: transparent;
+  color: ion-theme(primary-6);
+
+  &:focus-visible {
+    @include focus;
+  }
+
+  &.ion-btn-sm {
+    height: 24px;
+    min-width: 24px;
+    padding: 4px 12px;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &:hover {
+    background-color: ion-theme(primary-1);
+    color: ion-theme(primary-5);
+
+    ion-icon ::ng-deep svg {
+      fill: ion-theme(primary-5);
+    }
+  }
+
+  &:active {
+    background-color: ion-theme(primary-2);
+    color: ion-theme(primary-7);
+
+    ion-icon ::ng-deep svg {
+      fill: ion-theme(primary-7);
+    }
+  }
+
+  ion-icon ::ng-deep svg {
+    transition: fill 300ms;
+    fill: ion-theme(primary-6);
+  }
 }
 
 .dropdown-description {

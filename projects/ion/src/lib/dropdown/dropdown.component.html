@@ -10,14 +10,18 @@
   </span>
   } @if (enableSearch()) {
   <div class="dropdown-search">
-    <!-- Placeholder for ion-input - will be migrated later -->
-    <input
-      data-testid="input-element"
-      type="text"
-      [placeholder]="searchOptions()?.placeholder || ''"
-      [disabled]="searchOptions()?.disabled || false"
-      (input)="inputChange($any($event.target).value)"
-    />
+    <div class="dropdown-search-input-container">
+      <input
+        data-testid="input-element"
+        type="text"
+        [placeholder]="searchOptions()?.placeholder || ''"
+        [disabled]="searchOptions()?.disabled || false"
+        (input)="inputChange($any($event.target).value)"
+        class="dropdown-search-input"
+      />
+
+      <ion-icon type="search" [size]="iconSize()"></ion-icon>
+    </div>
   </div>
   } @if (!loading() && options().length > 0) {
   <div
@@ -73,7 +77,7 @@
   </div>
   } @if (clearButtonIsVisible()) {
   <button
-    class="clear-button"
+    class="clear-button ion-btn ion-btn-ghost ion-btn-sm"
     (click)="clearOptions(true)"
     data-testid="button-clear"
   >
