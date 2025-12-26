@@ -619,11 +619,16 @@ export class AppComponent implements OnInit {
 
   // Select Examples
   selectOptions = [
-    { label: 'Apple', key: 'apple' },
-    { label: 'Banana', key: 'banana' },
-    { label: 'Grape', key: 'grape', disabled: true },
-    { label: 'Orange', key: 'orange' },
-    { label: 'Strawberry', key: 'strawberry' },
+    { label: 'Apple', key: 'apple', fruit_id: 1 },
+    { label: 'Banana', key: 'banana', fruit_id: 2 },
+    { label: 'Grape', key: 'grape', fruit_id: 3, disabled: true },
+    { label: 'Orange', key: 'orange', fruit_id: 4 },
+    { label: 'Strawberry', key: 'strawberry', fruit_id: 5 },
+  ];
+
+  selectOptionsCar = [
+    {label: 'Marea', key: 'marea'},
+    {label: 'Opala', key: 'opala'},
   ];
 
   handleSelectChange(event: DropdownItem[]): void {
@@ -663,6 +668,17 @@ export class AppComponent implements OnInit {
       placeholder: 'Selecione',
       options: this.selectOptions,
       initialValue: ['apple'],
+      propValue: 'fruit_id',
+      multiple: true,
+    },
+    {
+      type: 'select',
+      key: 'car',
+      className: 'col-6',
+      label: 'Selecione o Carro',
+      placeholder: 'Selecione',
+      options: this.selectOptionsCar,
+      initialValue: ['marea'],
     }
     // {
     //   key: 'basicInput',

@@ -52,9 +52,10 @@ import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormFie
               [multiple]="field.multiple ?? false"
               [enableSearch]="field.enableSearch ?? false"
               [disabled]="field.disabled ?? false"
+              [propValue]="field.propValue ?? 'key'"
               [value]="formGroup().get(field.key)?.value"
               [invalid]="!!(formGroup().get(field.key)?.invalid && formGroup().get(field.key)?.touched)"
-              (selected)="onValueChange(field.key, $event)"
+              (valueChange)="onValueChange(field.key, $event)"
             ></ion-select>
           } @else if (isInput(field)) {
             <ion-input
