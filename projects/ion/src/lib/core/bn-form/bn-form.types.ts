@@ -1,4 +1,5 @@
 import { ValidatorFn } from '@angular/forms';
+import { Observable } from 'rxjs';
 import {
   IonButtonProps,
   TripleToggleOptions,
@@ -6,7 +7,6 @@ import {
   SwitchSize,
   CalendarDirection,
   PreDefinedRangeConfig,
-  DropdownItem,
 } from 'ion';
 
 export type BnFormFieldType =
@@ -77,8 +77,9 @@ export interface BnSelectFormField extends BnBaseFormField {
   enableSearch?: boolean;
   propValue?: string;
   propLabel?: string;
+  loading?: boolean;
   refresh?: {
-    use: (field: BnSelectFormField, search?: string) => void;
+    use: (field: BnSelectFormField, search?: string) => Observable<any[]>;
     debounceTime?: number;
   };
 }

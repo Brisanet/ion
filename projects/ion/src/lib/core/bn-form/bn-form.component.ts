@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounce, Subject, timer } from 'rxjs';
+import { debounce, finalize, Subject, timer } from 'rxjs';
 import {
   IonInputComponent,
   IonTripleToggleComponent,
@@ -81,6 +81,7 @@ import {
               [disabled]="field.disabled ?? false"
               [propValue]="field.propValue ?? 'key'"
               [propLabel]="field.propLabel ?? 'label'"
+              [loading]="field.loading || false"
               [value]="formGroup().get(field.key)?.value"
               [invalid]="
                 !!(
@@ -288,13 +289,21 @@ export class BnFormComponent implements OnInit {
           search,
         );
         if (field.refresh?.use) {
-          field.refresh.use(field, search);
+          field.loading = true;
+          field.refresh
+            .use(field, search)
+            .pipe(finalize(() => (field.loading = false)))
+            .subscribe((res) => (field.options = res));
         }
       });
 
     this.fields().forEach((field) => {
       if (this.isSelect(field) && field.refresh?.use) {
-        field.refresh.use(field);
+        field.loading = true;
+        field.refresh
+          .use(field)
+          .pipe(finalize(() => (field.loading = false)))
+          .subscribe((res) => (field.options = res));
       }
     });
   }

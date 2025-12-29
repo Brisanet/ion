@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   AvatarType,
   CheckBoxStates,
@@ -865,7 +865,7 @@ export class AppComponent implements OnInit {
     console.log('Form submitted:', this.formGroup.value);
   }
 
-  refreshCities(field: BnSelectFormField, search?: string): void {
+  refreshCities(_field: BnSelectFormField, search?: string): Observable<any> {
     const params: FromYourRepository = {};
 
     if (search) {
@@ -874,14 +874,12 @@ export class AppComponent implements OnInit {
 
     console.log(search);
 
-    this.http
-      .get('https://jsonplaceholder.typicode.com/posts', { params })
-      .subscribe((res: any) => {
-        field.options = res;
-      });
+    return this.http.get('https://jsonplaceholder.typicode.com/posts', {
+      params,
+    });
   }
 
-  refreshStates(field: BnSelectFormField, search?: string): void {
+  refreshStates(_field: BnSelectFormField, search?: string): Observable<any> {
     const params: FromYourRepository = {};
 
     if (search) {
@@ -890,12 +888,8 @@ export class AppComponent implements OnInit {
 
     console.log(search);
 
-    this.http
-      .get('https://jsonplaceholder.typicode.com/posts', {
-        params: { ...params },
-      })
-      .subscribe((res: any) => {
-        field.options = res;
-      });
+    return this.http.get('https://jsonplaceholder.typicode.com/posts', {
+      params,
+    });
   }
 }

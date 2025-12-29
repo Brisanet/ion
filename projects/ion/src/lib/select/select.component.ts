@@ -40,6 +40,7 @@ export class IonSelectComponent {
   searchOptions = input<DropdownParams['searchOptions']>();
   propLabel = input<string>('label');
   propValue = input<string>('key');
+  loading = input<boolean>(false);
   value = input<any>(null); // New input for initial value or binding
 
   // Outputs
