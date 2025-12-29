@@ -19,39 +19,20 @@ import {
   DropdownParams,
   IconType,
   InfoBadgeStatus,
+  ChipSize,
+  IconDirection,
+  RightBadge,
+  IonChipProps,
 } from '../core/types';
-
-export type ChipSize = 'sm' | 'md';
-export type IconDirection = 'right' | 'left';
-
-interface ChipEvent {
-  selected: boolean;
-  disabled: boolean;
-  closeDropdown?: boolean;
-}
-
-export interface IonChipProps {
-  label: string;
-  disabled?: boolean;
-  selected?: boolean;
-  size?: ChipSize;
-  options?: DropdownItem[];
-  icon?: string;
-  multiple?: boolean;
-  infoBadge?: InfoBadgeStatus;
-  iconPosition?: IconDirection;
-  rightBadge?: RightBadge;
-  showToggle?: boolean;
-  dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
-}
 
 type Badge = {
   value: number;
 };
 
-interface RightBadge {
-  label: string;
-  type: BadgeType;
+interface ChipEvent {
+  selected: boolean;
+  disabled: boolean;
+  closeDropdown?: boolean;
 }
 
 @Component({

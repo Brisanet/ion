@@ -13,11 +13,12 @@
     <div class="dropdown-search">
       <div class="dropdown-search-input-container">
         <input
+          #searchInput
           data-testid="input-element"
           type="text"
           [placeholder]="searchOptions()?.placeholder || ''"
           [disabled]="searchOptions()?.disabled || false"
-          (input)="inputChange($any($event.target).value)"
+          (input)="inputChange(searchInput.value)"
           class="dropdown-search-input"
         />
 
@@ -32,7 +33,7 @@
       (scroll)="optionsScroll()"
       id="option-list"
     >
-      @for (option of options(); track option.label; let index = $index) {
+      @for (option of options(); track $index; let index = $index) {
         <div
           class="ion-dropdown-item"
           [class.dropdown-disabled]="option.disabled"
@@ -70,16 +71,14 @@
     </div>
   }
   @if (loading()) {
-    <div data-testid="ion-spinner">Loading...</div>
+    <ion-spinner [size]="40"></ion-spinner>
   }
   @if ((!options() || options().length === 0) && !loading()) {
     <div data-testid="ion-no-data">
-      <ion-icon
-        [type]="noDataConfig()!.iconType!"
-        [size]="24"
-        [id]="'ion-icon-' + noDataConfig()!.iconType"
-      ></ion-icon>
-      <span>{{ noDataConfig()!.label }}</span>
+      <ion-no-data
+        [iconType]="noDataConfig()!.iconType!"
+        [label]="noDataConfig()!.label!"
+      ></ion-no-data>
     </div>
   }
   @if (clearButtonIsVisible()) {

@@ -94,4 +94,70 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     expect(screen.queryByTestId('ion-dropdown')).toBeFalsy();
   });
+
+  it('should initialize with pre-selected options', async () => {
+    const optionsWithSelection = [
+      { label: 'Apple', key: 'apple', selected: true },
+      { label: 'Banana', key: 'banana' },
+    ];
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', optionsWithSelection);
+    fixture.detectChanges();
+    expect(screen.getByText('Apple')).toBeTruthy();
+  });
+  it('should initialize with value input (single key)', async () => {
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('value', 'banana');
+    fixture.detectChanges();
+    expect(screen.getByText('Banana')).toBeTruthy();
+  });
+
+  it('should initialize with value input (array of keys)', async () => {
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('multiple', true);
+    fixture.componentRef.setInput('value', ['apple', 'grape']);
+    fixture.detectChanges();
+    expect(screen.getAllByTestId('ion-chip-label')).toHaveLength(2);
+  });
+
+  it('should initialize with value input and propValue', async () => {
+    const optionsWithCustomValue = [
+      { label: 'Apple', customId: 1 },
+      { label: 'Banana', customId: 2 },
+    ];
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    fixture.componentRef.setInput('options', optionsWithCustomValue);
+    fixture.componentRef.setInput('propValue', 'customId');
+    fixture.componentRef.setInput('value', 2);
+    fixture.detectChanges();
+    expect(screen.getByText('Banana')).toBeTruthy();
+  });
+
+  it('should emit custom property value via valueChange when an option is selected', async () => {
+    const optionsWithCustomValue = [
+      { label: 'Apple', customId: 1 },
+      { label: 'Banana', customId: 2 },
+    ];
+    const fixture = TestBed.createComponent(IonSelectComponent);
+    const valueChangeSpy = jest.fn();
+    fixture.componentInstance.valueChange.subscribe(valueChangeSpy);
+
+    fixture.componentRef.setInput('options', optionsWithCustomValue);
+    fixture.componentRef.setInput('propValue', 'customId');
+    fixture.detectChanges();
+
+    const select = screen.getByTestId('ion-select');
+    fireEvent.click(select);
+    fixture.detectChanges();
+
+    const option = screen.getByText('Apple');
+    fireEvent.click(option);
+
+    fixture.componentInstance.handleSelect([optionsWithCustomValue[0]]);
+    fixture.detectChanges();
+
+    expect(valueChangeSpy).toHaveBeenCalledWith(1);
+  });
 });

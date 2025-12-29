@@ -37,8 +37,12 @@
   border: 1px solid ion-theme(dropdown-border-color);
 
   &--loading {
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+
+    ion-spinner {
+      margin: auto;
+    }
   }
 }
 
