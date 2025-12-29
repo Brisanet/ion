@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { debounce, Subject, timer } from 'rxjs';
 import {
   IonInputComponent,
   IonTripleToggleComponent,
@@ -88,6 +89,7 @@ import {
                   )
                 "
                 (valueChange)="onValueChange(field.key, $event)"
+                (search)="onSearch(field, $event)"
               ></ion-select>
           } @else if (isInput(field)) {
             <ion-input
@@ -262,18 +264,40 @@ import {
       }
     `,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnFormComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   fields = input.required<BnFormField[]>();
+  defaultDebounceTime = 600;
+
+  private searchSubject = new Subject<{
+    field: BnSelectFormField;
+    search: string;
+  }>();
 
   ngOnInit(): void {
+    
+    this.searchSubject
+      .pipe(
+        debounce((data) => timer(data.field.refresh?.debounceTime ?? this.defaultDebounceTime)),
+      )
+      .subscribe(({ field, search }) => {
+        console.log(`[BnForm] Executing debounced refresh for ${field.key}:`, search);
+        if (field.refresh?.use) {
+          field.refresh.use(field, search);
+        }
+      });
+
     this.fields().forEach((field) => {
       if (this.isSelect(field) && field.refresh?.use) {
         field.refresh.use(field);
       }
     });
+  }
+
+  onSearch(field: BnSelectFormField, search: string): void {
+    console.log(`[BnForm] Search event for ${field.key}:`, search);
+    this.searchSubject.next({ field, search: search ?? '' });
   }
 
   onValueChange(key: string, value: any): void {

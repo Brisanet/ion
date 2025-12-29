@@ -3,7 +3,6 @@ import {
   input,
   output,
   signal,
-  ChangeDetectionStrategy,
   ElementRef,
   inject,
   effect,
@@ -25,7 +24,6 @@ import { IonChipComponent } from '../chip/chip.component';
   ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     '(document:click)': 'onDocumentClick($event)',
   },
@@ -46,6 +44,7 @@ export class IonSelectComponent {
 
   // Outputs
   selected = output<DropdownItem[]>();
+  search = output<string>();
   valueChange = output<any>();
 
   // Signals
@@ -173,5 +172,10 @@ export class IonSelectComponent {
         option.selected = false;
       }
     });
+  }
+
+  handleSearch(value: string): void {
+    console.log('[IonSelect] handleSearch:', value);
+    this.search.emit(value);
   }
 }

@@ -69,6 +69,11 @@ import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service
 import { BnFormField, BnSelectFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
 import { Validators } from '@angular/forms';
 
+type FromYourRepository = {
+  id?: number;
+  title?: string;
+}
+
 @Component({
   standalone: true,
   template: `
@@ -692,8 +697,25 @@ export class AppComponent implements OnInit {
       multiple: false,
       propValue: 'id',
       propLabel: 'title',
+      enableSearch: true,
       refresh: {
-        use: (field: BnSelectFormField) => this.refreshCities(field)
+        use: (field: BnSelectFormField, search?: string) => this.refreshCities(field, search)
+      }
+    },
+    {
+      type: 'select',
+      key: 'state',
+      className: 'col-6',
+      label: 'Selecione um estado',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: false,
+      propValue: 'id',
+      propLabel: 'title',
+      enableSearch: true,
+      refresh: {
+        use: (field: BnSelectFormField, search?: string) => this.refreshStates(field, search),
+        debounceTime: 1500
       }
     },
     // {
@@ -838,10 +860,31 @@ export class AppComponent implements OnInit {
     console.log('Form submitted:', this.formGroup.value);
   }
 
-  refreshCities(field: BnSelectFormField): void {
-    console.log('Refreshing cities...');
-    this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((res) => {
-      field.options = (res as DropdownItem[]);
+  refreshCities(field: BnSelectFormField, search?: string): void {
+    const params: FromYourRepository = {};
+
+    if (search) {
+      params.title = search;
+    }
+
+    console.log(search);
+
+    this.http.get('https://jsonplaceholder.typicode.com/posts', {params}).subscribe((res: any) => {
+      field.options = res;
+    });
+  }
+
+  refreshStates(field: BnSelectFormField, search?: string): void {
+    const params: FromYourRepository = {};
+
+    if (search) {
+      params.title = search;
+    }
+
+    console.log(search);
+
+    this.http.get('https://jsonplaceholder.typicode.com/posts', {params: {...params}}).subscribe((res: any) => {
+      field.options = res;
     });
   }
 }

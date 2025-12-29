@@ -13,11 +13,12 @@
     <div class="dropdown-search">
       <div class="dropdown-search-input-container">
         <input
+          #searchInput
           data-testid="input-element"
           type="text"
           [placeholder]="searchOptions()?.placeholder || ''"
           [disabled]="searchOptions()?.disabled || false"
-          (input)="inputChange($any($event.target).value)"
+          (input)="inputChange(searchInput.value)"
           class="dropdown-search-input"
         />
 

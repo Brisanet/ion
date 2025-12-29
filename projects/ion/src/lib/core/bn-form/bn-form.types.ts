@@ -71,14 +71,15 @@ export interface BnDatePickerFormField extends BnBaseFormField {
 
 export interface BnSelectFormField extends BnBaseFormField {
   type: 'select';
-  options: DropdownItem[];
+  options: any[];
   placeholder?: string;
   multiple?: boolean;
   enableSearch?: boolean;
   propValue?: string;
   propLabel?: string;
   refresh?: {
-    use: (field: BnSelectFormField) => void;
+    use: (field: BnSelectFormField, search?: string) => void;
+    debounceTime?: number;
   };
 }
 

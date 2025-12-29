@@ -40,6 +40,7 @@
         [enableSearch]="enableSearch()"
         [searchOptions]="searchOptions()"
         (selected)="handleSelect($event)"
+        (searchChange)="handleSearch($event)"
         (closeDropdown)="closeDropdown()"
         [propLabel]="propLabel()"
       ></ion-dropdown>
