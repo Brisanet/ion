@@ -16,7 +16,7 @@
       <div class="selected-value">
         @for (item of dropdownSelectedItems(); track $index) {
           <ion-chip
-            [label]="item.label"
+            [label]="item[propLabel()] || item.label"
             icon="close"
             iconPosition="right"
             (events)="handleChipEvents(item)"
@@ -41,6 +41,7 @@
         [searchOptions]="searchOptions()"
         (selected)="handleSelect($event)"
         (closeDropdown)="closeDropdown()"
+        [propLabel]="propLabel()"
       ></ion-dropdown>
     </div>
   }

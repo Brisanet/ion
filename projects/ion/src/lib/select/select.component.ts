@@ -50,7 +50,7 @@ export class IonSelectComponent {
 
   // Signals
   showDropdown = signal(false);
-  dropdownSelectedItems = signal<DropdownItem[]>([]);
+  dropdownSelectedItems = signal<DropdownItem[] | any[]>([]);
 
   private elementRef = inject(ElementRef);
 

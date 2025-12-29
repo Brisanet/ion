@@ -76,6 +76,10 @@ export interface BnSelectFormField extends BnBaseFormField {
   multiple?: boolean;
   enableSearch?: boolean;
   propValue?: string;
+  propLabel?: string;
+  refresh?: {
+    use: (field: BnSelectFormField) => void;
+  };
 }
 
 export type BnFormField =

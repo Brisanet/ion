@@ -66,7 +66,7 @@ import {
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 import { BnFormComponent } from '../../../ion/src/lib/core/bn-form/bn-form.component';
 import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service';
-import { BnFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
+import { BnFormField, BnSelectFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -669,7 +669,7 @@ export class AppComponent implements OnInit {
       label: 'Selecione',
       placeholder: 'Selecione',
       options: this.selectOptions,
-      initialValue: ['apple'],
+      initialValue: [1],
       propValue: 'fruit_id',
       multiple: true,
     },
@@ -681,6 +681,20 @@ export class AppComponent implements OnInit {
       placeholder: 'Selecione',
       options: this.selectOptionsCar,
       initialValue: ['marea'],
+    },
+    {
+      type: 'select',
+      key: 'city',
+      className: 'col-6',
+      label: 'Selecione uma cidade',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: false,
+      propValue: 'id',
+      propLabel: 'title',
+      refresh: {
+        use: (field: BnSelectFormField) => this.refreshCities(field)
+      }
     },
     // {
     //   key: 'basicInput',
@@ -822,5 +836,12 @@ export class AppComponent implements OnInit {
 
   submitForm(): void {
     console.log('Form submitted:', this.formGroup.value);
+  }
+
+  refreshCities(field: BnSelectFormField): void {
+    console.log('Refreshing cities...');
+    this.http.get('https://jsonplaceholder.typicode.com/posts').subscribe((res) => {
+      field.options = (res as DropdownItem[]);
+    });
   }
 }

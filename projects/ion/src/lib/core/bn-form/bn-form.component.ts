@@ -2,7 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   input,
-  output,
+  OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -73,21 +73,22 @@ import {
             ></ion-date-picker>
           } @else if (isSelect(field)) {
             <ion-select
-              [placeholder]="field.placeholder ?? ''"
-              [options]="field.options"
-              [multiple]="field.multiple ?? false"
-              [enableSearch]="field.enableSearch ?? false"
-              [disabled]="field.disabled ?? false"
-              [propValue]="field.propValue ?? 'key'"
-              [value]="formGroup().get(field.key)?.value"
-              [invalid]="
-                !!(
-                  formGroup().get(field.key)?.invalid &&
-                  formGroup().get(field.key)?.touched
-                )
-              "
-              (valueChange)="onValueChange(field.key, $event)"
-            ></ion-select>
+                [placeholder]="field.placeholder ?? ''"
+                [options]="field.options"
+                [multiple]="field.multiple ?? false"
+                [enableSearch]="field.enableSearch ?? false"
+                [disabled]="field.disabled ?? false"
+                [propValue]="field.propValue ?? 'key'"
+                [propLabel]="field.propLabel ?? 'label'"
+                [value]="formGroup().get(field.key)?.value"
+                [invalid]="
+                  !!(
+                    formGroup().get(field.key)?.invalid &&
+                    formGroup().get(field.key)?.touched
+                  )
+                "
+                (valueChange)="onValueChange(field.key, $event)"
+              ></ion-select>
           } @else if (isInput(field)) {
             <ion-input
               [placeholder]="field.placeholder ?? ''"
@@ -263,9 +264,17 @@ import {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BnFormComponent {
+export class BnFormComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   fields = input.required<BnFormField[]>();
+
+  ngOnInit(): void {
+    this.fields().forEach((field) => {
+      if (this.isSelect(field) && field.refresh?.use) {
+        field.refresh.use(field);
+      }
+    });
+  }
 
   onValueChange(key: string, value: any): void {
     const control = this.formGroup().get(key);

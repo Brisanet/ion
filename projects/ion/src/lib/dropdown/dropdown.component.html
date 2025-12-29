@@ -32,7 +32,7 @@
       (scroll)="optionsScroll()"
       id="option-list"
     >
-      @for (option of options(); track option.label; let index = $index) {
+      @for (option of options(); track $index; let index = $index) {
         <div
           class="ion-dropdown-item"
           [class.dropdown-disabled]="option.disabled"
