@@ -651,6 +651,8 @@ export class AppComponent implements OnInit {
       label: 'Nome',
       placeholder: 'Digite seu nome',
       initialValue: 'Iury',
+      iconInput: 'image-user',
+      iconDirection: 'left'
     },
     {
       key: 'sobrenome',

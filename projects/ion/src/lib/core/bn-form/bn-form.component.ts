@@ -101,7 +101,7 @@ import {
               [maxLength]="field.maxLength ?? null"
               [clearButton]="field.clearButton ?? false"
               [iconInput]="field.iconInput ?? ''"
-              [iconDirection]="field.iconDirection ?? 'left'"
+              [iconDirection]="field.iconDirection"
               [inputButton]="field.inputButton ?? false"
               [inputButtonConfig]="field.inputButtonConfig"
               [invalid]="
