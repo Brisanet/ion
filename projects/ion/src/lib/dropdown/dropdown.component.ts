@@ -13,13 +13,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
+import { IonSpinnerComponent } from '../spinner/spinner.component';
+import { IonNoDataComponent } from '../no-data/no-data.component';
 
 export const COLDOWN = 200;
 
 @Component({
   selector: 'ion-dropdown',
   standalone: true,
-  imports: [CommonModule, IonIconComponent],
+  imports: [CommonModule, IonIconComponent, IonSpinnerComponent, IonNoDataComponent],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   host: {

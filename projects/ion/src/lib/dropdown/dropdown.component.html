@@ -71,16 +71,14 @@
     </div>
   }
   @if (loading()) {
-    <div data-testid="ion-spinner">Loading...</div>
+    <ion-spinner [size]="40"></ion-spinner>
   }
   @if ((!options() || options().length === 0) && !loading()) {
     <div data-testid="ion-no-data">
-      <ion-icon
-        [type]="noDataConfig()!.iconType!"
-        [size]="24"
-        [id]="'ion-icon-' + noDataConfig()!.iconType"
-      ></ion-icon>
-      <span>{{ noDataConfig()!.label }}</span>
+      <ion-no-data
+        [iconType]="noDataConfig()!.iconType!"
+        [label]="noDataConfig()!.label!"
+      ></ion-no-data>
     </div>
   }
   @if (clearButtonIsVisible()) {

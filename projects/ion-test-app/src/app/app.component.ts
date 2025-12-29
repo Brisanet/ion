@@ -74,7 +74,7 @@ import { Validators } from '@angular/forms';
 
 type FromYourRepository = {
   id?: number;
-  title?: string;
+  title_like?: string;
 };
 
 @Component({
@@ -869,7 +869,7 @@ export class AppComponent implements OnInit {
     const params: FromYourRepository = {};
 
     if (search) {
-      params.title = search;
+      params.title_like = search;
     }
 
     console.log(search);
@@ -880,16 +880,6 @@ export class AppComponent implements OnInit {
   }
 
   refreshStates(_field: BnSelectFormField, search?: string): Observable<any> {
-    const params: FromYourRepository = {};
-
-    if (search) {
-      params.title = search;
-    }
-
-    console.log(search);
-
-    return this.http.get('https://jsonplaceholder.typicode.com/posts', {
-      params,
-    });
+    return this.http.get('https://jsonplaceholder.typicode.com/posts');
   }
 }
