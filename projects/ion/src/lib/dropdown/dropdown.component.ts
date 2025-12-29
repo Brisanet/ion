@@ -75,7 +75,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           this.multiple() &&
           showClearButton &&
           !this.required() &&
-          !this.loading()
+          !this.loading(),
       );
     });
 
@@ -88,7 +88,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           (this.required() && this.dropdownSelectedItems().length > 1));
 
       this.canDeselect.set(
-        isSingleSelectionAllowed || isMultipleSelectionAllowed
+        isSingleSelectionAllowed || isMultipleSelectionAllowed,
       );
     });
 

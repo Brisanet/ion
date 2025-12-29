@@ -25,7 +25,7 @@ export class IonModalService {
 
   open(
     component: Type<unknown>,
-    configuration?: IonModalConfiguration
+    configuration?: IonModalConfiguration,
   ): Observable<IonModalResponse | unknown> {
     const overlayConfig = this.createConfig(configuration);
     const overlayRef = this.overlay.create(overlayConfig);
@@ -68,7 +68,7 @@ export class IonModalService {
     instance.ionOnHeaderButtonAction.subscribe(
       (valueFromModal: IonModalResponse) => {
         this.emitHeaderAction(valueFromModal);
-      }
+      },
     );
 
     if (configuration?.overlayCanDismiss !== false) {
@@ -96,7 +96,7 @@ export class IonModalService {
 
   emitValueAndCloseModal(
     valueToEmit: IonModalResponse | unknown,
-    modalControl?: ModalControl
+    modalControl?: ModalControl,
   ): void {
     const control = modalControl || this.currentModalControl;
     if (control) {
@@ -133,7 +133,7 @@ export class IonModalService {
 
   public findModalControlById(id: string): ModalControl | undefined {
     return this.modalsControls.find(
-      (modal) => modal.componentRef.instance.configuration().id === id
+      (modal) => modal.componentRef.instance.configuration().id === id,
     );
   }
 
@@ -142,7 +142,7 @@ export class IonModalService {
     modalControl.overlayRef.dispose();
 
     this.modalsControls = this.modalsControls.filter(
-      (modal) => modal !== modalControl
+      (modal) => modal !== modalControl,
     );
   }
 

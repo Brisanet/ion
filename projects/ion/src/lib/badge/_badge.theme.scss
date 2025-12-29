@@ -1,29 +1,38 @@
 @import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
 $default: (
-    border-radius: 50px,
-    text: (font-size: 12px,
-        font-weight: 600,
-        line-height: 16px,
-        font-family: ion-theme(font-family-main),
-    ),
-    primary: (background-color: ion-theme(primary-6),
-        text-color: ion-theme(neutral-1),
-    ),
-    secondary: (background-color: ion-theme(primary-1),
-        text-color: ion-theme(primary-6),
-    ),
-    neutral: (background-color: ion-theme(neutral-4),
-        text-color: ion-theme(neutral-8),
-    ),
-    negative: (background-color: ion-theme(negative-6),
-        text-color: ion-theme(positive-1),
-    ),
-    warning: (background-color: ion-theme(warning-6),
-        text-color: ion-theme(neutral-1),
-    ),
+  border-radius: 50px,
+  text: (
+    font-size: 12px,
+    font-weight: 600,
+    line-height: 16px,
+    font-family: ion-theme(font-family-main),
+  ),
+  primary: (
+    background-color: ion-theme(primary-6),
+    text-color: ion-theme(neutral-1),
+  ),
+  secondary: (
+    background-color: ion-theme(primary-1),
+    text-color: ion-theme(primary-6),
+  ),
+  neutral: (
+    background-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-8),
+  ),
+  negative: (
+    background-color: ion-theme(negative-6),
+    text-color: ion-theme(positive-1),
+  ),
+  warning: (
+    background-color: ion-theme(warning-6),
+    text-color: ion-theme(neutral-1),
+  ),
 );
 
-@include register-component(badge,
-    (default: $default,
-    ));
+@include register-component(
+  badge,
+  (
+    default: $default,
+  )
+);

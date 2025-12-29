@@ -1,9 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import {
-  ConfigTable,
-  EventTable,
-  PaginationConfig,
-} from '../../table/utils';
+import { ConfigTable, EventTable, PaginationConfig } from '../../table/utils';
 import { SafeAny } from '../../utils/safe-any';
 import { PageEvent } from './pagination';
 import { TooltipProps } from './tooltip';

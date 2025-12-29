@@ -9,7 +9,9 @@ const defaultProps = {
 };
 
 const sut = async (
-  customProps: Partial<IonSkeletonComponent> | { [key: string]: any } = defaultProps
+  customProps:
+    | Partial<IonSkeletonComponent>
+    | { [key: string]: any } = defaultProps,
 ): Promise<void> => {
   await render(IonSkeletonComponent, {
     inputs: customProps,

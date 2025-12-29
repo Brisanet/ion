@@ -1,5 +1,5 @@
-@import "../../../styles/index.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   ::ng-deep svg {

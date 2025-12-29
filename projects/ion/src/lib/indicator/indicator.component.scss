@@ -1,6 +1,6 @@
-@use "indicator.theme";
+@use 'indicator.theme';
 
-@import "../../styles/index.scss";
+@import '../../styles/index.scss';
 
 .ellipsis-in-text {
   text-overflow: ellipsis;

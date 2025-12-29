@@ -36,8 +36,10 @@ describe('IonDividerComponent', () => {
       const divider = await sut({
         direction: direction as DirectionType,
       });
-      expect(divider).toHaveClass(ClassType[direction as keyof typeof ClassType]);
-    }
+      expect(divider).toHaveClass(
+        ClassType[direction as keyof typeof ClassType],
+      );
+    },
   );
 
   it.each(['vertical', 'horizontal'])(
@@ -47,9 +49,11 @@ describe('IonDividerComponent', () => {
         direction: direction as DirectionType,
         type: 'dashed',
       });
-      expect(divider).toHaveClass(ClassType[direction as keyof typeof ClassType]);
+      expect(divider).toHaveClass(
+        ClassType[direction as keyof typeof ClassType],
+      );
       expect(divider).toHaveClass(ClassType.dashed);
-    }
+    },
   );
 
   it('should render vertical divider and not show text', async () => {

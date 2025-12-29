@@ -6,12 +6,6 @@
     "esModuleInterop": true,
     "emitDecoratorMetadata": true
   },
-  "include": [
-    "projects/**/*.spec.ts",
-    "projects/**/*.d.ts",
-    "setup-jest.ts"
-  ],
-  "exclude": [
-    "_backup/**/*"
-  ]
+  "include": ["projects/**/*.spec.ts", "projects/**/*.d.ts", "setup-jest.ts"],
+  "exclude": ["_backup/**/*"]
 }

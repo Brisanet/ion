@@ -17,7 +17,7 @@ const defaultComponent: IonPaginationProps = {
 const LOADING_STATUS = [true, false];
 
 const sut = async (
-  customProps: IonPaginationProps = defaultComponent
+  customProps: IonPaginationProps = defaultComponent,
 ): Promise<void> => {
   const { events, ...componentInputs } = customProps as SafeAny;
 
@@ -39,7 +39,7 @@ describe('IonPaginationComponent', () => {
     'should render page %s',
     async (page: string) => {
       expect(screen.getByText(page)).toBeInTheDocument();
-    }
+    },
   );
 
   it('should be selected in first page by default', async () => {
@@ -50,7 +50,7 @@ describe('IonPaginationComponent', () => {
     'should render arrow %s',
     async (direction: string) => {
       expect(screen.getByTestId(`arrow-${direction}`)).toBeInTheDocument();
-    }
+    },
   );
 
   it('should select a other page', async () => {
@@ -100,7 +100,7 @@ describe('Pagination > Page', () => {
         page: page,
       });
       expect(screen.getByTestId(`page-${page}`)).toHaveClass('selected');
-    }
+    },
   );
 });
 
@@ -113,11 +113,11 @@ describe('Pagination > Page sizes', () => {
         await userEvent.click(
           screen.getByRole('button', {
             name: /10 \/ página/i,
-          })
+          }),
         );
         const view = screen.getByTestId('ion-dropdown');
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
-      }
+      },
     );
 
     it.each(LOADING_STATUS)(
@@ -131,9 +131,9 @@ describe('Pagination > Page sizes', () => {
         const itemsPerPage = screen.getByTestId('itemsPerPage');
         expect(itemsPerPage).toHaveAttribute(
           'ng-reflect-disabled',
-          `${loadingValue}`
+          `${loadingValue}`,
         );
-      }
+      },
     );
   });
 
@@ -150,11 +150,11 @@ describe('Pagination > Page sizes', () => {
         await userEvent.click(
           screen.getByRole('button', {
             name: /10 \/ página/i,
-          })
+          }),
         );
         const view = screen.getByTestId('ion-dropdown');
         expect(within(view).getByText(`${label} / página`)).toBeVisible();
-      }
+      },
     );
   });
 });
@@ -214,7 +214,7 @@ describe('Pagination > Events', () => {
         itemsPerPage: value,
       });
       expect(screen.queryAllByText(`${value} / página`)).toHaveLength(1);
-    }
+    },
   );
 
   it('should select the last page when itemsPerPage changes to a value smaller than the current page selected', async () => {
@@ -255,7 +255,7 @@ describe('Advanced Pagination', () => {
     });
     it('should skip five pages when click on more right button', async () => {
       const moreRightBtn = within(screen.getByTestId('more-right')).getByRole(
-        'button'
+        'button',
       );
       await userEvent.click(moreRightBtn);
       expect(screen.getByTestId('page-6')).toHaveClass('selected');

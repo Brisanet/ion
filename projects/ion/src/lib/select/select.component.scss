@@ -22,7 +22,9 @@
   cursor: pointer;
   min-height: 40px;
   box-sizing: border-box;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   &:not(.disabled) {
     &:hover {
@@ -42,12 +44,13 @@
     border-color: ion-theme(select-disabled-border-color);
     cursor: not-allowed;
 
-    .placeholder, .selected-value {
-        color: ion-theme(select-disabled-text-color);
+    .placeholder,
+    .selected-value {
+      color: ion-theme(select-disabled-text-color);
     }
-    
+
     ion-icon {
-        opacity: 0.5;
+      opacity: 0.5;
     }
   }
 

@@ -38,7 +38,7 @@ export class IonSidebarComponent {
     const innerElement = event.target as HTMLElement;
     if (containerElement && !containerElement.contains(innerElement)) {
       const closeButton = document.querySelector(
-        '.ion-sidebar--opened .ion-sidebar__header button'
+        '.ion-sidebar--opened .ion-sidebar__header button',
       ) as HTMLElement;
       if (closeButton) {
         closeButton.click();
@@ -101,7 +101,7 @@ export class IonSidebarComponent {
 
   private recalculateItems(
     items: (SidebarItem & { options?: SidebarItem[] })[],
-    itemIndex?: number
+    itemIndex?: number,
   ): void {
     items.forEach((item, index) => {
       if (itemIndex !== undefined && index !== itemIndex) {

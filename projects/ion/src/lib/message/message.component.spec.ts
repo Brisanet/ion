@@ -12,7 +12,7 @@ const messageIDs = {
 };
 
 const sut = async (
-  customProps: Partial<IonMessageProps> = {}
+  customProps: Partial<IonMessageProps> = {},
 ): Promise<HTMLElement> => {
   await render(IonMessageComponent, {
     componentInputs: {
@@ -49,7 +49,7 @@ describe('IonMessageComponent / Types', () => {
         type: type as MessageStatusType,
       });
       expect(element).toHaveClass(type);
-    }
+    },
   );
 });
 

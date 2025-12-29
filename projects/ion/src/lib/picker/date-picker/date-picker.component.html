@@ -38,12 +38,12 @@
       </div>
     </div>
     @if (rangePicker() && predefinedRanges().length) {
-    <div class="container-footer">
-      <ion-predefined-range-picker
-        [config]="predefinedRanges()"
-        (definedRangePicker)="onSelectPredefinedRange($event)"
-      ></ion-predefined-range-picker>
-    </div>
+      <div class="container-footer">
+        <ion-predefined-range-picker
+          [config]="predefinedRanges()"
+          (definedRangePicker)="onSelectPredefinedRange($event)"
+        ></ion-predefined-range-picker>
+      </div>
     }
   </div>
 </ng-template>

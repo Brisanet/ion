@@ -71,9 +71,9 @@ import { IonPaginationComponent } from '../../../ion/src/lib/pagination/paginati
     <div style="padding: 16px;">
       <p>This is a component rendered inside the modal!</p>
       @if (data) {
-      <p>
-        Data received: <strong>{{ data }}</strong>
-      </p>
+        <p>
+          Data received: <strong>{{ data }}</strong>
+        </p>
       }
       <p>You can pass data to it and receive values back.</p>
     </div>
@@ -88,7 +88,7 @@ class ModalExampleComponent {
   template: `
     <div style="padding: 16px;">
       @for (item of items; track $index) {
-      <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+        <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
       }
     </div>
   `,
@@ -141,7 +141,7 @@ class ModalLongContentComponent {
     IonDatepickerComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
-    IonSelectComponent
+    IonSelectComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -458,7 +458,7 @@ export class AppComponent implements OnInit {
   showNotification(type: 'success' | 'info' | 'warning' | 'error') {
     this.notificationService[type](
       'Notification Title',
-      'This is a notification message'
+      'This is a notification message',
     );
   }
 
@@ -579,7 +579,7 @@ export class AppComponent implements OnInit {
 
     const modalObservable = this.modalService.open(
       ModalExampleComponent,
-      modalConfig
+      modalConfig,
     );
 
     modalObservable.subscribe((result: unknown) => {

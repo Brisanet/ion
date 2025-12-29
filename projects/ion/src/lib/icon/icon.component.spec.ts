@@ -18,7 +18,8 @@ describe('IonIconComponent', () => {
   it('should render a correct icon', () => {
     fixture.componentRef.setInput('type', 'pencil');
     fixture.detectChanges();
-    const elementRendered = fixture.nativeElement.querySelector('#ion-icon-pencil');
+    const elementRendered =
+      fixture.nativeElement.querySelector('#ion-icon-pencil');
     expect(elementRendered).toBeTruthy();
   });
 
@@ -70,8 +71,10 @@ describe('IonIconComponent', () => {
       fixture.componentRef.setInput('highlight', Highlight.SIMPLE);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('[data-testid="outside-container"]');
-      
+      const container = fixture.nativeElement.querySelector(
+        '[data-testid="outside-container"]',
+      );
+
       // Check individual styles instead of exact string match to be more robust
       expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
       expect(container.style.width).toBe(`${iconSizes.sm * 2}px`);
@@ -87,7 +90,9 @@ describe('IonIconComponent', () => {
       fixture.componentRef.setInput('highlight', Highlight.DOUBLE);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('[data-testid="outside-container"]');
+      const container = fixture.nativeElement.querySelector(
+        '[data-testid="outside-container"]',
+      );
 
       expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
       expect(container.style.width).toBe(`${iconSizes.sm * 2.5}px`);
@@ -101,7 +106,9 @@ describe('IonIconComponent', () => {
       fixture.componentRef.setInput('highlight', Highlight.DOUBLE);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('[data-testid="outside-container"]');
+      const container = fixture.nativeElement.querySelector(
+        '[data-testid="outside-container"]',
+      );
 
       expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
       expect(container.style.width).toBe(`${iconSizes.md * 2.25}px`);
@@ -115,7 +122,9 @@ describe('IonIconComponent', () => {
       fixture.componentRef.setInput('highlight', Highlight.DOUBLE);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('[data-testid="inner-container"]');
+      const container = fixture.nativeElement.querySelector(
+        '[data-testid="inner-container"]',
+      );
 
       expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.25)');
       expect(container.style.width).toBe(`${iconSizes.sm * 1.75}px`);
@@ -129,7 +138,9 @@ describe('IonIconComponent', () => {
       fixture.componentRef.setInput('highlight', Highlight.DOUBLE);
       fixture.detectChanges();
 
-      const container = fixture.nativeElement.querySelector('[data-testid="inner-container"]');
+      const container = fixture.nativeElement.querySelector(
+        '[data-testid="inner-container"]',
+      );
 
       expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.25)');
       expect(container.style.width).toBe(`${iconSizes.md * 1.5}px`);

@@ -8,42 +8,45 @@
   aria-modal="true"
 >
   <header (mousedown)="$event.stopPropagation()">
-    @if (configuration().headerButton; as headerButton) { @if
-    (!(headerButton.hidden ? headerButton.hidden() : false)) {
-    <ion-button
-      [iconType]="headerButton.icon"
-      [label]="headerButton.label"
-      [disabled]="headerButton.disabled ? headerButton.disabled() : false"
-      type="ghost"
-      [circularButton]="true"
-      data-testid="header-button"
-      (ionOnClick)="emitHeaderButtonAction(getChildComponentPropertiesValue())"
-    />
-    } }
+    @if (configuration().headerButton; as headerButton) {
+      @if (!(headerButton.hidden ? headerButton.hidden() : false)) {
+        <ion-button
+          [iconType]="headerButton.icon"
+          [label]="headerButton.label"
+          [disabled]="headerButton.disabled ? headerButton.disabled() : false"
+          type="ghost"
+          [circularButton]="true"
+          data-testid="header-button"
+          (ionOnClick)="
+            emitHeaderButtonAction(getChildComponentPropertiesValue())
+          "
+        />
+      }
+    }
     <h4 data-testid="modalTitle">{{ configuration().title }}</h4>
     @if (!configuration().hideCloseButton) {
-    <ion-button
-      label="Deletar"
-      iconType="close"
-      type="ghost"
-      [circularButton]="true"
-      data-testid="close-icon"
-      (ionOnClick)="closeModal()"
-      (keydown.space)="closeModal()"
-      (keydown.enter)="closeModal()"
-    />
+      <ion-button
+        label="Deletar"
+        iconType="close"
+        type="ghost"
+        [circularButton]="true"
+        data-testid="close-icon"
+        (ionOnClick)="closeModal()"
+        (keydown.space)="closeModal()"
+        (keydown.enter)="closeModal()"
+      />
     }
   </header>
 
   @if (configuration().alertConfig; as alertConfig) {
-  <ion-alert
-    [message]="alertConfig.message"
-    [type]="alertConfig.type || 'info'"
-    [description]="alertConfig.description"
-    [closable]="false"
-    [hideBackground]="false"
-    [noRadius]="true"
-  />
+    <ion-alert
+      [message]="alertConfig.message"
+      [type]="alertConfig.type || 'info'"
+      [description]="alertConfig.description"
+      [closable]="false"
+      [hideBackground]="false"
+      [noRadius]="true"
+    />
   }
 
   <div class="modal-body">
@@ -51,25 +54,25 @@
   </div>
 
   @if (!configuration().footer?.hide) {
-  <footer
-    [class.divider-line]="configuration().footer?.showDivider"
-    data-testid="modalFooter"
-  >
-    <ion-button
-      type="ghost"
-      [label]="configuration().footer?.secondaryButton?.label || ''"
-      [iconType]="configuration().footer?.secondaryButton?.iconType || ''"
-      (ionOnClick)="closeModal()"
-      data-testid="modal-secondary-btn"
-    />
-    <ion-button
-      [label]="configuration().footer?.primaryButton?.label || ''"
-      [iconType]="configuration().footer?.primaryButton?.iconType || ''"
-      [loading]="configuration().footer?.primaryButton?.loading || false"
-      (ionOnClick)="closeModal(getChildComponentPropertiesValue())"
-      [disabled]="configuration().footer?.primaryButton?.disabled || false"
-      data-testid="modal-primary-btn"
-    />
-  </footer>
+    <footer
+      [class.divider-line]="configuration().footer?.showDivider"
+      data-testid="modalFooter"
+    >
+      <ion-button
+        type="ghost"
+        [label]="configuration().footer?.secondaryButton?.label || ''"
+        [iconType]="configuration().footer?.secondaryButton?.iconType || ''"
+        (ionOnClick)="closeModal()"
+        data-testid="modal-secondary-btn"
+      />
+      <ion-button
+        [label]="configuration().footer?.primaryButton?.label || ''"
+        [iconType]="configuration().footer?.primaryButton?.iconType || ''"
+        [loading]="configuration().footer?.primaryButton?.loading || false"
+        (ionOnClick)="closeModal(getChildComponentPropertiesValue())"
+        [disabled]="configuration().footer?.primaryButton?.disabled || false"
+        data-testid="modal-primary-btn"
+      />
+    </footer>
   }
 </div>

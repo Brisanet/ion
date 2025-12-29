@@ -7,7 +7,7 @@ export const COOLDOWN_TIME = 400;
 export const generateIDs = (prefix: string, testid: string): string => {
   let id = 1;
   const allElements = document.querySelectorAll(
-    '*[data-testid="' + testid + '"]'
+    '*[data-testid="' + testid + '"]',
   );
   const arrayElements = Array.from(allElements);
   arrayElements.map((element) => {

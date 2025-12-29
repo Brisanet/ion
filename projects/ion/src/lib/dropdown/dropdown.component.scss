@@ -133,7 +133,9 @@
     border: 1px solid ion-theme(input-element-border-color);
     width: 100%;
     box-sizing: border-box;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
     &:hover {
       border-color: ion-theme(input-element-hover-border-color);

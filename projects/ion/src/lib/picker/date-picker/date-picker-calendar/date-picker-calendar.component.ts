@@ -41,7 +41,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
   goToMonthInCalendar = input<string | undefined>();
   goToYearInCalendar = input<string | undefined>();
   calendarControlAction = input<{ action: CalendarControlActions } | undefined>(
-    undefined
+    undefined,
   );
   selectedDaysInput = input<Day[]>([]);
   rangePicker = input<boolean>(false);
@@ -136,7 +136,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
       date,
       isFinalOfRange
         ? this.selectedDaysState()[FINAL_RANGE]
-        : this.selectedDaysState()[INITIAL_RANGE]
+        : this.selectedDaysState()[INITIAL_RANGE],
     );
   }
 
@@ -171,12 +171,12 @@ export class IonDatePickerCalendarComponent implements OnInit {
     if (this.currentDate()?.length && !selected.length) {
       selected[INITIAL_RANGE] = new Day(
         getFormattedDate(this.currentDate()!, false),
-        this.lang()
+        this.lang(),
       );
       if (this.rangePicker() && this.currentDate()?.[FINAL_RANGE]) {
         selected[FINAL_RANGE] = new Day(
           getFormattedDate(this.currentDate()!, this.finalRange),
-          this.lang()
+          this.lang(),
         );
       }
       this.selectedDaysState.set(selected);
@@ -184,14 +184,14 @@ export class IonDatePickerCalendarComponent implements OnInit {
 
     const initialRenderDay = new Day(
       getInitialDate(this.currentDate()),
-      this.lang()
+      this.lang(),
     );
     this.calendar.set(
       new Calendar(
         initialRenderDay.year,
         initialRenderDay.monthNumber,
-        this.lang()
-      )
+        this.lang(),
+      ),
     );
   }
 
@@ -201,7 +201,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
 
     calendar.goToDate(
       selected[INITIAL_RANGE].monthNumber,
-      selected[INITIAL_RANGE].year
+      selected[INITIAL_RANGE].year,
     );
   }
 
@@ -210,7 +210,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
     const totalLastMonthFinalDays = calendar.getLastMonthFinalDays();
     const totalDays = this.getTotalDaysForCalendar(
       calendar,
-      totalLastMonthFinalDays
+      totalLastMonthFinalDays,
     );
     const monthList = Array.from<Day>({ length: totalDays });
 
@@ -228,7 +228,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
 
   private getTotalDaysForCalendar(
     calendar: Calendar,
-    totalLastMonthFinalDays: number
+    totalLastMonthFinalDays: number,
   ): number {
     const totalDays = calendar.month.numberOfDays + totalLastMonthFinalDays;
 

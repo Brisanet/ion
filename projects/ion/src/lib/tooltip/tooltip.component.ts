@@ -35,7 +35,7 @@ export class IonTooltipComponent implements AfterViewChecked {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private tooltipService: TooltipService
+    private tooltipService: TooltipService,
   ) {}
 
   ngAfterViewChecked(): void {

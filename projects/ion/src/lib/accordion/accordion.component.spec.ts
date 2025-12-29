@@ -73,7 +73,7 @@ describe('IonAccordionComponent', () => {
 
   it('should correctly render the main of the corresponding header', () => {
     const headers = screen.getAllByTestId('ion-accordion-item__header');
-    
+
     // Open first one
     fireEvent.click(headers[0]);
     fixture.detectChanges();

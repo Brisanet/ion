@@ -43,13 +43,16 @@ describe('IonRadioComponent', () => {
 
     it('should emit checkedChange when clicked', async () => {
       const checkedChange = jest.fn();
-      await render('<ion-radio [checked]="checked" (checkedChange)="handleChange($event)"></ion-radio>', {
-        imports: [IonRadioComponent],
-        componentProperties: {
-          checked: false,
-          handleChange: checkedChange,
+      await render(
+        '<ion-radio [checked]="checked" (checkedChange)="handleChange($event)"></ion-radio>',
+        {
+          imports: [IonRadioComponent],
+          componentProperties: {
+            checked: false,
+            handleChange: checkedChange,
+          },
         },
-      });
+      );
       const element = screen.getByRole('radio');
       fireEvent.click(element);
       expect(checkedChange).toHaveBeenCalledWith(true);

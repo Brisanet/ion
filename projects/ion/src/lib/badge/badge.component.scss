@@ -4,24 +4,24 @@
 @import '../../styles/themes/theme.scss';
 
 .ion-badge {
-    display: flex;
-    text-align: center;
+  display: flex;
+  text-align: center;
 
-    span {
-        font-family: ion-theme(badge-text-font-family);
-        font-weight: ion-theme(badge-text-font-weight);
-        font-size: ion-theme(badge-text-font-size);
-        line-height: ion-theme(badge-text-line-height);
-        border-radius: ion-theme(badge-border-radius);
-        padding: spacing(0) spacing(0.5);
-        min-width: 8px;
-        box-sizing: content-box;
-    }
+  span {
+    font-family: ion-theme(badge-text-font-family);
+    font-weight: ion-theme(badge-text-font-weight);
+    font-size: ion-theme(badge-text-font-size);
+    line-height: ion-theme(badge-text-line-height);
+    border-radius: ion-theme(badge-border-radius);
+    padding: spacing(0) spacing(0.5);
+    min-width: 8px;
+    box-sizing: content-box;
+  }
 }
 
 @each $variant in primary, secondary, neutral, negative, warning {
-    .badge-#{$variant} {
-        background-color: ion-theme(badge-#{$variant}-background-color);
-        color: ion-theme(badge-#{$variant}-text-color);
-    }
+  .badge-#{$variant} {
+    background-color: ion-theme(badge-#{$variant}-background-color);
+    color: ion-theme(badge-#{$variant}-text-color);
+  }
 }

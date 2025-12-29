@@ -57,7 +57,7 @@ describe('IonNotificationService', () => {
     expect(overlaySpy.create).toHaveBeenCalledTimes(1);
     expect(overlayRefSpy.attach).toHaveBeenCalledTimes(1);
     expect(overlayRefSpy.attach).toHaveBeenCalledWith(
-      expect.any(ComponentPortal)
+      expect.any(ComponentPortal),
     );
   });
 
@@ -79,7 +79,7 @@ describe('IonNotificationService', () => {
         message: 'Message',
         type: 'success',
         icon: 'star',
-      })
+      }),
     );
   });
 
@@ -90,7 +90,7 @@ describe('IonNotificationService', () => {
         title: 'Title',
         message: 'Message',
         type: 'info',
-      })
+      }),
     );
   });
 
@@ -101,7 +101,7 @@ describe('IonNotificationService', () => {
         title: 'Title',
         message: 'Message',
         type: 'warning',
-      })
+      }),
     );
   });
 
@@ -112,7 +112,7 @@ describe('IonNotificationService', () => {
         title: 'Title',
         message: 'Message',
         type: 'negative',
-      })
+      }),
     );
   });
 });

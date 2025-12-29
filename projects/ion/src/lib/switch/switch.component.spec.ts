@@ -17,7 +17,7 @@ const sut = async (
     value: boolean;
     size: SwitchSize;
     disabled: boolean;
-  }> = {}
+  }> = {},
 ): Promise<HTMLElement> => {
   const { fixture } = await render(IonSwitchComponent, {
     componentInputs: customProps,

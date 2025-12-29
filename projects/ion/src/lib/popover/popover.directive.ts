@@ -84,7 +84,7 @@ export class IonPopoverDirective implements OnDestroy {
         ionOnClose: new EventEmitter<void>(),
       },
       this.ionPopoverStopCloseOnScroll(),
-      this.ionPopoverAutoReposition()
+      this.ionPopoverAutoReposition(),
     );
   }
 

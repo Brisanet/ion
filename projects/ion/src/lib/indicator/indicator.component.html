@@ -4,138 +4,153 @@
   [class.ion-indicator--full-width]="fullWidth()"
 >
   @if (preview()) {
-  <div class="preview-content" data-testid="ion-indicator-preview">
-    <ion-skeleton variant="rect" [width]="400" [height]="136"></ion-skeleton>
-  </div>
+    <div class="preview-content" data-testid="ion-indicator-preview">
+      <ion-skeleton variant="rect" [width]="400" [height]="136"></ion-skeleton>
+    </div>
   } @else {
-  <div>
-    <header class="title">
-      @if (headerIcon()) {
-      <ion-icon
-        [type]="headerIcon()!.type"
-        [size]="16"
-        [color]="headerIcon()!.color || '#505566'"
-      ></ion-icon>
-      }
-      <h1
-        data-testid="ion-indicator-title"
-        ionTooltip
-        [ionTooltipTitle]="
-          (indicatorTitle.offsetWidth < indicatorTitle.scrollWidth &&
-            title()) ||
-          ''
-        "
-        #indicatorTitle
-      >
-        {{ title() }}
-      </h1>
-      @if (tooltipText()) {
-      <ion-icon
-        data-testid="ion-indicator-tooltip"
-        type="information"
-        [size]="16"
-        ionTooltip
-        [ionTooltipPosition]="TooltipPosition.BOTTOM_LEFT"
-        ionTooltipColorScheme="dark"
-        [ionTooltipTrigger]="TooltipTrigger.HOVER"
-        [ionTooltipTitle]="tooltipText() || ''"
-        [ionTooltipArrowPointAtCenter]="true"
-      >
-      </ion-icon>
-      }
-    </header>
-    <div class="content with-footer">
-      @if (error()) {
-      <div class="error-container" data-testid="ion-indicator-error">
-        <ion-icon [size]="16" type="exclamation-rounded"></ion-icon>
-        <span>Erro no carregamento</span>
-      </div>
-      } @else if (loading()) {
-      <div>
-        <ion-spinner
-          data-testid="ion-indicator-spinner"
-          [size]="32"
-          color="primary"
-        ></ion-spinner>
-      </div>
-      } @else {
-      <header
-        [class.no-data]="
-          value() === null || value() === undefined || value() === ''
-        "
-      >
-        @if (!(value() === null || value() === undefined || value() === '')) {
-        <h4 data-testid="ion-indicator-value">{{ value() }}</h4>
-        <p
-          data-testid="ion-indicator-second-value"
+    <div>
+      <header class="title">
+        @if (headerIcon()) {
+          <ion-icon
+            [type]="headerIcon()!.type"
+            [size]="16"
+            [color]="headerIcon()!.color || '#505566'"
+          ></ion-icon>
+        }
+        <h1
+          data-testid="ion-indicator-title"
           ionTooltip
-          [ionTooltipPosition]="TooltipPosition.BOTTOM_LEFT"
-          ionTooltipColorScheme="dark"
-          [ionTooltipTrigger]="TooltipTrigger.HOVER"
-          [ionTooltipTitle]="secondValueTooltipText() || ''"
-          [ionTooltipArrowPointAtCenter]="true"
+          [ionTooltipTitle]="
+            (indicatorTitle.offsetWidth < indicatorTitle.scrollWidth &&
+              title()) ||
+            ''
+          "
+          #indicatorTitle
         >
-          {{ secondValue() }}
-        </p>
-        } @else {
-        <ion-no-data
-          iconType="exclamation-rounded"
-          label="Sem dados"
-        ></ion-no-data>
+          {{ title() }}
+        </h1>
+        @if (tooltipText()) {
+          <ion-icon
+            data-testid="ion-indicator-tooltip"
+            type="information"
+            [size]="16"
+            ionTooltip
+            [ionTooltipPosition]="TooltipPosition.BOTTOM_LEFT"
+            ionTooltipColorScheme="dark"
+            [ionTooltipTrigger]="TooltipTrigger.HOVER"
+            [ionTooltipTitle]="tooltipText() || ''"
+            [ionTooltipArrowPointAtCenter]="true"
+          >
+          </ion-icon>
         }
       </header>
-      @if ( buttonConfig() && !(value() === null || value() === undefined ||
-      value() === '') ) {
-      <footer data-testid="ion-indicator-footer">
-        @if (buttonConfig()!.type !== 'popover') {
-        <ion-button
-          [attr.data-testid]="'ion-indicator-button-' + buttonConfig()!.type"
-          type="ghost"
-          size="sm"
-          [rightSideIcon]="true"
-          [label]="buttonConfig()!.label"
-          [iconType]="buttonConfig()!.icon || 'right2'"
-          (ionOnClick)="handleButtonClick(buttonConfig()!.type)"
-        ></ion-button>
-        } @else if (buttonConfig()!.popoverConfig) {
-        <ion-button
-          [attr.data-testid]="'ion-indicator-button-' + buttonConfig()!.type"
-          type="ghost"
-          size="sm"
-          [rightSideIcon]="true"
-          [label]="buttonConfig()!.label"
-          [iconType]="buttonConfig()!.icon || 'right2'"
-          (ionOnClick)="handleButtonClick(buttonConfig()!.type)"
-          ionPopover
-          [ionPopoverTitle]="
-            buttonConfig()!.popoverConfig?.ionPopoverTitle || ''
-          "
-          [ionPopoverBody]="ionIndicatorPopoverBody"
-          [ionPopoverActions]="buttonConfig()!.popoverConfig?.ionPopoverActions"
-          [ionPopoverIcon]="buttonConfig()!.popoverConfig?.ionPopoverIcon"
-          [ionPopoverIconClose]="
-            !!buttonConfig()!.popoverConfig?.ionPopoverIconClose
-          "
-          [ionPopoverPosition]="
-            buttonConfig()!.popoverConfig?.ionPopoverPosition ||
-            PopoverPosition.BOTTOM_CENTER
-          "
-          [ionPopoverCustomClass]="
-            buttonConfig()!.popoverConfig?.ionPopoverCustomClass || ''
-          "
-          [ionPopoverStopCloseOnScroll]="
-            !!buttonConfig()!.popoverConfig?.ionPopoverStopCloseOnScroll
-          "
-          (ionOnFirstAction)="buttonConfig()!.popoverConfig?.firstAction?.()"
-          (ionOnSecondAction)="
+      <div class="content with-footer">
+        @if (error()) {
+          <div class="error-container" data-testid="ion-indicator-error">
+            <ion-icon [size]="16" type="exclamation-rounded"></ion-icon>
+            <span>Erro no carregamento</span>
+          </div>
+        } @else if (loading()) {
+          <div>
+            <ion-spinner
+              data-testid="ion-indicator-spinner"
+              [size]="32"
+              color="primary"
+            ></ion-spinner>
+          </div>
+        } @else {
+          <header
+            [class.no-data]="
+              value() === null || value() === undefined || value() === ''
+            "
+          >
+            @if (
+              !(value() === null || value() === undefined || value() === '')
+            ) {
+              <h4 data-testid="ion-indicator-value">{{ value() }}</h4>
+              <p
+                data-testid="ion-indicator-second-value"
+                ionTooltip
+                [ionTooltipPosition]="TooltipPosition.BOTTOM_LEFT"
+                ionTooltipColorScheme="dark"
+                [ionTooltipTrigger]="TooltipTrigger.HOVER"
+                [ionTooltipTitle]="secondValueTooltipText() || ''"
+                [ionTooltipArrowPointAtCenter]="true"
+              >
+                {{ secondValue() }}
+              </p>
+            } @else {
+              <ion-no-data
+                iconType="exclamation-rounded"
+                label="Sem dados"
+              ></ion-no-data>
+            }
+          </header>
+          @if (
+            buttonConfig() &&
+            !(value() === null || value() === undefined || value() === '')
+          ) {
+            <footer data-testid="ion-indicator-footer">
+              @if (buttonConfig()!.type !== 'popover') {
+                <ion-button
+                  [attr.data-testid]="
+                    'ion-indicator-button-' + buttonConfig()!.type
+                  "
+                  type="ghost"
+                  size="sm"
+                  [rightSideIcon]="true"
+                  [label]="buttonConfig()!.label"
+                  [iconType]="buttonConfig()!.icon || 'right2'"
+                  (ionOnClick)="handleButtonClick(buttonConfig()!.type)"
+                ></ion-button>
+              } @else if (buttonConfig()!.popoverConfig) {
+                <ion-button
+                  [attr.data-testid]="
+                    'ion-indicator-button-' + buttonConfig()!.type
+                  "
+                  type="ghost"
+                  size="sm"
+                  [rightSideIcon]="true"
+                  [label]="buttonConfig()!.label"
+                  [iconType]="buttonConfig()!.icon || 'right2'"
+                  (ionOnClick)="handleButtonClick(buttonConfig()!.type)"
+                  ionPopover
+                  [ionPopoverTitle]="
+                    buttonConfig()!.popoverConfig?.ionPopoverTitle || ''
+                  "
+                  [ionPopoverBody]="ionIndicatorPopoverBody"
+                  [ionPopoverActions]="
+                    buttonConfig()!.popoverConfig?.ionPopoverActions
+                  "
+                  [ionPopoverIcon]="
+                    buttonConfig()!.popoverConfig?.ionPopoverIcon
+                  "
+                  [ionPopoverIconClose]="
+                    !!buttonConfig()!.popoverConfig?.ionPopoverIconClose
+                  "
+                  [ionPopoverPosition]="
+                    buttonConfig()!.popoverConfig?.ionPopoverPosition ||
+                    PopoverPosition.BOTTOM_CENTER
+                  "
+                  [ionPopoverCustomClass]="
+                    buttonConfig()!.popoverConfig?.ionPopoverCustomClass || ''
+                  "
+                  [ionPopoverStopCloseOnScroll]="
+                    !!buttonConfig()!.popoverConfig?.ionPopoverStopCloseOnScroll
+                  "
+                  (ionOnFirstAction)="
+                    buttonConfig()!.popoverConfig?.firstAction?.()
+                  "
+                  (ionOnSecondAction)="
                     buttonConfig()!.popoverConfig?.secondAction?.()
                   "
-        ></ion-button>
+                ></ion-button>
+              }
+            </footer>
+          }
         }
-      </footer>
-      } }
+      </div>
     </div>
-  </div>
   }
 </div>
 

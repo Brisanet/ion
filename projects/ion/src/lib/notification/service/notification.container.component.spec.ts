@@ -79,14 +79,14 @@ describe('IonNotificationContainerComponent', () => {
     fixture.detectChanges();
 
     expect((fixture.nativeElement as HTMLElement).textContent).toContain(
-      'Mock: Test Title'
+      'Mock: Test Title',
     );
 
     component.removeNotification('1');
     fixture.detectChanges();
 
     expect((fixture.nativeElement as HTMLElement).textContent).not.toContain(
-      'Mock: Test Title'
+      'Mock: Test Title',
     );
   });
 
@@ -106,7 +106,7 @@ describe('IonNotificationContainerComponent', () => {
     fixture.detectChanges();
 
     const mockComponentDe = fixture.debugElement.query(
-      By.directive(MockNotificationComponent)
+      By.directive(MockNotificationComponent),
     );
     const mockComponentInstance =
       mockComponentDe.componentInstance as MockNotificationComponent;
@@ -117,7 +117,7 @@ describe('IonNotificationContainerComponent', () => {
 
     // Should be removed
     const remainingMock = fixture.debugElement.query(
-      By.directive(MockNotificationComponent)
+      By.directive(MockNotificationComponent),
     );
     expect(remainingMock).toBeNull();
   });

@@ -54,7 +54,7 @@ export class IonTableComponent<RowType extends BaseRow>
 
   constructor(
     private cdr: ChangeDetectorRef,
-    protected ionThemeService: IonThemeService
+    protected ionThemeService: IonThemeService,
   ) {
     super();
     effect(() => {
@@ -67,7 +67,8 @@ export class IonTableComponent<RowType extends BaseRow>
           this.paginationEvents({
             actual: config.pagination.page || 1,
             itemsPerPage: config.pagination.itemsPerPage || 10,
-            offset: (config.pagination.offset || 0) * (config.pagination.page || 1),
+            offset:
+              (config.pagination.offset || 0) * (config.pagination.page || 1),
           });
         }
       }
@@ -80,7 +81,7 @@ export class IonTableComponent<RowType extends BaseRow>
 
   public sort(column: Column): void {
     this.config.data.sort((rowA, rowB) =>
-      this.orderBy(column.desc, rowA, rowB, column.key)
+      this.orderBy(column.desc, rowA, rowB, column.key),
     );
     this.config.columns.forEach((columnEach) => {
       if (columnEach.key != column.key) {
@@ -102,7 +103,7 @@ export class IonTableComponent<RowType extends BaseRow>
     if (this.config.pagination) {
       this.smartData = this.config.data.slice(
         event.offset,
-        event.offset + event.itemsPerPage
+        event.offset + event.itemsPerPage,
       );
       this.config.pagination.page = event.actual;
       this.cdr.detectChanges();
@@ -127,7 +128,7 @@ export class IonTableComponent<RowType extends BaseRow>
     desc: boolean | undefined,
     rowA: SafeAny,
     rowB: SafeAny,
-    key: string
+    key: string,
   ): number {
     if (desc) {
       return this.orderDesc(rowA[key], rowB[key]);

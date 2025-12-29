@@ -40,7 +40,7 @@ describe('debounce', () => {
   describe('with arguments', () => {
     it('should not call function before a given time', () => {
       const debounced = debounce(func, 2000);
-      
+
       debounced('test1');
       jest.advanceTimersByTime(500);
       debounced('test2');
@@ -49,13 +49,13 @@ describe('debounce', () => {
       jest.advanceTimersByTime(500);
       debounced('test');
       jest.advanceTimersByTime(500);
-      
+
       expect(func).not.toHaveBeenCalled();
     });
 
     it('should call function only once', () => {
       const debounced = debounce(func, 2000);
-      
+
       debounced('test1');
       jest.advanceTimersByTime(500);
       debounced('test2');
@@ -63,7 +63,7 @@ describe('debounce', () => {
       debounced('test3');
       jest.advanceTimersByTime(500);
       debounced('test');
-      
+
       jest.runAllTimers();
       expect(func).toHaveBeenCalledTimes(1);
     });
@@ -71,7 +71,7 @@ describe('debounce', () => {
     it('should call function with arguments of the last call', () => {
       const lastArgument = 'test';
       const debounced = debounce(func, 2000);
-      
+
       debounced('test1');
       jest.advanceTimersByTime(500);
       debounced('test2');
@@ -79,7 +79,7 @@ describe('debounce', () => {
       debounced('test3');
       jest.advanceTimersByTime(500);
       debounced(lastArgument);
-      
+
       jest.runAllTimers();
       expect(func).toHaveBeenCalledWith(lastArgument);
     });

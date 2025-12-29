@@ -72,7 +72,7 @@ const openToUpOffset: PopOffset = {
       ${textButton}
     </button>
   `,
-  imports: [CommonModule, IonPopConfirmDirective]
+  imports: [CommonModule, IonPopConfirmDirective],
 })
 class ContainerRefTestComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -91,7 +91,7 @@ class ContainerRefTestComponent {
       [disabled]="true"
     ></ion-button>
   `,
-  imports: [IonButtonComponent, IonPopConfirmDirective]
+  imports: [IonButtonComponent, IonPopConfirmDirective],
 })
 class ButtonTestDisabledComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -110,7 +110,7 @@ class ButtonTestDisabledComponent {
       [loading]="loading"
     ></ion-button>
   `,
-  imports: [IonButtonComponent, IonPopConfirmDirective]
+  imports: [IonButtonComponent, IonPopConfirmDirective],
 })
 class ButtonTestLoadingComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -146,7 +146,7 @@ class ButtonTestLoadingComponent {
       </tr>
     </table>
   `,
-  imports: [IonPopConfirmDirective]
+  imports: [IonPopConfirmDirective],
 })
 class TableTestComponent {
   @ViewChild('container', { read: ViewContainerRef, static: true })
@@ -161,18 +161,20 @@ describe('Directive: Popconfirm', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       imports: [
-        IonButtonComponent, 
-        IonDividerComponent, 
-        IonPopConfirmDirective, 
+        IonButtonComponent,
+        IonDividerComponent,
+        IonPopConfirmDirective,
         IonPopConfirmComponent,
-        ContainerRefTestComponent
+        ContainerRefTestComponent,
       ],
       providers: [ViewContainerRef],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(ContainerRefTestComponent);
 
     fixture.detectChanges();
-    const directiveEl = fixture.debugElement.query(By.directive(IonPopConfirmDirective));
+    const directiveEl = fixture.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
   });
 
@@ -222,7 +224,7 @@ describe('Directive: Popconfirm', () => {
   it('should click in confirm button', () => {
     directive.open();
     fireEvent.click(
-      within(screen.getByTestId('pop-confirm-btn')).getByRole('button')
+      within(screen.getByTestId('pop-confirm-btn')).getByRole('button'),
     );
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
   });
@@ -242,18 +244,20 @@ describe('Popconfirm host tests', () => {
   beforeEach(() => {
     fixture = TestBed.configureTestingModule({
       imports: [
-        IonButtonComponent, 
-        IonDividerComponent, 
-        IonPopConfirmDirective, 
+        IonButtonComponent,
+        IonDividerComponent,
+        IonPopConfirmDirective,
         IonPopConfirmComponent,
-        ContainerRefTestComponent
+        ContainerRefTestComponent,
       ],
       providers: [ViewContainerRef],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(ContainerRefTestComponent);
 
     fixture.detectChanges();
-    const directiveEl = fixture.debugElement.query(By.directive(IonPopConfirmDirective));
+    const directiveEl = fixture.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
     input = fixture.debugElement.query(By.directive(IonPopConfirmDirective));
   });
@@ -279,20 +283,24 @@ describe('Popconfirm disabled host component', () => {
   beforeEach(() => {
     fixtureDisabledBtn = TestBed.configureTestingModule({
       imports: [
-        IonButtonComponent, 
-        IonDividerComponent, 
-        IonPopConfirmDirective, 
+        IonButtonComponent,
+        IonDividerComponent,
+        IonPopConfirmDirective,
         IonPopConfirmComponent,
-        ButtonTestDisabledComponent
+        ButtonTestDisabledComponent,
       ],
       providers: [ViewContainerRef],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(ButtonTestDisabledComponent);
 
     fixtureDisabledBtn.detectChanges();
-    const directiveEl = fixtureDisabledBtn.debugElement.query(By.directive(IonPopConfirmDirective));
+    const directiveEl = fixtureDisabledBtn.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
-    input = fixtureDisabledBtn.debugElement.query(By.directive(IonPopConfirmDirective));
+    input = fixtureDisabledBtn.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
   });
 
   afterEach(() => {
@@ -335,20 +343,24 @@ describe('Popconfirm loading host component', () => {
   beforeEach(() => {
     fixtureLoadingBtn = TestBed.configureTestingModule({
       imports: [
-        IonButtonComponent, 
-        IonDividerComponent, 
-        IonPopConfirmDirective, 
+        IonButtonComponent,
+        IonDividerComponent,
+        IonPopConfirmDirective,
         IonPopConfirmComponent,
-        ButtonTestLoadingComponent
+        ButtonTestLoadingComponent,
       ],
       providers: [ViewContainerRef],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(ButtonTestLoadingComponent);
 
     fixtureLoadingBtn.detectChanges();
-    const directiveEl = fixtureLoadingBtn.debugElement.query(By.directive(IonPopConfirmDirective));
+    const directiveEl = fixtureLoadingBtn.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
-    input = fixtureLoadingBtn.debugElement.query(By.directive(IonPopConfirmDirective));
+    input = fixtureLoadingBtn.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
   });
 
   afterEach(() => {
@@ -374,18 +386,20 @@ describe('Popconfirm position when it opens', () => {
   beforeEach(() => {
     fixtureTable = TestBed.configureTestingModule({
       imports: [
-        IonButtonComponent, 
-        IonDividerComponent, 
-        IonPopConfirmDirective, 
+        IonButtonComponent,
+        IonDividerComponent,
+        IonPopConfirmDirective,
         IonPopConfirmComponent,
-        TableTestComponent
+        TableTestComponent,
       ],
       providers: [ViewContainerRef],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).createComponent(TableTestComponent);
 
     fixtureTable.detectChanges();
-    const directiveEl = fixtureTable.debugElement.query(By.directive(IonPopConfirmDirective));
+    const directiveEl = fixtureTable.debugElement.query(
+      By.directive(IonPopConfirmDirective),
+    );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
 
     fireEvent.click(screen.getByText(tableTextButton));
@@ -401,7 +415,7 @@ describe('Popconfirm position when it opens', () => {
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
-      elementPosition
+      elementPosition,
     );
     expect(position.left).toBe(openToRightOffset.left);
   });
@@ -409,7 +423,7 @@ describe('Popconfirm position when it opens', () => {
   it('should open to the right side', () => {
     jest.spyOn(window, 'requestAnimationFrame');
     const popconfirmElement = document.querySelector(
-      '.sup-container'
+      '.sup-container',
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToRightOffset);
     expect(popconfirmElement.classList).toContain('sup-container');
@@ -418,7 +432,7 @@ describe('Popconfirm position when it opens', () => {
   it('should open to the left side', async () => {
     jest.spyOn(window, 'requestAnimationFrame');
     const popconfirmElement = document.querySelector(
-      '.sup-container'
+      '.sup-container',
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToLeftOffset);
     expect(popconfirmElement.classList).toContain('sup-container-right');
@@ -429,7 +443,7 @@ describe('Popconfirm position when it opens', () => {
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
-      openToUpOffset
+      openToUpOffset,
     );
 
     directive.setStyle(popconfirmElement, openToUpOffset);
@@ -459,14 +473,14 @@ describe('Popconfirm close on scroll', () => {
         Open Popconfirm
       </button>
     `,
-    imports: [CommonModule, IonPopConfirmDirective, IonButtonComponent]
+    imports: [CommonModule, IonPopConfirmDirective, IonButtonComponent],
   })
   class ScrollTestComponent {
     closeOnScroll = false;
   }
 
   const sut = async (
-    closeOnScroll = false
+    closeOnScroll = false,
   ): Promise<RenderResult<ScrollTestComponent>> => {
     return await render(ScrollTestComponent, {
       componentInputs: { closeOnScroll },
@@ -486,7 +500,7 @@ describe('Popconfirm close on scroll', () => {
     const { fixture } = await sut(true);
     fixture.componentInstance.closeOnScroll = true;
     fixture.detectChanges();
-    
+
     const hostElement = screen.getByText('Open Popconfirm');
     fireEvent.click(hostElement);
     fireEvent.wheel(hostElement);

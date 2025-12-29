@@ -42,7 +42,7 @@ describe('IonModalService', () => {
   it('should close modal when clicking close button', async () => {
     service.open(MockComponent, { title: 'Test Modal' });
     const closeButton = (await screen.findByTestId('close-icon')).querySelector(
-      'button'
+      'button',
     ) as HTMLElement;
     fireEvent.click(closeButton);
     await waitFor(() => {
@@ -56,7 +56,7 @@ describe('IonModalService', () => {
       overlayCanDismiss: true,
     });
     const backdrop = document.querySelector(
-      '.ion-modal-backdrop'
+      '.ion-modal-backdrop',
     ) as HTMLElement;
     fireEvent.click(backdrop);
     await waitFor(() => {

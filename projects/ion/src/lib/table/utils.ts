@@ -1,10 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import {
-  FontSize,
-  IconType,
-  StatusType,
-  TooltipProps,
-} from '../core/types';
+import { FontSize, IconType, StatusType, TooltipProps } from '../core/types';
 import { SafeAny } from '../utils/safe-any';
 import { Omit } from '../utils/types';
 import { IconSide, LinkTarget } from '../core/types/link';

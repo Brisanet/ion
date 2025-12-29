@@ -1,7 +1,7 @@
-import { 
-  Component, 
-  input, 
-  output, 
+import {
+  Component,
+  input,
+  output,
   model,
   effect,
   ChangeDetectionStrategy,
@@ -37,7 +37,7 @@ export class IonInputComponent {
   clearButton = input<boolean>(false);
   readonly = input<boolean>(false);
   maxLength = input<string | number | null>(null);
-  
+
   valueChange = output<string>();
   clickButton = output<void>();
 

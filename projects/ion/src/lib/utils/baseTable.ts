@@ -1,11 +1,7 @@
 import { IonThemeService } from '../theme/theme.service';
 import { EventEmitter } from '@angular/core';
 
-import {
-  CheckBoxEvent,
-  CheckBoxStates,
-  StateChange,
-} from '../core/types';
+import { CheckBoxEvent, CheckBoxStates, StateChange } from '../core/types';
 import { PageEvent } from '../core/types/pagination';
 import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utils';
 
@@ -18,7 +14,7 @@ export const DARK_ENABLED_COLOR = 'var(--ion-primary-3)';
 export abstract class BaseTable<
   RowType extends BaseRow,
   ConfigType extends ConfigTable<RowType>,
-  EventType
+  EventType,
 > {
   public config!: ConfigType;
   public events!: EventEmitter<EventType>;
@@ -94,7 +90,9 @@ export abstract class BaseTable<
       },
     };
 
-    return isDarkTheme ? themeMap[direction as keyof typeof themeMap].dark : themeMap[direction as keyof typeof themeMap].light;
+    return isDarkTheme
+      ? themeMap[direction as keyof typeof themeMap].dark
+      : themeMap[direction as keyof typeof themeMap].light;
   }
 
   public handleEvent(row: RowType, action: (row: RowType) => void): void {
@@ -178,7 +176,7 @@ export abstract class BaseTable<
     });
 
     this.setMainCheckboxState(
-      StateChange[this.mainCheckBoxState] as CheckBoxStates
+      StateChange[this.mainCheckBoxState] as CheckBoxStates,
     );
   }
 }

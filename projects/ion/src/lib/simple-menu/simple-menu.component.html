@@ -16,9 +16,9 @@
   data-testid="ion-simple-menu"
 >
   @if (logo()) {
-  <header class="menu-header">
-    <img data-testid="logoPhoto" [src]="logo()!.src" [alt]="logo()!.alt" />
-  </header>
+    <header class="menu-header">
+      <img data-testid="logoPhoto" [src]="logo()!.src" [alt]="logo()!.alt" />
+    </header>
   }
 
   <ion-tab-group
@@ -32,21 +32,21 @@
   <div class="menu-footer">
     <div>
       @if (profile().imageUrl) {
-      <ion-avatar
-        data-testid="avatarPhoto"
-        [type]="AvatarType.photo"
-        [image]="profile().imageUrl"
-        size="md"
-      >
-      </ion-avatar>
+        <ion-avatar
+          data-testid="avatarPhoto"
+          [type]="AvatarType.photo"
+          [image]="profile().imageUrl"
+          size="md"
+        >
+        </ion-avatar>
       } @else {
-      <ion-avatar
-        data-testid="avatarInitials"
-        [type]="AvatarType.initials"
-        [value]="profile().name"
-        size="md"
-      >
-      </ion-avatar>
+        <ion-avatar
+          data-testid="avatarInitials"
+          [type]="AvatarType.initials"
+          [value]="profile().name"
+          size="md"
+        >
+        </ion-avatar>
       }
       <span>{{ profile().name }}</span>
     </div>

@@ -1,8 +1,8 @@
-@use "../_notification.theme";
+@use '../_notification.theme';
 
-@import "../../../styles/index.scss";
-@import "../../utils/fadeAnimations.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../utils/fadeAnimations.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   ::ng-deep svg {
@@ -29,7 +29,7 @@
   border-radius: ion-theme(notification-border-radius);
   border: 1px solid ion-theme(notification-border-color);
 
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
 }
 

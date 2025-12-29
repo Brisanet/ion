@@ -112,8 +112,10 @@ describe('Directive: Tooltip', () => {
       await sut({ ionTooltipColorScheme });
       fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
       const tooltipElement = screen.getByTestId('ion-tooltip');
-      expect(tooltipElement.className).toContain(`ion-tooltip-${ionTooltipColorScheme}`);
-    }
+      expect(tooltipElement.className).toContain(
+        `ion-tooltip-${ionTooltipColorScheme}`,
+      );
+    },
   );
 
   it('should show tooltip after delay time setted', async () => {
@@ -132,7 +134,7 @@ describe('Directive: Tooltip', () => {
     jest.advanceTimersByTime(timeDelay);
     detectChanges();
     expect(tooltipElement.className).toContain('ion-tooltip--visible');
-    
+
     jest.useRealTimers();
   });
 
@@ -140,15 +142,17 @@ describe('Directive: Tooltip', () => {
     await sut();
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     const tooltipElement = screen.getByTestId('ion-tooltip');
-    expect(tooltipElement.className).toContain(`ion-tooltip-position--topCenter`);
+    expect(tooltipElement.className).toContain(
+      `ion-tooltip-position--topCenter`,
+    );
   });
 
   it('should close the tooltip when scrolling the page', async () => {
     await sut();
-    
+
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     expect(screen.getByTestId('ion-tooltip')).toBeInTheDocument();
-    
+
     fireEvent.scroll(window);
     expect(screen.queryByTestId('ion-tooltip')).not.toBeInTheDocument();
   });

@@ -1,21 +1,21 @@
 <div class="pag-container">
   @if (allowChangeQtdItems()) {
-  <ion-button
-    data-testid="itemsPerPage"
-    [rightSideIcon]="true"
-    [label]="labelPerPage()"
-    [options]="optionsPage()"
-    customId="btn-select"
-    (selected)="changeItemsPerPage($event)"
-    type="secondary"
-    [disabled]="loading()"
-    [dropdownConfig]="{
-      notShowClearButton: true,
-      required: true
-    }"
-    [showDropdownAbove]="openItemsPerPageAbove()"
-    [size]="$any(size())"
-  ></ion-button>
+    <ion-button
+      data-testid="itemsPerPage"
+      [rightSideIcon]="true"
+      [label]="labelPerPage()"
+      [options]="optionsPage()"
+      customId="btn-select"
+      (selected)="changeItemsPerPage($event)"
+      type="secondary"
+      [disabled]="loading()"
+      [dropdownConfig]="{
+        notShowClearButton: true,
+        required: true,
+      }"
+      [showDropdownAbove]="openItemsPerPageAbove()"
+      [size]="$any(size())"
+    ></ion-button>
   }
 
   <ion-button
@@ -28,77 +28,79 @@
   ></ion-button>
 
   @if (isAdvanced()) {
-  <div class="pages-list" data-testid="advanced-pagination">
-    <button
-      [class]="'square-pag ' + 'page-' + size()"
-      [class.selected]="pages()[0].selected"
-      [attr.data-testid]="'page-' + pages()[0].page_number"
-      (click)="selectPageOnClick(pages()[0].page_number)"
-      [class.disabled]="loading()"
-      [disabled]="loading()"
-    >
-      <span>{{ pages()[0].page_number }}</span>
-    </button>
-    @if (moreBtnsConfig().left.visible) {
-    <ion-button
-      [iconType]="moreBtnsConfig().left.hover ? 'left3' : 'more'"
-      data-testid="more-left"
-      type="secondary"
-      [size]="$any(size())"
-      [disabled]="loading()"
-      (mouseenter)="changeIconHover('left', true)"
-      (mouseleave)="changeIconHover('left', false)"
-      (ionOnClick)="jumpPagesBackward()"
-    ></ion-button>
-    } @for (page of currentVisibleButtons(); track page.page_number) {
-    <button
-      [class]="'square-pag ' + 'page-' + size()"
-      [class.selected]="page.selected"
-      [attr.data-testid]="'page-' + page.page_number"
-      (click)="selectPageOnClick(page.page_number)"
-      [class.disabled]="loading()"
-      [disabled]="loading()"
-    >
-      <span>{{ page.page_number }}</span>
-    </button>
-    } @if (moreBtnsConfig().right.visible) {
-    <ion-button
-      [iconType]="moreBtnsConfig().right.hover ? 'right3' : 'more'"
-      data-testid="more-right"
-      type="secondary"
-      [size]="$any(size())"
-      [disabled]="loading()"
-      (mouseenter)="changeIconHover('right', true)"
-      (mouseleave)="changeIconHover('right', false)"
-      (ionOnClick)="jumpPagesForward()"
-    ></ion-button>
-    }
-    <button
-      [class]="'square-pag ' + 'page-' + size()"
-      [class.selected]="pages()[pages().length - 1].selected"
-      [attr.data-testid]="'page-' + pages()[pages().length - 1].page_number"
-      (click)="selectPageOnClick(pages()[pages().length - 1].page_number)"
-      [class.disabled]="loading()"
-      [disabled]="loading()"
-    >
-      <span>{{ pages()[pages().length - 1].page_number }}</span>
-    </button>
-  </div>
+    <div class="pages-list" data-testid="advanced-pagination">
+      <button
+        [class]="'square-pag ' + 'page-' + size()"
+        [class.selected]="pages()[0].selected"
+        [attr.data-testid]="'page-' + pages()[0].page_number"
+        (click)="selectPageOnClick(pages()[0].page_number)"
+        [class.disabled]="loading()"
+        [disabled]="loading()"
+      >
+        <span>{{ pages()[0].page_number }}</span>
+      </button>
+      @if (moreBtnsConfig().left.visible) {
+        <ion-button
+          [iconType]="moreBtnsConfig().left.hover ? 'left3' : 'more'"
+          data-testid="more-left"
+          type="secondary"
+          [size]="$any(size())"
+          [disabled]="loading()"
+          (mouseenter)="changeIconHover('left', true)"
+          (mouseleave)="changeIconHover('left', false)"
+          (ionOnClick)="jumpPagesBackward()"
+        ></ion-button>
+      }
+      @for (page of currentVisibleButtons(); track page.page_number) {
+        <button
+          [class]="'square-pag ' + 'page-' + size()"
+          [class.selected]="page.selected"
+          [attr.data-testid]="'page-' + page.page_number"
+          (click)="selectPageOnClick(page.page_number)"
+          [class.disabled]="loading()"
+          [disabled]="loading()"
+        >
+          <span>{{ page.page_number }}</span>
+        </button>
+      }
+      @if (moreBtnsConfig().right.visible) {
+        <ion-button
+          [iconType]="moreBtnsConfig().right.hover ? 'right3' : 'more'"
+          data-testid="more-right"
+          type="secondary"
+          [size]="$any(size())"
+          [disabled]="loading()"
+          (mouseenter)="changeIconHover('right', true)"
+          (mouseleave)="changeIconHover('right', false)"
+          (ionOnClick)="jumpPagesForward()"
+        ></ion-button>
+      }
+      <button
+        [class]="'square-pag ' + 'page-' + size()"
+        [class.selected]="pages()[pages().length - 1].selected"
+        [attr.data-testid]="'page-' + pages()[pages().length - 1].page_number"
+        (click)="selectPageOnClick(pages()[pages().length - 1].page_number)"
+        [class.disabled]="loading()"
+        [disabled]="loading()"
+      >
+        <span>{{ pages()[pages().length - 1].page_number }}</span>
+      </button>
+    </div>
   } @else {
-  <ng-container>
-    @for (page of pages(); track page.page_number) {
-    <button
-      [class]="'square-pag ' + 'page-' + size()"
-      [class.selected]="page.selected"
-      [attr.data-testid]="'page-' + page.page_number"
-      (click)="selectPageOnClick(page.page_number)"
-      [class.disabled]="loading()"
-      [disabled]="loading()"
-    >
-      <span>{{ page.page_number }}</span>
-    </button>
-    }
-  </ng-container>
+    <ng-container>
+      @for (page of pages(); track page.page_number) {
+        <button
+          [class]="'square-pag ' + 'page-' + size()"
+          [class.selected]="page.selected"
+          [attr.data-testid]="'page-' + page.page_number"
+          (click)="selectPageOnClick(page.page_number)"
+          [class.disabled]="loading()"
+          [disabled]="loading()"
+        >
+          <span>{{ page.page_number }}</span>
+        </button>
+      }
+    </ng-container>
   }
 
   <ion-button

@@ -62,8 +62,9 @@ describe('IonSidebarGroupComponent', () => {
     const component = fixture.componentInstance;
     const emitSpy = jest.spyOn(component.atGroupClick, 'emit');
 
-    const groupTitle = screen.getByTestId('sidebar-group__title-icon')
-      .parentElement!; // The div wrapper has the click
+    const groupTitle = screen.getByTestId(
+      'sidebar-group__title-icon',
+    ).parentElement!; // The div wrapper has the click
     fireEvent.click(groupTitle);
 
     expect(emitSpy).toHaveBeenCalledTimes(1);

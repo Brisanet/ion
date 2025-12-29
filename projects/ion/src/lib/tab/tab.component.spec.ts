@@ -22,7 +22,7 @@ describe('IonTabComponent', () => {
     async (tabName: string) => {
       await sut({ label: tabName });
       expect(screen.getAllByText(tabName)).toHaveLength(1);
-    }
+    },
   );
 
   it.each(['sm', 'md', 'lg'])(
@@ -30,7 +30,7 @@ describe('IonTabComponent', () => {
     async (size: IonTabProps['tabSize']) => {
       await sut({ label: 'Tab', tabSize: size });
       expect(screen.getByText('Tab')).toHaveClass('tab-' + size);
-    }
+    },
   );
 
   it.each(['bottom', 'top', 'right', 'left'])(
@@ -38,19 +38,19 @@ describe('IonTabComponent', () => {
     async (direction: IonTabProps['direction']) => {
       await sut({ label: 'Tab', direction });
       expect(screen.getByText('Tab')).toHaveClass('border-' + direction);
-    }
+    },
   );
 
   it('should click on tab', async () => {
     const ionOnClickSpy = jest.fn();
-    
+
     const { fixture } = await render(IonTabComponent, {
       componentInputs: { label: defaultName, selected: false },
       imports: [CommonModule, IonIconComponent, IonBadgeComponent],
     });
-    
+
     fixture.componentInstance.onSelect.subscribe(ionOnClickSpy);
-    
+
     const myTab = screen.getByText(defaultName);
     fireEvent.click(myTab);
     expect(ionOnClickSpy).toHaveBeenCalled();

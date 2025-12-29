@@ -16,7 +16,12 @@ import { IonChipComponent } from '../chip/chip.component';
 @Component({
   selector: 'ion-select',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonDropdownComponent, IonChipComponent],
+  imports: [
+    CommonModule,
+    IonIconComponent,
+    IonDropdownComponent,
+    IonChipComponent,
+  ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

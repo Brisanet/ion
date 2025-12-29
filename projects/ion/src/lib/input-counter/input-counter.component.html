@@ -17,7 +17,9 @@
     [disabled]="disabled()"
     (blur)="onBlurInput()"
     (ngModelChange)="changeCount($event)"
-    oninput="this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1');"
+    oninput="
+      this.value = this.value.replace(/[^0-9]/g, '').replace(/(\..*)\./g, '$1')
+    "
   />
 
   <ion-button
