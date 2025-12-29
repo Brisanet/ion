@@ -44,7 +44,11 @@ describe('BnFormService', () => {
 
   it('should apply validators correctly', () => {
     const fields: BnFormField[] = [
-      { key: 'email', label: 'Email', validators: [Validators.required, Validators.email] },
+      {
+        key: 'email',
+        label: 'Email',
+        validators: [Validators.required, Validators.email],
+      },
     ];
 
     const formGroup = service.createFormGroup(fields);

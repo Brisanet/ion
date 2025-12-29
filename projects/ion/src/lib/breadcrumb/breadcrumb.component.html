@@ -1,9 +1,17 @@
 <nav class="breadcrumbs-nav">
   <ol class="ol-navigator">
     @for (breadcrumb of breadcrumbs(); track index; let index = $index) {
-      @if (!truncate() || (truncate() && index <= ellipsesIndex) || index >= breadcrumbs().length - truncateLimit) {
+      @if (
+        !truncate() ||
+        (truncate() && index <= ellipsesIndex) ||
+        index >= breadcrumbs().length - truncateLimit
+      ) {
         <li>
-          @if (truncate() && index === ellipsesIndex && breadcrumbsInDropdown().length) {
+          @if (
+            truncate() &&
+            index === ellipsesIndex &&
+            breadcrumbsInDropdown().length
+          ) {
             <button class="breadcrumbs-ellipsis">
               <ion-icon
                 data-testid="breadcrumbs-ellipsis"

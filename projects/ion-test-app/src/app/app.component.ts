@@ -64,7 +64,7 @@ import {
   DropdownItem,
 } from 'ion';
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
-import { BnFormComponent } from "../../../ion/src/lib/core/bn-form/bn-form.component";
+import { BnFormComponent } from '../../../ion/src/lib/core/bn-form/bn-form.component';
 import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service';
 import { BnFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
 import { Validators } from '@angular/forms';
@@ -75,9 +75,9 @@ import { Validators } from '@angular/forms';
     <div style="padding: 16px;">
       <p>This is a component rendered inside the modal!</p>
       @if (data) {
-      <p>
-        Data received: <strong>{{ data }}</strong>
-      </p>
+        <p>
+          Data received: <strong>{{ data }}</strong>
+        </p>
       }
       <p>You can pass data to it and receive values back.</p>
     </div>
@@ -92,7 +92,7 @@ class ModalExampleComponent {
   template: `
     <div style="padding: 16px;">
       @for (item of items; track $index) {
-      <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+        <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
       }
     </div>
   `,
@@ -146,8 +146,8 @@ class ModalLongContentComponent {
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
-    BnFormComponent
-],
+    BnFormComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -464,7 +464,7 @@ export class AppComponent implements OnInit {
   showNotification(type: 'success' | 'info' | 'warning' | 'error') {
     this.notificationService[type](
       'Notification Title',
-      'This is a notification message'
+      'This is a notification message',
     );
   }
 
@@ -585,7 +585,7 @@ export class AppComponent implements OnInit {
 
     const modalObservable = this.modalService.open(
       ModalExampleComponent,
-      modalConfig
+      modalConfig,
     );
 
     modalObservable.subscribe((result: unknown) => {
@@ -627,8 +627,8 @@ export class AppComponent implements OnInit {
   ];
 
   selectOptionsCar = [
-    {label: 'Marea', key: 'marea'},
-    {label: 'Opala', key: 'opala'},
+    { label: 'Marea', key: 'marea' },
+    { label: 'Opala', key: 'opala' },
   ];
 
   handleSelectChange(event: DropdownItem[]): void {
@@ -658,7 +658,9 @@ export class AppComponent implements OnInit {
       label: 'Email',
       placeholder: 'Digite seu email',
       required: true,
-      validators: [Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$')],
+      validators: [
+        Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$'),
+      ],
     },
     {
       type: 'select',
@@ -679,7 +681,7 @@ export class AppComponent implements OnInit {
       placeholder: 'Selecione',
       options: this.selectOptionsCar,
       initialValue: ['marea'],
-    }
+    },
     // {
     //   key: 'basicInput',
     //   className: 'col-4',
@@ -821,5 +823,4 @@ export class AppComponent implements OnInit {
   submitForm(): void {
     console.log('Form submitted:', this.formGroup.value);
   }
-
 }

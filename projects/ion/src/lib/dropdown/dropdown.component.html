@@ -5,84 +5,91 @@
   [class.container-options--loading]="loading()"
 >
   @if (description()) {
-  <span class="dropdown-description" data-testid="dropdown-description">
-    {{ description() }}
-  </span>
-  } @if (enableSearch()) {
-  <div class="dropdown-search">
-    <div class="dropdown-search-input-container">
-      <input
-        data-testid="input-element"
-        type="text"
-        [placeholder]="searchOptions()?.placeholder || ''"
-        [disabled]="searchOptions()?.disabled || false"
-        (input)="inputChange($any($event.target).value)"
-        class="dropdown-search-input"
-      />
+    <span class="dropdown-description" data-testid="dropdown-description">
+      {{ description() }}
+    </span>
+  }
+  @if (enableSearch()) {
+    <div class="dropdown-search">
+      <div class="dropdown-search-input-container">
+        <input
+          data-testid="input-element"
+          type="text"
+          [placeholder]="searchOptions()?.placeholder || ''"
+          [disabled]="searchOptions()?.disabled || false"
+          (input)="inputChange($any($event.target).value)"
+          class="dropdown-search-input"
+        />
 
-      <ion-icon type="search" [size]="iconSize()"></ion-icon>
-    </div>
-  </div>
-  } @if (!loading() && options().length > 0) {
-  <div
-    #optionList
-    class="options-list"
-    (scroll)="optionsScroll()"
-    id="option-list"
-  >
-    @for (option of options(); track option.label; let index = $index) {
-    <div
-      class="ion-dropdown-item"
-      [class.dropdown-disabled]="option.disabled"
-      [class.dropdown-disabled-selected]="option.disabled && option.selected"
-      [class.dropdown-item-selected]="option.selected && !option.disabled"
-      [class.dropdown-item]="!option.selected && !option.disabled"
-      (click)="select(option)"
-      (mouseenter)="mouseEnter(option)"
-      (mouseleave)="mouseLeave(option)"
-      [id]="'option-' + index"
-    >
-      <div class="container">
-        <div class="option-label">
-          @if (option.icon) {
-          <ion-icon [type]="option.icon" [size]="iconSize()"></ion-icon>
-          }
-          {{ $any(option)[propLabel() || "label"] }}
-        </div>
-        @if (option.selected) {
-        <ion-icon
-          [type]="option.hovered && canDeselect() ? 'close' : 'check'"
-          [attr.data-testid]="
-            'ion-' +
-            (option.hovered && canDeselect() ? 'close' : 'check') +
-            '-selected'
-          "
-          [size]="iconSize()"
-        ></ion-icon>
-        }
+        <ion-icon type="search" [size]="iconSize()"></ion-icon>
       </div>
     </div>
-    }
-  </div>
-  } @if (loading()) {
-  <div data-testid="ion-spinner">Loading...</div>
-  } @if ((!options() || options().length === 0) && !loading()) {
-  <div data-testid="ion-no-data">
-    <ion-icon
-      [type]="noDataConfig()!.iconType!"
-      [size]="24"
-      [id]="'ion-icon-' + noDataConfig()!.iconType"
-    ></ion-icon>
-    <span>{{ noDataConfig()!.label }}</span>
-  </div>
-  } @if (clearButtonIsVisible()) {
-  <button
-    class="clear-button ion-btn ion-btn-ghost ion-btn-sm"
-    (click)="clearOptions(true)"
-    data-testid="button-clear"
-  >
-    <ion-icon type="trash" [size]="iconSize()"></ion-icon>
-    <span data-testid="btn-Limpar">Limpar</span>
-  </button>
+  }
+  @if (!loading() && options().length > 0) {
+    <div
+      #optionList
+      class="options-list"
+      (scroll)="optionsScroll()"
+      id="option-list"
+    >
+      @for (option of options(); track option.label; let index = $index) {
+        <div
+          class="ion-dropdown-item"
+          [class.dropdown-disabled]="option.disabled"
+          [class.dropdown-disabled-selected]="
+            option.disabled && option.selected
+          "
+          [class.dropdown-item-selected]="option.selected && !option.disabled"
+          [class.dropdown-item]="!option.selected && !option.disabled"
+          (click)="select(option)"
+          (mouseenter)="mouseEnter(option)"
+          (mouseleave)="mouseLeave(option)"
+          [id]="'option-' + index"
+        >
+          <div class="container">
+            <div class="option-label">
+              @if (option.icon) {
+                <ion-icon [type]="option.icon" [size]="iconSize()"></ion-icon>
+              }
+              {{ $any(option)[propLabel() || 'label'] }}
+            </div>
+            @if (option.selected) {
+              <ion-icon
+                [type]="option.hovered && canDeselect() ? 'close' : 'check'"
+                [attr.data-testid]="
+                  'ion-' +
+                  (option.hovered && canDeselect() ? 'close' : 'check') +
+                  '-selected'
+                "
+                [size]="iconSize()"
+              ></ion-icon>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+  @if (loading()) {
+    <div data-testid="ion-spinner">Loading...</div>
+  }
+  @if ((!options() || options().length === 0) && !loading()) {
+    <div data-testid="ion-no-data">
+      <ion-icon
+        [type]="noDataConfig()!.iconType!"
+        [size]="24"
+        [id]="'ion-icon-' + noDataConfig()!.iconType"
+      ></ion-icon>
+      <span>{{ noDataConfig()!.label }}</span>
+    </div>
+  }
+  @if (clearButtonIsVisible()) {
+    <button
+      class="clear-button ion-btn ion-btn-ghost ion-btn-sm"
+      (click)="clearOptions(true)"
+      data-testid="button-clear"
+    >
+      <ion-icon type="trash" [size]="iconSize()"></ion-icon>
+      <span data-testid="btn-Limpar">Limpar</span>
+    </button>
   }
 </div>

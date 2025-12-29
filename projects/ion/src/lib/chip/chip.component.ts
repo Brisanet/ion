@@ -36,7 +36,6 @@ interface ChipEvent {
 }
 
 @Component({
-
   selector: 'ion-chip',
   imports: [
     CommonModule,

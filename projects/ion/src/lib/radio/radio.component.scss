@@ -1,7 +1,7 @@
-@use "radio.theme";
+@use 'radio.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .ion-input-radio {
   display: flex;
@@ -47,7 +47,7 @@
     outline: 4px solid ion-theme(radio-hover-outline-color);
 
     &::before {
-      content: "";
+      content: '';
       border: 1px solid ion-theme(radio-hover-indicator-border-color);
       width: 2px;
       height: 2px;
@@ -63,7 +63,7 @@
 
   &:active {
     outline: none;
-    content: "";
+    content: '';
     border: 1px solid ion-theme(radio-active-border-color);
     background-color: ion-theme(radio-active-background-color);
 
@@ -130,7 +130,7 @@
     outline: none;
 
     &::before {
-      content: "";
+      content: '';
       width: 4px;
       height: 4px;
       border: 1px solid ion-theme(radio-checked-disabled-indicator-border-color);

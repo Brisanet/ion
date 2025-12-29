@@ -25,7 +25,7 @@ export class IonSkeletonComponent {
   normalizedRadius = computed(() =>
     this.radius()
       ? this.convertedValue(this.radius()!)
-      : this.variantRadius[this.variant()]
+      : this.variantRadius[this.variant()],
   );
 
   private isString(value: unknown): value is string {

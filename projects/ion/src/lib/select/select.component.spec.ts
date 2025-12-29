@@ -119,7 +119,7 @@ describe('IonSelectComponent', () => {
     fixture.componentRef.setInput('multiple', true);
     fixture.componentRef.setInput('value', ['apple', 'grape']);
     fixture.detectChanges();
-    expect(screen.getAllByTestId('ion-chip-label')).toHaveLength(2);  
+    expect(screen.getAllByTestId('ion-chip-label')).toHaveLength(2);
   });
 
   it('should initialize with value input and propValue', async () => {

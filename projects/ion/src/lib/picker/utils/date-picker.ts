@@ -13,7 +13,7 @@ export const FINAL_RANGE = 1;
 
 export function isToday(
   date: Day,
-  lang: IonDatePickerCalendarComponentProps['lang']
+  lang: IonDatePickerCalendarComponentProps['lang'],
 ): boolean {
   const today = new Day(new Date(), lang);
   return isSameDay(date, today);
@@ -22,30 +22,32 @@ export function isToday(
 export function isSameDay(day: Day, dayToCompare?: Day): boolean {
   return Boolean(
     dayToCompare &&
-      day.date === dayToCompare.date &&
-      day.monthNumber === dayToCompare.monthNumber &&
-      day.year === dayToCompare.year
+    day.date === dayToCompare.date &&
+    day.monthNumber === dayToCompare.monthNumber &&
+    day.year === dayToCompare.year,
   );
 }
 
 export function isNotRangeLimit(
   date: Day,
   dayName: string,
-  rangeDateSelected: Day
+  rangeDateSelected: Day,
 ): boolean {
   return !(date.day === dayName && isSameDay(date, rangeDateSelected));
 }
 
 export function getInitialDate(currentDate: string[] | undefined): Date {
-  return currentDate && currentDate.length ? getFormattedDate(currentDate) : new Date();
+  return currentDate && currentDate.length
+    ? getFormattedDate(currentDate)
+    : new Date();
 }
 
 export function getFormattedDate(
   dates: string[],
-  isFinalOfRange?: boolean
+  isFinalOfRange?: boolean,
 ): Date {
   return new Date(
-    dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE]?.replace('-', ',')
+    dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE]?.replace('-', ','),
   );
 }
 
@@ -91,6 +93,7 @@ export function isBetweenRange(currentDay: Day, selectedDays: Day[]): boolean {
     isNotRangeLimit(currentDay, SATURDAY, selectedDays[INITIAL_RANGE]) &&
     isNotRangeLimit(currentDay, SUNDAY, selectedDays[FINAL_RANGE]);
   const isBetween = CURRENT_DATE >= INITIAL_DATE && CURRENT_DATE <= FINAL_DATE;
-  return INITIAL_DATE.toString() !== FINAL_DATE.toString() && isBetween && isNotLimit;
+  return (
+    INITIAL_DATE.toString() !== FINAL_DATE.toString() && isBetween && isNotLimit
+  );
 }
-

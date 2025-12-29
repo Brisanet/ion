@@ -9,11 +9,12 @@ import { By } from '@angular/platform-browser';
 
 @Component({
   template: `
-    <ion-accordion-item 
-      [templateHeader]="headerTemplate" 
-      [data]="data" 
-      [show]="show" 
-      (activeChange)="toggle()">
+    <ion-accordion-item
+      [templateHeader]="headerTemplate"
+      [data]="data"
+      [show]="show"
+      (activeChange)="toggle()"
+    >
       <p data-testid="ion-accordion-item__main-paragraph">Context Main</p>
     </ion-accordion-item>
     <ng-template #headerTemplate let-data>
@@ -39,7 +40,11 @@ describe('IonAccordionItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AccordionItemTestComponent, IonAccordionItemComponent, IonIconComponent],
+      imports: [
+        AccordionItemTestComponent,
+        IonAccordionItemComponent,
+        IonIconComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AccordionItemTestComponent);
@@ -56,12 +61,14 @@ describe('IonAccordionItemComponent', () => {
     component.data = { name: accordionHeader };
     fixture.detectChanges();
     expect(screen.getByTestId('ion-accordion-item__header')).toHaveTextContent(
-      accordionHeader
+      accordionHeader,
     );
   });
 
   it('should render the chevron by default', () => {
-    const iconDebugElement = fixture.debugElement.query(By.directive(IonIconComponent));
+    const iconDebugElement = fixture.debugElement.query(
+      By.directive(IonIconComponent),
+    );
     expect(iconDebugElement).toBeTruthy();
     const iconInstance = iconDebugElement.componentInstance as IonIconComponent;
     expect(iconInstance.type()).toBe('semi-down');
@@ -73,7 +80,7 @@ describe('IonAccordionItemComponent', () => {
     fixture.detectChanges();
     expect(screen.getByTestId('ion-accordion-item__main')).toBeTruthy();
     expect(
-      screen.getByTestId('ion-accordion-item__main-paragraph')
+      screen.getByTestId('ion-accordion-item__main-paragraph'),
     ).toHaveTextContent('Context Main');
   });
 

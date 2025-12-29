@@ -86,7 +86,7 @@ describe('getPositionsPopover', () => {
           element,
         };
         const positions: PopoverPositions = getPositionsPopover(
-          props as GetPositionsCallbackProps
+          props as GetPositionsCallbackProps,
         );
         expect(positions[position]).toEqual(expectedWhenArrowCenter);
       });
@@ -94,10 +94,10 @@ describe('getPositionsPopover', () => {
       it(`for ${position} with arrow at center: false`, () => {
         const props = { host, arrowAtCenter: false, element };
         const positions: PopoverPositions = getPositionsPopover(
-          props as GetPositionsCallbackProps
+          props as GetPositionsCallbackProps,
         );
         expect(positions[position]).toEqual(expected);
       });
-    }
+    },
   );
 });

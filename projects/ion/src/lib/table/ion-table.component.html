@@ -76,9 +76,7 @@
           </th>
         }
         @if (config.actions && config.actions.length) {
-          <th class="th-actions">
-            Ações
-          </th>
+          <th class="th-actions">Ações</th>
         }
       </tr>
     </thead>
@@ -91,7 +89,7 @@
           [ngClass]="{
             odd: index % 2 === 0,
             even: index % 2 !== 0,
-            checked: row.selected
+            checked: row.selected,
           }"
         >
           @if (config.customRowTemplate) {
@@ -135,18 +133,24 @@
                     [iconSide]="column.link.iconSide!"
                     [size]="column.link.size || 'sm'"
                     [bold]="!!column.link.bold"
-                    [disabled]="column.link.disabled ? column.link.disabled(row) : false"
+                    [disabled]="
+                      column.link.disabled ? column.link.disabled(row) : false
+                    "
                     [target]="column.link.target!"
                     [link]="column.link.url ? column.link.url(row) : undefined"
-                    (ionOnClick)="column.link.action ? column.link.action(row) : null"
+                    (ionOnClick)="
+                      column.link.action ? column.link.action(row) : null
+                    "
                   ></ion-link>
                 }
                 @if (column.type === 'boolean') {
                   <span class="td-span">
                     {{
                       row[column.key]
-                        ? (column.booleanText && column.booleanText.truthy) || 'Sim'
-                        : (column.booleanText && column.booleanText.falsy) || 'Não'
+                        ? (column.booleanText && column.booleanText.truthy) ||
+                          'Sim'
+                        : (column.booleanText && column.booleanText.falsy) ||
+                          'Não'
                     }}
                   </span>
                 }
@@ -159,21 +163,27 @@
                     @if (action.show ? !showAction(row, action) : true) {
                       <!-- PopConfirm not migrated yet, assuming standard button for now or commented out if complex -->
                       <!-- Assuming ionPopConfirm is not available or needs migration too. Keeping it simple for now as requested for popover -->
-                      
+
                       @if (action.confirm && !action.popover) {
-                         <!-- TODO: Migrate ionPopConfirm -->
-                         <ion-button
-                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                        <!-- TODO: Migrate ionPopConfirm -->
+                        <ion-button
+                          [attr.data-testid]="
+                            'row-' + index + '-' + action.label
+                          "
                           type="ghost"
                           size="sm"
                           [danger]="!!action.danger"
                           [iconType]="action.icon"
                           [label]="action.label"
                           [circularButton]="!action.showLabel"
-                          [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
-                          [disabled]="action.disabled ? disableAction(row, action) : false"
+                          [rightSideIcon]="
+                            !!(action.showLabel && action.rightSideIcon)
+                          "
+                          [disabled]="
+                            action.disabled ? disableAction(row, action) : false
+                          "
                           (ionOnClick)="handleEvent(row, action.call!)"
-                         ></ion-button>
+                        ></ion-button>
                       }
 
                       @if (action.popover && !action.confirm) {
@@ -190,16 +200,22 @@
                       @if (!action.confirm && !action.popover) {
                         <ion-button
                           [title]="action.label"
-                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                          [attr.data-testid]="
+                            'row-' + index + '-' + action.label
+                          "
                           type="ghost"
                           size="sm"
                           [danger]="!!action.danger"
                           [iconType]="action.icon"
                           [label]="action.label"
                           [circularButton]="!action.showLabel"
-                          [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
+                          [rightSideIcon]="
+                            !!(action.showLabel && action.rightSideIcon)
+                          "
                           (ionOnClick)="handleEvent(row, action.call!)"
-                          [disabled]="action.disabled ? disableAction(row, action) : false"
+                          [disabled]="
+                            action.disabled ? disableAction(row, action) : false
+                          "
                         ></ion-button>
                       }
                     }
@@ -224,10 +240,7 @@
   }
 
   @if (config.pagination) {
-    <div
-      data-testid="pagination-container"
-      class="footer-table"
-    >
+    <div data-testid="pagination-container" class="footer-table">
       @if (!config.loading) {
         <span>{{ config.pagination.total }}</span>
       }

@@ -1,6 +1,9 @@
 <div class="container-date-picker-calendar">
   <div class="week-days" id="week-days">
-    @for (weekDay of calendar()?.getWeekDaysElementStrings() ?? []; track weekDay) {
+    @for (
+      weekDay of calendar()?.getWeekDaysElementStrings() ?? [];
+      track weekDay
+    ) {
       <span>
         {{ weekDay }}
       </span>

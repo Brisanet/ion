@@ -1,7 +1,7 @@
-@use "popover.theme";
+@use 'popover.theme';
 
-@import "../../../styles/index.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 $popover-spacing: 14px;
 $popover-width: 299px;
@@ -24,9 +24,9 @@ $arrow-distance-to-border: 16px;
     background-color: ion-theme(arrow-body-color);
   }
 
-  @if ($position == "header") {
+  @if ($position == 'header') {
     &::before {
-      content: "";
+      content: '';
       display: block;
       width: $arrow-width;
       height: $arrow-heigth;
@@ -43,9 +43,9 @@ $arrow-distance-to-border: 16px;
     }
   }
 
-  @if ($position == "footer") {
+  @if ($position == 'footer') {
     &::after {
-      content: "";
+      content: '';
       display: block;
       width: $arrow-width;
       height: $arrow-heigth;
@@ -82,7 +82,7 @@ $arrow-distance-to-border: 16px;
           $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
         ),
         -135deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -94,7 +94,7 @@ $arrow-distance-to-border: 16px;
         $arrow-spacing-to-popover,
         calc($popover-width / 2 - $arrow-width / 2),
         -135deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -106,7 +106,7 @@ $arrow-distance-to-border: 16px;
         $arrow-spacing-to-popover,
         $arrow-distance-to-border,
         -135deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -118,7 +118,7 @@ $arrow-distance-to-border: 16px;
         $arrow-distance-to-border,
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -130,7 +130,7 @@ $arrow-distance-to-border: 16px;
         calc(50% - $arrow-heigth / 2),
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -141,7 +141,7 @@ $arrow-distance-to-border: 16px;
         $arrow-distance-to-border,
         calc($popover-width - $arrow-spacing-to-popover - $popover-spacing),
         135deg,
-        "header"
+        'header'
       );
     }
 
@@ -154,7 +154,7 @@ $arrow-distance-to-border: 16px;
           $popover-width - $arrow-distance-to-border - $arrow-visible-diagonal
         ),
         45deg,
-        "header"
+        'header'
       );
     }
 
@@ -165,7 +165,7 @@ $arrow-distance-to-border: 16px;
         $arrow-spacing-to-popover,
         calc($popover-width / 2 - $arrow-width / 2),
         45deg,
-        "header"
+        'header'
       );
     }
 
@@ -176,7 +176,7 @@ $arrow-distance-to-border: 16px;
         $arrow-spacing-to-popover,
         $arrow-distance-to-border,
         45deg,
-        "header"
+        'header'
       );
     }
 
@@ -188,7 +188,7 @@ $arrow-distance-to-border: 16px;
         $arrow-distance-to-border,
         $arrow-spacing-to-popover,
         -45deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -200,7 +200,7 @@ $arrow-distance-to-border: 16px;
         calc(50% - $arrow-heigth / 2),
         $arrow-spacing-to-popover,
         -45deg,
-        "footer"
+        'footer'
       );
     }
 
@@ -211,7 +211,7 @@ $arrow-distance-to-border: 16px;
         $arrow-distance-to-border,
         $arrow-spacing-to-popover,
         -45deg,
-        "header"
+        'header'
       );
     }
   }

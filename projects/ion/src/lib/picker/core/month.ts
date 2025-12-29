@@ -2,7 +2,9 @@ import { Day } from './day';
 import { isLeapYear } from './is-leap-year';
 
 export class Month {
-  private readonly monthsSize = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  private readonly monthsSize = [
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31,
+  ];
   private readonly february = 2;
 
   day: Day;
@@ -12,7 +14,10 @@ export class Month {
   numberOfDays: number;
   [Symbol.iterator]!: () => Generator<Day>;
 
-  constructor(private date?: Date, public lang = 'default') {
+  constructor(
+    private date?: Date,
+    public lang = 'default',
+  ) {
     this.day = new Day(this.date, this.lang);
 
     this.name = this.day.month;
@@ -38,4 +43,3 @@ export class Month {
     return new Day(new Date(this.year, this.number - 1, date), this.lang);
   }
 }
-

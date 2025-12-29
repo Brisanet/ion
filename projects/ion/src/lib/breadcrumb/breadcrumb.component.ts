@@ -12,7 +12,6 @@ import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { BreadcrumbItem } from '../core/types/breadcrumb';
 import { DropdownItem } from '../core/types/dropdown';
 
-
 @Component({
   selector: 'ion-breadcrumb',
   standalone: true,

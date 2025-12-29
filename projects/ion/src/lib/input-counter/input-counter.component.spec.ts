@@ -11,7 +11,7 @@ const sut = async (
     disabled: boolean;
     count: number;
     maxDigits: number;
-  }> = {}
+  }> = {},
 ) => {
   return await render(IonInputCounterComponent, {
     componentInputs: customProps,

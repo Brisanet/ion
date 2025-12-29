@@ -54,7 +54,7 @@ export class IonPopConfirmDirective {
     private appRef: ApplicationRef,
     private injector: Injector,
     private viewRef: ViewContainerRef,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
   ) {}
 
   open(): void {
@@ -73,7 +73,7 @@ export class IonPopConfirmDirective {
   setPosition(
     element: HTMLElement,
     docWidth: number,
-    position: PopPosition
+    position: PopPosition,
   ): PopOffset {
     const popConfirmWidth = element.offsetWidth;
 
@@ -145,15 +145,31 @@ export class IonPopConfirmDirective {
       elementInjector: this.injector,
     });
 
-    this.IonPopConfirmComponentRef.setInput('ionPopConfirmTitle', this.ionPopConfirmTitle());
-    this.IonPopConfirmComponentRef.setInput('ionPopConfirmDesc', this.ionPopConfirmDesc());
-    this.IonPopConfirmComponentRef.setInput('ionPopConfirmType', this.ionPopConfirmType());
-    this.IonPopConfirmComponentRef.setInput('ionConfirmText', this.ionConfirmText());
-    this.IonPopConfirmComponentRef.setInput('ionCancelText', this.ionCancelText());
+    this.IonPopConfirmComponentRef.setInput(
+      'ionPopConfirmTitle',
+      this.ionPopConfirmTitle(),
+    );
+    this.IonPopConfirmComponentRef.setInput(
+      'ionPopConfirmDesc',
+      this.ionPopConfirmDesc(),
+    );
+    this.IonPopConfirmComponentRef.setInput(
+      'ionPopConfirmType',
+      this.ionPopConfirmType(),
+    );
+    this.IonPopConfirmComponentRef.setInput(
+      'ionConfirmText',
+      this.ionConfirmText(),
+    );
+    this.IonPopConfirmComponentRef.setInput(
+      'ionCancelText',
+      this.ionCancelText(),
+    );
 
     this.appRef.attachView(this.IonPopConfirmComponentRef.hostView);
-    
-    const popconfirmElement = this.IonPopConfirmComponentRef.location.nativeElement as HTMLElement;
+
+    const popconfirmElement = this.IonPopConfirmComponentRef.location
+      .nativeElement as HTMLElement;
     this.document.body.appendChild(popconfirmElement);
 
     this.IonPopConfirmComponentRef.instance.ionOnConfirm.subscribe(() => {
@@ -165,7 +181,7 @@ export class IonPopConfirmDirective {
       this.closePopConfirm();
       this.ionOnClose.emit();
     });
-    
+
     this.IonPopConfirmComponentRef.changeDetectorRef.detectChanges();
 
     requestAnimationFrame(() => {
@@ -175,7 +191,9 @@ export class IonPopConfirmDirective {
 
       if (popconfirmElement) {
         // We need to find the sup-container inside the component
-        const container = popconfirmElement.querySelector('.sup-container') as HTMLElement;
+        const container = popconfirmElement.querySelector(
+          '.sup-container',
+        ) as HTMLElement;
         if (container) {
           const offsetPosition = this.setPosition(container, docWidth, {
             top: position.top + position.height,

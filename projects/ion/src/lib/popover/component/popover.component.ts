@@ -39,15 +39,15 @@ export class IonPopoverComponent {
   ionPopoverKeep = input<boolean>(this.data?.ionPopoverKeep || false);
   ionPopoverBody = input(this.data?.ionPopoverBody);
   ionPopoverActions = input<PopoverButtonsProps[] | undefined>(
-    this.data?.ionPopoverActions
+    this.data?.ionPopoverActions,
   );
   ionPopoverIcon = input<IconType | undefined>(this.data?.ionPopoverIcon);
   ionPopoverIconColor = input<string>(
-    this.data?.ionPopoverIconColor || PRIMARY_6
+    this.data?.ionPopoverIconColor || PRIMARY_6,
   );
   ionPopoverIconClose = input<boolean>(this.data?.ionPopoverIconClose || false);
   ionPopoverPosition = input<PopoverPosition>(
-    this.data?.ionPopoverPosition || PopoverPosition.DEFAULT
+    this.data?.ionPopoverPosition || PopoverPosition.DEFAULT,
   );
   ionPopoverCustomClass = input<string>(this.data?.ionPopoverCustomClass || '');
 

@@ -27,7 +27,7 @@ const defaultProps = {
 };
 
 const sut = async (
-  customProps: SafeAny = defaultProps
+  customProps: SafeAny = defaultProps,
 ): Promise<ComponentFixture<IonSimpleMenuComponent>> => {
   const { fixture } = await render(IonSimpleMenuComponent, {
     componentInputs: customProps,
@@ -46,7 +46,7 @@ describe('IonSimpleMenuComponent', () => {
     const icon = screen.getByTestId('icon-sandwich');
     fireEvent.mouseEnter(icon);
     expect(screen.getByTestId('ion-simple-menu')).toHaveClass(
-      'menu-container-opened'
+      'menu-container-opened',
     );
   });
 

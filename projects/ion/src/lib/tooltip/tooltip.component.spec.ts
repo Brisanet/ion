@@ -14,12 +14,14 @@ describe('IonTooltipComponent', () => {
 
   it('should render title', () => {
     const ionTooltipTitle = 'Eu sou um tooltip.';
-    
+
     const fixture = TestBed.createComponent(IonTooltipComponent);
     fixture.componentRef.setInput('ionTooltipTitle', ionTooltipTitle);
     fixture.detectChanges();
 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.textContent.trim()).toBe(ionTooltipTitle);
   });
 
@@ -28,7 +30,9 @@ describe('IonTooltipComponent', () => {
     fixture.componentRef.setInput('ionTooltipTitle', 'Title');
     fixture.detectChanges();
 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.className).toContain('ion-tooltip-dark');
   });
 
@@ -38,7 +42,9 @@ describe('IonTooltipComponent', () => {
     fixture.componentRef.setInput('ionTooltipColorScheme', 'light');
     fixture.detectChanges();
 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.className).toContain('ion-tooltip-light');
   });
 
@@ -47,7 +53,9 @@ describe('IonTooltipComponent', () => {
     fixture.componentRef.setInput('ionTooltipTitle', 'Title');
     fixture.detectChanges();
 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.className).not.toContain('ion-tooltip--visible');
   });
 
@@ -57,7 +65,9 @@ describe('IonTooltipComponent', () => {
     fixture.componentInstance.ionTooltipVisible.set(true);
     fixture.detectChanges();
 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.className).toContain('ion-tooltip--visible');
   });
 
@@ -66,10 +76,15 @@ describe('IonTooltipComponent', () => {
 
     const fixture = TestBed.createComponent(IonTooltipComponent);
     fixture.componentRef.setInput('ionTooltipTitle', 'Title');
-    fixture.componentRef.setInput('ionTooltipCustomClass', ionTooltipCustomClass);
+    fixture.componentRef.setInput(
+      'ionTooltipCustomClass',
+      ionTooltipCustomClass,
+    );
     fixture.detectChanges();
- 
-    const tooltipElement = fixture.nativeElement.querySelector('[data-testid="ion-tooltip"]');
+
+    const tooltipElement = fixture.nativeElement.querySelector(
+      '[data-testid="ion-tooltip"]',
+    );
     expect(tooltipElement.className).toContain(ionTooltipCustomClass);
   });
 });

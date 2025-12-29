@@ -1,13 +1,39 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { IonInputComponent, IonTripleToggleComponent, IonSwitchComponent, IonDatepickerComponent, IonSelectComponent } from 'ion';
-import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormField, BnDatePickerFormField, BnSelectFormField } from './bn-form.types';
+import {
+  IonInputComponent,
+  IonTripleToggleComponent,
+  IonSwitchComponent,
+  IonDatepickerComponent,
+  IonSelectComponent,
+} from 'ion';
+import {
+  BnFormField,
+  BnInputFormField,
+  BnTripleToggleFormField,
+  BnSwitchFormField,
+  BnDatePickerFormField,
+  BnSelectFormField,
+} from './bn-form.types';
 
 @Component({
   selector: 'bn-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, IonInputComponent, IonTripleToggleComponent, IonSwitchComponent, IonDatepickerComponent, IonSelectComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    IonInputComponent,
+    IonTripleToggleComponent,
+    IonSwitchComponent,
+    IonDatepickerComponent,
+    IonSelectComponent,
+  ],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {
@@ -18,7 +44,7 @@ import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormFie
               <span class="required-asterisk">*</span>
             }
           </h3>
-          
+
           @if (isTripleToggle(field)) {
             <ion-triple-toggle
               [value]="formGroup().get(field.key)?.value"
@@ -54,7 +80,12 @@ import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormFie
               [disabled]="field.disabled ?? false"
               [propValue]="field.propValue ?? 'key'"
               [value]="formGroup().get(field.key)?.value"
-              [invalid]="!!(formGroup().get(field.key)?.invalid && formGroup().get(field.key)?.touched)"
+              [invalid]="
+                !!(
+                  formGroup().get(field.key)?.invalid &&
+                  formGroup().get(field.key)?.touched
+                )
+              "
               (valueChange)="onValueChange(field.key, $event)"
             ></ion-select>
           } @else if (isInput(field)) {
@@ -69,11 +100,20 @@ import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormFie
               [iconDirection]="field.iconDirection ?? 'left'"
               [inputButton]="field.inputButton ?? false"
               [inputButtonConfig]="field.inputButtonConfig"
-              [invalid]="!!(formGroup().get(field.key)?.invalid && formGroup().get(field.key)?.touched)"
+              [invalid]="
+                !!(
+                  formGroup().get(field.key)?.invalid &&
+                  formGroup().get(field.key)?.touched
+                )
+              "
               [errorMsg]="field.errorMsg ?? ''"
               [value]="formGroup().get(field.key)?.value"
               (valueChange)="onValueChange(field.key, $event)"
-              (clickButton)="field.onClickButton ? field.onClickButton(formGroup().get(field.key)?.value) : null"
+              (clickButton)="
+                field.onClickButton
+                  ? field.onClickButton(formGroup().get(field.key)?.value)
+                  : null
+              "
             ></ion-input>
           }
 
@@ -86,67 +126,141 @@ import { BnFormField, BnInputFormField, BnTripleToggleFormField, BnSwitchFormFie
       }
     </form>
   `,
-  styles: [`
-    .bn-form-container {
-      width: 100%;
-    }
-    .bn-row {
-      display: flex;
-      flex-wrap: wrap;
-      margin-right: -10px;
-      margin-left: -10px;
-    }
-    .bn-form-field {
-      padding-right: 10px;
-      padding-left: 10px;
-      margin-bottom: 20px;
-      box-sizing: border-box;
-    }
-    .bn-form-field h3 {
-      margin-bottom: 8px;
-      font-size: 1rem;
-      font-weight: 600;
-    }
-    .error-text {
-      color: var(--ion-color-danger, #eb445a);
-      font-size: 0.8rem;
-      margin-top: 4px;
-    }
-    .required-asterisk {
-      color: var(--ion-color-danger, #eb445a);
-      margin-left: 4px;
-    }
+  styles: [
+    `
+      .bn-form-container {
+        width: 100%;
+      }
+      .bn-row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -10px;
+        margin-left: -10px;
+      }
+      .bn-form-field {
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
+      .bn-form-field h3 {
+        margin-bottom: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+      .error-text {
+        color: var(--ion-color-danger, #eb445a);
+        font-size: 0.8rem;
+        margin-top: 4px;
+      }
+      .required-asterisk {
+        color: var(--ion-color-danger, #eb445a);
+        margin-left: 4px;
+      }
 
-    /* 12-column grid system */
-    .col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
-    .col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
-    .col-3 { flex: 0 0 25%; max-width: 25%; }
-    .col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
-    .col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
-    .col-6 { flex: 0 0 50%; max-width: 50%; }
-    .col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
-    .col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
-    .col-9 { flex: 0 0 75%; max-width: 75%; }
-    .col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
-    .col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
-    .col-12 { flex: 0 0 100%; max-width: 100%; }
+      /* 12-column grid system */
+      .col-1 {
+        flex: 0 0 8.333333%;
+        max-width: 8.333333%;
+      }
+      .col-2 {
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+      }
+      .col-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+      }
+      .col-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+      }
+      .col-5 {
+        flex: 0 0 41.666667%;
+        max-width: 41.666667%;
+      }
+      .col-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+      .col-7 {
+        flex: 0 0 58.333333%;
+        max-width: 58.333333%;
+      }
+      .col-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+      }
+      .col-9 {
+        flex: 0 0 75%;
+        max-width: 75%;
+      }
+      .col-10 {
+        flex: 0 0 83.333333%;
+        max-width: 83.333333%;
+      }
+      .col-11 {
+        flex: 0 0 91.666667%;
+        max-width: 91.666667%;
+      }
+      .col-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
 
-    /* Responsive variants (simplified) */
-    @media (min-width: 768px) {
-      .col-md-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
-      .col-md-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
-      .col-md-3 { flex: 0 0 25%; max-width: 25%; }
-      .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
-      .col-md-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
-      .col-md-6 { flex: 0 0 50%; max-width: 50%; }
-      .col-md-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
-      .col-md-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
-      .col-md-9 { flex: 0 0 75%; max-width: 75%; }
-      .col-md-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
-      .col-md-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
-      .col-md-12 { flex: 0 0 100%; max-width: 100%; }
-    }
-  `],
+      /* Responsive variants (simplified) */
+      @media (min-width: 768px) {
+        .col-md-1 {
+          flex: 0 0 8.333333%;
+          max-width: 8.333333%;
+        }
+        .col-md-2 {
+          flex: 0 0 16.666667%;
+          max-width: 16.666667%;
+        }
+        .col-md-3 {
+          flex: 0 0 25%;
+          max-width: 25%;
+        }
+        .col-md-4 {
+          flex: 0 0 33.333333%;
+          max-width: 33.333333%;
+        }
+        .col-md-5 {
+          flex: 0 0 41.666667%;
+          max-width: 41.666667%;
+        }
+        .col-md-6 {
+          flex: 0 0 50%;
+          max-width: 50%;
+        }
+        .col-md-7 {
+          flex: 0 0 58.333333%;
+          max-width: 58.333333%;
+        }
+        .col-md-8 {
+          flex: 0 0 66.666667%;
+          max-width: 66.666667%;
+        }
+        .col-md-9 {
+          flex: 0 0 75%;
+          max-width: 75%;
+        }
+        .col-md-10 {
+          flex: 0 0 83.333333%;
+          max-width: 83.333333%;
+        }
+        .col-md-11 {
+          flex: 0 0 91.666667%;
+          max-width: 91.666667%;
+        }
+        .col-md-12 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    `,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnFormComponent {
@@ -163,7 +277,10 @@ export class BnFormComponent {
   }
 
   isInput(field: BnFormField): field is BnInputFormField {
-    return !field.type || ['text', 'password', 'number', 'email'].includes(field.type);
+    return (
+      !field.type ||
+      ['text', 'password', 'number', 'email'].includes(field.type)
+    );
   }
 
   isTripleToggle(field: BnFormField): field is BnTripleToggleFormField {

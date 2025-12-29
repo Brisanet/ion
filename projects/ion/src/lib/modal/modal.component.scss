@@ -1,7 +1,7 @@
-@use "modal.theme";
+@use 'modal.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 %defaultPadding {
   padding: spacing(2) spacing(3);
@@ -19,7 +19,7 @@
   border: none;
   padding: 0;
   box-shadow: ion-theme(modal-container-shadow);
-  font-family: "Source Sans Pro", sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 
   display: flex;
   flex-direction: column;

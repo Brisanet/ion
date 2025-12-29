@@ -1,6 +1,6 @@
-@use "sidebar.theme";
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@use 'sidebar.theme';
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 $sidebar-width: 256px;
 $sidebar-shrunk-width: 100px;
@@ -24,7 +24,8 @@ $transition-duration: 0.25s;
   display: grid;
   grid-template-rows: max-content 1fr max-content;
   transform: translateX(-110%);
-  transition: transform $transition-duration ease-in-out,
+  transition:
+    transform $transition-duration ease-in-out,
     width $transition-duration ease-in-out;
   border-right: 1px solid ion-theme(sidebar-border-color);
 
@@ -90,7 +91,8 @@ $transition-duration: 0.25s;
 
   &--opened {
     transform: translateX(0px);
-    transition: transform $transition-duration ease-in-out,
+    transition:
+      transform $transition-duration ease-in-out,
       width $transition-duration ease-in-out;
   }
 

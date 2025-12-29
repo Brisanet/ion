@@ -30,7 +30,7 @@ export class IonAvatarComponent {
 
   private getInitials(name: string | undefined): string {
     if (!name) return '';
-    
+
     return name
       .split(' ')
       .map((word) => word[0])

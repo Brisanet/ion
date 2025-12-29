@@ -23,7 +23,10 @@ export class Day {
   isRangeInitialLimit?: boolean;
   isRangeFinalLimit?: boolean;
 
-  constructor(date?: Date, public lang = 'default') {
+  constructor(
+    date?: Date,
+    public lang = 'default',
+  ) {
     const currentDate = date ?? new Date();
 
     this.Date = currentDate;
@@ -45,7 +48,8 @@ export class Day {
     const pastDaysOfYear = (date.getTime() - ONE_DAY) / DAY_IN_MILLISECONDS;
 
     return Math.ceil(
-      (pastDaysOfYear + firstDayOfTheYear.getDay() + ONE_DAY) / TOTAL_DAYS_OF_THE_WEEK
+      (pastDaysOfYear + firstDayOfTheYear.getDay() + ONE_DAY) /
+        TOTAL_DAYS_OF_THE_WEEK,
     );
   }
 

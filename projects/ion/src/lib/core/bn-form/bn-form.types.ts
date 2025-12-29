@@ -1,7 +1,23 @@
 import { ValidatorFn } from '@angular/forms';
-import { IonButtonProps, TripleToggleOptions, Size, SwitchSize, CalendarDirection, PreDefinedRangeConfig, DropdownItem } from 'ion';
+import {
+  IonButtonProps,
+  TripleToggleOptions,
+  Size,
+  SwitchSize,
+  CalendarDirection,
+  PreDefinedRangeConfig,
+  DropdownItem,
+} from 'ion';
 
-export type BnFormFieldType = 'text' | 'password' | 'number' | 'email' | 'triple-toggle' | 'switch' | 'datepicker' | 'select';
+export type BnFormFieldType =
+  | 'text'
+  | 'password'
+  | 'number'
+  | 'email'
+  | 'triple-toggle'
+  | 'switch'
+  | 'datepicker'
+  | 'select';
 
 export interface BnBaseFormField {
   key: string;
@@ -62,7 +78,12 @@ export interface BnSelectFormField extends BnBaseFormField {
   propValue?: string;
 }
 
-export type BnFormField = BnInputFormField | BnTripleToggleFormField | BnSwitchFormField | BnDatePickerFormField | BnSelectFormField;
+export type BnFormField =
+  | BnInputFormField
+  | BnTripleToggleFormField
+  | BnSwitchFormField
+  | BnDatePickerFormField
+  | BnSelectFormField;
 
 export interface BnFormConfig {
   fields: BnFormField[];

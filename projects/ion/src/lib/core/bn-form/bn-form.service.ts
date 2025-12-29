@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { BnFormField } from './bn-form.types';
 
 @Injectable({
@@ -19,7 +24,7 @@ export class BnFormService {
 
       group[field.key] = new FormControl(
         { value: field.initialValue ?? '', disabled: field.disabled ?? false },
-        validators
+        validators,
       );
     });
 

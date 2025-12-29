@@ -85,7 +85,7 @@ export class IonThemeService {
 
     if (theme.useBrowserScheme) {
       const themeConfig = THEMES_CONFIGURATION.find(
-        ({ key }) => key === theme.key
+        ({ key }) => key === theme.key,
       );
       if (themeConfig) {
         key = themeConfig.schemes[this.browserColorScheme];
@@ -111,7 +111,7 @@ export class IonThemeService {
 
     mediaQuery.addEventListener(
       'change',
-      this.onChangeBrowserColorScheme.bind(this)
+      this.onChangeBrowserColorScheme.bind(this),
     );
   }
 

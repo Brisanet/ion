@@ -84,7 +84,6 @@ export class IonModalComponent {
     }
   }
 
-
   getChildComponentPropertiesValue(): IonModalResponse {
     return this.componentRef.instance as { [key: string]: unknown };
   }
@@ -95,7 +94,7 @@ export class IonModalComponent {
 
   setContentInstanceParams<T>(
     instance: T,
-    params: Partial<T> | undefined
+    params: Partial<T> | undefined,
   ): void {
     Object.assign(instance as any, params as any);
   }
@@ -114,7 +113,7 @@ export class IonModalComponent {
         if (this.configuration().ionParams) {
           this.setContentInstanceParams(
             this.componentRef.instance,
-            this.configuration().ionParams
+            this.configuration().ionParams,
           );
         }
         this.componentRef.changeDetectorRef.detectChanges();

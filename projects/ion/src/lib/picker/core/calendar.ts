@@ -15,7 +15,7 @@ export class Calendar {
   constructor(
     year: number | null = null,
     public monthNumber: number | null = null,
-    public lang = 'default'
+    public lang = 'default',
   ) {
     this.today = new Day(undefined, lang);
 
@@ -23,7 +23,7 @@ export class Calendar {
 
     this.month = new Month(
       new Date(this.year, (this.monthNumber ?? this.today.monthNumber) - 1),
-      this.lang
+      this.lang,
     );
 
     this[Symbol.iterator] = function* () {
@@ -100,7 +100,7 @@ export class Calendar {
 
     this.month = new Month(
       new Date(this.year, this.month.number - 2),
-      this.lang
+      this.lang,
     );
   }
 
@@ -114,7 +114,7 @@ export class Calendar {
 
   getWeekDaysElementStrings(): string[] {
     return this.weekDays.map(
-      (weekDay) => `${(weekDay as string).substring(0, 3)}`
+      (weekDay) => `${(weekDay as string).substring(0, 3)}`,
     );
   }
 }

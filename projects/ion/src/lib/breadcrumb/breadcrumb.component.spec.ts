@@ -20,18 +20,18 @@ const items: BreadcrumbItem[] = [
 ];
 
 const visibleItemsAfterEllipsis: BreadcrumbItem[] = items.filter(
-  (_, index) => index >= items.length - TRUNCATE_LIMIT
+  (_, index) => index >= items.length - TRUNCATE_LIMIT,
 );
 
 const itemsInDropdown: BreadcrumbItem[] = items.filter(
-  (_, index) => index && index < items.length - TRUNCATE_LIMIT
+  (_, index) => index && index < items.length - TRUNCATE_LIMIT,
 );
 
 const sut = async (
   customProps: Partial<{
     breadcrumbs: BreadcrumbItem[];
     truncate: boolean;
-  }> = {}
+  }> = {},
 ): Promise<void> => {
   await render(IonBreadcrumbComponent, {
     componentInputs: {
@@ -59,7 +59,7 @@ describe('Breadcrumb', () => {
       async (link: BreadcrumbItem) => {
         await sut({ truncate: false });
         expect(screen.getByText(link.label)).toBeInTheDocument();
-      }
+      },
     );
   });
 
@@ -69,7 +69,7 @@ describe('Breadcrumb', () => {
       async (item: BreadcrumbItem) => {
         await sut();
         expect(screen.getByText(item.label)).toHaveClass('breacrumbs-link');
-      }
+      },
     );
   });
 
@@ -103,7 +103,7 @@ describe('Breadcrumb', () => {
 
       it('should render "..." in breadcrumb', async () => {
         expect(
-          screen.queryByTestId('breadcrumbs-ellipsis')
+          screen.queryByTestId('breadcrumbs-ellipsis'),
         ).toBeInTheDocument();
       });
 
@@ -111,7 +111,7 @@ describe('Breadcrumb', () => {
         'should render $label in breadcrumb',
         async (link: BreadcrumbItem) => {
           expect(screen.queryByText(link.label)).toBeInTheDocument();
-        }
+        },
       );
     });
 
@@ -119,7 +119,7 @@ describe('Breadcrumb', () => {
       it('should open dropdown when click in ellipsis', async () => {
         fireEvent.click(screen.getByTestId('breadcrumbs-ellipsis'));
         expect(
-          screen.queryByTestId('breadcrumbs-dropdown')
+          screen.queryByTestId('breadcrumbs-dropdown'),
         ).toBeInTheDocument();
       });
 
@@ -128,7 +128,7 @@ describe('Breadcrumb', () => {
         async (link: BreadcrumbItem) => {
           fireEvent.click(screen.getByTestId('breadcrumbs-ellipsis'));
           expect(screen.queryByText(link.label)).toBeInTheDocument();
-        }
+        },
       );
 
       it('should emit the selected element in dropdown', async () => {

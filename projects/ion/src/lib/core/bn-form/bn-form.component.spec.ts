@@ -28,13 +28,13 @@ describe('BnFormComponent', () => {
 
     fixture = TestBed.createComponent(BnFormComponent);
     component = fixture.componentInstance;
-    
-    // Set inputs using the new signal-based input API if possible, 
+
+    // Set inputs using the new signal-based input API if possible,
     // but for tests we often use componentRef.setInput or just set the property if it's a signal.
     // Since they are input() signals, we use fixture.componentRef.setInput
     fixture.componentRef.setInput('fields', mockFields);
     fixture.componentRef.setInput('formGroup', mockFormGroup);
-    
+
     fixture.detectChanges();
   });
 
@@ -59,7 +59,7 @@ describe('BnFormComponent', () => {
     const ionInput = fixture.debugElement.query(By.css('ion-input'));
     // Trigger the valueChange output
     ionInput.triggerEventHandler('valueChange', 'new value');
-    
+
     expect(mockFormGroup.get('testField')?.value).toBe('new value');
     expect(mockFormGroup.get('testField')?.dirty).toBeTruthy();
     expect(mockFormGroup.get('testField')?.touched).toBeTruthy();
@@ -109,9 +109,11 @@ describe('BnFormComponent', () => {
     fixture.componentRef.setInput('formGroup', tripleToggleFormGroup);
     fixture.detectChanges();
 
-    const tripleToggle = fixture.debugElement.query(By.css('ion-triple-toggle'));
+    const tripleToggle = fixture.debugElement.query(
+      By.css('ion-triple-toggle'),
+    );
     expect(tripleToggle).toBeTruthy();
-    
+
     // Trigger ionClick
     tripleToggle.triggerEventHandler('ionClick', 'no');
     expect(tripleToggleFormGroup.get('toggleField')?.value).toBe('no');
@@ -135,7 +137,7 @@ describe('BnFormComponent', () => {
 
     const ionSwitch = fixture.debugElement.query(By.css('ion-switch'));
     expect(ionSwitch).toBeTruthy();
-    
+
     // Trigger atValueChange
     ionSwitch.triggerEventHandler('atValueChange', true);
     expect(switchFormGroup.get('switchField')?.value).toBe(true);
@@ -159,7 +161,7 @@ describe('BnFormComponent', () => {
 
     const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
     expect(datepicker).toBeTruthy();
-    
+
     // Trigger event
     datepicker.triggerEventHandler('event', ['2023-01-01']);
     expect(datepickerFormGroup.get('dateField')?.value).toEqual(['2023-01-01']);

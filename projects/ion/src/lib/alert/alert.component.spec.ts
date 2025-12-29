@@ -29,7 +29,9 @@ describe('IonAlertComponent', () => {
   });
 
   it('should render with success icon by default', () => {
-    const icon = fixture.debugElement.query(By.css('[data-testid="status-icon"]'));
+    const icon = fixture.debugElement.query(
+      By.css('[data-testid="status-icon"]'),
+    );
     expect(icon).toBeTruthy();
   });
 
@@ -54,14 +56,18 @@ describe('IonAlertComponent', () => {
   it('should render close icon when is closable', () => {
     fixture.componentRef.setInput('closable', true);
     fixture.detectChanges();
-    const closeIcon = fixture.debugElement.query(By.css('[data-testid="close-icon"]'));
+    const closeIcon = fixture.debugElement.query(
+      By.css('[data-testid="close-icon"]'),
+    );
     expect(closeIcon).toBeTruthy();
   });
 
   it('should close alert', () => {
     fixture.componentRef.setInput('closable', true);
     fixture.detectChanges();
-    const closeIcon = fixture.debugElement.query(By.css('[data-testid="close-icon"]'));
+    const closeIcon = fixture.debugElement.query(
+      By.css('[data-testid="close-icon"]'),
+    );
     closeIcon.triggerEventHandler('click', null);
     fixture.detectChanges();
     // Since nativeElement.remove() is called, we can check if the element is still in the DOM
@@ -81,7 +87,9 @@ describe('IonAlertComponent', () => {
     fixture.componentRef.setInput('description', 'Testing description');
     fixture.detectChanges();
     const description = fixture.debugElement.query(By.css('.description'));
-    expect(description.nativeElement.textContent.trim()).toBe('Testing description');
+    expect(description.nativeElement.textContent.trim()).toBe(
+      'Testing description',
+    );
   });
 
   it('should render without radius', () => {
@@ -94,7 +102,9 @@ describe('IonAlertComponent', () => {
   it('should render with custom message', () => {
     fixture.componentRef.setInput('message', 'Custom message');
     fixture.detectChanges();
-    const message = fixture.debugElement.query(By.css('[data-testid="ion-alert-message"]'));
+    const message = fixture.debugElement.query(
+      By.css('[data-testid="ion-alert-message"]'),
+    );
     expect(message.nativeElement.textContent).toContain('Custom message');
   });
 });

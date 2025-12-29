@@ -39,7 +39,7 @@ export class IonStepsComponent {
       () => {
         const currentSteps = this.steps();
         const currentIndex = this.current();
-        
+
         // Reset firstCatchStatus when steps change significantly (length change or completely new array)
         // However, the original logic didn't reset it explicitly except on init.
         // But here we are reacting to changes.
@@ -47,11 +47,11 @@ export class IonStepsComponent {
         // ngOnChanges:
         // if steps changed -> changeStep(current, true)
         // if current changed -> changeStep(current)
-        
+
         // We can just run the logic.
         this.updateSteps(currentIndex);
       },
-      { allowSignalWrites: true }
+      { allowSignalWrites: true },
     );
   }
 
@@ -67,10 +67,13 @@ export class IonStepsComponent {
       index: index + 1,
     }));
 
-    if (currentIndex < this.FIRST_STEP || currentIndex > processedSteps.length) {
+    if (
+      currentIndex < this.FIRST_STEP ||
+      currentIndex > processedSteps.length
+    ) {
       // Invalid index handling
     } else {
-       processedSteps = processedSteps.map((step) => {
+      processedSteps = processedSteps.map((step) => {
         return this.getStep(currentIndex, step);
       });
     }
@@ -90,15 +93,10 @@ export class IonStepsComponent {
     return step.status ? step.status : this.stepStatus(step, currentIndex);
   }
 
-  getStep(
-    currentIndex: number,
-    step: StepType
-  ): StepType {
+  getStep(currentIndex: number, step: StepType): StepType {
     if (
       step.status &&
-      (step.status === StepStatus.ERROR ||
-        this.disabled() ||
-        step.disabled)
+      (step.status === StepStatus.ERROR || this.disabled() || step.disabled)
     ) {
       return step;
     }
@@ -121,10 +119,7 @@ export class IonStepsComponent {
     }));
   }
 
-  shouldConnectSteps(
-    firstStep?: StepType,
-    secondStep?: StepType
-  ): boolean {
+  shouldConnectSteps(firstStep?: StepType, secondStep?: StepType): boolean {
     return (
       !!firstStep &&
       !!secondStep &&
@@ -150,7 +145,7 @@ export class IonStepsComponent {
     // "goesTo(step.index)" passes the 1-based index.
     // steps[index-1] accesses the step at that index.
     // So it checks if the TARGET step is disabled.
-    
+
     if (this.clickable() && !this.disabled() && !steps[index - 1]?.disabled) {
       this.indexChange.emit(index);
       if (!this.preventStepChange()) {

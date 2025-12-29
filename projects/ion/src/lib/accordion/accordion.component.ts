@@ -1,9 +1,4 @@
-import {
-  Component,
-  TemplateRef,
-  input,
-  output,
-} from '@angular/core';
+import { Component, TemplateRef, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AccordionItem, AccordionItemOutput } from '../core/types/accordion';
 import { IonAccordionItemComponent } from './accordion-item/accordion-item.component';

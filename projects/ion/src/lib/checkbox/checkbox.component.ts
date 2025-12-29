@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, ElementRef, input, output, viewChild } from '@angular/core';
+import {
+  Component,
+  effect,
+  ElementRef,
+  input,
+  output,
+  viewChild,
+} from '@angular/core';
 import {
   CheckBoxStates,
   StateChange,
@@ -53,7 +60,7 @@ export class IonCheckboxComponent {
   changeState(): void {
     const currentState = this.state();
     const newState = StateChange[currentState] as CheckBoxStates;
-    
+
     // Update the internal state by calling setState with the new state
     // We need to manually update since we can't directly set input signals
     // The parent component should handle state changes via the ionClick event

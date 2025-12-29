@@ -50,12 +50,12 @@ export class IonDatepickerComponent {
   format = input<string>(DEFAULT_FINAL_FORMAT);
   formatInDateInput =
     input<IonDatePickerComponentProps['formatInDateInput']>(
-      DEFAULT_INPUT_FORMAT
+      DEFAULT_INPUT_FORMAT,
     );
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);
   direction = input<IonDatePickerComponentProps['direction']>(
-    CalendarDirection.bottomLeft
+    CalendarDirection.bottomLeft,
   );
   disabledDate = input<IonDatePickerComponentProps['disabledDate']>();
   event = output<string[]>();
@@ -73,7 +73,7 @@ export class IonDatepickerComponent {
 
   overlayPositions = computed<ConnectedPosition[]>(() => {
     const direction = String(
-      this.direction()
+      this.direction(),
     ).toUpperCase() as CalendarDirection;
 
     // Position definitions
@@ -178,8 +178,8 @@ export class IonDatepickerComponent {
     const secondDate = new Day(
       new Date(
         firstDate.Date.getTime() +
-          calculateDuration(duration) * directionMultiplier
-      )
+          calculateDuration(duration) * directionMultiplier,
+      ),
     );
     this.dateSelected([firstDate, secondDate]);
   }

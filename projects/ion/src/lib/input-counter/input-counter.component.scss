@@ -1,7 +1,7 @@
-@use "input-counter.theme";
+@use 'input-counter.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .counter {
   display: inline-flex;
@@ -43,7 +43,7 @@
   }
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   appearance: none;
 }

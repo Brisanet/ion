@@ -20,7 +20,7 @@ export class IonNotificationService {
   public success(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
   ): void {
     this.show(title, message, 'success', options);
   }
@@ -28,7 +28,7 @@ export class IonNotificationService {
   public info(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
   ): void {
     this.show(title, message, 'info', options);
   }
@@ -36,7 +36,7 @@ export class IonNotificationService {
   public warning(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
   ): void {
     this.show(title, message, 'warning', options);
   }
@@ -44,7 +44,7 @@ export class IonNotificationService {
   public error(
     title: string,
     message: string,
-    options?: NotificationConfigOptions
+    options?: NotificationConfigOptions,
   ): void {
     this.show(title, message, 'negative', options); // 'negative' maps to error/negative type
   }
@@ -53,7 +53,7 @@ export class IonNotificationService {
     title: string,
     message: string,
     type: StatusType,
-    options: NotificationConfigOptions = {}
+    options: NotificationConfigOptions = {},
   ): void {
     this.ensureOverlay();
 

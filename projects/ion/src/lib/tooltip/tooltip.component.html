@@ -1,7 +1,13 @@
 <div
   data-testid="ion-tooltip"
   class="ion-tooltip"
-  [class]="'ion-tooltip-' + ionTooltipColorScheme() + ' ion-tooltip-position--' + ionTooltipPosition() + (ionTooltipCustomClass() ? ' ' + ionTooltipCustomClass() : '')"
+  [class]="
+    'ion-tooltip-' +
+    ionTooltipColorScheme() +
+    ' ion-tooltip-position--' +
+    ionTooltipPosition() +
+    (ionTooltipCustomClass() ? ' ' + ionTooltipCustomClass() : '')
+  "
   [class.ion-tooltip--visible]="ionTooltipVisible()"
   [style.top]="top() + 'px'"
   [style.left]="left() + 'px'"

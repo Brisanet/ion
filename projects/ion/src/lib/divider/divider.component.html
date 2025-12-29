@@ -1,17 +1,17 @@
 @if (!(type() === 'text' && direction() === 'horizontal')) {
-<hr
-  data-testid="hr"
-  [style.margin]="margin() ? '0' : ''"
-  [class]="
-    'ion-divider-' +
-    direction() +
-    (type() === 'text' ? '' : ' ion-divider-' + type())
-  "
-/>
+  <hr
+    data-testid="hr"
+    [style.margin]="margin() ? '0' : ''"
+    [class]="
+      'ion-divider-' +
+      direction() +
+      (type() === 'text' ? '' : ' ion-divider-' + type())
+    "
+  />
 } @else {
-<div data-testid="hr" class="ion-divider-text">
-  <hr />
-  <span>{{ label() }}</span>
-  <hr />
-</div>
+  <div data-testid="hr" class="ion-divider-text">
+    <hr />
+    <span>{{ label() }}</span>
+    <hr />
+  </div>
 }

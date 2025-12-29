@@ -25,7 +25,8 @@
               ionTooltip
               [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
               [ionTooltipPosition]="
-                column.configTooltip?.ionTooltipPosition || TooltipPosition.TOP_CENTER
+                column.configTooltip?.ionTooltipPosition ||
+                TooltipPosition.TOP_CENTER
               "
               [ionTooltipArrowPointAtCenter]="
                 column.configTooltip?.ionTooltipArrowPointAtCenter || true
@@ -76,10 +77,7 @@
             </button>
           </div>
         </th>
-        <th
-          class="th-actions"
-          *ngIf="config.actions && config.actions.length"
-        >
+        <th class="th-actions" *ngIf="config.actions && config.actions.length">
           Ações
         </th>
       </tr>
@@ -95,7 +93,7 @@
           [ngClass]="{
             odd: index % 2 === 0,
             even: index % 2 !== 0,
-            checked: row.selected
+            checked: row.selected,
           }"
         >
           <ng-container
@@ -145,13 +143,15 @@
                 config.cellTooltipConfig?.ionTooltipColorScheme || 'dark'
               "
               [ionTooltipPosition]="
-                config.cellTooltipConfig?.ionTooltipPosition || TooltipPosition.BOTTOM_LEFT
+                config.cellTooltipConfig?.ionTooltipPosition ||
+                TooltipPosition.BOTTOM_LEFT
               "
               [ionTooltipShowDelay]="
                 config.cellTooltipConfig?.ionTooltipShowDelay || 0
               "
               [ionTooltipTrigger]="
-                config.cellTooltipConfig?.ionTooltipTrigger || TooltipTrigger.HOVER
+                config.cellTooltipConfig?.ionTooltipTrigger ||
+                TooltipTrigger.HOVER
               "
               #cell
             >
@@ -166,8 +166,14 @@
                   *ngIf="row[column.key]; else emptyCell"
                   data-testid="tag-cell"
                   [label]="row[column.key]"
-                  [status]="row[column.tag?.statusKey || ''] || column.tag?.status || 'neutral'"
-                  [icon]="row[column.tag?.iconKey || ''] || column.tag?.icon || ''"
+                  [status]="
+                    row[column.tag?.statusKey || ''] ||
+                    column.tag?.status ||
+                    'neutral'
+                  "
+                  [icon]="
+                    row[column.tag?.iconKey || ''] || column.tag?.icon || ''
+                  "
                   [color]="row[column.tag?.colorKey || ''] || column.tag?.color"
                   ionTooltip
                   [ionTooltipTitle]="
@@ -187,7 +193,9 @@
                   [iconSide]="column.link.iconSide || 'left'"
                   [size]="column.link.size || 'sm'"
                   [bold]="column.link.bold || false"
-                  [disabled]="column.link.disabled ? column.link.disabled(row) : false"
+                  [disabled]="
+                    column.link.disabled ? column.link.disabled(row) : false
+                  "
                   [target]="column.link.target || '_self'"
                   [link]="column.link.url ? column.link.url(row) : ''"
                   ionTooltip
@@ -200,7 +208,8 @@
                     column.link.tooltipConfig?.ionTooltipColorScheme || 'dark'
                   "
                   [ionTooltipPosition]="
-                    column.link.tooltipConfig?.ionTooltipPosition || TooltipPosition.TOP_CENTER
+                    column.link.tooltipConfig?.ionTooltipPosition ||
+                    TooltipPosition.TOP_CENTER
                   "
                   [ionTooltipArrowPointAtCenter]="
                     column.link.tooltipConfig?.ionTooltipArrowPointAtCenter ||
@@ -233,7 +242,8 @@
                         action.tooltipConfig?.ionTooltipTitle || action.label
                       "
                       [ionTooltipPosition]="
-                        action.tooltipConfig?.ionTooltipPosition || TooltipPosition.TOP_CENTER
+                        action.tooltipConfig?.ionTooltipPosition ||
+                        TooltipPosition.TOP_CENTER
                       "
                       [ionTooltipArrowPointAtCenter]="
                         action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
@@ -243,7 +253,8 @@
                         action.tooltipConfig?.ionTooltipColorScheme || 'dark'
                       "
                       [ionTooltipTrigger]="
-                        action.tooltipConfig?.ionTooltipTrigger || TooltipTrigger.HOVER
+                        action.tooltipConfig?.ionTooltipTrigger ||
+                        TooltipTrigger.HOVER
                       "
                       [ionTooltipShowDelay]="
                         action.tooltipConfig?.ionTooltipShowDelay || 0
@@ -258,14 +269,16 @@
                         !!action.confirm.description
                           ? action.confirm.description
                           : !!action.confirm.dynamicDescription
-                          ? action.confirm.dynamicDescription(row)
-                          : ''
+                            ? action.confirm.dynamicDescription(row)
+                            : ''
                       "
                       [ionConfirmText]="
                         action.confirm.confirmText || 'Confirmar'
                       "
                       [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
-                      (ionOnConfirm)="action.call && handleEvent(row, action.call)"
+                      (ionOnConfirm)="
+                        action.call && handleEvent(row, action.call)
+                      "
                       [attr.data-testid]="'row-' + index + '-' + action.label"
                       type="ghost"
                       size="sm"
@@ -273,7 +286,9 @@
                       [iconType]="action.icon"
                       [label]="action.label"
                       [circularButton]="!action.showLabel"
-                      [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
+                      [rightSideIcon]="
+                        !!(action.showLabel && action.rightSideIcon)
+                      "
                       [disabled]="
                         action.disabled ? !!disableAction(row, action) : false
                       "
@@ -297,7 +312,8 @@
                           action.tooltipConfig?.ionTooltipColorScheme || 'dark'
                         "
                         [ionTooltipTrigger]="
-                          action.tooltipConfig?.ionTooltipTrigger || TooltipTrigger.HOVER
+                          action.tooltipConfig?.ionTooltipTrigger ||
+                          TooltipTrigger.HOVER
                         "
                         [ionTooltipShowDelay]="
                           action.tooltipConfig?.ionTooltipShowDelay || 0
@@ -307,13 +323,16 @@
                         "
                         ionPopover
                         [ionPopoverTitle]="
-                          action.popover!(row)['ionPopoverTitle'] || action.label
+                          action.popover!(row)['ionPopoverTitle'] ||
+                          action.label
                         "
                         [ionPopoverBody]="ActionPopoverBody"
                         [ionPopoverActions]="
                           action.popover!(row)['ionPopoverActions']
                         "
-                        [ionPopoverIcon]="action.popover!(row)['ionPopoverIcon']"
+                        [ionPopoverIcon]="
+                          action.popover!(row)['ionPopoverIcon']
+                        "
                         [ionPopoverIconClose]="
                           action.popover!(row)['ionPopoverIconClose']
                         "
@@ -321,7 +340,9 @@
                           action.popover!(row)['ionPopoverPosition'] ||
                           PopoverPosition.BOTTOM_RIGHT
                         "
-                        [ionPopoverKeep]="action.popover!(row)['ionPopoverKeep']"
+                        [ionPopoverKeep]="
+                          action.popover!(row)['ionPopoverKeep']
+                        "
                         [ionPopoverStopCloseOnScroll]="
                           action.popover!(row)['ionPopoverStopCloseOnScroll']
                         "
@@ -330,11 +351,15 @@
                         "
                         [ionPopoverArrowPointAtCenter]="true"
                         [ionPopoverTrigger]="
-                          action.popover!(row)['ionPopoverTrigger'] || PopoverTrigger.CLICK
+                          action.popover!(row)['ionPopoverTrigger'] ||
+                          PopoverTrigger.CLICK
                         "
-                        (ionOnFirstAction)="action.call && handleEvent(row, action.call)"
+                        (ionOnFirstAction)="
+                          action.call && handleEvent(row, action.call)
+                        "
                         (ionOnSecondAction)="
-                          action.secondCall && handleEvent(row, action.secondCall)
+                          action.secondCall &&
+                            handleEvent(row, action.secondCall)
                         "
                         [attr.data-testid]="'row-' + index + '-' + action.label"
                         type="ghost"
@@ -367,7 +392,8 @@
                         action.tooltipConfig?.ionTooltipTitle || action.label
                       "
                       [ionTooltipPosition]="
-                        action.tooltipConfig?.ionTooltipPosition || TooltipPosition.TOP_CENTER
+                        action.tooltipConfig?.ionTooltipPosition ||
+                        TooltipPosition.TOP_CENTER
                       "
                       [ionTooltipArrowPointAtCenter]="
                         action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
@@ -377,7 +403,8 @@
                         action.tooltipConfig?.ionTooltipColorScheme || 'dark'
                       "
                       [ionTooltipTrigger]="
-                        action.tooltipConfig?.ionTooltipTrigger || TooltipTrigger.HOVER
+                        action.tooltipConfig?.ionTooltipTrigger ||
+                        TooltipTrigger.HOVER
                       "
                       [ionTooltipShowDelay]="
                         action.tooltipConfig?.ionTooltipShowDelay || 0
@@ -392,8 +419,12 @@
                       [iconType]="action.icon"
                       [label]="action.label"
                       [circularButton]="!action.showLabel"
-                      [rightSideIcon]="!!(action.showLabel && action.rightSideIcon)"
-                      (ionOnClick)="action.call && handleEvent(row, action.call)"
+                      [rightSideIcon]="
+                        !!(action.showLabel && action.rightSideIcon)
+                      "
+                      (ionOnClick)="
+                        action.call && handleEvent(row, action.call)
+                      "
                       [disabled]="
                         action.disabled ? !!disableAction(row, action) : false
                       "

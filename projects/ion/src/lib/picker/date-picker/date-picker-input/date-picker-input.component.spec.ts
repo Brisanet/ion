@@ -16,7 +16,7 @@ describe('IonDatePickerInputComponent', () => {
     expect(screen.getByTestId('container-input')).toBeTruthy();
     expect(screen.getByTestId('input-element')).toHaveAttribute(
       'placeholder',
-      'Selecione a data'
+      'Selecione a data',
     );
   });
 
@@ -34,4 +34,3 @@ describe('IonDatePickerInputComponent', () => {
     expect(clearSpy).toHaveBeenCalled();
   });
 });
-

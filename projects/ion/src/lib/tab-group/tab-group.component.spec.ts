@@ -16,7 +16,7 @@ const mockTabs = [
 ];
 
 const sut = async (
-  customProps: Partial<TabGroupProps> = {}
+  customProps: Partial<TabGroupProps> = {},
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   const defaultProps = {
     tabs: mockTabs,
@@ -91,7 +91,7 @@ describe('IonTabGroupComponent', () => {
       });
 
       expect(screen.getByText(mockTabs[0].label)).toHaveClass(`tab-${size}`);
-    }
+    },
   );
 
   it('should emit selected tab when double clicked', async () => {

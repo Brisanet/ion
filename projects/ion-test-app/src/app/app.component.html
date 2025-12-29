@@ -1,7 +1,15 @@
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
   <h1>Ion Consumer App</h1>
 
-  <div style="display: flex; flex-direction: column; gap: 10px; border: 1px solid #ccc; padding: 10px;">
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+    "
+  >
     <bn-form [formGroup]="formGroup" [fields]="formFields"></bn-form>
     <ion-button label="Enviar" (click)="submitForm()"></ion-button>
   </div>
@@ -53,7 +61,7 @@
         [options]="[
           { label: 'Item 1' },
           { label: 'Item 2' },
-          { label: 'Item 3' }
+          { label: 'Item 3' },
         ]"
       ></ion-button>
     </div>
@@ -243,18 +251,18 @@
           {
             label: 'Accordion 1',
             content: 'Content for accordion 1',
-            show: false
+            show: false,
           },
           {
             label: 'Accordion 2',
             content: 'Content for accordion 2',
-            show: false
+            show: false,
           },
           {
             label: 'Accordion 3',
             content: 'Content for accordion 3',
-            show: false
-          }
+            show: false,
+          },
         ]"
         [templateHeader]="header"
         [templateBody]="body"
@@ -295,7 +303,7 @@
         [breadcrumbs]="[
           { label: 'Home', link: '/home' },
           { label: 'Components', link: '/components' },
-          { label: 'Breadcrumb', link: '/breadcrumb' }
+          { label: 'Breadcrumb', link: '/breadcrumb' },
         ]"
       ></ion-breadcrumb>
 
@@ -307,7 +315,7 @@
           { label: 'Level 3', link: '/level3' },
           { label: 'Level 4', link: '/level4' },
           { label: 'Level 5', link: '/level5' },
-          { label: 'Current', link: '/current' }
+          { label: 'Current', link: '/current' },
         ]"
         [truncate]="true"
       ></ion-breadcrumb>
@@ -351,7 +359,7 @@
           [options]="[
             { label: 'Option 1' },
             { label: 'Option 2' },
-            { label: 'Option 3' }
+            { label: 'Option 3' },
           ]"
         ></ion-chip>
 
@@ -361,7 +369,7 @@
           [options]="[
             { label: 'Item A' },
             { label: 'Item B' },
-            { label: 'Item C' }
+            { label: 'Item C' },
           ]"
         ></ion-chip>
 
@@ -370,11 +378,11 @@
           [options]="[
             { label: 'Apple' },
             { label: 'Banana' },
-            { label: 'Cherry' }
+            { label: 'Cherry' },
           ]"
           [dropdownSearchConfig]="{
             enableSearch: true,
-            searchOptions: { placeholder: 'Search fruits...' }
+            searchOptions: { placeholder: 'Search fruits...' },
           }"
         ></ion-chip>
       </div>
@@ -429,7 +437,7 @@
         <ion-chip-group
           [chips]="[
             { label: 'Disabled 1', selected: false },
-            { label: 'Disabled 2', selected: true }
+            { label: 'Disabled 2', selected: true },
           ]"
           [disabled]="true"
         ></ion-chip-group>
@@ -706,7 +714,7 @@
           [inputButtonConfig]="{
             label: 'Search',
             type: 'primary',
-            iconType: 'search'
+            iconType: 'search',
           }"
           (clickButton)="handleInputButtonClick()"
           [(value)]="searchInputValue"
@@ -722,7 +730,9 @@
 
   <section>
     <h2>Select</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px">
+    <div
+      style="display: flex; flex-direction: column; gap: 20px; max-width: 500px"
+    >
       <div>
         <h3>Basic Select</h3>
         <ion-select
@@ -816,7 +826,7 @@
         <ion-triple-toggle
           [options]="[
             { label: 'Ativo', value: 'active' },
-            { label: 'Inativo', value: 'inactive' }
+            { label: 'Inativo', value: 'inactive' },
           ]"
           (ionClick)="handleTripleToggleChange($event)"
         ></ion-triple-toggle>
@@ -828,7 +838,7 @@
           [value]="tripleToggleWithIconsValue"
           [options]="[
             { label: 'Sim', value: true, icon: 'check' },
-            { label: 'Não', value: false, icon: 'close' }
+            { label: 'Não', value: false, icon: 'close' },
           ]"
           (ionClick)="
             tripleToggleWithIconsValue = $event;
@@ -844,7 +854,7 @@
           [onlyShowIcon]="true"
           [options]="[
             { label: 'Like', value: 'like', icon: 'star' },
-            { label: 'Dislike', value: 'dislike', icon: 'close' }
+            { label: 'Dislike', value: 'dislike', icon: 'close' },
           ]"
           (ionClick)="handleTripleToggleChange($event)"
         ></ion-triple-toggle>
@@ -861,7 +871,7 @@
           size="sm"
           [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false }
+            { label: 'Não', value: false },
           ]"
         ></ion-triple-toggle>
       </div>
@@ -872,7 +882,7 @@
           size="lg"
           [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false }
+            { label: 'Não', value: false },
           ]"
         ></ion-triple-toggle>
 
@@ -1064,7 +1074,7 @@
                     switchValue = $event; handleSwitchChange($event)
                   "
                 ></ion-switch>
-                <span>{{ switchValue ? "ON" : "OFF" }}</span>
+                <span>{{ switchValue ? 'ON' : 'OFF' }}</span>
               </div>
             </div>
           </div>
@@ -1341,8 +1351,8 @@
         "
       >
         <ion-icon type="out"></ion-icon>
-        @if(!sidebarComp.closed()) {
-        <span>Sair do App</span>
+        @if (!sidebarComp.closed()) {
+          <span>Sair do App</span>
         }
       </div>
     </ng-template>
@@ -1723,9 +1733,9 @@
           (event)="handleDatePickerChange($event)"
         ></ion-date-picker>
         @if (datePickerValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Date:</strong> {{ datePickerValue[0] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Date:</strong> {{ datePickerValue[0] }}
+          </p>
         }
       </div>
 
@@ -1736,10 +1746,10 @@
           (event)="handleDateRangePickerChange($event)"
         ></ion-date-picker>
         @if (dateRangePickerValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
-          {{ dateRangePickerValue[1] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
+            {{ dateRangePickerValue[1] }}
+          </p>
         }
       </div>
 
@@ -1751,11 +1761,11 @@
           (event)="handleDatePickerWithPredefinedChange($event)"
         ></ion-date-picker>
         @if (datePickerWithPredefinedValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Range:</strong>
-          {{ datePickerWithPredefinedValue[0] }} -
-          {{ datePickerWithPredefinedValue[1] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong>
+            {{ datePickerWithPredefinedValue[0] }} -
+            {{ datePickerWithPredefinedValue[1] }}
+          </p>
         }
       </div>
 

@@ -1,5 +1,5 @@
-@import "../../../styles/index.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   .ion-sidebar-item__icon ::ng-deep svg {
@@ -35,7 +35,9 @@
   font-size: 16px;
   line-height: 24px;
   cursor: pointer;
-  transition: background-color ease-in-out 0.1s, color ease-in-out 0.1s;
+  transition:
+    background-color ease-in-out 0.1s,
+    color ease-in-out 0.1s;
   @include icon-color(sidebar-item-icon-color);
 
   & > div {
