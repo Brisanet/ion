@@ -74,23 +74,23 @@ import {
             ></ion-date-picker>
           } @else if (isSelect(field)) {
             <ion-select
-                [placeholder]="field.placeholder ?? ''"
-                [options]="field.options"
-                [multiple]="field.multiple ?? false"
-                [enableSearch]="field.enableSearch ?? false"
-                [disabled]="field.disabled ?? false"
-                [propValue]="field.propValue ?? 'key'"
-                [propLabel]="field.propLabel ?? 'label'"
-                [value]="formGroup().get(field.key)?.value"
-                [invalid]="
-                  !!(
-                    formGroup().get(field.key)?.invalid &&
-                    formGroup().get(field.key)?.touched
-                  )
-                "
-                (valueChange)="onValueChange(field.key, $event)"
-                (search)="onSearch(field, $event)"
-              ></ion-select>
+              [placeholder]="field.placeholder ?? ''"
+              [options]="field.options"
+              [multiple]="field.multiple ?? false"
+              [enableSearch]="field.enableSearch ?? false"
+              [disabled]="field.disabled ?? false"
+              [propValue]="field.propValue ?? 'key'"
+              [propLabel]="field.propLabel ?? 'label'"
+              [value]="formGroup().get(field.key)?.value"
+              [invalid]="
+                !!(
+                  formGroup().get(field.key)?.invalid &&
+                  formGroup().get(field.key)?.touched
+                )
+              "
+              (valueChange)="onValueChange(field.key, $event)"
+              (search)="onSearch(field, $event)"
+            ></ion-select>
           } @else if (isInput(field)) {
             <ion-input
               [placeholder]="field.placeholder ?? ''"
@@ -276,13 +276,17 @@ export class BnFormComponent implements OnInit {
   }>();
 
   ngOnInit(): void {
-    
     this.searchSubject
       .pipe(
-        debounce((data) => timer(data.field.refresh?.debounceTime ?? this.defaultDebounceTime)),
+        debounce((data) =>
+          timer(data.field.refresh?.debounceTime ?? this.defaultDebounceTime),
+        ),
       )
       .subscribe(({ field, search }) => {
-        console.log(`[BnForm] Executing debounced refresh for ${field.key}:`, search);
+        console.log(
+          `[BnForm] Executing debounced refresh for ${field.key}:`,
+          search,
+        );
         if (field.refresh?.use) {
           field.refresh.use(field, search);
         }

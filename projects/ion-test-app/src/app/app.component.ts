@@ -66,13 +66,16 @@ import {
 import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
 import { BnFormComponent } from '../../../ion/src/lib/core/bn-form/bn-form.component';
 import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service';
-import { BnFormField, BnSelectFormField } from '../../../ion/src/lib/core/bn-form/bn-form.types';
+import {
+  BnFormField,
+  BnSelectFormField,
+} from '../../../ion/src/lib/core/bn-form/bn-form.types';
 import { Validators } from '@angular/forms';
 
 type FromYourRepository = {
   id?: number;
   title?: string;
-}
+};
 
 @Component({
   standalone: true,
@@ -699,8 +702,9 @@ export class AppComponent implements OnInit {
       propLabel: 'title',
       enableSearch: true,
       refresh: {
-        use: (field: BnSelectFormField, search?: string) => this.refreshCities(field, search)
-      }
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshCities(field, search),
+      },
     },
     {
       type: 'select',
@@ -714,9 +718,10 @@ export class AppComponent implements OnInit {
       propLabel: 'title',
       enableSearch: true,
       refresh: {
-        use: (field: BnSelectFormField, search?: string) => this.refreshStates(field, search),
-        debounceTime: 1500
-      }
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshStates(field, search),
+        debounceTime: 1500,
+      },
     },
     // {
     //   key: 'basicInput',
@@ -869,9 +874,11 @@ export class AppComponent implements OnInit {
 
     console.log(search);
 
-    this.http.get('https://jsonplaceholder.typicode.com/posts', {params}).subscribe((res: any) => {
-      field.options = res;
-    });
+    this.http
+      .get('https://jsonplaceholder.typicode.com/posts', { params })
+      .subscribe((res: any) => {
+        field.options = res;
+      });
   }
 
   refreshStates(field: BnSelectFormField, search?: string): void {
@@ -883,8 +890,12 @@ export class AppComponent implements OnInit {
 
     console.log(search);
 
-    this.http.get('https://jsonplaceholder.typicode.com/posts', {params: {...params}}).subscribe((res: any) => {
-      field.options = res;
-    });
+    this.http
+      .get('https://jsonplaceholder.typicode.com/posts', {
+        params: { ...params },
+      })
+      .subscribe((res: any) => {
+        field.options = res;
+      });
   }
 }
