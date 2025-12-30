@@ -67,6 +67,14 @@ export class IonPopoverDirective implements OnDestroy {
       return;
     }
 
+    const ionOnFirstAction = new EventEmitter<void>();
+    const ionOnSecondAction = new EventEmitter<void>();
+    const ionOnClose = new EventEmitter<void>();
+
+    ionOnFirstAction.subscribe(() => this.ionOnFirstAction.emit());
+    ionOnSecondAction.subscribe(() => this.ionOnSecondAction.emit());
+    ionOnClose.subscribe(() => this.ionOnClose.emit());
+
     this.popoverService.open(
       hostElement,
       {
@@ -79,9 +87,9 @@ export class IonPopoverDirective implements OnDestroy {
         ionPopoverPosition: this.ionPopoverPosition(),
         ionPopoverKeep: this.ionPopoverKeep(),
         ionPopoverCustomClass: this.ionPopoverCustomClass(),
-        ionOnFirstAction: new EventEmitter<void>(),
-        ionOnSecondAction: new EventEmitter<void>(),
-        ionOnClose: new EventEmitter<void>(),
+        ionOnFirstAction,
+        ionOnSecondAction,
+        ionOnClose,
       },
       this.ionPopoverStopCloseOnScroll(),
       this.ionPopoverAutoReposition(),

@@ -1,0 +1,68 @@
+<div class="component-page">
+  <h1>Buttons</h1>
+  <p class="description">
+    Buttons allow users to take actions, and make choices, with a single tap.
+  </p>
+
+  <section>
+    <h2>Button Variants</h2>
+    <div style="display: flex; gap: 10px">
+      <ion-button label="Primary"></ion-button>
+      <ion-button label="Secondary" type="secondary"></ion-button>
+      <ion-button label="Ghost" type="ghost"></ion-button>
+      <ion-button label="Dashed" type="dashed"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Button Sizes</h2>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <ion-button label="Small" size="sm"></ion-button>
+      <ion-button label="Medium" size="md"></ion-button>
+      <ion-button label="Large" size="lg"></ion-button>
+      <ion-button label="X-Large" size="xl"></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Button with Icons</h2>
+    <div style="display: flex; gap: 10px; align-items: center">
+      <ion-button label="Edit" iconType="pencil"></ion-button>
+      <ion-button label="Delete" iconType="trash" type="secondary"></ion-button>
+      <ion-button
+        label="Right Icon"
+        iconType="star"
+        [rightSideIcon]="true"
+      ></ion-button>
+      <ion-button iconType="plus" [circularButton]="true"></ion-button>
+      <ion-button
+        iconType="close"
+        [circularButton]="true"
+        type="ghost"
+      ></ion-button>
+      <ion-button
+        label="Dropdown"
+        [options]="[{ label: 'option 1' }, { label: 'option 2' }]"
+        [dropdownConfig]="{ required: true }"
+      ></ion-button>
+      <ion-button
+        label="Multiple Selection"
+        [multiple]="true"
+        [options]="[
+          { label: 'Item 1' },
+          { label: 'Item 2' },
+          { label: 'Item 3' },
+        ]"
+      ></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>States</h2>
+    <div style="display: flex; gap: 10px">
+      <ion-button label="Loading" [loading]="true"></ion-button>
+      <ion-button label="Disabled" [disabled]="true"></ion-button>
+      <ion-button label="Danger" [danger]="true"></ion-button>
+    </div>
+  </section>
+</div>

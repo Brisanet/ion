@@ -1,0 +1,79 @@
+<div class="component-page">
+  <h1>Popover</h1>
+  <p class="description">
+    Popovers are used to provide additional information or actions on demand.
+  </p>
+
+  <ng-template #simpleBody>
+    <div style="padding: 8px">
+      <p>This is a simple popover content.</p>
+    </div>
+  </ng-template>
+
+  <section>
+    <h2>Basic Usage (Click)</h2>
+    <div style="display: flex; gap: 20px">
+      <ion-button
+        label="Click me"
+        ionPopover
+        ionPopoverTitle="Popover Title"
+        [ionPopoverBody]="simpleBody"
+      ></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Trigger Types</h2>
+    <div style="display: flex; gap: 20px">
+      <ion-button
+        label="Hover me"
+        ionPopover
+        ionPopoverTitle="Hover Popover"
+        [ionPopoverBody]="simpleBody"
+        [ionPopoverTrigger]="PopoverTrigger.HOVER"
+      ></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Positions</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap">
+      <ion-button
+        label="Right Top"
+        ionPopover
+        ionPopoverTitle="Right Top"
+        [ionPopoverBody]="simpleBody"
+        [ionPopoverPosition]="PopoverPosition.RIGHT_TOP"
+      ></ion-button>
+      <ion-button
+        label="Top Center"
+        ionPopover
+        ionPopoverTitle="Top Center"
+        [ionPopoverBody]="simpleBody"
+        [ionPopoverPosition]="PopoverPosition.TOP_CENTER"
+      ></ion-button>
+      <ion-button
+        label="Bottom Center"
+        ionPopover
+        ionPopoverTitle="Bottom Center"
+        [ionPopoverBody]="simpleBody"
+        [ionPopoverPosition]="PopoverPosition.BOTTOM_CENTER"
+      ></ion-button>
+    </div>
+  </section>
+
+  <section>
+    <h2>With Actions</h2>
+    <div style="display: flex; gap: 20px">
+      <ion-button
+        label="Popover with Actions"
+        ionPopover
+        ionPopoverTitle="Actions"
+        [ionPopoverBody]="simpleBody"
+        [ionPopoverActions]="actions"
+        (ionOnFirstAction)="handleFirstAction()"
+        (ionOnSecondAction)="handleSecondAction()"
+      ></ion-button>
+    </div>
+  </section>
+</div>
