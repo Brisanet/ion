@@ -652,7 +652,10 @@ export class AppComponent implements OnInit {
       placeholder: 'Digite seu nome',
       initialValue: 'Iury',
       iconInput: 'image-user',
-      iconDirection: 'left'
+      iconDirection: 'left',
+      validators: [
+        Validators.minLength(3),
+      ],
     },
     {
       key: 'sobrenome',
@@ -660,6 +663,9 @@ export class AppComponent implements OnInit {
       type: 'text',
       label: 'Sobrenome',
       placeholder: 'Digite seu sobrenome',
+      onlyShowWhen: () => {
+        return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
+      },
     },
     {
       key: 'email',
@@ -719,6 +725,9 @@ export class AppComponent implements OnInit {
       propValue: 'id',
       propLabel: 'title',
       enableSearch: true,
+      onlyShowWhen: () => {
+        return this.formGroup.get('city')?.value === 2
+      },
       refresh: {
         use: (field: BnSelectFormField, search?: string) =>
           this.refreshStates(field, search),

@@ -38,95 +38,91 @@ import {
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {
-        <div [class]="field.className || 'col-12'" class="bn-form-field">
-          <h3>
-            {{ field.label }}
-            @if (field.required) {
-              <span class="required-asterisk">*</span>
+        @if (showField(field)) {
+          <div [class]="field.className || 'col-12'" class="bn-form-field">
+            <h3>
+              {{ field.label }}
+              @if (field.required) {
+                <span class="required-asterisk">*</span>
+              }
+            </h3>
+  
+            @if (isTripleToggle(field)) {
+              <ion-triple-toggle
+                [value]="formGroup().get(field.key)?.value"
+                [disabled]="field.disabled ?? false"
+                [size]="field.size ?? 'md'"
+                [options]="field.options"
+                [onlyShowIcon]="field.onlyShowIcon ?? false"
+                (ionClick)="onValueChange(field.key, $event)"
+              ></ion-triple-toggle>
+            } @else if (isSwitch(field)) {
+              <ion-switch
+                [value]="formGroup().get(field.key)?.value"
+                [disabled]="field.disabled ?? false"
+                [size]="field.size ?? 'md'"
+                (atValueChange)="onValueChange(field.key, $event)"
+              ></ion-switch>
+            } @else if (isDatePicker(field)) {
+              <ion-date-picker
+                [format]="field.format ?? 'YYYY-MM-DD'"
+                [formatInDateInput]="field.formatInDateInput ?? 'YYYY-MM-DD'"
+                [rangePicker]="field.rangePicker ?? false"
+                [direction]="field.direction"
+                [disabledDate]="field.disabledDate"
+                [predefinedRanges]="field.predefinedRanges ?? []"
+                (event)="onValueChange(field.key, $event)"
+              ></ion-date-picker>
+            } @else if (isSelect(field)) {
+              <ion-select
+                [placeholder]="field.placeholder ?? ''"
+                [options]="field.options"
+                [multiple]="field.multiple ?? false"
+                [enableSearch]="field.enableSearch ?? false"
+                [disabled]="field.disabled ?? false"
+                [propValue]="field.propValue ?? 'key'"
+                [propLabel]="field.propLabel ?? 'label'"
+                [loading]="field.loading || false"
+                [value]="formGroup().get(field.key)?.value"
+                [invalid]="
+                  !!(
+                    formGroup().get(field.key)?.invalid &&
+                    formGroup().get(field.key)?.touched
+                  )
+                "
+                (valueChange)="onValueChange(field.key, $event)"
+                (search)="onSearch(field, $event)"
+              ></ion-select>
+            } @else if (isInput(field)) {
+              <ion-input
+                [placeholder]="field.placeholder ?? ''"
+                [inputType]="field.type ?? 'text'"
+                [disabled]="field.disabled ?? false"
+                [readonly]="field.readonly ?? false"
+                [maxLength]="field.maxLength ?? null"
+                [clearButton]="field.clearButton ?? false"
+                [iconInput]="field.iconInput ?? ''"
+                [iconDirection]="field.iconDirection"
+                [inputButton]="field.inputButton ?? false"
+                [inputButtonConfig]="field.inputButtonConfig"
+                [invalid]="
+                  !!(
+                    formGroup().get(field.key)?.invalid &&
+                    formGroup().get(field.key)?.touched
+                  )
+                "
+                [errorMsg]="field.errorMsg ?? ''"
+                [value]="formGroup().get(field.key)?.value"
+                (valueChange)="onValueChange(field.key, $event)"
+                (clickButton)="
+                  field.onClickButton
+                    ? field.onClickButton(formGroup().get(field.key)?.value)
+                    : null
+                "
+              ></ion-input>
             }
-          </h3>
-
-          @if (isTripleToggle(field)) {
-            <ion-triple-toggle
-              [value]="formGroup().get(field.key)?.value"
-              [disabled]="field.disabled ?? false"
-              [size]="field.size ?? 'md'"
-              [options]="field.options"
-              [onlyShowIcon]="field.onlyShowIcon ?? false"
-              (ionClick)="onValueChange(field.key, $event)"
-            ></ion-triple-toggle>
-          } @else if (isSwitch(field)) {
-            <ion-switch
-              [value]="formGroup().get(field.key)?.value"
-              [disabled]="field.disabled ?? false"
-              [size]="field.size ?? 'md'"
-              (atValueChange)="onValueChange(field.key, $event)"
-            ></ion-switch>
-          } @else if (isDatePicker(field)) {
-            <ion-date-picker
-              [format]="field.format ?? 'YYYY-MM-DD'"
-              [formatInDateInput]="field.formatInDateInput ?? 'YYYY-MM-DD'"
-              [rangePicker]="field.rangePicker ?? false"
-              [direction]="field.direction"
-              [disabledDate]="field.disabledDate"
-              [predefinedRanges]="field.predefinedRanges ?? []"
-              (event)="onValueChange(field.key, $event)"
-            ></ion-date-picker>
-          } @else if (isSelect(field)) {
-            <ion-select
-              [placeholder]="field.placeholder ?? ''"
-              [options]="field.options"
-              [multiple]="field.multiple ?? false"
-              [enableSearch]="field.enableSearch ?? false"
-              [disabled]="field.disabled ?? false"
-              [propValue]="field.propValue ?? 'key'"
-              [propLabel]="field.propLabel ?? 'label'"
-              [loading]="field.loading || false"
-              [value]="formGroup().get(field.key)?.value"
-              [invalid]="
-                !!(
-                  formGroup().get(field.key)?.invalid &&
-                  formGroup().get(field.key)?.touched
-                )
-              "
-              (valueChange)="onValueChange(field.key, $event)"
-              (search)="onSearch(field, $event)"
-            ></ion-select>
-          } @else if (isInput(field)) {
-            <ion-input
-              [placeholder]="field.placeholder ?? ''"
-              [inputType]="field.type ?? 'text'"
-              [disabled]="field.disabled ?? false"
-              [readonly]="field.readonly ?? false"
-              [maxLength]="field.maxLength ?? null"
-              [clearButton]="field.clearButton ?? false"
-              [iconInput]="field.iconInput ?? ''"
-              [iconDirection]="field.iconDirection"
-              [inputButton]="field.inputButton ?? false"
-              [inputButtonConfig]="field.inputButtonConfig"
-              [invalid]="
-                !!(
-                  formGroup().get(field.key)?.invalid &&
-                  formGroup().get(field.key)?.touched
-                )
-              "
-              [errorMsg]="field.errorMsg ?? ''"
-              [value]="formGroup().get(field.key)?.value"
-              (valueChange)="onValueChange(field.key, $event)"
-              (clickButton)="
-                field.onClickButton
-                  ? field.onClickButton(formGroup().get(field.key)?.value)
-                  : null
-              "
-            ></ion-input>
-          }
-
-          <!-- {{formGroup().get(field.key)?.value}} -->
-
-          <!-- @if (formGroup().get(field.key)?.invalid && formGroup().get(field.key)?.touched) {
-            <p class="error-text">{{ field.errorMsg }}</p>
-          } -->
-        </div>
+          </div>
+        }
       }
     </form>
   `,
@@ -320,6 +316,13 @@ export class BnFormComponent implements OnInit {
       control.markAsDirty();
       control.markAsTouched();
     }
+  }
+
+  showField(field: BnFormField): boolean {
+    if (field.onlyShowWhen) {
+      return field.onlyShowWhen();
+    }
+    return true;
   }
 
   isInput(field: BnFormField): field is BnInputFormField {
