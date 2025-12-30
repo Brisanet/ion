@@ -56,6 +56,7 @@ export class IonDropdownComponent implements AfterViewChecked {
 
   // ViewChild
   optionList = viewChild<ElementRef>('optionList');
+  searchInput = viewChild<ElementRef>('searchInput');
 
   // Signals
   iconSize = signal(16);
@@ -100,6 +101,14 @@ export class IonDropdownComponent implements AfterViewChecked {
       if (opts && opts.length > 0) {
         const selectedItems = opts.filter((option) => option.selected);
         this.dropdownSelectedItems.set(selectedItems);
+      }
+    });
+
+    // Focus search input when it appears
+    effect(() => {
+      const input = this.searchInput();
+      if (input && this.enableSearch()) {
+        input.nativeElement.focus();
       }
     });
   }

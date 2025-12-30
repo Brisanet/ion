@@ -167,6 +167,13 @@ describe('IonDropdownComponent', () => {
 
       expect(spy).toHaveBeenCalledWith('test');
     });
+
+    it('should focus the search input when it is rendered', () => {
+      const searchInput = fixture.debugElement.query(
+        By.css('input[type="text"]'),
+      ).nativeElement;
+      expect(document.activeElement).toBe(searchInput);
+    });
   });
 
   describe('No Data', () => {
