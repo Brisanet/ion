@@ -29,7 +29,7 @@ export interface BnBaseFormField {
   disabled?: boolean;
   required?: boolean;
   errorMsg?: string;
-  onlyShowWhen?: () => boolean;
+  onlyShowWhen?: (form: any) => boolean;
 }
 
 export interface BnInputFormField extends BnBaseFormField {

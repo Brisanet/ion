@@ -92,11 +92,12 @@ export class IonModalComponent {
     this.ionOnClose.emit(valueToEmit);
   }
 
-  setContentInstanceParams<T>(
-    instance: T,
-    params: Partial<T> | undefined,
-  ): void {
-    Object.assign(instance as any, params as any);
+  setContentInstanceParams(params: any): void {
+    if (params && this.componentRef) {
+      Object.entries(params).forEach(([key, value]) => {
+        this.componentRef.setInput(key, value);
+      });
+    }
   }
 
   emitHeaderButtonAction(valueToEmit: IonModalResponse | undefined): void {
@@ -111,10 +112,7 @@ export class IonModalComponent {
         this.componentRef = this.modalBody.createComponent(component);
 
         if (this.configuration().ionParams) {
-          this.setContentInstanceParams(
-            this.componentRef.instance,
-            this.configuration().ionParams,
-          );
+          this.setContentInstanceParams(this.configuration().ionParams);
         }
         this.componentRef.changeDetectorRef.detectChanges();
       }

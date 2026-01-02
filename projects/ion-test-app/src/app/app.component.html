@@ -25,6 +25,10 @@
     [fields]="aboutFields"
     (applied)="handleFilterApplied($event)"></bn-about>
 
+  <div style="margin-top: 20px;">
+    <ion-button label="Abrir Wizard" (ionOnClick)="openWizard()"></ion-button>
+  </div>
+
   <section>
     <h2>Testes rápidos</h2>
       <ng-template #popoverTemplate>

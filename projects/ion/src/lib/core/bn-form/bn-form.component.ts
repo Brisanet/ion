@@ -329,7 +329,7 @@ export class BnFormComponent implements OnInit {
 
   showField(field: BnFormField): boolean {
     if (field.onlyShowWhen) {
-      return field.onlyShowWhen();
+      return field.onlyShowWhen(this.formGroup());
     }
     return true;
   }

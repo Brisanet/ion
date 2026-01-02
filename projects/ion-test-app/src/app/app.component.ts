@@ -68,7 +68,9 @@ import {
   IonPaginationComponent,
   BnFormComponent,
   BnFormService,
-  BnAboutComponent
+  BnAboutComponent,
+  BnWizardComponent,
+  BnWizardConfig
 } from 'ion';
 import { Validators } from '@angular/forms';
 
@@ -157,6 +159,7 @@ class ModalLongContentComponent {
     BnFormComponent,
     BnFilterComponent,
     BnAboutComponent,
+    BnWizardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -210,6 +213,76 @@ export class AppComponent implements OnInit {
 
   handleFilterApplied(filters: any): void {
     console.log('Filters applied:', filters);
+  }
+
+  openWizard(): void {
+    const bnWizardConfig: BnWizardConfig = {
+      title: 'Cadastro de Exames',
+      steps: [
+        {
+          title: 'Descrição',
+          fields: [
+            {
+              key: 'nome',
+              className: 'col-6',
+              type: 'text',
+              label: 'Nome',
+              placeholder: 'Digite seu nome',
+              initialValue: 'Iury',
+              iconInput: 'image-user',
+              iconDirection: 'left',
+              validators: [Validators.required, Validators.minLength(3)],
+            },
+            {
+              key: 'sobrenome',
+              className: 'col-6',
+              type: 'text',
+              label: 'Sobrenome',
+              placeholder: 'Digite seu sobrenome',
+              onlyShowWhen: (form) =>
+                form.get('nome')?.value && form.get('nome')?.valid,
+              validators: [Validators.minLength(3)],
+            },
+          ],
+        },
+        {
+          title: 'Configurações',
+          fields: [
+            {
+              key: 'ativo',
+              type: 'switch',
+              label: 'Ativo',
+              className: 'col-6',
+            },
+            {
+              key: 'prioridade',
+              type: 'triple-toggle',
+              label: 'Prioridade',
+              className: 'col-6',
+              options: [
+                { value: 'baixa', label: 'Baixa' },
+                { value: 'alta', label: 'Alta' },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    this.modalService
+      .open(BnWizardComponent, {
+        title: bnWizardConfig.title,
+        width: 800,
+        footer: {
+          hide: true,
+        },
+        ionParams: {
+          config: bnWizardConfig,
+        },
+      })
+      .subscribe((result) => {
+        console.log('Wizard finished with result:', result);
+      });
   }
 
   // BnAbout config
@@ -770,6 +843,9 @@ export class AppComponent implements OnInit {
       onlyShowWhen: () => {
         return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
       },
+      validators: [
+        Validators.minLength(3),
+      ],
     },
     {
       key: 'email',

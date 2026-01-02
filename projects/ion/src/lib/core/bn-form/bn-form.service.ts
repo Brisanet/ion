@@ -23,11 +23,29 @@ export class BnFormService {
       }
 
       group[field.key] = new FormControl(
-        { value: field.initialValue ?? '', disabled: field.disabled ?? false },
+        { value: this.initialValue(field), disabled: field.disabled ?? false },
         validators,
       );
     });
 
     return this.fb.group(group);
+  }
+
+  initialValue(field: BnFormField) {
+    if (field.initialValue != null) {
+      return field.initialValue;
+    }
+
+    const defaultValues: Record<string, boolean | undefined | []> = {
+      'switch': false,
+      'triple-toggle': undefined,
+      'select': [],
+    };
+
+    if (!field.type) {
+      return '';
+    }
+
+    return field.type in defaultValues ? defaultValues[field.type] : '';
   }
 }
