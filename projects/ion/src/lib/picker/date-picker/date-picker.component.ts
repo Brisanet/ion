@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   computed,
+  effect,
   input,
   output,
   signal,
@@ -58,6 +59,7 @@ export class IonDatepickerComponent {
     CalendarDirection.bottomLeft,
   );
   disabledDate = input<IonDatePickerComponentProps['disabledDate']>();
+  value = input<string[]>([]);
   event = output<string[]>();
 
   currentDate = signal<string[]>([]);
@@ -141,6 +143,19 @@ export class IonDatepickerComponent {
 
   constructor(private host: ElementRef<HTMLElement>) {
     this.elementRef = host;
+
+    effect(
+      () => {
+        const value = this.value();
+        if (value && value.length > 0) {
+          const days = value.map((v) => new Day(new Date(v)));
+          this.selectedDay.set(days);
+        } else {
+          this.selectedDay.set([]);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   setVisibleCalendar(visible: boolean): void {

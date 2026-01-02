@@ -71,6 +71,7 @@ import {
                 [direction]="field.direction"
                 [disabledDate]="field.disabledDate"
                 [predefinedRanges]="field.predefinedRanges ?? []"
+                [value]="formGroup().get(field.key)?.value"
                 (event)="onValueChange(field.key, $event)"
               ></ion-date-picker>
             } @else if (isSelect(field)) {

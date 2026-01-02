@@ -41,7 +41,7 @@ export class IonSelectComponent {
   propLabel = input<string>('label');
   propValue = input<string>('key');
   loading = input<boolean>(false);
-  value = input<any>(null); // New input for initial value or binding
+  value = input<any>(undefined); // New input for initial value or binding
 
   // Outputs
   selected = output<DropdownItem[]>();
@@ -59,45 +59,40 @@ export class IonSelectComponent {
       () => {
         const options = this.options();
         const value = this.value();
+        const prop = this.propValue();
 
-        if (value) {
-          const prop = this.propValue();
+        if (value !== undefined) {
           let selected: DropdownItem[] = [];
-          if (Array.isArray(value)) {
-            // Handle array of values (keys or objects)
-            selected = options.filter((opt) =>
-              value.some((val) =>
-                typeof val === 'object'
-                  ? (val as any)[prop] === (opt as any)[prop]
-                  : val === (opt as any)[prop],
-              ),
-            );
-          } else {
-            // Handle single value
-            selected = options.filter((opt) =>
-              typeof value === 'object'
-                ? (value as any)[prop] === (opt as any)[prop]
-                : value === (opt as any)[prop],
-            );
+          if (value !== null && value !== '') {
+            if (Array.isArray(value)) {
+              // Handle array of values (keys or objects)
+              selected = options.filter((opt) =>
+                value.some((val) =>
+                  typeof val === 'object'
+                    ? (val as any)[prop] === (opt as any)[prop]
+                    : val === (opt as any)[prop],
+                ),
+              );
+            } else {
+              // Handle single value
+              selected = options.filter((opt) =>
+                typeof value === 'object'
+                  ? (value as any)[prop] === (opt as any)[prop]
+                  : value === (opt as any)[prop],
+              );
+            }
           }
-          // Only update if finding matches, or if we want to clear when value is empty (but here value is checked as truthy)
-          if (selected.length > 0) {
-            this.dropdownSelectedItems.set(selected);
-            // We might want to mark them as selected in the options array too if that's how dropdown works,
-            // but dropdownSelectedItems is the local truth for display.
-            // However, if options are re-supplied, we need to ensure consistency.
-            options
-              .filter((opt) =>
-                selected.some((s) => (s as any)[prop] === (opt as any)[prop]),
-              )
-              .forEach((opt) => (opt.selected = true));
-          }
+          this.dropdownSelectedItems.set(selected);
+
+          options.forEach((opt) => {
+            opt.selected = selected.some(
+              (s) => (s as any)[prop] === (opt as any)[prop],
+            );
+          });
         } else {
           // Fallback to options marked as selected if no value input is provided
           const selected = options.filter((option) => option.selected);
-          if (selected.length > 0) {
-            this.dropdownSelectedItems.set(selected);
-          }
+          this.dropdownSelectedItems.set(selected);
         }
       },
       { allowSignalWrites: true },
