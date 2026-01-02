@@ -5,6 +5,14 @@
         [steps]="stepsForIndicator()"
         [current]="currentStepIndex() + 1"
       ></ion-steps>
+
+      @if (config().steps[currentStepIndex()].alert) {
+        <ion-alert
+          [message]="config().steps[currentStepIndex()].alert!.message"
+          [hideBackground]="true"
+          [type]="config().steps[currentStepIndex()].alert!.type"
+        ></ion-alert>
+      }
     </div>
   }
 
@@ -17,6 +25,7 @@
       <ion-button
         label="Cancelar"
         type="ghost"
+        [danger]="true"
         (ionOnClick)="cancel()"
       ></ion-button>
     </div>

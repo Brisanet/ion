@@ -6,6 +6,9 @@
 }
 
 .bn-wizard-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
   padding-bottom: 24px;
 }
 
@@ -17,7 +20,7 @@
   display: flex;
   gap: 16px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-top: 24px;
   border-top: 1px solid var(--main-neutral-4, #ced2db);
   margin-top: 24px;

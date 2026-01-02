@@ -221,10 +221,14 @@ export class AppComponent implements OnInit {
       steps: [
         {
           title: 'Descrição',
+          alert: {
+            message: 'Preencha os campos abaixo com as informações que deseja cadastrar,  também é possível associar este novo módulo a perfis já existentes no sistema.',
+            type: 'info',
+          },
           fields: [
             {
               key: 'nome',
-              className: 'col-6',
+              className: 'col-12',
               type: 'text',
               label: 'Nome',
               placeholder: 'Digite seu nome',
@@ -235,7 +239,7 @@ export class AppComponent implements OnInit {
             },
             {
               key: 'sobrenome',
-              className: 'col-6',
+              className: 'col-12',
               type: 'text',
               label: 'Sobrenome',
               placeholder: 'Digite seu sobrenome',

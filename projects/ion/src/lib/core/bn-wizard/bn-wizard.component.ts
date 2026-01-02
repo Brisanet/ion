@@ -15,6 +15,7 @@ import { IonButtonComponent } from '../../button/button.component';
 import { IonModalService } from '../../modal/modal.service';
 import { BnWizardConfig } from './bn-wizard.types';
 import { StepType } from '../../core/types';
+import { IonAlertComponent } from "../../alert/alert.component";
 
 @Component({
   selector: 'bn-wizard',
@@ -25,7 +26,8 @@ import { StepType } from '../../core/types';
     IonStepsComponent,
     BnFormComponent,
     IonButtonComponent,
-  ],
+    IonAlertComponent
+],
   templateUrl: './bn-wizard.component.html',
   styleUrls: ['./bn-wizard.component.scss'],
 })
