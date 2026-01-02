@@ -19,6 +19,12 @@
     [fields]="filterFields()"
     (applied)="handleFilterApplied($event)"></bn-filter>
 
+  <bn-about
+    [headerButton]="headerButton"
+    [pageTitle]="pageTitle"
+    [fields]="aboutFields"
+    (applied)="handleFilterApplied($event)"></bn-about>
+
   <section>
     <h2>Testes rápidos</h2>
       <ng-template #popoverTemplate>

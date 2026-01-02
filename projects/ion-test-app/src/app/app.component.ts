@@ -67,7 +67,8 @@ import {
   BnSelectFormField,
   IonPaginationComponent,
   BnFormComponent,
-  BnFormService
+  BnFormService,
+  BnAboutComponent
 } from 'ion';
 import { Validators } from '@angular/forms';
 
@@ -154,7 +155,8 @@ class ModalLongContentComponent {
     IonIndicatorComponent,
     IonSelectComponent,
     BnFormComponent,
-    BnFilterComponent
+    BnFilterComponent,
+    BnAboutComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -209,6 +211,63 @@ export class AppComponent implements OnInit {
   handleFilterApplied(filters: any): void {
     console.log('Filters applied:', filters);
   }
+
+  // BnAbout config
+  headerButton = {
+    action: () => console.log('Header button clicked'),
+    label: 'Imprimir solicitação'
+  };
+
+  pageTitle = {
+    title: 'Detalhes da solicitação',
+    icon: 'receipt'
+  };
+
+  aboutFields: BnFormField[] = [
+    {
+      key: 'solicitacao_id',
+      label: 'Nº da solicitação',
+      placeholder: 'Nº da solicitação',
+      className: 'col-3',
+      initialValue: '1234567-ABCDEF',
+    },
+    {
+      key: 'centro_id',
+      label: 'Centro de origem',
+      placeholder: 'Centro de origem',
+      className: 'col-3',
+      initialValue: 'AAAABBBBCCC',
+    },
+    {
+      key: 'projeto_id',
+      label: 'Projeto',
+      placeholder: 'Projeto',
+      className: 'col-3',
+      initialValue: 'Projeto ABC',
+    },
+    {
+      key: 'setor_id',
+      label: 'Setor',
+      placeholder: 'Setor',
+      className: 'col-3',
+      initialValue: 'Logistica',
+    },
+    // {
+    //   key: 'obs',
+    //   type: 'textarea',
+    //   label: 'Observação',
+    //   placeholder: 'Observação',
+    //   className: 'col-12',
+    //   initialValue: 'Material material material  material material  material material  material material  material material  material material  material material ',
+    // },
+    {
+      key: 'status_id',
+      label: 'Status',
+      placeholder: 'Status',
+      className: 'col-3',
+      initialValue: 'Em andamento',
+    },
+  ];
 
   // Avatar types for template
   AvatarType = AvatarType;
