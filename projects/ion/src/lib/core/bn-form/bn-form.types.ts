@@ -6,8 +6,8 @@ import {
   Size,
   SwitchSize,
   CalendarDirection,
-  PreDefinedRangeConfig,
-} from 'ion';
+} from '../types';
+import { PreDefinedRangeConfig } from '../../picker/predefined-range-picker/predefined-range-picker.component';
 
 export type BnFormFieldType =
   | 'text'

@@ -9,11 +9,19 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounce, finalize, Subject, timer } from 'rxjs';
 import {
   IonInputComponent,
+} from '../../input/input.component';
+import {
   IonTripleToggleComponent,
+} from '../../triple-toggle/triple-toggle.component';
+import {
   IonSwitchComponent,
+} from '../../switch/switch.component';
+import {
   IonDatepickerComponent,
+} from '../../picker/date-picker/date-picker.component';
+import {
   IonSelectComponent,
-} from 'ion';
+} from '../../select/select.component';
 import {
   BnFormField,
   BnInputFormField,

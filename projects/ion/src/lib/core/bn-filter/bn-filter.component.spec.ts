@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BnFilterComponent } from './bn-filter.component';
-import { BnFormField } from '../forms/bn-form.types';
+import { BnFormField } from '../bn-form/bn-form.types';
 
 describe('BnFilterComponent', () => {
   let component: BnFilterComponent;

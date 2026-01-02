@@ -1,8 +1,8 @@
 import { Component, computed, inject, input, output, signal } from '@angular/core';
-import { IonButtonComponent } from 'ion';
 import { BnFormField } from '../bn-form/bn-form.types';
 import { BnFormService } from '../bn-form/bn-form.service';
 import { BnFormComponent } from '../bn-form/bn-form.component';
+import { IonButtonComponent } from '../../button/button.component';
 
 @Component({
   standalone: true,

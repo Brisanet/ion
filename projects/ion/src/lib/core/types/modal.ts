@@ -1,7 +1,9 @@
 import { ComponentRef } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { IconType, IonAlertProps, IonButtonProps } from './index';
+import { IconType } from './icon';
+import { IonAlertProps } from './alert';
+import { IonButtonProps } from './button';
 import { SafeAny } from '../../utils/safe-any';
 
 export interface IonModalConfiguration {
