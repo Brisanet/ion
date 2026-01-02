@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, inject } from '@angular/core';
+import { Component, ViewChild, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -62,14 +62,13 @@ import {
   IonIndicatorButtonType,
   IonSelectComponent,
   DropdownItem,
-} from 'ion';
-import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
-import { BnFormComponent } from '../../../ion/src/lib/core/bn-form/bn-form.component';
-import { BnFormService } from '../../../ion/src/lib/core/bn-form/bn-form.service';
-import {
+  BnFilterComponent,
   BnFormField,
   BnSelectFormField,
-} from '../../../ion/src/lib/core/bn-form/bn-form.types';
+  IonPaginationComponent,
+  BnFormComponent,
+  BnFormService
+} from 'ion';
 import { Validators } from '@angular/forms';
 
 type FromYourRepository = {
@@ -155,6 +154,7 @@ class ModalLongContentComponent {
     IonIndicatorComponent,
     IonSelectComponent,
     BnFormComponent,
+    BnFilterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -164,6 +164,51 @@ export class AppComponent implements OnInit {
   private modalService: IonModalService = inject(IonModalService);
   private bnFormService = inject(BnFormService);
   title = 'ion-test-app';
+
+  filterFields = signal<BnFormField[]>([
+    {
+      key: 'name',
+      label: 'Nome',
+      placeholder: 'Filtrar por nome...',
+      className: 'col-6',
+      // required: true,
+    },
+    {
+      key: 'gender',
+      label: 'Gênero',
+      type: 'triple-toggle',
+      options: [
+        { value: 'male', label: 'Masculino', icon: 'male' },
+        { value: 'female', label: 'Feminino', icon: 'female' },
+      ],
+      className: 'col-6'
+    },
+    {
+      key: 'datepickerRange',
+      label: 'Date Range Picker',
+      type: 'datepicker',
+      rangePicker: true,
+      className: 'col-md-4',
+    },
+    {
+      type: 'select',
+      key: 'city',
+      className: 'col-md-8',
+      label: 'Cidade',
+      placeholder: 'Selecione uma cidade',
+      initialValue: 'São Paulo',
+      propValue: 'label',
+      options: [
+        { label: 'São Paulo' },
+        { label: 'Rio de Janeiro' },
+        { label: 'Belo Horizonte' },
+      ],
+    }
+  ]);
+
+  handleFilterApplied(filters: any): void {
+    console.log('Filters applied:', filters);
+  }
 
   // Avatar types for template
   AvatarType = AvatarType;

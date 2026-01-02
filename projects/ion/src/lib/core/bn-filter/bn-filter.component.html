@@ -1,0 +1,29 @@
+<div class="bn-filter-container">
+    <div class="bn-filter-header">
+        <span class="title">{{ pageTitle() }}</span>
+        <ion-button
+            label="Filtros"
+            type="secondary"
+            [iconType]="open() ? 'semi-up' : 'semi-down'"
+            (click)="open.set(!open())"></ion-button>
+    </div>
+
+    @if (open()) {
+      <div class="divider"></div>
+      <div class="filter-content">
+        <bn-form [formGroup]="formGroup()" [fields]="fields()"></bn-form>
+      </div>
+
+      <div class="bn-filter-footer">
+        @if (hasRequiredFields()) {
+          <div>
+            <span class="required-text">Preencha todos os campos obrigatórios para continuar</span>
+          </div>
+        }
+        <div class="actions">
+          <ion-button label="Limpar" type="ghost" iconType="trash" (click)="clear()"></ion-button>
+          <ion-button label="Aplicar" type="primary" iconType="check" (click)="apply()" [disabled]="formGroup().invalid"></ion-button>
+        </div>
+      </div>
+    }
+</div>

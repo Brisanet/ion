@@ -14,6 +14,36 @@
     <ion-button label="Enviar" (click)="submitForm()"></ion-button>
   </div>
 
+  <bn-filter
+    pageTitle="Filtros de Personagens"
+    [fields]="filterFields()"
+    (applied)="handleFilterApplied($event)"></bn-filter>
+
+  <section>
+    <h2>Testes rápidos</h2>
+      <ng-template #popoverTemplate>
+        <div style="padding: 16px">
+          <h3 style="margin-top: 0">Custom Content</h3>
+          <p>{{ popoverBodyContent }}</p>
+        </div>
+      </ng-template>
+
+      <ion-button
+        label="With Actions"
+        type="ghost"
+        ionPopover
+        ionPopoverTitle="Action Popover"
+        [ionPopoverBody]="popoverTemplate"
+        [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER"
+        [ionPopoverActions]="[
+          { label: 'Cancel' },
+          { label: 'Confirm', type: 'primary' }
+        ]"
+        (ionOnFirstAction)="handlePopoverFirstAction()"
+        (ionOnSecondAction)="handlePopoverSecondAction()"
+      ></ion-button>
+  </section>
+
   <section>
     <h2>Button Variants</h2>
     <div style="display: flex; gap: 10px">
