@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import {
   AvatarType,
-  CheckBoxStates,
   IonAvatarComponent,
   IonBadgeComponent,
   IonButtonComponent,
@@ -176,7 +175,7 @@ export class AppComponent implements OnInit {
       label: 'Nome',
       placeholder: 'Filtrar por nome...',
       className: 'col-6',
-      // required: true,
+      required: true,
     },
     {
       key: 'gender',
@@ -193,7 +192,21 @@ export class AppComponent implements OnInit {
       label: 'Date Range Picker',
       type: 'datepicker',
       rangePicker: true,
-      className: 'col-md-4',
+      className: 'col-md-6',
+    },
+    {
+      key: 'teste',
+      type: 'switch',
+      label: 'Teste',
+      className: 'col-md-3',
+      size: 'lg',
+    },
+    {
+      key: 'teste1',
+      type: 'switch',
+      label: 'Teste1',
+      className: 'col-md-3',
+      size: 'lg',
     },
     {
       type: 'select',
@@ -858,6 +871,7 @@ export class AppComponent implements OnInit {
       label: 'Email',
       placeholder: 'Digite seu email',
       required: true,
+      description: 'Seu email corporativo',
       validators: [
         Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$'),
       ],

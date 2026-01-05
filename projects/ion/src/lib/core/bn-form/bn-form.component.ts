@@ -30,6 +30,8 @@ import {
   BnDatePickerFormField,
   BnSelectFormField,
 } from './bn-form.types';
+import { IonIconComponent } from "../../icon/icon.component";
+import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
 
 @Component({
   selector: 'bn-form',
@@ -42,7 +44,9 @@ import {
     IonSwitchComponent,
     IonDatepickerComponent,
     IonSelectComponent,
-  ],
+    IonIconComponent,
+    IonTooltipDirective
+],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {
@@ -52,6 +56,14 @@ import {
               {{ field.label }}
               @if (field.required) {
                 <span class="required-asterisk">*</span>
+              }
+              @if (field.description) {
+                <ion-icon
+                  type="information"
+                  [size]="16"
+                  ionTooltip
+                  [ionTooltipTitle]="field.description"
+                  ></ion-icon>
               }
             </h3>
   

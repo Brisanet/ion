@@ -28,6 +28,7 @@ export interface BnBaseFormField {
   validators?: ValidatorFn[];
   disabled?: boolean;
   required?: boolean;
+  description?: string;
   errorMsg?: string;
   onlyShowWhen?: (form: any) => boolean;
 }
