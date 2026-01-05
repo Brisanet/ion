@@ -1,0 +1,16 @@
+@import "../../styles/index.scss";
+@import "../../styles/themes/theme.scss";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.card-ion-footer {
+  padding: 16px 24px;
+  border-top: 1px solid ion-theme(card-divider-color);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Default align to right as per previous design */
+}

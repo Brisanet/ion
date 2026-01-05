@@ -1,0 +1,19 @@
+@use "card.theme";
+
+@import "../../styles/index.scss";
+@import "../../styles/themes/theme.scss";
+
+.card-ion {
+  min-width: fit-content;
+  background: ion-theme(card-background-color);
+  box-shadow: ion-theme(card-shadow);
+  border-radius: ion-theme(card-border-radius);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .card-ion-container {
+    padding: 16px 24px;
+  }
+}

@@ -1,0 +1,41 @@
+@import "../../styles/index.scss";
+@import "../../styles/themes/theme.scss";
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid ion-theme(card-divider-color);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card-ion-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  h4 {
+    margin: 0;
+    font-weight: ion-theme(card-header-title-font-weight);
+    font-size: ion-theme(card-header-title-font-size);
+    line-height: ion-theme(card-header-title-line-height);
+    color: ion-theme(card-header-title-color);
+  }
+
+  .icon-title {
+    color: ion-theme(card-header-icon-color);
+  }
+
+  .icon-info {
+    cursor: pointer;
+    color: ion-theme(card-header-info-icon-color);
+  }
+}
+
+.card-ion-header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

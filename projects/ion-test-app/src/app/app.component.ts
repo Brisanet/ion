@@ -69,9 +69,13 @@ import {
   BnFormService,
   BnAboutComponent,
   BnWizardComponent,
-  BnWizardConfig
+  BnWizardConfig,
+  IonCardComponent,
+  IonCardHeaderComponent,
+  IonCardFooterComponent
 } from 'ion';
 import { Validators } from '@angular/forms';
+import { CardBodyComponent } from './card-body.component';
 
 type FromYourRepository = {
   id?: number;
@@ -152,6 +156,10 @@ class ModalLongContentComponent {
     IonInputCounterComponent,
     IonMessageComponent,
     IonDatepickerComponent,
+    IonCardComponent,
+    IonCardHeaderComponent,
+    IonCardFooterComponent,
+    CardBodyComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
@@ -423,13 +431,13 @@ export class AppComponent implements OnInit {
       {
         label: 'Edit',
         icon: 'pencil',
-        call: (row) => console.log('Edit row:', row),
+        call: (row: any) => console.log('Edit row:', row),
       },
       {
         label: 'Delete',
         icon: 'trash',
         danger: true,
-        call: (row) => console.log('Delete row:', row),
+        call: (row: any) => console.log('Delete row:', row),
       },
     ],
     pagination: {
@@ -601,7 +609,9 @@ export class AppComponent implements OnInit {
   handleDelete(row: any): void {
     this.smartTableConfig = {
       ...this.smartTableConfig,
-      data: this.smartTableConfig.data.filter((item) => item.id !== row.id),
+      data: this.smartTableConfig.data.filter(
+        (item: any) => item.id !== row.id,
+      ),
       pagination: {
         ...this.smartTableConfig.pagination,
         total: this.smartTableConfig.pagination.total - 1,
@@ -664,7 +674,7 @@ export class AppComponent implements OnInit {
   }
 
   showNotification(type: 'success' | 'info' | 'warning' | 'error') {
-    this.notificationService[type](
+    (this.notificationService as any)[type](
       'Notification Title',
       'This is a notification message',
     );
