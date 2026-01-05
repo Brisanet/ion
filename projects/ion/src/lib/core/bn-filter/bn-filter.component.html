@@ -9,10 +9,13 @@
     </div>
 
     @if (open()) {
-      <div class="divider"></div>
+      <ion-divider></ion-divider>
+
       <div class="filter-content">
         <bn-form [formGroup]="formGroup()" [fields]="fields()"></bn-form>
       </div>
+
+      <ion-divider></ion-divider>
 
       <div class="bn-filter-footer">
         @if (hasRequiredFields()) {

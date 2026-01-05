@@ -4,11 +4,12 @@ import { IonIconComponent } from '../../icon/icon.component';
 import { BnFormField } from '../bn-form/bn-form.types';
 import { BnFormService } from '../bn-form/bn-form.service';
 import { BnFormComponent } from '../bn-form/bn-form.component';
+import { IonDividerComponent } from "../../divider/divider.component";
 
 @Component({
   standalone: true,
   selector: 'bn-about',
-  imports: [IonButtonComponent, BnFormComponent, IonIconComponent],
+  imports: [IonButtonComponent, BnFormComponent, IonIconComponent, IonDividerComponent],
   templateUrl: './bn-about.component.html',
   styleUrl: './bn-about.component.scss'
 })

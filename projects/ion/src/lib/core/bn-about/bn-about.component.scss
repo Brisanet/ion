@@ -1,7 +1,9 @@
+@import "../../../styles/index.scss";
+
 .bn-about-container {
   border-radius: 8px;
-  border-bottom: 1px solid var(--main-neutral-4, #CED2DB);
-  background: #FFF;
+  border-bottom: 1px solid ion-theme(neutral-4);
+  background: ion-theme(neutral-1);
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
 }
 
@@ -19,7 +21,7 @@
 }
 
 .divider {
-  border-bottom: 1px solid var(--main-neutral-4, #CED2DB);
+  border-bottom: 1px solid ion-theme(neutral-4);
 }
 
 .about-content {
@@ -27,8 +29,7 @@
 }
 
 .title {
-    color: var(--main-neutral-7-default, #505566);
-    font-size: 20px;
-    font-weight: 600;
-    line-height: 28px;
+  color: ion-theme(neutral-7);
+  font-size: 20px;
+  font-weight: 600;
 }

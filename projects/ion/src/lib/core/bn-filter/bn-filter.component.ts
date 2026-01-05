@@ -3,11 +3,12 @@ import { BnFormField } from '../bn-form/bn-form.types';
 import { BnFormService } from '../bn-form/bn-form.service';
 import { BnFormComponent } from '../bn-form/bn-form.component';
 import { IonButtonComponent } from '../../button/button.component';
+import { IonDividerComponent } from "../../divider/divider.component";
 
 @Component({
   standalone: true,
   selector: 'bn-filter',
-  imports: [IonButtonComponent, BnFormComponent],
+  imports: [IonButtonComponent, BnFormComponent, IonDividerComponent],
   templateUrl: './bn-filter.component.html',
   styleUrl: './bn-filter.component.scss'
 })
