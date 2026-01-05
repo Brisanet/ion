@@ -70,3 +70,6 @@ export * from './lib/core/bn-form/bn-form.types';
 export * from './lib/core/bn-wizard/bn-wizard.component';
 export * from './lib/core/bn-wizard/bn-wizard.types';
 export * from './lib/core/bn-about/bn-about.component';
+export * from './lib/card/card.component';
+export * from './lib/card/card-header.component';
+export * from './lib/card/card-footer.component';
