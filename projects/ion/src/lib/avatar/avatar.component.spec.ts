@@ -22,14 +22,16 @@ describe('AvatarComponent', () => {
 
   describe('Basics', () => {
     const sizes: SizeType[] = ['lg', 'md', 'sm', 'xs'];
-    
+
     sizes.forEach((size: SizeType) => {
       it(`should have size-${size} class`, () => {
         fixture.componentRef.setInput('type', AvatarType.initials);
         fixture.componentRef.setInput('size', size);
         fixture.detectChanges();
 
-        const avatar = fixture.nativeElement.querySelector('[data-testid="ion-avatar"]');
+        const avatar = fixture.nativeElement.querySelector(
+          '[data-testid="ion-avatar"]',
+        );
         expect(avatar.classList.contains(`size-${size}`)).toBe(true);
       });
     });
@@ -38,7 +40,9 @@ describe('AvatarComponent', () => {
       fixture.componentRef.setInput('type', AvatarType.initials);
       fixture.detectChanges();
 
-      const avatar = fixture.nativeElement.querySelector('[data-testid="ion-avatar"]');
+      const avatar = fixture.nativeElement.querySelector(
+        '[data-testid="ion-avatar"]',
+      );
       expect(avatar.classList.contains('size-md')).toBe(true);
     });
   });
@@ -64,7 +68,10 @@ describe('AvatarComponent', () => {
 
     it('should render two first initials when value have more than two words', () => {
       fixture.componentRef.setInput('type', AvatarType.initials);
-      fixture.componentRef.setInput('value', 'Stefanni Joanne Angelina Germanotta');
+      fixture.componentRef.setInput(
+        'value',
+        'Stefanni Joanne Angelina Germanotta',
+      );
       fixture.detectChanges();
 
       const span = fixture.nativeElement.querySelector('span');

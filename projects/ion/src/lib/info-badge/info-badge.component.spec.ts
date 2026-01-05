@@ -22,8 +22,10 @@ describe('IonInfoBadgeComponent', () => {
   it('should render an empty info badge', () => {
     fixture.componentRef.setInput('variant', 'primary');
     fixture.detectChanges();
-    
-    const badge = fixture.nativeElement.querySelector('[data-testid="info-badge"]');
+
+    const badge = fixture.nativeElement.querySelector(
+      '[data-testid="info-badge"]',
+    );
     expect(badge).toBeTruthy();
   });
 
@@ -33,7 +35,9 @@ describe('IonInfoBadgeComponent', () => {
     fixture.componentRef.setInput('variant', 'primary');
     fixture.detectChanges();
 
-    const badgeIcon = fixture.nativeElement.querySelector('[data-testid="info-badge-icon"]');
+    const badgeIcon = fixture.nativeElement.querySelector(
+      '[data-testid="info-badge-icon"]',
+    );
     expect(badgeIcon).toBeTruthy();
   });
 
@@ -43,11 +47,19 @@ describe('IonInfoBadgeComponent', () => {
     fixture.componentRef.setInput('variant', 'primary');
     fixture.detectChanges();
 
-    const badge = fixture.nativeElement.querySelector('[data-testid="info-badge"]');
+    const badge = fixture.nativeElement.querySelector(
+      '[data-testid="info-badge"]',
+    );
     expect(badge.textContent?.trim()).toBe(text);
   });
 
-  const variants: InfoBadgeStatus[] = ['primary', 'success', 'info', 'warning', 'negative'];
+  const variants: InfoBadgeStatus[] = [
+    'primary',
+    'success',
+    'info',
+    'warning',
+    'negative',
+  ];
   variants.forEach((variant) => {
     it(`should render an info badge with ${variant} variant`, () => {
       const icon = 'check';
@@ -55,7 +67,9 @@ describe('IonInfoBadgeComponent', () => {
       fixture.componentRef.setInput('variant', variant);
       fixture.detectChanges();
 
-      const badge = fixture.nativeElement.querySelector('[data-testid="info-badge"]');
+      const badge = fixture.nativeElement.querySelector(
+        '[data-testid="info-badge"]',
+      );
       expect(badge.classList.contains(variant)).toBe(true);
     });
   });

@@ -73,9 +73,14 @@ export class IonTripleToggleComponent {
   constructor() {
     effect(() => {
       const currentValue = this.value();
-      if (currentValue !== undefined && !this.disabled()) {
-        this.changeOptionByValue(currentValue);
+      if (this.disabled()) {
+        return;
       }
+      if (currentValue === undefined || currentValue === null) {
+        this.selectedIndexSignal.set(1);
+        return;
+      }
+      this.changeOptionByValue(currentValue);
     });
   }
 

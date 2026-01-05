@@ -22,25 +22,33 @@ describe('CheckboxComponent', () => {
   describe('component basics', () => {
     it('should render checkbox', () => {
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox).toBeTruthy();
     });
 
     it('should render enabled checkbox', () => {
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox.disabled).toBe(false);
     });
 
     it('should render unchecked element', () => {
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox.checked).toBe(false);
     });
 
     it('should check when clicked', () => {
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       checkbox.click();
       fixture.detectChanges();
       expect(checkbox.checked).toBe(true);
@@ -49,17 +57,21 @@ describe('CheckboxComponent', () => {
     it('should have the attribute name defined with value', () => {
       fixture.componentRef.setInput('value', 'checkbox value');
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox.getAttribute('name')).toBe('checkbox value');
     });
 
     it('should emit event when checked', () => {
       const emitSpy = jest.spyOn(component.ionClick, 'emit');
       fixture.detectChanges();
-      
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       checkbox.click();
-      
+
       expect(emitSpy).toHaveBeenCalledWith({ state: 'checked' });
     });
 
@@ -67,10 +79,12 @@ describe('CheckboxComponent', () => {
       const emitSpy = jest.spyOn(component.ionClick, 'emit');
       fixture.componentRef.setInput('value', 'checkbox value');
       fixture.detectChanges();
-      
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       checkbox.click();
-      
+
       expect(emitSpy).toHaveBeenCalledWith({
         state: 'checked',
         value: 'checkbox value',
@@ -82,7 +96,9 @@ describe('CheckboxComponent', () => {
     it('should have the attribute name defined but without value', () => {
       fixture.componentRef.setInput('label', 'Custom label');
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox.getAttribute('name')).toBe('');
     });
 
@@ -90,10 +106,12 @@ describe('CheckboxComponent', () => {
       const emitSpy = jest.spyOn(component.ionClick, 'emit');
       fixture.componentRef.setInput('label', 'Custom label');
       fixture.detectChanges();
-      
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       checkbox.click();
-      
+
       expect(emitSpy).toHaveBeenCalledWith({ state: 'checked' });
     });
   });
@@ -101,14 +119,18 @@ describe('CheckboxComponent', () => {
   it('should render indeterminate checkbox', () => {
     fixture.componentRef.setInput('state', 'indeterminate');
     fixture.detectChanges();
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
     expect(checkbox.indeterminate).toBe(true);
   });
 
   it('should render disabled checkbox', () => {
     fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
     expect(checkbox.disabled).toBe(true);
   });
 
@@ -118,7 +140,9 @@ describe('CheckboxComponent', () => {
       fixture.componentRef.setInput('state', state);
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       expect(checkbox.disabled).toBe(true);
     });
   });
@@ -126,22 +150,26 @@ describe('CheckboxComponent', () => {
   it('should become unchecked when checked checkbox is clicked', () => {
     fixture.componentRef.setInput('state', 'checked');
     fixture.detectChanges();
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
-    
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
+
     checkbox.click();
     fixture.detectChanges();
-    
+
     expect(checkbox.checked).toBe(false);
   });
 
   it('should become enabled when indeterminate checkbox is clicked', () => {
     fixture.componentRef.setInput('state', 'indeterminate');
     fixture.detectChanges();
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
-    
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
+
     checkbox.click();
     fixture.detectChanges();
-    
+
     expect(checkbox.checked).toBe(false);
     expect(checkbox.indeterminate).toBe(false);
   });
@@ -156,10 +184,12 @@ describe('CheckboxComponent', () => {
       const emitSpy = jest.spyOn(component.ionClick, 'emit');
       fixture.componentRef.setInput('state', state);
       fixture.detectChanges();
-      
-      const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+
+      const checkbox = fixture.nativeElement.querySelector(
+        '[data-testid="ion-checkbox"]',
+      );
       checkbox.click();
-      
+
       expect(emitSpy).toHaveBeenCalledWith({ state: expectedEvent });
     });
   });
@@ -168,9 +198,11 @@ describe('CheckboxComponent', () => {
     const emitSpy = jest.spyOn(component.ionClick, 'emit');
     fixture.componentRef.setInput('state', 'enabled');
     fixture.detectChanges();
-    
+
     const amount = 5;
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
 
     for (let i = 0; i < amount; i++) {
       checkbox.click();
@@ -183,7 +215,7 @@ describe('CheckboxComponent', () => {
     const labelText = 'Test Label';
     fixture.componentRef.setInput('label', labelText);
     fixture.detectChanges();
-    
+
     const label = fixture.nativeElement.querySelector('.ion-checkbox__label');
     expect(label).toBeTruthy();
     expect(label.textContent).toBe(labelText);
@@ -194,12 +226,14 @@ describe('CheckboxComponent', () => {
     fixture.componentRef.setInput('label', labelText);
     fixture.componentRef.setInput('value', labelText);
     fixture.detectChanges();
-    
+
     const label = fixture.nativeElement.querySelector('.ion-checkbox__label');
     label.click();
     fixture.detectChanges();
-    
-    const checkbox = fixture.nativeElement.querySelector('[data-testid="ion-checkbox"]');
+
+    const checkbox = fixture.nativeElement.querySelector(
+      '[data-testid="ion-checkbox"]',
+    );
     expect(checkbox.checked).toBe(true);
   });
 });

@@ -13,13 +13,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
+import { IonSpinnerComponent } from '../spinner/spinner.component';
+import { IonNoDataComponent } from '../no-data/no-data.component';
 
 export const COLDOWN = 200;
 
 @Component({
   selector: 'ion-dropdown',
   standalone: true,
-  imports: [CommonModule, IonIconComponent],
+  imports: [CommonModule, IonIconComponent, IonSpinnerComponent, IonNoDataComponent],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   host: {
@@ -54,6 +56,7 @@ export class IonDropdownComponent implements AfterViewChecked {
 
   // ViewChild
   optionList = viewChild<ElementRef>('optionList');
+  searchInput = viewChild<ElementRef>('searchInput');
 
   // Signals
   iconSize = signal(16);
@@ -75,7 +78,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           this.multiple() &&
           showClearButton &&
           !this.required() &&
-          !this.loading()
+          !this.loading(),
       );
     });
 
@@ -88,7 +91,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           (this.required() && this.dropdownSelectedItems().length > 1));
 
       this.canDeselect.set(
-        isSingleSelectionAllowed || isMultipleSelectionAllowed
+        isSingleSelectionAllowed || isMultipleSelectionAllowed,
       );
     });
 
@@ -98,6 +101,14 @@ export class IonDropdownComponent implements AfterViewChecked {
       if (opts && opts.length > 0) {
         const selectedItems = opts.filter((option) => option.selected);
         this.dropdownSelectedItems.set(selectedItems);
+      }
+    });
+
+    // Focus search input when it appears
+    effect(() => {
+      const input = this.searchInput();
+      if (input && this.enableSearch()) {
+        input.nativeElement.focus();
       }
     });
   }

@@ -48,7 +48,7 @@ describe('IonInputComponent', () => {
       fixture.detectChanges();
 
       expect(screen.getByTestId('input-element')).toHaveAttribute('type', type);
-    }
+    },
   );
 
   it('should render input component disabled', async () => {
@@ -126,7 +126,7 @@ describe('IonInputComponent', () => {
 
     const buttonContainer = screen.getByTestId('input-button');
     expect(within(buttonContainer).getByTestId('btn-Button')).toHaveClass(
-      'ion-btn-md'
+      'ion-btn-md',
     );
   });
 
@@ -142,7 +142,7 @@ describe('IonInputComponent', () => {
     fixture.detectChanges();
 
     fireEvent.click(
-      within(screen.getByTestId('input-button')).getByRole('button')
+      within(screen.getByTestId('input-button')).getByRole('button'),
     );
     expect(clickEvent).toHaveBeenCalled();
   });
@@ -160,7 +160,7 @@ describe('IonInputComponent', () => {
       await userEvent.type(element, exampleText);
 
       expect(element.value).toBe(exampleText.substring(0, Number(maxLength)));
-    }
+    },
   );
 
   it("should render input component without maxLength when don't sent this prop", async () => {
@@ -228,7 +228,7 @@ describe('IonInputComponent', () => {
       await fixture.whenStable();
 
       expect(
-        screen.getByText(`${value.length}/${maxLength}`)
+        screen.getByText(`${value.length}/${maxLength}`),
       ).toBeInTheDocument();
     });
   });

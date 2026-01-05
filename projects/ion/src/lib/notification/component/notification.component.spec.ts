@@ -67,7 +67,7 @@ describe('IonNotificationComponent', () => {
     });
     expect(screen.getByTestId('notification-icon')).toHaveAttribute(
       'class',
-      'default-icon'
+      'default-icon',
     );
   });
 

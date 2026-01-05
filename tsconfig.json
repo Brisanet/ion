@@ -7,9 +7,8 @@
     "strict": true,
     "noImplicitOverride": true,
     "paths": {
-      "ion": [
-        "./dist/ion"
-      ]
+      // "ion": ["./dist/ion"],
+      "ion": ["./projects/ion/src/public-api.ts"]
     },
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,

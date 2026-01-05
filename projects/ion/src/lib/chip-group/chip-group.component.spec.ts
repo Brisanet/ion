@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 const sut = async (
-  customProps: Partial<ChipGroupProps> = {}
+  customProps: Partial<ChipGroupProps> = {},
 ): Promise<{ element: HTMLElement; event: jest.Mock }> => {
   const defaultChips = [
     {
@@ -38,9 +38,11 @@ const sut = async (
     },
     imports: [FormsModule, IonChipComponent],
   });
-  
+
   if (props.selected && (props.selected as SafeAny).emit) {
-    fixture.componentInstance.selected.subscribe((props.selected as SafeAny).emit);
+    fixture.componentInstance.selected.subscribe(
+      (props.selected as SafeAny).emit,
+    );
   } else {
     fixture.componentInstance.selected.subscribe(selectEvent);
   }
@@ -85,7 +87,7 @@ describe('ChipGroupComponent', () => {
       });
       const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass(`chip-${size}`);
-    }
+    },
   );
 
   it('when chipgroup is multiple chip basic should remain selected when other is clicked', async () => {
@@ -94,7 +96,7 @@ describe('ChipGroupComponent', () => {
       chips: mockChips,
       multiple: true,
     });
-    
+
     // First click
     fireEvent.click(screen.getByText(mockChips[0].label));
     expect(event).toHaveBeenCalledWith({
@@ -104,7 +106,7 @@ describe('ChipGroupComponent', () => {
 
     // Second click on different chip
     fireEvent.click(screen.getByText(mockChips[1].label));
-    
+
     // Check if first chip is still selected
     expect(screen.getAllByTestId('ion-chip')[0]).toHaveClass('chip-selected');
   });

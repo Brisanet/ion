@@ -1,0 +1,23 @@
+<div class="bn-about-container">
+    <div class="bn-about-header">
+      <div class="bn-about-header__title">
+        @if (pageTitle().icon) {
+          <ion-icon [type]="pageTitle().icon ?? 'home'"></ion-icon>
+        }
+
+        <span class="title">{{ pageTitle().title }}</span>
+      </div>
+
+      @if (headerButton()) {
+        <ion-button
+          [label]="headerButton()?.label"
+          type="secondary"
+          (click)="headerButton()?.action()"></ion-button>
+      }
+    </div>
+
+    <div class="divider"></div>
+    <div class="about-content">
+      <bn-form [formGroup]="formGroup()" [fields]="fields()"></bn-form>
+    </div>
+</div>

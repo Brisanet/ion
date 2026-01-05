@@ -1,9 +1,0 @@
-<div
-  data-testid="ion-avatar"
-  [ngSwitch]="type"
-  [class]="'ion-avatar size-' + size"
->
-  <span *ngSwitchCase="'initials'">{{ initials }}</span>
-  <ion-icon *ngSwitchCase="'icon'" [type]="icon"></ion-icon>
-  <img *ngSwitchCase="'photo'" [src]="image" [default]="onErrorImage" />
-</div>

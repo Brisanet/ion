@@ -87,6 +87,6 @@ describe('TooltipService', () => {
       const positionChecks = service.getTooltipPositions(positionValue as any);
       const newPosition = service.checkPositions(positionChecks);
       expect(newPosition).toBe(positionKey);
-    }
+    },
   );
 });

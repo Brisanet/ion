@@ -8,7 +8,8 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { IconType, TooltipPosition } from '../../core/types';
-import { Item } from '../../core/types/sidebar';
+import { SidebarItem } from '../../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 import { IonIconComponent } from '../../icon/icon.component';
 import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { selectItemByIndex, unselectAllItems } from '../utils';
@@ -31,13 +32,13 @@ export class IonSidebarGroupComponent {
   public TooltipPosition = TooltipPosition;
   title = input<string>('');
   icon = input.required<IconType>();
-  items = input<Item[]>([]);
+  items = input<SidebarItem[]>([]);
   selected = input<boolean>(false);
   haveGroupAction = input<boolean>(false);
   shrinkMode = input<boolean>(false);
   sidebarClosed = input<boolean>(true);
   atClick = output<MouseEvent>();
-  atGroupClick = output<void>();
+  atGroupClick = output<MouseEvent>();
 
   public closed = signal<boolean>(true);
   public headerIconHovered = signal<boolean>(false);
@@ -55,12 +56,15 @@ export class IonSidebarGroupComponent {
   }
 
   public itemSelected(itemIndex: number, event: MouseEvent): void {
+    if (event.button !== MOUSE_BUTTONS.MIDDLE) {
+      this.items()[itemIndex].selected = true;
+    }
     selectItemByIndex(this.items(), itemIndex, event);
     this.atClick.emit(event);
   }
 
-  public groupSelected(): void {
-    this.atGroupClick.emit();
+  public groupSelected(event: MouseEvent): void {
+    this.atGroupClick.emit(event);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

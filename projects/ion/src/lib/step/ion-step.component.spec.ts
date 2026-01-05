@@ -29,7 +29,7 @@ const defaultProps: StepConfig = {
 };
 
 const sut = async (
-  customProps: Partial<StepConfig> = defaultProps
+  customProps: Partial<StepConfig> = defaultProps,
 ): Promise<RenderResult<IonStepsComponent, IonStepsComponent>> => {
   return await render(IonStepsComponent, {
     componentInputs: customProps,
@@ -43,14 +43,14 @@ describe('Static IonStepsComponent', () => {
   it('should render step in horizontal direction by default', async () => {
     await sut();
     expect(screen.getByTestId('ion-steps')).toHaveClass(
-      'step-direction-horizontal'
+      'step-direction-horizontal',
     );
   });
 
   it('should render step in vertical direction', async () => {
     await sut({ ...defaultProps, direction: 'vertical' });
     expect(screen.getByTestId('ion-steps')).toHaveClass(
-      'step-direction-vertical'
+      'step-direction-vertical',
     );
   });
 
@@ -59,7 +59,7 @@ describe('Static IonStepsComponent', () => {
     async (label: string) => {
       await sut();
       expect(screen.getByText(label)).toBeTruthy();
-    }
+    },
   );
 
   it('should render first checked', async () => {
@@ -80,7 +80,7 @@ describe('Static IonStepsComponent', () => {
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
     expect(screen.getByTestId('step-1-checked')).toHaveClass(
-      StepStatus.CHECKED
+      StepStatus.CHECKED,
     );
   });
 
@@ -104,7 +104,7 @@ describe('Static IonStepsComponent', () => {
     });
     expect(screen.getByTestId('step-1-checked')).toBeTruthy();
     expect(screen.getByTestId('step-1-checked')).toHaveClass(
-      StepStatus.CHECKED
+      StepStatus.CHECKED,
     );
     expect(screen.getByTestId('step-2-error')).toBeTruthy();
     expect(screen.getByTestId('step-2-error')).toHaveClass('error');
@@ -138,7 +138,7 @@ describe('Static IonStepsComponent', () => {
       });
       expect(screen.getByTestId(stepId)).toBeTruthy();
       expect(screen.getByTestId(stepId)).toHaveClass(StepStatus.CHECKED);
-    }
+    },
   );
 
   it('should go to step 3 when it be clicked', async () => {

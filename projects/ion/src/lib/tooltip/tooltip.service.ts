@@ -70,20 +70,24 @@ export class TooltipService {
   }
 
   public getTooltipPositions(
-    respositionData: RepositionData
+    respositionData: RepositionData,
   ): tooltipPositionChecks {
-    const { height = 0, left = 0, width = 0 } = respositionData.tooltipCoordinates;
+    const {
+      height = 0,
+      left = 0,
+      width = 0,
+    } = respositionData.tooltipCoordinates;
 
     const tooltipPositions = {
       right: this.atRightEdge(
         respositionData.screenWidth,
         respositionData.hostPosition.right || 0,
-        width
+        width,
       ),
       bottom: this.atBottomEdge(
         respositionData.screenHeight,
         respositionData.hostPosition.bottom || 0,
-        height
+        height,
       ),
       left: this.atLeftEdge(left, width),
       top: this.atTopEdge(respositionData.hostPosition.top || 0, height),
@@ -120,7 +124,7 @@ export class TooltipService {
   private atRightEdge(
     screenWidth: number,
     hostRight: number,
-    tooltipWidth: number
+    tooltipWidth: number,
   ): boolean {
     return screenWidth - hostRight < (tooltipWidth + this.elementPadding) / 2;
   }
@@ -128,7 +132,7 @@ export class TooltipService {
   private atBottomEdge(
     screenHeight: number,
     hostBottom: number,
-    tooltipHeight: number
+    tooltipHeight: number,
   ): boolean {
     return screenHeight - hostBottom < tooltipHeight + this.elementPadding;
   }

@@ -13,17 +13,17 @@ export interface NotificationItem extends NotificationProps {
   template: `
     <div class="notification-container-wrapper">
       @for (notification of notifications(); track notification.id) {
-      <ion-notification
-        [title]="notification.title"
-        [message]="notification.message"
-        [icon]="notification.icon"
-        [type]="notification.type || 'success'"
-        [fixed]="notification.fixed || false"
-        [fadeIn]="notification.fadeIn || 'fadeIn'"
-        [fadeOut]="notification.fadeOut || 'fadeOut'"
-        [pauseOnHover]="notification.pauseOnHover ?? true"
-        (ionOnClose)="removeNotification(notification.id)"
-      ></ion-notification>
+        <ion-notification
+          [title]="notification.title"
+          [message]="notification.message"
+          [icon]="notification.icon"
+          [type]="notification.type || 'success'"
+          [fixed]="notification.fixed || false"
+          [fadeIn]="notification.fadeIn || 'fadeIn'"
+          [fadeOut]="notification.fadeOut || 'fadeOut'"
+          [pauseOnHover]="notification.pauseOnHover ?? true"
+          (ionOnClose)="removeNotification(notification.id)"
+        ></ion-notification>
       }
     </div>
   `,

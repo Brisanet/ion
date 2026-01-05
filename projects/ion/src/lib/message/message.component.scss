@@ -1,7 +1,7 @@
-@use "message.theme";
+@use 'message.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 $variants: custom, positive, negative_alert, negative_erro, warning, info;
 

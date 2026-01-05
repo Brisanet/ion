@@ -8,29 +8,28 @@
   [class.ion-sidebar-item--shrunk]="shrinkMode() && sidebarClosed()"
   [class.ion-sidebar-subitem]="inGroup() && sidebarClosed()"
   [disabled]="disabled()"
-  (click)="selectItem($event)"
 >
   <div>
     <ion-icon class="ion-sidebar-item__icon" [type]="icon()"></ion-icon>
     @if ((shrinkMode() && !sidebarClosed()) || !shrinkMode()) {
-    <span
-      ionTooltip
-      [ionTooltipTitle]="
-        itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
-      "
-      [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
-      #itemTitle
-      class="ion-sidebar-item__text"
-      data-testid="ion-sidebar-item__text"
-      >{{ title() }}</span
-    >
+      <span
+        ionTooltip
+        [ionTooltipTitle]="
+          itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
+        "
+        [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
+        #itemTitle
+        class="ion-sidebar-item__text"
+        data-testid="ion-sidebar-item__text"
+        >{{ title() }}</span
+      >
     }
   </div>
   @if (disabled() && !sidebarClosed()) {
-  <ion-icon
-    class="ion-sidebar-item__icon ion-sidebar-item__icon--disabled"
-    [size]="20"
-    type="block"
-  ></ion-icon>
+    <ion-icon
+      class="ion-sidebar-item__icon ion-sidebar-item__icon--disabled"
+      [size]="20"
+      type="block"
+    ></ion-icon>
   }
 </button>

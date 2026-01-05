@@ -43,7 +43,7 @@ class RadioGroupTestComponent {
 }
 
 const sut = async (
-  props: Partial<RadioGroupTestComponent> = {}
+  props: Partial<RadioGroupTestComponent> = {},
 ): Promise<void> => {
   await render(RadioGroupTestComponent, {
     componentProperties: { ...props },
@@ -63,13 +63,13 @@ describe('IonRadioGroup', () => {
         ...option,
         index,
       };
-    })
+    }),
   )('radio option $index', ({ label, value, index }) => {
     let radio: HTMLElement;
     beforeEach(async () => {
       await sut();
       radio = document.getElementById(
-        `${radioGroupName}-radio-${index}`
+        `${radioGroupName}-radio-${index}`,
       ) as HTMLElement;
     });
     it(`should render a radio with id as ${radioGroupName}-radio-${index}`, () => {

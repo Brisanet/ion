@@ -13,7 +13,12 @@ const defaultProps: PopConfirmProps = {
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
   await render(IonPopConfirmComponent, {
     componentInputs: props,
-    imports: [CommonModule, IonButtonComponent, IonDividerComponent, IonAlertComponent],
+    imports: [
+      CommonModule,
+      IonButtonComponent,
+      IonDividerComponent,
+      IonAlertComponent,
+    ],
   });
 };
 
@@ -25,13 +30,13 @@ describe('IonPopConfirmComponent', () => {
 
     it('should render component with message', async () => {
       expect(
-        screen.getByText(defaultProps.ionPopConfirmTitle)
+        screen.getByText(defaultProps.ionPopConfirmTitle),
       ).toBeInTheDocument();
     });
 
     it('should render component with warning icon by default', async () => {
       expect(
-        document.getElementById('ion-icon-exclamation-solid')
+        document.getElementById('ion-icon-exclamation-solid'),
       ).toBeInTheDocument();
     });
 
@@ -39,14 +44,14 @@ describe('IonPopConfirmComponent', () => {
       'should render button with default text %s',
       async (textBtn: string) => {
         expect(screen.getByText(textBtn)).toBeInTheDocument();
-      }
+      },
     );
 
     it.each(['pop-confirm-btn', 'pop-cancel-btn'])(
       'should render %s',
       async (btnId: string) => {
         expect(screen.getByTestId(btnId)).toBeInTheDocument();
-      }
+      },
     );
   });
 

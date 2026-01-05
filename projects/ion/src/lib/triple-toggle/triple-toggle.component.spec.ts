@@ -49,10 +49,10 @@ describe('IonTripleToggleComponent', () => {
 
     it('should render first and last option not selected', async () => {
       expect(screen.getByTestId(firstOptionId)).not.toHaveClass(
-        'ion-btn-primary'
+        'ion-btn-primary',
       );
       expect(screen.getByTestId(lastOptionId)).not.toHaveClass(
-        'ion-btn-primary'
+        'ion-btn-primary',
       );
     });
 
@@ -99,7 +99,7 @@ describe('IonTripleToggleComponent', () => {
         const element = screen.getByTestId(option);
         fireEvent.click(element);
         expect(clickEvent).toHaveBeenCalledTimes(1);
-      }
+      },
     );
 
     it('should show the selected option when started with it', async () => {
@@ -142,6 +142,6 @@ describe('MultipleTripleToggleComponent', () => {
       await userEvent.click(btn1);
       expect(btn1).toHaveClass(selectedOption);
       expect(btnNeutralSecond).toHaveClass(selectedOption);
-    }
+    },
   );
 });

@@ -31,14 +31,8 @@ import { BaseTable } from '../utils/baseTable';
 import debounce from '../utils/debounce';
 import { ReplaceEmptyPipe } from '../utils/pipes/replace-empty/replace-empty.pipe';
 import { SafeAny } from '../utils/safe-any';
-import {
-  TooltipPosition,
-  TooltipTrigger,
-} from '../core/types/tooltip';
-import {
-  PopoverPosition,
-  PopoverTrigger,
-} from '../core/types/popover';
+import { TooltipPosition, TooltipTrigger } from '../core/types/tooltip';
+import { PopoverPosition, PopoverTrigger } from '../core/types/popover';
 
 @Component({
   selector: 'ion-smart-table',
@@ -78,7 +72,7 @@ export class IonSmartTableComponent<RowType extends BaseRow>
 
   constructor(
     private cdr: ChangeDetectorRef,
-    protected ionThemeService: IonThemeService
+    protected ionThemeService: IonThemeService,
   ) {
     super();
   }

@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  input,
+  output,
+} from '@angular/core';
 import { IonChipComponent } from '../../chip/chip.component';
 
 export interface PreDefinedRangeConfig {
@@ -24,4 +29,3 @@ export class IonPredefinedRangePickerComponent {
     this.definedRangePicker.emit(event);
   }
 }
-

@@ -1,0 +1,61 @@
+<ion-button
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+  data-testid="icon-sandwich"
+  iconType="sandwich"
+  size="lg"
+  type="ghost"
+>
+</ion-button>
+
+<div
+  class="menu-container"
+  [class.menu-container-opened]="open()"
+  (mouseenter)="openMenu()"
+  (mouseleave)="dismissMenu()"
+  data-testid="ion-simple-menu"
+>
+  @if (logo()) {
+    <header class="menu-header">
+      <img data-testid="logoPhoto" [src]="logo()!.src" [alt]="logo()!.alt" />
+    </header>
+  }
+
+  <ion-tab-group
+    size="md"
+    [tabs]="options()"
+    border="left"
+    direction="vertical"
+    (selected)="changeTab($event)"
+  ></ion-tab-group>
+
+  <div class="menu-footer">
+    <div>
+      @if (profile().imageUrl) {
+        <ion-avatar
+          data-testid="avatarPhoto"
+          [type]="AvatarType.photo"
+          [image]="profile().imageUrl"
+          size="md"
+        >
+        </ion-avatar>
+      } @else {
+        <ion-avatar
+          data-testid="avatarInitials"
+          [type]="AvatarType.initials"
+          [value]="profile().name"
+          size="md"
+        >
+        </ion-avatar>
+      }
+      <span>{{ profile().name }}</span>
+    </div>
+    <ion-button
+      label="Sair"
+      type="ghost"
+      iconType="out"
+      [rightSideIcon]="true"
+      (ionOnClick)="logout()"
+    ></ion-button>
+  </div>
+</div>

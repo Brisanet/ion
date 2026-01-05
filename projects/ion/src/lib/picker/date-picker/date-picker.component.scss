@@ -1,7 +1,7 @@
-@use "date-picker.theme";
+@use 'date-picker.theme';
 
-@import "../../../styles/index.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 :host {
   position: relative;

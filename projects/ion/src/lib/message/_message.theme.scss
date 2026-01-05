@@ -1,8 +1,8 @@
-@import "../../styles/themes/theme.scss"; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
 $default: (
   border-radius: 8px,
-  shadow: "0px 8px 6px -4px rgb(0 0 0 / 15%), 0 0 2px rgb(0 0 0 / 15%)",
+  shadow: '0px 8px 6px -4px rgb(0 0 0 / 15%), 0 0 2px rgb(0 0 0 / 15%)',
   background: ion-theme(neutral-1),
   text: (
     font-size: 14px,

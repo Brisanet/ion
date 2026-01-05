@@ -24,14 +24,16 @@ const tagTypes: Array<TagStatus> = [
 
 const customColors = ['#be531c', '#ab2328', '#572d2d', '#6666ff', '#cc66ff'];
 
-const sut = async (customProps: Partial<{
-  label: string;
-  outline: boolean;
-  status: TagStatus;
-  color: string;
-  backgroundColor: string;
-  icon: string;
-}> = defaultValue): Promise<void> => {
+const sut = async (
+  customProps: Partial<{
+    label: string;
+    outline: boolean;
+    status: TagStatus;
+    color: string;
+    backgroundColor: string;
+    icon: string;
+  }> = defaultValue,
+): Promise<void> => {
   await render(IonTagComponent, {
     componentInputs: customProps,
     imports: [IonIconComponent],
@@ -58,7 +60,7 @@ describe('IonTagComponent', () => {
 
     it('should render with default color', () => {
       expect(screen.getByTestId(IDs.tag)).toHaveStyle(
-        `color: ${defaultColor};`
+        `color: ${defaultColor};`,
       );
     });
 
@@ -88,9 +90,9 @@ describe('IonTagComponent', () => {
     async (color) => {
       await sut({ ...defaultValue, color: color });
       expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
-        `color: ${color};`
+        `color: ${color};`,
       );
-    }
+    },
   );
 
   it.each(customColors)(
@@ -98,9 +100,9 @@ describe('IonTagComponent', () => {
     async (color) => {
       await sut({ ...defaultValue, color: color });
       expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
-        `background: ${color}1A;`
+        `background: ${color}1A;`,
       );
-    }
+    },
   );
 
   it('should render with icon', async () => {
@@ -118,7 +120,7 @@ describe('IonTagComponent', () => {
     await sut({ ...defaultValue, status: type, color: color });
     expect(screen.getByTestId(IDs.tag)).toHaveClass(type);
     expect(await screen.findByTestId(IDs.tag)).not.toHaveStyle(
-      `color: ${color};`
+      `color: ${color};`,
     );
   });
 
@@ -133,9 +135,9 @@ describe('IonTagComponent', () => {
     async (color) => {
       await sut({ ...defaultValue, color: color });
       expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
-        `background: ${color}1A;`
+        `background: ${color}1A;`,
       );
-    }
+    },
   );
 
   it.each(customColors)(
@@ -143,16 +145,16 @@ describe('IonTagComponent', () => {
     async (backgroundColor) => {
       await sut({ ...defaultValue, backgroundColor: backgroundColor });
       expect(await screen.findByTestId(IDs.tag)).toHaveStyle(
-        `background: ${backgroundColor};`
+        `background: ${backgroundColor};`,
       );
-    }
+    },
   );
 
   it('should use default background color when an invalid background color is provided', async () => {
     const invalidColor = 'invalid-color';
     await sut({ ...defaultValue, backgroundColor: invalidColor });
     expect(screen.getByTestId(IDs.tag)).toHaveStyle(
-      `background: ${defaultColor}1A;`
+      `background: ${defaultColor}1A;`,
     );
   });
 
@@ -164,7 +166,7 @@ describe('IonTagComponent', () => {
       backgroundColor: backgroundColor,
     });
     expect(screen.getByTestId(IDs.tag)).not.toHaveStyle(
-      `background: ${backgroundColor};`
+      `background: ${backgroundColor};`,
     );
     expect(screen.getByTestId(IDs.tag)).toHaveStyle('background:;');
   });

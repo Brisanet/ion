@@ -1,0 +1,135 @@
+@use 'indicator.theme';
+
+@import '../../styles/index.scss';
+
+.ellipsis-in-text {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.container {
+  position: relative;
+  min-width: 120px;
+  max-width: 320px;
+  font-family: ion-theme(indicator-text-font-family);
+  box-shadow: ion-theme(indicator-shadow);
+  border: 0.5px solid ion-theme(indicator-border-color);
+  border-radius: ion-theme(indicator-border-radius);
+  overflow: hidden;
+
+  &.ion-indicator--full-width {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  h1,
+  h4,
+  p {
+    margin: 0;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: spacing(1);
+    background: ion-theme(indicator-header-background-color);
+    padding: ion-theme(indicator-header-padding);
+    height: ion-theme(indicator-header-height);
+    border-top-left-radius: ion-theme(indicator-header-border-radius);
+    border-top-right-radius: ion-theme(indicator-header-border-radius);
+
+    &.no-data {
+      justify-content: center !important;
+    }
+
+    ion-icon:not(:first-child) ::ng-deep svg {
+      fill: ion-theme(indicator-header-icon-color);
+    }
+
+    h1 {
+      color: ion-theme(indicator-header-title-color);
+      font-weight: ion-theme(indicator-header-title-weight);
+      font-size: ion-theme(indicator-header-title-size);
+      max-width: ion-theme(indicator-header-title-max-width);
+      margin-right: auto;
+
+      @extend .ellipsis-in-text;
+    }
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: ion-theme(indicator-content-background-color);
+    padding: ion-theme(indicator-content-padding);
+    min-height: ion-theme(indicator-content-min-height);
+
+    header {
+      all: unset;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h4 {
+        max-width: ion-theme(indicator-content-main-value-text-max-width);
+        color: ion-theme(indicator-content-main-value-text-color);
+        font-weight: ion-theme(indicator-content-main-value-text-font-weight);
+        font-size: ion-theme(indicator-content-main-value-text-font-size);
+        @extend .ellipsis-in-text;
+      }
+
+      p {
+        max-width: ion-theme(indicator-content-second-value-text-max-width);
+        color: ion-theme(indicator-content-second-value-text-color);
+        font-weight: ion-theme(indicator-content-second-value-text-font-weight);
+        font-size: ion-theme(indicator-content-second-value-text-font-size);
+        @extend .ellipsis-in-text;
+      }
+    }
+
+    .error-container {
+      display: flex;
+      align-items: center;
+      color: ion-theme(indicator-content-error-text-color);
+
+      ion-icon ::ng-deep svg {
+        fill: ion-theme(indicator-content-error-icon-color);
+      }
+
+      span {
+        padding-left: 4px;
+      }
+    }
+
+    &.with-footer {
+      padding: 0;
+      flex-direction: column;
+      justify-content: center;
+
+      header {
+        padding: 12px 16px 12px;
+        box-sizing: border-box;
+      }
+
+      footer {
+        padding: 4px 8px 4px;
+        box-sizing: border-box;
+      }
+    }
+
+    footer {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      box-sizing: border-box;
+      width: 100%;
+      background-color: ion-theme(indicator-footer-background-color);
+      border-bottom-left-radius: ion-theme(indicator-footer-border-radius);
+      border-bottom-right-radius: ion-theme(indicator-footer-border-radius);
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<div class="ion-select-container">
+  <div
+    class="ion-select"
+    [class.disabled]="disabled()"
+    [class.invalid]="invalid()"
+    [class.open]="showDropdown()"
+    (click)="toggleDropdown()"
+    tabindex="0"
+    (keydown.enter)="toggleDropdown()"
+    (keydown.space)="toggleDropdown(); $event.preventDefault()"
+    data-testid="ion-select"
+  >
+    @if (dropdownSelectedItems().length === 0) {
+      <span class="placeholder">{{ placeholder() }}</span>
+    } @else {
+      <div class="selected-value">
+        @for (item of dropdownSelectedItems(); track $index) {
+          <ion-chip
+            [label]="item[propLabel()] || item.label"
+            icon="close"
+            iconPosition="right"
+            (events)="handleChipEvents(item)"
+          ></ion-chip>
+        }
+      </div>
+    }
+
+    <ion-icon
+      [type]="showDropdown() ? 'semi-up' : 'semi-down'"
+      [size]="20"
+    ></ion-icon>
+  </div>
+
+  @if (showDropdown()) {
+    <div class="dropdown-container">
+      <ion-dropdown
+        [options]="options()"
+        [multiple]="multiple()"
+        [required]="required()"
+        [enableSearch]="enableSearch()"
+        [searchOptions]="searchOptions()"
+        (selected)="handleSelect($event)"
+        (searchChange)="handleSearch($event)"
+        (closeDropdown)="closeDropdown()"
+        [propLabel]="propLabel()"
+        [loading]="loading()"
+      ></ion-dropdown>
+    </div>
+  }
+</div>

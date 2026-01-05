@@ -3,7 +3,7 @@ import { IonSidebarGroupComponent } from './sidebar-group.component';
 import { IonSidebarItemComponent } from '../sidebar-item/sidebar-item.component';
 import { IonIconComponent } from '../../icon/icon.component';
 import { SafeAny } from '../../utils/safe-any';
-import { Item } from '../../core/types/sidebar';
+import { SidebarItem } from '../../core/types/sidebar';
 
 const defaultProps = {
   title: 'Group Title',
@@ -62,8 +62,9 @@ describe('IonSidebarGroupComponent', () => {
     const component = fixture.componentInstance;
     const emitSpy = jest.spyOn(component.atGroupClick, 'emit');
 
-    const groupTitle = screen.getByTestId('sidebar-group__title-icon')
-      .parentElement!; // The div wrapper has the click
+    const groupTitle = screen.getByTestId(
+      'sidebar-group__title-icon',
+    ).parentElement!; // The div wrapper has the click
     fireEvent.click(groupTitle);
 
     expect(emitSpy).toHaveBeenCalledTimes(1);

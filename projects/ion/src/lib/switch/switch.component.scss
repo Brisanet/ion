@@ -1,7 +1,7 @@
-@use "switch.theme";
+@use 'switch.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 @mixin switch-style($prefix) {
   background-color: ion-theme(#{$prefix}-background-color);
@@ -11,7 +11,7 @@
   }
 }
 
-@mixin addShadowAnimation($base, $changeName: "animateShadow") {
+@mixin addShadowAnimation($base, $changeName: 'animateShadow') {
   animation: $changeName 300ms ease-in-out;
 
   $size: calc(
@@ -46,14 +46,14 @@
   }
 
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     border-radius: 50%;
     transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   }
 
   @each $size in sm md lg {
-    &[size="#{$size}"] {
+    &[size='#{$size}'] {
       width: ion-theme(switch-size-#{$size}-width);
       height: ion-theme(switch-size-#{$size}-height);
       border-radius: ion-theme(switch-size-#{$size}-border-radius);

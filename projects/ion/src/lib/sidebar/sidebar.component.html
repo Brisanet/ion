@@ -1,53 +1,77 @@
 <nav
   class="ion-sidebar"
   [class.ion-sidebar--opened]="!closed()"
-  [class.ion-sidebar--shrinked]="shrinkMode()"
+  [class.ion-sidebar--shrinked]="closed() && shrinkMode()"
+  [class.ion-sidebar--without-header]="keepShrunken() && shrinkMode()"
   data-testid="ion-sidebar"
 >
-  <div class="ion-sidebar__header">
-    <div class="ion-sidebar__header--logo">
-      @if(logo() && !shrinkMode()) {
-      <img [src]="logo()" alt="Logo" />
+  @if (!keepShrunken()) {
+    <header class="ion-sidebar__header">
+      @if ((!closed() && shrinkMode()) || !shrinkMode()) {
+        <img
+          data-testid="ion-sidebar__logo"
+          [class.ion-sidebar__logo--pointer]="!!logoAction()"
+          [src]="logo()"
+          alt="logo"
+          (click)="handleLogoClick()"
+        />
       }
-    </div>
-
-    <div class="ion-sidebar__toggle">
-      <ion-button
-        [iconType]="closed() ? 'right3' : 'left3'"
-        type="ghost"
-        shape="circle"
-        (click)="toggleVisibility()"
-        data-testid="sidebar-toggle"
-      ></ion-button>
-    </div>
-  </div>
-
-  <div class="ion-sidebar__items">
-    @for (item of items(); track $index) {
-    <ion-sidebar-item
-      [title]="item.title"
-      [icon]="item.icon"
-      [selected]="!!item.selected"
-      [disabled]="!!item.disabled"
-      [shrinkMode]="shrinkMode()"
-      [sidebarClosed]="closed()"
-      (atClick)="itemSelected($index)"
-    >
+      @if ((!closed() && !shrinkMode()) || shrinkMode()) {
+        <ion-button
+          data-testid="ion-sidebar__toggle-visibility"
+          [iconType]="closed() ? 'right3' : 'left3'"
+          size="lg"
+          type="ghost"
+          (ionOnClick)="toggleVisibility()"
+        ></ion-button>
+      }
+    </header>
+  }
+  <section class="ion-sidebar__items">
+    @for (item of items(); track $index; let i = $index) {
       @if (item.options && item.options.length > 0) {
-      <ion-sidebar-group
-        [title]="item.title"
-        [icon]="item.icon"
-        [items]="item.options"
-        [shrinkMode]="shrinkMode()"
-        [sidebarClosed]="closed()"
-        (atClick)="itemOnGroupSelected($index)"
-      ></ion-sidebar-group>
+        <ion-sidebar-group
+          [attr.data-testid]="'ion-sidebar__group-' + i"
+          [title]="item.title"
+          [icon]="item.icon"
+          [selected]="!!item.selected"
+          [items]="item.options"
+          [haveGroupAction]="!!item.action"
+          [shrinkMode]="shrinkMode()"
+          [sidebarClosed]="closed()"
+          (atClick)="itemOnGroupSelected(i)"
+          (atGroupClick)="groupSelected(i, $event)"
+        ></ion-sidebar-group>
+      } @else {
+        <ion-sidebar-item
+          [attr.data-testid]="'ion-sidebar__item-' + i"
+          [title]="item.title"
+          [icon]="item.icon"
+          [selected]="!!item.selected"
+          [disabled]="!!item.disabled"
+          [shrinkMode]="shrinkMode()"
+          [sidebarClosed]="closed()"
+          (atClick)="itemSelected(i, $event)"
+        ></ion-sidebar-item>
       }
-    </ion-sidebar-item>
     }
-  </div>
+  </section>
 
-  <div class="ion-sidebar__footer">
-    <!-- Footer content -->
-  </div>
+  @if (sidebarFooter()) {
+    <footer class="ion-sidebar__footer">
+      <ng-container [ngTemplateOutlet]="sidebarFooter()!"></ng-container>
+    </footer>
+  }
 </nav>
+
+<span data-testid="ion-sidebar__outside-container">
+  @if (!shrinkMode()) {
+    <ion-button
+      data-testid="ion-sidebar__toggle-visibility"
+      iconType="sandwich"
+      size="lg"
+      type="ghost"
+      (ionOnClick)="toggleVisibility()"
+    ></ion-button>
+  }
+</span>

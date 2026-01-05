@@ -1,13 +1,14 @@
-import { Item } from '../core/types/sidebar';
+import { SidebarItem } from '../core/types/sidebar';
+import { MOUSE_BUTTONS } from '../utils/mouse-buttons';
 
-function selectItem(items: Item[], index: number): void {
+function selectItem(items: SidebarItem[], index: number): void {
   items[index].selected = true;
 }
 
 export function callItemAction(
-  items: Item[],
+  items: SidebarItem[],
   index: number,
-  event: MouseEvent
+  event: MouseEvent,
 ): void {
   if (items[index].action) {
     items[index].action(event);
@@ -15,8 +16,8 @@ export function callItemAction(
 }
 
 export function unselectAllItems(
-  items: Item[],
-  exceptItemIndex?: number
+  items: SidebarItem[],
+  exceptItemIndex?: number,
 ): void {
   items.forEach((item, index) => {
     item.selected =
@@ -25,10 +26,15 @@ export function unselectAllItems(
 }
 
 export function selectItemByIndex(
-  items: Item[],
+  items: SidebarItem[],
   itemIndex: number,
-  event: MouseEvent
-): Item[] {
+  event: MouseEvent,
+): SidebarItem[] {
+  if (event && event.button === MOUSE_BUTTONS.MIDDLE) {
+    callItemAction(items, itemIndex, event);
+    return items;
+  }
+
   unselectAllItems(items);
   selectItem(items, itemIndex);
   callItemAction(items, itemIndex, event);

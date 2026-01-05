@@ -6,7 +6,7 @@ const colors: IonSpinnerColor[] = ['primary', 'secondary', 'danger'];
 const defaultProps: IonSpinnerProps = { color: 'primary', size: 24 };
 
 const sut = async (
-  customProps: IonSpinnerProps = defaultProps
+  customProps: IonSpinnerProps = defaultProps,
 ): Promise<void> => {
   await render(IonSpinnerComponent, {
     inputs: customProps,
@@ -24,9 +24,9 @@ describe('IonSpinnerComponent', () => {
     async (color) => {
       await sut({ ...defaultProps, color });
       expect(screen.getByTestId('ion-spinner')).toHaveClass(
-        `ion-spinner ${color}`
+        `ion-spinner ${color}`,
       );
-    }
+    },
   );
 
   it('should render SpinnerComponent with custom color', async () => {

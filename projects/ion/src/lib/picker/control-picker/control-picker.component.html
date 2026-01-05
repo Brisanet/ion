@@ -92,7 +92,9 @@
         [ionTooltipPosition]="TooltipPosition.BOTTOM_CENTER"
         (ionOnClick)="handleShowPreviousYears()"
       ></ion-button>
-      <span>{{ rangeYear()[0] }} - {{ rangeYear()[rangeYear().length - 1] }}</span>
+      <span
+        >{{ rangeYear()[0] }} - {{ rangeYear()[rangeYear().length - 1] }}</span
+      >
       <ion-button
         data-testid="btn-show-next-years"
         type="ghost"
@@ -117,4 +119,3 @@
     </div>
   </div>
 }
-

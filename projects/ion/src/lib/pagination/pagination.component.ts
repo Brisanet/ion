@@ -28,7 +28,7 @@ const FIRST_PAGE = 1;
 export class IonPaginationComponent {
   total = input.required<IonPaginationProps['total']>();
   itemsPerPage = input<IonPaginationProps['itemsPerPage']>(
-    ITEMS_PER_PAGE_DEFAULT
+    ITEMS_PER_PAGE_DEFAULT,
   );
   pageSizeOptions =
     input<IonPaginationProps['pageSizeOptions']>(LIST_OF_PAGE_OPTIONS);
@@ -56,7 +56,7 @@ export class IonPaginationComponent {
     const pages = this.pages();
     const currentPage = this.currentPage();
     const currentPageIndex = pages.findIndex(
-      (p) => p.page_number === currentPage
+      (p) => p.page_number === currentPage,
     );
 
     if (currentPageIndex === -1) return [];
@@ -65,7 +65,7 @@ export class IonPaginationComponent {
     const endPageIndex = this.getLastPageIndex(
       currentPageIndex,
       startPageIndex,
-      pages
+      pages,
     );
 
     return this.getMiddlePages(pages, startPageIndex, endPageIndex);
@@ -74,7 +74,7 @@ export class IonPaginationComponent {
   private getMiddlePages(
     pages: Page[],
     startPageIndex: number,
-    endPageIndex: number
+    endPageIndex: number,
   ) {
     // Recorta as páginas do meio
     const middle = pages.slice(startPageIndex, endPageIndex + 1);
@@ -89,7 +89,7 @@ export class IonPaginationComponent {
     // Remove do meio as páginas inicial e final
     return middle.filter(
       (p) =>
-        p.page_number !== firstPageNumber && p.page_number !== lastPageNumber
+        p.page_number !== firstPageNumber && p.page_number !== lastPageNumber,
     );
   }
 
@@ -134,7 +134,7 @@ export class IonPaginationComponent {
   changeItemsPerPage(itemsSelected: DropdownItem[]): void {
     if (!this.loading()) {
       const newItemsPerPage = Number(
-        itemsSelected[0].label.split(' / página')[0]
+        itemsSelected[0].label.split(' / página')[0],
       );
       this.currentItemsPerPage.set(newItemsPerPage);
       this.remountPages();
@@ -245,7 +245,7 @@ export class IonPaginationComponent {
     } else {
       return Math.max(
         0, // Index is 0-based
-        currentIndex - Math.floor(VISIBLE_PAGES_DEFAULT_AMOUNT / 2)
+        currentIndex - Math.floor(VISIBLE_PAGES_DEFAULT_AMOUNT / 2),
       );
     }
   }
@@ -253,7 +253,7 @@ export class IonPaginationComponent {
   getLastPageIndex(
     currentIndex: number,
     startPageIndex: number,
-    pages: Page[]
+    pages: Page[],
   ): number {
     const isFirstThreePages = currentIndex < 3;
 
@@ -262,7 +262,7 @@ export class IonPaginationComponent {
     } else {
       return Math.min(
         startPageIndex + VISIBLE_PAGES_DEFAULT_AMOUNT - 1,
-        pages.length - 1 // Index is 0-based
+        pages.length - 1, // Index is 0-based
       );
     }
   }
@@ -271,7 +271,7 @@ export class IonPaginationComponent {
     this.changeIconHover('right', false);
     const pageDestination = Math.min(
       this.pages().length,
-      this.currentPage() + VISIBLE_PAGES_DEFAULT_AMOUNT
+      this.currentPage() + VISIBLE_PAGES_DEFAULT_AMOUNT,
     );
     this.selectPageOnClick(pageDestination);
   }
@@ -280,7 +280,7 @@ export class IonPaginationComponent {
     this.changeIconHover('left', false);
     const pageDestination = Math.max(
       FIRST_PAGE,
-      this.currentPage() - VISIBLE_PAGES_DEFAULT_AMOUNT
+      this.currentPage() - VISIBLE_PAGES_DEFAULT_AMOUNT,
     );
     this.selectPageOnClick(pageDestination);
   }

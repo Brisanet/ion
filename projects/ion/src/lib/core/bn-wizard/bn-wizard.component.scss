@@ -1,0 +1,32 @@
+.bn-wizard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 300px;
+}
+
+.bn-wizard-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 33px;
+  padding-bottom: 24px;
+}
+
+.bn-wizard-content {
+  flex: 1;
+}
+
+.bn-wizard-footer {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 24px;
+  border-top: 1px solid var(--main-neutral-4, #ced2db);
+  margin-top: 24px;
+}
+
+.actions-right {
+  display: flex;
+  gap: 12px;
+}

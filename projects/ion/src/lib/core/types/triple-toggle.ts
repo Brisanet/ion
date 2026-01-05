@@ -6,7 +6,7 @@ import { IconType } from './icon';
 export type TripleToggleOptionsToRender = [
   TripleToggleOption,
   TripleToggleOption,
-  TripleToggleOption
+  TripleToggleOption,
 ];
 
 export type TripleToggleOptions = [TripleToggleOption, TripleToggleOption];

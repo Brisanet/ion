@@ -1,0 +1,58 @@
+<div class="bn-wizard-container">
+  @if (config().steps.length > 1) {
+    <div class="bn-wizard-steps">
+      <ion-steps
+        [steps]="stepsForIndicator()"
+        [current]="currentStepIndex() + 1"
+      ></ion-steps>
+
+      @if (config().steps[currentStepIndex()].alert) {
+        <ion-alert
+          [message]="config().steps[currentStepIndex()].alert!.message"
+          [hideBackground]="true"
+          [type]="config().steps[currentStepIndex()].alert!.type"
+        ></ion-alert>
+      }
+    </div>
+  }
+
+  <div class="bn-wizard-content">
+    <bn-form [formGroup]="formGroup" [fields]="currentStep.fields"></bn-form>
+  </div>
+
+  <div class="bn-wizard-footer">
+    <div class="actions-left">
+      <ion-button
+        label="Cancelar"
+        type="ghost"
+        [danger]="true"
+        (ionOnClick)="cancel()"
+      ></ion-button>
+    </div>
+    <div class="actions-right">
+      @if (!isFirstStep()) {
+        <ion-button
+          label="Voltar"
+          type="secondary"
+          (ionOnClick)="back()"
+        ></ion-button>
+      }
+
+      @if (!isLastStep()) {
+        <ion-button
+          label="Continuar"
+          type="primary"
+          (ionOnClick)="next()"
+          [disabled]="isStepInvalid()"
+        ></ion-button>
+      } @else {
+        <ion-button
+          label="Finalizar"
+          type="primary"
+          (ionOnClick)="finish()"
+          [disabled]="formGroup.invalid"
+        ></ion-button>
+      }
+    </div>
+  </div>
+</div>

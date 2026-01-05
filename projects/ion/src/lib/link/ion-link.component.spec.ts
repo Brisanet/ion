@@ -9,17 +9,19 @@ const getLinkComponentRef = (): HTMLElement => {
   return screen.getByTestId('ion-link');
 };
 
-const sut = async (customProps: Partial<{
-  label: string;
-  icon: IconType;
-  iconSide: IconSide;
-  size: FontSize;
-  bold: boolean;
-  disabled: boolean;
-  target: LinkTarget;
-  link: string;
-  ionOnClick: { emit: () => void };
-}> = {}): Promise<void> => {
+const sut = async (
+  customProps: Partial<{
+    label: string;
+    icon: IconType;
+    iconSide: IconSide;
+    size: FontSize;
+    bold: boolean;
+    disabled: boolean;
+    target: LinkTarget;
+    link: string;
+    ionOnClick: { emit: () => void };
+  }> = {},
+): Promise<void> => {
   await render(IonLinkComponent, {
     componentInputs: customProps,
     imports: [IonIconComponent],
@@ -58,7 +60,7 @@ describe('IonLinkComponent', () => {
     });
 
     expect(screen.getByTestId('ion-link-label')).toHaveClass(
-      `ion-link__label--${size}`
+      `ion-link__label--${size}`,
     );
   });
 
@@ -68,7 +70,7 @@ describe('IonLinkComponent', () => {
     });
 
     expect(screen.getByTestId('ion-link-label')).not.toHaveClass(
-      'ion-link__label--bold'
+      'ion-link__label--bold',
     );
   });
 
@@ -82,9 +84,9 @@ describe('IonLinkComponent', () => {
       });
 
       expect(screen.getByTestId('ion-link-label')).toHaveClass(
-        `ion-link__label--${size} ion-link__label--bold`
+        `ion-link__label--${size} ion-link__label--bold`,
       );
-    }
+    },
   );
 
   it('should not be disabled by default', async () => {
@@ -93,7 +95,7 @@ describe('IonLinkComponent', () => {
     });
 
     expect(screen.getByTestId('link-container')).not.toHaveClass(
-      'link-container--disabled'
+      'link-container--disabled',
     );
   });
 
@@ -104,7 +106,7 @@ describe('IonLinkComponent', () => {
     });
 
     expect(screen.getByTestId('link-container')).toHaveClass(
-      'link-container--disabled'
+      'link-container--disabled',
     );
   });
 

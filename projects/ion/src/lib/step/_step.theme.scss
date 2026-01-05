@@ -1,4 +1,4 @@
-@import "../../styles/themes/theme.scss"; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
+@import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
 $default: (
   circle-text: (
@@ -9,7 +9,7 @@ $default: (
     line-height: 20px,
   ),
   label-text: (
-    font-family: "Inter, sans-serif",
+    font-family: 'Inter, sans-serif',
     font-style: normal,
     font-weight: 400,
     color: ion-theme(neutral-6),
@@ -105,7 +105,7 @@ $dark: (
     line-height: 20px,
   ),
   label-text: (
-    font-family: "Inter, sans-serif",
+    font-family: 'Inter, sans-serif',
     font-style: normal,
     font-weight: 400,
     color: ion-theme(neutral-3),

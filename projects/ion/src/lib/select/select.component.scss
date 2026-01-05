@@ -1,0 +1,92 @@
+@use 'select.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+.ion-select-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.ion-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: ion-theme(select-background-color);
+  border-radius: ion-theme(select-border-radius);
+  border: 1px solid ion-theme(select-border-color);
+  padding: 8px 12px;
+  cursor: pointer;
+  min-height: 40px;
+  box-sizing: border-box;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+
+  &:not(.disabled) {
+    &:hover {
+      border-color: ion-theme(select-hover-border-color);
+    }
+
+    &.open,
+    &:focus {
+      outline: none;
+      border-color: ion-theme(select-active-border-color);
+      box-shadow: 0 0 0 2px ion-theme(select-active-shadow-color);
+    }
+  }
+
+  &.disabled {
+    background: ion-theme(select-disabled-background);
+    border-color: ion-theme(select-disabled-border-color);
+    cursor: not-allowed;
+
+    .placeholder,
+    .selected-value {
+      color: ion-theme(select-disabled-text-color);
+    }
+
+    ion-icon {
+      opacity: 0.5;
+    }
+  }
+
+  &.invalid {
+    border-color: ion-theme(select-invalid-border-color);
+
+    &:hover {
+      border-color: ion-theme(select-invalid-hover-border-color);
+    }
+
+    &.open,
+    &:focus {
+      border-color: ion-theme(select-invalid-focus-border-color);
+      box-shadow: 0 0 0 2px ion-theme(select-invalid-focus-shadow-color);
+    }
+  }
+
+  .placeholder {
+    color: ion-theme(select-placeholder-color);
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .selected-value {
+    display: flex;
+    gap: 8px;
+  }
+}
+
+.dropdown-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  margin-top: 4px;
+}

@@ -1,87 +1,122 @@
-@use "sidebar.theme";
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@use 'sidebar.theme';
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
-$sidebar-width: 280px;
-$sidebar-shrunk-width: 64px;
-$transition-duration: 0.3s;
+$sidebar-width: 256px;
+$sidebar-shrunk-width: 100px;
+$transition-duration: 0.25s;
 
 .ion-sidebar {
-  display: flex;
-  flex-direction: column;
+  margin: 0;
+  padding-left: 0;
+  line-height: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 999;
+  width: $sidebar-width;
   height: 100%;
-  width: 0; // Default closed/hidden if not shrink mode? Or just closed.
-  background-color: var(--ion-neutral-1);
-  border-right: 1px solid var(--ion-neutral-3);
-  transition: width $transition-duration ease-in-out;
-  overflow: hidden;
-  position: absolute; // Or relative? Absolute is safer for "overlay" effect without CDK
-  top: 0;
   left: 0;
-  z-index: 990;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-
-  &--opened {
-    width: $sidebar-width;
-  }
-
-  &--shrinked {
-    width: $sidebar-shrunk-width;
-
-    &.ion-sidebar--opened {
-      width: $sidebar-width; // When opened in shrink mode, it expands? Or does it stay shrunk?
-      // Usually "Shrink Mode" means it *can* shrink.
-      // If "Closed" in shrink mode -> show icons (shrunk width).
-      // If "Opened" in shrink mode -> show full width.
-    }
-
-    // Logic check:
-    // If shrinkMode = true:
-    //   closed = true  -> width = $sidebar-shrunk-width
-    //   closed = false -> width = $sidebar-width
-  }
-
-  // Handling the specific visibility logic based on flags
-  // If NOT shrinkMode and closed -> width 0 (hidden)
-  // If shrinkMode and closed -> width shrunk
-
-  &:not(.ion-sidebar--shrinked) {
-    &.ion-sidebar--opened {
-      width: $sidebar-width;
-    }
-    &:not(.ion-sidebar--opened) {
-      width: 0;
-      border: none;
-    }
-  }
+  top: 0;
+  background: ion-theme(sidebar-background-color);
+  box-shadow: 4px 0 8px ion-theme(sidebar-shadow-color);
+  display: grid;
+  grid-template-rows: max-content 1fr max-content;
+  transform: translateX(-110%);
+  transition:
+    transform $transition-duration ease-in-out,
+    width $transition-duration ease-in-out;
+  border-right: 1px solid ion-theme(sidebar-border-color);
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px;
-    height: 64px;
-    box-sizing: border-box;
-
-    &--logo {
-      img {
-        max-height: 32px;
-      }
+    padding: spacing(3) spacing(3) spacing(2) spacing(3);
+    overflow: hidden;
+    img {
+      width: 75%;
     }
   }
 
   &__items {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 16px 8px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    align-items: stretch;
+    gap: 16px;
+    padding: spacing(2) spacing(3);
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
   }
 
   &__footer {
-    padding: 16px;
-    border-top: 1px solid var(--ion-neutral-3);
+    justify-self: stretch;
+    border-top: 1px solid ion-theme(sidebar-footer-divider-color);
+    padding: spacing(3);
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
   }
+
+  &--shrinked {
+    transform: translateX(0);
+    width: $sidebar-shrunk-width;
+
+    .ion-sidebar__header {
+      padding: spacing(3) spacing(3) spacing(2);
+      justify-content: center;
+    }
+
+    .ion-sidebar__items {
+      align-items: center !important;
+      padding: spacing(2) spacing(2.5);
+      padding-left: spacing(3);
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+    }
+
+    .ion-sidebar__footer {
+      max-width: 100%;
+      overflow-x: hidden;
+      padding: spacing(3) spacing(2.5);
+    }
+  }
+
+  &--opened {
+    transform: translateX(0px);
+    transition:
+      transform $transition-duration ease-in-out,
+      width $transition-duration ease-in-out;
+  }
+
+  &__logo--pointer {
+    cursor: pointer;
+  }
+
+  &--without-header {
+    grid-template-rows: 1fr max-content;
+  }
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  background: ion-theme(sidebar-scrollbar-thumb-color);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: ion-theme(sidebar-scrollbar-hover-thumb-color);
 }

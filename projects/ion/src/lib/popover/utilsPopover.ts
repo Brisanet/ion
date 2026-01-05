@@ -151,7 +151,7 @@ function calculateRightPositions({
 }
 
 export function getPositionsPopover(
-  props: GetPositionsCallbackProps
+  props: GetPositionsCallbackProps,
 ): PopoverPositions {
   const { host, arrowAtCenter, element: popover } = props;
   const hostHorizontalCenter = Math.round(host.width / 2 + host.left);

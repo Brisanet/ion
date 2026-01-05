@@ -1,5 +1,5 @@
-@import "../../../styles/index.scss";
-@import "../../../styles/themes/theme.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
 
 @mixin icon-color($color) {
   ::ng-deep svg {
@@ -15,14 +15,14 @@
   background: transparent;
   border: 1.5px solid ion-theme(sidebar-group-border-color);
   border-radius: 20px;
-  padding: 8px;
+  padding: spacing(1);
   @include icon-color(sidebar-group-icon-color);
 
   &__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 8px;
+    padding: 0 spacing(1);
     color: ion-theme(sidebar-group-header-text-color);
     font-weight: 600;
     font-size: 16px;
@@ -33,7 +33,7 @@
     div {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: spacing(1);
       overflow: hidden;
     }
   }
@@ -43,7 +43,7 @@
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: spacing(1.25);
   }
 
   &__toggle-icon {
@@ -75,7 +75,7 @@
   }
 
   &--opened {
-    gap: 10px;
+    gap: spacing(1.25);
 
     .sidebar-group__header {
       color: ion-theme(sidebar-group-opened-text-color);
@@ -89,20 +89,23 @@
 
   &--selected {
     border-color: ion-theme(sidebar-group-selected-border-color);
-    gap: 10px;
+    gap: spacing(1.25);
   }
 
   &--shrinked {
-    padding: 4px;
+    padding: spacing(0.5);
 
     .sidebar-group__header {
       border-radius: 50%;
       flex-direction: column;
-      gap: 8px;
+      justify-content: center;
+      gap: spacing(1);
       padding: 0;
+      width: 48px;
+      height: 48px;
 
       & > div {
-        padding: 4px;
+        padding: 0;
       }
 
       &:hover {

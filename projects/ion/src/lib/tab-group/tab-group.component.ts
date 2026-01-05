@@ -69,7 +69,7 @@ export class IonTabGroupComponent {
 
   private isBorderDirectionCorrect(
     direction: DirectionType,
-    border: BorderDirectionType
+    border: BorderDirectionType,
   ): boolean {
     const directions = {
       horizontal: border === 'top' || border === 'bottom',

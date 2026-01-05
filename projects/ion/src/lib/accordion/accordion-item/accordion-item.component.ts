@@ -1,9 +1,4 @@
-import {
-  Component,
-  TemplateRef,
-  input,
-  output,
-} from '@angular/core';
+import { Component, TemplateRef, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../../icon/icon.component';
 import { SafeAny } from '../../utils/safe-any';

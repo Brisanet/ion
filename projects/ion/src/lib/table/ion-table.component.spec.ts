@@ -23,7 +23,9 @@ const defaultProps: ConfigTable<SafeAny> = {
   columns,
 };
 
-const sut = async (customProps: ConfigTable<SafeAny> = defaultProps): Promise<void> => {
+const sut = async (
+  customProps: ConfigTable<SafeAny> = defaultProps,
+): Promise<void> => {
   await render(IonTableComponent, {
     componentInputs: { config: customProps },
     imports: [
@@ -31,8 +33,8 @@ const sut = async (customProps: ConfigTable<SafeAny> = defaultProps): Promise<vo
       IonTagComponent,
       IonIconComponent,
       IonPaginationComponent,
-      IonCheckboxComponent
-    ]
+      IonCheckboxComponent,
+    ],
   });
 };
 

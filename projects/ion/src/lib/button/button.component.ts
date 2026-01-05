@@ -8,7 +8,12 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { ButtonBadgeTypes, ButtonIconSizeOptions, Size, Type } from '../core/types/button';
+import {
+  ButtonBadgeTypes,
+  ButtonIconSizeOptions,
+  Size,
+  Type,
+} from '../core/types/button';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
@@ -18,7 +23,12 @@ import { IonBadgeComponent } from '../badge/badge.component';
 @Component({
   selector: 'ion-button',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonDropdownComponent, IonBadgeComponent],
+  imports: [
+    CommonModule,
+    IonIconComponent,
+    IonDropdownComponent,
+    IonBadgeComponent,
+  ],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
@@ -39,7 +49,16 @@ export class IonButtonComponent implements AfterViewChecked {
   options = input<DropdownItem[]>();
   showDropdownInput = input(false, { alias: 'showDropdown' });
   showDropdownAbove = input(false);
-  dropdownConfig = input<Pick<DropdownParams, 'description' | 'notShowClearButton' | 'required' | 'enableSearch' | 'searchOptions'>>({
+  dropdownConfig = input<
+    Pick<
+      DropdownParams,
+      | 'description'
+      | 'notShowClearButton'
+      | 'required'
+      | 'enableSearch'
+      | 'searchOptions'
+    >
+  >({
     notShowClearButton: false,
     required: false,
   });
@@ -60,7 +79,6 @@ export class IonButtonComponent implements AfterViewChecked {
   // Computed
   public iconSize = computed(() => ButtonIconSizeOptions[this.size()]);
 
-
   constructor() {
     effect(() => {
       this._label.set(this.label());
@@ -68,12 +86,12 @@ export class IonButtonComponent implements AfterViewChecked {
   }
 
   updateBadgeValue(items: DropdownItem[]): void {
-    this.buttonBadge.update(badge => ({ ...badge, value: items.length }));
+    this.buttonBadge.update((badge) => ({ ...badge, value: items.length }));
   }
 
   handleClick(): void {
     if (!this.loading() && !this.disabled()) {
-      this.showDropdown.update(v => !v);
+      this.showDropdown.update((v) => !v);
       this.ionOnClick.emit();
     }
   }
@@ -110,7 +128,7 @@ export class IonButtonComponent implements AfterViewChecked {
   }
 
   onClearBadgeValue(): void {
-    this.buttonBadge.update(badge => ({ ...badge, value: 0 }));
+    this.buttonBadge.update((badge) => ({ ...badge, value: 0 }));
   }
 
   onCloseDropdown(): void {

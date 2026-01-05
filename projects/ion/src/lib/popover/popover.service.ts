@@ -23,13 +23,16 @@ export const POPOVER_DATA = new InjectionToken<PopoverProps>('POPOVER_DATA');
 export class PopoverOverlayService {
   private overlayRef: OverlayRef | null = null;
 
-  constructor(private overlay: Overlay, private injector: Injector) {}
+  constructor(
+    private overlay: Overlay,
+    private injector: Injector,
+  ) {}
 
   open(
     origin: HTMLElement,
     data: PopoverProps,
     stopCloseOnScroll = false,
-    autoReposition = true
+    autoReposition = true,
   ): void {
     // Close any existing popover
     this.close();
@@ -39,7 +42,7 @@ export class PopoverOverlayService {
       .position()
       .flexibleConnectedTo(origin)
       .withPositions(
-        this.getPositions(data.ionPopoverPosition || PopoverPosition.DEFAULT)
+        this.getPositions(data.ionPopoverPosition || PopoverPosition.DEFAULT),
       )
       .withPush(false);
 
@@ -47,8 +50,8 @@ export class PopoverOverlayService {
     const scrollStrategy = stopCloseOnScroll
       ? this.overlay.scrollStrategies.noop()
       : autoReposition
-      ? this.overlay.scrollStrategies.reposition()
-      : this.overlay.scrollStrategies.close();
+        ? this.overlay.scrollStrategies.reposition()
+        : this.overlay.scrollStrategies.close();
 
     // Create overlay config
     const config = new OverlayConfig({
@@ -68,7 +71,7 @@ export class PopoverOverlayService {
     // Attach component
     const portal = new ComponentPortal(IonPopoverComponent, null, injector);
     const componentRef = this.overlayRef.attach(
-      portal
+      portal,
     ) as ComponentRef<IonPopoverComponent>;
 
     // Subscribe to position changes to update arrow
@@ -76,7 +79,7 @@ export class PopoverOverlayService {
       (change) => {
         const newPosition = this.getPopoverPosition(change.connectionPair);
         componentRef.setInput('ionPopoverPosition', newPosition);
-      }
+      },
     );
 
     // Subscribe to backdrop clicks
@@ -129,7 +132,7 @@ export class PopoverOverlayService {
   }
 
   private getPopoverPosition(
-    connectionPair: ConnectedPosition
+    connectionPair: ConnectedPosition,
   ): PopoverPosition {
     const { originX, originY, overlayX, overlayY } = connectionPair;
 

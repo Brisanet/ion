@@ -6,7 +6,7 @@ const sut = (props?: CreateElementProps): HTMLElement => {
       type: 'span',
       text: 'hello world',
       attributes: [{ key: 'data-testid', value: 'test' }],
-    }
+    },
   );
 };
 

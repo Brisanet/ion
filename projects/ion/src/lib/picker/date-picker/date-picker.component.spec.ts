@@ -31,7 +31,7 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
   it('should open overlay when input is clicked', () => {
     // Check initial state: no calendar in overlay
     let calendarContainer = overlayContainerElement.querySelector(
-      '.container-calendar'
+      '.container-calendar',
     );
     expect(calendarContainer).toBeFalsy();
 
@@ -42,7 +42,7 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
 
     // Check open state
     calendarContainer = overlayContainerElement.querySelector(
-      '.container-calendar'
+      '.container-calendar',
     );
     expect(calendarContainer).toBeTruthy();
   });
@@ -53,7 +53,7 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
     fixture.detectChanges();
 
     expect(
-      overlayContainerElement.querySelector('.container-calendar')
+      overlayContainerElement.querySelector('.container-calendar'),
     ).toBeTruthy();
 
     // Simulate closing
@@ -61,7 +61,7 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
     fixture.detectChanges();
 
     expect(
-      overlayContainerElement.querySelector('.container-calendar')
+      overlayContainerElement.querySelector('.container-calendar'),
     ).toBeFalsy();
   });
 });

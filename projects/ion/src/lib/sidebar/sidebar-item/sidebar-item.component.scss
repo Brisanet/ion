@@ -1,100 +1,110 @@
-@import "../../../styles/index.scss";
+@import '../../../styles/index.scss';
+@import '../../../styles/themes/theme.scss';
+
+@mixin icon-color($color) {
+  .ion-sidebar-item__icon ::ng-deep svg {
+    fill: ion-theme($color);
+  }
+}
+
+.reset-button {
+  background-color: transparent;
+  border-width: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  padding: 0;
+}
 
 .ion-sidebar-item {
-  position: relative;
+  @extend .reset-button;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
-  gap: 16px;
-  padding: 8px 16px;
-  border: none;
-  background-color: transparent;
-  width: 100%;
+  padding: spacing(1) spacing(2);
+  border: 1.5px solid transparent;
+  background: ion-theme(sidebar-item-background-color);
+  border-radius: 33px;
+  color: ion-theme(sidebar-item-text-color);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: 0.25s;
-  color: var(--ion-neutral-7);
-
-  @include font-size-md;
-
-  .ion-sidebar-item__icon {
-    ::ng-deep svg {
-      fill: var(--ion-neutral-6);
-    }
-  }
-
-  &__text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    text-align: left;
-  }
-
-  &__icon {
-    display: flex;
-    justify-content: center;
-  }
-
-  &:hover {
-    background-color: var(--ion-primary-1);
-    color: var(--ion-primary-5);
-
-    .ion-sidebar-item__icon {
-      ::ng-deep svg {
-        fill: var(--ion-primary-5);
-      }
-    }
-  }
-
-  &:disabled {
-    cursor: default;
-    background-color: transparent;
-    color: var(--ion-neutral-5);
-
-    .ion-sidebar-item__icon {
-      ::ng-deep svg {
-        fill: var(--ion-neutral-5);
-      }
-    }
-  }
-
-  &--selected:not(:disabled) {
-    background-color: var(--ion-primary-1);
-    color: var(--ion-primary-6);
-
-    .ion-sidebar-item__icon {
-      ::ng-deep svg {
-        fill: var(--ion-primary-6);
-      }
-    }
-  }
-
-  &--shrunk {
-    justify-content: center;
-    padding: 0;
-  }
+  transition:
+    background-color ease-in-out 0.1s,
+    color ease-in-out 0.1s;
+  @include icon-color(sidebar-item-icon-color);
 
   & > div {
     display: flex;
     align-items: center;
-    gap: 16px;
-    height: 100%;
+    gap: spacing(1);
     overflow: hidden;
+  }
+
+  &:hover {
+    background: ion-theme(sidebar-item-hover-background-color);
+    color: ion-theme(sidebar-item-hover-text-color);
+    @include icon-color(sidebar-item-hover-icon-color);
+  }
+
+  &:focus-visible {
+    @include focus;
+  }
+
+  &:active {
+    background: ion-theme(sidebar-item-active-background-color);
+    color: ion-theme(sidebar-item-active-text-color);
+    @include icon-color(sidebar-item-active-icon-color);
+  }
+
+  &:disabled,
+  &[disabled] {
+    background: ion-theme(sidebar-item-disabled-background-color);
+    color: ion-theme(sidebar-item-disabled-text-color);
+    @include icon-color(sidebar-item-disabled-icon-color);
+    cursor: not-allowed;
+  }
+
+  &__icon &--disabled {
+    @include icon-color(sidebar-item-disabled-icon-color);
+  }
+
+  &__text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &--selected {
+    background: ion-theme(sidebar-item-selected-background-color);
+    color: ion-theme(sidebar-item-selected-text-color);
+    border: 1.5px solid ion-theme(sidebar-item-selected-border-color);
+    @include icon-color(sidebar-item-selected-icon-color);
+
+    &:hover {
+      border-color: ion-theme(sidebar-item-selected-hover-border-color);
+    }
+
+    &:active {
+      border-color: ion-theme(sidebar-item-selected-active-border-color);
+    }
+  }
+
+  &--shrunk {
+    padding: spacing(1);
+    height: 48px;
+    width: 48px;
+    justify-content: center;
+    border-radius: 50%;
   }
 }
 
 .ion-sidebar-subitem {
-  position: relative;
-  &::before {
-    content: "";
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background-color: var(--ion-primary-6);
-    border-radius: 50%;
-    left: 28px;
-    top: 6px;
-  }
+  padding: spacing(0.5);
 }

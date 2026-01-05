@@ -2,12 +2,12 @@ import { EventEmitter } from '@angular/core';
 import { SafeAny } from '../../utils/safe-any';
 import { TabInGroup } from './tab-group';
 
-interface MenuProfile {
+export interface MenuProfile {
   imageUrl: string;
   name: string;
 }
 
-interface Image {
+export interface Image {
   src: string;
   alt: string;
 }

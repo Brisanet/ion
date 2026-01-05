@@ -13,7 +13,7 @@ export type Positions = {
 
 export function getPositions(
   { left, right, top, bottom }: HostPositions,
-  arrowAtCenter: boolean
+  arrowAtCenter: boolean,
 ): Positions {
   const horizontalCenter = Math.round((right - left) / 2 + left);
   return {

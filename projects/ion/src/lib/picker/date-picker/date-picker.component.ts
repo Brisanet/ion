@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   computed,
+  effect,
   input,
   output,
   signal,
@@ -50,14 +51,15 @@ export class IonDatepickerComponent {
   format = input<string>(DEFAULT_FINAL_FORMAT);
   formatInDateInput =
     input<IonDatePickerComponentProps['formatInDateInput']>(
-      DEFAULT_INPUT_FORMAT
+      DEFAULT_INPUT_FORMAT,
     );
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);
   direction = input<IonDatePickerComponentProps['direction']>(
-    CalendarDirection.bottomLeft
+    CalendarDirection.bottomLeft,
   );
   disabledDate = input<IonDatePickerComponentProps['disabledDate']>();
+  value = input<string[]>([]);
   event = output<string[]>();
 
   currentDate = signal<string[]>([]);
@@ -73,7 +75,7 @@ export class IonDatepickerComponent {
 
   overlayPositions = computed<ConnectedPosition[]>(() => {
     const direction = String(
-      this.direction()
+      this.direction(),
     ).toUpperCase() as CalendarDirection;
 
     // Position definitions
@@ -141,6 +143,19 @@ export class IonDatepickerComponent {
 
   constructor(private host: ElementRef<HTMLElement>) {
     this.elementRef = host;
+
+    effect(
+      () => {
+        const value = this.value();
+        if (value && value.length > 0) {
+          const days = value.map((v) => new Day(new Date(v)));
+          this.selectedDay.set(days);
+        } else {
+          this.selectedDay.set([]);
+        }
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   setVisibleCalendar(visible: boolean): void {
@@ -178,8 +193,8 @@ export class IonDatepickerComponent {
     const secondDate = new Day(
       new Date(
         firstDate.Date.getTime() +
-          calculateDuration(duration) * directionMultiplier
-      )
+          calculateDuration(duration) * directionMultiplier,
+      ),
     );
     this.dateSelected([firstDate, secondDate]);
   }

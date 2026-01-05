@@ -1,15 +1,17 @@
 <div class="ion-triple-toggle" data-testid="ion-triple-toggle">
   @for (option of optionsToRender(); track $index) {
-  <ion-button
-    [label]="onlyShowIcon() && $index !== middleOptionIndex ? '' : option.label"
-    [iconType]="option?.icon ?? ''"
-    [class.right-side-icon]="option?.rightSideIcon"
-    (ionOnClick)="handleClick(option, $index)"
-    [disabled]="disabled()"
-    [type]="option?.selected ? 'primary' : 'secondary'"
-    [size]="size()"
-    ionTooltip
-    [ionTooltipTitle]="option?.tooltip ?? ''"
-  ></ion-button>
+    <ion-button
+      [label]="
+        onlyShowIcon() && $index !== middleOptionIndex ? '' : option.label
+      "
+      [iconType]="option?.icon ?? ''"
+      [class.right-side-icon]="option?.rightSideIcon"
+      (ionOnClick)="handleClick(option, $index)"
+      [disabled]="disabled()"
+      [type]="option?.selected ? 'primary' : 'secondary'"
+      [size]="size()"
+      ionTooltip
+      [ionTooltipTitle]="option?.tooltip ?? ''"
+    ></ion-button>
   }
 </div>

@@ -1,5 +1,21 @@
 @if (text() && text()!.length > 0) {
-<span class="spinner-container">
+  <span class="spinner-container">
+    <span
+      class="ion-spinner"
+      data-testid="ion-spinner"
+      [ngClass]="color()"
+      [style.width.px]="size()"
+      [style.height.px]="size()"
+      [style.border-left-color]="customColor()"
+    ></span>
+    <span
+      data-testid="ion-spinner-text"
+      [attr.class]="'ion-spinner__text ion-spinner__text--' + textSize()"
+    >
+      {{ text()! }}
+    </span>
+  </span>
+} @else {
   <span
     class="ion-spinner"
     data-testid="ion-spinner"
@@ -8,20 +24,4 @@
     [style.height.px]="size()"
     [style.border-left-color]="customColor()"
   ></span>
-  <span
-    data-testid="ion-spinner-text"
-    [attr.class]="'ion-spinner__text ion-spinner__text--' + textSize()"
-  >
-    {{ text()! }}
-  </span>
-</span>
-} @else {
-<span
-  class="ion-spinner"
-  data-testid="ion-spinner"
-  [ngClass]="color()"
-  [style.width.px]="size()"
-  [style.height.px]="size()"
-  [style.border-left-color]="customColor()"
-></span>
 }

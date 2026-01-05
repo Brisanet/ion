@@ -7,7 +7,12 @@ import { StatusType } from '../core/types';
 
 @Component({
   selector: 'ion-popconfirm',
-  imports: [CommonModule, IonAlertComponent, IonButtonComponent, IonDividerComponent],
+  imports: [
+    CommonModule,
+    IonAlertComponent,
+    IonButtonComponent,
+    IonDividerComponent,
+  ],
   templateUrl: './popconfirm.component.html',
   styleUrls: ['./popconfirm.component.scss'],
   exportAs: 'IonPopConfirmComponent',

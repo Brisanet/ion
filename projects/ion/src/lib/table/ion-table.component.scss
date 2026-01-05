@@ -65,17 +65,23 @@ table {
     }
 
     &:hover {
-      background-color: theme.ion-theme(table-sort-button-hover-background-color);
+      background-color: theme.ion-theme(
+        table-sort-button-hover-background-color
+      );
     }
 
     &:focus-visible {
       @include index.focus;
-      background-color: theme.ion-theme(table-sort-button-focus-background-color);
+      background-color: theme.ion-theme(
+        table-sort-button-focus-background-color
+      );
     }
 
     &:active {
       cursor: pointer;
-      background-color: theme.ion-theme(table-sort-button-active-background-color);
+      background-color: theme.ion-theme(
+        table-sort-button-active-background-color
+      );
     }
   }
 

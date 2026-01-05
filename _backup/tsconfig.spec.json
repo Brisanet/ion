@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "types": ["jest", "node", "@testing-library/jest-dom"]
-  },
-  "files": ["projects/ion/src/polyfills.ts"],
-  "include": ["projects/ion/src/**/*.spec.ts", "projects/ion/src/**/*.d.ts"]
-}

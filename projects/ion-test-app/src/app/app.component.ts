@@ -1,6 +1,6 @@
-import { Component, ViewChild, OnInit, inject } from '@angular/core';
+import { Component, ViewChild, OnInit, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import {
   AvatarType,
   CheckBoxStates,
@@ -55,13 +55,65 @@ import {
   IonDatepickerComponent,
   CalendarDirection,
   PreDefinedRangeConfig,
-  IonCard,
+  IonSimpleMenuComponent,
+  IonModalService,
+  SidebarItem,
+  IonIndicatorComponent,
+  IonIndicatorButtonType,
+  IonSelectComponent,
+  DropdownItem,
+  BnFilterComponent,
+  BnFormField,
+  BnSelectFormField,
+  IonPaginationComponent,
+  BnFormComponent,
+  BnFormService,
+  BnAboutComponent,
+  BnWizardComponent,
+  BnWizardConfig,
   IonCardComponent,
   IonCardHeaderComponent,
-  IonCardFooterComponent,
+  IonCardFooterComponent
 } from 'ion';
-import { IonPaginationComponent } from '../../../ion/src/lib/pagination/pagination.component';
+import { Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
+
+type FromYourRepository = {
+  id?: number;
+  title_like?: string;
+};
+
+@Component({
+  standalone: true,
+  template: `
+    <div style="padding: 16px;">
+      <p>This is a component rendered inside the modal!</p>
+      @if (data) {
+        <p>
+          Data received: <strong>{{ data }}</strong>
+        </p>
+      }
+      <p>You can pass data to it and receive values back.</p>
+    </div>
+  `,
+})
+class ModalExampleComponent {
+  data?: string;
+}
+
+@Component({
+  standalone: true,
+  template: `
+    <div style="padding: 16px;">
+      @for (item of items; track $index) {
+        <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+      }
+    </div>
+  `,
+})
+class ModalLongContentComponent {
+  items = new Array(50).fill(0);
+}
 
 @Component({
   selector: 'app-root',
@@ -109,13 +161,198 @@ import { CardBodyComponent } from './card-body.component';
     IonCardHeaderComponent,
     IonCardFooterComponent,
     CardBodyComponent,
+    IonSimpleMenuComponent,
+    IonIndicatorComponent,
+    IonSelectComponent,
+    BnFormComponent,
+    BnFilterComponent,
+    BnAboutComponent,
+    BnWizardComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   private notificationService = inject(IonNotificationService);
+  private modalService: IonModalService = inject(IonModalService);
+  private bnFormService = inject(BnFormService);
   title = 'ion-test-app';
+
+  filterFields = signal<BnFormField[]>([
+    {
+      key: 'name',
+      label: 'Nome',
+      placeholder: 'Filtrar por nome...',
+      className: 'col-6',
+      // required: true,
+    },
+    {
+      key: 'gender',
+      label: 'Gênero',
+      type: 'triple-toggle',
+      options: [
+        { value: 'male', label: 'Masculino', icon: 'male' },
+        { value: 'female', label: 'Feminino', icon: 'female' },
+      ],
+      className: 'col-6'
+    },
+    {
+      key: 'datepickerRange',
+      label: 'Date Range Picker',
+      type: 'datepicker',
+      rangePicker: true,
+      className: 'col-md-4',
+    },
+    {
+      type: 'select',
+      key: 'city',
+      className: 'col-md-8',
+      label: 'Cidade',
+      placeholder: 'Selecione uma cidade',
+      initialValue: 'São Paulo',
+      propValue: 'label',
+      options: [
+        { label: 'São Paulo' },
+        { label: 'Rio de Janeiro' },
+        { label: 'Belo Horizonte' },
+      ],
+    }
+  ]);
+
+  handleFilterApplied(filters: any): void {
+    console.log('Filters applied:', filters);
+  }
+
+  openWizard(): void {
+    const bnWizardConfig: BnWizardConfig = {
+      title: 'Cadastro de Exames',
+      steps: [
+        {
+          title: 'Descrição',
+          alert: {
+            message: 'Preencha os campos abaixo com as informações que deseja cadastrar,  também é possível associar este novo módulo a perfis já existentes no sistema.',
+            type: 'info',
+          },
+          fields: [
+            {
+              key: 'nome',
+              className: 'col-12',
+              type: 'text',
+              label: 'Nome',
+              placeholder: 'Digite seu nome',
+              initialValue: 'Iury',
+              iconInput: 'image-user',
+              iconDirection: 'left',
+              validators: [Validators.required, Validators.minLength(3)],
+            },
+            {
+              key: 'sobrenome',
+              className: 'col-12',
+              type: 'text',
+              label: 'Sobrenome',
+              placeholder: 'Digite seu sobrenome',
+              onlyShowWhen: (form) =>
+                form.get('nome')?.value && form.get('nome')?.valid,
+              validators: [Validators.minLength(3)],
+            },
+          ],
+        },
+        {
+          title: 'Configurações',
+          fields: [
+            {
+              key: 'ativo',
+              type: 'switch',
+              label: 'Ativo',
+              className: 'col-6',
+            },
+            {
+              key: 'prioridade',
+              type: 'triple-toggle',
+              label: 'Prioridade',
+              className: 'col-6',
+              options: [
+                { value: 'baixa', label: 'Baixa' },
+                { value: 'alta', label: 'Alta' },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+
+    this.modalService
+      .open(BnWizardComponent, {
+        title: bnWizardConfig.title,
+        width: 800,
+        footer: {
+          hide: true,
+        },
+        ionParams: {
+          config: bnWizardConfig,
+        },
+      })
+      .subscribe((result) => {
+        console.log('Wizard finished with result:', result);
+      });
+  }
+
+  // BnAbout config
+  headerButton = {
+    action: () => console.log('Header button clicked'),
+    label: 'Imprimir solicitação'
+  };
+
+  pageTitle = {
+    title: 'Detalhes da solicitação',
+    icon: 'receipt'
+  };
+
+  aboutFields: BnFormField[] = [
+    {
+      key: 'solicitacao_id',
+      label: 'Nº da solicitação',
+      placeholder: 'Nº da solicitação',
+      className: 'col-3',
+      initialValue: '1234567-ABCDEF',
+    },
+    {
+      key: 'centro_id',
+      label: 'Centro de origem',
+      placeholder: 'Centro de origem',
+      className: 'col-3',
+      initialValue: 'AAAABBBBCCC',
+    },
+    {
+      key: 'projeto_id',
+      label: 'Projeto',
+      placeholder: 'Projeto',
+      className: 'col-3',
+      initialValue: 'Projeto ABC',
+    },
+    {
+      key: 'setor_id',
+      label: 'Setor',
+      placeholder: 'Setor',
+      className: 'col-3',
+      initialValue: 'Logistica',
+    },
+    // {
+    //   key: 'obs',
+    //   type: 'textarea',
+    //   label: 'Observação',
+    //   placeholder: 'Observação',
+    //   className: 'col-12',
+    //   initialValue: 'Material material material  material material  material material  material material  material material  material material  material material ',
+    // },
+    {
+      key: 'status_id',
+      label: 'Status',
+      placeholder: 'Status',
+      className: 'col-3',
+      initialValue: 'Em andamento',
+    },
+  ];
 
   // Avatar types for template
   AvatarType = AvatarType;
@@ -151,8 +388,8 @@ export class AppComponent implements OnInit {
   searchInputValue = '';
   inputWithMaxLength = '';
 
-  handleInputButtonClick(): void {
-    console.log('Input button clicked!');
+  handleInputButtonClick(value?: string): void {
+    console.log('Input button clicked!', value);
   }
 
   // Triple Toggle examples
@@ -240,7 +477,7 @@ export class AppComponent implements OnInit {
   // Sidebar Logic
   sidebarShrinkMode = false;
   sidebarCloseOnSelect = false;
-  sidebarItems: (any & { options?: any[] })[] = [
+  sidebarItems: (SidebarItem & { options?: SidebarItem[] })[] = [
     {
       title: 'Dashboard',
       icon: 'home',
@@ -252,26 +489,35 @@ export class AppComponent implements OnInit {
       icon: 'user',
       options: [
         {
-          title: 'List',
-          icon: 'list',
-          action: () => console.log('User List clicked'),
+          title: 'Direct Sales',
+          icon: 'pencil',
+          action: () => console.log('Direct Sales clicked'),
         },
-        {
-          title: 'Create',
-          icon: 'plus',
-          action: () => console.log('User Create clicked'),
-        },
+        ...new Array(10).fill(0).map((_, i) => ({
+          title: `Vendor ${i + 1}`,
+          icon: 'user',
+          action: () => console.log(`Vendor ${i + 1} clicked`),
+        })),
       ],
     },
+    ...new Array(10).fill(0).map((_, i) => ({
+      title: `General Item ${i + 1}`,
+      icon: 'pencil',
+      action: () => console.log(`General Item ${i + 1} clicked`),
+    })),
     {
-      title: 'Settings',
+      title: 'Complex Settings',
       icon: 'config',
-      action: () => console.log('Settings clicked'),
+      options: new Array(15).fill(0).map((_, i) => ({
+        title: `Config Option ${i + 1}`,
+        icon: 'config',
+        action: () => console.log(`Config Option ${i + 1} clicked`),
+      })),
     },
     {
-      title: 'Help',
-      icon: 'info',
-      disabled: true,
+      title: 'Logout',
+      icon: 'out',
+      action: () => console.log('Logout clicked'),
     },
   ];
 
@@ -455,4 +701,390 @@ export class AppComponent implements OnInit {
     today.setHours(0, 0, 0, 0);
     return currentDate < today;
   };
+
+  simpleMenuProfile = {
+    imageUrl: 'https://i.pravatar.cc/150?img=12',
+    name: 'João Silva',
+  };
+
+  simpleMenuOptions: TabInGroup[] = [
+    { label: 'Dashboard', selected: true, iconType: 'home' },
+    { label: 'Projetos', selected: false, iconType: 'folder' },
+    { label: 'Equipe', selected: false, iconType: 'user' },
+    { label: 'Configurações', selected: false, iconType: 'config' },
+    { label: 'Relatórios', selected: false, iconType: 'document' },
+  ];
+
+  simpleMenuLogo = {
+    src: 'https://via.placeholder.com/120x40/4CAF50/FFFFFF?text=LOGO',
+    alt: 'Company Logo',
+  };
+
+  handleSimpleMenuSelect(option: TabInGroup): void {
+    console.log('Menu option selected:', option);
+    this.simpleMenuOptions = this.simpleMenuOptions.map((opt) => ({
+      ...opt,
+      selected: opt.label === option.label,
+    }));
+  }
+
+  handleSimpleMenuLogout(): void {
+    console.log('Logout clicked');
+    window.alert('Logout functionality would be triggered here');
+  }
+
+  openModal(): void {
+    this.modalService
+      .open(ModalExampleComponent, {
+        title: 'Exemplo de Modal',
+        footer: {
+          primaryButton: {
+            label: 'Confirmar',
+          },
+          secondaryButton: {
+            label: 'Cancelar',
+          },
+        },
+      })
+      .subscribe((result: unknown) => {
+        console.log('Modal fechado com resultado:', result);
+      });
+  }
+
+  openModalWithData(): void {
+    this.modalService
+      .open(ModalExampleComponent, {
+        title: 'Modal com Dados',
+        ionParams: {
+          data: 'Informação vinda do componente pai!',
+        },
+      })
+      .subscribe((result: unknown) => {
+        console.log('Modal com dados fechado:', result);
+      });
+  }
+
+  openModalCustomWidth(): void {
+    this.modalService.open(ModalExampleComponent, {
+      title: 'Modal Largo',
+      width: 800,
+    });
+  }
+
+  openModalPersistent(): void {
+    const modalConfig = {
+      title: 'Modal Persistente',
+      preventCloseOnConfirm: true,
+      footer: {
+        primaryButton: {
+          label: 'Confirmar (Não fecha)',
+        },
+      },
+    };
+
+    const modalObservable = this.modalService.open(
+      ModalExampleComponent,
+      modalConfig,
+    );
+
+    modalObservable.subscribe((result: unknown) => {
+      console.log('Confirmar clicado, mas o modal continua aberto:', result);
+      // Você pode fechar o modal manualmente depois se quiser
+      // this.modalService.closeModal();
+    });
+  }
+
+  openModalLongContent(): void {
+    this.modalService.open(ModalLongContentComponent, {
+      title: 'Modal com Longo Conteúdo',
+    });
+  }
+
+  // Indicator Examples
+  indicatorWithRedirect = {
+    label: 'Acessar site',
+    type: IonIndicatorButtonType.Redirect,
+    redirectLink: 'https://ion.brisanet.com.br/',
+  };
+
+  indicatorWithEmitter = {
+    label: 'Emitir evento',
+    type: IonIndicatorButtonType.Emitter,
+  };
+
+  handleIndicatorClick(): void {
+    window.alert('Evento emitido pelo Indicator!');
+  }
+
+  // Select Examples
+  selectOptions = [
+    { label: 'Apple', key: 'apple', fruit_id: 1 },
+    { label: 'Banana', key: 'banana', fruit_id: 2 },
+    { label: 'Grape', key: 'grape', fruit_id: 3, disabled: true },
+    { label: 'Orange', key: 'orange', fruit_id: 4 },
+    { label: 'Strawberry', key: 'strawberry', fruit_id: 5 },
+  ];
+
+  selectOptionsCar = [
+    { label: 'Marea', key: 'marea' },
+    { label: 'Opala', key: 'opala' },
+  ];
+
+  handleSelectChange(event: DropdownItem[]): void {
+    console.log('Select changed:', event);
+  }
+
+  formFields: BnFormField[] = [
+    {
+      key: 'nome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Nome',
+      placeholder: 'Digite seu nome',
+      initialValue: 'Iury',
+      iconInput: 'image-user',
+      iconDirection: 'left',
+      validators: [
+        Validators.minLength(3),
+      ],
+    },
+    {
+      key: 'sobrenome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Sobrenome',
+      placeholder: 'Digite seu sobrenome',
+      onlyShowWhen: () => {
+        return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
+      },
+      validators: [
+        Validators.minLength(3),
+      ],
+    },
+    {
+      key: 'email',
+      className: 'col-6',
+      type: 'email',
+      label: 'Email',
+      placeholder: 'Digite seu email',
+      required: true,
+      validators: [
+        Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$'),
+      ],
+    },
+    {
+      type: 'select',
+      key: 'select',
+      className: 'col-6',
+      label: 'Selecione',
+      placeholder: 'Selecione',
+      options: this.selectOptions,
+      initialValue: [1],
+      propValue: 'fruit_id',
+      multiple: true,
+    },
+    {
+      type: 'select',
+      key: 'car',
+      className: 'col-6',
+      label: 'Selecione o Carro',
+      placeholder: 'Selecione',
+      options: this.selectOptionsCar,
+      initialValue: ['marea'],
+    },
+    {
+      type: 'select',
+      key: 'city',
+      className: 'col-6',
+      label: 'Selecione uma cidade',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: false,
+      propValue: 'id',
+      propLabel: 'title',
+      enableSearch: true,
+      refresh: {
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshCities(field, search),
+      },
+    },
+    {
+      type: 'select',
+      key: 'state',
+      className: 'col-6',
+      label: 'Selecione um estado',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: false,
+      propValue: 'id',
+      propLabel: 'title',
+      enableSearch: true,
+      onlyShowWhen: () => {
+        return this.formGroup.get('city')?.value === 2
+      },
+      refresh: {
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshStates(field, search),
+        debounceTime: 1500,
+      },
+    },
+    // {
+    //   key: 'basicInput',
+    //   className: 'col-4',
+    //   label: 'Basic Input',
+    //   placeholder: 'Enter text here...',
+    // },
+    // {
+    //   key: 'searchLeft',
+    //   className: 'col-4',
+    //   label: 'Input with Left Icon',
+    //   placeholder: 'Search...',
+    //   iconInput: 'search',
+    //   iconDirection: 'left',
+    // },
+    // {
+    //   key: 'searchRight',
+    //   className: 'col-4',
+    //   label: 'Input with Right Icon',
+    //   placeholder: 'Search...',
+    //   iconInput: 'search',
+    //   iconDirection: 'right',
+    // },
+    // {
+    //   key: 'password',
+    //   label: 'Password Input',
+    //   placeholder: 'Enter password',
+    //   type: 'password',
+    // },
+    // {
+    //   key: 'clearable',
+    //   label: 'Input with Clear Button',
+    //   placeholder: 'Type to see clear button',
+    //   clearButton: true,
+    // },
+    // {
+    //   key: 'maxLength',
+    //   label: 'Input with Max Length (10 chars)',
+    //   placeholder: 'Max 10 characters',
+    //   maxLength: 10,
+    // },
+    // {
+    //   key: 'valid',
+    //   label: 'Valid Input',
+    //   placeholder: 'Valid input',
+    //   initialValue: 'valid@email.com',
+    // },
+    // {
+    //   key: 'invalid',
+    //   label: 'Invalid Input with Error',
+    //   placeholder: 'Invalid input',
+    //   initialValue: 'invalid',
+    //   validators: [Validators.required, Validators.email],
+    //   errorMsg: 'Please enter a valid email',
+    // },
+    // {
+    //   key: 'disabled',
+    //   label: 'Disabled Input',
+    //   placeholder: 'Disabled input',
+    //   initialValue: 'Cannot edit this',
+    //   disabled: true,
+    // },
+    // {
+    //   key: 'readonly',
+    //   label: 'Readonly Input',
+    //   placeholder: 'Readonly input',
+    //   initialValue: 'Read only value',
+    //   readonly: true,
+    // },
+    // {
+    //   key: 'withButton',
+    //   label: 'Input with Button',
+    //   placeholder: 'Search with button',
+    //   inputButton: true,
+    //   inputButtonConfig: {
+    //     label: 'Search',
+    //     type: 'primary',
+    //     iconType: 'search',
+    //   },
+    //   onClickButton: (value) => this.handleInputButtonClick(value),
+    // },
+    // {
+    //   key: 'number',
+    //   label: 'Number Input',
+    //   placeholder: 'Enter number',
+    //   type: 'number',
+    //   className: 'col-4',
+    // },
+    // {
+    //   key: 'tripleToggle',
+    //   label: 'Triple Toggle',
+    //   type: 'triple-toggle',
+    //   className: 'col-4',
+    //   options: [
+    //     { value: 'yes', label: 'Yes', icon: 'check' },
+    //     { value: 'no', label: 'No', icon: 'close' },
+    //   ],
+    //   initialValue: 'yes',
+    // },
+    // {
+    //   key: 'switchBasic',
+    //   label: 'Basic Switch',
+    //   type: 'switch',
+    //   className: 'col-md-4',
+    //   initialValue: true,
+    // },
+    // {
+    //   key: 'datepickerBasic',
+    //   label: 'Basic Date Picker',
+    //   type: 'datepicker',
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'datepickerRange',
+    //   label: 'Date Range Picker',
+    //   type: 'datepicker',
+    //   rangePicker: true,
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'datepickerPredefined',
+    //   label: 'Date Range with Predefined',
+    //   type: 'datepicker',
+    //   rangePicker: true,
+    //   predefinedRanges: [
+    //     { label: 'Últimos 7 dias', duration: 'P7D', isFuture: false },
+    //     { label: 'Últimos 30 dias', duration: 'P30D', isFuture: false },
+    //   ],
+    //   className: 'col-md-4',
+    // },
+    // {
+    //   key: 'name',
+    //   label: 'Name',
+    //   placeholder: 'Enter name',
+    // }
+  ];
+
+  formGroup = this.bnFormService.createFormGroup(this.formFields);
+
+  submitForm(): void {
+    console.log('Form submitted:', this.formGroup.value);
+  }
+
+  refreshCities(_field: BnSelectFormField, search?: string): Observable<any> {
+    const params: FromYourRepository = {};
+
+    if (search) {
+      params.title_like = search;
+    }
+
+    console.log(search);
+
+    return this.http.get('https://jsonplaceholder.typicode.com/posts', {
+      params,
+    });
+  }
+
+  refreshStates(_field: BnSelectFormField, search?: string): Observable<any> {
+    return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  }
 }

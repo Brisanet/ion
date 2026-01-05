@@ -6,86 +6,86 @@
   [class.sidebar-group--shrinked]="shrinkMode() && sidebarClosed()"
 >
   @if (haveGroupAction()) {
-  <header
-    class="sidebar-group__header sidebar-group__header--with-action"
-    data-testid="sidebar-group__header"
-    ionTooltip
-    [ionTooltipTitle]="sidebarClosed() ? title() : ''"
-    [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
-  >
-    <div (click)="groupSelected()">
-      <ion-icon
-        data-testid="sidebar-group__title-icon"
-        [type]="icon()"
-      ></ion-icon>
-      @if ((shrinkMode() && !sidebarClosed()) || !shrinkMode()) {
-      <span
-        ionTooltip
-        [ionTooltipTitle]="
-          itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
-        "
-        [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
-        #itemTitle
-        data-testid="sidebar-group__title"
-        >{{ title() }}</span
-      >
+    <header
+      class="sidebar-group__header sidebar-group__header--with-action"
+      data-testid="sidebar-group__header"
+      ionTooltip
+      [ionTooltipTitle]="sidebarClosed() ? title() : ''"
+      [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
+    >
+      <div (click)="groupSelected($event)">
+        <ion-icon
+          data-testid="sidebar-group__title-icon"
+          [type]="icon()"
+        ></ion-icon>
+        @if ((shrinkMode() && !sidebarClosed()) || !shrinkMode()) {
+          <span
+            ionTooltip
+            [ionTooltipTitle]="
+              itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
+            "
+            [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
+            #itemTitle
+            data-testid="sidebar-group__title"
+            >{{ title() }}</span
+          >
+        }
+      </div>
+      @if (!sidebarClosed()) {
+        <ion-icon
+          class="sidebar-group__toggle-icon"
+          data-testid="sidebar-group__toggle-icon"
+          type="semi-down"
+          [size]="20"
+          (click)="toggleItemsVisibility()"
+        ></ion-icon>
       }
-    </div>
-    @if (!sidebarClosed()) {
-    <ion-icon
-      class="sidebar-group__toggle-icon"
-      data-testid="sidebar-group__toggle-icon"
-      type="semi-down"
-      [size]="20"
-      (click)="toggleItemsVisibility()"
-    ></ion-icon>
-    }
-  </header>
+    </header>
   } @else {
-  <header
-    class="sidebar-group__header sidebar-group__header--clickable"
-    data-testid="sidebar-group__header"
-    ionTooltip
-    [ionTooltipTitle]="sidebarClosed() ? title() : ''"
-    [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
-    (click)="toggleItemsVisibility()"
-    (mouseenter)="changeIconHover(true)"
-    (mouseleave)="changeIconHover(false)"
-  >
-    <div>
-      <ion-icon
-        data-testid="sidebar-group__title-icon"
-        [type]="
-          headerIconHovered() && shrinkMode()
-            ? closed()
-              ? 'semi-down'
-              : 'semi-up'
-            : icon()
-        "
-      ></ion-icon>
-      @if ((shrinkMode() && !sidebarClosed()) || !shrinkMode()) {
-      <span
-        ionTooltip
-        [ionTooltipTitle]="
-          itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
-        "
-        [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
-        #itemTitle
-        class="sidebar-group__text"
-        data-testid="sidebar-group__title"
-        >{{ title() }}</span
-      >
+    <header
+      class="sidebar-group__header sidebar-group__header--clickable"
+      data-testid="sidebar-group__header"
+      ionTooltip
+      [ionTooltipTitle]="sidebarClosed() ? title() : ''"
+      [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
+      (click)="toggleItemsVisibility()"
+      (mouseenter)="changeIconHover(true)"
+      (mouseleave)="changeIconHover(false)"
+    >
+      <div>
+        <ion-icon
+          data-testid="sidebar-group__title-icon"
+          [type]="
+            headerIconHovered() && shrinkMode()
+              ? closed()
+                ? 'semi-down'
+                : 'semi-up'
+              : icon()
+          "
+        ></ion-icon>
+        @if ((shrinkMode() && !sidebarClosed()) || !shrinkMode()) {
+          <span
+            ionTooltip
+            [ionTooltipTitle]="
+              itemTitle.offsetWidth < itemTitle.scrollWidth ? title() : ''
+            "
+            [ionTooltipPosition]="TooltipPosition.CENTER_LEFT"
+            #itemTitle
+            class="sidebar-group__text"
+            data-testid="sidebar-group__title"
+            >{{ title() }}</span
+          >
+        }
+      </div>
+      @if (!sidebarClosed()) {
+        <ion-icon
+          class="sidebar-group__toggle-icon"
+          data-testid="sidebar-group__toggle-icon"
+          type="semi-down"
+          [size]="20"
+        ></ion-icon>
       }
-    </div>
-    @if (!sidebarClosed()) {
-    <ion-icon
-      class="sidebar-group__toggle-icon"
-      data-testid="sidebar-group__toggle-icon"
-      type="semi-down"
-      [size]="20"
-    ></ion-icon>
-    }
-  </header>
+    </header>
   }
 
   <ul
@@ -93,19 +93,19 @@
     data-testid="sidebar-group__items"
     [hidden]="closed() && !selected()"
   >
-    @for (item of items(); track i; let i = $index) {
-    <ion-sidebar-item
-      [attr.data-testid]="'sidebar-group__item-' + i"
-      [title]="item.title"
-      [icon]="item.icon"
-      [selected]="!!item.selected"
-      [disabled]="!!item.disabled"
-      [hidden]="closed() && !item.selected"
-      [shrinkMode]="shrinkMode()"
-      [sidebarClosed]="sidebarClosed()"
-      [inGroup]="true"
-      (atClick)="itemSelected(i, $event)"
-    ></ion-sidebar-item>
+    @for (item of items(); track $index; let i = $index) {
+      <ion-sidebar-item
+        [attr.data-testid]="'sidebar-group__item-' + i"
+        [title]="item.title"
+        [icon]="item.icon"
+        [selected]="!!item.selected"
+        [disabled]="!!item.disabled"
+        [hidden]="closed() && !item.selected"
+        [shrinkMode]="shrinkMode()"
+        [sidebarClosed]="sidebarClosed()"
+        [inGroup]="true"
+        (atClick)="itemSelected(i, $event)"
+      ></ion-sidebar-item>
     }
   </ul>
 </section>
