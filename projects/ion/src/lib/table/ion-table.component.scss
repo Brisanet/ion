@@ -92,7 +92,7 @@ table {
   & th {
     background-color: theme.ion-theme(table-row-th-background-color);
     padding: 16px; // spacing(2)
-    position: sticky;
+    // position: sticky;
     top: 0;
     z-index: 10; // $zIndexLow
 
