@@ -10,6 +10,7 @@ export interface IonModalConfiguration {
   id?: string;
   title?: string;
   titleIcon?: IconType;
+  isLoading?: boolean;
   width?: number;
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;

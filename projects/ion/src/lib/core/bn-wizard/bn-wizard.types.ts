@@ -1,6 +1,7 @@
 import { BnFormField } from '../bn-form/bn-form.types';
 import { StatusType } from '../../core/types';
 import { IconType } from '../../core/types/icon';
+import { Observable } from 'rxjs';
 
 export interface BnWizardStep {
   title: string;
@@ -16,4 +17,6 @@ export interface BnWizardConfig {
   titleIcon?: IconType;
   steps: BnWizardStep[];
   horizontal?: boolean;
+  isLoading?: boolean;
+  onSubmit?: (data: any) => Observable<any> | Promise<any>;
 }

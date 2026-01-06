@@ -1,5 +1,5 @@
-import { ComponentRef, inject, Injectable, Type } from '@angular/core';
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { inject, Injectable, Type } from '@angular/core';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Observable, Subject } from 'rxjs';
 
@@ -102,6 +102,12 @@ export class IonModalService {
     if (control) {
       control.subscriber.next(valueToEmit);
       this.closeModal(control);
+    }
+  }
+
+  emitResponse(valueToEmit: IonModalResponse | unknown): void {
+    if (this.currentModalControl) {
+      this.currentModalControl.subscriber.next(valueToEmit);
     }
   }
 
