@@ -1,4 +1,4 @@
-name: '🚀 release'
+name: "🚀 release"
 
 on:
   release:
@@ -22,7 +22,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: https://registry.npmjs.org
 
       - name: 📚 Install packages
         run: yarn install --frozen-lockfile
@@ -31,7 +30,7 @@ jobs:
         run: yarn build
 
       - name: 🚀 publish
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         working-directory: dist/ion
         env:
           CI: true
