@@ -19,6 +19,7 @@ import { generateIDs } from '../utils';
 import { IonModalConfiguration, IonModalResponse } from '../core/types/modal';
 import { IonButtonComponent } from '../button/button.component';
 import { IonAlertComponent } from '../alert/alert.component';
+import { IonIconComponent } from '../icon/icon.component';
 
 const defaultModal: IonModalConfiguration = {
   title: 'Ion Modal',
@@ -42,7 +43,7 @@ const defaultModal: IonModalConfiguration = {
 @Component({
   selector: 'ion-modal',
   standalone: true,
-  imports: [CommonModule, IonButtonComponent, IonAlertComponent],
+  imports: [CommonModule, IonButtonComponent, IonAlertComponent, IonIconComponent],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

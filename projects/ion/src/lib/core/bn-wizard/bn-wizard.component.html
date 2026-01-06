@@ -1,11 +1,20 @@
 <div class="bn-wizard-container">
-  @if (config().steps.length > 1) {
-    <div class="bn-wizard-steps">
-      <ion-steps
-        [steps]="stepsForIndicator()"
-        [current]="currentStepIndex() + 1"
-      ></ion-steps>
+  <div
+    class="bn-wizard-content"
+    [class.bn-wizard-content--horizontal]="config().horizontal"
+  >
 
+    <div>
+      @if (config().steps.length > 1) {
+        <div class="bn-wizard-steps">
+          <ion-steps
+            [steps]="stepsForIndicator()"
+            [current]="currentStepIndex() + 1"
+            [direction]="config().horizontal ? 'vertical' : 'horizontal'"
+          ></ion-steps>
+        </div>
+      }
+  
       @if (config().steps[currentStepIndex()].alert) {
         <ion-alert
           [message]="config().steps[currentStepIndex()].alert!.message"
@@ -14,10 +23,10 @@
         ></ion-alert>
       }
     </div>
-  }
 
-  <div class="bn-wizard-content">
-    <bn-form [formGroup]="formGroup" [fields]="currentStep.fields"></bn-form>
+    <div class="bn-wizard-content">
+      <bn-form [formGroup]="formGroup" [fields]="currentStep.fields"></bn-form>
+    </div>
   </div>
 
   <div class="bn-wizard-footer">

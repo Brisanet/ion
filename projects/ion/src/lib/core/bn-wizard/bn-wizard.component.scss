@@ -1,8 +1,16 @@
 .bn-wizard-container {
+  min-height: 300px;
+}
+
+.bn-wizard-content {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  min-height: 300px;
+  flex: 1;
+
+  &--horizontal {
+    flex-direction: row;
+  }
 }
 
 .bn-wizard-steps {
@@ -10,11 +18,9 @@
   flex-direction: column;
   gap: 33px;
   padding-bottom: 24px;
+  align-items: center;
 }
 
-.bn-wizard-content {
-  flex: 1;
-}
 
 .bn-wizard-footer {
   display: flex;

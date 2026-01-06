@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  computed,
   effect,
   input,
   output,
   signal,
-  OnInit,
 } from '@angular/core';
-import { StepConfig, StepStatus, StepType } from '../core/types';
+import { StepStatus, StepType } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 import { EllipsisPipe } from '../utils/pipes/ellipsis/ellipsis.pipe';
 

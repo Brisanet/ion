@@ -9,6 +9,7 @@ import { SafeAny } from '../../utils/safe-any';
 export interface IonModalConfiguration {
   id?: string;
   title?: string;
+  titleIcon?: IconType;
   width?: number;
   showOverlay?: boolean;
   overlayCanDismiss?: boolean;

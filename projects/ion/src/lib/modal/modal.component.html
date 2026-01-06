@@ -23,6 +23,11 @@
         />
       }
     }
+    @if (configuration().titleIcon) {
+      <ion-icon
+        [type]="configuration().titleIcon!"
+      />
+    }
     <h4 data-testid="modalTitle">{{ configuration().title }}</h4>
     @if (!configuration().hideCloseButton) {
       <ion-button

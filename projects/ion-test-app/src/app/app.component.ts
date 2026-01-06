@@ -239,13 +239,11 @@ export class AppComponent implements OnInit {
   openWizard(): void {
     const bnWizardConfig: BnWizardConfig = {
       title: 'Cadastro de Exames',
+      // horizontal: true,
+      titleIcon: 'box',
       steps: [
         {
           title: 'Descrição',
-          alert: {
-            message: 'Preencha os campos abaixo com as informações que deseja cadastrar,  também é possível associar este novo módulo a perfis já existentes no sistema.',
-            type: 'info',
-          },
           fields: [
             {
               key: 'nome',
@@ -272,6 +270,10 @@ export class AppComponent implements OnInit {
         },
         {
           title: 'Configurações',
+          alert: {
+            message: 'Apenas campos obrigatórios',
+            type: 'warning',
+          },
           fields: [
             {
               key: 'ativo',
@@ -297,6 +299,7 @@ export class AppComponent implements OnInit {
     this.modalService
       .open(BnWizardComponent, {
         title: bnWizardConfig.title,
+        titleIcon: bnWizardConfig.titleIcon,
         width: 800,
         footer: {
           hide: true,

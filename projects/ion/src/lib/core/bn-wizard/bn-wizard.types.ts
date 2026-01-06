@@ -1,5 +1,6 @@
 import { BnFormField } from '../bn-form/bn-form.types';
 import { StatusType } from '../../core/types';
+import { IconType } from '../../core/types/icon';
 
 export interface BnWizardStep {
   title: string;
@@ -12,5 +13,7 @@ export interface BnWizardStep {
 
 export interface BnWizardConfig {
   title: string;
+  titleIcon?: IconType;
   steps: BnWizardStep[];
+  horizontal?: boolean;
 }
