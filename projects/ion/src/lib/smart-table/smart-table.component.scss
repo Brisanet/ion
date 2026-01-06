@@ -84,9 +84,9 @@ table {
   }
 
   & th {
-    background-color: ion-theme(table-row-th-background-color);
+    background-color: ion-theme(neutral-1);
     padding: spacing(2);
-    position: sticky;
+    // position: sticky;
     top: 0;
     z-index: $zIndexLow;
 
