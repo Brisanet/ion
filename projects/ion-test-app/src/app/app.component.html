@@ -1,3 +1,19 @@
+<ion-navbar
+  [leftAction]="{ iconType: 'box', tooltip: 'Menu' }"
+  (leftActionOutput)="handleLeftActionOutput($event)"
+  [alert]="{ message: 'Essa é uma versão beta do sistema', type: 'info' }"
+  [rightActions]="[
+    { iconType: 'search', tooltip: 'Procurar', action: 'search' },
+    { iconType: 'alert', tooltip: 'Notificações', action: 'notifications' },
+    { iconType: 'user', tooltip: 'Perfil', action: 'profile' },
+  ]"
+  (rightActionOutput)="handleRightActionOutput($event)"
+  (valueChange)="handleValueChangeNavbar($event)"
+  [inputSearch]="{ placeholder: 'Procurar', iconInput: 'search' }"
+  [avatar]="{ type: AvatarType.initials, value: 'Iury Nogueira', size: 'md' }"
+  >
+</ion-navbar>
+
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
   <h1>Ion Consumer App</h1>
 

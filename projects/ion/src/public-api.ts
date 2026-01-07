@@ -73,3 +73,4 @@ export * from './lib/core/bn-about/bn-about.component';
 export * from './lib/card/card.component';
 export * from './lib/card/card-header.component';
 export * from './lib/card/card-footer.component';
+export * from './lib/navbar/navbar.component';

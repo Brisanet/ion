@@ -1,0 +1,32 @@
+@use 'navbar.theme';
+
+@import '../../styles/themes/theme.scss';
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: ion-theme(neutral-1);
+  padding: 18px;
+
+  border-top: 1px solid var(--ion-divider-color);
+}
+
+.middle-search {
+  flex: 1;
+  padding: 0 48px;
+}
+
+.right-side {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: ion-theme(neutral-7);
+  font-weight: 600;
+}

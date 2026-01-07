@@ -1,0 +1,52 @@
+<div>
+  <div class="navbar-container">
+    @if (leftAction()) {
+      <ion-button
+        [iconType]="leftAction()?.iconType!"
+        [circularButton]="true"
+        [tooltip]="leftAction()?.tooltip"
+        type="ghost"
+        (ionOnClick)="leftActionOutput.emit()">
+      </ion-button>
+    }
+
+    @if (inputSearch()) {
+      <div class="middle-search">
+        <ion-input
+          [placeholder]="inputSearch()?.placeholder!"
+          [value]="inputSearch()?.value!"
+          (valueChange)="valueChange.emit($event)"
+          [iconInput]="inputSearch()?.iconInput!"
+          iconDirection="left">
+        </ion-input>
+      </div>
+    }
+
+    <div class="right-side">
+      @if (alert()) {
+        <ion-alert [message]="alert()?.message!" [type]="alert()?.type!"></ion-alert>
+      }
+
+      @if (rightActions()) {
+        @for (action of rightActions()!; track $index) {
+          <ion-button
+            [iconType]="action.iconType!"
+            [circularButton]="true"
+            [tooltip]="action.tooltip"
+            type="ghost"
+            (ionOnClick)="rightActionOutput.emit(action.action!)">
+          </ion-button>
+        }
+      }
+
+      <div class="user-container">
+        <ion-avatar
+          [type]="avatar().type"
+          [value]="avatar().value"
+          [size]="avatar().size">
+        </ion-avatar>
+        <span>{{ avatar().value }}</span>
+      </div>
+    </div>
+  </div>
+</div>

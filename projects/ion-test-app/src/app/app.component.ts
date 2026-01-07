@@ -72,7 +72,8 @@ import {
   BnWizardConfig,
   IonCardComponent,
   IonCardHeaderComponent,
-  IonCardFooterComponent
+  IonCardFooterComponent,
+  IonNavbarComponent
 } from 'ion';
 import { Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
@@ -167,7 +168,8 @@ class ModalLongContentComponent {
     BnFilterComponent,
     BnAboutComponent,
     BnWizardComponent,
-  ],
+    IonNavbarComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -1110,5 +1112,17 @@ export class AppComponent implements OnInit {
 
   refreshStates(_field: BnSelectFormField, search?: string): Observable<any> {
     return this.http.get('https://jsonplaceholder.typicode.com/posts');
+  }
+
+  handleLeftActionOutput(event: any): void {
+    console.log('Left action output:', event);
+  }
+
+  handleRightActionOutput(event: any): void {
+    console.log('Right action output:', event);
+  }
+
+  handleValueChangeNavbar(event: any): void {
+    console.log('Value change:', event);
   }
 }
