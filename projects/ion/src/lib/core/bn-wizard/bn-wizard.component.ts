@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { isObservable, firstValueFrom } from 'rxjs';
 import { IonStepsComponent } from '../../step/ion-step.component';
 import { BnFormComponent } from '../bn-form/bn-form.component';
 import { BnFormService } from '../bn-form/bn-form.service';
@@ -81,9 +82,23 @@ export class BnWizardComponent implements OnInit {
     this.modalService.closeModal();
   }
 
-  finish() {
+  async finish() {
     if (this.formGroup.valid) {
-      this.modalService.emitValueAndCloseModal(this.formGroup.value);
+      const config = this.config();
+      if (config.onSubmit) {
+        try {
+          config.isLoading = true;
+          const result = config.onSubmit(this.formGroup.value);
+          this.modalService.emitResponse(isObservable(result) ? await firstValueFrom(result) : await result);
+          this.modalService.closeModal();
+        } catch (error) {
+          this.modalService.emitResponse(error);
+        } finally {
+          config.isLoading = false;
+        }
+      } else {
+        this.modalService.emitValueAndCloseModal(this.formGroup.value);
+      }
     } else {
       this.formGroup.markAllAsTouched();
     }

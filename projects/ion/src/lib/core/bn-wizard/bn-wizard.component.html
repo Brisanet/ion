@@ -60,6 +60,7 @@
           type="primary"
           (ionOnClick)="finish()"
           [disabled]="formGroup.invalid"
+          [loading]="!!config().isLoading"
         ></ion-button>
       }
     </div>

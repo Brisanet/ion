@@ -175,6 +175,7 @@ export class AppComponent implements OnInit {
   private notificationService = inject(IonNotificationService);
   private modalService: IonModalService = inject(IonModalService);
   private bnFormService = inject(BnFormService);
+  private http = inject(HttpClient);
   title = 'ion-test-app';
 
   filterFields = signal<BnFormField[]>([
@@ -239,8 +240,11 @@ export class AppComponent implements OnInit {
   openWizard(): void {
     const bnWizardConfig: BnWizardConfig = {
       title: 'Cadastro de Exames',
-      // horizontal: true,
       titleIcon: 'box',
+      // horizontal: true,
+      onSubmit: (data) => {
+        return this.http.post('https://jsonplaceholder.typicode.com/posts', data);
+      },
       steps: [
         {
           title: 'Descrição',
@@ -308,8 +312,13 @@ export class AppComponent implements OnInit {
           config: bnWizardConfig,
         },
       })
-      .subscribe((result) => {
-        console.log('Wizard finished with result:', result);
+      .subscribe({
+        next: (result) => {
+          console.log('Wizard finished with result:', result);
+        },
+        error: (error) => {
+          console.error('Wizard finished with error:', error);
+        },
       });
   }
 
@@ -564,8 +573,6 @@ export class AppComponent implements OnInit {
   disabledInputAreaValue = 'This is disabled';
 
   // Smart Table HTTP Example
-  private http = inject(HttpClient);
-
   smartTableConfig: ConfigSmartTable<any> = {
     data: [],
     columns: [
