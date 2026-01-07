@@ -1,0 +1,33 @@
+@if (isOpen()) {
+  <div class="ion-drawer-backdrop" (click)="close()" (keydown.escape)="close()" tabindex="-1"></div>
+}
+
+<div [class]="drawerClasses()">
+  <header class="ion-drawer-header">
+    @if (title()) {
+      <div class="ion-drawer-title">
+        @if (iconTitle()) {
+          <ion-icon
+            [type]="iconTitle()!"
+            [size]="24"
+          ></ion-icon>
+        }
+        <span>{{ title() }}</span>
+      </div>
+    } @else {
+      <div class="ion-drawer-spacer"></div>
+    }
+    <ion-button
+      label="Fechar"
+      iconType="close"
+      type="ghost"
+      [circularButton]="true"
+      data-testid="close-icon"
+      (ionOnClick)="close()"
+    />
+  </header>
+
+  <main class="ion-drawer-body">
+    <ng-content />
+  </main>
+</div>

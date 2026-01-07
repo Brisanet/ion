@@ -73,7 +73,9 @@ import {
   IonCardComponent,
   IonCardHeaderComponent,
   IonCardFooterComponent,
-  IonNavbarComponent
+  IonNavbarComponent,
+  IonDrawerComponent,
+  IonDrawerDirection
 } from 'ion';
 import { Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
@@ -168,7 +170,8 @@ class ModalLongContentComponent {
     BnFilterComponent,
     BnAboutComponent,
     BnWizardComponent,
-    IonNavbarComponent
+    IonNavbarComponent,
+    IonDrawerComponent
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -794,6 +797,21 @@ export class AppComponent implements OnInit {
       title: 'Modal Largo',
       width: 800,
     });
+  }
+
+  // Drawer Examples
+  isDrawerOpen = signal(false);
+  drawerDirection = signal<IonDrawerDirection>('right');
+  drawerSize = signal<number>(30);
+
+  openDrawer(direction: IonDrawerDirection = 'right', size: number = 30): void {
+    this.drawerDirection.set(direction);
+    this.drawerSize.set(size);
+    this.isDrawerOpen.set(true);
+  }
+
+  closeDrawer(): void {
+    this.isDrawerOpen.set(false);
   }
 
   openModalPersistent(): void {
