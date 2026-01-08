@@ -25,7 +25,7 @@ export class BnAboutComponent implements OnInit {
   disableAllFields = () => {
     this.fields().forEach((field) => {
       field.disabled = true;
-    })
+    });
   }
   
   ngOnInit() {

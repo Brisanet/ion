@@ -1474,3 +1474,33 @@
     </ion-card>
   </div>
 </section>
+
+<section>
+  <h2>Ion Drawer</h2>
+  <div style="display: flex; gap: 16px; flex-wrap: wrap">
+    <ion-button label="Abrir Direita" (click)="openDrawer('right')"></ion-button>
+    <ion-button label="Abrir Esquerda" (click)="openDrawer('left')"></ion-button>
+    <ion-button label="Abrir Cima" (click)="openDrawer('top')"></ion-button>
+    <ion-button label="Abrir Baixo" (click)="openDrawer('bottom')"></ion-button>
+    <ion-button label="Abrir 50% (Direita)" (click)="openDrawer('right', 50)"></ion-button>
+  </div>
+</section>
+
+<ion-drawer
+  [isOpen]="isDrawerOpen()"
+  [direction]="drawerDirection()"
+  [size]="drawerSize()"
+  title="Título do Drawer"
+  iconTitle="box"
+  (ionOnClose)="closeDrawer()"
+>
+  <div style="display: flex; flex-direction: column; gap: 16px;">
+    <p>Este é um conteúdo genérico dentro do drawer.</p>
+    <ion-input label="Nome" placeholder="Digite algo..." />
+    <ion-button label="Salvar Alterações" (click)="closeDrawer()"></ion-button>
+
+    @for (item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]; track $index) {
+      <p>Item de exemplo {{ $index + 1 }} para testar o scroll do drawer.</p>
+    }
+  </div>
+</ion-drawer>
