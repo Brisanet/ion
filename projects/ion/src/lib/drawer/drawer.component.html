@@ -30,4 +30,15 @@
   <main class="ion-drawer-body">
     <ng-content />
   </main>
+
+  <ion-card-footer *ngIf="submitButton() || cancelButton()">
+    <div class="ion-drawer-footer">
+      @if (cancelButton()) {
+        <ion-button [label]="cancelButton()?.label" type="secondary" (ionOnClick)="close()"></ion-button>
+      }
+      @if (submitButton()) {
+        <ion-button [label]="submitButton()?.label" (ionOnClick)="submit()"></ion-button>
+      }
+    </div>
+  </ion-card-footer>
 </div>

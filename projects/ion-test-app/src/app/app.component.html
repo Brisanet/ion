@@ -1493,6 +1493,8 @@
   title="Título do Drawer"
   iconTitle="box"
   (ionOnClose)="closeDrawer()"
+  [submitButton]="{ label: 'Salvar' }"
+  [cancelButton]="{ label: 'Cancelar' }"
 >
   <div style="display: flex; flex-direction: column; gap: 16px;">
     <p>Este é um conteúdo genérico dentro do drawer.</p>
