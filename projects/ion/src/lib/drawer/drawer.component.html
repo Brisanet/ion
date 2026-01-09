@@ -34,10 +34,16 @@
   <ion-card-footer *ngIf="submitButton() || cancelButton()">
     <div class="ion-drawer-footer">
       @if (cancelButton()) {
-        <ion-button [label]="cancelButton()?.label" type="secondary" (ionOnClick)="close()"></ion-button>
+        <ion-button
+          [label]="cancelButton()?.label"
+          type="secondary"
+          (ionOnClick)="close()" />
       }
       @if (submitButton()) {
-        <ion-button [label]="submitButton()?.label" (ionOnClick)="submit()"></ion-button>
+        <ion-button
+          [label]="submitButton()?.label"
+          (ionOnClick)="submit()"
+          [loading]="!!submitButton()?.loading" />
       }
     </div>
   </ion-card-footer>

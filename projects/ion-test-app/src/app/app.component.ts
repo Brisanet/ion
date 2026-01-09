@@ -75,7 +75,8 @@ import {
   IonCardFooterComponent,
   IonNavbarComponent,
   IonDrawerComponent,
-  IonDrawerDirection
+  IonDrawerDirection,
+  IonButtonProps
 } from 'ion';
 import { Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
@@ -803,6 +804,10 @@ export class AppComponent implements OnInit {
   isDrawerOpen = signal(false);
   drawerDirection = signal<IonDrawerDirection>('right');
   drawerSize = signal<number>(30);
+  submitButton = signal<IonButtonProps>({
+    label: 'Salvar',
+    loading: false
+  });
 
   openDrawer(direction: IonDrawerDirection = 'right', size: number = 30): void {
     this.drawerDirection.set(direction);
@@ -812,6 +817,19 @@ export class AppComponent implements OnInit {
 
   closeDrawer(): void {
     this.isDrawerOpen.set(false);
+  }
+
+  submitDrawer(): void {
+    this.submitButton().loading = true;
+
+    // Simula um envio de dados para o servidor
+    setTimeout(() => {
+      this.submitButton.update((button) => ({
+        ...button,
+        loading: false,
+      }));
+      this.isDrawerOpen.set(false);
+    }, 2000);
   }
 
   openModalPersistent(): void {
