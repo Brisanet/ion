@@ -74,4 +74,5 @@ export * from './lib/drawer/drawer.component';
 export * from './lib/card/card.component';
 export * from './lib/card/card-header.component';
 export * from './lib/card/card-footer.component';
+export * from './lib/core/bn-edit-drawer/bn-edit-drawer.component';
 export * from './lib/navbar/navbar.component';

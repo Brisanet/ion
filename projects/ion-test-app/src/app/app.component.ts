@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, inject, signal } from '@angular/core';
+import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -76,7 +77,8 @@ import {
   IonNavbarComponent,
   IonDrawerComponent,
   IonDrawerDirection,
-  IonButtonProps
+  IonButtonProps,
+  BnEditDrawerComponent,
 } from 'ion';
 import { Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
@@ -172,7 +174,9 @@ class ModalLongContentComponent {
     BnAboutComponent,
     BnWizardComponent,
     IonNavbarComponent,
-    IonDrawerComponent
+    IonDrawerComponent,
+    BnEditDrawerComponent,
+    JsonPipe,
 ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -821,15 +825,7 @@ export class AppComponent implements OnInit {
 
   submitDrawer(): void {
     this.submitButton().loading = true;
-
-    // Simula um envio de dados para o servidor
-    setTimeout(() => {
-      this.submitButton.update((button) => ({
-        ...button,
-        loading: false,
-      }));
-      this.isDrawerOpen.set(false);
-    }, 2000);
+    this.isDrawerOpen.set(false);
   }
 
   openModalPersistent(): void {
@@ -1126,7 +1122,37 @@ export class AppComponent implements OnInit {
     // }
   ];
 
+  editFormFields: BnFormField[] = [
+    {
+      key: 'nome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Nome',
+      placeholder: 'Digite seu nome',
+      initialValue: 'Iury',
+      iconInput: 'image-user',
+      iconDirection: 'left',
+      validators: [
+        Validators.minLength(3),
+      ],
+    },
+    {
+      key: 'sobrenome',
+      className: 'col-6',
+      type: 'text',
+      label: 'Sobrenome',
+      placeholder: 'Digite seu sobrenome',
+      onlyShowWhen: () => {
+        return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
+      },
+      validators: [
+        Validators.minLength(3),
+      ],
+    },
+  ];
+
   formGroup = this.bnFormService.createFormGroup(this.formFields);
+  editFormGroup = this.bnFormService.createFormGroup(this.editFormFields);
 
   submitForm(): void {
     console.log('Form submitted:', this.formGroup.value);
@@ -1160,5 +1186,30 @@ export class AppComponent implements OnInit {
 
   handleValueChangeNavbar(event: any): void {
     console.log('Value change:', event);
+  }
+
+  // Edit Drawer Example
+  isEditDrawerOpen = signal(false);
+  simulatingLoading = signal(false);
+  editData = signal({
+    nome: 'Iury',
+    sobrenome: 'Oliveira',
+  });
+
+  openEditDrawer(): void {
+    this.isEditDrawerOpen.set(true);
+  }
+
+  saveEdit(data: any): void {
+    console.log('Saving data with simulation...', data);
+    this.simulatingLoading.set(true);
+    
+    // Simulate backend request
+    setTimeout(() => {
+      this.editData.set(data);
+      this.simulatingLoading.set(false);
+      this.isEditDrawerOpen.set(false);
+      console.log('Saved data:', data);
+    }, 2000);
   }
 }

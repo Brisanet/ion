@@ -1486,6 +1486,28 @@
   </div>
 </section>
 
+<section>
+  <h2>Easy Edit Drawer</h2>
+  <div style="display: flex; gap: 16px; flex-wrap: wrap">
+    <ion-button label="Editar Usuário" (click)="openEditDrawer()"></ion-button>
+  </div>
+  <div style="margin-top: 10px">
+    <strong>JSON atual:</strong>
+    <pre>{{ editData() | json }}</pre>
+  </div>
+</section>
+
+<bn-edit-drawer
+  [isOpen]="isEditDrawerOpen()"
+  [loading]="simulatingLoading()"
+  [fields]="editFormFields"
+  [data]="editData()"
+  title="Editar Perfil"
+  iconTitle="pencil"
+  (ionOnSave)="saveEdit($event)"
+  (ionOnClose)="isEditDrawerOpen.set(false)"
+></bn-edit-drawer>
+
 <ion-drawer
   [isOpen]="isDrawerOpen()"
   [direction]="drawerDirection()"
@@ -1497,13 +1519,5 @@
   [cancelButton]="{ label: 'Cancelar' }"
   (ionOnSubmit)="submitDrawer()"
 >
-  <div style="display: flex; flex-direction: column; gap: 16px;">
-    <p>Este é um conteúdo genérico dentro do drawer.</p>
-    <ion-input label="Nome" placeholder="Digite algo..." />
-    <ion-button label="Salvar Alterações" (click)="closeDrawer()"></ion-button>
-
-    @for (item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]; track $index) {
-      <p>Item de exemplo {{ $index + 1 }} para testar o scroll do drawer.</p>
-    }
-  </div>
+  <bn-form [formGroup]="editFormGroup" [fields]="editFormFields"></bn-form>
 </ion-drawer>
