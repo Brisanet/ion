@@ -37,7 +37,7 @@ jobs:
           scope: "@brisanet"
 
       - name: 🚀 Publish
-        run: npm publish --access public --provenance --tag next
+        run: npm publish --access public --provenance
         working-directory: dist/ion
         env:
           CI: true
