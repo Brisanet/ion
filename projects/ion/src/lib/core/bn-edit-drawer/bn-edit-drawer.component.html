@@ -1,0 +1,15 @@
+<ion-drawer
+  [isOpen]="isOpen()"
+  [direction]="direction()"
+  [size]="size()"
+  [title]="title()"
+  [iconTitle]="iconTitle()"
+  (ionOnClose)="close()"
+  [submitButton]="finalSubmitButton()"
+  [cancelButton]="cancelButton()"
+  (ionOnSubmit)="submit()"
+>
+  @if (formGroup) {
+    <bn-form [formGroup]="formGroup" [fields]="fields()"></bn-form>
+  }
+</ion-drawer>
