@@ -1,4 +1,5 @@
 <button
+  #btn
   [attr.data-testid]="'btn-' + (_label() || id())"
   [attr.title]="tooltip() ? tooltip() : null"
   [class]="'ion-btn-' + type() + ' ion-btn-' + size()"
@@ -13,58 +14,50 @@
   (click)="handleClick()"
 >
   @if (loading()) {
-    <span class="spinner"></span>
+  <span class="spinner"></span>
   }
 
   <!-- Icon placeholder until IonIcon is migrated -->
   @if (iconType() && !loading()) {
-    <ion-icon
-      class="icon-right"
-      [type]="iconType()!"
-      [size]="options()?.length ? 16 : 24"
-    ></ion-icon>
-  }
-
-  @if (options() && !circularButton() && !loading()) {
-    <ion-icon
-      [type]="showDropdown() ? 'semi-up' : 'semi-down'"
-      [size]="iconSize()"
-      class="icon"
-    ></ion-icon>
-  }
-
-  @if (!circularButton() && _label()) {
-    @if (!loading() || (loading() && !loadingMessage())) {
-      <span>{{ _label() }}</span>
-    }
-    @if (loading() && loadingMessage()) {
-      <span>{{ loadingMessage() }}</span>
-    }
-  }
-
-  @if (multiple() && !loading() && !circularButton()) {
-    <ion-badge
-      [value]="buttonBadge().value"
-      [type]="buttonBadge().type"
-      data-testid="badge-multiple"
-    ></ion-badge>
+  <ion-icon
+    class="icon-right"
+    [type]="iconType()!"
+    [size]="options()?.length ? 16 : 24"
+  ></ion-icon>
+  } @if (options() && !circularButton() && !loading()) {
+  <ion-icon
+    [type]="showDropdown() ? 'semi-up' : 'semi-down'"
+    [size]="iconSize()"
+    class="icon"
+  ></ion-icon>
+  } @if (!circularButton() && _label()) { @if (!loading() || (loading() &&
+  !loadingMessage())) {
+  <span>{{ _label() }}</span>
+  } @if (loading() && loadingMessage()) {
+  <span>{{ loadingMessage() }}</span>
+  } } @if (multiple() && !loading() && !circularButton()) {
+  <ion-badge
+    [value]="buttonBadge().value"
+    [type]="buttonBadge().type"
+    data-testid="badge-multiple"
+  ></ion-badge>
   }
 </button>
 
 @if (!!options() && showDropdown()) {
-  <div class="ion-btn-dropdown" [class.above]="showDropdownAbove()">
-    <ion-dropdown
-      [options]="options()!"
-      [multiple]="multiple()"
-      [required]="dropdownConfig().required || false"
-      [enableSearch]="dropdownConfig().enableSearch || false"
-      [searchOptions]="dropdownConfig().searchOptions"
-      [notShowClearButton]="dropdownConfig().notShowClearButton || false"
-      [description]="dropdownConfig().description"
-      (selected)="handleSelect($event)"
-      (searchChange)="onSearchChange($event)"
-      (clearBadgeValue)="onClearBadgeValue()"
-      (closeDropdown)="onCloseDropdown()"
-    ></ion-dropdown>
-  </div>
+<ion-dropdown
+  [class.above]="showDropdownAbove()"
+  [origin]="btn"
+  [options]="options()!"
+  [multiple]="multiple()"
+  [required]="dropdownConfig().required || false"
+  [enableSearch]="dropdownConfig().enableSearch || false"
+  [searchOptions]="dropdownConfig().searchOptions"
+  [notShowClearButton]="dropdownConfig().notShowClearButton || false"
+  [description]="dropdownConfig().description"
+  (selected)="handleSelect($event)"
+  (searchChange)="onSearchChange($event)"
+  (clearBadgeValue)="onClearBadgeValue()"
+  (closeDropdown)="onCloseDropdown()"
+></ion-dropdown>
 }

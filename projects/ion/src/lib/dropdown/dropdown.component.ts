@@ -1,7 +1,10 @@
 import {
-  AfterViewChecked,
+  AfterViewInit,
   Component,
   ElementRef,
+  OnDestroy,
+  TemplateRef,
+  ViewContainerRef,
   computed,
   effect,
   inject,
@@ -11,6 +14,13 @@ import {
   viewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  ConnectedPosition,
+  Overlay,
+  OverlayModule,
+  OverlayRef,
+} from '@angular/cdk/overlay';
+import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonSpinnerComponent } from '../spinner/spinner.component';
@@ -21,15 +31,23 @@ export const COLDOWN = 200;
 @Component({
   selector: 'ion-dropdown',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonSpinnerComponent, IonNoDataComponent],
+  imports: [
+    CommonModule,
+    IonIconComponent,
+    IonSpinnerComponent,
+    IonNoDataComponent,
+    OverlayModule,
+    PortalModule,
+  ],
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
   host: {
     '(document:click)': 'onDocumentClick($event)',
   },
 })
-export class IonDropdownComponent implements AfterViewChecked {
+export class IonDropdownComponent implements AfterViewInit, OnDestroy {
   // Inputs
+  origin = input<HTMLElement | ElementRef>();
   description = input<DropdownParams['description']>();
   options = input<DropdownItem[]>([]);
   maxSelected = input<DropdownParams['maxSelected']>();
@@ -57,6 +75,7 @@ export class IonDropdownComponent implements AfterViewChecked {
   // ViewChild
   optionList = viewChild<ElementRef>('optionList');
   searchInput = viewChild<ElementRef>('searchInput');
+  dropdownContent = viewChild<TemplateRef<any>>('dropdownContent');
 
   // Signals
   iconSize = signal(16);
@@ -66,6 +85,9 @@ export class IonDropdownComponent implements AfterViewChecked {
   searchValue = signal('');
 
   private elementRef = inject(ElementRef);
+  private overlay = inject(Overlay);
+  private viewContainerRef = inject(ViewContainerRef);
+  private overlayRef: OverlayRef | null = null;
 
   constructor() {
     // Update clear button visibility when relevant inputs change
@@ -78,7 +100,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           this.multiple() &&
           showClearButton &&
           !this.required() &&
-          !this.loading(),
+          !this.loading()
       );
     });
 
@@ -91,7 +113,7 @@ export class IonDropdownComponent implements AfterViewChecked {
           (this.required() && this.dropdownSelectedItems().length > 1));
 
       this.canDeselect.set(
-        isSingleSelectionAllowed || isMultipleSelectionAllowed,
+        isSingleSelectionAllowed || isMultipleSelectionAllowed
       );
     });
 
@@ -113,18 +135,69 @@ export class IonDropdownComponent implements AfterViewChecked {
     });
   }
 
-  ngAfterViewChecked(): void {
-    const widthContainer = window.innerWidth;
-    const element = document.getElementById('ion-dropdown');
-    if (!element) return;
+  ngAfterViewInit(): void {
+    if (this.origin()) {
+      this.createOverlay();
+    }
+  }
 
-    const elementProps = element.getBoundingClientRect();
-    const elementRight = elementProps.right;
-    elementRight > widthContainer && (element.style.right = '0');
+  ngOnDestroy(): void {
+    this.disposeOverlay();
+  }
 
-    const heightContainer = window.innerHeight;
-    const elementBottom = elementProps.bottom;
-    elementBottom > heightContainer && (element.style.bottom = '42px');
+  private createOverlay(): void {
+    const originElement = this.getOriginElement();
+    if (!originElement) return;
+
+    const positionStrategy = this.overlay
+      .position()
+      .flexibleConnectedTo(originElement)
+      .withPositions(this.getPositions())
+      .withPush(true);
+
+    this.overlayRef = this.overlay.create({
+      positionStrategy,
+      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      hasBackdrop: false,
+    });
+
+    const template = this.dropdownContent();
+    if (template) {
+      const portal = new TemplatePortal(template, this.viewContainerRef);
+      this.overlayRef.attach(portal);
+    }
+  }
+
+  private getOriginElement(): HTMLElement | null {
+    const origin = this.origin();
+    if (!origin) return null;
+    return origin instanceof ElementRef ? origin.nativeElement : origin;
+  }
+
+  private getPositions(): ConnectedPosition[] {
+    return [
+      {
+        originX: 'start',
+        originY: 'bottom',
+        overlayX: 'start',
+        overlayY: 'top',
+        offsetY: 4,
+      },
+      {
+        originX: 'start',
+        originY: 'top',
+        overlayX: 'start',
+        overlayY: 'bottom',
+        offsetY: -4,
+      },
+    ];
+  }
+
+  private disposeOverlay(): void {
+    if (this.overlayRef) {
+      this.overlayRef.dispose();
+      this.overlayRef = null;
+    }
   }
 
   mouseEnter(option: DropdownItem): void {
@@ -242,8 +315,16 @@ export class IonDropdownComponent implements AfterViewChecked {
       return;
     }
 
+    const target = event.target as Node;
     const dropdownElement = this.elementRef.nativeElement as HTMLElement;
-    if (!dropdownElement.contains(event.target as Node)) {
+    const overlayElement = this.overlayRef?.overlayElement;
+    const originElement = this.getOriginElement();
+
+    if (
+      !dropdownElement.contains(target) &&
+      !overlayElement?.contains(target) &&
+      !originElement?.contains(target)
+    ) {
       this.clickedOutsideDropdown();
     }
   }

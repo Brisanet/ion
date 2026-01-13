@@ -164,6 +164,7 @@ export class IonChipComponent {
         return;
       }
       this.setPlaceHolder(selecteds[0].label, selecteds[0].icon);
+      this.closeDropdown();
     } else {
       this.clearBadgeValue();
       this.updateLabel();
@@ -174,7 +175,6 @@ export class IonChipComponent {
     this.placeholder.set(label || this.label());
     this.iconPlaceholder.set(icon || this.icon());
     this.internalSelected.set(false);
-    this.toggleDropdown();
   }
 
   dropdownSearchChange(value: string): void {
