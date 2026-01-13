@@ -6,72 +6,70 @@
   data-testid="ion-sidebar"
 >
   @if (!keepShrunken()) {
-    <header class="ion-sidebar__header">
-      @if ((!closed() && shrinkMode()) || !shrinkMode()) {
-        <img
-          data-testid="ion-sidebar__logo"
-          [class.ion-sidebar__logo--pointer]="!!logoAction()"
-          [src]="logo()"
-          alt="logo"
-          (click)="handleLogoClick()"
-        />
-      }
-      @if ((!closed() && !shrinkMode()) || shrinkMode()) {
-        <ion-button
-          data-testid="ion-sidebar__toggle-visibility"
-          [iconType]="closed() ? 'right3' : 'left3'"
-          size="lg"
-          type="ghost"
-          (ionOnClick)="toggleVisibility()"
-        ></ion-button>
-      }
-    </header>
+  <header class="ion-sidebar__header">
+    @if ((!closed() && shrinkMode()) || !shrinkMode()) {
+    <img
+      data-testid="ion-sidebar__logo"
+      [class.ion-sidebar__logo--pointer]="!!logoAction()"
+      [src]="logo()"
+      alt="logo"
+      (click)="handleLogoClick()"
+    />
+    } @if ((!closed() && !shrinkMode()) || shrinkMode()) {
+    <ion-button
+      data-testid="sidebar-toggle"
+      [iconType]="closed() ? 'right3' : 'left3'"
+      size="lg"
+      type="ghost"
+      (ionOnClick)="toggleVisibility()"
+    ></ion-button>
+    }
+  </header>
   }
   <section class="ion-sidebar__items">
-    @for (item of items(); track $index; let i = $index) {
-      @if (item.options && item.options.length > 0) {
-        <ion-sidebar-group
-          [attr.data-testid]="'ion-sidebar__group-' + i"
-          [title]="item.title"
-          [icon]="item.icon"
-          [selected]="!!item.selected"
-          [items]="item.options"
-          [haveGroupAction]="!!item.action"
-          [shrinkMode]="shrinkMode()"
-          [sidebarClosed]="closed()"
-          (atClick)="itemOnGroupSelected(i)"
-          (atGroupClick)="groupSelected(i, $event)"
-        ></ion-sidebar-group>
-      } @else {
-        <ion-sidebar-item
-          [attr.data-testid]="'ion-sidebar__item-' + i"
-          [title]="item.title"
-          [icon]="item.icon"
-          [selected]="!!item.selected"
-          [disabled]="!!item.disabled"
-          [shrinkMode]="shrinkMode()"
-          [sidebarClosed]="closed()"
-          (atClick)="itemSelected(i, $event)"
-        ></ion-sidebar-item>
-      }
-    }
+    @for (item of items(); track $index; let i = $index) { @if (item.options &&
+    item.options.length > 0) {
+    <ion-sidebar-group
+      [attr.data-testid]="'ion-sidebar__group-' + i"
+      [title]="item.title"
+      [icon]="item.icon"
+      [selected]="!!item.selected"
+      [items]="item.options"
+      [haveGroupAction]="!!item.action"
+      [shrinkMode]="shrinkMode()"
+      [sidebarClosed]="closed()"
+      (atClick)="itemOnGroupSelected(i)"
+      (atGroupClick)="groupSelected(i, $event)"
+    ></ion-sidebar-group>
+    } @else {
+    <ion-sidebar-item
+      [attr.data-testid]="'ion-sidebar__item-' + i"
+      [title]="item.title"
+      [icon]="item.icon"
+      [selected]="!!item.selected"
+      [disabled]="!!item.disabled"
+      [shrinkMode]="shrinkMode()"
+      [sidebarClosed]="closed()"
+      (atClick)="itemSelected(i, $event)"
+    ></ion-sidebar-item>
+    } }
   </section>
 
   @if (sidebarFooter()) {
-    <footer class="ion-sidebar__footer">
-      <ng-container [ngTemplateOutlet]="sidebarFooter()!"></ng-container>
-    </footer>
+  <footer class="ion-sidebar__footer">
+    <ng-container [ngTemplateOutlet]="sidebarFooter()!"></ng-container>
+  </footer>
   }
 </nav>
 
 <span data-testid="ion-sidebar__outside-container">
   @if (!shrinkMode()) {
-    <ion-button
-      data-testid="ion-sidebar__toggle-visibility"
-      iconType="sandwich"
-      size="lg"
-      type="ghost"
-      (ionOnClick)="toggleVisibility()"
-    ></ion-button>
+  <ion-button
+    data-testid="sidebar-toggle"
+    iconType="sandwich"
+    size="lg"
+    type="ghost"
+    (ionOnClick)="toggleVisibility()"
+  ></ion-button>
   }
 </span>

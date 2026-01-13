@@ -52,7 +52,7 @@ describe('IonSidebarGroupComponent', () => {
     // We need to click the button inside the ion-sidebar-item
     const itemHost = screen.getByTestId('sidebar-group__item-0');
     const itemButton = itemHost.querySelector('button')!; // Assumes sidebar-item has a button
-    fireEvent.click(itemButton);
+    fireEvent.mouseDown(itemButton);
 
     expect(emitSpy).toHaveBeenCalledTimes(1);
   });
@@ -62,9 +62,8 @@ describe('IonSidebarGroupComponent', () => {
     const component = fixture.componentInstance;
     const emitSpy = jest.spyOn(component.atGroupClick, 'emit');
 
-    const groupTitle = screen.getByTestId(
-      'sidebar-group__title-icon',
-    ).parentElement!; // The div wrapper has the click
+    const groupTitle = screen.getByTestId('sidebar-group__title-icon')
+      .parentElement!; // The div wrapper has the click
     fireEvent.click(groupTitle);
 
     expect(emitSpy).toHaveBeenCalledTimes(1);

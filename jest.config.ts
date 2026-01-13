@@ -12,7 +12,7 @@ const config: Config = {
     '!projects/ion/src/public-api.ts',
   ],
   moduleNameMapper: {
-    '^ion$': '<rootDir>/dist/ion',
+    '^ion$': '<rootDir>/projects/ion/src/public-api.ts',
   },
   transform: {
     '^.+\\.(ts|js|html)$': [
