@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormControl, FormGroup } from '@angular/forms';
 import { BnFormComponent } from './bn-form.component';
 import { BnFormField } from './bn-form.types';
-import { IonInputComponent } from 'ion';
 import { By } from '@angular/platform-browser';
+import { IonInputComponent } from '../../input/input.component';
 
 describe('BnFormComponent', () => {
   let component: BnFormComponent;
@@ -165,5 +165,133 @@ describe('BnFormComponent', () => {
     // Trigger event
     datepicker.triggerEventHandler('event', ['2023-01-01']);
     expect(datepickerFormGroup.get('dateField')?.value).toEqual(['2023-01-01']);
+  });
+
+  describe('onChange property', () => {
+    it('should call onChange when ion-input value changes', () => {
+      const onChangeSpy = jest.fn();
+      const fields: BnFormField[] = [
+        {
+          key: 'inputField',
+          label: 'Input',
+          onChange: onChangeSpy,
+        },
+      ];
+      const formGroup = new FormGroup({
+        inputField: new FormControl(''),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      const ionInput = fixture.debugElement.query(By.css('ion-input'));
+      ionInput.triggerEventHandler('valueChange', 'new value');
+
+      expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
+
+    it('should call onChange when ion-switch value changes', () => {
+      const onChangeSpy = jest.fn();
+      const fields: BnFormField[] = [
+        {
+          key: 'switchField',
+          label: 'Switch',
+          type: 'switch',
+          onChange: onChangeSpy,
+        },
+      ];
+      const formGroup = new FormGroup({
+        switchField: new FormControl(false),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      const ionSwitch = fixture.debugElement.query(By.css('ion-switch'));
+      ionSwitch.triggerEventHandler('atValueChange', true);
+
+      expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
+
+    it('should call onChange when ion-triple-toggle value changes', () => {
+      const onChangeSpy = jest.fn();
+      const fields: BnFormField[] = [
+        {
+          key: 'toggleField',
+          label: 'Toggle',
+          type: 'triple-toggle',
+          options: [
+            { value: 'a', label: 'A' },
+            { value: 'b', label: 'B' },
+          ],
+          onChange: onChangeSpy,
+        },
+      ];
+      const formGroup = new FormGroup({
+        toggleField: new FormControl('a'),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      const tripleToggle = fixture.debugElement.query(
+        By.css('ion-triple-toggle'),
+      );
+      tripleToggle.triggerEventHandler('ionClick', 'b');
+
+      expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
+
+    it('should call onChange when ion-date-picker value changes', () => {
+      const onChangeSpy = jest.fn();
+      const fields: BnFormField[] = [
+        {
+          key: 'dateField',
+          label: 'Date',
+          type: 'datepicker',
+          onChange: onChangeSpy,
+        },
+      ];
+      const formGroup = new FormGroup({
+        dateField: new FormControl([]),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
+      datepicker.triggerEventHandler('event', ['2023-12-25']);
+
+      expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
+
+    it('should call onChange when ion-select value changes', () => {
+      const onChangeSpy = jest.fn();
+      const fields: BnFormField[] = [
+        {
+          key: 'selectField',
+          label: 'Select',
+          type: 'select',
+          options: [{ value: '1', label: 'One' }],
+          onChange: onChangeSpy,
+        },
+      ];
+      const formGroup = new FormGroup({
+        selectField: new FormControl(''),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      const ionSelect = fixture.debugElement.query(By.css('ion-select'));
+      ionSelect.triggerEventHandler('valueChange', '1');
+
+      expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
   });
 });

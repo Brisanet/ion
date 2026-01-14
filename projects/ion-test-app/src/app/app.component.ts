@@ -80,7 +80,7 @@ import {
   IonButtonProps,
   BnEditDrawerComponent,
 } from 'ion';
-import { Validators } from '@angular/forms';
+import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
 
 type FromYourRepository = {
@@ -276,9 +276,61 @@ export class AppComponent implements OnInit {
               type: 'text',
               label: 'Sobrenome',
               placeholder: 'Digite seu sobrenome',
-              onlyShowWhen: (form) =>
-                form.get('nome')?.value && form.get('nome')?.valid,
-              validators: [Validators.minLength(3)],
+              // onlyShowWhen: (form) => {
+              //   console.log(form.get('nome')?.valid);
+              //   return form.get('nome')?.value;
+              // }
+            },
+            {
+              type: 'select',
+              key: 'estado_civil',
+              label: 'Estado civil',
+              placeholder: 'Estado civil',
+              className: 'col-12',
+              options: [
+                { label: 'Solteiro', value: 'solteiro' },
+                { label: 'Casado', value: 'casado' },
+              ],
+              onChange: (form: FormGroup) => {
+                if (form.get('estado_civil')?.value === 'solteiro') {
+                  form.get('nome')?.disable();
+                  form.get('genero')?.disable();
+                  form.get('ativo')?.disable();
+                  form.get('prioridade')?.disable();
+                } else {
+                  form.get('nome')?.enable();
+                  form.get('genero')?.enable();
+                  form.get('ativo')?.enable();
+                  form.get('prioridade')?.enable();
+                }
+              },
+            },
+            {
+              type: 'select',
+              key: 'genero',
+              label: 'Genero',
+              placeholder: 'Genero',
+              className: 'col-3',
+              options: [
+                { label: 'Masculino', value: 'masculino' },
+                { label: 'Feminino', value: 'feminino' },
+              ],
+            },
+            {
+              type: 'switch',
+              key: 'ativo',
+              label: 'Ativo',
+              className: 'col-3',
+            },
+            {
+              type: 'triple-toggle',
+              key: 'prioridade',
+              label: 'Prioridade',
+              className: 'col-3',
+              options: [
+                { value: 'baixa', label: 'Baixa' },
+                { value: 'alta', label: 'Alta' },
+              ],
             },
           ],
         },
@@ -315,6 +367,7 @@ export class AppComponent implements OnInit {
         title: bnWizardConfig.title,
         titleIcon: bnWizardConfig.titleIcon,
         width: 800,
+        overlayCanDismiss: false,
         footer: {
           hide: true,
         },

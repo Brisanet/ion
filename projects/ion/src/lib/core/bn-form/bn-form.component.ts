@@ -70,7 +70,7 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
             @if (isTripleToggle(field)) {
               <ion-triple-toggle
                 [value]="formGroup().get(field.key)?.value"
-                [disabled]="field.disabled ?? false"
+                [disabled]="isDisabled(field)"
                 [size]="field.size ?? 'md'"
                 [options]="field.options"
                 [onlyShowIcon]="field.onlyShowIcon ?? false"
@@ -79,7 +79,7 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
             } @else if (isSwitch(field)) {
               <ion-switch
                 [value]="formGroup().get(field.key)?.value"
-                [disabled]="field.disabled ?? false"
+                [disabled]="isDisabled(field)"
                 [size]="field.size ?? 'md'"
                 (atValueChange)="onValueChange(field.key, $event)"
               ></ion-switch>
@@ -100,8 +100,8 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
                 [options]="field.options"
                 [multiple]="field.multiple ?? false"
                 [enableSearch]="field.enableSearch ?? false"
-                [disabled]="field.disabled ?? false"
-                [propValue]="field.propValue ?? 'key'"
+                [disabled]="isDisabled(field)"
+                [propValue]="field.propValue ?? 'value'"
                 [propLabel]="field.propLabel ?? 'label'"
                 [loading]="field.loading || false"
                 [value]="formGroup().get(field.key)?.value"
@@ -118,7 +118,7 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
               <ion-input
                 [placeholder]="field.placeholder ?? ''"
                 [inputType]="field.type ?? 'text'"
-                [disabled]="field.disabled ?? false"
+                [disabled]="isDisabled(field)"
                 [readonly]="field.readonly ?? false"
                 [maxLength]="field.maxLength ?? null"
                 [clearButton]="field.clearButton ?? false"
@@ -337,6 +337,12 @@ export class BnFormComponent implements OnInit {
       control.markAsDirty();
       control.markAsTouched();
     }
+
+    this.fields().forEach((field) => {
+      if (field.onChange && field.key === key) {
+        field.onChange(this.formGroup());
+      }
+    });
   }
 
   showField(field: BnFormField): boolean {
@@ -344,6 +350,10 @@ export class BnFormComponent implements OnInit {
       return field.onlyShowWhen(this.formGroup());
     }
     return true;
+  }
+
+  isDisabled(field: BnFormField): boolean {
+    return this.formGroup().get(field.key)?.disabled ?? false;
   }
 
   isInput(field: BnFormField): field is BnInputFormField {

@@ -1,4 +1,4 @@
-import { ValidatorFn } from '@angular/forms';
+import { FormGroup, ValidatorFn } from '@angular/forms';
 import { Observable } from 'rxjs';
 import {
   IonButtonProps,
@@ -31,6 +31,7 @@ export interface BnBaseFormField {
   description?: string;
   errorMsg?: string;
   onlyShowWhen?: (form: any) => boolean;
+  onChange?: (form: FormGroup) => void;
 }
 
 export interface BnInputFormField extends BnBaseFormField {
