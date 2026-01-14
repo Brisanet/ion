@@ -107,6 +107,13 @@
   background-color: ion-theme(neutral-1);
 }
 
+.ion-drawer-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -5,16 +5,19 @@ import {
   output,
   computed,
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
+import { IonButtonProps } from '../core/types/button';
+import { IonCardFooterComponent } from '../card/card-footer.component';
 
 export type IonDrawerDirection = 'left' | 'right' | 'top' | 'bottom';
 
 @Component({
   selector: 'ion-drawer',
   standalone: true,
-  imports: [IonButtonComponent, IonIconComponent],
+  imports: [CommonModule, IonButtonComponent, IonIconComponent, IonCardFooterComponent],
   templateUrl: './drawer.component.html',
   styleUrl: './drawer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +32,11 @@ export class IonDrawerComponent {
   title = input<string>('');
   iconTitle = input<IconType>();
   size = input<number>(30);
+  submitButton = input<IonButtonProps>();
+  cancelButton = input<IonButtonProps>();
+
+  ionOnSubmit = output<void>();
+  ionOnCancel = output<void>();
 
   ionOnClose = output<void>();
 
@@ -48,5 +56,13 @@ export class IonDrawerComponent {
 
   close(): void {
     this.ionOnClose.emit();
+  }
+
+  submit(): void {
+    this.ionOnSubmit.emit();
+  }
+
+  cancel(): void {
+    this.ionOnCancel.emit();
   }
 }
