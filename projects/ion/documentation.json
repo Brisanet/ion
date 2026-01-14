@@ -1,0 +1,218 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [],
+    "modules": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "decorators",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/.storybook/preview.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  (story: any, context: any) => {\n    const theme = context.globals?.ionTheme || 'light';\n    if (typeof document !== 'undefined') {\n      document.body.setAttribute('ion-theme', theme);\n    }\n    return story();\n  },\n]"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<BnFilterComponent>",
+                "defaultValue": "{\n  args: {\n    pageTitle: 'Filtro de Clientes',\n    fields: [\n      { key: 'nome', label: 'Nome Completo', type: 'text', required: true },\n      {\n        key: 'data',\n        label: 'Data de Cadastro',\n        type: 'datepicker',\n        required: false,\n      },\n    ],\n  },\n}"
+            },
+            {
+                "name": "globalTypes",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/.storybook/preview.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  ionTheme: {\n    name: 'Ion Theme',\n    description: 'Set the active ion theme',\n    defaultValue: 'light',\n    toolbar: {\n      icon: 'circle',\n      items: [\n        { value: 'light', title: 'Light' },\n        { value: 'dark', title: 'Dark' },\n        { value: 'orange-light', title: 'Orange Light' },\n        { value: 'orange-dark', title: 'Orange Dark' },\n      ],\n    },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<BnFilterComponent>",
+                "defaultValue": "{\n  title: 'Core/BnFilter',\n  component: BnFilterComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    applied: { action: 'applied' },\n    cleared: { action: 'cleared' },\n  },\n  render: (args) => ({\n    props: args,\n    applicationConfig: {\n      providers: [BnFormService],\n    },\n  }),\n}"
+            },
+            {
+                "name": "preview",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/.storybook/preview.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Preview",
+                "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+            },
+            {
+                "name": "Vazio",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<BnFilterComponent>",
+                "defaultValue": "{\n  args: {\n    pageTitle: 'Filtro Sem Campos',\n    fields: [],\n  },\n}"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "projects/ion/.storybook/preview.ts": [
+                {
+                    "name": "decorators",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/.storybook/preview.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  (story: any, context: any) => {\n    const theme = context.globals?.ionTheme || 'light';\n    if (typeof document !== 'undefined') {\n      document.body.setAttribute('ion-theme', theme);\n    }\n    return story();\n  },\n]"
+                },
+                {
+                    "name": "globalTypes",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/.storybook/preview.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  ionTheme: {\n    name: 'Ion Theme',\n    description: 'Set the active ion theme',\n    defaultValue: 'light',\n    toolbar: {\n      icon: 'circle',\n      items: [\n        { value: 'light', title: 'Light' },\n        { value: 'dark', title: 'Dark' },\n        { value: 'orange-light', title: 'Orange Light' },\n        { value: 'orange-dark', title: 'Orange Dark' },\n      ],\n    },\n  },\n}"
+                },
+                {
+                    "name": "preview",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/.storybook/preview.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Preview",
+                    "defaultValue": "{\n  parameters: {\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+                }
+            ],
+            "projects/ion/src/stories/bn-filter.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<BnFilterComponent>",
+                    "defaultValue": "{\n  args: {\n    pageTitle: 'Filtro de Clientes',\n    fields: [\n      { key: 'nome', label: 'Nome Completo', type: 'text', required: true },\n      {\n        key: 'data',\n        label: 'Data de Cadastro',\n        type: 'datepicker',\n        required: false,\n      },\n    ],\n  },\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<BnFilterComponent>",
+                    "defaultValue": "{\n  title: 'Core/BnFilter',\n  component: BnFilterComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    applied: { action: 'applied' },\n    cleared: { action: 'cleared' },\n  },\n  render: (args) => ({\n    props: args,\n    applicationConfig: {\n      providers: [BnFormService],\n    },\n  }),\n}"
+                },
+                {
+                    "name": "Vazio",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/ion/src/stories/bn-filter.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<BnFilterComponent>",
+                    "defaultValue": "{\n  args: {\n    pageTitle: 'Filtro Sem Campos',\n    fields: [],\n  },\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "children": []
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "projects/ion/.storybook/preview.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "decorators",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/.storybook/preview.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "globalTypes",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/.storybook/preview.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "preview",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/stories/bn-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/stories/bn-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/ion/src/stories/bn-filter.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Vazio",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}
