@@ -92,10 +92,10 @@ describe('IonCard Component Suite', () => {
 
     it('should project actions content into the specific actions slot', () => {
       expect(screen.getByTestId('actions-content')).toHaveTextContent(
-        'Actions',
+        'Actions'
       );
       expect(screen.getByTestId('header-actions')).toContainElement(
-        screen.getByTestId('actions-content'),
+        screen.getByTestId('actions-content')
       );
     });
 
@@ -112,7 +112,7 @@ describe('IonCard Component Suite', () => {
     it('should render custom content in header when no title input is provided', async () => {
       await render(CustomHeaderTestWrapperComponent);
       expect(screen.getByTestId('custom-header-content')).toHaveTextContent(
-        'Conteúdo Customizado',
+        'Conteúdo Customizado'
       );
     });
 
@@ -131,14 +131,14 @@ describe('IonCard Component Suite', () => {
   describe('Edge Cases', () => {
     it('should not render icon-title element if icon input is null', async () => {
       await render(IonCardHeaderComponent, {
-        componentProperties: { title: 'Apenas Título', icon: undefined },
+        componentInputs: { title: 'Apenas Título', icon: undefined },
       });
       expect(screen.queryByTestId('icon-title')).not.toBeInTheDocument();
     });
 
     it('should not render tooltip if tooltip configuration is missing', async () => {
       await render(IonCardHeaderComponent, {
-        componentProperties: { title: 'Apenas Título' },
+        componentInputs: { title: 'Apenas Título' },
       });
       expect(screen.queryByTestId('icon-info')).not.toBeInTheDocument();
     });

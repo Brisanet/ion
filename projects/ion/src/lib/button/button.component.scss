@@ -143,16 +143,3 @@ button {
     margin-right: 0;
   }
 }
-
-.ion-btn-dropdown {
-  z-index: 999;
-  position: relative;
-
-  ::ng-deep .container-options {
-    margin-top: 4px;
-  }
-
-  &.above ::ng-deep .container-options {
-    bottom: auto !important;
-  }
-}

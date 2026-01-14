@@ -29,6 +29,7 @@ export class IonBreadcrumbComponent {
   public readonly ellipsesIndex = 1;
 
   public isDropdownOpen = signal(false);
+  public dropdownOrigin = signal<HTMLElement | null>(null);
 
   public breadcrumbsInDropdown = computed(() => {
     if (!this.truncate()) {
@@ -52,12 +53,14 @@ export class IonBreadcrumbComponent {
     }
   }
 
-  public openDropdown(): void {
+  public openDropdown(element: HTMLElement): void {
+    this.dropdownOrigin.set(element);
     this.isDropdownOpen.set(true);
   }
 
   public closeDropdown(): void {
     this.isDropdownOpen.set(false);
+    this.dropdownOrigin.set(null);
   }
 
   public selectDropdownItem(selecteds: DropdownItem[]): void {

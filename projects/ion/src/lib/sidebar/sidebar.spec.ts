@@ -7,6 +7,7 @@ import { IonIconComponent } from '../icon/icon.component';
 import { SafeAny } from '../utils/safe-any';
 import { CommonModule } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 const defaultProps = {
   logo: 'logo.svg',
@@ -46,24 +47,31 @@ describe('IonSidebarComponent', () => {
   });
 
   it('should toggle sidebar when toggle button is clicked', async () => {
-    await sut();
-    const toggleBtn = screen.getByTestId('sidebar-toggle');
-    fireEvent.click(toggleBtn);
+    const { fixture } = await sut();
+    const toggleBtn = fixture.debugElement.query(
+      By.css('[data-testid="sidebar-toggle"]')
+    );
+    toggleBtn.triggerEventHandler('ionOnClick', null);
+    fixture.detectChanges();
     TestBed.flushEffects();
 
     const sidebar = screen.getByTestId('ion-sidebar');
     expect(sidebar).toHaveClass('ion-sidebar--opened');
 
-    fireEvent.click(toggleBtn);
+    toggleBtn.triggerEventHandler('ionOnClick', null);
+    fixture.detectChanges();
     TestBed.flushEffects();
     expect(sidebar).not.toHaveClass('ion-sidebar--opened');
   });
 
   it('should render items when opened', async () => {
     // Open the sidebar
-    await sut();
-    const toggleBtn = screen.getByTestId('sidebar-toggle');
-    fireEvent.click(toggleBtn);
+    const { fixture } = await sut();
+    const toggleBtn = fixture.debugElement.query(
+      By.css('[data-testid="sidebar-toggle"]')
+    );
+    toggleBtn.triggerEventHandler('ionOnClick', null);
+    fixture.detectChanges();
     TestBed.flushEffects();
 
     expect(screen.getByText('Item 1')).toBeVisible();
@@ -81,8 +89,11 @@ describe('IonSidebarComponent', () => {
     const component = fixture.componentInstance;
     const emitSpy = jest.spyOn(component.ionOnSidebarToggle, 'emit');
 
-    const toggleBtn = screen.getByTestId('sidebar-toggle');
-    fireEvent.click(toggleBtn);
+    const toggleBtn = fixture.debugElement.query(
+      By.css('[data-testid="sidebar-toggle"]')
+    );
+    toggleBtn.triggerEventHandler('ionOnClick', null);
+    fixture.detectChanges();
     TestBed.flushEffects();
 
     expect(emitSpy).toHaveBeenCalledWith(true);

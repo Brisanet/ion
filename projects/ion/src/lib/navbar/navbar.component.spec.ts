@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { screen } from '@testing-library/angular';
 import { IonNavbarComponent } from './navbar.component';
 import { IonButtonProps } from '../core/types/button';
 import { IonInputProps } from '../core/types/input';
@@ -16,6 +18,13 @@ describe('IonNavbarComponent', () => {
 
     fixture = TestBed.createComponent(IonNavbarComponent);
     component = fixture.componentInstance;
+
+    // Provide required avatar input
+    fixture.componentRef.setInput('avatar', {
+      type: AvatarType.initials,
+      value: 'Iury Nogueira',
+    });
+
     fixture.detectChanges();
   });
 
@@ -24,7 +33,10 @@ describe('IonNavbarComponent', () => {
   });
 
   it('should render left action button when provided', () => {
-    const leftAction: IonButtonProps = { iconType: 'left-arrow', tooltip: 'Back' };
+    const leftAction: IonButtonProps = {
+      iconType: 'left-arrow',
+      tooltip: 'Back',
+    };
     fixture.componentRef.setInput('leftAction', leftAction);
     fixture.detectChanges();
 
@@ -38,8 +50,8 @@ describe('IonNavbarComponent', () => {
     fixture.detectChanges();
 
     jest.spyOn(component.leftActionOutput, 'emit');
-    const leftButton = fixture.nativeElement.querySelector('ion-button');
-    leftButton.click();
+    const leftButton = fixture.debugElement.query(By.css('ion-button'));
+    leftButton.triggerEventHandler('ionOnClick', null);
 
     expect(component.leftActionOutput.emit).toHaveBeenCalled();
   });
@@ -59,10 +71,10 @@ describe('IonNavbarComponent', () => {
     fixture.detectChanges();
 
     jest.spyOn(component.valueChange, 'emit');
-    const searchInput = fixture.nativeElement.querySelector('ion-input');
-    
+    const searchInput = fixture.debugElement.query(By.css('ion-input'));
+
     // Simulate value change event from IonInput
-    searchInput.dispatchEvent(new CustomEvent('valueChange', { detail: 'test' }));
+    searchInput.triggerEventHandler('valueChange', 'test');
 
     expect(component.valueChange.emit).toHaveBeenCalledWith('test');
   });
@@ -79,7 +91,7 @@ describe('IonNavbarComponent', () => {
   it('should render right action buttons when provided', () => {
     const rightActions: Partial<IonButtonProps & { action: string }>[] = [
       { iconType: 'plus', action: 'add' },
-      { iconType: 'trash', action: 'delete' }
+      { iconType: 'trash', action: 'delete' },
     ];
     fixture.componentRef.setInput('rightActions', rightActions);
     fixture.detectChanges();
@@ -92,24 +104,24 @@ describe('IonNavbarComponent', () => {
   it('should emit rightActionOutput with correct action when a right action button is clicked', () => {
     const rightActions: Partial<IonButtonProps & { action: string }>[] = [
       { iconType: 'plus', action: 'add' },
-      { iconType: 'trash', action: 'delete' }
+      { iconType: 'trash', action: 'delete' },
     ];
     fixture.componentRef.setInput('rightActions', rightActions);
     fixture.detectChanges();
 
     jest.spyOn(component.rightActionOutput, 'emit');
-    const buttons = fixture.nativeElement.querySelectorAll('ion-button');
-    
-    buttons[0].click();
+    const buttons = fixture.debugElement.queryAll(By.css('ion-button'));
+
+    buttons[0].triggerEventHandler('ionOnClick', null);
     expect(component.rightActionOutput.emit).toHaveBeenCalledWith('add');
 
-    buttons[1].click();
+    buttons[1].triggerEventHandler('ionOnClick', null);
     expect(component.rightActionOutput.emit).toHaveBeenCalledWith('delete');
   });
 
   it('should render user info container with correct data', () => {
     const avatar = fixture.nativeElement.querySelector('ion-avatar');
-    const userName = fixture.nativeElement.querySelector('.user-container span');
+    const userName = screen.getByTestId('user-name');
 
     expect(avatar).toBeTruthy();
     expect(userName.textContent).toContain('Iury Nogueira');

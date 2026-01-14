@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonAlertComponent } from '../alert/alert.component';
 import { IonButtonComponent } from '../button/button.component';
@@ -23,6 +23,7 @@ export class IonPopConfirmComponent {
   ionPopConfirmType = input<StatusType>('warning');
   ionConfirmText = input<string>('Confirmar');
   ionCancelText = input<string>('Cancelar');
+  ionPopConfirmPosition = signal<string>('');
 
   ionOnConfirm = output<void>();
   ionOnClose = output<void>();

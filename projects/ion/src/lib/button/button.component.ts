@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewChecked,
   Component,
   computed,
   effect,
@@ -32,7 +31,7 @@ import { IonBadgeComponent } from '../badge/badge.component';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })
-export class IonButtonComponent implements AfterViewChecked {
+export class IonButtonComponent {
   label = input<string>();
   tooltip = input<string>();
   type = input<Type>('primary');
@@ -48,7 +47,7 @@ export class IonButtonComponent implements AfterViewChecked {
   circularButton = input(false);
   options = input<DropdownItem[]>();
   showDropdownInput = input(false, { alias: 'showDropdown' });
-  showDropdownAbove = input(false);
+  showDropdownAbove = input(false, { alias: 'showDropdownAbove' });
   dropdownConfig = input<
     Pick<
       DropdownParams,
@@ -83,6 +82,10 @@ export class IonButtonComponent implements AfterViewChecked {
     effect(() => {
       this._label.set(this.label());
     });
+
+    effect(() => {
+      this.showDropdown.set(this.showDropdownInput());
+    });
   }
 
   updateBadgeValue(items: DropdownItem[]): void {
@@ -93,19 +96,6 @@ export class IonButtonComponent implements AfterViewChecked {
     if (!this.loading() && !this.disabled()) {
       this.showDropdown.update((v) => !v);
       this.ionOnClick.emit();
-    }
-  }
-
-  shouldDropdownAbove(): void {
-    if (this.showDropdown() && this.showDropdownAbove()) {
-      const element = document.getElementById('ion-dropdown');
-      const container = document.querySelector('.above') as HTMLElement;
-      if (element && container) {
-        const elementHeight = element.getBoundingClientRect().height;
-        const buttomHeight = 40;
-        const movementSize = buttomHeight + elementHeight;
-        container.style.top = '-' + movementSize + 'px';
-      }
     }
   }
 
@@ -124,7 +114,9 @@ export class IonButtonComponent implements AfterViewChecked {
 
     const [item] = selectedItems;
     this._label.set(item.label);
-    this.showDropdown.set(false);
+    if (!this.multiple()) {
+      this.showDropdown.set(false);
+    }
   }
 
   onClearBadgeValue(): void {
@@ -139,9 +131,5 @@ export class IonButtonComponent implements AfterViewChecked {
 
   onSearchChange(dropdownSearch: string): void {
     this.handleDropdownSearch.emit(dropdownSearch);
-  }
-
-  ngAfterViewChecked(): void {
-    this.shouldDropdownAbove();
   }
 }

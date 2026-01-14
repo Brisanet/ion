@@ -24,9 +24,6 @@ import { IonChipComponent } from '../chip/chip.component';
   ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
-  host: {
-    '(document:click)': 'onDocumentClick($event)',
-  },
 })
 export class IonSelectComponent {
   // Inputs
@@ -70,15 +67,15 @@ export class IonSelectComponent {
                 value.some((val) =>
                   typeof val === 'object'
                     ? (val as any)[prop] === (opt as any)[prop]
-                    : val === (opt as any)[prop],
-                ),
+                    : val === (opt as any)[prop]
+                )
               );
             } else {
               // Handle single value
               selected = options.filter((opt) =>
                 typeof value === 'object'
                   ? (value as any)[prop] === (opt as any)[prop]
-                  : value === (opt as any)[prop],
+                  : value === (opt as any)[prop]
               );
             }
           }
@@ -86,7 +83,7 @@ export class IonSelectComponent {
 
           options.forEach((opt) => {
             opt.selected = selected.some(
-              (s) => (s as any)[prop] === (opt as any)[prop],
+              (s) => (s as any)[prop] === (opt as any)[prop]
             );
           });
         } else {
@@ -95,7 +92,7 @@ export class IonSelectComponent {
           this.dropdownSelectedItems.set(selected);
         }
       },
-      { allowSignalWrites: true },
+      { allowSignalWrites: true }
     );
     // TODO: allowSignalWrites deprecated, update this
   }
@@ -116,21 +113,16 @@ export class IonSelectComponent {
       this.valueChange.emit(selectedItems.map((item) => (item as any)[prop]));
     } else {
       this.valueChange.emit(
-        selectedItems.length > 0 ? (selectedItems[0] as any)[prop] : null,
+        selectedItems.length > 0 ? (selectedItems[0] as any)[prop] : null
       );
-      this.showDropdown.set(false);
+      if (!this.multiple()) {
+        this.showDropdown.set(false);
+      }
     }
   }
 
   closeDropdown(): void {
     this.showDropdown.set(false);
-  }
-
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-    if (!this.elementRef.nativeElement.contains(target)) {
-      this.showDropdown.set(false);
-    }
   }
 
   getSelectedLabel(): string {

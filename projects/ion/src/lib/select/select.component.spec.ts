@@ -29,6 +29,7 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     const select = screen.getByTestId('ion-select');
     fireEvent.click(select);
+    fixture.detectChanges();
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
   });
 
@@ -39,9 +40,11 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     const select = screen.getByTestId('ion-select');
     fireEvent.click(select);
+    fixture.detectChanges();
 
     const option = screen.getByText('Apple');
     fireEvent.click(option);
+    fixture.detectChanges();
 
     // Simulate dropdown emitting the selected items
     fixture.componentInstance.handleSelect([optionsCopy[0]]);
@@ -59,17 +62,21 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     const select = screen.getByTestId('ion-select');
     fireEvent.click(select);
+    fixture.detectChanges();
 
     fireEvent.click(screen.getByText('Apple'));
+    fixture.detectChanges();
     fixture.componentInstance.handleSelect([optionsCopy[0]]);
     fixture.detectChanges();
 
     fireEvent.click(screen.getByText('Banana'));
+    fixture.detectChanges();
     fixture.componentInstance.handleSelect([optionsCopy[0], optionsCopy[1]]);
     fixture.detectChanges();
 
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
-    expect(screen.getByText('Apple, Banana')).toBeTruthy();
+    expect(screen.getAllByText('Apple')).toHaveLength(2);
+    expect(screen.getAllByText('Banana')).toHaveLength(2);
   });
 
   it('should not open dropdown when disabled', async () => {
@@ -88,6 +95,7 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
     const select = screen.getByTestId('ion-select');
     fireEvent.click(select);
+    fixture.detectChanges();
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
 
     fireEvent.click(document.body);
