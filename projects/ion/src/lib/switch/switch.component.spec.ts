@@ -17,7 +17,7 @@ const sut = async (
     value: boolean;
     size: SwitchSize;
     disabled: boolean;
-  }> = {},
+  }> = {}
 ): Promise<HTMLElement> => {
   const { fixture } = await render(IonSwitchComponent, {
     componentInputs: customProps,
@@ -47,24 +47,24 @@ describe('IonSwitchComponent', () => {
       expect(ionSwitch).toHaveClass('ion-switch');
     });
 
-    it('should change class to active when switch is clicked', () => {
-      userEvent.click(ionSwitch);
+    it('should change class to active when switch is clicked', async () => {
+      await userEvent.click(ionSwitch);
       expect(ionSwitch).toHaveClass('ion-switch--active');
     });
 
-    it('should remove active class when switch is clicked twice', () => {
-      userEvent.click(ionSwitch);
+    it('should remove active class when switch is clicked twice', async () => {
+      await userEvent.click(ionSwitch);
       expect(ionSwitch).toHaveClass('ion-switch--active');
 
-      userEvent.click(ionSwitch);
+      await userEvent.click(ionSwitch);
       expect(ionSwitch).toHaveClass('ion-switch');
     });
 
-    it('should emit correct value when switch is clicked', () => {
-      userEvent.click(ionSwitch);
+    it('should emit correct value when switch is clicked', async () => {
+      await userEvent.click(ionSwitch);
       expect(emitValue.emit).toHaveBeenCalledWith(true);
 
-      userEvent.click(ionSwitch);
+      await userEvent.click(ionSwitch);
       expect(emitValue.emit).toHaveBeenCalledWith(false);
     });
   });

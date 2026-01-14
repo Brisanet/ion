@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  effect,
-  input,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { StepStatus, StepType } from '../core/types';
 import { IonIconComponent } from '../icon/icon.component';
 import { EllipsisPipe } from '../utils/pipes/ellipsis/ellipsis.pipe';
@@ -33,24 +27,12 @@ export class IonStepsComponent {
   private firstCatchStatus = true;
 
   constructor() {
-    effect(
-      () => {
-        const currentSteps = this.steps();
-        const currentIndex = this.current();
+    effect(() => {
+      const currentSteps = this.steps();
+      const currentIndex = this.current();
 
-        // Reset firstCatchStatus when steps change significantly (length change or completely new array)
-        // However, the original logic didn't reset it explicitly except on init.
-        // But here we are reacting to changes.
-        // Let's mimic the original logic:
-        // ngOnChanges:
-        // if steps changed -> changeStep(current, true)
-        // if current changed -> changeStep(current)
-
-        // We can just run the logic.
-        this.updateSteps(currentIndex);
-      },
-      { allowSignalWrites: true },
-    );
+      this.updateSteps(currentIndex);
+    });
   }
 
   updateSteps(currentIndex: number): void {
@@ -65,16 +47,14 @@ export class IonStepsComponent {
       index: index + 1,
     }));
 
-    if (
-      currentIndex < this.FIRST_STEP ||
-      currentIndex > processedSteps.length
-    ) {
-      // Invalid index handling
-    } else {
-      processedSteps = processedSteps.map((step) => {
-        return this.getStep(currentIndex, step);
-      });
-    }
+    const clampedIndex = Math.max(
+      this.FIRST_STEP,
+      Math.min(currentIndex, processedSteps.length)
+    );
+
+    processedSteps = processedSteps.map((step) => {
+      return this.getStep(clampedIndex, step);
+    });
 
     this.displaySteps.set(this.formatStepLines(processedSteps));
     this.firstCatchStatus = false;

@@ -29,7 +29,7 @@ describe('IonSidebarItemComponent', () => {
     const emitSpy = jest.spyOn(component.atClick, 'emit');
 
     const item = screen.getByTestId('ion-sidebar-item');
-    fireEvent.click(item);
+    fireEvent.mouseDown(item);
     expect(emitSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -42,7 +42,7 @@ describe('IonSidebarItemComponent', () => {
     const emitSpy = jest.spyOn(component.atClick, 'emit');
 
     const item = screen.getByRole('button');
-    fireEvent.click(item);
+    fireEvent.mouseDown(item);
     expect(emitSpy).not.toHaveBeenCalled();
   });
 
