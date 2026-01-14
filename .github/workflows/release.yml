@@ -8,34 +8,41 @@ jobs:
   release:
     name: 🚀 release
     runs-on: ubuntu-latest
+    environment: prod
+
     permissions:
-      id-token: write
       contents: read
-    strategy:
-      matrix:
-        node-version: [12.22.1]
+      id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
 
-      - name: 🟢 node
+      - name: 🟢 Node 12 (build)
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12.22.1
 
       - name: 📚 Install packages
         run: yarn install --frozen-lockfile
 
-      - name: 🏗️ build
+      - name: 🏗️ Build
         run: yarn build
 
-      - name: 🚀 publish
+      - name: 🟢 Node 20 (publish)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+          scope: "@brisanet"
+
+      - name: 🚀 Publish
         run: npm publish --access public --provenance
         working-directory: dist/ion
         env:
           CI: true
 
-      - name: Send message to Google Chat
+      - name: 📢 Send message to Google Chat
         run: |
           API_KEY="${{ secrets.GOOGLE_CHAT_API_KEY }}"
           TOKEN="${{ secrets.GOOGLE_CHAT_TOKEN }}"
