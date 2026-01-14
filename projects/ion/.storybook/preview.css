@@ -1,0 +1,29 @@
+/* Minimal theme variables for Storybook to apply ion theme styles without processing SCSS */
+body[ion-theme='light'] {
+  --ion-font-family-main: 'Source Sans Pro';
+  --ion-base: #ffffff;
+  --ion-background: #ffffff;
+  --ion-text: #111111;
+}
+
+body[ion-theme='dark'] {
+  --ion-font-family-main: 'Source Sans Pro';
+  --ion-base: #0b0b0b;
+  --ion-background: #0b0b0b;
+  --ion-text: #ffffff;
+}
+
+/* Add minimal orange theme variants */
+body[ion-theme='orange-light'] {
+  --ion-font-family-main: 'Source Sans Pro';
+  --ion-base: #fff7ed;
+  --ion-background: #fff7ed;
+  --ion-text: #111111;
+}
+
+body[ion-theme='orange-dark'] {
+  --ion-font-family-main: 'Source Sans Pro';
+  --ion-base: #3b2f1b;
+  --ion-background: #3b2f1b;
+  --ion-text: #ffffff;
+}

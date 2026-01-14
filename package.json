@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest"
+    "test": "jest",
+    "storybook": "ng run ion:storybook",
+    "build-storybook": "ng run ion:build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -39,6 +41,13 @@
     "ng-packagr": "^19.2.0",
     "sass": "^1.94.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.2",
+    "storybook": "^10.1.11",
+    "@storybook/angular": "^10.1.11",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@angular-devkit/architect": "^0.1900.0",
+    "@angular-devkit/core": "^19.0.0",
+    "@compodoc/compodoc": "^1.2.0"
   }
 }
