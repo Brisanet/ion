@@ -1,4 +1,4 @@
-import { ChipSize, RightBadge } from './chip';
+import { ChipSize, UserBadge,  } from './chip';
 import { IconDirection, IconType } from './icon';
 import { InfoBadgeStatus } from './info-badge';
 import { DropdownItem } from './dropdown';
@@ -13,7 +13,7 @@ export interface ChipInGroup {
   size?: ChipSize;
   infoBadge?: InfoBadgeStatus;
   iconPosition?: IconDirection;
-  rightBadge?: RightBadge;
+  badge?: UserBadge;
 }
 
 export interface ChipGroupProps {
