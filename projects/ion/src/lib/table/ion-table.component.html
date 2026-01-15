@@ -165,8 +165,51 @@
                       <!-- Assuming ionPopConfirm is not available or needs migration too. Keeping it simple for now as requested for popover -->
 
                       @if (action.confirm && !action.popover) {
-                        <!-- TODO: Migrate ionPopConfirm -->
                         <ion-button
+                          ionTooltip
+                          [ionTooltipTitle]="
+                            action.tooltipConfig?.ionTooltipTitle ||
+                            action.label
+                          "
+                          [ionTooltipPosition]="
+                            action.tooltipConfig?.ionTooltipPosition ||
+                            TooltipPosition.TOP_CENTER
+                          "
+                          [ionTooltipArrowPointAtCenter]="
+                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                            false
+                          "
+                          [ionTooltipColorScheme]="
+                            action.tooltipConfig?.ionTooltipColorScheme ||
+                            'dark'
+                          "
+                          [ionTooltipTrigger]="
+                            action.tooltipConfig?.ionTooltipTrigger ||
+                            TooltipTrigger.HOVER
+                          "
+                          [ionTooltipShowDelay]="
+                            action.tooltipConfig?.ionTooltipShowDelay || 0
+                          "
+                          [ionTooltipTemplateRef]="
+                            action.tooltipConfig?.ionTooltipTemplateRef || null
+                          "
+                          ionPopConfirm
+                          [ionPopConfirmTitle]="action.confirm.title"
+                          [ionPopConfirmType]="action.confirm.type || 'info'"
+                          [ionPopConfirmDesc]="
+                            !!action.confirm.description
+                              ? action.confirm.description
+                              : !!action.confirm.dynamicDescription
+                                ? action.confirm.dynamicDescription(row)
+                                : ''
+                          "
+                          [ionConfirmText]="
+                            action.confirm.confirmText || 'Confirmar'
+                          "
+                          [ionCancelText]="
+                            action.confirm.cancelText || 'Cancelar'
+                          "
+                          (ionOnConfirm)="handleEvent(row, action.call!)"
                           [attr.data-testid]="
                             'row-' + index + '-' + action.label
                           "
@@ -182,24 +225,126 @@
                           [disabled]="
                             action.disabled ? disableAction(row, action) : false
                           "
-                          (ionOnClick)="handleEvent(row, action.call!)"
                         ></ion-button>
                       }
 
                       @if (action.popover && !action.confirm) {
-                        <!-- Popover usage commented out as requested -->
-                        <!--
                         <ion-button
+                          ionTooltip
+                          [ionTooltipTitle]="
+                            action.tooltipConfig?.ionTooltipTitle ||
+                            action.label
+                          "
+                          [ionTooltipPosition]="
+                            action.tooltipConfig?.ionTooltipPosition ||
+                            TooltipPosition.TOP_CENTER
+                          "
+                          [ionTooltipArrowPointAtCenter]="
+                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                            false
+                          "
+                          [ionTooltipColorScheme]="
+                            action.tooltipConfig?.ionTooltipColorScheme ||
+                            'dark'
+                          "
+                          [ionTooltipTrigger]="
+                            action.tooltipConfig?.ionTooltipTrigger ||
+                            TooltipTrigger.HOVER
+                          "
+                          [ionTooltipShowDelay]="
+                            action.tooltipConfig?.ionTooltipShowDelay || 0
+                          "
+                          [ionTooltipTemplateRef]="
+                            action.tooltipConfig?.ionTooltipTemplateRef || null
+                          "
                           ionPopover
-                          [ionPopoverTitle]="action.popover(row)['ionPopoverTitle'] || action.label"
-                          ...
+                          [ionPopoverTitle]="
+                            action.popover(row)['ionPopoverTitle'] ||
+                            action.label
+                          "
+                          [ionPopoverBody]="ActionPopoverBody"
+                          [ionPopoverActions]="
+                            action.popover(row)['ionPopoverActions']
+                          "
+                          [ionPopoverIcon]="action.popover(row)['ionPopoverIcon']"
+                          [ionPopoverIconClose]="
+                            action.popover(row)['ionPopoverIconClose']
+                          "
+                          [ionPopoverPosition]="
+                            action.popover(row)['ionPopoverPosition'] ||
+                            PopoverPosition.BOTTOM_RIGHT
+                          "
+                          [ionPopoverKeep]="action.popover(row)['ionPopoverKeep']"
+                          [ionPopoverStopCloseOnScroll]="
+                            action.popover(row)['ionPopoverStopCloseOnScroll']
+                          "
+                          [ionPopoverCustomClass]="
+                            action.popover(row)['ionPopoverCustomClass']
+                          "
+                          [ionPopoverArrowPointAtCenter]="true"
+                          [ionPopoverTrigger]="
+                            action.popover(row)['ionPopoverTrigger'] ||
+                            PopoverTrigger.CLICK
+                          "
+                          (ionOnFirstAction)="handleEvent(row, action.call!)"
+                          (ionOnSecondAction)="
+                            action.secondCall
+                              ? handleEvent(row, action.secondCall)
+                              : null
+                          "
+                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                          type="ghost"
+                          size="sm"
+                          [danger]="!!action.danger"
+                          [iconType]="action.icon"
+                          [label]="action.label"
+                          [circularButton]="!action.showLabel"
+                          [rightSideIcon]="
+                            !!(action.showLabel && action.rightSideIcon)
+                          "
+                          [disabled]="
+                            action.disabled ? disableAction(row, action) : false
+                          "
                         ></ion-button>
-                        -->
+                        <ng-template #ActionPopoverBody>
+                          <ng-container
+                            [ngTemplateOutlet]="
+                              action.popover(row)['ionPopoverBody']
+                            "
+                            [ngTemplateOutletContext]="{ $implicit: row }"
+                          ></ng-container>
+                        </ng-template>
                       }
 
                       @if (!action.confirm && !action.popover) {
                         <ion-button
-                          [title]="action.label"
+                          ionTooltip
+                          [ionTooltipTitle]="
+                            action.tooltipConfig?.ionTooltipTitle ||
+                            action.label
+                          "
+                          [ionTooltipPosition]="
+                            action.tooltipConfig?.ionTooltipPosition ||
+                            TooltipPosition.TOP_CENTER
+                          "
+                          [ionTooltipArrowPointAtCenter]="
+                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
+                            false
+                          "
+                          [ionTooltipColorScheme]="
+                            action.tooltipConfig?.ionTooltipColorScheme ||
+                            'dark'
+                          "
+                          [ionTooltipTrigger]="
+                            action.tooltipConfig?.ionTooltipTrigger ||
+                            TooltipTrigger.HOVER
+                          "
+                          [ionTooltipShowDelay]="
+                            action.tooltipConfig?.ionTooltipShowDelay || 0
+                          "
+                          [ionTooltipTemplateRef]="
+                            action.tooltipConfig?.ionTooltipTemplateRef || null
+                          "
                           [attr.data-testid]="
                             'row-' + index + '-' + action.label
                           "

@@ -16,7 +16,11 @@ import { IonIconComponent } from '../icon/icon.component';
 import { IonPaginationComponent } from '../pagination/pagination.component';
 import { IonSpinnerComponent } from '../spinner/spinner.component';
 import { IonLinkComponent } from '../link/ion-link.component';
+import { TooltipPosition, TooltipTrigger } from '../core/types/tooltip';
+import { PopoverPosition, PopoverTrigger } from '../core/types/popover';
 import { IonTooltipDirective } from '../tooltip/tooltip.directive';
+import { IonPopoverDirective } from '../popover/popover.directive';
+import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
 import { BaseTable } from '../utils/baseTable';
 import { CheckBoxStates } from '../core/types';
 import { PageEvent } from '../core/types/pagination';
@@ -39,6 +43,8 @@ import { SafeAny } from '../utils/safe-any';
     IonSpinnerComponent,
     IonLinkComponent,
     IonTooltipDirective,
+    IonPopoverDirective,
+    IonPopConfirmDirective,
   ],
   templateUrl: './ion-table.component.html',
   styleUrls: ['./ion-table.component.scss'],
@@ -51,6 +57,10 @@ export class IonTableComponent<RowType extends BaseRow>
   override events = new EventEmitter<TableEvent>();
 
   public smartData: RowType[] = [];
+  public PopoverPosition = PopoverPosition;
+  public PopoverTrigger = PopoverTrigger;
+  public TooltipPosition = TooltipPosition;
+  public TooltipTrigger = TooltipTrigger;
 
   constructor(
     private cdr: ChangeDetectorRef,

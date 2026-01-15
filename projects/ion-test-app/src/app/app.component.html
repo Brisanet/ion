@@ -47,6 +47,13 @@
       </div>
     </ng-template>
 
+    <ng-template #tablePopoverTemplate let-row>
+      <div style="padding: 16px">
+        <h3 style="margin-top: 0">Confirmar Ação</h3>
+        <p>Deseja realmente excluir o item: <strong>{{ row.name }}</strong>?</p>
+      </div>
+    </ng-template>
+
     <ion-button label="With Actions" type="ghost" ionPopover ionPopoverTitle="Action Popover"
       [ionPopoverBody]="popoverTemplate" [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER" [ionPopoverActions]="[
           { label: 'Cancel' },
@@ -820,7 +827,7 @@
         </section>
 
         <section>
-          <h2>Table</h2>
+          <h2>Table Normal</h2>
           <div style="display: flex; flex-direction: column; gap: 20px">
             <ion-table [config]="tableConfig"></ion-table>
           </div>
