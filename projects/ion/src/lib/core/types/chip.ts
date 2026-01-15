@@ -1,16 +1,15 @@
 import { EventEmitter } from '@angular/core';
-import { BadgeType } from './badge';
+import { BadgeProps } from './badge';
 import { DropdownItem, DropdownParams } from './dropdown';
 import { IconDirection } from './icon';
 import { InfoBadgeStatus } from './info-badge';
-import { BadgeProps } from 'ion';
 
 export interface Badge {
   value: number;
 }
 
 export interface UserBadge extends BadgeProps {
-  position?: 'left' | 'right' ;
+  position?: 'left' | 'right';
 }
 
 export type ChipSize = 'sm' | 'md';
