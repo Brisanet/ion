@@ -5,36 +5,45 @@
   [rightActions]="[
     { iconType: 'search', tooltip: 'Procurar', action: 'search' },
     { iconType: 'alert', tooltip: 'Notificações', action: 'notifications' },
-    { iconType: 'user', tooltip: 'Perfil', action: 'profile' },
+    { iconType: 'user', tooltip: 'Perfil', action: 'profile' }
   ]"
   (rightActionOutput)="handleRightActionOutput($event)"
   (valueChange)="handleValueChangeNavbar($event)"
   [inputSearch]="{ placeholder: 'Procurar', iconInput: 'search' }"
   [avatar]="{ type: AvatarType.initials, value: 'Iury Nogueira', size: 'md' }"
-  >
+>
 </ion-navbar>
 
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
   <h1>Ion Consumer App</h1>
 
-  <div style="
+  <div
+    style="
       display: flex;
       flex-direction: column;
       gap: 10px;
       border: 1px solid #ccc;
       padding: 10px;
-    ">
+    "
+  >
     <bn-form [formGroup]="formGroup" [fields]="formFields"></bn-form>
     <ion-button label="Enviar" (click)="submitForm()"></ion-button>
   </div>
 
-  <bn-filter pageTitle="Filtros de Personagens" [fields]="filterFields()"
-    (applied)="handleFilterApplied($event)"></bn-filter>
+  <bn-filter
+    pageTitle="Filtros de Personagens"
+    [fields]="filterFields()"
+    (applied)="handleFilterApplied($event)"
+  ></bn-filter>
 
-  <bn-about [headerButton]="headerButton" [pageTitle]="pageTitle" [fields]="aboutFields"
-    (applied)="handleFilterApplied($event)"></bn-about>
+  <bn-about
+    [headerButton]="headerButton"
+    [pageTitle]="pageTitle"
+    [fields]="aboutFields"
+    (applied)="handleFilterApplied($event)"
+  ></bn-about>
 
-  <div style="margin-top: 20px;">
+  <div style="margin-top: 20px">
     <ion-button label="Abrir Wizard" (ionOnClick)="openWizard()"></ion-button>
   </div>
 
@@ -47,12 +56,20 @@
       </div>
     </ng-template>
 
-    <ion-button label="With Actions" type="ghost" ionPopover ionPopoverTitle="Action Popover"
-      [ionPopoverBody]="popoverTemplate" [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER" [ionPopoverActions]="[
-          { label: 'Cancel' },
-          { label: 'Confirm', type: 'primary' }
-        ]" (ionOnFirstAction)="handlePopoverFirstAction()"
-      (ionOnSecondAction)="handlePopoverSecondAction()"></ion-button>
+    <ion-button
+      label="With Actions"
+      type="ghost"
+      ionPopover
+      ionPopoverTitle="Action Popover"
+      [ionPopoverBody]="popoverTemplate"
+      [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER"
+      [ionPopoverActions]="[
+        { label: 'Cancel' },
+        { label: 'Confirm', type: 'primary' }
+      ]"
+      (ionOnFirstAction)="handlePopoverFirstAction()"
+      (ionOnSecondAction)="handlePopoverSecondAction()"
+    ></ion-button>
   </section>
 
   <section>
@@ -80,16 +97,31 @@
     <div style="display: flex; gap: 10px; align-items: center">
       <ion-button label="Edit" iconType="pencil"></ion-button>
       <ion-button label="Delete" iconType="trash" type="secondary"></ion-button>
-      <ion-button label="Right Icon" iconType="star" [rightSideIcon]="true"></ion-button>
+      <ion-button
+        label="Right Icon"
+        iconType="star"
+        [rightSideIcon]="true"
+      ></ion-button>
       <ion-button iconType="plus" [circularButton]="true"></ion-button>
-      <ion-button iconType="close" [circularButton]="true" type="ghost"></ion-button>
-      <ion-button label="Dropdown" [options]="[{ label: 'option 1' }, { label: 'option 2' }]"
-        [dropdownConfig]="{ required: true }"></ion-button>
-      <ion-button label="Multiple Selection" [multiple]="true" [options]="[
+      <ion-button
+        iconType="close"
+        [circularButton]="true"
+        type="ghost"
+      ></ion-button>
+      <ion-button
+        label="Dropdown"
+        [options]="[{ label: 'option 1' }, { label: 'option 2' }]"
+        [dropdownConfig]="{ required: true }"
+      ></ion-button>
+      <ion-button
+        label="Multiple Selection"
+        [multiple]="true"
+        [options]="[
           { label: 'Item 1' },
           { label: 'Item 2' },
-          { label: 'Item 3' },
-        ]"></ion-button>
+          { label: 'Item 3' }
+        ]"
+      ></ion-button>
     </div>
   </section>
 
@@ -127,41 +159,92 @@
   <section>
     <h2>Avatar Types</h2>
     <div style="display: flex; gap: 15px; align-items: center">
-      <ion-avatar [type]="AvatarType.initials" value="Taylor Swift"></ion-avatar>
-      <ion-avatar [type]="AvatarType.initials" value="Beyoncé Knowles"></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="Taylor Swift"
+      ></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="Beyoncé Knowles"
+      ></ion-avatar>
       <ion-avatar [type]="AvatarType.icon"></ion-avatar>
-      <ion-avatar [type]="AvatarType.photo" image="https://i.pravatar.cc/150?img=1"></ion-avatar>
-      <ion-avatar [type]="AvatarType.photo" image="https://i.pravatar.cc/150?img=5"></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.photo"
+        image="https://i.pravatar.cc/150?img=1"
+      ></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.photo"
+        image="https://i.pravatar.cc/150?img=5"
+      ></ion-avatar>
     </div>
   </section>
 
   <section>
     <h2>Avatar Sizes</h2>
     <div style="display: flex; gap: 15px; align-items: center">
-      <ion-avatar [type]="AvatarType.initials" value="XS Size" size="xs"></ion-avatar>
-      <ion-avatar [type]="AvatarType.initials" value="SM Size" size="sm"></ion-avatar>
-      <ion-avatar [type]="AvatarType.initials" value="MD Size" size="md"></ion-avatar>
-      <ion-avatar [type]="AvatarType.initials" value="LG Size" size="lg"></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="XS Size"
+        size="xs"
+      ></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="SM Size"
+        size="sm"
+      ></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="MD Size"
+        size="md"
+      ></ion-avatar>
+      <ion-avatar
+        [type]="AvatarType.initials"
+        value="LG Size"
+        size="lg"
+      ></ion-avatar>
     </div>
   </section>
 
   <section>
     <h2>Checkbox States</h2>
     <div style="display: flex; flex-direction: column; gap: 10px">
-      <ion-checkbox label="Enabled (unchecked)" value="enabled-checkbox"></ion-checkbox>
-      <ion-checkbox label="Checked" value="checked-checkbox" state="checked"></ion-checkbox>
-      <ion-checkbox label="Indeterminate" value="indeterminate-checkbox" state="indeterminate"></ion-checkbox>
+      <ion-checkbox
+        label="Enabled (unchecked)"
+        value="enabled-checkbox"
+      ></ion-checkbox>
+      <ion-checkbox
+        label="Checked"
+        value="checked-checkbox"
+        state="checked"
+      ></ion-checkbox>
+      <ion-checkbox
+        label="Indeterminate"
+        value="indeterminate-checkbox"
+        state="indeterminate"
+      ></ion-checkbox>
     </div>
   </section>
 
   <section>
     <h2>Checkbox Disabled</h2>
     <div style="display: flex; flex-direction: column; gap: 10px">
-      <ion-checkbox label="Disabled (unchecked)" value="disabled-unchecked" [disabled]="true"></ion-checkbox>
-      <ion-checkbox label="Disabled (checked)" value="disabled-checked" state="checked"
-        [disabled]="true"></ion-checkbox>
-      <ion-checkbox label="Disabled (indeterminate)" value="disabled-indeterminate" state="indeterminate"
-        [disabled]="true"></ion-checkbox>
+      <ion-checkbox
+        label="Disabled (unchecked)"
+        value="disabled-unchecked"
+        [disabled]="true"
+      ></ion-checkbox>
+      <ion-checkbox
+        label="Disabled (checked)"
+        value="disabled-checked"
+        state="checked"
+        [disabled]="true"
+      ></ion-checkbox>
+      <ion-checkbox
+        label="Disabled (indeterminate)"
+        value="disabled-indeterminate"
+        state="indeterminate"
+        [disabled]="true"
+      ></ion-checkbox>
     </div>
   </section>
 
@@ -221,7 +304,8 @@
         </div>
       </ng-template>
 
-      <ion-accordion [accordions]="[
+      <ion-accordion
+        [accordions]="[
           {
             label: 'Accordion 1',
             content: 'Content for accordion 1',
@@ -237,7 +321,10 @@
             content: 'Content for accordion 3',
             show: false,
           },
-        ]" [templateHeader]="header" [templateBody]="body"></ion-accordion>
+        ]"
+        [templateHeader]="header"
+        [templateBody]="body"
+      ></ion-accordion>
     </div>
   </section>
 
@@ -248,31 +335,48 @@
       <ion-alert message="This is a warning alert" type="warning"></ion-alert>
       <ion-alert message="This is an info alert" type="info"></ion-alert>
       <ion-alert message="This is a negative alert" type="negative"></ion-alert>
-      <ion-alert message="This is a closable alert" [closable]="true"></ion-alert>
-      <ion-alert message="This is an alert without background" [hideBackground]="true"></ion-alert>
-      <ion-alert message="This is an alert without radius" [noRadius]="true"></ion-alert>
-      <ion-alert message="This is an alert with description" description="This is the description text"></ion-alert>
+      <ion-alert
+        message="This is a closable alert"
+        [closable]="true"
+      ></ion-alert>
+      <ion-alert
+        message="This is an alert without background"
+        [hideBackground]="true"
+      ></ion-alert>
+      <ion-alert
+        message="This is an alert without radius"
+        [noRadius]="true"
+      ></ion-alert>
+      <ion-alert
+        message="This is an alert with description"
+        description="This is the description text"
+      ></ion-alert>
     </div>
   </section>
 
   <section>
     <h2>Breadcrumbs</h2>
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <ion-breadcrumb [breadcrumbs]="[
+      <ion-breadcrumb
+        [breadcrumbs]="[
           { label: 'Home', link: '/home' },
           { label: 'Components', link: '/components' },
-          { label: 'Breadcrumb', link: '/breadcrumb' },
-        ]"></ion-breadcrumb>
+          { label: 'Breadcrumb', link: '/breadcrumb' }
+        ]"
+      ></ion-breadcrumb>
 
-      <ion-breadcrumb [breadcrumbs]="[
+      <ion-breadcrumb
+        [breadcrumbs]="[
           { label: 'Home', link: '/home' },
           { label: 'Level 1', link: '/level1' },
           { label: 'Level 2', link: '/level2' },
           { label: 'Level 3', link: '/level3' },
           { label: 'Level 4', link: '/level4' },
           { label: 'Level 5', link: '/level5' },
-          { label: 'Current', link: '/current' },
-        ]" [truncate]="true"></ion-breadcrumb>
+          { label: 'Current', link: '/current' }
+        ]"
+        [truncate]="true"
+      ></ion-breadcrumb>
     </div>
   </section>
 
@@ -290,37 +394,59 @@
       <!-- Icons -->
       <div style="display: flex; gap: 10px; align-items: center">
         <ion-chip label="Left Icon" icon="check" iconPosition="left"></ion-chip>
-        <ion-chip label="Right Icon" icon="close" iconPosition="right"></ion-chip>
+        <ion-chip
+          label="Right Icon"
+          icon="close"
+          iconPosition="right"
+        ></ion-chip>
       </div>
 
       <!-- Badges -->
       <div style="display: flex; gap: 10px; align-items: center">
         <ion-chip label="With Info Badge" infoBadge="success"></ion-chip>
-        <ion-chip label="With Right Badge" [rightBadge]="{ label: 'New', type: 'negative' }"></ion-chip>
+        <ion-chip
+          label="With Right Badge"
+          [badge]="{ label: 'R Now', type: 'primary' }"
+        ></ion-chip>
+        <ion-chip
+          label="With Left Badge"
+          [badge]="{ label: 'Left', type: 'negative', position: 'left' }"
+        ></ion-chip>
       </div>
 
       <!-- Dropdowns -->
       <div style="display: flex; gap: 10px; align-items: center">
-        <ion-chip label="Dropdown" [options]="[
+        <ion-chip
+          label="Dropdown"
+          [options]="[
             { label: 'Option 1' },
             { label: 'Option 2' },
-            { label: 'Option 3' },
-          ]"></ion-chip>
+            { label: 'Option 3' }
+          ]"
+        ></ion-chip>
 
-        <ion-chip label="Multiple Selection" [multiple]="true" [options]="[
+        <ion-chip
+          label="Multiple Selection"
+          [multiple]="true"
+          [options]="[
             { label: 'Item A' },
             { label: 'Item B' },
-            { label: 'Item C' },
-          ]"></ion-chip>
+            { label: 'Item C' }
+          ]"
+        ></ion-chip>
 
-        <ion-chip label="Searchable" [options]="[
+        <ion-chip
+          label="Searchable"
+          [options]="[
             { label: 'Apple' },
             { label: 'Banana' },
-            { label: 'Cherry' },
-          ]" [dropdownSearchConfig]="{
+            { label: 'Cherry' }
+          ]"
+          [dropdownSearchConfig]="{
             enableSearch: true,
             searchOptions: { placeholder: 'Search fruits...' },
-          }"></ion-chip>
+          }"
+        ></ion-chip>
       </div>
     </div>
   </section>
@@ -337,31 +463,46 @@
       <!-- Multiple Selection -->
       <div>
         <h3>Multiple Selection</h3>
-        <ion-chip-group [chips]="chipGroupMultiple" [multiple]="true"></ion-chip-group>
+        <ion-chip-group
+          [chips]="chipGroupMultiple"
+          [multiple]="true"
+        ></ion-chip-group>
       </div>
 
       <!-- Required Selection -->
       <div>
         <h3>Required Selection</h3>
-        <ion-chip-group [chips]="chipGroupRequired" [required]="true"></ion-chip-group>
+        <ion-chip-group
+          [chips]="chipGroupRequired"
+          [required]="true"
+        ></ion-chip-group>
       </div>
 
       <!-- Sizes -->
       <div>
         <h3>Sizes</h3>
         <div style="display: flex; gap: 20px">
-          <ion-chip-group [chips]="[{ label: 'Small', selected: false }]" size="sm"></ion-chip-group>
-          <ion-chip-group [chips]="[{ label: 'Medium', selected: false }]" size="md"></ion-chip-group>
+          <ion-chip-group
+            [chips]="[{ label: 'Small', selected: false }]"
+            size="sm"
+          ></ion-chip-group>
+          <ion-chip-group
+            [chips]="[{ label: 'Medium', selected: false }]"
+            size="md"
+          ></ion-chip-group>
         </div>
       </div>
 
       <!-- Disabled -->
       <div>
         <h3>Disabled Group</h3>
-        <ion-chip-group [chips]="[
+        <ion-chip-group
+          [chips]="[
             { label: 'Disabled 1', selected: false },
-            { label: 'Disabled 2', selected: true },
-          ]" [disabled]="true"></ion-chip-group>
+            { label: 'Disabled 2', selected: true }
+          ]"
+          [disabled]="true"
+        ></ion-chip-group>
       </div>
     </div>
   </section>
@@ -427,7 +568,11 @@
       <ion-radio label="Unchecked"></ion-radio>
       <ion-radio label="Checked" [checked]="true"></ion-radio>
       <ion-radio label="Disabled" [disabled]="true"></ion-radio>
-      <ion-radio label="Disabled Checked" [disabled]="true" [checked]="true"></ion-radio>
+      <ion-radio
+        label="Disabled Checked"
+        [disabled]="true"
+        [checked]="true"
+      ></ion-radio>
 
       <div style="display: flex; gap: 10px; align-items: center">
         <ion-radio label="Interactive" [(checked)]="radioValue"></ion-radio>
@@ -444,11 +589,17 @@
       </div>
       <div>
         <h3>With Items Per Page</h3>
-        <ion-pagination [total]="100" [allowChangeQtdItems]="true"></ion-pagination>
+        <ion-pagination
+          [total]="100"
+          [allowChangeQtdItems]="true"
+        ></ion-pagination>
       </div>
       <div>
         <h3>Advanced</h3>
-        <ion-pagination [total]="200" [allowChangeQtdItems]="true"></ion-pagination>
+        <ion-pagination
+          [total]="200"
+          [allowChangeQtdItems]="true"
+        ></ion-pagination>
       </div>
       <div>
         <h3>Small Size</h3>
@@ -459,19 +610,29 @@
 
   <section>
     <h2>Tooltip</h2>
-    <div style="
+    <div
+      style="
         display: flex;
         gap: 30px;
         flex-wrap: wrap;
         align-items: center;
         margin-top: 50px;
-      ">
+      "
+    >
       <span ionTooltip ionTooltipTitle="Simple hover tooltip">Hover me</span>
 
-      <ion-button label="Tooltip on Button" ionTooltip ionTooltipTitle="I am a tooltip on a button"
-        [ionTooltipPosition]="TooltipPosition.BOTTOM_CENTER"></ion-button>
+      <ion-button
+        label="Tooltip on Button"
+        ionTooltip
+        ionTooltipTitle="I am a tooltip on a button"
+        [ionTooltipPosition]="TooltipPosition.BOTTOM_CENTER"
+      ></ion-button>
 
-      <span ionTooltip ionTooltipTitle="Click to toggle" [ionTooltipTrigger]="TooltipTrigger.CLICK">
+      <span
+        ionTooltip
+        ionTooltipTitle="Click to toggle"
+        [ionTooltipTrigger]="TooltipTrigger.CLICK"
+      >
         Click me
       </span>
 
@@ -482,15 +643,27 @@
         </div>
       </ng-template>
 
-      <span ionTooltip [ionTooltipTemplateRef]="customTooltip" [ionTooltipPosition]="TooltipPosition.TOP_RIGHT">
+      <span
+        ionTooltip
+        [ionTooltipTemplateRef]="customTooltip"
+        [ionTooltipPosition]="TooltipPosition.TOP_RIGHT"
+      >
         Custom Template
       </span>
 
-      <span ionTooltip ionTooltipTitle="Light theme tooltip" ionTooltipColorScheme="light">
+      <span
+        ionTooltip
+        ionTooltipTitle="Light theme tooltip"
+        ionTooltipColorScheme="light"
+      >
         Light Theme
       </span>
 
-      <span ionTooltip ionTooltipTitle="Tooltip with custom class" ionTooltipCustomClass="my-custom-tooltip">
+      <span
+        ionTooltip
+        ionTooltipTitle="Tooltip with custom class"
+        ionTooltipCustomClass="my-custom-tooltip"
+      >
         Custom Class
       </span>
     </div>
@@ -498,68 +671,116 @@
 
   <section>
     <h2>Input</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px">
+    <div
+      style="display: flex; flex-direction: column; gap: 20px; max-width: 500px"
+    >
       <div>
         <h3>Basic Input</h3>
-        <ion-input placeholder="Enter text here..." [(value)]="basicInputValue"></ion-input>
+        <ion-input
+          placeholder="Enter text here..."
+          [(value)]="basicInputValue"
+        ></ion-input>
         <p>Value: {{ basicInputValue }}</p>
       </div>
 
       <div>
         <h3>Input with Left Icon</h3>
-        <ion-input placeholder="Search..." iconInput="search" iconDirection="left"
-          [(value)]="searchInputValue"></ion-input>
+        <ion-input
+          placeholder="Search..."
+          iconInput="search"
+          iconDirection="left"
+          [(value)]="searchInputValue"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Input with Right Icon</h3>
-        <ion-input placeholder="Search..." iconInput="search" iconDirection="right" inputType="text"
-          [(value)]="emailInputValue"></ion-input>
+        <ion-input
+          placeholder="Search..."
+          iconInput="search"
+          iconDirection="right"
+          inputType="text"
+          [(value)]="emailInputValue"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Password Input</h3>
-        <ion-input placeholder="Enter password" inputType="password" [(value)]="passwordInputValue"></ion-input>
+        <ion-input
+          placeholder="Enter password"
+          inputType="password"
+          [(value)]="passwordInputValue"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Input with Clear Button</h3>
-        <ion-input placeholder="Type to see clear button" [clearButton]="true" [(value)]="basicInputValue"></ion-input>
+        <ion-input
+          placeholder="Type to see clear button"
+          [clearButton]="true"
+          [(value)]="basicInputValue"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Input with Max Length (10 chars)</h3>
-        <ion-input placeholder="Max 10 characters" [maxLength]="10" [(value)]="inputWithMaxLength"></ion-input>
+        <ion-input
+          placeholder="Max 10 characters"
+          [maxLength]="10"
+          [(value)]="inputWithMaxLength"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Valid Input</h3>
-        <ion-input placeholder="Valid input" [valid]="true" value="valid@email.com"></ion-input>
+        <ion-input
+          placeholder="Valid input"
+          [valid]="true"
+          value="valid@email.com"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Invalid Input with Error</h3>
-        <ion-input placeholder="Invalid input" [invalid]="true" errorMsg="This field is required"
-          value="invalid"></ion-input>
+        <ion-input
+          placeholder="Invalid input"
+          [invalid]="true"
+          errorMsg="This field is required"
+          value="invalid"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Disabled Input</h3>
-        <ion-input placeholder="Disabled input" [disabled]="true" value="Cannot edit this"></ion-input>
+        <ion-input
+          placeholder="Disabled input"
+          [disabled]="true"
+          value="Cannot edit this"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Readonly Input</h3>
-        <ion-input placeholder="Readonly input" [readonly]="true" value="Read only value"></ion-input>
+        <ion-input
+          placeholder="Readonly input"
+          [readonly]="true"
+          value="Read only value"
+        ></ion-input>
       </div>
 
       <div>
         <h3>Input with Button</h3>
-        <ion-input placeholder="Search with button" [inputButton]="true" [inputButtonConfig]="{
+        <ion-input
+          placeholder="Search with button"
+          [inputButton]="true"
+          [inputButtonConfig]="{
             label: 'Search',
             type: 'primary',
             iconType: 'search',
-          }" (clickButton)="handleInputButtonClick()" [(value)]="searchInputValue"></ion-input>
+          }"
+          (clickButton)="handleInputButtonClick()"
+          [(value)]="searchInputValue"
+        ></ion-input>
       </div>
 
       <div>
@@ -571,33 +792,54 @@
 
   <section>
     <h2>Select</h2>
-    <div style="display: flex; flex-direction: column; gap: 20px; max-width: 500px">
+    <div
+      style="display: flex; flex-direction: column; gap: 20px; max-width: 500px"
+    >
       <div>
         <h3>Basic Select</h3>
-        <ion-select placeholder="Selecione uma fruta" [options]="selectOptions"
-          (selected)="handleSelectChange($event)"></ion-select>
+        <ion-select
+          placeholder="Selecione uma fruta"
+          [options]="selectOptions"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
       </div>
 
       <div>
         <h3>Searchable Select</h3>
-        <ion-select placeholder="Busque uma fruta" [options]="selectOptions" [enableSearch]="true"
-          (selected)="handleSelectChange($event)"></ion-select>
+        <ion-select
+          placeholder="Busque uma fruta"
+          [options]="selectOptions"
+          [enableSearch]="true"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
       </div>
 
       <div>
         <h3>Multiple Selection</h3>
-        <ion-select placeholder="Escolha várias frutas" [options]="selectOptions" [multiple]="true"
-          (selected)="handleSelectChange($event)"></ion-select>
+        <ion-select
+          placeholder="Escolha várias frutas"
+          [options]="selectOptions"
+          [multiple]="true"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
       </div>
 
       <div>
         <h3>Invalid State</h3>
-        <ion-select placeholder="Selecione" [options]="selectOptions" [invalid]="true"></ion-select>
+        <ion-select
+          placeholder="Selecione"
+          [options]="selectOptions"
+          [invalid]="true"
+        ></ion-select>
       </div>
 
       <div>
         <h3>Disabled State</h3>
-        <ion-select placeholder="Desabilitado" [options]="selectOptions" [disabled]="true"></ion-select>
+        <ion-select
+          placeholder="Desabilitado"
+          [options]="selectOptions"
+          [disabled]="true"
+        ></ion-select>
       </div>
     </div>
   </section>
@@ -609,9 +851,21 @@
       <ion-heading text="Heading 2" type="h2"></ion-heading>
       <ion-heading text="Heading 3" type="h3"></ion-heading>
       <ion-heading text="Heading 4" type="h4"></ion-heading>
-      <ion-heading text="Heading 1 (Secondary)" type="h1" colorScheme="secondary"></ion-heading>
-      <ion-heading text="Heading 1 (Bold)" type="h1" weight="bold"></ion-heading>
-      <ion-heading text="Heading 1 (Small)" type="h1" size="small"></ion-heading>
+      <ion-heading
+        text="Heading 1 (Secondary)"
+        type="h1"
+        colorScheme="secondary"
+      ></ion-heading>
+      <ion-heading
+        text="Heading 1 (Bold)"
+        type="h1"
+        weight="bold"
+      ></ion-heading>
+      <ion-heading
+        text="Heading 1 (Small)"
+        type="h1"
+        size="small"
+      ></ion-heading>
     </div>
   </section>
 
@@ -620,38 +874,52 @@
     <div style="display: flex; flex-direction: column; gap: 20px">
       <div>
         <h3>Basic (Default Options)</h3>
-        <ion-triple-toggle [value]="tripleToggleValue" (ionClick)="
+        <ion-triple-toggle
+          [value]="tripleToggleValue"
+          (ionClick)="
             tripleToggleValue = $event; handleTripleToggleChange($event)
-          "></ion-triple-toggle>
+          "
+        ></ion-triple-toggle>
         <p>Value: {{ tripleToggleValue }}</p>
       </div>
 
       <div>
         <h3>Custom Options</h3>
-        <ion-triple-toggle [options]="[
+        <ion-triple-toggle
+          [options]="[
             { label: 'Ativo', value: 'active' },
-            { label: 'Inativo', value: 'inactive' },
-          ]" (ionClick)="handleTripleToggleChange($event)"></ion-triple-toggle>
+            { label: 'Inativo', value: 'inactive' }
+          ]"
+          (ionClick)="handleTripleToggleChange($event)"
+        ></ion-triple-toggle>
       </div>
 
       <div>
         <h3>With Icons</h3>
-        <ion-triple-toggle [value]="tripleToggleWithIconsValue" [options]="[
+        <ion-triple-toggle
+          [value]="tripleToggleWithIconsValue"
+          [options]="[
             { label: 'Sim', value: true, icon: 'check' },
-            { label: 'Não', value: false, icon: 'close' },
-          ]" (ionClick)="
+            { label: 'Não', value: false, icon: 'close' }
+          ]"
+          (ionClick)="
             tripleToggleWithIconsValue = $event;
             handleTripleToggleChange($event)
-          "></ion-triple-toggle>
+          "
+        ></ion-triple-toggle>
         <p>Value: {{ tripleToggleWithIconsValue }}</p>
       </div>
 
       <div>
         <h3>Only Icons (No Labels)</h3>
-        <ion-triple-toggle [onlyShowIcon]="true" [options]="[
+        <ion-triple-toggle
+          [onlyShowIcon]="true"
+          [options]="[
             { label: 'Like', value: 'like', icon: 'star' },
-            { label: 'Dislike', value: 'dislike', icon: 'close' },
-          ]" (ionClick)="handleTripleToggleChange($event)"></ion-triple-toggle>
+            { label: 'Dislike', value: 'dislike', icon: 'close' }
+          ]"
+          (ionClick)="handleTripleToggleChange($event)"
+        ></ion-triple-toggle>
       </div>
 
       <div>
@@ -661,18 +929,24 @@
 
       <div>
         <h3>Small Size</h3>
-        <ion-triple-toggle size="sm" [options]="[
+        <ion-triple-toggle
+          size="sm"
+          [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false },
-          ]"></ion-triple-toggle>
+            { label: 'Não', value: false }
+          ]"
+        ></ion-triple-toggle>
       </div>
 
       <div>
         <h3>Large Size</h3>
-        <ion-triple-toggle size="lg" [options]="[
+        <ion-triple-toggle
+          size="lg"
+          [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false },
-          ]"></ion-triple-toggle>
+            { label: 'Não', value: false }
+          ]"
+        ></ion-triple-toggle>
 
         <section>
           <h2>Tags</h2>
@@ -705,8 +979,16 @@
               <h3>With Icons</h3>
               <div style="display: flex; gap: 10px">
                 <ion-tag label="With Icon" icon="check"></ion-tag>
-                <ion-tag label="Success Icon" status="success" icon="check"></ion-tag>
-                <ion-tag label="Warning Icon" status="warning" icon="alert"></ion-tag>
+                <ion-tag
+                  label="Success Icon"
+                  status="success"
+                  icon="check"
+                ></ion-tag>
+                <ion-tag
+                  label="Warning Icon"
+                  status="warning"
+                  icon="alert"
+                ></ion-tag>
               </div>
             </div>
 
@@ -714,7 +996,11 @@
               <h3>No Outline</h3>
               <div style="display: flex; gap: 10px">
                 <ion-tag label="No Outline" [outline]="false"></ion-tag>
-                <ion-tag label="Success No Outline" status="success" [outline]="false"></ion-tag>
+                <ion-tag
+                  label="Success No Outline"
+                  status="success"
+                  [outline]="false"
+                ></ion-tag>
               </div>
             </div>
 
@@ -722,7 +1008,11 @@
               <h3>Custom Background</h3>
               <div style="display: flex; gap: 10px">
                 <ion-tag label="Custom BG" backgroundColor="#f0f0f0"></ion-tag>
-                <ion-tag label="Custom BG Color" color="#be531c" backgroundColor="#ffe0d0"></ion-tag>
+                <ion-tag
+                  label="Custom BG Color"
+                  color="#be531c"
+                  backgroundColor="#ffe0d0"
+                ></ion-tag>
               </div>
             </div>
           </div>
@@ -753,7 +1043,11 @@
               <h3>With Icons</h3>
               <div style="display: flex; gap: 10px; align-items: center">
                 <ion-link label="Right Icon" icon="box"></ion-link>
-                <ion-link label="Left Icon" icon="box" iconSide="left"></ion-link>
+                <ion-link
+                  label="Left Icon"
+                  icon="box"
+                  iconSide="left"
+                ></ion-link>
                 <ion-link icon="box"></ion-link>
               </div>
             </div>
@@ -765,7 +1059,12 @@
 
             <div>
               <h3>External Link</h3>
-              <ion-link label="Go to Google" link="https://google.com" target="_blank" icon="right3"></ion-link>
+              <ion-link
+                label="Go to Google"
+                link="https://google.com"
+                target="_blank"
+                icon="right3"
+              ></ion-link>
             </div>
           </div>
         </section>
@@ -775,44 +1074,68 @@
           <div style="display: flex; flex-direction: column; gap: 20px">
             <div>
               <h3>Basic (Small)</h3>
-              <ion-switch [value]="switchSmValue" size="sm" (atValueChange)="
+              <ion-switch
+                [value]="switchSmValue"
+                size="sm"
+                (atValueChange)="
                   switchSmValue = $event; handleSwitchChange($event)
-                "></ion-switch>
+                "
+              ></ion-switch>
               <p>Value: {{ switchSmValue }}</p>
             </div>
 
             <div>
               <h3>Medium Size</h3>
-              <ion-switch [value]="switchMdValue" size="md" (atValueChange)="
+              <ion-switch
+                [value]="switchMdValue"
+                size="md"
+                (atValueChange)="
                   switchMdValue = $event; handleSwitchChange($event)
-                "></ion-switch>
+                "
+              ></ion-switch>
               <p>Value: {{ switchMdValue }}</p>
             </div>
 
             <div>
               <h3>Large Size</h3>
-              <ion-switch [value]="switchLgValue" size="lg" (atValueChange)="
+              <ion-switch
+                [value]="switchLgValue"
+                size="lg"
+                (atValueChange)="
                   switchLgValue = $event; handleSwitchChange($event)
-                "></ion-switch>
+                "
+              ></ion-switch>
               <p>Value: {{ switchLgValue }}</p>
             </div>
 
             <div>
               <h3>Disabled (Off)</h3>
-              <ion-switch [value]="false" [disabled]="true" size="md"></ion-switch>
+              <ion-switch
+                [value]="false"
+                [disabled]="true"
+                size="md"
+              ></ion-switch>
             </div>
 
             <div>
               <h3>Disabled (On)</h3>
-              <ion-switch [value]="true" [disabled]="true" size="md"></ion-switch>
+              <ion-switch
+                [value]="true"
+                [disabled]="true"
+                size="md"
+              ></ion-switch>
             </div>
 
             <div>
               <h3>Interactive Example</h3>
               <div style="display: flex; align-items: center; gap: 10px">
-                <ion-switch [value]="switchValue" size="md" (atValueChange)="
+                <ion-switch
+                  [value]="switchValue"
+                  size="md"
+                  (atValueChange)="
                     switchValue = $event; handleSwitchChange($event)
-                  "></ion-switch>
+                  "
+                ></ion-switch>
                 <span>{{ switchValue ? 'ON' : 'OFF' }}</span>
               </div>
             </div>
@@ -829,27 +1152,45 @@
         <section>
           <h2>Popconfirm</h2>
           <div style="display: flex; gap: 20px; align-items: center">
-            <ion-button label="Basic Popconfirm" ionPopConfirm ionPopConfirmTitle="Are you sure?"
-              (ionOnConfirm)="handleInputButtonClick()"></ion-button>
+            <ion-button
+              label="Basic Popconfirm"
+              ionPopConfirm
+              ionPopConfirmTitle="Are you sure?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
 
-            <ion-button label="With Description" type="secondary" ionPopConfirm ionPopConfirmTitle="Delete Item?"
-              ionPopConfirmDesc="This action cannot be undone." ionPopConfirmType="negative"
-              ionConfirmText="Yes, delete" ionCancelText="No, keep it"
-              (ionOnConfirm)="handleInputButtonClick()"></ion-button>
+            <ion-button
+              label="With Description"
+              type="secondary"
+              ionPopConfirm
+              ionPopConfirmTitle="Delete Item?"
+              ionPopConfirmDesc="This action cannot be undone."
+              ionPopConfirmType="negative"
+              ionConfirmText="Yes, delete"
+              ionCancelText="No, keep it"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
 
-            <ion-button label="Close on Scroll" type="ghost" ionPopConfirm ionPopConfirmTitle="Scroll to close"
-              [ionPopConfirmCloseOnScroll]="true"></ion-button>
+            <ion-button
+              label="Close on Scroll"
+              type="ghost"
+              ionPopConfirm
+              ionPopConfirmTitle="Scroll to close"
+              [ionPopConfirmCloseOnScroll]="true"
+            ></ion-button>
           </div>
         </section>
 
         <section>
           <h2>Tabs</h2>
-          <div style="
+          <div
+            style="
               display: flex;
               flex-direction: column;
               gap: 40px;
               margin-top: 20px;
-            ">
+            "
+          >
             <!-- Basic Tabs -->
             <div>
               <h3>Basic Tabs (Small)</h3>
@@ -865,7 +1206,11 @@
             <div>
               <h3>Medium Size Tabs</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Dashboard" tabSize="md" [selected]="true"></ion-tab>
+                <ion-tab
+                  label="Dashboard"
+                  tabSize="md"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Analytics" tabSize="md"></ion-tab>
                 <ion-tab label="Reports" tabSize="md"></ion-tab>
               </div>
@@ -875,7 +1220,11 @@
             <div>
               <h3>Large Size Tabs</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Overview" tabSize="lg" [selected]="true"></ion-tab>
+                <ion-tab
+                  label="Overview"
+                  tabSize="lg"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Details" tabSize="lg"></ion-tab>
                 <ion-tab label="History" tabSize="lg"></ion-tab>
               </div>
@@ -885,7 +1234,11 @@
             <div>
               <h3>Tabs with Icons</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Home" iconType="home" [selected]="true"></ion-tab>
+                <ion-tab
+                  label="Home"
+                  iconType="home"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Search" iconType="search"></ion-tab>
                 <ion-tab label="Settings" iconType="config"></ion-tab>
                 <ion-tab label="User" iconType="user"></ion-tab>
@@ -896,8 +1249,15 @@
             <div>
               <h3>Tabs with Badges</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Messages" [badge]="{ value: 5 }" [selected]="true"></ion-tab>
-                <ion-tab label="Notifications" [badge]="{ value: 12 }"></ion-tab>
+                <ion-tab
+                  label="Messages"
+                  [badge]="{ value: 5 }"
+                  [selected]="true"
+                ></ion-tab>
+                <ion-tab
+                  label="Notifications"
+                  [badge]="{ value: 12 }"
+                ></ion-tab>
                 <ion-tab label="Alerts" [badge]="{ value: 3 }"></ion-tab>
               </div>
             </div>
@@ -906,9 +1266,22 @@
             <div>
               <h3>Tabs with Icons and Badges</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Inbox" iconType="email" [badge]="{ value: 8 }" [selected]="true"></ion-tab>
-                <ion-tab label="Tasks" iconType="check" [badge]="{ value: 15 }"></ion-tab>
-                <ion-tab label="Calendar" iconType="calendar" [badge]="{ value: 2 }"></ion-tab>
+                <ion-tab
+                  label="Inbox"
+                  iconType="email"
+                  [badge]="{ value: 8 }"
+                  [selected]="true"
+                ></ion-tab>
+                <ion-tab
+                  label="Tasks"
+                  iconType="check"
+                  [badge]="{ value: 15 }"
+                ></ion-tab>
+                <ion-tab
+                  label="Calendar"
+                  iconType="calendar"
+                  [badge]="{ value: 2 }"
+                ></ion-tab>
               </div>
             </div>
 
@@ -926,7 +1299,11 @@
             <div>
               <h3>Border Direction: Top</h3>
               <div style="display: flex; gap: 10px">
-                <ion-tab label="Tab 1" direction="top" [selected]="true"></ion-tab>
+                <ion-tab
+                  label="Tab 1"
+                  direction="top"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Tab 2" direction="top"></ion-tab>
                 <ion-tab label="Tab 3" direction="top"></ion-tab>
               </div>
@@ -934,13 +1311,19 @@
 
             <div>
               <h3>Border Direction: Right</h3>
-              <div style="
+              <div
+                style="
                   display: flex;
                   flex-direction: column;
                   gap: 10px;
                   max-width: 200px;
-                ">
-                <ion-tab label="Tab 1" direction="right" [selected]="true"></ion-tab>
+                "
+              >
+                <ion-tab
+                  label="Tab 1"
+                  direction="right"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Tab 2" direction="right"></ion-tab>
                 <ion-tab label="Tab 3" direction="right"></ion-tab>
               </div>
@@ -948,13 +1331,19 @@
 
             <div>
               <h3>Border Direction: Left</h3>
-              <div style="
+              <div
+                style="
                   display: flex;
                   flex-direction: column;
                   gap: 10px;
                   max-width: 200px;
-                ">
-                <ion-tab label="Tab 1" direction="left" [selected]="true"></ion-tab>
+                "
+              >
+                <ion-tab
+                  label="Tab 1"
+                  direction="left"
+                  [selected]="true"
+                ></ion-tab>
                 <ion-tab label="Tab 2" direction="left"></ion-tab>
                 <ion-tab label="Tab 3" direction="left"></ion-tab>
               </div>
@@ -978,35 +1367,51 @@
       </div>
       <div>
         <h3>With Custom Icon</h3>
-        <ion-no-data iconType="search" label="Sua busca não retornou resultados"></ion-no-data>
+        <ion-no-data
+          iconType="search"
+          label="Sua busca não retornou resultados"
+        ></ion-no-data>
       </div>
     </div>
   </section>
 
   <section>
     <h2>Sidebar</h2>
-    <div style="margin-bottom: 20px; display: flex; gap: 20px; align-items: center">
+    <div
+      style="margin-bottom: 20px; display: flex; gap: 20px; align-items: center"
+    >
       <div style="display: flex; gap: 10px; align-items: center">
         <span>Shrink Mode:</span>
-        <ion-switch [value]="sidebarShrinkMode" (atValueChange)="sidebarShrinkMode = $event"></ion-switch>
+        <ion-switch
+          [value]="sidebarShrinkMode"
+          (atValueChange)="sidebarShrinkMode = $event"
+        ></ion-switch>
       </div>
       <div style="display: flex; gap: 10px; align-items: center">
         <span>Close on Select:</span>
-        <ion-switch [value]="sidebarCloseOnSelect" (atValueChange)="sidebarCloseOnSelect = $event"></ion-switch>
+        <ion-switch
+          [value]="sidebarCloseOnSelect"
+          (atValueChange)="sidebarCloseOnSelect = $event"
+        ></ion-switch>
       </div>
       <div style="margin-left: auto">
-        <ion-button label="Toggle Sidebar" (click)="toggleSidebar()"></ion-button>
+        <ion-button
+          label="Toggle Sidebar"
+          (click)="toggleSidebar()"
+        ></ion-button>
       </div>
     </div>
 
     <ng-template #sidebarFooterTemplate>
-      <div style="
+      <div
+        style="
           display: flex;
           align-items: center;
           gap: 12px;
           color: #666;
           padding: 8px;
-        ">
+        "
+      >
         <ion-icon type="out"></ion-icon>
         @if (!sidebarComp.closed()) {
         <span>Sair do App</span>
@@ -1014,23 +1419,33 @@
       </div>
     </ng-template>
 
-    <div style="
+    <div
+      style="
         position: relative;
         height: 600px;
         border: 1px solid #ddd;
         overflow: hidden;
         display: flex;
         background-color: #f4f4f4;
-      ">
-      <ion-sidebar #sidebarComp logo="https://placehold.co/250x50" [items]="sidebarItems"
-        [shrinkMode]="sidebarShrinkMode" [closeOnSelect]="sidebarCloseOnSelect" [sidebarFooter]="sidebarFooterTemplate"
-        (ionOnSidebarToggle)="handleSidebarToggle($event)"></ion-sidebar>
-      <div style="
+      "
+    >
+      <ion-sidebar
+        #sidebarComp
+        logo="https://placehold.co/250x50"
+        [items]="sidebarItems"
+        [shrinkMode]="sidebarShrinkMode"
+        [closeOnSelect]="sidebarCloseOnSelect"
+        [sidebarFooter]="sidebarFooterTemplate"
+        (ionOnSidebarToggle)="handleSidebarToggle($event)"
+      ></ion-sidebar>
+      <div
+        style="
           padding: 20px;
           flex: 1;
           margin-left: 256px;
           transition: margin 0.3s;
-        ">
+        "
+      >
         <!-- margin-left allows space for shrunk bar, if overlay is used, but here it is absolute -->
         <h3>Main Content Area</h3>
         <p>
@@ -1048,8 +1463,12 @@
   <section>
     <h2>Steps</h2>
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <ion-steps [steps]="steps" [current]="stepCurrent" [clickable]="true"
-        (indexChange)="handleStepChange($event)"></ion-steps>
+      <ion-steps
+        [steps]="steps"
+        [current]="stepCurrent"
+        [clickable]="true"
+        (indexChange)="handleStepChange($event)"
+      ></ion-steps>
     </div>
   </section>
 
@@ -1058,18 +1477,28 @@
     <div style="display: flex; flex-direction: column; gap: 20px; width: 500px">
       <div>
         <h3>Basic</h3>
-        <ion-input-area placeholder="Type something..." [(value)]="inputAreaValue"></ion-input-area>
+        <ion-input-area
+          placeholder="Type something..."
+          [(value)]="inputAreaValue"
+        ></ion-input-area>
         <p>Value: {{ inputAreaValue }}</p>
       </div>
 
       <div>
         <h3>Custom Rows/Cols</h3>
-        <ion-input-area rows="3" cols="50" placeholder="3 rows, 50 cols"></ion-input-area>
+        <ion-input-area
+          rows="3"
+          cols="50"
+          placeholder="3 rows, 50 cols"
+        ></ion-input-area>
       </div>
 
       <div>
         <h3>Disabled</h3>
-        <ion-input-area [disabled]="true" [(value)]="disabledInputAreaValue"></ion-input-area>
+        <ion-input-area
+          [disabled]="true"
+          [(value)]="disabledInputAreaValue"
+        ></ion-input-area>
       </div>
     </div>
   </section>
@@ -1077,14 +1506,21 @@
   <section>
     <h2>Smart Table</h2>
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <ion-smart-table [config]="smartTableConfig" (events)="smartTableEvents($event)"></ion-smart-table>
+      <ion-smart-table
+        [config]="smartTableConfig"
+        (events)="smartTableEvents($event)"
+      ></ion-smart-table>
     </div>
   </section>
 
   <section>
     <h2>Radio Group</h2>
     <div style="display: flex; flex-direction: column; gap: 20px">
-      <ion-radio-group name="my-group" [options]="radioGroupOptions" [(value)]="radioGroupValue"></ion-radio-group>
+      <ion-radio-group
+        name="my-group"
+        [options]="radioGroupOptions"
+        [(value)]="radioGroupValue"
+      ></ion-radio-group>
       <p>Selected Value: {{ radioGroupValue }}</p>
     </div>
   </section>
@@ -1096,65 +1532,102 @@
         <h3>Interactive Example - Tab State Changes</h3>
         <p style="margin-bottom: 10px">
           <strong>Selected Tab:</strong>
-          <span style="
+          <span
+            style="
               color: #1890ff;
               font-weight: bold;
               margin-left: 8px;
               padding: 4px 8px;
               background: #e6f7ff;
               border-radius: 4px;
-            ">
+            "
+          >
             {{ selectedTabLabel }}
           </span>
         </p>
-        <ion-tab-group [tabs]="tabGroupHorizontal" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Horizontal Tabs (Default)</h3>
-        <ion-tab-group [tabs]="tabGroupHorizontal" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Vertical Tabs</h3>
-        <ion-tab-group [tabs]="tabGroupVertical" direction="vertical"
-          (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupVertical"
+          direction="vertical"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Tabs with Badges</h3>
-        <ion-tab-group [tabs]="tabGroupWithBadge" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupWithBadge"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Tabs with Disabled State</h3>
-        <ion-tab-group [tabs]="tabGroupWithDisabled" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupWithDisabled"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Small Size Tabs</h3>
-        <ion-tab-group [tabs]="tabGroupHorizontal" size="sm" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="sm"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Medium Size Tabs</h3>
-        <ion-tab-group [tabs]="tabGroupHorizontal" size="md" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="md"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Large Size Tabs</h3>
-        <ion-tab-group [tabs]="tabGroupHorizontal" size="lg" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          size="lg"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Vertical with Left Border</h3>
-        <ion-tab-group [tabs]="tabGroupVertical" direction="vertical" border="left"
-          (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupVertical"
+          direction="vertical"
+          border="left"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
 
       <div>
         <h3>Horizontal with Top Border</h3>
-        <ion-tab-group [tabs]="tabGroupHorizontal" border="top" (selected)="handleTabSelected($event)"></ion-tab-group>
+        <ion-tab-group
+          [tabs]="tabGroupHorizontal"
+          border="top"
+          (selected)="handleTabSelected($event)"
+        ></ion-tab-group>
       </div>
     </div>
   </section>
@@ -1166,48 +1639,68 @@
         <h3>Basic Counter</h3>
         <p style="margin-bottom: 10px">
           <strong>Current Value:</strong>
-          <span style="
+          <span
+            style="
               color: #1890ff;
               font-weight: bold;
               margin-left: 8px;
               padding: 4px 8px;
               background: #e6f7ff;
               border-radius: 4px;
-            ">
+            "
+          >
             {{ counterValue }}
           </span>
         </p>
-        <ion-input-counter [(count)]="counterValue" (changedValue)="handleCounterChange($event)"></ion-input-counter>
+        <ion-input-counter
+          [(count)]="counterValue"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
       </div>
 
       <div>
         <h3>Counter with Min/Max Limits (Min: 0, Max: 10)</h3>
         <p style="margin-bottom: 10px">
           <strong>Current Value:</strong>
-          <span style="
+          <span
+            style="
               color: #1890ff;
               font-weight: bold;
               margin-left: 8px;
               padding: 4px 8px;
               background: #e6f7ff;
               border-radius: 4px;
-            ">
+            "
+          >
             {{ counterWithLimits }}
           </span>
         </p>
-        <ion-input-counter [(count)]="counterWithLimits" [minValue]="0" [maxValue]="10"
-          (changedValue)="handleCounterChange($event)"></ion-input-counter>
+        <ion-input-counter
+          [(count)]="counterWithLimits"
+          [minValue]="0"
+          [maxValue]="10"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
       </div>
 
       <div>
         <h3>Small Size Counter (Min: 5, Max: 20)</h3>
-        <ion-input-counter [(count)]="counterSmall" inputSize="sm" [minValue]="5" [maxValue]="20"
-          (changedValue)="handleCounterChange($event)"></ion-input-counter>
+        <ion-input-counter
+          [(count)]="counterSmall"
+          inputSize="sm"
+          [minValue]="5"
+          [maxValue]="20"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
       </div>
 
       <div>
         <h3>Medium Size Counter (Default)</h3>
-        <ion-input-counter [count]="0" inputSize="md" (changedValue)="handleCounterChange($event)"></ion-input-counter>
+        <ion-input-counter
+          [count]="0"
+          inputSize="md"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
       </div>
 
       <div>
@@ -1217,8 +1710,12 @@
 
       <div>
         <h3>Counter with Custom Max Digits (3 digits)</h3>
-        <ion-input-counter [count]="99" [maxDigits]="3" [maxValue]="999"
-          (changedValue)="handleCounterChange($event)"></ion-input-counter>
+        <ion-input-counter
+          [count]="99"
+          [maxDigits]="3"
+          [maxValue]="999"
+          (changedValue)="handleCounterChange($event)"
+        ></ion-input-counter>
       </div>
     </div>
   </section>
@@ -1258,7 +1755,11 @@
 
       <div>
         <h3>Custom Icon</h3>
-        <ion-message label="Message with custom icon" type="info" iconType="heart-solid"></ion-message>
+        <ion-message
+          label="Message with custom icon"
+          type="info"
+          iconType="heart-solid"
+        ></ion-message>
       </div>
     </div>
   </section>
@@ -1266,10 +1767,22 @@
   <section>
     <h2>Notifications</h2>
     <div style="display: flex; gap: 10px; flex-wrap: wrap">
-      <ion-button label="Success" (ionOnClick)="showNotification('success')"></ion-button>
-      <ion-button label="Info" (ionOnClick)="showNotification('info')"></ion-button>
-      <ion-button label="Warning" (ionOnClick)="showNotification('warning')"></ion-button>
-      <ion-button label="Error" (ionOnClick)="showNotification('error')"></ion-button>
+      <ion-button
+        label="Success"
+        (ionOnClick)="showNotification('success')"
+      ></ion-button>
+      <ion-button
+        label="Info"
+        (ionOnClick)="showNotification('info')"
+      ></ion-button>
+      <ion-button
+        label="Warning"
+        (ionOnClick)="showNotification('warning')"
+      ></ion-button>
+      <ion-button
+        label="Error"
+        (ionOnClick)="showNotification('error')"
+      ></ion-button>
     </div>
   </section>
 
@@ -1278,7 +1791,9 @@
     <div style="display: flex; flex-direction: column; gap: 30px">
       <div>
         <h3>Basic Date Picker</h3>
-        <ion-date-picker (event)="handleDatePickerChange($event)"></ion-date-picker>
+        <ion-date-picker
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
         @if (datePickerValue.length) {
         <p style="margin-top: 10px">
           <strong>Selected Date:</strong> {{ datePickerValue[0] }}
@@ -1288,7 +1803,10 @@
 
       <div>
         <h3>Date Range Picker</h3>
-        <ion-date-picker [rangePicker]="true" (event)="handleDateRangePickerChange($event)"></ion-date-picker>
+        <ion-date-picker
+          [rangePicker]="true"
+          (event)="handleDateRangePickerChange($event)"
+        ></ion-date-picker>
         @if (dateRangePickerValue.length) {
         <p style="margin-top: 10px">
           <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
@@ -1299,8 +1817,11 @@
 
       <div>
         <h3>Date Range with Predefined Ranges</h3>
-        <ion-date-picker [rangePicker]="true" [predefinedRanges]="predefinedRanges"
-          (event)="handleDatePickerWithPredefinedChange($event)"></ion-date-picker>
+        <ion-date-picker
+          [rangePicker]="true"
+          [predefinedRanges]="predefinedRanges"
+          (event)="handleDatePickerWithPredefinedChange($event)"
+        ></ion-date-picker>
         @if (datePickerWithPredefinedValue.length) {
         <p style="margin-top: 10px">
           <strong>Selected Range:</strong>
@@ -1312,43 +1833,58 @@
 
       <div>
         <h3>Date Picker with Disabled Dates (Past dates disabled)</h3>
-        <ion-date-picker [disabledDate]="disabledDateExample"
-          (event)="handleDatePickerChange($event)"></ion-date-picker>
+        <ion-date-picker
+          [disabledDate]="disabledDateExample"
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
       </div>
 
       <div>
         <h3>Date Picker - Custom Format (DD/MM/YYYY)</h3>
-        <ion-date-picker format="DD/MM/YYYY" formatInDateInput="DD/MM/YYYY"
-          (event)="handleDatePickerChange($event)"></ion-date-picker>
+        <ion-date-picker
+          format="DD/MM/YYYY"
+          formatInDateInput="DD/MM/YYYY"
+          (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
       </div>
 
       <div>
         <h3>Date Picker - Different Directions</h3>
-        <div style="
+        <div
+          style="
             display: flex;
             flex-direction: column;
             gap: 20px;
             margin-top: 20px;
-          ">
+          "
+        >
           <div>
             <h4>Bottom Left (Default)</h4>
-            <ion-date-picker [direction]="CalendarDirection.bottomLeft"
-              (event)="handleDatePickerChange($event)"></ion-date-picker>
+            <ion-date-picker
+              [direction]="CalendarDirection.bottomLeft"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
           </div>
           <div>
             <h4>Bottom Right</h4>
-            <ion-date-picker [direction]="CalendarDirection.bottomRight"
-              (event)="handleDatePickerChange($event)"></ion-date-picker>
+            <ion-date-picker
+              [direction]="CalendarDirection.bottomRight"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
           </div>
           <div>
             <h4>Top Left</h4>
-            <ion-date-picker [direction]="CalendarDirection.topLeft"
-              (event)="handleDatePickerChange($event)"></ion-date-picker>
+            <ion-date-picker
+              [direction]="CalendarDirection.topLeft"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
           </div>
           <div>
             <h4>Top Right</h4>
-            <ion-date-picker [direction]="CalendarDirection.topRight"
-              (event)="handleDatePickerChange($event)"></ion-date-picker>
+            <ion-date-picker
+              [direction]="CalendarDirection.topRight"
+              (event)="handleDatePickerChange($event)"
+            ></ion-date-picker>
           </div>
         </div>
       </div>
@@ -1360,15 +1896,24 @@
       <div>
         <h3>Basic Simple Menu</h3>
         <div style="height: 600px; width: 280px; border: 1px solid #ddd">
-          <ion-simple-menu [profile]="simpleMenuProfile" [options]="simpleMenuOptions"
-            (selected)="handleSimpleMenuSelect($event)" (logoutClick)="handleSimpleMenuLogout()"></ion-simple-menu>
+          <ion-simple-menu
+            [profile]="simpleMenuProfile"
+            [options]="simpleMenuOptions"
+            (selected)="handleSimpleMenuSelect($event)"
+            (logoutClick)="handleSimpleMenuLogout()"
+          ></ion-simple-menu>
         </div>
       </div>
       <div>
         <h3>Simple Menu with Logo</h3>
         <div style="height: 600px; width: 280px; border: 1px solid #ddd">
-          <ion-simple-menu [profile]="simpleMenuProfile" [options]="simpleMenuOptions" [logo]="simpleMenuLogo"
-            (selected)="handleSimpleMenuSelect($event)" (logoutClick)="handleSimpleMenuLogout()"></ion-simple-menu>
+          <ion-simple-menu
+            [profile]="simpleMenuProfile"
+            [options]="simpleMenuOptions"
+            [logo]="simpleMenuLogo"
+            (selected)="handleSimpleMenuSelect($event)"
+            (logoutClick)="handleSimpleMenuLogout()"
+          ></ion-simple-menu>
         </div>
       </div>
     </div>
@@ -1377,10 +1922,22 @@
     <h2>Modal (CDK Overlay)</h2>
     <div style="display: flex; gap: 10px; flex-wrap: wrap">
       <ion-button label="Abrir Modal" (ionOnClick)="openModal()"></ion-button>
-      <ion-button label="Abrir Modal com Dados" (ionOnClick)="openModalWithData()"></ion-button>
-      <ion-button label="Abrir Modal Largo" (ionOnClick)="openModalCustomWidth()"></ion-button>
-      <ion-button label="Abrir Modal Persistente" (ionOnClick)="openModalPersistent()"></ion-button>
-      <ion-button label="Abrir Modal com Muita Altura" (ionOnClick)="openModalLongContent()"></ion-button>
+      <ion-button
+        label="Abrir Modal com Dados"
+        (ionOnClick)="openModalWithData()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal Largo"
+        (ionOnClick)="openModalCustomWidth()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal Persistente"
+        (ionOnClick)="openModalPersistent()"
+      ></ion-button>
+      <ion-button
+        label="Abrir Modal com Muita Altura"
+        (ionOnClick)="openModalLongContent()"
+      ></ion-button>
     </div>
   </section>
   <section>
@@ -1388,28 +1945,47 @@
     <div style="display: flex; gap: 20px; flex-wrap: wrap">
       <ion-indicator title="Basic Indicator" value="1.234"></ion-indicator>
 
-      <ion-indicator title="Indicator with Second Value" value="R$ 1.500,00" secondValue="+ 15%"
-        secondValueTooltipText="Crescimento em relação ao mês anterior"></ion-indicator>
+      <ion-indicator
+        title="Indicator with Second Value"
+        value="R$ 1.500,00"
+        secondValue="+ 15%"
+        secondValueTooltipText="Crescimento em relação ao mês anterior"
+      ></ion-indicator>
 
-      <ion-indicator title="Indicator with Icon" value="98%" [headerIcon]="{ type: 'check', color: '#00FF00' }"
-        tooltipText="Taxa de sucesso das operações"></ion-indicator>
+      <ion-indicator
+        title="Indicator with Icon"
+        value="98%"
+        [headerIcon]="{ type: 'check', color: '#00FF00' }"
+        tooltipText="Taxa de sucesso das operações"
+      ></ion-indicator>
 
       <ion-indicator title="Loading Indicator" [loading]="true"></ion-indicator>
 
       <ion-indicator title="Error Indicator" [error]="true"></ion-indicator>
 
-      <ion-indicator title="Indicator with Button (Redirect)" value="Visit GitHub"
-        [buttonConfig]="indicatorWithRedirect"></ion-indicator>
+      <ion-indicator
+        title="Indicator with Button (Redirect)"
+        value="Visit GitHub"
+        [buttonConfig]="indicatorWithRedirect"
+      ></ion-indicator>
 
-      <ion-indicator title="Indicator with Button (Emitter)" value="Click me" [buttonConfig]="indicatorWithEmitter"
-        (ionClick)="handleIndicatorClick()"></ion-indicator>
+      <ion-indicator
+        title="Indicator with Button (Emitter)"
+        value="Click me"
+        [buttonConfig]="indicatorWithEmitter"
+        (ionClick)="handleIndicatorClick()"
+      ></ion-indicator>
 
       <ion-indicator title="Empty Indicator" value=""></ion-indicator>
 
       <ion-indicator title="Preview Indicator" [preview]="true"></ion-indicator>
 
       <div style="width: 100%; margin-top: 16px">
-        <ion-indicator title="Full Width Indicator" value="100%" [fullWidth]="true"></ion-indicator>
+        <ion-indicator
+          title="Full Width Indicator"
+          value="100%"
+          [fullWidth]="true"
+        ></ion-indicator>
       </div>
     </div>
   </section>
@@ -1419,15 +1995,21 @@
   <h2>Card</h2>
   <div style="display: flex; gap: 20px; flex-wrap: wrap">
     <ion-card>
-      <ion-card-header title="Card 1: Basic with Icon" icon="star"></ion-card-header>
+      <ion-card-header
+        title="Card 1: Basic with Icon"
+        icon="star"
+      ></ion-card-header>
       <div class="card-ion-container">
         <app-card-body></app-card-body>
       </div>
     </ion-card>
 
     <ion-card>
-      <ion-card-header title="Card 2: Buttons & Tooltip" icon="check"
-        [tooltip]="{ ionTooltipTitle: 'This is a tooltip' }">
+      <ion-card-header
+        title="Card 2: Buttons & Tooltip"
+        icon="check"
+        [tooltip]="{ ionTooltipTitle: 'This is a tooltip' }"
+      >
         <div slot="actions">
           <ion-button label="Action" type="primary" size="sm"></ion-button>
         </div>
@@ -1478,11 +2060,20 @@
 <section>
   <h2>Ion Drawer</h2>
   <div style="display: flex; gap: 16px; flex-wrap: wrap">
-    <ion-button label="Abrir Direita" (click)="openDrawer('right')"></ion-button>
-    <ion-button label="Abrir Esquerda" (click)="openDrawer('left')"></ion-button>
+    <ion-button
+      label="Abrir Direita"
+      (click)="openDrawer('right')"
+    ></ion-button>
+    <ion-button
+      label="Abrir Esquerda"
+      (click)="openDrawer('left')"
+    ></ion-button>
     <ion-button label="Abrir Cima" (click)="openDrawer('top')"></ion-button>
     <ion-button label="Abrir Baixo" (click)="openDrawer('bottom')"></ion-button>
-    <ion-button label="Abrir 50% (Direita)" (click)="openDrawer('right', 50)"></ion-button>
+    <ion-button
+      label="Abrir 50% (Direita)"
+      (click)="openDrawer('right', 50)"
+    ></ion-button>
   </div>
 </section>
 

@@ -1,5 +1,5 @@
 import { EventEmitter } from '@angular/core';
-import { BadgeType } from './badge';
+import { BadgeProps } from './badge';
 import { DropdownItem, DropdownParams } from './dropdown';
 import { IconDirection } from './icon';
 import { InfoBadgeStatus } from './info-badge';
@@ -8,9 +8,8 @@ export interface Badge {
   value: number;
 }
 
-export interface RightBadge {
-  label: string;
-  type: BadgeType;
+export interface UserBadge extends BadgeProps {
+  position?: 'left' | 'right';
 }
 
 export type ChipSize = 'sm' | 'md';
@@ -32,8 +31,9 @@ export interface IonChipProps {
   multiple?: boolean;
   required?: boolean;
   infoBadge?: InfoBadgeStatus;
+  showToggle?: boolean;
   iconPosition?: IconDirection;
-  rightBadge?: RightBadge;
+  badge?: UserBadge;
   dropdownEvents?: EventEmitter<DropdownItem[]>;
   dropdownSearchConfig?: Pick<DropdownParams, 'searchOptions' | 'enableSearch'>;
   dropdownSearchEvents?: EventEmitter<string>;
