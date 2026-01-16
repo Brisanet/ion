@@ -667,6 +667,26 @@
         Custom Class
       </span>
     </div>
+
+    <div
+      style="margin-top: 20px; display: flex; gap: 30px; align-items: center"
+    >
+      <ng-template #tooltipWithContext let-data>
+        <div style="padding: 8px">
+          <strong>{{ data?.name }}</strong>
+          <p>Value: {{ data?.value }}</p>
+        </div>
+      </ng-template>
+
+      <span
+        ionTooltip
+        [ionTooltipTemplateRef]="tooltipWithContext"
+        [ionTooltipContext]="tooltipContext"
+        [ionTooltipPosition]="TooltipPosition.CENTER_RIGHT"
+      >
+        Tooltip with Context
+      </span>
+    </div>
   </section>
 
   <section>
