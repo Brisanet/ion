@@ -25,7 +25,8 @@ export class IonTooltipComponent implements AfterViewChecked {
   @ViewChild('tooltip', { static: true }) tooltip!: ElementRef;
 
   ionTooltipTitle = input<string>('');
-  ionTooltipTemplateRef = input<TemplateRef<void> | null>(null);
+  ionTooltipTemplateRef = input<TemplateRef<any> | null>(null);
+  ionTooltipContext = input<unknown>(undefined);
   ionTooltipColorScheme = input<TooltipColorScheme>('dark');
   ionTooltipPosition = signal<TooltipPosition>(TooltipPosition.DEFAULT);
   ionTooltipVisible = signal<boolean>(false);
@@ -35,7 +36,7 @@ export class IonTooltipComponent implements AfterViewChecked {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private tooltipService: TooltipService,
+    private tooltipService: TooltipService
   ) {}
 
   ngAfterViewChecked(): void {
