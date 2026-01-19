@@ -7,21 +7,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounce, finalize, Subject, timer } from 'rxjs';
+import { IonInputComponent } from '../../input/input.component';
+import { IonTripleToggleComponent } from '../../triple-toggle/triple-toggle.component';
+import { IonSwitchComponent } from '../../switch/switch.component';
 import {
-  IonInputComponent,
-} from '../../input/input.component';
-import {
-  IonTripleToggleComponent,
-} from '../../triple-toggle/triple-toggle.component';
-import {
-  IonSwitchComponent,
-} from '../../switch/switch.component';
-import {
+  DEFAULT_FINAL_FORMAT,
+  DEFAULT_INPUT_FORMAT,
   IonDatepickerComponent,
 } from '../../picker/date-picker/date-picker.component';
-import {
-  IonSelectComponent,
-} from '../../select/select.component';
+import { IonSelectComponent } from '../../select/select.component';
 import {
   BnFormField,
   BnInputFormField,
@@ -30,8 +24,8 @@ import {
   BnDatePickerFormField,
   BnSelectFormField,
 } from './bn-form.types';
-import { IonIconComponent } from "../../icon/icon.component";
-import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
+import { IonIconComponent } from '../../icon/icon.component';
+import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
 
 @Component({
   selector: 'bn-form',
@@ -45,8 +39,8 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
     IonDatepickerComponent,
     IonSelectComponent,
     IonIconComponent,
-    IonTooltipDirective
-],
+    IonTooltipDirective,
+  ],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {
@@ -63,10 +57,10 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
                   [size]="16"
                   ionTooltip
                   [ionTooltipTitle]="field.description"
-                  ></ion-icon>
+                ></ion-icon>
               }
             </h3>
-  
+
             @if (isTripleToggle(field)) {
               <ion-triple-toggle
                 [value]="formGroup().get(field.key)?.value"
@@ -85,8 +79,10 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
               ></ion-switch>
             } @else if (isDatePicker(field)) {
               <ion-date-picker
-                [format]="field.format ?? 'YYYY-MM-DD'"
-                [formatInDateInput]="field.formatInDateInput ?? 'YYYY-MM-DD'"
+                [format]="field.format ?? DEFAULT_FINAL_FORMAT"
+                [formatInDateInput]="
+                  field.formatInDateInput ?? DEFAULT_INPUT_FORMAT
+                "
                 [rangePicker]="field.rangePicker ?? false"
                 [direction]="field.direction"
                 [disabledDate]="field.disabledDate"
@@ -287,6 +283,9 @@ export class BnFormComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   fields = input.required<BnFormField[]>();
   defaultDebounceTime = 600;
+
+  protected readonly DEFAULT_FINAL_FORMAT = DEFAULT_FINAL_FORMAT;
+  protected readonly DEFAULT_INPUT_FORMAT = DEFAULT_INPUT_FORMAT;
 
   private searchSubject = new Subject<{
     field: BnSelectFormField;
