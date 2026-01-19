@@ -17,7 +17,8 @@ export type BnFormFieldType =
   | 'triple-toggle'
   | 'switch'
   | 'datepicker'
-  | 'select';
+  | 'select'
+  | 'input-area';
 
 export interface BnBaseFormField {
   key: string;
@@ -87,12 +88,20 @@ export interface BnSelectFormField extends BnBaseFormField {
   };
 }
 
+export interface BnInputAreaFormField extends BnBaseFormField {
+  type: 'input-area';
+  placeholder?: string;
+  cols?: string;
+  rows?: string;
+}
+
 export type BnFormField =
   | BnInputFormField
   | BnTripleToggleFormField
   | BnSwitchFormField
   | BnDatePickerFormField
-  | BnSelectFormField;
+  | BnSelectFormField
+  | BnInputAreaFormField;
 
 export interface BnFormConfig {
   fields: BnFormField[];

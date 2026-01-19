@@ -3,6 +3,7 @@
 @import '../../styles/themes/theme.scss';
 
 textarea {
+  width: 100%;
   color: ion-theme(input-area-text-color);
   border: 1px solid ion-theme(input-area-border-color);
   border-radius: ion-theme(input-area-border-radius);

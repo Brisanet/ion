@@ -23,12 +23,16 @@ import {
   IonSelectComponent,
 } from '../../select/select.component';
 import {
+  IonInputAreaComponent,
+} from '../../input-area/input-area.component';
+import {
   BnFormField,
   BnInputFormField,
   BnTripleToggleFormField,
   BnSwitchFormField,
   BnDatePickerFormField,
   BnSelectFormField,
+  BnInputAreaFormField,
 } from './bn-form.types';
 import { IonIconComponent } from "../../icon/icon.component";
 import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
@@ -44,6 +48,7 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
     IonSwitchComponent,
     IonDatepickerComponent,
     IonSelectComponent,
+    IonInputAreaComponent,
     IonIconComponent,
     IonTooltipDirective
 ],
@@ -141,6 +146,15 @@ import { IonTooltipDirective } from "../../tooltip/tooltip.directive";
                     : null
                 "
               ></ion-input>
+            } @else if (isInputArea(field)) {
+              <ion-input-area
+                [placeholder]="field.placeholder ?? ''"
+                [cols]="field.cols ?? '30'"
+                [rows]="field.rows ?? '5'"
+                [disabled]="isDisabled(field)"
+                [value]="formGroup().get(field.key)?.value"
+                (valueChange)="onValueChange(field.key, $event)"
+              ></ion-input-area>
             }
           </div>
         }
@@ -377,5 +391,9 @@ export class BnFormComponent implements OnInit {
 
   isSelect(field: BnFormField): field is BnSelectFormField {
     return field.type === 'select';
+  }
+
+  isInputArea(field: BnFormField): field is BnInputAreaFormField {
+    return field.type === 'input-area';
   }
 }

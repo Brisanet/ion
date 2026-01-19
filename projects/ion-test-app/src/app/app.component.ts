@@ -1016,6 +1016,14 @@ export class AppComponent implements OnInit {
       multiple: true,
     },
     {
+      key: 'bio',
+      className: 'col-12',
+      type: 'input-area',
+      label: 'Bio',
+      placeholder: 'Fale um pouco sobre você...',
+      rows: '3',
+    },
+    {
       type: 'select',
       key: 'car',
       className: 'col-6',
