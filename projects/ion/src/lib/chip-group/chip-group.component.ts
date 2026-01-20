@@ -12,8 +12,8 @@ import {
   ChipSize,
   IconDirection,
   IonChipProps,
-  RightBadge,
   DropdownItem,
+  UserBadge,
 } from '../core/types';
 import { ChipInGroup } from '../core/types/chip-group';
 
@@ -29,7 +29,7 @@ export class IonChipGroupComponent {
   size = input<ChipSize>('sm');
   infoBadge = input<IonChipProps['infoBadge']>(undefined);
   iconPosition = input<IconDirection>('left');
-  rightBadge = input<RightBadge | undefined>(undefined);
+  badge = input<UserBadge | undefined>(undefined);
   disabled = input<boolean>(false);
   multiple = input<boolean>(false);
   required = input<boolean>(false);

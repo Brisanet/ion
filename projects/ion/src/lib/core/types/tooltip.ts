@@ -27,5 +27,6 @@ export interface TooltipProps {
   ionTooltipArrowPointAtCenter?: boolean;
   ionTooltipTrigger?: TooltipTrigger;
   ionTooltipShowDelay?: number;
-  ionTooltipTemplateRef?: TemplateRef<void>;
+  ionTooltipTemplateRef?: TemplateRef<any>;
+  ionTooltipContext?: unknown;
 }

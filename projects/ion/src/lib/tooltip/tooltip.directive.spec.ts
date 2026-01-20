@@ -113,9 +113,9 @@ describe('Directive: Tooltip', () => {
       fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
       const tooltipElement = screen.getByTestId('ion-tooltip');
       expect(tooltipElement.className).toContain(
-        `ion-tooltip-${ionTooltipColorScheme}`,
+        `ion-tooltip-${ionTooltipColorScheme}`
       );
-    },
+    }
   );
 
   it('should show tooltip after delay time setted', async () => {
@@ -143,8 +143,34 @@ describe('Directive: Tooltip', () => {
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     const tooltipElement = screen.getByTestId('ion-tooltip');
     expect(tooltipElement.className).toContain(
-      `ion-tooltip-position--topCenter`,
+      `ion-tooltip-position--topCenter`
     );
+  });
+
+  it('should render tooltip with template context', async () => {
+    @Component({
+      standalone: true,
+      imports: [IonTooltipDirective, CommonModule],
+      template: `
+        <p
+          data-testid="hostTooltip"
+          ionTooltip
+          [ionTooltipTemplateRef]="ref"
+          [ionTooltipContext]="{ name: 'Dynamic Content' }"
+        >
+          Hover me
+        </p>
+        <ng-template #ref let-data>
+          <span data-testid="templateRef">{{ data.name }}</span>
+        </ng-template>
+      `,
+    })
+    class ContextTestComponent {}
+
+    await render(ContextTestComponent);
+
+    fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
+    expect(screen.getByText('Dynamic Content')).toBeInTheDocument();
   });
 
   it('should close the tooltip when scrolling the page', async () => {

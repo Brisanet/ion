@@ -10,18 +10,13 @@ import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonInfoBadgeComponent } from '../info-badge/info-badge.component';
 import { SafeAny } from '../utils/safe-any';
-import {
-  IonChipComponent,
-  IonChipProps,
-  ChipSize,
-  IconDirection,
-} from './chip.component';
-import { DropdownItem, InfoBadgeStatus } from '../core/types';
+import { IonChipComponent } from './chip.component';
+import { ChipSize, DropdownItem, InfoBadgeStatus, IonChipProps } from '../core/types';
 
 const defaultOptions = [{ label: 'Cat' }, { label: 'Dog' }];
 
 const sut = async (
-  customProps?: Partial<IonChipProps>,
+  customProps?: Partial<IonChipProps>
 ): Promise<RenderResult<IonChipComponent>> => {
   return await render(IonChipComponent, {
     componentInputs: {
@@ -70,7 +65,7 @@ describe('ChipComponent', () => {
       await sut({ label: 'custom-size', size: size as ChipSize });
       const element = screen.getByTestId('ion-chip');
       expect(element).toHaveClass('chip-' + size);
-    },
+    }
   );
 
   it('should render icon on left', async () => {
@@ -108,14 +103,14 @@ describe('ChipComponent', () => {
     async (badgeType: string) => {
       await sut({ label: 'chip', infoBadge: badgeType as InfoBadgeStatus });
       expect(screen.getByTestId('info-badge')).toHaveClass(badgeType);
-    },
+    }
   );
 
   it('should render chip with right badge', async () => {
     const labelBadge = 'novo';
     await sut({
       label: 'right badge',
-      rightBadge: { label: labelBadge, type: 'negative' },
+      badge: { label: labelBadge, type: 'negative' },
     });
     expect(screen.getByText(labelBadge)).toBeInTheDocument();
   });
