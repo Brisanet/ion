@@ -36,6 +36,11 @@
     line-height: 20px;
   }
 
+  .selection-chips{
+    display: flex;
+    gap: 8px;
+  }
+
   .actions {
     display: flex;
     align-items: flex-start;

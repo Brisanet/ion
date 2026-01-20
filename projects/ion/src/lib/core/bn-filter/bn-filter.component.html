@@ -1,32 +1,101 @@
 <div class="bn-filter-container">
-    <div class="bn-filter-header">
-        <span class="title">{{ pageTitle() }}</span>
-        <ion-button
-            label="Filtros"
-            type="secondary"
-            [iconType]="open() ? 'semi-up' : 'semi-down'"
-            (click)="open.set(!open())"></ion-button>
-    </div>
+  <div class="bn-filter-header">
+    <span class="title">{{ pageTitle() }}</span>
 
+    <ion-button
+      label="Filtros"
+      type="secondary"
+      [iconType]="open() ? 'semi-up' : 'semi-down'"
+      (click)="open.set(!open())"
+    ></ion-button>
+  </div>
+
+  @if (open() || selectedChips().length > 0) {
+    <ion-divider></ion-divider>
     @if (open()) {
-      <ion-divider></ion-divider>
-
       <div class="filter-content">
         <bn-form [formGroup]="formGroup()" [fields]="fields()"></bn-form>
       </div>
 
       <ion-divider></ion-divider>
-
-      <div class="bn-filter-footer">
-        @if (hasRequiredFields()) {
-          <div>
-            <span class="required-text">Preencha todos os campos obrigatórios para continuar</span>
-          </div>
-        }
-        <div class="actions">
-          <ion-button label="Limpar" type="ghost" iconType="trash" (click)="clear()"></ion-button>
-          <ion-button label="Aplicar" type="primary" iconType="check" (click)="apply()" [disabled]="formGroup().invalid"></ion-button>
-        </div>
-      </div>
     }
+
+    <div class="bn-filter-footer">
+      @if (open() && selectedChips().length === 0) {
+        <div>
+          <span class="required-text">
+            Preencha todos os campos obrigatórios para continuar
+          </span>
+        </div>
+      } @else if (selectedChips().length > 0) {
+        <div>
+          <span class="selection-chips">
+            @for (chip of selectedChips(); track chip.field.key) {
+              <!-- Adicionar ion tooltip no chip para exibir os valores selecionados -->
+              <ion-chip
+                ionTooltip
+                ionTooltipColorScheme="light"
+                [ionTooltipTemplateRef]="
+                  chip.tooltipContext.type !== 'switch'
+                    ? chipTooltipContent
+                    : null
+                "
+                [ionTooltipContext]="chip?.tooltipContext"
+                [label]="chip.field.label"
+                size="sm"
+                type="secondary"
+                [badge]="
+                  chip.badge.show
+                    ? {
+                        value: chip.badge.value,
+                        type: 'primary',
+                        position: 'left',
+                      }
+                    : undefined
+                "
+                (click)="deselectFilter(chip.field)"
+              ></ion-chip>
+            }
+          </span>
+        </div>
+      }
+      <div class="actions">
+        <ion-button
+          label="Limpar"
+          type="ghost"
+          iconType="trash"
+          (click)="clear()"
+        ></ion-button>
+        @if (open()) {
+          <ion-button
+            label="Aplicar"
+            type="primary"
+            iconType="check"
+            (click)="apply(true)"
+            [disabled]="formGroup().invalid"
+          ></ion-button>
+        }
+      </div>
+    </div>
+  }
 </div>
+
+<ng-template #chipTooltipContent let-chip>
+  <div class="chip-tooltip-content">
+    @if (chip.type === 'datepicker') {
+      <div>
+        {{ chip.values[0] | date: 'dd/MM/yyyy' : 'UTC' }}
+        @if (chip.values.length > 1) {
+          <br />
+          {{ chip.values[1] | date: 'dd/MM/yyyy' : 'UTC' }}
+        }
+      </div>
+    } @else {
+      @for (item of chip.values; track $index) {
+        <div>
+          {{ item }}
+        </div>
+      }
+    }
+  </div>
+</ng-template>

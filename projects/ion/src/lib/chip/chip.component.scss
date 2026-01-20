@@ -12,6 +12,10 @@
     fill: ion-theme(#{$prefix}-icon-color);
   }
 }
+:host {
+  display: block;
+  width: fit-content;
+}
 
 .ion-chip {
   display: flex;
