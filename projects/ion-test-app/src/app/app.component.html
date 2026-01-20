@@ -49,6 +49,7 @@
 
   <section>
     <h2>Testes rápidos</h2>
+
     <ng-template #popoverTemplate>
       <div style="padding: 16px">
         <h3 style="margin-top: 0">Custom Content</h3>
@@ -56,6 +57,13 @@
       </div>
     </ng-template>
 
+    <ng-template #tablePopoverTemplate let-row>
+      <div style="padding: 16px">
+        <h3 style="margin-top: 0">Confirmar Ação</h3>
+        <p>Deseja realmente excluir o item: <strong>{{ row.name }}</strong>?</p>
+      </div>
+    </ng-template>
+  
     <ion-button
       label="With Actions"
       type="ghost"
@@ -70,6 +78,7 @@
       (ionOnFirstAction)="handlePopoverFirstAction()"
       (ionOnSecondAction)="handlePopoverSecondAction()"
     ></ion-button>
+
   </section>
 
   <section>
@@ -1163,7 +1172,7 @@
         </section>
 
         <section>
-          <h2>Table</h2>
+          <h2>Table Normal</h2>
           <div style="display: flex; flex-direction: column; gap: 20px">
             <ion-table [config]="tableConfig"></ion-table>
           </div>

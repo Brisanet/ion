@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, inject, signal } from '@angular/core';
+import { Component, ViewChild, OnInit, inject, signal, TemplateRef } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -149,7 +149,6 @@ class ModalLongContentComponent {
     IonTableComponent,
     IonSwitchComponent,
     IonPopoverDirective,
-    IonPopConfirmDirective,
     IonPopConfirmDirective,
     IonNoDataComponent,
     IonSidebarComponent,
@@ -517,10 +516,25 @@ export class AppComponent implements OnInit {
         call: (row: any) => console.log('Edit row:', row),
       },
       {
-        label: 'Delete',
+        label: 'Excluir',
         icon: 'trash',
         danger: true,
-        call: (row: any) => console.log('Delete row:', row),
+        call: () => console.log('cancelado!'),
+        secondCall: (row: any) => console.log('excluir row:', row),
+        confirm: {
+          title: 'Excluir',
+          description: 'Tem certeza que deseja excluir?',
+          // confirmText: 'Excluir',
+          // cancelText: 'Cancelar',
+        }
+        // popover: (row: any) => ({
+        //   ionPopoverTitle: 'Excluir Item',
+        //   ionPopoverBody: this.tablePopoverTemplate,
+        //   ionPopoverActions: [
+        //     { label: 'Cancelar', type: 'ghost' },
+        //     { label: 'Confirmar', type: 'primary' },
+        //   ],
+        // }),
       },
     ],
     pagination: {
@@ -617,6 +631,9 @@ export class AppComponent implements OnInit {
     },
   ];
 
+  @ViewChild('tablePopoverTemplate', { static: true })
+  tablePopoverTemplate!: TemplateRef<any>;
+
   @ViewChild(IonSidebarComponent) sidebar!: IonSidebarComponent;
 
   handleSidebarToggle(isOpen: boolean): void {
@@ -664,6 +681,10 @@ export class AppComponent implements OnInit {
         icon: 'trash',
         danger: true,
         call: (row: any) => this.handleDelete(row),
+        confirm: {
+          title: 'Excluir',
+          description: 'Tem certeza que deseja excluir?',
+        }
       },
     ],
   };
@@ -999,6 +1020,14 @@ export class AppComponent implements OnInit {
       initialValue: [1],
       propValue: 'fruit_id',
       multiple: true,
+    },
+    {
+      key: 'bio',
+      className: 'col-12',
+      type: 'input-area',
+      label: 'Bio',
+      placeholder: 'Fale um pouco sobre você...',
+      rows: '3',
     },
     {
       type: 'select',

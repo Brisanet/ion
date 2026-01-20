@@ -7,6 +7,8 @@ import { IonTagComponent } from '../tag/ion-tag.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonPaginationComponent } from '../pagination/pagination.component';
 import { IonCheckboxComponent } from '../checkbox/checkbox.component';
+import { IonTooltipDirective } from '../tooltip/tooltip.directive';
+import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
 
 const columns = [
   { label: 'Column 1', key: 'col1' },
@@ -34,6 +36,8 @@ const sut = async (
       IonIconComponent,
       IonPaginationComponent,
       IonCheckboxComponent,
+      IonTooltipDirective,
+      IonPopConfirmDirective,
     ],
   });
 };
