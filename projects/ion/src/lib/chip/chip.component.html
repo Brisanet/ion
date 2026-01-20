@@ -17,11 +17,18 @@
     [size]="size() === 'sm' ? 16 : 20"
   >
   </ion-icon>
-  } @if (badge().value > 0 && multiple()) {
+  } @if (chipSelectionBadge().value > 0 && multiple()) {
   <ion-badge
-    [value]="badge().value"
+    [value]="chipSelectionBadge().value"
     type="primary"
     data-testid="badge-multiple"
+  ></ion-badge>
+  } @else if (badge() && badge()!.position === 'left') {
+  <ion-badge
+    class="ionBadge"
+    [label]="badge()!.label"
+    [type]="badge()!.type"
+    [value]="badge()!.value"
   ></ion-badge>
   }
 
@@ -29,11 +36,12 @@
     {{ placeholder() }}
   </div>
 
-  @if (rightBadge()) {
+  @if (badge() && (badge()!.position === 'right' || !badge()!.position)) {
   <ion-badge
     class="ionBadge"
-    [label]="rightBadge()!.label"
-    [type]="rightBadge()!.type"
+    [label]="badge()!.label"
+    [type]="badge()!.type"
+    [value]="badge()!.value"
   ></ion-badge>
   } @if (infoBadge()) {
   <ion-info-badge

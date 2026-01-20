@@ -94,9 +94,9 @@ type FromYourRepository = {
     <div style="padding: 16px;">
       <p>This is a component rendered inside the modal!</p>
       @if (data) {
-        <p>
-          Data received: <strong>{{ data }}</strong>
-        </p>
+      <p>
+        Data received: <strong>{{ data }}</strong>
+      </p>
       }
       <p>You can pass data to it and receive values back.</p>
     </div>
@@ -111,7 +111,7 @@ class ModalExampleComponent {
   template: `
     <div style="padding: 16px;">
       @for (item of items; track $index) {
-        <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+      <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
       }
     </div>
   `,
@@ -176,7 +176,7 @@ class ModalLongContentComponent {
     IonDrawerComponent,
     BnEditDrawerComponent,
     JsonPipe,
-],
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -203,7 +203,7 @@ export class AppComponent implements OnInit {
         { value: 'male', label: 'Masculino', icon: 'male' },
         { value: 'female', label: 'Feminino', icon: 'female' },
       ],
-      className: 'col-6'
+      className: 'col-6',
     },
     {
       key: 'datepickerRange',
@@ -239,7 +239,7 @@ export class AppComponent implements OnInit {
         { label: 'Rio de Janeiro' },
         { label: 'Belo Horizonte' },
       ],
-    }
+    },
   ]);
 
   handleFilterApplied(filters: any): void {
@@ -252,7 +252,10 @@ export class AppComponent implements OnInit {
       titleIcon: 'box',
       // horizontal: true,
       onSubmit: (data) => {
-        return this.http.post('https://jsonplaceholder.typicode.com/posts', data);
+        return this.http.post(
+          'https://jsonplaceholder.typicode.com/posts',
+          data
+        );
       },
       steps: [
         {
@@ -387,12 +390,12 @@ export class AppComponent implements OnInit {
   // BnAbout config
   headerButton = {
     action: () => console.log('Header button clicked'),
-    label: 'Imprimir solicitação'
+    label: 'Imprimir solicitação',
   };
 
   pageTitle = {
     title: 'Detalhes da solicitação',
-    icon: 'receipt'
+    icon: 'receipt',
   };
 
   aboutFields: BnFormField[] = [
@@ -467,6 +470,11 @@ export class AppComponent implements OnInit {
   // Tooltip enums for template
   TooltipPosition = TooltipPosition;
   TooltipTrigger = TooltipTrigger;
+
+  tooltipContext = {
+    name: 'Dynamic Content',
+    value: 123,
+  };
 
   // Input examples
   basicInputValue = '';
@@ -704,7 +712,7 @@ export class AppComponent implements OnInit {
     this.smartTableConfig = {
       ...this.smartTableConfig,
       data: this.smartTableConfig.data.filter(
-        (item: any) => item.id !== row.id,
+        (item: any) => item.id !== row.id
       ),
       pagination: {
         ...this.smartTableConfig.pagination,
@@ -770,7 +778,7 @@ export class AppComponent implements OnInit {
   showNotification(type: 'success' | 'info' | 'warning' | 'error') {
     (this.notificationService as any)[type](
       'Notification Title',
-      'This is a notification message',
+      'This is a notification message'
     );
   }
 
@@ -884,7 +892,7 @@ export class AppComponent implements OnInit {
   drawerSize = signal<number>(30);
   submitButton = signal<IonButtonProps>({
     label: 'Salvar',
-    loading: false
+    loading: false,
   });
 
   openDrawer(direction: IonDrawerDirection = 'right', size: number = 30): void {
@@ -915,7 +923,7 @@ export class AppComponent implements OnInit {
 
     const modalObservable = this.modalService.open(
       ModalExampleComponent,
-      modalConfig,
+      modalConfig
     );
 
     modalObservable.subscribe((result: unknown) => {
@@ -975,9 +983,7 @@ export class AppComponent implements OnInit {
       initialValue: 'Iury',
       iconInput: 'image-user',
       iconDirection: 'left',
-      validators: [
-        Validators.minLength(3),
-      ],
+      validators: [Validators.minLength(3)],
     },
     {
       key: 'sobrenome',
@@ -986,11 +992,11 @@ export class AppComponent implements OnInit {
       label: 'Sobrenome',
       placeholder: 'Digite seu sobrenome',
       onlyShowWhen: () => {
-        return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
+        return (
+          this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid
+        );
       },
-      validators: [
-        Validators.minLength(3),
-      ],
+      validators: [Validators.minLength(3)],
     },
     {
       key: 'email',
@@ -1060,7 +1066,7 @@ export class AppComponent implements OnInit {
       propLabel: 'title',
       enableSearch: true,
       onlyShowWhen: () => {
-        return this.formGroup.get('city')?.value === 2
+        return this.formGroup.get('city')?.value === 2;
       },
       refresh: {
         use: (field: BnSelectFormField, search?: string) =>
@@ -1214,9 +1220,7 @@ export class AppComponent implements OnInit {
       initialValue: 'Iury',
       iconInput: 'image-user',
       iconDirection: 'left',
-      validators: [
-        Validators.minLength(3),
-      ],
+      validators: [Validators.minLength(3)],
     },
     {
       key: 'sobrenome',
@@ -1225,11 +1229,11 @@ export class AppComponent implements OnInit {
       label: 'Sobrenome',
       placeholder: 'Digite seu sobrenome',
       onlyShowWhen: () => {
-        return this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid;
+        return (
+          this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid
+        );
       },
-      validators: [
-        Validators.minLength(3),
-      ],
+      validators: [Validators.minLength(3)],
     },
   ];
 
@@ -1285,7 +1289,7 @@ export class AppComponent implements OnInit {
   saveEdit(data: any): void {
     console.log('Saving data with simulation...', data);
     this.simulatingLoading.set(true);
-    
+
     // Simulate backend request
     setTimeout(() => {
       this.editData.set(data);

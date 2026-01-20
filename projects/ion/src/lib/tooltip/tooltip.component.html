@@ -14,5 +14,8 @@
   #tooltip
 >
   {{ ionTooltipTitle() }}
-  <ng-container [ngTemplateOutlet]="ionTooltipTemplateRef()"></ng-container>
+  <ng-container
+    [ngTemplateOutlet]="ionTooltipTemplateRef()"
+    [ngTemplateOutletContext]="{ $implicit: ionTooltipContext() }"
+  ></ng-container>
 </div>

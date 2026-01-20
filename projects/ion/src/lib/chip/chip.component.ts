@@ -21,8 +21,8 @@ import {
   InfoBadgeStatus,
   ChipSize,
   IconDirection,
-  RightBadge,
   IonChipProps,
+  UserBadge,
 } from '../core/types';
 
 type Badge = {
@@ -59,7 +59,7 @@ export class IonChipComponent {
   multiple = input<boolean>(false);
   infoBadge = input<InfoBadgeStatus | undefined>(undefined);
   iconPosition = input<IconDirection>('left');
-  rightBadge = input<RightBadge | undefined>(undefined);
+  badge = input<UserBadge | undefined>(undefined);
   showToggle = input<boolean>(false);
   required = input<boolean>(false);
   chipGroup = input<boolean>(false);
@@ -74,7 +74,7 @@ export class IonChipComponent {
   // Internal state
   showDropdown = model<boolean>(false);
   internalSelected = signal<boolean>(false);
-  badge = signal<Badge>({ value: 0 });
+  chipSelectionBadge = signal<Badge>({ value: 0 });
   placeholder = signal<string>('');
   iconPlaceholder = signal<IconType | undefined>(undefined);
   dropdownWithIcon = signal<boolean>(false);
@@ -104,7 +104,7 @@ export class IonChipComponent {
     effect(() => {
       const selecteds = this.selectedOptions();
       if (this.multiple() && selecteds.length > 0) {
-        this.badge.set({ value: selecteds.length });
+        this.chipSelectionBadge.set({ value: selecteds.length });
       }
     });
 
@@ -198,7 +198,7 @@ export class IonChipComponent {
     name + Math.floor(Math.random() * 100000000) + 1;
 
   private setBadgeValue(newValue: number): void {
-    this.badge.set({ value: newValue });
+    this.chipSelectionBadge.set({ value: newValue });
   }
 
   private updateLabel(): void {
