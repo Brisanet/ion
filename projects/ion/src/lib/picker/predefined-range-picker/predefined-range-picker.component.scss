@@ -5,7 +5,8 @@
 
 .date-picker-predefined-ranges {
   display: flex;
-  justify-content: space-between;
+  gap: spacing(1);
   padding: spacing(2) spacing(1);
   border-top: 1px solid ion-theme(predefined-range-picker-divider-color);
+  overflow-x: auto;
 }

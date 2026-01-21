@@ -22,13 +22,14 @@ import {
   INITIAL_RANGE,
   arrangeDates,
   calculateDuration,
+  parseDate,
 } from '../utils/date-picker';
 import { IonControlPickerComponent } from '../control-picker/control-picker.component';
 import { IonDatePickerCalendarComponent } from './date-picker-calendar/date-picker-calendar.component';
 import { IonDatePickerInputComponent } from './date-picker-input/date-picker-input.component';
 import { IonPredefinedRangePickerComponent } from '../predefined-range-picker/predefined-range-picker.component';
 
-export const DEFAULT_FINAL_FORMAT = 'YYYY-MM-DD';
+export const DEFAULT_FINAL_FORMAT = 'DD/MM/YYYY';
 export const DEFAULT_INPUT_FORMAT = 'DD/MM/YYYY';
 
 import { OverlayModule, ConnectedPosition } from '@angular/cdk/overlay';
@@ -148,7 +149,7 @@ export class IonDatepickerComponent {
       () => {
         const value = this.value();
         if (value && value.length > 0) {
-          const days = value.map((v) => new Day(new Date(v)));
+          const days = value.map((v) => new Day(parseDate(v)));
           this.selectedDay.set(days);
         } else {
           this.selectedDay.set([]);

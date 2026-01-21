@@ -42,13 +42,28 @@ export function getInitialDate(currentDate: string[] | undefined): Date {
     : new Date();
 }
 
+export function parseDate(dateStr: string): Date {
+  const isoPattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+  const brPattern = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+
+  if (isoPattern.test(dateStr)) {
+    const [, year, month, day] = dateStr.match(isoPattern)!.map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  if (brPattern.test(dateStr)) {
+    const [, day, month, year] = dateStr.match(brPattern)!.map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  return new Date(dateStr);
+}
+
 export function getFormattedDate(
   dates: string[],
   isFinalOfRange?: boolean,
 ): Date {
-  return new Date(
-    dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE]?.replace('-', ','),
-  );
+  return parseDate(dates[isFinalOfRange ? FINAL_RANGE : INITIAL_RANGE]);
 }
 
 export function calculateDuration(isoString: string): number {
