@@ -234,6 +234,7 @@ export class AppComponent implements OnInit {
       placeholder: 'Selecione uma cidade',
       initialValue: 'São Paulo',
       propValue: 'label',
+      multiple: true,
       options: [
         { label: 'São Paulo' },
         { label: 'Rio de Janeiro' },
