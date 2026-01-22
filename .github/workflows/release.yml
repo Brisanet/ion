@@ -41,6 +41,7 @@ jobs:
         working-directory: dist/ion
         env:
           CI: true
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: 📢 Send message to Google Chat
         run: |
