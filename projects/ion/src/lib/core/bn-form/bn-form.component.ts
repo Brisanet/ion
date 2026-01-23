@@ -30,6 +30,7 @@ import {
 } from './bn-form.types';
 import { IonIconComponent } from '../../icon/icon.component';
 import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
+import { BnMaskDirective } from '../../mask/mask.directive';
 
 @Component({
   selector: 'bn-form',
@@ -45,6 +46,7 @@ import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
     IonInputAreaComponent,
     IonIconComponent,
     IonTooltipDirective,
+    BnMaskDirective,
   ],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
@@ -135,6 +137,7 @@ import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
                 "
                 [errorMsg]="field.errorMsg ?? ''"
                 [value]="formGroup().get(field.key)?.value"
+                [bnMask]="field.mask || ''"
                 (valueChange)="onValueChange(field.key, $event)"
                 (clickButton)="
                   field.onClickButton

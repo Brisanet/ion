@@ -35,11 +35,14 @@ export interface BnBaseFormField {
   onChange?: (form: FormGroup) => void;
 }
 
+import { MaskPattern } from '../../mask/mask.patterns';
+
 export interface BnInputFormField extends BnBaseFormField {
   type?: 'text' | 'password' | 'number' | 'email';
   placeholder?: string;
   readonly?: boolean;
   maxLength?: number;
+  mask?: string | MaskPattern;
   clearButton?: boolean;
   iconInput?: string;
   iconDirection?: 'left' | 'right';
