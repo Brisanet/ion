@@ -11,6 +11,8 @@ export * from './lib/dropdown/dropdown.component';
 export * from './lib/radio/radio.component';
 
 export * from './lib/icon/icon.component';
+export * from './lib/mask/mask.directive';
+export * from './lib/mask/mask.patterns';
 export * from './lib/info-badge/info-badge.component';
 export * from './lib/alert/alert.component';
 export * from './lib/accordion/accordion.component';
