@@ -48,7 +48,7 @@ jobs:
           API_KEY="${{ secrets.GOOGLE_CHAT_API_KEY }}"
           TOKEN="${{ secrets.GOOGLE_CHAT_TOKEN }}"
           SPACE_ID="${{ secrets.SPACE_ID }}"
-          MESSAGE="Ion - Nova versão disponível!"
+          MESSAGE="Ion - Nova versão ${{ github.event.release.tag_name }} disponível!"
 
           curl -X POST \
             -H "Content-Type: application/json; charset=UTF-8" \
