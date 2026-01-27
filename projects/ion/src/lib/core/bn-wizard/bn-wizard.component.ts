@@ -16,7 +16,7 @@ import { IonButtonComponent } from '../../button/button.component';
 import { IonModalService } from '../../modal/modal.service';
 import { BnWizardConfig } from './bn-wizard.types';
 import { StepType } from '../../core/types';
-import { IonAlertComponent } from "../../alert/alert.component";
+import { IonAlertComponent } from '../../alert/alert.component';
 
 @Component({
   selector: 'bn-wizard',
@@ -27,8 +27,8 @@ import { IonAlertComponent } from "../../alert/alert.component";
     IonStepsComponent,
     BnFormComponent,
     IonButtonComponent,
-    IonAlertComponent
-],
+    IonAlertComponent,
+  ],
   templateUrl: './bn-wizard.component.html',
   styleUrls: ['./bn-wizard.component.scss'],
 })
@@ -89,7 +89,9 @@ export class BnWizardComponent implements OnInit {
         try {
           config.isLoading = true;
           const result = config.onSubmit(this.formGroup.value);
-          this.modalService.emitResponse(isObservable(result) ? await firstValueFrom(result) : await result);
+          this.modalService.emitResponse(
+            isObservable(result) ? await firstValueFrom(result) : await result,
+          );
           this.modalService.closeModal();
         } catch (error) {
           this.modalService.emitResponse(error);

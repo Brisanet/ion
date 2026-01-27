@@ -10,6 +10,7 @@ export interface BnWizardStep {
     message: string;
     type: StatusType;
   };
+  primaryButtonText?: string;
 }
 
 export interface BnWizardConfig {
@@ -19,4 +20,5 @@ export interface BnWizardConfig {
   horizontal?: boolean;
   isLoading?: boolean;
   onSubmit?: (data: any) => Observable<any> | Promise<any>;
+  hiddenCancelButton?: boolean;
 }
