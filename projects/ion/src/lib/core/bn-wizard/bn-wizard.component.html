@@ -39,7 +39,10 @@
         ></ion-button>
       </div>
     }
-    <div class="actions-right">
+    <div
+      class="actions-right"
+      [ngClass]="config().hiddenCancelButton ? 'force-right' : ''"
+    >
       @if (!isFirstStep()) {
         <ion-button
           label="Voltar"

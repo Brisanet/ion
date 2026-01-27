@@ -1,5 +1,7 @@
 .bn-wizard-container {
   min-height: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .bn-wizard-content {
@@ -21,7 +23,6 @@
   align-items: center;
 }
 
-
 .bn-wizard-footer {
   display: flex;
   gap: 16px;
@@ -35,4 +36,8 @@
 .actions-right {
   display: flex;
   gap: 12px;
+
+  &.force-right {
+    margin-left: auto;
+  }
 }
