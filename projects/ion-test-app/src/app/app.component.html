@@ -1540,6 +1540,14 @@
         (events)="smartTableEvents($event)"
       ></ion-smart-table>
     </div>
+
+    <ng-template #quantityTemplate let-row>
+      <ion-input-counter
+        [count]="row.quantity"
+        inputSize="sm"
+        (changedValue)="row.quantity = $event.newValue"
+      ></ion-input-counter>
+    </ng-template>
   </section>
 
   <section>

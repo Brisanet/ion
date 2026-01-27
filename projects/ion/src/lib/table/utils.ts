@@ -18,6 +18,7 @@ export enum ColumnType {
   TEXT = 'text',
   LINK = 'link',
   BOOLEAN = 'boolean',
+  CUSTOM = 'custom',
 }
 
 interface TagRow {
@@ -67,6 +68,7 @@ export interface Column<RowType = SafeAny> {
   pipe?: PipeColumn;
   hideLongData?: boolean;
   booleanText?: ColumnBooleanText;
+  customTemplate?: TemplateRef<SafeAny>;
 }
 
 export interface ColumnBooleanText {

@@ -676,6 +676,9 @@ export class AppComponent implements OnInit {
   @ViewChild('tablePopoverTemplate', { static: true })
   tablePopoverTemplate!: TemplateRef<any>;
 
+  @ViewChild('quantityTemplate', { static: true })
+  quantityTemplate!: TemplateRef<any>;
+
   @ViewChild(IonSidebarComponent) sidebar!: IonSidebarComponent;
 
   handleSidebarToggle(isOpen: boolean): void {
@@ -709,7 +712,20 @@ export class AppComponent implements OnInit {
       { key: 'id', label: 'ID', sort: true },
       { key: 'firstName', label: 'Name', sort: true },
       { key: 'email', label: 'Email', sort: true },
-      { key: 'username', label: 'Username', type: ColumnType.TAG, tag: {statusKey: 'status'}, sort: true },
+      {
+        key: 'quantity',
+        label: 'Quantity',
+        type: ColumnType.CUSTOM,
+        customTemplate: this.quantityTemplate,
+        sort: true,
+      },
+      {
+        key: 'username',
+        label: 'Username',
+        type: ColumnType.TAG,
+        tag: { statusKey: 'status' },
+        sort: true,
+      },
     ],
     pagination: {
       total: 0,
@@ -732,6 +748,12 @@ export class AppComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    const quantityColumn = this.smartTableConfig.columns.find(
+      (col) => col.key === 'quantity'
+    );
+    if (quantityColumn) {
+      quantityColumn.customTemplate = this.quantityTemplate;
+    }
     this.getUsers();
   }
 
@@ -743,6 +765,7 @@ export class AppComponent implements OnInit {
         data: response.users.map((user: any) => ({
           ...user,
           status: 'success',
+          quantity: 0,
         })),
         pagination: {
           ...this.smartTableConfig.pagination,

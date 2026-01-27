@@ -154,6 +154,12 @@
                     }}
                   </span>
                 }
+                @if (column.type === 'custom' && column.customTemplate) {
+                  <ng-container
+                    [ngTemplateOutlet]="column.customTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: row }"
+                  ></ng-container>
+                }
               </td>
             }
             @if (config.actions) {

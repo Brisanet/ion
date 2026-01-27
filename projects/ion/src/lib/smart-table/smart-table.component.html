@@ -228,6 +228,12 @@
                     : (column.booleanText && column.booleanText.falsy) || 'Não'
                 }}
               </span>
+              <ng-container *ngIf="column.type === 'custom' && column.customTemplate">
+                <ng-container
+                  [ngTemplateOutlet]="column.customTemplate"
+                  [ngTemplateOutletContext]="{ $implicit: row }"
+                ></ng-container>
+              </ng-container>
             </td>
             <td *ngIf="config.actions">
               <div class="icons-td">
