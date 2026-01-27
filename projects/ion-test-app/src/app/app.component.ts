@@ -79,6 +79,7 @@ import {
   IonDrawerDirection,
   IonButtonProps,
   BnEditDrawerComponent,
+  ColumnType,
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
@@ -708,7 +709,7 @@ export class AppComponent implements OnInit {
       { key: 'id', label: 'ID', sort: true },
       { key: 'firstName', label: 'Name', sort: true },
       { key: 'email', label: 'Email', sort: true },
-      { key: 'username', label: 'Username', sort: true },
+      { key: 'username', label: 'Username', type: ColumnType.TAG, tag: {statusKey: 'status'}, sort: true },
     ],
     pagination: {
       total: 0,
@@ -739,7 +740,10 @@ export class AppComponent implements OnInit {
     this.http.get('https://dummyjson.com/users').subscribe((response: any) => {
       this.smartTableConfig = {
         ...this.smartTableConfig,
-        data: response.users,
+        data: response.users.map((user: any) => ({
+          ...user,
+          status: 'success',
+        })),
         pagination: {
           ...this.smartTableConfig.pagination,
           total: response.total,
