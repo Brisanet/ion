@@ -4,6 +4,8 @@ import { BnFormComponent } from './bn-form.component';
 import { BnFormField } from './bn-form.types';
 import { By } from '@angular/platform-browser';
 import { IonInputComponent } from '../../input/input.component';
+import { of } from 'rxjs';
+import { BnSelectFormField } from './bn-form.types';
 
 describe('BnFormComponent', () => {
   let component: BnFormComponent;
@@ -292,6 +294,49 @@ describe('BnFormComponent', () => {
       ionSelect.triggerEventHandler('valueChange', '1');
 
       expect(onChangeSpy).toHaveBeenCalledWith(formGroup);
+    });
+  });
+
+  describe('Dependent Selects', () => {
+    it('should trigger refresh when a dependency changes', () => {
+      const refreshSpy = jest.fn().mockReturnValue(of([{ value: 'b1', label: 'B1' }]));
+      const fields: BnFormField[] = [
+        {
+          key: 'fieldA',
+          label: 'Field A',
+          type: 'text',
+        },
+        {
+          key: 'fieldB',
+          label: 'Field B',
+          type: 'select',
+          dependsOn: ['fieldA'],
+          refresh: {
+            use: refreshSpy,
+          },
+        },
+      ];
+      const formGroup = new FormGroup({
+        fieldA: new FormControl(''),
+        fieldB: new FormControl(''),
+      });
+
+      fixture.componentRef.setInput('fields', fields);
+      fixture.componentRef.setInput('formGroup', formGroup);
+      fixture.detectChanges();
+
+      // Clear the call from ngOnInit
+      refreshSpy.mockClear();
+
+      // Change fieldA value
+      const ionInput = fixture.debugElement.query(By.css('ion-input'));
+      ionInput.triggerEventHandler('valueChange', 'new value');
+
+      expect(refreshSpy).toHaveBeenCalledWith(
+        expect.objectContaining({ key: 'fieldB' }),
+        undefined,
+        { fieldA: 'new value' }
+      );
     });
   });
 });

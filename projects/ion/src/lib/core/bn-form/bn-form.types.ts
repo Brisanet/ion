@@ -33,6 +33,7 @@ export interface BnBaseFormField {
   errorMsg?: string;
   onlyShowWhen?: (form: any) => boolean;
   onChange?: (form: FormGroup) => void;
+  dependsOn?: string[];
 }
 
 import { MaskPattern } from '../../mask/mask.patterns';
@@ -78,7 +79,7 @@ export interface BnDatePickerFormField extends BnBaseFormField {
 
 export interface BnSelectFormField extends BnBaseFormField {
   type: 'select';
-  options: any[];
+  options?: any[];
   placeholder?: string;
   multiple?: boolean;
   enableSearch?: boolean;
@@ -86,7 +87,11 @@ export interface BnSelectFormField extends BnBaseFormField {
   propLabel?: string;
   loading?: boolean;
   refresh?: {
-    use: (field: BnSelectFormField, search?: string) => Observable<any[]>;
+    use: (
+      field: BnSelectFormField,
+      search?: string,
+      dependsOnValues?: Record<string, any>,
+    ) => Observable<any[]>;
     debounceTime?: number;
   };
 }

@@ -262,6 +262,25 @@ export class AppComponent implements OnInit {
     console.log('Filters applied:', filters);
   }
 
+  optionsMock = {
+    projectOptions: [
+      { label: 'Projeto A', value: 'project_a' }, 
+      { label: 'Projeto B', value: 'project_b' },
+    ],
+    centerOriginOptions: [
+      { label: 'Centro de origem A', value: 'center_a' },
+      { label: 'Centro de origem B', value: 'center_b' },
+    ],
+    destinationTypeOptions: [
+      { label: 'Tipo de destino A', value: 'destination_type_a' },
+      { label: 'Tipo de destino B', value: 'destination_type_b' },
+    ],
+    destinationOptions: [
+      { label: 'Destino A', value: 'destination_a' },
+      { label: 'Destino B', value: 'destination_b' },
+    ],
+  };
+
   openWizard(): void {
     const bnWizardConfig: BnWizardConfig = {
       title: 'Cadastro de Exames',
@@ -277,6 +296,47 @@ export class AppComponent implements OnInit {
         {
           title: 'Descrição',
           fields: [
+            {
+              key: 'projectId',
+              type: 'select',
+              label: 'Projeto',
+              required: true,
+              options: this.optionsMock.projectOptions,
+              className: 'col-6',
+              placeholder: 'Selecione um projeto',
+            },
+            {
+              key: 'centerOriginId',
+              type: 'select',
+              label: 'Centro de origem',
+              required: true,
+              dependsOn: ['projectId'],
+              className: 'col-6',
+              placeholder: 'Selecione um centro de origem',
+              refresh: {
+                use: (field, search, dependsOnValues) => {
+                  console.log(
+                    'Refreshing centerOriginId with dependsOnValues:',
+                    dependsOnValues,
+                  );
+                  const projectId = dependsOnValues?.['projectId'];
+
+                  // simulando filtro e request aqui, no caso de consumo de API esse passo nao e necessario, sendo somente a chamada de API com o filtro
+                  const filteredOptions = projectId
+                    ? this.optionsMock.centerOriginOptions.filter((opt) =>
+                        opt.value.includes(projectId.split('_')[1]),
+                      )
+                    : this.optionsMock.centerOriginOptions;
+
+                  return new Observable((subscriber) => {
+                    setTimeout(() => {
+                      subscriber.next(filteredOptions);
+                      subscriber.complete();
+                    }, 500);
+                  });
+                },
+              },
+            },
             {
               key: 'nome',
               className: 'col-12',
