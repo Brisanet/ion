@@ -5,6 +5,7 @@ import {
   OnInit,
   signal,
   computed,
+  OnDestroy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup } from '@angular/forms';
@@ -32,11 +33,13 @@ import { IonAlertComponent } from '../../alert/alert.component';
   templateUrl: './bn-wizard.component.html',
   styleUrls: ['./bn-wizard.component.scss'],
 })
-export class BnWizardComponent implements OnInit {
+export class BnWizardComponent implements OnInit, OnDestroy {
   private formService = inject(BnFormService);
   private modalService = inject(IonModalService);
 
   config = input.required<BnWizardConfig>();
+
+  closeWithSubmit = signal(false);
 
   currentStepIndex = signal(0);
   formGroup!: FormGroup;
@@ -92,6 +95,7 @@ export class BnWizardComponent implements OnInit {
           this.modalService.emitResponse(
             isObservable(result) ? await firstValueFrom(result) : await result,
           );
+          this.closeWithSubmit.set(true);
           this.modalService.closeModal();
         } catch (error) {
           this.modalService.emitResponse(error);
@@ -99,6 +103,7 @@ export class BnWizardComponent implements OnInit {
           config.isLoading = false;
         }
       } else {
+        this.closeWithSubmit.set(true);
         this.modalService.emitValueAndCloseModal(this.formGroup.value);
       }
     } else {
@@ -120,5 +125,11 @@ export class BnWizardComponent implements OnInit {
         control.markAsTouched();
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (!this.closeWithSubmit()) {
+      this.config().onDestroy?.();
+    }
   }
 }

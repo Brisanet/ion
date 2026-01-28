@@ -21,4 +21,5 @@ export interface BnWizardConfig {
   isLoading?: boolean;
   onSubmit?: (data: any) => Observable<any> | Promise<any>;
   hiddenCancelButton?: boolean;
+  onDestroy?: () => void;
 }
