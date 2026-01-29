@@ -6,6 +6,7 @@ import {
   ElementRef,
   inject,
   effect,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonIconComponent } from '../icon/icon.component';
@@ -24,6 +25,7 @@ import { IonChipComponent } from '../chip/chip.component';
   ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IonSelectComponent {
   // Inputs

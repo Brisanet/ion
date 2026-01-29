@@ -1,8 +1,10 @@
-import {
+  import {
   ChangeDetectionStrategy,
   Component,
   input,
   OnInit,
+  ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -295,11 +297,14 @@ import { BnMaskDirective } from '../../mask/mask.directive';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnFormComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   fields = input.required<BnFormField[]>();
   defaultDebounceTime = 600;
+
+  private cdr = inject(ChangeDetectorRef);
 
   protected readonly DEFAULT_FINAL_FORMAT = DEFAULT_FINAL_FORMAT;
   protected readonly DEFAULT_INPUT_FORMAT = DEFAULT_INPUT_FORMAT;
@@ -339,8 +344,16 @@ export class BnFormComponent implements OnInit {
       const dependsOnValues = this.getDependsOnValues(field);
       field.refresh
         .use(field, search, dependsOnValues)
-        .pipe(finalize(() => (field.loading = false)))
-        .subscribe((res) => (field.options = res));
+        .pipe(
+          finalize(() => {
+            field.loading = false;
+            this.cdr.markForCheck();
+          })
+        )
+        .subscribe((res) => {
+          field.options = res;
+          this.cdr.markForCheck();
+        });
     }
   }
 

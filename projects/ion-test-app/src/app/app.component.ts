@@ -256,6 +256,38 @@ export class AppComponent implements OnInit {
         { label: 'Belo Horizonte' },
       ],
     },
+    {
+      type: 'select',
+      key: 'searchableSelect',
+      label: 'Searchable Select (Issue Repo)',
+      placeholder: 'Digite para buscar...',
+      enableSearch: true,
+      className: 'col-12',
+      refresh: {
+        use: (field, search) => {
+          console.log('[AppComponent] Searching for:', search);
+          return new Observable((subscriber) => {
+            setTimeout(() => {
+              const allOptions = [
+                { label: 'Apple', value: 'apple' },
+                { label: 'Banana', value: 'banana' },
+                { label: 'Cherry', value: 'cherry' },
+                { label: 'Date', value: 'date' },
+                { label: 'Elderberry', value: 'elderberry' },
+              ];
+              const filtered = search
+                ? allOptions.filter((opt) =>
+                    opt.label.toLowerCase().includes(search.toLowerCase())
+                  )
+                : allOptions;
+              console.log('[AppComponent] Found:', filtered);
+              subscriber.next(filtered);
+              subscriber.complete();
+            }, 1000);
+          });
+        },
+      },
+    },
   ]);
 
   handleFilterApplied(filters: any): void {
