@@ -1,8 +1,10 @@
-import {
+  import {
   ChangeDetectionStrategy,
   Component,
   input,
   OnInit,
+  ChangeDetectorRef,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -100,7 +102,7 @@ import { BnMaskDirective } from '../../mask/mask.directive';
             } @else if (isSelect(field)) {
               <ion-select
                 [placeholder]="field.placeholder ?? ''"
-                [options]="field.options"
+                [options]="field.options ?? []"
                 [multiple]="field.multiple ?? false"
                 [enableSearch]="field.enableSearch ?? false"
                 [disabled]="isDisabled(field)"
@@ -295,11 +297,14 @@ import { BnMaskDirective } from '../../mask/mask.directive';
       }
     `,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BnFormComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   fields = input.required<BnFormField[]>();
   defaultDebounceTime = 600;
+
+  private cdr = inject(ChangeDetectorRef);
 
   protected readonly DEFAULT_FINAL_FORMAT = DEFAULT_FINAL_FORMAT;
   protected readonly DEFAULT_INPUT_FORMAT = DEFAULT_INPUT_FORMAT;
@@ -317,28 +322,49 @@ export class BnFormComponent implements OnInit {
         ),
       )
       .subscribe(({ field, search }) => {
-        console.log(
-          `[BnForm] Executing debounced refresh for ${field.key}:`,
-          search,
-        );
-        if (field.refresh?.use) {
-          field.loading = true;
-          field.refresh
-            .use(field, search)
-            .pipe(finalize(() => (field.loading = false)))
-            .subscribe((res) => (field.options = res));
-        }
+        this.triggerRefresh(field, search);
       });
 
     this.fields().forEach((field) => {
       if (this.isSelect(field) && field.refresh?.use) {
-        field.loading = true;
-        field.refresh
-          .use(field)
-          .pipe(finalize(() => (field.loading = false)))
-          .subscribe((res) => (field.options = res));
+        this.triggerRefresh(field);
       }
     });
+  }
+
+  protected triggerRefresh(field: BnSelectFormField, search?: string): void {
+    if (field.refresh?.use) {
+      console.log(
+        `[BnForm] Executing refresh for ${field.key}:`,
+        search,
+        'Dependencies:',
+        field.dependsOn,
+      );
+      field.loading = true;
+      const dependsOnValues = this.getDependsOnValues(field);
+      field.refresh
+        .use(field, search, dependsOnValues)
+        .pipe(
+          finalize(() => {
+            field.loading = false;
+            this.cdr.markForCheck();
+          })
+        )
+        .subscribe((res) => {
+          field.options = res;
+          this.cdr.markForCheck();
+        });
+    }
+  }
+
+  protected getDependsOnValues(field: BnFormField): Record<string, any> {
+    const values: Record<string, any> = {};
+    if (field.dependsOn && field.dependsOn.length > 0) {
+      field.dependsOn.forEach((key) => {
+        values[key] = this.formGroup().get(key)?.value;
+      });
+    }
+    return values;
   }
 
   onSearch(field: BnSelectFormField, search: string): void {
@@ -357,6 +383,14 @@ export class BnFormComponent implements OnInit {
     this.fields().forEach((field) => {
       if (field.onChange && field.key === key) {
         field.onChange(this.formGroup());
+      }
+
+      if (
+        this.isSelect(field) &&
+        field.dependsOn &&
+        field.dependsOn.includes(key)
+      ) {
+        this.triggerRefresh(field);
       }
     });
   }

@@ -12,6 +12,8 @@ import {
   output,
   signal,
   viewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -44,6 +46,7 @@ export const COLDOWN = 200;
   host: {
     '(document:click)': 'onDocumentClick($event)',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IonDropdownComponent implements AfterViewInit, OnDestroy {
   // Inputs
@@ -87,6 +90,7 @@ export class IonDropdownComponent implements AfterViewInit, OnDestroy {
   private elementRef = inject(ElementRef);
   private overlay = inject(Overlay);
   private viewContainerRef = inject(ViewContainerRef);
+  private cdr = inject(ChangeDetectorRef);
   private overlayRef: OverlayRef | null = null;
 
   constructor() {
