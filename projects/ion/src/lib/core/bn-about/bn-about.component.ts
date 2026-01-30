@@ -5,6 +5,7 @@ import { BnFormField } from '../bn-form/bn-form.types';
 import { BnFormService } from '../bn-form/bn-form.service';
 import { BnFormComponent } from '../bn-form/bn-form.component';
 import { IonDividerComponent } from "../../divider/divider.component";
+import { BnAboutHeaderButton, BnAboutPageTitle } from './bn-about.types';
 
 @Component({
   standalone: true,
@@ -16,8 +17,8 @@ import { IonDividerComponent } from "../../divider/divider.component";
 export class BnAboutComponent implements OnInit {
   private formService = inject(BnFormService);
 
-  pageTitle = input.required<{ title: string; icon?: string }>();
-  headerButton = input<{ action: () => void; label: string}>();
+  pageTitle = input.required<BnAboutPageTitle>();
+  headerButton = input<BnAboutHeaderButton>();
   fields = input<BnFormField[]>([]);
 
   formGroup = computed(() => this.formService.createFormGroup(this.fields()));
@@ -27,7 +28,7 @@ export class BnAboutComponent implements OnInit {
       field.disabled = true;
     });
   }
-  
+
   ngOnInit() {
     this.disableAllFields();
     console.log(this.pageTitle());
