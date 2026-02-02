@@ -319,6 +319,7 @@ export { default as shield } from './shield';
 export { default as shieldOff } from './shield-off';
 export { default as shieldTick } from './shield-tick';
 export { default as shoppingCart } from './shopping-cart';
+export { default as shoppingCart2 } from './shopping-cart-2';
 export { default as simcard } from './simcard';
 export { default as smartphone } from './smartphone';
 export { default as sortAsc } from './sort-asc';
