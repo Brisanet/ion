@@ -32,17 +32,20 @@ export class IonDrawerComponent {
   title = input<string>('');
   iconTitle = input<IconType>();
   size = input<number>(30);
+  secondaryButton = input<IonButtonProps>();
   submitButton = input<IonButtonProps>();
   cancelButton = input<IonButtonProps>();
 
   ionOnSubmit = output<void>();
   ionOnCancel = output<void>();
+  ionOnSecondary = output<void>();
 
   ionOnClose = output<void>();
+  maxWidth = 75;
 
   formattedSize = computed(() => {
     const sizeValue = this.size();
-    const finalSize = sizeValue > 50 ? 50 : sizeValue;
+    const finalSize = sizeValue > this.maxWidth ? this.maxWidth : sizeValue;
     return `${finalSize}%`;
   });
 
@@ -53,6 +56,10 @@ export class IonDrawerComponent {
       'ion-drawer-open': this.isOpen(),
     };
   });
+
+  secondary(): void {
+    this.ionOnSecondary.emit();
+  }
 
   close(): void {
     this.ionOnClose.emit();
