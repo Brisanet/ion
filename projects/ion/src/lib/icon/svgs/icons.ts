@@ -384,6 +384,7 @@ import {
   zapOff,
   zoomIn,
   zoomOut,
+  fiveg,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -773,4 +774,5 @@ export const iconsPaths: Record<string, string> = {
   'zoom-out': zoomOut,
   cpe,
   'lock-plus': lockPlus,
+  fiveg,
 };
