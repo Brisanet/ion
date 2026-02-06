@@ -383,3 +383,4 @@ export { default as zap } from './zap';
 export { default as zapOff } from './zap-off';
 export { default as zoomIn } from './zoom-in';
 export { default as zoomOut } from './zoom-out';
+export { default as fiveg } from './fiveg';
