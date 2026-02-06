@@ -41,10 +41,11 @@ export class IonDrawerComponent {
   ionOnSecondary = output<void>();
 
   ionOnClose = output<void>();
+  maxWidth = 75;
 
   formattedSize = computed(() => {
     const sizeValue = this.size();
-    const finalSize = sizeValue > 50 ? 50 : sizeValue;
+    const finalSize = sizeValue > this.maxWidth ? this.maxWidth : sizeValue;
     return `${finalSize}%`;
   });
 
