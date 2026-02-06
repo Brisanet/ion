@@ -1054,6 +1054,12 @@ export class AppComponent implements OnInit {
     label: 'Salvar',
     loading: false,
   });
+  secondaryButton = signal<IonButtonProps>({
+    label: 'Secondary',
+    loading: false,
+    iconType: 'pencil',
+    rightSideIcon: true,
+  });
 
   openDrawer(direction: IonDrawerDirection = 'right', size: number = 30): void {
     this.drawerDirection.set(direction);

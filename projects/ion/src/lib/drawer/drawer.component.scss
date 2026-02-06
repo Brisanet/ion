@@ -54,7 +54,7 @@
   &.ion-drawer-top {
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 99vw;
     height: var(--ion-drawer-size, 40%);
     transform: translateY(-100%);
 
@@ -66,7 +66,7 @@
   &.ion-drawer-bottom {
     bottom: 0;
     left: 0;
-    width: 100vw;
+    width: 99vw;
     height: var(--ion-drawer-size, 40%);
     transform: translateY(100%);
 
@@ -109,9 +109,15 @@
 
 .ion-drawer-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
   width: 100%;
+}
+
+.ion-drawer-footer-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 16px;
 }
 
 @keyframes fadeIn {
