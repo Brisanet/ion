@@ -1185,6 +1185,7 @@ export class AppComponent implements OnInit {
       options: this.selectOptions,
       initialValue: [1],
       propValue: 'fruit_id',
+      disabled: true,
       multiple: true,
     },
     {
