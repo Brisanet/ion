@@ -33,15 +33,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org
-          scope: "@brisanet"
 
       - name: 🚀 Publish
-        run: npm publish --access public --provenance
+        run: npm publish --provenance --access public
         working-directory: dist/ion
         env:
           CI: true
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: 📢 Send message to Google Chat
         run: |
