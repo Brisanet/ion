@@ -1182,9 +1182,38 @@
           <h2>Popconfirm</h2>
           <div style="display: flex; gap: 20px; align-items: center">
             <ion-button
-              label="Basic Popconfirm"
+              label="Popconfirm Success"
               ionPopConfirm
-              ionPopConfirmTitle="Are you sure?"
+              ionPopConfirmTitle="Success!"
+              ionPopConfirmType="success"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Warning"
+              ionPopConfirm
+              ionPopConfirmTitle="Warning!"
+              ionPopConfirmType="warning"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Info"
+              ionPopConfirm
+              ionPopConfirmTitle="Info"
+              ionPopConfirmType="info"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Negative"
+              ionPopConfirm
+              ionPopConfirmTitle="Danger!"
+              ionPopConfirmType="negative"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
               (ionOnConfirm)="handleInputButtonClick()"
             ></ion-button>
 
