@@ -77,6 +77,15 @@ export interface BnDatePickerFormField extends BnBaseFormField {
   onEvent?: (dates: string[]) => void;
 }
 
+export interface RefreshType {
+  use: (
+    field: BnSelectFormField,
+    search?: string,
+    dependsOnValues?: Record<string, any>,
+  ) => Observable<any[]>;
+  debounceTime?: number;
+}
+
 export interface BnSelectFormField extends BnBaseFormField {
   type: 'select';
   options?: any[];
@@ -86,14 +95,7 @@ export interface BnSelectFormField extends BnBaseFormField {
   propValue?: string;
   propLabel?: string;
   loading?: boolean;
-  refresh?: {
-    use: (
-      field: BnSelectFormField,
-      search?: string,
-      dependsOnValues?: Record<string, any>,
-    ) => Observable<any[]>;
-    debounceTime?: number;
-  };
+  refresh?: RefreshType;
 }
 
 export interface BnInputAreaFormField extends BnBaseFormField {
