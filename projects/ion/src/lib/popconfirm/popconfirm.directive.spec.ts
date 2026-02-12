@@ -64,7 +64,7 @@ const openToUpOffset: PopOffset = {
     <button
       *ngIf="buttonVisibility"
       ionPopConfirm
-      ionPopConfirmTitle="Você tem certeza?"
+      ionPopConfirmDesc="Você tem certeza?"
       [ionPopConfirmCloseOnScroll]="true"
       (ionOnConfirm)="confirm()"
       class="get-test"
@@ -86,7 +86,7 @@ class ContainerRefTestComponent {
   template: `
     <ion-button
       ionPopConfirm
-      ionPopConfirmTitle="teste demais"
+      ionPopConfirmDesc="teste demais"
       type="ghost"
       size="sm"
       [disabled]="true"
@@ -105,7 +105,7 @@ class ButtonTestDisabledComponent {
   template: `
     <ion-button
       ionPopConfirm
-      ionPopConfirmTitle="teste demais"
+      ionPopConfirmDesc="teste demais"
       type="ghost"
       size="sm"
       [loading]="loading"
@@ -134,7 +134,7 @@ class ButtonTestLoadingComponent {
         <td>
           <button
             ionPopConfirm
-            ionPopConfirmTitle="Você tem certeza?"
+            ionPopConfirmDesc="Você tem certeza?"
             ionConfirmText="Sim"
             ionCancelText="Não"
             (ionOnConfirm)="confirm()"
@@ -478,7 +478,7 @@ describe('Popconfirm close on scroll', () => {
     template: `
       <button
         ionPopConfirm
-        ionPopConfirmTitle="Você tem certeza?"
+        ionPopConfirmDesc="Você tem certeza?"
         [ionPopConfirmCloseOnScroll]="closeOnScroll"
         class="get-test"
       >

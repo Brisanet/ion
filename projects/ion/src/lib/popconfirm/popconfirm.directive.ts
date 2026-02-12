@@ -32,7 +32,6 @@ export interface PopOffset {
   standalone: true,
 })
 export class IonPopConfirmDirective implements OnDestroy {
-  ionPopConfirmTitle = input<string>('Tem certeza?');
   ionPopConfirmDesc = input<string>('');
   ionPopConfirmType = input<StatusType>('warning');
   ionConfirmText = input<string>('Confirmar');
@@ -110,10 +109,6 @@ export class IonPopConfirmDirective implements OnDestroy {
 
   private updateComponentProperties(): void {
     if (this.componentRef) {
-      this.componentRef.setInput(
-        'ionPopConfirmTitle',
-        this.ionPopConfirmTitle()
-      );
       this.componentRef.setInput('ionPopConfirmDesc', this.ionPopConfirmDesc());
       this.componentRef.setInput('ionPopConfirmType', this.ionPopConfirmType());
       this.componentRef.setInput('ionConfirmText', this.ionConfirmText());

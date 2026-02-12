@@ -1,9 +1,8 @@
 import { StatusType } from './status';
 
 export interface PopConfirmProps {
-  ionPopConfirmTitle: string;
+  ionPopConfirmDesc: string;
   ionPopConfirmType?: StatusType;
-  ionPopConfirmDesc?: string;
   ionConfirmText?: string;
   ionCancelText?: string;
   ionPopConfirmCloseOnScroll?: boolean;

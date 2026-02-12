@@ -18,8 +18,7 @@ import { IonIconComponent } from '../icon/icon.component';
   exportAs: 'IonPopConfirmComponent',
 })
 export class IonPopConfirmComponent {
-  ionPopConfirmTitle = input.required<string>();
-  ionPopConfirmDesc = input<string>('');
+  ionPopConfirmDesc = input.required<string>();
   ionPopConfirmType = input<StatusType>('warning');
   ionConfirmText = input<string>('Confirmar');
   ionCancelText = input<string>('Cancelar');
