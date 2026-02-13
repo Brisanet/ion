@@ -81,10 +81,21 @@ export class IonSelectComponent {
               );
             }
           }
-          this.dropdownSelectedItems.set(selected);
+
+          const currentSelected = this.dropdownSelectedItems();
+          const missingItems = currentSelected.filter(
+            (item) =>
+              !options.some(
+                (opt) => (opt as any)[prop] === (item as any)[prop]
+              )
+          );
+
+          const finalSelected = [...selected, ...missingItems];
+
+          this.dropdownSelectedItems.set(finalSelected);
 
           options.forEach((opt) => {
-            opt.selected = selected.some(
+            opt.selected = finalSelected.some(
               (s) => (s as any)[prop] === (opt as any)[prop]
             );
           });
@@ -107,19 +118,30 @@ export class IonSelectComponent {
   }
 
   handleSelect(selectedItems: DropdownItem[]): void {
-    this.dropdownSelectedItems.set(selectedItems);
-    this.selected.emit(selectedItems);
-
     const prop = this.propValue();
+    const currentSelected = this.dropdownSelectedItems();
+
+    let finalSelected = selectedItems;
+
     if (this.multiple()) {
-      this.valueChange.emit(selectedItems.map((item) => (item as any)[prop]));
+      const options = this.options();
+      const itemsNotInOptions = currentSelected.filter(
+        (item) =>
+          !options.some((opt) => (opt as any)[prop] === (item as any)[prop])
+      );
+      finalSelected = [...itemsNotInOptions, ...selectedItems];
+    }
+
+    this.dropdownSelectedItems.set(finalSelected);
+    this.selected.emit(finalSelected);
+
+    if (this.multiple()) {
+      this.valueChange.emit(finalSelected.map((item) => (item as any)[prop]));
     } else {
       this.valueChange.emit(
-        selectedItems.length > 0 ? (selectedItems[0] as any)[prop] : null
+        finalSelected.length > 0 ? (finalSelected[0] as any)[prop] : null
       );
-      if (!this.multiple()) {
-        this.showDropdown.set(false);
-      }
+      this.showDropdown.set(false);
     }
   }
 
