@@ -168,4 +168,60 @@ describe('IonSelectComponent', () => {
 
     expect(valueChangeSpy).toHaveBeenCalledWith(1);
   });
+
+  describe('returnFullObject', () => {
+    it('should emit the full object via valueChange when returnFullObject is true (single)', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      const valueChangeSpy = jest.fn();
+      fixture.componentInstance.valueChange.subscribe(valueChangeSpy);
+
+      fixture.componentRef.setInput('options', options);
+      fixture.componentRef.setInput('returnFullObject', true);
+      fixture.detectChanges();
+
+      fixture.componentInstance.handleSelect([options[0]]);
+      fixture.detectChanges();
+
+      expect(valueChangeSpy).toHaveBeenCalledWith(options[0]);
+    });
+
+    it('should emit an array of full objects via valueChange when returnFullObject is true (multiple)', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      const valueChangeSpy = jest.fn();
+      fixture.componentInstance.valueChange.subscribe(valueChangeSpy);
+
+      fixture.componentRef.setInput('options', options);
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('returnFullObject', true);
+      fixture.detectChanges();
+
+      fixture.componentInstance.handleSelect([options[0], options[1]]);
+      fixture.detectChanges();
+
+      expect(valueChangeSpy).toHaveBeenCalledWith([options[0], options[1]]);
+    });
+
+    it('should emit an array of full objects via valueChange when a chip is removed and returnFullObject is true', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      const valueChangeSpy = jest.fn();
+      fixture.componentInstance.valueChange.subscribe(valueChangeSpy);
+
+      const optionsCopy = options.map((opt) => ({ ...opt }));
+      fixture.componentRef.setInput('options', optionsCopy);
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('returnFullObject', true);
+      fixture.detectChanges();
+
+      fixture.componentInstance.handleSelect([optionsCopy[0], optionsCopy[1]]);
+      fixture.detectChanges();
+
+      // Clear the first call from handleSelect
+      valueChangeSpy.mockClear();
+
+      fixture.componentInstance.handleChipEvents(optionsCopy[0]);
+      fixture.detectChanges();
+
+      expect(valueChangeSpy).toHaveBeenCalledWith([optionsCopy[1]]);
+    });
+  });
 });

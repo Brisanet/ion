@@ -1131,8 +1131,8 @@ export class AppComponent implements OnInit {
   ];
 
   selectOptionsCar = [
-    { label: 'Marea', key: 'marea' },
-    { label: 'Opala', key: 'opala' },
+    { label: 'Marea', value: 'marea' },
+    { label: 'Opala', value: 'opala' },
   ];
 
   handleSelectChange(event: DropdownItem[]): void {
@@ -1216,6 +1216,23 @@ export class AppComponent implements OnInit {
       propValue: 'id',
       propLabel: 'title',
       enableSearch: true,
+      refresh: {
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshCities(field, search),
+      },
+    },
+    {
+      type: 'select',
+      key: 'city_full',
+      className: 'col-6',
+      label: 'Selecione uma cidade (Objeto Completo)',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: false,
+      propValue: 'id',
+      propLabel: 'title',
+      enableSearch: true,
+      returnFullObject: true,
       refresh: {
         use: (field: BnSelectFormField, search?: string) =>
           this.refreshCities(field, search),
@@ -1375,6 +1392,23 @@ export class AppComponent implements OnInit {
     //   label: 'Name',
     //   placeholder: 'Enter name',
     // }
+    {
+      type: 'select',
+      key: 'city_full_multiple',
+      className: 'col-6',
+      label: 'Selecione cidades (Múltiplo - Objeto Completo)',
+      placeholder: 'Selecione',
+      options: [],
+      multiple: true,
+      propValue: 'id',
+      propLabel: 'title',
+      enableSearch: true,
+      returnFullObject: true,
+      refresh: {
+        use: (field: BnSelectFormField, search?: string) =>
+          this.refreshCities(field, search),
+      },
+    },
   ];
 
   editFormFields: BnFormField[] = [

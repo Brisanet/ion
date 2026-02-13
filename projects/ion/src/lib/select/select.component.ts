@@ -42,6 +42,7 @@ export class IonSelectComponent {
   propValue = input<string>('key');
   loading = input<boolean>(false);
   value = input<any>(undefined); // New input for initial value or binding
+  returnFullObject = input<boolean>(false);
 
   // Outputs
   selected = output<DropdownItem[]>();
@@ -152,12 +153,19 @@ export class IonSelectComponent {
     this.dropdownSelectedItems.set(finalSelected);
     this.selected.emit(finalSelected);
 
-    if (this.multiple()) {
-      this.valueChange.emit(finalSelected.map((item) => (item as any)[prop]));
-    } else {
-      this.valueChange.emit(
-        finalSelected.length > 0 ? (finalSelected[0] as any)[prop] : null
-      );
+    const emitValue = this.returnFullObject()
+      ? this.multiple()
+        ? finalSelected
+        : finalSelected[0] || null
+      : this.multiple()
+        ? finalSelected.map((item) => (item as any)[prop])
+        : finalSelected.length > 0
+          ? (finalSelected[0] as any)[prop]
+          : null;
+
+    this.valueChange.emit(emitValue);
+
+    if (!this.multiple()) {
       this.showDropdown.set(false);
     }
   }
@@ -190,7 +198,11 @@ export class IonSelectComponent {
     this.selected.emit(updatedItems);
 
     const prop = this.propValue();
-    this.valueChange.emit(updatedItems.map((i) => (i as any)[prop]));
+    const emitValue = this.returnFullObject()
+      ? updatedItems
+      : updatedItems.map((i) => (i as any)[prop]);
+
+    this.valueChange.emit(emitValue);
 
     // Update the options to reflect the removal
     this.options().forEach((option) => {
