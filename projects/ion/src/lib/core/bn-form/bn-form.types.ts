@@ -96,6 +96,7 @@ export interface BnSelectFormField extends BnBaseFormField {
   propLabel?: string;
   loading?: boolean;
   refresh?: RefreshType;
+  returnFullObject?: boolean;
 }
 
 export interface BnInputAreaFormField extends BnBaseFormField {
