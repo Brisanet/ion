@@ -1,18 +1,23 @@
 <div
   [class]="
     'sup-container' +
-    (ionPopConfirmPosition() ? '-' + ionPopConfirmPosition() : '')
+    (ionPopConfirmPosition() ? '-' + ionPopConfirmPosition() : '') +
+    ' ' +
+    ionPopConfirmType()
   "
   data-testid="sup-container"
 >
-  <div class="containter">
+  <div class="container">
+    <div
+      class="status-indicator"
+      [class]="'status-indicator ' + ionPopConfirmType()"
+    ></div>
     <div class="msg-container">
-      <ion-alert
-        [message]="ionPopConfirmTitle()"
-        [type]="ionPopConfirmType()"
-        [closable]="false"
-        [hideBackground]="true"
-      ></ion-alert>
+      <ion-icon
+        [type]="iconColorAndType().type"
+        [size]="30"
+        [color]="iconColorAndType().color"
+      ></ion-icon>
 
       @if (ionPopConfirmDesc()) {
       <div class="description">

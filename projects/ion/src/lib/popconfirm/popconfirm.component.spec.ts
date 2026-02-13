@@ -7,7 +7,7 @@ import { IonDividerComponent } from '../divider/divider.component';
 import { IonPopConfirmComponent } from './popconfirm.component';
 
 const defaultProps: PopConfirmProps = {
-  ionPopConfirmTitle: 'Title',
+  ionPopConfirmDesc: 'Description',
 };
 
 const sut = async (props: PopConfirmProps = defaultProps): Promise<void> => {
@@ -30,7 +30,7 @@ describe('IonPopConfirmComponent', () => {
 
     it('should render component with message', async () => {
       expect(
-        screen.getByText(defaultProps.ionPopConfirmTitle),
+        screen.getByText(defaultProps.ionPopConfirmDesc),
       ).toBeInTheDocument();
     });
 

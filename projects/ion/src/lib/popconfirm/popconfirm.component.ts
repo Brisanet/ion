@@ -1,15 +1,15 @@
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonAlertComponent } from '../alert/alert.component';
 import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
-import { StatusType } from '../core/types';
+import { IconType, StatusType } from '../core/types';
+import { IonIconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ion-popconfirm',
   imports: [
     CommonModule,
-    IonAlertComponent,
+    IonIconComponent,
     IonButtonComponent,
     IonDividerComponent,
   ],
@@ -18,8 +18,7 @@ import { StatusType } from '../core/types';
   exportAs: 'IonPopConfirmComponent',
 })
 export class IonPopConfirmComponent {
-  ionPopConfirmTitle = input.required<string>();
-  ionPopConfirmDesc = input<string>('');
+  ionPopConfirmDesc = input.required<string>();
   ionPopConfirmType = input<StatusType>('warning');
   ionConfirmText = input<string>('Confirmar');
   ionCancelText = input<string>('Cancelar');
@@ -27,6 +26,29 @@ export class IonPopConfirmComponent {
 
   ionOnConfirm = output<void>();
   ionOnClose = output<void>();
+
+  iconConfig: Record<StatusType, { type: IconType; color: string }> = {
+    success: {
+      type: 'check-outlined',
+      color: '#2d9f70',
+    },
+    info: {
+      type: 'check-outlined',
+      color: '#0858ce',
+    },
+    warning: {
+      type: 'information',
+      color: '#f9a915',
+    },
+    negative: {
+      type: 'information',
+      color: '#d6293a',
+    },
+  }
+
+  iconColorAndType = computed(() => {
+    return this.iconConfig[this.ionPopConfirmType()];
+  });
 
   handleConfirm(): void {
     this.ionOnConfirm.emit();

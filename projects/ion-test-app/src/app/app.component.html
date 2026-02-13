@@ -1182,9 +1182,34 @@
           <h2>Popconfirm</h2>
           <div style="display: flex; gap: 20px; align-items: center">
             <ion-button
-              label="Basic Popconfirm"
+              label="Popconfirm Success"
               ionPopConfirm
-              ionPopConfirmTitle="Are you sure?"
+              ionPopConfirmType="success"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Warning"
+              ionPopConfirm
+              ionPopConfirmType="warning"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Info"
+              ionPopConfirm
+              ionPopConfirmType="info"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
+              (ionOnConfirm)="handleInputButtonClick()"
+            ></ion-button>
+
+            <ion-button
+              label="Popconfirm Negative"
+              ionPopConfirm
+              ionPopConfirmType="negative"
+              ionPopConfirmDesc="Ao cancelar este processo, todas as etapas anteriores serão perdidas. Deseja continuar?"
               (ionOnConfirm)="handleInputButtonClick()"
             ></ion-button>
 
@@ -1192,7 +1217,6 @@
               label="With Description"
               type="secondary"
               ionPopConfirm
-              ionPopConfirmTitle="Delete Item?"
               ionPopConfirmDesc="This action cannot be undone."
               ionPopConfirmType="negative"
               ionConfirmText="Yes, delete"
@@ -1204,7 +1228,6 @@
               label="Close on Scroll"
               type="ghost"
               ionPopConfirm
-              ionPopConfirmTitle="Scroll to close"
               [ionPopConfirmCloseOnScroll]="true"
             ></ion-button>
           </div>

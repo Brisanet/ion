@@ -17,8 +17,8 @@
   &::before {
     content: '';
     display: block;
-    width: 13px;
-    height: 13px;
+    width: 10px;
+    height: 10px;
     background-color: ion-theme(popconfirm-arrow-color);
     position: absolute;
     top: $top;
@@ -28,6 +28,26 @@
     box-shadow: ion-theme(popconfirm-arrow-shadow);
     border-top: 1px solid ion-theme(popconfirm-border-color);
     border-left: 1px solid ion-theme(popconfirm-border-color);
+  }
+}
+
+.sup-container,
+.sup-container-right {
+  &.success::before {
+    background-color: ion-theme(positive-6);
+    border-color: ion-theme(positive-6);
+  }
+  &.warning::before {
+    background-color: ion-theme(warning-6);
+    border-color: ion-theme(warning-6);
+  }
+  &.negative::before {
+    background-color: ion-theme(negative-6);
+    border-color: ion-theme(negative-6);
+  }
+  &.info::before {
+    background-color: ion-theme(primary-6);
+    border-color: ion-theme(primary-6);
   }
 }
 
@@ -44,15 +64,32 @@
   @include arrowPosition($height, none, 16px);
 }
 
-.containter {
+.container {
   z-index: $zIndexMid;
   border-radius: spacing(1);
-  border: 1px solid ion-theme(popconfirm-border-color);
+  overflow: hidden;
+  background: ion-theme(popconfirm-background-color);
 }
 
-.description {
-  padding-top: spacing(1);
-  padding-left: spacing(4);
+.status-indicator {
+  height: 8px;
+  width: 100%;
+
+  &.success {
+    background-color: ion-theme(positive-6);
+  }
+
+  &.warning {
+    background-color: ion-theme(warning-6);
+  }
+
+  &.negative {
+    background-color: ion-theme(negative-6);
+  }
+
+  &.info {
+    background-color: ion-theme(primary-6);
+  }
 }
 
 .msg-container {
@@ -63,12 +100,15 @@
   font-size: ion-theme(popconfirm-text-font-size);
   line-height: ion-theme(popconfirm-text-line-height);
   color: ion-theme(popconfirm-text-color);
+  display: flex;
+  gap: spacing(1);
+}
 
-  ::ng-deep ion-alert div {
-    padding: 0;
-    font-size: 16px;
-    font-weight: 600;
-  }
+.description {
+  color: ion-theme(neutral-7);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
 }
 
 .footer {
