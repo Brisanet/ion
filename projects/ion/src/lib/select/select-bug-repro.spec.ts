@@ -30,7 +30,7 @@ describe('IonSelectComponent Bug Reproduction', () => {
     fixture.componentRef.setInput('options', newOptions);
     fixture.detectChanges();
 
-    // Verification of the bug: if this fails, the bug is reproduced
+    // Verification of the bug: Apple should still be in dropdownSelectedItems
     expect(fixture.componentInstance.dropdownSelectedItems()).toHaveLength(1);
     expect((fixture.componentInstance.dropdownSelectedItems()[0] as any).label).toBe('Apple');
   });

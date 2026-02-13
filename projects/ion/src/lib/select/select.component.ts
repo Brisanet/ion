@@ -6,6 +6,7 @@ import {
   ElementRef,
   inject,
   effect,
+  untracked,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -63,46 +64,62 @@ export class IonSelectComponent {
         if (value !== undefined) {
           let selected: DropdownItem[] = [];
           if (value !== null && value !== '') {
-            if (Array.isArray(value)) {
-              // Handle array of values (keys or objects)
-              selected = options.filter((opt) =>
-                value.some((val) =>
-                  typeof val === 'object'
-                    ? (val as any)[prop] === (opt as any)[prop]
-                    : val === (opt as any)[prop]
-                )
-              );
-            } else {
-              // Handle single value
-              selected = options.filter((opt) =>
-                typeof value === 'object'
-                  ? (value as any)[prop] === (opt as any)[prop]
-                  : value === (opt as any)[prop]
-              );
-            }
-          }
+            const valueArray = Array.isArray(value) ? value : [value];
 
-          const currentSelected = this.dropdownSelectedItems();
-          const missingItems = currentSelected.filter(
-            (item) =>
-              !options.some(
-                (opt) => (opt as any)[prop] === (item as any)[prop]
+            // Items present in current options
+            const presentSelected = options.filter((opt) =>
+              valueArray.some((val) =>
+                typeof val === 'object'
+                  ? (val as any)[prop] === (opt as any)[prop]
+                  : val === (opt as any)[prop]
               )
-          );
+            );
 
-          const finalSelected = [...selected, ...missingItems];
+            // Preserve selected items that are in 'value' but NOT in current options
+            const currentSelected = untracked(() =>
+              this.dropdownSelectedItems()
+            );
+            const preservedSelected = currentSelected.filter(
+              (item: DropdownItem) => {
+                const itemNotInOptions = !options.some(
+                  (opt) => (opt as any)[prop] === (item as any)[prop]
+                );
+                const itemInValue = valueArray.some((val) =>
+                  typeof val === 'object'
+                    ? (val as any)[prop] === (item as any)[prop]
+                    : val === (item as any)[prop]
+                );
+                return itemNotInOptions && itemInValue;
+              }
+            );
 
-          this.dropdownSelectedItems.set(finalSelected);
+            selected = [...presentSelected, ...preservedSelected];
+          }
+          this.dropdownSelectedItems.set(selected);
 
           options.forEach((opt) => {
-            opt.selected = finalSelected.some(
+            opt.selected = selected.some(
               (s) => (s as any)[prop] === (opt as any)[prop]
             );
           });
         } else {
           // Fallback to options marked as selected if no value input is provided
           const selected = options.filter((option) => option.selected);
-          this.dropdownSelectedItems.set(selected);
+          const currentSelected = untracked(() =>
+            this.dropdownSelectedItems()
+          );
+
+          // Only set if different to avoid redundant triggers
+          if (
+            selected.length !== currentSelected.length ||
+            !selected.every((s) =>
+              currentSelected.some(
+                (cs: DropdownItem) => (cs as any)[prop] === (s as any)[prop]
+              )
+            )
+          ) {
+            this.dropdownSelectedItems.set(selected);
+          }
         }
       },
       { allowSignalWrites: true }
@@ -120,11 +137,11 @@ export class IonSelectComponent {
   handleSelect(selectedItems: DropdownItem[]): void {
     const prop = this.propValue();
     const currentSelected = this.dropdownSelectedItems();
-
     let finalSelected = selectedItems;
 
     if (this.multiple()) {
       const options = this.options();
+      // Keep items that were selected but are NOT in the current options (e.g. filtered out by search)
       const itemsNotInOptions = currentSelected.filter(
         (item) =>
           !options.some((opt) => (opt as any)[prop] === (item as any)[prop])
