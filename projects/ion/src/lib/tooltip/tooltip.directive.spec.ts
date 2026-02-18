@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, input } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 
@@ -11,7 +11,7 @@ import { IonTooltipDirective } from './tooltip.directive';
 
 @Component({
   standalone: true,
-  imports: [IonTooltipDirective, CommonModule],
+  imports: [IonTooltipDirective],
   template: `
     <p
       data-testid="hostTooltip"
@@ -150,7 +150,7 @@ describe('Directive: Tooltip', () => {
   it('should render tooltip with template context', async () => {
     @Component({
       standalone: true,
-      imports: [IonTooltipDirective, CommonModule],
+      imports: [IonTooltipDirective],
       template: `
         <p
           data-testid="hostTooltip"

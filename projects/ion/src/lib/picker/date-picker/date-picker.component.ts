@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,13 +38,12 @@ import { OverlayModule, ConnectedPosition } from '@angular/cdk/overlay';
   selector: 'ion-date-picker',
   standalone: true,
   imports: [
-    CommonModule,
     OverlayModule,
     IonDatePickerInputComponent,
     IonControlPickerComponent,
     IonDatePickerCalendarComponent,
-    IonPredefinedRangePickerComponent,
-  ],
+    IonPredefinedRangePickerComponent
+],
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })

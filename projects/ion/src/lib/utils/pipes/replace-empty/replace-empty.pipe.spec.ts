@@ -8,7 +8,7 @@ describe('ReplaceEmptyPipe', () => {
     TestBed.configureTestingModule({
       providers: [ReplaceEmptyPipe],
     });
-    pipe = TestBed.get(ReplaceEmptyPipe);
+    pipe = TestBed.inject(ReplaceEmptyPipe);
   });
 
   it('should create the pipe', () => {

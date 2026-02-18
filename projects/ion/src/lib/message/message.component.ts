@@ -4,7 +4,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
 import { MessageStatusType } from '../core/types/message';
@@ -20,7 +20,7 @@ export const icontypes = {
 
 @Component({
   selector: 'ion-message',
-  imports: [CommonModule, IonIconComponent],
+  imports: [IonIconComponent],
   templateUrl: './message.component.html',
   styleUrl: './message.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

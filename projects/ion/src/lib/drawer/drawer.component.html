@@ -24,38 +24,39 @@
       [circularButton]="true"
       data-testid="close-icon"
       (ionOnClick)="close()"
-    />
+      />
   </header>
 
   <main class="ion-drawer-body">
     <ng-content />
   </main>
 
-  <ion-card-footer *ngIf="submitButton() || cancelButton()">
-    <div class="ion-drawer-footer">
-      @if (secondaryButton()) {
-        <ion-button
-          [label]="secondaryButton()?.label"
-          type="secondary"
-          [iconType]="secondaryButton()?.iconType || ''"
-          [rightSideIcon]="secondaryButton()?.rightSideIcon || false"
-          (ionOnClick)="secondary()" />
-      }
-      <div class="ion-drawer-footer-actions">
-        @if (cancelButton()) {
+  @if (submitButton() || cancelButton()) {
+    <ion-card-footer>
+      <div class="ion-drawer-footer">
+        @if (secondaryButton()) {
           <ion-button
-            [label]="cancelButton()?.label"
+            [label]="secondaryButton()?.label"
             type="secondary"
-            (ionOnClick)="close()" />
+            [iconType]="secondaryButton()?.iconType || ''"
+            [rightSideIcon]="secondaryButton()?.rightSideIcon || false"
+            (ionOnClick)="secondary()" />
         }
-        @if (submitButton()) {
-          <ion-button
-            [label]="submitButton()?.label"
-            (ionOnClick)="submit()"
-            [loading]="!!submitButton()?.loading" />
-        }
-
+        <div class="ion-drawer-footer-actions">
+          @if (cancelButton()) {
+            <ion-button
+              [label]="cancelButton()?.label"
+              type="secondary"
+              (ionOnClick)="close()" />
+          }
+          @if (submitButton()) {
+            <ion-button
+              [label]="submitButton()?.label"
+              (ionOnClick)="submit()"
+              [loading]="!!submitButton()?.loading" />
+          }
+        </div>
       </div>
-    </div>
-  </ion-card-footer>
+    </ion-card-footer>
+  }
 </div>

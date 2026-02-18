@@ -1,29 +1,32 @@
-<div class="ion-table" *ngIf="config">
-  <table data-testid="ion-table">
-    <thead>
-      <tr class="border-header">
-        <th *ngIf="config.check" width="16">
-          <ion-checkbox
-            data-testid="table-check-all"
-            id="check-all"
-            name="check-all"
-            [state]="mainCheckBoxState"
-            (click)="checkState()"
-            [disabled]="!config?.data?.length"
-          >
-          </ion-checkbox>
-        </th>
-        <th
-          *ngFor="let column of config.columns"
-          [attr.data-testid]="'column-' + column.key"
-          [ngStyle]="{ width: column.width + '%' }"
-        >
-          <div class="header-style">
-            <span
-              [attr.data-testid]="'th-span-' + column.key"
-              class="th-span"
-              ionTooltip
-              [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
+@if (config) {
+  <div class="ion-table">
+    <table data-testid="ion-table">
+      <thead>
+        <tr class="border-header">
+          @if (config.check) {
+            <th width="16">
+              <ion-checkbox
+                data-testid="table-check-all"
+                id="check-all"
+                name="check-all"
+                [state]="mainCheckBoxState"
+                (click)="checkState()"
+                [disabled]="!config?.data?.length"
+                >
+              </ion-checkbox>
+            </th>
+          }
+          @for (column of config.columns; track column) {
+            <th
+              [attr.data-testid]="'column-' + column.key"
+              [ngStyle]="{ width: column.width + '%' }"
+              >
+              <div class="header-style">
+                <span
+                  [attr.data-testid]="'th-span-' + column.key"
+                  class="th-span"
+                  ionTooltip
+                  [ionTooltipTitle]="column.configTooltip?.ionTooltipTitle || ''"
               [ionTooltipPosition]="
                 column.configTooltip?.ionTooltipPosition ||
                 TooltipPosition.TOP_CENTER
@@ -43,95 +46,95 @@
               [ionTooltipTemplateRef]="
                 column.configTooltip?.ionTooltipTemplateRef || null
               "
-            >
-              {{ column.label }}
-            </span>
-
-            <button
-              class="svg"
-              [class.svg--disabled]="config.loading"
+                  >
+                  {{ column.label }}
+                </span>
+                @if (column.sort) {
+                  <button
+                    class="svg"
+                    [class.svg--disabled]="config.loading"
               (click)="
                 !!config.debounceOnSort
                   ? sortWithDebounce(column)
                   : sort(column)
               "
-              *ngIf="column.sort"
-            >
-              <svg
-                [attr.data-testid]="'sort-by-' + column.key"
-                width="8"
-                height="16"
-                viewBox="0 0 8 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
-                  [attr.fill]="fillColor(column, true)"
-                />
-                <path
-                  d="M3.81985 15.8966C3.8995 16.0345 4.1005 16.0345 4.18015 15.8966L7.97236 9.33307C8.0514 9.19627 7.95152 9.02605 7.79221 9.02605L0.207794 9.02605C0.0484809 9.02605 -0.0513966 9.19627 0.0276449 9.33307L3.81985 15.8966Z"
-                  [attr.fill]="fillColor(column, false)"
-                />
-              </svg>
-            </button>
-          </div>
-        </th>
-        <th class="th-actions" *ngIf="config.actions && config.actions.length">
-          Ações
-        </th>
-      </tr>
-    </thead>
-
-    <tbody data-testid="tbody">
-      <ng-container
-        *ngFor="let row of config.data; let index = index; let last = last"
-      >
-        <tr
-          [attr.data-testid]="'row-' + index"
-          [class.last-row]="last && !config.pagination"
+                    >
+                    <svg
+                      [attr.data-testid]="'sort-by-' + column.key"
+                      width="8"
+                      height="16"
+                      viewBox="0 0 8 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      >
+                      <path
+                        d="M4.18015 0.103397C4.1005 -0.0344658 3.8995 -0.0344658 3.81985 0.103397L0.0276444 6.66693C-0.0513971 6.80373 0.0484804 6.97395 0.207794 6.97395H7.79221C7.95152 6.97395 8.0514 6.80373 7.97235 6.66693L4.18015 0.103397Z"
+                        [attr.fill]="fillColor(column, true)"
+                        />
+                      <path
+                        d="M3.81985 15.8966C3.8995 16.0345 4.1005 16.0345 4.18015 15.8966L7.97236 9.33307C8.0514 9.19627 7.95152 9.02605 7.79221 9.02605L0.207794 9.02605C0.0484809 9.02605 -0.0513966 9.19627 0.0276449 9.33307L3.81985 15.8966Z"
+                        [attr.fill]="fillColor(column, false)"
+                        />
+                    </svg>
+                  </button>
+                }
+              </div>
+            </th>
+          }
+          @if (config.actions && config.actions.length) {
+            <th class="th-actions">
+              Ações
+            </th>
+          }
+        </tr>
+      </thead>
+      <tbody data-testid="tbody">
+        @for (row of config.data; track row; let index = $index; let last = $last) {
+          <tr
+            [attr.data-testid]="'row-' + index"
+            [class.last-row]="last && !config.pagination"
           [ngClass]="{
             odd: index % 2 === 0,
             even: index % 2 !== 0,
             checked: row.selected,
           }"
-        >
-          <ng-container
-            *ngIf="config.customRowTemplate; else defaultTemplate"
-            [ngTemplateOutlet]="config.customRowTemplate"
-            [ngTemplateOutletContext]="{ $implicit: row }"
-          >
-          </ng-container>
-
-          <ng-template #defaultTemplate>
-            <td
-              *ngIf="config.check"
-              [attr.data-testid]="'row-' + index + '-td'"
             >
-              <ion-checkbox
-                name="check-all"
-                id="check-all"
-                [state]="row.selected ? 'checked' : 'enabled'"
-                [attr.data-testid]="'row-' + index + '-check'"
-                (click)="checkRow(row)"
-              >
-              </ion-checkbox>
-            </td>
-            <td
-              *ngFor="let column of config.columns"
+            @if (config.customRowTemplate) {
+              <ng-container
+                [ngTemplateOutlet]="config.customRowTemplate"
+                [ngTemplateOutletContext]="{ $implicit: row }"
+                >
+              </ng-container>
+            } @else {
+              @if (config.check) {
+                <td
+                  [attr.data-testid]="'row-' + index + '-td'"
+                  >
+                  <ion-checkbox
+                    name="check-all"
+                    id="check-all"
+                    [state]="row.selected ? 'checked' : 'enabled'"
+                    [attr.data-testid]="'row-' + index + '-check'"
+                    (click)="checkRow(row)"
+                    >
+                  </ion-checkbox>
+                </td>
+              }
+              @for (column of config.columns; track column) {
+                <td
               [class.hidden-content]="
                 (config.hideLongData && !column.hideLongData) ||
                 column.hideLongData
               "
-              [class.link-cell]="column.link"
-              [attr.data-testid]="'row-' + index + '-' + column.key"
-              [style.cursor]="column.actions && 'pointer'"
+                  [class.link-cell]="column.link"
+                  [attr.data-testid]="'row-' + index + '-' + column.key"
+                  [style.cursor]="column.actions && 'pointer'"
               (click)="
                 column.actions &&
                   column.actions.trigger === 'click' &&
                   cellEvents(row, column, row[column.key])
               "
-              ionTooltip
+                  ionTooltip
               [ionTooltipTitle]="
                 ((config.hideLongData && !column.hideLongData) ||
                   column.hideLongData) &&
@@ -153,19 +156,20 @@
                 config.cellTooltipConfig?.ionTooltipTrigger ||
                 TooltipTrigger.HOVER
               "
-              #cell
-            >
-              <!-- cell types -->
-              <span
-                class="td-span"
-                *ngIf="!column.type || column.type === 'text'"
-                >{{ row[column.key] | replaceEmpty: '-' }}</span
-              >
-              <ng-container *ngIf="column.type === 'tag'">
-                <ion-tag
-                  *ngIf="row[column.key]; else emptyCell"
-                  data-testid="tag-cell"
-                  [label]="row[column.key]"
+                  #cell
+                  >
+                  <!-- cell types -->
+                  @if (!column.type || column.type === 'text') {
+                    <span
+                      class="td-span"
+                      >{{ row[column.key] | replaceEmpty: '-' }}</span
+                      >
+                    }
+                    @if (column.type === 'tag') {
+                      @if (row[column.key]) {
+                        <ion-tag
+                          data-testid="tag-cell"
+                          [label]="row[column.key]"
                   [status]="
                     row[column.tag?.statusKey || ''] ||
                     column.tag?.status ||
@@ -174,31 +178,32 @@
                   [icon]="
                     row[column.tag?.iconKey || ''] || column.tag?.icon || ''
                   "
-                  [color]="row[column.tag?.colorKey || ''] || column.tag?.color"
-                  ionTooltip
+                          [color]="row[column.tag?.colorKey || ''] || column.tag?.color"
+                          ionTooltip
                   [ionTooltipTitle]="
                     row[column.tag?.tooltipKey || ''] || row[column.key]
                   "
-                ></ion-tag>
-              </ng-container>
-              <ng-container *ngIf="column.type === 'link' && column.link">
-                <ion-link
-                  *ngIf="
-                    !column.link.hide || !column.link.hide(row);
-                    else emptyCell
-                  "
-                  data-testid="link-element"
-                  [label]="column.link.label ? column.link.label(row) : ''"
-                  [icon]="column.link.icon"
-                  [iconSide]="column.link.iconSide || 'left'"
-                  [size]="column.link.size || 'sm'"
-                  [bold]="column.link.bold || false"
+                        ></ion-tag>
+                      } @else {
+                        <span class="td-span"> - </span>
+                      }
+                    }
+                    @if (column.type === 'link' && column.link) {
+                      @if (
+                        !column.link.hide || !column.link.hide(row)) {
+                        <ion-link
+                          data-testid="link-element"
+                          [label]="column.link.label ? column.link.label(row) : ''"
+                          [icon]="column.link.icon"
+                          [iconSide]="column.link.iconSide || 'left'"
+                          [size]="column.link.size || 'sm'"
+                          [bold]="column.link.bold || false"
                   [disabled]="
                     column.link.disabled ? column.link.disabled(row) : false
                   "
-                  [target]="column.link.target || '_self'"
-                  [link]="column.link.url ? column.link.url(row) : ''"
-                  ionTooltip
+                          [target]="column.link.target || '_self'"
+                          [link]="column.link.url ? column.link.url(row) : ''"
+                          ionTooltip
                   [ionTooltipTitle]="
                     column.link.tooltipConfig?.text
                       ? column.link.tooltipConfig!.text!(row)
@@ -218,32 +223,37 @@
                   [ionTooltipShowDelay]="
                     column.link.tooltipConfig?.ionTooltipShowDelay || 0
                   "
-                  (ionOnClick)="column.link.action && column.link.action(row)"
-                ></ion-link>
-              </ng-container>
-              <span class="td-span" *ngIf="column.type === 'boolean'">
-                {{
-                  row[column.key]
-                    ? (column.booleanText && column.booleanText.truthy) || 'Sim'
-                    : (column.booleanText && column.booleanText.falsy) || 'Não'
-                }}
-              </span>
-              <ng-container *ngIf="column.type === 'custom' && column.customTemplate">
-                <ng-container
-                  [ngTemplateOutlet]="column.customTemplate"
-                  [ngTemplateOutletContext]="{ $implicit: row }"
-                ></ng-container>
-              </ng-container>
-            </td>
-            <td *ngIf="config.actions">
-              <div class="icons-td">
-                <ng-container *ngFor="let action of config.actions">
-                  <ng-container
-                    *ngIf="action.show ? !showAction(row, action) : true"
-                  >
-                    <ion-button
-                      *ngIf="action.confirm && !action.popover"
-                      ionTooltip
+                          (ionOnClick)="column.link.action && column.link.action(row)"
+                        ></ion-link>
+                      } @else {
+                        <span class="td-span"> - </span>
+                      }
+                    }
+                    @if (column.type === 'boolean') {
+                      <span class="td-span">
+                        {{
+                        row[column.key]
+                        ? (column.booleanText && column.booleanText.truthy) || 'Sim'
+                        : (column.booleanText && column.booleanText.falsy) || 'Não'
+                        }}
+                      </span>
+                    }
+                    @if (column.type === 'custom' && column.customTemplate) {
+                      <ng-container
+                        [ngTemplateOutlet]="column.customTemplate"
+                        [ngTemplateOutletContext]="{ $implicit: row }"
+                      ></ng-container>
+                    }
+                  </td>
+                }
+                @if (config.actions) {
+                  <td>
+                    <div class="icons-td">
+                      @for (action of config.actions; track action) {
+                        @if (action.show ? !showAction(row, action) : true) {
+                          @if (action.confirm && !action.popover) {
+                            <ion-button
+                              ionTooltip
                       [ionTooltipTitle]="
                         action.tooltipConfig?.ionTooltipTitle || action.label
                       "
@@ -268,8 +278,8 @@
                       [ionTooltipTemplateRef]="
                         action.tooltipConfig?.ionTooltipTemplateRef || null
                       "
-                      ionPopConfirm
-                      [ionPopConfirmType]="action.confirm.type || 'info'"
+                              ionPopConfirm
+                              [ionPopConfirmType]="action.confirm.type || 'info'"
                       [ionPopConfirmDesc]="
                         !!action.confirm.description
                           ? action.confirm.description
@@ -280,28 +290,28 @@
                       [ionConfirmText]="
                         action.confirm.confirmText || 'Confirmar'
                       "
-                      [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
+                              [ionCancelText]="action.confirm.cancelText || 'Cancelar'"
                       (ionOnConfirm)="
                         action.call && handleEvent(row, action.call)
                       "
-                      [attr.data-testid]="'row-' + index + '-' + action.label"
-                      type="ghost"
-                      size="sm"
-                      [danger]="!!action.danger"
-                      [iconType]="action.icon"
-                      [label]="action.label"
-                      [circularButton]="!action.showLabel"
+                              [attr.data-testid]="'row-' + index + '-' + action.label"
+                              type="ghost"
+                              size="sm"
+                              [danger]="!!action.danger"
+                              [iconType]="action.icon"
+                              [label]="action.label"
+                              [circularButton]="!action.showLabel"
                       [rightSideIcon]="
                         !!(action.showLabel && action.rightSideIcon)
                       "
                       [disabled]="
                         action.disabled ? !!disableAction(row, action) : false
                       "
-                    ></ion-button>
-
-                    <ng-container *ngIf="action.popover && !action.confirm">
-                      <ion-button
-                        ionTooltip
+                            ></ion-button>
+                          }
+                          @if (action.popover && !action.confirm) {
+                            <ion-button
+                              ionTooltip
                         [ionTooltipTitle]="
                           action.tooltipConfig?.ionTooltipTitle || action.label
                         "
@@ -326,12 +336,12 @@
                         [ionTooltipTemplateRef]="
                           action.tooltipConfig?.ionTooltipTemplateRef || null
                         "
-                        ionPopover
+                              ionPopover
                         [ionPopoverTitle]="
                           action.popover!(row)['ionPopoverTitle'] ||
                           action.label
                         "
-                        [ionPopoverBody]="ActionPopoverBody"
+                              [ionPopoverBody]="ActionPopoverBody"
                         [ionPopoverActions]="
                           action.popover!(row)['ionPopoverActions']
                         "
@@ -354,7 +364,7 @@
                         [ionPopoverCustomClass]="
                           action.popover!(row)['ionPopoverCustomClass']
                         "
-                        [ionPopoverArrowPointAtCenter]="true"
+                              [ionPopoverArrowPointAtCenter]="true"
                         [ionPopoverTrigger]="
                           action.popover!(row)['ionPopoverTrigger'] ||
                           PopoverTrigger.CLICK
@@ -366,33 +376,32 @@
                           action.secondCall &&
                             handleEvent(row, action.secondCall)
                         "
-                        [attr.data-testid]="'row-' + index + '-' + action.label"
-                        type="ghost"
-                        size="sm"
-                        [danger]="!!action.danger"
-                        [iconType]="action.icon"
-                        [label]="action.label"
-                        [circularButton]="!action.showLabel"
+                              [attr.data-testid]="'row-' + index + '-' + action.label"
+                              type="ghost"
+                              size="sm"
+                              [danger]="!!action.danger"
+                              [iconType]="action.icon"
+                              [label]="action.label"
+                              [circularButton]="!action.showLabel"
                         [rightSideIcon]="
                           !!(action.showLabel && action.rightSideIcon)
                         "
                         [disabled]="
                           action.disabled ? !!disableAction(row, action) : false
                         "
-                      ></ion-button>
-                      <ng-template #ActionPopoverBody>
-                        <ng-container
+                            ></ion-button>
+                            <ng-template #ActionPopoverBody>
+                              <ng-container
                           [ngTemplateOutlet]="
                             action.popover!(row)['ionPopoverBody']
                           "
-                          [ngTemplateOutletContext]="{ $implicit: row }"
-                        ></ng-container>
-                      </ng-template>
-                    </ng-container>
-
-                    <ion-button
-                      *ngIf="!action.confirm && !action.popover"
-                      ionTooltip
+                                [ngTemplateOutletContext]="{ $implicit: row }"
+                              ></ng-container>
+                            </ng-template>
+                          }
+                          @if (!action.confirm && !action.popover) {
+                            <ion-button
+                              ionTooltip
                       [ionTooltipTitle]="
                         action.tooltipConfig?.ionTooltipTitle || action.label
                       "
@@ -417,13 +426,13 @@
                       [ionTooltipTemplateRef]="
                         action.tooltipConfig?.ionTooltipTemplateRef || null
                       "
-                      [attr.data-testid]="'row-' + index + '-' + action.label"
-                      type="ghost"
-                      size="sm"
-                      [danger]="!!action.danger"
-                      [iconType]="action.icon"
-                      [label]="action.label"
-                      [circularButton]="!action.showLabel"
+                              [attr.data-testid]="'row-' + index + '-' + action.label"
+                              type="ghost"
+                              size="sm"
+                              [danger]="!!action.danger"
+                              [iconType]="action.icon"
+                              [label]="action.label"
+                              [circularButton]="!action.showLabel"
                       [rightSideIcon]="
                         !!(action.showLabel && action.rightSideIcon)
                       "
@@ -433,64 +442,65 @@
                       [disabled]="
                         action.disabled ? !!disableAction(row, action) : false
                       "
-                    ></ion-button>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </td>
-          </ng-template>
-        </tr>
-      </ng-container>
-    </tbody>
-  </table>
-
-  <div *ngIf="config.data && config.data.length === 0" class="noData">
-    <ion-spinner
-      *ngIf="config.loading; else noData"
-      [size]="42"
-      color="primary"
-    ></ion-spinner>
-  </div>
-
-  <ng-template #noData>
-    <ion-icon [size]="40" type="exclamation-rounded"></ion-icon>
-    <span>Não há dados</span>
-  </ng-template>
-
-  <ng-template #emptyCell>
-    <span class="td-span"> - </span>
-  </ng-template>
-
-  <div
-    *ngIf="config.pagination && config.data && config.data.length"
-    data-testid="pagination-container"
-    class="footer-table"
-  >
-    <div class="total-container">
-      <span *ngIf="!config.loading" data-testid="total-pagination"
-        >Total: {{ config.pagination.total }}</span
-      >
-      <span
-        *ngIf="config.loading"
-        data-testid="loading-pagination"
-        class="loading-message"
-      >
-        Carregando página
-      </span>
-    </div>
-
-    <div class="pagination">
-      <ion-pagination
-        [loading]="config.loading || false"
-        [total]="config.pagination.total"
-        [itemsPerPage]="config.pagination.itemsPerPage"
-        [pageSizeOptions]="config.pagination.pageSizeOptions"
-        [page]="config.pagination.page || 1"
-        size="md"
-        (events)="paginationEvents($event)"
-        [allowChangeQtdItems]="true"
-        [openItemsPerPageAbove]="!!config.pagination.openItemsPerPageAbove"
-      ></ion-pagination>
-    </div>
-  </div>
-</div>
+                            ></ion-button>
+                          }
+                        }
+                      }
+                    </div>
+                  </td>
+                }
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+      @if (config.data && config.data.length === 0) {
+        <div class="noData">
+          @if (config.loading) {
+            <ion-spinner
+              [size]="42"
+              color="primary"
+            ></ion-spinner>
+          } @else {
+            <ion-icon [size]="40" type="exclamation-rounded"></ion-icon>
+            <span>Não há dados</span>
+          }
+        </div>
+      }
+      @if (config.pagination && config.data && config.data.length) {
+        <div
+          data-testid="pagination-container"
+          class="footer-table"
+          >
+          <div class="total-container">
+            @if (!config.loading) {
+              <span data-testid="total-pagination"
+                >Total: {{ config.pagination.total }}</span
+                >
+              }
+              @if (config.loading) {
+                <span
+                  data-testid="loading-pagination"
+                  class="loading-message"
+                  >
+                  Carregando página
+                </span>
+              }
+            </div>
+            <div class="pagination">
+              <ion-pagination
+                [loading]="config.loading || false"
+                [total]="config.pagination.total"
+                [itemsPerPage]="config.pagination.itemsPerPage"
+                [pageSizeOptions]="config.pagination.pageSizeOptions"
+                [page]="config.pagination.page || 1"
+                size="md"
+                (events)="paginationEvents($event)"
+                [allowChangeQtdItems]="true"
+                [openItemsPerPageAbove]="!!config.pagination.openItemsPerPageAbove"
+              ></ion-pagination>
+            </div>
+          </div>
+        }
+      </div>
+    }

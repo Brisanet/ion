@@ -6,7 +6,7 @@ import {
   signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { BreadcrumbItem } from '../core/types/breadcrumb';
@@ -15,7 +15,7 @@ import { DropdownItem } from '../core/types/dropdown';
 @Component({
   selector: 'ion-breadcrumb',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonDropdownComponent],
+  imports: [IonIconComponent, IonDropdownComponent],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,5 +1,5 @@
 import { Component, input, output, signal, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonButtonComponent } from '../button/button.component';
 import { IonDividerComponent } from '../divider/divider.component';
 import { IconType, StatusType } from '../core/types';
@@ -8,11 +8,10 @@ import { IonIconComponent } from '../icon/icon.component';
 @Component({
   selector: 'ion-popconfirm',
   imports: [
-    CommonModule,
     IonIconComponent,
     IonButtonComponent,
-    IonDividerComponent,
-  ],
+    IonDividerComponent
+],
   templateUrl: './popconfirm.component.html',
   styleUrls: ['./popconfirm.component.scss'],
   exportAs: 'IonPopConfirmComponent',

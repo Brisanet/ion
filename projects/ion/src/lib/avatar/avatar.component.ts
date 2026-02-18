@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, input } from '@angular/core';
 import { AvatarType } from '../core/types/avatar';
 import { SizeType } from '../core/types/size';
@@ -8,7 +8,7 @@ import { IonIconComponent } from '../icon/icon.component';
 @Component({
   selector: 'ion-avatar',
   standalone: true,
-  imports: [CommonModule, IonIconComponent],
+  imports: [IonIconComponent],
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
 })

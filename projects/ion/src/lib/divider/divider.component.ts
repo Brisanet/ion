@@ -1,12 +1,12 @@
 import { Component, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { DirectionType } from '../core/types';
 import { DividerType } from '../core/types/divider';
 
 @Component({
   selector: 'ion-divider',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './divider.component.html',
   styleUrls: ['./divider.component.scss'],
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -30,7 +30,7 @@ import {
 @Component({
   selector: 'date-picker-calendar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './date-picker-calendar.component.html',
   styleUrls: ['./date-picker-calendar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

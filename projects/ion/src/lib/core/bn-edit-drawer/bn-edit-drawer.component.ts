@@ -7,7 +7,7 @@ import {
   inject,
   computed,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { IonDrawerComponent, IonDrawerDirection } from '../../drawer/drawer.component';
 import { BnFormComponent } from '../bn-form/bn-form.component';
@@ -20,11 +20,10 @@ import { IconType } from '../types/icon';
   selector: 'bn-edit-drawer',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     IonDrawerComponent,
-    BnFormComponent,
-  ],
+    BnFormComponent
+],
   templateUrl: './bn-edit-drawer.component.html',
   styleUrl: './bn-edit-drawer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

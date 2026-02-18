@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, input } from '@angular/core';
 import { BadgeType } from '../core/types/badge';
 
 @Component({
   selector: 'ion-badge',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })

@@ -5,7 +5,7 @@ import {
   output,
   computed,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconType } from '../core/types/icon';
@@ -17,7 +17,7 @@ export type IonDrawerDirection = 'left' | 'right' | 'top' | 'bottom';
 @Component({
   selector: 'ion-drawer',
   standalone: true,
-  imports: [CommonModule, IonButtonComponent, IonIconComponent, IonCardFooterComponent],
+  imports: [IonButtonComponent, IonIconComponent, IonCardFooterComponent],
   templateUrl: './drawer.component.html',
   styleUrl: './drawer.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

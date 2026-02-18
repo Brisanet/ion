@@ -2,7 +2,7 @@ import { Component, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonAccordionItemComponent } from './accordion-item.component';
 import { IonIconComponent } from '../../icon/icon.component';
-import { CommonModule } from '@angular/common';
+
 import { SafeAny } from '../../utils/safe-any';
 import { fireEvent, screen } from '@testing-library/dom';
 import { By } from '@angular/platform-browser';
@@ -22,7 +22,7 @@ import { By } from '@angular/platform-browser';
     </ng-template>
   `,
   standalone: true,
-  imports: [IonAccordionItemComponent, CommonModule],
+  imports: [IonAccordionItemComponent],
 })
 class AccordionItemTestComponent {
   data = { name: 'Accordion header' };

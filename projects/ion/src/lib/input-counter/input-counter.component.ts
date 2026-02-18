@@ -6,14 +6,14 @@ import {
   model,
   effect,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 import { IonButtonComponent } from '../button/button.component';
 import { InputCountSize } from '../core/types';
 
 @Component({
   selector: 'ion-input-counter',
-  imports: [CommonModule, FormsModule, IonButtonComponent],
+  imports: [FormsModule, IonButtonComponent],
   templateUrl: './input-counter.component.html',
   styleUrl: './input-counter.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

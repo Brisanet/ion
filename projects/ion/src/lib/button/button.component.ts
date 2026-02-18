@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   computed,
@@ -23,11 +23,10 @@ import { IonBadgeComponent } from '../badge/badge.component';
   selector: 'ion-button',
   standalone: true,
   imports: [
-    CommonModule,
     IonIconComponent,
     IonDropdownComponent,
-    IonBadgeComponent,
-  ],
+    IonBadgeComponent
+],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
 })

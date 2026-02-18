@@ -11,7 +11,7 @@ import {
   OverlayConfig,
   ConnectedPosition,
 } from '@angular/cdk/overlay';
-import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { PopoverPosition, PopoverProps } from '../core/types/popover';
 import { IonPopoverComponent } from './component/popover.component';
 
@@ -127,8 +127,10 @@ export class PopoverOverlayService {
   }
 
   private createInjector(data: PopoverProps): Injector {
-    const injectionTokens = new WeakMap<any, any>([[POPOVER_DATA, data]]);
-    return new PortalInjector(this.injector, injectionTokens);
+    return Injector.create({
+      providers: [{ provide: POPOVER_DATA, useValue: data }],
+      parent: this.injector,
+    });
   }
 
   private getPopoverPosition(

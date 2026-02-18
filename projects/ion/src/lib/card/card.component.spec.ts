@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
-import { CommonModule } from '@angular/common';
+
 
 // Importação dos seus componentes
 import { IonCardComponent } from './card.component';
@@ -30,12 +30,11 @@ const footerText = 'Conteúdo do footer';
   `,
   standalone: true,
   imports: [
-    CommonModule,
     IonCardComponent,
     IonCardHeaderComponent,
     IonCardFooterComponent,
-    IonIconComponent,
-  ],
+    IonIconComponent
+],
 })
 class FullCardTestWrapperComponent {
   title = cardTitle;

@@ -5,7 +5,7 @@ import {
   output,
   model,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonChipComponent } from '../chip/chip.component';
 import {
   ChipEvent,
@@ -19,7 +19,7 @@ import { ChipInGroup } from '../core/types/chip-group';
 
 @Component({
   selector: 'ion-chip-group',
-  imports: [CommonModule, IonChipComponent],
+  imports: [IonChipComponent],
   templateUrl: './chip-group.component.html',
   styleUrl: './chip-group.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -8,7 +8,7 @@ import {
   effect,
   model,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../icon/icon.component';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IonInfoBadgeComponent } from '../info-badge/info-badge.component';
@@ -38,12 +38,11 @@ interface ChipEvent {
 @Component({
   selector: 'ion-chip',
   imports: [
-    CommonModule,
     IonIconComponent,
     IonBadgeComponent,
     IonInfoBadgeComponent,
-    IonDropdownComponent,
-  ],
+    IonDropdownComponent
+],
   templateUrl: './chip.component.html',
   styleUrl: './chip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

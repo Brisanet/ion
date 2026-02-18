@@ -9,7 +9,7 @@ import {
   OnInit,
   OnDestroy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../../icon/icon.component';
 import { IconType } from '../../core/types/icon';
 import { StatusType } from '../../core/types/status';
@@ -17,7 +17,7 @@ import { fadeInDirection, fadeOutDirection } from '../../utils/animationsTypes';
 
 @Component({
   selector: 'ion-notification',
-  imports: [CommonModule, IonIconComponent],
+  imports: [IonIconComponent],
   templateUrl: './notification.component.html',
   styleUrl: './notification.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

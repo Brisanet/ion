@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -16,7 +16,7 @@ export interface IonDatePickerInputComponentProps {
 @Component({
   selector: 'date-picker-input',
   standalone: true,
-  imports: [CommonModule, IonInputComponent],
+  imports: [IonInputComponent],
   templateUrl: './date-picker-input.component.html',
   styleUrls: ['./date-picker-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

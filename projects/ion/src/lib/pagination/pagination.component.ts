@@ -7,7 +7,7 @@ import {
   signal,
   untracked,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonButtonComponent } from '../button/button.component';
 import { DropdownItem } from '../core/types/dropdown';
 import { IonPaginationProps, Page, PageEvent } from '../core/types/pagination';
@@ -21,7 +21,7 @@ const FIRST_PAGE = 1;
 @Component({
   selector: 'ion-pagination',
   standalone: true,
-  imports: [CommonModule, IonButtonComponent],
+  imports: [IonButtonComponent],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })

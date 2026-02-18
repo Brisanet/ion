@@ -4,14 +4,14 @@ import {
   input,
   output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../icon/icon.component';
 import { IonBadgeComponent } from '../badge/badge.component';
 import { IconType, TabSize, TabDirection, TabBadge } from '../core/types';
 
 @Component({
   selector: 'ion-tab',
-  imports: [CommonModule, IonIconComponent, IonBadgeComponent],
+  imports: [IonIconComponent, IonBadgeComponent],
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

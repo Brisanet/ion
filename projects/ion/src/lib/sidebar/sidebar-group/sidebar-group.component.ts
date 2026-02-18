@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,11 +19,10 @@ import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
   selector: 'ion-sidebar-group',
   standalone: true,
   imports: [
-    CommonModule,
     IonIconComponent,
     IonSidebarItemComponent,
-    IonTooltipDirective,
-  ],
+    IonTooltipDirective
+],
   templateUrl: './sidebar-group.component.html',
   styleUrls: ['./sidebar-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

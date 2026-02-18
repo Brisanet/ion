@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonNotificationComponent } from '../component/notification.component';
 import { NotificationProps } from '../../core/types/notification';
 
@@ -9,7 +9,7 @@ export interface NotificationItem extends NotificationProps {
 
 @Component({
   selector: 'ion-notification-container',
-  imports: [CommonModule, IonNotificationComponent],
+  imports: [IonNotificationComponent],
   template: `
     <div class="notification-container-wrapper">
       @for (notification of notifications(); track notification.id) {

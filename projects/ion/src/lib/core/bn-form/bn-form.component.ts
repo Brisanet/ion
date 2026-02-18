@@ -6,7 +6,7 @@
   ChangeDetectorRef,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounce, finalize, Subject, timer } from 'rxjs';
 import { IonInputComponent } from '../../input/input.component';
@@ -38,7 +38,6 @@ import { BnMaskDirective } from '../../mask/mask.directive';
   selector: 'bn-form',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     IonInputComponent,
     IonTripleToggleComponent,
@@ -48,8 +47,8 @@ import { BnMaskDirective } from '../../mask/mask.directive';
     IonInputAreaComponent,
     IonIconComponent,
     IonTooltipDirective,
-    BnMaskDirective,
-  ],
+    BnMaskDirective
+],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {

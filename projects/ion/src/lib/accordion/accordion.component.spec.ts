@@ -1,7 +1,7 @@
 import { Component, TemplateRef, viewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonAccordionComponent } from './accordion.component';
-import { CommonModule } from '@angular/common';
+
 import { SafeAny } from '../utils/safe-any';
 import { fireEvent, screen } from '@testing-library/dom';
 import { AccordionItem } from '../core/types/accordion';
@@ -38,7 +38,7 @@ const webSites = [
     </ng-template>
   `,
   standalone: true,
-  imports: [IonAccordionComponent, CommonModule],
+  imports: [IonAccordionComponent],
 })
 class AccordionTestComponent {
   accordions: any[] = webSites;

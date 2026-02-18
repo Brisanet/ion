@@ -4,7 +4,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   HeadingType,
   HeadingWeight,
@@ -15,7 +15,7 @@ import {
 @Component({
   selector: 'ion-heading',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './heading.component.html',
   styleUrls: ['./heading.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonTooltipDirective } from '../tooltip/tooltip.directive';
@@ -8,7 +8,7 @@ import { TooltipPosition, TooltipTrigger } from '../core/types/tooltip';
 @Component({
   selector: 'ion-card-header',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonTooltipDirective],
+  imports: [IonIconComponent, IonTooltipDirective],
   template: `
     <div class="card-ion-header-title">
       @if (icon()) {

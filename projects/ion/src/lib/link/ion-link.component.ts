@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, input, output } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { FontSize, IconSide, IconType, LinkTarget } from '../core/types';
@@ -6,7 +6,7 @@ import { FontSize, IconSide, IconType, LinkTarget } from '../core/types';
 @Component({
   selector: 'ion-link',
   standalone: true,
-  imports: [CommonModule, IonIconComponent],
+  imports: [IonIconComponent],
   templateUrl: './ion-link.component.html',
   styleUrls: ['./ion-link.component.scss'],
 })

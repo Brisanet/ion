@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -13,7 +13,7 @@ import { MOUSE_BUTTONS } from '../../utils/mouse-buttons';
 @Component({
   selector: 'ion-sidebar-item',
   standalone: true,
-  imports: [CommonModule, IonIconComponent, IonTooltipDirective],
+  imports: [IonIconComponent, IonTooltipDirective],
   templateUrl: './sidebar-item.component.html',
   styleUrls: ['./sidebar-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

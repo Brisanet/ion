@@ -6,7 +6,7 @@ import {
   effect,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonTabComponent } from '../tab/tab.component';
 import {
   BorderDirectionType,
@@ -17,7 +17,7 @@ import {
 
 @Component({
   selector: 'ion-tab-group',
-  imports: [CommonModule, IonTabComponent],
+  imports: [IonTabComponent],
   templateUrl: './tab-group.component.html',
   styleUrl: './tab-group.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

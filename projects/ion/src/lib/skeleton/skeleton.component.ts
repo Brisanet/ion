@@ -1,11 +1,11 @@
 import { Component, computed, input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SkeletonVariants } from '../core/types/skeleton';
 
 @Component({
   selector: 'ion-skeleton',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './skeleton.component.html',
   styleUrls: ['./skeleton.component.scss'],
 })

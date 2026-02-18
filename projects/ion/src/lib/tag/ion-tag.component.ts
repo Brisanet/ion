@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, computed, input } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { TagStatus } from '../core/types';
@@ -10,7 +10,7 @@ const defaultColor = '#505566';
 @Component({
   selector: 'ion-tag',
   standalone: true,
-  imports: [CommonModule, IonIconComponent],
+  imports: [IonIconComponent],
   templateUrl: './ion-tag.component.html',
   styleUrls: ['./ion-tag.component.scss'],
 })

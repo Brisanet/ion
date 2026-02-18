@@ -1,34 +1,39 @@
-<ng-container [ngSwitch]="type()">
-  <h1
-    *ngSwitchCase="'h1'"
-    [class]="classes()"
-    data-testid="ion-heading"
-    [id]="type()"
-  >
-    {{ text() }}
-  </h1>
-  <h2
-    *ngSwitchCase="'h2'"
-    [class]="classes()"
-    data-testid="ion-heading"
-    [id]="type()"
-  >
-    {{ text() }}
-  </h2>
-  <h3
-    *ngSwitchCase="'h3'"
-    [class]="classes()"
-    data-testid="ion-heading"
-    [id]="type()"
-  >
-    {{ text() }}
-  </h3>
-  <h4
-    *ngSwitchCase="'h4'"
-    [class]="classes()"
-    data-testid="ion-heading"
-    [id]="type()"
-  >
-    {{ text() }}
-  </h4>
-</ng-container>
+
+@switch (type()) {
+  @case ('h1') {
+    <h1
+      [class]="classes()"
+      data-testid="ion-heading"
+      [id]="type()"
+      >
+      {{ text() }}
+    </h1>
+  }
+  @case ('h2') {
+    <h2
+      [class]="classes()"
+      data-testid="ion-heading"
+      [id]="type()"
+      >
+      {{ text() }}
+    </h2>
+  }
+  @case ('h3') {
+    <h3
+      [class]="classes()"
+      data-testid="ion-heading"
+      [id]="type()"
+      >
+      {{ text() }}
+    </h3>
+  }
+  @case ('h4') {
+    <h4
+      [class]="classes()"
+      data-testid="ion-heading"
+      [id]="type()"
+      >
+      {{ text() }}
+    </h4>
+  }
+}

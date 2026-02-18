@@ -9,7 +9,7 @@ import {
   untracked,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
@@ -19,11 +19,10 @@ import { IonChipComponent } from '../chip/chip.component';
   selector: 'ion-select',
   standalone: true,
   imports: [
-    CommonModule,
     IonIconComponent,
     IonDropdownComponent,
-    IonChipComponent,
-  ],
+    IonChipComponent
+],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

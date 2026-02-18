@@ -1,5 +1,5 @@
 import { Component, input, model } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonRadioComponent } from '../radio/radio.component';
 import { RadioOptions } from '../core/types/radio-group';
 import { SafeAny } from '../utils/safe-any';
@@ -7,7 +7,7 @@ import { SafeAny } from '../utils/safe-any';
 @Component({
   selector: 'ion-radio-group',
   standalone: true,
-  imports: [CommonModule, IonRadioComponent],
+  imports: [IonRadioComponent],
   templateUrl: './radio-group.component.html',
   styleUrl: './radio-group.component.scss',
 })

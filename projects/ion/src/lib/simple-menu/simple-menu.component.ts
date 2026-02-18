@@ -1,5 +1,5 @@
 import { Component, input, output, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { SafeAny } from '../utils/safe-any';
 import { TabInGroup } from '../core/types/tab-group';
 import { MenuProfile, Image } from '../core/types/simple-menu';
@@ -11,11 +11,10 @@ import { AvatarType } from '../core/types/avatar';
 @Component({
   selector: 'ion-simple-menu',
   imports: [
-    CommonModule,
     IonAvatarComponent,
     IonButtonComponent,
-    IonTabGroupComponent,
-  ],
+    IonTabGroupComponent
+],
   templateUrl: './simple-menu.component.html',
   styleUrls: ['./simple-menu.component.scss'],
 })

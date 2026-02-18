@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -38,11 +38,10 @@ export interface IonControlPickerComponentProps {
   selector: 'ion-control-picker',
   standalone: true,
   imports: [
-    CommonModule,
     IonButtonComponent,
     IonTooltipDirective,
-    IonDividerComponent,
-  ],
+    IonDividerComponent
+],
   templateUrl: './control-picker.component.html',
   styleUrls: ['./control-picker.component.scss'],
   host: {

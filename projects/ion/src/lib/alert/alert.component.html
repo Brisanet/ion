@@ -7,7 +7,7 @@
     'no-radius': noRadius(),
   }"
   #ionAlert
->
+  >
   <div class="header">
     <div class="message">
       <ion-icon
@@ -16,28 +16,31 @@
         [type]="iconType()"
       ></ion-icon>
 
-      <span
-        *ngIf="hasPlainText(); else customBody"
-        data-testid="ion-alert-message"
-        class="message-text"
-        >{{ message() }}</span
-      >
+      @if (hasPlainText()) {
+        <span
+          data-testid="ion-alert-message"
+          class="message-text"
+          >{{ message() }}</span
+          >
+        } @else {
+          <ng-container *ngTemplateOutlet="$any(message())"></ng-container>
+        }
 
-      <ng-template #customBody>
-        <ng-container *ngTemplateOutlet="$any(message())"></ng-container>
-      </ng-template>
+      </div>
+
+      @if (closable()) {
+        <ion-icon
+          class="close-icon"
+          data-testid="close-icon"
+          type="close"
+          (click)="closeEvent()"
+        ></ion-icon>
+      }
     </div>
 
-    <ion-icon
-      class="close-icon"
-      data-testid="close-icon"
-      type="close"
-      *ngIf="closable()"
-      (click)="closeEvent()"
-    ></ion-icon>
+    @if (description() && description()!.length > 0) {
+      <span class="description">
+        {{ description() }}
+      </span>
+    }
   </div>
-
-  <span *ngIf="description() && description()!.length > 0" class="description">
-    {{ description() }}
-  </span>
-</div>

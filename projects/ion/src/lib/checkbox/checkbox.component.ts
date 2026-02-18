@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   effect,
@@ -17,7 +17,7 @@ import {
 @Component({
   selector: 'ion-checkbox',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './checkbox.component.html',
   styleUrls: ['./checkbox.component.scss'],
 })

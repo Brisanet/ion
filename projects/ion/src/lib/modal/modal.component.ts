@@ -13,7 +13,7 @@ import {
   ComponentRef,
   effect,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 
 import { generateIDs } from '../utils';
 import { IonModalConfiguration, IonModalResponse } from '../core/types/modal';
@@ -43,7 +43,7 @@ const defaultModal: IonModalConfiguration = {
 @Component({
   selector: 'ion-modal',
   standalone: true,
-  imports: [CommonModule, IonButtonComponent, IonAlertComponent, IonIconComponent],
+  imports: [IonButtonComponent, IonAlertComponent, IonIconComponent],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
