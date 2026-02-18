@@ -56,9 +56,9 @@ describe('IonAccordionItemComponent', () => {
     expect(screen.getByTestId('ion-accordion-item')).toBeTruthy();
   });
 
-  it('should render the header with the name Brisanet', () => {
+  it('should render the header with the name Brisanet', async () => {
     const accordionHeader = 'Brisanet';
-    component.data = { name: accordionHeader };
+    fixture.componentRef.setInput('data', { name: accordionHeader });
     fixture.detectChanges();
     expect(screen.getByTestId('ion-accordion-item__header')).toHaveTextContent(
       accordionHeader,

@@ -129,10 +129,11 @@ describe('Pagination > Page sizes', () => {
           allowChangeQtdItems: true,
         });
         const itemsPerPage = screen.getByTestId('itemsPerPage');
-        expect(itemsPerPage).toHaveAttribute(
-          'ng-reflect-disabled',
-          `${loadingValue}`,
-        );
+        if (loadingValue) {
+          expect(itemsPerPage).toHaveAttribute('disabled');
+        } else {
+          expect(itemsPerPage).not.toHaveAttribute('disabled');
+        }
       },
     );
   });

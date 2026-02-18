@@ -109,7 +109,7 @@ describe('AvatarComponent', () => {
 
       const icon = fixture.nativeElement.querySelector('ion-icon');
       expect(icon).toBeTruthy();
-      expect(icon.getAttribute('ng-reflect-type')).toBe('union');
+      expect(icon.querySelector('svg')).toHaveAttribute('id', 'ion-icon-union');
     });
   });
 

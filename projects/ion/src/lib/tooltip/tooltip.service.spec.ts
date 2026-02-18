@@ -1,4 +1,4 @@
-import { TestBed, getTestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { TooltipService } from './tooltip.service';
 import { TooltipPosition } from '../core/types';
 
@@ -63,7 +63,6 @@ const tooltipPositions = {
   },
 };
 
-let injector: TestBed;
 let service: TooltipService;
 
 const sut = async (): Promise<void> => {
@@ -71,8 +70,7 @@ const sut = async (): Promise<void> => {
     providers: [TooltipService],
   });
 
-  injector = getTestBed();
-  service = injector.get(TooltipService);
+  service = TestBed.inject(TooltipService);
 };
 
 describe('TooltipService', () => {

@@ -76,7 +76,7 @@ describe('IonIconComponent', () => {
       );
 
       // Check individual styles instead of exact string match to be more robust
-      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
+      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.102)');
       expect(container.style.width).toBe(`${iconSizes.sm * 2}px`);
       expect(container.style.height).toBe(`${iconSizes.sm * 2}px`);
     });
@@ -94,7 +94,7 @@ describe('IonIconComponent', () => {
         '[data-testid="outside-container"]',
       );
 
-      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
+      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.102)');
       expect(container.style.width).toBe(`${iconSizes.sm * 2.5}px`);
       expect(container.style.height).toBe(`${iconSizes.sm * 2.5}px`);
     });
@@ -110,7 +110,7 @@ describe('IonIconComponent', () => {
         '[data-testid="outside-container"]',
       );
 
-      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.1)');
+      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.102)');
       expect(container.style.width).toBe(`${iconSizes.md * 2.25}px`);
       expect(container.style.height).toBe(`${iconSizes.md * 2.25}px`);
     });
@@ -126,7 +126,7 @@ describe('IonIconComponent', () => {
         '[data-testid="inner-container"]',
       );
 
-      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.25)');
+      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.251)');
       expect(container.style.width).toBe(`${iconSizes.sm * 1.75}px`);
       expect(container.style.height).toBe(`${iconSizes.sm * 1.75}px`);
     });
@@ -142,7 +142,7 @@ describe('IonIconComponent', () => {
         '[data-testid="inner-container"]',
       );
 
-      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.25)');
+      expect(container.style.backgroundColor).toBe('rgba(255, 0, 22, 0.251)');
       expect(container.style.width).toBe(`${iconSizes.md * 1.5}px`);
       expect(container.style.height).toBe(`${iconSizes.md * 1.5}px`);
     });

@@ -36,11 +36,11 @@ export class IonPopConfirmComponent {
       color: '#0858ce',
     },
     warning: {
-      type: 'information',
+      type: 'exclamation-solid',
       color: '#f9a915',
     },
     negative: {
-      type: 'information',
+      type: 'close-solid',
       color: '#d6293a',
     },
   }

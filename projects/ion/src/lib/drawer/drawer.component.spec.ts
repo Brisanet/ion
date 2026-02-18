@@ -106,7 +106,7 @@ describe('IonDrawerComponent', () => {
 
       const buttons = fixture.nativeElement.querySelectorAll('ion-button');
       const buttonLabels = Array.from(buttons).map((btn: any) =>
-        btn.getAttribute('ng-reflect-label')
+        btn.textContent.trim()
       );
 
       expect(buttonLabels).toContain('Submit');

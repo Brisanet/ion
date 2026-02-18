@@ -107,7 +107,7 @@ describe('ButtonComponent', () => {
       const icon = button.querySelector('ion-icon');
 
       expect(icon).toBeTruthy();
-      expect(icon.getAttribute('ng-reflect-type')).toBe('pencil');
+      expect(icon.querySelector('svg')).toHaveAttribute('id', 'ion-icon-pencil');
     });
 
     it('Right side icon', () => {

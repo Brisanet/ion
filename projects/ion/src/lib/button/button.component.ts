@@ -29,6 +29,9 @@ import { IonBadgeComponent } from '../badge/badge.component';
 ],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
+  host: {
+    '[attr.disabled]': 'disabled() || loading() ? true : null',
+  },
 })
 export class IonButtonComponent {
   label = input<string>();

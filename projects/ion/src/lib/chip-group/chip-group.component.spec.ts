@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, within } from '@testing-library/angular';
 import { SafeAny } from '../utils/safe-any';
 import { IonChipGroupComponent } from './chip-group.component';
 import { FormsModule } from '@angular/forms';
@@ -132,7 +132,9 @@ describe('ChipGroupComponent', () => {
     });
     const optionElement = screen.getByTestId(`chip-group-${chips[0].label}`);
     fireEvent.click(optionElement);
-    expect(optionElement).toHaveAttribute('ng-reflect-selected', 'true');
+    expect(within(optionElement).getByTestId('ion-chip')).toHaveClass(
+      'chip-selected',
+    );
   });
 
   it('should not select a chip when disabled', async () => {
@@ -148,7 +150,9 @@ describe('ChipGroupComponent', () => {
 
     const optionElement = screen.getByTestId(`chip-group-${chips[0].label}`);
     fireEvent.click(optionElement);
-    expect(optionElement).not.toHaveClass('chip-selected');
+    expect(within(optionElement).getByTestId('ion-chip')).not.toHaveClass(
+      'chip-selected',
+    );
   });
 });
 
@@ -191,6 +195,6 @@ describe('With Dropdown', () => {
     });
     fireEvent.click(screen.getByText('Chip 1'));
     fireEvent.click(document.body);
-    expect(screen.getByText('Chip 1')).not.toHaveClass('chip-selected');
+    expect(screen.getByTestId('ion-chip')).not.toHaveClass('chip-selected');
   });
 });
