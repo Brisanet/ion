@@ -17,6 +17,15 @@
 <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
   <h1>Ion Consumer App</h1>
 
+  <section>
+    <h2>Transfer List</h2>
+    <ion-transfer-list
+      [leftOptions]="transferLeftOptions"
+      [rightOptions]="transferRightOptions"
+      [searchable]="true"
+    ></ion-transfer-list>
+  </section>
+
   <div
     style="
       display: flex;

@@ -1,4 +1,6 @@
 import { Component, ViewChild, OnInit, inject, signal, TemplateRef } from '@angular/core';
+import { IonTransferListComponent } from '../../../../projects/ion/src/lib/transfer-list/transfer-list.component';
+import { DropdownItem } from '../../../../projects/ion/src/lib/core/types/dropdown';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -61,7 +63,7 @@ import {
   IonIndicatorComponent,
   IonIndicatorButtonType,
   IonSelectComponent,
-  DropdownItem,
+  DropdownItem as IonDropdownItem, // Renamed to avoid conflict with the new import
   BnFilterComponent,
   BnFormField,
   BnSelectFormField,
@@ -149,11 +151,11 @@ class ModalLongContentComponent {
     IonTripleToggleComponent,
     IonTableComponent,
     IonSwitchComponent,
+    IonTransferListComponent,
     IonPopoverDirective,
     IonPopConfirmDirective,
     IonNoDataComponent,
     IonSidebarComponent,
-    IonStepsComponent,
     IonStepsComponent,
     IonInputAreaComponent,
     IonSmartTableComponent,
@@ -187,6 +189,17 @@ export class AppComponent implements OnInit {
   private bnFormService = inject(BnFormService);
   private http = inject(HttpClient);
   title = 'ion-test-app';
+
+  public transferLeftOptions: DropdownItem[] = [
+    { label: 'Maçã', key: 'apple' },
+    { label: 'Banana', key: 'banana' },
+    { label: 'Uva', key: 'grape' },
+    { label: 'Laranja', key: 'orange' },
+  ];
+
+  public transferRightOptions: DropdownItem[] = [
+    { label: 'Morango', key: 'strawberry' },
+  ];
 
   filterFields = signal<BnFormField[]>([
     {

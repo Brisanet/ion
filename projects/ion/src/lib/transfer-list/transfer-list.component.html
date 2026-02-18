@@ -1,0 +1,109 @@
+<div class="ion-transfer-list" [class.ion-transfer-list--disabled]="disabled()" data-testid="ion-transfer-list">
+  <div class="ion-transfer-list__container" data-testid="left-container">
+    <div class="ion-transfer-list__header">
+      <span class="ion-transfer-list__title">{{ leftTitle() }}</span>
+    </div>
+    @if (searchable()) {
+      <div class="ion-transfer-list__search">
+        <ion-input
+          [placeholder]="'Buscar'"
+          (valueChange)="leftSearch.set($event)"
+          [disabled]="disabled()"
+        ></ion-input>
+      </div>
+    }
+    <div class="ion-transfer-list__list" data-testid="left-list">
+      @for (item of filteredLeftList(); track item.key || item.label) {
+        <div
+          class="ion-transfer-list__item"
+          [class.ion-transfer-list__item--selected]="leftSelected().includes(item)"
+          (click)="toggleLeftItem(item)"
+          [attr.data-testid]="'left-item-' + (item.key || item.label)"
+        >
+          <ion-checkbox
+            [state]="leftSelected().includes(item) ? 'checked' : 'enabled'"
+            [disabled]="disabled()"
+            (click)="$event.stopPropagation()"
+          ></ion-checkbox>
+          <span class="ion-transfer-list__item-label">{{ item.label }}</span>
+        </div>
+      } @empty {
+        <div class="ion-transfer-list__empty">Nenhum item encontrado</div>
+      }
+    </div>
+  </div>
+
+  <div class="ion-transfer-list__controls">
+      <ion-button
+        id="move-right-btn"
+        iconType="right2"
+        type="ghost"
+        size="sm"
+        [disabled]="disabled() || leftSelected().length === 0"
+        (ionOnClick)="moveToRight()"
+        data-testid="move-right-btn"
+      ></ion-button>
+      <ion-button
+        id="move-left-btn"
+        iconType="left2"
+        type="ghost"
+        size="sm"
+        [disabled]="disabled() || rightSelected().length === 0"
+        (ionOnClick)="moveToLeft()"
+        data-testid="move-left-btn"
+      ></ion-button>
+      <ion-button
+        id="move-all-right-btn"
+        iconType="right3"
+        type="ghost"
+        size="sm"
+        [disabled]="disabled() || leftList().length === 0"
+        (ionOnClick)="moveAllToRight()"
+        data-testid="move-all-right-btn"
+      ></ion-button>
+      <ion-button
+        id="move-all-left-btn"
+        iconType="left3"
+        type="ghost"
+        size="sm"
+        [disabled]="disabled() || rightList().length === 0"
+        (ionOnClick)="moveAllToLeft()"
+        data-testid="move-all-left-btn"
+      ></ion-button>
+  </div>
+
+  <div class="ion-transfer-list__container" data-testid="right-container">
+    <div class="ion-transfer-list__header">
+      <span class="ion-transfer-list__title">{{ rightTitle() }}</span>
+    </div>
+    @if (searchable()) {
+      <div class="ion-transfer-list__search">
+        <ion-input
+          [placeholder]="'Buscar'"
+          (valueChange)="rightSearch.set($event)"
+          [disabled]="disabled()"
+          data-testid="right-search-input"
+        ></ion-input>
+      </div>
+    }
+    <div class="ion-transfer-list__list" data-testid="right-list">
+      @for (item of filteredRightList(); track item.key || item.label) {
+        <div
+          class="ion-transfer-list__item"
+          [class.ion-transfer-list__item--selected]="rightSelected().includes(item)"
+          (click)="toggleRightItem(item)"
+          [attr.data-testid]="'right-item-' + (item.key || item.label)"
+        >
+          <ion-checkbox
+            [state]="rightSelected().includes(item) ? 'checked' : 'enabled'"
+            [disabled]="disabled()"
+            (click)="$event.stopPropagation()"
+          ></ion-checkbox>
+          <span class="ion-transfer-list__item-label">{{ item.label }}</span>
+        </div>
+      } @empty {
+        <div class="ion-transfer-list__empty">Nenhum item selecionado</div>
+      }
+    </div>
+  </div>
+</div>
