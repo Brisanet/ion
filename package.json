@@ -20,6 +20,10 @@
     "commit": "git-cz",
     "chromatic": "chromatic --project-token=CHROMATIC_PROJECT_TOKEN --exit-once-uploaded"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brisanet/ion"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~8.1.0",

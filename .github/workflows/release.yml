@@ -29,10 +29,11 @@ jobs:
       - name: 🏗️ Build
         run: yarn build
 
-      - name: 🟢 Node 20 (publish)
+      - name: 🟢 Node 24 (publish)
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24.x
+          registry-url: https://registry.npmjs.org
 
       - name: 🚀 Publish
         run: npm publish --provenance --access public
