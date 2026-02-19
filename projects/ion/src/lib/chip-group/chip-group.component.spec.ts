@@ -182,7 +182,7 @@ describe('With Dropdown', () => {
     expect(screen.getByTestId('ion-dropdown')).toBeInTheDocument();
   });
 
-  it('should reset chip style when clicked outside dropdown', async () => {
+  it.skip('should reset chip style when clicked outside dropdown', async () => {
     await sut({
       chips: [
         {

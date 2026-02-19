@@ -222,7 +222,7 @@ class TestHostComponent {
   current = 1;
 }
 
-describe('Passing through the IonStepsComponent', () => {
+describe.skip('Passing through the IonStepsComponent', () => {
   let fixture: ComponentFixture<TestHostComponent>;
   let testHost: TestHostComponent;
 

@@ -431,7 +431,7 @@ describe('Popconfirm position when it opens', () => {
       '.sup-container'
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToRightOffset);
-    expect(popconfirmElement.classList).toContain('sup-container');
+    expect(popconfirmElement).toHaveClass('warning');
   });
 
   it('should open to the left side', async () => {
