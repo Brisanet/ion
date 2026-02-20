@@ -26,6 +26,21 @@ const defaultValue: StepType[] = [
   },
 ];
 
+const clickableStepsMock: StepType[] = [
+  {
+    label: 'Step 1',
+    clickable: true,
+  },
+  {
+    label: 'Step 2',
+    clickable: true,
+  },
+  {
+    label: 'Step 3',
+    clickable: true,
+  },
+];
+
 const defaultProps: StepConfig = {
   current: 1,
   steps: defaultValue,
@@ -143,10 +158,9 @@ describe('Static IonStepsComponent', () => {
   );
   it('should go to step 3 when it be clicked', async () => {
     await sut({
-      clickable: true,
       disabled: false,
       current: 1,
-      steps: defaultValue,
+      steps: clickableStepsMock,
     });
     fireEvent.click(screen.getByTestId('step-3-default'));
     expect(screen.findByTestId('step-3-selected')).toBeTruthy();
@@ -167,11 +181,10 @@ describe('Static IonStepsComponent', () => {
   });
 
   it('should emit event when step 3 be clicked', async () => {
-    const steps: StepType[] = JSON.parse(JSON.stringify(defaultValue));
+    const steps: StepType[] = JSON.parse(JSON.stringify(clickableStepsMock));
     const indexChange = jest.fn();
     await sut({
       disabled: false,
-      clickable: true,
       current: 1,
       steps,
       indexChange: {
@@ -183,13 +196,12 @@ describe('Static IonStepsComponent', () => {
   });
 
   it('should not emit event when step 3 is disabled', async () => {
-    const steps: StepType[] = JSON.parse(JSON.stringify(defaultValue));
+    const steps: StepType[] = JSON.parse(JSON.stringify(clickableStepsMock));
     steps[2].disabled = true;
     const indexChange = jest.fn();
     await sut({
       disabled: false,
       current: 1,
-      clickable: true,
       steps,
       indexChange: {
         emit: indexChange,

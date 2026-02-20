@@ -21,15 +21,9 @@ export default {
     },
     steps: {
       name: 'steps',
-      type: { name: 'array' },
     },
     disabled: {
       name: 'disabled',
-      type: { name: 'boolean' },
-      defaultValue: false,
-    },
-    clickable: {
-      name: 'clickable',
       type: { name: 'boolean' },
       defaultValue: false,
     },
@@ -154,15 +148,15 @@ WithLongDescription.args = {
 
 export const PreventStepChange = Template.bind({});
 PreventStepChange.args = {
-  clickable: true,
   preventStepChange: true,
   steps: [
     {
       label: 'First',
       description: '(optional)',
+      clickable: true,
     },
-    { label: 'Second' },
-    { label: 'Third' },
+    { label: 'Second', clickable: true },
+    { label: 'Third', clickable: true },
   ],
 };
 
@@ -181,16 +175,16 @@ WithErrorInOtherStep.args = {
 
 export const WithStepClickableWhenHasError = Template.bind({});
 WithStepClickableWhenHasError.args = {
-  clickable: true,
   steps: [
     {
       label: 'First',
       description: '(optional)',
       status: 'error',
       clickableWhenHasError: true,
+      clickable: true,
     },
-    { label: 'Second', status: 'checked' },
-    { label: 'Third', status: 'selected' },
+    { label: 'Second', status: 'checked', clickable: true },
+    { label: 'Third', status: 'selected', clickable: true },
   ],
 };
 
