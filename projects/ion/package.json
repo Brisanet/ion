@@ -2,8 +2,9 @@
   "name": "ion",
   "version": "0.0.9",
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0"
+    "@angular/cdk": "^21.1.4",
+    "@angular/common": "^21.1.4",
+    "@angular/core": "^21.1.4"
   },
   "dependencies": {
     "tslib": "^2.3.0"
