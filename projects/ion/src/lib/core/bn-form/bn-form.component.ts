@@ -110,6 +110,7 @@ import { BnMaskDirective } from '../../mask/mask.directive';
                 [propLabel]="field.propLabel ?? 'label'"
                 [loading]="field.loading || false"
                 [value]="formGroup().get(field.key)?.value"
+                [returnFullObject]="field.returnFullObject ?? false"
                 [invalid]="
                   !!(
                     formGroup().get(field.key)?.invalid &&
