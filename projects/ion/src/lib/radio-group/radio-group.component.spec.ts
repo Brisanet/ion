@@ -1,11 +1,11 @@
-import { render, screen, fireEvent } from '@testing-library/angular';
-import { IonRadioGroupComponent } from './radio-group.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import userEvent from '@testing-library/user-event';
+import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { fireEvent, render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
 import { RadioOptions } from '../core/types/radio-group';
-import { NgModule, Component } from '@angular/core';
+import { IonRadioGroupComponent } from './radio-group.component';
 import { IonRadioGroupModule } from './radio-group.module';
 
 const radioGroupName = 'group';
@@ -97,7 +97,11 @@ describe('IonRadioGroup', () => {
 
     userEvent.click(firstOption);
     expect(spyEmit).toHaveBeenCalled();
-    expect(spyEmit).toHaveBeenCalledWith(options[0].value);
+    expect(spyEmit).toHaveBeenCalledWith({
+      label: options[0].label,
+      value: options[0].value,
+      groupName: radioGroupName,
+    });
   });
   it('should render option disabled', () => {
     rerender({ options: [{ ...options[0], disabled: true }] });
