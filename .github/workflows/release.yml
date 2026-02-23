@@ -1,0 +1,71 @@
+name: '🚀 release'
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: 🚀 release
+    runs-on: ubuntu-latest
+    environment: prod
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Node (build)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.19.6
+
+      - name: 📚 Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: 🏗️ Build
+        run: yarn build
+
+      - name: 🟢 Node (publish)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          registry-url: https://registry.npmjs.org
+
+      - name: 🏷️ Determine NPM Tag
+        id: tag-logic
+        run: |
+          TARGET_BRANCH="${{ github.event.release.target_commitish }}"
+
+          if [[ "$TARGET_BRANCH" == "main" ]]; then
+            echo "TAG=latest" >> $GITHUB_OUTPUT
+            echo "Branch main detectada. Usando tag: latest"
+          elif [[ "$TARGET_BRANCH" == "support/v19" ]]; then
+            echo "TAG=v19-lts" >> $GITHUB_OUTPUT
+            echo "Branch support/v19 detectada. Usando tag: v19-lts"
+          else
+            # Fallback de segurança para outras branches (ex: beta, RC)
+            echo "TAG=next" >> $GITHUB_OUTPUT
+            echo "Branch $TARGET_BRANCH detectada. Usando tag: next"
+          fi
+
+      - name: 🚀 Publish
+        run: npm publish --provenance --access public --tag ${{ steps.tag-logic.outputs.TAG }}
+        working-directory: dist/ion
+        env:
+          CI: true
+
+      - name: 📢 Send message to Google Chat
+        run: |
+          API_KEY="${{ secrets.GOOGLE_CHAT_API_KEY }}"
+          TOKEN="${{ secrets.GOOGLE_CHAT_TOKEN }}"
+          SPACE_ID="${{ secrets.SPACE_ID }}"
+          MESSAGE="🚀 Ion - Nova versão *${{ github.event.release.tag_name }}* publicada com sucesso na tag NPM \`${{ steps.tag-logic.outputs.TAG }}\`!"
+
+          curl -X POST \
+            -H "Content-Type: application/json; charset=UTF-8" \
+            -d "{\"text\": \"${MESSAGE}\"}" \
+            "https://chat.googleapis.com/v1/spaces/${SPACE_ID}/messages?key=${API_KEY}&token=${TOKEN}"
