@@ -30,7 +30,7 @@ jobs:
           npm ci
 
       - name: 🏗️ Build
-        run: yarn build
+        run: npm run build ion
 
       - name: 🟢 Node 24 (publish)
         uses: actions/setup-node@v4
