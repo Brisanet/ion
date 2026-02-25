@@ -18,16 +18,10 @@ jobs:
       - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🟢 Node (build)
+      - name: 🟢 Node 12 (build)
         uses: actions/setup-node@v4
         with:
           node-version: 20.19.6
-
-      - name: Debug OIDC Context
-        run: |
-          echo "Repository: $GITHUB_REPOSITORY"
-          echo "Ref: $GITHUB_REF"
-          echo "Workflow: $GITHUB_WORKFLOW"
 
       - name: 📚 Install packages
         run: |
@@ -36,33 +30,16 @@ jobs:
           npm ci
 
       - name: 🏗️ Build
-        run: npm run build ion
+        run: yarn build
 
-      - name: 🟢 Node (publish)
+      - name: 🟢 Node 24 (publish)
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 24.x
           registry-url: https://registry.npmjs.org
 
-      - name: 🏷️ Determine NPM Tag
-        id: tag-logic
-        run: |
-          TARGET_BRANCH="${{ github.event.release.target_commitish }}"
-
-          if [[ "$TARGET_BRANCH" == "main" ]]; then
-            echo "TAG=latest" >> $GITHUB_OUTPUT
-            echo "Branch main detectada. Usando tag: latest"
-          elif [[ "$TARGET_BRANCH" == "support/v19" ]]; then
-            echo "TAG=v19-lts" >> $GITHUB_OUTPUT
-            echo "Branch support/v19 detectada. Usando tag: v19-lts"
-          else
-            # Fallback de segurança para outras branches (ex: beta, RC)
-            echo "TAG=next" >> $GITHUB_OUTPUT
-            echo "Branch $TARGET_BRANCH detectada. Usando tag: next"
-          fi
-
       - name: 🚀 Publish
-        run: npm publish --provenance --access public --tag ${{ steps.tag-logic.outputs.TAG }}
+        run: npm publish --provenance --access public --tag v19-lts
         working-directory: dist/ion
         env:
           CI: true
@@ -72,7 +49,7 @@ jobs:
           API_KEY="${{ secrets.GOOGLE_CHAT_API_KEY }}"
           TOKEN="${{ secrets.GOOGLE_CHAT_TOKEN }}"
           SPACE_ID="${{ secrets.SPACE_ID }}"
-          MESSAGE="🚀 Ion - Nova versão *${{ github.event.release.tag_name }}* publicada com sucesso na tag NPM \`${{ steps.tag-logic.outputs.TAG }}\`!"
+          MESSAGE="Ion - Nova versão ${{ github.event.release.tag_name }} disponível!"
 
           curl -X POST \
             -H "Content-Type: application/json; charset=UTF-8" \
