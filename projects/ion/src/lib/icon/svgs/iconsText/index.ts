@@ -292,6 +292,7 @@ export { default as regions } from './regions';
 export { default as registrationList } from './registration-list';
 export { default as removeTelephone } from './remove-telephone';
 export { default as removeUser } from './remove-user';
+export { default as remove } from './remove';
 export { default as repeat } from './repeat';
 export { default as restore } from './restore';
 export { default as right } from './right';
