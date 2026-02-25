@@ -24,10 +24,13 @@ jobs:
           node-version: 20.19.6
 
       - name: 📚 Install packages
-        run: yarn install --frozen-lockfile
+        run: |
+          mkdir -p dist/ion
+          echo '{"name": "ion", "version": "0.0.0"}' > dist/ion/package.json
+          npm ci
 
       - name: 🏗️ Build
-        run: yarn build
+        run: npm run build
 
       - name: 🟢 Node (publish)
         uses: actions/setup-node@v4
