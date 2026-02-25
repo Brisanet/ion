@@ -1,6 +1,10 @@
 {
   "name": "@brisanet/ion",
   "version": "19.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Brisanet/ion.git"
+  },
   "peerDependencies": {
     "@angular/common": "^19.2.0",
     "@angular/core": "^19.2.0"
