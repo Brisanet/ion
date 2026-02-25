@@ -10,6 +10,10 @@
     "storybook": "ng run ion:storybook",
     "build-storybook": "ng run ion:build-storybook"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brisanet/ion"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^19.0.0",
