@@ -23,6 +23,12 @@ jobs:
         with:
           node-version: 20.19.6
 
+      - name: Debug OIDC Context
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Ref: $GITHUB_REF"
+          echo "Workflow: $GITHUB_WORKFLOW"
+
       - name: 📚 Install packages
         run: |
           mkdir -p dist/ion
