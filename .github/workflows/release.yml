@@ -30,7 +30,7 @@ jobs:
           npm ci
 
       - name: 🏗️ Build
-        run: npm run build
+        run: npm run build ion
 
       - name: 🟢 Node (publish)
         uses: actions/setup-node@v4
