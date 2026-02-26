@@ -30,10 +30,7 @@ jobs:
           echo "Workflow: $GITHUB_WORKFLOW"
 
       - name: 📚 Install packages
-        run: |
-          mkdir -p dist/ion
-          echo '{"name": "ion", "version": "0.0.0"}' > dist/ion/package.json
-          npm ci
+        run: npm ci
 
       - name: 🏗️ Build
         run: npm run build ion
