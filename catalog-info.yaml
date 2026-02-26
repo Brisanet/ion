@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ion
+  title: Ion Design System
+  description: Design System desenvolvido em Angular para implementação de componentes core de UI
+  links:
+    - url: https://github.com/Brisanet/ion
+      title: Repositório GitHub
+      icon: github
+      type: repository
+  annotations:
+    github.com/project-slug: Brisanet/ion
+spec:
+  type: library
+  lifecycle: production
+  owner: group:default/governanca
