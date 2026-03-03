@@ -1,0 +1,29 @@
+name: '🧪 pr-test'
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-and-build:
+    name: 🧪 test & 🏗️ build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟢 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.22.0
+
+      - name: 📚 Install packages
+        run: npm ci
+
+      - name: 🧪 Run tests
+        run: npm test
+
+      - name: 🏗️ Build
+        run: npm run build ion
