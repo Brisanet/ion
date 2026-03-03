@@ -1,6 +1,6 @@
 {
   "name": "ion",
-  "version": "0.0.9",
+  "version": "21.1.4",
   "peerDependencies": {
     "@angular/cdk": "^21.1.4",
     "@angular/common": "^21.1.4",

@@ -23,11 +23,17 @@ jobs:
         with:
           node-version: 22.22.0
 
+      - name: Debug OIDC Context
+        run: |
+          echo "Repository: $GITHUB_REPOSITORY"
+          echo "Ref: $GITHUB_REF"
+          echo "Workflow: $GITHUB_WORKFLOW"
+
       - name: 📚 Install packages
-        run: yarn install --frozen-lockfile
+        run: npm ci
 
       - name: 🏗️ Build
-        run: yarn build
+        run: npm run build ion
 
       - name: 🟢 Node 24 (publish)
         uses: actions/setup-node@v4
