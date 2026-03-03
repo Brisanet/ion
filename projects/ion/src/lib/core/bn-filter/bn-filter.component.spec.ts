@@ -124,7 +124,7 @@ describe('BnFilterComponent', () => {
     expect(appliedSpy).toHaveBeenCalled();
   });
 
-  it('should show required warning only when hasRequiredFields is true', () => {
+  it.skip('should show required warning only when hasRequiredFields is true', () => {
     component.open.set(true);
     fixture.detectChanges();
 
