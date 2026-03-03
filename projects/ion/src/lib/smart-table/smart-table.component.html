@@ -228,7 +228,9 @@
                     : (column.booleanText && column.booleanText.falsy) || 'Não'
                 }}
               </span>
-              <ng-container *ngIf="column.type === 'custom' && column.customTemplate">
+              <ng-container
+                *ngIf="column.type === 'custom' && column.customTemplate"
+              >
                 <ng-container
                   [ngTemplateOutlet]="column.customTemplate"
                   [ngTemplateOutletContext]="{ $implicit: row }"
@@ -360,11 +362,11 @@
                           PopoverTrigger.CLICK
                         "
                         (ionOnFirstAction)="
-                          action.call && handleEvent(row, action.call)
-                        "
-                        (ionOnSecondAction)="
                           action.secondCall &&
                             handleEvent(row, action.secondCall)
+                        "
+                        (ionOnSecondAction)="
+                          action.call && handleEvent(row, action.call)
                         "
                         [attr.data-testid]="'row-' + index + '-' + action.label"
                         type="ghost"
