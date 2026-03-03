@@ -1,5 +1,5 @@
 {
-  "name": "ion",
+  "name": "@brisanet/ion",
   "version": "21.1.4",
   "peerDependencies": {
     "@angular/cdk": "^21.1.4",
