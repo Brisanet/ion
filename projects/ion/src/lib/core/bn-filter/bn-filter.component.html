@@ -62,6 +62,7 @@
       <div class="actions">
         <ion-button
           label="Limpar"
+          data-testid="clear-button"
           type="ghost"
           iconType="trash"
           (click)="clear()"
@@ -69,6 +70,7 @@
         @if (open()) {
           <ion-button
             label="Aplicar"
+            data-testid="apply-button"
             type="primary"
             iconType="check"
             (click)="apply(true)"

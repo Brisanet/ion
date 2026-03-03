@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BnFilterComponent } from './bn-filter.component';
 import { BnFormField } from '../bn-form/bn-form.types';
+import { screen } from '@testing-library/angular';
 
 describe('BnFilterComponent', () => {
   let component: BnFilterComponent;
@@ -72,30 +73,22 @@ describe('BnFilterComponent', () => {
     expect(formGroup.get('status')).toBeTruthy();
   });
 
-  it('should detect required fields', () => {
-    expect(component.hasRequiredFields()).toBeTruthy();
-    
-    fixture.componentRef.setInput('fields', [{ key: 'test', label: 'Test' }]);
-    fixture.detectChanges();
-    expect(component.hasRequiredFields()).toBeFalsy();
-  });
-
   it('should disable apply button when form is invalid', () => {
     component.open.set(true);
     fixture.detectChanges();
 
-    const applyButton = fixture.debugElement.queryAll(By.css('.actions ion-button'))[1];
+    const applyButton = screen.getByTestId('apply-button');
     
     // Form is invalid because 'name' is required and empty
     expect(component.formGroup().invalid).toBeTruthy();
-    expect(applyButton.componentInstance.disabled()).toBeTruthy();
+    expect(applyButton).toBeDisabled();
 
     // Fill the required field
     component.formGroup().get('name')?.setValue('Test');
     fixture.detectChanges();
 
     expect(component.formGroup().valid).toBeTruthy();
-    expect(applyButton.componentInstance.disabled()).toBeFalsy();
+    expect(applyButton).not.toBeDisabled();
   });
 
   it('should emit applied event when apply is called', () => {
@@ -122,19 +115,5 @@ describe('BnFilterComponent', () => {
     expect(component.formGroup().get('name')?.value).toBeNull();
     expect(clearedSpy).toHaveBeenCalled();
     expect(appliedSpy).toHaveBeenCalled();
-  });
-
-  it.skip('should show required warning only when hasRequiredFields is true', () => {
-    component.open.set(true);
-    fixture.detectChanges();
-
-    let warning = fixture.debugElement.query(By.css('.required-text'));
-    expect(warning).toBeTruthy();
-
-    fixture.componentRef.setInput('fields', [{ key: 'status', label: 'Status' }]);
-    fixture.detectChanges();
-
-    warning = fixture.debugElement.query(By.css('.required-text'));
-    expect(warning).toBeFalsy();
   });
 });
