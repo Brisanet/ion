@@ -368,6 +368,13 @@
                         (ionOnSecondAction)="
                           action.call && handleEvent(row, action.call)
                         "
+                        (ionOnClose)="
+                          action.popover!(row)['ionOnClose']
+                            ? handleEventEmit(
+                                action.popover!(row)['ionOnClose']
+                              )
+                            : null
+                        "
                         [attr.data-testid]="'row-' + index + '-' + action.label"
                         type="ghost"
                         size="sm"
