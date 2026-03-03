@@ -2,8 +2,7 @@
   "name": "@brisanet/ion",
   "version": "21.1.4",
   "repository": {
-    "type": "git",
-    "url": "https://github.com/brisanet/ion"
+    "url": "https://github.com/Brisanet/ion"
   },
   "peerDependencies": {
     "@angular/cdk": "^21.1.4",

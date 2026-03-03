@@ -13,8 +13,7 @@
     "build-storybook": "ng run ion:build-storybook"
   },
   "repository": {
-    "type": "git",
-    "url": "https://github.com/brisanet/ion"
+    "url": "https://github.com/Brisanet/ion"
   },
   "private": true,
   "dependencies": {
