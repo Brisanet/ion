@@ -33,4 +33,30 @@ describe('IonDatePickerInputComponent', () => {
 
     expect(clearSpy).toHaveBeenCalled();
   });
+
+  it('should be disabled when disabled input is true', () => {
+    const fixture = TestBed.createComponent(IonDatePickerInputComponent);
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    const inputElement = screen.getByTestId('date-picker-input-element');
+    expect(inputElement).toHaveAttribute('ng-reflect-disabled', 'true');
+  });
+
+  it('should not emit clearDate when disabled', () => {
+    const fixture = TestBed.createComponent(IonDatePickerInputComponent);
+    fixture.componentRef.setInput('date', '2023-01-28');
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    const clearSpy = jest.fn();
+    fixture.componentRef.instance.clearDate.subscribe(clearSpy);
+
+    const clearButton = screen.queryByTestId('input-button');
+    if (clearButton) {
+      fireEvent.click(within(clearButton).getByRole('button'));
+    }
+
+    expect(clearSpy).not.toHaveBeenCalled();
+  });
 });

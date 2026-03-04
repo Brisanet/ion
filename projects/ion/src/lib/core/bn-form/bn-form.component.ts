@@ -94,6 +94,7 @@ import { BnMaskDirective } from '../../mask/mask.directive';
                 [rangePicker]="field.rangePicker ?? false"
                 [direction]="field.direction"
                 [disabledDate]="field.disabledDate"
+                [disabled]="isDisabled(field)"
                 [predefinedRanges]="field.predefinedRanges ?? []"
                 [value]="formGroup().get(field.key)?.value"
                 (event)="onValueChange(field.key, $event)"

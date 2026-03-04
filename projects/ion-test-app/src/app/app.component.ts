@@ -1189,6 +1189,13 @@ export class AppComponent implements OnInit {
       multiple: true,
     },
     {
+      key: 'data_abertura',
+      className: 'col-6',
+      type: 'datepicker',
+      label: 'Data de Abertura',
+      disabled: true,
+    },
+    {
       key: 'bio',
       className: 'col-12',
       type: 'input-area',

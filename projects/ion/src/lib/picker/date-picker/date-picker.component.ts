@@ -72,6 +72,7 @@ export class IonDatepickerComponent {
   >(undefined);
   goToMonth = signal<string | undefined>(undefined);
   goToYear = signal<string | undefined>(undefined);
+  disabled = input<boolean>(false);
 
   overlayPositions = computed<ConnectedPosition[]>(() => {
     const direction = String(
@@ -159,6 +160,9 @@ export class IonDatepickerComponent {
   }
 
   setVisibleCalendar(visible: boolean): void {
+    if (this.disabled()) {
+      return;
+    }
     this.showDatepicker.set(visible);
   }
 

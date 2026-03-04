@@ -4,6 +4,7 @@
   data-testid="container-input"
 >
   <ion-input
+    data-testid="date-picker-input-element"
     [value]="date() || ''"
     [placeholder]="placeholder()"
     [iconInput]="date() ? '' : 'calendar'"
@@ -11,6 +12,7 @@
     [inputButton]="!!date()"
     [inputButtonConfig]="clearButtonConfig"
     [readonly]="true"
+    [disabled]="disabled()"
     (clickButton)="clearDateValue()"
   ></ion-input>
 </div>
