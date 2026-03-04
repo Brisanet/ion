@@ -26,6 +26,7 @@ export class IonDatePickerInputComponent {
   rangePicker = input<boolean>(false);
   placeholder = input<string>('Selecione a data');
   clearDate = output<void>();
+  disabled = input<boolean>(false);
 
   public clearButtonConfig: IonButtonProps = {
     iconType: 'close-solid',
@@ -34,6 +35,7 @@ export class IonDatePickerInputComponent {
   };
 
   clearDateValue(): void {
+    if(this.disabled()) return;
     this.clearDate.emit();
   }
 }
