@@ -64,4 +64,31 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
       overlayContainerElement.querySelector('.container-calendar'),
     ).toBeFalsy();
   });
+
+  it('should not open overlay when disabled and clicked', () => {
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    const inputDebug = fixture.debugElement.query(By.css('date-picker-input'));
+    inputDebug.triggerEventHandler('click', null);
+    fixture.detectChanges();
+
+    const calendarContainer = overlayContainerElement.querySelector(
+      '.container-calendar',
+    );
+    expect(calendarContainer).toBeFalsy();
+  });
+
+  it('should not open overlay via setVisibleCalendar when disabled', () => {
+    fixture.componentRef.setInput('disabled', true);
+    fixture.detectChanges();
+
+    component.setVisibleCalendar(true);
+    fixture.detectChanges();
+
+    const calendarContainer = overlayContainerElement.querySelector(
+      '.container-calendar',
+    );
+    expect(calendarContainer).toBeFalsy();
+  });
 });
