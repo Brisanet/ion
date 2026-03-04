@@ -39,8 +39,8 @@ describe('IonDatePickerInputComponent', () => {
     fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
 
-    const inputElement = screen.getByTestId('date-picker-input-element');
-    expect(inputElement).toHaveAttribute('ng-reflect-disabled', 'true');
+    const inputElement = screen.getByTestId('input-div');
+    expect(inputElement).toHaveClass('disabled');
   });
 
   it('should not emit clearDate when disabled', () => {
