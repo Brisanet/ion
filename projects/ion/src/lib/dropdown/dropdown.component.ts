@@ -161,7 +161,9 @@ export class IonDropdownComponent implements AfterViewInit, OnDestroy {
 
     this.overlayRef = this.overlay.create({
       positionStrategy,
-      scrollStrategy: this.overlay.scrollStrategies.reposition(),
+      scrollStrategy: this.overlay.scrollStrategies.reposition({
+        autoClose: true,
+      }),
       hasBackdrop: false,
     });
 

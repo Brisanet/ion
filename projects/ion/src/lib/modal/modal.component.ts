@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { generateIDs } from '../utils';
 import { IonModalConfiguration, IonModalResponse } from '../core/types/modal';
 import { IonButtonComponent } from '../button/button.component';
@@ -43,7 +44,7 @@ const defaultModal: IonModalConfiguration = {
 @Component({
   selector: 'ion-modal',
   standalone: true,
-  imports: [CommonModule, IonButtonComponent, IonAlertComponent, IonIconComponent],
+  imports: [CommonModule, IonButtonComponent, IonAlertComponent, IonIconComponent, ScrollingModule],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
