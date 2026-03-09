@@ -128,6 +128,34 @@ To keep all supported versions in sync, especially for bug fixes, we use `git ch
 - `projects/ion`: The core Design System library.
 - `projects/ion-test-app`: A showcase and testing application for validating component integration.
 
+## 📋 Rules (.cursor/rules/)
+
+Regras que o Cursor AI segue automaticamente ao trabalhar no projeto.
+
+| Arquivo                  | Tipo          | Descrição                                                                         |
+| :----------------------- | :------------ | :-------------------------------------------------------------------------------- |
+| `ion-project.mdc`        | `alwaysApply` | Contexto do projeto: tech stack, estrutura, convenções, CI/CD                     |
+| `angular-components.mdc` | Dinâmica      | Padrões de componentes: `input()`, `output()`, signals, `OnPush`, host, templates |
+| `testing.mdc`            | Dinâmica      | Convenções de teste: Jest + Angular Testing Library, `setInput()`, DOM queries    |
+| `storybook.mdc`          | Dinâmica      | Padrões CSF3: `Meta`, `StoryObj`, `argTypes`, providers                           |
+| `styling.mdc`            | Dinâmica      | Design tokens SCSS, naming de classes, temas                                      |
+
+> **alwaysApply**: sempre ativa. **Dinâmica**: ativa apenas quando o Cursor detecta relevância pelo glob pattern.
+
+### 🛠️ Skills (.cursor/skills/)
+
+Workflows passo-a-passo invocáveis via `/create-component`, `/write-tests`, `/create-story`.
+
+| Skill              | Descrição                                                                             |
+| :----------------- | :------------------------------------------------------------------------------------ |
+| `create-component` | Scaffold completo: `.ts`, `.html`, `.scss`, `.spec.ts`, types, `public-api.ts`, story |
+| `write-tests`      | Guia para escrever testes cobrindo rendering, inputs, events, estados, a11y           |
+| `create-story`     | Criação de stories Storybook com variants e providers                                 |
+
+#### Como usar
+
+No Cursor IDE, as rules já são carregadas automaticamente. Para as skills, digite `/` no chat e selecione o skill desejado (ex: `/create-component`).
+
 ## 🤝 Contributing
 
 Ion is a vital organ of Brisanet's frontend ecosystem. Contributions are welcome! Please follow our internal coding standards and ensure all tests pass before submitting a pull request.
