@@ -132,7 +132,7 @@
     display: flex;
     align-items: center;
     background: ion-theme(input-background-color);
-    border-radius: ion-theme(input-border-radius);
+    border-radius: 8px;
     border: 1px solid ion-theme(neutral-7);
     width: 100%;
     box-sizing: border-box;
@@ -163,16 +163,16 @@
     border: none;
     outline: none;
     background: transparent;
-    padding: ion-theme(input-element-padding);
+    padding: 8px 12px;
     padding-right: spacing(4.5);
     color: ion-theme(neutral-7);
-    font-size: ion-theme(input-element-text-font-size);
+    font-size: 14px;
     font-family: inherit;
 
     &::placeholder {
-      color: ion-theme(input-element-placeholder-color);
-      font-weight: ion-theme(input-element-placeholder-text-font-weight);
-      font-size: ion-theme(input-element-placeholder-text-font-size);
+      color: ion-theme(neutral-5);
+      font-weight: 400;
+      font-size: 14px;
     }
   }
 }
