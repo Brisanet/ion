@@ -336,6 +336,7 @@ export class AppComponent implements OnInit {
               options: this.optionsMock.projectOptions,
               className: 'col-6',
               placeholder: 'Selecione um projeto',
+              enableSearch: true,
             },
             {
               key: 'centerOriginId',
