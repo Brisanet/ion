@@ -146,7 +146,7 @@
 
     &:focus-within {
       border-color: ion-theme(input-element-active-border-color);
-      box-shadow: 0 0 0 2px ion-theme(input-element-active-shadow-color);
+      box-shadow: 0 0 0 2px ion-theme(primary-2);
     }
 
     ion-icon {
