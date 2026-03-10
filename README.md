@@ -10,11 +10,11 @@ Built with **Angular**, Ion leverages modern features like **Signals** and **Sta
 
 We maintain support for multiple Angular versions to ensure compatibility across all internal projects:
 
-| Branch       | Angular Version | Status              |
-| :----------- | :-------------- | :------------------ |
-| `main`       | v21             | **Active (Stable)** |
-| `support/19` | v19             | Maintenance         |
-| `support/8`  | v8              | Legacy              |
+| Branch        | Angular Version | Status              |
+| :------------ | :-------------- | :------------------ |
+| `main`        | v21             | **Active (Stable)** |
+| `support/v19` | v19             | Maintenance         |
+| `support/v8`  | v8              | Legacy              |
 
 > [!IMPORTANT]
 > When starting a new project, always check which version of Angular you are using and pull the corresponding branch.
@@ -106,7 +106,7 @@ To keep all supported versions in sync, especially for bug fixes, we use `git ch
     ```
 2.  **Switch to the target maintenance branch**:
     ```bash
-    git checkout support/19
+    git checkout support/v19
     ```
 3.  **Apply the change using cherry-pick**:
     ```bash
@@ -120,7 +120,7 @@ To keep all supported versions in sync, especially for bug fixes, we use `git ch
     ```
 5.  **Push the changes**:
     ```bash
-    git push origin support/19
+    git push origin support/v19
     ```
 
 ## 🧱 Project Structure
