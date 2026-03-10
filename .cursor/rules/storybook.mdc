@@ -1,0 +1,66 @@
+---
+description: Storybook story authoring conventions for Ion components.
+globs: projects/ion/src/stories/**/*.stories.ts, projects/ion/**/*.stories.ts
+alwaysApply: false
+---
+
+# Storybook Rules
+
+## Framework
+
+- **Storybook 10** with `@storybook/angular`
+- Stories live in `projects/ion/src/stories/` or alongside components
+
+## Story Format
+
+Use CSF3 (Component Story Format 3) with `Meta` and `StoryObj`:
+
+```typescript
+import type { Meta, StoryObj } from '@storybook/angular';
+import { IonMyComponent } from '../lib/my/my.component';
+
+const meta: Meta<IonMyComponent> = {
+  title: 'Components/MyComponent',
+  component: IonMyComponent,
+  tags: ['autodocs'],
+  argTypes: {
+    ionOnClick: { action: 'clicked' },
+  },
+};
+
+export default meta;
+
+export const Default: StoryObj<IonMyComponent> = {
+  args: {
+    label: 'Click me',
+    type: 'primary',
+  },
+};
+
+export const Disabled: StoryObj<IonMyComponent> = {
+  args: {
+    label: 'Disabled',
+    disabled: true,
+  },
+};
+```
+
+## Providing Services
+
+If the component depends on services, use `applicationConfig`:
+
+```typescript
+render: (args) => ({
+  props: args,
+  applicationConfig: {
+    providers: [MyService],
+  },
+}),
+```
+
+## Running Storybook
+
+```bash
+npm run storybook        # Start dev server on port 6006
+npm run build-storybook  # Build static site to dist/storybook/ion
+```

@@ -1,0 +1,63 @@
+---
+description: Ion Design System - project context and conventions. Always active for all files in this repository.
+globs:
+alwaysApply: true
+---
+
+# Ion Design System — Project Context
+
+You are working on **Ion**, the official Angular-based Design System for **Brisanet**.
+This is a **library workspace** (`projectType: "library"`) published as `@brisanet/ion` on npm.
+
+## Tech Stack
+
+- **Angular** v21 (standalone components are the default — do NOT set `standalone: true`)
+- **TypeScript** 5.9 with strict mode
+- **SCSS** for component styles with a theme system under `projects/ion/src/styles/`
+- **Angular CDK** (`@angular/cdk`) for overlays, portals, and scroll strategies
+- **ng-packagr** for library builds
+- **Jest** 30 + `jest-preset-angular` for unit testing
+- **Angular Testing Library** (`@testing-library/angular`) for integration-style tests
+- **Storybook** 10 with `@storybook/angular` for component documentation
+- **Prettier** (single quotes, auto end-of-line)
+- **EditorConfig** (2-space indent, UTF-8)
+
+## Project Structure
+
+```
+projects/
+  ion/                          # The core library
+    src/
+      lib/                      # All component directories
+        <component-name>/       # One folder per component
+          <name>.component.ts
+          <name>.component.html
+          <name>.component.scss
+          <name>.component.spec.ts
+          _<name>.theme.scss    # Optional theme file
+        core/
+          types/                # Shared TypeScript interfaces/types
+          bn-filter/            # Business components prefixed `bn-`
+        utils/                  # Shared utility functions
+      styles/                   # Global design tokens (colors, fonts, shadows, z-indexes, themes)
+      stories/                  # Storybook stories
+      public-api.ts             # Library barrel file — all public exports
+    ng-package.json
+  ion-test-app/                 # Showcase / integration test app
+```
+
+## Key Conventions
+
+- All components are **standalone** (do NOT add `standalone: true` — it's default in Angular v21+)
+- Component selector prefix: `ion-` (e.g. `ion-button`, `ion-card`)
+- Component class naming: `Ion<Name>Component` (e.g. `IonButtonComponent`)
+- Service class naming: `Ion<Name>Service` or descriptive name (e.g. `IonModalService`, `TooltipService`)
+- Directive class naming: `Ion<Name>Directive` (e.g. `IonTooltipDirective`)
+- Type definitions live in `projects/ion/src/lib/core/types/<component>.ts`
+- Every new public component/directive/service MUST be exported from `projects/ion/src/public-api.ts`
+
+## CI/CD
+
+- **PR tests**: GitHub Actions runs `npm test` + `npm run build ion` on every PR to `main`
+- **Release**: Triggered on GitHub Release publish; builds and publishes to npm with provenance
+- **Node version**: 22.22.0 for builds
