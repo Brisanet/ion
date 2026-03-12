@@ -151,6 +151,7 @@ describe('Time by words', () => {
         ...defaultNotification,
         // "word" -> 1 word. 1/3 = 0.33. + 1 = 1.33s -> 1000ms.
         message: 'word',
+        title: '',
         fixed: false,
       },
       on: {

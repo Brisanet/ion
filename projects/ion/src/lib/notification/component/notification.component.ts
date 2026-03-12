@@ -108,6 +108,13 @@ export class IonNotificationComponent implements OnInit, OnDestroy {
   }
 
   private _getMessageToCheck(): string {
+    if (!this.title()) {
+      return this.message();
+    }
+    if (!this.message()) {
+      return this.title();
+    }
+
     return `${this.title()} ${this.message()}`;
   }
 
