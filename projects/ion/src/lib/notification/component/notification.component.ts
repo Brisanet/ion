@@ -92,7 +92,7 @@ export class IonNotificationComponent implements OnInit, OnDestroy {
     if (this.fixed() || !this.pauseOnHover() || this.isClosing) {
       return;
     }
-    const timeToClose = this.timeByWords(this.message());
+    const timeToClose = this.timeByWords(this._getMessageToCheck());
     this.autoCloseTimer = setTimeout(() => {
       this.closeNotification();
     }, timeToClose);
@@ -100,11 +100,15 @@ export class IonNotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (!this.fixed()) {
-      const timeToClose = this.timeByWords(this.message());
+      const timeToClose = this.timeByWords(this._getMessageToCheck());
       this.autoCloseTimer = setTimeout(() => {
         this.closeNotification();
       }, timeToClose);
     }
+  }
+
+  private _getMessageToCheck(): string {
+    return `${this.title()} ${this.message()}`;
   }
 
   ngOnDestroy(): void {
