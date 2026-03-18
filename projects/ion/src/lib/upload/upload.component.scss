@@ -1,0 +1,217 @@
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.upload-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px dashed #8d93a5;
+  border-radius: 8px;
+  background-color: #fcfcfd;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+
+  &:hover:not(.upload-dropzone--disabled) {
+    border-color: #0858ce;
+    background-color: #f0f5ff;
+  }
+
+  &--dragging {
+    border-color: #0858ce;
+    background-color: #f0f5ff;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--has-file {
+    background-color: #ebf3fe;
+    border-color: #aeb2bd;
+    border-width: 1.5px;
+    cursor: default;
+
+    &:hover:not(.upload-dropzone--disabled) {
+      background-color: #ebf3fe;
+      border-color: #aeb2bd;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 48px #505566;
+    border-radius: 50%;
+
+    // Simpler approach
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 0 0 transparent;
+    border: 1px solid transparent;
+    background-color: #505566;
+    padding: 12px;
+    border-radius: 50%;
+
+    ion-icon {
+      color: white;
+    }
+  }
+
+  &__text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #505566;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__link {
+    color: #0858ce;
+  }
+
+  &__file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    ion-icon {
+      color: #aeb2bd;
+    }
+  }
+
+  &__file-name {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #aeb2bd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+  }
+
+  &__hint {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #505566;
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.upload-hidden-input {
+  display: none;
+}
+
+.upload-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &__line {
+    flex: 1;
+    height: 1px;
+    background-color: #ced2db;
+  }
+
+  &__text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #505566;
+    white-space: nowrap;
+  }
+}
+
+.upload-url {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__label {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #505566;
+  }
+
+  &__input-group {
+    display: flex;
+    align-items: stretch;
+  }
+
+  &__input {
+    flex: 1;
+    padding: 6px 12px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    color: #282b33;
+    background-color: #fcfcfd;
+    border: 1px solid #aeb2bd;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    outline: none;
+    min-width: 0;
+
+    &::placeholder {
+      color: #aeb2bd;
+    }
+
+    &:focus {
+      border-color: #0858ce;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &__button {
+    padding: 6px 12px;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #0858ce;
+    background-color: #fcfcfd;
+    border: 1px solid #aeb2bd;
+    border-radius: 0 8px 8px 0;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+
+    &:hover:not(:disabled) {
+      background-color: #f0f5ff;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
