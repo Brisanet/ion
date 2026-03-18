@@ -295,8 +295,7 @@
                             action.popover(row)['ionPopoverTrigger'] ||
                             PopoverTrigger.CLICK
                           "
-                          (ionOnFirstAction)="handleEvent(row, action.call!)"
-                          (ionOnSecondAction)="
+                          (ionOnFirstAction)="
                             action.secondCall
                               ? handleEvent(row, action.secondCall)
                               : null
