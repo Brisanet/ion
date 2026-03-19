@@ -182,8 +182,8 @@
                             TooltipPosition.TOP_CENTER
                           "
                           [ionTooltipArrowPointAtCenter]="
-                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
-                            false
+                            action.tooltipConfig
+                              ?.ionTooltipArrowPointAtCenter || false
                           "
                           [ionTooltipColorScheme]="
                             action.tooltipConfig?.ionTooltipColorScheme ||
@@ -245,8 +245,8 @@
                             TooltipPosition.TOP_CENTER
                           "
                           [ionTooltipArrowPointAtCenter]="
-                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
-                            false
+                            action.tooltipConfig
+                              ?.ionTooltipArrowPointAtCenter || false
                           "
                           [ionTooltipColorScheme]="
                             action.tooltipConfig?.ionTooltipColorScheme ||
@@ -271,7 +271,9 @@
                           [ionPopoverActions]="
                             action.popover(row)['ionPopoverActions']
                           "
-                          [ionPopoverIcon]="action.popover(row)['ionPopoverIcon']"
+                          [ionPopoverIcon]="
+                            action.popover(row)['ionPopoverIcon']
+                          "
                           [ionPopoverIconClose]="
                             action.popover(row)['ionPopoverIconClose']
                           "
@@ -279,7 +281,9 @@
                             action.popover(row)['ionPopoverPosition'] ||
                             PopoverPosition.BOTTOM_RIGHT
                           "
-                          [ionPopoverKeep]="action.popover(row)['ionPopoverKeep']"
+                          [ionPopoverKeep]="
+                            action.popover(row)['ionPopoverKeep']
+                          "
                           [ionPopoverStopCloseOnScroll]="
                             action.popover(row)['ionPopoverStopCloseOnScroll']
                           "
@@ -291,13 +295,25 @@
                             action.popover(row)['ionPopoverTrigger'] ||
                             PopoverTrigger.CLICK
                           "
-                          (ionOnFirstAction)="handleEvent(row, action.call!)"
-                          (ionOnSecondAction)="
+
+                          (ionOnFirstAction)="
                             action.secondCall
                               ? handleEvent(row, action.secondCall)
                               : null
                           "
-                          [attr.data-testid]="'row-' + index + '-' + action.label"
+                          (ionOnSecondAction)="
+                            action.call ? handleEvent(row, action.call) : null
+                          "
+                          (ionOnClose)="
+                            action.popover!(row)['ionOnClose']
+                              ? handleEventEmit(
+                                  action.popover!(row)['ionOnClose']
+                                )
+                              : null
+                          "
+                          [attr.data-testid]="
+                            'row-' + index + '-' + action.label
+                          "
                           type="ghost"
                           size="sm"
                           [danger]="!!action.danger"
@@ -333,8 +349,8 @@
                             TooltipPosition.TOP_CENTER
                           "
                           [ionTooltipArrowPointAtCenter]="
-                            action.tooltipConfig?.ionTooltipArrowPointAtCenter ||
-                            false
+                            action.tooltipConfig
+                              ?.ionTooltipArrowPointAtCenter || false
                           "
                           [ionTooltipColorScheme]="
                             action.tooltipConfig?.ionTooltipColorScheme ||

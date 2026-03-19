@@ -4,6 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { CheckBoxEvent, CheckBoxStates, StateChange } from '../core/types';
 import { PageEvent } from '../core/types/pagination';
 import { ActionTable, BaseRow, Column, ConfigTable } from '../table/utils';
+import { SafeAny } from './safe-any';
 
 export const DISABLED_COLOR = 'var(--ion-neutral-4)';
 export const ENABLED_COLOR = 'var(--ion-primary-6)';
@@ -98,6 +99,12 @@ export abstract class BaseTable<
   public handleEvent(row: RowType, action: (row: RowType) => void): void {
     if (action) {
       action(row);
+    }
+  }
+
+  public handleEventEmit(action: EventEmitter<void>): void {
+    if (action) {
+      action.emit();
     }
   }
 
