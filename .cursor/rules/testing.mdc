@@ -1,0 +1,101 @@
+---
+description: Testing conventions for Ion Design System using Jest and Angular Testing Library.
+globs: projects/ion/**/*.spec.ts
+alwaysApply: false
+---
+
+# Testing Rules
+
+## Framework
+
+- **Jest 30** with `jest-preset-angular`
+- **Angular Testing Library** (`@testing-library/angular`) available for integration-style tests
+- **`@testing-library/jest-dom`** matchers are globally available (e.g. `toHaveAttribute`)
+
+## Test File Location
+
+- Test files live alongside their component: `<name>.component.spec.ts`
+- Test match pattern: `projects/ion/**/*.spec.ts`
+
+## Test Setup Pattern
+
+```typescript
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonMyComponent } from './my.component';
+
+describe('MyComponent', () => {
+  let component: IonMyComponent;
+  let fixture: ComponentFixture<IonMyComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [IonMyComponent], // standalone component goes in imports
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(IonMyComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+```
+
+## Setting Inputs
+
+- Use `fixture.componentRef.setInput('inputName', value)` — NOT direct property assignment
+- Always call `fixture.detectChanges()` after setting inputs
+
+```typescript
+fixture.componentRef.setInput('label', 'Click me');
+fixture.componentRef.setInput('disabled', true);
+fixture.detectChanges();
+```
+
+## Querying DOM
+
+- Use `fixture.nativeElement.querySelector()` for DOM queries
+- Use `data-testid` attributes for reliable selectors: `[data-testid="btn-myId"]`
+- For overlay/portal components (dropdown, modal, tooltip), query from `document.body`
+
+## Event Testing
+
+- Use `jest.fn()` for spy functions
+- Subscribe to component outputs for event testing
+- Call `.click()` on native elements to trigger events
+
+```typescript
+const clickSpy = jest.fn();
+component.ionOnClick.subscribe(clickSpy);
+fixture.detectChanges();
+
+const button = fixture.nativeElement.querySelector('button');
+button.click();
+
+expect(clickSpy).toHaveBeenCalled();
+```
+
+## Iteration Tests
+
+- Use `.forEach()` to test multiple variants (types, sizes, states):
+
+```typescript
+const types = ['primary', 'secondary', 'ghost', 'dashed'];
+types.forEach((type) => {
+  it(`should render type: ${type}`, () => {
+    fixture.componentRef.setInput('type', type);
+    fixture.detectChanges();
+    const el = fixture.nativeElement.querySelector('button');
+    expect(el.classList.contains(`ion-btn-${type}`)).toBe(true);
+  });
+});
+```
+
+## Running Tests
+
+```bash
+npm test                          # Run all tests
+npx jest --testPathPattern=button # Run specific tests
+npx jest --coverage               # With coverage report
+```

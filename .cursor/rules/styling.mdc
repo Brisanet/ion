@@ -1,0 +1,40 @@
+---
+description: SCSS styling conventions and design tokens for Ion.
+globs: projects/ion/**/*.scss
+alwaysApply: false
+---
+
+# Styling Rules
+
+## Language
+
+- Use **SCSS** for all component styles
+- Component styles: `<name>.component.scss` (external file, referenced via `styleUrls`)
+- Theme files: `_<name>.theme.scss` (partial, imported by the theme system)
+
+## Design Tokens
+
+Design tokens are defined under `projects/ion/src/styles/`:
+
+| Token Category | Location                      |
+| -------------- | ----------------------------- |
+| Colors         | `styles/colors/colors.scss`   |
+| Fonts          | `styles/fonts/index.scss`     |
+| Shadows        | `styles/shadows/index.scss`   |
+| Z-indexes      | `styles/z-indexes/index.scss` |
+| Themes         | `styles/themes/index.scss`    |
+| Overlays       | `styles/_overlays.scss`       |
+
+Always use existing design tokens instead of hardcoding values.
+
+## CSS Class Naming
+
+- Component variant classes: `ion-btn-primary`, `ion-btn-secondary`
+- Size classes: `ion-btn-sm`, `ion-btn-md`, `ion-btn-lg`, `ion-btn-xl`
+- State classes: `danger`, `loading`, `right-side-icon`
+
+## Theming
+
+- Theme variables are defined in `styles/themes/`
+- Components should use CSS custom properties (variables) from the theme
+- Support light/dark themes through the existing theme infrastructure

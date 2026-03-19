@@ -20,7 +20,6 @@
 }
 
 .container-options {
-  position: absolute;
   z-index: $zIndexLow;
   display: flex;
   flex-direction: column;
@@ -133,8 +132,8 @@
     display: flex;
     align-items: center;
     background: ion-theme(input-background-color);
-    border-radius: ion-theme(input-border-radius);
-    border: 1px solid ion-theme(input-element-border-color);
+    border-radius: 8px;
+    border: 1px solid ion-theme(neutral-7);
     width: 100%;
     box-sizing: border-box;
     transition:
@@ -142,19 +141,19 @@
       box-shadow 0.2s;
 
     &:hover {
-      border-color: ion-theme(input-element-hover-border-color);
+      border-color: ion-theme(primary-4);
     }
 
     &:focus-within {
       border-color: ion-theme(input-element-active-border-color);
-      box-shadow: 0 0 0 2px ion-theme(input-element-active-shadow-color);
+      box-shadow: 0 0 0 2px ion-theme(primary-2);
     }
 
     ion-icon {
       position: absolute;
       right: spacing(1.5);
       ::ng-deep svg {
-        fill: ion-theme(input-icon-color);
+        fill: ion-theme(neutral-6);
       }
     }
   }
@@ -164,16 +163,16 @@
     border: none;
     outline: none;
     background: transparent;
-    padding: ion-theme(input-element-padding);
+    padding: 8px 12px;
     padding-right: spacing(4.5);
-    color: ion-theme(input-element-text-color);
-    font-size: ion-theme(input-element-text-font-size);
+    color: ion-theme(neutral-7);
+    font-size: 14px;
     font-family: inherit;
 
     &::placeholder {
-      color: ion-theme(input-element-placeholder-color);
-      font-weight: ion-theme(input-element-placeholder-text-font-weight);
-      font-size: ion-theme(input-element-placeholder-text-font-size);
+      color: ion-theme(neutral-5);
+      font-weight: 400;
+      font-size: 14px;
     }
   }
 }

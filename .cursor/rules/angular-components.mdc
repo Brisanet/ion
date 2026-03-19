@@ -1,0 +1,70 @@
+---
+description: Angular component authoring rules for Ion Design System.
+globs: projects/ion/src/lib/**/*.component.ts, projects/ion/src/lib/**/*.directive.ts
+alwaysApply: false
+---
+
+# Angular Component & Directive Rules
+
+## Component Decorator
+
+- Set `changeDetection: ChangeDetectionStrategy.OnPush` in every `@Component`
+- Do NOT set `standalone: true` — it's default in Angular v21+
+- Use `templateUrl` and `styleUrls` for components with more than a few lines of template
+- Use inline `template` only for very small components (< ~10 lines of HTML)
+- Use relative paths for templateUrl/styleUrls: `'./button.component.html'`
+
+## Inputs & Outputs
+
+- Use `input()` signal function instead of `@Input()` decorator
+- Use `output()` signal function instead of `@Output()` decorator
+- Type inputs explicitly: `label = input<string>()`
+- Provide defaults where sensible: `type = input<Type>('primary')`
+- Use `input.required<T>()` when the value must be provided
+
+## State Management
+
+- Use `signal()` for mutable component state
+- Use `computed()` for derived state
+- Use `effect()` for reactions to signal changes
+- Update signals with `.set()` or `.update()` — NEVER use `.mutate()`
+
+## Host Bindings
+
+- Do NOT use `@HostBinding` or `@HostListener` decorators
+- Use the `host` property in the decorator instead:
+
+```typescript
+@Component({
+  host: {
+    '[attr.disabled]': 'disabled() ? true : null',
+    '(click)': 'onClick()',
+  },
+})
+```
+
+## Templates
+
+- Use native control flow: `@if`, `@for`, `@switch` — NEVER `*ngIf`, `*ngFor`, `*ngSwitch`
+- Use `[class.name]` bindings instead of `ngClass`
+- Use `[style.prop]` bindings instead of `ngStyle`
+- Use `[attr.data-testid]` for test selectors following pattern: `'btn-' + (label() || id())`
+- Do NOT write arrow functions in templates
+- Do NOT call `new Date()` or other globals directly in templates
+
+## Forms
+
+- Prefer Reactive Forms over Template-driven forms
+- Import `ReactiveFormsModule` or individual form directives as needed
+
+## Accessibility
+
+- Must pass all AXE checks and WCAG AA requirements
+- Include proper ARIA attributes where semantics are insufficient
+- Manage focus for overlays, modals, dropdowns, and tooltips
+
+## Services
+
+- Use `providedIn: 'root'` for singleton services
+- Use `inject()` function instead of constructor injection
+- Design services around a single responsibility
