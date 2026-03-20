@@ -21,6 +21,7 @@ import { IonSelectComponent } from '../../select/select.component';
 import {
   IonInputAreaComponent,
 } from '../../input-area/input-area.component';
+import { IonUploadComponent } from '../../upload/upload.component';
 import {
   BnFormField,
   BnInputFormField,
@@ -29,6 +30,7 @@ import {
   BnDatePickerFormField,
   BnSelectFormField,
   BnInputAreaFormField,
+  BnUploadFormField,
 } from './bn-form.types';
 import { IonIconComponent } from '../../icon/icon.component';
 import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
@@ -45,6 +47,7 @@ import { BnMaskDirective } from '../../mask/mask.directive';
     IonDatepickerComponent,
     IonSelectComponent,
     IonInputAreaComponent,
+    IonUploadComponent,
     IonIconComponent,
     IonTooltipDirective,
     BnMaskDirective
@@ -157,6 +160,17 @@ import { BnMaskDirective } from '../../mask/mask.directive';
                 [value]="formGroup().get(field.key)?.value"
                 (valueChange)="onValueChange(field.key, $event)"
               ></ion-input-area>
+            } @else if (isUpload(field)) {
+              <ion-upload
+                [accept]="field.accept ?? ''"
+                [acceptLabel]="field.acceptLabel ?? ''"
+                [showUrlImport]="field.showUrlImport ?? false"
+                [urlPlaceholder]="field.urlPlaceholder ?? 'Placeholder'"
+                [disabled]="isDisabled(field)"
+                (fileChange)="onValueChange(field.key, $event)"
+                (fileRemove)="onValueChange(field.key, null)"
+                (urlImport)="field.onImportUrl ? field.onImportUrl($event) : onValueChange(field.key, $event)"
+              ></ion-upload>
             }
           </div>
         }
@@ -432,5 +446,9 @@ export class BnFormComponent implements OnInit {
 
   isInputArea(field: BnFormField): field is BnInputAreaFormField {
     return field.type === 'input-area';
+  }
+
+  isUpload(field: BnFormField): field is BnUploadFormField {
+    return field.type === 'upload';
   }
 }

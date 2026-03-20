@@ -1153,6 +1153,15 @@ export class AppComponent implements OnInit {
       validators: [Validators.minLength(3)],
     },
     {
+      key: 'arquivo',
+      label: 'Arquivo',
+      type: 'upload',
+      accept: '.csv',
+      acceptLabel: 'Apenas arquivos CSV',
+      urlPlaceholder: 'https://...',
+      onImportUrl: (url) => console.log(url),
+    },
+    {
       key: 'sobrenome',
       className: 'col-6',
       type: 'text',

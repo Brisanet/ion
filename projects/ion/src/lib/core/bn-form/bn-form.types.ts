@@ -18,7 +18,8 @@ export type BnFormFieldType =
   | 'switch'
   | 'datepicker'
   | 'select'
-  | 'input-area';
+  | 'input-area'
+  | 'upload';
 
 export interface BnBaseFormField {
   key: string;
@@ -106,13 +107,23 @@ export interface BnInputAreaFormField extends BnBaseFormField {
   rows?: string;
 }
 
+export interface BnUploadFormField extends BnBaseFormField {
+  type: 'upload';
+  accept?: string;
+  acceptLabel?: string;
+  showUrlImport?: boolean;
+  urlPlaceholder?: string;
+  onImportUrl?: (url: string) => void;
+}
+
 export type BnFormField =
   | BnInputFormField
   | BnTripleToggleFormField
   | BnSwitchFormField
   | BnDatePickerFormField
   | BnSelectFormField
-  | BnInputAreaFormField;
+  | BnInputAreaFormField
+  | BnUploadFormField;
 
 export interface BnFormConfig {
   fields: BnFormField[];

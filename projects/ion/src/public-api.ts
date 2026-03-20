@@ -69,6 +69,7 @@ export * from './lib/core/bn-filter/bn-filter.component';
 export * from './lib/core/bn-form/bn-form.component';
 export * from './lib/core/bn-form/bn-form.service';
 export * from './lib/core/bn-form/bn-form.types';
+export * from './lib/upload/upload.component';
 export * from './lib/core/bn-wizard/bn-wizard.component';
 export * from './lib/core/bn-wizard/bn-wizard.types';
 export * from './lib/core/bn-about/bn-about.component';

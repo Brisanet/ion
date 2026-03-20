@@ -1,0 +1,134 @@
+@import '../../styles/themes/theme.scss';
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.upload-dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  border: 1px dashed ion-theme(neutral-6);
+  border-radius: 8px;
+  background-color: ion-theme(neutral-1);
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+
+  &:hover:not(.upload-dropzone--disabled) {
+    border-color: ion-theme(primary-6);
+    background-color: ion-theme(primary-1);
+  }
+
+  &--dragging {
+    border-color: ion-theme(primary-6);
+    background-color: ion-theme(primary-1);
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &--has-file {
+    background-color: ion-theme(primary-1);
+    border: 1px dashed ion-theme(neutral-6);
+    cursor: default;
+
+    &:hover:not(.upload-dropzone--disabled) {
+      background-color: ion-theme(primary-1);
+      border-color: ion-theme(neutral-6);
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: ion-theme(neutral-7);
+    padding: 12px;
+    border-radius: 50%;
+
+    ion-icon {
+      color: ion-theme(base);
+    }
+  }
+
+  &__text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: ion-theme(neutral-7);
+    text-align: center;
+    margin: 0;
+  }
+
+  &__link {
+    color: ion-theme(primary-6);
+  }
+
+  &__file {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__file-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    ion-icon {
+      color: ion-theme(neutral-5);
+    }
+  }
+
+  &__file-name {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: ion-theme(neutral-5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 400px;
+  }
+
+  &__hint {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: ion-theme(neutral-7);
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.upload-hidden-input {
+  display: none;
+}
+
+.upload-url {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__label {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: ion-theme(neutral-7);
+  }
+}

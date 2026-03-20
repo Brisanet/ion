@@ -1,0 +1,69 @@
+<div class="upload-container">
+  <div
+    class="upload-dropzone"
+    [class.upload-dropzone--dragging]="isDragging()"
+    [class.upload-dropzone--disabled]="disabled()"
+    [class.upload-dropzone--has-file]="selectedFile()"
+    (click)="!selectedFile() && openFileDialog()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    @if (selectedFile()) {
+      <div class="upload-dropzone__file">
+        <div class="upload-dropzone__file-info">
+          <ion-icon type="doc" [size]="24"></ion-icon>
+          <span class="upload-dropzone__file-name">{{ selectedFile()!.name }}</span>
+        </div>
+        <ion-button
+          iconType="trash"
+          type="ghost"
+          size="sm"
+          (ionOnClick)="removeFile()"
+          (click)="$event.stopPropagation()"
+          [danger]="true"
+        />
+      </div>
+    } @else {
+      <div class="upload-dropzone__content">
+        <div class="upload-dropzone__icon">
+          <ion-icon type="upload" [size]="24"></ion-icon>
+        </div>
+        <p class="upload-dropzone__text">
+          <span class="upload-dropzone__link">Clique para adicionar</span>
+          um arquivo ou arraste e solte-o aqui
+        </p>
+        @if (acceptLabel()) {
+          <p class="upload-dropzone__hint">{{ acceptLabel() }}</p>
+        }
+      </div>
+    }
+  </div>
+
+  <input
+    #fileInput
+    type="file"
+    [accept]="accept()"
+    [disabled]="disabled()"
+    (change)="onFileSelected($event)"
+    class="upload-hidden-input"
+  />
+
+  @if (showUrlImport()) {
+    <ion-divider type="text" label="ou" direction="horizontal"></ion-divider>
+
+    <div class="upload-url">
+      <label class="upload-url__label">Importar de uma URL</label>
+      <ion-input
+        [placeholder]="urlPlaceholder()"
+        [disabled]="disabled()"
+        [value]="urlValue()"
+        [inputButton]="true"
+        (valueChange)="setUrlValue($event)"
+        (clickButton)="onUrlImport()"
+        [inputButtonConfig]="{ label: 'Importar', type: 'secondary' }"
+        data-testid="upload-url-input"
+      ></ion-input>
+    </div>
+  }
+</div>
