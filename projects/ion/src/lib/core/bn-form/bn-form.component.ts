@@ -164,10 +164,11 @@ import { BnMaskDirective } from '../../mask/mask.directive';
               <ion-upload
                 [accept]="field.accept ?? ''"
                 [acceptLabel]="field.acceptLabel ?? ''"
-                [showUrlImport]="field.showUrlImport ?? true"
+                [showUrlImport]="field.showUrlImport ?? false"
                 [urlPlaceholder]="field.urlPlaceholder ?? 'Placeholder'"
                 [disabled]="isDisabled(field)"
                 (fileChange)="onValueChange(field.key, $event)"
+                (fileRemove)="onValueChange(field.key, null)"
                 (urlImport)="field.onImportUrl ? field.onImportUrl($event) : onValueChange(field.key, $event)"
               ></ion-upload>
             }

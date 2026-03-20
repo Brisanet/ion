@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 # Development
-npm start                    # Serve ion-test-app
+npm run dev                  # Serve ion-test-app
 npm run storybook            # Start Storybook on port 6006
 
 # Building
@@ -19,8 +19,8 @@ npm run build-storybook      # Build Storybook static site to dist/storybook/ion
 
 # Testing
 npm test                     # Run all Jest tests
-npx jest --testPathPattern=button  # Run tests matching a pattern
-npx jest --coverage          # Run with coverage report
+npx jest --testPathPatterns=button  # Run tests matching a pattern
+npm run test:coverage          # Run with coverage report
 ```
 
 ## Project Structure

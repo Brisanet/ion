@@ -20,6 +20,7 @@
           type="ghost"
           size="sm"
           (ionOnClick)="removeFile()"
+          (click)="$event.stopPropagation()"
           [danger]="true"
         />
       </div>
@@ -49,32 +50,20 @@
   />
 
   @if (showUrlImport()) {
-    <div class="upload-divider">
-      <div class="upload-divider__line"></div>
-      <span class="upload-divider__text">ou</span>
-      <div class="upload-divider__line"></div>
-    </div>
+    <ion-divider type="text" label="ou" direction="horizontal"></ion-divider>
 
     <div class="upload-url">
       <label class="upload-url__label">Importar de uma URL</label>
-      <div class="upload-url__input-group">
-        <input
-          class="upload-url__input"
-          type="text"
-          [placeholder]="urlPlaceholder()"
-          [disabled]="disabled()"
-          [ngModel]="urlValue()"
-          (ngModelChange)="setUrlValue($event)"
-        />
-        <button
-          class="upload-url__button"
-          type="button"
-          [disabled]="disabled()"
-          (click)="onUrlImport()"
-        >
-          Importar
-        </button>
-      </div>
+      <ion-input
+        [placeholder]="urlPlaceholder()"
+        [disabled]="disabled()"
+        [value]="urlValue()"
+        [inputButton]="true"
+        (valueChange)="setUrlValue($event)"
+        (clickButton)="onUrlImport()"
+        [inputButtonConfig]="{ label: 'Importar', type: 'secondary' }"
+        data-testid="upload-url-input"
+      ></ion-input>
     </div>
   }
 </div>

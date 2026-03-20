@@ -13,6 +13,7 @@ This skill guides the full process of creating a new component for the Ion Desig
 ## Step 0 — Understand the requirement
 
 Before writing any code, clarify:
+
 - What does this component do?
 - What are its inputs (configuration)? What events does it emit?
 - Does a similar or overlapping component already exist in the DS? If so, consider extending or composing it instead.
@@ -27,35 +28,35 @@ This is the most critical step. For every piece of UI the new component needs to
 
 ### Native HTML → Ion Component mapping
 
-| Instead of this... | Use this Ion component |
-|---|---|
-| `<input type="text">`, `<input type="number">`, `<input type="password">`, `<input type="url">`, `<input type="email">` | `<ion-input>` |
-| `<textarea>` | `<ion-input-area>` |
-| `<input type="number">` with stepper | `<ion-input-counter>` |
-| `<button>`, `<a>` (as action) | `<ion-button>` |
-| `<a>` (navigational link) | `<ion-link>` |
-| `<select>` / `<option>` | `<ion-select>` |
-| `<input type="checkbox">` | `<ion-checkbox>` |
-| `<input type="radio">` | `<ion-radio>` / `<ion-radio-group>` |
-| Icon (svg, img, font icon) | `<ion-icon>` |
-| Loading indicator / spinner | `<ion-spinner>` |
-| Tooltip on hover | `[ionTooltip]` directive |
-| Popover | `[ionPopover]` directive |
-| Confirm-before-action popup | `[ionPopConfirm]` directive |
-| Status badge / counter bubble | `<ion-badge>` |
-| Colored label / pill | `<ion-tag>` |
-| Horizontal rule / visual separator | `<ion-divider>` |
-| Skeleton / loading placeholder | `<ion-skeleton>` |
-| Alert / inline message | `<ion-alert>` |
-| Informational message block | `<ion-message>` |
-| User avatar / initials circle | `<ion-avatar>` |
-| Info icon with description | `<ion-info-badge>` |
-| Breadcrumb trail | `<ion-breadcrumb>` |
-| Step progress indicator | `<ion-step>` |
-| Toggle / on-off switch | `<ion-switch>` |
-| Chip / filter tag | `<ion-chip>` / `<ion-chip-group>` |
-| Dropdown menu | `<ion-dropdown>` |
-| Notification indicator | `<ion-indicator>` |
+| Instead of this...                                                                                                      | Use this Ion component              |
+| ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| `<input type="text">`, `<input type="number">`, `<input type="password">`, `<input type="url">`, `<input type="email">` | `<ion-input>`                       |
+| `<textarea>`                                                                                                            | `<ion-input-area>`                  |
+| `<input type="number">` with stepper                                                                                    | `<ion-input-counter>`               |
+| `<button>`, `<a>` (as action)                                                                                           | `<ion-button>`                      |
+| `<a>` (navigational link)                                                                                               | `<ion-link>`                        |
+| `<select>` / `<option>`                                                                                                 | `<ion-select>`                      |
+| `<input type="checkbox">`                                                                                               | `<ion-checkbox>`                    |
+| `<input type="radio">`                                                                                                  | `<ion-radio>` / `<ion-radio-group>` |
+| Icon (svg, img, font icon)                                                                                              | `<ion-icon>`                        |
+| Loading indicator / spinner                                                                                             | `<ion-spinner>`                     |
+| Tooltip on hover                                                                                                        | `[ionTooltip]` directive            |
+| Popover                                                                                                                 | `[ionPopover]` directive            |
+| Confirm-before-action popup                                                                                             | `[ionPopConfirm]` directive         |
+| Status badge / counter bubble                                                                                           | `<ion-badge>`                       |
+| Colored label / pill                                                                                                    | `<ion-tag>`                         |
+| Horizontal rule / visual separator                                                                                      | `<ion-divider>`                     |
+| Skeleton / loading placeholder                                                                                          | `<ion-skeleton>`                    |
+| Alert / inline message                                                                                                  | `<ion-alert>`                       |
+| Informational message block                                                                                             | `<ion-message>`                     |
+| User avatar / initials circle                                                                                           | `<ion-avatar>`                      |
+| Info icon with description                                                                                              | `<ion-info-badge>`                  |
+| Breadcrumb trail                                                                                                        | `<ion-breadcrumb>`                  |
+| Step progress indicator                                                                                                 | `<ion-step>`                        |
+| Toggle / on-off switch                                                                                                  | `<ion-switch>`                      |
+| Chip / filter tag                                                                                                       | `<ion-chip>` / `<ion-chip-group>`   |
+| Dropdown menu                                                                                                           | `<ion-dropdown>`                    |
+| Notification indicator                                                                                                  | `<ion-indicator>`                   |
 
 > **Rule:** If you find yourself writing a native `<input>`, `<button>`, `<select>`, or `<textarea>` in a template, stop and check this table first. The only exception is when the Ion component genuinely cannot cover the specific requirement — and in that case, leave a comment explaining why.
 
@@ -109,6 +110,7 @@ export class Ion<Name>Component {
 ```
 
 Key rules:
+
 - No `standalone: true` — Angular v21 makes it the default
 - Always `ChangeDetectionStrategy.OnPush`
 - Always `input()` / `output()` — never `@Input()` / `@Output()`
@@ -120,18 +122,16 @@ Key rules:
 ```html
 <!-- Use @if / @for / @switch — NOT *ngIf / *ngFor -->
 @if (disabled()) {
-  <ion-icon type="lock"></ion-icon>
-}
-
-@for (item of items(); track item.id) {
-  <ion-chip [label]="item.label"></ion-chip>
+<ion-icon type="lock"></ion-icon>
+} @for (item of items(); track item.id) {
+<ion-chip [label]="item.label"></ion-chip>
 }
 
 <!-- Use [class.name] — NOT ngClass -->
 <div [class.active]="isActive()">
-
-<!-- Always add data-testid for test targeting -->
-<ion-button [attr.data-testid]="'btn-' + id()"></ion-button>
+  <!-- Always add data-testid for test targeting -->
+  <ion-button [attr.data-testid]="'btn-' + id()"></ion-button>
+</div>
 ```
 
 ### SCSS conventions
@@ -139,18 +139,20 @@ Key rules:
 ```scss
 // Reference the global design tokens — never hardcode colors, sizes, or shadows
 @import '../../styles/index.scss'; // gives access to all tokens
+@import '../../styles/themes/theme.scss';
 
-.ion-<name> {
+.ion-<name > {
   // Use CSS variables from the theme
-  background: var(--ion-color-neutral-1);
-  color: var(--ion-color-dark-4);
-  border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-sm);
+  background: ion-theme(neutral-1);
+  color: ion-theme(dark-4);
+  border-radius: ion-theme(border-radius-sm);
+  box-shadow: ion-theme(shadow-sm);
 }
 ```
 
 Never hardcode:
-- Colors → use `variables/colors/` or `var(--ion-color-*)` CSS variables
+
+- Colors → use `variables/colors/` or `ion-theme(ion-color-*)` CSS variables
 - Typography → use `styles/fonts/` tokens
 - Shadows → use `var(--shadow-*)` tokens
 - Z-indexes → use `var(--z-index-*)` tokens
@@ -206,6 +208,7 @@ describe('Ion<Name>Component', () => {
 ```
 
 For overlay/portal components (modals, tooltips, dropdowns):
+
 ```typescript
 // Query from document.body instead of fixture.nativeElement
 const overlay = document.body.querySelector('[data-testid="my-overlay"]');
@@ -244,9 +247,10 @@ export const Default: Story = {
 
 ## Practical example: Upload component with URL input
 
-A user asks: *"Create an upload component with a text field for entering a URL and a submit button."*
+A user asks: _"Create an upload component with a text field for entering a URL and a submit button."_
 
 **Wrong approach (native HTML):**
+
 ```html
 <div>
   <input type="url" placeholder="Enter URL" />
@@ -255,25 +259,16 @@ A user asks: *"Create an upload component with a text field for entering a URL a
 ```
 
 **Correct approach (using Ion components):**
+
 ```typescript
 // Component class
-imports: [IonInputComponent, IonButtonComponent]
+imports: [IonInputComponent, IonButtonComponent];
 ```
 
 ```html
 <div class="ion-upload">
-  <ion-input
-    [placeholder]="'Enter URL'"
-    [inputType]="'url'"
-    (ionOnInput)="onUrlChange($event)"
-    [attr.data-testid]="'upload-url-input'"
-  ></ion-input>
-  <ion-button
-    label="Upload"
-    type="primary"
-    (ionOnClick)="onSubmit()"
-    [attr.data-testid]="'upload-submit-btn'"
-  ></ion-button>
+  <ion-input [placeholder]="'Enter URL'" [inputType]="'url'" (ionOnInput)="onUrlChange($event)" [attr.data-testid]="'upload-url-input'"></ion-input>
+  <ion-button label="Upload" type="primary" (ionOnClick)="onSubmit()" [attr.data-testid]="'upload-submit-btn'"></ion-button>
 </div>
 ```
 
