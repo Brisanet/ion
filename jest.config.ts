@@ -11,6 +11,7 @@ const config: Config = {
     '!projects/ion/src/**/*.spec.ts',
     '!projects/ion/src/public-api.ts',
   ],
+  coverageReporters: ['html', 'text', 'lcov'],
   moduleNameMapper: {
     '^ion$': '<rootDir>/projects/ion/src/public-api.ts',
   },

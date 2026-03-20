@@ -388,7 +388,6 @@ export class BnFormComponent implements OnInit {
   }
 
   onValueChange(key: string, value: any): void {
-    console.log(key, value)
     const control = this.formGroup().get(key);
     if (control && control.value !== value) {
       control.setValue(value);
