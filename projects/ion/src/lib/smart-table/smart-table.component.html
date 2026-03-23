@@ -399,11 +399,18 @@
                               PopoverTrigger.CLICK
                             "
                             (ionOnFirstAction)="
-                              action.call && handleEvent(row, action.call)
-                            "
-                            (ionOnSecondAction)="
                               action.secondCall &&
                                 handleEvent(row, action.secondCall)
+                            "
+                            (ionOnSecondAction)="
+                              action.call && handleEvent(row, action.call)
+                            "
+                            (ionOnClose)="
+                              action.popover!(row)['ionOnClose']
+                                ? handleEventEmit(
+                                    action.popover!(row)['ionOnClose']
+                                  )
+                                : null
                             "
                             [attr.data-testid]="
                               'row-' + index + '-' + action.label

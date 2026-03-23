@@ -343,6 +343,7 @@ export class AppComponent implements OnInit {
               options: this.optionsMock.projectOptions,
               className: 'col-6',
               placeholder: 'Selecione um projeto',
+              enableSearch: true,
             },
             {
               key: 'centerOriginId',
@@ -1164,7 +1165,6 @@ export class AppComponent implements OnInit {
       type: 'upload',
       accept: '.csv',
       acceptLabel: 'Apenas arquivos CSV',
-      showUrlImport: true,
       urlPlaceholder: 'https://...',
       onImportUrl: (url) => console.log(url),
     },

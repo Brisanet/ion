@@ -1,9 +1,7 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   input,
-  OnInit,
   Output,
   Type,
   ViewChild,
@@ -13,7 +11,7 @@ import {
   ComponentRef,
   effect,
 } from '@angular/core';
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { generateIDs } from '../utils';
 import { IonModalConfiguration, IonModalResponse } from '../core/types/modal';
 import { IonButtonComponent } from '../button/button.component';
@@ -42,7 +40,12 @@ const defaultModal: IonModalConfiguration = {
 @Component({
   selector: 'ion-modal',
   standalone: true,
-  imports: [IonButtonComponent, IonAlertComponent, IonIconComponent],
+  imports: [
+    IonButtonComponent,
+    IonAlertComponent,
+    IonIconComponent,
+    ScrollingModule,
+  ],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

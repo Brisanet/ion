@@ -151,6 +151,7 @@ describe('Time by words', () => {
         ...defaultNotification,
         // "word" -> 1 word. 1/3 = 0.33. + 1 = 1.33s -> 1000ms.
         message: 'word',
+        title: '',
         fixed: false,
       },
       on: {
@@ -159,6 +160,42 @@ describe('Time by words', () => {
     });
 
     jest.advanceTimersByTime(2500); // 1000ms delay + 1000ms animation + buffer
+    expect(ionOnCloseSpy).toHaveBeenCalled();
+  });
+
+  it('should emit close event when only title is passed', async () => {
+    const ionOnCloseSpy = jest.fn();
+    await render(IonNotificationComponent, {
+      componentInputs: {
+        title: 'Notification Title',
+        message: '',
+        fixed: false,
+      },
+      on: {
+        ionOnClose: ionOnCloseSpy,
+      },
+    });
+
+    // "Notification Title" -> 2 words. 2/3 = 0.66. + 1 = 1.66s -> 2000ms.
+    jest.advanceTimersByTime(3500); // 2000ms delay + 1000ms animation + buffer
+    expect(ionOnCloseSpy).toHaveBeenCalled();
+  });
+
+  it('should emit close event when title and message are passed', async () => {
+    const ionOnCloseSpy = jest.fn();
+    await render(IonNotificationComponent, {
+      componentInputs: {
+        title: 'Title',
+        message: 'This is a message',
+        fixed: false,
+      },
+      on: {
+        ionOnClose: ionOnCloseSpy,
+      },
+    });
+
+    // "Title This is a message" -> 5 words. 5/3 = 1.66. + 1 = 2.66s -> 3000ms.
+    jest.advanceTimersByTime(4500); // 3000ms delay + 1000ms animation + buffer
     expect(ionOnCloseSpy).toHaveBeenCalled();
   });
 });

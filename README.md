@@ -1,59 +1,165 @@
-# IonDs
+![Ion Design System](./projects/ion-test-app/public/capa.svg)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.0.
+# Ion Design System
 
-## Development server
+Ion is the official **Design System** for **Brisanet**, providing a suite of high-quality components and patterns to ensure consistency, accessibility, and high performance across all our frontend projects.
 
-To start a local development server, run:
+Built with **Angular**, Ion leverages modern features like **Signals** and **Standalone Components** to offer a developer-friendly experience and scalable architecture.
 
-```bash
-ng serve
-```
+## 📌 Version Support
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+We maintain support for multiple Angular versions to ensure compatibility across all internal projects:
 
-## Code scaffolding
+| Branch        | Angular Version | Status              |
+| :------------ | :-------------- | :------------------ |
+| `main`        | v21             | **Active (Stable)** |
+| `support/v19` | v19             | Maintenance         |
+| `support/v8`  | v8              | Legacy              |
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+> [!IMPORTANT]
+> When starting a new project, always check which version of Angular you are using and pull the corresponding branch.
 
-```bash
-ng generate component component-name
-```
+## 🚀 Key Features
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- 💎 **Universal Consistency**: Unified design language for the entire organization.
+- ⚡ **High Performance**: Optimized with Angular Signals and `ChangeDetectionStrategy.OnPush`.
+- 🎨 **Flexible**: Easily customizable themes and styles.
+- 📚 **Interactive Documentation**: Integrated with Storybook for component exploration.
+- 🛠️ **Robust Testing**: Fully tested using Jest and Angular Testing Library.
 
-```bash
-ng generate --help
-```
+## 📦 Installation
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+To use Ion in your project, install the package from our internal registry:
 
 ```bash
-ng test
+npm install @brisanet/ion
 ```
 
-## Running end-to-end tests
+## 📖 Usage
 
-For end-to-end (e2e) testing, run:
+Import the components directly into your standalone components:
+
+```typescript
+import { IonButtonComponent } from '@brisanet/ion';
+
+@Component({
+  selector: 'app-my-component',
+  imports: [IonButtonComponent],
+  template: ` <ion-button label="Click Me" (ionOnClick)="handleClick()"></ion-button> `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class MyComponent {
+  handleClick() {
+    console.log('Button clicked!');
+  }
+}
+```
+
+## 🛠️ Development
+
+### Local Setup
+
+Clone the repository and install dependencies:
 
 ```bash
-ng e2e
+git clone https://github.com/Brisanet/ion.git
+cd ion
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Storybook
 
-## Additional Resources
+To explore and develop components in isolation:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm run storybook
+```
+
+### Testing
+
+Run the test suite using Jest:
+
+```bash
+npm test
+```
+
+### Building
+
+To build the library:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/ion` directory.
+
+## 🔄 Maintenance & Synchronization (Cherry-pick)
+
+To keep all supported versions in sync, especially for bug fixes, we use `git cherry-pick`.
+
+### How to propagate a change:
+
+1.  **Commit the change to `main` (with PR, obviously)**:
+    Ensure your change is merged and tested in the `main` branch. Note the **Commit Hash**.
+    ```bash
+    git log --oneline
+    ```
+2.  **Switch to the target maintenance branch**:
+    ```bash
+    git checkout support/v19
+    ```
+3.  **Apply the change using cherry-pick**:
+    ```bash
+    git cherry-pick -x <commit-hash>
+    ```
+4.  **Resolve conflicts (if any)**:
+    Since different Angular versions might have structural differences, conflicts may occur. Resolve them, then:
+    ```bash
+    git add .
+    git cherry-pick --continue
+    ```
+5.  **Push the changes**:
+    ```bash
+    git push origin support/v19
+    ```
+
+## 🧱 Project Structure
+
+- `projects/ion`: The core Design System library.
+- `projects/ion-test-app`: A showcase and testing application for validating component integration.
+
+## 📋 Rules (.cursor/rules/)
+
+Regras que o Cursor AI segue automaticamente ao trabalhar no projeto.
+
+| Arquivo                  | Tipo          | Descrição                                                                         |
+| :----------------------- | :------------ | :-------------------------------------------------------------------------------- |
+| `ion-project.mdc`        | `alwaysApply` | Contexto do projeto: tech stack, estrutura, convenções, CI/CD                     |
+| `angular-components.mdc` | Dinâmica      | Padrões de componentes: `input()`, `output()`, signals, `OnPush`, host, templates |
+| `testing.mdc`            | Dinâmica      | Convenções de teste: Jest + Angular Testing Library, `setInput()`, DOM queries    |
+| `storybook.mdc`          | Dinâmica      | Padrões CSF3: `Meta`, `StoryObj`, `argTypes`, providers                           |
+| `styling.mdc`            | Dinâmica      | Design tokens SCSS, naming de classes, temas                                      |
+
+> **alwaysApply**: sempre ativa. **Dinâmica**: ativa apenas quando o Cursor detecta relevância pelo glob pattern.
+
+### 🛠️ Skills (.cursor/skills/)
+
+Workflows passo-a-passo invocáveis via `/create-component`, `/write-tests`, `/create-story`.
+
+| Skill              | Descrição                                                                             |
+| :----------------- | :------------------------------------------------------------------------------------ |
+| `create-component` | Scaffold completo: `.ts`, `.html`, `.scss`, `.spec.ts`, types, `public-api.ts`, story |
+| `write-tests`      | Guia para escrever testes cobrindo rendering, inputs, events, estados, a11y           |
+| `create-story`     | Criação de stories Storybook com variants e providers                                 |
+
+#### Como usar
+
+No Cursor IDE, as rules já são carregadas automaticamente. Para as skills, digite `/` no chat e selecione o skill desejado (ex: `/create-component`).
+
+## 🤝 Contributing
+
+Ion is a vital organ of Brisanet's frontend ecosystem. Contributions are welcome! Please follow our internal coding standards and ensure all tests pass before submitting a pull request.
+
+---
+
+Made with ❤️ by the **Brisanet** Frontend Team.

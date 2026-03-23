@@ -4,20 +4,21 @@
 
 textarea {
   width: 100%;
+  box-sizing: border-box;
   color: ion-theme(input-area-text-color);
   border: 1px solid ion-theme(input-area-border-color);
   border-radius: ion-theme(input-area-border-radius);
   background-color: ion-theme(input-area-background-color);
   padding: spacing(1.3) spacing(1.5);
+  font-size: 14px;
   resize: none;
   outline: none;
   cursor: text;
-  overflow-y: auto;
+  font-family: 'Source Sans Pro';
 
   &::placeholder {
-    color: ion-theme(input-area-placeholder-text-color);
-    font-weight: ion-theme(input-area-placeholder-text-font-weight);
-    font-size: ion-theme(input-area-placeholder-text-font-size);
+    color: ion-theme(neutral-5);
+    font-style: normal;
   }
 
   &:hover {

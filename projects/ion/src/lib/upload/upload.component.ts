@@ -7,14 +7,19 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonButtonComponent } from '../button/button.component';
+import { IonInputComponent } from '../input/input.component';
+import { IonDividerComponent } from '../divider/divider.component';
 
 @Component({
   selector: 'ion-upload',
-  standalone: true,
-  imports: [FormsModule, IonIconComponent, IonButtonComponent],
+  imports: [
+    IonIconComponent,
+    IonButtonComponent,
+    IonInputComponent,
+    IonDividerComponent,
+  ],
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,11 +27,12 @@ import { IonButtonComponent } from '../button/button.component';
 export class IonUploadComponent {
   accept = input<string>('');
   acceptLabel = input<string>('');
-  showUrlImport = input<boolean>(true);
+  showUrlImport = input<boolean>(false);
   urlPlaceholder = input<string>('Placeholder');
   disabled = input<boolean>(false);
 
   fileChange = output<File>();
+  fileRemove = output<void>();
   urlImport = output<string>();
 
   isDragging = signal(false);
@@ -52,6 +58,7 @@ export class IonUploadComponent {
 
   removeFile(): void {
     this.selectedFile.set(null);
+    this.fileRemove.emit();
   }
 
   onDragOver(event: DragEvent): void {
