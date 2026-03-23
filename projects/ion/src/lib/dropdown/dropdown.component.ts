@@ -104,7 +104,7 @@ export class IonDropdownComponent implements AfterViewInit, OnDestroy {
           this.multiple() &&
           showClearButton &&
           !this.required() &&
-          !this.loading()
+          !this.loading(),
       );
     });
 
@@ -117,7 +117,7 @@ export class IonDropdownComponent implements AfterViewInit, OnDestroy {
           (this.required() && this.dropdownSelectedItems().length > 1));
 
       this.canDeselect.set(
-        isSingleSelectionAllowed || isMultipleSelectionAllowed
+        isSingleSelectionAllowed || isMultipleSelectionAllowed,
       );
     });
 

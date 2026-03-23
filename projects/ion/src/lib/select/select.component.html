@@ -12,19 +12,19 @@
     data-testid="ion-select"
   >
     @if (dropdownSelectedItems().length === 0) {
-    <span class="placeholder">{{ placeholder() }}</span>
+      <span class="placeholder">{{ placeholder() }}</span>
     } @else {
-    <div class="selected-value">
-      @for (item of dropdownSelectedItems(); track $index) {
-      <ion-chip
-        [label]="item[propLabel()] || item.label"
-        icon="close"
-        iconPosition="right"
-        (events)="handleChipEvents(item)"
-        [disabled]="disabled()"
-      ></ion-chip>
-      }
-    </div>
+      <div class="selected-value">
+        @for (item of dropdownSelectedItems(); track $index) {
+          <ion-chip
+            [label]="item[propLabel()] || item.label"
+            icon="close"
+            iconPosition="right"
+            (events)="handleChipEvents(item)"
+            [disabled]="disabled()"
+          ></ion-chip>
+        }
+      </div>
     }
 
     <ion-icon
@@ -34,18 +34,18 @@
   </div>
 
   @if (showDropdown()) {
-  <ion-dropdown
-    [origin]="selectTrigger"
-    [options]="options()"
-    [multiple]="multiple()"
-    [required]="required()"
-    [enableSearch]="enableSearch()"
-    [searchOptions]="searchOptions()"
-    (selected)="handleSelect($event)"
-    (searchChange)="handleSearch($event)"
-    (closeDropdown)="closeDropdown()"
-    [propLabel]="propLabel()"
-    [loading]="loading()"
-  ></ion-dropdown>
+    <ion-dropdown
+      [origin]="selectTrigger"
+      [options]="options()"
+      [multiple]="multiple()"
+      [required]="required()"
+      [enableSearch]="enableSearch()"
+      [searchOptions]="searchOptions()"
+      (selected)="handleSelect($event)"
+      (searchChange)="handleSearch($event)"
+      (closeDropdown)="closeDropdown()"
+      [propLabel]="propLabel()"
+      [loading]="loading()"
+    ></ion-dropdown>
   }
 </div>

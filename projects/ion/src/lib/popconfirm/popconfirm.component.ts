@@ -7,11 +7,7 @@ import { IonIconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'ion-popconfirm',
-  imports: [
-    IonIconComponent,
-    IonButtonComponent,
-    IonDividerComponent
-],
+  imports: [IonIconComponent, IonButtonComponent, IonDividerComponent],
   templateUrl: './popconfirm.component.html',
   styleUrls: ['./popconfirm.component.scss'],
   exportAs: 'IonPopConfirmComponent',
@@ -43,7 +39,7 @@ export class IonPopConfirmComponent {
       type: 'close-solid',
       color: '#d6293a',
     },
-  }
+  };
 
   iconColorAndType = computed(() => {
     return this.iconConfig[this.ionPopConfirmType()];

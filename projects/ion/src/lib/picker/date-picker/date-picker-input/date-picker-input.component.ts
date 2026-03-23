@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -35,7 +34,7 @@ export class IonDatePickerInputComponent {
   };
 
   clearDateValue(): void {
-    if(this.disabled()) return;
+    if (this.disabled()) return;
     this.clearDate.emit();
   }
 }

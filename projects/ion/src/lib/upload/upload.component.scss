@@ -14,7 +14,9 @@
   border-radius: 8px;
   background-color: #fcfcfd;
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s;
 
   &:hover:not(.upload-dropzone--disabled) {
     border-color: #0858ce;

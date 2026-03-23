@@ -1,7 +1,7 @@
-@use "card.theme";
+@use 'card.theme';
 
-@import "../../styles/index.scss";
-@import "../../styles/themes/theme.scss";
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
 
 .card-ion {
   min-width: fit-content;

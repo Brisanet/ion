@@ -5,7 +5,7 @@
   [rightActions]="[
     { iconType: 'search', tooltip: 'Procurar', action: 'search' },
     { iconType: 'alert', tooltip: 'Notificações', action: 'notifications' },
-    { iconType: 'user', tooltip: 'Perfil', action: 'profile' }
+    { iconType: 'user', tooltip: 'Perfil', action: 'profile' },
   ]"
   (rightActionOutput)="handleRightActionOutput($event)"
   (valueChange)="handleValueChangeNavbar($event)"
@@ -60,10 +60,13 @@
     <ng-template #tablePopoverTemplate let-row>
       <div style="padding: 16px">
         <h3 style="margin-top: 0">Confirmar Ação</h3>
-        <p>Deseja realmente excluir o item: <strong>{{ row.name }}</strong>?</p>
+        <p>
+          Deseja realmente excluir o item: <strong>{{ row.name }}</strong
+          >?
+        </p>
       </div>
     </ng-template>
-  
+
     <ion-button
       label="With Actions"
       type="ghost"
@@ -73,12 +76,11 @@
       [ionPopoverPosition]="PopoverPosition.RIGHT_CENTER"
       [ionPopoverActions]="[
         { label: 'Cancel' },
-        { label: 'Confirm', type: 'primary' }
+        { label: 'Confirm', type: 'primary' },
       ]"
       (ionOnFirstAction)="handlePopoverFirstAction()"
       (ionOnSecondAction)="handlePopoverSecondAction()"
     ></ion-button>
-
   </section>
 
   <section>
@@ -128,7 +130,7 @@
         [options]="[
           { label: 'Item 1' },
           { label: 'Item 2' },
-          { label: 'Item 3' }
+          { label: 'Item 3' },
         ]"
       ></ion-button>
     </div>
@@ -370,7 +372,7 @@
         [breadcrumbs]="[
           { label: 'Home', link: '/home' },
           { label: 'Components', link: '/components' },
-          { label: 'Breadcrumb', link: '/breadcrumb' }
+          { label: 'Breadcrumb', link: '/breadcrumb' },
         ]"
       ></ion-breadcrumb>
 
@@ -382,7 +384,7 @@
           { label: 'Level 3', link: '/level3' },
           { label: 'Level 4', link: '/level4' },
           { label: 'Level 5', link: '/level5' },
-          { label: 'Current', link: '/current' }
+          { label: 'Current', link: '/current' },
         ]"
         [truncate]="true"
       ></ion-breadcrumb>
@@ -430,7 +432,7 @@
           [options]="[
             { label: 'Option 1' },
             { label: 'Option 2' },
-            { label: 'Option 3' }
+            { label: 'Option 3' },
           ]"
         ></ion-chip>
 
@@ -440,7 +442,7 @@
           [options]="[
             { label: 'Item A' },
             { label: 'Item B' },
-            { label: 'Item C' }
+            { label: 'Item C' },
           ]"
         ></ion-chip>
 
@@ -449,7 +451,7 @@
           [options]="[
             { label: 'Apple' },
             { label: 'Banana' },
-            { label: 'Cherry' }
+            { label: 'Cherry' },
           ]"
           [dropdownSearchConfig]="{
             enableSearch: true,
@@ -508,7 +510,7 @@
         <ion-chip-group
           [chips]="[
             { label: 'Disabled 1', selected: false },
-            { label: 'Disabled 2', selected: true }
+            { label: 'Disabled 2', selected: true },
           ]"
           [disabled]="true"
         ></ion-chip-group>
@@ -917,7 +919,7 @@
         <ion-triple-toggle
           [options]="[
             { label: 'Ativo', value: 'active' },
-            { label: 'Inativo', value: 'inactive' }
+            { label: 'Inativo', value: 'inactive' },
           ]"
           (ionClick)="handleTripleToggleChange($event)"
         ></ion-triple-toggle>
@@ -929,7 +931,7 @@
           [value]="tripleToggleWithIconsValue"
           [options]="[
             { label: 'Sim', value: true, icon: 'check' },
-            { label: 'Não', value: false, icon: 'close' }
+            { label: 'Não', value: false, icon: 'close' },
           ]"
           (ionClick)="
             tripleToggleWithIconsValue = $event;
@@ -945,7 +947,7 @@
           [onlyShowIcon]="true"
           [options]="[
             { label: 'Like', value: 'like', icon: 'star' },
-            { label: 'Dislike', value: 'dislike', icon: 'close' }
+            { label: 'Dislike', value: 'dislike', icon: 'close' },
           ]"
           (ionClick)="handleTripleToggleChange($event)"
         ></ion-triple-toggle>
@@ -962,7 +964,7 @@
           size="sm"
           [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false }
+            { label: 'Não', value: false },
           ]"
         ></ion-triple-toggle>
       </div>
@@ -973,7 +975,7 @@
           size="lg"
           [options]="[
             { label: 'Sim', value: true },
-            { label: 'Não', value: false }
+            { label: 'Não', value: false },
           ]"
         ></ion-triple-toggle>
 
@@ -1466,7 +1468,7 @@
       >
         <ion-icon type="out"></ion-icon>
         @if (!sidebarComp.closed()) {
-        <span>Sair do App</span>
+          <span>Sair do App</span>
         }
       </div>
     </ng-template>
@@ -1855,9 +1857,9 @@
           (event)="handleDatePickerChange($event)"
         ></ion-date-picker>
         @if (datePickerValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Date:</strong> {{ datePickerValue[0] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Date:</strong> {{ datePickerValue[0] }}
+          </p>
         }
       </div>
 
@@ -1868,10 +1870,10 @@
           (event)="handleDateRangePickerChange($event)"
         ></ion-date-picker>
         @if (dateRangePickerValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
-          {{ dateRangePickerValue[1] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
+            {{ dateRangePickerValue[1] }}
+          </p>
         }
       </div>
 
@@ -1883,11 +1885,11 @@
           (event)="handleDatePickerWithPredefinedChange($event)"
         ></ion-date-picker>
         @if (datePickerWithPredefinedValue.length) {
-        <p style="margin-top: 10px">
-          <strong>Selected Range:</strong>
-          {{ datePickerWithPredefinedValue[0] }} -
-          {{ datePickerWithPredefinedValue[1] }}
-        </p>
+          <p style="margin-top: 10px">
+            <strong>Selected Range:</strong>
+            {{ datePickerWithPredefinedValue[0] }} -
+            {{ datePickerWithPredefinedValue[1] }}
+          </p>
         }
       </div>
 
@@ -2129,7 +2131,10 @@
       (click)="openDrawer('left')"
     ></ion-button>
     <ion-button label="Abrir Cima" (click)="openDrawer('top')"></ion-button>
-    <ion-button label="Abrir 75% Baixo" (click)="openDrawer('bottom', 75)"></ion-button>
+    <ion-button
+      label="Abrir 75% Baixo"
+      (click)="openDrawer('bottom', 75)"
+    ></ion-button>
     <ion-button
       label="Abrir 50% (Direita)"
       (click)="openDrawer('right', 50)"

@@ -45,7 +45,7 @@ describe('BnAboutComponent', () => {
 
   it('should render the correct title', () => {
     const titleElement = fixture.debugElement.query(
-      By.css('.title')
+      By.css('.title'),
     ).nativeElement;
     expect(titleElement.textContent).toBe('Detalhes');
   });

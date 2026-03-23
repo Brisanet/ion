@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonTooltipDirective } from '../tooltip/tooltip.directive';

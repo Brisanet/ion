@@ -39,7 +39,9 @@ describe('IonDrawerComponent', () => {
     it('should show the backdrop when isOpen is true', () => {
       fixture.componentRef.setInput('isOpen', true);
       fixture.detectChanges();
-      expect(fixture.nativeElement.querySelector('.ion-drawer-backdrop')).toBeTruthy();
+      expect(
+        fixture.nativeElement.querySelector('.ion-drawer-backdrop'),
+      ).toBeTruthy();
     });
   });
 
@@ -54,7 +56,9 @@ describe('IonDrawerComponent', () => {
       it(`should render the drawer with direction ${direction}`, () => {
         fixture.componentRef.setInput('direction', direction);
         fixture.detectChanges();
-        const drawer = fixture.nativeElement.querySelector('.ion-drawer-content');
+        const drawer = fixture.nativeElement.querySelector(
+          '.ion-drawer-content',
+        );
         expect(drawer.classList.contains(`ion-drawer-${direction}`)).toBe(true);
       });
     });
@@ -81,7 +85,7 @@ describe('IonDrawerComponent', () => {
       fixture.componentRef.setInput('size', 50);
       fixture.detectChanges();
       expect(
-        fixture.nativeElement.style.getPropertyValue('--ion-drawer-size')
+        fixture.nativeElement.style.getPropertyValue('--ion-drawer-size'),
       ).toBe('50%');
     });
 
@@ -89,7 +93,7 @@ describe('IonDrawerComponent', () => {
       fixture.componentRef.setInput('size', 90);
       fixture.detectChanges();
       expect(
-        fixture.nativeElement.style.getPropertyValue('--ion-drawer-size')
+        fixture.nativeElement.style.getPropertyValue('--ion-drawer-size'),
       ).toBe('75%');
     });
   });
@@ -106,7 +110,7 @@ describe('IonDrawerComponent', () => {
 
       const buttons = fixture.nativeElement.querySelectorAll('ion-button');
       const buttonLabels = Array.from(buttons).map((btn: any) =>
-        btn.textContent.trim()
+        btn.textContent.trim(),
       );
 
       expect(buttonLabels).toContain('Submit');
@@ -121,7 +125,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const submitBtn = fixture.debugElement.query(
-        By.css('.ion-drawer-footer-actions ion-button:last-child')
+        By.css('.ion-drawer-footer-actions ion-button:last-child'),
       );
       submitBtn.triggerEventHandler('ionOnClick', null);
 
@@ -136,7 +140,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const cancelBtn = fixture.debugElement.query(
-        By.css('.ion-drawer-footer-actions ion-button:first-child')
+        By.css('.ion-drawer-footer-actions ion-button:first-child'),
       );
       cancelBtn.triggerEventHandler('ionOnClick', null);
 
@@ -149,7 +153,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const closeIconBtn = fixture.debugElement.query(
-        By.css('header ion-button')
+        By.css('header ion-button'),
       );
       closeIconBtn.triggerEventHandler('ionOnClick', null);
 
@@ -165,7 +169,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const secondaryBtn = fixture.debugElement.query(
-        By.css('.ion-drawer-footer > ion-button')
+        By.css('.ion-drawer-footer > ion-button'),
       );
       secondaryBtn.triggerEventHandler('ionOnClick', null);
 
@@ -182,7 +186,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const backdrop = fixture.nativeElement.querySelector(
-        '.ion-drawer-backdrop'
+        '.ion-drawer-backdrop',
       );
       backdrop.click();
 
@@ -197,7 +201,7 @@ describe('IonDrawerComponent', () => {
       fixture.detectChanges();
 
       const backdrop = fixture.nativeElement.querySelector(
-        '.ion-drawer-backdrop'
+        '.ion-drawer-backdrop',
       );
       backdrop.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
 

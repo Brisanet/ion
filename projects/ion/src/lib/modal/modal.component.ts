@@ -14,7 +14,6 @@ import {
   effect,
 } from '@angular/core';
 
-
 import { generateIDs } from '../utils';
 import { IonModalConfiguration, IonModalResponse } from '../core/types/modal';
 import { IonButtonComponent } from '../button/button.component';

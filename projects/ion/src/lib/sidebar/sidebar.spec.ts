@@ -49,7 +49,7 @@ describe('IonSidebarComponent', () => {
   it('should toggle sidebar when toggle button is clicked', async () => {
     const { fixture } = await sut();
     const toggleBtn = fixture.debugElement.query(
-      By.css('[data-testid="sidebar-toggle"]')
+      By.css('[data-testid="sidebar-toggle"]'),
     );
     toggleBtn.triggerEventHandler('ionOnClick', null);
     fixture.detectChanges();
@@ -68,7 +68,7 @@ describe('IonSidebarComponent', () => {
     // Open the sidebar
     const { fixture } = await sut();
     const toggleBtn = fixture.debugElement.query(
-      By.css('[data-testid="sidebar-toggle"]')
+      By.css('[data-testid="sidebar-toggle"]'),
     );
     toggleBtn.triggerEventHandler('ionOnClick', null);
     fixture.detectChanges();
@@ -90,7 +90,7 @@ describe('IonSidebarComponent', () => {
     const emitSpy = jest.spyOn(component.ionOnSidebarToggle, 'emit');
 
     const toggleBtn = fixture.debugElement.query(
-      By.css('[data-testid="sidebar-toggle"]')
+      By.css('[data-testid="sidebar-toggle"]'),
     );
     toggleBtn.triggerEventHandler('ionOnClick', null);
     fixture.detectChanges();

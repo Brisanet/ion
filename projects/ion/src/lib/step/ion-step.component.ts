@@ -49,7 +49,7 @@ export class IonStepsComponent {
 
     const clampedIndex = Math.max(
       this.FIRST_STEP,
-      Math.min(currentIndex, processedSteps.length)
+      Math.min(currentIndex, processedSteps.length),
     );
 
     processedSteps = processedSteps.map((step) => {

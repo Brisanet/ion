@@ -10,11 +10,7 @@ import { AvatarType } from '../core/types/avatar';
 
 @Component({
   selector: 'ion-simple-menu',
-  imports: [
-    IonAvatarComponent,
-    IonButtonComponent,
-    IonTabGroupComponent
-],
+  imports: [IonAvatarComponent, IonButtonComponent, IonTabGroupComponent],
   templateUrl: './simple-menu.component.html',
   styleUrls: ['./simple-menu.component.scss'],
 })

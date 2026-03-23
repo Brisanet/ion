@@ -1,4 +1,4 @@
-  import {
+import {
   ChangeDetectionStrategy,
   Component,
   input,
@@ -18,9 +18,7 @@ import {
   IonDatepickerComponent,
 } from '../../picker/date-picker/date-picker.component';
 import { IonSelectComponent } from '../../select/select.component';
-import {
-  IonInputAreaComponent,
-} from '../../input-area/input-area.component';
+import { IonInputAreaComponent } from '../../input-area/input-area.component';
 import { IonUploadComponent } from '../../upload/upload.component';
 import {
   BnFormField,
@@ -50,8 +48,8 @@ import { BnMaskDirective } from '../../mask/mask.directive';
     IonUploadComponent,
     IonIconComponent,
     IonTooltipDirective,
-    BnMaskDirective
-],
+    BnMaskDirective,
+  ],
   template: `
     <form [formGroup]="formGroup()" class="bn-form-container bn-row">
       @for (field of fields(); track field.key) {
@@ -168,7 +166,11 @@ import { BnMaskDirective } from '../../mask/mask.directive';
                 [urlPlaceholder]="field.urlPlaceholder ?? 'Placeholder'"
                 [disabled]="isDisabled(field)"
                 (fileChange)="onValueChange(field.key, $event)"
-                (urlImport)="field.onImportUrl ? field.onImportUrl($event) : onValueChange(field.key, $event)"
+                (urlImport)="
+                  field.onImportUrl
+                    ? field.onImportUrl($event)
+                    : onValueChange(field.key, $event)
+                "
               ></ion-upload>
             }
           </div>
@@ -362,7 +364,7 @@ export class BnFormComponent implements OnInit {
           finalize(() => {
             field.loading = false;
             this.cdr.markForCheck();
-          })
+          }),
         )
         .subscribe((res) => {
           field.options = res;
@@ -387,7 +389,7 @@ export class BnFormComponent implements OnInit {
   }
 
   onValueChange(key: string, value: any): void {
-    console.log(key, value)
+    console.log(key, value);
     const control = this.formGroup().get(key);
     if (control && control.value !== value) {
       control.setValue(value);
