@@ -13,6 +13,10 @@
       fill: theme.ion-theme(#{$prefix}-color);
     }
   }
+
+  &.outline {
+    border: 1px solid theme.ion-theme(#{$prefix}-border-color);
+  }
 }
 
 :host {
