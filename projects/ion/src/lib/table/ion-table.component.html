@@ -121,6 +121,7 @@
                 @if (column.type === 'tag') {
                   <ion-tag
                     [label]="row[column.key]"
+                    [outline]="true"
                     [status]="row[column.tag!.statusKey!] || column.tag!.status"
                     [icon]="row[column.tag!.iconKey!] || column.tag!.icon"
                     [color]="row[column.tag!.colorKey!] || column.tag!.color"
