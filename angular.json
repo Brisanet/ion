@@ -28,10 +28,7 @@
           "builder": "@angular/build:karma",
           "options": {
             "tsConfig": "projects/ion/tsconfig.spec.json",
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ]
+            "polyfills": ["zone.js", "zone.js/testing"]
           }
         },
         "storybook": {
@@ -40,12 +37,7 @@
             "configDir": "projects/ion/.storybook",
             "browserTarget": "ion:build",
             "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "projects/ion"
-            ],
+            "compodocArgs": ["-e", "json", "-d", "projects/ion"],
             "port": 6006
           }
         },
@@ -55,13 +47,17 @@
             "configDir": "projects/ion/.storybook",
             "browserTarget": "ion:build",
             "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "projects/ion"
-            ],
+            "compodocArgs": ["-e", "json", "-d", "projects/ion"],
             "outputDir": "dist/storybook/ion"
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ion/**/*.ts",
+              "projects/ion/**/*.html"
+            ]
           }
         }
       }
@@ -83,9 +79,7 @@
             "outputPath": "dist/ion-test-app",
             "index": "projects/ion-test-app/src/index.html",
             "browser": "projects/ion-test-app/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "projects/ion-test-app/tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -94,9 +88,7 @@
                 "input": "projects/ion-test-app/public"
               }
             ],
-            "styles": [
-              "projects/ion-test-app/src/styles.scss"
-            ],
+            "styles": ["projects/ion-test-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -141,10 +133,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "projects/ion-test-app/tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -153,10 +142,17 @@
                 "input": "projects/ion-test-app/public"
               }
             ],
-            "styles": [
-              "projects/ion-test-app/src/styles.scss"
-            ],
+            "styles": ["projects/ion-test-app/src/styles.scss"],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/ion-test-app/**/*.ts",
+              "projects/ion-test-app/**/*.html"
+            ]
           }
         }
       }

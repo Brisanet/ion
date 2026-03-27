@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -37,11 +36,7 @@ export interface IonControlPickerComponentProps {
 @Component({
   selector: 'ion-control-picker',
   standalone: true,
-  imports: [
-    IonButtonComponent,
-    IonTooltipDirective,
-    IonDividerComponent
-],
+  imports: [IonButtonComponent, IonTooltipDirective, IonDividerComponent],
   templateUrl: './control-picker.component.html',
   styleUrls: ['./control-picker.component.scss'],
   host: {

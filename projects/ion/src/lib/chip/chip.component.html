@@ -8,28 +8,34 @@
   [class.chip-selected]="displaySelected()"
   [class]="'ion-chip chip-' + size()"
 >
-  @if ( (!options().length && icon()) || (options().length && dropdownWithIcon()
-  && iconPlaceholder() && iconPosition() === 'left') ) {
-  <ion-icon
-    [attr.data-testid]="'chip-icon-' + iconPosition()"
-    [attr.class]="'icon-color chip-icon-' + iconPosition()"
-    [type]="(dropdownWithIcon() ? iconPlaceholder() : icon())!"
-    [size]="size() === 'sm' ? 16 : 20"
-  >
-  </ion-icon>
-  } @if (chipSelectionBadge().value > 0 && multiple()) {
-  <ion-badge
-    [value]="chipSelectionBadge().value"
-    type="primary"
-    data-testid="badge-multiple"
-  ></ion-badge>
+  @if (
+    (!options().length && icon()) ||
+    (options().length &&
+      dropdownWithIcon() &&
+      iconPlaceholder() &&
+      iconPosition() === 'left')
+  ) {
+    <ion-icon
+      [attr.data-testid]="'chip-icon-' + iconPosition()"
+      [attr.class]="'icon-color chip-icon-' + iconPosition()"
+      [type]="(dropdownWithIcon() ? iconPlaceholder() : icon())!"
+      [size]="size() === 'sm' ? 16 : 20"
+    >
+    </ion-icon>
+  }
+  @if (chipSelectionBadge().value > 0 && multiple()) {
+    <ion-badge
+      [value]="chipSelectionBadge().value"
+      type="primary"
+      data-testid="badge-multiple"
+    ></ion-badge>
   } @else if (badge() && badge()!.position === 'left') {
-  <ion-badge
-    class="ionBadge"
-    [label]="badge()!.label"
-    [type]="badge()!.type"
-    [value]="badge()!.value"
-  ></ion-badge>
+    <ion-badge
+      class="ionBadge"
+      [label]="badge()!.label"
+      [type]="badge()!.type"
+      [value]="badge()!.value"
+    ></ion-badge>
   }
 
   <div data-testid="ion-chip-label" class="container-icon-text">
@@ -37,40 +43,42 @@
   </div>
 
   @if (badge() && (badge()!.position === 'right' || !badge()!.position)) {
-  <ion-badge
-    class="ionBadge"
-    [label]="badge()!.label"
-    [type]="badge()!.type"
-    [value]="badge()!.value"
-  ></ion-badge>
-  } @if (infoBadge()) {
-  <ion-info-badge
-    class="infoBadge"
-    [variant]="infoBadge()!"
-    size="md"
-  ></ion-info-badge>
-  } @if (options().length) {
-  <ion-icon
-    data-testid="icon-default"
-    class="icon-color"
-    [type]="showDropdown() ? 'semi-up' : 'semi-down'"
-    [size]="size() === 'sm' ? 16 : 20"
-  >
-  </ion-icon>
+    <ion-badge
+      class="ionBadge"
+      [label]="badge()!.label"
+      [type]="badge()!.type"
+      [value]="badge()!.value"
+    ></ion-badge>
+  }
+  @if (infoBadge()) {
+    <ion-info-badge
+      class="infoBadge"
+      [variant]="infoBadge()!"
+      size="md"
+    ></ion-info-badge>
+  }
+  @if (options().length) {
+    <ion-icon
+      data-testid="icon-default"
+      class="icon-color"
+      [type]="showDropdown() ? 'semi-up' : 'semi-down'"
+      [size]="size() === 'sm' ? 16 : 20"
+    >
+    </ion-icon>
   }
 </button>
 @if (showDropdown()) {
-<ion-dropdown
-  [origin]="chipBtn"
-  [options]="options()"
-  [multiple]="multiple()"
-  [required]="required()"
-  [enableSearch]="dropdownSearchConfig()?.enableSearch || false"
-  [searchOptions]="dropdownSearchConfig()?.searchOptions"
-  [closeOnClickOutside]="!showToggle()"
-  (searchChange)="dropdownSearchChange($event)"
-  (selected)="selectDropdownItem($event)"
-  (clearBadgeValue)="clearBadgeValue()"
-  (closeDropdown)="closeDropdown()"
-></ion-dropdown>
+  <ion-dropdown
+    [origin]="chipBtn"
+    [options]="options()"
+    [multiple]="multiple()"
+    [required]="required()"
+    [enableSearch]="dropdownSearchConfig()?.enableSearch || false"
+    [searchOptions]="dropdownSearchConfig()?.searchOptions"
+    [closeOnClickOutside]="!showToggle()"
+    (searchChange)="dropdownSearchChange($event)"
+    (selected)="selectDropdownItem($event)"
+    (clearBadgeValue)="clearBadgeValue()"
+    (closeDropdown)="closeDropdown()"
+  ></ion-dropdown>
 }

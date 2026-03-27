@@ -107,7 +107,10 @@ describe('ButtonComponent', () => {
       const icon = button.querySelector('ion-icon');
 
       expect(icon).toBeTruthy();
-      expect(icon.querySelector('svg')).toHaveAttribute('id', 'ion-icon-pencil');
+      expect(icon.querySelector('svg')).toHaveAttribute(
+        'id',
+        'ion-icon-pencil',
+      );
     });
 
     it('Right side icon', () => {
@@ -141,7 +144,7 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       const button = fixture.nativeElement.querySelector(
-        `[data-testid="btn-${myCustomId}"]`
+        `[data-testid="btn-${myCustomId}"]`,
       );
       expect(button).toBeTruthy();
     });
@@ -239,7 +242,7 @@ describe('ButtonComponent', () => {
         fixture.detectChanges();
 
         const dropdown = document.body.querySelector(
-          '[data-testid="ion-dropdown"]'
+          '[data-testid="ion-dropdown"]',
         );
         expect(dropdown).toBeTruthy();
       });
@@ -259,7 +262,7 @@ describe('ButtonComponent', () => {
         fixture.detectChanges();
 
         const dropdown = document.body.querySelector(
-          '[data-testid="ion-dropdown"]'
+          '[data-testid="ion-dropdown"]',
         );
         expect(dropdown).toBeFalsy();
       });
@@ -292,7 +295,7 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       const badge = fixture.nativeElement.querySelector(
-        '[data-testid="badge-multiple"]'
+        '[data-testid="badge-multiple"]',
       );
       expect(badge).toBeTruthy();
     });
@@ -307,7 +310,7 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       const badge = fixture.nativeElement.querySelector(
-        '[data-testid="badge-multiple"]'
+        '[data-testid="badge-multiple"]',
       );
       expect(badge).toBeFalsy();
     });
@@ -322,7 +325,7 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       const badge = fixture.nativeElement.querySelector(
-        '[data-testid="badge-multiple"]'
+        '[data-testid="badge-multiple"]',
       );
       expect(badge).toBeFalsy();
     });
@@ -336,7 +339,7 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       const badge = fixture.nativeElement.querySelector(
-        '[data-testid="badge-multiple"] span'
+        '[data-testid="badge-multiple"] span',
       );
       expect(badge.textContent).toBe('0');
     });

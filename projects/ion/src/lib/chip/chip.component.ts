@@ -41,8 +41,8 @@ interface ChipEvent {
     IonIconComponent,
     IonBadgeComponent,
     IonInfoBadgeComponent,
-    IonDropdownComponent
-],
+    IonDropdownComponent,
+  ],
   templateUrl: './chip.component.html',
   styleUrl: './chip.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

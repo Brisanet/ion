@@ -1,4 +1,4 @@
-import { ChipSize, UserBadge,  } from './chip';
+import { ChipSize, UserBadge } from './chip';
 import { IconDirection, IconType } from './icon';
 import { InfoBadgeStatus } from './info-badge';
 import { DropdownItem } from './dropdown';

@@ -18,11 +18,7 @@ import { IonChipComponent } from '../chip/chip.component';
 @Component({
   selector: 'ion-select',
   standalone: true,
-  imports: [
-    IonIconComponent,
-    IonDropdownComponent,
-    IonChipComponent
-],
+  imports: [IonIconComponent, IonDropdownComponent, IonChipComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -71,26 +67,26 @@ export class IonSelectComponent {
               valueArray.some((val) =>
                 typeof val === 'object'
                   ? (val as any)[prop] === (opt as any)[prop]
-                  : val === (opt as any)[prop]
-              )
+                  : val === (opt as any)[prop],
+              ),
             );
 
             // Preserve selected items that are in 'value' but NOT in current options
             const currentSelected = untracked(() =>
-              this.dropdownSelectedItems()
+              this.dropdownSelectedItems(),
             );
             const preservedSelected = currentSelected.filter(
               (item: DropdownItem) => {
                 const itemNotInOptions = !options.some(
-                  (opt) => (opt as any)[prop] === (item as any)[prop]
+                  (opt) => (opt as any)[prop] === (item as any)[prop],
                 );
                 const itemInValue = valueArray.some((val) =>
                   typeof val === 'object'
                     ? (val as any)[prop] === (item as any)[prop]
-                    : val === (item as any)[prop]
+                    : val === (item as any)[prop],
                 );
                 return itemNotInOptions && itemInValue;
-              }
+              },
             );
 
             selected = [...presentSelected, ...preservedSelected];
@@ -99,30 +95,28 @@ export class IonSelectComponent {
 
           options.forEach((opt) => {
             opt.selected = selected.some(
-              (s) => (s as any)[prop] === (opt as any)[prop]
+              (s) => (s as any)[prop] === (opt as any)[prop],
             );
           });
         } else {
           // Fallback to options marked as selected if no value input is provided
           const selected = options.filter((option) => option.selected);
-          const currentSelected = untracked(() =>
-            this.dropdownSelectedItems()
-          );
+          const currentSelected = untracked(() => this.dropdownSelectedItems());
 
           // Only set if different to avoid redundant triggers
           if (
             selected.length !== currentSelected.length ||
             !selected.every((s) =>
               currentSelected.some(
-                (cs: DropdownItem) => (cs as any)[prop] === (s as any)[prop]
-              )
+                (cs: DropdownItem) => (cs as any)[prop] === (s as any)[prop],
+              ),
             )
           ) {
             this.dropdownSelectedItems.set(selected);
           }
         }
       },
-      { allowSignalWrites: true }
+      { allowSignalWrites: true },
     );
     // TODO: allowSignalWrites deprecated, update this
   }
@@ -144,7 +138,7 @@ export class IonSelectComponent {
       // Keep items that were selected but are NOT in the current options (e.g. filtered out by search)
       const itemsNotInOptions = currentSelected.filter(
         (item) =>
-          !options.some((opt) => (opt as any)[prop] === (item as any)[prop])
+          !options.some((opt) => (opt as any)[prop] === (item as any)[prop]),
       );
       finalSelected = [...itemsNotInOptions, ...selectedItems];
     }

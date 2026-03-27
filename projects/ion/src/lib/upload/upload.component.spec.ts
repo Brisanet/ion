@@ -26,24 +26,32 @@ describe('IonUploadComponent', () => {
 
   describe('dropzone default state', () => {
     it('should render the upload icon', () => {
-      const icon = fixture.nativeElement.querySelector('ion-icon[type="upload"]');
+      const icon = fixture.nativeElement.querySelector(
+        'ion-icon[type="upload"]',
+      );
       expect(icon).toBeTruthy();
     });
 
     it('should render the click-to-add link text', () => {
-      const link = fixture.nativeElement.querySelector('.upload-dropzone__link');
+      const link = fixture.nativeElement.querySelector(
+        '.upload-dropzone__link',
+      );
       expect(link.textContent.trim()).toBe('Clique para adicionar');
     });
 
     it('should not render acceptLabel when not provided', () => {
-      const hint = fixture.nativeElement.querySelector('.upload-dropzone__hint');
+      const hint = fixture.nativeElement.querySelector(
+        '.upload-dropzone__hint',
+      );
       expect(hint).toBeNull();
     });
 
     it('should render acceptLabel when provided', () => {
       fixture.componentRef.setInput('acceptLabel', 'PNG, JPG até 5MB');
       fixture.detectChanges();
-      const hint = fixture.nativeElement.querySelector('.upload-dropzone__hint');
+      const hint = fixture.nativeElement.querySelector(
+        '.upload-dropzone__hint',
+      );
       expect(hint.textContent.trim()).toBe('PNG, JPG até 5MB');
     });
   });
@@ -95,7 +103,10 @@ describe('IonUploadComponent', () => {
       const file = createFile();
 
       const input = fixture.nativeElement.querySelector('input[type="file"]');
-      Object.defineProperty(input, 'files', { value: [file], configurable: true });
+      Object.defineProperty(input, 'files', {
+        value: [file],
+        configurable: true,
+      });
       input.dispatchEvent(new Event('change'));
 
       expect(component.selectedFile()).toBe(file);
@@ -127,7 +138,9 @@ describe('IonUploadComponent', () => {
     });
 
     it('should show file name', () => {
-      const fileName = fixture.nativeElement.querySelector('.upload-dropzone__file-name');
+      const fileName = fixture.nativeElement.querySelector(
+        '.upload-dropzone__file-name',
+      );
       expect(fileName.textContent.trim()).toBe('documento.pdf');
     });
 
@@ -137,7 +150,9 @@ describe('IonUploadComponent', () => {
     });
 
     it('should hide the default content when file is selected', () => {
-      const content = fixture.nativeElement.querySelector('.upload-dropzone__content');
+      const content = fixture.nativeElement.querySelector(
+        '.upload-dropzone__content',
+      );
       expect(content).toBeNull();
     });
 
@@ -174,7 +189,9 @@ describe('IonUploadComponent', () => {
       component.removeFile();
       fixture.detectChanges();
 
-      const content = fixture.nativeElement.querySelector('.upload-dropzone__content');
+      const content = fixture.nativeElement.querySelector(
+        '.upload-dropzone__content',
+      );
       expect(content).toBeTruthy();
     });
 
@@ -182,8 +199,13 @@ describe('IonUploadComponent', () => {
       component.selectedFile.set(createFile());
       fixture.detectChanges();
 
-      const clickSpy = jest.spyOn(component.fileInputRef.nativeElement, 'click');
-      const removeButton = fixture.nativeElement.querySelector('ion-button[icontype="trash"]');
+      const clickSpy = jest.spyOn(
+        component.fileInputRef.nativeElement,
+        'click',
+      );
+      const removeButton = fixture.nativeElement.querySelector(
+        'ion-button[icontype="trash"]',
+      );
       removeButton.click();
       fixture.detectChanges();
 
@@ -262,7 +284,10 @@ describe('IonUploadComponent', () => {
     });
 
     it('should not open file dialog when disabled', () => {
-      const clickSpy = jest.spyOn(component.fileInputRef.nativeElement, 'click');
+      const clickSpy = jest.spyOn(
+        component.fileInputRef.nativeElement,
+        'click',
+      );
       component.openFileDialog();
       expect(clickSpy).not.toHaveBeenCalled();
     });
@@ -275,7 +300,10 @@ describe('IonUploadComponent', () => {
 
   describe('openFileDialog', () => {
     it('should trigger click on file input when not disabled', () => {
-      const clickSpy = jest.spyOn(component.fileInputRef.nativeElement, 'click');
+      const clickSpy = jest.spyOn(
+        component.fileInputRef.nativeElement,
+        'click',
+      );
       component.openFileDialog();
       expect(clickSpy).toHaveBeenCalled();
     });
@@ -290,8 +318,7 @@ describe('IonUploadComponent', () => {
 
   describe('upload-url-input element', () => {
     const getUrlInputInstance = (f: ComponentFixture<IonUploadComponent>) =>
-      f.debugElement
-        .query(By.css('[data-testid="upload-url-input"]'))
+      f.debugElement.query(By.css('[data-testid="upload-url-input"]'))
         .componentInstance as IonInputComponent;
 
     beforeEach(() => {
@@ -300,14 +327,18 @@ describe('IonUploadComponent', () => {
     });
 
     it('should render the ion-input with data-testid="upload-url-input"', () => {
-      const el = fixture.nativeElement.querySelector('[data-testid="upload-url-input"]');
+      const el = fixture.nativeElement.querySelector(
+        '[data-testid="upload-url-input"]',
+      );
       expect(el).toBeTruthy();
     });
 
     it('should forward urlPlaceholder to the ion-input placeholder', () => {
       fixture.componentRef.setInput('urlPlaceholder', 'https://my-image.com');
       fixture.detectChanges();
-      expect(getUrlInputInstance(fixture).placeholder()).toBe('https://my-image.com');
+      expect(getUrlInputInstance(fixture).placeholder()).toBe(
+        'https://my-image.com',
+      );
     });
 
     it('should forward disabled to the ion-input', () => {

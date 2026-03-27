@@ -1,4 +1,3 @@
-
 import { Component, input, output } from '@angular/core';
 import { IonButtonComponent } from '../button/button.component';
 import { IonAlertComponent } from '../alert/alert.component';
@@ -12,7 +11,12 @@ import { IonInputProps } from '../core/types/input';
 @Component({
   selector: 'ion-navbar',
   standalone: true,
-  imports: [IonButtonComponent, IonAlertComponent, IonAvatarComponent, IonInputComponent],
+  imports: [
+    IonButtonComponent,
+    IonAlertComponent,
+    IonAvatarComponent,
+    IonInputComponent,
+  ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })

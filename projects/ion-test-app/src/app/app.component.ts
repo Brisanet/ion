@@ -1,4 +1,11 @@
-import { Component, ViewChild, OnInit, inject, signal, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  OnInit,
+  inject,
+  signal,
+  TemplateRef,
+} from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
@@ -95,9 +102,9 @@ type FromYourRepository = {
     <div style="padding: 16px;">
       <p>This is a component rendered inside the modal!</p>
       @if (data) {
-      <p>
-        Data received: <strong>{{ data }}</strong>
-      </p>
+        <p>
+          Data received: <strong>{{ data }}</strong>
+        </p>
       }
       <p>You can pass data to it and receive values back.</p>
     </div>
@@ -112,7 +119,7 @@ class ModalExampleComponent {
   template: `
     <div style="padding: 16px;">
       @for (item of items; track $index) {
-      <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
+        <p>Linha de conteúdo número {{ $index + 1 }} para testar o scroll.</p>
       }
     </div>
   `,
@@ -277,7 +284,7 @@ export class AppComponent implements OnInit {
               ];
               const filtered = search
                 ? allOptions.filter((opt) =>
-                    opt.label.toLowerCase().includes(search.toLowerCase())
+                    opt.label.toLowerCase().includes(search.toLowerCase()),
                   )
                 : allOptions;
               console.log('[AppComponent] Found:', filtered);
@@ -296,7 +303,7 @@ export class AppComponent implements OnInit {
 
   optionsMock = {
     projectOptions: [
-      { label: 'Projeto A', value: 'project_a' }, 
+      { label: 'Projeto A', value: 'project_a' },
       { label: 'Projeto B', value: 'project_b' },
     ],
     centerOriginOptions: [
@@ -321,7 +328,7 @@ export class AppComponent implements OnInit {
       onSubmit: (data) => {
         return this.http.post(
           'https://jsonplaceholder.typicode.com/posts',
-          data
+          data,
         );
       },
       steps: [
@@ -661,7 +668,7 @@ export class AppComponent implements OnInit {
           description: 'Tem certeza que deseja excluir?',
           // confirmText: 'Excluir',
           // cancelText: 'Cancelar',
-        }
+        },
         // popover: (row: any) => ({
         //   ionPopoverTitle: 'Excluir Item',
         //   ionPopoverBody: this.tablePopoverTemplate,
@@ -835,14 +842,14 @@ export class AppComponent implements OnInit {
         confirm: {
           title: 'Excluir',
           description: 'Tem certeza que deseja excluir?',
-        }
+        },
       },
     ],
   };
 
   ngOnInit(): void {
     const quantityColumn = this.smartTableConfig.columns.find(
-      (col) => col.key === 'quantity'
+      (col) => col.key === 'quantity',
     );
     if (quantityColumn) {
       quantityColumn.customTemplate = this.quantityTemplate;
@@ -873,7 +880,7 @@ export class AppComponent implements OnInit {
     this.smartTableConfig = {
       ...this.smartTableConfig,
       data: this.smartTableConfig.data.filter(
-        (item: any) => item.id !== row.id
+        (item: any) => item.id !== row.id,
       ),
       pagination: {
         ...this.smartTableConfig.pagination,
@@ -939,7 +946,7 @@ export class AppComponent implements OnInit {
   showNotification(type: 'success' | 'info' | 'warning' | 'error') {
     (this.notificationService as any)[type](
       'Notification Title',
-      'This is a notification message'
+      'This is a notification message',
     );
   }
 
@@ -1090,7 +1097,7 @@ export class AppComponent implements OnInit {
 
     const modalObservable = this.modalService.open(
       ModalExampleComponent,
-      modalConfig
+      modalConfig,
     );
 
     modalObservable.subscribe((result: unknown) => {

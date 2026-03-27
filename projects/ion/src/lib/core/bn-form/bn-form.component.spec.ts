@@ -299,7 +299,9 @@ describe('BnFormComponent', () => {
 
   describe('Dependent Selects', () => {
     it('should trigger refresh when a dependency changes', () => {
-      const refreshSpy = jest.fn().mockReturnValue(of([{ value: 'b1', label: 'B1' }]));
+      const refreshSpy = jest
+        .fn()
+        .mockReturnValue(of([{ value: 'b1', label: 'B1' }]));
       const fields: BnFormField[] = [
         {
           key: 'fieldA',
@@ -335,7 +337,7 @@ describe('BnFormComponent', () => {
       expect(refreshSpy).toHaveBeenCalledWith(
         expect.objectContaining({ key: 'fieldB' }),
         undefined,
-        { fieldA: 'new value' }
+        { fieldA: 'new value' },
       );
     });
   });

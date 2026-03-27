@@ -9,6 +9,9 @@
     "watch": "ng build --watch --configuration development",
     "update": "ng update @angular/core@21 @angular/cli@21",
     "test": "jest",
+    "lint": "ng lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test:coverage": "jest --coverage",
     "storybook": "ng run ion:storybook",
     "version": "ng version",
@@ -48,13 +51,18 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/user-event": "^14.6.1",
     "@types/jest": "^30.0.0",
+    "angular-eslint": "^21.3.1",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^10.1.8",
     "jest": "^30.0.0",
     "jest-environment-jsdom": "^30.0.0",
     "jest-preset-angular": "^16.0.0",
     "ng-packagr": "^21.1.0",
+    "prettier": "^3.8.1",
     "sass": "^1.94.2",
     "storybook": "^10.1.11",
     "ts-node": "^10.9.2",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.57.2"
   }
 }
