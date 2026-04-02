@@ -4,15 +4,20 @@ import { IonIconComponent } from '../../icon/icon.component';
 import { BnFormField } from '../bn-form/bn-form.types';
 import { BnFormService } from '../bn-form/bn-form.service';
 import { BnFormComponent } from '../bn-form/bn-form.component';
-import { IonDividerComponent } from "../../divider/divider.component";
+import { IonDividerComponent } from '../../divider/divider.component';
 import { BnAboutHeaderButton, BnAboutPageTitle } from './bn-about.types';
 
 @Component({
   standalone: true,
   selector: 'bn-about',
-  imports: [IonButtonComponent, BnFormComponent, IonIconComponent, IonDividerComponent],
+  imports: [
+    IonButtonComponent,
+    BnFormComponent,
+    IonIconComponent,
+    IonDividerComponent,
+  ],
   templateUrl: './bn-about.component.html',
-  styleUrl: './bn-about.component.scss'
+  styleUrl: './bn-about.component.scss',
 })
 export class BnAboutComponent implements OnInit {
   private formService = inject(BnFormService);
@@ -27,7 +32,7 @@ export class BnAboutComponent implements OnInit {
     this.fields().forEach((field) => {
       field.disabled = true;
     });
-  }
+  };
 
   ngOnInit() {
     this.disableAllFields();

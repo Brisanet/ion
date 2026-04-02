@@ -1,4 +1,3 @@
-
 import { Component, input } from '@angular/core';
 import { fireEvent, render, screen } from '@testing-library/angular';
 
@@ -113,9 +112,9 @@ describe('Directive: Tooltip', () => {
       fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
       const tooltipElement = screen.getByTestId('ion-tooltip');
       expect(tooltipElement.className).toContain(
-        `ion-tooltip-${ionTooltipColorScheme}`
+        `ion-tooltip-${ionTooltipColorScheme}`,
       );
-    }
+    },
   );
 
   it('should show tooltip after delay time setted', async () => {
@@ -143,7 +142,7 @@ describe('Directive: Tooltip', () => {
     fireEvent.mouseEnter(screen.getByTestId('hostTooltip'));
     const tooltipElement = screen.getByTestId('ion-tooltip');
     expect(tooltipElement.className).toContain(
-      `ion-tooltip-position--topCenter`
+      `ion-tooltip-position--topCenter`,
     );
   });
 

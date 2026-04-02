@@ -1,4 +1,3 @@
-
 import { Component, computed, input } from '@angular/core';
 import { BadgeType } from '../core/types/badge';
 

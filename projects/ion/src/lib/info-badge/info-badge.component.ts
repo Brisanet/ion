@@ -1,4 +1,3 @@
-
 import { Component, input } from '@angular/core';
 import { InfoBadgeSize, InfoBadgeStatus } from '../core/types/info-badge';
 import { IconType } from '../core/types/icon';

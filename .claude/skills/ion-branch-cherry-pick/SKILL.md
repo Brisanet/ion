@@ -10,11 +10,11 @@ This skill guides the process of propagating commits from `main` (Angular v21) t
 
 ## Branch Overview
 
-| Branch | Angular | Signals | `@if`/`@for` | Standalone | Tests |
-|---|---|---|---|---|---|
-| `main` | v21 | `input()` / `output()` | Yes | Default (no flag needed) | TestBed + `setInput()` |
-| `support/v19` | v19 | `input()` / `output()` | Yes | `standalone: true` required | TestBed + `setInput()` |
-| `support/v8` | v8 | `@Input()` / `@Output()` | `*ngIf` / `*ngFor` | NgModule-based | Angular Testing Library |
+| Branch        | Angular | Signals                  | `@if`/`@for`       | Standalone                  | Tests                   |
+| ------------- | ------- | ------------------------ | ------------------ | --------------------------- | ----------------------- |
+| `main`        | v21     | `input()` / `output()`   | Yes                | Default (no flag needed)    | TestBed + `setInput()`  |
+| `support/v19` | v19     | `input()` / `output()`   | Yes                | `standalone: true` required | TestBed + `setInput()`  |
+| `support/v8`  | v8      | `@Input()` / `@Output()` | `*ngIf` / `*ngFor` | NgModule-based              | Angular Testing Library |
 
 ## Step 1 — Identify what to cherry-pick
 
@@ -62,6 +62,7 @@ git cherry-pick --abort
 v19 supports signals and native control flow, but requires `standalone: true` explicitly.
 
 **Component metadata:**
+
 ```typescript
 // main (v21) — standalone is the default
 @Component({ selector: 'ion-foo', imports: [...], ... })
@@ -128,22 +129,19 @@ export class IonFooComponent implements OnInit, OnChanges { ... }
 
 #### TypeScript: Lifecycle hooks
 
-| v21 pattern | v8 equivalent |
-|---|---|
-| `effect(() => { ... })` | `ngOnChanges(changes: SimpleChanges)` or `ngOnInit()` |
-| `inject(Service)` | Constructor injection: `constructor(private svc: Service)` |
-| `host: { '[attr]': 'val()' }` | `@HostBinding('attr') get val() { ... }` |
+| v21 pattern                   | v8 equivalent                                              |
+| ----------------------------- | ---------------------------------------------------------- |
+| `effect(() => { ... })`       | `ngOnChanges(changes: SimpleChanges)` or `ngOnInit()`      |
+| `inject(Service)`             | Constructor injection: `constructor(private svc: Service)` |
+| `host: { '[attr]': 'val()' }` | `@HostBinding('attr') get val() { ... }`                   |
 
 #### Template: Control flow
 
 ```html
 <!-- v21 -->
-@if (loading()) { <span class="spinner"></span> }
-@for (item of items(); track item.id) { <li>{{ item.name }}</li> }
-@switch (type()) {
-  @case ('primary') { <span class="primary"></span> }
-  @default { <span></span> }
-}
+@if (loading()) { <span class="spinner"></span> } @for (item of items(); track item.id) {
+<li>{{ item.name }}</li>
+} @switch (type()) { @case ('primary') { <span class="primary"></span> } @default { <span></span> } }
 
 <!-- v8 -->
 <span *ngIf="loading" class="spinner"></span>
@@ -158,14 +156,10 @@ export class IonFooComponent implements OnInit, OnChanges { ... }
 
 ```html
 <!-- v21 — signals are called as functions -->
-<button [class]="'ion-btn-' + type()" [disabled]="disabled()">
-  {{ label() }}
-</button>
+<button [class]="'ion-btn-' + type()" [disabled]="disabled()">{{ label() }}</button>
 
 <!-- v8 — properties accessed directly -->
-<button [class]="'ion-btn-' + type" [disabled]="disabled">
-  {{ label }}
-</button>
+<button [class]="'ion-btn-' + type" [disabled]="disabled">{{ label }}</button>
 ```
 
 #### Tests

@@ -37,9 +37,9 @@ export class BnFormService {
     }
 
     const defaultValues: Record<string, boolean | undefined | []> = {
-      'switch': false,
+      switch: false,
       'triple-toggle': undefined,
-      'select': [],
+      select: [],
     };
 
     if (!field.type) {

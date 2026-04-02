@@ -1,4 +1,3 @@
-
 import { Component, computed, input, output } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { FontSize, IconSide, IconType, LinkTarget } from '../core/types';

@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectionStrategy,
   Component,
@@ -42,8 +41,8 @@ import { OverlayModule, ConnectedPosition } from '@angular/cdk/overlay';
     IonDatePickerInputComponent,
     IonControlPickerComponent,
     IonDatePickerCalendarComponent,
-    IonPredefinedRangePickerComponent
-],
+    IonPredefinedRangePickerComponent,
+  ],
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
 })

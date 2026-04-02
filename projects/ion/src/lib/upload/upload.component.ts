@@ -14,7 +14,12 @@ import { IonDividerComponent } from '../divider/divider.component';
 
 @Component({
   selector: 'ion-upload',
-  imports: [IonIconComponent, IonButtonComponent, IonInputComponent, IonDividerComponent],
+  imports: [
+    IonIconComponent,
+    IonButtonComponent,
+    IonInputComponent,
+    IonDividerComponent,
+  ],
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

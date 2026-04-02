@@ -17,12 +17,12 @@ describe('BnFilterComponent', () => {
     {
       key: 'status',
       label: 'Status',
-    }
+    },
   ];
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BnFilterComponent]
+      imports: [BnFilterComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BnFilterComponent);
@@ -40,16 +40,18 @@ describe('BnFilterComponent', () => {
   });
 
   it('should toggle expansion when header button is clicked', () => {
-    const button = fixture.debugElement.query(By.css('.bn-filter-header ion-button'));
-    
+    const button = fixture.debugElement.query(
+      By.css('.bn-filter-header ion-button'),
+    );
+
     // Initially closed
     expect(component.open()).toBeFalsy();
-    
+
     // Click to open
     button.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.open()).toBeTruthy();
-    
+
     // Check if content is rendered
     const content = fixture.debugElement.query(By.css('.filter-content'));
     expect(content).toBeTruthy();
@@ -78,7 +80,7 @@ describe('BnFilterComponent', () => {
     fixture.detectChanges();
 
     const applyButton = screen.getByTestId('apply-button');
-    
+
     // Form is invalid because 'name' is required and empty
     expect(component.formGroup().invalid).toBeTruthy();
     expect(applyButton).toBeDisabled();
@@ -100,16 +102,16 @@ describe('BnFilterComponent', () => {
 
     expect(appliedSpy).toHaveBeenCalledWith({
       name: 'Luke',
-      status: 'active'
+      status: 'active',
     });
   });
 
   it('should emit cleared event and reset form when clear is called', () => {
     const clearedSpy = jest.spyOn(component.cleared, 'emit');
     const appliedSpy = jest.spyOn(component.applied, 'emit');
-    
+
     component.formGroup().get('name')?.setValue('Luke');
-    
+
     component.clear();
 
     expect(component.formGroup().get('name')?.value).toBeNull();

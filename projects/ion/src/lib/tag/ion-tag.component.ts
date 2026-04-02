@@ -1,4 +1,3 @@
-
 import { Component, computed, input } from '@angular/core';
 import { IonIconComponent } from '../icon/icon.component';
 import { TagStatus } from '../core/types';

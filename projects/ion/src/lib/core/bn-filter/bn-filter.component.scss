@@ -1,4 +1,4 @@
-@import "../../../styles/index.scss";
+@import '../../../styles/index.scss';
 
 .bn-filter-container {
   border-radius: 8px;
@@ -15,7 +15,7 @@
 }
 
 .divider {
-  border-bottom: 1px solid var(--main-neutral-4, #CED2DB);
+  border-bottom: 1px solid var(--main-neutral-4, #ced2db);
 }
 
 .filter-content {
@@ -29,14 +29,14 @@
   padding: 16px 24px;
 
   .required-text {
-    color: var(--main-neutral-5, #AEB2BD);
+    color: var(--main-neutral-5, #aeb2bd);
     font-size: 14px;
     font-style: italic;
     font-weight: 300;
     line-height: 20px;
   }
 
-  .selection-chips{
+  .selection-chips {
     display: flex;
     gap: 8px;
   }

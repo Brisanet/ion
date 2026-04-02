@@ -174,7 +174,7 @@ describe('Directive: Popconfirm', () => {
 
     fixture.detectChanges();
     const directiveEl = fixture.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
   });
@@ -230,7 +230,7 @@ describe('Directive: Popconfirm', () => {
     directive.open();
     fixture.detectChanges();
     fireEvent.click(
-      within(screen.getByTestId('pop-confirm-btn')).getByRole('button')
+      within(screen.getByTestId('pop-confirm-btn')).getByRole('button'),
     );
     fixture.detectChanges();
     expect(screen.queryByTestId('pop-confirm-btn')).not.toBeInTheDocument();
@@ -263,7 +263,7 @@ describe('Popconfirm host tests', () => {
 
     fixture.detectChanges();
     const directiveEl = fixture.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
     input = fixture.debugElement.query(By.directive(IonPopConfirmDirective));
@@ -303,11 +303,11 @@ describe('Popconfirm disabled host component', () => {
 
     fixtureDisabledBtn.detectChanges();
     const directiveEl = fixtureDisabledBtn.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
     input = fixtureDisabledBtn.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
   });
 
@@ -361,11 +361,11 @@ describe('Popconfirm loading host component', () => {
 
     fixtureLoadingBtn.detectChanges();
     const directiveEl = fixtureLoadingBtn.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
     input = fixtureLoadingBtn.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
   });
 
@@ -402,7 +402,7 @@ describe('Popconfirm position when it opens', () => {
 
     fixtureTable.detectChanges();
     const directiveEl = fixtureTable.debugElement.query(
-      By.directive(IonPopConfirmDirective)
+      By.directive(IonPopConfirmDirective),
     );
     directive = directiveEl.injector.get(IonPopConfirmDirective);
 
@@ -420,7 +420,7 @@ describe('Popconfirm position when it opens', () => {
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
-      elementPosition
+      elementPosition,
     );
     expect(position.left).toBe(openToRightOffset.left);
   });
@@ -428,7 +428,7 @@ describe('Popconfirm position when it opens', () => {
   it('should open to the right side', () => {
     jest.spyOn(window, 'requestAnimationFrame');
     const popconfirmElement = document.body.querySelector(
-      '.sup-container'
+      '.sup-container',
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToRightOffset);
     expect(popconfirmElement).toHaveClass('warning');
@@ -437,7 +437,7 @@ describe('Popconfirm position when it opens', () => {
   it('should open to the left side', async () => {
     jest.spyOn(window, 'requestAnimationFrame');
     const popconfirmElement = document.body.querySelector(
-      '.sup-container'
+      '.sup-container',
     ) as HTMLElement;
     directive.setStyle(popconfirmElement, openToLeftOffset);
     expect(popconfirmElement.classList).toContain('sup-container-right');
@@ -448,7 +448,7 @@ describe('Popconfirm position when it opens', () => {
     const position: PopOffset = directive.setPosition(
       popconfirmElement,
       documentWidth,
-      openToUpOffset
+      openToUpOffset,
     );
 
     directive.setStyle(popconfirmElement, openToUpOffset);
@@ -492,7 +492,7 @@ describe('Popconfirm close on scroll', () => {
   }
 
   const sut = async (
-    closeOnScroll = false
+    closeOnScroll = false,
   ): Promise<RenderResult<ScrollTestComponent>> => {
     return await render(ScrollTestComponent, {
       componentInputs: { closeOnScroll },

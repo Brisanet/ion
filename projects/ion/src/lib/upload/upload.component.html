@@ -13,7 +13,9 @@
       <div class="upload-dropzone__file">
         <div class="upload-dropzone__file-info">
           <ion-icon type="doc" [size]="24"></ion-icon>
-          <span class="upload-dropzone__file-name">{{ selectedFile()!.name }}</span>
+          <span class="upload-dropzone__file-name">{{
+            selectedFile()!.name
+          }}</span>
         </div>
         <ion-button
           iconType="trash"
@@ -53,7 +55,7 @@
     <ion-divider type="text" label="ou" direction="horizontal"></ion-divider>
 
     <div class="upload-url">
-      <label class="upload-url__label">Importar de uma URL</label>
+      <span class="upload-url__label">Importar de uma URL</span>
       <ion-input
         [placeholder]="urlPlaceholder()"
         [disabled]="disabled()"

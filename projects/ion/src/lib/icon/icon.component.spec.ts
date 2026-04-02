@@ -126,7 +126,9 @@ describe('IonIconComponent', () => {
         '[data-testid="inner-container"]',
       );
 
-      expect(container.style.backgroundColor).toContain('rgba(255, 0, 22, 0.25');
+      expect(container.style.backgroundColor).toContain(
+        'rgba(255, 0, 22, 0.25',
+      );
       expect(container.style.width).toBe(`${iconSizes.sm * 1.75}px`);
       expect(container.style.height).toBe(`${iconSizes.sm * 1.75}px`);
     });
@@ -142,7 +144,9 @@ describe('IonIconComponent', () => {
         '[data-testid="inner-container"]',
       );
 
-      expect(container.style.backgroundColor).toContain('rgba(255, 0, 22, 0.25');
+      expect(container.style.backgroundColor).toContain(
+        'rgba(255, 0, 22, 0.25',
+      );
       expect(container.style.width).toBe(`${iconSizes.md * 1.5}px`);
       expect(container.style.height).toBe(`${iconSizes.md * 1.5}px`);
     });

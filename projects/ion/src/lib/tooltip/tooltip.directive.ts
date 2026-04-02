@@ -54,7 +54,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
     private injector: Injector,
     private elementRef: ElementRef,
     private tooltipService: TooltipService,
-    private environmentInjector: EnvironmentInjector
+    private environmentInjector: EnvironmentInjector,
   ) {
     effect(() => {
       if (this.componentRef) {
@@ -95,16 +95,16 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
       this.componentRef.setInput('ionTooltipTitle', this.ionTooltipTitle());
       this.componentRef.setInput(
         'ionTooltipTemplateRef',
-        this.ionTooltipTemplateRef()
+        this.ionTooltipTemplateRef(),
       );
       this.componentRef.setInput(
         'ionTooltipColorScheme',
-        this.ionTooltipColorScheme()
+        this.ionTooltipColorScheme(),
       );
       this.componentRef.setInput('ionTooltipContext', this.ionTooltipContext());
       this.componentRef.setInput(
         'ionTooltipCustomClass',
-        this.ionTooltipCustomClass()
+        this.ionTooltipCustomClass(),
       );
     }
   }
@@ -119,7 +119,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
       this.delayTimeout = window.setTimeout(
         this.showTooltip.bind(this),
-        this.ionTooltipShowDelay()
+        this.ionTooltipShowDelay(),
       );
       this.setComponentPosition();
     }
@@ -137,7 +137,7 @@ export class IonTooltipDirective implements OnDestroy, OnInit {
 
     const positions = getPositions(
       hostPositions,
-      this.ionTooltipArrowPointAtCenter()
+      this.ionTooltipArrowPointAtCenter(),
     );
 
     const currentPosition = this.componentRef.instance.ionTooltipPosition();

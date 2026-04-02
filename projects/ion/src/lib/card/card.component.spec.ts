@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { render, screen } from '@testing-library/angular';
 
-
 // Importação dos seus componentes
 import { IonCardComponent } from './card.component';
 import { IonCardHeaderComponent } from './card-header.component';
@@ -33,8 +32,8 @@ const footerText = 'Conteúdo do footer';
     IonCardComponent,
     IonCardHeaderComponent,
     IonCardFooterComponent,
-    IonIconComponent
-],
+    IonIconComponent,
+  ],
 })
 class FullCardTestWrapperComponent {
   title = cardTitle;
@@ -91,10 +90,10 @@ describe('IonCard Component Suite', () => {
 
     it('should project actions content into the specific actions slot', () => {
       expect(screen.getByTestId('actions-content')).toHaveTextContent(
-        'Actions'
+        'Actions',
       );
       expect(screen.getByTestId('header-actions')).toContainElement(
-        screen.getByTestId('actions-content')
+        screen.getByTestId('actions-content'),
       );
     });
 
@@ -111,7 +110,7 @@ describe('IonCard Component Suite', () => {
     it('should render custom content in header when no title input is provided', async () => {
       await render(CustomHeaderTestWrapperComponent);
       expect(screen.getByTestId('custom-header-content')).toHaveTextContent(
-        'Conteúdo Customizado'
+        'Conteúdo Customizado',
       );
     });
 

@@ -83,14 +83,14 @@ export class IonPopConfirmDirective implements OnDestroy {
       if (this.componentRef) {
         const isBottom = change.connectionPair.originY === 'top';
         this.componentRef.instance.ionPopConfirmPosition.set(
-          isBottom ? 'bottom' : ''
+          isBottom ? 'bottom' : '',
         );
       }
     });
 
     const portal = new ComponentPortal(
       IonPopConfirmComponent,
-      this.viewContainerRef
+      this.viewContainerRef,
     );
     this.componentRef = this.overlayRef.attach(portal);
 
@@ -174,7 +174,7 @@ export class IonPopConfirmDirective implements OnDestroy {
   setPosition(
     _element: HTMLElement,
     _docWidth: number,
-    _position: PopPosition
+    _position: PopPosition,
   ): PopOffset {
     return {
       top: _position.top,
@@ -189,7 +189,7 @@ export class IonPopConfirmDirective implements OnDestroy {
     element.classList.remove(
       'sup-container',
       'sup-container-right',
-      'sup-container-bottom'
+      'sup-container-bottom',
     );
     if (offset.left < 450) {
       element.classList.add('sup-container-right');

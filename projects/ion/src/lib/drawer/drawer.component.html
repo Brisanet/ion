@@ -1,5 +1,10 @@
 @if (isOpen()) {
-  <div class="ion-drawer-backdrop" (click)="close()" (keydown.escape)="close()" tabindex="-1"></div>
+  <div
+    class="ion-drawer-backdrop"
+    (click)="close()"
+    (keydown.escape)="close()"
+    tabindex="-1"
+  ></div>
 }
 
 <div [class]="drawerClasses()">
@@ -7,10 +12,7 @@
     @if (title()) {
       <div class="ion-drawer-title">
         @if (iconTitle()) {
-          <ion-icon
-            [type]="iconTitle()!"
-            [size]="24"
-          ></ion-icon>
+          <ion-icon [type]="iconTitle()!" [size]="24"></ion-icon>
         }
         <span>{{ title() }}</span>
       </div>
@@ -24,7 +26,7 @@
       [circularButton]="true"
       data-testid="close-icon"
       (ionOnClick)="close()"
-      />
+    />
   </header>
 
   <main class="ion-drawer-body">
@@ -40,20 +42,23 @@
             type="secondary"
             [iconType]="secondaryButton()?.iconType || ''"
             [rightSideIcon]="secondaryButton()?.rightSideIcon || false"
-            (ionOnClick)="secondary()" />
+            (ionOnClick)="secondary()"
+          />
         }
         <div class="ion-drawer-footer-actions">
           @if (cancelButton()) {
             <ion-button
               [label]="cancelButton()?.label"
               type="secondary"
-              (ionOnClick)="close()" />
+              (ionOnClick)="close()"
+            />
           }
           @if (submitButton()) {
             <ion-button
               [label]="submitButton()?.label"
               (ionOnClick)="submit()"
-              [loading]="!!submitButton()?.loading" />
+              [loading]="!!submitButton()?.loading"
+            />
           }
         </div>
       </div>

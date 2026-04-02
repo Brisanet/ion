@@ -1,4 +1,3 @@
-
 import {
   Component,
   computed,
@@ -22,11 +21,7 @@ import { IonBadgeComponent } from '../badge/badge.component';
 @Component({
   selector: 'ion-button',
   standalone: true,
-  imports: [
-    IonIconComponent,
-    IonDropdownComponent,
-    IonBadgeComponent
-],
+  imports: [IonIconComponent, IonDropdownComponent, IonBadgeComponent],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   host: {
