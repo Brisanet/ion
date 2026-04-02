@@ -85,7 +85,16 @@ export interface ActionConfirm<RowType> {
   cancelText?: string;
 }
 
-export type ActionPopover = SafeAny;
+/**
+ * Optional callback on the object returned by `action.popover(row)` (ion-table and smart-table).
+ */
+export interface ActionPopoverRowHooks<RowType = SafeAny> {
+  ionOnClick?: (row: RowType) => void;
+}
+
+/** Popover config per row; may include `ionOnClick` plus popover inputs. */
+export type ActionPopover<RowType = SafeAny> = SafeAny &
+  Partial<ActionPopoverRowHooks<RowType>>;
 
 export interface ActionTable<RowType = SafeAny> {
   label: string;
@@ -99,7 +108,7 @@ export interface ActionTable<RowType = SafeAny> {
   tooltipConfig?: TooltipProps;
   showLabel?: boolean;
   rightSideIcon?: boolean;
-  popover?: (row?: RowType) => ActionPopover;
+  popover?: (row?: RowType) => ActionPopover<RowType>;
 }
 
 export interface PaginationConfig {
