@@ -413,6 +413,14 @@
                                   )
                                 : null
                             "
+                            (ionOnClick)="
+                              action.popover!(row)['ionOnClick']
+                                ? handleEvent(
+                                    row,
+                                    action.popover!(row)['ionOnClick']
+                                  )
+                                : null
+                            "
                             [attr.data-testid]="
                               'row-' + index + '-' + action.label
                             "

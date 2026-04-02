@@ -1,3 +1,5 @@
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { fireEvent, render, screen } from '@testing-library/angular';
 import { IonTableComponent } from './ion-table.component';
 import { ConfigTable } from './utils';
@@ -42,6 +44,48 @@ const sut = async (
   });
 };
 
+@Component({
+  standalone: true,
+  imports: [CommonModule, IonTableComponent],
+  template: `
+    <ng-template #popoverBody><span>popover-body</span></ng-template>
+    @if (viewReady) {
+      <ion-table [config]="config" />
+    }
+  `,
+})
+class HostTablePopoverHooksComponent implements OnInit {
+  @ViewChild('popoverBody', { static: true }) popoverBody!: TemplateRef<SafeAny>;
+
+  ionOnClick = jest.fn();
+
+  viewReady = false;
+
+  config!: ConfigTable<SafeAny>;
+
+  ngOnInit(): void {
+    this.config = {
+      data: [{ col1: 'Data 1', col2: 'Data 2' }],
+      columns: [
+        { label: 'Column 1', key: 'col1' },
+        { label: 'Column 2', key: 'col2' },
+      ],
+      actions: [
+        {
+          label: 'More',
+          icon: 'dots',
+          popover: () => ({
+            ionPopoverTitle: 'Title',
+            ionPopoverBody: this.popoverBody,
+            ionOnClick: (row: SafeAny) => this.ionOnClick(row),
+          }),
+        },
+      ],
+    };
+    this.viewReady = true;
+  }
+}
+
 describe('IonTableComponent', () => {
   it('should render the table', async () => {
     await sut();
@@ -76,5 +120,21 @@ describe('IonTableComponent', () => {
       pagination: { total: 10, itemsPerPage: 5, page: 1 },
     });
     expect(screen.getByTestId('pagination-container')).toBeVisible();
+  });
+
+  it('should call ionOnClick from action.popover with row', async () => {
+    const { fixture } = await render(HostTablePopoverHooksComponent);
+    const host = fixture.componentInstance;
+    fixture.detectChanges();
+
+    const triggerHost = screen.getByTestId('row-0-More');
+    const innerButton = triggerHost.querySelector('button');
+    expect(innerButton).toBeTruthy();
+    fireEvent.click(innerButton!);
+
+    const expectedRow = { col1: 'Data 1', col2: 'Data 2' };
+    expect(host.ionOnClick).toHaveBeenCalledWith(
+      expect.objectContaining(expectedRow),
+    );
   });
 });
