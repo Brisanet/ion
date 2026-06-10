@@ -75,8 +75,10 @@ describe('IonSelectComponent', () => {
     fixture.detectChanges();
 
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
-    expect(screen.getAllByText('Apple')).toHaveLength(2);
-    expect(screen.getAllByText('Banana')).toHaveLength(2);
+
+    const selectedValue =
+      fixture.nativeElement.querySelector('.selected-value');
+    expect(selectedValue.querySelectorAll('[data-testid="ion-chip-label"]')).toHaveLength(2);
   });
 
   it('should not open dropdown when disabled', async () => {
@@ -127,7 +129,12 @@ describe('IonSelectComponent', () => {
     fixture.componentRef.setInput('multiple', true);
     fixture.componentRef.setInput('value', ['apple', 'grape']);
     fixture.detectChanges();
-    expect(screen.getAllByTestId('ion-chip-label')).toHaveLength(2);
+
+    const selectedValue =
+      fixture.nativeElement.querySelector('.selected-value');
+    expect(
+      selectedValue.querySelectorAll('[data-testid="ion-chip-label"]')
+    ).toHaveLength(2);
   });
 
   it('should initialize with value input and propValue', async () => {
@@ -222,6 +229,64 @@ describe('IonSelectComponent', () => {
       fixture.detectChanges();
 
       expect(valueChangeSpy).toHaveBeenCalledWith([optionsCopy[1]]);
+    });
+  });
+
+  describe('overflow counter', () => {
+    it('should render +N counter when visibleCount is less than selected items', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      fixture.componentRef.setInput('options', options);
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('value', ['apple', 'banana', 'grape']);
+      fixture.detectChanges();
+
+      fixture.componentInstance.visibleCount.set(1);
+      fixture.detectChanges();
+
+      expect(screen.getByTestId('select-overflow-count').textContent).toBe(
+        '+2'
+      );
+
+      const selectedValue =
+        fixture.nativeElement.querySelector('.selected-value');
+      expect(
+        selectedValue.querySelectorAll('[data-testid="ion-chip-label"]')
+      ).toHaveLength(1);
+    });
+
+    it('should not render overflow counter in single select mode', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      fixture.componentRef.setInput('options', options);
+      fixture.componentRef.setInput('value', 'apple');
+      fixture.detectChanges();
+
+      fixture.componentInstance.visibleCount.set(0);
+      fixture.detectChanges();
+
+      expect(screen.queryByTestId('select-overflow-count')).toBeFalsy();
+    });
+
+    it('should update overflow counter when a chip is removed', async () => {
+      const fixture = TestBed.createComponent(IonSelectComponent);
+      const optionsCopy = options.map((opt) => ({ ...opt }));
+      fixture.componentRef.setInput('options', optionsCopy);
+      fixture.componentRef.setInput('multiple', true);
+      fixture.componentRef.setInput('value', ['apple', 'banana', 'grape']);
+      fixture.detectChanges();
+
+      fixture.componentInstance.visibleCount.set(1);
+      fixture.detectChanges();
+      expect(screen.getByTestId('select-overflow-count').textContent).toBe(
+        '+2'
+      );
+
+      fixture.componentInstance.handleChipEvents(optionsCopy[0]);
+      fixture.componentInstance.visibleCount.set(1);
+      fixture.detectChanges();
+
+      expect(screen.getByTestId('select-overflow-count').textContent).toBe(
+        '+1'
+      );
     });
   });
 });

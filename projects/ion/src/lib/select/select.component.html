@@ -14,8 +14,11 @@
     @if (dropdownSelectedItems().length === 0) {
     <span class="placeholder">{{ placeholder() }}</span>
     } @else {
-    <div class="selected-value">
-      @for (item of dropdownSelectedItems(); track $index) {
+    <div
+      class="selected-value"
+      [class.single-selection]="!multiple()"
+    >
+      @for (item of visibleItems(); track $index) {
       <ion-chip
         [label]="item[propLabel()] || item.label"
         icon="close"
@@ -24,6 +27,11 @@
         [disabled]="disabled()"
       ></ion-chip>
       }
+      @if (overflowCount() > 0) {
+      <span class="overflow-counter" data-testid="select-overflow-count"
+        >+{{ overflowCount() }}</span
+      >
+      }
     </div>
     }
 
@@ -31,6 +39,24 @@
       [type]="showDropdown() ? 'semi-up' : 'semi-down'"
       [size]="20"
     ></ion-icon>
+
+    @if (dropdownSelectedItems().length > 0 && multiple()) {
+    <div
+      class="measurement-container"
+      #measurementContainer
+      aria-hidden="true"
+    >
+      @for (item of dropdownSelectedItems(); track $index) {
+      <ion-chip
+        [label]="item[propLabel()] || item.label"
+        icon="close"
+        iconPosition="right"
+        [disabled]="disabled()"
+      ></ion-chip>
+      }
+      <span class="overflow-counter overflow-counter-measure">+0</span>
+    </div>
+    }
   </div>
 
   @if (showDropdown()) {

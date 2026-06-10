@@ -14,7 +14,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 8px;
   background: ion-theme(select-background-color);
   border-radius: ion-theme(select-border-radius);
   border: 1px solid ion-theme(select-border-color);
@@ -69,6 +69,8 @@
   }
 
   .placeholder {
+    flex: 1;
+    min-width: 0;
     color: ion-theme(select-placeholder-color);
     font-size: 14px;
     white-space: nowrap;
@@ -76,9 +78,57 @@
     text-overflow: ellipsis;
   }
 
+  ion-icon {
+    flex-shrink: 0;
+  }
+
   .selected-value {
     display: flex;
+    flex: 1;
+    min-width: 0;
     gap: 8px;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: nowrap;
+
+    ion-chip {
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden;
+
+      ::ng-deep .container-icon-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .overflow-counter {
+    flex-shrink: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: ion-theme(select-text-color);
+    background: ion-theme(neutral-2);
+    border-radius: ion-theme(chip-border-radius);
+    padding: 2px 8px;
+    white-space: nowrap;
+  }
+
+  &.disabled .overflow-counter {
+    color: ion-theme(select-disabled-text-color);
+  }
+
+  .measurement-container {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 0;
+    overflow: hidden;
   }
 }
 

@@ -855,6 +855,21 @@
         ></ion-select>
       </div>
 
+      <div style="max-width: 360px">
+        <h3>Multiple Selection com Overflow (+N)</h3>
+        <p style="margin: 0 0 8px; font-size: 14px; color: #6b7280">
+          Quando os chips selecionados excedem a largura do campo, os itens
+          extras são agrupados no contador +N.
+        </p>
+        <ion-select
+          placeholder="Selecione os centros de distribuição"
+          [options]="selectOptionsDistributionCenters"
+          [multiple]="true"
+          [value]="selectOverflowValue"
+          (selected)="handleSelectChange($event)"
+        ></ion-select>
+      </div>
+
       <div>
         <h3>Invalid State</h3>
         <ion-select

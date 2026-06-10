@@ -3,26 +3,29 @@ import {
   input,
   output,
   signal,
-  ElementRef,
+  computed,
   inject,
   effect,
   untracked,
+  viewChild,
+  afterNextRender,
+  DestroyRef,
   ChangeDetectionStrategy,
+  ElementRef,
 } from '@angular/core';
 
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonChipComponent } from '../chip/chip.component';
+import { calculateVisibleChipCount } from './calculate-visible-chip-count';
+
+const CHIP_GAP = 8;
 
 @Component({
   selector: 'ion-select',
   standalone: true,
-  imports: [
-    IonIconComponent,
-    IonDropdownComponent,
-    IonChipComponent
-],
+  imports: [IonIconComponent, IonDropdownComponent, IonChipComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,7 +43,7 @@ export class IonSelectComponent {
   propLabel = input<string>('label');
   propValue = input<string>('key');
   loading = input<boolean>(false);
-  value = input<any>(undefined); // New input for initial value or binding
+  value = input<any>(undefined);
   returnFullObject = input<boolean>(false);
 
   // Outputs
@@ -51,8 +54,34 @@ export class IonSelectComponent {
   // Signals
   showDropdown = signal(false);
   dropdownSelectedItems = signal<DropdownItem[] | any[]>([]);
+  visibleCount = signal<number | null>(null);
 
-  private elementRef = inject(ElementRef);
+  selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
+  measurementContainer =
+    viewChild<ElementRef<HTMLElement>>('measurementContainer');
+
+  visibleItems = computed(() => {
+    const items = this.dropdownSelectedItems();
+    const count = this.visibleCount();
+
+    if (!this.multiple() || count === null || count >= items.length) {
+      return items;
+    }
+
+    return items.slice(0, count);
+  });
+
+  overflowCount = computed(() => {
+    if (!this.multiple()) {
+      return 0;
+    }
+
+    const items = this.dropdownSelectedItems();
+    return Math.max(0, items.length - this.visibleItems().length);
+  });
+
+  private destroyRef = inject(DestroyRef);
+  private resizeObserver: ResizeObserver | null = null;
 
   constructor() {
     effect(
@@ -66,7 +95,6 @@ export class IonSelectComponent {
           if (value !== null && value !== '') {
             const valueArray = Array.isArray(value) ? value : [value];
 
-            // Items present in current options
             const presentSelected = options.filter((opt) =>
               valueArray.some((val) =>
                 typeof val === 'object'
@@ -75,7 +103,6 @@ export class IonSelectComponent {
               )
             );
 
-            // Preserve selected items that are in 'value' but NOT in current options
             const currentSelected = untracked(() =>
               this.dropdownSelectedItems()
             );
@@ -103,13 +130,11 @@ export class IonSelectComponent {
             );
           });
         } else {
-          // Fallback to options marked as selected if no value input is provided
           const selected = options.filter((option) => option.selected);
           const currentSelected = untracked(() =>
             this.dropdownSelectedItems()
           );
 
-          // Only set if different to avoid redundant triggers
           if (
             selected.length !== currentSelected.length ||
             !selected.every((s) =>
@@ -124,7 +149,19 @@ export class IonSelectComponent {
       },
       { allowSignalWrites: true }
     );
-    // TODO: allowSignalWrites deprecated, update this
+
+    effect(() => {
+      this.dropdownSelectedItems();
+      this.multiple();
+      untracked(() => {
+        queueMicrotask(() => this.updateVisibleCount());
+      });
+    });
+
+    afterNextRender(() => {
+      this.setupResizeObserver();
+      this.updateVisibleCount();
+    });
   }
 
   toggleDropdown(): void {
@@ -141,7 +178,6 @@ export class IonSelectComponent {
 
     if (this.multiple()) {
       const options = this.options();
-      // Keep items that were selected but are NOT in the current options (e.g. filtered out by search)
       const itemsNotInOptions = currentSelected.filter(
         (item) =>
           !options.some((opt) => (opt as any)[prop] === (item as any)[prop])
@@ -203,7 +239,6 @@ export class IonSelectComponent {
 
     this.valueChange.emit(emitValue);
 
-    // Update the options to reflect the removal
     this.options().forEach((option) => {
       if (
         (option as any)[this.propLabel()] === (item as any)[this.propLabel()] &&
@@ -217,5 +252,80 @@ export class IonSelectComponent {
   handleSearch(value: string): void {
     console.log('[IonSelect] handleSearch:', value);
     this.search.emit(value);
+  }
+
+  private setupResizeObserver(): void {
+    const trigger = this.selectTrigger()?.nativeElement;
+    if (!trigger || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    this.resizeObserver = new ResizeObserver(() => this.updateVisibleCount());
+    this.resizeObserver.observe(trigger);
+
+    this.destroyRef.onDestroy(() => {
+      this.resizeObserver?.disconnect();
+    });
+  }
+
+  private updateVisibleCount(): void {
+    const items = this.dropdownSelectedItems();
+
+    if (!this.multiple() || items.length === 0) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const trigger = this.selectTrigger()?.nativeElement;
+    const measurement = this.measurementContainer()?.nativeElement;
+
+    if (!trigger || !measurement || !trigger.clientWidth) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const icon = trigger.querySelector('ion-icon');
+    const iconWidth = icon?.getBoundingClientRect().width ?? 20;
+    const styles = getComputedStyle(trigger);
+    const paddingLeft = parseFloat(styles.paddingLeft) || 0;
+    const paddingRight = parseFloat(styles.paddingRight) || 0;
+    const availableWidth =
+      trigger.clientWidth - iconWidth - CHIP_GAP - paddingLeft - paddingRight;
+
+    const chipElements = measurement.querySelectorAll('ion-chip');
+    const chipWidths = Array.from(chipElements).map(
+      (element) => element.getBoundingClientRect().width
+    );
+
+    if (
+      availableWidth <= 0 ||
+      chipWidths.length === 0 ||
+      chipWidths.every((width) => width === 0)
+    ) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const counterMeasure = measurement.querySelector(
+      '.overflow-counter-measure'
+    ) as HTMLElement | null;
+
+    const getCounterWidth = (hiddenCount: number): number => {
+      if (!counterMeasure) {
+        return 30;
+      }
+
+      counterMeasure.textContent = `+${hiddenCount}`;
+      return counterMeasure.getBoundingClientRect().width;
+    };
+
+    const count = calculateVisibleChipCount(
+      chipWidths,
+      availableWidth,
+      CHIP_GAP,
+      getCounterWidth
+    );
+
+    this.visibleCount.set(count);
   }
 }
