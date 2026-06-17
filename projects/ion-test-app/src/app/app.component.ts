@@ -1136,6 +1136,22 @@ export class AppComponent implements OnInit {
     { label: 'Opala', value: 'opala' },
   ];
 
+  selectOptionsDistributionCenters = [
+    { label: 'CD Ceará/Pereiro', key: 'cd-ceara-pereiro' },
+    { label: 'CD Piauí/Teresina', key: 'cd-piaui-teresina' },
+    { label: 'CDR Fortaleza/Metropolitana', key: 'cdr-fortaleza' },
+    { label: 'CDR Juazeiro do Norte', key: 'cdr-juazeiro' },
+    { label: 'CD Bahia/Salvador', key: 'cd-bahia-salvador' },
+    { label: 'CD Pernambuco/Recife', key: 'cd-pernambuco-recife' },
+  ];
+
+  selectOverflowValue = [
+    'cd-ceara-pereiro',
+    'cd-piaui-teresina',
+    'cdr-fortaleza',
+    'cdr-juazeiro',
+  ];
+
   handleSelectChange(event: DropdownItem[]): void {
     console.log('Select changed:', event);
   }
