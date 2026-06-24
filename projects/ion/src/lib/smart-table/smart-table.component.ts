@@ -23,7 +23,7 @@ import { IonPaginationComponent } from '../pagination/pagination.component';
 import { IonPopConfirmDirective } from '../popconfirm/popconfirm.directive';
 import { IonPopoverDirective } from '../popover/popover.directive';
 import { IonSpinnerComponent } from '../spinner/spinner.component';
-import { Column, EventTable, BaseRow } from '../table/utils';
+import { Column, EventTable, BaseRow, ActionTable } from '../table/utils';
 import { IonTagComponent } from '../tag/ion-tag.component';
 import { IonThemeService } from '../theme/theme.service';
 import { IonTooltipDirective } from '../tooltip/tooltip.directive';
@@ -152,5 +152,12 @@ export class IonSmartTableComponent<RowType extends BaseRow>
       change_page: this.pagination,
       rows_selected: this.getRowsSelected(),
     });
+  }
+
+  public getActionLabel(action: ActionTable, row: RowType): string {
+    if (action.labelFn && typeof action.labelFn === 'function') {
+      return action.labelFn(row);
+    }
+    return action.label;
   }
 }

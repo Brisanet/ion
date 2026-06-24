@@ -25,7 +25,7 @@ import { BaseTable } from '../utils/baseTable';
 import { CheckBoxStates } from '../core/types';
 import { PageEvent } from '../core/types/pagination';
 import { TableEvent } from '../core/types/table';
-import { ConfigTable, Column, BaseRow } from './utils';
+import { ConfigTable, Column, BaseRow, ActionTable } from './utils';
 import { LIST_OF_PAGE_OPTIONS } from '../pagination/pagination.component';
 import { IonThemeService } from '../theme/theme.service';
 import { SafeAny } from '../utils/safe-any';
@@ -144,5 +144,12 @@ export class IonTableComponent<RowType extends BaseRow>
       return this.orderDesc(rowA[key], rowB[key]);
     }
     return this.orderAsc(rowA[key], rowB[key]);
+  }
+
+  public getActionLabel(action: ActionTable, row: RowType): string {
+    if (action.labelFn && typeof action.labelFn === 'function') {
+      return action.labelFn(row);
+    }
+    return action.label;
   }
 }

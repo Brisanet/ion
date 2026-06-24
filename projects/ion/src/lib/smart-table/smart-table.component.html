@@ -272,7 +272,7 @@
                             ionTooltip
                             [ionTooltipTitle]="
                               action.tooltipConfig?.ionTooltipTitle ||
-                              action.label
+                              getActionLabel(action, row)
                             "
                             [ionTooltipPosition]="
                               action.tooltipConfig?.ionTooltipPosition ||
@@ -316,13 +316,13 @@
                               action.call && handleEvent(row, action.call)
                             "
                             [attr.data-testid]="
-                              'row-' + index + '-' + action.label
+                              'row-' + index + '-' + getActionLabel(action, row)
                             "
                             type="ghost"
                             size="sm"
                             [danger]="!!action.danger"
                             [iconType]="action.icon"
-                            [label]="action.label"
+                            [label]="getActionLabel(action, row)"
                             [circularButton]="!action.showLabel"
                             [rightSideIcon]="
                               !!(action.showLabel && action.rightSideIcon)
@@ -339,7 +339,7 @@
                             ionTooltip
                             [ionTooltipTitle]="
                               action.tooltipConfig?.ionTooltipTitle ||
-                              action.label
+                              getActionLabel(action, row)
                             "
                             [ionTooltipPosition]="
                               action.tooltipConfig?.ionTooltipPosition ||
@@ -367,7 +367,7 @@
                             ionPopover
                             [ionPopoverTitle]="
                               action.popover!(row)['ionPopoverTitle'] ||
-                              action.label
+                              getActionLabel(action, row)
                             "
                             [ionPopoverBody]="ActionPopoverBody"
                             [ionPopoverActions]="
@@ -422,13 +422,13 @@
                                 : null
                             "
                             [attr.data-testid]="
-                              'row-' + index + '-' + action.label
+                              'row-' + index + '-' + getActionLabel(action, row)
                             "
                             type="ghost"
                             size="sm"
                             [danger]="!!action.danger"
                             [iconType]="action.icon"
-                            [label]="action.label"
+                            [label]="getActionLabel(action, row)"
                             [circularButton]="!action.showLabel"
                             [rightSideIcon]="
                               !!(action.showLabel && action.rightSideIcon)
@@ -453,7 +453,7 @@
                             ionTooltip
                             [ionTooltipTitle]="
                               action.tooltipConfig?.ionTooltipTitle ||
-                              action.label
+                              getActionLabel(action, row)
                             "
                             [ionTooltipPosition]="
                               action.tooltipConfig?.ionTooltipPosition ||
@@ -479,13 +479,13 @@
                               null
                             "
                             [attr.data-testid]="
-                              'row-' + index + '-' + action.label
+                              'row-' + index + '-' + getActionLabel(action, row)
                             "
                             type="ghost"
                             size="sm"
                             [danger]="!!action.danger"
                             [iconType]="action.icon"
-                            [label]="action.label"
+                            [label]="getActionLabel(action, row)"
                             [circularButton]="!action.showLabel"
                             [rightSideIcon]="
                               !!(action.showLabel && action.rightSideIcon)

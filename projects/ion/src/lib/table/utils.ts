@@ -98,6 +98,7 @@ export type ActionPopover<RowType = SafeAny> = SafeAny &
 
 export interface ActionTable<RowType = SafeAny> {
   label: string;
+  labelFn?: (row: RowType) => string;
   icon: string;
   disabled?: (row: RowType) => boolean;
   danger?: boolean;
