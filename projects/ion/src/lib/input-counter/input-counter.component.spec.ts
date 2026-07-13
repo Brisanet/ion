@@ -28,7 +28,27 @@ describe('InputCounter', () => {
     addButton = within(screen.getByTestId('iconAdd')).getByRole('button');
   });
 
+  it('should start with empty value by default', async () => {
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should remain empty when decrement is clicked on empty state', async () => {
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('');
+    fireEvent.click(subButton);
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should increment to 1 from empty state when increment is clicked', async () => {
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('');
+    fireEvent.click(addButton);
+    expect(inputCounter.value).toBe('1');
+  });
+
   it('should keep 0 when click to decrement and is 0', async () => {
+    await sut({ count: 0 });
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
     expect(inputCounter.value).toBe('0');
     fireEvent.click(subButton);
@@ -80,6 +100,18 @@ describe('InputCounter', () => {
     // Value should remain 111 since oninput prevents non-numeric
     expect(inputCounter.value).toBe('111');
   });
+
+  it('should remain empty after blur when cleared', async () => {
+    const user = userEvent.setup();
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+
+    await user.type(inputCounter, '10');
+    expect(inputCounter.value).toBe('10');
+
+    await user.clear(inputCounter);
+    fireEvent.blur(inputCounter);
+    expect(inputCounter.value).toBe('');
+  });
 });
 
 describe('InputCounter / Size', () => {
@@ -130,13 +162,22 @@ describe('InputCounter / Limits', () => {
     expect(inputCounter.value).toBe(maxValue.toString());
   });
 
-  it('should initialize count to minValue when minValue is set', async () => {
+  it('should allow empty state with minValue set', async () => {
+    const minValue = 10;
+    await sut({ minValue });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+
+    // Should start empty, not forced to minValue
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should preserve explicit count 0 even with minValue', async () => {
     const minValue = 10;
     await sut({ minValue, count: 0 });
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
 
-    // After effect runs, count should be set to minValue
-    expect(inputCounter.value).toBe(minValue.toString());
+    // Explicit 0 should be preserved
+    expect(inputCounter.value).toBe('0');
   });
 });
 
