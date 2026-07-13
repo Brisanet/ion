@@ -9,8 +9,10 @@ const sut = async (
     maxValue: number;
     minValue: number;
     disabled: boolean;
-    count: number;
+    count: number | null;
     maxDigits: number;
+    initialValue: string | number;
+    placeholder: string;
   }> = {},
 ) => {
   return await render(IonInputCounterComponent, {
@@ -28,27 +30,7 @@ describe('InputCounter', () => {
     addButton = within(screen.getByTestId('iconAdd')).getByRole('button');
   });
 
-  it('should start with empty value by default', async () => {
-    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
-    expect(inputCounter.value).toBe('');
-  });
-
-  it('should remain empty when decrement is clicked on empty state', async () => {
-    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
-    expect(inputCounter.value).toBe('');
-    fireEvent.click(subButton);
-    expect(inputCounter.value).toBe('');
-  });
-
-  it('should increment to 1 from empty state when increment is clicked', async () => {
-    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
-    expect(inputCounter.value).toBe('');
-    fireEvent.click(addButton);
-    expect(inputCounter.value).toBe('1');
-  });
-
   it('should keep 0 when click to decrement and is 0', async () => {
-    await sut({ count: 0 });
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
     expect(inputCounter.value).toBe('0');
     fireEvent.click(subButton);
@@ -95,22 +77,8 @@ describe('InputCounter', () => {
     fireEvent.blur(inputCounter);
     expect(inputCounter.value).toBe('111');
 
-    // The oninput handler should prevent non-numeric characters
     await user.type(inputCounter, 'abc');
-    // Value should remain 111 since oninput prevents non-numeric
     expect(inputCounter.value).toBe('111');
-  });
-
-  it('should remain empty after blur when cleared', async () => {
-    const user = userEvent.setup();
-    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
-
-    await user.type(inputCounter, '10');
-    expect(inputCounter.value).toBe('10');
-
-    await user.clear(inputCounter);
-    fireEvent.blur(inputCounter);
-    expect(inputCounter.value).toBe('');
   });
 });
 
@@ -162,22 +130,78 @@ describe('InputCounter / Limits', () => {
     expect(inputCounter.value).toBe(maxValue.toString());
   });
 
-  it('should allow empty state with minValue set', async () => {
-    const minValue = 10;
-    await sut({ minValue });
-    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
-
-    // Should start empty, not forced to minValue
-    expect(inputCounter.value).toBe('');
-  });
-
-  it('should preserve explicit count 0 even with minValue', async () => {
+  it('should initialize count to minValue when minValue is set and count is 0', async () => {
     const minValue = 10;
     await sut({ minValue, count: 0 });
     const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
 
-    // Explicit 0 should be preserved
     expect(inputCounter.value).toBe('0');
+  });
+});
+
+describe('InputCounter / initialValue', () => {
+  it('should start empty when initialValue is an empty string', async () => {
+    await sut({ initialValue: '' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should remain empty when decrement is clicked and field is empty', async () => {
+    await sut({ initialValue: '' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const subBtn = within(screen.getByTestId('iconSub')).getByRole('button');
+
+    expect(inputCounter.value).toBe('');
+    fireEvent.click(subBtn);
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should increment to 1 from empty state when increment is clicked', async () => {
+    await sut({ initialValue: '' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    const addBtn = within(screen.getByTestId('iconAdd')).getByRole('button');
+
+    expect(inputCounter.value).toBe('');
+    fireEvent.click(addBtn);
+    expect(inputCounter.value).toBe('1');
+  });
+
+  it('should remain empty after blur when cleared with initialValue empty', async () => {
+    await sut({ initialValue: '' });
+    const user = userEvent.setup();
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+
+    await user.type(inputCounter, '10');
+    expect(inputCounter.value).toBe('10');
+
+    await user.clear(inputCounter);
+    fireEvent.blur(inputCounter);
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should start with 0 when initialValue is "0"', async () => {
+    await sut({ initialValue: '0' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('0');
+  });
+
+  it('should start with numeric initialValue', async () => {
+    await sut({ initialValue: 5 });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('5');
+  });
+
+  it('should allow empty state with minValue when initialValue is empty', async () => {
+    await sut({ minValue: 10, initialValue: '' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.value).toBe('');
+  });
+
+  it('should render placeholder when provided', async () => {
+    await sut({ initialValue: '', placeholder: '0' });
+    const inputCounter = screen.getByTestId('input-count') as HTMLInputElement;
+    expect(inputCounter.placeholder).toBe('0');
+    expect(inputCounter.value).toBe('');
   });
 });
 

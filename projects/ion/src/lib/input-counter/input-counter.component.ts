@@ -44,7 +44,7 @@ export class IonInputCounterComponent {
           this.count.set(isNaN(numValue) ? 0 : numValue);
         }
       }
-    }, { allowSignalWrites: true });
+    });
   }
 
   emitEvent(): void {
