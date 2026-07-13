@@ -24,28 +24,39 @@ export class IonInputCounterComponent {
   minValue = input<number>(0);
   disabled = input<boolean>(false);
   maxDigits = input<number>(9);
+  placeholder = input<string>('');
+  initialValue = input<string | number | undefined>(undefined);
 
-  count = model<number>(0);
+  count = model<number | null>(0);
 
   changedValue = output<{ newValue: number }>();
 
   constructor() {
-    // Initialize count to minValue if minValue is set and count is 0
     effect(() => {
-      const min = this.minValue();
+      const initial = this.initialValue();
       const currentCount = this.count();
-      if (min && !currentCount) {
-        this.count.set(min);
+
+      if (initial !== undefined && currentCount === 0) {
+        if (initial === '') {
+          this.count.set(null);
+        } else {
+          const numValue = typeof initial === 'number' ? initial : Number(initial);
+          this.count.set(isNaN(numValue) ? 0 : numValue);
+        }
       }
     });
   }
 
   emitEvent(): void {
-    this.changedValue.emit({ newValue: this.count() });
+    const currentCount = this.count();
+    const valueToEmit = currentCount ?? this.minValue();
+    this.changedValue.emit({ newValue: valueToEmit });
   }
 
   countDecrement(): void {
     const currentCount = this.count();
+    if (currentCount === null) return;
+
     const min = this.minValue();
     if (currentCount > min) {
       this.count.set(currentCount - 1);
@@ -56,12 +67,25 @@ export class IonInputCounterComponent {
   countIncrement(): void {
     const currentCount = this.count();
     const max = this.maxValue();
-    if (max && max === currentCount) return;
-    this.count.set(currentCount + 1);
+
+    const valueToIncrement = currentCount ?? 0;
+    if (max && max === valueToIncrement) return;
+
+    this.count.set(valueToIncrement + 1);
     this.emitEvent();
   }
 
   changeCount(countStr: string): void {
+    if (countStr === '' && this.initialValue() === '') {
+      this.count.set(null);
+      return;
+    }
+
+    if (countStr === '' && this.initialValue() !== '') {
+      this.count.set(0);
+      return;
+    }
+
     const countNumeric = Number(countStr);
     if (!isNaN(countNumeric)) {
       this.count.set(countNumeric);
@@ -73,14 +97,23 @@ export class IonInputCounterComponent {
     this.emitEvent();
   }
 
-  private getValidCount(): number {
+  private getValidCount(): number | null {
     const currentCount = this.count();
+
+    if (currentCount === null && this.initialValue() === '') {
+      return null;
+    }
+
+    if (currentCount === null && this.initialValue() !== '') {
+      return this.minValue();
+    }
+
     const min = this.minValue();
     const max = this.maxValue();
 
-    if (currentCount < min) {
+    if (currentCount !== null && currentCount < min) {
       return min;
-    } else if (max && currentCount > max) {
+    } else if (currentCount !== null && max && currentCount > max) {
       return max;
     }
     return currentCount;
