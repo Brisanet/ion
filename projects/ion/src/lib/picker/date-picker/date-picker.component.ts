@@ -59,6 +59,7 @@ export class IonDatepickerComponent {
     CalendarDirection.bottomLeft,
   );
   disabledDate = input<IonDatePickerComponentProps['disabledDate']>();
+  placeholder = input<string>('Selecione a data');
   value = input<string[]>([]);
   event = output<string[]>();
 

@@ -15,5 +15,6 @@ export interface IonDatePickerComponentProps {
   rangePicker?: boolean;
   direction?: CalendarDirection;
   disabledDate?: (currentDate: Date) => boolean;
+  placeholder?: string;
   event?: EventEmitter<string>;
 }
