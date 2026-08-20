@@ -91,4 +91,21 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
     );
     expect(calendarContainer).toBeFalsy();
   });
+
+  it('should use default placeholder when none is provided', () => {
+    const inputDebug = fixture.debugElement.query(By.css('date-picker-input'));
+    expect(inputDebug.componentInstance.placeholder()).toBe(
+      'Selecione a data',
+    );
+  });
+
+  it('should pass placeholder down to date-picker-input', () => {
+    fixture.componentRef.setInput('placeholder', 'Custom placeholder');
+    fixture.detectChanges();
+
+    const inputDebug = fixture.debugElement.query(By.css('date-picker-input'));
+    expect(inputDebug.componentInstance.placeholder()).toBe(
+      'Custom placeholder',
+    );
+  });
 });
