@@ -99,6 +99,7 @@ import { BnMaskDirective } from '../../mask/mask.directive';
                 [disabledDate]="field.disabledDate"
                 [disabled]="isDisabled(field)"
                 [predefinedRanges]="field.predefinedRanges ?? []"
+                [placeholder]="field.placeholder ?? 'Selecione a data'"
                 [value]="formGroup().get(field.key)?.value"
                 (event)="onValueChange(field.key, $event)"
               ></ion-date-picker>

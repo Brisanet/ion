@@ -75,6 +75,7 @@ export interface BnDatePickerFormField extends BnBaseFormField {
   direction?: CalendarDirection;
   disabledDate?: (currentDate: Date) => boolean;
   predefinedRanges?: PreDefinedRangeConfig[];
+  placeholder?: string;
   onEvent?: (dates: string[]) => void;
 }
 

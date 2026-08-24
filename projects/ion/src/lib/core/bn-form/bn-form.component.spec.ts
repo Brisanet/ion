@@ -169,6 +169,49 @@ describe('BnFormComponent', () => {
     expect(datepickerFormGroup.get('dateField')?.value).toEqual(['2023-01-01']);
   });
 
+  it('should use the default placeholder when field.placeholder is not set', () => {
+    const datepickerFields: BnFormField[] = [
+      {
+        key: 'dateField',
+        label: 'Date Label',
+        type: 'datepicker',
+      },
+    ];
+    fixture.componentRef.setInput('fields', datepickerFields);
+    fixture.componentRef.setInput(
+      'formGroup',
+      new FormGroup({ dateField: new FormControl([]) }),
+    );
+    fixture.detectChanges();
+
+    const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
+    expect(datepicker.componentInstance.placeholder()).toBe(
+      'Selecione a data',
+    );
+  });
+
+  it('should pass field.placeholder down to ion-date-picker', () => {
+    const datepickerFields: BnFormField[] = [
+      {
+        key: 'dateField',
+        label: 'Date Label',
+        type: 'datepicker',
+        placeholder: 'Selecione o período',
+      },
+    ];
+    fixture.componentRef.setInput('fields', datepickerFields);
+    fixture.componentRef.setInput(
+      'formGroup',
+      new FormGroup({ dateField: new FormControl([]) }),
+    );
+    fixture.detectChanges();
+
+    const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
+    expect(datepicker.componentInstance.placeholder()).toBe(
+      'Selecione o período',
+    );
+  });
+
   describe('onChange property', () => {
     it('should call onChange when ion-input value changes', () => {
       const onChangeSpy = jest.fn();
