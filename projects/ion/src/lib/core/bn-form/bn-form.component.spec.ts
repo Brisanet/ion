@@ -169,47 +169,45 @@ describe('BnFormComponent', () => {
     expect(datepickerFormGroup.get('dateField')?.value).toEqual(['2023-01-01']);
   });
 
-  it('should use the default placeholder when field.placeholder is not set', () => {
-    const datepickerFields: BnFormField[] = [
-      {
-        key: 'dateField',
-        label: 'Date Label',
-        type: 'datepicker',
-      },
-    ];
-    fixture.componentRef.setInput('fields', datepickerFields);
-    fixture.componentRef.setInput(
-      'formGroup',
-      new FormGroup({ dateField: new FormControl([]) }),
-    );
-    fixture.detectChanges();
+  describe('datepicker placeholder', () => {
+    const baseDatepickerField: BnFormField = {
+      key: 'dateField',
+      label: 'Date Label',
+      type: 'datepicker',
+    };
 
-    const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
-    expect(datepicker.componentInstance.placeholder()).toBe(
-      'Selecione a data',
-    );
-  });
+    beforeEach(() => {
+      fixture.componentRef.setInput(
+        'formGroup',
+        new FormGroup({ dateField: new FormControl([]) }),
+      );
+    });
 
-  it('should pass field.placeholder down to ion-date-picker', () => {
-    const datepickerFields: BnFormField[] = [
-      {
-        key: 'dateField',
-        label: 'Date Label',
-        type: 'datepicker',
-        placeholder: 'Selecione o período',
-      },
-    ];
-    fixture.componentRef.setInput('fields', datepickerFields);
-    fixture.componentRef.setInput(
-      'formGroup',
-      new FormGroup({ dateField: new FormControl([]) }),
-    );
-    fixture.detectChanges();
+    it('should use the default placeholder when field.placeholder is not set', () => {
+      fixture.componentRef.setInput('fields', [baseDatepickerField]);
+      fixture.detectChanges();
 
-    const datepicker = fixture.debugElement.query(By.css('ion-date-picker'));
-    expect(datepicker.componentInstance.placeholder()).toBe(
-      'Selecione o período',
-    );
+      const datepicker = fixture.debugElement.query(
+        By.css('ion-date-picker'),
+      );
+      expect(datepicker.componentInstance.placeholder()).toBe(
+        'Selecione a data',
+      );
+    });
+
+    it('should pass field.placeholder down to ion-date-picker', () => {
+      fixture.componentRef.setInput('fields', [
+        { ...baseDatepickerField, placeholder: 'Selecione o período' },
+      ]);
+      fixture.detectChanges();
+
+      const datepicker = fixture.debugElement.query(
+        By.css('ion-date-picker'),
+      );
+      expect(datepicker.componentInstance.placeholder()).toBe(
+        'Selecione o período',
+      );
+    });
   });
 
   describe('onChange property', () => {
