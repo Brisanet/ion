@@ -385,7 +385,6 @@ import {
   zoomIn,
   zoomOut,
   fiveg,
-  sparkle,
 } from './iconsText';
 
 // To add an icon, use kebab-case on key name and insert only SVG paths on value
@@ -776,5 +775,4 @@ export const iconsPaths: Record<string, string> = {
   cpe,
   'lock-plus': lockPlus,
   fiveg,
-  sparkle,
 };
