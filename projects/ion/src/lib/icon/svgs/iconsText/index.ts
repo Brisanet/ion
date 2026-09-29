@@ -323,6 +323,7 @@ export { default as simcard } from './simcard';
 export { default as smartphone } from './smartphone';
 export { default as sortAsc } from './sort-asc';
 export { default as sortDesc } from './sort-desc';
+export { default as sparkle } from './sparkle';
 export { default as speedometer } from './speedometer';
 export { default as star } from './star';
 export { default as starSolid } from './star-solid';
