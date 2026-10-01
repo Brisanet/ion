@@ -10,7 +10,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { iconsPaths } from './svgs/icons';
-import { ContainerStyle, Highlight, IconType } from '../core/types/icon';
+import { ContainerStyle, Highlight, IconSize, IconType, IconSizeMap } from '../core/types/icon';
 
 @Component({
   selector: 'ion-icon',
@@ -21,9 +21,14 @@ import { ContainerStyle, Highlight, IconType } from '../core/types/icon';
 })
 export class IonIconComponent {
   type = input.required<IconType>();
-  size = input<number>(24);
+  size = input<IconSize | number>('large');
   color = input<string>('#282b33');
   highlight = input<Highlight>(Highlight.NONE);
+
+  iconSizePx = computed(() => {
+    const size = this.size();
+    return typeof size === 'number' ? size : IconSizeMap[size];
+  });
 
   svgElement = viewChild<ElementRef>('svgElement');
 
@@ -63,7 +68,7 @@ export class IonIconComponent {
       },
     };
 
-    const iconSize = this.size() >= mdIcon ? 'largeIcon' : 'smallIcon';
+    const iconSize = this.iconSizePx() >= mdIcon ? 'largeIcon' : 'smallIcon';
 
     return {
       innerCircle: proportions[iconSize].inner,
@@ -87,11 +92,11 @@ export class IonIconComponent {
     const stylesControl = {
       double: {
         color: `${this.color()}1A`,
-        size: `${this.size() * this.circleProportion().outsideCircle}px`,
+        size: `${this.iconSizePx() * this.circleProportion().outsideCircle}px`,
       },
       simple: {
         color: `${this.color()}1A`,
-        size: `${this.size() * 2}px`,
+        size: `${this.iconSizePx() * 2}px`,
       },
       none: defaultStyle,
     };
@@ -118,7 +123,7 @@ export class IonIconComponent {
     const stylesControl = {
       double: {
         color: `${this.color()}40`,
-        size: `${this.size() * this.circleProportion().innerCircle}px`,
+        size: `${this.iconSizePx() * this.circleProportion().innerCircle}px`,
       },
       simple: defaultStyle,
       none: defaultStyle,
