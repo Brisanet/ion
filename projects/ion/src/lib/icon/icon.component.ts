@@ -21,14 +21,12 @@ import { ContainerStyle, Highlight, IconSize, IconType, IconSizeMap } from '../c
 })
 export class IonIconComponent {
   type = input.required<IconType>();
-  size = input<IconSize | number>('large');
+  size = input<number, IconSize | number>(24, {
+    transform: (value) =>
+      typeof value === 'number' ? value : IconSizeMap[value],
+  });
   color = input<string>('#282b33');
   highlight = input<Highlight>(Highlight.NONE);
-
-  iconSizePx = computed(() => {
-    const size = this.size();
-    return typeof size === 'number' ? size : IconSizeMap[size];
-  });
 
   svgElement = viewChild<ElementRef>('svgElement');
 
@@ -68,7 +66,7 @@ export class IonIconComponent {
       },
     };
 
-    const iconSize = this.iconSizePx() >= mdIcon ? 'largeIcon' : 'smallIcon';
+    const iconSize = this.size() >= mdIcon ? 'largeIcon' : 'smallIcon';
 
     return {
       innerCircle: proportions[iconSize].inner,
@@ -92,11 +90,11 @@ export class IonIconComponent {
     const stylesControl = {
       double: {
         color: `${this.color()}1A`,
-        size: `${this.iconSizePx() * this.circleProportion().outsideCircle}px`,
+        size: `${this.size() * this.circleProportion().outsideCircle}px`,
       },
       simple: {
         color: `${this.color()}1A`,
-        size: `${this.iconSizePx() * 2}px`,
+        size: `${this.size() * 2}px`,
       },
       none: defaultStyle,
     };
@@ -123,7 +121,7 @@ export class IonIconComponent {
     const stylesControl = {
       double: {
         color: `${this.color()}40`,
-        size: `${this.iconSizePx() * this.circleProportion().innerCircle}px`,
+        size: `${this.size() * this.circleProportion().innerCircle}px`,
       },
       simple: defaultStyle,
       none: defaultStyle,

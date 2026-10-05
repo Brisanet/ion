@@ -6,12 +6,12 @@ export enum Highlight {
   NONE = 'none',
 }
 
-export enum IconSizeMap {
-  'small' = 16,
-  'medium' = 20,
-  'large' = 24,
-  'xlarge' = 32
-}
+export const IconSizeMap = {
+  small: 16,
+  medium: 20,
+  large: 24,
+  xlarge: 32,
+} as const;
 
 export type ContainerStyle = {
   size: string;
