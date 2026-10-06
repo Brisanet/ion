@@ -376,7 +376,7 @@ export { default as userMinus } from './user-minus';
 export { default as userMinus01 } from './user-minus1';
 export { default as userMinus02 } from './user-minus2';
 export { default as userPlus01 } from './user-plus1';
-export { default as userPlus02 } from './user-plus-02';
+export { default as userPlus02 } from './user-plus2';
 export { default as userRight } from './user-right';
 export { default as userRight01 } from './user-right1';
 export { default as userRight02 } from './user-right2';
