@@ -87,3 +87,16 @@ $white-transparence-60: #ffffff99;
 $white-transparence-45: #ffffff73;
 $white-transparence-30: #ffffff4d;
 $white-transparence-15: #ffffff26;
+
+// Gradients
+// Primary
+$primary-gradient-1: linear-gradient(90deg, #11499D, #0858CE);
+$primary-gradient-2: linear-gradient(90deg, #1674FF 11.29%, #134691 111.06%);
+
+// Secondary
+$secondary-gradient-1: linear-gradient(90deg, #E53001, #FF5022);
+$secondary-gradient-2: linear-gradient(90deg, #FFA31A 00.00%, #FF4800 100%);
+
+// Bn Gray
+$bn-gray-gradient-1: linear-gradient(90deg, #47505E 19.02%, #1F232D 80.98%);
+$bn-gray-gradient-2: linear-gradient(90deg, #969AA3 19.03%, #757D8A 80.97%);
