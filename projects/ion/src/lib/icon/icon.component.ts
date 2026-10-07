@@ -22,8 +22,16 @@ import { ContainerStyle, Highlight, IconSize, IconType, IconSizeMap } from '../c
 export class IonIconComponent {
   type = input.required<IconType>();
   size = input<number, IconSize | number>(24, {
-    transform: (value) =>
-      typeof value === 'number' ? value : IconSizeMap[value],
+    transform: (value) => {
+      if (typeof value === 'number') {
+        return value;
+      }
+      if (value in IconSizeMap) {
+        return IconSizeMap[value as IconSize];
+      }
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 24;
+    },
   });
   color = input<string>('#282b33');
   highlight = input<Highlight>(Highlight.NONE);
