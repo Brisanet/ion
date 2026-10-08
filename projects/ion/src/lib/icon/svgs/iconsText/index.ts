@@ -159,7 +159,7 @@ export { default as fileAttachment2 } from './file-attachment2';
 export { default as fileAttachment3 } from './file-attachment3';
 export { default as fileAttachment4 } from './file-attachment4';
 export { default as fileAttachment5 } from './file-attachment5';
-export { default as fileCheck } from './file-check1';
+export { default as fileCheck } from './file-check';
 export { default as fileCheck2 } from './file-check2';
 export { default as fileCheck3 } from './file-check3';
 export { default as fileDownload } from './file-download';
