@@ -90,7 +90,6 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
-import { IconGalleryComponent } from './icon-gallery.component';
 
 type FromYourRepository = {
   id?: number;
@@ -174,7 +173,6 @@ class ModalLongContentComponent {
     IonCardHeaderComponent,
     IonCardFooterComponent,
     CardBodyComponent,
-    IconGalleryComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,

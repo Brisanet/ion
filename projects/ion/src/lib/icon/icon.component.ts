@@ -10,7 +10,7 @@ import {
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { iconsPaths } from './svgs/icons';
-import { ContainerStyle, Highlight, IconSize, IconType, IconSizeMap } from '../core/types/icon';
+import { ContainerStyle, Highlight, IconType } from '../core/types/icon';
 
 @Component({
   selector: 'ion-icon',
@@ -21,18 +21,7 @@ import { ContainerStyle, Highlight, IconSize, IconType, IconSizeMap } from '../c
 })
 export class IonIconComponent {
   type = input.required<IconType>();
-  size = input<number, IconSize | number>(24, {
-    transform: (value) => {
-      if (typeof value === 'number') {
-        return value;
-      }
-      if (value in IconSizeMap) {
-        return IconSizeMap[value as IconSize];
-      }
-      const parsed = Number(value);
-      return Number.isFinite(parsed) ? parsed : 24;
-    },
-  });
+  size = input<number>(24);
   color = input<string>('#282b33');
   highlight = input<Highlight>(Highlight.NONE);
 

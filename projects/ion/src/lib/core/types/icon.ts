@@ -6,13 +6,6 @@ export enum Highlight {
   NONE = 'none',
 }
 
-export const IconSizeMap = {
-  small: 16,
-  medium: 20,
-  large: 24,
-  xlarge: 32,
-} as const;
-
 export type ContainerStyle = {
   size: string;
   color: string;
@@ -20,13 +13,11 @@ export type ContainerStyle = {
 
 export type IconType = keyof typeof iconsPaths;
 
-export type IconSize = keyof typeof IconSizeMap;
-
 export type IconDirection = 'right' | 'left';
 
 export interface IonIconProps {
   type: IconType;
-  size?: IconSize | number;
+  size?: number;
   color?: string;
   highlight?: Highlight;
 }
