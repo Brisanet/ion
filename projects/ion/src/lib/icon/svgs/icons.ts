@@ -459,7 +459,6 @@ export const iconsPaths: Record<string, string> = {
   'alert-list': alertList,
   'alert-telephone': alertTelephone,
   'alert-user': alertUser,
-  alert,
   'align-bottom': alignBottom,
   'align-bottom2': alignBottom2,
   'align-horizontal-centre': alignHorizontalCentre,
