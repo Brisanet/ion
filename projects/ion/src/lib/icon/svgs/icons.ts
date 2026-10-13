@@ -721,7 +721,7 @@ export const iconsPaths: Record<string, string> = {
   'microphone-off': microphoneOff,
   minimize,
   modem,
-  module: module,
+  module,
   'module-box': moduleBox,
   money,
   monitor,
