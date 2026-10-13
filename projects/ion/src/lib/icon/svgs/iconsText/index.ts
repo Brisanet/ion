@@ -464,7 +464,7 @@ export { default as webcam2 } from './webcam2';
 export { default as whatsapp } from './whatsapp';
 export { default as wifi } from './wifi';
 export { default as wifiOff } from './wifi-off';
-export { default as working } from './working';
+export { default as workBag } from './work-bag';
 export { default as workBag } from './work-bag';
 export { default as youtube } from './youtube';
 export { default as zap } from './zap';
