@@ -230,7 +230,7 @@ export { default as key } from './key';
 export { default as laptop } from './laptop';
 export { default as layerSingle } from './layer-single';
 export { default as layersTwo } from './layers-two';
-export { default as layersThree2 } from './layers-three2';
+export { default as layersTwo2 } from './layers-two2'
 export { default as layersThree } from './layers-three';
 export { default as layersThree2 } from './layers-three2';
 export { default as layoutAlt } from './layout-alt';
