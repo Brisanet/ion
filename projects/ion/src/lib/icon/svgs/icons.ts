@@ -784,7 +784,7 @@ export const iconsPaths: Record<string, string> = {
   user3,
   'user-block': userBlock,
   'user-bottom': userBottom,
-  'user-cicle': userCircle,
+  'user-circle': userCircle,
   'user-check': userCheck,
   'user-check2': userCheck2,
   'user-clock': userClock,
