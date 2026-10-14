@@ -310,6 +310,7 @@ export { default as phoneHangUp } from './phone-hang-up';
 export { default as phoneIncoming } from './phone-incoming';
 export { default as phoneIncoming2 } from './phone-incoming2';
 export { default as phoneOutgoing } from './phone-outgoing';
+export { default as phoneOutgoing1 } from './phone-outgoing1';
 export { default as phoneOutgoing2 } from './phone-outgoing2';
 export { default as phonePause } from './phone-pause';
 export { default as phonePlus } from './phone-plus';
