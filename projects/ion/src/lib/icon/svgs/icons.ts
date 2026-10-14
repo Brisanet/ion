@@ -566,6 +566,7 @@ export const iconsPaths: Record<string, string> = {
   'face-sad': faceSad,
   'face-smile': faceSmile,
   'face-wink': faceWink,
+  fan,
   'fast-backward': fastBackward,
   'fast-forward': fastForward,
   fiber,
