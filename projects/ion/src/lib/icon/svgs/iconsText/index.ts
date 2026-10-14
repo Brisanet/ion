@@ -63,7 +63,7 @@ export { default as camera2 } from './camera2';
 export { default as camera3 } from './camera3';
 export { default as cameraLens } from './camera-lens';
 export { default as cameraOff } from './camera-off';
-export { default as cameaPlus } from './camera-plus';
+export { default as cameraPlus } from './camera-plus';
 export { default as car } from './car';
 export { default as certificate } from './certificate';
 export { default as change } from './change';
