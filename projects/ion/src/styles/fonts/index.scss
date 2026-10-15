@@ -99,6 +99,28 @@
       format('woff');
 }
 
+@font-face {
+  font-family: 'figtree';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: 
+    local('figtree')
+    url(https://fonts.gstatic.com/s/figtree/v9/_Xms-HUzqDCFdgfMm4S9DQ.woff2) 
+    format('woff2');
+}
+
+@font-face {
+  font-family: 'figtree';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: 
+    local('figtree')
+    url(https://fonts.gstatic.com/s/figtree/v9/_Xms-HUzqDCFdgfMm4S9DQ.woff2) 
+    format('woff2');
+}
+
 @mixin font-size-xs {
   font-size: 12px;
   line-height: 16px;
@@ -133,3 +155,5 @@
   font-size: 40px;
   line-height: 48px;
 }
+
+@import "scale"
