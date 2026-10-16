@@ -1,0 +1,129 @@
+$ion-screen-notebook: 768px;
+$ion-screen-desktop: 1280px;
+
+@mixin _font-size-16-20 {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+@mixin _font-size-18-24 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+@mixin _font-size-28-36 {
+  font-size: 28px;
+  line-height: 36px;
+}
+
+@mixin _base-typography {
+  font-family: var(--ion-text-family, var(--ion-font-family-main, 'source sans pro'));
+}
+
+@mixin ion-text-h1 {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-xl;
+
+  @media (min-width: $ion-screen-notebook) {
+    @include font-size-2xl;
+  }
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-3xl;
+  }
+}
+
+@mixin ion-text-h2 {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-lg;
+
+  @media (min-width: $ion-screen-notebook) {
+    @include _font-size-28-36;
+  }
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-2xl;
+  }
+}
+
+@mixin ion-text-h3 {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-md;
+
+  @media (min-width: $ion-screen-notebook) {
+    @include font-size-lg;
+  }
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-xl;
+  }
+}
+
+@mixin ion-text-h4 {
+  @include _base-typography;
+  font-weight: 600;
+  @include _font-size-16-20;
+
+  @media (min-width: $ion-screen-notebook) {
+    @include _font-size-18-24; 
+  }
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-lg;
+  }
+}
+
+@mixin ion-text-body {
+  @include _base-typography;
+  font-weight: 400;
+  @include font-size-sm;
+
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-md;
+  }
+}
+
+@mixin ion-text-footnote {
+  @include _base-typography;
+  font-weight: 400;
+  @include font-size-xs;
+
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-sm;
+  }
+}
+
+@mixin ion-text-overline {
+  @include _base-typography;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  @include font-size-xs;
+
+  @media (min-width: $ion-screen-desktop) {
+    @include font-size-sm;
+  }
+}
+
+@mixin ion-text-click-lg {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-md; 
+}
+
+@mixin ion-text-click-md {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-sm;
+}
+
+@mixin ion-text-click-sm {
+  @include _base-typography;
+  font-weight: 600;
+  @include font-size-xs;
+}
+
+@mixin ion-text-footnote-small {
+  @include _base-typography;
+  font-weight: 400;
+  @include font-size-xs;
+}

@@ -1,0 +1,61 @@
+@import "index.scss";
+
+.ion-font-figtree{
+   --ion-text-family: "figtree", var(--ion-font-family-main, "source sans pro");
+}
+
+.ion-text-h1 {
+  @include ion-text-h1;
+}
+
+.ion-text-h2 {
+  @include ion-text-h2;
+}
+
+.ion-text-h3 {
+  @include ion-text-h3;
+}
+
+.ion-text-h4 {
+  @include ion-text-h4;
+}
+
+.ion-text-body {
+  @include ion-text-body;
+}
+
+.ion-text-footnote {
+  @include ion-text-footnote;
+}
+
+.ion-text-footnote-small {
+  @include ion-text-footnote-small;
+}
+
+.ion-text-overline {
+  @include ion-text-overline;
+}
+
+.ion-text-click-lg {
+  @include ion-text-click-lg;
+}
+
+.ion-text-click-md {
+  @include ion-text-click-md;
+}
+
+.ion-text-click-sm {
+  @include ion-text-click-sm;
+}
+
+.ion-text-semibold {
+    font-weight: 600;
+}
+
+.ion-text-bold {
+    font-weight: 700;
+}
+
+.ion-text-italic {
+    font-style: italic;
+}
