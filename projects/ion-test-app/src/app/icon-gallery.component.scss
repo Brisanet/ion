@@ -48,10 +48,35 @@
   font-size: 14px;
 }
 
+.icon-gallery__viewport {
+  height: 480px;
+  max-height: 480px;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 0 6px 6px 6px;
+  border: 1px solid #ddd;
+  transition: background-color 0.3s ease;
+  scroll-behavior: auto;
+}
+
+.icon-gallery__spacer {
+  width: 100%;
+  position: relative;
+  pointer-events: none;
+}
+
 .icon-gallery__grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 119px;
+  gap: 16px;
+  padding: 16px;
+  pointer-events: auto;
+  will-change: transform;
 }
 
 .icon-gallery__item {
@@ -64,6 +89,11 @@
   padding: 12px;
   border: 1px solid #e4e7ec;
   border-radius: 8px;
+  color: inherit;
+
+  ion-icon {
+    color: inherit;
+  }
 }
 
 .icon-gallery__name {
@@ -71,4 +101,87 @@
   line-height: 1.3;
   text-align: center;
   word-break: break-word;
+}
+
+
+.icon-gallery__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 16px;
+  margin-bottom: -1px;
+  z-index: 2;
+  position: relative;
+}
+
+.icon-gallery__tab {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #495057;
+  background-color: #f1f3f5;
+  border: 1px solid #ced4da;
+  border-bottom: 1px solid #ced4da;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #e9ecef;
+    color: #212529;
+    border-color: #adb5bd;
+  }
+
+  &--active {
+    background-color: #ffffff;
+    color: #0b7285;
+    font-weight: 700;
+    border-color: #ced4da;
+    border-bottom: 2px solid #ffffff;
+    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+  }
+}
+
+.icon-gallery__copy-btn {
+  margin-top: 8px;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid currentColor;
+  color: currentColor;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+
+  &.copied {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+  }
+}
+
+.icon-gallery__empty {
+  padding: 32px;
+  border: 1px dashed #ced4da;
+  border-radius: 0 6px 6px 6px;
+  text-align: center;
+  color: #868e96;
+}
+
+.icon-gallery__viewport::-webkit-scrollbar {
+  width: 8px;
+}
+
+.icon-gallery__viewport::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.icon-gallery__viewport::-webkit-scrollbar-thumb {
+  background: rgba(150, 150, 150, 0.5);
+  border-radius: 4px;
+}
+
+.icon-gallery__viewport::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 150, 150, 0.8);
 }

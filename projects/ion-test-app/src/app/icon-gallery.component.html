@@ -46,22 +46,66 @@
         (valueChange)="onSearch($event)"
       ></ion-input>
     </div>
+
+    <div class="icon-gallery__field">
+      <span>Cor de Fundo</span>
+      <input
+        type="color"
+        [value]="bgColor()"
+        (input)="onBgColor($event)"
+      />
+    </div>
   </div>
 
+
+
   <p class="icon-gallery__summary">
-    {{ filteredIcons().length }} de {{ total }} ícones · {{ sizeSummary() }}
+    {{ filteredIcons().length }} ícones · {{ sizeSummary() }}
   </p>
+
+  <div class="icon-gallery__tabs">
+    @for (group of alphaGroups; track group.label) {
+      <button
+        type="button"
+        class="icon-gallery__tab"
+        [class.icon-gallery__tab--active]="selectedGroup() === group.label"
+        (click)="selectGroup(group.label)"
+      >
+        {{ group.label }}
+      </button>
+    }
+  </div>
 
   @if (filteredIcons().length === 0) {
     <p>Nenhum ícone encontrado.</p>
   } @else {
-    <div class="icon-gallery__grid">
-      @for (name of filteredIcons(); track name) {
-        <div class="icon-gallery__item">
-          <ion-icon [type]="name" [size]="iconSize()"></ion-icon>
-          <span class="icon-gallery__name">{{ name }}</span>
+    <div
+      #viewport
+      class="icon-gallery__viewport"
+      [style.backgroundColor]="bgColor()"
+      [style.color]="iconContrastColor()"
+      (scroll)="onGridScroll($event)"
+    >
+      <div class="icon-gallery__spacer" [style.height.px]="virtualHeight()">
+        <div
+          class="icon-gallery__grid"
+          [style.transform]="'translateY(' + offsetY() + 'px)'"
+        >
+          @for (name of visibleIcons(); track name) {
+            <div class="icon-gallery__item">
+              <ion-icon [type]="name" [size]="iconSize()" [color]="iconContrastColor()"></ion-icon>
+              <span class="icon-gallery__name">{{ name }}</span>
+              <button
+                class="icon-gallery__copy-btn"
+                (click)="copyCode(name)"
+                [class.copied]="copiedIcon() === name"
+              >
+                {{ copiedIcon() === name ? 'Copiado!' : 'Copiar' }}
+              </button>
+            </div>
+          }
         </div>
-      }
+      </div>
     </div>
   }
 </section>
