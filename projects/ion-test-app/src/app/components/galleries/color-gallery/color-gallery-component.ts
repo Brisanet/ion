@@ -7,7 +7,11 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { IonInputComponent } from 'ion';
+import {
+  IonButtonComponent,
+  IonInputComponent,
+  IonNotificationService,
+} from 'ion';
 
 export interface ColorItem {
   name: string;
@@ -21,14 +25,16 @@ export interface ColorGroup {
 
 @Component({
   selector: 'app-color-gallery',
-  imports: [IonInputComponent],
+  imports: [IonButtonComponent, IonInputComponent],
   templateUrl: './color-gallery-component.html',
   styleUrl: './color-gallery-component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorGalleryComponent implements AfterViewInit {
   private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly notificationService = inject(IonNotificationService);
   private readonly allColors = signal<ColorItem[]>([]);
+  readonly hiddenCopyButtonFor = signal<string | null>(null);
 
   get total(): number {
     return this.allColors().length;
@@ -99,5 +105,31 @@ export class ColorGalleryComponent implements AfterViewInit {
 
   onSearch(value: string): void {
     this.search.set(value ?? '');
+  }
+
+  onColorPointerLeave(color: ColorItem): void {
+    if (this.hiddenCopyButtonFor() === color.name) {
+      this.hiddenCopyButtonFor.set(null);
+    }
+  }
+
+  async copyScss(color: ColorItem): Promise<void> {
+    this.hiddenCopyButtonFor.set(color.name);
+    const declaration = `$${color.name}: ${color.hex};`;
+
+    try {
+      if (!navigator.clipboard) {
+        throw new Error('A área de transferência não está disponível.');
+      }
+
+      await navigator.clipboard.writeText(declaration);
+      this.notificationService.success('Copiado', declaration);
+    } catch (error) {
+      console.error('Não foi possível copiar a declaração SCSS.', error);
+      this.notificationService.error(
+        'Falha ao copiar',
+        'Não foi possível copiar a declaração SCSS.',
+      );
+    }
   }
 }

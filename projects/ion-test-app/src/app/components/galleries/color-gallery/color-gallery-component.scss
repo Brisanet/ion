@@ -1,6 +1,6 @@
 @use 'sass:map';
 @use 'sass:meta';
-@use '../../../../../../projects/ion/src/styles/colors/colors' as color-tokens;
+@use '../../../../../../../projects/ion/src/styles/colors/colors' as color-tokens;
 
 :host {
   --ion-gallery-token-names: #{meta.inspect(
@@ -78,9 +78,47 @@
 }
 
 .color-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100px;
   width: 100%;
   border-bottom: 1px solid #e0e0e0;
+  background-color: #fff;
+  background-image: conic-gradient(
+    #d1d5db 25%,
+    #fff 0 50%,
+    #d1d5db 0 75%,
+    #fff 0
+  );
+  background-size: 16px 16px;
+
+  &:hover .color-box__copy,
+  &:focus-within .color-box__copy {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.color-box__swatch {
+  position: absolute;
+  inset: 0;
+}
+
+.color-box__copy {
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.color-box:hover .color-box__copy.color-box__copy--hidden,
+.color-box:focus-within .color-box__copy.color-box__copy--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .color-info {

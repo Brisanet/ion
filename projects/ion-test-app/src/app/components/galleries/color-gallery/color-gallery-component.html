@@ -20,7 +20,21 @@
           <div class="color-row">
             @for (color of group.colors; track color.name) {
               <div class="color-card">
-                <div class="color-box" [style.backgroundColor]="color.hex"></div>
+                <div
+                  class="color-box"
+                  (mouseleave)="onColorPointerLeave(color)"
+                >
+                  <div
+                    class="color-box__swatch"
+                    [style.background]="color.hex"
+                  ></div>
+                  <ion-button
+                    class="color-box__copy"
+                    label="Copiar"
+                    [class.color-box__copy--hidden]="hiddenCopyButtonFor() === color.name"
+                    (ionOnClick)="copyScss(color)"
+                  ></ion-button>
+                </div>
                 <div class="color-info">
                   <span class="color-name">${{ color.name }}</span>
                   <span class="color-hex">{{ color.hex }}</span>

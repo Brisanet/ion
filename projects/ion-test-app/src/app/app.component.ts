@@ -90,6 +90,7 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
+import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 
 type FromYourRepository = {
   id?: number;
@@ -183,6 +184,7 @@ class ModalLongContentComponent {
     IonNavbarComponent,
     IonDrawerComponent,
     BnEditDrawerComponent,
+    ColorGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
