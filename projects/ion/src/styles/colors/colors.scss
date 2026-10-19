@@ -99,22 +99,3 @@ $black-bn-high-contrast-background-2: #0D0D0D;
 // Yellow
 $yellow-bn-high-contrast-interaction-1: #FFC62A;
 $yellow-bn-high-contrast-interaction-hover: #FFB800;
-
-// Utility classes
-// Background
-.bg-black-bn-high-contrast-background-1 {
-  background: $black-bn-high-contrast-background-1;
-}
-.bg-black-bn-high-contrast-background-2 {
-  background: $black-bn-high-contrast-background-2;
-}
-
-// Interaction
-.interaction-yellow-bn-high-contrast {
-    background: $yellow-bn-high-contrast-interaction-1;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
-}
-.interaction-yellow-bn-high-contrast:hover {
-    background: $yellow-bn-high-contrast-interaction-hover;
-}
