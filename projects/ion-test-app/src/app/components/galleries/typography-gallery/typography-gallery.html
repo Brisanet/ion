@@ -1,0 +1,253 @@
+<main class="gallery-container">
+  <section class="gallery-controls" aria-label="Configurações da prévia">
+    <div class="control-group">
+      <h2 class="control-label ion-text-overline">Fonte aplicada à amostra</h2>
+      <div class="chip-group" role="group" aria-label="Família da fonte">
+        <ion-button
+          label="Source Sans Pro"
+          [type]="useFigtree ? 'secondary' : 'primary'"
+          size="sm"
+          (ionOnClick)="useFigtree = false"
+        ></ion-button>
+        <ion-button
+          label="Figtree"
+          [type]="useFigtree ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="useFigtree = true"
+        ></ion-button>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <h2 class="control-label ion-text-overline">Formato da prévia</h2>
+      <div class="chip-group" role="group" aria-label="Formato da prévia">
+        <ion-button
+          label="Tamanho da janela"
+          [type]="previewMode === 'window' ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="setPreviewMode('window')"
+        ></ion-button>
+        <ion-button
+          label="Celular"
+          [type]="previewMode === 'mobile' ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="setPreviewMode('mobile')"
+        ></ion-button>
+        <ion-button
+          label="Notebook"
+          [type]="previewMode === 'notebook' ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="setPreviewMode('notebook')"
+        ></ion-button>
+        <ion-button
+          label="Desktop"
+          [type]="previewMode === 'desktop' ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="setPreviewMode('desktop')"
+        ></ion-button>
+      </div>
+    </div>
+  </section>
+
+  <section class="gallery-canvas" aria-label="Prévia da tipografia">
+    <div class="device-preview">
+      @if (previewMode !== 'window') {
+        <p class="device-caption ion-text-overline">
+          Prévia em {{
+            previewMode === 'mobile' ? 'celular' : previewMode === 'notebook' ? 'notebook' : 'desktop'
+          }}
+        </p>
+      }
+      <div
+        class="device-frame"
+        [class.device-mobile]="previewMode === 'mobile'"
+        [class.device-notebook]="previewMode === 'notebook'"
+        [class.device-desktop]="previewMode === 'desktop'"
+      >
+        @if (previewMode === 'mobile') {
+          <div class="mobile-status" aria-hidden="true">
+            <span>9:41</span>
+            <span class="mobile-status-icons">
+              <span class="signal-icon"></span>
+              <span class="battery-icon"></span>
+            </span>
+          </div>
+          <span class="mobile-volume" aria-hidden="true"></span>
+        }
+        
+        <div
+          class="canvas-content"
+          [class.ion-font-figtree]="useFigtree"
+          [attr.data-ion-type-preview]="previewMode !== 'window' ? previewMode : null"
+        >
+          <!-- COLUNA 1: Títulos e Corpo de Texto -->
+          <article class="spec-panel">
+            
+            <div class="spec-section">
+              <span class="badge ion-text-overline">Títulos (Headings)</span>
+              
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h1</span>
+                <h1 #heading1Regular class="ion-text-h1">Heading 1 Medium</h1>
+                <span class="spec-size">{{ getTypographySize(heading1Regular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h1 .ion-text-bold</span>
+                <h1 #heading1Bold class="ion-text-h1 ion-text-bold">Heading 1 Bold</h1>
+                <span class="spec-size">{{ getTypographySize(heading1Bold) }}</span>
+              </div>
+
+              <div class="spec-divider"></div>
+
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h2</span>
+                <h2 #heading2Regular class="ion-text-h2">Heading 2 Medium</h2>
+                <span class="spec-size">{{ getTypographySize(heading2Regular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h2 .ion-text-bold</span>
+                <h2 #heading2Bold class="ion-text-h2 ion-text-bold">Heading 2 Bold</h2>
+                <span class="spec-size">{{ getTypographySize(heading2Bold) }}</span>
+              </div>
+
+              <div class="spec-divider"></div>
+
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h3</span>
+                <h3 #heading3Regular class="ion-text-h3">Heading 3 Medium</h3>
+                <span class="spec-size">{{ getTypographySize(heading3Regular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h3 .ion-text-bold</span>
+                <h3 #heading3Bold class="ion-text-h3 ion-text-bold">Heading 3 Bold</h3>
+                <span class="spec-size">{{ getTypographySize(heading3Bold) }}</span>
+              </div>
+
+              <div class="spec-divider"></div>
+
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h4</span>
+                <h4 #heading4Regular class="ion-text-h4">Heading 4 Medium</h4>
+                <span class="spec-size">{{ getTypographySize(heading4Regular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-h4 .ion-text-bold</span>
+                <h4 #heading4Bold class="ion-text-h4 ion-text-bold">Heading 4 Bold</h4>
+                <span class="spec-size">{{ getTypographySize(heading4Bold) }}</span>
+              </div>
+            </div>
+
+            <div class="spec-section">
+              <span class="badge ion-text-overline">Corpo de Texto (Body)</span>
+              
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-body</span>
+                <p #bodyRegular class="ion-text-body">Body Regular (400) usado para leitura longa.</p>
+                <span class="spec-size">{{ getTypographySize(bodyRegular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-body .ion-text-semibold</span>
+                <p #bodySemibold class="ion-text-body ion-text-semibold">Body Medium (600) para destaque.</p>
+                <span class="spec-size">{{ getTypographySize(bodySemibold) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-body .ion-text-bold</span>
+                <p #bodyBold class="ion-text-body ion-text-bold">Body Bold (700) para forte ênfase.</p>
+                <span class="spec-size">{{ getTypographySize(bodyBold) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-body .ion-text-italic</span>
+                <p #bodyItalic class="ion-text-body ion-text-italic">Body Italic Regular para citações.</p>
+                <span class="spec-size">{{ getTypographySize(bodyItalic) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-body .ion-text-semibold .ion-text-italic</span>
+                <p #bodySemiboldItalic class="ion-text-body ion-text-semibold ion-text-italic">Body Italic Medium para destaque.</p>
+                <span class="spec-size">{{ getTypographySize(bodySemiboldItalic) }}</span>
+              </div>
+            </div>
+
+          </article>
+
+          <!-- COLUNA 2: Ações, Notas e Rótulos -->
+          <article class="spec-panel">
+            
+            <div class="spec-section">
+              <span class="badge ion-text-overline">Ações (Click)</span>
+              
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-click-lg</span>
+                <a #clickLarge class="ion-text-click-lg" href="javascript:void(0)">Click Large (16/24)</a>
+                <span class="spec-size">{{ getTypographySize(clickLarge) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-click-md</span>
+                <a #clickMedium class="ion-text-click-md" href="javascript:void(0)">Click Medium (14/20)</a>
+                <span class="spec-size">{{ getTypographySize(clickMedium) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-click-sm</span>
+                <a #clickSmall class="ion-text-click-sm" href="javascript:void(0)">Click Small (12/16)</a>
+                <span class="spec-size">{{ getTypographySize(clickSmall) }}</span>
+              </div>
+            </div>
+
+            <div class="spec-section">
+              <span class="badge ion-text-overline">Notas (Footnote)</span>
+              
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote</span>
+                <p #footnoteRegular class="ion-text-footnote">Footnote Regular para metadados.</p>
+                <span class="spec-size">{{ getTypographySize(footnoteRegular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote .ion-text-semibold</span>
+                <p #footnoteSemibold class="ion-text-footnote ion-text-semibold">Footnote Medium.</p>
+                <span class="spec-size">{{ getTypographySize(footnoteSemibold) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote .ion-text-italic</span>
+                <p #footnoteItalic class="ion-text-footnote ion-text-italic">Footnote Italic Regular.</p>
+                <span class="spec-size">{{ getTypographySize(footnoteItalic) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote .ion-text-semibold .ion-text-italic</span>
+                <p #footnoteSemiboldItalic class="ion-text-footnote ion-text-semibold ion-text-italic">Footnote Italic Medium.</p>
+                <span class="spec-size">{{ getTypographySize(footnoteSemiboldItalic) }}</span>
+              </div>
+              
+              <div class="spec-divider"></div>
+
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote-small</span>
+                <p #footnoteSmallRegular class="ion-text-footnote-small">Footnote Small Regular (12px fixos).</p>
+                <span class="spec-size">{{ getTypographySize(footnoteSmallRegular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-footnote-small .ion-text-semibold</span>
+                <p #footnoteSmallSemibold class="ion-text-footnote-small ion-text-semibold">Footnote Small Medium (12px fixos).</p>
+                <span class="spec-size">{{ getTypographySize(footnoteSmallSemibold) }}</span>
+              </div>
+            </div>
+
+            <div class="spec-section">
+              <span class="badge ion-text-overline">Rótulos (Overline)</span>
+              
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-overline</span>
+                <p><span #overlineRegular class="ion-text-overline">Overline Regular</span></p>
+                <span class="spec-size">{{ getTypographySize(overlineRegular) }}</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">.ion-text-overline .ion-text-semibold</span>
+                <p><span #overlineSemibold class="ion-text-overline ion-text-semibold">Overline Medium</span></p>
+                <span class="spec-size">{{ getTypographySize(overlineSemibold) }}</span>
+              </div>
+            </div>
+
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
