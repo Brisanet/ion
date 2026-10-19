@@ -1,0 +1,111 @@
+@use 'sass:map';
+@use 'sass:meta';
+@use '../../../../../../projects/ion/src/styles/colors/colors' as color-tokens;
+
+:host {
+  --ion-gallery-token-names: #{meta.inspect(
+      map.keys(meta.module-variables('color-tokens'))
+    )};
+
+  @each $name, $value in meta.module-variables('color-tokens') {
+    --ion-gallery-token-#{$name}: #{$value};
+  }
+}
+
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px;
+}
+
+.gallery-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+}
+
+.color-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.color-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.color-group__title {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.color-row {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.color-card {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 160px;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+}
+
+.color-box {
+  height: 100px;
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.color-info {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 4px;
+
+  .color-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+  }
+
+  .color-hex {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+  }
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-style: italic;
+}

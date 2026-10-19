@@ -1,0 +1,39 @@
+<div class="gallery-container">
+  <header class="gallery-header">
+    <h2>
+      Galeria de Cores
+      ({{ filteredColorCount() }} de {{ total }})
+    </h2>
+    
+    <ion-input
+      placeholder="Buscar por nome ou hex..."
+      [value]="search()"
+      (valueChange)="onSearch($event)"
+    ></ion-input>
+  </header>
+
+  @if (filteredGroups().length) {
+    <div class="color-groups">
+      @for (group of filteredGroups(); track group.name) {
+        <section class="color-group">
+          <h3 class="color-group__title">{{ group.name }}</h3>
+          <div class="color-row">
+            @for (color of group.colors; track color.name) {
+              <div class="color-card">
+                <div class="color-box" [style.backgroundColor]="color.hex"></div>
+                <div class="color-info">
+                  <span class="color-name">${{ color.name }}</span>
+                  <span class="color-hex">{{ color.hex }}</span>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      Nenhuma cor encontrada para "{{ search() }}"
+    </div>
+  }
+</div>
