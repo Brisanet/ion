@@ -42,6 +42,15 @@ export class ColorGalleryComponent implements AfterViewInit {
 
   search = signal('');
 
+  readonly hasHighContrastColors = computed(() => {
+    const availableHexes = new Set(
+      this.allColors().map(({ hex }) => hex.toUpperCase()),
+    );
+    return ['#000000', '#0D0D0D', '#FFC62A', '#FFB800'].every((hex) =>
+      availableHexes.has(hex),
+    );
+  });
+
   filteredGroups = computed(() => {
     const term = this.search().trim().toLowerCase();
     const groups = new Map<string, ColorItem[]>();
@@ -66,7 +75,7 @@ export class ColorGalleryComponent implements AfterViewInit {
       .sort((a, b) => {
         if (a.name === 'info') return -1;
         if (b.name === 'info') return 1;
-        return a.name.localeCompare(b.name);
+        return a.name.localeCompare(b.name, undefined, { numeric: true });
       });
   });
 
@@ -99,7 +108,9 @@ export class ColorGalleryComponent implements AfterViewInit {
           }
           return { name, hex };
         })
-        .sort((a, b) => a.name.localeCompare(b.name)),
+        .sort((a, b) =>
+          a.name.localeCompare(b.name, undefined, { numeric: true }),
+        ),
     );
   }
 

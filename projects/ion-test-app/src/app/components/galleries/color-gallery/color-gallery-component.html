@@ -50,4 +50,37 @@
       Nenhuma cor encontrada para "{{ search() }}"
     </div>
   }
+
+    @if (hasHighContrastColors()) {
+    <section class="color-group hc-test-section" aria-labelledby="hc-test-title">
+      <h3 id="hc-test-title" class="color-group__title">Teste de Alto Contraste</h3>
+      <div class="hc-test-container">
+        <div class="hc-box bg-black-bn-high-contrast-background-1">
+          <h4 class="hc-title">Fundo 1 (#000000)</h4>
+          <a href="#" class="interaction-yellow-bn-high-contrast hc-link">
+            Link Interativo
+          </a>
+        </div>
+
+        <div class="hc-box bg-black-bn-high-contrast-background-2">
+          <h4 class="hc-title">Fundo 2 (#0D0D0D)</h4>
+          <button
+            type="button"
+            class="interaction-yellow-bn-high-contrast hc-btn"
+          >
+            Botão Interativo
+          </button>
+        </div>
+
+        <div class="hc-box bg-black-bn-high-contrast-background-1">
+          <h4 class="hc-title">Amostras (Yellow)</h4>
+          <div class="hc-swatches">
+            <div class="hc-swatch hc-swatch-base">Base</div>
+            <div class="hc-swatch hc-swatch-hover">Hover</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  }
+  
 </div>
