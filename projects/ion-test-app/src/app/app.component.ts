@@ -90,7 +90,7 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
-import { IconGalleryComponent } from './components/icon-gallery/icon-gallery.component';
+import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 
 type FromYourRepository = {
   id?: number;
