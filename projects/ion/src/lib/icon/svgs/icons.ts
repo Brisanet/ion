@@ -1366,6 +1366,7 @@ export const iconsPaths: Record<string, string> = {
   change,
   'change-priority': changePriority,
   check,
+  check,
   'check-circle': checkCircle,
   'check-circle-broken': checkCircleBroken,
   'check-done': checkDone,
