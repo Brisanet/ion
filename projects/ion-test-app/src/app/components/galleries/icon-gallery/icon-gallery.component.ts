@@ -16,7 +16,7 @@ import {
   IonIconComponent,
   IonInputComponent,
 } from 'ion';
-import { iconsPaths } from '../../../../../ion/src/lib/icon/svgs/icons';
+import { iconsPaths } from '../../../../../../ion/src/lib/icon/svgs/icons';
 
 type SizeMode = 'px' | 'preset';
 
