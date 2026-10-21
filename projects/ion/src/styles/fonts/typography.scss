@@ -1,7 +1,24 @@
 @import "index.scss";
 
+// opcional: caso queira forçar a fonte de 
+// parágrafos, legendas ou notas (body, footnote, overline)
+// para figtree.
+//
+// estilos carregados para font figtree:
+// SemiBold (600), Bold (700)
 .ion-font-figtree{
-   --ion-text-family: "figtree", var(--ion-font-family-main, "source sans pro");
+   --ion-text-family: "figtree", var(--ion-font-family-main, "source sans pro"), sans-serif;
+}
+
+// opcional: caso queira forçar a fonte de 
+// headings ou clicks 
+// para source sans pro
+//
+// estilos carregados para font source sans pro:
+// Regular (400), SemiBold (600), Bold (700),
+// Italic (400), SemiBold Italic (600)
+.ion-font-source-sans-pro {
+   --ion-text-family: var(--ion-font-family-main, 'source sans pro'), sans-serif;
 }
 
 .ion-text-h1 {
