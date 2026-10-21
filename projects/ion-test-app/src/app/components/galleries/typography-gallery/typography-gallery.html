@@ -1,19 +1,25 @@
 <main class="gallery-container">
   <section class="gallery-controls" aria-label="Configurações da prévia">
     <div class="control-group">
-      <h2 class="control-label ion-text-overline">Fonte aplicada à amostra</h2>
-      <div class="chip-group" role="group" aria-label="Família da fonte">
+      <h2 class="control-label ion-text-overline">Modo das fontes</h2>
+      <div class="chip-group" role="group" aria-label="Modo das fontes">
+        <ion-button
+          label="Padrão por estilo"
+          [type]="fontMode === 'by-style' ? 'primary' : 'secondary'"
+          size="sm"
+          (ionOnClick)="setFontMode('by-style')"
+        ></ion-button>
         <ion-button
           label="Source Sans Pro"
-          [type]="useFigtree ? 'secondary' : 'primary'"
+          [type]="fontMode === 'source-sans-pro' ? 'primary' : 'secondary'"
           size="sm"
-          (ionOnClick)="useFigtree = false"
+          (ionOnClick)="setFontMode('source-sans-pro')"
         ></ion-button>
         <ion-button
           label="Figtree"
-          [type]="useFigtree ? 'primary' : 'secondary'"
+          [type]="fontMode === 'figtree' ? 'primary' : 'secondary'"
           size="sm"
-          (ionOnClick)="useFigtree = true"
+          (ionOnClick)="setFontMode('figtree')"
         ></ion-button>
       </div>
     </div>
@@ -77,8 +83,12 @@
         
         <div
           class="canvas-content"
-          [class.ion-font-figtree]="useFigtree"
+          [class.ion-font-figtree]="fontMode === 'figtree'"
+          [class.ion-font-source-sans-pro]="fontMode === 'source-sans-pro'"
           [attr.data-ion-type-preview]="previewMode !== 'window' ? previewMode : null"
+          [attr.tabindex]="previewMode !== 'window' ? 0 : null"
+          [attr.role]="previewMode !== 'window' ? 'region' : null"
+          [attr.aria-label]="previewMode !== 'window' ? 'Conteúdo rolável da prévia' : null"
         >
           <!-- COLUNA 1: Títulos e Corpo de Texto -->
           <article class="spec-panel">

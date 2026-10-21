@@ -91,12 +91,42 @@
   gap: 16px;
 }
 
+.device-mobile .canvas-content,
+.device-notebook .canvas-content,
+.device-desktop .canvas-content {
+  scrollbar-color: var(--ion-neutral-4) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin-block: 8px;
+    background: transparent;
+    border-radius: 999px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--ion-neutral-4);
+    border: 2px solid transparent;
+    background-clip: content-box;
+    border-radius: 999px;
+  }
+}
+
 .device-mobile {
+  display: flex;
+  flex-direction: column;
   width: min(100%, 360px);
+  height: min(75vh, 720px);
+  min-height: 320px;
   padding: 12px 10px 10px;
   background: linear-gradient(135deg, #444750, #191b20 22%, #101115 78%, #42454d);
   border: 1px solid #111216;
   border-radius: 42px;
+  overflow: hidden;
   box-shadow:
     inset 0 0 0 1px rgb(255 255 255 / 14%),
     0 20px 36px rgb(40 43 51 / 24%),
@@ -141,6 +171,7 @@
   .mobile-status {
     position: relative;
     display: flex;
+    flex: 0 0 31px;
     align-items: center;
     justify-content: space-between;
     height: 31px;
@@ -194,9 +225,13 @@
   }
 
   .canvas-content {
+    flex: 1;
+    min-height: 0;
     grid-template-columns: minmax(0, 1fr);
     gap: 10px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     border-radius: 0 0 30px 30px;
   }
 
@@ -230,12 +265,24 @@
 }
 
 .device-notebook {
+  display: flex;
+  flex-direction: column;
   max-width: 880px;
+  height: min(75vh, 720px);
+  min-height: 320px;
   margin-bottom: 14px;
   padding: 12px;
   background: var(--ion-neutral-8);
   border: 1px solid var(--ion-neutral-7);
   border-radius: 12px 12px 4px 4px;
+  overflow: hidden;
+
+  .canvas-content {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
 
   &::after {
     position: absolute;
@@ -251,12 +298,24 @@
 }
 
 .device-desktop {
+  display: flex;
+  flex-direction: column;
   max-width: 1040px;
+  height: min(75vh, 720px);
+  min-height: 320px;
   margin-bottom: 36px;
   padding: 14px;
   background: var(--ion-neutral-8);
   border: 1px solid var(--ion-neutral-7);
   border-radius: 12px;
+  overflow: hidden;
+
+  .canvas-content {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
 
   &::before {
     position: absolute;
@@ -324,6 +383,8 @@
   display: inline-block;
   margin-bottom: 16px;
   padding: 4px 8px;
+  --ion-text-family: var(--ion-font-family-main, 'source sans pro'), sans-serif;
+  font-weight: 600;
   color: var(--ion-primary-7);
   background: var(--ion-primary-1);
   border-radius: 4px;

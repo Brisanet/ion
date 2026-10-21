@@ -11,10 +11,14 @@ export class TypographyGalleryComponent {
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   // Controle da Fonte
-  useFigtree = false;
+  fontMode: 'by-style' | 'source-sans-pro' | 'figtree' = 'by-style';
 
   // Controle de Breakpoint
   previewMode: 'window' | 'mobile' | 'notebook' | 'desktop' = 'window';
+
+  setFontMode(mode: 'by-style' | 'source-sans-pro' | 'figtree') {
+    this.fontMode = mode;
+  }
 
   setPreviewMode(mode: 'window' | 'mobile' | 'notebook' | 'desktop') {
     this.previewMode = mode;
