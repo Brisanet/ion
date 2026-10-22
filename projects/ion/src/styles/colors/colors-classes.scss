@@ -1,3 +1,41 @@
+// Utility classes
+// Interaction
+.interaction-yellow-bn-high-contrast {
+    background: $yellow-bn-high-contrast-interaction-1;
+    cursor: pointer;
+    transition: background 0.2s ease-in-out;
+}
+.interaction-yellow-bn-high-contrast:hover {
+    background: $yellow-bn-high-contrast-interaction-hover;
+}
+
+// Backgrounds
+.ion-bg-black-bn-high-contrast-1 {
+  background: $black-bn-high-contrast-background-1;
+}
+.ion-bg-black-bn-high-contrast-2 {
+  background: $black-bn-high-contrast-background-2;
+}
+.ion-bg-gradient-primary-1 {
+  background: $gradient-bn-primary-1;
+}
+.ion-bg-gradient-primary-2 {
+  background: $gradient-bn-primary-2;
+}
+.ion-bg-gradient-secondary-1 {
+  background: $gradient-bn-secondary-1;
+}
+.ion-bg-gradient-secondary-2 {
+  background: $gradient-bn-secondary-2;
+}
+.ion-bg-gradient-gray-1 {
+  background: $gradient-bn-gray-1;
+}
+.ion-bg-gradient-gray-2 {
+  background: $gradient-bn-gray-2;
+}
+
+// primary external
 .ion-color-bn-primary-external-1{
     background: $primary-external-1;
 }
