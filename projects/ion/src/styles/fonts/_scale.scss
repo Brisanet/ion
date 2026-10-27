@@ -1,0 +1,113 @@
+// Breakpoints
+$ion-screen-notebook: 768px;
+$ion-screen-desktop: 1280px;
+
+// --- Medidas locais (exclusivas desta escala) ---
+@mixin _font-size-16-20 { font-size: 16px; line-height: 20px; }
+@mixin _font-size-18-24 { font-size: 18px; line-height: 24px; }
+@mixin _font-size-28-36 { font-size: 28px; line-height: 36px; }
+
+// --- Base de Fonte ---
+@mixin _font-figtree {
+  font-family: var(--ion-text-family, figtree, 'source sans pro', sans-serif);
+}
+
+@mixin _font-source {
+  font-family: var(--ion-text-family, 'source sans pro', sans-serif);
+}
+
+// --- Títulos (Responsivos, Peso 600) ---
+@mixin ion-text-h1 {
+  @include _font-figtree;
+  font-weight: 600;
+  @include font-size-xl; // Celular: 24 / 32
+
+  @media (min-width: $ion-screen-notebook) { @include font-size-2xl; }
+  @media (min-width: $ion-screen-desktop) { @include font-size-3xl; }
+
+  // Prévia da Galeria
+  [data-ion-type-preview='mobile'] & { @include font-size-xl; }
+  [data-ion-type-preview='notebook'] & { @include font-size-2xl; }
+  [data-ion-type-preview='desktop'] & { @include font-size-3xl; }
+}
+
+@mixin ion-text-h2 {
+  @include _font-figtree;
+  font-weight: 600;
+  @include font-size-lg; // Celular: 20 / 28
+
+  @media (min-width: $ion-screen-notebook) { @include _font-size-28-36; }
+  @media (min-width: $ion-screen-desktop) { @include font-size-2xl; }
+
+  [data-ion-type-preview='mobile'] & { @include font-size-lg; }
+  [data-ion-type-preview='notebook'] & { @include _font-size-28-36; }
+  [data-ion-type-preview='desktop'] & { @include font-size-2xl; }
+}
+
+@mixin ion-text-h3 {
+  @include _font-figtree;
+  font-weight: 600;
+  @include font-size-md; // Celular: 16 / 24
+
+  @media (min-width: $ion-screen-notebook) { @include font-size-lg; }
+  @media (min-width: $ion-screen-desktop) { @include font-size-xl; }
+
+  [data-ion-type-preview='mobile'] & { @include font-size-md; }
+  [data-ion-type-preview='notebook'] & { @include font-size-lg; }
+  [data-ion-type-preview='desktop'] & { @include font-size-xl; }
+}
+
+@mixin ion-text-h4 {
+  @include _font-figtree;
+  font-weight: 600;
+  @include _font-size-16-20; // Celular: 16 / 20
+
+  @media (min-width: $ion-screen-notebook) { @include _font-size-18-24; }
+  @media (min-width: $ion-screen-desktop) { @include font-size-lg; }
+
+  [data-ion-type-preview='mobile'] & { @include _font-size-16-20; }
+  [data-ion-type-preview='notebook'] & { @include _font-size-18-24; }
+  [data-ion-type-preview='desktop'] & { @include font-size-lg; }
+}
+
+// --- Textos (Responsivos, Peso 400) ---
+@mixin ion-text-body {
+  @include _font-source ;
+  font-weight: 400;
+  @include font-size-sm; // Celular e Notebook: 14 / 20
+
+  @media (min-width: $ion-screen-desktop) { @include font-size-md; }
+
+  [data-ion-type-preview='mobile'] &, [data-ion-type-preview='notebook'] & { @include font-size-sm; }
+  [data-ion-type-preview='desktop'] & { @include font-size-md; }
+}
+
+@mixin ion-text-footnote {
+  @include _font-source;
+  font-weight: 400;
+  @include font-size-xs; // Celular e Notebook: 12 / 16
+
+  @media (min-width: $ion-screen-desktop) { @include font-size-sm; }
+
+  [data-ion-type-preview='mobile'] &, [data-ion-type-preview='notebook'] & { @include font-size-xs; }
+  [data-ion-type-preview='desktop'] & { @include font-size-sm; }
+}
+
+@mixin ion-text-overline {
+  @include _font-source;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  @include font-size-xs; // Celular e Notebook: 12 / 16
+
+  @media (min-width: $ion-screen-desktop) { @include font-size-sm; }
+
+  [data-ion-type-preview='mobile'] &, [data-ion-type-preview='notebook'] & { @include font-size-xs; }
+  [data-ion-type-preview='desktop'] & { @include font-size-sm; }
+}
+
+// --- Fixos (Não mudam por breakpoint nem tem preview) --- 
+@mixin ion-text-click-lg { @include _font-figtree; font-weight: 600; @include font-size-md; }
+@mixin ion-text-click-md { @include _font-figtree; font-weight: 600; @include font-size-sm; }
+@mixin ion-text-click-sm { @include _font-figtree; font-weight: 600; @include font-size-xs; }
+@mixin ion-text-footnote-small { @include _font-source; font-weight: 400; @include font-size-xs; }
