@@ -395,7 +395,6 @@ export { default as flexAlignBottom } from './flex-align-bottom';
 export { default as flexAlignLeft } from './flex-align-left';
 export { default as flexAlignRight } from './flex-align-right';
 export { default as flexAlignTop } from './flex-align-top';
-export { default as folderX } from './folder-x';
 export { default as flipBackward } from './flip-backward';
 export { default as flipForward } from './flip-forward';
 export { default as folder } from './folder';
