@@ -90,7 +90,7 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
-
+import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -183,6 +183,7 @@ class ModalLongContentComponent {
     IonNavbarComponent,
     IonDrawerComponent,
     BnEditDrawerComponent,
+    TypographyGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
