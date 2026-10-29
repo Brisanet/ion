@@ -799,6 +799,7 @@ export { default as minus } from './minus';
 export { default as minusCircle } from './minus-circle';
 export { default as minusSquare } from './minus-square';
 export { default as modem } from './modem';
+export { default as modemRouter } from './modem-router';
 export { default as module } from './module';
 export { default as moduleBox } from './module-box';
 export { default as money } from './money';
