@@ -302,8 +302,6 @@ export { default as pauseCircle } from './pause-circle';
 export { default as pauseSquare } from './pause-square';
 export { default as pencil } from './pencil';
 export { default as percent } from './percent';
-export { default as phone } from './phone';
-export { default as phone2 } from './phone2';
 export { default as phoneBlock } from './phone-block';
 export { default as phoneCall } from './phone-call';
 export { default as phoneCall2 } from './phone-call2';
