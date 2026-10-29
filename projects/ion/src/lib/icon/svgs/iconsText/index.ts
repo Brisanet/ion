@@ -437,7 +437,7 @@ export { default as edit5 } from './edit5';
 export { default as epiAnchoringRing } from './epi-anchoring-ring';
 export { default as epiBoot } from './epi-boot';
 export { default as epiCarabiner } from './epi-carabiner';
-export { default as epiEarProtection } from './epi-ear-protection';
+export { default as epiEarProtector } from './epi-ear-protector';
 export { default as epiFallsArrester } from './epi-falls-arrester';
 export { default as epiGlove } from './epi-glove';
 export { default as epiHelmet } from './epi-helmet';
