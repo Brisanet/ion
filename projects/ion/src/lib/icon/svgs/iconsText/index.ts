@@ -262,7 +262,6 @@ export { default as microphone2 } from './microphone2';
 export { default as microphoneOff } from './microphone-off';
 export { default as microphoneOff2 } from './microphone-off2';
 export { default as minimize } from './minimize';
-export { default as modem } from './modem';
 export { default as modem2 } from './modem2';
 export { default as module } from './module';
 export { default as moduleBox } from './module-box';
