@@ -1,0 +1,111 @@
+<section class="icon-gallery">
+  <h2>Ícones</h2>
+
+  <div class="icon-gallery__controls">
+    <div class="icon-gallery__field">
+      <span>Forma do tamanho</span>
+      <ion-chip-group
+        [(chips)]="sizeModeChips"
+        [required]="true"
+        (selected)="onSizeMode($event)"
+      ></ion-chip-group>
+    </div>
+
+    @if (sizeMode() === 'px') {
+      <div class="icon-gallery__field">
+        <span>Tamanho (px)</span>
+        <ion-input
+          inputType="number"
+          placeholder="15"
+          [inputButton]="true"
+          [inputButtonConfig]="applyButton"
+          [value]="sizeDraft()"
+          (valueChange)="onSizeDraft($event)"
+          (clickButton)="applySize()"
+        ></ion-input>
+        @if (sizeError()) {
+          <p class="icon-gallery__error">{{ sizeError() }}</p>
+        }
+      </div>
+    } @else {
+      <div class="icon-gallery__field icon-gallery__field--presets">
+        <span>Tamanho predefinido</span>
+        <ion-chip-group
+          [(chips)]="presetChips"
+          [required]="true"
+          (selected)="onPreset($event)"
+        ></ion-chip-group>
+      </div>
+    }
+
+    <div class="icon-gallery__field icon-gallery__field--search">
+      <span>Buscar</span>
+      <ion-input
+        placeholder="Nome do ícone"
+        [value]="search()"
+        (valueChange)="onSearch($event)"
+      ></ion-input>
+    </div>
+
+    <div class="icon-gallery__field">
+      <span>Cor de Fundo</span>
+      <input
+        type="color"
+        [value]="bgColor()"
+        (input)="onBgColor($event)"
+      />
+    </div>
+  </div>
+
+
+
+  <p class="icon-gallery__summary">
+    {{ filteredIcons().length }} ícones · {{ sizeSummary() }}
+  </p>
+
+  <div class="icon-gallery__tabs">
+    @for (group of alphaGroups; track group.label) {
+      <button
+        type="button"
+        class="icon-gallery__tab"
+        [class.icon-gallery__tab--active]="selectedGroup() === group.label"
+        (click)="selectGroup(group.label)"
+      >
+        {{ group.label }}
+      </button>
+    }
+  </div>
+
+  @if (filteredIcons().length === 0) {
+    <p>Nenhum ícone encontrado.</p>
+  } @else {
+    <div
+      #viewport
+      class="icon-gallery__viewport"
+      [style.backgroundColor]="bgColor()"
+      [style.color]="iconContrastColor()"
+      (scroll)="onGridScroll($event)"
+    >
+      <div class="icon-gallery__spacer" [style.height.px]="virtualHeight()">
+        <div
+          class="icon-gallery__grid"
+          [style.transform]="'translateY(' + offsetY() + 'px)'"
+        >
+          @for (name of visibleIcons(); track name) {
+            <div class="icon-gallery__item">
+              <ion-icon [type]="name" [size]="iconSize()" [color]="iconContrastColor()"></ion-icon>
+              <span class="icon-gallery__name">{{ name }}</span>
+              <button
+                class="icon-gallery__copy-btn"
+                (click)="copyCode(name)"
+                [class.copied]="copiedIcon() === name"
+              >
+                {{ copiedIcon() === name ? 'Copiado!' : 'Copiar' }}
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>
