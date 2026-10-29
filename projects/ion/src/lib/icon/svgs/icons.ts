@@ -324,7 +324,6 @@ import {
   columns,
   columns2,
   columns3,
-  colors2,
   comeIn,
   command,
   comment,
@@ -1590,7 +1589,7 @@ export const iconsPaths: Record<string, string> = {
   columns,
   columns2,
   columns3,
-  colors2,
+
   'come-in': comeIn,
   command,
   comment,

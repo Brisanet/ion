@@ -323,7 +323,6 @@ export { default as colors } from './colors';
 export { default as columns } from './columns';
 export { default as columns2 } from './columns2';
 export { default as columns3 } from './columns3';
-export { default as colors2 } from './colors2';
 export { default as comeIn } from './come-in';
 export { default as command } from './command';
 export { default as comment } from './comment';
