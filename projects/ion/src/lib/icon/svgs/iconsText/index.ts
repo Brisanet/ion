@@ -830,6 +830,7 @@ export { default as minimize2 } from './minimize2';
 export { default as minus } from './minus';
 export { default as minusCircle } from './minus-circle';
 export { default as minusSquare } from './minus-square';
+export { default as modem } from './modem';
 export { default as modem2 } from './modem2';
 export { default as modemRouter } from './modem-router';
 export { default as module } from './module';
