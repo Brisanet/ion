@@ -1,5 +1,6 @@
 <button
   #btn
+  [attr.aria-label]="ariaLabel() || tooltip() || null"  
   [attr.data-testid]="'btn-' + (_label() || id())"
   [attr.title]="tooltip() ? tooltip() : null"
   [class]="'ion-btn-' + type() + ' ion-btn-' + size()"
@@ -23,12 +24,14 @@
     class="icon-right"
     [type]="iconType()!"
     [size]="options()?.length ? 16 : 24"
+    aria-hidden="true"
   ></ion-icon>
   } @if (options() && !circularButton() && !loading()) {
   <ion-icon
     [type]="showDropdown() ? 'semi-up' : 'semi-down'"
     [size]="iconSize()"
     class="icon"
+    aria-hidden="true"
   ></ion-icon>
   } @if (!circularButton() && _label()) { @if (!loading() || (loading() &&
   !loadingMessage())) {
