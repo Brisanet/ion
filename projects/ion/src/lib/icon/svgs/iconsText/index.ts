@@ -1069,6 +1069,7 @@ export { default as sliders2 } from './sliders2';
 export { default as sliders3 } from './sliders3';
 export { default as sliders4 } from './sliders4';
 export { default as smartphone } from './smartphone';
+export { default as smartphone2 } from './smartphone2';
 export { default as snowflake } from './snowflake';
 export { default as snowflake2 } from './snowflake2';
 export { default as sortAsc } from './sort-asc';
