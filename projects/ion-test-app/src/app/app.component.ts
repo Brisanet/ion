@@ -92,7 +92,7 @@ import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
-
+import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -187,6 +187,7 @@ class ModalLongContentComponent {
     IonDrawerComponent,
     BnEditDrawerComponent,
     ColorGalleryComponent,
+    TypographyGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
