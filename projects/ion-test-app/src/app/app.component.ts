@@ -1,14 +1,9 @@
 import {
   Component,
   ViewChild,
-  OnInit,
   inject,
-  signal,
-  TemplateRef,
 } from '@angular/core';
-import { JsonPipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import {
   AvatarType,
   IonAvatarComponent,
@@ -40,9 +35,6 @@ import {
   IonPopoverDirective,
   PopoverPosition,
   PopoverTrigger,
-  IonTableComponent,
-  ConfigTable,
-  Column,
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
@@ -50,18 +42,12 @@ import {
   IonStepsComponent,
   StepType,
   IonInputAreaComponent,
-  IonSmartTableComponent,
-  ConfigSmartTable,
-  SmartTableEvent,
   IonRadioGroupComponent,
   IonTabGroupComponent,
   TabInGroup,
   IonNotificationService,
   IonMessageComponent,
   IonInputCounterComponent,
-  IonDatepickerComponent,
-  CalendarDirection,
-  PreDefinedRangeConfig,
   IonSimpleMenuComponent,
   IonModalService,
   SidebarItem,
@@ -69,34 +55,19 @@ import {
   IonIndicatorButtonType,
   IonSelectComponent,
   DropdownItem,
-  BnFilterComponent,
-  BnFormField,
-  BnSelectFormField,
   IonPaginationComponent,
-  BnFormComponent,
-  BnFormService,
-  BnAboutComponent,
-  BnWizardComponent,
-  BnWizardConfig,
   IonCardComponent,
   IonCardHeaderComponent,
   IonCardFooterComponent,
   IonNavbarComponent,
-  IonDrawerComponent,
-  IonDrawerDirection,
-  IonButtonProps,
-  BnEditDrawerComponent,
-  ColumnType,
 } from 'ion';
-import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
-import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
-type FromYourRepository = {
-  id?: number;
-  title_like?: string;
-};
+import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';import { BnFormGalleryComponent } from './components/galleries/bn-form-gallery/bn-form-gallery-component';
+import { DatePickerGalleryComponent } from './components/galleries/date-picker-gallery/date-picker-gallery-component';
+import { SmartTableGalleryComponent } from './components/galleries/tables-galleries/smart-table-gallery/smart-table-gallery-component';
+import { TableGalleryComponent } from './components/galleries/tables-galleries/table-gallery/table-gallery-component';
 
 @Component({
   standalone: true,
@@ -156,7 +127,6 @@ class ModalLongContentComponent {
     IonTagComponent,
     IonLinkComponent,
     IonTripleToggleComponent,
-    IonTableComponent,
     IonSwitchComponent,
     IonPopoverDirective,
     IonPopConfirmDirective,
@@ -165,12 +135,10 @@ class ModalLongContentComponent {
     IonStepsComponent,
     IonStepsComponent,
     IonInputAreaComponent,
-    IonSmartTableComponent,
     IonRadioGroupComponent,
     IonTabGroupComponent,
     IonInputCounterComponent,
     IonMessageComponent,
-    IonDatepickerComponent,
     IonCardComponent,
     IonCardHeaderComponent,
     IonCardFooterComponent,
@@ -179,417 +147,21 @@ class ModalLongContentComponent {
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
-    BnFormComponent,
-    BnFilterComponent,
-    BnAboutComponent,
-    BnWizardComponent,
     IonNavbarComponent,
-    IonDrawerComponent,
-    BnEditDrawerComponent,
     ColorGalleryComponent,
     TypographyGalleryComponent,
-    JsonPipe,
+    BnFormGalleryComponent,
+    DatePickerGalleryComponent,
+    SmartTableGalleryComponent,
+    TableGalleryComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   private notificationService = inject(IonNotificationService);
   private modalService: IonModalService = inject(IonModalService);
-  private bnFormService = inject(BnFormService);
-  private http = inject(HttpClient);
   title = 'ion-test-app';
-
-  filterFields = signal<BnFormField[]>([
-    {
-      key: 'name',
-      label: 'Nome',
-      placeholder: 'Filtrar por nome...',
-      className: 'col-6',
-      required: true,
-    },
-    {
-      key: 'cpf',
-      label: 'CPF',
-      className: 'col-6',
-      required: true,
-      mask: '###.###.###-##',
-    },
-    {
-      key: 'mac',
-      label: 'MAC',
-      className: 'col-6',
-      required: true,
-      mask: 'XX:XX:XX:XX:XX:XX',
-    },
-    {
-      key: 'gender',
-      label: 'Gênero',
-      type: 'triple-toggle',
-      options: [
-        { value: 'male', label: 'Masculino', icon: 'male' },
-        { value: 'female', label: 'Feminino', icon: 'female' },
-      ],
-      className: 'col-6',
-    },
-    {
-      key: 'datepickerRange',
-      label: 'Date Range Picker',
-      type: 'datepicker',
-      rangePicker: true,
-      className: 'col-md-6',
-    },
-    {
-      key: 'teste',
-      type: 'switch',
-      label: 'Teste',
-      className: 'col-md-3',
-      size: 'lg',
-    },
-    {
-      key: 'teste1',
-      type: 'switch',
-      label: 'Teste1',
-      className: 'col-md-3',
-      size: 'lg',
-    },
-    {
-      type: 'select',
-      key: 'city',
-      className: 'col-md-8',
-      label: 'Cidade',
-      placeholder: 'Selecione uma cidade',
-      initialValue: 'São Paulo',
-      propValue: 'label',
-      multiple: true,
-      options: [
-        { label: 'São Paulo' },
-        { label: 'Rio de Janeiro' },
-        { label: 'Belo Horizonte' },
-      ],
-    },
-    {
-      type: 'select',
-      key: 'searchableSelect',
-      label: 'Searchable Select (Issue Repo)',
-      placeholder: 'Digite para buscar...',
-      enableSearch: true,
-      className: 'col-12',
-      refresh: {
-        use: (field, search) => {
-          console.log('[AppComponent] Searching for:', search);
-          return new Observable((subscriber) => {
-            setTimeout(() => {
-              const allOptions = [
-                { label: 'Apple', value: 'apple' },
-                { label: 'Banana', value: 'banana' },
-                { label: 'Cherry', value: 'cherry' },
-                { label: 'Date', value: 'date' },
-                { label: 'Elderberry', value: 'elderberry' },
-              ];
-              const filtered = search
-                ? allOptions.filter((opt) =>
-                    opt.label.toLowerCase().includes(search.toLowerCase()),
-                  )
-                : allOptions;
-              console.log('[AppComponent] Found:', filtered);
-              subscriber.next(filtered);
-              subscriber.complete();
-            }, 1000);
-          });
-        },
-      },
-    },
-  ]);
-
-  handleFilterApplied(filters: any): void {
-    console.log('Filters applied:', filters);
-  }
-
-  optionsMock = {
-    projectOptions: [
-      { label: 'Projeto A', value: 'project_a' },
-      { label: 'Projeto B', value: 'project_b' },
-    ],
-    centerOriginOptions: [
-      { label: 'Centro de origem A', value: 'center_a' },
-      { label: 'Centro de origem B', value: 'center_b' },
-    ],
-    destinationTypeOptions: [
-      { label: 'Tipo de destino A', value: 'destination_type_a' },
-      { label: 'Tipo de destino B', value: 'destination_type_b' },
-    ],
-    destinationOptions: [
-      { label: 'Destino A', value: 'destination_a' },
-      { label: 'Destino B', value: 'destination_b' },
-    ],
-  };
-
-  openWizard(): void {
-    const bnWizardConfig: BnWizardConfig = {
-      title: 'Cadastro de Exames',
-      titleIcon: 'box',
-      // horizontal: true,
-      onSubmit: (data) => {
-        return this.http.post(
-          'https://jsonplaceholder.typicode.com/posts',
-          data,
-        );
-      },
-      steps: [
-        {
-          title: 'Descrição',
-          fields: [
-            {
-              key: 'projectId',
-              type: 'select',
-              label: 'Projeto',
-              required: true,
-              options: this.optionsMock.projectOptions,
-              className: 'col-6',
-              placeholder: 'Selecione um projeto',
-              enableSearch: true,
-            },
-            {
-              key: 'centerOriginId',
-              type: 'select',
-              label: 'Centro de origem',
-              required: true,
-              dependsOn: ['projectId'],
-              className: 'col-6',
-              placeholder: 'Selecione um centro de origem',
-              refresh: {
-                use: (field, search, dependsOnValues) => {
-                  console.log(
-                    'Refreshing centerOriginId with dependsOnValues:',
-                    dependsOnValues,
-                  );
-                  const projectId = dependsOnValues?.['projectId'];
-
-                  // simulando filtro e request aqui, no caso de consumo de API esse passo nao e necessario, sendo somente a chamada de API com o filtro
-                  const filteredOptions = projectId
-                    ? this.optionsMock.centerOriginOptions.filter((opt) =>
-                        opt.value.includes(projectId.split('_')[1]),
-                      )
-                    : this.optionsMock.centerOriginOptions;
-
-                  return new Observable((subscriber) => {
-                    setTimeout(() => {
-                      subscriber.next(filteredOptions);
-                      subscriber.complete();
-                    }, 500);
-                  });
-                },
-              },
-            },
-            {
-              key: 'nome',
-              className: 'col-12',
-              type: 'text',
-              label: 'Nome',
-              placeholder: 'Digite seu nome',
-              initialValue: 'Iury',
-              iconInput: 'image-user',
-              iconDirection: 'left',
-              validators: [Validators.required, Validators.minLength(3)],
-            },
-            {
-              key: 'cpf',
-              className: 'col-6',
-              type: 'text',
-              label: 'CPF',
-              placeholder: '000.000.000-00',
-              mask: 'CPF',
-              validators: [Validators.required],
-            },
-            {
-              key: 'telefone',
-              className: 'col-6',
-              type: 'text',
-              label: 'Telefone',
-              placeholder: '(00) 00000-0000',
-              mask: 'PHONE',
-              validators: [Validators.required],
-            },
-            {
-              key: 'mac',
-              className: 'col-6',
-              type: 'text',
-              label: 'MAC Address',
-              placeholder: '00:00:00:00:00:00',
-              mask: 'MAC',
-            },
-            {
-              key: 'sobrenome',
-              className: 'col-12',
-              type: 'text',
-              label: 'Sobrenome',
-              placeholder: 'Digite seu sobrenome',
-              // onlyShowWhen: (form) => {
-              //   console.log(form.get('nome')?.valid);
-              //   return form.get('nome')?.value;
-              // }
-            },
-            {
-              type: 'select',
-              key: 'estado_civil',
-              label: 'Estado civil',
-              placeholder: 'Estado civil',
-              className: 'col-12',
-              options: [
-                { label: 'Solteiro', value: 'solteiro' },
-                { label: 'Casado', value: 'casado' },
-              ],
-              onChange: (form: FormGroup) => {
-                if (form.get('estado_civil')?.value === 'solteiro') {
-                  form.get('nome')?.disable();
-                  form.get('genero')?.disable();
-                  form.get('ativo')?.disable();
-                  form.get('prioridade')?.disable();
-                } else {
-                  form.get('nome')?.enable();
-                  form.get('genero')?.enable();
-                  form.get('ativo')?.enable();
-                  form.get('prioridade')?.enable();
-                }
-              },
-            },
-            {
-              type: 'select',
-              key: 'genero',
-              label: 'Genero',
-              placeholder: 'Genero',
-              className: 'col-3',
-              options: [
-                { label: 'Masculino', value: 'masculino' },
-                { label: 'Feminino', value: 'feminino' },
-              ],
-            },
-            {
-              type: 'switch',
-              key: 'ativo',
-              label: 'Ativo',
-              className: 'col-3',
-            },
-            {
-              type: 'triple-toggle',
-              key: 'prioridade',
-              label: 'Prioridade',
-              className: 'col-3',
-              options: [
-                { value: 'baixa', label: 'Baixa' },
-                { value: 'alta', label: 'Alta' },
-              ],
-            },
-          ],
-        },
-        {
-          title: 'Configurações',
-          alert: {
-            message: 'Apenas campos obrigatórios',
-            type: 'warning',
-          },
-          fields: [
-            {
-              key: 'ativo',
-              type: 'switch',
-              label: 'Ativo',
-              className: 'col-6',
-            },
-            {
-              key: 'prioridade',
-              type: 'triple-toggle',
-              label: 'Prioridade',
-              className: 'col-6',
-              options: [
-                { value: 'baixa', label: 'Baixa' },
-                { value: 'alta', label: 'Alta' },
-              ],
-            },
-          ],
-        },
-      ],
-    };
-
-    this.modalService
-      .open(BnWizardComponent, {
-        title: bnWizardConfig.title,
-        titleIcon: bnWizardConfig.titleIcon,
-        width: 800,
-        overlayCanDismiss: false,
-        footer: {
-          hide: true,
-        },
-        ionParams: {
-          config: bnWizardConfig,
-        },
-      })
-      .subscribe({
-        next: (result) => {
-          console.log('Wizard finished with result:', result);
-        },
-        error: (error) => {
-          console.error('Wizard finished with error:', error);
-        },
-      });
-  }
-
-  // BnAbout config
-  headerButton = {
-    action: () => console.log('Header button clicked'),
-    label: 'Imprimir solicitação',
-  };
-
-  pageTitle = {
-    title: 'Detalhes da solicitação',
-    icon: 'receipt',
-  };
-
-  aboutFields: BnFormField[] = [
-    {
-      key: 'solicitacao_id',
-      label: 'Nº da solicitação',
-      placeholder: 'Nº da solicitação',
-      className: 'col-3',
-      initialValue: '1234567-ABCDEF',
-    },
-    {
-      key: 'centro_id',
-      label: 'Centro de origem',
-      placeholder: 'Centro de origem',
-      className: 'col-3',
-      initialValue: 'AAAABBBBCCC',
-    },
-    {
-      key: 'projeto_id',
-      label: 'Projeto',
-      placeholder: 'Projeto',
-      className: 'col-3',
-      initialValue: 'Projeto ABC',
-    },
-    {
-      key: 'setor_id',
-      label: 'Setor',
-      placeholder: 'Setor',
-      className: 'col-3',
-      initialValue: 'Logistica',
-    },
-    // {
-    //   key: 'obs',
-    //   type: 'textarea',
-    //   label: 'Observação',
-    //   placeholder: 'Observação',
-    //   className: 'col-12',
-    //   initialValue: 'Material material material  material material  material material  material material  material material  material material  material material ',
-    // },
-    {
-      key: 'status_id',
-      label: 'Status',
-      placeholder: 'Status',
-      className: 'col-3',
-      initialValue: 'Em andamento',
-    },
-  ];
 
   // Avatar types for template
   AvatarType = AvatarType;
@@ -641,62 +213,6 @@ export class AppComponent implements OnInit {
   handleTripleToggleChange(value: any): void {
     console.log('Triple toggle value changed:', value);
   }
-
-  // Table Example
-  tableConfig: ConfigTable<any> = {
-    data: [
-      { id: 1, name: 'Meteora', type: 'CD', year: 2003 },
-      { id: 2, name: 'One More Light', type: 'CD', year: 2017 },
-      { id: 3, name: 'Hybrid Theory', type: 'CD', year: 2000 },
-      { id: 4, name: 'Minutes to Midnight', type: 'CD', year: 2007 },
-    ],
-    columns: [
-      { label: 'ID', key: 'id', sort: true },
-      { label: 'Name', key: 'name', sort: true },
-      { label: 'Type', key: 'type', sort: true },
-      { label: 'Year', key: 'year', sort: true },
-    ],
-    actions: [
-      {
-        label: 'Information',
-        labelFn: (row) => row.name,
-        icon: 'information',
-        call: (row: any) => console.log('Dynamic label for:', row),
-      },
-      {
-        label: 'Edit',
-        icon: 'pencil',
-        call: (row: any) => console.log('Edit row:', row),
-      },
-      {
-        label: 'Excluir',
-        icon: 'trash',
-        danger: true,
-        call: () => console.log('cancelado!'),
-        secondCall: (row: any) => console.log('excluir row:', row),
-        confirm: {
-          title: 'Excluir',
-          description: 'Tem certeza que deseja excluir?',
-          // confirmText: 'Excluir',
-          // cancelText: 'Cancelar',
-        },
-        // popover: (row: any) => ({
-        //   ionPopoverTitle: 'Excluir Item',
-        //   ionPopoverBody: this.tablePopoverTemplate,
-        //   ionPopoverActions: [
-        //     { label: 'Cancelar', type: 'ghost' },
-        //     { label: 'Confirmar', type: 'primary' },
-        //   ],
-        // }),
-      },
-    ],
-    pagination: {
-      total: 4,
-      itemsPerPage: 10,
-      page: 1,
-    },
-    check: true,
-  };
 
   // Switch examples
   switchValue = false;
@@ -784,12 +300,6 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  @ViewChild('tablePopoverTemplate', { static: true })
-  tablePopoverTemplate!: TemplateRef<any>;
-
-  @ViewChild('quantityTemplate', { static: true })
-  quantityTemplate!: TemplateRef<any>;
-
   @ViewChild(IonSidebarComponent) sidebar!: IonSidebarComponent;
 
   handleSidebarToggle(isOpen: boolean): void {
@@ -815,100 +325,6 @@ export class AppComponent implements OnInit {
   // Input Area examples
   inputAreaValue = '';
   disabledInputAreaValue = 'This is disabled';
-
-  // Smart Table HTTP Example
-  smartTableConfig: ConfigSmartTable<any> = {
-    data: [],
-    columns: [
-      { key: 'id', label: 'ID', sort: true },
-      { key: 'firstName', label: 'Name', sort: true },
-      { key: 'email', label: 'Email', sort: true },
-      {
-        key: 'quantity',
-        label: 'Quantity',
-        type: ColumnType.CUSTOM,
-        customTemplate: this.quantityTemplate,
-        sort: true,
-      },
-      {
-        key: 'username',
-        label: 'Username',
-        type: ColumnType.TAG,
-        tag: { statusKey: 'status' },
-        sort: true,
-      },
-    ],
-    pagination: {
-      total: 0,
-      itemsPerPage: 30,
-      page: 1,
-    },
-    loading: false,
-    actions: [
-      {
-        label: 'Information',
-        labelFn: (row) => row.firstName,
-        icon: 'information',
-        call: (row: any) => console.log('Information for:', row),
-      },
-      {
-        label: 'Delete',
-        icon: 'trash',
-        danger: true,
-        call: (row: any) => this.handleDelete(row),
-        confirm: {
-          title: 'Excluir',
-          description: 'Tem certeza que deseja excluir?',
-        },
-      },
-    ],
-  };
-
-  ngOnInit(): void {
-    const quantityColumn = this.smartTableConfig.columns.find(
-      (col) => col.key === 'quantity',
-    );
-    if (quantityColumn) {
-      quantityColumn.customTemplate = this.quantityTemplate;
-    }
-    this.getUsers();
-  }
-
-  getUsers(): void {
-    this.smartTableConfig.loading = true;
-    this.http.get('https://dummyjson.com/users').subscribe((response: any) => {
-      this.smartTableConfig = {
-        ...this.smartTableConfig,
-        data: response.users.map((user: any) => ({
-          ...user,
-          status: 'success',
-          quantity: 0,
-        })),
-        pagination: {
-          ...this.smartTableConfig.pagination,
-          total: response.total,
-        },
-        loading: false,
-      };
-    });
-  }
-
-  handleDelete(row: any): void {
-    this.smartTableConfig = {
-      ...this.smartTableConfig,
-      data: this.smartTableConfig.data.filter(
-        (item: any) => item.id !== row.id,
-      ),
-      pagination: {
-        ...this.smartTableConfig.pagination,
-        total: this.smartTableConfig.pagination.total - 1,
-      },
-    };
-  }
-
-  smartTableEvents(event: SmartTableEvent): void {
-    console.log('Smart Table Event:', event);
-  }
 
   // Radio Group Examples
   radioGroupValue = 'option1';
@@ -966,41 +382,6 @@ export class AppComponent implements OnInit {
       'This is a notification message',
     );
   }
-
-  // Date Picker Examples
-  CalendarDirection = CalendarDirection;
-  datePickerValue: string[] = [];
-  dateRangePickerValue: string[] = [];
-  datePickerWithPredefinedValue: string[] = [];
-
-  predefinedRanges: PreDefinedRangeConfig[] = [
-    { label: 'Últimos 7 dias', duration: 'P7D', isFuture: false },
-    { label: 'Últimos 30 dias', duration: 'P30D', isFuture: false },
-    { label: 'Últimos 90 dias', duration: 'P90D', isFuture: false },
-    { label: 'Próximos 7 dias', duration: 'P7D', isFuture: true },
-    { label: 'Próximos 30 dias', duration: 'P30D', isFuture: true },
-  ];
-
-  handleDatePickerChange(dates: string[]): void {
-    console.log('Date selected:', dates);
-    this.datePickerValue = dates;
-  }
-
-  handleDateRangePickerChange(dates: string[]): void {
-    console.log('Date range selected:', dates);
-    this.dateRangePickerValue = dates;
-  }
-
-  handleDatePickerWithPredefinedChange(dates: string[]): void {
-    console.log('Date range with predefined selected:', dates);
-    this.datePickerWithPredefinedValue = dates;
-  }
-
-  disabledDateExample = (currentDate: Date): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return currentDate < today;
-  };
 
   simpleMenuProfile = {
     imageUrl: 'https://i.pravatar.cc/150?img=12',
@@ -1069,36 +450,6 @@ export class AppComponent implements OnInit {
       title: 'Modal Largo',
       width: 800,
     });
-  }
-
-  // Drawer Examples
-  isDrawerOpen = signal(false);
-  drawerDirection = signal<IonDrawerDirection>('right');
-  drawerSize = signal<number>(30);
-  submitButton = signal<IonButtonProps>({
-    label: 'Salvar',
-    loading: false,
-  });
-  secondaryButton = signal<IonButtonProps>({
-    label: 'Secondary',
-    loading: false,
-    iconType: 'pencil',
-    rightSideIcon: true,
-  });
-
-  openDrawer(direction: IonDrawerDirection = 'right', size: number = 30): void {
-    this.drawerDirection.set(direction);
-    this.drawerSize.set(size);
-    this.isDrawerOpen.set(true);
-  }
-
-  closeDrawer(): void {
-    this.isDrawerOpen.set(false);
-  }
-
-  submitDrawer(): void {
-    this.submitButton().loading = true;
-    this.isDrawerOpen.set(false);
   }
 
   openModalPersistent(): void {
@@ -1180,346 +531,6 @@ export class AppComponent implements OnInit {
     console.log('Select changed:', event);
   }
 
-  formFields: BnFormField[] = [
-    {
-      key: 'nome',
-      className: 'col-6',
-      type: 'text',
-      label: 'Nome',
-      placeholder: 'Digite seu nome',
-      initialValue: 'Iury',
-      iconInput: 'image-user',
-      iconDirection: 'left',
-      validators: [Validators.minLength(3)],
-    },
-    {
-      key: 'arquivo',
-      label: 'Arquivo',
-      type: 'upload',
-      accept: '.csv',
-      acceptLabel: 'Apenas arquivos CSV',
-      urlPlaceholder: 'https://...',
-      onImportUrl: (url) => console.log(url),
-    },
-    {
-      key: 'sobrenome',
-      className: 'col-6',
-      type: 'text',
-      label: 'Sobrenome',
-      placeholder: 'Digite seu sobrenome',
-      onlyShowWhen: () => {
-        return (
-          this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid
-        );
-      },
-      validators: [Validators.minLength(3)],
-    },
-    {
-      key: 'email',
-      className: 'col-6',
-      type: 'email',
-      label: 'Email',
-      placeholder: 'Digite seu email',
-      required: true,
-      description: 'Seu email corporativo',
-      validators: [
-        Validators.pattern('^[a-zA-Z0-9._%+-]+@grupobrisanet.com.br$'),
-      ],
-    },
-    {
-      type: 'select',
-      key: 'select',
-      className: 'col-6',
-      label: 'Selecione',
-      placeholder: 'Selecione',
-      options: this.selectOptions,
-      initialValue: [1],
-      propValue: 'fruit_id',
-      disabled: true,
-      multiple: true,
-    },
-    {
-      key: 'data_abertura',
-      className: 'col-6',
-      type: 'datepicker',
-      label: 'Data de Abertura',
-      disabled: true,
-    },
-    {
-      key: 'bio',
-      className: 'col-12',
-      type: 'input-area',
-      label: 'Bio',
-      placeholder: 'Fale um pouco sobre você...',
-      rows: '3',
-    },
-    {
-      type: 'select',
-      key: 'car',
-      className: 'col-6',
-      label: 'Selecione o Carro',
-      placeholder: 'Selecione',
-      options: this.selectOptionsCar,
-      initialValue: ['marea'],
-    },
-    {
-      type: 'select',
-      key: 'city',
-      className: 'col-6',
-      label: 'Selecione uma cidade',
-      placeholder: 'Selecione',
-      options: [],
-      multiple: false,
-      propValue: 'id',
-      propLabel: 'title',
-      enableSearch: true,
-      refresh: {
-        use: (field: BnSelectFormField, search?: string) =>
-          this.refreshCities(field, search),
-      },
-    },
-    {
-      type: 'select',
-      key: 'city_full',
-      className: 'col-6',
-      label: 'Selecione uma cidade (Objeto Completo)',
-      placeholder: 'Selecione',
-      options: [],
-      multiple: false,
-      propValue: 'id',
-      propLabel: 'title',
-      enableSearch: true,
-      returnFullObject: true,
-      refresh: {
-        use: (field: BnSelectFormField, search?: string) =>
-          this.refreshCities(field, search),
-      },
-    },
-    {
-      type: 'select',
-      key: 'state',
-      className: 'col-6',
-      label: 'Selecione um estado',
-      placeholder: 'Selecione',
-      options: [],
-      multiple: false,
-      propValue: 'id',
-      propLabel: 'title',
-      enableSearch: true,
-      onlyShowWhen: () => {
-        return this.formGroup.get('city')?.value === 2;
-      },
-      refresh: {
-        use: (field: BnSelectFormField, search?: string) =>
-          this.refreshStates(field, search),
-        debounceTime: 1500,
-      },
-    },
-    // {
-    //   key: 'basicInput',
-    //   className: 'col-4',
-    //   label: 'Basic Input',
-    //   placeholder: 'Enter text here...',
-    // },
-    // {
-    //   key: 'searchLeft',
-    //   className: 'col-4',
-    //   label: 'Input with Left Icon',
-    //   placeholder: 'Search...',
-    //   iconInput: 'search',
-    //   iconDirection: 'left',
-    // },
-    // {
-    //   key: 'searchRight',
-    //   className: 'col-4',
-    //   label: 'Input with Right Icon',
-    //   placeholder: 'Search...',
-    //   iconInput: 'search',
-    //   iconDirection: 'right',
-    // },
-    // {
-    //   key: 'password',
-    //   label: 'Password Input',
-    //   placeholder: 'Enter password',
-    //   type: 'password',
-    // },
-    // {
-    //   key: 'clearable',
-    //   label: 'Input with Clear Button',
-    //   placeholder: 'Type to see clear button',
-    //   clearButton: true,
-    // },
-    // {
-    //   key: 'maxLength',
-    //   label: 'Input with Max Length (10 chars)',
-    //   placeholder: 'Max 10 characters',
-    //   maxLength: 10,
-    // },
-    // {
-    //   key: 'valid',
-    //   label: 'Valid Input',
-    //   placeholder: 'Valid input',
-    //   initialValue: 'valid@email.com',
-    // },
-    // {
-    //   key: 'invalid',
-    //   label: 'Invalid Input with Error',
-    //   placeholder: 'Invalid input',
-    //   initialValue: 'invalid',
-    //   validators: [Validators.required, Validators.email],
-    //   errorMsg: 'Please enter a valid email',
-    // },
-    // {
-    //   key: 'disabled',
-    //   label: 'Disabled Input',
-    //   placeholder: 'Disabled input',
-    //   initialValue: 'Cannot edit this',
-    //   disabled: true,
-    // },
-    // {
-    //   key: 'readonly',
-    //   label: 'Readonly Input',
-    //   placeholder: 'Readonly input',
-    //   initialValue: 'Read only value',
-    //   readonly: true,
-    // },
-    // {
-    //   key: 'withButton',
-    //   label: 'Input with Button',
-    //   placeholder: 'Search with button',
-    //   inputButton: true,
-    //   inputButtonConfig: {
-    //     label: 'Search',
-    //     type: 'primary',
-    //     iconType: 'search',
-    //   },
-    //   onClickButton: (value) => this.handleInputButtonClick(value),
-    // },
-    // {
-    //   key: 'number',
-    //   label: 'Number Input',
-    //   placeholder: 'Enter number',
-    //   type: 'number',
-    //   className: 'col-4',
-    // },
-    // {
-    //   key: 'tripleToggle',
-    //   label: 'Triple Toggle',
-    //   type: 'triple-toggle',
-    //   className: 'col-4',
-    //   options: [
-    //     { value: 'yes', label: 'Yes', icon: 'check' },
-    //     { value: 'no', label: 'No', icon: 'close' },
-    //   ],
-    //   initialValue: 'yes',
-    // },
-    // {
-    //   key: 'switchBasic',
-    //   label: 'Basic Switch',
-    //   type: 'switch',
-    //   className: 'col-md-4',
-    //   initialValue: true,
-    // },
-    // {
-    //   key: 'datepickerBasic',
-    //   label: 'Basic Date Picker',
-    //   type: 'datepicker',
-    //   className: 'col-md-4',
-    // },
-    // {
-    //   key: 'datepickerRange',
-    //   label: 'Date Range Picker',
-    //   type: 'datepicker',
-    //   rangePicker: true,
-    //   className: 'col-md-4',
-    // },
-    // {
-    //   key: 'datepickerPredefined',
-    //   label: 'Date Range with Predefined',
-    //   type: 'datepicker',
-    //   rangePicker: true,
-    //   predefinedRanges: [
-    //     { label: 'Últimos 7 dias', duration: 'P7D', isFuture: false },
-    //     { label: 'Últimos 30 dias', duration: 'P30D', isFuture: false },
-    //   ],
-    //   className: 'col-md-4',
-    // },
-    // {
-    //   key: 'name',
-    //   label: 'Name',
-    //   placeholder: 'Enter name',
-    // }
-    {
-      type: 'select',
-      key: 'city_full_multiple',
-      className: 'col-6',
-      label: 'Selecione cidades (Múltiplo - Objeto Completo)',
-      placeholder: 'Selecione',
-      options: [],
-      multiple: true,
-      propValue: 'id',
-      propLabel: 'title',
-      enableSearch: true,
-      returnFullObject: true,
-      refresh: {
-        use: (field: BnSelectFormField, search?: string) =>
-          this.refreshCities(field, search),
-      },
-    },
-  ];
-
-  editFormFields: BnFormField[] = [
-    {
-      key: 'nome',
-      className: 'col-6',
-      type: 'text',
-      label: 'Nome',
-      placeholder: 'Digite seu nome',
-      initialValue: 'Iury',
-      iconInput: 'image-user',
-      iconDirection: 'left',
-      validators: [Validators.minLength(3)],
-    },
-    {
-      key: 'sobrenome',
-      className: 'col-6',
-      type: 'text',
-      label: 'Sobrenome',
-      placeholder: 'Digite seu sobrenome',
-      onlyShowWhen: () => {
-        return (
-          this.formGroup.get('nome')?.value && this.formGroup.get('nome')?.valid
-        );
-      },
-      validators: [Validators.minLength(3)],
-    },
-  ];
-
-  formGroup = this.bnFormService.createFormGroup(this.formFields);
-  editFormGroup = this.bnFormService.createFormGroup(this.editFormFields);
-
-  submitForm(): void {
-    console.log('Form submitted:', this.formGroup.value);
-  }
-
-  refreshCities(_field: BnSelectFormField, search?: string): Observable<any> {
-    const params: FromYourRepository = {};
-
-    if (search) {
-      params.title_like = search;
-    }
-
-    console.log(search);
-
-    return this.http.get('https://jsonplaceholder.typicode.com/posts', {
-      params,
-    });
-  }
-
-  refreshStates(_field: BnSelectFormField, search?: string): Observable<any> {
-    return this.http.get('https://jsonplaceholder.typicode.com/posts');
-  }
-
   handleLeftActionOutput(event: any): void {
     console.log('Left action output:', event);
   }
@@ -1532,28 +543,4 @@ export class AppComponent implements OnInit {
     console.log('Value change:', event);
   }
 
-  // Edit Drawer Example
-  isEditDrawerOpen = signal(false);
-  simulatingLoading = signal(false);
-  editData = signal({
-    nome: 'Iury',
-    sobrenome: 'Oliveira',
-  });
-
-  openEditDrawer(): void {
-    this.isEditDrawerOpen.set(true);
-  }
-
-  saveEdit(data: any): void {
-    console.log('Saving data with simulation...', data);
-    this.simulatingLoading.set(true);
-
-    // Simulate backend request
-    setTimeout(() => {
-      this.editData.set(data);
-      this.simulatingLoading.set(false);
-      this.isEditDrawerOpen.set(false);
-      console.log('Saved data:', data);
-    }, 2000);
-  }
 }
