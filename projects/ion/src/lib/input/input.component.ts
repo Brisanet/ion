@@ -3,7 +3,8 @@ import {
   input,
   output,
   model,
-  effect,
+  computed,
+  signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -20,39 +21,84 @@ import { IonButtonProps } from '../core/types';
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[attr.size]': 'size()',
+    '[attr.theme]': 'theme()',
+  },
 })
 export class IonInputComponent {
+  private static nextId = 0;
+  public uniqueId = `ion-input-${IonInputComponent.nextId++}`;
+
+  // Variações e Slots Visuais
+  size = input<'base' | 'large'>('base');
+  theme = input<'primary' | 'secondary' | 'danger'>('primary');
+  label = input<string | undefined>(undefined);
+  prefix = input<string | undefined>(undefined);
+  helperText = input<string | undefined>(undefined);
+
+  // Estados e Configurações
   placeholder = input<string>('');
-  button = input<string>('Button');
-  iconInput = input<IconType>('');
+  inputType = input<InputType>('text');
   disabled = input<boolean>(false);
-  iconDirection = input<IconDirection | undefined>(undefined);
+  readonly = input<boolean>(false);
   valid = input<boolean>(false);
   invalid = input<boolean>(false);
   errorMsg = input<string>('');
-  inputButton = input<boolean>(false);
-  inputButtonConfig = input<IonButtonProps | undefined>(undefined);
-  value = model<string>('');
-  inputType = input<InputType>('text');
-  clearButton = input<boolean>(false);
-  readonly = input<boolean>(false);
   maxLength = input<string | number | null>(null);
 
+  // Ícones e Ações
+  iconInput = input<IconType>('');
+  iconDirection = input<IconDirection | undefined>(undefined);
+  clearButton = input<boolean>(false);
+  inputButton = input<boolean>(false);
+  inputButtonConfig = input<IonButtonProps | undefined>(undefined);
+
+  // Two-way binding
+  value = model<string>('');
+  passwordVisible = signal(false);
+  effectiveInputType = computed(() =>
+    this.inputType() === 'password' && this.passwordVisible()
+      ? 'text'
+      : this.inputType(),
+  );
+
+  // Eventos de saída
   valueChange = output<string>();
   clickButton = output<void>();
+  clickIconTrailing = output<void>();
 
-  constructor() {
-    effect(() => {
-      this.checkAndSetButtonSize();
-    });
-  }
+  // Resolução inteligente do botão integrado (tamanho e tema sincronizados com o input)
+  finalButtonConfig = computed(() => {
+    const config = this.inputButtonConfig();
+    if (!config) return undefined;
 
-  onChange(value: string): void {
-    this.valueChange.emit(value);
+    let finalBtnSize = config.size;
+    if (!finalBtnSize) {
+      finalBtnSize = this.size() === 'large' ? 'lg' : 'md';
+    }
+
+    return {
+      ...config,
+      size: finalBtnSize,
+      type: config.type || (this.theme() === 'danger' ? 'destructive' : this.theme()) || 'primary',
+    } as IonButtonProps;
+  });
+
+  onChange(val: string): void {
+    this.valueChange.emit(val);
   }
 
   public handleClick(): void {
     this.clickButton.emit();
+  }
+
+  public onClickTrailingIcon(): void {
+    this.clickIconTrailing.emit();
+  }
+
+  public togglePasswordVisibility(): void {
+    this.passwordVisible.update((visible) => !visible);
   }
 
   public clearInput(): void {
@@ -62,13 +108,5 @@ export class IonInputComponent {
 
   public isClearButtonVisible(): boolean {
     return this.clearButton() && this.value().length > 0;
-  }
-
-  private checkAndSetButtonSize(): void {
-    const config = this.inputButtonConfig();
-    if (config && !config.size) {
-      // Note: We can't mutate the input directly, so this is just for validation
-      // The parent should provide a complete config
-    }
   }
 }
