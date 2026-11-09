@@ -64,7 +64,8 @@ import {
 import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
-import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';import { BnFormGalleryComponent } from './components/galleries/bn-form-gallery/bn-form-gallery-component';
+import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+import { BnFormGalleryComponent } from './components/galleries/bn-form-gallery/bn-form-gallery-component';
 import { DatePickerGalleryComponent } from './components/galleries/date-picker-gallery/date-picker-gallery-component';
 import { SmartTableGalleryComponent } from './components/galleries/tables-galleries/smart-table-gallery/smart-table-gallery-component';
 import { TableGalleryComponent } from './components/galleries/tables-galleries/table-gallery/table-gallery-component';
