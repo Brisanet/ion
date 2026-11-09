@@ -27,6 +27,7 @@
 
     <input
       #input
+      #inputModel="ngModel"
       [id]="uniqueId"
       [type]="effectiveInputType()"
       [attr.placeholder]="placeholder()"
@@ -63,14 +64,20 @@
         ></ion-icon>
       </button>
     } @else if (!isClearButtonVisible() && iconDirection() === 'right' && iconInput()) {
-      <ion-icon
-        data-testid="icon-right"
-        class="right-icon clickable-icon password-toggle"
-        [type]="iconInput()"
-        [size]="24"
-        (click)="onClickTrailingIcon()"
-        aria-hidden="true"
-      ></ion-icon>
+      <button
+      type="button"
+      class="trailing-button"
+      data-testid="icon-right-button"
+      [disabled]="disabled()"
+      [attr.aria-label]="iconTrailingAriaLabel()"
+      (click)="onClickTrailingIcon()">
+        <ion-icon
+          class="right-icon clickable-icon password-toggle"
+          [type]="iconInput()"
+          [size]="24"
+          aria-hidden="true"
+        ></ion-icon>
+      </button>
     }
 
     @if (valid() && !isClearButtonVisible()) {
@@ -100,7 +107,7 @@
         data-testid="clear-button"
         class="clearButton"
         [disabled]="disabled()"
-        (click)="clearInput()"
+        (click)="clearInput(inputModel)"
         aria-label="Limpar campo"
       >
         <ion-icon type="close-rounded" [size]="18" aria-hidden="true"></ion-icon>

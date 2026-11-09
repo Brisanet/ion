@@ -271,6 +271,7 @@ describe('IonInputComponent', () => {
       fireEvent.click(screen.getByTestId('clear-button'));
 
       expect(input).toHaveValue('');
+      expect(fixture.componentInstance.value()).toBe('');
     });
 
     it('should emit valueChange when clear button press', async () => {

@@ -7,7 +7,7 @@ import {
   signal,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgModel } from '@angular/forms';
 import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconDirection, IconType } from '../core/types/icon';
@@ -32,7 +32,7 @@ export class IonInputComponent {
 
   // Variações e Slots Visuais
   size = input<'base' | 'large'>('base');
-  theme = input<'primary' | 'secondary' | 'danger'>('primary');
+  theme = input<'primary' | 'secondary'>('primary');
   label = input<string | undefined>(undefined);
   prefix = input<string | undefined>(undefined);
   helperText = input<string | undefined>(undefined);
@@ -53,6 +53,7 @@ export class IonInputComponent {
   clearButton = input<boolean>(false);
   inputButton = input<boolean>(false);
   inputButtonConfig = input<IonButtonProps | undefined>(undefined);
+  iconTrailingAriaLabel = input<string>('Action');
 
   // Two-way binding
   value = model<string>('');
@@ -81,7 +82,7 @@ export class IonInputComponent {
     return {
       ...config,
       size: finalBtnSize,
-      type: config.type || (this.theme() === 'danger' ? 'destructive' : this.theme()) || 'primary',
+      type: config.type || 'primary',
     } as IonButtonProps;
   });
 
@@ -101,7 +102,8 @@ export class IonInputComponent {
     this.passwordVisible.update((visible) => !visible);
   }
 
-  public clearInput(): void {
+  public clearInput(inputModel: NgModel): void {
+    inputModel.control.setValue('');
     this.value.set('');
     this.onChange('');
   }

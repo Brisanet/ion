@@ -207,6 +207,36 @@ div.input {
     fill: ion-theme(input-icon-color);
   }
 
+  .trailing-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin-right: var(--gap-inline-xl, 16px);
+    margin-left: calc(var(--gap-inline-lg, 12px) * -0.5);
+    cursor: pointer;
+    color: var(--theme-color);
+    border-radius: 4px;
+    line-height: 1;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-ring-outer, var(--theme-color));
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--border-color);
+      pointer-events: none;
+    }
+
+    ion-icon {
+      margin: 0;
+    }
+  }
+
   .button-separator {
     align-self: stretch;
     width: 1px;
