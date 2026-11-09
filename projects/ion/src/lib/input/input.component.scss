@@ -81,7 +81,7 @@ div.input {
     border-width: 2px;
     border-color: var(--current-theme-color);
     box-shadow:
-      0 0 0 2px var(--focus-inner),
+      0 0 0 2px var(--focus-inner, #fcfcfd),
       0 0 0 4px var(--current-hover-color);
   }
 
@@ -222,8 +222,9 @@ div.input {
     line-height: 1;
 
     &:focus-visible {
-      outline: 2px solid var(--focus-ring-outer, var(--theme-color));
+      outline: 2px solid var(--current-hover-color);
       outline-offset: 2px;
+      border-radius: 2px;
     }
 
     &:disabled {

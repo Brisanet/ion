@@ -30,6 +30,7 @@
       #inputModel="ngModel"
       [id]="uniqueId"
       [type]="effectiveInputType()"
+
       [attr.placeholder]="placeholder()"
       class="my-input"
       [disabled]="disabled()"
@@ -38,7 +39,8 @@
       data-testid="input-element"
       [readonly]="readonly()"
       [maxlength]="maxLength()"
-      [attr.aria-describedby]="invalid() && errorMsg() ? uniqueId + '-error' : helperText() ? uniqueId + '-helper' : null"
+      [attr.aria-invalid]="invalid() ? true : null"
+      [attr.aria-describedby]="describedBy()"
     />
 
     @if (maxLength()) {

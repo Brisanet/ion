@@ -58,18 +58,12 @@ export class IonInputComponent {
   // Two-way binding
   value = model<string>('');
   passwordVisible = signal(false);
-  effectiveInputType = computed(() =>
-    this.inputType() === 'password' && this.passwordVisible()
-      ? 'text'
-      : this.inputType(),
-  );
 
   // Eventos de saída
   valueChange = output<string>();
   clickButton = output<void>();
   clickIconTrailing = output<void>();
 
-  // Resolução inteligente do botão integrado (tamanho e tema sincronizados com o input)
   finalButtonConfig = computed(() => {
     const config = this.inputButtonConfig();
     if (!config) return undefined;
@@ -85,6 +79,18 @@ export class IonInputComponent {
       type: config.type || 'primary',
     } as IonButtonProps;
   });
+
+  describedBy = computed(() => {
+    if (this.invalid() && this.errorMsg()) return `${this.uniqueId}-error`;
+    if (this.helperText()) return `${this.uniqueId}-helper`;
+    return null;
+  });
+
+  effectiveInputType = computed(() =>
+    this.inputType() === 'password' && this.passwordVisible()
+      ? 'text'
+      : this.inputType(),
+  );
 
   onChange(val: string): void {
     this.valueChange.emit(val);
