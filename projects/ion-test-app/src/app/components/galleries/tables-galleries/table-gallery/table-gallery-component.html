@@ -1,0 +1,16 @@
+<section>
+  <h2>Table Normal</h2>
+  <div style="display: flex; flex-direction: column; gap: 20px">
+    <ion-table [config]="tableConfig"></ion-table>
+  </div>
+</section>
+
+<ng-template #tablePopoverTemplate let-row>
+  <div style="padding: 16px">
+    <h3 style="margin-top: 0">Confirmar Ação</h3>
+    <p>
+      Deseja realmente excluir o item: <strong>{{ row.name }}</strong
+      >?
+    </p>
+  </div>
+</ng-template>
