@@ -210,7 +210,7 @@ export class AppComponent implements OnInit {
   private http = inject(HttpClient);
   title = 'ion-test-app';
   readonly activeGallery = signal<GalleryNavigationEntry | null>(null);
-  readonly galleryNavigationOptions: DropdownItem[] = GALLERY_NAVIGATION.map(
+  galleryNavigationOptions: DropdownItem[] = GALLERY_NAVIGATION.map(
     ({ key, label }) => ({ key, label })
   );
   readonly galleryDropdownConfig = {
@@ -1194,6 +1194,7 @@ export class AppComponent implements OnInit {
     'cdr-juazeiro',
   ];
 
+  // Gallery Navigation
   selectGallery(selectedItems: DropdownItem[]): void {
     const selectedKey = selectedItems[0]?.key;
     if (!selectedKey) {
@@ -1211,6 +1212,9 @@ export class AppComponent implements OnInit {
   }
 
   clearGallerySelection(): void {
+    this.galleryNavigationOptions = this.galleryNavigationOptions.map(
+      (option) => ({ ...option, selected: false })
+    );
     this.activeGallery.set(null);
   }
 
