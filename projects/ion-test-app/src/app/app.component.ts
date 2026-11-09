@@ -15,7 +15,6 @@ import {
   IonBadgeComponent,
   IonButtonComponent,
   IonCheckboxComponent,
-  IonIconComponent,
   IonInfoBadgeComponent,
   IonAccordionComponent,
   IonDividerComponent,
