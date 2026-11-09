@@ -30,7 +30,6 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent,
   IonTabComponent,
   TabSize,
   IonHeadingComponent,
@@ -151,7 +150,6 @@ class ModalLongContentComponent {
     IonRadioComponent,
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent,
     IonTabComponent,
     IonHeadingComponent,
     IonTagComponent,
@@ -624,13 +622,6 @@ export class AppComponent implements OnInit {
     name: 'Dynamic Content',
     value: 123,
   };
-
-  // Input examples
-  basicInputValue = '';
-  emailInputValue = '';
-  passwordInputValue = '';
-  searchInputValue = '';
-  inputWithMaxLength = '';
 
   handleInputButtonClick(value?: string): void {
     console.log('Input button clicked!', value);
