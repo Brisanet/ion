@@ -77,17 +77,19 @@ describe('IonSelectFieldComponent', () => {
     const container = fixture.nativeElement.querySelector(
       '.ion-select-container'
     ) as HTMLElement;
-    expect(
-      container.style.getPropertyValue('--ion-select-background-color')
-    ).toBe('#26282d');
+    expect(container.getAttribute('data-ion-theme')).toBe('orange-dark');
+    expect(container.style.getPropertyValue('--ion-select-background-color')).toBe(
+      ''
+    );
 
     fireEvent.click(screen.getByTestId('ion-select'));
     fixture.detectChanges();
 
     const dropdown = screen.getByTestId('ion-dropdown') as HTMLElement;
+    expect(dropdown.getAttribute('data-ion-theme')).toBe('orange-dark');
     expect(
       dropdown.style.getPropertyValue('--ion-select-menu-background-color')
-    ).toBe('#26282d');
+    ).toBe('');
   });
 
   it('should expose the empty state when the open menu has no options', async () => {

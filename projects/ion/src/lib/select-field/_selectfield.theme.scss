@@ -1,3 +1,4 @@
+@use 'sass:map';
 @import '../../styles/themes/theme.scss';
 
 $default: (
@@ -8,11 +9,11 @@ $default: (
   text-color: ion-theme(neutral-7),
   supporting-text-color: ion-theme(neutral-7),
   hover-border-color: #126aeb,
-  focus-color: #146ff5,
-  focus-surface: #fcfcfd,
+  focus-color: ion-theme(primary-5),
+  focus-surface: ion-theme(neutral-1),
   disabled-border-color: #e1e3e8,
-  error-color: #d6293a,
-  success-color: #2d9f70,
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
   tag-background: ion-theme(neutral-2),
   tag-text-color: ion-theme(neutral-7),
   tag-border-radius: 8px,
@@ -69,10 +70,10 @@ $orange-light: (
   supporting-text-color: ion-theme(neutral-7),
   hover-border-color: #fa9c74,
   focus-color: #fa9c74,
-  focus-surface: #fcfcfd,
+  focus-surface: ion-theme(neutral-1),
   disabled-border-color: #e1e3e8,
-  error-color: #d6293a,
-  success-color: #2d9f70,
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
   tag-background: ion-theme(neutral-2),
   tag-text-color: ion-theme(neutral-7),
   tag-border-radius: 8px,
@@ -129,3 +130,20 @@ $orange-dark: (
     orange-dark: $orange-dark,
   )
 );
+
+$select-themes: (
+  light: $default,
+  dark: $dark,
+  orange-light: $orange-light,
+  orange-dark: $orange-dark,
+);
+
+@each $theme-name, $theme-palette in $themes {
+  .ion-select-container[data-ion-theme='#{$theme-name}'],
+  .ion-select-dropdown[data-ion-theme='#{$theme-name}'] {
+    @include map-to-css-vars($theme-palette);
+    @include map-to-css-vars(
+      (select: map.get($select-themes, $theme-name))
+    );
+  }
+}

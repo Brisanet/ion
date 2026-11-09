@@ -1,6 +1,6 @@
 <div
   class="ion-select-container"
-  [ngStyle]="themeStyles()"
+  [attr.data-ion-theme]="theme()"
   [class.disabled]="disabled()"
   [class.size-large]="size() === 'large'"
 >
@@ -112,7 +112,7 @@
   >
     <div
       class="ion-select-dropdown"
-      [ngStyle]="themeStyles()"
+      [attr.data-ion-theme]="theme()"
       [class.open-empty]="hasNoOptions()"
       [class.dropdown-loading]="loading()"
       data-testid="ion-dropdown"
