@@ -14,16 +14,37 @@
 >
 </ion-navbar>
 
-<div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
-  <h1>Ion Consumer App</h1>
-
-  <app-color-gallery></app-color-gallery>
-  <app-icon-gallery></app-icon-gallery>
   <section>
-    <h2>Tipografia</h2>
-    <app-typography-gallery></app-typography-gallery>
+    <div style="border: 1px solid #ccc; padding: 20px;">
+      <h2 style="margin: 0;">Galerias</h2>
+      <p style="margin-bottom: 20px;">Explore e navegue por nossas coleções disponíveis.</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <ion-button
+          [label]="activeGallery()?.label ?? 'Selecionar uma gallery'"
+          [options]="galleryNavigationOptions"
+          [dropdownConfig]="galleryDropdownConfig"
+          (selected)="selectGallery($event)"
+        ></ion-button>
+    
+        <ion-button
+          label="Limpar seleção"
+          type="secondary"
+          [disabled]="!activeGallery()"
+          (ionOnClick)="clearGallerySelection()"
+        ></ion-button>
+      </div>
+    </div>
+    <div style="border: 1px dashed #ccc; padding: 20px; text-align: center;">
+      @if (activeGallery(); as gallery) {
+        <ng-container *ngComponentOutlet="gallery.component"></ng-container>
+      } @else {
+        <p>Selecione uma gallery no menu para visualizar seu conteúdo.</p>
+      }
+    </div>
   </section>
 
+  <div style="padding: 20px; display: flex; flex-direction: column; gap: 20px">
+    <h1>Ion Consumer App</h1>
   <div
     style="
       display: flex;

@@ -5,8 +5,9 @@ import {
   inject,
   signal,
   TemplateRef,
+  Type,
 } from '@angular/core';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgComponentOutlet } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import {
@@ -93,6 +94,17 @@ import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+
+type GalleryNavigationEntry = DropdownItem & {
+  component: Type<unknown>;
+};
+
+const GALLERY_NAVIGATION = [
+  { key: 'colors', label: 'Cores', component: ColorGalleryComponent },
+  { key: 'icons', label: 'Ícones', component: IconGalleryComponent },
+  { key: 'typography', label: 'Tipografia', component: TypographyGalleryComponent }
+] as const satisfies readonly GalleryNavigationEntry[];
+
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -175,7 +187,6 @@ class ModalLongContentComponent {
     IonCardHeaderComponent,
     IonCardFooterComponent,
     CardBodyComponent,
-    IconGalleryComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
@@ -186,8 +197,7 @@ class ModalLongContentComponent {
     IonNavbarComponent,
     IonDrawerComponent,
     BnEditDrawerComponent,
-    ColorGalleryComponent,
-    TypographyGalleryComponent,
+    NgComponentOutlet,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
@@ -199,6 +209,14 @@ export class AppComponent implements OnInit {
   private bnFormService = inject(BnFormService);
   private http = inject(HttpClient);
   title = 'ion-test-app';
+  readonly activeGallery = signal<GalleryNavigationEntry | null>(null);
+  galleryNavigationOptions: DropdownItem[] = GALLERY_NAVIGATION.map(
+    ({ key, label }) => ({ key, label })
+  );
+  readonly galleryDropdownConfig = {
+    notShowClearButton: true,
+    required: true,
+  };
 
   filterFields = signal<BnFormField[]>([
     {
@@ -1175,6 +1193,30 @@ export class AppComponent implements OnInit {
     'cdr-fortaleza',
     'cdr-juazeiro',
   ];
+
+  // Gallery Navigation
+  selectGallery(selectedItems: DropdownItem[]): void {
+    const selectedKey = selectedItems[0]?.key;
+    if (!selectedKey) {
+      return;
+    }
+
+    const gallery = GALLERY_NAVIGATION.find(
+      (entry) => entry.key === selectedKey
+    );
+    if (!gallery) {
+      throw new Error(`Unknown gallery navigation key: "${selectedKey}".`);
+    }
+
+    this.activeGallery.set(gallery);
+  }
+
+  clearGallerySelection(): void {
+    this.galleryNavigationOptions = this.galleryNavigationOptions.map(
+      (option) => ({ ...option, selected: false })
+    );
+    this.activeGallery.set(null);
+  }
 
   handleSelectChange(event: DropdownItem[]): void {
     console.log('Select changed:', event);
