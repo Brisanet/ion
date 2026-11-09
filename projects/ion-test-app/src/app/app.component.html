@@ -14,35 +14,25 @@
 >
 </ion-navbar>
 
-  <div 
-    style=
-    "margin: 2rem auto; 
-    padding: 2rem; 
-    border: 1px solid #e2e8f0; 
-    border-radius: 12px; 
-    background-color: #fff; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    ">
+    <div style="border: 1px solid #ccc; padding: 20px;">
+      <h2 style="margin: 0;">Galerias</h2>
+      <p style="margin-bottom: 20px;">Explore e navegue por nossas coleções disponíveis.</p>
 
-    <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
-      <h2 style="margin: 0 0 0.5rem 0; color: #333;">Galerias</h2>
-      <p style="margin: 0; color: #666;">Explore e navegue por nossas coleções disponíveis.</p>
-    </div>
-
-    <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
-      <ion-button
-        [label]="activeGallery()?.label ?? 'Selecionar uma gallery'"
-        [options]="galleryNavigationOptions"
-        [dropdownConfig]="{ notShowClearButton: true }"
-        (selected)="selectGallery($event)"
-      ></ion-button>
-      
-      <ion-button
-        label="Limpar seleção"
-        type="secondary"
-        [disabled]="!activeGallery()"
-        (ionOnClick)="clearGallerySelection()"
-      ></ion-button>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <ion-button
+          [label]="activeGallery()?.label ?? 'Selecionar uma gallery'"
+          [options]="galleryNavigationOptions"
+          [dropdownConfig]="galleryDropdownConfig"
+          (selected)="selectGallery($event)"
+        ></ion-button>
+        
+        <ion-button
+          label="Limpar seleção"
+          type="secondary"
+          [disabled]="!activeGallery()"
+          (ionOnClick)="clearGallerySelection()"
+        ></ion-button>
+      </div>
     </div>
 
     <div 

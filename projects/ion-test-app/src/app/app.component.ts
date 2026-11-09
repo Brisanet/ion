@@ -103,7 +103,6 @@ const GALLERY_NAVIGATION = [
   { key: 'colors', label: 'Cores', component: ColorGalleryComponent },
   { key: 'icons', label: 'Ícones', component: IconGalleryComponent },
   { key: 'typography', label: 'Tipografia', component: TypographyGalleryComponent }
-
 ] as const satisfies readonly GalleryNavigationEntry[];
 
 type FromYourRepository = {
@@ -214,6 +213,10 @@ export class AppComponent implements OnInit {
   readonly galleryNavigationOptions: DropdownItem[] = GALLERY_NAVIGATION.map(
     ({ key, label }) => ({ key, label })
   );
+  readonly galleryDropdownConfig = {
+    notShowClearButton: true,
+    required: true,
+  };
 
   filterFields = signal<BnFormField[]>([
     {
