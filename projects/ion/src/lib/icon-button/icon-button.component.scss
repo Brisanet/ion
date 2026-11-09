@@ -1,0 +1,108 @@
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+:host {
+  display: inline-flex;
+}
+
+.ion-icon-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease,
+    box-shadow 150ms ease;
+
+  ion-icon {
+    display: inline-flex;
+
+    ::ng-deep svg {
+      fill: currentColor;
+    }
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px #fcfcfd,
+      0 0 0 6px var(--ion-icon-button-focus-ring);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
+
+.ion-icon-button--small {
+  width: 24px;
+  height: 24px;
+}
+
+.ion-icon-button--medium {
+  width: 32px;
+  height: 32px;
+}
+
+.ion-icon-button--large {
+  width: 48px;
+  height: 48px;
+}
+
+.ion-icon-button--default {
+  border-radius: 6px;
+}
+
+.ion-icon-button--full {
+  border-radius: 9999px;
+}
+
+.ion-icon-button--blue {
+  --ion-icon-button-focus-ring: #126aeb;
+  background-color: #0750bd;
+  color: #fcfcfd;
+
+  &:hover:not(:disabled) {
+    background-color: #123972;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #126aeb;
+  }
+
+  &:disabled {
+    background-color: #e8eef9;
+    color: #aeb2bd;
+  }
+}
+
+.ion-icon-button--orange {
+  --ion-icon-button-focus-ring: #fa9c74;
+  background-color: #fe5513;
+  color: #fcfcfd;
+
+  &:hover:not(:disabled) {
+    background-color: #d6470f;
+  }
+
+  &:active:not(:disabled) {
+    background-color: #fe6c3b;
+  }
+
+  &:disabled {
+    background-color: #fff1eb;
+    color: #aeb2bd;
+  }
+}
+
+@media (pointer: coarse) {
+  .ion-icon-button {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}

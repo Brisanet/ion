@@ -9,6 +9,7 @@ export * from './chip';
 export * from './chip-group';
 export * from './dropdown';
 export * from './icon';
+export * from './icon-button';
 export * from './info-badge';
 export * from './direction';
 export * from './input-counter';

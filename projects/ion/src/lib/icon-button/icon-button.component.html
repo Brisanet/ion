@@ -1,0 +1,17 @@
+<button
+  type="button"
+  class="ion-icon-button"
+  [class.ion-icon-button--small]="size() === 'small'"
+  [class.ion-icon-button--medium]="size() === 'medium'"
+  [class.ion-icon-button--large]="size() === 'large'"
+  [class.ion-icon-button--default]="rounding() === 'default'"
+  [class.ion-icon-button--full]="rounding() === 'full'"
+  [class.ion-icon-button--blue]="theme() === 'blue'"
+  [class.ion-icon-button--orange]="theme() === 'orange'"
+  [attr.aria-label]="ariaLabel()"
+  [attr.data-testid]="'icon-btn-' + ariaLabel()"
+  [disabled]="disabled()"
+  (click)="ionOnClick.emit()"
+>
+  <ion-icon [type]="icon()" [size]="iconSize()" aria-hidden="true"></ion-icon>
+</button>
