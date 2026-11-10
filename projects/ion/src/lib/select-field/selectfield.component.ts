@@ -432,19 +432,13 @@ export class IonSelectFieldComponent {
 
     const trigger = this.selectTrigger()?.nativeElement;
     const measurement = this.measurementContainer()?.nativeElement;
-    if (!trigger || !measurement || !trigger.clientWidth) {
+    const selectedValue = trigger?.querySelector<HTMLElement>('.selected-value');
+    if (!trigger || !selectedValue || !measurement) {
       this.visibleCount.set(null);
       return;
     }
 
-    const iconWidth =
-      trigger.querySelector('.select-chevron')?.getBoundingClientRect().width ??
-      20;
-    const styles = getComputedStyle(trigger);
-    const paddingLeft = parseFloat(styles.paddingLeft) || 0;
-    const paddingRight = parseFloat(styles.paddingRight) || 0;
-    const availableWidth =
-      trigger.clientWidth - iconWidth - CHIP_GAP - paddingLeft - paddingRight;
+    const availableWidth = selectedValue.getBoundingClientRect().width; // size and relative position from dom
     const chipWidths = Array.from(
       measurement.querySelectorAll<HTMLElement>('.select-tag')
     ).map((element) => element.getBoundingClientRect().width);
