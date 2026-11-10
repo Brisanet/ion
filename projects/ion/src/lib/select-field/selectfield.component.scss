@@ -49,17 +49,28 @@
     height: 56px;
   }
 
-  &:not(.disabled):focus {
+  &:not(.disabled):focus-visible {
     outline: none;
     border-color: ion-theme(select-focus-color);
+    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
   }
 
   &.error {
     border-color: ion-theme(select-error-color);
+
+    &:not(.disabled):focus-visible {
+      border-color: ion-theme(select-error-color);
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
   }
 
   &.success {
     border-color: ion-theme(select-success-color);
+
+    &:not(.disabled):focus-visible {
+      border-color: ion-theme(select-success-color);
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
   }
 
   &.open,
@@ -81,7 +92,7 @@
     box-shadow: none;
   }
 
-  &.selected:not(.error):not(.success) {
+  &.selected:not(.error):not(.success):not(:focus-visible) {
     border-color: ion-theme(select-border-color);
   }
 
@@ -92,11 +103,17 @@
     pointer-events: none;
   }
 
-  &:not(.disabled):hover:not(.open):not(.open-empty) {
+  &:not(.disabled):hover:not(.open):not(.open-empty):not(:focus-visible) {
     border-color: ion-theme(select-hover-border-color);
+    border-width: 2px;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
   }
 
-  &.error:not(.disabled):not(.open):not(.open-empty):hover {
+  &.error:not(.disabled):not(.open):not(.open-empty):not(
+      :focus-visible
+    ):hover {
     border-width: 2px;
     border-color: color-mix(in srgb, ion-theme(select-error-color) 88%, black);
     transition:
@@ -104,7 +121,9 @@
       box-shadow 0.2s;
   }
 
-  &.success:not(.disabled):not(.open):not(.open-empty):hover {
+  &.success:not(.disabled):not(.open):not(.open-empty):not(
+      :focus-visible
+    ):hover {
     border-width: 2px;
     border-color: color-mix(in srgb, ion-theme(select-success-color) 88%, black);
     transition:
@@ -280,6 +299,11 @@
 
   &:hover {
     background: ion-theme(select-menu-item-hover-background-color);
+  }
+
+  &.dropdown-item-active {
+    background: ion-theme(select-menu-item-hover-background-color);
+    border: 1px solid ion-theme(select-menu-border-color);
   }
 
   &:focus-visible {
