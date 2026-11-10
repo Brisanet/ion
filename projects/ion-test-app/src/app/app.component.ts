@@ -30,9 +30,7 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent,
   IonTabComponent,
-  TabSize,
   IonHeadingComponent,
   IonLinkComponent,
   IonTripleToggleComponent,
@@ -42,7 +40,6 @@ import {
   PopoverTrigger,
   IonTableComponent,
   ConfigTable,
-  Column,
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
@@ -93,6 +90,7 @@ import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+import { TextInputGalleryComponent } from './components/galleries/text-galleries/text-input-gallery/text-input-gallery-component';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -137,8 +135,8 @@ class ModalLongContentComponent {
     IonBadgeComponent,
     IonButtonComponent,
     IonCheckboxComponent,
-    IonIconComponent,
     IonInfoBadgeComponent,
+    IonIconComponent,
     IonAccordionComponent,
     IonDividerComponent,
     IonSkeletonComponent,
@@ -150,7 +148,6 @@ class ModalLongContentComponent {
     IonRadioComponent,
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent,
     IonTabComponent,
     IonHeadingComponent,
     IonTagComponent,
@@ -188,6 +185,7 @@ class ModalLongContentComponent {
     BnEditDrawerComponent,
     ColorGalleryComponent,
     TypographyGalleryComponent,
+    TextInputGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
@@ -622,13 +620,6 @@ export class AppComponent implements OnInit {
     name: 'Dynamic Content',
     value: 123,
   };
-
-  // Input examples
-  basicInputValue = '';
-  emailInputValue = '';
-  passwordInputValue = '';
-  searchInputValue = '';
-  inputWithMaxLength = '';
 
   handleInputButtonClick(value?: string): void {
     console.log('Input button clicked!', value);
