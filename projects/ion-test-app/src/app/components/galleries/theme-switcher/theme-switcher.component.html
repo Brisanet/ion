@@ -1,0 +1,15 @@
+<section class="gallery-container" aria-labelledby="theme-gallery-title">
+  <header class="gallery-header">
+    <h2 id="theme-gallery-title">Galeria de temas</h2>
+    <p>Selecione o tema.</p>
+  </header>
+
+  <div class="gallery-controls">
+    <ion-select
+      placeholder="Selecione um tema"
+      [options]="themeOptions"
+      [value]="selectedTheme()?.key"
+      (selected)="onThemeSelected($event)"
+    ></ion-select>
+  </div>
+</section>
