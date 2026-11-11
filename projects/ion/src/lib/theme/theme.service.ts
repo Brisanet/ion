@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export enum IonThemeOptions {
   DEFAULT = 'ion-default',
   ORANGE = 'orange',
+  DEFAULT_V2 = 'ion-default-v2',
+  ORANGE_V2 = 'orange-v2',
 }
 
 export enum IonThemeScheme {
@@ -11,7 +13,13 @@ export enum IonThemeScheme {
   DARK = 'dark',
 }
 
-type IonSCSSThemeKeys = 'light' | 'dark' | 'orange-light' | 'orange-dark';
+type IonSCSSThemeKeys =
+  | 'light'
+  | 'dark'
+  | 'orange-light'
+  | 'orange-dark'
+  | 'light-v2'
+  | 'orange-light-v2';
 
 export interface IonFormattedThemes {
   key: IonSCSSThemeKeys | IonThemeOptions;
@@ -40,6 +48,22 @@ const THEMES_CONFIGURATION: IonThemeConfiguration[] = [
     label: 'Brisaneto',
     schemes: {
       [IonThemeScheme.LIGHT]: 'orange-light',
+      [IonThemeScheme.DARK]: 'orange-dark',
+    },
+  },
+  {
+    key: IonThemeOptions.DEFAULT_V2,
+    label: 'Ion v2',
+    schemes: {
+      [IonThemeScheme.LIGHT]: 'light-v2',
+      [IonThemeScheme.DARK]: 'dark',
+    },
+  },
+  {
+    key: IonThemeOptions.ORANGE_V2,
+    label: 'Brisaneto v2',
+    schemes: {
+      [IonThemeScheme.LIGHT]: 'orange-light-v2',
       [IonThemeScheme.DARK]: 'orange-dark',
     },
   },
