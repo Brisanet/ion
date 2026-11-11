@@ -5,7 +5,7 @@
   [class.size-large]="size() === 'large'"
 >
   @if (label()) {
-    <label class="select-label">{{ label() }}</label>
+    <label class="select-label" [id]="labelId">{{ label() }}</label>
   }
 
   <div
@@ -21,6 +21,18 @@
     [class.selected]="dropdownSelectedItems().length > 0"
     [class.size-large]="size() === 'large'"
     [attr.inert]="disabled() ? '' : null"
+    role="combobox"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="showDropdown()"
+    [attr.aria-controls]="
+      showDropdown() && !loading() && options().length > 0 ? listboxId : null
+    "
+    [attr.aria-activedescendant]="activeDescendantId()"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.aria-label]="label() ? null : placeholder()"
+    [attr.aria-valuetext]="getSelectedLabel() || 'Nenhuma opção selecionada'"
+    [attr.aria-disabled]="disabled()"
+    [attr.aria-required]="required()"
     (click)="toggleDropdown()"
     [attr.tabindex]="disabled() ? -1 : 0"
     (keydown)="handleTriggerKeydown($event)"
@@ -135,20 +147,25 @@
       @if (loading()) {
         <ion-spinner [size]="40"></ion-spinner>
       } @else if (options().length > 0) {
-        <div class="options-list">
+        <div
+          class="options-list"
+          [id]="listboxId"
+          role="listbox"
+          [attr.aria-multiselectable]="isMultiple() ? 'true' : null"
+        >
           @for (option of dropdownOptions(); track $index) {
             <div
               class="ion-dropdown-item"
               [class.dropdown-disabled]="option.disabled"
+              [class.dropdown-item-active]="activeOptionIndex() === $index"
               [class.dropdown-item-selected]="option.selected && !option.disabled"
               [class.dropdown-item]="!option.selected && !option.disabled"
               role="option"
               [attr.aria-selected]="option.selected"
               [attr.aria-disabled]="option.disabled ? 'true' : null"
-              [attr.tabindex]="option.disabled ? -1 : 0"
+              tabindex="-1"
               (click)="selectOption(option)"
-              (keydown)="handleOptionKeydown($event, option)"
-              [id]="'option-' + $index"
+              [id]="getOptionId($index)"
             >
               <span class="option-label">
                 @if (option.icon) {
@@ -183,4 +200,8 @@
       }
     </div>
   </ng-template>
+
+  <span class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+    {{ accessibilityAnnouncement() }}
+  </span>
 </div>
