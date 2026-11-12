@@ -1,0 +1,34 @@
+:host {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+}
+
+.gallery-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.gallery-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+}
+
+.gallery-controls {
+  max-width: 360px;
+}
