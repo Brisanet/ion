@@ -1,8 +1,16 @@
+@use 'icon-button.theme';
+
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
 :host {
   display: inline-flex;
+}
+
+@mixin icon-button-style($prefix) {
+  background-color: ion-theme(icon-button-#{$prefix}-background-color);
+  color: ion-theme(icon-button-#{$prefix}-icon-color);
+  border: ion-theme(icon-button-#{$prefix}-border);
 }
 
 .ion-icon-button {
@@ -11,7 +19,7 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  padding: 0;
+  padding: 4px;
   border: 0;
   cursor: pointer;
   transition:
@@ -30,8 +38,8 @@
   &:focus-visible {
     outline: none;
     box-shadow:
-      0 0 0 2px #fcfcfd,
-      0 0 0 6px var(--ion-icon-button-focus-ring);
+      0 0 0 2px ion-theme(icon-button-focus-offset-color),
+      0 0 0 4px ion-theme(icon-button-focus-ring-color);
   }
 
   &:disabled {
@@ -40,63 +48,51 @@
 }
 
 .ion-icon-button--small {
-  width: 24px;
-  height: 24px;
+  width: ion-theme(icon-button-size-small);
+  height: ion-theme(icon-button-size-small);
 }
 
 .ion-icon-button--medium {
-  width: 32px;
-  height: 32px;
+  width: ion-theme(icon-button-size-medium);
+  height: ion-theme(icon-button-size-medium);
 }
 
 .ion-icon-button--large {
-  width: 48px;
-  height: 48px;
+  width: ion-theme(icon-button-size-large);
+  height: ion-theme(icon-button-size-large);
 }
 
 .ion-icon-button--default {
-  border-radius: 6px;
+  border-radius: ion-theme(icon-button-rounding-default);
 }
 
 .ion-icon-button--full {
-  border-radius: 9999px;
+  border-radius: ion-theme(icon-button-rounding-full);
 }
 
-.ion-icon-button--blue {
-  --ion-icon-button-focus-ring: #126aeb;
-  background-color: #0750bd;
-  color: #fcfcfd;
-
-  &:hover:not(:disabled) {
-    background-color: #123972;
-  }
-
-  &:active:not(:disabled) {
-    background-color: #126aeb;
-  }
-
-  &:disabled {
-    background-color: #e8eef9;
-    color: #aeb2bd;
-  }
+.ion-icon-button--secondary:focus-visible:not(:disabled) {
+  @include icon-button-style(secondary-focus);
 }
 
-.ion-icon-button--orange {
-  --ion-icon-button-focus-ring: #fa9c74;
-  background-color: #fe5513;
-  color: #fcfcfd;
+.ion-icon-button--dashed:focus-visible:not(:disabled){
+  @include icon-button-style(dashed-focus)
+}
 
-  &:hover:not(:disabled) {
-    background-color: #d6470f;
-  }
+@each $variant in primary secondary ghost dashed {
+  .ion-icon-button--#{$variant} {
+    @include icon-button-style($variant);
 
-  &:active:not(:disabled) {
-    background-color: #fe6c3b;
-  }
+    &:hover:not(:disabled) {
+      @include icon-button-style(#{$variant}-hover);
+    }
 
-  &:disabled {
-    background-color: #fff1eb;
-    color: #aeb2bd;
+    &:active:not(:disabled) {
+      @include icon-button-style(#{$variant}-active);
+    }
+
+    &:disabled {
+      @include icon-button-style(#{$variant}-disabled);
+    }
   }
 }
 
