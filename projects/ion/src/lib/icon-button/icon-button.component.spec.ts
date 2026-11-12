@@ -34,7 +34,7 @@ describe('IonIconButtonComponent', () => {
 
   it.each([
     ['small', 'ion-icon-button--small', 16],
-    ['medium', 'ion-icon-button--medium', 20],
+    ['medium', 'ion-icon-button--medium', 16],
     ['large', 'ion-icon-button--large', 24],
   ] as const)('supports %s size', (size, cssClass, iconSize) => {
     fixture.componentRef.setInput('size', size);
@@ -83,14 +83,25 @@ describe('IonIconButtonComponent', () => {
     expect(clickSpy).not.toHaveBeenCalled();
   });
 
-  it('applies the selected color theme', () => {
-    fixture.componentRef.setInput('theme', 'orange');
+  it('renders the primary variant by default', () => {
     fixture.detectChanges();
 
-    expect(
-      fixture.nativeElement
-        .querySelector('button')
-        .classList.contains('ion-icon-button--orange')
-    ).toBe(true);
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button.classList.contains('ion-icon-button--primary')).toBe(true);
   });
+
+  it.each(['secondary', 'ghost', 'dashed'] as const)(
+    'supports the %s variant',
+    (variant) => {
+      fixture.componentRef.setInput('variant', variant);
+      fixture.detectChanges();
+
+      expect(
+        fixture.nativeElement
+          .querySelector('button')
+          .classList.contains(`ion-icon-button--${variant}`)
+      ).toBe(true);
+    }
+  );
+
 });
