@@ -1,6 +1,6 @@
 @import '../../styles/themes/theme.scss'; // TODO: Ajustar import quando o index.scss dessa pasta for refatorado
 
-$default: (
+$shared-base: (
   border-radius: 8px,
   text: (
     font-weight: 600,
@@ -9,53 +9,36 @@ $default: (
   size: (
     sm: (
       size: 24px,
-      padding: (
-        4px 12px,
-      ),
+      padding: 4px 12px,
       border-radius: 6px,
       spinner-size: 10px,
-      text: (
-        font-size: 12px,
-        line-height: 16px,
-      ),
+      text: (font-size: 12px, line-height: 16px),
     ),
     md: (
       size: 32px,
-      padding: (
-        6px 16px,
-      ),
+      padding: 6px 16px,
       border-radius: 8px,
       spinner-size: 16px,
-      text: (
-        font-size: 14px,
-        line-height: 20px,
-      ),
+      text: (font-size: 14px, line-height: 20px),
     ),
     lg: (
       size: 40px,
-      padding: (
-        8px 20px,
-      ),
+      padding: 8px 20px,
       border-radius: 10px,
       spinner-size: 16px,
-      text: (
-        font-size: 16px,
-        line-height: 24px,
-      ),
+      text: (font-size: 16px, line-height: 24px),
     ),
     xl: (
       size: 48px,
-      padding: (
-        12px 24px,
-      ),
+      padding: 12px 24px,
       border-radius: 10px,
       spinner-size: 16px,
-      text: (
-        font-size: 16px,
-        line-height: 24px,
-      ),
+      text: (font-size: 16px, line-height: 24px),
     ),
   ),
+);
+
+$default: map-merge($shared-base, (
   primary: (
     background-color: ion-theme(primary-6),
     text-color: ion-theme(neutral-1),
@@ -336,64 +319,9 @@ $default: (
       ),
     ),
   ),
-);
+));
 
-$dark: (
-  border-radius: 8px,
-  text: (
-    font-weight: 600,
-    font-family: ion-theme(font-family-main),
-  ),
-  size: (
-    sm: (
-      size: 24px,
-      padding: (
-        4px 12px,
-      ),
-      border-radius: 6px,
-      spinner-size: 10px,
-      text: (
-        font-size: 12px,
-        line-height: 16px,
-      ),
-    ),
-    md: (
-      size: 32px,
-      padding: (
-        6px 16px,
-      ),
-      border-radius: 8px,
-      spinner-size: 16px,
-      text: (
-        font-size: 14px,
-        line-height: 20px,
-      ),
-    ),
-    lg: (
-      size: 40px,
-      padding: (
-        8px 20px,
-      ),
-      border-radius: 10px,
-      spinner-size: 16px,
-      text: (
-        font-size: 16px,
-        line-height: 24px,
-      ),
-    ),
-    xl: (
-      size: 48px,
-      padding: (
-        12px 24px,
-      ),
-      border-radius: 10px,
-      spinner-size: 16px,
-      text: (
-        font-size: 16px,
-        line-height: 24px,
-      ),
-    ),
-  ),
+$dark: map-merge($shared-base, (
   primary: (
     background-color: ion-theme(primary-6),
     text-color: ion-theme(neutral-1),
@@ -674,7 +602,7 @@ $dark: (
       ),
     ),
   ),
-);
+));
 
 @include register-component(
   button,
