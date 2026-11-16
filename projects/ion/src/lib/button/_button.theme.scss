@@ -719,14 +719,14 @@ $light-v2: map-merge($shared-base, (
         background-color: ion-theme(negative-1),
         text-color: ion-theme(negative-8),
         border: 1px solid ion-theme(negative-8),
-        spinner-color: ion-theme(neutral-8),
+        spinner-color: ion-theme(negative-8),
         icon-color: ion-theme(negative-8),
       ),
       active: (
         background-color: ion-theme(negative-2),
         text-color: ion-theme(negative-8),
         border: 1px solid ion-theme(negative-8),
-        spinner-color: ion-theme(neutral-8),
+        spinner-color: ion-theme(negative-8),
         icon-color: ion-theme(negative-8),
       ),
       disabled: (
@@ -739,7 +739,7 @@ $light-v2: map-merge($shared-base, (
       loading: (
         background-color: ion-theme(negative-1),
         text-color: ion-theme(negative-6),
-        border: 1px solid ion-theme(negative-3),
+        border: 1px solid ion-theme(neutral-4),
         spinner-color: ion-theme(negative-6),
         icon-color: ion-theme(negative-6),
       ),
