@@ -13,6 +13,21 @@
   border: ion-theme(icon-button-#{$prefix}-border);
 }
 
+@mixin icon-button-focus-style($variant) {
+  background-color: var(
+    --ion-icon-button-#{$variant}-focus-background-color,
+    var(--ion-icon-button-#{$variant}-background-color)
+  );
+  color: var(
+    --ion-icon-button-#{$variant}-focus-icon-color,
+    var(--ion-icon-button-#{$variant}-icon-color)
+  );
+  border: var(
+    --ion-icon-button-#{$variant}-focus-border,
+    var(--ion-icon-button-#{$variant}-border)
+  );
+}
+
 .ion-icon-button {
   display: inline-flex;
   flex: 0 0 auto;
@@ -70,12 +85,20 @@
   border-radius: ion-theme(icon-button-rounding-full);
 }
 
-.ion-icon-button--secondary:focus-visible:not(:disabled) {
-  @include icon-button-style(secondary-focus);
+.ion-icon-button--primary:focus-visible:not(:disabled) {
+  @include icon-button-focus-style(primary);
 }
 
-.ion-icon-button--dashed:focus-visible:not(:disabled){
-  @include icon-button-style(dashed-focus)
+.ion-icon-button--secondary:focus-visible:not(:disabled) {
+  @include icon-button-focus-style(secondary);
+}
+
+.ion-icon-button--ghost:focus-visible:not(:disabled) {
+  @include icon-button-focus-style(ghost);
+}
+
+.ion-icon-button--dashed:focus-visible:not(:disabled) {
+  @include icon-button-focus-style(dashed);
 }
 
 @each $variant in primary secondary ghost dashed {
