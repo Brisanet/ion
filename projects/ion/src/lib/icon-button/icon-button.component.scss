@@ -93,19 +93,19 @@
   border-radius: ion-theme(icon-button-rounding-full);
 }
 
-.ion-icon-button--primary:focus-visible:not(:disabled):not(.danger) {
+.ion-icon-button--primary:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
   @include icon-button-style-with-fallback(primary-focus, primary);
 }
 
-.ion-icon-button--secondary:focus-visible:not(:disabled):not(.danger) {
+.ion-icon-button--secondary:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
   @include icon-button-style-with-fallback(secondary-focus, secondary);
 }
 
-.ion-icon-button--ghost:focus-visible:not(:disabled):not(.danger) {
+.ion-icon-button--ghost:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
   @include icon-button-style-with-fallback(ghost-focus, ghost);
 }
 
-.ion-icon-button--dashed:focus-visible:not(:disabled):not(.danger) {
+.ion-icon-button--dashed:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
   @include icon-button-style-with-fallback(dashed-focus, dashed);
 }
 
