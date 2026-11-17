@@ -1,6 +1,9 @@
 import { EventEmitter } from '@angular/core';
 
 type FormatDateInput = 'YYYY-MM-DD' | 'DD/MM/YYYY';
+export type DatePickerSize = 'base' | 'large';
+export type DatePickerTheme = 'primary' | 'secondary';
+export type DatePickerLayout = 'default' | 'split' | 'joined';
 
 export enum CalendarDirection {
   topLeft = 'TOPLEFT',

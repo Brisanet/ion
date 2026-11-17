@@ -26,6 +26,7 @@ import {
   IonDatePickerCalendarComponentProps,
   UpdateLabelCalendar,
 } from '../../core';
+import { DatePickerTheme } from '../../../core/types/datepicker';
 
 @Component({
   selector: 'date-picker-calendar',
@@ -54,7 +55,8 @@ export class IonDatePickerCalendarComponent implements OnInit {
   calendar = signal<Calendar | null>(null);
   selectedDaysState = signal<Day[]>([]);
   finalRange = true;
-
+  theme = input<DatePickerTheme>('primary');
+  
   private readonly calendarAction = {
     previousYear: (): void => this.previousYear(),
     previousMonth: (): void => this.previousMonth(),
