@@ -1,6 +1,8 @@
 <button
   #btn
-  [attr.aria-label]="ariaLabel() || tooltip() || null"  
+  type="button"
+  [attr.aria-label]="ariaLabel() || tooltip() || null"
+  [attr.aria-pressed]="ariaPressed() ?? null"  
   [attr.data-testid]="'btn-' + (_label() || id())"
   [attr.title]="tooltip() ? tooltip() : null"
   [class]="'ion-btn-' + type() + ' ion-btn-' + size()"

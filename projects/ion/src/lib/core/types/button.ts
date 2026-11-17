@@ -19,6 +19,8 @@ export enum ButtonIconSizeOptions {
 
 export interface IonButtonProps {
   label?: string;
+  ariaLabel?: string;
+  ariaPressed?: boolean;
   tooltip?: string;
   type?: Type;
   size?: Size;

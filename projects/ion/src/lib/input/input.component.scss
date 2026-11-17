@@ -37,7 +37,6 @@ $input-stack-gap: 4px;
   flex-direction: column;
   gap: $input-stack-gap;
   width: 100%;
-  font-family: 'Source Sans Pro', sans-serif;
   line-height: normal;
 }
 
@@ -80,6 +79,12 @@ div.input {
   &:hover:not(.disabled):not(.invalid):not(.valid) {
     border-width: 1.5px;
     border-color: var(--current-hover-color);
+  }
+
+  &:focus-within:not(.disabled),
+  &.invalid,
+  &.valid {
+    border-width: 2px;
   }
 
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
@@ -153,19 +158,72 @@ div.input {
     padding-left: $input-icon-gap;
   }
 
-  &:has(.right-icon, .password-toggle, .clearButton, .icon-valid, .icon-invalid)
-    input.my-input {
+  &:has(.input-icon-btn, .icon-valid, .icon-invalid) input.my-input {
     padding-right: $input-icon-gap;
   }
 
+  ion-icon ::ng-deep svg {
+    fill: currentColor;
+  }
+
   .left-icon,
-  .right-icon,
-  .password-toggle,
-  .clearButton {
+  .input-icon-btn{
+    color: ion-theme(input-icon-color);
+    transition: color 0.2s ease;
+  }
+
+  .left-icon {
+    flex: 0 0 $input-icon-size;
+    width: $input-icon-size;
+    height: $input-icon-size;
+    margin: 0 $input-icon-margin 0 $input-padding-inline;
+  }
+
+  .input-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     flex: 0 0 $input-icon-size;
     width: $input-icon-size;
     height: $input-icon-size;
     margin: 0 $input-icon-margin;
+
+    ::ng-deep button.ion-btn-ghost {
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      padding: 0;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      transition: border-color 0.2s ease, border-width 0.2s ease;
+
+      &:not(:disabled) {
+        color: inherit;
+
+        ion-icon svg {
+          fill: currentColor;
+        }
+
+        &:hover {
+          color: var(--current-hover-color);
+          background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent);
+        }
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--current-hover-color);
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &:focus-within:not(.disabled) {
+    .left-icon,
+    .input-icon-btn {
+      color: var(--current-theme-color);
+    }
   }
 
   .icon-valid,
@@ -243,30 +301,26 @@ div.input {
   }
 
   &.input-button {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-
-    .my-input {
+    &,.my-input{
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-
-    ion-button {
+    
+    .attached-button {
       display: flex;
       flex: 0 0 auto;
       align-self: stretch;
       margin-left: -1px;
-    }
 
-    ::ng-deep button:not(.clearButton):not(.password-toggle) {
-      height: 100%;
-      padding: spacing(0.75) spacing(1.5);
-      border-radius: 0 ($input-radius - 1px) ($input-radius - 1px) 0;
-      border-left: none;
-      transition: none;
-      font-family: 'figtree', sans-serif;
-      font-size: 16px;
-      font-weight: 600;
+      ::ng-deep button {
+        height: 100%;
+        padding: spacing(0.75) spacing(1.5);
+        border: 0;
+        border-radius: 0 ($input-radius - 1px) ($input-radius - 1px) 0;
+        font-family: 'figtree', sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        transition: background-color 0.2s ease, color 0.2s ease;
 
       span {
         font-size: 16px;
@@ -299,18 +353,17 @@ div.input {
   border-radius: 2px;
   background-color: transparent;
 
-  &:hover {
-    background-color: ion-theme(input-clear-button-hover-background-color);
-  }
-}
+        &:hover {
+          background-color: var(--current-hover-color);
+        }
+      }
 
-.password-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background-color: transparent;
+      &.ion-btn-secondary,
+      &.ion-btn-ghost {
+        color: var(--current-theme-color);
+      }
+    }
+  }
 }
 
 .text-counter {
@@ -322,17 +375,14 @@ div.input {
 
 .helper-text,
 .errorMsg {
+  margin-top: $input-stack-gap;
+
   p {
     margin: 0;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
   }
-}
-
-.input-container + .helper-text,
-.input-container + .errorMsg {
-  margin-top: $input-stack-gap;
 }
 
 .helper-text {
