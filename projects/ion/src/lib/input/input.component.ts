@@ -11,7 +11,7 @@ import { FormsModule, NgModel } from '@angular/forms';
 import { IonButtonComponent } from '../button/button.component';
 import { IonIconComponent } from '../icon/icon.component';
 import { IconDirection, IconType } from '../core/types/icon';
-import { InputType } from '../core/types/input';
+import { InputSize, InputTheme, InputType } from '../core/types/input';
 import { IonButtonProps } from '../core/types';
 
 @Component({
@@ -31,8 +31,8 @@ export class IonInputComponent {
   public uniqueId = `ion-input-${IonInputComponent.nextId++}`;
 
   // Variações e Slots Visuais
-  size = input<'base' | 'large'>('base');
-  theme = input<'primary' | 'secondary'>('primary');
+  size = input<InputSize>('base');
+  theme = input<InputTheme>('primary');
   label = input<string | undefined>(undefined);
   prefix = input<string | undefined>(undefined);
   helperText = input<string | undefined>(undefined);
@@ -63,6 +63,9 @@ export class IonInputComponent {
   valueChange = output<string>();
   clickButton = output<void>();
   clickIconTrailing = output<void>();
+  
+
+  internalButtonSize = computed(() => (this.size() === 'large' ? 'lg' : 'md'));
 
   finalButtonConfig = computed(() => {
     const config = this.inputButtonConfig();
@@ -80,12 +83,29 @@ export class IonInputComponent {
     } as IonButtonProps;
   });
 
-  describedBy = computed(() => {
-    if (this.invalid() && this.errorMsg()) return `${this.uniqueId}-error`;
-    if (this.helperText()) return `${this.uniqueId}-helper`;
-    return null;
-  });
+  hasMaxLength = computed(
+    () =>
+      this.maxLength() !== null &&
+      this.maxLength() !== undefined &&
+      this.maxLength() !== '',
+  );
 
+  describedBy = computed(() => {
+    const ids: string[] = [];
+
+    if (this.invalid() && this.errorMsg()) {
+      ids.push(`${this.uniqueId}-error`);
+    } else if (this.helperText()) {
+      ids.push(`${this.uniqueId}-helper`);
+    }
+
+    if (this.hasMaxLength()) {
+      ids.push(`${this.uniqueId}-counter`);
+    }
+
+    return ids.length ? ids.join(' ') : null;
+  });
+  
   effectiveInputType = computed(() =>
     this.inputType() === 'password' && this.passwordVisible()
       ? 'text'
@@ -114,7 +134,7 @@ export class IonInputComponent {
     this.onChange('');
   }
 
-  public isClearButtonVisible(): boolean {
-    return this.clearButton() && this.value().length > 0;
-  }
+  isClearButtonVisible = computed(
+    () => this.clearButton() && this.value().length > 0,
+  );
 }
