@@ -11,10 +11,21 @@
   [class.ion-icon-button--ghost]="variant() === 'ghost'"
   [class.ion-icon-button--dashed]="variant() === 'dashed'"
   [class.danger]="danger()"
+  [class.loading]="loading()"
   [attr.aria-label]="ariaLabel()"
+  [attr.aria-busy]="loading() ? 'true' : null"
   [attr.data-testid]="'icon-btn-' + ariaLabel()"
-  [disabled]="disabled()"
-  (click)="ionOnClick.emit()"
+  [disabled]="disabled() || loading()"
+  (click)="handleClick()"
 >
-  <ion-icon [type]="icon()" [size]="iconSize()" aria-hidden="true"></ion-icon>
+  @if (loading()) {
+    <ion-spinner
+      class="ion-icon-button__spinner"
+      [size]="iconSize()"
+      [customColor]="'currentColor'"
+      aria-hidden="true"
+    ></ion-spinner>
+  } @else {
+    <ion-icon [type]="icon()" [size]="iconSize()" aria-hidden="true"></ion-icon>
+  }
 </button>

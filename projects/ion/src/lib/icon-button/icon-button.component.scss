@@ -62,6 +62,14 @@
   }
 }
 
+.ion-icon-button__spinner {
+  display: inline-flex;
+
+  ::ng-deep .ion-spinner {
+    box-sizing: border-box;
+  }
+}
+
 .ion-icon-button--small {
   width: ion-theme(icon-button-size-small);
   height: ion-theme(icon-button-size-small);
@@ -208,6 +216,19 @@
         --ion-icon-button-dashed-danger-focus-ring-color,
         var(--ion-icon-button-focus-ring-color)
       );
+}
+
+@each $variant in primary secondary ghost dashed {
+  .ion-icon-button--#{$variant}.loading:not(.danger) {
+    @include icon-button-style($variant);
+  }
+
+  .ion-icon-button--#{$variant}.danger.loading {
+    @include icon-button-style-with-fallback(
+      #{$variant}-danger,
+      $variant
+    );
+  }
 }
 
 @media (pointer: coarse) {
