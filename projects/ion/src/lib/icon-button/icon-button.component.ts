@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { IconType } from '../core/types/icon';
 import { IonIconComponent } from '../icon/icon.component';
+import { IonSpinnerComponent } from '../spinner/spinner.component';
 import {
   IconButtonRounding,
   IconButtonSize,
@@ -15,7 +16,7 @@ import {
 
 @Component({
   selector: 'ion-icon-button',
-  imports: [IonIconComponent],
+  imports: [IonIconComponent, IonSpinnerComponent],
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,6 +30,7 @@ export class IonIconButtonComponent {
   danger = input(false);
   disabled = input(false);
   ionOnClick = output<void>();
+  loading = input(false);
 
   iconSize = computed(() => {
     const sizes: Record<IconButtonSize, number> = {
@@ -39,4 +41,10 @@ export class IonIconButtonComponent {
 
     return sizes[this.size()];
   });
+
+  handleClick(): void {
+    if (!this.loading() && !this.disabled()) {
+      this.ionOnClick.emit();
+    }
+  }
 }

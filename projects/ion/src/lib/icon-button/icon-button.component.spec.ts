@@ -83,6 +83,53 @@ describe('IonIconButtonComponent', () => {
     expect(clickSpy).not.toHaveBeenCalled();
   });
 
+  it('shows a spinner and disables the button while loading', () => {
+    fixture.componentRef.setInput('loading', true);
+    fixture.detectChanges();
+
+    const button: HTMLButtonElement =
+      fixture.nativeElement.querySelector('button');
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveClass('loading');
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(button.querySelector('ion-spinner')).toHaveAttribute(
+      'aria-hidden',
+      'true'
+    );
+    expect(button.querySelector('ion-icon')).toBeNull();
+  });
+
+  it.each([
+    ['small', 16],
+    ['medium', 16],
+    ['large', 24],
+  ] as const)('matches the %s icon size while loading', (size, iconSize) => {
+    fixture.componentRef.setInput('size', size);
+    fixture.componentRef.setInput('loading', true);
+    fixture.detectChanges();
+
+    const spinner: HTMLElement = fixture.nativeElement.querySelector(
+      'ion-spinner .ion-spinner'
+    );
+
+    expect(spinner).toHaveStyle({
+      width: `${iconSize}px`,
+      height: `${iconSize}px`,
+    });
+  });
+
+  it('does not emit ionOnClick while loading', () => {
+    const clickSpy = jest.fn();
+    component.ionOnClick.subscribe(clickSpy);
+    fixture.componentRef.setInput('loading', true);
+    fixture.detectChanges();
+
+    fixture.nativeElement.querySelector('button').click();
+
+    expect(clickSpy).not.toHaveBeenCalled();
+  });
+
   it('renders the primary variant by default', () => {
     fixture.detectChanges();
 
