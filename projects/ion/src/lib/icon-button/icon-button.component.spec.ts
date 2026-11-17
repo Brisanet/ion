@@ -90,6 +90,16 @@ describe('IonIconButtonComponent', () => {
     expect(button.classList.contains('ion-icon-button--primary')).toBe(true);
   });
 
+  it('applies the danger class when danger is enabled', () => {
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button.classList.contains('danger')).toBe(false);
+
+    fixture.componentRef.setInput('danger', true);
+    fixture.detectChanges();
+
+    expect(button.classList.contains('danger')).toBe(true);
+  });
+
   it.each(['secondary', 'ghost', 'dashed'] as const)(
     'supports the %s variant',
     (variant) => {

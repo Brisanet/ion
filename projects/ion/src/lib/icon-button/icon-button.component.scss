@@ -13,18 +13,18 @@
   border: ion-theme(icon-button-#{$prefix}-border);
 }
 
-@mixin icon-button-focus-style($variant) {
+@mixin icon-button-style-with-fallback($prefix, $fallback-prefix) {
   background-color: var(
-    --ion-icon-button-#{$variant}-focus-background-color,
-    var(--ion-icon-button-#{$variant}-background-color)
+    --ion-icon-button-#{$prefix}-background-color,
+    var(--ion-icon-button-#{$fallback-prefix}-background-color)
   );
   color: var(
-    --ion-icon-button-#{$variant}-focus-icon-color,
-    var(--ion-icon-button-#{$variant}-icon-color)
+    --ion-icon-button-#{$prefix}-icon-color,
+    var(--ion-icon-button-#{$fallback-prefix}-icon-color)
   );
   border: var(
-    --ion-icon-button-#{$variant}-focus-border,
-    var(--ion-icon-button-#{$variant}-border)
+    --ion-icon-button-#{$prefix}-border,
+    var(--ion-icon-button-#{$fallback-prefix}-border)
   );
 }
 
@@ -85,20 +85,20 @@
   border-radius: ion-theme(icon-button-rounding-full);
 }
 
-.ion-icon-button--primary:focus-visible:not(:disabled) {
-  @include icon-button-focus-style(primary);
+.ion-icon-button--primary:focus-visible:not(:disabled):not(.danger) {
+  @include icon-button-style-with-fallback(primary-focus, primary);
 }
 
-.ion-icon-button--secondary:focus-visible:not(:disabled) {
-  @include icon-button-focus-style(secondary);
+.ion-icon-button--secondary:focus-visible:not(:disabled):not(.danger) {
+  @include icon-button-style-with-fallback(secondary-focus, secondary);
 }
 
-.ion-icon-button--ghost:focus-visible:not(:disabled) {
-  @include icon-button-focus-style(ghost);
+.ion-icon-button--ghost:focus-visible:not(:disabled):not(.danger) {
+  @include icon-button-style-with-fallback(ghost-focus, ghost);
 }
 
-.ion-icon-button--dashed:focus-visible:not(:disabled) {
-  @include icon-button-focus-style(dashed);
+.ion-icon-button--dashed:focus-visible:not(:disabled):not(.danger) {
+  @include icon-button-style-with-fallback(dashed-focus, dashed);
 }
 
 @each $variant in primary secondary ghost dashed {
@@ -116,7 +116,98 @@
     &:disabled {
       @include icon-button-style(#{$variant}-disabled);
     }
+
+    &.danger {
+      @include icon-button-style-with-fallback(
+        #{$variant}-danger,
+        $variant
+      );
+
+      &:focus-visible:not(:disabled) {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-focus,
+          #{$variant}-danger
+        );
+      }
+
+      &:hover:not(:disabled) {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-hover,
+          #{$variant}-hover
+        );
+      }
+
+      &:active:not(:disabled) {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-active,
+          #{$variant}-active
+        );
+      }
+
+      &:disabled {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-disabled,
+          #{$variant}-disabled
+        );
+      }
+    }
   }
+}
+
+.ion-icon-button--primary.danger:focus-visible:not(:disabled) {
+  box-shadow:
+    0 0 0 2px
+      var(
+        --ion-icon-button-primary-danger-focus-offset-color,
+        var(--ion-icon-button-focus-offset-color)
+      ),
+    0 0 0 4px
+      var(
+        --ion-icon-button-primary-danger-focus-ring-color,
+        var(--ion-icon-button-focus-ring-color)
+      );
+}
+
+.ion-icon-button--secondary.danger:focus-visible:not(:disabled) {
+  box-shadow:
+    0 0 0 2px
+      var(
+        --ion-icon-button-secondary-danger-focus-offset-color,
+        var(--ion-icon-button-focus-offset-color)
+      ),
+    0 0 0 4px
+      var(
+        --ion-icon-button-secondary-danger-focus-ring-color,
+        var(--ion-icon-button-focus-ring-color)
+      );
+}
+
+.ion-icon-button--ghost.danger:focus-visible:not(:disabled) {
+  box-shadow:
+    0 0 0 2px
+      var(
+        --ion-icon-button-ghost-danger-focus-offset-color,
+        var(--ion-icon-button-focus-offset-color)
+      ),
+    0 0 0 4px
+      var(
+        --ion-icon-button-ghost-danger-focus-ring-color,
+        var(--ion-icon-button-focus-ring-color)
+      );
+}
+
+.ion-icon-button--dashed.danger:focus-visible:not(:disabled) {
+  box-shadow:
+    0 0 0 2px
+      var(
+        --ion-icon-button-dashed-danger-focus-offset-color,
+        var(--ion-icon-button-focus-offset-color)
+      ),
+    0 0 0 4px
+      var(
+        --ion-icon-button-dashed-danger-focus-ring-color,
+        var(--ion-icon-button-focus-ring-color)
+      );
 }
 
 @media (pointer: coarse) {
