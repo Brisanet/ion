@@ -1,0 +1,19 @@
+<ion-card class="theme-switcher-card">
+  <ion-card-header title="Seletor de temas"></ion-card-header>
+  <div class="theme-switcher-content">
+    <p>Selecione um tema. Clique novamente na opção ativa para voltar ao padrão.</p>
+
+    <div class="theme-options" role="group" aria-label="Opções de tema">
+      @for (theme of themeOptions; track theme.key) {
+        <ion-chip
+          [label]="theme.label"
+          [selected]="selectedTheme()?.key === theme.key"
+          [icon]="theme.useBrowserScheme ? 'palette' : theme.scheme === 'dark' ? 'moon' : 'sun'"
+          size="sm"
+          [chipGroup]="true"
+          (events)="onThemeSelected(selectedTheme()?.key === theme.key ? [] : [theme])"
+        ></ion-chip>
+      }
+    </div>
+  </div>
+</ion-card>
