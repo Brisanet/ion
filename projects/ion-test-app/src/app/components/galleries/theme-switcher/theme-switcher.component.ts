@@ -17,11 +17,10 @@ import {
 @Component({
   selector: 'app-theme-switcher',
   imports: [
-    IonButtonComponent,
     IonCardComponent,
     IonCardHeaderComponent,
-    IonChipComponent,
-  ],
+    IonChipComponent
+],
   templateUrl: './theme-switcher.component.html',
   styleUrl: './theme-switcher.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
