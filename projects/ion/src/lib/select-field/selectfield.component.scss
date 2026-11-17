@@ -28,6 +28,10 @@
 }
 
 .ion-select {
+  --_border-color: #{ion-theme(select-border-color)};
+  --_inner-stroke: transparent;
+  --_focus-ring: transparent;
+
   position: relative;
   display: flex;
   align-items: center;
@@ -36,99 +40,96 @@
   height: 48px;
   box-sizing: border-box;
   padding: 8px 12px;
-  border: 1px solid ion-theme(select-border-color);
+  border: 1px solid var(--_border-color);
   border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
+  box-shadow:
+    inset 0 0 0 1px var(--_inner-stroke),
+    0 0 0 1px var(--_focus-ring);
   color: ion-theme(select-text-color);
   cursor: pointer;
   transition:
     border-color 0.2s,
-    box-shadow 0.2s;
+    box-shadow 0.2s,
+    background-color 0.2s;
 
   &.size-large {
     height: 56px;
   }
 
-  &:not(.disabled):focus-visible {
-    outline: none;
-    border-color: ion-theme(select-focus-color);
-    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
+  &:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty):hover {
+    --_border-color: #{ion-theme(select-hover-border-color)};
   }
 
-  &.error {
-    border-color: ion-theme(select-error-color);
-
-    &:not(.disabled):focus-visible {
-      border-color: ion-theme(select-error-color);
-      box-shadow: 0 0 0 1px ion-theme(select-error-color);
-    }
-  }
-
-  &.success {
-    border-color: ion-theme(select-success-color);
-
-    &:not(.disabled):focus-visible {
-      border-color: ion-theme(select-success-color);
-      box-shadow: 0 0 0 1px ion-theme(select-success-color);
-    }
-  }
-
-  &.open,
-  &.open-empty,
-  &.selected {
-    border-width: 2px;
+  &.selected:not(.error):not(.success) {
+    --_border-color: #{ion-theme(select-border-color)};
+    --_inner-stroke: #{ion-theme(select-border-color)};
   }
 
   &.open:not(.error):not(.success),
   &.open-empty:not(.error):not(.success) {
-    border-color: ion-theme(select-focus-color);
+    --_border-color: #{ion-theme(select-focus-color)};
+    --_inner-stroke: #{ion-theme(select-focus-color)};
+  }
+
+  &:not(.disabled):not(.error):not(.success):focus-visible {
+    outline: none;
+    --_border-color: #{ion-theme(select-focus-color)};
+    --_focus-ring: #{ion-theme(select-focus-color)};
   }
 
   &.error {
-    box-shadow: none;
+    --_border-color: #{ion-theme(select-error-color)};
+    --_inner-stroke: transparent;
+
+    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
+      --_border-color: color-mix(in srgb, #{ion-theme(select-error-color)} 75%, black);
+      --_focus-ring: color-mix(in srgb, #{ion-theme(select-error-color)} 22%, transparent);
+    }
+
+    &.selected,
+    &.open,
+    &.open-empty {
+      --_border-color: #{ion-theme(select-error-color)};
+      --_inner-stroke: #{ion-theme(select-error-color)};
+    }
+
+    &:not(.disabled):focus-visible {
+      outline: none;
+      --_border-color: #{ion-theme(select-error-color)};
+      --_focus-ring: #{ion-theme(select-error-color)};
+    }
   }
 
   &.success {
-    box-shadow: none;
-  }
+    --_border-color: #{ion-theme(select-success-color)};
+    --_inner-stroke: transparent;
 
-  &.selected:not(.error):not(.success):not(:focus-visible) {
-    border-color: ion-theme(select-border-color);
+    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
+      --_border-color: color-mix(in srgb, #{ion-theme(select-success-color)} 75%, black);
+      --_focus-ring: color-mix(in srgb, #{ion-theme(select-success-color)} 22%, transparent);
+    }
+
+    &.selected,
+    &.open,
+    &.open-empty {
+      --_border-color: #{ion-theme(select-success-color)};
+      --_inner-stroke: #{ion-theme(select-success-color)};
+    }
+
+    &:not(.disabled):focus-visible {
+      outline: none;
+      --_border-color: #{ion-theme(select-success-color)};
+      --_focus-ring: #{ion-theme(select-success-color)};
+    }
   }
 
   &.disabled {
-    border: 1px solid ion-theme(select-disabled-border-color);
-    box-shadow: none;
+    --_border-color: #{ion-theme(select-disabled-border-color)};
+    --_inner-stroke: transparent;
+    --_focus-ring: transparent;
     cursor: not-allowed;
     pointer-events: none;
-  }
-
-  &:not(.disabled):hover:not(.open):not(.open-empty):not(:focus-visible) {
-    border-color: ion-theme(select-hover-border-color);
-    border-width: 2px;
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-  }
-
-  &.error:not(.disabled):not(.open):not(.open-empty):not(
-      :focus-visible
-    ):hover {
-    border-width: 2px;
-    border-color: color-mix(in srgb, ion-theme(select-error-color) 88%, black);
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
-  }
-
-  &.success:not(.disabled):not(.open):not(.open-empty):not(
-      :focus-visible
-    ):hover {
-    border-width: 2px;
-    border-color: color-mix(in srgb, ion-theme(select-success-color) 88%, black);
-    transition:
-      border-color 0.2s,
-      box-shadow 0.2s;
   }
 }
 
@@ -146,7 +147,7 @@
   display: none;
 }
 
-.leading-slot ::ng-deep ion-icon {
+.leading-slot > ion-icon {
   width: 24px;
   height: 24px;
 }

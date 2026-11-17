@@ -183,7 +183,13 @@ export class IonSelectFieldComponent {
         }
       });
 
-      this.dropdownSelectedItems.set(nextSelection);
+      const singleSelection = selectedFromOptions[0] ?? preservedSelection[0];
+      if (this.isMultiple()) {
+        this.dropdownSelectedItems.set(nextSelection);
+        return;
+      }
+
+      this.dropdownSelectedItems.set(singleSelection ? [singleSelection] : []);
     });
 
     effect(() => {
