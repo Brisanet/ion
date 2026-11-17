@@ -10,6 +10,7 @@
   [class.ion-icon-button--secondary]="variant() === 'secondary'"
   [class.ion-icon-button--ghost]="variant() === 'ghost'"
   [class.ion-icon-button--dashed]="variant() === 'dashed'"
+  [class.danger]="danger()"
   [attr.aria-label]="ariaLabel()"
   [attr.data-testid]="'icon-btn-' + ariaLabel()"
   [disabled]="disabled()"

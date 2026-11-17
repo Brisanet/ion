@@ -26,6 +26,7 @@ export class IonIconButtonComponent {
   variant = input<IconButtonVariant>('primary');
   size = input<IconButtonSize>('medium');
   rounding = input<IconButtonRounding>('default');
+  danger = input(false);
   disabled = input(false);
   ionOnClick = output<void>();
 

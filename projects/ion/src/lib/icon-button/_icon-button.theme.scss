@@ -33,6 +33,26 @@ $default: (
       icon-color: ion-theme(neutral-5),
       border: 0,
     ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-7),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+    ),
   ),
   secondary: (
     background-color: ion-theme(neutral-1),
@@ -58,6 +78,26 @@ $default: (
       icon-color: ion-theme(neutral-5),
       border: 1px solid ion-theme(neutral-5),
     ),
+    danger: (
+      background-color: ion-theme(neutral-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px solid ion-theme(negative-4),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px solid ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+    ),
   ),
   ghost: (
     background-color: transparent,
@@ -78,6 +118,26 @@ $default: (
       icon-color: ion-theme(neutral-5),
       border: 0,
     ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+    ),
   ),
   dashed: (
     background-color: transparent,
@@ -97,6 +157,26 @@ $default: (
       background-color: ion-theme(neutral-3),
       icon-color: ion-theme(neutral-5),
       border: 1px dashed ion-theme(neutral-5),
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px dashed ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
     ),
   ),
 );
@@ -134,6 +214,26 @@ $dark: (
       icon-color: ion-theme(neutral-3),
       border: 0,
     ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-7),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+    ),
   ),
   secondary: (
     background-color: ion-theme(neutral-6),
@@ -159,6 +259,26 @@ $dark: (
       icon-color: ion-theme(neutral-3),
       border: 1px solid ion-theme(neutral-3),
     ),
+    danger: (
+      background-color: ion-theme(neutral-6),
+      icon-color: ion-theme(negative-4),
+      border: 1px solid ion-theme(negative-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px solid ion-theme(negative-4),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px solid ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+    ),
   ),
   ghost: (
     background-color: transparent,
@@ -179,6 +299,26 @@ $dark: (
       icon-color: ion-theme(neutral-3),
       border: 0,
     ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-4),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+    ),
   ),
   dashed: (
     background-color: ion-theme(neutral-6),
@@ -198,6 +338,26 @@ $dark: (
       background-color: ion-theme(neutral-6),
       icon-color: ion-theme(neutral-3),
       border: 1px dashed ion-theme(neutral-3),
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-4),
+      border: 1px dashed ion-theme(negative-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px dashed ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
     ),
   ),
 );
@@ -235,6 +395,33 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(negative-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-8),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-4),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+    ),
   ),
   secondary: (
     background-color: ion-theme(primary-1),
@@ -260,6 +447,33 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 1px solid ion-theme(neutral-5),
     ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-6),
+      ),
+    ),
   ),
   ghost: (
     background-color: transparent,
@@ -279,6 +493,33 @@ $orange-light-v2: (
       background-color: transparent,
       icon-color: ion-theme(neutral-6),
       border: 0,
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      )
     ),
   ),
   dashed: (
@@ -304,6 +545,33 @@ $orange-light-v2: (
       background-color: ion-theme(neutral-2),
       icon-color: ion-theme(neutral-6),
       border: 1px dashed ion-theme(neutral-5),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-6),
+      ),
     ),
   ),
 );
@@ -346,6 +614,33 @@ $light-v2: (
       icon-color: ion-theme(neutral-1),
       border: 0,
     ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(negative-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-8),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-4),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+    ),
   ),
   secondary: (
     background-color: ion-theme(primary-1),
@@ -370,6 +665,33 @@ $light-v2: (
       background-color: ion-theme(neutral-2),
       icon-color: ion-theme(neutral-6),
       border: 1px solid ion-theme(neutral-5),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-6),
+      )
     ),
   ),
   ghost: (
@@ -396,6 +718,33 @@ $light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      )
+    ),
   ),
   dashed: (
     background-color: ion-theme(primary-1),
@@ -420,6 +769,33 @@ $light-v2: (
       background-color: ion-theme(neutral-2),
       icon-color: ion-theme(neutral-6),
       border: 1px dashed ion-theme(neutral-5),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-6),
+      ),
     ),
   ),
 );
