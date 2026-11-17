@@ -6,15 +6,22 @@ import {
   signal,
 } from '@angular/core';
 import {
-  DropdownItem,
+  IonButtonComponent,
+  IonCardComponent,
+  IonCardHeaderComponent,
+  IonChipComponent,
   IonFormattedThemes,
-  IonSelectComponent,
   IonThemeService,
 } from 'ion';
 
 @Component({
   selector: 'app-theme-switcher',
-  imports: [IonSelectComponent],
+  imports: [
+    IonButtonComponent,
+    IonCardComponent,
+    IonCardHeaderComponent,
+    IonChipComponent,
+  ],
   templateUrl: './theme-switcher.component.html',
   styleUrl: './theme-switcher.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,13 +41,28 @@ export class ThemeSwitcherComponent implements OnInit {
     this.selectedTheme.set(this.ionThemeService.theme);
   }
 
-  onThemeSelected(selection: DropdownItem[]): void {
-    const selectedKey = selection[0]?.key;
-    const theme = this.themeOptions.find(({ key }) => key === selectedKey);
+  onThemeSelected(selection: IonFormattedThemes[]): void {
+    const selectedTheme = selection[0];
 
-    if (theme) {
-      this.ionThemeService.theme = theme;
-      this.selectedTheme.set(theme);
+    if (!selectedTheme || selectedTheme.key === this.selectedTheme()?.key) {
+      this.restoreDefaultTheme();
+      return;
     }
+
+    this.applyTheme(selectedTheme);
+  }
+
+  private restoreDefaultTheme(): void {
+    const defaultTheme = this.themeOptions[0];
+    if (!defaultTheme) {
+      throw new Error('Nenhum tema disponível para restaurar o padrão.');
+    }
+
+    this.applyTheme(defaultTheme);
+  }
+
+  private applyTheme(theme: IonFormattedThemes): void {
+    this.ionThemeService.theme = theme;
+    this.selectedTheme.set(theme);
   }
 }

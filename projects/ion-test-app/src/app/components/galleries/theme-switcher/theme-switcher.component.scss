@@ -1,34 +1,26 @@
 :host {
   display: block;
-  width: fit-content;
+  width: min(100%, 440px);
   max-width: 100%;
 }
 
-.gallery-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  background: #fff;
+ion-card {
+  display: block;
 }
 
-.gallery-header {
+.theme-switcher-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 
-  h2,
   p {
     margin: 0;
-  }
-
-  h2 {
-    font-size: 1.25rem;
+    font-size: 0.875rem;
   }
 }
 
-.gallery-controls {
-  max-width: 360px;
+.theme-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
