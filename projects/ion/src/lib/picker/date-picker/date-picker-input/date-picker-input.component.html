@@ -3,7 +3,6 @@
     <div
       class="input-wrapper layout-joined"
       [class.disabled]="disabled()"
-      [class.has-date]="hasDate()"
       [class.size-large]="size() === 'large'"
       [class.theme-secondary]="theme() === 'secondary'"
       data-testid="date-picker-input-joined"
@@ -19,15 +18,14 @@
         [disabled]="disabled()"
       ></ion-input>
 
-      @if(hasDate()){
-        <span class="joined-divider">→</span>
-      }
+        <span class="joined-divider">–</span>
 
       <ion-input
         [size]="size()"
         [theme]="theme()"
         [value]="endDate()"
         [inputButton]="hasDate()"
+        [placeholder]="endPlaceholder()"
         [inputButtonConfig]="clearButtonConfig()"
         [readonly]="true"
         [disabled]="disabled()"

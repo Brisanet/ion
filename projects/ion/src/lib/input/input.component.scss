@@ -66,15 +66,12 @@ div.input {
   box-sizing: border-box;
   width: 100%;
   min-width: 0;
+  overflow: hidden;
   height: var(--input-height);
   border: 1px solid ion-theme(input-modern-border-color);
   border-radius: $input-radius;
   background-color: ion-theme(input-modern-background-color);
-  transition: border-color 0.2s ease, border-width 0.2s ease, box-shadow 0.2s ease;
-
-  &:hover:not(.disabled):not(.invalid):not(.valid) {
-    border-color: var(--current-hover-color);
-  }
+  transition: border-color 0.2s ease;
 
   &:focus-within:not(.disabled),
   &.invalid,
@@ -82,23 +79,32 @@ div.input {
     border-width: 2px;
   }
 
+  &:hover:not(.disabled):not(.invalid):not(.valid) {
+    border-color: var(--current-hover-color);
+  }
+
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
     border-color: var(--current-hover-color);
+    box-shadow: var(--current-hover-color);
   }
 
   &.invalid {
     border-color: ion-theme(input-modern-error-color);
+    box-shadow: ion-theme(input-modern-error-color);
 
     &:focus-within:not(.disabled) {
       border-color: ion-theme(input-modern-error-focus-color);
+      box-shadow: ion-theme(input-modern-error-focus-color);
     }
   }
 
   &.valid:not(.invalid) {
     border-color: ion-theme(input-modern-success-color);
+    box-shadow: ion-theme(input-modern-success-color);
 
     &:focus-within:not(.disabled) {
       border-color: ion-theme(input-modern-success-focus-color);
+      box-shadow: ion-theme(input-modern-success-focus-color);
     }
   }
 
@@ -243,7 +249,7 @@ div.input {
   }
 
   &.input-button {
-    &,.my-input{
+    .my-input{
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -259,10 +265,6 @@ div.input {
         padding: spacing(0.75) spacing(1.5);
         border: 0;
         border-radius: 0 ($input-radius - 1px) ($input-radius - 1px) 0;
-        font-family: 'figtree', sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        transition: background-color 0.2s ease, color 0.2s ease;
 
         span {
           font-size: 16px;
