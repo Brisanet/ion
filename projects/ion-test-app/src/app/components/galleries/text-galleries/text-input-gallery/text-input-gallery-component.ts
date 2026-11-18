@@ -26,7 +26,6 @@ export class TextInputGalleryComponent {
 
   onTrailingClick(): void {
     this.showPassword.update((visible) => !visible);
-    console.log('Clique no trailing icon detectado!');
   }
 
   onButtonClick(): void {
