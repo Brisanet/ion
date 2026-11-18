@@ -11,7 +11,7 @@ import { IonSpinnerComponent } from '../spinner/spinner.component';
 import {
   IconButtonRounding,
   IconButtonSize,
-  IconButtonVariant,
+  IconButtonType,
 } from '../core/types/icon-button';
 
 @Component({
@@ -24,9 +24,9 @@ import {
 export class IonIconButtonComponent {
   ariaLabel = input.required<string>();
   icon = input.required<IconType>();
-  variant = input<IconButtonVariant>('primary');
+  type = input<IconButtonType>('primary');
   size = input<IconButtonSize>('medium');
-  rounding = input<IconButtonRounding>('default');
+  circularButton = input<IconButtonRounding>('default');
   danger = input(false);
   disabled = input(false);
   ionOnClick = output<void>();
