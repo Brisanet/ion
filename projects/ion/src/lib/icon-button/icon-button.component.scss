@@ -40,6 +40,7 @@
   transition:
     background-color 150ms ease,
     color 150ms ease,
+    border-color 150ms ease,
     box-shadow 150ms ease;
 
   ion-icon {
@@ -93,25 +94,13 @@
   border-radius: ion-theme(icon-button-rounding-full);
 }
 
-.ion-icon-button--primary:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
-  @include icon-button-style-with-fallback(primary-focus, primary);
-}
-
-.ion-icon-button--secondary:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
-  @include icon-button-style-with-fallback(secondary-focus, secondary);
-}
-
-.ion-icon-button--ghost:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
-  @include icon-button-style-with-fallback(ghost-focus, ghost);
-}
-
-.ion-icon-button--dashed:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
-  @include icon-button-style-with-fallback(dashed-focus, dashed);
-}
-
 @each $variant in primary secondary ghost dashed {
   .ion-icon-button--#{$variant} {
     @include icon-button-style($variant);
+
+    &:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
+      @include icon-button-style-with-fallback(#{$variant}-focus, $variant);
+    }
 
     &:hover:not(:disabled) {
       @include icon-button-style(#{$variant}-hover);
@@ -136,6 +125,17 @@
           #{$variant}-danger-focus,
           #{$variant}-danger
         );
+        box-shadow:
+          0 0 0 2px
+            var(
+              --ion-icon-button-#{$variant}-danger-focus-offset-color,
+              var(--ion-icon-button-focus-offset-color)
+            ),
+          0 0 0 4px
+            var(
+              --ion-icon-button-#{$variant}-danger-focus-ring-color,
+              var(--ion-icon-button-focus-ring-color)
+            );
       }
 
       &:hover:not(:disabled) {
@@ -159,75 +159,17 @@
         );
       }
     }
-  }
-}
 
-.ion-icon-button--primary.danger:focus-visible:not(:disabled) {
-  box-shadow:
-    0 0 0 2px
-      var(
-        --ion-icon-button-primary-danger-focus-offset-color,
-        var(--ion-icon-button-focus-offset-color)
-      ),
-    0 0 0 4px
-      var(
-        --ion-icon-button-primary-danger-focus-ring-color,
-        var(--ion-icon-button-focus-ring-color)
+    &.loading:not(.danger) {
+      @include icon-button-style($variant);
+    }
+
+    &.danger.loading {
+      @include icon-button-style-with-fallback(
+        #{$variant}-danger,
+        $variant
       );
-}
-
-.ion-icon-button--secondary.danger:focus-visible:not(:disabled) {
-  box-shadow:
-    0 0 0 2px
-      var(
-        --ion-icon-button-secondary-danger-focus-offset-color,
-        var(--ion-icon-button-focus-offset-color)
-      ),
-    0 0 0 4px
-      var(
-        --ion-icon-button-secondary-danger-focus-ring-color,
-        var(--ion-icon-button-focus-ring-color)
-      );
-}
-
-.ion-icon-button--ghost.danger:focus-visible:not(:disabled) {
-  box-shadow:
-    0 0 0 2px
-      var(
-        --ion-icon-button-ghost-danger-focus-offset-color,
-        var(--ion-icon-button-focus-offset-color)
-      ),
-    0 0 0 4px
-      var(
-        --ion-icon-button-ghost-danger-focus-ring-color,
-        var(--ion-icon-button-focus-ring-color)
-      );
-}
-
-.ion-icon-button--dashed.danger:focus-visible:not(:disabled) {
-  box-shadow:
-    0 0 0 2px
-      var(
-        --ion-icon-button-dashed-danger-focus-offset-color,
-        var(--ion-icon-button-focus-offset-color)
-      ),
-    0 0 0 4px
-      var(
-        --ion-icon-button-dashed-danger-focus-ring-color,
-        var(--ion-icon-button-focus-ring-color)
-      );
-}
-
-@each $variant in primary secondary ghost dashed {
-  .ion-icon-button--#{$variant}.loading:not(.danger) {
-    @include icon-button-style($variant);
-  }
-
-  .ion-icon-button--#{$variant}.danger.loading {
-    @include icon-button-style-with-fallback(
-      #{$variant}-danger,
-      $variant
-    );
+    }
   }
 }
 
