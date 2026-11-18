@@ -1,4 +1,4 @@
-import { DOCUMENT, NgStyle } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import {
   DropdownItem,
-  ION_SELECT_THEME_VARIABLES,
   IonIconComponent,
   IonSelectComponent,
   IonSelectFieldComponent,
@@ -20,7 +19,6 @@ type ThemePreview = Extract<IonSelectTheme, 'light' | 'orange-light'>;
 @Component({
   selector: 'app-select-gallery',
   imports: [
-    NgStyle,
     IonSelectComponent,
     IonSelectFieldComponent,
     IonIconComponent,
@@ -66,9 +64,6 @@ export class SelectGalleryComponent {
   readonly requiredMultiValue = ['apple', 'banana'];
   readonly searchQuery = signal('');
   readonly themePreview = signal<ThemePreview>('light');
-  readonly themeStyles = computed(
-    () => ION_SELECT_THEME_VARIABLES[this.themePreview()]
-  );
   readonly themes: { key: ThemePreview; label: string }[] = [
     { key: 'light', label: 'Azul · claro' },
     { key: 'orange-light', label: 'Laranja · claro' },

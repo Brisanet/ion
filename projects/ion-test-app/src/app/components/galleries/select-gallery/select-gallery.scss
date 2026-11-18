@@ -1,3 +1,11 @@
+@use '../../../../../../ion/src/styles/themes/themes' as themes;
+
+@mixin apply-theme-tokens($theme) {
+  @each $token, $value in $theme {
+    --ion-#{$token}: #{$value};
+  }
+}
+
 :host {
   display: block;
 }
@@ -11,6 +19,14 @@
   border-radius: 8px;
   background: var(--ion-neutral-2);
   color: var(--ion-neutral-8);
+}
+
+.select-gallery[data-theme-preview='light'] {
+  @include apply-theme-tokens(themes.$light-theme);
+}
+
+.select-gallery[data-theme-preview='orange-light'] {
+  @include apply-theme-tokens(themes.$orange-light-theme);
 }
 
 .select-gallery__header h2,
