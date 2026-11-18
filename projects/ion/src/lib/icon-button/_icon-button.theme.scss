@@ -564,6 +564,11 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      ion-color: ion-theme(primary-6),
+      border: 0,
+    ),
     danger: (
       background-color: transparent,
       icon-color: ion-theme(negative-6),
