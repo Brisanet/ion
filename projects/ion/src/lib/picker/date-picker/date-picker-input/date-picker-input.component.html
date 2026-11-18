@@ -1,18 +1,96 @@
-<div
-  class="container-input"
-  [class.range]="rangePicker()"
-  data-testid="container-input"
->
-  <ion-input
-    data-testid="date-picker-input-element"
-    [value]="date() || ''"
-    [placeholder]="placeholder()"
-    [iconInput]="date() ? '' : 'calendar'"
-    iconDirection="right"
-    [inputButton]="!!date()"
-    [inputButtonConfig]="clearButtonConfig"
-    [readonly]="true"
-    [disabled]="disabled()"
-    (clickButton)="clearDateValue()"
-  ></ion-input>
-</div>
+@switch (activeLayout()) {
+  @case ('joined') {
+    <div
+      class="input-wrapper layout-joined"
+      [class.disabled]="disabled()"
+      [class.size-large]="size() === 'large'"
+      [class.theme-secondary]="theme() === 'secondary'"
+      data-testid="date-picker-input-joined"
+    >
+      <ion-input
+        [size]="size()"
+        [theme]="theme()"
+        [value]="startDate()"
+        [placeholder]="startPlaceholder()"
+        [iconInput]="hasDate() ? '' : 'calendar'"
+        iconDirection="left"
+        [readonly]="true"
+        [disabled]="disabled()"
+      ></ion-input>
+
+        <span class="joined-divider">–</span>
+
+      <ion-input
+        [size]="size()"
+        [theme]="theme()"
+        [value]="endDate()"
+        [inputButton]="hasDate()"
+        [placeholder]="endPlaceholder()"
+        [inputButtonConfig]="clearButtonConfig()"
+        [readonly]="true"
+        [disabled]="disabled()"
+        (clickButton)="clearDateValue()"
+      ></ion-input>
+    </div>
+  }
+
+  @case ('split') {
+    <div
+      class="input-wrapper layout-split"
+      [class.disabled]="disabled()"
+      [class.theme-secondary]="theme() === 'secondary'"
+      data-testid="date-picker-input-split"
+    >
+      <ion-input
+        [size]="size()"
+        [theme]="theme()"
+        [value]="startDate()"
+        [placeholder]="startPlaceholder()"
+        [iconInput]="hasDate() ? '' : 'calendar'"
+        iconDirection="left"
+        [readonly]="true"
+        [disabled]="disabled()"
+      ></ion-input>
+
+      <span class="split-separator">–</span>
+
+      <ion-input
+        [size]="size()"
+        [theme]="theme()"
+        [value]="endDate()"
+        [placeholder]="endPlaceholder()"
+        [iconInput]="hasDate() ? '' : 'calendar'"
+        iconDirection="left"
+        [inputButton]="hasDate()"
+        [inputButtonConfig]="clearButtonConfig()"
+        [readonly]="true"
+        [disabled]="disabled()"
+        (clickButton)="clearDateValue()"
+      ></ion-input>
+    </div>
+  }
+
+  @default {
+    <div
+      class="container-input"
+      [class.range]="rangePicker()"
+      [class.theme-secondary]="theme() === 'secondary'"
+      data-testid="container-input"
+    >
+      <ion-input
+        data-testid="date-picker-input-element"
+        [size]="size()"
+        [theme]="theme()"
+        [value]="singleInputValue()"
+        [placeholder]="startPlaceholder()"
+        [iconInput]="hasDate() ? '' : 'calendar'"
+        iconDirection="right"
+        [inputButton]="hasDate()"
+        [inputButtonConfig]="clearButtonConfig()"
+        [readonly]="true"
+        [disabled]="disabled()"
+        (clickButton)="clearDateValue()"
+      ></ion-input>
+    </div>
+  }
+}

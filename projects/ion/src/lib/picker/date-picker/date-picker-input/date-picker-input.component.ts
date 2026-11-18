@@ -2,14 +2,19 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
 } from '@angular/core';
 import { IonInputComponent } from '../../../input/input.component';
-import { IonButtonProps } from '../../../core/types';
+import { DatePickerLayout, IonButtonProps } from '../../../core/types';
+import {
+  DatePickerSize,
+  DatePickerTheme,
+} from '../../../core/types/datepicker';
 
 export interface IonDatePickerInputComponentProps {
-  date?: string;
+  date?: string | string[];
   placeholder?: string;
 }
 
@@ -22,17 +27,46 @@ export interface IonDatePickerInputComponentProps {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IonDatePickerInputComponent {
-  date = input<string | undefined>('');
+  date = input<string | string[]>([]);
+  layout = input<DatePickerLayout>('default');
   rangePicker = input<boolean>(false);
-  placeholder = input<string>('Selecione a data');
+  size = input<DatePickerSize>('base');
+  theme = input<DatePickerTheme>('primary');
+  icon = input<boolean>(false);
+  placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
+  dateParts = computed(() => {
+    const date = this.date();
+    return Array.isArray(date) ? date : date ? [date] : [];
+  });
+  startDate = computed(() => this.dateParts()[0] ?? '');
+  endDate = computed(() => this.dateParts()[1] ?? '');
+  hasDate = computed(() => this.dateParts().length > 0);
+  activeLayout = computed(() =>
+    this.rangePicker() ? this.layout() : 'default',
+  );
 
-  public clearButtonConfig: IonButtonProps = {
+  singleInputValue = computed(() => {
+    const dates = this.dateParts();
+    return dates.length > 1 ? `${dates[0]} - ${dates[1]}` : (dates[0] ?? '');
+  });
+
+  startPlaceholder = computed(() => {
+    const p = this.placeholder();
+    return Array.isArray(p) ? p[0] : p;
+  });
+
+  endPlaceholder = computed(() => {
+    const p = this.placeholder();
+    return Array.isArray(p) ? p[1] : p;
+  });
+
+  clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
-    type: 'secondary',
+    type: 'ghost',
     size: 'lg',
-  };
+  }));
 
   clearDateValue(): void {
     if(this.disabled()) return;

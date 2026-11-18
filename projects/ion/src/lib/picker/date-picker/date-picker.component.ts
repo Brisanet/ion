@@ -11,6 +11,9 @@ import {
 } from '@angular/core';
 import {
   CalendarDirection,
+  DatePickerLayout,
+  DatePickerSize,
+  DatePickerTheme,
   IonDatePickerComponentProps,
 } from '../../core/types/datepicker';
 import { SafeAny } from '../../utils/safe-any';
@@ -46,6 +49,10 @@ import { OverlayModule, ConnectedPosition } from '@angular/cdk/overlay';
 ],
   templateUrl: './date-picker.component.html',
   styleUrls: ['./date-picker.component.scss'],
+  host: {
+    '[attr.layout]': 'layout()',
+    '[attr.size]': 'size()',
+  },
 })
 export class IonDatepickerComponent {
   format = input<string>(DEFAULT_FINAL_FORMAT);
@@ -53,6 +60,10 @@ export class IonDatepickerComponent {
     input<IonDatePickerComponentProps['formatInDateInput']>(
       DEFAULT_INPUT_FORMAT,
     );
+  layout = input<DatePickerLayout>('default');
+  size = input<DatePickerSize>('base');
+  theme = input<DatePickerTheme>('primary');
+  icon = input<boolean>(false);
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);
   direction = input<IonDatePickerComponentProps['direction']>(
@@ -124,23 +135,21 @@ export class IonDatepickerComponent {
   });
 
   private elementRef!: ElementRef<HTMLElement>;
-
-  inputDate = computed(() => {
+  inputDate = computed<string[]>(() => {
     const selected = this.selectedDay();
     if (!selected.length) {
-      return '';
+      return [];
     }
 
     const format = this.formatInDateInput() || DEFAULT_INPUT_FORMAT;
     if (this.rangePicker() && selected[FINAL_RANGE]) {
-      return (
-        selected[INITIAL_RANGE].format(format) +
-        ' - ' +
+      return [
+        selected[INITIAL_RANGE].format(format),
         selected[FINAL_RANGE].format(format)
-      );
+      ];
     }
 
-    return selected[INITIAL_RANGE].format(format);
+    return [selected[INITIAL_RANGE].format(format)];
   });
 
   constructor(private host: ElementRef<HTMLElement>) {

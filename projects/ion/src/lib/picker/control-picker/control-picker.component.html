@@ -1,4 +1,7 @@
-<div class="container-controls">
+<div
+  class="container-controls"
+  [class.theme-secondary]="theme() === 'secondary'"
+>
   <div class="container-buttons">
     <ion-button
       data-testid="btn-previous-year"
@@ -67,7 +70,10 @@
 </div>
 
 @if (showContainerToChooseMonth()) {
-  <div class="container-choose-month">
+  <div
+    class="container-choose-month"
+    [class.theme-secondary]="theme() === 'secondary'"
+  >
     @for (month of months; track month; let i = $index) {
       <ion-button
         [label]="month"
@@ -80,7 +86,10 @@
 }
 
 @if (showContainerToChooseYear()) {
-  <div class="container-choose-year">
+  <div
+    class="container-choose-year"
+    [class.theme-secondary]="theme() === 'secondary'"
+  >
     <div class="header">
       <ion-button
         data-testid="btn-show-previous-years"
