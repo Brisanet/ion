@@ -45,9 +45,14 @@ button {
       height: ion-theme(button-size-#{$size}-spinner-size);
     }
 
-    span {
-      font-size: ion-theme(button-size-#{$size}-text-font-size);
-      line-height: ion-theme(button-size-#{$size}-text-line-height);
+    span:not(.spinner) {
+      @if $size == sm {
+        @include ion-text-click-sm;
+      } @else if $size == md {
+        @include ion-text-click-md;
+      } @else {
+        @include ion-text-click-lg;
+      }
     }
 
     &.circular-button {
