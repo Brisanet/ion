@@ -12,9 +12,9 @@ $default: (
     disabled-background-color: ion-theme(input-disabled-background),
     disabled-border-color: ion-theme(input-disabled-border-color),
     primary-color: #126aeb,
-    primary-hover-color: #0750bd,
+    primary-hover-color: ion-theme(input-modern-primary-hover-color),
     secondary-color: #fa9c74,
-    secondary-hover-color: #ff5022,
+    secondary-hover-color: ion-theme(input-modern-secondary-hover-color),
   ),
   week-day-text: (
     color: ion-theme(neutral-6),

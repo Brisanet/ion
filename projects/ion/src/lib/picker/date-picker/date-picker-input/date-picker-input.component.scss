@@ -4,27 +4,28 @@
 $split-gap: 8px;
 
 @mixin theme-states($hover-token, $focus-token) {
-  &:hover {
-    border-color: ion-theme($hover-token) !important;
+  &:hover:not(:focus-within) {
+    border-color: ion-theme($hover-token);
   }
 
   &:focus-within {
-    border-color: ion-theme($focus-token) !important;
-    box-shadow: 0 0 0 2px
-      color-mix(in srgb, ion-theme($focus-token) 25%, transparent) !important;
+    border-width: 2px;
+    border-color: ion-theme($focus-token);
+    box-shadow: ion-theme($focus-token);
   }
 }
-
 .layout-joined {
   display: flex;
   align-items: center;
   width: 100%;
   height: 48px;
+  overflow: hidden;
   box-sizing: border-box;
   border: 1px solid ion-theme(date-picker-range-input-border-color);
   border-radius: ion-theme(date-picker-range-input-border-radius);
   background-color: ion-theme(date-picker-range-input-background-color);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.1s ease;
 
   &.size-large {
     height: 56px;
@@ -73,46 +74,9 @@ $split-gap: 8px;
 :host ::ng-deep .layout-joined {
   ion-input,
   ion-input .input-container {
-    height: 100%;
-  }
-
-  ion-input:first-of-type {
-    flex: 1 1 auto;
-    min-width: 0;
-
-    input{
-      width: 100%;
-    }
-  }
-
-  &.has-date ion-input:first-of-type {
-    flex: 0 0 auto;
-
-    .input {
-      padding-right: 0 !important;
-    }
-
-    input {
-      width: 11ch;
-    }
-  }
-
-  ion-input:last-of-type,
-  ion-input:last-of-type .input-container {
     flex: 1 1 0;
     min-width: 0;
-  }
-  &:not(.has-date) ion-input:last-of-type {
-    flex: 0 1 auto;
-  }
-  ion-input:last-of-type {
-    .input {
-      padding-left: 4px !important;
-    }
-
-    input {
-      width: 100%;
-    }
+    height: 100%;
   }
 
   ion-input .input {
@@ -120,11 +84,16 @@ $split-gap: 8px;
     border: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
-    box-shadow: none !important;
   }
 
-  ion-input:first-child input.my-input {
-    padding-right: 0;
+  ion-input:last-of-type {
+    input {
+      text-align: right;
+    }
+
+    .attached-button button {
+      border-radius: 0;
+    }
   }
 }
 
@@ -134,29 +103,6 @@ $split-gap: 8px;
     ion-input {
       flex: 1 1 0;
       min-width: 0;
-    }
-
-    ion-input .input {
-      height: 48px;
-      box-sizing: border-box;
-    }
-
-    &.size-large ion-input .input {
-      height: 56px;
-    }
-
-    &:not(.theme-secondary) ion-input .input:not(.disabled) {
-      @include theme-states(
-        date-picker-range-input-primary-hover-color,
-        date-picker-range-input-primary-color
-      );
-    }
-
-    &.theme-secondary ion-input .input:not(.disabled) {
-      @include theme-states(
-        date-picker-range-input-secondary-hover-color,
-        date-picker-range-input-secondary-color
-      );
     }
   }
 }
