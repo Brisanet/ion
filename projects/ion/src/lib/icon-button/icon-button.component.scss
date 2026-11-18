@@ -38,10 +38,10 @@
   border: 0;
   cursor: pointer;
   transition:
-    background-color 150ms ease,
-    color 150ms ease,
-    border-color 150ms ease,
-    box-shadow 150ms ease;
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
 
   ion-icon {
     display: inline-flex;
@@ -161,13 +161,16 @@
     }
 
     &.loading:not(.danger) {
-      @include icon-button-style($variant);
+      @include icon-button-style-with-fallback(
+        #{$variant}-loading,
+        $variant
+      );
     }
 
     &.danger.loading {
       @include icon-button-style-with-fallback(
-        #{$variant}-danger,
-        $variant
+        #{$variant}-danger-loading,
+        #{$variant}-danger
       );
     }
   }
