@@ -54,8 +54,8 @@ describe('IonIconButtonComponent', () => {
   it.each([
     ['default', 'ion-icon-button--default'],
     ['full', 'ion-icon-button--full'],
-  ] as const)('supports %s rounding', (rounding, cssClass) => {
-    fixture.componentRef.setInput('rounding', rounding);
+  ] as const)('supports %s circular button style', (circularButton, cssClass) => {
+    fixture.componentRef.setInput('circularButton', circularButton);
     fixture.detectChanges();
 
     expect(
@@ -130,7 +130,7 @@ describe('IonIconButtonComponent', () => {
     expect(clickSpy).not.toHaveBeenCalled();
   });
 
-  it('renders the primary variant by default', () => {
+  it('renders the primary type by default', () => {
     fixture.detectChanges();
 
     const button = fixture.nativeElement.querySelector('button');
@@ -148,15 +148,15 @@ describe('IonIconButtonComponent', () => {
   });
 
   it.each(['secondary', 'ghost', 'dashed'] as const)(
-    'supports the %s variant',
-    (variant) => {
-      fixture.componentRef.setInput('variant', variant);
+    'supports the %s type',
+    (type) => {
+      fixture.componentRef.setInput('type', type);
       fixture.detectChanges();
 
       expect(
         fixture.nativeElement
           .querySelector('button')
-          .classList.contains(`ion-icon-button--${variant}`)
+          .classList.contains(`ion-icon-button--${type}`)
       ).toBe(true);
     }
   );
