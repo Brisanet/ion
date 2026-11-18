@@ -5,6 +5,9 @@ describe('IonIconButtonComponent', () => {
   let fixture: ComponentFixture<IonIconButtonComponent>;
   let component: IonIconButtonComponent;
 
+  const getButton = (): HTMLButtonElement =>
+    fixture.nativeElement.querySelector('button');
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [IonIconButtonComponent],
@@ -17,148 +20,190 @@ describe('IonIconButtonComponent', () => {
     fixture.detectChanges();
   });
 
-  it('renders the icon with the required accessible name', () => {
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button');
+  describe('Renderização e valores padrão', () => {
+    it('renderiza o botão com atributos e classes padrão', () => {
+      const button = getButton();
 
-    expect(button.getAttribute('aria-label')).toBe('Fechar');
-    expect(button.querySelector('ion-icon svg')).toHaveAttribute(
-      'id',
-      'ion-icon-close'
-    );
-    expect(button.querySelector('ion-icon')).toHaveAttribute(
-      'aria-hidden',
-      'true'
-    );
-  });
+      expect(button).toHaveAttribute('type', 'button');
+      expect(button).toHaveAttribute('aria-label', 'Fechar');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Fechar');
+      expect(button).not.toHaveAttribute('aria-busy');
+      expect(button).not.toBeDisabled();
 
-  it.each([
-    ['small', 'ion-icon-button--small', 16],
-    ['medium', 'ion-icon-button--medium', 16],
-    ['large', 'ion-icon-button--large', 24],
-  ] as const)('supports %s size', (size, cssClass, iconSize) => {
-    fixture.componentRef.setInput('size', size);
-    fixture.detectChanges();
+      expect(button).toHaveClass(
+        'ion-icon-button',
+        'ion-icon-button--primary',
+        'ion-icon-button--medium',
+        'ion-icon-button--default'
+      );
+      expect(button).not.toHaveClass('danger', 'loading');
+    });
 
-    const button = fixture.nativeElement.querySelector('button');
-    const icon = fixture.nativeElement.querySelector('ion-icon');
+    it('renderiza o ícone decorativo corretamente', () => {
+      const button = getButton();
+      const icon = button.querySelector('ion-icon');
 
-    expect(button.classList.contains(cssClass)).toBe(true);
-    expect(icon.querySelector('svg')).toHaveAttribute('width', `${iconSize}px`);
-    expect(icon.querySelector('svg')).toHaveAttribute(
-      'height',
-      `${iconSize}px`
-    );
-  });
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon?.querySelector('svg')).toHaveAttribute(
+        'id',
+        'ion-icon-close'
+      );
+    });
 
-  it.each([
-    ['default', 'ion-icon-button--default'],
-    ['full', 'ion-icon-button--full'],
-  ] as const)('supports %s circular button style', (circularButton, cssClass) => {
-    fixture.componentRef.setInput('circularButton', circularButton);
-    fixture.detectChanges();
+    it('atualiza aria-label, data-testid e ícone dinamicamente', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Editar');
+      fixture.componentRef.setInput('icon', 'edit');
+      fixture.detectChanges();
 
-    expect(
-      fixture.nativeElement.querySelector('button').classList.contains(cssClass)
-    ).toBe(true);
-  });
+      const button = getButton();
 
-  it('emits ionOnClick when activated', () => {
-    const clickSpy = jest.fn();
-    component.ionOnClick.subscribe(clickSpy);
-
-    fixture.nativeElement.querySelector('button').click();
-
-    expect(clickSpy).toHaveBeenCalledTimes(1);
-  });
-
-  it('does not emit ionOnClick when disabled', () => {
-    const clickSpy = jest.fn();
-    component.ionOnClick.subscribe(clickSpy);
-    fixture.componentRef.setInput('disabled', true);
-    fixture.detectChanges();
-
-    fixture.nativeElement.querySelector('button').click();
-
-    expect(clickSpy).not.toHaveBeenCalled();
-  });
-
-  it('shows a spinner and disables the button while loading', () => {
-    fixture.componentRef.setInput('loading', true);
-    fixture.detectChanges();
-
-    const button: HTMLButtonElement =
-      fixture.nativeElement.querySelector('button');
-
-    expect(button).toBeDisabled();
-    expect(button).toHaveClass('loading');
-    expect(button).toHaveAttribute('aria-busy', 'true');
-    expect(button.querySelector('ion-spinner')).toHaveAttribute(
-      'aria-hidden',
-      'true'
-    );
-    expect(button.querySelector('ion-icon')).toBeNull();
-  });
-
-  it.each([
-    ['small', 16],
-    ['medium', 16],
-    ['large', 24],
-  ] as const)('matches the %s icon size while loading', (size, iconSize) => {
-    fixture.componentRef.setInput('size', size);
-    fixture.componentRef.setInput('loading', true);
-    fixture.detectChanges();
-
-    const spinner: HTMLElement = fixture.nativeElement.querySelector(
-      'ion-spinner .ion-spinner'
-    );
-
-    expect(spinner).toHaveStyle({
-      width: `${iconSize}px`,
-      height: `${iconSize}px`,
+      expect(button).toHaveAttribute('aria-label', 'Editar');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Editar');
+      expect(button.querySelector('ion-icon svg')).toHaveAttribute(
+        'id',
+        'ion-icon-edit'
+      );
     });
   });
 
-  it('does not emit ionOnClick while loading', () => {
-    const clickSpy = jest.fn();
-    component.ionOnClick.subscribe(clickSpy);
-    fixture.componentRef.setInput('loading', true);
-    fixture.detectChanges();
+  describe('Variantes e estilos', () => {
+    it.each(['primary', 'secondary', 'ghost', 'dashed'] as const)(
+      'aplica a classe correspondente ao tipo %s',
+      (type) => {
+        fixture.componentRef.setInput('type', type);
+        fixture.detectChanges();
 
-    fixture.nativeElement.querySelector('button').click();
+        expect(getButton()).toHaveClass(`ion-icon-button--${type}`);
+      }
+    );
 
-    expect(clickSpy).not.toHaveBeenCalled();
-  });
+    it.each([
+      ['small', 'ion-icon-button--small', 16],
+      ['medium', 'ion-icon-button--medium', 16],
+      ['large', 'ion-icon-button--large', 24],
+    ] as const)(
+      'suporta o tamanho %s e ajusta o ícone para %dpx',
+      (size, cssClass, iconSize) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
 
-  it('renders the primary type by default', () => {
-    fixture.detectChanges();
+        const svg = getButton().querySelector('ion-icon svg');
 
-    const button = fixture.nativeElement.querySelector('button');
-    expect(button.classList.contains('ion-icon-button--primary')).toBe(true);
-  });
+        expect(getButton()).toHaveClass(cssClass);
+        expect(svg).toHaveAttribute('width', `${iconSize}px`);
+        expect(svg).toHaveAttribute('height', `${iconSize}px`);
+      }
+    );
 
-  it('applies the danger class when danger is enabled', () => {
-    const button = fixture.nativeElement.querySelector('button');
-    expect(button.classList.contains('danger')).toBe(false);
+    it.each([
+      ['default', 'ion-icon-button--default'],
+      ['full', 'ion-icon-button--full'],
+    ] as const)(
+      'suporta o arredondamento %s',
+      (circularButton, cssClass) => {
+        fixture.componentRef.setInput('circularButton', circularButton);
+        fixture.detectChanges();
 
-    fixture.componentRef.setInput('danger', true);
-    fixture.detectChanges();
+        expect(getButton()).toHaveClass(cssClass);
+      }
+    );
 
-    expect(button.classList.contains('danger')).toBe(true);
-  });
+    it('alterna a classe danger conforme o input', () => {
+      expect(getButton()).not.toHaveClass('danger');
 
-  it.each(['secondary', 'ghost', 'dashed'] as const)(
-    'supports the %s type',
-    (type) => {
-      fixture.componentRef.setInput('type', type);
+      fixture.componentRef.setInput('danger', true);
       fixture.detectChanges();
 
-      expect(
-        fixture.nativeElement
-          .querySelector('button')
-          .classList.contains(`ion-icon-button--${type}`)
-      ).toBe(true);
-    }
-  );
+      expect(getButton()).toHaveClass('danger');
+    });
+  });
 
+  describe('Estado de carregamento (loading)', () => {
+    it('exibe spinner, oculta ícone e desabilita o botão durante o loading', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      const button = getButton();
+      const spinner = button.querySelector('ion-spinner');
+
+      expect(button).toBeDisabled();
+      expect(button).toHaveClass('loading');
+      expect(button).toHaveAttribute('aria-busy', 'true');
+      expect(spinner).toHaveAttribute('aria-hidden', 'true');
+      expect(button.querySelector('ion-icon')).toBeNull();
+    });
+
+    it('restaura o ícone e reabilita o botão quando loading volta para false', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      fixture.componentRef.setInput('loading', false);
+      fixture.detectChanges();
+
+      const button = getButton();
+
+      expect(button).not.toBeDisabled();
+      expect(button).not.toHaveClass('loading');
+      expect(button).not.toHaveAttribute('aria-busy');
+      expect(button.querySelector('ion-spinner')).toBeNull();
+      expect(button.querySelector('ion-icon')).not.toBeNull();
+    });
+
+    it.each([
+      ['small', 16],
+      ['medium', 16],
+      ['large', 24],
+    ] as const)(
+      'mantém o spinner com %dpx no tamanho %s',
+      (size, iconSize) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.componentRef.setInput('loading', true);
+        fixture.detectChanges();
+
+        const spinner: HTMLElement | null = getButton().querySelector(
+          'ion-spinner .ion-spinner'
+        );
+
+        expect(spinner).toHaveStyle({
+          width: `${iconSize}px`,
+          height: `${iconSize}px`,
+        });
+      }
+    );
+  });
+
+  describe('Interações e eventos', () => {
+    it('emite ionOnClick ao clicar quando habilitado', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+
+      getButton().click();
+
+      expect(clickSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('não emite ionOnClick quando disabled está ativo', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      getButton().click();
+      component.handleClick();
+
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+
+    it('não emite ionOnClick quando loading está ativo', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      getButton().click();
+      component.handleClick();
+
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+  });
 });
