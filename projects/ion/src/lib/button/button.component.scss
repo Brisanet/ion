@@ -32,6 +32,10 @@ button {
   &:focus-visible {
     @include focus;
   }
+
+  &.danger:focus-visible {
+    outline-color: ion-theme(button-danger-focus-color);
+  }
 }
 
 @each $size in sm md lg xl {
