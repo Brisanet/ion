@@ -77,6 +77,7 @@ export class IonSelectFieldComponent {
   visibleCount = signal<number | null>(null);
 
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
+  searchInput = viewChild<ElementRef<HTMLInputElement>>('searchInput');
   measurementContainer =
     viewChild<ElementRef<HTMLElement>>('measurementContainer');
 
@@ -239,6 +240,30 @@ export class IonSelectFieldComponent {
       }
     });
 
+    effect(() => {
+      const inputElement = this.searchInput();
+      if (
+        !inputElement ||
+        !this.showDropdown() ||
+        !this.enableSearch() ||
+        inputElement.nativeElement.disabled
+      ) {
+        return;
+      }
+
+      untracked(() =>
+        queueMicrotask(() => {
+          if (
+            this.showDropdown() &&
+            this.enableSearch() &&
+            !inputElement.nativeElement.disabled
+          ) {
+            inputElement.nativeElement.focus();
+          }
+        })
+      );
+    });
+
     afterNextRender(() => {
       this.setupResizeObserver();
       this.updateVisibleCount();
@@ -273,8 +298,22 @@ export class IonSelectFieldComponent {
         event.preventDefault();
         if (!this.showDropdown()) {
           this.openDropdown(event.key === 'ArrowUp');
+          queueMicrotask(() => {
+            if (!this.showDropdown()) {
+              return;
+            }
+
+            if (event.key === 'ArrowDown') {
+              this.focusSearchOrFirstOption();
+            } else if (!this.focusSearchInput()) {
+              this.focusActiveOption();
+            }
+          });
+        } else if (event.key === 'ArrowDown') {
+          this.focusSearchOrFirstOption();
         } else {
-          this.moveActiveOption(event.key === 'ArrowDown' ? 1 : -1);
+          this.moveActiveOption(-1);
+          this.focusActiveOption();
         }
         break;
       case 'Enter':
@@ -299,9 +338,106 @@ export class IonSelectFieldComponent {
         if (this.showDropdown()) {
           event.preventDefault();
           this.closeDropdown();
+          this.selectTrigger()?.nativeElement.focus();
         }
         break;
     }
+  }
+
+  handleSearchKeydown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.focusFirstEnabledOption();
+        break;
+      case 'Escape':
+        event.preventDefault();
+        this.closeDropdown();
+        this.selectTrigger()?.nativeElement.focus();
+        break;
+      case 'Enter':
+        event.preventDefault();
+        break;
+    }
+  }
+
+  handleOptionKeydown(event: KeyboardEvent, index: number): void {
+    const option = this.dropdownOptions()[index];
+    if (!option || option.disabled) {
+      return;
+    }
+
+    switch (event.key) {
+      case 'ArrowDown':
+        event.preventDefault();
+        this.activeOptionIndex.set(index);
+        this.moveActiveOption(1);
+        this.focusActiveOption();
+        break;
+      case 'ArrowUp': {
+        event.preventDefault();
+        this.activeOptionIndex.set(index);
+        const enabledIndices = this.dropdownOptions()
+          .map((item, itemIndex) => (!item.disabled ? itemIndex : -1))
+          .filter((itemIndex) => itemIndex >= 0);
+        if (
+          enabledIndices[0] === index &&
+          this.enableSearch() &&
+          this.focusSearchInput()
+        ) {
+          break;
+        }
+
+        this.moveActiveOption(-1);
+        this.focusActiveOption();
+        break;
+      }
+      case 'Escape':
+        event.preventDefault();
+        this.closeDropdown();
+        this.selectTrigger()?.nativeElement.focus();
+        break;
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.selectOption(option);
+        break;
+    }
+  }
+
+  private focusSearchInput(): boolean {
+    const inputElement = this.searchInput()?.nativeElement;
+    if (!inputElement || inputElement.disabled) {
+      return false;
+    }
+
+    inputElement.focus();
+    return true;
+  }
+
+  private focusSearchOrFirstOption(): void {
+    if (!this.focusSearchInput()) {
+      this.focusFirstEnabledOption();
+    }
+  }
+
+  private focusFirstEnabledOption(): void {
+    const index = this.dropdownOptions().findIndex((option) => !option.disabled);
+    if (index >= 0) {
+      this.activeOptionIndex.set(index);
+      this.focusOption(index);
+    }
+  }
+
+  private focusActiveOption(): void {
+    const index = this.activeOptionIndex();
+    if (index !== null) {
+      this.focusOption(index);
+    }
+  }
+
+  private focusOption(index: number): void {
+    document.getElementById(this.getOptionId(index))?.focus();
   }
 
   private scrollToActiveOption(index: number | null): void {
@@ -314,7 +450,7 @@ export class IonSelectFieldComponent {
       const optionElement = document.getElementById(optionId);
 
       if (optionElement) {
-        optionElement.scrollIntoView({ block: 'nearest'});
+        optionElement.scrollIntoView?.({ block: 'nearest' });
       }
     });
   }

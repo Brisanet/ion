@@ -200,6 +200,84 @@ describe('IonSelectFieldComponent', () => {
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
   });
 
+  it('should focus the search input automatically when opening the dropdown', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('enableSearch', true);
+    fixture.detectChanges();
+
+    fireEvent.click(screen.getByTestId('ion-select'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(document.activeElement).toBe(screen.getByTestId('input-element'));
+  });
+
+  it('should navigate between options with arrow keys and return focus to search', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', [
+      options[0],
+      { ...options[1], disabled: true },
+      options[2],
+    ]);
+    fixture.componentRef.setInput('enableSearch', true);
+    fixture.detectChanges();
+
+    const trigger = screen.getByTestId('ion-select');
+    fireEvent.click(trigger);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const searchInput = screen.getByTestId('input-element');
+    trigger.focus();
+    fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+    expect(document.activeElement).toBe(searchInput);
+
+    fireEvent.keyDown(searchInput, { key: 'ArrowDown' });
+    const apple = screen.getByRole('option', { name: 'Apple' });
+    expect(document.activeElement).toBe(apple);
+
+    fireEvent.keyDown(apple, { key: 'ArrowDown' });
+    const grape = screen.getByRole('option', { name: 'Grape' });
+    expect(document.activeElement).toBe(grape);
+
+    fireEvent.keyDown(grape, { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(apple);
+
+    fireEvent.keyDown(apple, { key: 'ArrowUp' });
+    expect(document.activeElement).toBe(searchInput);
+  });
+
+  it('should close the dropdown and restore trigger focus on Escape from search or an option', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('enableSearch', true);
+    fixture.detectChanges();
+
+    const trigger = screen.getByTestId('ion-select');
+    fireEvent.click(trigger);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const searchInput = screen.getByTestId('input-element');
+    fireEvent.keyDown(searchInput, { key: 'Escape' });
+    fixture.detectChanges();
+    expect(screen.queryByTestId('ion-dropdown')).toBeFalsy();
+    expect(document.activeElement).toBe(trigger);
+
+    fireEvent.click(trigger);
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fireEvent.keyDown(screen.getByTestId('input-element'), { key: 'ArrowDown' });
+
+    const option = screen.getByRole('option', { name: 'Apple' });
+    fireEvent.keyDown(option, { key: 'Escape' });
+    fixture.detectChanges();
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeFalsy();
+    expect(document.activeElement).toBe(trigger);
+  });
+
   it('should allow tab navigation through enabled dropdown options', async () => {
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     fixture.componentRef.setInput('options', [

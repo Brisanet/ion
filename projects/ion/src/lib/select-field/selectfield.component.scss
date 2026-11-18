@@ -28,10 +28,6 @@
 }
 
 .ion-select {
-  --_border-color: #{ion-theme(select-border-color)};
-  --_inner-stroke: transparent;
-  --_focus-ring: transparent;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -40,12 +36,10 @@
   height: 48px;
   box-sizing: border-box;
   padding: 8px 12px;
-  border: 1px solid var(--_border-color);
+  border: 1px solid ion-theme(select-border-color);
   border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
-  box-shadow:
-    inset 0 0 0 1px var(--_inner-stroke),
-    0 0 0 1px var(--_focus-ring);
+  box-shadow: none;
   color: ion-theme(select-text-color);
   cursor: pointer;
   transition:
@@ -58,76 +52,133 @@
   }
 
   &:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty):hover {
-    --_border-color: #{ion-theme(select-hover-border-color)};
+    border-color: ion-theme(select-hover-border-color);
+    box-shadow: none;
   }
 
   &.selected:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-border-color)};
-    --_inner-stroke: #{ion-theme(select-border-color)};
+    border-color: ion-theme(select-selected-border-color);
+    box-shadow: none;
+
+    .leading-slot,
+    .action-slot {
+      color: ion-theme(select-selected-border-color);
+    }
   }
 
   &.open:not(.error):not(.success),
   &.open-empty:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_inner-stroke: #{ion-theme(select-focus-color)};
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
   }
 
   &:not(.disabled):not(.error):not(.success):focus-visible {
     outline: none;
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_focus-ring: #{ion-theme(select-focus-color)};
+    border-color: ion-theme(select-focus-color);
+    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
+  }
+
+  &.selected:not(.error):not(.success):focus-visible {
+    border-color: ion-theme(select-selected-border-color);
+    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
+  }
+
+  &.open:not(.error):not(.success):focus-visible,
+  &.open-empty:not(.error):not(.success):focus-visible {
+    box-shadow:
+      inset 0 0 0 0.5px ion-theme(select-focus-color),
+      0 0 0 1px ion-theme(select-focus-color);
   }
 
   &.error {
-    --_border-color: #{ion-theme(select-error-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-error-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-error-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-error-color)} 22%, transparent);
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-error-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-error-color) 22%, transparent);
     }
 
-    &.selected,
+    &.selected {
+      border-color: ion-theme(select-error-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-error-color);
+      }
+    }
+
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-error-color)};
-      --_inner-stroke: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-error-color);
     }
 
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-error-color)};
-      --_focus-ring: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-error-color),
+        0 0 0 1px ion-theme(select-error-color);
     }
   }
 
   &.success {
-    --_border-color: #{ion-theme(select-success-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-success-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-success-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-success-color)} 22%, transparent);
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-success-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-success-color) 22%, transparent);
     }
 
-    &.selected,
+    &.selected {
+      border-color: ion-theme(select-success-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-success-color);
+      }
+    }
+
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-success-color)};
-      --_inner-stroke: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-success-color);
     }
 
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-success-color)};
-      --_focus-ring: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-success-color),
+        0 0 0 1px ion-theme(select-success-color);
     }
   }
 
   &.disabled {
-    --_border-color: #{ion-theme(select-disabled-border-color)};
-    --_inner-stroke: transparent;
-    --_focus-ring: transparent;
+    border-color: ion-theme(select-disabled-border-color);
+    box-shadow: none;
     cursor: not-allowed;
     pointer-events: none;
   }
@@ -140,6 +191,16 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+}
+
+.leading-slot,
+.action-slot {
+  transition: color 0.2s;
+}
+
+.leading-slot ion-icon,
+.action-slot ion-icon {
+  color: inherit;
 }
 
 .leading-slot:empty,
@@ -220,6 +281,11 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: color-mix(in srgb, currentColor 12%, transparent);
+  }
 
   &:disabled {
     cursor: not-allowed;
@@ -353,6 +419,8 @@
   ion-icon {
     position: absolute;
     right: 12px;
+    color: ion-theme(select-placeholder-color);
+    pointer-events: none;
   }
 }
 
@@ -365,9 +433,22 @@
   background: ion-theme(select-background-color);
   color: ion-theme(select-text-color);
   font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  &:hover:not(:disabled) {
+    border-color: ion-theme(select-hover-border-color);
+  }
 
   &:focus {
-    outline: 2px solid ion-theme(select-focus-color);
+    outline: none;
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
+  }
+
+  &:disabled {
+    border-color: ion-theme(select-disabled-border-color);
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 }
 
