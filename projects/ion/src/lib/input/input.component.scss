@@ -74,7 +74,7 @@ div.input {
   border: 1px solid ion-theme(input-element-border-color);
   border-radius: $input-radius;
   background-color: ion-theme(input-background-color);
-  transition: border-color 0.2s ease, border-width 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 
   &:hover:not(.disabled):not(.invalid):not(.valid) {
     border-width: 1.5px;
@@ -90,6 +90,7 @@ div.input {
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
     border-width: 2px;
     border-color: var(--current-hover-color);
+    box-shadow: var(--current-hover-color);
   }
 
   &.invalid {
@@ -104,7 +105,7 @@ div.input {
     border: 2px solid ion-theme(input-valid-border-color);
 
     &:focus-within:not(.disabled) {
-      border-color: ion-theme(input-valid-focus-border-color);
+      border-color: ion-theme(input-modern-success-focus-color);
     }
   }
 
@@ -167,7 +168,7 @@ div.input {
   }
 
   .left-icon,
-  .input-icon-btn{
+  .input-icon-btn {
     color: ion-theme(input-icon-color);
     transition: color 0.2s ease;
   }
@@ -301,11 +302,12 @@ div.input {
   }
 
   &.input-button {
-    &,.my-input{
+    &,
+    .my-input {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
     }
-    
+
     .attached-button {
       display: flex;
       flex: 0 0 auto;
@@ -322,17 +324,18 @@ div.input {
         font-weight: 600;
         transition: background-color 0.2s ease, color 0.2s ease;
 
-      span {
-        font-size: 16px;
-        line-height: 24px;
-      }
+        span {
+          font-size: 16px;
+          line-height: 24px;
+        }
 
-      &:not(:hover).ion-btn-secondary {
-        border-color: ion-theme(input-element-border-color);
-      }
+        &:not(:hover).ion-btn-secondary {
+          border-color: ion-theme(input-element-border-color);
+        }
 
-      &.ion-remove-space {
-        padding: 0 spacing(1) !important;
+        &.ion-remove-space {
+          padding: 0 spacing(1) !important;
+        }
       }
     }
   }
@@ -353,16 +356,13 @@ div.input {
   border-radius: 2px;
   background-color: transparent;
 
-        &:hover {
-          background-color: var(--current-hover-color);
-        }
-      }
+  &:hover {
+    background-color: var(--current-hover-color);
+  }
 
-      &.ion-btn-secondary,
-      &.ion-btn-ghost {
-        color: var(--current-theme-color);
-      }
-    }
+  &.ion-btn-secondary,
+  &.ion-btn-ghost {
+    color: var(--current-theme-color);
   }
 }
 
