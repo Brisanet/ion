@@ -70,7 +70,7 @@ div.input {
   border: 1px solid ion-theme(input-modern-border-color);
   border-radius: $input-radius;
   background-color: ion-theme(input-modern-background-color);
-  transition: border-color 0.2s ease, border-width 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 
   &:hover:not(.disabled):not(.invalid):not(.valid) {
     border-color: var(--current-hover-color);
@@ -84,21 +84,26 @@ div.input {
 
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
     border-color: var(--current-hover-color);
+    box-shadow: var(--current-hover-color);
   }
 
   &.invalid {
     border-color: ion-theme(input-modern-error-color);
+    box-shadow: ion-theme(input-modern-error-color);
 
     &:focus-within:not(.disabled) {
       border-color: ion-theme(input-modern-error-focus-color);
+      box-shadow: ion-theme(input-modern-error-focus-color);
     }
   }
 
   &.valid:not(.invalid) {
     border-color: ion-theme(input-modern-success-color);
+    box-shadow: ion-theme(input-modern-success-color);
 
     &:focus-within:not(.disabled) {
       border-color: ion-theme(input-modern-success-focus-color);
+      box-shadow: ion-theme(input-modern-success-focus-color);
     }
   }
 
