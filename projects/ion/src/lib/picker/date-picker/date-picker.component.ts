@@ -61,6 +61,9 @@ export class IonDatepickerComponent {
     );
   layout = input<DatePickerLayout>('default');
   size = input<DatePickerSize>('base');
+  invalid = input<boolean | [boolean, boolean]>(false);
+  valid = input<boolean | [boolean, boolean]>(false);
+  errorMsg = input<string | [string, string]>('');
   icon = input<boolean>(true);
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);
@@ -148,6 +151,16 @@ export class IonDatepickerComponent {
     }
 
     return [selected[INITIAL_RANGE].format(format)];
+  });
+  hasInvalid = computed(() => {
+    const val = this.invalid();
+    return Array.isArray(val) ? val.some(Boolean) : Boolean(val);
+  });
+
+  hasValid = computed(() => {
+    if (this.hasInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? val.some(Boolean) : Boolean(val);
   });
 
   constructor(private host: ElementRef<HTMLElement>) {

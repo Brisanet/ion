@@ -3,6 +3,36 @@
 @import '../../../styles/index.scss';
 @import '../../../styles/themes/theme.scss';
 
+@mixin control-picker-variant($color, $hover-color) {
+  .container-labels label:hover {
+    color: $hover-color;
+  }
+
+  ion-button {
+    button.ion-btn-ghost,
+    button.ion-btn-dashed {
+      color: $color !important;
+
+      ion-icon svg {
+        fill: $color !important;
+      }
+
+      &:hover {
+        color: $hover-color !important;
+        background-color: color-mix(
+          in srgb,
+          $hover-color 12%,
+          transparent
+        ) !important;
+
+        ion-icon svg {
+          fill: $hover-color !important;
+        }
+      }
+    }
+  }
+}
+
 :host {
   position: relative;
 }

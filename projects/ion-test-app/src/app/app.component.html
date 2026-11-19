@@ -1776,6 +1776,22 @@
         ></ion-date-picker>
       </div>
       <div>
+        <h3>Sucess Date Picker</h3>
+        <ion-date-picker
+        [rangePicker]="true"
+        layout="joined"
+        [valid]="true"
+        ></ion-date-picker>
+      </div>
+      <div>
+        <h3>Error Date Picker</h3>
+        <ion-date-picker
+        [rangePicker]="true"
+        layout="split"
+        [invalid]="true"
+        ></ion-date-picker>
+      </div>
+      <div>
         <h3>Basic Date Picker</h3>
         <ion-date-picker
           (event)="handleDatePickerChange($event)"

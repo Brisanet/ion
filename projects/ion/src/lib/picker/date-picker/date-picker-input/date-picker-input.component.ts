@@ -16,6 +16,8 @@ import {
 export interface IonDatePickerInputComponentProps {
   date?: string | string[];
   placeholder?: string;
+  valid?: boolean;
+  invalid?: boolean;
 }
 
 @Component({
@@ -41,7 +43,11 @@ export class IonDatePickerInputComponent {
   placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
+  invalid = input<boolean | [boolean, boolean]>(false);
+  valid = input<boolean | [boolean, boolean]>(false);
+  errorMsg = input<string | [string, string]>('');
   pointerFocus = signal<boolean>(false);
+
   dateParts = computed(() => {
     const date = this.date();
     return Array.isArray(date) ? date : date ? [date] : [];
@@ -70,7 +76,34 @@ export class IonDatePickerInputComponent {
     const p = this.placeholder();
     return Array.isArray(p) ? p[1] : p;
   });
-  
+
+  startInvalid = computed(() => {
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  endInvalid = computed(() =>{
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val)
+  });
+
+  startValid = computed(() => {
+    if (this.startInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  endValid = computed(() => {
+    if (this.endInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
+  });
+
+  joinedInvalid = computed(() => this.startInvalid() || this.endInvalid());
+  joinedValid = computed(
+    () => !this.joinedInvalid() && (this.startValid() || this.endValid())
+  );
+
   onPointerDown(): void {
     this.pointerFocus.set(true);
   }
@@ -88,7 +121,6 @@ export class IonDatePickerInputComponent {
       this.pointerFocus.set(false);
     }
   }
-
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',

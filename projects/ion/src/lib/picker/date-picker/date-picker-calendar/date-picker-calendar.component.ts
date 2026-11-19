@@ -46,6 +46,8 @@ export class IonDatePickerCalendarComponent implements OnInit {
   selectedDaysInput = input<Day[]>([]);
   rangePicker = input<boolean>(false);
   disabledDate = input<IonDatePickerCalendarComponentProps['disabledDate']>();
+  invalid = input<boolean>(false);
+  valid = input<boolean>(false);
 
   events = output<Day[]>();
   updateLabelCalendar = output<UpdateLabelCalendar>();
