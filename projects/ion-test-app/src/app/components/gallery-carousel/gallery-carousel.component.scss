@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.gallery-carousel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+}
+
+.gallery-carousel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  p {
+    margin-top: 8px;
+  }
+}
+
+.gallery-carousel__track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 4px 2px 12px;
+  scroll-behavior: smooth;
+}
+
+.gallery-carousel__content {
+  border: 1px dashed #ccc;
+  text-align: center;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .gallery-carousel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

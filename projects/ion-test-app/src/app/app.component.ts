@@ -90,9 +90,8 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
-import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
-import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
-import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+import { GalleryCarouselComponent } from './components/gallery-carousel/gallery-carousel.component';
+
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -175,7 +174,6 @@ class ModalLongContentComponent {
     IonCardHeaderComponent,
     IonCardFooterComponent,
     CardBodyComponent,
-    IconGalleryComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
@@ -186,8 +184,7 @@ class ModalLongContentComponent {
     IonNavbarComponent,
     IonDrawerComponent,
     BnEditDrawerComponent,
-    ColorGalleryComponent,
-    TypographyGalleryComponent,
+    GalleryCarouselComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
