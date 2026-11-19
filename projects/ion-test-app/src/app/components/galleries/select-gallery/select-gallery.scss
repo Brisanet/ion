@@ -97,10 +97,6 @@
     color: var(--ion-primary-7);
     font-weight: 600;
   }
-
-  &--reset {
-    border-style: dashed;
-  }
 }
 
 .select-gallery__palette {
@@ -154,13 +150,5 @@
   color: var(--ion-neutral-7);
   font-size: 13px;
   line-height: 18px;
-}
-
-.select-gallery__action {
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: var(--ion-primary-1);
-  color: var(--ion-primary-6);
-  font-size: 12px;
-  font-weight: 600;
+  max-width: 400px;
 }
