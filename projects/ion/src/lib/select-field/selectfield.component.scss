@@ -27,11 +27,8 @@
   line-height: 20px;
 }
 
+// Main container
 .ion-select {
-  --_border-color: #{ion-theme(select-border-color)};
-  --_inner-stroke: transparent;
-  --_focus-ring: transparent;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -40,99 +37,171 @@
   height: 48px;
   box-sizing: border-box;
   padding: 8px 12px;
-  border: 1px solid var(--_border-color);
+  // Border
+  border: 1px solid ion-theme(select-border-color);
   border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
-  box-shadow:
-    inset 0 0 0 1px var(--_inner-stroke),
-    0 0 0 1px var(--_focus-ring);
+  box-shadow: none;
+  // Outline
+  outline: 2px solid transparent;
+  outline-offset: 0px;
   color: ion-theme(select-text-color);
   cursor: pointer;
+  
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s,
-    background-color 0.2s;
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 
   &.size-large {
     height: 56px;
   }
 
+  // Hover: empty, closed and without focus
   &:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty):hover {
-    --_border-color: #{ion-theme(select-hover-border-color)};
+    border: 1px solid ion-theme(select-hover-border-color);
+    box-shadow: none;
   }
 
+  // Selected: options has been choosed
   &.selected:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-border-color)};
-    --_inner-stroke: #{ion-theme(select-border-color)};
+    border-color: ion-theme(select-selected-border-color);
+    box-shadow: none;
+
+    .leading-slot,
+    .action-slot {
+      color: ion-theme(select-selected-border-color);
+    }
   }
 
+  // Open: search empty or filled
   &.open:not(.error):not(.success),
   &.open-empty:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_inner-stroke: #{ion-theme(select-focus-color)};
+    outline: none; // Remove outline ao clicar/abrir
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
   }
 
-  &:not(.disabled):not(.error):not(.success):focus-visible {
-    outline: none;
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_focus-ring: #{ion-theme(select-focus-color)};
+  // Keyboard focus
+  &.keyboard-focus:focus-visible:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty) {
+    outline-color: ion-theme(select-focus-color);
+    outline-offset: 1.75px;
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 1px ion-theme(select-focus-color);
+    transition:
+      border-color 0.08s ease,
+      background-color 0.08s ease;
   }
 
+  // Validation: Error
   &.error {
-    --_border-color: #{ion-theme(select-error-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-error-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-error-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-error-color)} 22%, transparent);
+    // Error: hover
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-error-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-error-color) 22%, transparent);
     }
 
-    &.selected,
+    // Error: selected
+    &.selected {
+      border-color: ion-theme(select-error-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-error-color);
+      }
+    }
+
+    // Error: dropdown open
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-error-color)};
-      --_inner-stroke: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-error-color);
     }
 
+    // Error: any focus
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-error-color)};
-      --_focus-ring: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    // Error: selected + focus
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    // Error: open + focus
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-error-color),
+        0 0 0 1px ion-theme(select-error-color);
     }
   }
 
+  // Validation: success
   &.success {
-    --_border-color: #{ion-theme(select-success-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-success-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-success-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-success-color)} 22%, transparent);
+    // Success: hover
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-success-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-success-color) 22%, transparent);
     }
 
-    &.selected,
+    // Success: selected
+    &.selected {
+      border-color: ion-theme(select-success-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-success-color);
+      }
+    }
+
+    // Success: dropdown open
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-success-color)};
-      --_inner-stroke: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-success-color);
     }
 
+    // Success: any focus
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-success-color)};
-      --_focus-ring: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    // Success: selected + focus
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    // Success: open + focus
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-success-color),
+        0 0 0 1px ion-theme(select-success-color);
     }
   }
 
+  // Disabled
   &.disabled {
-    --_border-color: #{ion-theme(select-disabled-border-color)};
-    --_inner-stroke: transparent;
-    --_focus-ring: transparent;
+    border-color: ion-theme(select-disabled-border-color);
+    box-shadow: none;
     cursor: not-allowed;
     pointer-events: none;
   }
 }
 
+// Slots, tags and chips
 .leading-slot,
 .action-slot,
 .select-chevron {
@@ -140,6 +209,16 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+}
+
+.leading-slot,
+.action-slot {
+  transition: color 0.2s;
+}
+
+.leading-slot ion-icon,
+.action-slot ion-icon {
+  color: inherit;
 }
 
 .leading-slot:empty,
@@ -186,6 +265,7 @@
   white-space: nowrap;
 }
 
+// Multi-select chip
 .select-tag {
   display: inline-flex;
   min-width: 0;
@@ -207,6 +287,7 @@
   }
 }
 
+// Remove chip button
 .tag-remove {
   display: inline-flex;
   width: 24px;
@@ -220,12 +301,25 @@
   background: transparent;
   color: inherit;
   cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  // Hover: remove chip button
+  &:hover:not(:disabled) {
+    background-color: color-mix(in srgb, currentColor 12%, transparent);
+  }
+
+  // Focus: remove chip button
+  &:focus-visible {
+    outline: 1.5px solid ion-theme(select-focus-color);
+    outline-offset: -1.5px;
+  }
 
   &:disabled {
     cursor: not-allowed;
   }
 }
 
+// Chips counter (ex: +3)
 .overflow-counter {
   flex: 0 0 auto;
   padding: 2px 8px;
@@ -237,6 +331,7 @@
   white-space: nowrap;
 }
 
+// Ghost container to calculate chips width
 .measurement-container {
   position: absolute;
   top: 0;
@@ -250,6 +345,7 @@
   pointer-events: none;
 }
 
+// Supporting texts
 .supporting-text {
   margin-top: 4px;
   color: ion-theme(select-supporting-text-color);
@@ -265,6 +361,7 @@
   }
 }
 
+//Dropdown
 .ion-select-dropdown {
   width: 100%;
   min-width: 182px;
@@ -297,6 +394,7 @@
   overflow-y: auto;
 }
 
+// Dropdown item
 .ion-dropdown-item {
   display: flex;
   min-height: 36px;
@@ -310,28 +408,34 @@
   font-size: 14px;
   line-height: 20px;
 
+  // Hover: dropdown item
   &:hover {
     background: ion-theme(select-menu-item-hover-background-color);
   }
 
+  // Active: dropdown item
   &.dropdown-item-active {
     background: ion-theme(select-menu-item-hover-background-color);
     border: 1px solid ion-theme(select-menu-border-color);
   }
 
+  // Focus: dropdown item
   &:focus-visible {
     outline: 2px solid ion-theme(select-focus-color);
-    outline-offset: -2px;
+    outline-offset: -2px; 
   }
 
+  // Selected: dropdown item
   &.dropdown-item-selected {
     background: ion-theme(select-menu-item-selected-background-color);
     color: ion-theme(select-menu-item-selected-text-color);
   }
 
+  // Disabled: dropdown item
   &.dropdown-disabled {
     color: ion-theme(select-menu-item-disabled-text-color);
     cursor: not-allowed;
+    user-select: none;
   }
 }
 
@@ -344,6 +448,7 @@
   text-overflow: ellipsis;
 }
 
+// Search 
 .dropdown-search {
   position: relative;
   display: flex;
@@ -353,6 +458,8 @@
   ion-icon {
     position: absolute;
     right: 12px;
+    color: ion-theme(select-placeholder-color);
+    pointer-events: none;
   }
 }
 
@@ -365,12 +472,29 @@
   background: ion-theme(select-background-color);
   color: ion-theme(select-text-color);
   font: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
 
+  // Hover: search
+  &:hover:not(:disabled) {
+    border-color: ion-theme(select-hover-border-color);
+  }
+
+  // Focus: search
   &:focus {
-    outline: 2px solid ion-theme(select-focus-color);
+    outline: none;
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
+  }
+
+  // Disabled: search
+  &:disabled {
+    border-color: ion-theme(select-disabled-border-color);
+    opacity: 0.45;
+    cursor: not-allowed;
   }
 }
 
+// Clear button (when true)
 .clear-button {
   display: flex;
   min-height: 32px;

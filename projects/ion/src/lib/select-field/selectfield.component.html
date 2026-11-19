@@ -19,6 +19,7 @@
     [class.open]="showDropdown()"
     [class.open-empty]="showDropdown() && hasNoOptions()"
     [class.selected]="dropdownSelectedItems().length > 0"
+    [class.keyboard-focus]="isKeyboardFocus()"
     [class.size-large]="size() === 'large'"
     [attr.inert]="disabled() ? '' : null"
     role="combobox"
@@ -34,6 +35,9 @@
     [attr.aria-disabled]="disabled()"
     [attr.aria-required]="required()"
     (click)="toggleDropdown()"
+    (pointerdown)="onTriggerPointerDown()"
+    (focus)="onTriggerFocus($event)"
+    (blur)="onTriggerBlur($event)"
     [attr.tabindex]="disabled() ? -1 : 0"
     (keydown)="handleTriggerKeydown($event)"
     data-testid="ion-select"
@@ -137,7 +141,10 @@
             type="text"
             [placeholder]="searchOptions()?.placeholder || ''"
             [disabled]="searchOptions()?.disabled || false"
+            [attr.aria-label]="searchOptions()?.placeholder || 'Buscar'"
+            autocomplete="off"
             (input)="handleSearch($any($event.target).value)"
+            (keydown)="handleSearchKeydown($event)"
             class="dropdown-search-input"
           />
           <ion-icon type="search" [size]="16"></ion-icon>
@@ -163,8 +170,9 @@
               role="option"
               [attr.aria-selected]="option.selected"
               [attr.aria-disabled]="option.disabled ? 'true' : null"
-              tabindex="-1"
+              [attr.tabindex]="option.disabled ? -1 : 0"
               (click)="selectOption(option)"
+              (keydown)="handleOptionKeydown($event, $index)"
               [id]="getOptionId($index)"
             >
               <span class="option-label">
