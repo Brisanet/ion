@@ -435,6 +435,7 @@
   &.dropdown-disabled {
     color: ion-theme(select-menu-item-disabled-text-color);
     cursor: not-allowed;
+    user-select: none;
   }
 }
 
