@@ -11,7 +11,10 @@ $input-icon-gap: 12px;
 $input-icon-margin: 6px;
 $input-stack-gap: 4px;
 
-
+@mixin focus-double-ring($focus-color) {
+  outline: 2px solid $focus-color;
+  outline-offset: 2px;
+}
 
 :host {
   --input-height: 48px;
@@ -56,6 +59,20 @@ $input-stack-gap: 4px;
 
 .input-container:has(.input.disabled) .input-label {
   color: ion-theme(input-modern-disabled-text-color);
+}
+
+:host:not(.pointer-focus) div.input:not(.disabled):has(input.my-input:focus-visible) {
+  &:not(.invalid):not(.valid) {
+    @include focus-double-ring(var(--current-hover-color));
+  }
+
+  &.invalid {
+    @include focus-double-ring(ion-theme(input-modern-error-focus-color));
+  }
+
+  &.valid:not(.invalid) {
+    @include focus-double-ring(ion-theme(input-modern-success-focus-color));
+  }
 }
 
 div.input {
