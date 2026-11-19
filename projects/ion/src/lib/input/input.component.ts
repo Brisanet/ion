@@ -25,14 +25,13 @@ import { IonButtonProps } from '../core/types';
     '[attr.size]': 'size()',
     '[attr.theme]': 'theme()',
     '[class.pointer-focus]': 'pointerFocus()',
-    '(pointerdown)': 'pointerFocus.set(true)',
-    '(keydown.tab)': 'pointerFocus.set(false)',
-    '(focusout)': 'pointerFocus.set(false)',
+    '(pointerdown)': 'onPointerDown()',
+    '(keydown)': 'onKeyDown($event)',
+    '(focusout)': 'onFocusOut($event)',
   },
 })
 export class IonInputComponent {
   private static nextId = 0;
-  protected readonly pointerFocus = signal(false);
   public uniqueId = `ion-input-${IonInputComponent.nextId++}`;
 
   // Variações e Slots Visuais
@@ -63,6 +62,7 @@ export class IonInputComponent {
   // Two-way binding
   value = model<string>('');
   passwordVisible = signal(false);
+  pointerFocus = signal<boolean>(false);
 
   // Eventos de saída
   valueChange = output<string>();
@@ -127,6 +127,24 @@ export class IonInputComponent {
 
   public onClickTrailingIcon(): void {
     this.clickIconTrailing.emit();
+  }
+
+  onPointerDown(): void {
+    this.pointerFocus.set(true);
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      this.pointerFocus.set(false);
+    }
+  }
+
+  onFocusOut(event: FocusEvent): void {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    const relatedTarget = event.relatedTarget as Node | null;
+    if (!currentTarget?.contains(relatedTarget)) {
+      this.pointerFocus.set(false);
+    }
   }
 
   public togglePasswordVisibility(): void {
