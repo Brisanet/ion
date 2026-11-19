@@ -43,6 +43,7 @@ export type IonSelectTheme = 'light' | 'dark' | 'orange-light' | 'orange-dark';
 })
 export class IonSelectFieldComponent {
   private static nextInstanceId = 0;
+  private pointerDownOnTrigger = false;
   readonly instanceId = `ion-select-field-${IonSelectFieldComponent.nextInstanceId++}`;
   readonly labelId = `${this.instanceId}-label`;
   readonly listboxId = `${this.instanceId}-listbox`;
@@ -72,6 +73,7 @@ export class IonSelectFieldComponent {
   valueChange = output<any>();
 
   showDropdown = signal(false);
+  isKeyboardFocus = signal(false);
   activeOptionIndex = signal<number | null>(null);
   dropdownSelectedItems = signal<DropdownItem[]>([]);
   visibleCount = signal<number | null>(null);
@@ -270,6 +272,23 @@ export class IonSelectFieldComponent {
     });
   }
 
+  onTriggerPointerDown(): void {
+    this.pointerDownOnTrigger = true;
+    this.isKeyboardFocus.set(false);
+  }
+
+  onTriggerFocus(event: FocusEvent): void {
+    this.isKeyboardFocus.set(
+      event.target === event.currentTarget && !this.pointerDownOnTrigger
+    );
+    this.pointerDownOnTrigger = false;
+  }
+
+  onTriggerBlur(event: FocusEvent): void {
+    this.pointerDownOnTrigger = false;
+    this.isKeyboardFocus.set(false);
+  }
+
   toggleDropdown(): void {
     if (this.disabled()) {
       return;
@@ -284,6 +303,10 @@ export class IonSelectFieldComponent {
 
   handleTriggerKeydown(event: KeyboardEvent): void {
     const target = event.target;
+    if (event.key === 'Tab') {
+      this.pointerDownOnTrigger = false;
+      this.isKeyboardFocus.set(true);
+    }
     if (
       this.disabled() ||
       (target instanceof HTMLElement &&

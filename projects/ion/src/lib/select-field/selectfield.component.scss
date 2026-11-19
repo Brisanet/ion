@@ -27,6 +27,7 @@
   line-height: 20px;
 }
 
+// Main container
 .ion-select {
   position: relative;
   display: flex;
@@ -36,26 +37,32 @@
   height: 48px;
   box-sizing: border-box;
   padding: 8px 12px;
+  // Border
   border: 1px solid ion-theme(select-border-color);
   border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
   box-shadow: none;
+  // Outline
+  outline: 2px solid transparent;
+  outline-offset: 0px;
   color: ion-theme(select-text-color);
   cursor: pointer;
+  
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s,
-    background-color 0.2s;
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 
   &.size-large {
     height: 56px;
   }
 
+  // Hover: empty, closed and without focus
   &:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty):hover {
-    border-color: ion-theme(select-hover-border-color);
+    border: 1px solid ion-theme(select-hover-border-color);
     box-shadow: none;
   }
 
+  // Selected: options has been choosed
   &.selected:not(.error):not(.success) {
     border-color: ion-theme(select-selected-border-color);
     box-shadow: none;
@@ -66,39 +73,37 @@
     }
   }
 
+  // Open: search empty or filled
   &.open:not(.error):not(.success),
   &.open-empty:not(.error):not(.success) {
+    outline: none; // Remove outline ao clicar/abrir
     border-color: ion-theme(select-focus-color);
     box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
   }
 
-  &:not(.disabled):not(.error):not(.success):focus-visible {
-    outline: none;
+  // Keyboard focus
+  &.keyboard-focus:focus-visible:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty) {
+    outline-color: ion-theme(select-focus-color);
+    outline-offset: 1.75px;
     border-color: ion-theme(select-focus-color);
-    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 1px ion-theme(select-focus-color);
+    transition:
+      border-color 0.08s ease,
+      background-color 0.08s ease;
   }
 
-  &.selected:not(.error):not(.success):focus-visible {
-    border-color: ion-theme(select-selected-border-color);
-    box-shadow: 0 0 0 1px ion-theme(select-focus-color);
-  }
-
-  &.open:not(.error):not(.success):focus-visible,
-  &.open-empty:not(.error):not(.success):focus-visible {
-    box-shadow:
-      inset 0 0 0 0.5px ion-theme(select-focus-color),
-      0 0 0 1px ion-theme(select-focus-color);
-  }
-
+  // Validation: Error
   &.error {
     border-color: ion-theme(select-error-color);
     box-shadow: none;
 
+    // Error: hover
     &:not(.disabled):not(.open):not(.open-empty):hover {
       border-color: color-mix(in srgb, ion-theme(select-error-color) 75%, black);
       box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-error-color) 22%, transparent);
     }
 
+    // Error: selected
     &.selected {
       border-color: ion-theme(select-error-color);
       box-shadow: none;
@@ -109,22 +114,26 @@
       }
     }
 
+    // Error: dropdown open
     &.open,
     &.open-empty {
       border-color: ion-theme(select-error-color);
       box-shadow: inset 0 0 0 0.5px ion-theme(select-error-color);
     }
 
+    // Error: any focus
     &:not(.disabled):focus-visible {
       outline: none;
       border-color: ion-theme(select-error-color);
       box-shadow: 0 0 0 1px ion-theme(select-error-color);
     }
 
+    // Error: selected + focus
     &.selected:focus-visible {
       box-shadow: 0 0 0 1px ion-theme(select-error-color);
     }
 
+    // Error: open + focus
     &.open:focus-visible,
     &.open-empty:focus-visible {
       box-shadow:
@@ -133,15 +142,18 @@
     }
   }
 
+  // Validation: success
   &.success {
     border-color: ion-theme(select-success-color);
     box-shadow: none;
 
+    // Success: hover
     &:not(.disabled):not(.open):not(.open-empty):hover {
       border-color: color-mix(in srgb, ion-theme(select-success-color) 75%, black);
       box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-success-color) 22%, transparent);
     }
 
+    // Success: selected
     &.selected {
       border-color: ion-theme(select-success-color);
       box-shadow: none;
@@ -152,22 +164,26 @@
       }
     }
 
+    // Success: dropdown open
     &.open,
     &.open-empty {
       border-color: ion-theme(select-success-color);
       box-shadow: inset 0 0 0 0.5px ion-theme(select-success-color);
     }
 
+    // Success: any focus
     &:not(.disabled):focus-visible {
       outline: none;
       border-color: ion-theme(select-success-color);
       box-shadow: 0 0 0 1px ion-theme(select-success-color);
     }
 
+    // Success: selected + focus
     &.selected:focus-visible {
       box-shadow: 0 0 0 1px ion-theme(select-success-color);
     }
 
+    // Success: open + focus
     &.open:focus-visible,
     &.open-empty:focus-visible {
       box-shadow:
@@ -176,6 +192,7 @@
     }
   }
 
+  // Disabled
   &.disabled {
     border-color: ion-theme(select-disabled-border-color);
     box-shadow: none;
@@ -184,6 +201,7 @@
   }
 }
 
+// Slots, tags and chips
 .leading-slot,
 .action-slot,
 .select-chevron {
@@ -247,6 +265,7 @@
   white-space: nowrap;
 }
 
+// Multi-select chip
 .select-tag {
   display: inline-flex;
   min-width: 0;
@@ -268,6 +287,7 @@
   }
 }
 
+// Remove chip button
 .tag-remove {
   display: inline-flex;
   width: 24px;
@@ -283,8 +303,15 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 
+  // Hover: remove chip button
   &:hover:not(:disabled) {
     background-color: color-mix(in srgb, currentColor 12%, transparent);
+  }
+
+  // Focus: remove chip button
+  &:focus-visible {
+    outline: 1.5px solid ion-theme(select-focus-color);
+    outline-offset: -1.5px;
   }
 
   &:disabled {
@@ -292,6 +319,7 @@
   }
 }
 
+// Chips counter (ex: +3)
 .overflow-counter {
   flex: 0 0 auto;
   padding: 2px 8px;
@@ -303,6 +331,7 @@
   white-space: nowrap;
 }
 
+// Ghost container to calculate chips width
 .measurement-container {
   position: absolute;
   top: 0;
@@ -316,6 +345,7 @@
   pointer-events: none;
 }
 
+// Supporting texts
 .supporting-text {
   margin-top: 4px;
   color: ion-theme(select-supporting-text-color);
@@ -331,6 +361,7 @@
   }
 }
 
+//Dropdown
 .ion-select-dropdown {
   width: 100%;
   min-width: 182px;
@@ -363,6 +394,7 @@
   overflow-y: auto;
 }
 
+// Dropdown item
 .ion-dropdown-item {
   display: flex;
   min-height: 36px;
@@ -376,25 +408,30 @@
   font-size: 14px;
   line-height: 20px;
 
+  // Hover: dropdown item
   &:hover {
     background: ion-theme(select-menu-item-hover-background-color);
   }
 
+  // Active: dropdown item
   &.dropdown-item-active {
     background: ion-theme(select-menu-item-hover-background-color);
     border: 1px solid ion-theme(select-menu-border-color);
   }
 
+  // Focus: dropdown item
   &:focus-visible {
     outline: 2px solid ion-theme(select-focus-color);
-    outline-offset: -2px;
+    outline-offset: -2px; 
   }
 
+  // Selected: dropdown item
   &.dropdown-item-selected {
     background: ion-theme(select-menu-item-selected-background-color);
     color: ion-theme(select-menu-item-selected-text-color);
   }
 
+  // Disabled: dropdown item
   &.dropdown-disabled {
     color: ion-theme(select-menu-item-disabled-text-color);
     cursor: not-allowed;
@@ -410,6 +447,7 @@
   text-overflow: ellipsis;
 }
 
+// Search 
 .dropdown-search {
   position: relative;
   display: flex;
@@ -435,16 +473,19 @@
   font: inherit;
   transition: border-color 0.2s, box-shadow 0.2s;
 
+  // Hover: search
   &:hover:not(:disabled) {
     border-color: ion-theme(select-hover-border-color);
   }
 
+  // Focus: search
   &:focus {
     outline: none;
     border-color: ion-theme(select-focus-color);
     box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
   }
 
+  // Disabled: search
   &:disabled {
     border-color: ion-theme(select-disabled-border-color);
     opacity: 0.45;
@@ -452,6 +493,7 @@
   }
 }
 
+// Clear button (when true)
 .clear-button {
   display: flex;
   min-height: 32px;
