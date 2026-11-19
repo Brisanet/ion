@@ -1,0 +1,31 @@
+<section class="gallery-carousel" aria-label="Galerias">
+  <header class="gallery-carousel__header">
+    <div>
+      <h2>Galerias</h2>
+      <p>Explore e navegue por nossas coleções disponíveis.</p>
+    </div>
+  </header>
+
+  <div
+    #galleryTrack
+    class="gallery-carousel__track"
+    role="group"
+    aria-label="Seleção de galerias"
+  >
+    @for (gallery of galleries(); track gallery.key) {
+      <ion-button
+        label="{{ gallery.label }}"
+        [class.gallery-carousel__card--active]="activeGallery()?.key === gallery.key"
+        [attr.aria-pressed]="activeGallery()?.key === gallery.key"
+        (click)="selectGallery(gallery)"
+      >
+      </ion-button>
+    }
+  </div>
+
+  <div class="gallery-carousel__content">
+    <ng-container
+      *ngComponentOutlet="activeGallery()?.component ?? null"
+    ></ng-container>
+  </div>
+</section>
