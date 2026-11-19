@@ -54,6 +54,8 @@ export class IonControlPickerComponent {
   month = input<string>('');
   year = input<string>('');
   theme = input<DatePickerTheme>('primary');
+  invalid = input<boolean>(false);
+  valid = input<boolean>(false);
   controlPickerEvent = output<ControlEvent>();
   TooltipPosition = TooltipPosition;
 

@@ -74,27 +74,6 @@
       ></ion-button>
     }
 
-    @if (valid() && !invalid() && !isClearButtonVisible()) {
-      <ion-icon
-        data-testid="icon-valid"
-        class="icon-valid"
-        type="check-solid"
-        [size]="16"
-        aria-hidden="true"
-      ></ion-icon>
-    }
-
-    @if (invalid() && !isClearButtonVisible()) {
-      <ion-icon
-        data-testid="icon-invalid"
-        class="icon-invalid"
-        type="close-solid"
-        [size]="16"
-        aria-hidden="true"
-        [attr.inert]="disabled() ? '' : null"
-      ></ion-icon>
-    }
-
     @if (isClearButtonVisible()) {
       <ion-button
         data-testid="clear-button input-icon-btn"

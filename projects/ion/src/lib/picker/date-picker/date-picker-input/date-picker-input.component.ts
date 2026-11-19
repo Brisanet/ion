@@ -5,6 +5,7 @@ import {
   computed,
   input,
   output,
+  signal,
 } from '@angular/core';
 import { IonInputComponent } from '../../../input/input.component';
 import { DatePickerLayout, IonButtonProps } from '../../../core/types';
@@ -16,6 +17,8 @@ import {
 export interface IonDatePickerInputComponentProps {
   date?: string | string[];
   placeholder?: string;
+  valid?: boolean;
+  invalid?: boolean;
 }
 
 @Component({
@@ -25,6 +28,12 @@ export interface IonDatePickerInputComponentProps {
   templateUrl: './date-picker-input.component.html',
   styleUrls: ['./date-picker-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.pointer-focus]': 'pointerFocus()',
+    '(pointerdown)': 'onPointerDown()',
+    '(keydown)': 'onKeyDown($event)',
+    '(focusout)': 'onFocusOut($event)',
+  }
 })
 export class IonDatePickerInputComponent {
   date = input<string | string[]>([]);
@@ -36,6 +45,11 @@ export class IonDatePickerInputComponent {
   placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
+  invalid = input<boolean | [boolean, boolean]>(false);
+  valid = input<boolean | [boolean, boolean]>(false);
+  errorMsg = input<string | [string, string]>('');
+  pointerFocus = signal<boolean>(false);
+
   dateParts = computed(() => {
     const date = this.date();
     return Array.isArray(date) ? date : date ? [date] : [];
@@ -43,9 +57,7 @@ export class IonDatePickerInputComponent {
   startDate = computed(() => this.dateParts()[0] ?? '');
   endDate = computed(() => this.dateParts()[1] ?? '');
   hasDate = computed(() => this.dateParts().length > 0);
-  activeLayout = computed(() =>
-    this.rangePicker() ? this.layout() : 'default',
-  );
+  activeLayout = computed(() => this.rangePicker() ? this.layout() : 'default');
 
   singleInputValue = computed(() => {
     const dates = this.dateParts();
@@ -62,6 +74,50 @@ export class IonDatePickerInputComponent {
     return Array.isArray(p) ? p[1] : p;
   });
 
+  startInvalid = computed(() => {
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  endInvalid = computed(() =>{
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val)
+  });
+
+  startValid = computed(() => {
+    if (this.startInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  endValid = computed(() => {
+    if (this.endInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
+  });
+
+  joinedInvalid = computed(() => this.startInvalid() || this.endInvalid());
+  joinedValid = computed(
+    () => !this.joinedInvalid() && (this.startValid() || this.endValid())
+  );
+
+  onPointerDown(): void {
+    this.pointerFocus.set(true);
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      this.pointerFocus.set(false);
+    }
+  }
+
+  onFocusOut(event: FocusEvent): void {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    const relatedTarget = event.relatedTarget as Node | null;
+    if (!currentTarget?.contains(relatedTarget)) {
+      this.pointerFocus.set(false);
+    }
+  }
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',
