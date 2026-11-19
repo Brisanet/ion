@@ -89,14 +89,13 @@ export class SelectGalleryComponent {
     }
   }
 
-  readonly searchableOptions = computed(() => {
-    const query = this.searchQuery().trim().toLocaleLowerCase();
+  readonly hasSearchMatches = computed(() => {
+    const query = this.searchQuery().trim().toLowerCase();
     if (!query) {
-      return this.options;
+      return true;
     }
-
-    return this.options.filter((option) =>
-      option.label.toLocaleLowerCase().includes(query)
+    return this.options.some((opt) =>
+      opt.label.toLowerCase().includes(query)
     );
   });
 
@@ -109,7 +108,7 @@ export class SelectGalleryComponent {
   }
 
   onSearch(value: string): void {
-    this.searchQuery.set(value);
+    this.searchQuery.set(value.slice(0, 200));
   }
 
   setThemePreview(theme: ThemePreview): void {

@@ -305,17 +305,17 @@
           [theme]="themePreview()"
           label="Buscar frutas"
           placeholder="Digite para buscar"
-          [options]="searchableOptions()"
+          [options]="options"
           [enableSearch]="true"
           [searchOptions]="{ placeholder: 'Ex.: maçã' }"
           (search)="onSearch($event)"
         ></ion-select-field>
-        @if (searchQuery()) {
-          <p class="select-gallery__readout">Busca atual: {{ searchQuery() }}</p>
-          @if (searchableOptions().length === 0) {
-            <p class="select-gallery__hint">Item não encontrado.</p>
+          @if (searchQuery()) {
+            <p class="select-gallery__readout"> Busca atual: {{ searchQuery() }} </p>
+            @if (!hasSearchMatches()) {
+              <p class="select-gallery__hint">Item não encontrado.</p>
+            }
           }
-        }
       </article>
     </div>
   </section>

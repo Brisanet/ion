@@ -19,6 +19,7 @@
   border-radius: 8px;
   background: var(--ion-neutral-2);
   color: var(--ion-neutral-8);
+  min-width: 0;
 }
 
 .select-gallery[data-theme-preview='light'] {
@@ -150,5 +151,7 @@
   color: var(--ion-neutral-7);
   font-size: 13px;
   line-height: 18px;
-  max-width: 400px;
+  min-height: 20px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }

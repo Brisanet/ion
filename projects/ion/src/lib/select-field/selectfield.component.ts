@@ -111,11 +111,7 @@ export class IonSelectFieldComponent {
       : selectionMessage;
   });
 
-  isMultiple = computed(
-    () =>
-      this.type() === 'multi' ||
-      (this.type() === undefined && this.multiple())
-  );
+  isMultiple = computed(() => this.type() === 'multi' || (this.type() === undefined && this.multiple()));
   isError = computed(() => this.invalid() || this.status() === 'error');
   isSuccess = computed(() => !this.isError() && this.status() === 'success');
   hasNoOptions = computed(() => !this.loading() && this.options().length === 0);
