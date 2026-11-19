@@ -24,7 +24,7 @@
     <app-typography-gallery></app-typography-gallery>
   </section>
   <app-text-input-gallery></app-text-input-gallery>
-
+  <app-text-input-range-gallery></app-text-input-range-gallery>
   <div
     style="
       display: flex;
@@ -1751,51 +1751,6 @@
     <h2>Date Picker</h2>
     <div style="display: flex; flex-direction: column; gap: 30px">
       <div>
-        <h3>Default Date Picker</h3>
-        <ion-date-picker
-        [rangePicker]="true"
-        layout="default"
-        size="base"
-        theme="primary"
-        (event)="handleDateRangePickerChange($event)"
-        ></ion-date-picker>
-      </div>
-      <div>
-        <h3>Joined Date Picker</h3>
-        <ion-date-picker
-        [rangePicker]="true"
-        layout="joined"
-        size="large"
-        theme="primary"
-        (event)="handleDateRangePickerChange($event)"
-        ></ion-date-picker>
-      </div>
-      <div>
-        <h3>Split Date Picker</h3>
-        <ion-date-picker
-        [rangePicker]="true"
-        layout="split"
-        theme="secondary"
-        (event)="handleDateRangePickerChange($event)"
-        ></ion-date-picker>
-      </div>
-      <div>
-        <h3>Sucess Date Picker</h3>
-        <ion-date-picker
-        [rangePicker]="true"
-        layout="joined"
-        [valid]="true"
-        ></ion-date-picker>
-      </div>
-      <div>
-        <h3>Error Date Picker</h3>
-        <ion-date-picker
-        [rangePicker]="true"
-        layout="split"
-        [invalid]="true"
-        ></ion-date-picker>
-      </div>
-      <div>
         <h3>Basic Date Picker</h3>
         <ion-date-picker
           (event)="handleDatePickerChange($event)"
@@ -1806,37 +1761,6 @@
           </p>
         }
       </div>
-
-      <div>
-        <h3>Date Range Picker</h3>
-        <ion-date-picker
-          [rangePicker]="true"
-          (event)="handleDateRangePickerChange($event)"
-        ></ion-date-picker>
-        @if (dateRangePickerValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
-            {{ dateRangePickerValue[1] }}
-          </p>
-        }
-      </div>
-
-      <div>
-        <h3>Date Range with Predefined Ranges</h3>
-        <ion-date-picker
-          [rangePicker]="true"
-          [predefinedRanges]="predefinedRanges"
-          (event)="handleDatePickerWithPredefinedChange($event)"
-        ></ion-date-picker>
-        @if (datePickerWithPredefinedValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong>
-            {{ datePickerWithPredefinedValue[0] }} -
-            {{ datePickerWithPredefinedValue[1] }}
-          </p>
-        }
-      </div>
-
       <div>
         <h3>Date Picker with Disabled Dates (Past dates disabled)</h3>
         <ion-date-picker

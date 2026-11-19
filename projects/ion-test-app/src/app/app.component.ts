@@ -91,6 +91,7 @@ import { ColorGalleryComponent } from './components/galleries/color-gallery/colo
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
 import { TextInputGalleryComponent } from './components/galleries/text-galleries/text-input-gallery/text-input-gallery-component';
+import { TextInputRangeGalleryComponent } from './components/galleries/text-galleries/text-input-range-gallery/text-input-range-gallery-component';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -186,6 +187,7 @@ class ModalLongContentComponent {
     ColorGalleryComponent,
     TypographyGalleryComponent,
     TextInputGalleryComponent,
+    TextInputRangeGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
