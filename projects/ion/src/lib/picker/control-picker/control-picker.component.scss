@@ -3,6 +3,36 @@
 @import '../../../styles/index.scss';
 @import '../../../styles/themes/theme.scss';
 
+@mixin control-picker-variant($color, $hover-color) {
+  .container-labels label:hover {
+    color: $hover-color;
+  }
+
+  ion-button {
+    button.ion-btn-ghost,
+    button.ion-btn-dashed {
+      color: $color !important;
+
+      ion-icon svg {
+        fill: $color !important;
+      }
+
+      &:hover {
+        color: $hover-color !important;
+        background-color: color-mix(
+          in srgb,
+          $hover-color 12%,
+          transparent
+        ) !important;
+
+        ion-icon svg {
+          fill: $hover-color !important;
+        }
+      }
+    }
+  }
+}
+
 :host {
   position: relative;
 }
@@ -50,65 +80,27 @@
   }
 }
 
-.container-controls.theme-secondary .container-labels label:hover {
-  color: ion-theme(control-picker-secondary-hover-color);
-}
+:host ::ng-deep {
+  .theme-secondary {
+    @include control-picker-variant(
+      ion-theme(control-picker-secondary-color),
+      ion-theme(control-picker-secondary-hover-color)
+    );
+  }
 
-:host ::ng-deep .theme-secondary ion-button button.ion-btn-ghost,
-:host ::ng-deep .theme-secondary ion-button button.ion-btn-dashed {
-  color: ion-theme(control-picker-secondary-color) !important;
-}
+  .valid {
+    @include control-picker-variant(
+      ion-theme(positive-6),
+      ion-theme(positive-6)
+    );
+  }
 
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost
-  ion-icon
-  svg,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed
-  ion-icon
-  svg {
-  fill: ion-theme(control-picker-secondary-color) !important;
-}
-
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost:hover,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed:hover {
-  color: ion-theme(control-picker-secondary-hover-color) !important;
-  background-color: color-mix(
-    in srgb,
-    ion-theme(control-picker-secondary-hover-color) 12%,
-    transparent
-  ) !important;
-}
-
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost:hover
-  ion-icon
-  svg,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed:hover
-  ion-icon
-  svg {
-  fill: ion-theme(control-picker-secondary-hover-color) !important;
+  .invalid {
+    @include control-picker-variant(
+      ion-theme(negative-6),
+      ion-theme(negative-6)
+    );
+  }
 }
 
 .container-choose-month,

@@ -8,8 +8,10 @@
   [theme]="theme()"
   [icon]="icon()"
   [disabled]="disabled()"
+  [valid]="valid()"
+  [invalid]="invalid()"
   [placeholder]="placeholder()"
-  (click)="setVisibleCalendar(!showDatepicker())"
+  (click)="setVisibleCalendar(true)"
   (clearDate)="clearDate()"
 ></date-picker-input>
 
@@ -25,14 +27,19 @@
       <div class="header">
         <ion-control-picker
           [theme]="theme()"
+          [valid]="hasValid()"
+          [invalid]="hasInvalid()"
           [month]="calendarMonth()"
           [year]="calendarYear()"
           (controlPickerEvent)="events($event)"
+          
         ></ion-control-picker>
       </div>
       <div class="content">
         <date-picker-calendar
           [theme]="theme()"
+          [valid]="hasValid()"
+          [invalid]="hasInvalid()"
           [calendarControlAction]="calendarControlAction()"
           [goToMonthInCalendar]="goToMonth()"
           [goToYearInCalendar]="goToYear()"

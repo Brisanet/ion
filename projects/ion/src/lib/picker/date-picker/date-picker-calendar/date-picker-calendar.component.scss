@@ -34,6 +34,66 @@
       }
     }
   }
+  &.valid {
+    .month-days {
+      button.month-day {
+        &.today {
+          border-color: ion-theme(positive-6);
+        }
+
+        &.selected {
+          background-color: ion-theme(positive-2);
+          color: ion-theme(positive-6);
+          border-color: ion-theme(positive-6);
+        }
+
+        &.final-range-selected {
+          background-color: ion-theme(positive-6);
+          border-color: ion-theme(positive-6);
+        }
+
+        &:not(.selected-end-date):hover {
+          background-color: ion-theme(positive-2);
+          color: ion-theme(positive-6);
+          border-color: ion-theme(positive-6);
+        }
+      }
+
+      .between-range {
+        background-color: ion-theme(positive-1);
+      }
+    }
+  }
+  &.invalid {
+    .month-days {
+      button.month-day {
+        &.today {
+          border-color: ion-theme(negative-6);
+        }
+
+        &.selected {
+          background-color: ion-theme(negative-2);
+          color: ion-theme(negative-6);
+          border-color: ion-theme(negative-6);
+        }
+
+        &.final-range-selected {
+          background-color: ion-theme(negative-6);
+          border-color: ion-theme(negative-6);
+        }
+
+        &:not(.selected-end-date):hover {
+          background-color: ion-theme(negative-2);
+          color: ion-theme(negative-6);
+          border-color: ion-theme(negative-6);
+        }
+      }
+
+      .between-range {
+        background-color: ion-theme(negative-1);
+      }
+    }
+  }
   .week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

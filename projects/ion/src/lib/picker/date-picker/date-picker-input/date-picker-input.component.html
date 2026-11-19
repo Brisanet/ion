@@ -5,12 +5,18 @@
       [class.disabled]="disabled()"
       [class.size-large]="size() === 'large'"
       [class.theme-secondary]="theme() === 'secondary'"
+      [class.invalid]="joinedInvalid()"
+      [class.valid]="joinedValid()"
+      [attr.aria-invalid]="startInvalid() || null"
       data-testid="date-picker-input-joined"
     >
       <ion-input
         [size]="size()"
         [theme]="theme()"
         [value]="startDate()"
+        [class.invalid]="startInvalid()"
+        [class.valid]="startValid()"
+        [attr.aria-invalid]="startInvalid() || null"
         [placeholder]="startPlaceholder()"
         [iconInput]="hasDate() ? '' : 'calendar'"
         iconDirection="left"
@@ -18,12 +24,15 @@
         [disabled]="disabled()"
       ></ion-input>
 
-        <span class="joined-divider">–</span>
+        <span class="joined-divider" aria-hidden="true">–</span>
 
       <ion-input
         [size]="size()"
         [theme]="theme()"
         [value]="endDate()"
+        [class.invalid]="endInvalid()"
+        [class.valid]="endValid()"
+        [attr.aria-invalid]="endInvalid() || null"
         [inputButton]="hasDate()"
         [placeholder]="endPlaceholder()"
         [inputButtonConfig]="clearButtonConfig()"
@@ -38,6 +47,7 @@
     <div
       class="input-wrapper layout-split"
       [class.disabled]="disabled()"
+      [class.size-large]="size() === 'large'"
       [class.theme-secondary]="theme() === 'secondary'"
       data-testid="date-picker-input-split"
     >
@@ -45,6 +55,9 @@
         [size]="size()"
         [theme]="theme()"
         [value]="startDate()"
+        [class.invalid]="startInvalid()"
+        [class.valid]="startValid()"
+        [attr.aria-invalid]="startInvalid() || null"
         [placeholder]="startPlaceholder()"
         [iconInput]="hasDate() ? '' : 'calendar'"
         iconDirection="left"
@@ -52,12 +65,15 @@
         [disabled]="disabled()"
       ></ion-input>
 
-      <span class="split-separator">–</span>
+      <span class="split-separator" aria-hidden="true">–</span>
 
       <ion-input
         [size]="size()"
         [theme]="theme()"
         [value]="endDate()"
+        [class.invalid]="endInvalid()"
+        [class.valid]="endValid()"
+        [attr.aria-invalid]="endInvalid() || null"
         [placeholder]="endPlaceholder()"
         [iconInput]="hasDate() ? '' : 'calendar'"
         iconDirection="left"
@@ -87,6 +103,9 @@
         iconDirection="right"
         [inputButton]="hasDate()"
         [inputButtonConfig]="clearButtonConfig()"
+        [class.invalid]="startInvalid()"
+        [class.valid]="startValid()"
+        [attr.aria-invalid]="startInvalid() || null"
         [readonly]="true"
         [disabled]="disabled()"
         (clickButton)="clearDateValue()"
