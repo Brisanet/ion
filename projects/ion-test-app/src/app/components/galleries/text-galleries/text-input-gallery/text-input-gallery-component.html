@@ -1,0 +1,171 @@
+<div class="gallery-container">
+  <header class="gallery-header">
+    <h1>Text Input</h1>
+  </header>
+
+  <!-- SEÇÃO 1: VARIAÇÃO DE TAMANHOS (BASE vs LARGE) -->
+  <section class="gallery-section">
+    <h2>1. Tamanhos de Container (Size)</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <span class="badge">size="base" (48px)</span>
+        <ion-input
+          label="Nome Completo"
+          placeholder="Ex: João da Silva"
+          size="base"
+          helperText="Altura do container: 48px (72px com rótulo)."
+          [(value)]="baseValue"
+        ></ion-input>
+      </div>
+
+      <div class="gallery-card">
+        <span class="badge">size="large" (56px)</span>
+        <ion-input
+          label="Nome Completo"
+          placeholder="Ex: Maria Pereira"
+          size="large"
+          helperText="Altura do container: 56px (80px com rótulo)."
+          [(value)]="largeValue"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: TEMAS CROMÁTICOS (AZUL BRISANET vs LARANJA) -->
+  <section class="gallery-section">
+    <h2>2. Temas Cromáticos (Theme)</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <span class="badge">theme="primary" (#126aeb)</span>
+        <ion-input
+          label="Foco Primário (Azul)"
+          placeholder="Clique para testar o foco azul..."
+          theme="primary"
+          [(value)]="primaryValue"
+        ></ion-input>
+      </div>
+
+      <div class="gallery-card">
+        <span class="badge">theme="secondary" (#f28b70)</span>
+        <ion-input
+          label="Foco Secundário (Laranja)"
+          placeholder="Clique para testar o foco laranja..."
+          theme="secondary"
+          [(value)]="secondaryValue"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: SLOTS DE COMPOSIÇÃO -->
+  <section class="gallery-section">
+    <h2>3. Slots e Composição</h2>
+    <div class="gallery-grid">
+      <!-- Prefixo -->
+      <div class="gallery-card">
+        <span class="badge">Slot: Prefixo Retangular</span>
+        <ion-input
+          label="Valor do Boleto"
+          prefix="R$"
+          placeholder="0,00"
+          size="base"
+          [(value)]="prefixValue"
+        ></ion-input>
+      </div>
+
+      <!-- Ícone Leading -->
+      <div class="gallery-card">
+        <span class="badge">Slot: Ícone Leading</span>
+        <ion-input
+          label="Pesquisa de Usuários"
+          placeholder="Buscar por nome ou ID..."
+          iconDirection="left"
+          iconInput="search"
+        ></ion-input>
+      </div>
+
+      <!-- Ícone Trailing Clicável (Toggle de Senha) -->
+      <div class="gallery-card">
+        <span class="badge">Slot: Ícone Trailing Interativo</span>
+        <ion-input
+          label="Senha de Acesso"
+          [inputType]="showPassword() ? 'text' : 'password'"
+          placeholder="Digite sua senha"
+          iconDirection="right"
+          [iconInput]="showPassword() ? 'eye-off' : 'eye'"
+          (clickIconTrailing)="onTrailingClick()"
+          iconTrailingAriaLabel="Alternar visibilidade da senha"
+          [(value)]="trailingValue"
+        ></ion-input>
+      </div>
+
+      <!-- Botão Integrado -->
+      <div class="gallery-card">
+        <span class="badge">Slot: Botão de Ação Integrado</span>
+        <ion-input
+          label="Chave PIX / Celular"
+          prefix="+55"
+          placeholder="(00) 00000-0000"
+          [inputButton]="true"
+          [inputButtonConfig]="{ label: 'Consultar' }"
+          (clickButton)="onButtonClick()"
+          [(value)]="buttonValue"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 4: MATRIZ DE ESTADOS -->
+  <section class="gallery-section">
+    <h2>4. Matriz de Estados Interativos</h2>
+    <div class="gallery-grid">
+      <!-- Erro -->
+      <div class="gallery-card">
+        <span class="badge badge-danger">Estado: Error</span>
+        <ion-input
+          label="E-mail de Cadastro"
+          placeholder="seu.email@empresa.com"
+          [invalid]="true"
+          errorMsg="Endereço de e-mail inválido ou corporativo obrigatório."
+          [(value)]="errorValue"
+        ></ion-input>
+      </div>
+
+      <!-- Sucesso -->
+      <div class="gallery-card">
+        <span class="badge badge-success">Estado: Success</span>
+        <ion-input
+          label="Validação Cadastral"
+          [valid]="true"
+          helperText="Cadastro validado e ativo no sistema."
+          [(value)]="successValue"
+        ></ion-input>
+      </div>
+
+      <!-- Disabled -->
+      <div class="gallery-card">
+        <span class="badge badge-disabled">Estado: Disabled</span>
+        <ion-input
+          label="Identificador do Contrato"
+          placeholder="Não editável"
+          prefix="BR-"
+          value="CTR-2026-9901"
+          [disabled]="true"
+          helperText="Campo bloqueado para alteração."
+        ></ion-input>
+      </div>
+
+      <!-- Clear Button e Contador -->
+      <div class="gallery-card">
+        <span class="badge">Clear Button & MaxLength</span>
+        <ion-input
+          label="Observações Rápidas"
+          placeholder="Digite até 30 caracteres..."
+          [clearButton]="true"
+          [maxLength]="30"
+          value="Texto que pode ser limpo"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+</div>

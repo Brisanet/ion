@@ -30,7 +30,6 @@
       #inputModel="ngModel"
       [id]="uniqueId"
       [type]="effectiveInputType()"
-
       [attr.placeholder]="placeholder()"
       class="my-input"
       [disabled]="disabled()"
@@ -43,83 +42,57 @@
       [attr.aria-describedby]="describedBy()"
     />
 
-    @if (maxLength()) {
-      <span class="text-counter" aria-hidden="true">
+    @if (hasMaxLength()) {
+      <span [id]="uniqueId + '-counter'" class="text-counter">
         {{ value() ? value().length : 0 }}/{{ maxLength() }}
       </span>
     }
 
     @if (inputType() === 'password') {
-      <button
-        type="button"
+      <ion-button
         data-testid="password-toggle"
-        class="password-toggle"
-        [attr.aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'"
-        [attr.aria-pressed]="passwordVisible()"
+        class="password-toggle input-icon-btn"
+        [aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'"
+        [aria-pressed]="passwordVisible()"
         [disabled]="disabled()"
         (click)="togglePasswordVisibility()"
-      >
-        <ion-icon
-          [type]="passwordVisible() ? 'eye' : 'eye-off'"
-          [size]="24"
-          aria-hidden="true"
-        ></ion-icon>
-      </button>
+        type = "ghost"
+        [iconType]="passwordVisible() ? 'eye' : 'eye-off'"
+        [rightSideIcon]="true"
+        [size]="internalButtonSize()"
+      ></ion-button>
     } @else if (!isClearButtonVisible() && iconDirection() === 'right' && iconInput()) {
-      <button
-      type="button"
-      class="trailing-button"
+      <ion-button
       data-testid="icon-right-button"
+      class="trailing-button input-icon-btn"
+      type="ghost"
+      [size]="internalButtonSize()"
+      [iconType]="iconInput()"
       [disabled]="disabled()"
-      [attr.aria-label]="iconTrailingAriaLabel()"
-      (click)="onClickTrailingIcon()">
-        <ion-icon
-          class="right-icon clickable-icon password-toggle"
-          [type]="iconInput()"
-          [size]="24"
-          aria-hidden="true"
-        ></ion-icon>
-      </button>
+      [aria-label]="iconTrailingAriaLabel()"
+      (click)="onClickTrailingIcon()"
+      ></ion-button>
     }
 
-    @if (valid() && !isClearButtonVisible()) {
-      <ion-icon
-        data-testid="icon-valid"
-        class="icon-valid"
-        type="check-solid"
-        [size]="16"
-        aria-hidden="true"
-      ></ion-icon>
-    }
-
-    @if (invalid() && !isClearButtonVisible()) {
-      <ion-icon
-        data-testid="icon-invalid"
-        class="icon-invalid"
-        type="close-solid"
-        [size]="16"
-        aria-hidden="true"
-        [attr.inert]="disabled() ? '' : null"
-      ></ion-icon>
-    }
 
     @if (isClearButtonVisible()) {
-      <button
-        type="button"
-        data-testid="clear-button"
+      <ion-button
+        data-testid="clear-button input-icon-btn"
         class="clearButton"
+        type="ghost"
+        [size]="internalButtonSize()"
+        iconType="close-rounded"
         [disabled]="disabled()"
         (click)="clearInput(inputModel)"
         aria-label="Limpar campo"
-      >
-        <ion-icon type="close-rounded" [size]="18" aria-hidden="true"></ion-icon>
-      </button>
+      ></ion-button>
     }
 
     @if (inputButton() && finalButtonConfig()) {
       <div class="button-separator" aria-hidden="true"></div>
       <ion-button
         data-testid="input-button"
+        class="attached-button"
         [label]="finalButtonConfig()!.label || ''"
         [type]="finalButtonConfig()!.type || 'primary'"
         [disabled]="finalButtonConfig()!.disabled || disabled()"
