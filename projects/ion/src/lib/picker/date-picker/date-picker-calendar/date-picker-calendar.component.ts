@@ -56,13 +56,23 @@ export class IonDatePickerCalendarComponent implements OnInit {
   calendar = signal<Calendar | null>(null);
   selectedDaysState = signal<Day[]>([]);
   finalRange = true;
-
-  private readonly calendarAction = {
-    previousYear: (): void => this.previousYear(),
-    previousMonth: (): void => this.previousMonth(),
-    nextMonth: (): void => this.nextMonth(),
-    nextYear: (): void => this.nextYear(),
-  };
+  
+  private calendarAction(action: CalendarControlActions): void {
+    switch (action) {
+      case 'previousYear':
+        this.previousYear();
+        break;
+      case 'previousMonth':
+        this.previousMonth();
+        break;
+      case 'nextMonth':
+        this.nextMonth();
+        break;
+      case 'nextYear':
+        this.nextYear();
+        break;
+    }
+  }
 
   constructor() {
     effect(() => {
@@ -72,7 +82,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
     effect(() => {
       const controlAction = this.calendarControlAction();
       if (controlAction) {
-        this.calendarAction[controlAction.action]();
+        this.calendarAction(controlAction.action);
         this.renderDays();
       }
     });
@@ -149,14 +159,15 @@ export class IonDatePickerCalendarComponent implements OnInit {
     }
 
     const days = this.getMonthDaysGrid(calendar);
+    const disabledDateFn = this.disabledDate();
     days.forEach((day) => {
       day.isDayCurrentMonth = this.isDayMonthCurrent(calendar, day);
       day.isToday = isToday(day, this.lang());
       day.isBetweenRange = isBetweenRange(day, this.selectedDaysState());
       day.isRangeInitialLimit = this.isRangeLimit(day);
       day.isRangeFinalLimit = this.isRangeLimit(day, this.finalRange);
-      if (this.disabledDate()) {
-        day.disabled = this.disabledDate()!(day.Date);
+      if (typeof disabledDateFn === 'function') {
+        day.disabled = disabledDateFn(day.Date);
       }
     });
 
