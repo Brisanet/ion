@@ -96,7 +96,6 @@ $split-gap: 8px;
   box-sizing: border-box;
   border-radius: ion-theme(date-picker-range-input-border-radius) !important;
 }
-//TO DO: Entender pq o clique de default está diferente do de joined
 :host:not(.pointer-focus) {
   .layout-joined:not(.disabled) {
     &:not(.invalid):not(.valid):not(.theme-secondary):has(:focus-visible) {
