@@ -14,7 +14,8 @@
   >
     @for (gallery of galleries(); track gallery.key) {
       <ion-button
-        label="{{ gallery.label }}"
+        [label]="gallery.label"
+        [type]="activeGallery()?.key === gallery.key ? 'primary' : 'secondary'"
         [class.gallery-carousel__card--active]="activeGallery()?.key === gallery.key"
         [attr.aria-pressed]="activeGallery()?.key === gallery.key"
         (click)="selectGallery(gallery)"
