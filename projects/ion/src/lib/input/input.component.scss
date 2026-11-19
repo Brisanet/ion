@@ -65,14 +65,6 @@ $input-stack-gap: 4px;
   &:not(.invalid):not(.valid) {
     @include focus-double-ring(var(--current-hover-color));
   }
-
-  &.invalid {
-    @include focus-double-ring(ion-theme(input-modern-error-focus-color));
-  }
-
-  &.valid:not(.invalid) {
-    @include focus-double-ring(ion-theme(input-modern-success-focus-color));
-  }
 }
 
 div.input {
