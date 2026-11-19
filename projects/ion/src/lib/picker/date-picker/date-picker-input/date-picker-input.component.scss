@@ -7,7 +7,7 @@ $split-gap: 8px;
   &:hover:not(:focus-within) {
     border-color: ion-theme($hover-token);
   }
-  //Necessário dividir em foco do mouse e do tab
+
   &:focus-within {
     border-width: 2px;
     border-color: ion-theme($focus-token);
@@ -224,7 +224,8 @@ $split-gap: 8px;
   border-width: 2px;
 }
 
-:not(.pointer-focus) .layout-split:not(.disabled):has(:focus-visible) {
+:not(.pointer-focus) .layout-split:not(.disabled):has(:focus-visible),
+:not(.pointer-focus) .container-input:not(:has(.disabled)):has(:focus-visible) {
   &:not(.theme-secondary) ion-input:not(.invalid):not(.valid) .input:not(.disabled) {
     border-color: ion-theme(date-picker-range-input-primary-color);
   }
