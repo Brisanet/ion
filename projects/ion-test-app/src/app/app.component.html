@@ -24,7 +24,7 @@
     <app-typography-gallery></app-typography-gallery>
   </section>
   <app-text-input-gallery></app-text-input-gallery>
-
+  <app-text-input-range-gallery></app-text-input-range-gallery>
   <div
     style="
       display: flex;
@@ -1801,37 +1801,6 @@
           </p>
         }
       </div>
-
-      <div>
-        <h3>Date Range Picker</h3>
-        <ion-date-picker
-          [rangePicker]="true"
-          (event)="handleDateRangePickerChange($event)"
-        ></ion-date-picker>
-        @if (dateRangePickerValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong> {{ dateRangePickerValue[0] }} -
-            {{ dateRangePickerValue[1] }}
-          </p>
-        }
-      </div>
-
-      <div>
-        <h3>Date Range with Predefined Ranges</h3>
-        <ion-date-picker
-          [rangePicker]="true"
-          [predefinedRanges]="predefinedRanges"
-          (event)="handleDatePickerWithPredefinedChange($event)"
-        ></ion-date-picker>
-        @if (datePickerWithPredefinedValue.length) {
-          <p style="margin-top: 10px">
-            <strong>Selected Range:</strong>
-            {{ datePickerWithPredefinedValue[0] }} -
-            {{ datePickerWithPredefinedValue[1] }}
-          </p>
-        }
-      </div>
-
       <div>
         <h3>Date Picker with Disabled Dates (Past dates disabled)</h3>
         <ion-date-picker

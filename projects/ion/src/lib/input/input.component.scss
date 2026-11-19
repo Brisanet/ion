@@ -122,8 +122,9 @@ div.input {
 
   &.disabled {
     cursor: not-allowed;
-    border-color: ion-theme(input-disabled-border-color);
-    background-color: ion-theme(input-disabled-background);
+    user-select: none;
+    border-color: ion-theme(input-modern-disabled-border-color);
+    background-color: ion-theme(input-modern-disabled-background-color);
     opacity: 0.45;
     pointer-events: none;
     -webkit-user-select: none;
