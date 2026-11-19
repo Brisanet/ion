@@ -54,8 +54,12 @@ $input-stack-gap: 4px;
   color: ion-theme(input-modern-error-color);
 }
 
-.input-container:has(.input.disabled) .input-label {
+.input-container:has(.input.disabled){
+  cursor: not-allowed;
+
+  .input-label {
   color: ion-theme(input-modern-disabled-text-color);
+  }
 }
 
 div.input {
@@ -110,14 +114,22 @@ div.input {
 
   &.disabled {
     cursor: not-allowed;
+    user-select: none;
     border-color: ion-theme(input-modern-disabled-border-color);
     background-color: ion-theme(input-modern-disabled-background-color);
     opacity: 0.45;
     pointer-events: none;
+    -webkit-user-select: none;
 
     input,
     input::placeholder {
       cursor: not-allowed;
+      user-select: none;
+      -webkit-user-select: none;
+      color: ion-theme(input-modern-disabled-text-color);
+    }
+    input::selection {
+      background: transparent;
       color: ion-theme(input-modern-disabled-text-color);
     }
   }
