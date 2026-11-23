@@ -295,28 +295,4 @@
       </article>
     </div>
   </section>
-
-  <section class="select-gallery__group" aria-labelledby="select-gallery-options">
-    <h3 id="select-gallery-options">Busca e composição</h3>
-    <div class="select-gallery__grid">
-      <article class="select-gallery__card">
-        <h4>Busca</h4>
-        <ion-select-field
-          [theme]="themePreview()"
-          label="Buscar frutas"
-          placeholder="Digite para buscar"
-          [options]="options"
-          [enableSearch]="true"
-          [searchOptions]="{ placeholder: 'Ex.: maçã' }"
-          (search)="onSearch($event)"
-        ></ion-select-field>
-          @if (searchQuery()) {
-            <p class="select-gallery__readout"> Busca atual: {{ searchQuery() }} </p>
-            @if (!hasSearchMatches()) {
-              <p class="select-gallery__hint">Item não encontrado.</p>
-            }
-          }
-      </article>
-    </div>
-  </section>
 </section>

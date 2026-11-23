@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -62,7 +61,6 @@ export class SelectGalleryComponent {
     'mango',
   ]);
   readonly requiredMultiValue = ['apple', 'banana'];
-  readonly searchQuery = signal('');
   readonly themePreview = signal<ThemePreview>('light');
   readonly themes: { key: ThemePreview; label: string }[] = [
     { key: 'light', label: 'Azul · claro' },
@@ -89,26 +87,12 @@ export class SelectGalleryComponent {
     }
   }
 
-  readonly hasSearchMatches = computed(() => {
-    const query = this.searchQuery().trim().toLowerCase();
-    if (!query) {
-      return true;
-    }
-    return this.options.some((opt) =>
-      opt.label.toLowerCase().includes(query)
-    );
-  });
-
   onSingleValueChange(value: unknown): void {
     this.singleValue.set(typeof value === 'string' ? value : null);
   }
 
   onMultiValueChange(value: unknown): void {
     this.multiValue.set(Array.isArray(value) ? value : []);
-  }
-
-  onSearch(value: string): void {
-    this.searchQuery.set(value.slice(0, 200));
   }
 
   setThemePreview(theme: ThemePreview): void {
