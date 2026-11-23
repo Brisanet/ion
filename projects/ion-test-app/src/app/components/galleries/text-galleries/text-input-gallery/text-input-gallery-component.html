@@ -31,32 +31,6 @@
     </div>
   </section>
 
-  <!-- SEÇÃO 2: TEMAS CROMÁTICOS (AZUL BRISANET vs LARANJA) -->
-  <section class="gallery-section">
-    <h2>2. Temas Cromáticos (Theme)</h2>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <span class="badge">theme="primary" (#126aeb)</span>
-        <ion-input
-          label="Foco Primário (Azul)"
-          placeholder="Clique para testar o foco azul..."
-          theme="primary"
-          [(value)]="primaryValue"
-        ></ion-input>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">theme="secondary" (#f28b70)</span>
-        <ion-input
-          label="Foco Secundário (Laranja)"
-          placeholder="Clique para testar o foco laranja..."
-          theme="secondary"
-          [(value)]="secondaryValue"
-        ></ion-input>
-      </div>
-    </div>
-  </section>
-
   <!-- SEÇÃO 3: SLOTS DE COMPOSIÇÃO -->
   <section class="gallery-section">
     <h2>3. Slots e Composição</h2>
@@ -183,21 +157,6 @@
                 class="control-pill"
                 [class.active]="sandboxSize() === item"
                 (click)="sandboxSize.set(item)"
-              >
-                {{ item }}
-              </button>
-            }
-          </div>
-
-          <div class="control-group">
-            <span class="control-label">Theme:</span>
-            @for (item of themes; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [attr.data-variant]="item"
-                [class.active]="sandboxTheme() === item"
-                (click)="sandboxTheme.set(item)"
               >
                 {{ item }}
               </button>

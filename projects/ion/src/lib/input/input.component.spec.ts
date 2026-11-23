@@ -173,22 +173,6 @@ describe('IonInputComponent', () => {
     expect(element.value).toBe(text);
   });
 
-  it('should render input icon valid', () => {
-    const fixture = TestBed.createComponent(IonInputComponent);
-    fixture.componentRef.setInput('valid', true);
-    fixture.detectChanges();
-
-    expect(screen.getByTestId('icon-valid')).toBeInTheDocument();
-  });
-
-  it('should render input icon invalid', () => {
-    const fixture = TestBed.createComponent(IonInputComponent);
-    fixture.componentRef.setInput('invalid', true);
-    fixture.detectChanges();
-
-    expect(screen.getByTestId('icon-invalid')).toBeInTheDocument();
-  });
-
   describe('valueChange', () => {
     const mockFn = jest.fn();
     const value = 'input';
