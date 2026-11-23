@@ -28,6 +28,7 @@ describe('IonIconButtonComponent', () => {
       expect(button).toHaveAttribute('aria-label', 'Fechar');
       expect(button).toHaveAttribute('data-testid', 'icon-btn-Fechar');
       expect(button).not.toHaveAttribute('aria-busy');
+      expect(button).not.toHaveAttribute('aria-disabled');
       expect(button).not.toBeDisabled();
 
       expect(button).toHaveClass(
@@ -38,6 +39,16 @@ describe('IonIconButtonComponent', () => {
       );
       expect(button).not.toHaveClass('danger', 'loading');
     });
+
+    it.each(['submit', 'reset'] as const)(
+      'define o tipo nativo do botão como %s',
+      (buttonType) => {
+        fixture.componentRef.setInput('buttonType', buttonType);
+        fixture.detectChanges();
+
+        expect(getButton()).toHaveAttribute('type', buttonType);
+      }
+    );
 
     it('renderiza o ícone decorativo corretamente', () => {
       const button = getButton();
@@ -119,18 +130,27 @@ describe('IonIconButtonComponent', () => {
   });
 
   describe('Estado de carregamento (loading)', () => {
-    it('exibe spinner, oculta ícone e desabilita o botão durante o loading', () => {
+    it('exibe spinner, oculta ícone e mantém o botão focável durante o loading', () => {
       fixture.componentRef.setInput('loading', true);
       fixture.detectChanges();
 
       const button = getButton();
       const spinner = button.querySelector('ion-spinner');
 
-      expect(button).toBeDisabled();
+      expect(button).not.toBeDisabled();
+      expect(button).toHaveAttribute('aria-disabled', 'true');
       expect(button).toHaveClass('loading');
       expect(button).toHaveAttribute('aria-busy', 'true');
       expect(spinner).toHaveAttribute('aria-hidden', 'true');
       expect(button.querySelector('ion-icon')).toBeNull();
+
+      fixture.componentRef.setInput('loading', false);
+      fixture.detectChanges();
+      button.focus();
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(button);
     });
 
     it('restaura o ícone e reabilita o botão quando loading volta para false', () => {
@@ -145,6 +165,7 @@ describe('IonIconButtonComponent', () => {
       expect(button).not.toBeDisabled();
       expect(button).not.toHaveClass('loading');
       expect(button).not.toHaveAttribute('aria-busy');
+      expect(button).not.toHaveAttribute('aria-disabled');
       expect(button.querySelector('ion-spinner')).toBeNull();
       expect(button.querySelector('ion-icon')).not.toBeNull();
     });
@@ -188,6 +209,8 @@ describe('IonIconButtonComponent', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
+      expect(getButton()).toHaveAttribute('aria-disabled', 'true');
+      expect(getButton()).toBeDisabled();
       getButton().click();
       component.handleClick();
 

@@ -24,6 +24,7 @@ import {
 export class IonIconButtonComponent {
   ariaLabel = input.required<string>();
   icon = input.required<IconType>();
+  buttonType = input<'button' | 'submit' | 'reset'>('button');
   type = input<IconButtonType>('primary');
   size = input<IconButtonSize>('medium');
   rounding = input<IconButtonRounding>('default');

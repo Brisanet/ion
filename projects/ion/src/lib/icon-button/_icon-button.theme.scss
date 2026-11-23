@@ -465,6 +465,11 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
     danger: (
       background-color: ion-theme(negative-6),
       icon-color: ion-theme(negative-1),
@@ -482,6 +487,11 @@ $orange-light-v2: (
       disabled: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
         border: 0,
       ),
       focus: (
@@ -517,6 +527,11 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 1px solid ion-theme(neutral-5),
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-3),
+    ),
     danger: (
       background-color: ion-theme(negative-1),
       icon-color: ion-theme(negative-6),
@@ -535,6 +550,11 @@ $orange-light-v2: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
         border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
       ),
       focus: (
         ring-color: ion-theme(negative-6),
@@ -564,6 +584,11 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
     focus: (
       background-color: ion-theme(primary-1),
       icon-color: ion-theme(primary-6),
@@ -586,6 +611,11 @@ $orange-light-v2: (
       disabled: (
         background-color: transparent,
         icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
         border: 0,
       ),
       focus: (
@@ -621,6 +651,11 @@ $orange-light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 1px dashed ion-theme(neutral-5),
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-3),
+    ),
     danger: (
       background-color: ion-theme(negative-1),
       icon-color: ion-theme(negative-6),
@@ -639,6 +674,11 @@ $orange-light-v2: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
         border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
       ),
       focus: (
         ring-color: ion-theme(negative-6),
@@ -684,6 +724,11 @@ $light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
     focus: (
       background-color: ion-theme(primary-5),
       icon-color: ion-theme(neutral-1),
@@ -706,6 +751,11 @@ $light-v2: (
       disabled: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
         border: 0,
       ),
       focus: (
@@ -741,6 +791,11 @@ $light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 1px solid ion-theme(neutral-5),
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-3),
+    ),
     danger: (
       background-color: ion-theme(negative-1),
       icon-color: ion-theme(negative-6),
@@ -759,6 +814,11 @@ $light-v2: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
         border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
       ),
       focus: (
         ring-color: ion-theme(negative-6),
@@ -793,6 +853,11 @@ $light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 0,
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
     danger: (
       background-color: transparent,
       icon-color: ion-theme(negative-6),
@@ -810,6 +875,11 @@ $light-v2: (
       disabled: (
         background-color: transparent,
         icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
         border: 0,
       ),
       focus: (
@@ -845,6 +915,11 @@ $light-v2: (
       icon-color: ion-theme(neutral-6),
       border: 1px dashed ion-theme(neutral-5),
     ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-3),
+    ),
     danger: (
       background-color: ion-theme(negative-1),
       icon-color: ion-theme(negative-6),
@@ -863,6 +938,11 @@ $light-v2: (
         background-color: ion-theme(neutral-2),
         icon-color: ion-theme(neutral-6),
         border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
       ),
       focus: (
         ring-color: ion-theme(negative-6),
