@@ -35,7 +35,7 @@
     (click)="toggleDropdown()"
     (pointerdown)="onTriggerPointerDown()"
     (focus)="onTriggerFocus($event)"
-    (blur)="onTriggerBlur($event)"
+    (blur)="onTriggerBlur()"
     [attr.tabindex]="disabled() ? -1 : 0"
     (keydown)="handleTriggerKeydown($event)"
     data-testid="ion-select"
