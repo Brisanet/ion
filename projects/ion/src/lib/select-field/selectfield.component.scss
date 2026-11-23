@@ -146,6 +146,7 @@
 
   &.disabled {
     opacity: 0.45;
+    cursor: not-allowed;
   }
 }
 
@@ -455,6 +456,8 @@
       background: transparent;
       color: ion-theme(select-menu-item-disabled-text-color);
       cursor: not-allowed;
+      -webkit-user-select: none;
+      user-select: none;
 
       &:hover {
         background: transparent;
