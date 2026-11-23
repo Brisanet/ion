@@ -55,9 +55,10 @@
               icon="close"
               iconPosition="right"
               size="sm"
-              [disabled]="disabled() || (required() && dropdownSelectedItems().length === 1)"
-              (click)="$event.stopPropagation()"
-              (events)="handleChipEvents(item)"
+              [disabled]="disabled()"
+              [chipGroup]="true"
+              (click)="onChipClick($event, item)"
+              (keydown)="onChipKeydown($event, item)"
             ></ion-chip>
           }
           @if (overflowCount() > 0) {
@@ -93,10 +94,12 @@
         @for (item of dropdownSelectedItems(); track $index) {
           <ion-chip
             [label]="getOptionLabel(item)"
+            [disabled]="disabled()"
+            [chipGroup]="true"
             icon="close"
             iconPosition="right"
-            size="sm"
-            [disabled]="true"
+            (click)="onChipClick($event, item)"
+            (keydown)="onChipKeydown($event, item)"
           ></ion-chip>
         }
         <span class="overflow-counter overflow-counter-measure">+0</span>

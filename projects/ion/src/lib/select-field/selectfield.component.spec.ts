@@ -89,6 +89,10 @@ describe('IonSelectFieldComponent', () => {
 
     const dropdown = screen.getByTestId('ion-dropdown') as HTMLElement;
     expect(dropdown.getAttribute('data-ion-theme')).toBe('orange-dark');
+    const optionsPanel = document.querySelector<HTMLElement>(
+      '.container-options[data-select-field-id]'
+    );
+    expect(optionsPanel?.getAttribute('data-ion-theme')).toBe('orange-dark');
     expect(
       dropdown.style.getPropertyValue('--ion-select-menu-background-color')
     ).toBe('');
@@ -114,7 +118,7 @@ describe('IonSelectFieldComponent', () => {
     fixture.componentRef.setInput('value', ['apple', 'banana']);
     fixture.detectChanges();
 
-    fireEvent.click(fixture.nativeElement.querySelector('ion-chip button'));
+    fireEvent.click(fixture.nativeElement.querySelector('ion-chip ion-icon svg'));
     fixture.detectChanges();
 
     expect(valueChangeSpy).toHaveBeenLastCalledWith(['banana']);
@@ -127,18 +131,19 @@ describe('IonSelectFieldComponent', () => {
     ).toHaveLength(1);
   });
 
-  it('should remove a multi selection when the chip is activated by keyboard', async () => {
+  it('should open the dropdown without removing a selection when the chip body is clicked', async () => {
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     fixture.componentRef.setInput('options', options);
     fixture.componentRef.setInput('type', 'multi');
-    fixture.componentRef.setInput('value', ['apple', 'banana']);
+    fixture.componentRef.setInput('value', ['banana']);
     fixture.detectChanges();
 
-    const removeButton = fixture.nativeElement.querySelector(
-      'ion-chip button'
-    ) as HTMLButtonElement;
-    removeButton.focus();
-    await userEvent.keyboard('{Enter}');
+    const chipLabel = fixture.nativeElement.querySelector(
+      'ion-chip [data-testid="ion-chip-label"]'
+    );
+    fireEvent.click(chipLabel);
+    fixture.detectChanges();
+    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(
@@ -148,6 +153,51 @@ describe('IonSelectFieldComponent', () => {
         '[data-testid="ion-chip-label"]'
       )
     ).toHaveLength(1);
+    expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
+
+    const trigger = screen.getByTestId('ion-select');
+    expect(document.activeElement).toBe(trigger);
+    fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+
+    expect(document.activeElement).toBe(
+      screen.getByRole('option', { name: 'Apple' })
+    );
+    expect(fixture.componentInstance.activeOptionIndex()).toBe(0);
+  });
+
+  it('should focus the close icon and restore focus to an adjacent chip after removal', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('type', 'multi');
+    fixture.componentRef.setInput('value', ['apple', 'banana']);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const chips = fixture.nativeElement.querySelectorAll(
+      '.selected-value ion-chip'
+    );
+    const firstButton = chips[0].querySelector('button.ion-chip');
+    const firstCloseIcon = chips[0].querySelector('ion-icon') as HTMLElement;
+
+    expect(firstButton.getAttribute('tabindex')).toBe('-1');
+    expect(firstCloseIcon.getAttribute('tabindex')).toBe('0');
+    expect(firstCloseIcon.getAttribute('role')).toBe('button');
+    expect(firstCloseIcon.getAttribute('aria-label')).toBe('Remover Apple');
+
+    firstCloseIcon.focus();
+    fireEvent.keyDown(firstCloseIcon, { key: 'Delete' });
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.dropdownSelectedItems()).toEqual([
+      options[1],
+    ]);
+    expect(document.activeElement).toBe(
+      fixture.nativeElement.querySelector(
+        '.selected-value ion-chip ion-icon'
+      )
+    );
   });
 
   it('should not remove the last required multi selection', async () => {
@@ -160,7 +210,7 @@ describe('IonSelectFieldComponent', () => {
     fixture.componentRef.setInput('value', ['apple']);
     fixture.detectChanges();
 
-    fireEvent.click(fixture.nativeElement.querySelector('ion-chip button'));
+    fireEvent.click(fixture.nativeElement.querySelector('ion-chip ion-icon svg'));
     fixture.detectChanges();
 
     expect(valueChangeSpy).not.toHaveBeenCalled();
@@ -527,7 +577,7 @@ describe('IonSelectFieldComponent', () => {
       // Clear the first call from handleSelect
       valueChangeSpy.mockClear();
 
-      fixture.componentInstance.handleChipEvents(optionsCopy[0]);
+      fixture.componentInstance.removeSelected(optionsCopy[0]);
       fixture.detectChanges();
 
       expect(valueChangeSpy).toHaveBeenCalledWith([optionsCopy[1]]);
@@ -582,7 +632,7 @@ describe('IonSelectFieldComponent', () => {
         '+2'
       );
 
-      fixture.componentInstance.handleChipEvents(optionsCopy[0]);
+      fixture.componentInstance.removeSelected(optionsCopy[0]);
       fixture.componentInstance.visibleCount.set(1);
       fixture.detectChanges();
 
