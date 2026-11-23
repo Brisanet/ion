@@ -84,6 +84,8 @@ describe('IonSelectFieldComponent', () => {
 
     fireEvent.click(screen.getByTestId('ion-select'));
     fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
     const dropdown = screen.getByTestId('ion-dropdown') as HTMLElement;
     expect(dropdown.getAttribute('data-ion-theme')).toBe('orange-dark');
@@ -97,8 +99,9 @@ describe('IonSelectFieldComponent', () => {
     fixture.detectChanges();
     fireEvent.click(screen.getByTestId('ion-select'));
     fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
 
-    expect(screen.getByTestId('ion-dropdown').classList).toContain('open-empty');
     expect(screen.getByTestId('ion-no-data')).toBeTruthy();
   });
 
@@ -111,18 +114,20 @@ describe('IonSelectFieldComponent', () => {
     fixture.componentRef.setInput('value', ['apple', 'banana']);
     fixture.detectChanges();
 
-    fireEvent.click(fixture.nativeElement.querySelector('.tag-remove'));
+    fireEvent.click(fixture.nativeElement.querySelector('ion-chip button'));
     fixture.detectChanges();
 
     expect(valueChangeSpy).toHaveBeenLastCalledWith(['banana']);
     expect(
-      fixture.nativeElement.querySelectorAll(
+      fixture.nativeElement
+        .querySelector('.selected-value')
+        .querySelectorAll(
         '[data-testid="ion-chip-label"]'
       )
     ).toHaveLength(1);
   });
 
-  it('should remove a multi selection when the tag button is activated by keyboard', async () => {
+  it('should remove a multi selection when the chip is activated by keyboard', async () => {
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     fixture.componentRef.setInput('options', options);
     fixture.componentRef.setInput('type', 'multi');
@@ -130,14 +135,16 @@ describe('IonSelectFieldComponent', () => {
     fixture.detectChanges();
 
     const removeButton = fixture.nativeElement.querySelector(
-      '.tag-remove'
+      'ion-chip button'
     ) as HTMLButtonElement;
     removeButton.focus();
     await userEvent.keyboard('{Enter}');
     fixture.detectChanges();
 
     expect(
-      fixture.nativeElement.querySelectorAll(
+      fixture.nativeElement
+        .querySelector('.selected-value')
+        .querySelectorAll(
         '[data-testid="ion-chip-label"]'
       )
     ).toHaveLength(1);
@@ -153,12 +160,14 @@ describe('IonSelectFieldComponent', () => {
     fixture.componentRef.setInput('value', ['apple']);
     fixture.detectChanges();
 
-    fireEvent.click(fixture.nativeElement.querySelector('.tag-remove'));
+    fireEvent.click(fixture.nativeElement.querySelector('ion-chip button'));
     fixture.detectChanges();
 
     expect(valueChangeSpy).not.toHaveBeenCalled();
     expect(
-      fixture.nativeElement.querySelectorAll(
+      fixture.nativeElement
+        .querySelector('.selected-value')
+        .querySelectorAll(
         '[data-testid="ion-chip-label"]'
       )
     ).toHaveLength(1);
@@ -179,13 +188,18 @@ describe('IonSelectFieldComponent', () => {
     expect(fixture.componentInstance.dropdownSelectedItems()).toHaveLength(1);
   });
 
-  it('should not mutate options received from the consumer', async () => {
+  it('should compose ion-dropdown without mutating consumer options', async () => {
     const optionsCopy = options.map((option) => ({ ...option }));
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     fixture.componentRef.setInput('options', optionsCopy);
     fixture.detectChanges();
 
-    fixture.componentInstance.handleSelect([optionsCopy[0]]);
+    fireEvent.click(screen.getByTestId('ion-select'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+    fireEvent.click(screen.getByRole('option', { name: 'Apple' }));
+    fixture.detectChanges();
 
     expect(optionsCopy[0].selected).toBeUndefined();
   });
@@ -198,6 +212,85 @@ describe('IonSelectFieldComponent', () => {
     fireEvent.click(select);
     fixture.detectChanges();
     expect(screen.getByTestId('ion-dropdown')).toBeTruthy();
+  });
+
+  it('should compose ion-dropdown and expose its options as an accessible listbox', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', options);
+    fixture.detectChanges();
+
+    fireEvent.click(screen.getByTestId('ion-select'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const listbox = screen.getByRole('listbox');
+    expect(listbox.id).toBe(fixture.componentInstance.listboxId);
+    expect(screen.getAllByRole('option')).toHaveLength(options.length);
+  });
+
+  it('should navigate options with arrow keys and restore trigger focus on Escape', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    fixture.componentRef.setInput('options', [
+      options[0],
+      { ...options[1], disabled: true },
+      options[2],
+    ]);
+    fixture.detectChanges();
+
+    const trigger = screen.getByTestId('ion-select');
+    trigger.focus();
+    fireEvent.keyDown(trigger, { key: 'ArrowDown' });
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const apple = screen.getByRole('option', { name: 'Apple' });
+    expect(document.activeElement).toBe(apple);
+    expect(trigger.getAttribute('aria-controls')).toBe(
+      fixture.componentInstance.listboxId
+    );
+    expect(trigger.getAttribute('aria-activedescendant')).toBe(apple.id);
+    fireEvent.keyDown(apple, { key: 'ArrowDown' });
+
+    const grape = screen.getByRole('option', { name: 'Grape' });
+    expect(document.activeElement).toBe(grape);
+    fireEvent.keyDown(grape, { key: 'Escape' });
+    fixture.detectChanges();
+
+    expect(screen.queryByTestId('ion-dropdown')).toBeFalsy();
+    expect(document.activeElement).toBe(trigger);
+  });
+
+  it('should navigate to the dropdown clear button and clear preserved selections', async () => {
+    const fixture = TestBed.createComponent(IonSelectFieldComponent);
+    const valueChangeSpy = jest.fn();
+    fixture.componentInstance.valueChange.subscribe(valueChangeSpy);
+    fixture.componentRef.setInput('multiple', true);
+    fixture.componentRef.setInput('options', options);
+    fixture.componentRef.setInput('value', ['apple', 'banana']);
+    fixture.detectChanges();
+
+    fixture.componentRef.setInput('options', [options[0]]);
+    fixture.detectChanges();
+    fireEvent.click(screen.getByTestId('ion-select'));
+    fixture.detectChanges();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    const option = screen.getByRole('option', { name: 'Apple' });
+    option.focus();
+    fireEvent.keyDown(option, { key: 'ArrowDown' });
+    const clearButton = screen.getByRole('button', { name: 'Limpar' });
+    expect(document.activeElement).toBe(clearButton);
+
+    fireEvent.click(clearButton);
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(fixture.componentInstance.dropdownSelectedItems()).toHaveLength(0);
+    expect(valueChangeSpy).toHaveBeenCalledTimes(1);
+    expect(valueChangeSpy).toHaveBeenCalledWith([]);
   });
 
   it('should allow tab navigation through enabled dropdown options', async () => {

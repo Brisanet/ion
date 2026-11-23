@@ -5,13 +5,14 @@ $default: (
   background-color: ion-theme(neutral-1),
   border-radius: 8px,
   border-color: ion-theme(neutral-5),
+  selected-border-color: ion-theme(neutral-5),
   placeholder-color: ion-theme(neutral-5),
   text-color: ion-theme(neutral-7),
   supporting-text-color: ion-theme(neutral-7),
-  hover-border-color: #126aeb,
+  hover-border-color: ion-theme(primary-5),
   focus-color: ion-theme(primary-5),
   focus-surface: ion-theme(neutral-1),
-  disabled-border-color: #e1e3e8,
+  disabled-border-color: ion-theme(neutral-3),
   error-color: ion-theme(negative-6),
   success-color: ion-theme(positive-6),
   tag-background: ion-theme(neutral-2),
@@ -35,13 +36,14 @@ $dark: (
   background-color: ion-theme(neutral-5),
   border-radius: 8px,
   border-color: ion-theme(neutral-3),
+  selected-border-color: ion-theme(neutral-1),
   placeholder-color: ion-theme(neutral-3),
   text-color: ion-theme(neutral-1),
   supporting-text-color: ion-theme(neutral-2),
   hover-border-color: ion-theme(primary-4),
   focus-color: ion-theme(primary-4),
   focus-surface: ion-theme(neutral-5),
-  disabled-border-color: ion-theme(neutral-4),
+  disabled-border-color: ion-theme(neutral-3),
   error-color: ion-theme(negative-6),
   success-color: ion-theme(positive-6),
   tag-background: ion-theme(neutral-6),
@@ -65,13 +67,14 @@ $orange-light: (
   background-color: ion-theme(neutral-1),
   border-radius: 8px,
   border-color: ion-theme(neutral-5),
+  selected-border-color: ion-theme(neutral-5),
   placeholder-color: ion-theme(neutral-5),
   text-color: ion-theme(neutral-7),
   supporting-text-color: ion-theme(neutral-7),
-  hover-border-color: #fa9c74,
-  focus-color: #fa9c74,
+  hover-border-color: ion-theme(primary-5),
+  focus-color: ion-theme(primary-5),
   focus-surface: ion-theme(neutral-1),
-  disabled-border-color: #e1e3e8,
+  disabled-border-color: ion-theme(neutral-3),
   error-color: ion-theme(negative-6),
   success-color: ion-theme(positive-6),
   tag-background: ion-theme(neutral-2),
@@ -95,6 +98,7 @@ $orange-dark: (
   background-color: ion-theme(neutral-2),
   border-radius: 8px,
   border-color: ion-theme(neutral-4),
+  selected-border-color: ion-theme(neutral-8),
   placeholder-color: ion-theme(neutral-6),
   text-color: ion-theme(neutral-8),
   supporting-text-color: ion-theme(neutral-7),
@@ -140,7 +144,8 @@ $select-themes: (
 
 @each $theme-name, $theme-palette in $themes {
   .ion-select-container[data-ion-theme='#{$theme-name}'],
-  .ion-select-dropdown[data-ion-theme='#{$theme-name}'] {
+  ::ng-deep
+    .container-options[data-select-field-id][data-ion-theme='#{$theme-name}'] {
     @include map-to-css-vars($theme-palette);
     @include map-to-css-vars(
       (select: map.get($select-themes, $theme-name))

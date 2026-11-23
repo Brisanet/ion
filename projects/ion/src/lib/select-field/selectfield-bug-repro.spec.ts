@@ -8,7 +8,7 @@ describe('IonSelectFieldComponent Bug Reproduction', () => {
     }).compileComponents();
   });
 
-  it('should preserve selection when options change (search scenario)', async () => {
+  it('should preserve selection when options change', async () => {
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     const options = [
       { label: 'Apple', key: 'apple' },
@@ -23,7 +23,7 @@ describe('IonSelectFieldComponent Bug Reproduction', () => {
     expect(fixture.componentInstance.dropdownSelectedItems()).toHaveLength(1);
     expect((fixture.componentInstance.dropdownSelectedItems()[0] as any).label).toBe('Apple');
 
-    // Change options (simulate search result)
+    // Change the visible options without changing the selected value.
     const newOptions = [
       { label: 'Banana', key: 'banana' },
     ];

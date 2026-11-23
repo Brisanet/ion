@@ -5,13 +5,11 @@
   [class.size-large]="size() === 'large'"
 >
   @if (label()) {
-    <label class="select-label">{{ label() }}</label>
+    <label class="select-label" [id]="labelId">{{ label() }}</label>
   }
 
   <div
     #selectTrigger
-    cdkOverlayOrigin
-    #triggerOrigin="cdkOverlayOrigin"
     class="ion-select"
     [class.disabled]="disabled()"
     [class.error]="isError()"
@@ -19,9 +17,25 @@
     [class.open]="showDropdown()"
     [class.open-empty]="showDropdown() && hasNoOptions()"
     [class.selected]="dropdownSelectedItems().length > 0"
+    [class.keyboard-focus]="isKeyboardFocus()"
     [class.size-large]="size() === 'large'"
     [attr.inert]="disabled() ? '' : null"
+    role="combobox"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="showDropdown()"
+    [attr.aria-controls]="
+      showDropdown() && !loading() && options().length > 0 ? listboxId : null
+    "
+    [attr.aria-activedescendant]="activeDescendantId()"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.aria-label]="label() ? null : placeholder()"
+    [attr.aria-valuetext]="getSelectedLabel() || 'Nenhuma opção selecionada'"
+    [attr.aria-disabled]="disabled()"
+    [attr.aria-required]="required()"
     (click)="toggleDropdown()"
+    (pointerdown)="onTriggerPointerDown()"
+    (focus)="onTriggerFocus($event)"
+    (blur)="onTriggerBlur($event)"
     [attr.tabindex]="disabled() ? -1 : 0"
     (keydown)="handleTriggerKeydown($event)"
     data-testid="ion-select"
@@ -36,17 +50,15 @@
       } @else {
         <div class="selected-value">
           @for (item of visibleItems(); track $index) {
-            <span class="select-tag">
-              <span data-testid="ion-chip-label">{{ getOptionLabel(item) }}</span>
-              <button
-                type="button"
-                class="tag-remove"
-                [disabled]="disabled() || (required() && dropdownSelectedItems().length === 1)"
-                (click)="removeSelected(item, $event)"
-              >
-                <ion-icon type="close" [size]="16"></ion-icon>
-              </button>
-            </span>
+            <ion-chip
+              [label]="getOptionLabel(item)"
+              icon="close"
+              iconPosition="right"
+              size="sm"
+              [disabled]="disabled() || (required() && dropdownSelectedItems().length === 1)"
+              (click)="$event.stopPropagation()"
+              (events)="handleChipEvents(item)"
+            ></ion-chip>
           }
           @if (overflowCount() > 0) {
             <span class="overflow-counter" data-testid="select-overflow-count">+{{ overflowCount() }}</span>
@@ -79,12 +91,13 @@
         aria-hidden="true"
       >
         @for (item of dropdownSelectedItems(); track $index) {
-          <span class="select-tag">
-            <span>{{ getOptionLabel(item) }}</span>
-            <span class="tag-remove">
-              <ion-icon type="close" [size]="16"></ion-icon>
-            </span>
-          </span>
+          <ion-chip
+            [label]="getOptionLabel(item)"
+            icon="close"
+            iconPosition="right"
+            size="sm"
+            [disabled]="true"
+          ></ion-chip>
         }
         <span class="overflow-counter overflow-counter-measure">+0</span>
       </div>
@@ -101,86 +114,21 @@
     </span>
   }
 
-  <ng-template
-    cdkConnectedOverlay
-    [cdkConnectedOverlayOrigin]="triggerOrigin"
-    [cdkConnectedOverlayOpen]="showDropdown()"
-    [cdkConnectedOverlayPositions]="dropdownPositions"
-    [cdkConnectedOverlayWidth]="overlayWidth() ?? '100%'"
-    [cdkConnectedOverlayHasBackdrop]="false"
-    (overlayOutsideClick)="closeDropdown()"
-  >
-    <div
-      class="ion-select-dropdown"
-      [attr.data-ion-theme]="theme()"
-      [class.open-empty]="hasNoOptions()"
-      [class.dropdown-loading]="loading()"
-      data-testid="ion-dropdown"
-    >
-      @if (enableSearch()) {
-        <div class="dropdown-search">
-          <input
-            #searchInput
-            data-testid="input-element"
-            type="text"
-            [placeholder]="searchOptions()?.placeholder || ''"
-            [disabled]="searchOptions()?.disabled || false"
-            (input)="handleSearch($any($event.target).value)"
-            class="dropdown-search-input"
-          />
-          <ion-icon type="search" [size]="16"></ion-icon>
-        </div>
-      }
+  @if (showDropdown()) {
+    <ion-dropdown
+      [origin]="selectTrigger"
+      [options]="dropdownOptions()"
+      [multiple]="isMultiple()"
+      [required]="required()"
+      [loading]="loading()"
+      [propLabel]="propLabel()"
+      (selected)="handleDropdownSelection($event)"
+      (clearButton)="handleClearButton()"
+      (closeDropdown)="closeDropdown()"
+    ></ion-dropdown>
+  }
 
-      @if (loading()) {
-        <ion-spinner [size]="40"></ion-spinner>
-      } @else if (options().length > 0) {
-        <div class="options-list">
-          @for (option of dropdownOptions(); track $index) {
-            <div
-              class="ion-dropdown-item"
-              [class.dropdown-disabled]="option.disabled"
-              [class.dropdown-item-selected]="option.selected && !option.disabled"
-              [class.dropdown-item]="!option.selected && !option.disabled"
-              role="option"
-              [attr.aria-selected]="option.selected"
-              [attr.aria-disabled]="option.disabled ? 'true' : null"
-              [attr.tabindex]="option.disabled ? -1 : 0"
-              (click)="selectOption(option)"
-              (keydown)="handleOptionKeydown($event, option)"
-              [id]="'option-' + $index"
-            >
-              <span class="option-label">
-                @if (option.icon) {
-                  <ion-icon [type]="option.icon" [size]="16"></ion-icon>
-                }
-                {{ getOptionLabel(option) }}
-              </span>
-              @if (option.selected) {
-                <ion-icon type="check" [size]="16"></ion-icon>
-              }
-            </div>
-          }
-        </div>
-        @if (isMultiple() && dropdownSelectedItems().length > 0 && !required()) {
-          <button
-            type="button"
-            class="clear-button"
-            (click)="clearSelection($event)"
-            data-testid="button-clear"
-          >
-            <ion-icon type="trash" [size]="16"></ion-icon>
-            <span>Limpar</span>
-          </button>
-        }
-      } @else {
-        <div data-testid="ion-no-data">
-          <ion-no-data
-            iconType="exclamation-rounded"
-            label="Não há dados"
-          ></ion-no-data>
-        </div>
-      }
-    </div>
-  </ng-template>
+  <span class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+    {{ accessibilityAnnouncement() }}
+  </span>
 </div>

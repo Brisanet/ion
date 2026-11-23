@@ -1,4 +1,4 @@
-import { calculateVisibleChipCount } from './calculate-visible-chip-count';
+import { calculateVisibleChipCount } from '../select/calculate-visible-chip-count';
 
 const counterWidths: Record<number, number> = {
   1: 24,

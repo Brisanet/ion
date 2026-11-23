@@ -27,11 +27,8 @@
   line-height: 20px;
 }
 
+// Main container
 .ion-select {
-  --_border-color: #{ion-theme(select-border-color)};
-  --_inner-stroke: transparent;
-  --_focus-ring: transparent;
-
   position: relative;
   display: flex;
   align-items: center;
@@ -40,99 +37,171 @@
   height: 48px;
   box-sizing: border-box;
   padding: 8px 12px;
-  border: 1px solid var(--_border-color);
+  // Border
+  border: 1px solid ion-theme(select-border-color);
   border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
-  box-shadow:
-    inset 0 0 0 1px var(--_inner-stroke),
-    0 0 0 1px var(--_focus-ring);
+  box-shadow: none;
+  // Outline
+  outline: 2px solid transparent;
+  outline-offset: 0px;
   color: ion-theme(select-text-color);
   cursor: pointer;
+  
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s,
-    background-color 0.2s;
+    border-color 0.1s ease,
+    background-color 0.1s ease;
 
   &.size-large {
     height: 56px;
   }
 
+  // Hover: empty, closed and without focus
   &:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty):hover {
-    --_border-color: #{ion-theme(select-hover-border-color)};
+    border: 1px solid ion-theme(select-hover-border-color);
+    box-shadow: none;
   }
 
+  // Selected: options has been choosed
   &.selected:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-border-color)};
-    --_inner-stroke: #{ion-theme(select-border-color)};
+    border-color: ion-theme(select-selected-border-color);
+    box-shadow: none;
+
+    .leading-slot,
+    .action-slot {
+      color: ion-theme(select-selected-border-color);
+    }
   }
 
+  // Open: empty or populated menu
   &.open:not(.error):not(.success),
   &.open-empty:not(.error):not(.success) {
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_inner-stroke: #{ion-theme(select-focus-color)};
+    outline: none; // Remove outline ao clicar/abrir
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
   }
 
-  &:not(.disabled):not(.error):not(.success):focus-visible {
-    outline: none;
-    --_border-color: #{ion-theme(select-focus-color)};
-    --_focus-ring: #{ion-theme(select-focus-color)};
+  // Keyboard focus
+  &.keyboard-focus:focus-visible:not(.disabled):not(.error):not(.success):not(.open):not(.open-empty) {
+    outline-color: ion-theme(select-focus-color);
+    outline-offset: 1.75px;
+    border-color: ion-theme(select-focus-color);
+    box-shadow: inset 0 0 0 1px ion-theme(select-focus-color);
+    transition:
+      border-color 0.08s ease,
+      background-color 0.08s ease;
   }
 
+  // Validation: Error
   &.error {
-    --_border-color: #{ion-theme(select-error-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-error-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-error-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-error-color)} 22%, transparent);
+    // Error: hover
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-error-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-error-color) 22%, transparent);
     }
 
-    &.selected,
+    // Error: selected
+    &.selected {
+      border-color: ion-theme(select-error-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-error-color);
+      }
+    }
+
+    // Error: dropdown open
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-error-color)};
-      --_inner-stroke: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-error-color);
     }
 
+    // Error: any focus
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-error-color)};
-      --_focus-ring: #{ion-theme(select-error-color)};
+      border-color: ion-theme(select-error-color);
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    // Error: selected + focus
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-error-color);
+    }
+
+    // Error: open + focus
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-error-color),
+        0 0 0 1px ion-theme(select-error-color);
     }
   }
 
+  // Validation: success
   &.success {
-    --_border-color: #{ion-theme(select-success-color)};
-    --_inner-stroke: transparent;
+    border-color: ion-theme(select-success-color);
+    box-shadow: none;
 
-    &:not(.disabled):not(.open):not(.open-empty):not(.selected):hover {
-      --_border-color: color-mix(in srgb, #{ion-theme(select-success-color)} 75%, black);
-      --_focus-ring: color-mix(in srgb, #{ion-theme(select-success-color)} 22%, transparent);
+    // Success: hover
+    &:not(.disabled):not(.open):not(.open-empty):hover {
+      border-color: color-mix(in srgb, ion-theme(select-success-color) 75%, black);
+      box-shadow: 0 0 0 1px color-mix(in srgb, ion-theme(select-success-color) 22%, transparent);
     }
 
-    &.selected,
+    // Success: selected
+    &.selected {
+      border-color: ion-theme(select-success-color);
+      box-shadow: none;
+
+      .leading-slot,
+      .action-slot {
+        color: ion-theme(select-success-color);
+      }
+    }
+
+    // Success: dropdown open
     &.open,
     &.open-empty {
-      --_border-color: #{ion-theme(select-success-color)};
-      --_inner-stroke: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-success-color);
     }
 
+    // Success: any focus
     &:not(.disabled):focus-visible {
       outline: none;
-      --_border-color: #{ion-theme(select-success-color)};
-      --_focus-ring: #{ion-theme(select-success-color)};
+      border-color: ion-theme(select-success-color);
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    // Success: selected + focus
+    &.selected:focus-visible {
+      box-shadow: 0 0 0 1px ion-theme(select-success-color);
+    }
+
+    // Success: open + focus
+    &.open:focus-visible,
+    &.open-empty:focus-visible {
+      box-shadow:
+        inset 0 0 0 0.5px ion-theme(select-success-color),
+        0 0 0 1px ion-theme(select-success-color);
     }
   }
 
+  // Disabled
   &.disabled {
-    --_border-color: #{ion-theme(select-disabled-border-color)};
-    --_inner-stroke: transparent;
-    --_focus-ring: transparent;
+    border-color: ion-theme(select-disabled-border-color);
+    box-shadow: none;
     cursor: not-allowed;
     pointer-events: none;
   }
 }
 
+// Slots, tags and chips
 .leading-slot,
 .action-slot,
 .select-chevron {
@@ -140,6 +209,16 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
+}
+
+.leading-slot,
+.action-slot {
+  transition: color 0.2s;
+}
+
+.leading-slot ion-icon,
+.action-slot ion-icon {
+  color: inherit;
 }
 
 .leading-slot:empty,
@@ -186,46 +265,18 @@
   white-space: nowrap;
 }
 
-.select-tag {
-  display: inline-flex;
-  min-width: 0;
+.selected-value ion-chip {
   max-width: 100%;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 4px;
+  min-width: 0;
   overflow: hidden;
-  padding: 2px 6px 2px 8px;
-  border-radius: ion-theme(select-tag-border-radius);
-  background: ion-theme(select-tag-background);
-  color: ion-theme(select-tag-text-color);
-  font-size: 14px;
-  line-height: 20px;
 
-  > span:first-child {
+  ::ng-deep .container-icon-text {
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
 
-.tag-remove {
-  display: inline-flex;
-  width: 24px;
-  height: 24px;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-
-  &:disabled {
-    cursor: not-allowed;
-  }
-}
-
+// Chips counter (ex: +3)
 .overflow-counter {
   flex: 0 0 auto;
   padding: 2px 8px;
@@ -237,6 +288,7 @@
   white-space: nowrap;
 }
 
+// Ghost container to calculate chips width
 .measurement-container {
   position: absolute;
   top: 0;
@@ -250,6 +302,7 @@
   pointer-events: none;
 }
 
+// Supporting texts
 .supporting-text {
   margin-top: 4px;
   color: ion-theme(select-supporting-text-color);
@@ -265,46 +318,30 @@
   }
 }
 
-.ion-select-dropdown {
-  width: 100%;
-  min-width: 182px;
-  max-height: 244px;
-  box-sizing: border-box;
-  overflow-y: auto;
-  padding: 8px;
-  border: 1px solid ion-theme(select-menu-border-color);
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+::ng-deep .container-options[data-select-field-id] {
+  border-color: ion-theme(select-menu-border-color);
   border-radius: 8px;
   background-color: ion-theme(select-menu-background-color);
   box-shadow: ion-theme(select-menu-shadow);
 }
 
-.options-list {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  overflow-y: auto;
-}
-
-.ion-dropdown-item {
-  display: flex;
-  min-height: 36px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
-  border-radius: 8px;
+::ng-deep .container-options[data-select-field-id] .ion-dropdown-item {
   color: ion-theme(select-menu-item-text-color);
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 20px;
 
   &:hover {
     background: ion-theme(select-menu-item-hover-background-color);
-  }
-
-  &.dropdown-item-active {
-    background: ion-theme(select-menu-item-hover-background-color);
-    border: 1px solid ion-theme(select-menu-border-color);
   }
 
   &:focus-visible {
@@ -319,73 +356,12 @@
 
   &.dropdown-disabled {
     color: ion-theme(select-menu-item-disabled-text-color);
-    cursor: not-allowed;
   }
 }
 
-.option-label {
-  display: flex;
-  min-width: 0;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.dropdown-search {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-
-  ion-icon {
-    position: absolute;
-    right: 12px;
-  }
-}
-
-.dropdown-search-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 8px 36px 8px 12px;
-  border: 1px solid ion-theme(select-border-color);
-  border-radius: 8px;
-  background: ion-theme(select-background-color);
-  color: ion-theme(select-text-color);
-  font: inherit;
-
-  &:focus {
-    outline: 2px solid ion-theme(select-focus-color);
-  }
-}
-
-.clear-button {
-  display: flex;
-  min-height: 32px;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 8px;
-  padding: 4px 12px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: ion-theme(primary-6);
-  cursor: pointer;
-  font: inherit;
-
-  &:hover {
-    background: ion-theme(primary-1);
-  }
-}
-
-[data-testid='ion-no-data'] {
-  padding: 12px 8px;
-}
-
-.dropdown-loading {
-  display: flex;
-  min-height: 80px;
-  align-items: center;
-  justify-content: center;
+::ng-deep
+  .container-options[data-select-field-id]
+  .ion-dropdown-item.dropdown-item-active {
+  border: 1px solid ion-theme(select-menu-border-color);
+  background: ion-theme(select-menu-item-hover-background-color);
 }
