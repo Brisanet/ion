@@ -100,8 +100,8 @@ describe('IonIconButtonComponent', () => {
       ['full', 'ion-icon-button--full'],
     ] as const)(
       'suporta o arredondamento %s',
-      (circularButton, cssClass) => {
-        fixture.componentRef.setInput('circularButton', circularButton);
+      (rounding, cssClass) => {
+        fixture.componentRef.setInput('rounding', rounding);
         fixture.detectChanges();
 
         expect(getButton()).toHaveClass(cssClass);

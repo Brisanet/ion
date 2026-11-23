@@ -26,7 +26,7 @@ export class IonIconButtonComponent {
   icon = input.required<IconType>();
   type = input<IconButtonType>('primary');
   size = input<IconButtonSize>('medium');
-  circularButton = input<IconButtonRounding>('default');
+  rounding = input<IconButtonRounding>('default');
   danger = input(false);
   disabled = input(false);
   ionOnClick = output<void>();
