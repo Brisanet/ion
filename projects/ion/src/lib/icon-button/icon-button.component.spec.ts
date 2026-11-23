@@ -78,12 +78,12 @@ describe('IonIconButtonComponent', () => {
     );
 
     it.each([
-      ['small', 'ion-icon-button--small', 16],
-      ['medium', 'ion-icon-button--medium', 16],
-      ['large', 'ion-icon-button--large', 24],
+      ['small', 16, 'ion-icon-button--small'],
+      ['medium', 16, 'ion-icon-button--medium'],
+      ['large', 24, 'ion-icon-button--large'],
     ] as const)(
       'suporta o tamanho %s e ajusta o ícone para %dpx',
-      (size, cssClass, iconSize) => {
+      (size, iconSize, cssClass) => {
         fixture.componentRef.setInput('size', size);
         fixture.detectChanges();
 
@@ -154,7 +154,7 @@ describe('IonIconButtonComponent', () => {
       ['medium', 16],
       ['large', 24],
     ] as const)(
-      'mantém o spinner com %dpx no tamanho %s',
+      'mantém o spinner no tamanho %s com dimensões de %dpx',
       (size, iconSize) => {
         fixture.componentRef.setInput('size', size);
         fixture.componentRef.setInput('loading', true);
