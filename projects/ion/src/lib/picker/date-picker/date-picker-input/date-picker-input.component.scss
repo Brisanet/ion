@@ -34,8 +34,14 @@ $split-gap: 8px;
   cursor: not-allowed;
 }
 
-.container-input,
-.layout-split,
+:host:has(.disabled) {
+  cursor: not-allowed;
+}
+
+:host:has(.disabled) {
+  cursor: not-allowed;
+}
+
 .layout-joined {
   --picker-color: #{ion-theme(date-picker-range-input-primary-color)};
   --picker-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
@@ -93,6 +99,9 @@ $split-gap: 8px;
 .layout-split {
   align-items: center;
   gap: $split-gap;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: ion-theme(date-picker-range-input-border-radius) !important;
 
   &.disabled {
     pointer-events: none;
@@ -105,6 +114,8 @@ $split-gap: 8px;
     user-select: none;
   }
 }
+
+
 
 .container-input:has(.disabled) {
   pointer-events: none;
@@ -175,11 +186,27 @@ $split-gap: 8px;
         date-picker-range-input-error-hover-color
       );
     }
+
+    &.theme-secondary ion-input:not(.invalid):not(.valid) .input:not(.disabled) {
+      border-width: 2px;
+      border-color: ion-theme(date-picker-range-input-secondary-hover-color);
+    }
+
+    &:has(ion-input.valid :focus-visible) ion-input:not(.invalid) .input:not(.disabled) {
+      border-width: 2px;
+      border-color: ion-theme(date-picker-range-input-success-color);
+    }
+
+    &:has(ion-input.invalid :focus-visible) ion-input:not(.valid) .input:not(.disabled) {
+      border-width: 2px;
+      border-color: ion-theme(date-picker-range-input-error-color);
+    }
   }
 
+  .container-input,
   .layout-joined,
   .layout-split {
-    .valid ion-input:not(.disabled),
+    &.valid ion-input:not(.disabled),
     ion-input.valid:not(.disabled) {
       --current-theme-color: #{ion-theme(positive-6)};
     }

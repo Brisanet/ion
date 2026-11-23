@@ -128,7 +128,7 @@
     </p>
     <div class="gallery-grid">
       <div class="gallery-card">
-        <span class="badge">Default · theme="primary"</span>
+        <span class="badge badge-primary">Default · theme="primary"</span>
         <ion-date-picker
           [rangePicker]="true"
           theme="primary"
@@ -138,7 +138,7 @@
       </div>
 
       <div class="gallery-card">
-        <span class="badge">Default · theme="secondary"</span>
+        <span class="badge badge-secondary">Default · theme="secondary"</span>
         <ion-date-picker
           [rangePicker]="false"
           theme="secondary"
@@ -148,7 +148,7 @@
       </div>
 
       <div class="gallery-card">
-        <span class="badge">Joined · theme="primary"</span>
+        <span class="badge badge-primary">Joined · theme="primary"</span>
         <ion-date-picker
           [rangePicker]="true"
           layout="joined"
@@ -159,7 +159,7 @@
       </div>
 
       <div class="gallery-card">
-        <span class="badge">Joined · theme="secondary"</span>
+        <span class="badge badge-secondary">Joined · theme="secondary"</span>
         <ion-date-picker
           [rangePicker]="true"
           layout="joined"
@@ -170,7 +170,7 @@
       </div>
 
       <div class="gallery-card">
-        <span class="badge">Split · theme="primary"</span>
+        <span class="badge badge-primary">Split · theme="primary"</span>
         <ion-date-picker
           [rangePicker]="true"
           layout="split"
@@ -181,7 +181,7 @@
       </div>
 
       <div class="gallery-card">
-        <span class="badge">Split · theme="secondary"</span>
+        <span class="badge badge-secondary">Split · theme="secondary"</span>
         <ion-date-picker
           [rangePicker]="true"
           layout="split"
@@ -360,6 +360,7 @@
                 type="button"
                 class="control-pill"
                 [class.active]="sandboxTheme() === item"
+                [attr.data-variant]="item"
                 (click)="sandboxTheme.set(item)"
               >
                 {{ item }}
@@ -374,6 +375,7 @@
                 type="button"
                 class="control-pill"
                 [class.active]="sandboxStatus() === item"
+                [attr.data-variant]="item"
                 (click)="sandboxStatus.set(item)"
               >
                 {{ item }}

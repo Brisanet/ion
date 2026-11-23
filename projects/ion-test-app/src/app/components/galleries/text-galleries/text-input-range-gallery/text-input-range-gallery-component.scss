@@ -1,3 +1,4 @@
+
 .gallery-container {
   display: flex;
   flex-direction: column;
@@ -89,6 +90,16 @@
     background-color: #e5e7eb;
     color: #9ca3af;
   }
+
+  &-primary{
+    background-color: #b5d3ff;
+    color: #126aeb;
+  }
+
+  &-secondary{
+    background-color: #faceb9;
+    color: #ff5022;
+  }
 }
 
 .gallery-hint,
@@ -128,6 +139,9 @@
 }
 
 .control-pill {
+  --pill-color: #126aeb;
+  --pill-ring: rgba(18, 106, 235, 0.25);
+
   padding: 4px 10px;
   border: 1px solid #cfd4dc;
   border-radius: 4px;
@@ -142,14 +156,28 @@
     border-color 0.15s ease,
     color 0.15s ease;
 
-  &:hover {
-    border-color: #126aeb;
-    color: #126aeb;
+  &[data-variant='secondary'] {
+    --pill-color: #ff5022;
   }
 
+  &[data-variant='valid'] {
+    --pill-color: #2d9f70;
+  }
+
+  &[data-variant='invalid'] {
+    --pill-color: #d6293a;
+  }
+
+  &[data-variant='disabled'] {
+    --pill-color: #6b7280;
+  }
+  &:hover {
+    color: var(--pill-color);
+    border-color: var(--pill-color);
+  }
   &.active {
-    background-color: #126aeb;
-    border-color: #126aeb;
+    background-color: var(--pill-color);
+    border-color: var(--pill-color);
     color: #ffffff;
   }
 }
