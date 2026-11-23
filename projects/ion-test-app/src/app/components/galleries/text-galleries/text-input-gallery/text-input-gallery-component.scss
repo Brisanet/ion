@@ -131,10 +131,6 @@
     color 0.25s ease,
     transform 0.15s ease;
   
-  &[data-variant='secondary'] {
-    --pill-color: #ff5022;
-  }
-
   &[data-variant='valid'] {
     --pill-color: #2d9f70;
   }

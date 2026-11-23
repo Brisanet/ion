@@ -1,6 +1,11 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonInputComponent } from '../../../../../../../ion/src/lib/input/input.component'; 
+import { IonInputComponent } from '../../../../../../../ion/src/lib/input/input.component';
+
+type SandboxSize = 'base' | 'large';
+type SandboxTheme = 'primary' | 'secondary';
+type SandboxStatus = 'default' | 'valid' | 'invalid' | 'disabled';
+type SandboxInputType = 'text' | 'password';
 
 @Component({
   selector: 'app-text-input-gallery',
@@ -13,8 +18,6 @@ import { IonInputComponent } from '../../../../../../../ion/src/lib/input/input.
 export class TextInputGalleryComponent {
   baseValue = '';
   largeValue = '';
-  primaryValue = 'Texto digitado no tema primário';
-  secondaryValue = '';
   prefixValue = '1.250,00';
   trailingValue = 'senha123';
   buttonValue = '48999887766';
@@ -24,11 +27,65 @@ export class TextInputGalleryComponent {
 
   showPassword = signal<boolean>(false);
 
+  // Configurações do Sandbox
+  readonly sizes: SandboxSize[] = ['base', 'large'];
+  readonly statuses: SandboxStatus[] = ['default', 'valid', 'invalid', 'disabled'];
+  readonly inputTypes: SandboxInputType[] = ['text', 'password'];
+
+  sandboxValue = 'Texto de teste';
+  sandboxSize = signal<SandboxSize>('base');
+  sandboxStatus = signal<SandboxStatus>('default');
+  sandboxType = signal<SandboxInputType>('text');
+  sandboxPrefix = signal<boolean>(false);
+  sandboxLeftIcon = signal<boolean>(false);
+  sandboxRightIcon = signal<boolean>(false);
+  sandboxClearButton = signal<boolean>(false);
+  sandboxMaxLength = signal<boolean>(false);
+  sandboxInputButton = signal<boolean>(false);
+  sandboxLastEvent = signal<string>('Aguardando interação...');
+
   onTrailingClick(): void {
     this.showPassword.update((visible) => !visible);
   }
 
   onButtonClick(): void {
     alert(`Ação do botão acionada com o valor: ${this.buttonValue || '(vazio)'}`);
+  }
+
+  setSandboxType(type: SandboxInputType): void {
+    if (type === 'password' && this.sandboxRightIcon()) return;
+    this.sandboxType.set(type);
+  }
+
+  toggleSandboxIcon(direction: 'left' | 'right'): void {
+    if (direction === 'left') {
+      this.sandboxLeftIcon.update((v) => !v);
+      return;
+    }
+
+    if (this.sandboxType() === 'password') return;
+    this.sandboxRightIcon.update((v) => !v);
+  }
+
+  toggleSandboxClearButton(): void {
+    if (this.sandboxInputButton()) return;
+    const next = !this.sandboxClearButton();
+    this.sandboxClearButton.set(next);
+    if (next) this.sandboxInputButton.set(false);
+  }
+
+  toggleSandboxInputButton(): void {
+    if (this.sandboxClearButton()) return;
+    const next = !this.sandboxInputButton();
+    this.sandboxInputButton.set(next);
+    if (next) this.sandboxClearButton.set(false);
+  }
+
+  onSandboxButtonClick(): void {
+    this.sandboxLastEvent.set(`(clickButton) acionado · valor: "${this.sandboxValue}"`);
+  }
+
+  onSandboxTrailingClick(): void {
+    this.sandboxLastEvent.set('(clickIconTrailing) acionado');
   }
 }
