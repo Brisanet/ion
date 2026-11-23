@@ -137,7 +137,7 @@
         <ion-input
           label="Validação Cadastral"
           [valid]="true"
-          helperText="Cadastro validado e ativo no sistema."
+          validMsg="Cadastro validado e ativo no sistema."
           [(value)]="successValue"
         ></ion-input>
       </div>
@@ -164,6 +164,159 @@
           [clearButton]="true"
           [maxLength]="30"
           value="Texto que pode ser limpo"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+
+    <!-- SEÇÃO 5: SANDBOX INTERATIVO -->
+  <section class="gallery-section">
+    <h2>5. Sandbox Interativo (Combinação Dinâmica)</h2>
+    <div class="gallery-grid single-column">
+      <div class="gallery-card">
+        <div class="sandbox-controls">
+          <div class="control-group">
+            <span class="control-label">Size:</span>
+            @for (item of sizes; track item) {
+              <button
+                type="button"
+                class="control-pill"
+                [class.active]="sandboxSize() === item"
+                (click)="sandboxSize.set(item)"
+              >
+                {{ item }}
+              </button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Theme:</span>
+            @for (item of themes; track item) {
+              <button
+                type="button"
+                class="control-pill"
+                [attr.data-variant]="item"
+                [class.active]="sandboxTheme() === item"
+                (click)="sandboxTheme.set(item)"
+              >
+                {{ item }}
+              </button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Estado:</span>
+            @for (item of statuses; track item) {
+              <button
+                type="button"
+                class="control-pill"
+                [attr.data-variant]="item"
+                [class.active]="sandboxStatus() === item"
+                (click)="sandboxStatus.set(item)"
+              >
+                {{ item }}
+              </button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Tipo:</span>
+            @for (item of inputTypes; track item) {
+              <button
+                type="button"
+                class="control-pill"
+                [class.active]="sandboxType() === item"
+                [disabled]="item === 'password' && sandboxRightIcon()"
+                (click)="sandboxType.set(item)"
+              >
+                {{ item }}
+              </button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Slots e Recursos:</span>
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxPrefix()"
+              (click)="sandboxPrefix.update((v) => !v)"
+            >
+              Prefixo (R$)
+            </button>
+
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxLeftIcon()"
+              (click)="toggleSandboxIcon('left')"
+            >
+              Ícone Left
+            </button>
+
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxRightIcon()"
+              [disabled]="sandboxType() === 'password'"
+              (click)="toggleSandboxIcon('right')"
+            >
+              Ícone Right
+            </button>
+
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxClearButton()"
+              [disabled]="sandboxInputButton()"
+              (click)="toggleSandboxClearButton()"
+            >
+              Clear Button
+            </button>
+
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxMaxLength()"
+              (click)="sandboxMaxLength.update((v) => !v)"
+            >
+              MaxLength (30)
+            </button>
+
+            <button
+              type="button"
+              class="control-pill"
+              [class.active]="sandboxInputButton()"
+              [disabled]="sandboxClearButton()"
+              (click)="toggleSandboxInputButton()"
+            >
+              Botão Integrado
+            </button>
+          </div>
+        </div>
+
+        <ion-input
+          label="Campo Interativo (Sandbox)"
+          placeholder="Digite ou navegue com Tab para testar..."
+          [size]="sandboxSize()"
+          [theme]="sandboxTheme()"
+          [inputType]="sandboxType()"
+          [invalid]="sandboxStatus() === 'invalid'"
+          [valid]="sandboxStatus() === 'valid'"
+          [disabled]="sandboxStatus() === 'disabled'"
+          [errorMsg]="sandboxStatus() === 'invalid' ? 'Mensagem de erro simulada no sandbox.' : ''"
+          [validMsg]="sandboxStatus() === 'valid' ? 'Campo validado com sucesso.' : ''"
+          [helperText]="sandboxStatus() === 'valid' ? 'Texto auxiliar de apoio ao preenchimento.' : ''"
+          [prefix]="sandboxPrefix() ? 'R$' : ''"
+          [leftIcon]="sandboxLeftIcon() ? 'search' : ''"
+          [rightIcon]="sandboxRightIcon() ? 'search' : ''"
+          [clearButton]="sandboxClearButton()"
+          [maxLength]="sandboxMaxLength() ? 30 : null"
+          [inputButton]="sandboxInputButton()"
+          [inputButtonConfig]="{ label: 'Confirmar' }"
+          [(value)]="sandboxValue"
+          (clickButton)="onSandboxButtonClick()"
+          (clickIconTrailing)="onSandboxTrailingClick()"
         ></ion-input>
       </div>
     </div>

@@ -49,11 +49,14 @@ export class IonInputComponent {
   valid = input<boolean>(false);
   invalid = input<boolean>(false);
   errorMsg = input<string>('');
+  validMsg = input<string>('');
   maxLength = input<string | number | null>(null);
 
   // Ícones e Ações
   iconInput = input<IconType>('');
   iconDirection = input<IconDirection | undefined>(undefined);
+  leftIcon = input<string>('');
+  rightIcon = input<string>('');
   clearButton = input<boolean>(false);
   inputButton = input<boolean>(false);
   inputButtonConfig = input<IonButtonProps | undefined>(undefined);
@@ -116,7 +119,13 @@ export class IonInputComponent {
       ? 'text'
       : this.inputType(),
   );
+  resolvedLeftIcon = computed(() =>
+    this.leftIcon() || (this.iconDirection() === 'left' ? this.iconInput() : ''),
+  );
 
+  resolvedRightIcon = computed(() =>
+    this.rightIcon() || (this.iconDirection() === 'right' ? this.iconInput() : ''),
+  );
   onChange(val: string): void {
     this.valueChange.emit(val);
   }
@@ -158,6 +167,10 @@ export class IonInputComponent {
   }
 
   isClearButtonVisible = computed(
-    () => this.clearButton() && this.value().length > 0,
+  () =>
+    this.clearButton() &&
+    !this.disabled() &&
+    !this.readonly() &&
+    Boolean(this.value()),
   );
 }

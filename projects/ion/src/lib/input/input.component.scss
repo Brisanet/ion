@@ -20,15 +20,15 @@ $input-stack-gap: 4px;
   --input-height: 48px;
   --current-theme-color: #{ion-theme(input-element-active-border-color)};
   --current-hover-color: #{ion-theme(input-element-hover-border-color)};
-  --focus-inner: #{ion-theme(input-background-color)};
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-:host([theme="secondary"]) {
+:host([theme='secondary']) {
   --current-theme-color: #{ion-theme(input-secondary-color)};
   --current-hover-color: #{ion-theme(input-secondary-hover-color)};
 }
 
-:host([size="large"]) {
+:host([size='large']) {
   --input-height: 56px;
 }
 
@@ -38,6 +38,30 @@ $input-stack-gap: 4px;
   gap: $input-stack-gap;
   width: 100%;
   line-height: normal;
+
+  &:has(.input.invalid) {
+    --current-theme-color: #{ion-theme(input-invalid-border-color)};
+    --current-hover-color: #{ion-theme(input-invalid-hover-border-color)};
+
+    .input-label {
+      color: var(--current-theme-color);
+    }
+  }
+
+  &:has(.input.valid:not(.invalid)) {
+    --current-theme-color: #{ion-theme(input-valid-border-color)};
+    --current-hover-color: #{ion-theme(input-valid-hover-border-color)};
+  }
+
+  &:has(.input.disabled) {
+    cursor: not-allowed;
+    -webkit-user-select: none;
+    user-select: none;
+
+    .input-label {
+      color: ion-theme(input-disabled-text-color);
+    }
+  }
 }
 
 .input-label {
@@ -54,17 +78,17 @@ $input-stack-gap: 4px;
   color: var(--current-theme-color);
 }
 
-.input-container:has(.input.invalid) .input-label {
-  color: ion-theme(input-invalid-border-color);
-}
-
-.input-container:has(.input.disabled) .input-label {
-  color: ion-theme(input-disabled-text-color);
-}
-
 :host:not(.pointer-focus) div.input:not(.disabled):has(input.my-input:focus-visible) {
   &:not(.invalid):not(.valid) {
     @include focus-double-ring(var(--current-hover-color));
+  }
+
+  &.invalid {
+    @include focus-double-ring(ion-theme(input-invalid-focus-border-color));
+  }
+
+  &.valid:not(.invalid) {
+    @include focus-double-ring(ion-theme(input-valid-focus-border-color));
   }
 }
 
@@ -94,13 +118,11 @@ div.input {
   }
 
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
-    border-width: 2px;
     border-color: var(--current-hover-color);
-    box-shadow: var(--current-hover-color);
   }
 
   &.invalid {
-    border: 2px solid ion-theme(input-invalid-border-color);
+    border-color: ion-theme(input-invalid-border-color);
 
     &:focus-within:not(.disabled) {
       border-color: ion-theme(input-invalid-focus-border-color);
@@ -108,10 +130,10 @@ div.input {
   }
 
   &.valid:not(.invalid) {
-    border: 2px solid ion-theme(input-valid-border-color);
+    border-color: ion-theme(input-valid-border-color);
 
     &:focus-within:not(.disabled) {
-      border-color: ion-theme(input-modern-success-focus-color);
+      border-color: ion-theme(input-valid-focus-border-color);
     }
   }
 
@@ -121,10 +143,19 @@ div.input {
     background-color: ion-theme(input-disabled-background);
     opacity: 0.45;
     pointer-events: none;
+    -webkit-user-select: none;
+    user-select: none;
 
     input,
     input::placeholder {
       cursor: not-allowed;
+      color: ion-theme(input-disabled-text-color);
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    input::selection {
+      background: transparent;
       color: ion-theme(input-disabled-text-color);
     }
   }
@@ -195,7 +226,7 @@ div.input {
     height: $input-icon-size;
     margin: 0 $input-icon-margin;
 
-    ::ng-deep button.ion-btn-ghost {
+    ::ng-deep button {
       width: 100%;
       height: 100%;
       min-width: 0;
@@ -204,19 +235,16 @@ div.input {
       border: none;
       border-radius: 4px;
       background: transparent;
-      transition: border-color 0.2s ease, border-width 0.2s ease;
+      color: inherit !important;
+      transition: background-color 0.2s ease, color 0.2s ease;
 
-      &:not(:disabled) {
-        color: inherit;
+      ion-icon svg {
+        fill: currentColor !important;
+      }
 
-        ion-icon svg {
-          fill: currentColor;
-        }
-
-        &:hover {
-          color: var(--current-hover-color);
-          background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent);
-        }
+      &:not(:disabled):hover {
+        color: var(--current-hover-color) !important;
+        background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent) !important;
       }
 
       &:focus-visible {
@@ -226,7 +254,9 @@ div.input {
     }
   }
 
-  &:focus-within:not(.disabled) {
+  &:focus-within:not(.disabled),
+  &.invalid:not(.disabled),
+  &.valid:not(.disabled) {
     .left-icon,
     .input-icon-btn {
       color: var(--current-theme-color);
@@ -241,64 +271,12 @@ div.input {
     margin: 0 $input-icon-margin;
   }
 
-  .left-icon {
-    margin-left: $input-padding-inline;
+  .icon-valid {
+    color: ion-theme(input-valid-icon-color);
   }
 
-  .right-icon,
-  .password-toggle,
-  .clearButton {
-    color: var(--current-theme-color);
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: 2px solid var(--current-hover-color);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-  }
-
-  .icon-valid ::ng-deep svg {
-    fill: ion-theme(input-valid-icon-color);
-  }
-
-  .icon-invalid ::ng-deep svg {
-    fill: ion-theme(input-invalid-icon-color);
-  }
-
-  ion-icon ::ng-deep svg {
-    fill: ion-theme(input-icon-color);
-  }
-
-  .trailing-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    padding: 0;
-    margin-right: var(--gap-inline-xl, 16px);
-    margin-left: calc(var(--gap-inline-lg, 12px) * -0.5);
-    cursor: pointer;
-    color: var(--theme-color);
-    border-radius: 4px;
-    line-height: 1;
-
-    &:focus-visible {
-      outline: 2px solid var(--current-hover-color);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    &:disabled {
-      cursor: not-allowed;
-      color: var(--border-color);
-      pointer-events: none;
-    }
-
-    ion-icon {
-      margin: 0;
-    }
+  .icon-invalid {
+    color: ion-theme(input-invalid-icon-color);
   }
 
   .button-separator {
@@ -308,7 +286,6 @@ div.input {
   }
 
   &.input-button {
-    &,
     .my-input {
       border-top-right-radius: 0;
       border-bottom-right-radius: 0;
@@ -318,13 +295,12 @@ div.input {
       display: flex;
       flex: 0 0 auto;
       align-self: stretch;
-      margin-left: -1px;
 
       ::ng-deep button {
         height: 100%;
         padding: spacing(0.75) spacing(1.5);
         border: 0;
-        border-radius: 0 ($input-radius - 1px) ($input-radius - 1px) 0;
+        border-radius: 0 ($input-radius - 2px) ($input-radius - 2px) 0;
         font-family: 'figtree', sans-serif;
         font-size: 16px;
         font-weight: 600;
@@ -335,40 +311,59 @@ div.input {
           line-height: 24px;
         }
 
-        &:not(:hover).ion-btn-secondary {
-          border-color: ion-theme(input-element-border-color);
+        ion-icon svg {
+          fill: currentColor !important;
         }
 
         &.ion-remove-space {
           padding: 0 spacing(1) !important;
         }
+
+        &:not(:disabled) {
+          &.ion-btn-primary {
+            background-color: ion-theme(input-prefix-background-color);
+            color: ion-theme(input-icon-color);
+          }
+
+          &.ion-btn-secondary,
+          &.ion-btn-ghost {
+            background-color: transparent;
+            color: ion-theme(input-icon-color);
+          }
+
+          &:hover {
+            &.ion-btn-primary {
+              background-color: var(--current-hover-color);
+              color: #ffffff;
+            }
+
+            &.ion-btn-secondary,
+            &.ion-btn-ghost {
+              background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent);
+              color: var(--current-hover-color);
+            }
+          }
+        }
       }
     }
-  }
-}
 
-:host:not(.pointer-focus) div.input:not(.disabled):has(input.my-input:focus-visible) {
-  &:not(.invalid):not(.valid) {
-    @include focus-double-ring(var(--current-hover-color));
-  }
-}
+    &:focus-within:not(.disabled) .attached-button ::ng-deep button:not(:disabled),
+    &.invalid:not(.disabled) .attached-button ::ng-deep button:not(:disabled),
+    &.valid:not(.disabled) .attached-button ::ng-deep button:not(:disabled) {
+      &.ion-btn-primary {
+        background-color: var(--current-theme-color);
+        color: #ffffff;
 
-.clearButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  border-radius: 2px;
-  background-color: transparent;
+        &:hover {
+          background-color: var(--current-hover-color);
+        }
+      }
 
-  &:hover {
-    background-color: var(--current-hover-color);
-  }
-
-  &.ion-btn-secondary,
-  &.ion-btn-ghost {
-    color: var(--current-theme-color);
+      &.ion-btn-secondary,
+      &.ion-btn-ghost {
+        color: var(--current-theme-color);
+      }
+    }
   }
 }
 
@@ -380,7 +375,8 @@ div.input {
 }
 
 .helper-text,
-.errorMsg {
+.errorMsg,
+.validMsg {
   margin-top: $input-stack-gap;
 
   p {
@@ -393,7 +389,10 @@ div.input {
 
 .helper-text {
   color: ion-theme(input-helper-text-color);
-  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.validMsg {
+  color: ion-theme(input-valid-border-color);
 }
 
 .errorMsg {

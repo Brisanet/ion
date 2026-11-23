@@ -15,11 +15,11 @@
       <span class="input-prefix" aria-hidden="true">{{ prefix() }}</span>
     }
 
-    @if (iconDirection() === 'left' && iconInput()) {
+    @if (resolvedLeftIcon()) {
       <ion-icon
         data-testid="icon-left"
         class="left-icon"
-        [type]="iconInput()"
+        [type]="resolvedLeftIcon()"
         [size]="24"
         aria-hidden="true"
       ></ion-icon>
@@ -56,28 +56,27 @@
         [aria-pressed]="passwordVisible()"
         [disabled]="disabled()"
         (click)="togglePasswordVisibility()"
-        type = "ghost"
+        type="ghost"
         [iconType]="passwordVisible() ? 'eye' : 'eye-off'"
         [rightSideIcon]="true"
         [size]="internalButtonSize()"
       ></ion-button>
-    } @else if (!isClearButtonVisible() && iconDirection() === 'right' && iconInput()) {
+    } @else if (resolvedRightIcon()) {
       <ion-button
-      data-testid="icon-right-button"
-      class="trailing-button input-icon-btn"
-      type="ghost"
-      [size]="internalButtonSize()"
-      [iconType]="iconInput()"
-      [disabled]="disabled()"
-      [aria-label]="iconTrailingAriaLabel()"
-      (click)="onClickTrailingIcon()"
+        data-testid="icon-right-button"
+        class="trailing-button input-icon-btn"
+        type="ghost"
+        [size]="internalButtonSize()"
+        [iconType]="resolvedRightIcon()"
+        [disabled]="disabled()"
+        [aria-label]="iconTrailingAriaLabel()"
+        (click)="onClickTrailingIcon()"
       ></ion-button>
     }
-    
-    @if (isClearButtonVisible()) {
+        @if (isClearButtonVisible()) {
       <ion-button
-        data-testid="clear-button input-icon-btn"
-        class="clearButton"
+        data-testid="clear-button"
+        class="clearButton input-icon-btn"
         type="ghost"
         [size]="internalButtonSize()"
         iconType="close-rounded"
@@ -108,6 +107,10 @@
 @if (invalid() && errorMsg()) {
   <div [id]="uniqueId + '-error'" class="errorMsg" role="alert">
     <p>{{ errorMsg() }}</p>
+  </div>
+} @else if (valid() && validMsg()) {
+  <div [id]="uniqueId + '-valid'" class="validMsg">
+    <p>{{ validMsg() }}</p>
   </div>
 } @else if (helperText()) {
   <div [id]="uniqueId + '-helper'" class="helper-text">
