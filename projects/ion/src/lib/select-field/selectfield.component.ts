@@ -28,7 +28,6 @@ const CHIP_REMOVE_KEYS = new Set(['Backspace', 'Delete', 'Enter', ' ', 'Spacebar
 export type IonSelectType = 'single' | 'multi';
 export type IonSelectSize = 'base' | 'large';
 export type IonSelectStatus = 'default' | 'error' | 'success';
-export type IonSelectTheme = 'light' | 'dark' | 'orange-light' | 'orange-dark';
 
 @Component({
   selector: 'ion-select-field',
@@ -53,7 +52,6 @@ export class IonSelectFieldComponent {
   label = input<string>('');
   supportingText = input<string>('');
   status = input<IonSelectStatus>('default');
-  theme = input<IonSelectTheme | undefined>(undefined);
   required = input<boolean>(false);
   disabled = input<boolean>(false);
   invalid = input<boolean>(false);
@@ -187,7 +185,6 @@ export class IonSelectFieldComponent {
       this.dropdownOptions();
       this.activeOptionIndex();
       this.loading();
-      this.theme();
       if (this.showDropdown()) {
         untracked(() => this.runAfterRender(() => this.syncDropdownAccessibility()));
       }
@@ -552,9 +549,6 @@ export class IonSelectFieldComponent {
 
     this.dropdownPanel = panel;
     panel.setAttribute('data-select-field-id', this.instanceId);
-    this.theme()
-      ? panel.setAttribute('data-ion-theme', this.theme()!)
-      : panel.removeAttribute('data-ion-theme');
     if (triggerRect.width > 0) panel.style.width = `${triggerRect.width}px`;
 
     const listbox = panel.querySelector<HTMLElement>('.options-list');

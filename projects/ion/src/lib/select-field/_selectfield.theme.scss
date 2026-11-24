@@ -1,4 +1,3 @@
-@use 'sass:map';
 @import '../../styles/themes/theme.scss';
 
 $default: (
@@ -125,30 +124,16 @@ $orange-dark: (
   ),
 );
 
+$light-v2: $default;
+$orange-light-v2: $orange-light;
+
 @include register-component(
   select,
   (
     default: $default,
     dark: $dark,
     orange-light: $orange-light,
-    orange-dark: $orange-dark,
+    light-v2: $light-v2,
+    orange-light-v2: $orange-light-v2,
   )
 );
-
-$select-themes: (
-  light: $default,
-  dark: $dark,
-  orange-light: $orange-light,
-  orange-dark: $orange-dark,
-);
-
-@each $theme-name, $theme-palette in $themes {
-  .ion-select-container[data-ion-theme='#{$theme-name}'],
-  ::ng-deep
-    .container-options[data-select-field-id][data-ion-theme='#{$theme-name}'] {
-    @include map-to-css-vars($theme-palette);
-    @include map-to-css-vars(
-      (select: map.get($select-themes, $theme-name))
-    );
-  }
-}

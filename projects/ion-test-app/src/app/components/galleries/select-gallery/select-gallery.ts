@@ -2,32 +2,36 @@ import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  DestroyRef,
+  effect,
   inject,
   signal,
 } from '@angular/core';
 import {
   DropdownItem,
-  IonIconComponent,
   IonSelectComponent,
   IonSelectFieldComponent,
-  IonSelectTheme,
 } from 'ion';
 
-type ThemePreview = Extract<IonSelectTheme, 'light' | 'orange-light'>;
+const GALLERY_THEMES = [
+  { key: 'light', label: 'Azul · claro' },
+  { key: 'orange-light', label: 'Laranja · claro' },
+  { key: 'light-v2', label: 'Azul · claro v2' },
+  { key: 'orange-light-v2', label: 'Laranja · claro v2' },
+] as const;
+
+type ThemePreview = (typeof GALLERY_THEMES)[number]['key'];
 
 @Component({
   selector: 'app-select-gallery',
-  imports: [
-    IonSelectComponent,
-    IonSelectFieldComponent,
-    IonIconComponent,
-  ],
+  imports: [IonSelectComponent, IonSelectFieldComponent],
   templateUrl: './select-gallery.html',
   styleUrl: './select-gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectGalleryComponent {
   private readonly document = inject(DOCUMENT);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly initialTheme = this.document.body.getAttribute('ion-theme');
 
   readonly options: DropdownItem[] = [
@@ -62,10 +66,7 @@ export class SelectGalleryComponent {
   ]);
   readonly requiredMultiValue = ['apple', 'banana'];
   readonly themePreview = signal<ThemePreview>('light');
-  readonly themes: { key: ThemePreview; label: string }[] = [
-    { key: 'light', label: 'Azul · claro' },
-    { key: 'orange-light', label: 'Laranja · claro' },
-  ];
+  readonly themes = GALLERY_THEMES;
   readonly colorTokens = [
     'primary-1',
     'primary-2',
@@ -85,6 +86,22 @@ export class SelectGalleryComponent {
     if (this.isThemePreview(this.initialTheme)) {
       this.themePreview.set(this.initialTheme);
     }
+
+    effect(() => {
+      this.syncOverlayTheme(this.themePreview());
+    });
+
+    const overlayObserver = new MutationObserver(() => {
+      this.syncOverlayTheme(this.themePreview());
+    });
+    overlayObserver.observe(this.document.body, { childList: true });
+
+    this.destroyRef.onDestroy(() => {
+      overlayObserver.disconnect();
+      this.document
+        .querySelector('.cdk-overlay-container')
+        ?.removeAttribute('data-theme-preview');
+    });
   }
 
   onSingleValueChange(value: unknown): void {
@@ -99,7 +116,16 @@ export class SelectGalleryComponent {
     this.themePreview.set(theme);
   }
 
-  private isThemePreview(value: string | null): value is ThemePreview {
-    return this.themes.some((theme) => theme.key === value);
+  private syncOverlayTheme(theme: ThemePreview): void {
+    this.document
+      .querySelector('.cdk-overlay-container')
+      ?.setAttribute('data-theme-preview', theme);
+  }
+
+  private isThemePreview(value: unknown): value is ThemePreview {
+    return (
+      typeof value === 'string' &&
+      this.themes.some((theme) => theme.key === value)
+    );
   }
 }

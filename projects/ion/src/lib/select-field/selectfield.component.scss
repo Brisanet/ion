@@ -407,7 +407,7 @@
 // Dropdown overlay menu
 ::ng-deep .container-options[data-select-field-id] {
   border-color: ion-theme(select-menu-border-color);
-  border-radius: 8px;
+  border-radius: ion-theme(select-border-radius);
   background-color: ion-theme(select-menu-background-color);
   box-shadow: ion-theme(select-menu-shadow);
 

@@ -1,10 +1,43 @@
-@use '../../../../../../ion/src/styles/themes/themes' as themes;
+@use 'sass:map';
+@use '../../../../../../ion/src/styles/themes/theme' as theme;
 
-@mixin apply-theme-tokens($theme) {
-  @each $token, $value in $theme {
-    --ion-#{$token}: #{$value};
-  }
-}
+$select-gallery-default: (
+  background-color: var(--ion-neutral-1),
+  border-radius: 8px,
+  border-color: var(--ion-neutral-5),
+  selected-border-color: var(--ion-neutral-5),
+  placeholder-color: var(--ion-neutral-5),
+  text-color: var(--ion-neutral-7),
+  supporting-text-color: var(--ion-neutral-7),
+  hover-border-color: var(--ion-primary-5),
+  focus-color: var(--ion-primary-5),
+  focus-surface: var(--ion-neutral-1),
+  disabled-border-color: var(--ion-neutral-3),
+  error-color: var(--ion-negative-6),
+  success-color: var(--ion-positive-6),
+  tag-background: var(--ion-neutral-2),
+  tag-text-color: var(--ion-neutral-7),
+  tag-border-radius: 4px,
+  menu: (
+    background-color: var(--ion-neutral-1),
+    border-color: var(--ion-neutral-3),
+    shadow: '0px 8px 6px -4px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.15)',
+  ),
+  menu-item: (
+    text-color: var(--ion-neutral-7),
+    hover-background-color: var(--ion-primary-1),
+    selected-background-color: var(--ion-primary-1),
+    selected-text-color: var(--ion-primary-6),
+    disabled-text-color: var(--ion-neutral-5),
+  ),
+);
+
+$select-gallery-component-themes: (
+  light: $select-gallery-default,
+  orange-light: $select-gallery-default,
+  light-v2: $select-gallery-default,
+  orange-light-v2: $select-gallery-default,
+);
 
 :host {
   display: block;
@@ -22,12 +55,18 @@
   min-width: 0;
 }
 
-.select-gallery[data-theme-preview='light'] {
-  @include apply-theme-tokens(themes.$light-theme);
-}
+@each $theme-name, $theme-palette in theme.$themes {
+  $component-map: if(
+    map.has-key($select-gallery-component-themes, $theme-name),
+    map.get($select-gallery-component-themes, $theme-name),
+    $select-gallery-default
+  );
 
-.select-gallery[data-theme-preview='orange-light'] {
-  @include apply-theme-tokens(themes.$orange-light-theme);
+  .select-gallery[data-theme-preview='#{$theme-name}'],
+  ::ng-deep .cdk-overlay-container[data-theme-preview='#{$theme-name}'] {
+    @include theme.map-to-css-vars(map.merge(theme.$defaults, $theme-palette));
+    @include theme.map-to-css-vars((select: $component-map));
+  }
 }
 
 .select-gallery__header h2,
