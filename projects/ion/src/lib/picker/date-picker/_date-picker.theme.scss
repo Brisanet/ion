@@ -15,6 +15,10 @@ $default: (
     primary-hover-color: ion-theme(input-element-hover-border-color),
     secondary-color: ion-theme(input-secondary-color),
     secondary-hover-color: ion-theme(input-secondary-hover-color),
+    success-color: ion-theme(positive-6),
+    success-hover-color: ion-theme(positive-7),
+    error-color: ion-theme(negative-6),
+    error-hover-color: ion-theme(negative-7),
   ),
   week-day-text: (
     color: ion-theme(neutral-6),
@@ -78,6 +82,10 @@ $light-v2: (
     primary-hover-color: ion-theme(input-element-hover-border-color),
     secondary-color: ion-theme(input-secondary-color),
     secondary-hover-color: ion-theme(input-secondary-hover-color),
+    success-color: ion-theme(positive-6),
+    success-hover-color: ion-theme(positive-7),
+    error-color: ion-theme(negative-6),
+    error-hover-color: ion-theme(negative-7),
   ),
   week-day-text: (
     color: ion-theme(neutral-6),
@@ -141,6 +149,10 @@ $orange-light-v2: (
     primary-hover-color: ion-theme(input-element-hover-border-color),
     secondary-color: ion-theme(input-secondary-color),
     secondary-hover-color: ion-theme(input-secondary-hover-color),
+    success-color: ion-theme(positive-6),
+    success-hover-color: ion-theme(positive-7),
+    error-color: ion-theme(negative-6),
+    error-hover-color: ion-theme(negative-7),
   ),
   week-day-text: (
     color: ion-theme(neutral-6),
