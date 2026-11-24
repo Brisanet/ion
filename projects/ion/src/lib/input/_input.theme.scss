@@ -419,7 +419,8 @@ $orange-light-v2: (
   (
     default: $default,
     //light-v2: $light-v2,
-    //orange-light-v2: $orange-light-v2-theme,
+    "light-v2": $light-v2,
+    "orange-light-v2": $orange-light-v2,
     dark: $dark,
     "light-v2": $light-v2,
     "orange-light-v2": $orange-light-v2,
