@@ -45,9 +45,10 @@ describe('IonDatePickerInputComponent', () => {
     expect(inputElement).toHaveClass('disabled');
   });
 
-  it.each(['split', 'joined'] as const)(
-    'should render both %s range inputs with the selected icons',
-    (layout) => {
+  it.each([
+  { layout: 'split' as const, expectedCount: 2 },
+  { layout: 'joined' as const, expectedCount: 1 },
+  ])( 'should render $layout range input(s) with the selected calendar icon(s)', ({ layout, expectedCount }) => {
       const fixture = TestBed.createComponent(IonDatePickerInputComponent);
       fixture.componentRef.setInput('rangePicker', true);
       fixture.componentRef.setInput('layout', layout);
@@ -64,7 +65,7 @@ describe('IonDatePickerInputComponent', () => {
       const inputs = fixture.debugElement
         .queryAll(By.css('ion-input'))
         .map((element) => element.componentInstance as IonInputComponent);
-      expect(inputs).toHaveLength(2);
+      expect(inputs).toHaveLength(expectedCount);
       for (const input of inputs) {
         expect(input.iconDirection()).toBe('left');
         expect(input.iconInput()).toBe('calendar');
@@ -73,25 +74,47 @@ describe('IonDatePickerInputComponent', () => {
       const icons = fixture.debugElement.queryAll(
         By.css('ion-icon[data-testid="icon-left"]'),
       );
-      expect(icons).toHaveLength(2);
+      expect(icons).toHaveLength(expectedCount);
       expect(
         icons.map((icon) => icon.componentInstance.size()),
-      ).toEqual([24, 24]);
+      ).toEqual(Array(expectedCount).fill(24));
     },
   );
 
-  it('should keep the default layout unless range mode is enabled', () => {
+  it('should keep the default layout for split unless range mode is enabled', () => {
     const fixture = TestBed.createComponent(IonDatePickerInputComponent);
-    fixture.componentRef.setInput('layout', 'joined');
+    fixture.componentRef.setInput('rangePicker', false);
+    fixture.componentRef.setInput('layout', 'split');
     fixture.detectChanges();
 
-    expect(screen.getByTestId('container-input')).toBeTruthy();
     expect(
-      fixture.nativeElement.querySelector(
-        '[data-testid="date-picker-input-joined"]',
-      ),
+      fixture.nativeElement.querySelector('[data-testid="container-input"]'),
+    ).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="date-picker-input-split"]'),
     ).toBeNull();
-    expect(fixture.debugElement.queryAll(By.css('ion-input'))).toHaveLength(1);
+  });
+
+  it('should render joined layout with a single input and left icon when range mode is disabled', () => {
+    const fixture = TestBed.createComponent(IonDatePickerInputComponent);
+    fixture.componentRef.setInput('rangePicker', false);
+    fixture.componentRef.setInput('layout', 'joined');
+    fixture.componentRef.setInput('date', '01/11/2026');
+    fixture.componentRef.setInput('icon', true);
+    fixture.detectChanges();
+
+    expect(
+      fixture.nativeElement.querySelector('[data-testid="date-picker-input-joined"]'),
+    ).toBeTruthy();
+
+    const inputs = fixture.debugElement
+      .queryAll(By.css('ion-input'))
+      .map((el) => el.componentInstance as IonInputComponent);
+
+    expect(inputs).toHaveLength(1);
+    expect(inputs[0].value()).toBe('01/11/2026');
+    expect(inputs[0].iconDirection()).toBe('left');
+    expect(inputs[0].iconInput()).toBe('calendar');
   });
 
   it('should continue accepting the legacy single-date string value', () => {

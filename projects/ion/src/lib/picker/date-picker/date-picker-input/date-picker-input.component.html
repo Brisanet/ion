@@ -16,21 +16,8 @@
         iconDirection="left"
         [readonly]="true"
         [disabled]="disabled()"
-      ></ion-input>
-
-        <span class="joined-divider">–</span>
-
-      <ion-input
-        [size]="size()"
-        [theme]="theme()"
-        [value]="endDate()"
         [inputButton]="hasDate()"
-        [placeholder]="endPlaceholder()"
-        [iconInput]="icon() ? 'calendar' : ''"
-        iconDirection="left"
         [inputButtonConfig]="clearButtonConfig()"
-        [readonly]="true"
-        [disabled]="disabled()"
         (clickButton)="clearDateValue()"
       ></ion-input>
     </div>

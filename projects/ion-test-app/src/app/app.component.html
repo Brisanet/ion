@@ -1756,18 +1756,15 @@
         [rangePicker]="true"
         layout="default"
         size="base"
-        theme="primary"
         (event)="handleDateRangePickerChange($event)"
         ></ion-date-picker>
       </div>
       <div>
         <h3>Joined Date Picker</h3>
         <ion-date-picker
-        [rangePicker]="true"
         layout="joined"
         size="large"
-        theme="primary"
-        (event)="handleDateRangePickerChange($event)"
+        (event)="handleDatePickerChange($event)"
         ></ion-date-picker>
       </div>
       <div>
@@ -1775,7 +1772,6 @@
         <ion-date-picker
         [rangePicker]="true"
         layout="split"
-        theme="secondary"
         (event)="handleDateRangePickerChange($event)"
         ></ion-date-picker>
       </div>

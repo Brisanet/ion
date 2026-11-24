@@ -32,7 +32,7 @@ export class IonDatePickerInputComponent {
   rangePicker = input<boolean>(false);
   size = input<DatePickerSize>('base');
   theme = input<DatePickerTheme>('primary');
-  icon = input<boolean>(false);
+  icon = input<boolean>(true);
   placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
@@ -43,9 +43,12 @@ export class IonDatePickerInputComponent {
   startDate = computed(() => this.dateParts()[0] ?? '');
   endDate = computed(() => this.dateParts()[1] ?? '');
   hasDate = computed(() => this.dateParts().length > 0);
-  activeLayout = computed(() =>
-    this.rangePicker() ? this.layout() : 'default',
-  );
+  activeLayout = computed<DatePickerLayout>(() => {
+    if (this.layout() === 'split' && !this.rangePicker()) {
+      return 'default';
+    }
+    return this.layout();
+  });
 
   singleInputValue = computed(() => {
     const dates = this.dateParts();
@@ -61,7 +64,7 @@ export class IonDatePickerInputComponent {
     const p = this.placeholder();
     return Array.isArray(p) ? p[1] : p;
   });
-
+  
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',

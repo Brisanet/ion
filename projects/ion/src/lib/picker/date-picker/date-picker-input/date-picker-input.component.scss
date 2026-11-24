@@ -11,7 +11,6 @@ $split-gap: 8px;
   &:focus-within {
     border-width: 2px;
     border-color: ion-theme($focus-token);
-    box-shadow: ion-theme($focus-token);
   }
 }
 .layout-joined {
@@ -50,12 +49,6 @@ $split-gap: 8px;
     background-color: ion-theme(date-picker-range-input-disabled-background-color);
     cursor: not-allowed;
   }
-
-  .joined-divider {
-    flex-shrink: 0;
-    color: ion-theme(date-picker-range-input-text-color);
-    user-select: none;
-  }
 }
 
 .layout-split {
@@ -74,8 +67,7 @@ $split-gap: 8px;
 :host ::ng-deep .layout-joined {
   ion-input,
   ion-input .input-container {
-    flex: 1 1 0;
-    min-width: 0;
+    width: 100%;
     height: 100%;
   }
 
@@ -85,16 +77,6 @@ $split-gap: 8px;
     border-radius: 0 !important;
     background: transparent !important;
   }
-
-  ion-input:last-of-type {
-    input {
-      text-align: right;
-    }
-
-    .attached-button button {
-      border-radius: 0;
-    }
-  }
 }
 
 :host ::ng-deep {
@@ -103,6 +85,19 @@ $split-gap: 8px;
     ion-input {
       flex: 1 1 0;
       min-width: 0;
+    }
+    &:not(.theme-secondary) ion-input .input:not(.disabled) {
+      @include theme-states(
+        date-picker-range-input-primary-hover-color,
+        date-picker-range-input-primary-color
+      );
+    }
+
+    &.theme-secondary ion-input .input:not(.disabled) {
+      @include theme-states(
+        date-picker-range-input-secondary-hover-color,
+        date-picker-range-input-secondary-color
+      );
     }
   }
 }
