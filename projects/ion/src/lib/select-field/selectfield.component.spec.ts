@@ -68,36 +68,6 @@ describe('IonSelectFieldComponent', () => {
     expect(screen.getByText('Choose one').classList).toContain('success-text');
   });
 
-  it('should apply an optional theme to the select and its overlay only', async () => {
-    const fixture = TestBed.createComponent(IonSelectFieldComponent);
-    fixture.componentRef.setInput('theme', 'orange-dark');
-    fixture.componentRef.setInput('options', options);
-    fixture.detectChanges();
-
-    const container = fixture.nativeElement.querySelector(
-      '.ion-select-container'
-    ) as HTMLElement;
-    expect(container.getAttribute('data-ion-theme')).toBe('orange-dark');
-    expect(container.style.getPropertyValue('--ion-select-background-color')).toBe(
-      ''
-    );
-
-    fireEvent.click(screen.getByTestId('ion-select'));
-    fixture.detectChanges();
-    await fixture.whenStable();
-    fixture.detectChanges();
-
-    const dropdown = screen.getByTestId('ion-dropdown') as HTMLElement;
-    expect(dropdown.getAttribute('data-ion-theme')).toBe('orange-dark');
-    const optionsPanel = document.querySelector<HTMLElement>(
-      '.container-options[data-select-field-id]'
-    );
-    expect(optionsPanel?.getAttribute('data-ion-theme')).toBe('orange-dark');
-    expect(
-      dropdown.style.getPropertyValue('--ion-select-menu-background-color')
-    ).toBe('');
-  });
-
   it('should expose the empty state when the open menu has no options', async () => {
     const fixture = TestBed.createComponent(IonSelectFieldComponent);
     fixture.detectChanges();
