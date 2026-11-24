@@ -75,6 +75,45 @@ describe('IonIconButtonComponent', () => {
         'ion-icon-edit'
       );
     });
+
+    it('exibe o tooltip configurado ao passar o mouse sobre o botão', () => {
+      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+      fixture.detectChanges();
+
+      getButton().dispatchEvent(new MouseEvent('mouseenter'));
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
+        'Salvar alterações'
+      );
+
+      getButton().dispatchEvent(new MouseEvent('mouseleave'));
+      fixture.detectChanges();
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
+
+    it('exibe o tooltip configurado quando o botão recebe foco', () => {
+      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+      fixture.detectChanges();
+
+      getButton().focus();
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
+        'Salvar alterações'
+      );
+
+      getButton().blur();
+      fixture.detectChanges();
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
+
+    it('não exibe tooltip quando não há texto configurado', () => {
+      getButton().dispatchEvent(new MouseEvent('mouseenter'));
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
   });
 
   describe('Variantes e estilos', () => {

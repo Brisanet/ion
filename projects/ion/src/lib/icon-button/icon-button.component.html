@@ -16,7 +16,11 @@
   [attr.aria-disabled]="disabled() || loading() ? 'true' : null"
   [attr.aria-busy]="loading() ? 'true' : null"
   [attr.data-testid]="'icon-btn-' + ariaLabel()"
+  ionTooltip
+  [ionTooltipTitle]="tooltip() || ''"
   [disabled]="disabled()"
+  (focusin)="handleFocusIn()"
+  (focusout)="handleFocusOut()"
   (click)="handleClick()"
 >
   @if (loading()) {

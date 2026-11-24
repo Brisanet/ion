@@ -4,10 +4,12 @@ import {
   computed,
   input,
   output,
+  viewChild,
 } from '@angular/core';
 import { IconType } from '../core/types/icon';
 import { IonIconComponent } from '../icon/icon.component';
 import { IonSpinnerComponent } from '../spinner/spinner.component';
+import { IonTooltipDirective } from '../tooltip/tooltip.directive';
 import {
   IconButtonRounding,
   IconButtonSize,
@@ -16,12 +18,14 @@ import {
 
 @Component({
   selector: 'ion-icon-button',
-  imports: [IonIconComponent, IonSpinnerComponent],
+  imports: [IonIconComponent, IonSpinnerComponent, IonTooltipDirective],
   templateUrl: './icon-button.component.html',
   styleUrls: ['./icon-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IonIconButtonComponent {
+  private tooltipDirective = viewChild(IonTooltipDirective);
+
   ariaLabel = input.required<string>();
   icon = input.required<IconType>();
   buttonType = input<'button' | 'submit' | 'reset'>('button');
@@ -32,6 +36,7 @@ export class IonIconButtonComponent {
   disabled = input(false);
   ionOnClick = output<void>();
   loading = input(false);
+  tooltip = input<string>();
 
   iconSize = computed(() => {
     const sizes: Record<IconButtonSize, number> = {
@@ -47,5 +52,13 @@ export class IonIconButtonComponent {
     if (!this.loading() && !this.disabled()) {
       this.ionOnClick.emit();
     }
+  }
+
+  handleFocusIn(): void {
+    this.tooltipDirective()?.onMouseEnter();
+  }
+
+  handleFocusOut(): void {
+    this.tooltipDirective()?.onMouseLeave();
   }
 }
