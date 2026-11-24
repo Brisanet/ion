@@ -18,22 +18,22 @@
       </div>
 
       <div class="gallery-card">
+        <span class="badge">Single · layout="joined"</span>
+        <ion-date-picker
+          [rangePicker]="false"
+          layout="joined"
+          placeholder="Selecione a data"
+          (event)="onDateChange('singleJoined', $event)"
+        ></ion-date-picker>
+      </div>
+
+      <div class="gallery-card">
         <span class="badge">Range · layout="default"</span>
         <ion-date-picker
           [rangePicker]="true"
           layout="default"
           placeholder="Selecione o período"
           (event)="onDateChange('rangeDefault', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Range · layout="joined"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          placeholder="Selecione a data"
-          (event)="onDateChange('rangeJoined', $event)"
         ></ion-date-picker>
       </div>
 
@@ -49,260 +49,10 @@
     </div>
   </section>
 
-  <!-- SEÇÃO 2: VARIAÇÃO DE TAMANHOS (BASE vs LARGE) -->
+  <!-- SEÇÃO 2: REGRAS DE CALENDÁRIO, ATALHOS E FORMATOS -->
   <section class="gallery-section">
-    <h2>2. Tamanhos de Container (Size)</h2>
+    <h2>2. Regras de Calendário, Atalhos e Formatos</h2>
     <div class="gallery-grid">
-      <div class="gallery-card">
-        <span class="badge">Default · size="base" (48px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          size="base"
-          placeholder="Data padrão (48px)"
-          (event)="onDateChange('sizeDefaultBase', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Default · size="large" (56px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          size="large"
-          placeholder="Data expandida (56px)"
-          (event)="onDateChange('sizeDefaultLarge', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Joined · size="base" (48px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          size="base"
-          placeholder="Período (48px)"
-          (event)="onDateChange('sizeJoinedBase', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Joined · size="large" (56px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          size="large"
-          placeholder="Período (56px)"
-          (event)="onDateChange('sizeJoinedLarge', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Split · size="base" (48px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          size="base"
-          placeholder="Período (48px)"
-          (event)="onDateChange('sizeSplitBase', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge">Split · size="large" (56px)</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          size="large"
-          placeholder="Período (56px)"
-          (event)="onDateChange('sizeSplitLarge', $event)"
-        ></ion-date-picker>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO 3: TEMAS CROMÁTICOS & MODALIDADE DE FOCO -->
-  <section class="gallery-section">
-    <h2>3. Temas Cromáticos e Foco (Clique vs. Teclado Tab)</h2>
-    <p class="gallery-hint">
-      Clique nos campos para validar a borda de foco simples (2px) e navegue usando
-      <code>Tab</code> para validar o anel duplo externo em cada layout e tema.
-    </p>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <span class="badge badge-primary">Default · theme="primary"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          theme="primary"
-          placeholder="Tema primário (Azul)"
-          (event)="onDateChange('themeDefaultPrimary', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-secondary">Default · theme="secondary"</span>
-        <ion-date-picker
-          [rangePicker]="false"
-          theme="secondary"
-          placeholder="Tema secundário (Laranja)"
-          (event)="onDateChange('themeDefaultSecondary', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-primary">Joined · theme="primary"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          theme="primary"
-          placeholder="Período primário"
-          (event)="onDateChange('themeJoinedPrimary', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-secondary">Joined · theme="secondary"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          theme="secondary"
-          placeholder="Período secundário"
-          (event)="onDateChange('themeJoinedSecondary', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-primary">Split · theme="primary"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          theme="primary"
-          placeholder="Período primário"
-          (event)="onDateChange('themeSplitPrimary', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-secondary">Split · theme="secondary"</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          theme="secondary"
-          placeholder="Período secundário"
-          (event)="onDateChange('themeSplitSecondary', $event)"
-        ></ion-date-picker>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO 4: MATRIZ DE ESTADOS E VALIDAÇÃO -->
-  <section class="gallery-section">
-    <h2>4. Matriz de Estados Interativos e Validação</h2>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <span class="badge badge-danger">Default · Error</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          [invalid]="true"
-          errorMsg="Selecione uma data válida para continuar."
-          placeholder="Data inválida"
-          (event)="onDateChange('stateDefaultError', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-success">Default · Success</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          [valid]="true"
-          [value]="preselectedRangeDates"
-          (event)="onDateChange('stateDefaultSuccess', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-danger">Joined · Error</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          [invalid]="true"
-          errorMsg="Período inválido ou fora do prazo."
-          placeholder="Período inválido"
-          (event)="onDateChange('stateJoinedError', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-success">Joined · Success</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          [valid]="true"
-          [value]="preselectedRangeDates"
-          (event)="onDateChange('stateJoinedSuccess', $event)"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-danger">Split · Validação Granular [invalid, valid]</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          [invalid]="[true, false]"
-          [valid]="[false, true]"
-          [errorMsg]="['Data inicial obrigatória', '']"
-          placeholder="Selecione a data"
-          (event)="onDateChange('stateSplitGranular', $event)"
-        ></ion-date-picker>
-        <p class="gallery-hint">
-          Validação independente por campo via tupla <code>[boolean, boolean]</code>.
-        </p>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-disabled">Default · Disabled</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          [disabled]="true"
-          placeholder="Campo bloqueado"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-disabled">Joined · Disabled</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          [disabled]="true"
-          [value]="preselectedRangeDates"
-        ></ion-date-picker>
-      </div>
-
-      <div class="gallery-card">
-        <span class="badge badge-disabled">Split · Disabled</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="split"
-          [disabled]="true"
-          [value]="preselectedRangeDates"
-        ></ion-date-picker>
-      </div>
-    </div>
-  </section>
-
-  <!-- SEÇÃO 5: REGRAS DE CALENDÁRIO, ATALHOS E FORMATOS -->
-  <section class="gallery-section">
-    <h2>5. Regras de Calendário, Atalhos e Formatos</h2>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <span class="badge">disabledDate · Sem Finais de Semana</span>
-        <ion-date-picker
-          [rangePicker]="true"
-          layout="joined"
-          [disabledDate]="disableWeekends"
-          placeholder="Selecione dias úteis"
-          (event)="onDateChange('ruleWeekends', $event)"
-        ></ion-date-picker>
-      </div>
-
       <div class="gallery-card">
         <span class="badge">formatInDateInput="YYYY-MM-DD" · ISO</span>
         <ion-date-picker
@@ -317,113 +67,101 @@
     </div>
   </section>
 
-  <!-- SEÇÃO 6: SANDBOX INTERATIVO -->
+  <!-- SEÇÃO 3: SANDBOX INTERATIVO -->
   <section class="gallery-section">
-    <h2>6. Sandbox Interativo (Combinação Dinâmica)</h2>
+    <h2>3. Sandbox Interativo (Combinação Dinâmica)</h2>
     <div class="gallery-grid single-column">
       <div class="gallery-card">
         <div class="sandbox-controls">
-          @if (sandboxRange()) {
-            <div class="control-group">
-              <span class="control-label">Layout:</span>
-              @for (item of layouts; track item) {
-                <button
-                  type="button"
-                  class="control-pill"
-                  [class.active]="sandboxLayout() === item"
-                  (click)="sandboxLayout.set(item)"
-                >
-                  {{ item }}
-                </button>
-              }
-            </div>
-          }
+          <div class="control-group">
+            <span class="control-label">Modo:</span>
+            <ion-button
+              label="Single"
+              [type]="!sandboxRange() ? 'primary' : 'secondary'"
+              (ionOnClick)="setSandboxRange(false)"
+            ></ion-button>
+            <ion-button
+              label="Range"
+              [type]="sandboxRange() ? 'primary' : 'secondary'"
+              (ionOnClick)="setSandboxRange(true)"
+            ></ion-button>
+          </div>
 
           <div class="control-group">
-            <span class="control-label">Size:</span>
-            @for (item of sizes; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxSize() === item"
-                (click)="sandboxSize.set(item)"
-              >
-                {{ item }}
-              </button>
+            <span class="control-label">Layout:</span>
+            @for (item of availableLayouts(); track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxLayout() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="setSandboxLayout(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
-            <span class="control-label">Theme:</span>
-            @for (item of themes; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxTheme() === item"
-                [attr.data-variant]="item"
-                (click)="sandboxTheme.set(item)"
-              >
-                {{ item }}
-              </button>
+            <span class="control-label">Size:</span>
+            @for (item of sizes; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxSize() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxSize.set(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
             <span class="control-label">Estado:</span>
             @for (item of statuses; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxStatus() === item"
-                [attr.data-variant]="item"
-                (click)="sandboxStatus.set(item)"
-              >
-                {{ item }}
-              </button>
+              <ion-button
+                [label]="item"
+                [type]="sandboxStatus() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxStatus.set(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
             <span class="control-label">Direction:</span>
             @for (dir of directions; track dir.value) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxDirection() === dir.value"
-                (click)="sandboxDirection.set(dir.value)"
-              >
-                {{ dir.label }}
-              </button>
+              <ion-button
+                [label]="dir.label"
+                [type]="sandboxDirection() === dir.value ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxDirection.set(dir.value)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
-            <span class="control-label">Regra:</span>
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxBlockWeekends()"
-              (click)="sandboxBlockWeekends.update((v) => !v)"
-            >
-              Bloquear fins de semana
-            </button>
+            <span class="control-label">Regras:</span>
+            <ion-button
+              label="Bloquear fins de semana"
+              [type]="sandboxBlockWeekends() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxBlockWeekends.update((v) => !v)"
+            ></ion-button>
+            <ion-button
+              label="Formato ISO (YYYY-MM-DD)"
+              [type]="sandboxIsoFormat() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxIsoFormat.update((v) => !v)"
+            ></ion-button>
           </div>
         </div>
-
+      @for (key of [sandboxResetKey()]; track key){
         <ion-date-picker
           [rangePicker]="sandboxRange()"
           [layout]="sandboxLayout()"
           [size]="sandboxSize()"
-          [theme]="sandboxTheme()"
           [direction]="sandboxDirection()"
           [invalid]="sandboxStatus() === 'invalid'"
           [valid]="sandboxStatus() === 'valid'"
           [disabled]="sandboxStatus() === 'disabled'"
           [errorMsg]="sandboxStatus() === 'invalid' ? 'Mensagem de erro no sandbox.' : ''"
           [disabledDate]="sandboxBlockWeekends() ? disableWeekends : undefined"
+          [format]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
+          [formatInDateInput]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
           [placeholder]="sandboxRange() ? 'Selecione o período' : 'Selecione a data'"
           (event)="onSandboxEvent($event)"
         ></ion-date-picker>
+      }
       </div>
     </div>
   </section>
