@@ -199,7 +199,7 @@
               type="button"
               class="control-pill"
               [class.active]="sandboxPrefix()"
-              (click)="sandboxPrefix.update((v) => !v)"
+              (click)="sandboxPrefix.set(!sandboxPrefix())"
             >
               Prefixo (R$)
             </button>
@@ -237,7 +237,7 @@
               type="button"
               class="control-pill"
               [class.active]="sandboxMaxLength()"
-              (click)="sandboxMaxLength.update((v) => !v)"
+              (click)="sandboxMaxLength.set(!sandboxMaxLength())"
             >
               MaxLength (30)
             </button>
