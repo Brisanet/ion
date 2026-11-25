@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  effect,
   signal,
 } from '@angular/core';
 import {
@@ -13,18 +12,6 @@ import {
 import { IonDatepickerComponent } from '../../../../../../../ion/src/lib/picker/date-picker/date-picker.component';
 import { IonButtonComponent } from '../../../../../../../ion/src/lib/button/button.component';
 type SandboxStatus = 'default' | 'valid' | 'invalid' | 'disabled';
-
-interface SandboxState {
-  range: boolean;
-  layout: DatePickerLayout;
-  size: DatePickerSize;
-  status: SandboxStatus;
-  direction: CalendarDirection;
-  blockWeekends: boolean;
-  isoFormat: boolean;
-}
-
-const SANDBOX_STORAGE_KEY = 'ion-text-input-range-gallery-sandbox';
 
 @Component({
   selector: 'app-text-input-range-gallery',
@@ -53,15 +40,14 @@ export class TextInputRangeGalleryComponent {
 
   selectedValues = signal<Record<string, string>>({});
 
-  private readonly initialState = this.loadSandboxState();
-
-  sandboxRange = signal<boolean>(this.initialState.range);
-  sandboxLayout = signal<DatePickerLayout>(this.initialState.layout);
-  sandboxSize = signal<DatePickerSize>(this.initialState.size);
-  sandboxStatus = signal<SandboxStatus>(this.initialState.status);
-  sandboxDirection = signal<CalendarDirection>(this.initialState.direction);
-  sandboxBlockWeekends = signal<boolean>(this.initialState.blockWeekends);
-  sandboxIsoFormat = signal<boolean>(this.initialState.isoFormat);
+  sandboxRange = signal<boolean>(false);
+  sandboxLayout = signal<DatePickerLayout>('default');
+  sandboxSize = signal<DatePickerSize>('base');
+  sandboxStatus = signal<SandboxStatus>('default');
+  sandboxDirection = signal<CalendarDirection>(CalendarDirection.bottomLeft);
+  sandboxBlockWeekends = signal<boolean>(false);
+  sandboxIsoFormat = signal<boolean>(false);
+  sandboxResetKey = signal<number>(0);
   sandboxLastEvent = signal<string>('Aguardando interação...');
 
   availableLayouts = computed<DatePickerLayout[]>(() =>
@@ -72,23 +58,6 @@ export class TextInputRangeGalleryComponent {
     const day = date.getDay();
     return day === 0 || day === 6;
   };
-
-  constructor() {
-    effect(() => {
-      const state: SandboxState = {
-        range: this.sandboxRange(),
-        layout: this.sandboxLayout(),
-        size: this.sandboxSize(),
-        status: this.sandboxStatus(),
-        direction: this.sandboxDirection(),
-        blockWeekends: this.sandboxBlockWeekends(),
-        isoFormat: this.sandboxIsoFormat(),
-      };
-      this.saveSandboxState(state);
-    });
-  }
-
-  sandboxResetKey = signal<number>(0);
 
   setSandboxRange(isRange: boolean): void {
     if (this.sandboxRange() === isRange) return;
@@ -133,66 +102,9 @@ export class TextInputRangeGalleryComponent {
     return dates.join(' → ');
   }
 
-  private loadSandboxState(): SandboxState {
-    const defaults: SandboxState = {
-      range: false,
-      layout: 'default',
-      size: 'base',
-      status: 'default',
-      direction: CalendarDirection.bottomLeft,
-      blockWeekends: false,
-      isoFormat: false,
-    };
-
-    if (typeof window === 'undefined' || !window.localStorage) {
-      return defaults;
-    }
-
-    try {
-      const raw = window.localStorage.getItem(SANDBOX_STORAGE_KEY);
-      if (!raw) return defaults;
-
-      const parsed = JSON.parse(raw) as Partial<SandboxState>;
-      const range = typeof parsed.range === 'boolean' ? parsed.range : defaults.range;
-      const allowedLayouts = range ? this.rangeLayouts : this.singleLayouts;
-      const layout =
-        parsed.layout && allowedLayouts.includes(parsed.layout)
-          ? parsed.layout
-          : defaults.layout;
-
-      return {
-        range,
-        layout,
-        size: parsed.size && this.sizes.includes(parsed.size) ? parsed.size : defaults.size,
-        status:
-          parsed.status && this.statuses.includes(parsed.status)
-            ? parsed.status
-            : defaults.status,
-        direction:
-          parsed.direction &&
-          this.directions.some((d) => d.value === parsed.direction)
-            ? parsed.direction
-            : defaults.direction,
-        blockWeekends:
-          typeof parsed.blockWeekends === 'boolean'
-            ? parsed.blockWeekends
-            : defaults.blockWeekends,
-        isoFormat:
-          typeof parsed.isoFormat === 'boolean'
-            ? parsed.isoFormat
-            : defaults.isoFormat,
-      };
-    } catch {
-      return defaults;
-    }
-  }
-
-  private saveSandboxState(state: SandboxState): void {
-    if (typeof window === 'undefined' || !window.localStorage) return;
-    try {
-      window.localStorage.setItem(SANDBOX_STORAGE_KEY, JSON.stringify(state));
-    } catch {
-      // Ignora erro de quota ou modo privado
-    }
+  toggleSandboxIsoFormat(): void {
+    this.sandboxIsoFormat.update((v) => !v);
+    this.sandboxResetKey.update((k) => k + 1);
+    this.sandboxLastEvent.set('Aguardando interação...');
   }
 }

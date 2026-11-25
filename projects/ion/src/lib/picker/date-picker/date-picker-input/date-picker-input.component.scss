@@ -42,6 +42,8 @@ $split-gap: 8px;
   cursor: not-allowed;
 }
 
+.container-input,
+.layout-split,
 .layout-joined {
   --picker-color: #{ion-theme(date-picker-range-input-primary-color)};
   --picker-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
@@ -65,11 +67,11 @@ $split-gap: 8px;
   }
 
   &:not(.disabled):not(.invalid):not(.valid) {
-    @include theme-states;
+    @include theme-states(date-picker-range-input-primary-hover-color);
   }
 
   &.valid:not(.disabled),
-  &.invalid:not(.disabled) {
+  &.invalid:not(.disabled){
     outline: none !important;
     box-shadow: none !important;
   }
@@ -99,9 +101,6 @@ $split-gap: 8px;
 .layout-split {
   align-items: center;
   gap: $split-gap;
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: ion-theme(date-picker-range-input-border-radius) !important;
 
   &.disabled {
     pointer-events: none;
@@ -125,9 +124,9 @@ $split-gap: 8px;
 :host:not(.pointer-focus) {
   .layout-joined:not(.disabled):not(.invalid):not(.valid),
   .layout-split:not(.disabled):not(:has(ion-input.invalid)):not(:has(ion-input.valid)),
-  .container-input:not(:has(.disabled)):not(:has(ion-input.invalid)):not(:has(ion-input.valid)) {
+  .container-input:not(:has(.disabled)):not(:has(ion-input.invalid)):not(:has(ion-input.valid)){
     &:has(:focus-visible) {
-      @include focus-double-ring;
+      @include focus-double-ring(date-picker-range-input-primary-hover-color);
     }
   }
 }
@@ -156,9 +155,9 @@ $split-gap: 8px;
       box-shadow: none !important;
     }
 
-    ion-input:not(.disabled) {
-      --current-theme-color: var(--picker-color);
-      --current-hover-color: var(--picker-hover-color);
+    ion-input:not(.disabled){
+      --current-theme-color: #{ion-theme(date-picker-range-input-primary-color)};
+      --current-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
     }
   }
 
@@ -186,10 +185,29 @@ $split-gap: 8px;
         date-picker-range-input-error-hover-color
       );
     }
+  }
 
-    &.theme-secondary ion-input:not(.invalid):not(.valid) .input:not(.disabled) {
+  .layout-joined,
+  .layout-split {
+    ion-input:not(.disabled) .left-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: color 0.2s ease, background-color 0.2s ease;
+
+      &:hover {
+        color: var(--current-hover-color);
+        background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent);
+      }
+    }
+  }
+
+  :not(.pointer-focus) .layout-split:not(.disabled):has(:focus-visible) {
+    ion-input:not(.invalid):not(.valid) .input:not(.disabled) {
       border-width: 2px;
-      border-color: ion-theme(date-picker-range-input-secondary-hover-color);
+      border-color: ion-theme(date-picker-range-input-primary-color);
     }
 
     &:has(ion-input.valid :focus-visible) ion-input:not(.invalid) .input:not(.disabled) {
@@ -200,20 +218,6 @@ $split-gap: 8px;
     &:has(ion-input.invalid :focus-visible) ion-input:not(.valid) .input:not(.disabled) {
       border-width: 2px;
       border-color: ion-theme(date-picker-range-input-error-color);
-    }
-  }
-
-  .container-input,
-  .layout-joined,
-  .layout-split {
-    &.valid ion-input:not(.disabled),
-    ion-input.valid:not(.disabled) {
-      --current-theme-color: #{ion-theme(positive-6)};
-    }
-
-    &.invalid ion-input:not(.disabled),
-    ion-input.invalid:not(.disabled) {
-      --current-theme-color: #{ion-theme(negative-6)};
     }
   }
 }

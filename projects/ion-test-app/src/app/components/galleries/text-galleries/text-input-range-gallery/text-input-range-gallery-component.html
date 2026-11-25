@@ -1,5 +1,5 @@
 <div class="gallery-container">
-  <header class="gallery-header">
+  <header>
     <h1>Text Input Range</h1>
   </header>
 
@@ -64,12 +64,24 @@
           (event)="onDateChange('ruleIsoFormat', $event)"
         ></ion-date-picker>
       </div>
+      <div class="gallery-card">
+        <span class="badge">Split · Validação Granular [invalid, valid]</span>
+        <ion-date-picker
+          [rangePicker]="true"
+          layout="split"
+          [invalid]="[true, false]"
+          [valid]="[false, true]"
+          [errorMsg]="['Data inicial obrigatória', '']"
+          placeholder="Selecione a data"
+          (event)="onDateChange('ruleSplitGranular', $event)"
+        ></ion-date-picker>
+      </div>
     </div>
   </section>
 
   <!-- SEÇÃO 3: SANDBOX INTERATIVO -->
   <section class="gallery-section">
-    <h2>3. Sandbox Interativo (Combinação Dinâmica)</h2>
+    <h2>3. Sandbox Interativo</h2>
     <div class="gallery-grid single-column">
       <div class="gallery-card">
         <div class="sandbox-controls">
@@ -136,12 +148,12 @@
             <ion-button
               label="Bloquear fins de semana"
               [type]="sandboxBlockWeekends() ? 'primary' : 'secondary'"
-              (ionOnClick)="sandboxBlockWeekends.update((v) => !v)"
+              (ionOnClick)="sandboxBlockWeekends.set(!sandboxBlockWeekends())"
             ></ion-button>
             <ion-button
               label="Formato ISO (YYYY-MM-DD)"
               [type]="sandboxIsoFormat() ? 'primary' : 'secondary'"
-              (ionOnClick)="sandboxIsoFormat.update((v) => !v)"
+              (ionOnClick)="sandboxIsoFormat.set(!sandboxIsoFormat())"
             ></ion-button>
           </div>
         </div>

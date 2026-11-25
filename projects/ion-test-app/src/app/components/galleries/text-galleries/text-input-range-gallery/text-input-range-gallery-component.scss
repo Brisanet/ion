@@ -11,24 +11,6 @@
   background-color: #fafbfc;
 }
 
-.gallery-header {
-  border-bottom: 2px solid #e1e3e8;
-  padding-bottom: 16px;
-
-  h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    color: #126aeb;
-  }
-
-  p {
-    margin: 0;
-    font-size: 1rem;
-    color: #47505e;
-  }
-}
-
 .gallery-section {
   display: flex;
   flex-direction: column;
@@ -75,43 +57,6 @@
   color: #47505e;
   -webkit-user-select: none;
   user-select: none;
-
-  &-danger {
-    background-color: #fee2e2;
-    color: #d6293a;
-  }
-
-  &-success {
-    background-color: #d1fae5;
-    color: #2d9f70;
-  }
-
-  &-disabled {
-    background-color: #e5e7eb;
-    color: #9ca3af;
-  }
-
-  &-primary{
-    background-color: #b5d3ff;
-    color: #126aeb;
-  }
-
-  &-secondary{
-    background-color: #faceb9;
-    color: #ff5022;
-  }
-}
-
-.gallery-hint,
-.gallery-readout {
-  margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  color: #47505e;
-
-  strong {
-    color: #1a1d23;
-  }
 }
 
 .sandbox-controls {
@@ -142,26 +87,4 @@
   color: #47505e;
   margin-right: 4px;
   white-space: nowrap;
-}
-
-.event-log {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  background-color: #f8fafc;
-  border: 1px dashed #cbd5e1;
-  font-size: 0.8125rem;
-
-  &__label {
-    font-weight: 600;
-    color: #47505e;
-  }
-
-  code {
-    color: #0f172a;
-    word-break: break-all;
-  }
 }
