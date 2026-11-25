@@ -34,7 +34,7 @@ describe('IonIconButtonComponent', () => {
       expect(button).toHaveClass(
         'ion-icon-button',
         'ion-icon-button--primary',
-        'ion-icon-button--medium',
+        'ion-icon-button--md',
         'ion-icon-button--default'
       );
       expect(button).not.toHaveClass('danger', 'loading');
@@ -132,9 +132,9 @@ describe('IonIconButtonComponent', () => {
     );
 
     it.each([
-      ['small', 16, 'ion-icon-button--small'],
-      ['medium', 16, 'ion-icon-button--medium'],
-      ['large', 24, 'ion-icon-button--large'],
+      ['sm', 16, 'ion-icon-button--sm'],
+      ['md', 16, 'ion-icon-button--md'],
+      ['lg', 24, 'ion-icon-button--lg'],
     ] as const)(
       'suporta o tamanho %s e ajusta o ícone para %dpx',
       (size, iconSize, cssClass) => {
@@ -214,9 +214,9 @@ describe('IonIconButtonComponent', () => {
     });
 
     it.each([
-      ['small', 16],
-      ['medium', 16],
-      ['large', 24],
+      ['sm', 16],
+      ['md', 16],
+      ['lg', 24],
     ] as const)(
       'mantém o spinner no tamanho %s com dimensões de %dpx',
       (size, iconSize) => {

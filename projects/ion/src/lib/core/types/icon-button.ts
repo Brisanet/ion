@@ -1,4 +1,4 @@
-export type IconButtonSize = 'small' | 'medium' | 'large';
+export type IconButtonSize = 'sm' | 'md' | 'lg';
 
 export type IconButtonRounding = 'default' | 'full';
 

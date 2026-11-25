@@ -30,7 +30,7 @@ export class IonIconButtonComponent {
   icon = input.required<IconType>();
   buttonType = input<'button' | 'submit' | 'reset'>('button');
   type = input<IconButtonType>('primary');
-  size = input<IconButtonSize>('medium');
+  size = input<IconButtonSize>('md');
   rounding = input<IconButtonRounding>('default');
   danger = input(false);
   disabled = input(false);
@@ -40,9 +40,9 @@ export class IonIconButtonComponent {
 
   iconSize = computed(() => {
     const sizes: Record<IconButtonSize, number> = {
-      small: 16,
-      medium: 16,
-      large: 24,
+      sm: 16,
+      md: 16,
+      lg: 24,
     };
 
     return sizes[this.size()];
