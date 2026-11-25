@@ -1,0 +1,275 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonIconButtonComponent } from './icon-button.component';
+
+describe('IonIconButtonComponent', () => {
+  let fixture: ComponentFixture<IonIconButtonComponent>;
+  let component: IonIconButtonComponent;
+
+  const getButton = (): HTMLButtonElement =>
+    fixture.nativeElement.querySelector('button');
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [IonIconButtonComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(IonIconButtonComponent);
+    component = fixture.componentInstance;
+    fixture.componentRef.setInput('ariaLabel', 'Fechar');
+    fixture.componentRef.setInput('icon', 'close');
+    fixture.detectChanges();
+  });
+
+  describe('Renderização e valores padrão', () => {
+    it('renderiza o botão com atributos e classes padrão', () => {
+      const button = getButton();
+
+      expect(button).toHaveAttribute('type', 'button');
+      expect(button).toHaveAttribute('aria-label', 'Fechar');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Fechar');
+      expect(button).not.toHaveAttribute('aria-busy');
+      expect(button).not.toHaveAttribute('aria-disabled');
+      expect(button).not.toBeDisabled();
+
+      expect(button).toHaveClass(
+        'ion-icon-button',
+        'ion-icon-button--primary',
+        'ion-icon-button--md',
+        'ion-icon-button--default'
+      );
+      expect(button).not.toHaveClass('danger', 'loading');
+    });
+
+    it.each(['submit', 'reset'] as const)(
+      'define o tipo nativo do botão como %s',
+      (buttonType) => {
+        fixture.componentRef.setInput('buttonType', buttonType);
+        fixture.detectChanges();
+
+        expect(getButton()).toHaveAttribute('type', buttonType);
+      }
+    );
+
+    it('renderiza o ícone decorativo corretamente', () => {
+      const button = getButton();
+      const icon = button.querySelector('ion-icon');
+
+      expect(icon).toHaveAttribute('aria-hidden', 'true');
+      expect(icon?.querySelector('svg')).toHaveAttribute(
+        'id',
+        'ion-icon-close'
+      );
+      expect(icon?.querySelector('svg')).toHaveAttribute(
+        'fill',
+        'currentColor'
+      );
+    });
+
+    it('atualiza aria-label, data-testid e ícone dinamicamente', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Editar');
+      fixture.componentRef.setInput('icon', 'edit');
+      fixture.detectChanges();
+
+      const button = getButton();
+
+      expect(button).toHaveAttribute('aria-label', 'Editar');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Editar');
+      expect(button.querySelector('ion-icon svg')).toHaveAttribute(
+        'id',
+        'ion-icon-edit'
+      );
+    });
+
+    it('exibe o tooltip configurado ao passar o mouse sobre o botão', () => {
+      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+      fixture.detectChanges();
+
+      getButton().dispatchEvent(new MouseEvent('mouseenter'));
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
+        'Salvar alterações'
+      );
+
+      getButton().dispatchEvent(new MouseEvent('mouseleave'));
+      fixture.detectChanges();
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
+
+    it('exibe o tooltip configurado quando o botão recebe foco', () => {
+      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+      fixture.detectChanges();
+
+      getButton().focus();
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
+        'Salvar alterações'
+      );
+
+      getButton().blur();
+      fixture.detectChanges();
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
+
+    it('não exibe tooltip quando não há texto configurado', () => {
+      getButton().dispatchEvent(new MouseEvent('mouseenter'));
+      fixture.detectChanges();
+
+      expect(document.body.querySelector('ion-tooltip')).toBeNull();
+    });
+  });
+
+  describe('Variantes e estilos', () => {
+    it.each(['primary', 'secondary', 'ghost', 'dashed'] as const)(
+      'aplica a classe correspondente ao tipo %s',
+      (type) => {
+        fixture.componentRef.setInput('type', type);
+        fixture.detectChanges();
+
+        expect(getButton()).toHaveClass(`ion-icon-button--${type}`);
+      }
+    );
+
+    it.each([
+      ['sm', 16, 'ion-icon-button--sm'],
+      ['md', 16, 'ion-icon-button--md'],
+      ['lg', 24, 'ion-icon-button--lg'],
+    ] as const)(
+      'suporta o tamanho %s e ajusta o ícone para %dpx',
+      (size, iconSize, cssClass) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.detectChanges();
+
+        const svg = getButton().querySelector('ion-icon svg');
+
+        expect(getButton()).toHaveClass(cssClass);
+        expect(svg).toHaveAttribute('width', `${iconSize}px`);
+        expect(svg).toHaveAttribute('height', `${iconSize}px`);
+      }
+    );
+
+    it.each([
+      ['default', 'ion-icon-button--default'],
+      ['full', 'ion-icon-button--full'],
+    ] as const)(
+      'suporta o arredondamento %s',
+      (rounding, cssClass) => {
+        fixture.componentRef.setInput('rounding', rounding);
+        fixture.detectChanges();
+
+        expect(getButton()).toHaveClass(cssClass);
+      }
+    );
+
+    it('alterna a classe danger conforme o input', () => {
+      expect(getButton()).not.toHaveClass('danger');
+
+      fixture.componentRef.setInput('danger', true);
+      fixture.detectChanges();
+
+      expect(getButton()).toHaveClass('danger');
+    });
+  });
+
+  describe('Estado de carregamento (loading)', () => {
+    it('exibe spinner, oculta ícone e mantém o botão focável durante o loading', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      const button = getButton();
+      const spinner = button.querySelector('ion-spinner');
+
+      expect(button).not.toBeDisabled();
+      expect(button).toHaveAttribute('aria-disabled', 'true');
+      expect(button).toHaveClass('loading');
+      expect(button).toHaveAttribute('aria-busy', 'true');
+      expect(spinner).toHaveAttribute('aria-hidden', 'true');
+      expect(button.querySelector('ion-icon')).toBeNull();
+
+      fixture.componentRef.setInput('loading', false);
+      fixture.detectChanges();
+      button.focus();
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      expect(document.activeElement).toBe(button);
+    });
+
+    it('restaura o ícone e reabilita o botão quando loading volta para false', () => {
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      fixture.componentRef.setInput('loading', false);
+      fixture.detectChanges();
+
+      const button = getButton();
+
+      expect(button).not.toBeDisabled();
+      expect(button).not.toHaveClass('loading');
+      expect(button).not.toHaveAttribute('aria-busy');
+      expect(button).not.toHaveAttribute('aria-disabled');
+      expect(button.querySelector('ion-spinner')).toBeNull();
+      expect(button.querySelector('ion-icon')).not.toBeNull();
+    });
+
+    it.each([
+      ['sm', 16],
+      ['md', 16],
+      ['lg', 24],
+    ] as const)(
+      'mantém o spinner no tamanho %s com dimensões de %dpx',
+      (size, iconSize) => {
+        fixture.componentRef.setInput('size', size);
+        fixture.componentRef.setInput('loading', true);
+        fixture.detectChanges();
+
+        const spinner: HTMLElement | null = getButton().querySelector(
+          'ion-spinner .ion-spinner'
+        );
+
+        expect(spinner).toHaveStyle({
+          width: `${iconSize}px`,
+          height: `${iconSize}px`,
+        });
+      }
+    );
+  });
+
+  describe('Interações e eventos', () => {
+    it('emite ionOnClick ao clicar quando habilitado', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+
+      getButton().click();
+
+      expect(clickSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('não emite ionOnClick quando disabled está ativo', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+      fixture.componentRef.setInput('disabled', true);
+      fixture.detectChanges();
+
+      expect(getButton()).not.toHaveAttribute('aria-disabled');
+      expect(getButton()).toBeDisabled();
+      getButton().click();
+      component.handleClick();
+
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+
+    it('não emite ionOnClick quando loading está ativo', () => {
+      const clickSpy = jest.fn();
+      component.ionOnClick.subscribe(clickSpy);
+      fixture.componentRef.setInput('loading', true);
+      fixture.detectChanges();
+
+      getButton().click();
+      component.handleClick();
+
+      expect(clickSpy).not.toHaveBeenCalled();
+    });
+  });
+});

@@ -1,0 +1,206 @@
+@use 'icon-button.theme';
+
+@import '../../styles/index.scss';
+@import '../../styles/themes/theme.scss';
+
+:host {
+  display: inline-flex;
+}
+
+@mixin icon-button-style($prefix) {
+  background-color: ion-theme(icon-button-#{$prefix}-background-color);
+  color: ion-theme(icon-button-#{$prefix}-icon-color);
+  border: ion-theme(icon-button-#{$prefix}-border);
+}
+
+@mixin icon-button-style-with-fallback($prefix, $fallback-prefix) {
+  background-color: var(
+    --ion-icon-button-#{$prefix}-background-color,
+    var(--ion-icon-button-#{$fallback-prefix}-background-color)
+  );
+  color: var(
+    --ion-icon-button-#{$prefix}-icon-color,
+    var(--ion-icon-button-#{$fallback-prefix}-icon-color)
+  );
+  border: var(
+    --ion-icon-button-#{$prefix}-border,
+    var(--ion-icon-button-#{$fallback-prefix}-border)
+  );
+}
+
+.ion-icon-button {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 4px;
+  cursor: pointer;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+
+  ion-icon {
+    display: inline-flex;
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px ion-theme(icon-button-focus-offset-color),
+      0 0 0 4px ion-theme(icon-button-focus-ring-color);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &.loading {
+    cursor: not-allowed;
+  }
+}
+
+.ion-icon-button__spinner {
+  display: inline-flex;
+
+  ::ng-deep .ion-spinner {
+    box-sizing: border-box;
+  }
+}
+
+.ion-icon-button--sm {
+  width: ion-theme(icon-button-size-small);
+  height: ion-theme(icon-button-size-small);
+}
+
+.ion-icon-button--md {
+  width: ion-theme(icon-button-size-medium);
+  height: ion-theme(icon-button-size-medium);
+}
+
+.ion-icon-button--lg {
+  width: ion-theme(icon-button-size-large);
+  height: ion-theme(icon-button-size-large);
+}
+
+.ion-icon-button--default {
+  border-radius: ion-theme(icon-button-rounding-default);
+}
+
+.ion-icon-button--full {
+  border-radius: ion-theme(icon-button-rounding-full);
+}
+
+@each $variant in primary secondary ghost dashed {
+  .ion-icon-button--#{$variant} {
+    @include icon-button-style($variant);
+
+    &:focus-visible:not(:disabled):not(.danger):not(:hover):not(:active) {
+      @include icon-button-style-with-fallback(#{$variant}-focus, $variant);
+    }
+
+    @media (hover: hover) {
+      &:hover:not(:disabled):not(.loading) {
+        @include icon-button-style(#{$variant}-hover);
+      }
+    }
+
+    &:active:not(:disabled):not(.loading) {
+      @include icon-button-style(#{$variant}-active);
+    }
+
+    &:disabled {
+      @include icon-button-style(#{$variant}-disabled);
+    }
+
+    &.danger {
+      @include icon-button-style-with-fallback(
+        #{$variant}-danger,
+        $variant
+      );
+
+      &:focus-visible:not(:disabled) {
+        box-shadow:
+          0 0 0 2px
+            var(
+              --ion-icon-button-#{$variant}-danger-focus-offset-color,
+              var(--ion-icon-button-focus-offset-color)
+            ),
+          0 0 0 4px
+            var(
+              --ion-icon-button-#{$variant}-danger-focus-ring-color,
+              var(--ion-icon-button-focus-ring-color)
+            );
+      }
+
+      &:focus-visible:not(:disabled):not(:hover):not(:active) {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-focus,
+          #{$variant}-danger
+        );
+      }
+
+      @media (hover: hover) {
+        &:hover:not(:disabled):not(.loading) {
+          @include icon-button-style-with-fallback(
+            #{$variant}-danger-hover,
+            #{$variant}-hover
+          );
+        }
+      }
+
+      &:active:not(:disabled):not(.loading) {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-active,
+          #{$variant}-active
+        );
+      }
+
+      &:disabled {
+        @include icon-button-style-with-fallback(
+          #{$variant}-danger-disabled,
+          #{$variant}-disabled
+        );
+      }
+    }
+
+    &.loading:not(.danger) {
+      @include icon-button-style-with-fallback(
+        #{$variant}-loading,
+        $variant
+      );
+    }
+
+    &.danger.loading {
+      @include icon-button-style-with-fallback(
+        #{$variant}-danger-loading,
+        #{$variant}-danger
+      );
+    }
+  }
+}
+
+@media (pointer: coarse) {
+  .ion-icon-button {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      min-width: var(--ion-icon-button-touch-size, 44px);
+      min-height: var(--ion-icon-button-touch-size, 44px);
+      border-radius: inherit;
+    }
+
+    &:disabled::after {
+      display: none;
+    }
+  }
+}

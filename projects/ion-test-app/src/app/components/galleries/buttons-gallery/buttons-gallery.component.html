@@ -1,0 +1,187 @@
+<section class="buttons-gallery">
+  <header class="gallery-intro">
+    <ion-heading
+      text="Buttons gallery"
+      type="h1"
+      weight="bold"
+    ></ion-heading>
+  </header>
+
+  <ion-card class="gallery-card">
+    <div class="card-content">
+      <div class="gallery-grid">
+        <section class="gallery-section">
+          <ion-heading text="Button" type="h2" weight="bold"></ion-heading>
+          <div class="controls">
+            <div class="field">
+              <span class="field-label">Texto</span>
+              <ion-input
+                placeholder="Texto do botão"
+                [value]="buttonLabel()"
+                (valueChange)="buttonLabel.set($event)"
+              ></ion-input>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Variante</span>
+              <ion-chip-group
+                [(chips)]="buttonTypeChips"
+                (selected)="onButtonTypeSelect($event)"
+                [required]="true"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Tamanho</span>
+              <ion-chip-group
+                [(chips)]="buttonSizeChips"
+                (selected)="onButtonSizeSelect($event)"
+                [required]="true"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Estados e opções</span>
+              <ion-chip-group
+                [(chips)]="buttonFlagChips"
+                [multiple]="true"
+                (selected)="onButtonFlagToggle($event)"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Ícone (opcional)</span>
+              <ion-select
+                [options]="buttonIconOptions()"
+                [value]="buttonIcon() || undefined"
+                placeholder="Escolher ícone"
+                [enableSearch]="true"
+                [searchOptions]="{ placeholder: 'Buscar ícones' }"
+                (search)="onButtonIconSearch($event)"
+                (valueChange)="onButtonIconChange($event)"
+              ></ion-select>
+              <span class="field-hint">
+                Pesquise entre {{ iconCount }} ícones.
+              </span>
+            </div>
+          </div>
+
+          <ion-divider
+            label="Pré-visualização"
+            type="text"
+          ></ion-divider>
+          <div
+            class="preview"
+            [class.preview--expanded]="buttonExpand() && !buttonCircular()"
+          >
+            <ion-button
+              [label]="buttonLabel()"
+              [type]="buttonType()"
+              [size]="buttonSize()"
+              [danger]="buttonDanger()"
+              [disabled]="buttonDisabled()"
+              [loading]="buttonLoading()"
+              [expand]="buttonExpand()"
+              [circularButton]="buttonCircular()"
+              [rightSideIcon]="buttonRightIcon()"
+              [iconType]="buttonIcon()"
+            ></ion-button>
+          </div>
+        </section>
+
+        <section class="gallery-section">
+          <ion-heading text="IconButton" type="h2" weight="bold"></ion-heading>
+          <div class="controls">
+            <div class="field">
+              <span class="field-label">Rótulo acessível</span>
+              <ion-input
+                placeholder="Descrição do botão"
+                [value]="iconAriaLabel()"
+                (valueChange)="iconAriaLabel.set($event)"
+              ></ion-input>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Ícone</span>
+              <ion-select
+                [options]="iconButtonOptions()"
+                [value]="iconType()"
+                placeholder="Escolher ícone"
+                [enableSearch]="true"
+                [searchOptions]="{ placeholder: 'Buscar ícones' }"
+                (search)="onIconButtonSearch($event)"
+                (valueChange)="onIconButtonChange($event)"
+              ></ion-select>
+              <span class="field-hint">
+                Pesquise entre {{ iconCount }} ícones.
+              </span>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Variante</span>
+              <ion-chip-group
+                [(chips)]="iconButtonTypeChips"
+                (selected)="onIconButtonTypeSelect($event)"
+                [required]="true"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Tamanho</span>
+              <ion-chip-group
+                [(chips)]="iconSizeChips"
+                (selected)="onIconSizeSelect($event)"
+                [required]="true"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Arredondamento</span>
+              <ion-chip-group
+                [(chips)]="iconRoundingChips"
+                (selected)="onIconRoundingSelect($event)"
+                [required]="true"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Estados</span>
+              <ion-chip-group
+                [(chips)]="iconFlagChips"
+                [multiple]="true"
+                (selected)="onIconFlagToggle($event)"
+              ></ion-chip-group>
+            </div>
+
+            <div class="field">
+              <span class="field-label">Tooltip (opcional)</span>
+              <ion-input
+                placeholder="Texto do tooltip"
+                [value]="iconTooltip()"
+                (valueChange)="iconTooltip.set($event)"
+              ></ion-input>
+            </div>
+          </div>
+
+          <ion-divider
+            label="Pré-visualização"
+            type="text"
+          ></ion-divider>
+          <div class="preview preview--icon">
+            <ion-icon-button
+              [ariaLabel]="iconAriaLabel()"
+              [icon]="iconType()"
+              [type]="iconButtonType()"
+              [size]="iconButtonSize()"
+              [rounding]="iconButtonRounding()"
+              [danger]="iconDanger()"
+              [disabled]="iconDisabled()"
+              [loading]="iconLoading()"
+              [tooltip]="iconTooltip() || undefined"
+            ></ion-icon-button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </ion-card>
+</section>

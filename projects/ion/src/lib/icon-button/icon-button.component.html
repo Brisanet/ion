@@ -1,0 +1,41 @@
+<button
+  [type]="buttonType()"
+  class="ion-icon-button"
+  [class.ion-icon-button--sm]="size() === 'sm'"
+  [class.ion-icon-button--md]="size() === 'md'"
+  [class.ion-icon-button--lg]="size() === 'lg'"
+  [class.ion-icon-button--default]="rounding() === 'default'"
+  [class.ion-icon-button--full]="rounding() === 'full'"
+  [class.ion-icon-button--primary]="type() === 'primary'"
+  [class.ion-icon-button--secondary]="type() === 'secondary'"
+  [class.ion-icon-button--ghost]="type() === 'ghost'"
+  [class.ion-icon-button--dashed]="type() === 'dashed'"
+  [class.danger]="danger()"
+  [class.loading]="loading()"
+  [attr.aria-label]="ariaLabel()"
+  [attr.aria-disabled]="loading() ? 'true' : null"
+  [attr.aria-busy]="loading() ? 'true' : null"
+  [attr.data-testid]="'icon-btn-' + ariaLabel()"
+  ionTooltip
+  [ionTooltipTitle]="tooltip() || ''"
+  [disabled]="disabled()"
+  (focusin)="handleFocusIn()"
+  (focusout)="handleFocusOut()"
+  (click)="handleClick()"
+>
+  @if (loading()) {
+    <ion-spinner
+      class="ion-icon-button__spinner"
+      [size]="iconSize()"
+      [customColor]="'currentColor'"
+      aria-hidden="true"
+    ></ion-spinner>
+  } @else {
+    <ion-icon
+      [type]="icon()"
+      [size]="iconSize()"
+      [color]="'currentColor'"
+      aria-hidden="true"
+    ></ion-icon>
+  }
+</button>

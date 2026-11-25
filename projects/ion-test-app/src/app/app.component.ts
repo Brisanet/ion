@@ -90,6 +90,7 @@ import {
 } from 'ion';
 import { FormGroup, Validators } from '@angular/forms';
 import { CardBodyComponent } from './card-body.component';
+import { ButtonsGalleryComponent } from './components/galleries/buttons-gallery/buttons-gallery.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
@@ -175,7 +176,10 @@ class ModalLongContentComponent {
     IonCardHeaderComponent,
     IonCardFooterComponent,
     CardBodyComponent,
+    ButtonsGalleryComponent,
+    ColorGalleryComponent,
     IconGalleryComponent,
+    TypographyGalleryComponent,
     IonSimpleMenuComponent,
     IonIndicatorComponent,
     IonSelectComponent,
@@ -185,10 +189,7 @@ class ModalLongContentComponent {
     BnWizardComponent,
     IonNavbarComponent,
     IonDrawerComponent,
-    BnEditDrawerComponent,
-    ColorGalleryComponent,
-    TypographyGalleryComponent,
-    JsonPipe,
+    BnEditDrawerComponent,    JsonPipe,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

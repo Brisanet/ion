@@ -1,0 +1,966 @@
+@import '../../styles/themes/theme.scss';
+
+$default: (
+  size: (
+    small: 24px,
+    medium: 32px,
+    large: 48px,
+  ),
+  rounding: (
+    default: 4px,
+    full: 9999px,
+  ),
+  focus: (
+    ring-color: ion-theme(primary-5),
+    offset-color: ion-theme(neutral-1),
+  ),
+  primary: (
+    background-color: ion-theme(primary-6),
+    icon-color: ion-theme(neutral-1),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-7),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-3),
+      icon-color: ion-theme(neutral-5),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-7),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+    ),
+  ),
+  secondary: (
+    background-color: ion-theme(neutral-1),
+    icon-color: ion-theme(primary-6),
+    border: 1px solid ion-theme(neutral-4),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-5),
+      border: 1px solid ion-theme(primary-4),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-7),
+      border: 1px solid ion-theme(primary-5),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-3),
+      icon-color: ion-theme(neutral-5),
+      border: 1px solid ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: ion-theme(neutral-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px solid ion-theme(negative-4),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px solid ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
+      ),
+    ),
+  ),
+  ghost: (
+    background-color: transparent,
+    icon-color: ion-theme(primary-6),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-5),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-7),
+      border: 0,
+    ),
+    disabled: (
+      background-color: transparent,
+      icon-color: ion-theme(neutral-5),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      ),
+    ),
+  ),
+  dashed: (
+    background-color: transparent,
+    icon-color: ion-theme(primary-6),
+    border: 1px dashed ion-theme(neutral-4),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-5),
+      border: 1px dashed ion-theme(primary-3),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-7),
+      border: 1px dashed ion-theme(primary-5),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-3),
+      icon-color: ion-theme(neutral-5),
+      border: 1px dashed ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px dashed ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+    ),
+  ),
+);
+
+$dark: (
+  size: (
+    small: 24px,
+    medium: 32px,
+    large: 48px,
+  ),
+  rounding: (
+    default: 4px,
+    full: 9999px,
+  ),
+  focus: (
+    ring-color: ion-theme(primary-5),
+    offset-color: ion-theme(neutral-6),
+  ),
+  primary: (
+    background-color: ion-theme(primary-6),
+    icon-color: ion-theme(neutral-1),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-8),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-7),
+      icon-color: ion-theme(neutral-3),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-7),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+    ),
+  ),
+  secondary: (
+    background-color: ion-theme(neutral-6),
+    icon-color: ion-theme(primary-3),
+    border: 1px solid ion-theme(primary-3),
+    hover: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-6),
+    ),
+    active: (
+      background-color: ion-theme(primary-4),
+      icon-color: ion-theme(primary-8),
+      border: 1px solid ion-theme(primary-8),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-3),
+      border: 1px solid ion-theme(neutral-3),
+    ),
+    loading: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-6),
+    ),
+    danger: (
+      background-color: ion-theme(neutral-6),
+      icon-color: ion-theme(negative-4),
+      border: 1px solid ion-theme(negative-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px solid ion-theme(negative-4),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px solid ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
+      ),
+    ),
+  ),
+  ghost: (
+    background-color: transparent,
+    icon-color: ion-theme(primary-3),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-4),
+      icon-color: ion-theme(primary-8),
+      border: 0,
+    ),
+    disabled: (
+      background-color: transparent,
+      icon-color: ion-theme(neutral-3),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-4),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-5),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      ),
+    ),
+  ),
+  dashed: (
+    background-color: ion-theme(neutral-6),
+    icon-color: ion-theme(primary-3),
+    border: 1px dashed ion-theme(neutral-3),
+    hover: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-6),
+    ),
+    active: (
+      background-color: ion-theme(primary-4),
+      icon-color: ion-theme(primary-8),
+      border: 1px dashed ion-theme(primary-8),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-6),
+      icon-color: ion-theme(neutral-3),
+      border: 1px dashed ion-theme(neutral-3),
+    ),
+    loading: (
+      background-color: ion-theme(primary-3),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-6),
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-4),
+      border: 1px dashed ion-theme(negative-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-5),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-7),
+        border: 1px dashed ion-theme(negative-5),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-3),
+        icon-color: ion-theme(neutral-5),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+    ),
+  ),
+);
+
+$orange-light-v2: (
+  size: (
+    small: 24px,
+    medium: 32px,
+    large: 48px,
+  ),
+  rounding: (
+    default: 4px,
+    full: 9999px,
+  ),
+  focus: (
+    ring-color: ion-theme(primary-6),
+    offset-color: ion-theme(neutral-1),
+  ),
+  primary: (
+    background-color: ion-theme(primary-6),
+    icon-color: ion-theme(neutral-1),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-8),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-7),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(negative-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-8),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-4),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+    ),
+  ),
+  secondary: (
+    background-color: ion-theme(primary-1),
+    icon-color: ion-theme(primary-6),
+    border: 1px solid ion-theme(neutral-4),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 1px solid ion-theme(primary-8),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 1px solid ion-theme(primary-8),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-6),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 1px solid ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-6),
+      ),
+    ),
+  ),
+  ghost: (
+    background-color: transparent,
+    icon-color: ion-theme(primary-6),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 0,
+    ),
+    disabled: (
+      background-color: transparent,
+      icon-color: ion-theme(neutral-6),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      )
+    ),
+  ),
+  dashed: (
+    background-color: ion-theme(primary-1),
+    icon-color: ion-theme(primary-6),
+    border: 1px dashed ion-theme(neutral-5),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 1px dashed ion-theme(primary-8),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 1px dashed ion-theme(primary-8),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-6),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 1px dashed ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-6),
+      ),
+    ),
+  ),
+);
+
+$light-v2: (
+  size: (
+    small: 24px,
+    medium: 32px,
+    large: 48px,
+  ),
+  rounding: (
+    default: 4px,
+    full: 9999px,
+  ),
+  focus: (
+    ring-color: ion-theme(primary-4),
+    offset-color: ion-theme(neutral-1),
+  ),
+  primary: (
+    background-color: ion-theme(primary-6),
+    icon-color: ion-theme(neutral-1),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-8),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-4),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    focus: (
+      background-color: ion-theme(primary-5),
+      icon-color: ion-theme(neutral-1),
+      border: 0,
+    ),
+    danger: (
+      background-color: ion-theme(negative-6),
+      icon-color: ion-theme(negative-1),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-8),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-4),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(neutral-1),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-5),
+        icon-color: ion-theme(negative-1),
+        border: 0,
+      ),
+    ),
+  ),
+  secondary: (
+    background-color: ion-theme(primary-1),
+    icon-color: ion-theme(primary-6),
+    border: 1px solid ion-theme(neutral-4),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 1px solid ion-theme(primary-8),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 1px solid ion-theme(primary-8),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-6),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 1px solid ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px solid ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px solid ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px solid ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px solid ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-3),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px solid ion-theme(negative-6),
+      )
+    ),
+  ),
+  ghost: (
+    background-color: transparent,
+    icon-color: ion-theme(primary-6),
+    border: 0,
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 0,
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 0,
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    disabled: (
+      background-color: transparent,
+      icon-color: ion-theme(neutral-6),
+      border: 0,
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 0,
+    ),
+    danger: (
+      background-color: transparent,
+      icon-color: ion-theme(negative-6),
+      border: 0,
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 0,
+      ),
+      disabled: (
+        background-color: transparent,
+        icon-color: ion-theme(neutral-6),
+        border: 0,
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 0,
+      )
+    ),
+  ),
+  dashed: (
+    background-color: ion-theme(primary-1),
+    icon-color: ion-theme(primary-6),
+    border: 1px dashed ion-theme(neutral-4),
+    hover: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-8),
+      border: 1px dashed ion-theme(primary-8),
+    ),
+    active: (
+      background-color: ion-theme(primary-2),
+      icon-color: ion-theme(primary-8),
+      border: 1px dashed ion-theme(primary-8),
+    ),
+    focus: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-6),
+    ),
+    disabled: (
+      background-color: ion-theme(neutral-2),
+      icon-color: ion-theme(neutral-6),
+      border: 1px dashed ion-theme(neutral-5),
+    ),
+    loading: (
+      background-color: ion-theme(primary-1),
+      icon-color: ion-theme(primary-6),
+      border: 1px dashed ion-theme(primary-3),
+    ),
+    danger: (
+      background-color: ion-theme(negative-1),
+      icon-color: ion-theme(negative-6),
+      border: 1px dashed ion-theme(neutral-4),
+      hover: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      active: (
+        background-color: ion-theme(negative-2),
+        icon-color: ion-theme(negative-8),
+        border: 1px dashed ion-theme(negative-8),
+      ),
+      disabled: (
+        background-color: ion-theme(neutral-2),
+        icon-color: ion-theme(neutral-6),
+        border: 1px dashed ion-theme(neutral-5),
+      ),
+      loading: (
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-3),
+      ),
+      focus: (
+        ring-color: ion-theme(negative-6),
+        offset-color: ion-theme(neutral-1),
+        background-color: ion-theme(negative-1),
+        icon-color: ion-theme(negative-6),
+        border: 1px dashed ion-theme(negative-6),
+      ),
+    ),
+  ),
+);
+
+@include register-component(
+  icon-button,
+  (
+    default: $default,
+    dark: $dark,
+    orange-light-v2: $orange-light-v2,
+    light-v2: $light-v2,
+  )
+);
