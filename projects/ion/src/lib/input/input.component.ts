@@ -24,10 +24,15 @@ import { IonButtonProps } from '../core/types';
   host: {
     '[attr.size]': 'size()',
     '[attr.theme]': 'theme()',
+    '[class.pointer-focus]': 'pointerFocus()',
+    '(pointerdown)': 'pointerFocus.set(true)',
+    '(keydown.tab)': 'pointerFocus.set(false)',
+    '(focusout)': 'pointerFocus.set(false)',
   },
 })
 export class IonInputComponent {
   private static nextId = 0;
+  protected readonly pointerFocus = signal(false);
   public uniqueId = `ion-input-${IonInputComponent.nextId++}`;
 
   // Variações e Slots Visuais
