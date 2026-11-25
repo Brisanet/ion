@@ -74,7 +74,7 @@ export class ButtonsGalleryComponent {
   iconAriaLabel = signal('Icon button');
   iconType = signal<IconType>('pencil');
   iconButtonType = signal<IconButtonType>('primary');
-  iconButtonSize = signal<IconButtonSize>('medium');
+  iconButtonSize = signal<IconButtonSize>('md');
   iconButtonRounding = signal<IconButtonRounding>('default');
   iconDanger = signal(false);
   iconDisabled = signal(false);
@@ -113,9 +113,9 @@ export class ButtonsGalleryComponent {
   ]);
 
   iconSizeChips = signal([
-    { label: 'Small', selected: false },
-    { label: 'Medium', selected: true },
-    { label: 'Large', selected: false },
+    { label: 'SM', selected: false },
+    { label: 'MD', selected: true },
+    { label: 'LG', selected: false },
   ]);
 
   iconRoundingChips = signal([
@@ -184,11 +184,11 @@ export class ButtonsGalleryComponent {
   onIconSizeSelect(chip: ChipInGroup): void {
     if (!chip.selected) return;
     const map: Record<string, IconButtonSize> = {
-      Small: 'small',
-      Medium: 'medium',
-      Large: 'large',
+      SM: 'sm',
+      MD: 'md',
+      LG: 'lg',
     };
-    this.iconButtonSize.set(map[chip.label] ?? 'medium');
+    this.iconButtonSize.set(map[chip.label] ?? 'md');
   }
 
   onIconRoundingSelect(chip: ChipInGroup): void {
