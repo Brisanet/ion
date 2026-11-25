@@ -10,7 +10,6 @@ import {
 import {
   DropdownItem,
   IonSelectComponent,
-  IonSelectFieldComponent,
 } from 'ion';
 
 const GALLERY_THEMES = [
@@ -24,7 +23,7 @@ type ThemePreview = (typeof GALLERY_THEMES)[number]['key'];
 
 @Component({
   selector: 'app-select-gallery',
-  imports: [IonSelectComponent, IonSelectFieldComponent],
+  imports: [IonSelectComponent],
   templateUrl: './select-gallery.html',
   styleUrl: './select-gallery.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

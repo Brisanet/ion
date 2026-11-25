@@ -6,51 +6,14 @@
     <div>
       <h2>Select</h2>
       <p>
-        Galeria visual de modos, tamanhos, estados e cores do IonSelectField.
+        Galeria visual de modos, tamanhos, estados e cores do IonSelect.
         O preview de tema afeta somente esta galeria e seus selects.
       </p>
     </div>
   </header>
 
-  <section class="select-gallery__group" aria-labelledby="select-gallery-legacy">
-    <h3 id="select-gallery-legacy">Versão antiga · ion-select</h3>
-    <p class="select-gallery__hint">
-      Componente legado preservado para comparação. A versão atual é o
-      <code>ion-select-field</code>.
-    </p>
-    <div class="select-gallery__grid">
-      <article class="select-gallery__card">
-        <h4>Seleção simples</h4>
-        <ion-select
-          placeholder="Selecione uma fruta"
-          [options]="options"
-          [value]="legacySingleValue"
-        ></ion-select>
-      </article>
-
-      <article class="select-gallery__card">
-        <h4>Seleção múltipla</h4>
-        <ion-select
-          placeholder="Selecione frutas"
-          [options]="options"
-          [multiple]="true"
-          [value]="legacyMultiValue"
-        ></ion-select>
-      </article>
-
-      <article class="select-gallery__card">
-        <h4>Desabilitado</h4>
-        <ion-select
-          placeholder="Indisponível"
-          [options]="options"
-          [disabled]="true"
-        ></ion-select>
-      </article>
-    </div>
-  </section>
-
   <section class="select-gallery__group" aria-labelledby="select-gallery-themes">
-    <h3 id="select-gallery-themes">Versão nova · ion-select-field · Temas e cores</h3>
+    <h3 id="select-gallery-themes">Temas e cores</h3>
     <div class="select-gallery__theme-controls">
       <div class="select-gallery__theme-buttons">
         @for (theme of themes; track theme.key) {
@@ -82,32 +45,32 @@
     <div class="select-gallery__grid">
       <article class="select-gallery__card">
         <h4>Cor de foco e estado aberto</h4>
-        <ion-select-field
+        <ion-select
           label="Abra para conferir a cor de foco"
           placeholder="Menu do tema atual"
           [options]="options"
-        ></ion-select-field>
+        ></ion-select>
       </article>
       <article class="select-gallery__card">
         <h4>Erro aberto</h4>
-        <ion-select-field
+        <ion-select
           label="Campo inválido"
           placeholder="Abra para comparar borda e foco"
           [options]="options"
           status="error"
           supportingText="Estado de erro com menu aberto."
-        ></ion-select-field>
+        ></ion-select>
       </article>
       <article class="select-gallery__card">
         <h4>Sucesso aberto</h4>
-        <ion-select-field
+        <ion-select
           label="Campo válido"
           placeholder="Abra para comparar borda e foco"
           [options]="options"
           [value]="'banana'"
           status="success"
           supportingText="Estado de sucesso com valor selecionado."
-        ></ion-select-field>
+        ></ion-select>
       </article>
     </div>
   </section>
@@ -117,7 +80,7 @@
     <div class="select-gallery__grid">
       <article class="select-gallery__card">
         <h4>Single · base · selecionado</h4>
-        <ion-select-field
+        <ion-select
           label="Fruta favorita"
           placeholder="Selecione uma fruta"
           type="single"
@@ -125,24 +88,24 @@
           [options]="options"
           [value]="singleValue()"
           (valueChange)="onSingleValueChange($event)"
-        ></ion-select-field>
+        ></ion-select>
         <p class="select-gallery__readout">Valor: {{ singleValue() || 'nenhum' }}</p>
       </article>
 
       <article class="select-gallery__card">
         <h4>Single · large · vazio</h4>
-        <ion-select-field
+        <ion-select
           label="Fruta"
           placeholder="Selecione uma fruta"
           type="single"
           size="large"
           [options]="options"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Multi · base · overflow e remoção</h4>
-        <ion-select-field
+        <ion-select
           label="Frutas selecionadas"
           placeholder="Selecione várias frutas"
           type="multi"
@@ -150,7 +113,7 @@
           [options]="options"
           [value]="multiValue()"
           (valueChange)="onMultiValueChange($event)"
-        ></ion-select-field>
+        ></ion-select>
         <p class="select-gallery__readout">
           Valores: {{ multiValue().length ? multiValue().join(', ') : 'nenhum' }}
         </p>
@@ -161,7 +124,7 @@
 
       <article class="select-gallery__card">
         <h4>Multi · large · obrigatório</h4>
-        <ion-select-field
+        <ion-select
           label="Centros de distribuição"
           placeholder="Selecione os centros"
           type="multi"
@@ -170,12 +133,12 @@
           [value]="requiredMultiValue"
           [required]="true"
           supportingText="A última tag não pode ser removida."
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Single · obrigatório e selecionado</h4>
-        <ion-select-field
+        <ion-select
           label="Seleção obrigatória"
           type="single"
           size="large"
@@ -183,7 +146,7 @@
           [value]="'apple'"
           [required]="true"
           supportingText="A opção selecionada não pode ser limpa."
-        ></ion-select-field>
+        ></ion-select>
       </article>
     </div>
   </section>
@@ -198,83 +161,83 @@
     <div class="select-gallery__grid">
       <article class="select-gallery__card">
         <h4>Default / hover / open</h4>
-        <ion-select-field
+        <ion-select
           label="Estado interativo"
           placeholder="Clique para abrir"
           [options]="options"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Open empty</h4>
-        <ion-select-field
+        <ion-select
           label="Sem opções"
           placeholder="Abra para ver o estado vazio"
           [options]="emptyOptions"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Selected</h4>
-        <ion-select-field
+        <ion-select
           label="Opção selecionada"
           placeholder="Selecione"
           [options]="options"
           [value]="'orange'"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Error / invalid</h4>
-        <ion-select-field
+        <ion-select
           label="Campo inválido"
           placeholder="Selecione uma opção"
           [options]="options"
           [invalid]="true"
           status="error"
           supportingText="Selecione uma fruta válida."
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Success</h4>
-        <ion-select-field
+        <ion-select
           label="Campo válido"
           placeholder="Selecione uma opção"
           [options]="options"
           [value]="'grape'"
           status="success"
           supportingText="Seleção validada com sucesso."
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Disabled</h4>
-        <ion-select-field
+        <ion-select
           label="Campo desabilitado"
           placeholder="Indisponível"
           [options]="options"
           [disabled]="true"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Opção desabilitada</h4>
-        <ion-select-field
+        <ion-select
           label="Uma opção indisponível"
           placeholder="Abra para ver a opção desabilitada"
           [options]="optionsWithDisabledItem"
-        ></ion-select-field>
+        ></ion-select>
       </article>
 
       <article class="select-gallery__card">
         <h4>Loading</h4>
-        <ion-select-field
+        <ion-select
           label="Carregando opções"
           placeholder="Abra para ver o carregamento"
           [options]="options"
           [loading]="true"
-        ></ion-select-field>
+        ></ion-select>
       </article>
     </div>
   </section>
