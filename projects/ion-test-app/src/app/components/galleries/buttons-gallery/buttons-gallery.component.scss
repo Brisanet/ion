@@ -1,0 +1,117 @@
+.buttons-gallery {
+  display: grid;
+  gap: 24px;
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.gallery-intro {
+  display: grid;
+  gap: 8px;
+
+  p {
+    margin: 0;
+    opacity: 0.75;
+  }
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
+  gap: 0;
+}
+
+.gallery-section {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  min-width: 0;
+}
+
+.gallery-section + .gallery-section {
+  padding-left: 24px;
+  border-left: 1px solid var(--ion-color-border, #e0e0e0);
+}
+
+.gallery-card {
+  width: 100%;
+  min-width: 0;
+}
+
+.card-content {
+  display: grid;
+  gap: 24px;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  align-items: start;
+  gap: 20px 16px;
+}
+
+.field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field-hint {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.field ion-select {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .chip-group {
+  flex-wrap: wrap;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  min-height: 64px;
+  padding: 16px;
+  border: 1px solid var(--ion-color-border, #e0e0e0);
+  border-radius: 8px;
+  background: var(--ion-color-background, #fff);
+  box-sizing: border-box;
+}
+
+.preview--icon {
+  justify-content: flex-start;
+}
+
+ion-divider {
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .buttons-gallery {
+    padding: 16px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+
+  .gallery-section + .gallery-section {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
