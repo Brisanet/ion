@@ -13,7 +13,7 @@
   [class.danger]="danger()"
   [class.loading]="loading()"
   [attr.aria-label]="ariaLabel()"
-  [attr.aria-disabled]="disabled() || loading() ? 'true' : null"
+  [attr.aria-disabled]="loading() ? 'true' : null"
   [attr.aria-busy]="loading() ? 'true' : null"
   [attr.data-testid]="'icon-btn-' + ariaLabel()"
   ionTooltip
@@ -31,6 +31,11 @@
       aria-hidden="true"
     ></ion-spinner>
   } @else {
-    <ion-icon [type]="icon()" [size]="iconSize()" aria-hidden="true"></ion-icon>
+    <ion-icon
+      [type]="icon()"
+      [size]="iconSize()"
+      [color]="'currentColor'"
+      aria-hidden="true"
+    ></ion-icon>
   }
 </button>

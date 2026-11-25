@@ -59,6 +59,10 @@ describe('IonIconButtonComponent', () => {
         'id',
         'ion-icon-close'
       );
+      expect(icon?.querySelector('svg')).toHaveAttribute(
+        'fill',
+        'currentColor'
+      );
     });
 
     it('atualiza aria-label, data-testid e ícone dinamicamente', () => {
@@ -248,7 +252,7 @@ describe('IonIconButtonComponent', () => {
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
-      expect(getButton()).toHaveAttribute('aria-disabled', 'true');
+      expect(getButton()).not.toHaveAttribute('aria-disabled');
       expect(getButton()).toBeDisabled();
       getButton().click();
       component.handleClick();

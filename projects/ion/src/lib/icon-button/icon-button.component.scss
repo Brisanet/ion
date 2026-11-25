@@ -35,7 +35,6 @@
   justify-content: center;
   box-sizing: border-box;
   padding: 4px;
-  border: 0;
   cursor: pointer;
   transition:
     background-color 300ms ease,
@@ -45,10 +44,6 @@
 
   ion-icon {
     display: inline-flex;
-
-    ::ng-deep svg {
-      fill: currentColor;
-    }
   }
 
   &:focus-visible {
