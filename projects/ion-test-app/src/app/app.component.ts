@@ -93,7 +93,7 @@ import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
-import { ThemeSwitcherComponent } from './components/galleries/theme-switcher/theme-switcher.component';
+import { ThemeSwitcherComponent } from './components/theme-switcher/theme-switcher.component';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
