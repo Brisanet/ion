@@ -96,6 +96,16 @@
   justify-content: flex-start;
 }
 
+.preview > ion-button {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+}
+
+.preview--expanded > ion-button {
+  width: 100%;
+}
+
 ion-divider {
   display: block;
 }

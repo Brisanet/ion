@@ -70,7 +70,10 @@
             label="Pré-visualização"
             type="text"
           ></ion-divider>
-          <div class="preview">
+          <div
+            class="preview"
+            [class.preview--expanded]="buttonExpand() && !buttonCircular()"
+          >
             <ion-button
               [label]="buttonLabel()"
               [type]="buttonType()"
