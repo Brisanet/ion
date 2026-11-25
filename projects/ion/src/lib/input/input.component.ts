@@ -65,6 +65,7 @@ export class IonInputComponent {
   // Two-way binding
   value = model<string>('');
   passwordVisible = signal(false);
+  passwordAnnouncement = signal<string>('');
   pointerFocus = signal<boolean>(false);
 
   // Eventos de saída
@@ -157,7 +158,15 @@ export class IonInputComponent {
   }
 
   public togglePasswordVisibility(): void {
-    this.passwordVisible.update((visible) => !visible);
+    if (this.disabled()) return;
+
+    this.passwordVisible.update((visible) => {
+      const next = !visible;
+      this.passwordAnnouncement.set(
+        next ? 'Botão de alternância ligado. Senha visivel' : 'Botão de altenância desligado. Senha invisivel',
+      );
+      return next;
+    });
   }
 
   public clearInput(inputModel: NgModel): void {

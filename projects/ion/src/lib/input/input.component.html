@@ -52,7 +52,7 @@
       <ion-button
         data-testid="password-toggle"
         class="password-toggle input-icon-btn"
-        [aria-label]="passwordVisible() ? 'Ocultar senha' : 'Mostrar senha'"
+        [aria-label]="'Mostrar senha'"
         [aria-pressed]="passwordVisible()"
         [disabled]="disabled()"
         (click)="togglePasswordVisibility()"
@@ -82,7 +82,7 @@
         iconType="close-rounded"
         [disabled]="disabled()"
         (click)="clearInput(inputModel)"
-        aria-label="Limpar campo"
+        [aria-label]="'Limpar campo'"
       ></ion-button>
     }
 
@@ -102,6 +102,12 @@
       ></ion-button>
     }
   </div>
+  
+  @if (inputType() === 'password') {
+    <span class="sr-only" aria-live="polite" aria-atomic="true">
+      {{ passwordAnnouncement() }}
+    </span>
+  }
 </div>
 
 @if (invalid() && errorMsg()) {

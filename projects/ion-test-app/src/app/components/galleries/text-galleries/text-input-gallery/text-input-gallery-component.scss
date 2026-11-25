@@ -92,9 +92,10 @@
 .sandbox-controls {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
-  padding: 12px 16px;
-  border-radius: 6px;
+  align-items: center;
+  gap: 14px 24px;
+  padding: 16px;
+  border-radius: 8px;
   background-color: #f4f6f9;
   border: 1px solid #e1e3e8;
 }
@@ -103,65 +104,17 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
+
+  ion-button {
+    display: inline-flex;
+  }
 }
 
 .control-label {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   font-weight: 600;
   color: #47505e;
-  margin-right: 2px;
-}
-
-.control-pill {
-  --pill-color: #126aeb;
-
-  padding: 4px 10px;
-  border: 1px solid #cfd4dc;
-  border-radius: 4px;
-  background-color: #ffffff;
-  color: #2b303b;
-  font-family: inherit;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition:
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    color 0.25s ease,
-    transform 0.15s ease;
-  
-  &[data-variant='valid'] {
-    --pill-color: #2d9f70;
-  }
-
-  &[data-variant='invalid'] {
-    --pill-color: #d6293a;
-  }
-
-  &[data-variant='disabled'] {
-    --pill-color: #6b7280;
-  }
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-  &:hover {
-    border-color: var(--pill-color);
-    color: var(--pill-color);
-  }
-
-  &.active {
-    background-color: var(--pill-color);
-    border-color: var(--pill-color);
-    color: #ffffff;
-  }
-
-  &:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-    pointer-events: none;
-    user-select: none;
-  }
+  margin-right: 4px;
+  white-space: nowrap;
 }

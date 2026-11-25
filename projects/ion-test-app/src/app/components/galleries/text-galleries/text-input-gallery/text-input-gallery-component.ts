@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonInputComponent } from '../../../../../../../ion/src/lib/input/input.component';
+import { IonButtonComponent } from '../../../../../../../ion/src/lib/button/button.component';
 
 type SandboxSize = 'base' | 'large';
 type SandboxTheme = 'primary' | 'secondary';
@@ -10,7 +11,7 @@ type SandboxInputType = 'text' | 'password';
 @Component({
   selector: 'app-text-input-gallery',
   standalone: true,
-  imports: [FormsModule, IonInputComponent],
+  imports: [FormsModule, IonInputComponent, IonButtonComponent],
   templateUrl: './text-input-gallery-component.html',
   styleUrls: ['./text-input-gallery-component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

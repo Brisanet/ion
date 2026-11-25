@@ -152,105 +152,77 @@
           <div class="control-group">
             <span class="control-label">Size:</span>
             @for (item of sizes; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxSize() === item"
-                (click)="sandboxSize.set(item)"
-              >
-                {{ item }}
-              </button>
+              <ion-button
+                [label]="item"
+                [type]="sandboxSize() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxSize.set(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
             <span class="control-label">Estado:</span>
             @for (item of statuses; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [attr.data-variant]="item"
-                [class.active]="sandboxStatus() === item"
-                (click)="sandboxStatus.set(item)"
-              >
-                {{ item }}
-              </button>
+              <ion-button
+                [label]="item"
+                [type]="sandboxStatus() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxStatus.set(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
             <span class="control-label">Tipo:</span>
             @for (item of inputTypes; track item) {
-              <button
-                type="button"
-                class="control-pill"
-                [class.active]="sandboxType() === item"
+              <ion-button
+                [label]="item"
+                [type]="sandboxType() === item ? 'primary' : 'secondary'"
                 [disabled]="item === 'password' && sandboxRightIcon()"
-                (click)="sandboxType.set(item)"
-              >
-                {{ item }}
-              </button>
+                (ionOnClick)="sandboxType.set(item)"
+              ></ion-button>
             }
           </div>
 
           <div class="control-group">
             <span class="control-label">Slots e Recursos:</span>
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxPrefix()"
-              (click)="sandboxPrefix.set(!sandboxPrefix())"
-            >
-              Prefixo (R$)
-            </button>
+            <ion-button
+              label="Prefixo (R$)"
+              [type]="sandboxPrefix() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxPrefix.update((v) => !v)"
+            ></ion-button>
 
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxLeftIcon()"
-              (click)="toggleSandboxIcon('left')"
-            >
-              Ícone Left
-            </button>
+            <ion-button
+              label="Ícone Left"
+              [type]="sandboxLeftIcon() ? 'primary' : 'secondary'"
+              (ionOnClick)="toggleSandboxIcon('left')"
+            ></ion-button>
 
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxRightIcon()"
+            <ion-button
+              label="Ícone Right"
+              [type]="sandboxRightIcon() ? 'primary' : 'secondary'"
               [disabled]="sandboxType() === 'password'"
-              (click)="toggleSandboxIcon('right')"
-            >
-              Ícone Right
-            </button>
+              (ionOnClick)="toggleSandboxIcon('right')"
+            ></ion-button>
 
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxClearButton()"
+            <ion-button
+              label="Clear Button"
+              [type]="sandboxClearButton() ? 'primary' : 'secondary'"
               [disabled]="sandboxInputButton()"
-              (click)="toggleSandboxClearButton()"
-            >
-              Clear Button
-            </button>
+              (ionOnClick)="toggleSandboxClearButton()"
+            ></ion-button>
 
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxMaxLength()"
-              (click)="sandboxMaxLength.set(!sandboxMaxLength())"
-            >
-              MaxLength (30)
-            </button>
+            <ion-button
+              label="MaxLength (30)"
+              [type]="sandboxMaxLength() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxMaxLength.update((v) => !v)"
+            ></ion-button>
 
-            <button
-              type="button"
-              class="control-pill"
-              [class.active]="sandboxInputButton()"
+            <ion-button
+              label="Botão Integrado"
+              [type]="sandboxInputButton() ? 'primary' : 'secondary'"
               [disabled]="sandboxClearButton()"
-              (click)="toggleSandboxInputButton()"
-            >
-              Botão Integrado
-            </button>
+              (ionOnClick)="toggleSandboxInputButton()"
+            ></ion-button>
           </div>
         </div>
 
@@ -264,7 +236,7 @@
           [disabled]="sandboxStatus() === 'disabled'"
           [errorMsg]="sandboxStatus() === 'invalid' ? 'Mensagem de erro simulada no sandbox.' : ''"
           [validMsg]="sandboxStatus() === 'valid' ? 'Campo validado com sucesso.' : ''"
-          [helperText]="sandboxStatus() === 'valid' ? 'Texto auxiliar de apoio ao preenchimento.' : ''"
+          [helperText]="sandboxStatus() === 'default' ? 'Texto auxiliar de apoio ao preenchimento.' : ''"
           [prefix]="sandboxPrefix() ? 'R$' : ''"
           [leftIcon]="sandboxLeftIcon() ? 'search' : ''"
           [rightIcon]="sandboxRightIcon() ? 'search' : ''"

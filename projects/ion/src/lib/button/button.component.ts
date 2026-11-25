@@ -35,8 +35,8 @@ import { IonBadgeComponent } from '../badge/badge.component';
 })
 export class IonButtonComponent {
   label = input<string>();
-  ariaLabel = input<string>();
-  ariaPressed = input<boolean | undefined>(undefined);
+  ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+  ariaPressed = input<boolean | undefined>(undefined, { alias: 'aria-pressed' });
   tooltip = input<string>();
   type = input<Type>('primary');
   size = input<Size>('md');
