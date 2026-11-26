@@ -55,14 +55,9 @@ export class SelectGalleryComponent {
   readonly legacySingleValue = 'banana';
   readonly legacyMultiValue = ['apple', 'orange'];
   readonly singleValue = signal<string | null>('banana');
-  readonly multiValue = signal<string[]>([
-    'apple',
-    'banana',
-    'orange',
-    'grape',
-    'strawberry',
-    'mango',
-  ]);
+  readonly multiValue = signal<string[]>([ 'apple', 'banana', 'orange', 'grape', 'strawberry', 'mango' ]);
+  readonly multiValueError = signal<string[]>([ 'apple', 'banana', 'orange', 'grape', 'strawberry', 'mango' ]);
+  readonly multiValueSuccess = signal<string[]>([ 'apple', 'banana', 'orange', 'grape', 'strawberry', 'mango' ]);
   readonly requiredMultiValue = ['apple', 'banana'];
   readonly themePreview = signal<ThemePreview>('light');
   readonly themes = GALLERY_THEMES;
@@ -109,6 +104,14 @@ export class SelectGalleryComponent {
 
   onMultiValueChange(value: unknown): void {
     this.multiValue.set(Array.isArray(value) ? value : []);
+  }
+
+  onMultiErrorValueChange(value: unknown): void {
+    this.multiValueError.set(Array.isArray(value) ? value: []);
+  }
+
+  onMultiSuccessValueChange(value: unknown): void {
+    this.multiValueSuccess.set(Array.isArray(value) ? value: []);
   }
 
   setThemePreview(theme: ThemePreview): void {

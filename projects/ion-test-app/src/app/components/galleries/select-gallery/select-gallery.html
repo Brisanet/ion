@@ -239,6 +239,46 @@
           [loading]="true"
         ></ion-select>
       </article>
+
+      <article class="select-gallery__card">
+        <h4>Multi · base · overflow e remoção</h4>
+        <ion-select
+          label="Frutas selecionadas"
+          placeholder="Selecione várias frutas"
+          type="multi"
+          size="base"
+          status="error"
+          [options]="options"
+          [value]="multiValueError()"
+          (valueChange)="onMultiErrorValueChange($event)"
+        ></ion-select>
+        <p class="select-gallery__readout">
+          Valores: {{ multiValueError().length ? multiValueError().join(', ') : 'nenhum' }}
+        </p>
+        <p class="select-gallery__hint">
+          Remova tags pelo botão X; selecione mais itens para comparar o contador +N.
+        </p>
+      </article>
+
+      <article class="select-gallery__card">
+        <h4>Multi · base · overflow e remoção</h4>
+        <ion-select
+          label="Frutas selecionadas"
+          placeholder="Selecione várias frutas"
+          type="multi"
+          size="base"
+          status="success"
+          [options]="options"
+          [value]="multiValueSuccess()"
+          (valueChange)="onMultiSuccessValueChange($event)"
+        ></ion-select>
+        <p class="select-gallery__readout">
+          Valores: {{ multiValueSuccess().length ? multiValueSuccess().join(', ') : 'nenhum' }}
+        </p>
+        <p class="select-gallery__hint">
+          Remova tags pelo botão X; selecione mais itens para comparar o contador +N.
+        </p>
+      </article>
     </div>
   </section>
 </section>
