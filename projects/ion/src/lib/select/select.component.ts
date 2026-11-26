@@ -284,7 +284,7 @@ export class IonSelectComponent {
       case 'ArrowUp':
         event.preventDefault();
         if (!this.showDropdown()) {
-          this.openDropdown(event.key === 'ArrowUp');
+          this.openDropdown(event.key === 'ArrowUp', true);
           this.runAfterRender(() => {
             if (this.showDropdown()) {
               this.syncDropdownAccessibility();
@@ -307,7 +307,7 @@ export class IonSelectComponent {
         this.focusFirstOptionOnNextArrow = false;
         event.preventDefault();
         if (!this.showDropdown()) {
-          this.openDropdown();
+          this.openDropdown(false, true);
         } else {
           const index = this.activeOptionIndex();
           const option =
@@ -319,7 +319,7 @@ export class IonSelectComponent {
       case ' ':
         this.focusFirstOptionOnNextArrow = false;
         event.preventDefault();
-        if (!this.showDropdown()) this.openDropdown();
+        if (!this.showDropdown()) this.openDropdown(false, true);
         break;
       case 'Escape':
         if (this.showDropdown()) {
@@ -574,9 +574,15 @@ export class IonSelectComponent {
     this.selectTrigger()?.nativeElement.focus();
   }
 
-  private openDropdown(preferLastOption = false): void {
+  private openDropdown(
+    preferLastOption = false,
+    activateInitialOption = false
+  ): void {
     this.showDropdown.set(true);
-    const initialIndex = this.getInitialActiveOptionIndex(preferLastOption);
+    const initialIndex = this.getInitialActiveOptionIndex(
+      preferLastOption,
+      activateInitialOption
+    );
     this.activeOptionIndex.set(initialIndex);
     this.scrollToActiveOption(initialIndex);
   }
@@ -688,17 +694,21 @@ export class IonSelectComponent {
   }
 
   private getInitialActiveOptionIndex(
-    preferLastOption: boolean
+    preferLastOption: boolean,
+    activateInitialOption: boolean
   ): number | null {
     const enabledIndices = this.getEnabledOptionIndices();
     if (!enabledIndices.length) return null;
 
     const options = this.dropdownOptions();
     const selectedIndex = enabledIndices.find((idx) => options[idx].selected);
-    return (
-      selectedIndex ??
-      enabledIndices[preferLastOption ? enabledIndices.length - 1 : 0]
-    );
+    if (selectedIndex !== undefined) {
+      return selectedIndex;
+    }
+    if (!activateInitialOption) {
+      return null;
+    }
+    return enabledIndices[preferLastOption ? enabledIndices.length - 1 : 0];
   }
 
   private moveActiveOption(direction: 1 | -1): void {
@@ -813,6 +823,9 @@ export class IonSelectComponent {
         valueLabel !== undefined &&
         this.getOptionLabel(option) === String(valueLabel)
       );
+    }
+    if (valueToCompare === undefined) {
+      return false;
     }
     return Object.is(this.getOptionValue(option), valueToCompare);
   }
