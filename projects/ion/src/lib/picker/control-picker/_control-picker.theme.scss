@@ -17,9 +17,10 @@ $default: (
     color: ion-theme(neutral-8),
   ),
 );
+
 @include register-component(
   control-picker,
   (
-    default: $default
+    default: $default,
   )
 );

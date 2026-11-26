@@ -4,6 +4,7 @@
 .container-date-picker-calendar {
   display: flex;
   flex-direction: column;
+  
   .week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

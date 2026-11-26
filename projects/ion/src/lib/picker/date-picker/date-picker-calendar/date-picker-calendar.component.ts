@@ -54,7 +54,7 @@ export class IonDatePickerCalendarComponent implements OnInit {
   calendar = signal<Calendar | null>(null);
   selectedDaysState = signal<Day[]>([]);
   finalRange = true;
-  
+
   private readonly calendarAction = {
     previousYear: (): void => this.previousYear(),
     previousMonth: (): void => this.previousMonth(),
