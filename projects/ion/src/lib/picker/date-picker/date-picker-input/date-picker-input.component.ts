@@ -5,12 +5,12 @@ import {
   computed,
   input,
   output,
+  signal,
 } from '@angular/core';
 import { IonInputComponent } from '../../../input/input.component';
 import { DatePickerLayout, IonButtonProps } from '../../../core/types';
 import {
   DatePickerSize,
-  DatePickerTheme,
 } from '../../../core/types/datepicker';
 
 export interface IonDatePickerInputComponentProps {
@@ -25,17 +25,23 @@ export interface IonDatePickerInputComponentProps {
   templateUrl: './date-picker-input.component.html',
   styleUrls: ['./date-picker-input.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.pointer-focus]': 'pointerFocus()',
+    '(pointerdown)': 'onPointerDown()',
+    '(keydown)': 'onKeyDown($event)',
+    '(focusout)': 'onFocusOut($event)',
+  }
 })
 export class IonDatePickerInputComponent {
   date = input<string | string[]>([]);
   layout = input<DatePickerLayout>('default');
   rangePicker = input<boolean>(false);
   size = input<DatePickerSize>('base');
-  theme = input<DatePickerTheme>('primary');
   icon = input<boolean>(true);
   placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
+  pointerFocus = signal<boolean>(false);
   dateParts = computed(() => {
     const date = this.date();
     return Array.isArray(date) ? date : date ? [date] : [];
@@ -65,6 +71,24 @@ export class IonDatePickerInputComponent {
     return Array.isArray(p) ? p[1] : p;
   });
   
+  onPointerDown(): void {
+    this.pointerFocus.set(true);
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Tab') {
+      this.pointerFocus.set(false);
+    }
+  }
+
+  onFocusOut(event: FocusEvent): void {
+    const currentTarget = event.currentTarget as HTMLElement | null;
+    const relatedTarget = event.relatedTarget as Node | null;
+    if (!currentTarget?.contains(relatedTarget)) {
+      this.pointerFocus.set(false);
+    }
+  }
+
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',

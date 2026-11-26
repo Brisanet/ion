@@ -4,12 +4,10 @@
       class="input-wrapper layout-joined"
       [class.disabled]="disabled()"
       [class.size-large]="size() === 'large'"
-      [class.theme-secondary]="theme() === 'secondary'"
       data-testid="date-picker-input-joined"
     >
       <ion-input
         [size]="size()"
-        [theme]="theme()"
         [value]="startDate()"
         [placeholder]="startPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
@@ -27,12 +25,10 @@
     <div
       class="input-wrapper layout-split"
       [class.disabled]="disabled()"
-      [class.theme-secondary]="theme() === 'secondary'"
       data-testid="date-picker-input-split"
     >
       <ion-input
         [size]="size()"
-        [theme]="theme()"
         [value]="startDate()"
         [placeholder]="startPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
@@ -45,7 +41,6 @@
 
       <ion-input
         [size]="size()"
-        [theme]="theme()"
         [value]="endDate()"
         [placeholder]="endPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
@@ -63,13 +58,11 @@
     <div
       class="container-input"
       [class.range]="rangePicker()"
-      [class.theme-secondary]="theme() === 'secondary'"
       data-testid="container-input"
     >
       <ion-input
         data-testid="date-picker-input-element"
         [size]="size()"
-        [theme]="theme()"
         [value]="singleInputValue()"
         [placeholder]="startPlaceholder()"
         [iconInput]="hasDate() ? '' : 'calendar'"

@@ -5,7 +5,6 @@
   [rangePicker]="rangePicker()"
   [layout]="layout()"
   [size]="size()"
-  [theme]="theme()"
   [icon]="icon()"
   [disabled]="disabled()"
   [placeholder]="placeholder()"
@@ -24,7 +23,6 @@
     <div class="container-body" [class.container-range-body]="rangePicker()">
       <div class="header">
         <ion-control-picker
-          [theme]="theme()"
           [month]="calendarMonth()"
           [year]="calendarYear()"
           (controlPickerEvent)="events($event)"
@@ -32,7 +30,6 @@
       </div>
       <div class="content">
         <date-picker-calendar
-          [theme]="theme()"
           [calendarControlAction]="calendarControlAction()"
           [goToMonthInCalendar]="goToMonth()"
           [goToYearInCalendar]="goToYear()"

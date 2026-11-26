@@ -4,36 +4,6 @@
 .container-date-picker-calendar {
   display: flex;
   flex-direction: column;
-  &.theme-secondary {
-    .month-days {
-      button.month-day {
-        &.today {
-          border-color: ion-theme(date-picker-month-day-text-today-secondary-border-color);
-        }
-
-        &.selected {
-          background-color: ion-theme(date-picker-month-day-text-selected-secondary-background-color);
-          color: ion-theme(date-picker-month-day-text-selected-secondary-color);
-          border-color: ion-theme(date-picker-month-day-text-selected-secondary-border-color);
-        }
-
-        &.final-range-selected {
-          background-color: ion-theme(date-picker-month-day-text-final-range-selected-secondary-background-color);
-          border-color: ion-theme(date-picker-month-day-text-final-range-selected-secondary-border-color);
-        }
-
-        &:not(.selected-end-date):hover {
-          background-color: ion-theme(date-picker-month-day-text-hover-secondary-background-color);
-          color: ion-theme(date-picker-month-day-text-hover-secondary-color);
-          border-color: ion-theme(date-picker-month-day-text-hover-secondary-border-color);
-        }
-      }
-
-      .between-range {
-        background-color: ion-theme(date-picker-month-day-text-beetwen-range-secondary-background-color);
-      }
-    }
-  }
   .week-days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);

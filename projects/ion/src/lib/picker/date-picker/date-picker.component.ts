@@ -13,7 +13,6 @@ import {
   CalendarDirection,
   DatePickerLayout,
   DatePickerSize,
-  DatePickerTheme,
   IonDatePickerComponentProps,
 } from '../../core/types/datepicker';
 import { SafeAny } from '../../utils/safe-any';
@@ -62,7 +61,6 @@ export class IonDatepickerComponent {
     );
   layout = input<DatePickerLayout>('default');
   size = input<DatePickerSize>('base');
-  theme = input<DatePickerTheme>('primary');
   icon = input<boolean>(true);
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);

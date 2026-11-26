@@ -11,9 +11,15 @@
 .container-buttons,
 .container-labels {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
+}
+
+.container-controls {
+  width: 100%;
 }
 
 .container-buttons {
@@ -48,67 +54,6 @@
       color: ion-theme(control-picker-label-hover-color);
     }
   }
-}
-
-.container-controls.theme-secondary .container-labels label:hover {
-  color: ion-theme(control-picker-secondary-hover-color);
-}
-
-:host ::ng-deep .theme-secondary ion-button button.ion-btn-ghost,
-:host ::ng-deep .theme-secondary ion-button button.ion-btn-dashed {
-  color: ion-theme(control-picker-secondary-color) !important;
-}
-
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost
-  ion-icon
-  svg,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed
-  ion-icon
-  svg {
-  fill: ion-theme(control-picker-secondary-color) !important;
-}
-
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost:hover,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed:hover {
-  color: ion-theme(control-picker-secondary-hover-color) !important;
-  background-color: color-mix(
-    in srgb,
-    ion-theme(control-picker-secondary-hover-color) 12%,
-    transparent
-  ) !important;
-}
-
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-ghost:hover
-  ion-icon
-  svg,
-:host
-  ::ng-deep
-  .theme-secondary
-  ion-button
-  button.ion-btn-dashed:hover
-  ion-icon
-  svg {
-  fill: ion-theme(control-picker-secondary-hover-color) !important;
 }
 
 .container-choose-month,

@@ -16,15 +16,10 @@ $default: (
     line-height: 24px,
     color: ion-theme(neutral-8),
   ),
-  secondary: (
-    color: #fa9c74,
-    hover-color: #ff5022,
-  ),
 );
-
 @include register-component(
   control-picker,
   (
-    default: $default,
+    default: $default
   )
 );

@@ -11,7 +11,6 @@ import { IonButtonComponent } from '../../button/button.component';
 import { IonDividerComponent } from '../../divider/divider.component';
 import { IonTooltipDirective } from '../../tooltip/tooltip.directive';
 import { TooltipPosition } from '../../core/types/tooltip';
-import { DatePickerTheme } from '../../core/types/datepicker';
 
 export type TypeEvents =
   | 'previousYear'
@@ -53,7 +52,6 @@ export interface IonControlPickerComponentProps {
 export class IonControlPickerComponent {
   month = input<string>('');
   year = input<string>('');
-  theme = input<DatePickerTheme>('primary');
   controlPickerEvent = output<ControlEvent>();
   TooltipPosition = TooltipPosition;
 

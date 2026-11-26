@@ -1,6 +1,5 @@
 <div 
-class="container-date-picker-calendar"
-[class.theme-secondary]="theme() === 'secondary'">
+class="container-date-picker-calendar">
   <div class="week-days" id="week-days">
     @for (
       weekDay of calendar()?.getWeekDaysElementStrings() ?? [];
