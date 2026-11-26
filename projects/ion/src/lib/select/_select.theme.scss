@@ -3,10 +3,20 @@
 $default: (
   background-color: ion-theme(neutral-1),
   border-radius: 8px,
+  border-color: ion-theme(neutral-5),
+  selected-border-color: ion-theme(neutral-5),
   placeholder-color: ion-theme(neutral-5),
   text-color: ion-theme(neutral-7),
-  border-color: ion-theme(neutral-5),
-  hover-border-color: ion-theme(primary-4),
+  supporting-text-color: ion-theme(neutral-7),
+  hover-border-color: ion-theme(primary-5),
+  focus-color: ion-theme(primary-5),
+  focus-surface: ion-theme(neutral-1),
+  disabled-border-color: ion-theme(neutral-3),
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
+  tag-background: ion-theme(neutral-2),
+  tag-text-color: ion-theme(neutral-7),
+  tag-border-radius: 4px,
   active: (
     border-color: ion-theme(primary-4),
     shadow-color: ion-theme(primary-2),
@@ -24,15 +34,37 @@ $default: (
       border-color: ion-theme(negative-6),
     ),
   ),
+  menu: (
+    background-color: ion-theme(neutral-1),
+    border-color: ion-theme(neutral-3),
+    shadow: '0px 8px 6px -4px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.15)',
+  ),
+  menu-item: (
+    text-color: ion-theme(neutral-7),
+    hover-background-color: ion-theme(primary-1),
+    selected-background-color: ion-theme(primary-1),
+    selected-text-color: ion-theme(primary-6),
+    disabled-text-color: ion-theme(neutral-5),
+  ),
 );
 
 $dark: (
   background-color: ion-theme(neutral-5),
   border-radius: 8px,
-  placeholder-color: ion-theme(neutral-3),
-  text-color: ion-theme(neutral-3),
   border-color: ion-theme(neutral-3),
+  selected-border-color: ion-theme(neutral-1),
+  placeholder-color: ion-theme(neutral-3),
+  text-color: ion-theme(neutral-1),
+  supporting-text-color: ion-theme(neutral-2),
   hover-border-color: ion-theme(primary-4),
+  focus-color: ion-theme(primary-4),
+  focus-surface: ion-theme(neutral-5),
+  disabled-border-color: ion-theme(neutral-3),
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
+  tag-background: ion-theme(neutral-6),
+  tag-text-color: ion-theme(neutral-1),
+  tag-border-radius: 4px,
   active: (
     border-color: ion-theme(primary-4),
     shadow-color: ion-theme(primary-4),
@@ -50,12 +82,127 @@ $dark: (
       border-color: ion-theme(neutral-3),
     ),
   ),
+  menu: (
+    background-color: ion-theme(neutral-5),
+    border-color: ion-theme(neutral-3),
+    shadow: '0px 8px 6px -4px rgba(0, 0, 0, 0.35), 0 0 2px rgba(0, 0, 0, 0.3)',
+  ),
+  menu-item: (
+    text-color: ion-theme(neutral-1),
+    hover-background-color: ion-theme(neutral-6),
+    selected-background-color: ion-theme(neutral-6),
+    selected-text-color: ion-theme(neutral-1),
+    disabled-text-color: ion-theme(neutral-3),
+  ),
 );
+
+$orange-light: (
+  background-color: ion-theme(neutral-1),
+  border-radius: 8px,
+  border-color: ion-theme(neutral-5),
+  selected-border-color: ion-theme(neutral-5),
+  placeholder-color: ion-theme(neutral-5),
+  text-color: ion-theme(neutral-7),
+  supporting-text-color: ion-theme(neutral-7),
+  hover-border-color: ion-theme(primary-5),
+  focus-color: ion-theme(primary-5),
+  focus-surface: ion-theme(neutral-1),
+  disabled-border-color: ion-theme(neutral-3),
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
+  tag-background: ion-theme(neutral-2),
+  tag-text-color: ion-theme(neutral-7),
+  tag-border-radius: 4px,
+  active: (
+    border-color: ion-theme(primary-4),
+    shadow-color: ion-theme(primary-2),
+  ),
+  disabled: (
+    background: ion-theme(neutral-2),
+    border-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-5),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-5),
+    hover-border-color: ion-theme(negative-6),
+    focus: (
+      shadow-color: ion-theme(negative-2),
+      border-color: ion-theme(negative-6),
+    ),
+  ),
+  menu: (
+    background-color: ion-theme(neutral-1),
+    border-color: ion-theme(neutral-3),
+    shadow: '0px 8px 6px -4px rgba(0, 0, 0, 0.15), 0 0 2px rgba(0, 0, 0, 0.15)',
+  ),
+  menu-item: (
+    text-color: ion-theme(neutral-7),
+    hover-background-color: ion-theme(primary-1),
+    selected-background-color: ion-theme(primary-1),
+    selected-text-color: ion-theme(primary-6),
+    disabled-text-color: ion-theme(neutral-5),
+  ),
+);
+
+$orange-dark: (
+  background-color: ion-theme(neutral-2),
+  border-radius: 8px,
+  border-color: ion-theme(neutral-4),
+  selected-border-color: ion-theme(neutral-8),
+  placeholder-color: ion-theme(neutral-6),
+  text-color: ion-theme(neutral-8),
+  supporting-text-color: ion-theme(neutral-7),
+  hover-border-color: ion-theme(primary-6),
+  focus-color: ion-theme(primary-6),
+  focus-surface: ion-theme(neutral-2),
+  disabled-border-color: ion-theme(neutral-4),
+  error-color: ion-theme(negative-6),
+  success-color: ion-theme(positive-6),
+  tag-background: ion-theme(neutral-3),
+  tag-text-color: ion-theme(neutral-8),
+  tag-border-radius: 4px,
+  active: (
+    border-color: ion-theme(primary-6),
+    shadow-color: ion-theme(primary-2),
+  ),
+  disabled: (
+    background: ion-theme(neutral-3),
+    border-color: ion-theme(neutral-4),
+    text-color: ion-theme(neutral-6),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-6),
+    focus: (
+      shadow-color: ion-theme(negative-6),
+      border-color: ion-theme(neutral-4),
+    ),
+  ),
+  menu: (
+    background-color: ion-theme(neutral-2),
+    border-color: ion-theme(neutral-4),
+    shadow: '0px 8px 6px -4px rgba(0, 0, 0, 0.35), 0 0 2px rgba(0, 0, 0, 0.3)',
+  ),
+  menu-item: (
+    text-color: ion-theme(neutral-8),
+    hover-background-color: ion-theme(primary-2),
+    selected-background-color: ion-theme(primary-2),
+    selected-text-color: ion-theme(primary-7),
+    disabled-text-color: ion-theme(neutral-6),
+  ),
+);
+
+$light-v2: $default;
+$orange-light-v2: $orange-light;
 
 @include register-component(
   select,
   (
     default: $default,
     dark: $dark,
+    orange-light: $orange-light,
+    orange-dark: $orange-dark,
+    light-v2: $light-v2,
+    orange-light-v2: $orange-light-v2,
   )
 );
