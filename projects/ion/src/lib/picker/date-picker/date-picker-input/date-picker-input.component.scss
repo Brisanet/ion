@@ -44,11 +44,6 @@ $split-gap: 8px;
   width: 100%;
   box-sizing: border-box;
   border-radius: ion-theme(date-picker-range-input-border-radius) !important;
-
-  &.theme-secondary {
-    --picker-color: #{ion-theme(date-picker-range-input-secondary-color)};
-    --picker-hover-color: #{ion-theme(date-picker-range-input-secondary-hover-color)};
-  }
 }
 
 .layout-joined {
