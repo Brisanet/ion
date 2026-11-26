@@ -285,12 +285,6 @@ export class IonSelectComponent {
         event.preventDefault();
         if (!this.showDropdown()) {
           this.openDropdown(event.key === 'ArrowUp', true);
-          this.runAfterRender(() => {
-            if (this.showDropdown()) {
-              this.syncDropdownAccessibility();
-              this.focusActiveOption();
-            }
-          });
         } else if (
           event.key === 'ArrowDown' &&
           this.focusFirstOptionOnNextArrow
@@ -337,13 +331,14 @@ export class IonSelectComponent {
     switch (event.key) {
       case 'ArrowDown': {
         event.preventDefault();
-        this.activeOptionIndex.set(index);
         const enabledIndices = this.getEnabledOptionIndices();
         if (enabledIndices.at(-1) === index && this.isClearButtonAvailable()) {
+          this.activeOptionIndex.set(null)
           this.dropdownPanel
             ?.querySelector<HTMLElement>('.clear-button')
             ?.focus();
         } else {
+          this.activeOptionIndex.set(index);
           this.moveActiveOption(1);
           this.focusActiveOption();
         }
@@ -371,8 +366,7 @@ export class IonSelectComponent {
     switch (event.key) {
       case 'ArrowUp':
         event.preventDefault();
-        this.moveActiveOption(-1);
-        this.focusActiveOption();
+        this.focusLastEnabledOption();
         break;
       case 'ArrowDown':
         event.preventDefault();
@@ -449,6 +443,14 @@ export class IonSelectComponent {
   handleClearButton(): void {
     this.clearButtonActivated = true;
     this.clearSelection();
+
+    this.runAfterRender(() => {
+      if (this.showDropdown()) {
+        this.syncDropdownAccessibility();
+        this.focusFirstEnabledOption();
+      }
+    });
+
     queueMicrotask(() => (this.clearButtonActivated = false));
   }
 
@@ -576,15 +578,22 @@ export class IonSelectComponent {
 
   private openDropdown(
     preferLastOption = false,
-    activateInitialOption = false
+    fromKeyboard = false
   ): void {
     this.showDropdown.set(true);
-    const initialIndex = this.getInitialActiveOptionIndex(
-      preferLastOption,
-      activateInitialOption
-    );
+    if (!fromKeyboard) {
+      this.activeOptionIndex.set(null);
+      return;
+    }
+    const initialIndex = this.getInitialActiveOptionIndex(preferLastOption);
     this.activeOptionIndex.set(initialIndex);
     this.scrollToActiveOption(initialIndex);
+    this.runAfterRender(() => {
+      if (this.showDropdown()) {
+        this.syncDropdownAccessibility();
+        this.focusActiveOption();
+      }
+    });
   }
 
   private getEnabledOptionIndices(): number[] {
@@ -599,6 +608,15 @@ export class IonSelectComponent {
     if (firstIndex !== undefined) {
       this.activeOptionIndex.set(firstIndex);
       this.focusOption(firstIndex);
+    }
+  }
+
+  private focusLastEnabledOption(): void {
+    const lastIndex = this.getEnabledOptionIndices().at(-1);
+    if (lastIndex !== undefined) {
+      this.activeOptionIndex.set(lastIndex);
+      this.scrollToActiveOption(lastIndex);
+      this.focusOption(lastIndex);
     }
   }
 
@@ -687,6 +705,10 @@ export class IonSelectComponent {
           'dropdown-item-active',
           this.activeOptionIndex() === index
         );
+        el.classList.toggle(
+          'dropdown-item-selected',
+          !!option.selected && !option.disabled
+        )
       });
 
     const clearButton = panel.querySelector<HTMLElement>('.clear-button');
@@ -694,21 +716,18 @@ export class IonSelectComponent {
   }
 
   private getInitialActiveOptionIndex(
-    preferLastOption: boolean,
-    activateInitialOption: boolean
+    preferLastOption: boolean
   ): number | null {
     const enabledIndices = this.getEnabledOptionIndices();
     if (!enabledIndices.length) return null;
 
     const options = this.dropdownOptions();
-    const selectedIndex = enabledIndices.find((idx) => options[idx].selected);
-    if (selectedIndex !== undefined) {
-      return selectedIndex;
-    }
-    if (!activateInitialOption) {
-      return null;
-    }
-    return enabledIndices[preferLastOption ? enabledIndices.length - 1 : 0];
+    const firstSelectedIndex = enabledIndices.find((idx) => options[idx].selected);
+
+    return (
+      firstSelectedIndex ??
+      enabledIndices[preferLastOption ? enabledIndices.length - 1 : 0]
+    );
   }
 
   private moveActiveOption(direction: 1 | -1): void {
