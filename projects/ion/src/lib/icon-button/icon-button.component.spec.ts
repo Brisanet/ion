@@ -15,18 +15,18 @@ describe('IonIconButtonComponent', () => {
 
     fixture = TestBed.createComponent(IonIconButtonComponent);
     component = fixture.componentInstance;
-    fixture.componentRef.setInput('ariaLabel', 'Fechar');
+    fixture.componentRef.setInput('ariaLabel', 'Close');
     fixture.componentRef.setInput('icon', 'close');
     fixture.detectChanges();
   });
 
-  describe('Renderização e valores padrão', () => {
-    it('renderiza o botão com atributos e classes padrão', () => {
+  describe('Rendering and default values', () => {
+    it('renders the button with default attributes and classes', () => {
       const button = getButton();
 
       expect(button).toHaveAttribute('type', 'button');
-      expect(button).toHaveAttribute('aria-label', 'Fechar');
-      expect(button).toHaveAttribute('data-testid', 'icon-btn-Fechar');
+      expect(button).toHaveAttribute('aria-label', 'Close');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Close');
       expect(button).not.toHaveAttribute('aria-busy');
       expect(button).not.toHaveAttribute('aria-disabled');
       expect(button).not.toBeDisabled();
@@ -41,7 +41,7 @@ describe('IonIconButtonComponent', () => {
     });
 
     it.each(['submit', 'reset'] as const)(
-      'define o tipo nativo do botão como %s',
+      'sets the native button type to %s',
       (buttonType) => {
         fixture.componentRef.setInput('buttonType', buttonType);
         fixture.detectChanges();
@@ -50,7 +50,7 @@ describe('IonIconButtonComponent', () => {
       }
     );
 
-    it('renderiza o ícone decorativo corretamente', () => {
+    it('renders the decorative icon correctly', () => {
       const button = getButton();
       const icon = button.querySelector('ion-icon');
 
@@ -65,30 +65,30 @@ describe('IonIconButtonComponent', () => {
       );
     });
 
-    it('atualiza aria-label, data-testid e ícone dinamicamente', () => {
-      fixture.componentRef.setInput('ariaLabel', 'Editar');
+    it('updates aria-label, data-testid, and icon dynamically', () => {
+      fixture.componentRef.setInput('ariaLabel', 'Edit');
       fixture.componentRef.setInput('icon', 'edit');
       fixture.detectChanges();
 
       const button = getButton();
 
-      expect(button).toHaveAttribute('aria-label', 'Editar');
-      expect(button).toHaveAttribute('data-testid', 'icon-btn-Editar');
+      expect(button).toHaveAttribute('aria-label', 'Edit');
+      expect(button).toHaveAttribute('data-testid', 'icon-btn-Edit');
       expect(button.querySelector('ion-icon svg')).toHaveAttribute(
         'id',
         'ion-icon-edit'
       );
     });
 
-    it('exibe o tooltip configurado ao passar o mouse sobre o botão', () => {
-      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+    it('shows the configured tooltip when hovering over the button', () => {
+      fixture.componentRef.setInput('tooltip', 'Save changes');
       fixture.detectChanges();
 
       getButton().dispatchEvent(new MouseEvent('mouseenter'));
       fixture.detectChanges();
 
       expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
-        'Salvar alterações'
+        'Save changes'
       );
 
       getButton().dispatchEvent(new MouseEvent('mouseleave'));
@@ -96,15 +96,15 @@ describe('IonIconButtonComponent', () => {
       expect(document.body.querySelector('ion-tooltip')).toBeNull();
     });
 
-    it('exibe o tooltip configurado quando o botão recebe foco', () => {
-      fixture.componentRef.setInput('tooltip', 'Salvar alterações');
+    it('shows the configured tooltip when the button receives focus', () => {
+      fixture.componentRef.setInput('tooltip', 'Save changes');
       fixture.detectChanges();
 
       getButton().focus();
       fixture.detectChanges();
 
       expect(document.body.querySelector('ion-tooltip')).toHaveTextContent(
-        'Salvar alterações'
+        'Save changes'
       );
 
       getButton().blur();
@@ -112,7 +112,7 @@ describe('IonIconButtonComponent', () => {
       expect(document.body.querySelector('ion-tooltip')).toBeNull();
     });
 
-    it('não exibe tooltip quando não há texto configurado', () => {
+    it('does not show a tooltip when no text is configured', () => {
       getButton().dispatchEvent(new MouseEvent('mouseenter'));
       fixture.detectChanges();
 
@@ -120,9 +120,9 @@ describe('IonIconButtonComponent', () => {
     });
   });
 
-  describe('Variantes e estilos', () => {
+  describe('Variants and styles', () => {
     it.each(['primary', 'secondary', 'ghost', 'dashed'] as const)(
-      'aplica a classe correspondente ao tipo %s',
+      'applies the class corresponding to type %s',
       (type) => {
         fixture.componentRef.setInput('type', type);
         fixture.detectChanges();
@@ -136,7 +136,7 @@ describe('IonIconButtonComponent', () => {
       ['md', 16, 'ion-icon-button--md'],
       ['lg', 24, 'ion-icon-button--lg'],
     ] as const)(
-      'suporta o tamanho %s e ajusta o ícone para %dpx',
+      'supports size %s and sets the icon to %dpx',
       (size, iconSize, cssClass) => {
         fixture.componentRef.setInput('size', size);
         fixture.detectChanges();
@@ -153,7 +153,7 @@ describe('IonIconButtonComponent', () => {
       ['default', 'ion-icon-button--default'],
       ['full', 'ion-icon-button--full'],
     ] as const)(
-      'suporta o arredondamento %s',
+      'supports %s rounding',
       (rounding, cssClass) => {
         fixture.componentRef.setInput('rounding', rounding);
         fixture.detectChanges();
@@ -162,7 +162,7 @@ describe('IonIconButtonComponent', () => {
       }
     );
 
-    it('alterna a classe danger conforme o input', () => {
+    it('toggles the danger class based on the input', () => {
       expect(getButton()).not.toHaveClass('danger');
 
       fixture.componentRef.setInput('danger', true);
@@ -172,8 +172,8 @@ describe('IonIconButtonComponent', () => {
     });
   });
 
-  describe('Estado de carregamento (loading)', () => {
-    it('exibe spinner, oculta ícone e mantém o botão focável durante o loading', () => {
+  describe('Loading state', () => {
+    it('shows the spinner, hides the icon, and keeps the button focusable while loading', () => {
       fixture.componentRef.setInput('loading', true);
       fixture.detectChanges();
 
@@ -196,7 +196,7 @@ describe('IonIconButtonComponent', () => {
       expect(document.activeElement).toBe(button);
     });
 
-    it('restaura o ícone e reabilita o botão quando loading volta para false', () => {
+    it('restores the icon and enables the button when loading returns to false', () => {
       fixture.componentRef.setInput('loading', true);
       fixture.detectChanges();
 
@@ -218,7 +218,7 @@ describe('IonIconButtonComponent', () => {
       ['md', 16],
       ['lg', 24],
     ] as const)(
-      'mantém o spinner no tamanho %s com dimensões de %dpx',
+      'keeps the spinner at size %s with dimensions of %dpx',
       (size, iconSize) => {
         fixture.componentRef.setInput('size', size);
         fixture.componentRef.setInput('loading', true);
@@ -236,8 +236,8 @@ describe('IonIconButtonComponent', () => {
     );
   });
 
-  describe('Interações e eventos', () => {
-    it('emite ionOnClick ao clicar quando habilitado', () => {
+  describe('Interactions and events', () => {
+    it('emits ionOnClick when clicked while enabled', () => {
       const clickSpy = jest.fn();
       component.ionOnClick.subscribe(clickSpy);
 
@@ -246,7 +246,7 @@ describe('IonIconButtonComponent', () => {
       expect(clickSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('não emite ionOnClick quando disabled está ativo', () => {
+    it('does not emit ionOnClick when disabled', () => {
       const clickSpy = jest.fn();
       component.ionOnClick.subscribe(clickSpy);
       fixture.componentRef.setInput('disabled', true);
@@ -260,7 +260,7 @@ describe('IonIconButtonComponent', () => {
       expect(clickSpy).not.toHaveBeenCalled();
     });
 
-    it('não emite ionOnClick quando loading está ativo', () => {
+    it('does not emit ionOnClick while loading', () => {
       const clickSpy = jest.fn();
       component.ionOnClick.subscribe(clickSpy);
       fixture.componentRef.setInput('loading', true);
