@@ -104,6 +104,8 @@ export class IonInputComponent {
 
     if (this.invalid() && this.errorMsg()) {
       ids.push(`${this.uniqueId}-error`);
+    } else if (this.valid() && this.validMsg()) {
+      ids.push(`${this.uniqueId}-valid`);
     } else if (this.helperText()) {
       ids.push(`${this.uniqueId}-helper`);
     }
@@ -163,7 +165,7 @@ export class IonInputComponent {
     this.passwordVisible.update((visible) => {
       const next = !visible;
       this.passwordAnnouncement.set(
-        next ? 'Botão de alternância ligado. Senha visivel' : 'Botão de altenância desligado. Senha invisivel',
+        next ? 'Botão de alternância ligado. Senha visível' : 'Botão de alternância desligado. Senha invisível',
       );
       return next;
     });
@@ -177,7 +179,7 @@ export class IonInputComponent {
 
   isClearButtonVisible = computed(
   () =>
-    this.clearButton() &&
+    this.inputType() !== 'password' &&
     !this.disabled() &&
     !this.readonly() &&
     Boolean(this.value()),

@@ -51,7 +51,7 @@
     @if (inputType() === 'password') {
       <ion-button
         data-testid="password-toggle"
-        class="password-toggle input-icon-btn"
+        class="input-icon-btn"
         [aria-label]="'Mostrar senha'"
         [aria-pressed]="passwordVisible()"
         [disabled]="disabled()"
@@ -61,10 +61,21 @@
         [rightSideIcon]="true"
         [size]="internalButtonSize()"
       ></ion-button>
+    } @else if (isClearButtonVisible()) {
+      <ion-button
+        data-testid="clear-button"
+        class="input-icon-btn"
+        type="ghost"
+        [size]="internalButtonSize()"
+        iconType="close-rounded"
+        [disabled]="disabled()"
+        (click)="clearInput(inputModel)"
+        [aria-label]="'Limpar campo'"
+      ></ion-button>
     } @else if (resolvedRightIcon()) {
       <ion-button
         data-testid="icon-right-button"
-        class="trailing-button input-icon-btn"
+        class="input-icon-btn"
         type="ghost"
         [size]="internalButtonSize()"
         [iconType]="resolvedRightIcon()"
@@ -73,19 +84,7 @@
         (click)="onClickTrailingIcon()"
       ></ion-button>
     }
-        @if (isClearButtonVisible()) {
-      <ion-button
-        data-testid="clear-button"
-        class="clearButton input-icon-btn"
-        type="ghost"
-        [size]="internalButtonSize()"
-        iconType="close-rounded"
-        [disabled]="disabled()"
-        (click)="clearInput(inputModel)"
-        [aria-label]="'Limpar campo'"
-      ></ion-button>
-    }
-
+    
     @if (inputButton() && finalButtonConfig()) {
       <div class="button-separator" aria-hidden="true"></div>
       <ion-button

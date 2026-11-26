@@ -39,20 +39,6 @@ $input-stack-gap: 4px;
   width: 100%;
   line-height: normal;
 
-  &:has(.input.invalid) {
-    --current-theme-color: #{ion-theme(input-invalid-border-color)};
-    --current-hover-color: #{ion-theme(input-invalid-hover-border-color)};
-
-    .input-label {
-      color: var(--current-theme-color);
-    }
-  }
-
-  &:has(.input.valid:not(.invalid)) {
-    --current-theme-color: #{ion-theme(input-valid-border-color)};
-    --current-hover-color: #{ion-theme(input-valid-hover-border-color)};
-  }
-
   &:has(.input.disabled) {
     cursor: not-allowed;
     -webkit-user-select: none;
@@ -78,17 +64,13 @@ $input-stack-gap: 4px;
   color: var(--current-theme-color);
 }
 
+.input-container:has(.input.invalid) .input-label {
+  color: ion-theme(input-invalid-border-color);
+}
+
 :host:not(.pointer-focus) div.input:not(.disabled):has(input.my-input:focus-visible) {
   &:not(.invalid):not(.valid) {
     @include focus-double-ring(var(--current-hover-color));
-  }
-
-  &.invalid {
-    @include focus-double-ring(ion-theme(input-invalid-focus-border-color));
-  }
-
-  &.valid:not(.invalid) {
-    @include focus-double-ring(ion-theme(input-valid-focus-border-color));
   }
 }
 
@@ -106,7 +88,7 @@ div.input {
   background-color: ion-theme(input-background-color);
   transition: border-color 0.2s ease;
 
-  &:hover:not(.disabled):not(.invalid):not(.valid) {
+  &:hover:not(:focus-within):not(.disabled):not(.invalid):not(.valid) {
     border-width: 1.5px;
     border-color: var(--current-hover-color);
   }
@@ -118,6 +100,7 @@ div.input {
   }
 
   &:focus-within:not(.disabled):not(.invalid):not(.valid) {
+    border-width: 2px;
     border-color: var(--current-hover-color);
   }
 
@@ -255,12 +238,9 @@ div.input {
   }
 
   &:focus-within:not(.disabled),
-  &.invalid:not(.disabled),
-  &.valid:not(.disabled) {
-    .left-icon,
-    .input-icon-btn {
-      color: var(--current-theme-color);
-    }
+  .left-icon,
+  .input-icon-btn {
+    color: var(--current-theme-color);
   }
 
   .icon-valid,
@@ -319,29 +299,19 @@ div.input {
           padding: 0 spacing(1) !important;
         }
 
-        &:not(:disabled) {
+        &:focus-within:not(.disabled) .attached-button ::ng-deep button:not(:disabled) {
           &.ion-btn-primary {
-            background-color: ion-theme(input-prefix-background-color);
-            color: ion-theme(input-icon-color);
+            background-color: var(--current-theme-color);
+            color: #ffffff;
+
+            &:hover {
+              background-color: var(--current-hover-color);
+            }
           }
 
           &.ion-btn-secondary,
           &.ion-btn-ghost {
-            background-color: transparent;
-            color: ion-theme(input-icon-color);
-          }
-
-          &:hover {
-            &.ion-btn-primary {
-              background-color: var(--current-hover-color);
-              color: #ffffff;
-            }
-
-            &.ion-btn-secondary,
-            &.ion-btn-ghost {
-              background-color: color-mix(in srgb, var(--current-theme-color) 12%, transparent);
-              color: var(--current-hover-color);
-            }
+            color: var(--current-theme-color);
           }
         }
       }
