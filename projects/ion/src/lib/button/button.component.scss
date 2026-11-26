@@ -3,18 +3,46 @@
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
-@mixin button-style($prefix) {
-  background-color: ion-theme(#{$prefix}-background-color);
-  color: ion-theme(#{$prefix}-text-color);
-  border: ion-theme(#{$prefix}-border);
+@mixin button-style($prefix, $fallback-prefix: null) {
+  @if $fallback-prefix {
+    background-color: var(
+      --ion-#{$prefix}-background-color,
+      ion-theme(#{$fallback-prefix}-background-color)
+    );
+    color: var(
 
-  span.spinner {
-    border-left-color: ion-theme(#{$prefix}-spinner-color);
-  }
+      --ion-#{$prefix}-text-color,
+      ion-theme(#{$fallback-prefix}-text-color)
+    );
+    border: var(--ion-#{$prefix}-border, ion-theme(#{$fallback-prefix}-border));
 
-  ion-icon ::ng-deep svg {
-    transition: fill 300ms;
-    fill: ion-theme(#{$prefix}-icon-color);
+    span.spinner {
+      border-left-color: var(
+        --ion-#{$prefix}-spinner-color,
+        ion-theme(#{$fallback-prefix}-spinner-color)
+      );
+    }
+
+    ion-icon ::ng-deep svg {
+      transition: fill 300ms;
+      fill: var(
+        --ion-#{$prefix}-icon-color,
+        ion-theme(#{$fallback-prefix}-icon-color)
+      );
+    }
+  } @else {
+    background-color: ion-theme(#{$prefix}-background-color);
+    color: ion-theme(#{$prefix}-text-color);
+    border: ion-theme(#{$prefix}-border);
+
+    span.spinner {
+      border-left-color: ion-theme(#{$prefix}-spinner-color);
+    }
+
+    ion-icon ::ng-deep svg {
+      transition: fill 300ms;
+      fill: ion-theme(#{$prefix}-icon-color);
+    }
   }
 }
 
@@ -90,6 +118,18 @@ button {
       @include button-style(button-#{$variant}-hover);
     }
 
+    &:focus-visible {
+      @include button-style(button-#{$variant}-focus, button-#{$variant});
+      outline-color: var(
+        --ion-button-#{$variant}-focus-outline-color,
+        var(--ion-primary-5)
+      );
+      outline-offset: var(
+        --ion-button-#{$variant}-focus-outline-offset,
+        2px
+      );
+    }
+
     &:active {
       @include button-style(button-#{$variant}-active);
     }
@@ -112,6 +152,21 @@ button {
 
       &:hover {
         @include button-style(button-#{$variant}-danger-hover);
+      }
+
+      &:focus-visible {
+        @include button-style(
+          button-#{$variant}-danger-focus,
+          button-#{$variant}-danger
+      );
+        outline-color: var(
+          --ion-button-#{$variant}-danger-focus-outline-color,
+          ion-theme(button-danger-focus-color)
+        );
+        outline-offset: var(
+          --ion-button-#{$variant}-danger-focus-outline-offset,
+          2px
+        );
       }
 
       &:active {
