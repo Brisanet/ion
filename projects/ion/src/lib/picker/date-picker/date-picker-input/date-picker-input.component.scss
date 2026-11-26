@@ -45,12 +45,10 @@ $split-gap: 8px;
 .container-input,
 .layout-split,
 .layout-joined {
-  --picker-color: #{ion-theme(date-picker-range-input-primary-color)};
-  --picker-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
-
   display: flex;
   width: 100%;
   box-sizing: border-box;
+  border-radius: ion-theme(date-picker-range-input-border-radius) !important;
   border-radius: ion-theme(date-picker-range-input-border-radius) !important;
 }
 
@@ -71,7 +69,7 @@ $split-gap: 8px;
   }
 
   &.valid:not(.disabled),
-  &.invalid:not(.disabled){
+  &.invalid:not(.disabled) {
     outline: none !important;
     box-shadow: none !important;
   }
@@ -114,8 +112,6 @@ $split-gap: 8px;
   }
 }
 
-
-
 .container-input:has(.disabled) {
   pointer-events: none;
   user-select: none;
@@ -124,7 +120,7 @@ $split-gap: 8px;
 :host:not(.pointer-focus) {
   .layout-joined:not(.disabled):not(.invalid):not(.valid),
   .layout-split:not(.disabled):not(:has(ion-input.invalid)):not(:has(ion-input.valid)),
-  .container-input:not(:has(.disabled)):not(:has(ion-input.invalid)):not(:has(ion-input.valid)){
+  .container-input:not(:has(.disabled)):not(:has(ion-input.invalid)):not(:has(ion-input.valid)) {
     &:has(:focus-visible) {
       @include focus-double-ring(date-picker-range-input-primary-hover-color);
     }
@@ -155,7 +151,7 @@ $split-gap: 8px;
       box-shadow: none !important;
     }
 
-    ion-input:not(.disabled){
+    ion-input:not(.disabled) {
       --current-theme-color: #{ion-theme(date-picker-range-input-primary-color)};
       --current-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
     }
@@ -169,7 +165,7 @@ $split-gap: 8px;
     }
 
     ion-input:not(.invalid):not(.valid) .input-container div.input:not(.disabled) {
-      @include theme-states;
+      @include theme-states(date-picker-range-input-primary-hover-color);
     }
 
     ion-input.valid .input-container div.input:not(.disabled) {
@@ -203,21 +199,21 @@ $split-gap: 8px;
       }
     }
   }
+}
 
-  :not(.pointer-focus) .layout-split:not(.disabled):has(:focus-visible) {
-    ion-input:not(.invalid):not(.valid) .input:not(.disabled) {
-      border-width: 2px;
-      border-color: ion-theme(date-picker-range-input-primary-color);
-    }
+:host:not(.pointer-focus) ::ng-deep .layout-split:not(.disabled):has(:focus-visible) {
+  ion-input:not(.invalid):not(.valid) .input-container div.input:not(.disabled) {
+    border-width: 2px;
+    border-color: ion-theme(date-picker-range-input-primary-hover-color);
+  }
 
-    &:has(ion-input.valid :focus-visible) ion-input:not(.invalid) .input:not(.disabled) {
-      border-width: 2px;
-      border-color: ion-theme(date-picker-range-input-success-color);
-    }
+  ion-input.valid .input-container div.input:not(.disabled) {
+    border-width: 2px;
+    border-color: ion-theme(date-picker-range-input-success-hover-color);
+  }
 
-    &:has(ion-input.invalid :focus-visible) ion-input:not(.valid) .input:not(.disabled) {
-      border-width: 2px;
-      border-color: ion-theme(date-picker-range-input-error-color);
-    }
+  ion-input.invalid .input-container div.input:not(.disabled) {
+    border-width: 2px;
+    border-color: ion-theme(date-picker-range-input-error-hover-color);
   }
 }

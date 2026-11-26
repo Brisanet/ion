@@ -99,10 +99,8 @@ export class IonDatePickerInputComponent {
     return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
   });
 
-  joinedInvalid = computed(() => this.startInvalid() || this.endInvalid());
-  joinedValid = computed(
-    () => !this.joinedInvalid() && (this.startValid() || this.endValid())
-  );
+  joinedInvalid = computed(() => this.startInvalid());
+  joinedValid = computed(() => this.startValid());
 
   onPointerDown(): void {
     this.pointerFocus.set(true);
