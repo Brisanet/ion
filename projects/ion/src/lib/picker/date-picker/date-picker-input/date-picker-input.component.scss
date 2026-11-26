@@ -3,14 +3,14 @@
 
 $split-gap: 8px;
 
-@mixin theme-states($hover-color: var(--picker-hover-color), $focus-color: $hover-color) {
+@mixin theme-states($hover-token, $focus-token: $hover-token) {
   &:hover:not(:focus-within) {
-    border-color: $hover-color;
+    border-color: ion-theme($hover-token);
   }
 
   &:focus-within {
     border-width: 2px;
-    border-color: $focus-color;
+    border-color: ion-theme($focus-token);
   }
 }
 
@@ -25,17 +25,9 @@ $split-gap: 8px;
   }
 }
 
-@mixin focus-double-ring($focus-color: var(--picker-hover-color)) {
-  outline: 2px solid $focus-color;
+@mixin focus-double-ring($focus-token) {
+  outline: 2px solid ion-theme($focus-token);
   outline-offset: 2px;
-}
-
-:host:has(.disabled) {
-  cursor: not-allowed;
-}
-
-:host:has(.disabled) {
-  cursor: not-allowed;
 }
 
 :host:has(.disabled) {
@@ -48,7 +40,6 @@ $split-gap: 8px;
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  border-radius: ion-theme(date-picker-range-input-border-radius) !important;
   border-radius: ion-theme(date-picker-range-input-border-radius) !important;
 }
 
