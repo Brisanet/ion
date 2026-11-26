@@ -56,7 +56,6 @@ export class IonInputComponent {
   iconInput = input<IconType>('');
   iconDirection = input<IconDirection | undefined>(undefined);
   leftIcon = input<string>('');
-  rightIcon = input<string>('');
   clearButton = input<boolean>(false);
   inputButton = input<boolean>(false);
   inputButtonConfig = input<IonButtonProps | undefined>(undefined);
@@ -126,19 +125,12 @@ export class IonInputComponent {
     this.leftIcon() || (this.iconDirection() === 'left' ? this.iconInput() : ''),
   );
 
-  resolvedRightIcon = computed(() =>
-    this.rightIcon() || (this.iconDirection() === 'right' ? this.iconInput() : ''),
-  );
   onChange(val: string): void {
     this.valueChange.emit(val);
   }
 
   public handleClick(): void {
     this.clickButton.emit();
-  }
-
-  public onClickTrailingIcon(): void {
-    this.clickIconTrailing.emit();
   }
 
   onPointerDown(): void {
@@ -179,7 +171,7 @@ export class IonInputComponent {
 
   isClearButtonVisible = computed(
   () =>
-    this.inputType() !== 'password' &&
+    this.clearButton() &&
     !this.disabled() &&
     !this.readonly() &&
     Boolean(this.value()),

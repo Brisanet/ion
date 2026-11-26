@@ -72,17 +72,6 @@
         (click)="clearInput(inputModel)"
         [aria-label]="'Limpar campo'"
       ></ion-button>
-    } @else if (resolvedRightIcon()) {
-      <ion-button
-        data-testid="icon-right-button"
-        class="input-icon-btn"
-        type="ghost"
-        [size]="internalButtonSize()"
-        [iconType]="resolvedRightIcon()"
-        [disabled]="disabled()"
-        [aria-label]="iconTrailingAriaLabel()"
-        (click)="onClickTrailingIcon()"
-      ></ion-button>
     }
     
     @if (inputButton() && finalButtonConfig()) {

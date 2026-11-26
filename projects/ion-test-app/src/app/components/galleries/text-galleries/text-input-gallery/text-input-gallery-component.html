@@ -3,8 +3,9 @@
     <h1>Text Input</h1>
   </header>
 
+  <!-- SEÇÃO 1: SANDBOX INTERATIVO -->
   <section class="gallery-section">
-    <h2>Sandbox Interativo</h2>
+    <h2> Sandbox Interativo</h2>
     <div class="gallery-grid single-column">
       <div class="gallery-card">
         <div class="sandbox-controls">
@@ -36,7 +37,6 @@
               <ion-button
                 [label]="item"
                 [type]="sandboxType() === item ? 'primary' : 'secondary'"
-                [disabled]="item === 'password' && sandboxRightIcon()"
                 (ionOnClick)="sandboxType.set(item)"
               ></ion-button>
             }
@@ -51,16 +51,16 @@
             ></ion-button>
 
             <ion-button
-              label="Ícone Left"
+              label="Leading Icon"
               [type]="sandboxLeftIcon() ? 'primary' : 'secondary'"
               (ionOnClick)="sandboxLeftIcon.set(!sandboxLeftIcon())"
             ></ion-button>
 
             <ion-button
-              label="Ícone Right"
-              [type]="sandboxRightIcon() && sandboxType() !== 'password' ? 'primary' : 'secondary'"
-              [disabled]="sandboxType() === 'password'"
-              (ionOnClick)="sandboxRightIcon.set(!sandboxRightIcon())"
+              label="Trailing Icon"
+              [type]="sandboxClearButton() ? 'primary' : 'secondary'"
+              [disabled]="sandboxInputButton()"
+              (ionOnClick)="toggleSandboxClearButton()"
             ></ion-button>
 
             <ion-button
@@ -72,7 +72,8 @@
             <ion-button
               label="Botão Integrado"
               [type]="sandboxInputButton() ? 'primary' : 'secondary'"
-              (ionOnClick)="sandboxInputButton.set(!sandboxInputButton())"
+              [disabled]="sandboxClearButton()"
+              (ionOnClick)="toggleSandboxInputButton()"
             ></ion-button>
           </div>
         </div>
@@ -90,13 +91,12 @@
           [helperText]="sandboxStatus() === 'default' ? 'Texto auxiliar de apoio ao preenchimento.' : ''"
           [prefix]="sandboxPrefix() ? 'R$' : ''"
           [leftIcon]="sandboxLeftIcon() ? 'search' : ''"
-          [rightIcon]="sandboxRightIcon() ? 'search' : ''"
+          [clearButton]="sandboxClearButton()"
           [maxLength]="sandboxMaxLength() ? 30 : null"
           [inputButton]="sandboxInputButton()"
           [inputButtonConfig]="{ label: 'Confirmar' }"
           [(value)]="sandboxValue"
           (clickButton)="onSandboxButtonClick()"
-          (clickIconTrailing)="onSandboxTrailingClick()"
         ></ion-input>
       </div>
     </div>
