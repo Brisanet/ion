@@ -93,6 +93,8 @@ import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+import { SelectGalleryComponent } from './components/galleries/select-gallery/select-gallery';
+
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -187,6 +189,7 @@ class ModalLongContentComponent {
     IonDrawerComponent,
     BnEditDrawerComponent,
     ColorGalleryComponent,
+    SelectGalleryComponent,
     TypographyGalleryComponent,
     JsonPipe,
   ],

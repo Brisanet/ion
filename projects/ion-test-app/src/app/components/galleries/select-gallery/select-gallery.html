@@ -1,0 +1,167 @@
+<section
+  class="select-gallery"
+  [attr.data-theme-preview]="themePreview()"
+>
+  <header class="select-gallery__header">
+    <div>
+      <h2>Select · Sandbox Interativo</h2>
+      <p>
+        Configure propriedades, estados e temas em tempo real para testar o
+        <code>IonSelectComponent</code>.
+      </p>
+    </div>
+  </header>
+
+  <section class="select-gallery__group" aria-labelledby="select-gallery-themes">
+    <h3 id="select-gallery-themes">Temas e tokens ativos</h3>
+    <div class="select-gallery__theme-controls">
+      <div class="select-gallery__theme-buttons">
+        @for (theme of themes; track theme.key) {
+          <ion-button
+            [label]="theme.label"
+            [type]="themePreview() === theme.key ? 'primary' : 'secondary'"
+            size="sm"
+            (ionOnClick)="setThemePreview(theme.key)"
+          ></ion-button>
+        }
+      </div>
+
+      <div class="select-gallery__palette" aria-label="Paleta de tokens do tema atual">
+        @for (token of colorTokens; track token) {
+          <div class="select-gallery__swatch">
+            <span
+              class="select-gallery__swatch-color"
+              [style.background-color]="'var(--ion-' + token + ')'"
+            ></span>
+            <span>{{ token }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="select-gallery__group" aria-labelledby="select-gallery-sandbox">
+    <div class="select-gallery__section-bar">
+      <h3 id="select-gallery-sandbox">Sandbox configurável</h3>
+      <div class="select-gallery__actions">
+        <ion-button
+          label="Limpar seleção"
+          type="primary"
+          size="md"
+          iconType="trash2"
+          (ionOnClick)="clearSandboxSelection()"
+        ></ion-button>
+        <ion-button
+          label="Resetar sandbox"
+          type="secondary"
+          size="md"
+          iconType="refresh-cw"
+          (ionOnClick)="resetSandbox()"
+        ></ion-button>
+      </div>
+    </div>
+
+    <div class="select-gallery__sandbox">
+      <div class="select-gallery__stage">
+        <div class="select-gallery__stage-preview">
+          <ion-select
+            [label]="sandboxLabel()"
+            [placeholder]="sandboxPlaceholder()"
+            [supportingText]="sandboxSupportingText()"
+            [type]="sandboxType()"
+            [size]="sandboxSize()"
+            [status]="sandboxStatus()"
+            [options]="sandboxFilteredOptions()"
+            [value]="sandboxValue()"
+            [enableSearch]="sandboxEnableSearch()"
+            [searchOptions]="{ placeholder: 'Filtrar opções...' }"
+            (valueChange)="onSandboxValueChange($event)"
+            (selected)="onSandboxSelected($event)"
+            (search)="onSandboxSearch($event)"
+          ></ion-select>
+        </div>
+
+        <div class="select-gallery__telemetry">
+          <div>
+            <strong>Value emitido:</strong>
+            <code>{{ sandboxFormattedValue() }}</code>
+          </div>
+          <div>
+            <strong>Itens selecionados ({{ sandboxSelectedItems().length }}):</strong>
+            <span>
+              {{ sandboxSelectedItems().length ? sandboxSelectedItems().length + ' item(ns)' : 'nenhum' }}
+            </span>
+          </div>
+          <div>
+            <strong>Termo de busca:</strong>
+            <code>{{ sandboxSearchTerm() || '""' }}</code>
+          </div>
+          <div>
+            <strong>Último evento:</strong>
+            <code>{{ sandboxEventLog() }}</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-gallery__control-row">
+        <ion-select
+          label="Modo (type)"
+          size="base"
+          [required]="true"
+          [options]="typeOptions"
+          [value]="sandboxType()"
+          (valueChange)="onSandboxTypeChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Tamanho (size)"
+          size="base"
+          [required]="true"
+          [options]="sizeOptions"
+          [value]="sandboxSize()"
+          (valueChange)="onSandboxSizeChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Status (status)"
+          size="base"
+          [required]="true"
+          [options]="statusOptions"
+          [value]="sandboxStatus()"
+          (valueChange)="onSandboxStatusChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Conjunto de opções"
+          size="base"
+          [required]="true"
+          [options]="scenarioOptions"
+          [value]="sandboxScenario()"
+          (valueChange)="onSandboxScenarioChange($event)"
+        ></ion-select>
+
+        <div class="select-gallery__field">
+          <span class="select-gallery__field-label">Texto de apoio (supportingText)</span>
+          <ion-input
+            placeholder="Digite o texto de apoio..."
+            [clearButton]="true"
+            [value]="sandboxSupportingText()"
+            (valueChange)="onSandboxSupportingTextChange($event)"
+          ></ion-input>
+        </div>
+
+        <div class="select-gallery__field">
+          <span class="select-gallery__field-label">Busca (enableSearch)</span>
+          <ion-button
+            [label]="sandboxEnableSearch() ? 'Search: Ativo' : 'Search: Inativo'"
+            [type]="sandboxEnableSearch() ? 'primary' : 'secondary'"
+            [iconType]="sandboxEnableSearch() ? 'check' : 'close'"
+            size="lg"
+            [expand]="true"
+            (ionOnClick)="toggleSandboxEnableSearch()"
+          ></ion-button>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>
