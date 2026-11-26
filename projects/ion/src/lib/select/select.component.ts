@@ -15,6 +15,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { IonSelectSize, IonSelectStatus, IonSelectType} from '../core/types/select';
 import { IonChipComponent } from '../chip/chip.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
@@ -23,10 +24,6 @@ import { calculateVisibleChipCount } from './calculate-visible-chip-count';
 
 const CHIP_GAP = 8;
 const CHIP_REMOVE_KEYS = new Set(['Backspace','Delete','Enter', ' ', 'Spacebar',]);
-
-export type IonSelectType = 'single' | 'multi';
-export type IonSelectSize = 'base' | 'large';
-export type IonSelectStatus = 'default' | 'error' | 'success';
 
 @Component({
   selector: 'ion-select',
