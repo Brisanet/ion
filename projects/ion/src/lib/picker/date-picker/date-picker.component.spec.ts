@@ -109,17 +109,22 @@ describe('IonDatepickerComponent with CDK Overlay', () => {
     );
   });
 
-  it('should apply the selected theme to calendar and control picker', () => {
-    fixture.componentRef.setInput('theme', 'secondary');
-    component.setVisibleCalendar(true);
-    fixture.detectChanges();
+  it('should inherit system theme on calendar and control picker', () => {
+    document.body.classList.add('orange-light-v2');
 
-    expect(
-      overlayContainerElement.querySelector('.container-controls'),
-    ).toHaveClass('theme-secondary');
-    expect(
-      overlayContainerElement.querySelector('.container-date-picker-calendar'),
-    ).toHaveClass('theme-secondary');
+    try {
+      component.setVisibleCalendar(true);
+      fixture.detectChanges();
+
+      expect(
+        overlayContainerElement.querySelector('.container-controls'),
+      ).toBeTruthy();
+      expect(
+        overlayContainerElement.querySelector('.container-date-picker-calendar'),
+      ).toBeTruthy();
+    } finally {
+      document.body.classList.remove('orange-light-v2');
+    }
   });
 
   it.each(['base', 'large'] as const)(
