@@ -223,7 +223,7 @@ describe('IonSelectComponent', () => {
     it('should support type (single/multi precedence) and size inputs', () => {
       const fixture = TestBed.createComponent(IonSelectComponent);
       fixture.componentRef.setInput('options', options);
-      fixture.componentRef.setInput('type', 'multi');
+      fixture.componentRef.setInput('multiple', true);
       fixture.componentRef.setInput('size', 'large');
       fixture.componentRef.setInput('value', ['apple']);
       fixture.detectChanges();
@@ -241,7 +241,7 @@ describe('IonSelectComponent', () => {
       fixture.componentRef.setInput('value', 'apple');
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.isMultiple()).toBe(false);
+      expect(fixture.componentInstance.multiple()).toBe(false);
       expect(
         fixture.nativeElement.querySelector('.selected-text')?.textContent
       ).toContain('Apple');
@@ -285,7 +285,7 @@ describe('IonSelectComponent', () => {
       fixture.componentInstance.selectOption(options[0]);
       expect(valueChangeSpy).not.toHaveBeenCalled();
 
-      fixture.componentRef.setInput('type', 'multi');
+      fixture.componentRef.setInput('multiple', true);
       fixture.componentRef.setInput('value', ['apple']);
       fixture.detectChanges();
 

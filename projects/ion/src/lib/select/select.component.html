@@ -38,7 +38,7 @@
 
     @if (dropdownSelectedItems().length === 0) {
       <span class="placeholder">{{ placeholder() }}</span>
-    } @else if (isMultiple()) {
+    } @else if (multiple()) {
       <div class="selected-value">
         @for (item of visibleItems(); track $index) {
         <ion-chip
@@ -74,7 +74,7 @@
       [size]="20"
     ></ion-icon>
 
-    @if (dropdownSelectedItems().length > 0 && isMultiple()) {
+    @if (dropdownSelectedItems().length > 0 && multiple()) {
       <div
         class="measurement-container"
         #measurementContainer
@@ -108,7 +108,7 @@
     <ion-dropdown
       [origin]="selectTrigger"
       [options]="dropdownOptions()"
-      [multiple]="isMultiple()"
+      [multiple]="multiple()"
       [required]="required()"
       [enableSearch]="enableSearch()"
       [searchOptions]="searchOptions()"

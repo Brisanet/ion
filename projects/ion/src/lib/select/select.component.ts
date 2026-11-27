@@ -18,7 +18,7 @@ import {
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
-import { IonSelectSize, IonSelectType } from '../core/types/select';
+import { IonSelectSize } from '../core/types/select';
 import { IonChipComponent } from '../chip/chip.component';
 import { calculateVisibleChipCount } from './calculate-visible-chip-count';
 
@@ -45,7 +45,6 @@ export class IonSelectComponent {
   placeholder = input<string>('Selecione');
   options = input<DropdownItem[]>([]);
   multiple = input<boolean>(false);
-  type = input<IonSelectType | undefined>(undefined);
   size = input<IonSelectSize>('base');
   label = input<string>('');
   supportingText = input<string>('');
@@ -75,7 +74,6 @@ export class IonSelectComponent {
 
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
   measurementContainer = viewChild<ElementRef<HTMLElement>>('measurementContainer');
-  isMultiple = computed(() => this.type() === 'multi' || (this.type() === undefined && this.multiple()));
   isError = computed(() => this.invalid() || this.invalid() === true);
   isSuccess = computed(() => !this.isError() && this.valid() === true);
   hasNoOptions = computed(() => !this.loading() && this.dropdownOptions().length === 0);
@@ -99,7 +97,7 @@ export class IonSelectComponent {
       ? `${count} ${count === 1 ? 'opção disponível' : 'opções disponíveis'}.`
       : 'Nenhuma opção disponível.';
     const selectionMessage = selectedLabel
-      ? `${this.isMultiple() ? 'Selecionados' : 'Selecionado'}: ${selectedLabel}.`
+      ? `${this.multiple() ? 'Selecionados' : 'Selecionado'}: ${selectedLabel}.`
       : 'Nenhuma opção selecionada.';
 
     return this.showDropdown()
@@ -111,7 +109,7 @@ export class IonSelectComponent {
     const items = this.dropdownSelectedItems();
     const count = this.visibleCount();
 
-    if (!this.isMultiple() || count === null || count >= items.length) {
+    if (!this.multiple() || count === null || count >= items.length) {
       return items;
     }
 
@@ -119,7 +117,7 @@ export class IonSelectComponent {
   });
 
   overflowCount = computed(() => {
-    if (!this.isMultiple()) {
+    if (!this.multiple()) {
       return 0;
     }
 
@@ -189,7 +187,7 @@ export class IonSelectComponent {
             )
           ) {
             this.dropdownSelectedItems.set(
-              this.isMultiple() ? selected : selected.slice(0, 1)
+              this.multiple() ? selected : selected.slice(0, 1)
             );
           }
         }
@@ -199,7 +197,7 @@ export class IonSelectComponent {
 
     effect(() => {
       this.dropdownSelectedItems();
-      this.isMultiple();
+      this.multiple();
       this.visibleItems();
       this.disabled();
       this.required();
@@ -279,7 +277,7 @@ export class IonSelectComponent {
           this.dropdownPanel?.querySelector<HTMLElement>('.clear-button');
         const searchInput = this.dropdownPanel?.querySelector<HTMLElement>('input');
         const canClear =
-          this.isMultiple() &&
+          this.multiple() &&
           this.dropdownSelectedItems().length > 0 && !this.required() && !!clearBtn;
 
         if (atBoundary) {
@@ -360,7 +358,7 @@ export class IonSelectComponent {
     const enabled = this.getEnabledOptionIndices();
     const nextControl = isClear
       ? this.dropdownPanel.querySelector<HTMLElement>('input')
-      : this.isMultiple() && this.dropdownSelectedItems().length > 0 && !this.required()
+      : this.multiple() && this.dropdownSelectedItems().length > 0 && !this.required()
         ? this.dropdownPanel.querySelector<HTMLElement>('.clear-button')
         : null;
 
@@ -388,7 +386,7 @@ export class IonSelectComponent {
       (item) => options.find((opt) => this.sameOption(opt, item)) ?? item
     );
 
-    if (this.isMultiple()) {
+    if (this.multiple()) {
       const itemsNotInOptions = currentSelected.filter(
         (item) => !options.some((opt) => this.sameOption(opt, item))
       );
@@ -397,13 +395,13 @@ export class IonSelectComponent {
 
     this.emitSelection(finalSelected);
 
-    if (!this.isMultiple()) {
+    if (!this.multiple()) {
       this.closeDropdown();
     }
   }
 
   handleDropdownSelection(selectedItems: DropdownItem[]): void {
-    if (this.isMultiple() && selectedItems.length === 0) {
+    if (this.multiple() && selectedItems.length === 0) {
       queueMicrotask(() => {
         if (!this.clearButtonActivated) {
           const visibleOptions = this.dropdownOptions();
@@ -417,7 +415,7 @@ export class IonSelectComponent {
       });
       return;
     }
-    if (this.isMultiple()) {
+    if (this.multiple()) {
       const visibleOptions = this.dropdownOptions();
       const hiddenSelectedItems = this.dropdownSelectedItems().filter(
         (item) => !visibleOptions.some((option) => this.sameOption(item, option))
@@ -443,7 +441,7 @@ export class IonSelectComponent {
     const current = this.dropdownSelectedItems();
     const isSelected = current.some((item) => this.sameOption(item, option));
 
-    if (this.isMultiple()) {
+    if (this.multiple()) {
       if (isSelected && this.required() && current.length === 1) return;
       this.handleSelect(
         isSelected
@@ -473,7 +471,7 @@ export class IonSelectComponent {
       return '';
     }
 
-    if (this.isMultiple()) {
+    if (this.multiple()) {
       return selected.map((item) => this.getOptionLabel(item)).join(', ');
     }
 
@@ -537,10 +535,10 @@ export class IonSelectComponent {
     this.selected.emit(finalSelected);
 
     const emitValue = this.returnFullObject()
-      ? this.isMultiple()
+      ? this.multiple()
         ? finalSelected
         : finalSelected[0] || null
-      : this.isMultiple()
+      : this.multiple()
         ? finalSelected.map((item) => (item as any)[prop])
         : finalSelected.length > 0
           ? (finalSelected[0] as any)[prop]
@@ -636,7 +634,7 @@ export class IonSelectComponent {
     if (listbox) {
       listbox.id = this.listboxId;
       listbox.setAttribute('role', 'listbox');
-      if (this.isMultiple()) {
+      if (this.multiple()) {
         listbox.setAttribute('aria-multiselectable', 'true');
       } else {
         listbox.removeAttribute('aria-multiselectable');
@@ -681,7 +679,7 @@ export class IonSelectComponent {
   private updateVisibleCount(): void {
     const items = this.dropdownSelectedItems();
 
-    if (!this.isMultiple() || items.length === 0) {
+    if (!this.multiple() || items.length === 0) {
       this.visibleCount.set(null);
       return;
     }
