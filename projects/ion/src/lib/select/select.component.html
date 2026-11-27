@@ -1,77 +1,127 @@
-<div class="ion-select-container">
+<div
+  class="ion-select-container"
+  [class.disabled]="disabled()"
+  [class.size-large]="size() === 'large'"
+>
+  @if (label()) {
+    <label class="select-label" [id]="labelId">{{ label() }}</label>
+  }
+
   <div
     #selectTrigger
     class="ion-select"
     [class.disabled]="disabled()"
-    [class.invalid]="invalid()"
+    [class.invalid]="isError()"
+    [class.success]="isSuccess()"
     [class.open]="showDropdown()"
+    [class.open-empty]="showDropdown() && hasNoOptions()"
+    [class.selected]="dropdownSelectedItems().length > 0"
+    [class.size-large]="size() === 'large'"
+    role="combobox"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="showDropdown()"
+    [attr.aria-controls]="showDropdown() && !loading() && dropdownOptions().length > 0 ? listboxId : null"
+    [attr.aria-activedescendant]="activeDescendantId()"
+    [attr.aria-labelledby]="label() ? labelId : null"
+    [attr.aria-label]="label() ? null : placeholder()"
+    [attr.aria-disabled]="disabled()"
+    [attr.aria-required]="required()"
+    [attr.aria-invalid]="isError()"
+    [attr.tabindex]="disabled() ? -1 : 0"
     (click)="toggleDropdown()"
-    tabindex="0"
-    (keydown.enter)="toggleDropdown()"
-    (keydown.space)="toggleDropdown(); $event.preventDefault()"
+    (keydown)="handleTriggerKeydown($event)"
     data-testid="ion-select"
   >
+    <span class="leading-slot">
+      <ng-content select="[ionSelectLeading]"></ng-content>
+    </span>
+
     @if (dropdownSelectedItems().length === 0) {
-    <span class="placeholder">{{ placeholder() }}</span>
+      <span class="placeholder">{{ placeholder() }}</span>
+    } @else if (multiple()) {
+      <div class="selected-value">
+        @for (item of visibleItems(); track $index) {
+        <ion-chip
+          [label]="getOptionLabel(item)"
+          icon="close"
+          iconPosition="right"
+          size="sm"
+          [disabled]="disabled()"
+          [chipGroup]="true"
+          (click)="onChipClick($event, item)"
+          (keydown)="onChipKeydown($event, item)"
+        ></ion-chip>
+        }
+        @if (overflowCount() > 0) {
+          <span class="overflow-counter" data-testid="select-overflow-count"
+            >+{{ overflowCount() }}</span
+          >
+        }
+      </div>
     } @else {
-    <div
-      class="selected-value"
-      [class.single-selection]="!multiple()"
-    >
-      @for (item of visibleItems(); track $index) {
-      <ion-chip
-        [label]="item[propLabel()] || item.label"
-        icon="close"
-        iconPosition="right"
-        (events)="handleChipEvents(item)"
-        [disabled]="disabled()"
-      ></ion-chip>
-      }
-      @if (overflowCount() > 0) {
-      <span class="overflow-counter" data-testid="select-overflow-count"
-        >+{{ overflowCount() }}</span
-      >
-      }
-    </div>
+      <span class="selected-text">{{
+        getOptionLabel(dropdownSelectedItems()[0])
+      }}</span>
     }
 
+    <span class="action-slot" (click)="$event.stopPropagation()">
+      <ng-content select="[ionSelectAction]"></ng-content>
+    </span>
+
     <ion-icon
+      class="select-chevron"
       [type]="showDropdown() ? 'semi-up' : 'semi-down'"
       [size]="20"
     ></ion-icon>
 
     @if (dropdownSelectedItems().length > 0 && multiple()) {
-    <div
-      class="measurement-container"
-      #measurementContainer
-      aria-hidden="true"
-    >
-      @for (item of dropdownSelectedItems(); track $index) {
-      <ion-chip
-        [label]="item[propLabel()] || item.label"
-        icon="close"
-        iconPosition="right"
-        [disabled]="disabled()"
-      ></ion-chip>
-      }
-      <span class="overflow-counter overflow-counter-measure">+0</span>
-    </div>
+      <div
+        class="measurement-container"
+        #measurementContainer
+        aria-hidden="true"
+      >
+        @for (item of dropdownSelectedItems(); track $index) {
+          <ion-chip
+            [label]="getOptionLabel(item)"
+            icon="close"
+            iconPosition="right"
+            size="sm"
+            [disabled]="disabled()"
+          ></ion-chip>
+        }
+        <span class="overflow-counter overflow-counter-measure">+0</span>
+      </div>
     }
   </div>
 
-  @if (showDropdown()) {
-  <ion-dropdown
-    [origin]="selectTrigger"
-    [options]="options()"
-    [multiple]="multiple()"
-    [required]="required()"
-    [enableSearch]="enableSearch()"
-    [searchOptions]="searchOptions()"
-    (selected)="handleSelect($event)"
-    (searchChange)="handleSearch($event)"
-    (closeDropdown)="closeDropdown()"
-    [propLabel]="propLabel()"
-    [loading]="loading()"
-  ></ion-dropdown>
+  @if (supportingText()) {
+    <span
+      class="supporting-text"
+      [class.error-text]="isError()"
+      [class.success-text]="isSuccess()"
+    >
+      {{ supportingText() }}
+    </span>
   }
+
+  @if (showDropdown()) {
+    <ion-dropdown
+      [origin]="selectTrigger"
+      [options]="dropdownOptions()"
+      [multiple]="multiple()"
+      [required]="required()"
+      [enableSearch]="enableSearch()"
+      [searchOptions]="searchOptions()"
+      (selected)="handleDropdownSelection($event)"
+      (searchChange)="handleSearch($event)"
+      (clearButton)="handleClearButton()"
+      (closeDropdown)="closeDropdown()"
+      [propLabel]="propLabel()"
+      [loading]="loading()"
+    ></ion-dropdown>
+  }
+
+  <span class="sr-only" role="status" aria-live="polite" aria-atomic="true">
+    {{ accessibilityAnnouncement() }}
+  </span>
 </div>

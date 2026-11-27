@@ -3,6 +3,8 @@ import { DropdownItem } from './dropdown';
 
 type Mode = 'default' | 'multiple';
 
+export type IonSelectSize = 'base' | 'large';
+
 export interface IonSelectProps {
   mode?: Mode;
   placeholder?: string;
