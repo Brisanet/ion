@@ -4,13 +4,20 @@ $default: (
   background-color: ion-theme(neutral-1),
   icon-color: ion-theme(neutral-6),
   border-radius: 8px,
+  label: (
+    color: ion-theme(neutral-7),
+  ),
+  prefix: (
+    background-color: ion-theme(neutral-2),
+    text-color: ion-theme(neutral-7),
+  ),
   element: (
     border-color: ion-theme(neutral-5),
     text-color: ion-theme(neutral-7),
     text-font-size: 14px,
     padding: 8px 12px,
     side-icon-distance: 40px,
-    hover-border-color: ion-theme(primary-4),
+    hover-border-color: ion-theme(primary-6),
     active: (
       border-color: ion-theme(primary-4),
       shadow-color: ion-theme(primary-2),
@@ -20,6 +27,10 @@ $default: (
       text-font-weight: 400,
       text-font-size: 14px,
     ),
+  ),
+  secondary: (
+    color: map-get($orange-light-v2-theme, primary-4),
+    hover-color: map-get($orange-light-v2-theme, primary-6),
   ),
   disabled: (
     background: ion-theme(neutral-2),
@@ -34,12 +45,21 @@ $default: (
     ),
   ),
   invalid: (
-    border-color: ion-theme(negative-5),
+    border-color: ion-theme(negative-6),
     icon-color: ion-theme(negative-6),
-    hover-border-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-7),
     focus: (
       shadow-color: ion-theme(negative-2),
-      border-color: ion-theme(negative-6),
+      border-color: ion-theme(negative-7),
+    ),
+  ),
+  valid: (
+    border-color: ion-theme(positive-6),
+    icon-color: ion-theme(positive-6),
+    hover-border-color: ion-theme(positive-7),
+    focus: (
+      shadow-color: ion-theme(positive-2),
+      border-color: ion-theme(positive-7),
     ),
   ),
   valid-icon-color: ion-theme(positive-6),
@@ -51,6 +71,7 @@ $default: (
     text-color: ion-theme(neutral-5),
     text-font-size: 14px,
   ),
+  helper-text-color: ion-theme(neutral-7),
   error-message-text-color: ion-theme(negative-6),
 );
 
@@ -58,6 +79,13 @@ $dark: (
   background-color: ion-theme(neutral-5),
   icon-color: ion-theme(neutral-3),
   border-radius: 8px,
+  label: (
+    color: ion-theme(neutral-3),
+  ),
+  prefix: (
+    background-color: ion-theme(neutral-6),
+    text-color: ion-theme(neutral-3),
+  ),
   element: (
     border-color: ion-theme(neutral-3),
     text-color: ion-theme(neutral-3),
@@ -75,6 +103,10 @@ $dark: (
       text-font-size: 14px,
     ),
   ),
+  secondary: (
+    color: map-get($orange-light-v2-theme, primary-4),
+    hover-color: map-get($orange-light-v2-theme, primary-6),
+  ),
   disabled: (
     background: ion-theme(neutral-7),
     border-color: ion-theme(neutral-4),
@@ -90,10 +122,19 @@ $dark: (
   invalid: (
     border-color: ion-theme(negative-6),
     icon-color: ion-theme(negative-6),
-    hover-border-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-7),
     focus: (
       shadow-color: ion-theme(negative-6),
-      border-color: ion-theme(neutral-3),
+      border-color: ion-theme(negative-7),
+    ),
+  ),
+  valid: (
+    border-color: ion-theme(positive-5),
+    icon-color: ion-theme(positive-5),
+    hover-border-color: ion-theme(positive-6),
+    focus: (
+      shadow-color: ion-theme(positive-5),
+      border-color: ion-theme(positive-6),
     ),
   ),
   valid-icon-color: ion-theme(positive-5),
@@ -105,13 +146,165 @@ $dark: (
     text-color: ion-theme(neutral-3),
     text-font-size: 14px,
   ),
+  helper-text-color: ion-theme(neutral-3),
   error-message-text-color: ion-theme(negative-6),
 );
 
+$light-v2: (
+  background-color: ion-theme(neutral-1),
+  icon-color: ion-theme(neutral-6),
+  border-radius: 6px,
+  label: (
+    color: ion-theme(neutral-7),
+  ),
+  prefix: (
+    background-color: ion-theme(neutral-2),
+    text-color: ion-theme(neutral-7),
+  ),
+  element: (
+    border-color: ion-theme(neutral-5),
+    text-color: ion-theme(neutral-8),
+    text-font-size: 16px,
+    padding: 0 16px,
+    side-icon-distance: 40px,
+    hover-border-color: ion-theme(primary-6),
+    active: (
+      border-color: ion-theme(primary-4),
+      shadow-color: ion-theme(primary-2),
+    ),
+    placeholder: (
+      color: ion-theme(neutral-5),
+      text-font-weight: 400,
+      text-font-size: 16px,
+    ),
+  ),
+  secondary: (
+    color: map-get($orange-light-v2-theme, primary-4),
+    hover-color: map-get($orange-light-v2-theme, primary-6),
+  ),
+  disabled: (
+    background: ion-theme(neutral-2),
+    border-color: ion-theme(neutral-4),
+    hover-border-color: ion-theme(neutral-4),
+    icon-color: ion-theme(neutral-5),
+    text-color: ion-theme(neutral-6),
+    element: (
+      color: ion-theme(neutral-6),
+      placeholder-color: ion-theme(neutral-6),
+      count-text-color: ion-theme(neutral-4),
+    ),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-6),
+    icon-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-7),
+    focus: (
+      shadow-color: ion-theme(negative-2),
+      border-color: ion-theme(negative-7),
+    ),
+  ),
+  valid: (
+    border-color: ion-theme(positive-6),
+    icon-color: ion-theme(positive-6),
+    hover-border-color: ion-theme(positive-7),
+    focus: (
+      shadow-color: ion-theme(positive-2),
+      border-color: ion-theme(positive-7),
+    ),
+  ),
+  valid-icon-color: ion-theme(positive-6),
+  clear-button: (
+    icon-color: ion-theme(neutral-6),
+    hover-background-color: ion-theme(primary-1),
+  ),
+  count: (
+    text-color: ion-theme(neutral-5),
+    text-font-size: 14px,
+  ),
+  helper-text-color: ion-theme(neutral-7),
+  error-message-text-color: ion-theme(negative-6),
+);
+
+$orange-light-v2: (
+  background-color: ion-theme(neutral-1),
+  icon-color: ion-theme(neutral-6),
+  border-radius: 6px,
+  label: (
+    color: ion-theme(neutral-7),
+  ),
+  prefix: (
+    background-color: ion-theme(neutral-2),
+    text-color: ion-theme(neutral-7),
+  ),
+  element: (
+    border-color: ion-theme(neutral-5),
+    text-color: ion-theme(neutral-8),
+    text-font-size: 16px,
+    padding: 0 16px,
+    side-icon-distance: 40px,
+    hover-border-color: ion-theme(primary-6),
+    active: (
+      border-color: ion-theme(primary-4),
+      shadow-color: ion-theme(primary-2),
+    ),
+    placeholder: (
+      color: ion-theme(neutral-5),
+      text-font-weight: 400,
+      text-font-size: 16px,
+    ),
+  ),
+  secondary: (
+    color: ion-theme(primary-4),
+    hover-color: ion-theme(primary-6),
+  ),
+  disabled: (
+    background: ion-theme(neutral-2),
+    border-color: ion-theme(neutral-4),
+    hover-border-color: ion-theme(neutral-4),
+    icon-color: ion-theme(neutral-5),
+    text-color: ion-theme(neutral-6),
+    element: (
+      color: ion-theme(neutral-6),
+      placeholder-color: ion-theme(neutral-6),
+      count-text-color: ion-theme(neutral-4),
+    ),
+  ),
+  invalid: (
+    border-color: ion-theme(negative-6),
+    icon-color: ion-theme(negative-6),
+    hover-border-color: ion-theme(negative-7),
+    focus: (
+      shadow-color: ion-theme(negative-2),
+      border-color: ion-theme(negative-7),
+    ),
+  ),
+  valid: (
+    border-color: ion-theme(positive-6),
+    icon-color: ion-theme(positive-6),
+    hover-border-color: ion-theme(positive-7),
+    focus: (
+      shadow-color: ion-theme(positive-2),
+      border-color: ion-theme(positive-7),
+    ),
+  ),
+  valid-icon-color: ion-theme(positive-6),
+  clear-button: (
+    icon-color: ion-theme(neutral-6),
+    hover-background-color: ion-theme(primary-1),
+  ),
+  count: (
+    text-color: ion-theme(neutral-5),
+    text-font-size: 14px,
+  ),
+  helper-text-color: ion-theme(neutral-7),
+  error-message-text-color: ion-theme(negative-6),
+);
 @include register-component(
   input,
   (
     default: $default,
     dark: $dark,
+    "light-v2": $light-v2,
+    "orange-light-v2": $orange-light-v2,
   )
 );

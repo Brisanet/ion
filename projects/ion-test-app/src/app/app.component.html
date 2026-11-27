@@ -678,7 +678,14 @@
         ></ion-input>
         <p>Value: {{ basicInputValue }}</p>
       </div>
-
+      <div>
+        <h3>Large Input</h3>
+        <ion-input
+          size="large"
+          placeholder="Enter text here..."
+          [(value)]="basicInputValue"
+        ></ion-input>
+      </div>
       <div>
         <h3>Input with Left Icon</h3>
         <ion-input
