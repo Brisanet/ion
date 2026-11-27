@@ -1,53 +1,29 @@
-@use 'select.theme';
-
+@import 'select.theme';
 @import '../../styles/index.scss';
 @import '../../styles/themes/theme.scss';
 
-// Mixins
 @mixin select-validation-state($color) {
   border-color: $color;
-  box-shadow: none;
 
-  &:not(.disabled):not(.open):not(.open-empty):hover {
+  &:not(.disabled):not(.open):hover {
     border-color: color-mix(in srgb, $color 75%, black);
     box-shadow: 0 0 0 1px color-mix(in srgb, $color 22%, transparent);
   }
 
-  &.selected {
-    border-color: $color;
-    box-shadow: none;
-
-    .leading-slot,
-    .action-slot {
-      color: $color;
-    }
+  &.selected .leading-slot,
+  &.selected .action-slot {
+    color: $color;
   }
 
   &.open,
-  &.open-empty {
-    border-color: $color;
-    box-shadow: inset 0 0 0 0.5px $color;
-  }
-
   &:not(.disabled):focus-visible {
     outline: none;
     border-color: $color;
     box-shadow: 0 0 0 1px $color;
   }
-
-  &.selected:focus-visible {
-    box-shadow: 0 0 0 1px $color;
-  }
-
-  &.open:focus-visible,
-  &.open-empty:focus-visible {
-    box-shadow:
-      inset 0 0 0 0.5px $color,
-      0 0 0 1px $color;
-  }
 }
 
-@mixin select-chip-size($height, $padding, $font-size, $line-height) {
+@mixin select-chip-size($height,$padding, $font-size,$line-height) {
   display: inline-flex;
   min-width: 0;
   max-width: 100%;
@@ -63,9 +39,11 @@
     min-height: 0;
     box-sizing: border-box;
     padding: $padding;
+    border: none;
     border-radius: ion-theme(select-tag-border-radius);
     font-size: $font-size;
     line-height: $line-height;
+    box-shadow: none;
   }
 
   ::ng-deep .container-icon-text {
@@ -74,20 +52,17 @@
   }
 }
 
-@mixin select-chip-colors($background, $text, $icon, $focus-color: $icon) {
+@mixin select-chip-colors($background, $text, $focus-color: $text) {
   .selected-value ion-chip,
   .measurement-container ion-chip {
     background-color: $background;
     color: $text;
 
     ::ng-deep button.ion-chip {
-      border: none;
       background-color: $background;
       color: $text;
       cursor: default;
-      box-shadow: none;
       outline: none;
-      transition: none;
 
       &:hover,
       &:active,
@@ -100,12 +75,9 @@
       ion-icon {
         padding: 2px;
         border-radius: 3px;
-        color: $icon;
+        color: $text;
         pointer-events: auto;
         cursor: pointer;
-        transition:
-          color 0.15s ease,
-          background-color 0.15s ease;
 
         &:hover {
           color: $focus-color;
@@ -117,10 +89,6 @@
           color: $focus-color;
           background-color: color-mix(in srgb, $focus-color 18%, $background);
         }
-
-        svg {
-          fill: currentColor !important;
-        }
       }
     }
   }
@@ -131,7 +99,6 @@
   }
 }
 
-// Host & Wrapper
 :host {
   display: block;
   width: 100%;
@@ -157,7 +124,6 @@
   line-height: 20px;
 }
 
-// Main container
 .ion-select {
   position: relative;
   display: flex;
@@ -165,65 +131,73 @@
   gap: 8px;
   width: 100%;
   height: 48px;
-  box-sizing: border-box;
-  padding: 8px 12px;
-  border: 1px solid ion-theme(select-border-color);
-  border-radius: ion-theme(select-border-radius);
   background: ion-theme(select-background-color);
-  box-shadow: none;
-  outline: 2px solid transparent;
-  outline-offset: 0;
+  border-radius: ion-theme(select-border-radius);
+  border: 1px solid ion-theme(select-border-color);
+  padding: 8px 12px;
   color: ion-theme(select-text-color);
   cursor: pointer;
+  box-sizing: border-box;
+  outline: 2px solid transparent;
   transition:
-    border-color 0.1s ease,
-    background-color 0.1s ease;
+    border-color 0.15s ease,
+    background-color 0.15s ease;
 
   &.size-large {
     height: 56px;
   }
 
-  // Default interactive states
-  &:not(.disabled):not(.error):not(.invalid):not(.success):not(.open):not(.open-empty):hover {
-    border-color: ion-theme(select-hover-border-color);
-    box-shadow: none;
-  }
+  &:not(.disabled):not(.invalid):not(.success) {
+    &:hover:not(.open) {
+      border-color: ion-theme(select-hover-border-color);
+    }
 
-  &.selected:not(.error):not(.invalid):not(.success) {
-    border-color: ion-theme(select-selected-border-color);
-    box-shadow: none;
+    &.selected {
+      border-color: ion-theme(select-selected-border-color);
+    }
 
-    .leading-slot,
-    .action-slot {
-      color: ion-theme(select-selected-border-color);
+    &.open {
+      outline: none;
+      border-color: ion-theme(select-focus-color);
+      box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
+    }
+
+    &:focus-visible:not(.open) {
+      outline-color: ion-theme(select-focus-color);
+      outline-offset: 1.75px;
+      border-color: ion-theme(select-focus-color);
+      box-shadow: inset 0 0 0 1px ion-theme(select-focus-color);
     }
   }
 
-  &.open:not(.error):not(.invalid):not(.success),
-  &.open-empty:not(.error):not(.invalid):not(.success) {
-    outline: none;
-    border-color: ion-theme(select-focus-color);
-    box-shadow: inset 0 0 0 0.5px ion-theme(select-focus-color);
-  }
+  @include select-chip-colors(
+    ion-theme(select-tag-background),
+    ion-theme(select-tag-text-color),
+    ion-theme(select-focus-color)
+  );
 
-  &.keyboard-focus:focus-visible:not(.disabled):not(.error):not(.invalid):not(.success):not(.open):not(.open-empty) {
-    outline-color: ion-theme(select-focus-color);
-    outline-offset: 1.75px;
-    border-color: ion-theme(select-focus-color);
-    box-shadow: inset 0 0 0 1px ion-theme(select-focus-color);
-    transition:
-      border-color 0.08s ease,
-      background-color 0.08s ease;
-  }
-
-  // Validation & disabled states
-  &.error,
-  &.invalid {
+  &.invalid:not(.disabled) {
     @include select-validation-state(ion-theme(select-error-color));
+    @include select-chip-colors(
+      color-mix(
+        in srgb,
+        ion-theme(select-error-color) 12%,
+        ion-theme(select-background-color)
+      ),
+      ion-theme(select-error-color)
+    );
   }
 
-  &.success {
+  &.success:not(.disabled) {
     @include select-validation-state(ion-theme(select-success-color));
+    @include select-chip-colors(
+      color-mix(
+        in srgb,
+        ion-theme(select-success-color) 12%,
+        ion-theme(select-background-color)
+      ),
+      ion-theme(select-success-color)
+    );
   }
 
   &.disabled {
@@ -231,153 +205,109 @@
     box-shadow: none;
     cursor: not-allowed;
     pointer-events: none;
-  }
-}
+    user-select: none;
 
-// Slots & value display
-.leading-slot,
-.action-slot,
-.select-chevron {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-}
-
-.leading-slot,
-.action-slot {
-  transition: color 0.2s;
-
-  ion-icon {
-    color: inherit;
+    @include select-chip-colors(
+      color-mix(
+        in srgb,
+        ion-theme(select-disabled-border-color) 24%,
+        ion-theme(select-background-color)
+      ),
+      ion-theme(select-placeholder-color)
+    );
   }
 
-  &:empty {
-    display: none;
+  .leading-slot,
+  .action-slot {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    &:empty {
+      display: none;
+    }
   }
-}
 
-.leading-slot > ion-icon {
-  width: 24px;
-  height: 24px;
-}
+  .select-chevron {
+    flex-shrink: 0;
+    margin-left: auto;
+  }
 
-.select-chevron {
-  margin-left: auto;
-}
+  .placeholder,
+  .selected-text {
+    flex: 1;
+    min-width: 0;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.placeholder,
-.selected-text {
-  min-width: 0;
-  flex: 1;
-  overflow: hidden;
-  font-size: 14px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+  .placeholder {
+    color: ion-theme(select-placeholder-color);
+  }
 
-.placeholder {
-  color: ion-theme(select-placeholder-color);
-}
+  .selected-text {
+    color: ion-theme(select-text-color);
+  }
 
-.selected-text {
-  color: ion-theme(select-text-color);
-}
+  .selected-value {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+    align-items: center;
+    overflow: hidden;
+    flex-wrap: nowrap;
+  }
 
-.selected-value {
-  display: flex;
-  min-width: 0;
-  flex: 1;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-// Chips & overflow counter sizing
-.selected-value ion-chip,
-.measurement-container ion-chip {
-  @include select-chip-size(28px, 4px 8px, 12px, 16px);
-}
-
-.overflow-counter {
-  display: inline-flex;
-  min-width: 0;
-  height: 30px;
-  flex: 0 0 auto;
-  align-items: center;
-  box-sizing: border-box;
-  padding: 4px 8px;
-  border-radius: ion-theme(select-tag-border-radius);
-  font-size: 14px;
-  line-height: 20px;
-  white-space: nowrap;
-}
-
-.ion-select.size-large {
   .selected-value ion-chip,
   .measurement-container ion-chip {
-    @include select-chip-size(34px, 6px 10px, 14px, 20px);
+    @include select-chip-size(28px, 4px 8px, 12px, 16px);
   }
 
   .overflow-counter {
-    height: 36px;
-    padding: 6px 10px;
-    font-size: 16px;
-    line-height: 22px;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    height: 30px;
+    box-sizing: border-box;
+    font-size: 14px;
+    line-height: 20px;
+    border-radius: ion-theme(select-tag-border-radius);
+    padding: 4px 8px;
+    white-space: nowrap;
+  }
+
+  &.size-large {
+    .selected-value ion-chip,
+    .measurement-container ion-chip {
+      @include select-chip-size(34px, 6px 10px, 14px, 20px);
+    }
+
+    .overflow-counter {
+      height: 36px;
+      padding: 6px 10px;
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  .measurement-container {
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    top: 0;
+    left: 0;
+    height: 0;
+    overflow: hidden;
   }
 }
 
-// Chips & overflow counter theme colors
-.ion-select {
-  @include select-chip-colors(
-    ion-theme(select-tag-background),
-    ion-theme(select-tag-text-color),
-    ion-theme(select-tag-text-color),
-    ion-theme(select-focus-color)
-  );
-
-  &.error,
-  &.invalid {
-    @include select-chip-colors(
-      color-mix(in srgb, ion-theme(select-error-color) 12%, ion-theme(select-background-color)),
-      ion-theme(select-error-color),
-      ion-theme(select-error-color)
-    );
-  }
-
-  &.success {
-    @include select-chip-colors(
-      color-mix(in srgb, ion-theme(select-success-color) 12%, ion-theme(select-background-color)),
-      ion-theme(select-success-color),
-      ion-theme(select-success-color)
-    );
-  }
-
-  &.disabled {
-    @include select-chip-colors(
-      color-mix(in srgb, ion-theme(select-disabled-border-color) 24%, ion-theme(select-background-color)),
-      ion-theme(select-placeholder-color),
-      ion-theme(select-disabled-border-color)
-    );
-  }
-}
-
-// Ghost container to calculate chips width
-.measurement-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  height: 0;
-  align-items: center;
-  gap: 8px;
-  overflow: hidden;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-// Supporting texts & accessibility
 .supporting-text {
   margin-top: 4px;
   color: ion-theme(select-supporting-text-color);
@@ -405,16 +335,6 @@
   white-space: nowrap;
 }
 
-.dropdown-container {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  margin-top: 4px;
-}
-
-// Dropdown overlay menu
 ::ng-deep .container-options[data-select-field-id] {
   border-color: ion-theme(select-menu-border-color);
   border-radius: ion-theme(select-border-radius);
@@ -424,22 +344,6 @@
   .ion-dropdown-item {
     color: ion-theme(select-menu-item-text-color);
 
-    .container,
-    .option-label {
-      color: inherit;
-    }
-
-    ion-icon {
-      color: ion-theme(select-focus-color);
-
-      svg,
-      svg * {
-        fill: currentColor !important;
-        stroke: currentColor !important;
-      }
-    }
-
-    // Hover & active states (enabled items only)
     &:not(.dropdown-disabled):hover,
     &.dropdown-item-active:not(.dropdown-disabled) {
       background: ion-theme(select-menu-item-hover-background-color);
@@ -449,33 +353,25 @@
       border: 1px solid ion-theme(select-menu-border-color);
     }
 
-    &:focus-visible {
-      outline: 2px solid ion-theme(select-focus-color);
-      outline-offset: -2px;
-    }
-
-    // Selected state (enabled items only)
     &.dropdown-item-selected:not(.dropdown-disabled) {
       background: ion-theme(select-menu-item-selected-background-color);
-      color: ion-theme(select-focus-color);
+      color: ion-theme(select-menu-item-selected-text-color);
     }
 
-    // Disabled & disabled-selected states
     &.dropdown-disabled,
     &.dropdown-disabled-selected {
       background: transparent;
       color: ion-theme(select-menu-item-disabled-text-color);
       cursor: not-allowed;
-      -webkit-user-select: none;
       user-select: none;
-
-      &:hover {
-        background: transparent;
-      }
-
-      ion-icon {
-        color: ion-theme(select-menu-item-disabled-text-color);
-      }
     }
+  }
+}
+
+::ng-deep .container-options[data-select-field-id] {
+  .ion-dropdown-item.dropdown-item-active:not(.dropdown-disabled),
+  .ion-dropdown-item:focus-visible {
+    outline: 2px solid ion-theme(select-focus-color);
+    outline-offset: -2px;
   }
 }

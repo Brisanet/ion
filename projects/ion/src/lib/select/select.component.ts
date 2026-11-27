@@ -1,37 +1,41 @@
 import {
-  afterNextRender,
-  ChangeDetectionStrategy,
   Component,
-  computed,
-  DestroyRef,
-  effect,
-  ElementRef,
-  inject,
-  Injector,
   input,
   output,
   signal,
+  computed,
+  inject,
+  effect,
   untracked,
   viewChild,
+  afterNextRender,
+  DestroyRef,
+  ChangeDetectionStrategy,
+  ElementRef,
+  Injector,
 } from '@angular/core';
 
-import { IonSelectSize, IonSelectStatus, IonSelectType} from '../core/types/select';
-import { IonChipComponent } from '../chip/chip.component';
-import { DropdownItem, DropdownParams } from '../core/types/dropdown';
-import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { IonIconComponent } from '../icon/icon.component';
+import { IonDropdownComponent } from '../dropdown/dropdown.component';
+import { DropdownItem, DropdownParams } from '../core/types/dropdown';
+import {
+  IonSelectSize,
+  IonSelectType,
+} from '../core/types/select';
+import { IonChipComponent } from '../chip/chip.component';
 import { calculateVisibleChipCount } from './calculate-visible-chip-count';
 
 const CHIP_GAP = 8;
-const CHIP_REMOVE_KEYS = new Set(['Backspace','Delete','Enter', ' ', 'Spacebar',]);
+const CHIP_REMOVE_KEYS = new Set(['Backspace', 'Delete', 'Enter', ' ', 'Spacebar']);
 
 @Component({
   selector: 'ion-select',
-  imports: [IonChipComponent, IonDropdownComponent, IonIconComponent],
+  standalone: true,
+  imports: [IonIconComponent, IonDropdownComponent, IonChipComponent],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {'(document:keydown)': 'handleDropdownKeydown($event)',},
+  host: { '(document:keydown)': 'handleOverlayKeydown($event)' },
 })
 export class IonSelectComponent {
   private static nextInstanceId = 0;
@@ -48,10 +52,10 @@ export class IonSelectComponent {
   size = input<IonSelectSize>('base');
   label = input<string>('');
   supportingText = input<string>('');
-  status = input<IonSelectStatus>('default');
   required = input<boolean>(false);
   disabled = input<boolean>(false);
   invalid = input<boolean>(false);
+  valid = input<boolean>(false);
   enableSearch = input<boolean>(false);
   searchOptions = input<DropdownParams['searchOptions']>();
   propLabel = input<string>('label');
@@ -67,9 +71,8 @@ export class IonSelectComponent {
 
   // Signals
   showDropdown = signal(false);
-  isKeyboardFocus = signal(false);
   activeOptionIndex = signal<number | null>(null);
-  dropdownSelectedItems = signal<DropdownItem[]>([]);
+  dropdownSelectedItems = signal<DropdownItem[] | any[]>([]);
   visibleCount = signal<number | null>(null);
 
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
@@ -81,8 +84,8 @@ export class IonSelectComponent {
       this.type() === 'multi' ||
       (this.type() === undefined && this.multiple())
   );
-  isError = computed(() => this.invalid() || this.status() === 'error');
-  isSuccess = computed(() => !this.isError() && this.status() === 'success');
+  isError = computed(() => this.invalid() || this.invalid() === true);
+  isSuccess = computed(() => !this.isError() && this.valid() === true);
   hasNoOptions = computed(() => !this.loading() && this.options().length === 0);
 
   activeDescendantId = computed(() => {
@@ -93,7 +96,7 @@ export class IonSelectComponent {
       index !== null &&
       option &&
       !option.disabled
-      ? this.getOptionId(index)
+      ? `${this.listboxId}-option-${index}`
       : null;
   });
 
@@ -115,86 +118,83 @@ export class IonSelectComponent {
   visibleItems = computed(() => {
     const items = this.dropdownSelectedItems();
     const count = this.visibleCount();
-    return !this.isMultiple() || count === null || count >= items.length
-      ? items
-      : items.slice(0, count);
+
+    if (!this.isMultiple() || count === null || count >= items.length) {
+      return items;
+    }
+
+    return items.slice(0, count);
   });
 
-  overflowCount = computed(() =>
-    this.isMultiple()
-      ? Math.max(
-          0,
-          this.dropdownSelectedItems().length - this.visibleItems().length
-        )
-      : 0
-  );
+  overflowCount = computed(() => {
+    if (!this.isMultiple()) {
+      return 0;
+    }
+
+    const items = this.dropdownSelectedItems();
+    return Math.max(0, items.length - this.visibleItems().length);
+  });
 
   dropdownOptions = computed(() => {
     const selectedItems = this.dropdownSelectedItems();
     return this.options().map((option) => ({
       ...option,
-      selected: selectedItems.some((selected) =>
-        this.sameOption(selected, option)
-      ),
+      selected: selectedItems.some((s) => this.sameOption(s, option)),
     }));
   });
 
-  private readonly destroyRef = inject(DestroyRef);
-  private readonly injector = inject(Injector);
+  private destroyRef = inject(DestroyRef);
+  private injector = inject(Injector);
   private resizeObserver: ResizeObserver | null = null;
   private dropdownPanel: HTMLElement | null = null;
-  private pointerDownOnTrigger = false;
-  private focusFirstOptionOnNextArrow = false;
   private clearButtonActivated = false;
 
   constructor() {
-    effect(() => {
-      const options = this.options();
-      const value = this.value();
-      const currentSelected = untracked(() => this.dropdownSelectedItems());
+    effect(
+      () => {
+        const options = this.options();
+        const value = this.value();
 
-      if (value !== undefined) {
-        const values =
-          value === null || value === ''
-            ? []
-            : Array.isArray(value)
-              ? value
-              : [value];
-        const matches = (item: DropdownItem) =>
-          values.some((v) => this.optionMatchesValue(item, v));
-        const presentSelected = options.filter(matches);
-        const preservedSelected = currentSelected.filter(
-          (item) =>
-            !options.some((opt) => this.sameOption(opt, item)) && matches(item)
-        );
-        this.dropdownSelectedItems.set([
-          ...presentSelected,
-          ...preservedSelected,
-        ]);
-        return;
-      }
+        if (value !== undefined) {
+          let selected: DropdownItem[] = [];
+          if (value !== null && value !== '') {
+            const valueArray = Array.isArray(value) ? value : [value];
+            const matches = (item: DropdownItem) =>
+              valueArray.some((val) => this.optionMatchesValue(item, val));
 
-      const selectedFromOptions = options.filter((opt) => opt.selected);
-      const preservedSelection = currentSelected.map(
-        (item) => options.find((opt) => this.sameOption(opt, item)) ?? item
-      );
-      const nextSelection = [...preservedSelection];
+            const presentSelected = options.filter(matches);
+            const currentSelected = untracked(() =>
+              this.dropdownSelectedItems()
+            );
+            const preservedSelected = currentSelected.filter(
+              (item: DropdownItem) =>
+                !options.some((opt) => this.sameOption(opt, item)) &&
+                matches(item)
+            );
 
-      selectedFromOptions.forEach((opt) => {
-        if (!nextSelection.some((sel) => this.sameOption(sel, opt))) {
-          nextSelection.push(opt);
+            selected = [...presentSelected, ...preservedSelected];
+          }
+          this.dropdownSelectedItems.set(selected);
+        } else {
+          const selected = options.filter((option) => option.selected);
+          const currentSelected = untracked(() =>
+            this.dropdownSelectedItems()
+          );
+
+          if (
+            selected.length !== currentSelected.length ||
+            !selected.every((s) =>
+              currentSelected.some((cs: DropdownItem) => this.sameOption(cs, s))
+            )
+          ) {
+            this.dropdownSelectedItems.set(
+              this.isMultiple() ? selected : selected.slice(0, 1)
+            );
+          }
         }
-      });
-
-      const singleSelection = selectedFromOptions[0] ?? preservedSelection[0];
-      this.dropdownSelectedItems.set(
-        this.isMultiple()
-          ? nextSelection
-          : singleSelection
-            ? [singleSelection]
-            : []
-      );
-    });
+      },
+      { allowSignalWrites: true }
+    );
 
     effect(() => {
       this.dropdownSelectedItems();
@@ -202,20 +202,22 @@ export class IonSelectComponent {
       this.visibleItems();
       this.disabled();
       this.required();
-      this.propLabel();
-      untracked(() =>
+      untracked(() => {
         queueMicrotask(() => {
           this.updateVisibleCount();
           this.syncChipAccessibility();
-        })
-      );
+        });
+      });
     });
 
-    effect(() => {
-      if (this.disabled()) {
-        this.showDropdown.set(false);
-      }
-    });
+    effect(
+      () => {
+        if (this.disabled()) {
+          this.showDropdown.set(false);
+        }
+      },
+      { allowSignalWrites: true }
+    );
 
     effect(() => {
       this.dropdownOptions();
@@ -223,7 +225,9 @@ export class IonSelectComponent {
       this.loading();
       if (this.showDropdown()) {
         untracked(() =>
-          this.runAfterRender(() => this.syncDropdownAccessibility())
+          afterNextRender(() => this.syncDropdownAccessibility(), {
+            injector: this.injector,
+          })
         );
       }
     });
@@ -234,42 +238,18 @@ export class IonSelectComponent {
     });
   }
 
-  stopActionPropagation(event: Event): void {
-    event.stopPropagation();
-  }
-
-  onTriggerPointerDown(): void {
-    this.pointerDownOnTrigger = true;
-    this.focusFirstOptionOnNextArrow = false;
-    this.isKeyboardFocus.set(false);
-  }
-
-  onTriggerFocus(event: FocusEvent): void {
-    this.isKeyboardFocus.set(
-      event.target === event.currentTarget && !this.pointerDownOnTrigger
-    );
-    this.pointerDownOnTrigger = false;
-  }
-
-  onTriggerBlur(): void {
-    this.pointerDownOnTrigger = false;
-    this.isKeyboardFocus.set(false);
-  }
-
   toggleDropdown(): void {
-    if (this.disabled()) return;
+    if (this.disabled()) {
+      return;
+    }
     if (this.showDropdown()) {
       this.closeDropdown();
       return;
     }
-    this.openDropdown();
+    this.showDropdown.set(true);
   }
 
   handleTriggerKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Tab') {
-      this.pointerDownOnTrigger = false;
-      this.isKeyboardFocus.set(true);
-    }
     if (
       this.disabled() ||
       (event.target instanceof HTMLElement &&
@@ -281,27 +261,36 @@ export class IonSelectComponent {
 
     switch (event.key) {
       case 'ArrowDown':
-      case 'ArrowUp':
+      case 'ArrowUp': {
         event.preventDefault();
         if (!this.showDropdown()) {
-          this.openDropdown(event.key === 'ArrowUp', true);
-        } else if (
+          this.showDropdown.set(true);
+          this.setInitialActiveOption(event.key === 'ArrowUp');
+          break;
+        }
+        const enabled = this.getEnabledOptionIndices();
+        const clearBtn =
+          this.dropdownPanel?.querySelector<HTMLElement>('.clear-button');
+        if (
           event.key === 'ArrowDown' &&
-          this.focusFirstOptionOnNextArrow
+          this.activeOptionIndex() === enabled[enabled.length - 1] &&
+          this.isMultiple() &&
+          this.dropdownSelectedItems().length > 0 &&
+          !this.required() &&
+          clearBtn
         ) {
-          this.focusFirstOptionOnNextArrow = false;
-          this.focusFirstEnabledOption();
+          this.activeOptionIndex.set(null);
+          clearBtn.focus();
         } else {
-          this.focusFirstOptionOnNextArrow = false;
           this.moveActiveOption(event.key === 'ArrowDown' ? 1 : -1);
-          this.focusActiveOption();
         }
         break;
+      }
       case 'Enter': {
-        this.focusFirstOptionOnNextArrow = false;
         event.preventDefault();
         if (!this.showDropdown()) {
-          this.openDropdown(false, true);
+          this.showDropdown.set(true);
+          this.setInitialActiveOption(false);
         } else {
           const index = this.activeOptionIndex();
           const option =
@@ -311,129 +300,85 @@ export class IonSelectComponent {
         break;
       }
       case ' ':
-        this.focusFirstOptionOnNextArrow = false;
         event.preventDefault();
-        if (!this.showDropdown()) this.openDropdown(false, true);
+        if (!this.showDropdown()) {
+          this.showDropdown.set(true);
+          this.setInitialActiveOption(false);
+        } else {
+          const index = this.activeOptionIndex();
+          const option =
+            index === null ? undefined : this.dropdownOptions()[index];
+          if (option) this.selectOption(option);
+        }
         break;
       case 'Escape':
         if (this.showDropdown()) {
           event.preventDefault();
-          this.closeAndFocusTrigger();
+          this.closeDropdown();
+          this.selectTrigger()?.nativeElement.focus();
         }
         break;
     }
   }
 
-  handleOptionKeydown(event: KeyboardEvent, index: number): void {
-    const option = this.dropdownOptions()[index];
-    if (!option || option.disabled) return;
-
-    switch (event.key) {
-      case 'ArrowDown': {
-        event.preventDefault();
-        const enabledIndices = this.getEnabledOptionIndices();
-        if (enabledIndices.at(-1) === index && this.isClearButtonAvailable()) {
-          this.activeOptionIndex.set(null)
-          this.dropdownPanel
-            ?.querySelector<HTMLElement>('.clear-button')
-            ?.focus();
-        } else {
-          this.activeOptionIndex.set(index);
-          this.moveActiveOption(1);
-          this.focusActiveOption();
-        }
-        break;
-      }
-      case 'ArrowUp':
-        event.preventDefault();
-        this.activeOptionIndex.set(index);
-        this.moveActiveOption(-1);
-        this.focusActiveOption();
-        break;
-      case 'Escape':
-        event.preventDefault();
-        this.closeAndFocusTrigger();
-        break;
-      case 'Enter':
-      case ' ':
-        event.preventDefault();
-        this.selectOption(option);
-        break;
-    }
-  }
-
-  handleClearKeydown(event: KeyboardEvent): void {
-    switch (event.key) {
-      case 'ArrowUp':
-        event.preventDefault();
-        this.focusLastEnabledOption();
-        break;
-      case 'ArrowDown':
-        event.preventDefault();
-        this.focusFirstEnabledOption();
-        break;
-      case 'Escape':
-        event.preventDefault();
-        this.closeAndFocusTrigger();
-        break;
-    }
-  }
-
-  handleDropdownKeydown(event: KeyboardEvent): void {
-    const target = event.target;
+  handleOverlayKeydown(event: KeyboardEvent): void {
     if (
       !this.showDropdown() ||
-      !(target instanceof HTMLElement) ||
-      !this.dropdownPanel?.contains(target)
+      !(event.target instanceof HTMLElement) ||
+      !this.dropdownPanel?.contains(event.target)
     ) {
       return;
     }
 
-    const optionAttr = target.getAttribute('data-select-field-option');
-    if (optionAttr !== null && target.classList.contains('ion-dropdown-item')) {
-      this.handleOptionKeydown(event, Number(optionAttr));
-    } else if (target.classList.contains('clear-button')) {
-      this.handleClearKeydown(event);
-    } else if (target.tagName === 'INPUT') {
-      if (event.key === 'ArrowDown') {
-        event.preventDefault();
-        this.focusFirstEnabledOption();
-      } else if (event.key === 'Escape') {
-        event.preventDefault();
-        this.closeAndFocusTrigger();
-      }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      this.closeDropdown();
+      this.selectTrigger()?.nativeElement.focus();
+    } else if (
+      event.target.classList.contains('clear-button') &&
+      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
+    ) {
+      event.preventDefault();
+      this.selectTrigger()?.nativeElement.focus();
+      this.setInitialActiveOption(event.key === 'ArrowUp');
+    } else if (
+      event.target.tagName === 'INPUT' &&
+      (event.key === 'ArrowDown' || event.key === 'ArrowUp')
+    ) {
+      event.preventDefault();
+      this.selectTrigger()?.nativeElement.focus();
+      this.moveActiveOption(event.key === 'ArrowDown' ? 1 : -1);
     }
-  }
-
-  getOptionId(index: number): string {
-    return `${this.listboxId}-option-${index}`;
   }
 
   handleSelect(selectedItems: DropdownItem[]): void {
     const options = this.options();
+    const currentSelected = this.dropdownSelectedItems();
     let finalSelected = selectedItems.map(
       (item) => options.find((opt) => this.sameOption(opt, item)) ?? item
     );
 
     if (this.isMultiple()) {
-      const preserved = this.dropdownSelectedItems().filter(
+      const itemsNotInOptions = currentSelected.filter(
         (item) => !options.some((opt) => this.sameOption(opt, item))
       );
-      finalSelected = [...preserved, ...finalSelected];
+      finalSelected = [...itemsNotInOptions, ...finalSelected];
     }
 
     this.emitSelection(finalSelected);
-    if (!this.isMultiple()) this.closeDropdown();
+
+    if (!this.isMultiple()) {
+      this.closeDropdown();
+    }
   }
 
   handleDropdownSelection(selectedItems: DropdownItem[]): void {
     if (this.isMultiple() && selectedItems.length === 0) {
       queueMicrotask(() => {
-        if (this.clearButtonActivated) {
-          this.clearButtonActivated = false;
-          return;
+        if (!this.clearButtonActivated) {
+          this.handleSelect(selectedItems);
         }
-        this.handleSelect(selectedItems);
+        this.clearButtonActivated = false;
       });
       return;
     }
@@ -442,43 +387,25 @@ export class IonSelectComponent {
 
   handleClearButton(): void {
     this.clearButtonActivated = true;
-    this.clearSelection();
-
-    this.runAfterRender(() => {
-      if (this.showDropdown()) {
-        this.syncDropdownAccessibility();
-        this.focusFirstEnabledOption();
-      }
-    });
-
+    if (!this.disabled() && !this.required()) {
+      this.emitSelection([]);
+      this.selectTrigger()?.nativeElement.focus();
+    }
     queueMicrotask(() => (this.clearButtonActivated = false));
-  }
-
-  handleSearch(value: string): void {
-    this.search.emit(value);
   }
 
   selectOption(option: DropdownItem): void {
     if (option.disabled || this.disabled()) return;
 
-    const selectedOption =
-      this.options().find((item) => this.sameOption(item, option)) ?? option;
-    const selectedIndex = this.options().findIndex((item) =>
-      this.sameOption(item, selectedOption)
-    );
-    if (selectedIndex >= 0) this.activeOptionIndex.set(selectedIndex);
-
     const current = this.dropdownSelectedItems();
-    const isSelected = current.some((item) =>
-      this.sameOption(item, selectedOption)
-    );
+    const isSelected = current.some((item) => this.sameOption(item, option));
 
     if (this.isMultiple()) {
       if (isSelected && this.required() && current.length === 1) return;
       this.handleSelect(
         isSelected
-          ? current.filter((item) => !this.sameOption(item, selectedOption))
-          : [...current, selectedOption]
+          ? current.filter((item) => !this.sameOption(item, option))
+          : [...current, option]
       );
       return;
     }
@@ -487,113 +414,109 @@ export class IonSelectComponent {
       if (!this.required()) this.handleSelect([]);
       return;
     }
-    this.handleSelect([selectedOption]);
+    this.handleSelect([option]);
   }
 
   closeDropdown(): void {
     this.showDropdown.set(false);
     this.activeOptionIndex.set(null);
-    this.focusFirstOptionOnNextArrow = false;
     this.dropdownPanel = null;
   }
 
   getSelectedLabel(): string {
     const selected = this.dropdownSelectedItems();
-    if (!selected.length) return '';
-    return this.isMultiple()
-      ? selected.map((item) => this.getOptionLabel(item)).join(', ')
-      : this.getOptionLabel(selected[0]);
+    if (selected.length === 0) {
+      return '';
+    }
+
+    if (this.isMultiple()) {
+      return selected.map((item) => this.getOptionLabel(item)).join(', ');
+    }
+
+    return this.getOptionLabel(selected[0]);
   }
 
   getOptionLabel(item: DropdownItem): string {
-    return String(Reflect.get(item, this.propLabel()) || item.label || '');
+    const prop = this.propLabel();
+    return String((item as any)?.[prop] || item?.label || '');
   }
 
   onChipClick(event: MouseEvent, item: DropdownItem): void {
     if (this.getChipCloseIcon(event)) {
       event.stopPropagation();
-      this.removeChipAndRestoreFocus(
-        item,
-        event.currentTarget as HTMLElement,
-        event
-      );
-      return;
+      this.removeChipAndRestoreFocus(item, event.currentTarget as HTMLElement);
     }
-
-    this.focusFirstOptionOnNextArrow = !this.showDropdown();
-    this.selectTrigger()?.nativeElement.focus();
   }
 
   onChipKeydown(event: KeyboardEvent, item: DropdownItem): void {
-    if (!this.getChipCloseIcon(event) || !CHIP_REMOVE_KEYS.has(event.key))
+    if (!this.getChipCloseIcon(event)) {
       return;
+    }
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
+      if (this.showDropdown()) {
+        this.closeDropdown();
+      }
+      this.selectTrigger()?.nativeElement.focus();
+      return;
+    }
+    if (!CHIP_REMOVE_KEYS.has(event.key)) {
+      return;
+    }
     event.preventDefault();
     event.stopPropagation();
-    this.removeChipAndRestoreFocus(
-      item,
-      event.currentTarget as HTMLElement,
-      event
-    );
-  }
-
-  removeSelected(item: DropdownItem, event?: Event): void {
-    event?.stopPropagation();
-    const current = this.dropdownSelectedItems();
-    if (!this.canRemoveSelection(current.length)) return;
-
-    const updated = current.filter(
-      (selected) => !this.sameOption(selected, item)
-    );
-    if (updated.length !== current.length) this.emitSelection(updated);
+    this.removeChipAndRestoreFocus(item, event.currentTarget as HTMLElement);
   }
 
   handleChipEvents(item: DropdownItem): void {
-    this.removeSelected(item);
-  }
-
-  private runAfterRender(callback: () => void): void {
-    afterNextRender(callback, { injector: this.injector });
-  }
-
-  private emitSelection(items: DropdownItem[]): void {
-    this.dropdownSelectedItems.set(items);
-    this.selected.emit(items);
-    this.valueChange.emit(this.getEmittedValue(items));
-  }
-
-  private canRemoveSelection(
-    count = this.dropdownSelectedItems().length
-  ): boolean {
-    return !this.disabled() && !(this.required() && count <= 1);
-  }
-
-  private clearSelection(): void {
-    if (this.canRemoveSelection(0)) this.emitSelection([]);
-  }
-
-  private closeAndFocusTrigger(): void {
-    this.closeDropdown();
-    this.selectTrigger()?.nativeElement.focus();
-  }
-
-  private openDropdown(
-    preferLastOption = false,
-    fromKeyboard = false
-  ): void {
-    this.showDropdown.set(true);
-    if (!fromKeyboard) {
-      this.activeOptionIndex.set(null);
+    const currentItems = this.dropdownSelectedItems();
+    if (this.disabled() || (this.required() && currentItems.length <= 1)) {
       return;
     }
-    const initialIndex = this.getInitialActiveOptionIndex(preferLastOption);
-    this.activeOptionIndex.set(initialIndex);
-    this.scrollToActiveOption(initialIndex);
-    this.runAfterRender(() => {
-      if (this.showDropdown()) {
-        this.syncDropdownAccessibility();
-        this.focusActiveOption();
-      }
-    });
+
+    const updatedItems = currentItems.filter((i) => !this.sameOption(i, item));
+    if (updatedItems.length !== currentItems.length) {
+      this.emitSelection(updatedItems);
+    }
+  }
+
+  handleSearch(value: string): void {
+    this.search.emit(value);
+  }
+
+  private emitSelection(finalSelected: DropdownItem[]): void {
+    const prop = this.propValue();
+    this.dropdownSelectedItems.set(finalSelected);
+    this.selected.emit(finalSelected);
+
+    const emitValue = this.returnFullObject()
+      ? this.isMultiple()
+        ? finalSelected
+        : finalSelected[0] || null
+      : this.isMultiple()
+        ? finalSelected.map((item) => (item as any)[prop])
+        : finalSelected.length > 0
+          ? (finalSelected[0] as any)[prop]
+          : null;
+
+    this.valueChange.emit(emitValue);
+  }
+
+  private sameOption(first: DropdownItem, second: DropdownItem): boolean {
+    const prop = this.propValue();
+    const firstVal = (first as any)?.[prop];
+    const secondVal = (second as any)?.[prop];
+    return firstVal === undefined && secondVal === undefined
+      ? this.getOptionLabel(first) === this.getOptionLabel(second)
+      : firstVal === secondVal;
+  }
+
+  private optionMatchesValue(option: DropdownItem, val: unknown): boolean {
+    const prop = this.propValue();
+    const valToCompare =
+      val !== null && typeof val === 'object' ? (val as any)[prop] : val;
+    return valToCompare !== undefined && (option as any)[prop] === valToCompare;
   }
 
   private getEnabledOptionIndices(): number[] {
@@ -603,89 +526,75 @@ export class IonSelectComponent {
     );
   }
 
-  private focusFirstEnabledOption(): void {
-    const firstIndex = this.getEnabledOptionIndices()[0];
-    if (firstIndex !== undefined) {
-      this.activeOptionIndex.set(firstIndex);
-      this.focusOption(firstIndex);
+  private setInitialActiveOption(preferLast: boolean): void {
+    const enabled = this.getEnabledOptionIndices();
+    if (!enabled.length) {
+      this.activeOptionIndex.set(null);
+      return;
     }
+    const options = this.dropdownOptions();
+    const selectedIdx = enabled.find((idx) => options[idx].selected);
+    const nextIdx =
+      selectedIdx ?? enabled[preferLast ? enabled.length - 1 : 0];
+    this.activeOptionIndex.set(nextIdx);
   }
 
-  private focusLastEnabledOption(): void {
-    const lastIndex = this.getEnabledOptionIndices().at(-1);
-    if (lastIndex !== undefined) {
-      this.activeOptionIndex.set(lastIndex);
-      this.scrollToActiveOption(lastIndex);
-      this.focusOption(lastIndex);
+  private moveActiveOption(direction: 1 | -1): void {
+    const enabled = this.getEnabledOptionIndices();
+    if (!enabled.length) {
+      this.activeOptionIndex.set(null);
+      return;
     }
-  }
-
-  private focusActiveOption(): void {
-    const index = this.activeOptionIndex();
-    if (index !== null) this.focusOption(index);
-  }
-
-  private focusOption(index: number): void {
-    document.getElementById(this.getOptionId(index))?.focus();
-  }
-
-  private isClearButtonAvailable(): boolean {
-    return (
-      this.isMultiple() &&
-      this.dropdownSelectedItems().length > 0 &&
-      !this.required()
-    );
-  }
-
-  private scrollToActiveOption(index: number | null): void {
-    if (index === null) return;
+    const currentPos = enabled.indexOf(this.activeOptionIndex() ?? -1);
+    const nextPos =
+      currentPos < 0
+        ? direction === 1
+          ? 0
+          : enabled.length - 1
+        : (currentPos + direction + enabled.length) % enabled.length;
+    const nextIdx = enabled[nextPos];
+    this.activeOptionIndex.set(nextIdx);
     requestAnimationFrame(() =>
       document
-        .getElementById(this.getOptionId(index))
+        .getElementById(`${this.listboxId}-option-${nextIdx}`)
         ?.scrollIntoView?.({ block: 'nearest' })
     );
   }
 
   private syncDropdownAccessibility(): void {
-    if (!this.showDropdown()) {
-      this.dropdownPanel = null;
-      return;
-    }
-
     const trigger = this.selectTrigger()?.nativeElement;
     const panels = Array.from(
       document.querySelectorAll<HTMLElement>(
         '.cdk-overlay-pane .container-options'
       )
     );
-    if (!trigger || !panels.length) return;
+    if (!this.showDropdown() || !trigger || !panels.length) {
+      this.dropdownPanel = null;
+      return;
+    }
 
-    const triggerRect = trigger.getBoundingClientRect();
-    const distance = (rect: DOMRect) =>
-      Math.abs(rect.left - triggerRect.left) +
-      Math.min(
-        Math.abs(rect.top - triggerRect.bottom),
-        Math.abs(rect.bottom - triggerRect.top)
-      );
-
-    const panel = panels.reduce((best, curr) =>
-      distance(curr.getBoundingClientRect()) <
-      distance(best.getBoundingClientRect())
-        ? curr
-        : best
-    );
+    const panel =
+      panels.find(
+        (el) => el.getAttribute('data-select-field-id') === this.instanceId
+      ) ?? panels[panels.length - 1];
 
     this.dropdownPanel = panel;
     panel.setAttribute('data-select-field-id', this.instanceId);
-    if (triggerRect.width > 0) panel.style.width = `${triggerRect.width}px`;
+
+    const triggerWidth = trigger.getBoundingClientRect().width;
+    if (triggerWidth > 0) {
+      panel.style.width = `${triggerWidth}px`;
+    }
 
     const listbox = panel.querySelector<HTMLElement>('.options-list');
     if (listbox) {
       listbox.id = this.listboxId;
       listbox.setAttribute('role', 'listbox');
-      this.isMultiple()
-        ? listbox.setAttribute('aria-multiselectable', 'true')
-        : listbox.removeAttribute('aria-multiselectable');
+      if (this.isMultiple()) {
+        listbox.setAttribute('aria-multiselectable', 'true');
+      } else {
+        listbox.removeAttribute('aria-multiselectable');
+      }
     }
 
     const options = this.dropdownOptions();
@@ -694,13 +603,10 @@ export class IonSelectComponent {
       .forEach((el, index) => {
         const option = options[index];
         if (!option) return;
-
-        el.id = this.getOptionId(index);
+        el.id = `${this.listboxId}-option-${index}`;
         el.setAttribute('role', 'option');
         el.setAttribute('aria-selected', String(!!option.selected));
         el.setAttribute('aria-disabled', String(!!option.disabled));
-        el.setAttribute('tabindex', option.disabled ? '-1' : '0');
-        el.setAttribute('data-select-field-option', String(index));
         el.classList.toggle(
           'dropdown-item-active',
           this.activeOptionIndex() === index
@@ -708,62 +614,87 @@ export class IonSelectComponent {
         el.classList.toggle(
           'dropdown-item-selected',
           !!option.selected && !option.disabled
-        )
+        );
       });
-
-    const clearButton = panel.querySelector<HTMLElement>('.clear-button');
-    if (clearButton) clearButton.id = `${this.listboxId}-clear`;
   }
 
-  private getInitialActiveOptionIndex(
-    preferLastOption: boolean
-  ): number | null {
-    const enabledIndices = this.getEnabledOptionIndices();
-    if (!enabledIndices.length) return null;
-
-    const options = this.dropdownOptions();
-    const firstSelectedIndex = enabledIndices.find((idx) => options[idx].selected);
-
-    return (
-      firstSelectedIndex ??
-      enabledIndices[preferLastOption ? enabledIndices.length - 1 : 0]
-    );
-  }
-
-  private moveActiveOption(direction: 1 | -1): void {
-    const enabledIndices = this.getEnabledOptionIndices();
-    if (!enabledIndices.length) {
-      this.activeOptionIndex.set(null);
+  private setupResizeObserver(): void {
+    const trigger = this.selectTrigger()?.nativeElement;
+    if (!trigger || typeof ResizeObserver === 'undefined') {
       return;
     }
 
-    const currentPos = enabledIndices.indexOf(this.activeOptionIndex() ?? -1);
-    const nextPos =
-      currentPos < 0
-        ? direction === 1
-          ? 0
-          : enabledIndices.length - 1
-        : (currentPos + direction + enabledIndices.length) %
-          enabledIndices.length;
+    this.resizeObserver = new ResizeObserver(() => this.updateVisibleCount());
+    this.resizeObserver.observe(trigger);
 
-    const newIndex = enabledIndices[nextPos];
-    this.activeOptionIndex.set(newIndex);
-    this.scrollToActiveOption(newIndex);
+    this.destroyRef.onDestroy(() => {
+      this.resizeObserver?.disconnect();
+    });
+  }
+
+  private updateVisibleCount(): void {
+    const items = this.dropdownSelectedItems();
+
+    if (!this.isMultiple() || items.length === 0) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const trigger = this.selectTrigger()?.nativeElement;
+    const measurement = this.measurementContainer()?.nativeElement;
+    const selectedValue =
+      trigger?.querySelector<HTMLElement>('.selected-value');
+
+    if (!trigger || !measurement || !selectedValue) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const availableWidth = selectedValue.getBoundingClientRect().width;
+    const chipElements = measurement.querySelectorAll('ion-chip');
+    const chipWidths = Array.from(chipElements).map(
+      (element) => element.getBoundingClientRect().width
+    );
+
+    if (
+      availableWidth <= 0 ||
+      chipWidths.length === 0 ||
+      chipWidths.every((width) => width === 0)
+    ) {
+      this.visibleCount.set(null);
+      return;
+    }
+
+    const counterMeasure = measurement.querySelector(
+      '.overflow-counter-measure'
+    ) as HTMLElement | null;
+
+    const getCounterWidth = (hiddenCount: number): number => {
+      if (!counterMeasure) {
+        return 30;
+      }
+
+      counterMeasure.textContent = `+${hiddenCount}`;
+      return counterMeasure.getBoundingClientRect().width;
+    };
+
+    const count = calculateVisibleChipCount(
+      chipWidths,
+      availableWidth,
+      CHIP_GAP,
+      getCounterWidth
+    );
+
+    this.visibleCount.set(count);
   }
 
   private getChipCloseIcon(event: Event): Element | null {
     const icon =
       event.target instanceof Element ? event.target.closest('ion-icon') : null;
-    return icon && icon.closest('ion-chip') === event.currentTarget
-      ? icon
-      : null;
+    return icon && icon.closest('ion-chip') === event.currentTarget ? icon : null;
   }
 
-  private removeChipAndRestoreFocus(
-    item: DropdownItem,
-    chip: HTMLElement,
-    event: Event
-  ): void {
+  private removeChipAndRestoreFocus(item: DropdownItem, chip: HTMLElement): void {
     const trigger = this.selectTrigger()?.nativeElement;
     const chips = Array.from(
       trigger?.querySelectorAll<HTMLElement>('.selected-value ion-chip') ?? []
@@ -771,20 +702,23 @@ export class IonSelectComponent {
     const chipIndex = chips.indexOf(chip);
     const previousCount = this.dropdownSelectedItems().length;
 
-    this.removeSelected(item, event);
+    this.handleChipEvents(item);
     if (this.dropdownSelectedItems().length === previousCount) return;
 
-    this.runAfterRender(() => {
-      const currentTrigger = this.selectTrigger()?.nativeElement;
-      const closeIcons = Array.from(
-        currentTrigger?.querySelectorAll<HTMLElement>(
-          '.selected-value ion-chip ion-icon'
-        ) ?? []
-      );
-      (
-        closeIcons[Math.min(chipIndex, closeIcons.length - 1)] ?? currentTrigger
-      )?.focus();
-    });
+    afterNextRender(
+      () => {
+        const currentTrigger = this.selectTrigger()?.nativeElement;
+        const closeIcons = Array.from(
+          currentTrigger?.querySelectorAll<HTMLElement>(
+            '.selected-value ion-chip ion-icon'
+          ) ?? []
+        );
+        (
+          closeIcons[Math.min(chipIndex, closeIcons.length - 1)] ?? currentTrigger
+        )?.focus();
+      },
+      { injector: this.injector }
+    );
   }
 
   private syncChipAccessibility(): void {
@@ -792,6 +726,9 @@ export class IonSelectComponent {
     if (!trigger) return;
 
     const items = this.visibleItems();
+    const canRemove =
+      !this.disabled() && !(this.required() && this.dropdownSelectedItems().length <= 1);
+
     trigger
       .querySelectorAll<HTMLElement>('.selected-value ion-chip')
       .forEach((chip, index) => {
@@ -800,112 +737,11 @@ export class IonSelectComponent {
         if (!button || !icon || !items[index]) return;
 
         button.setAttribute('tabindex', '-1');
+        button.setAttribute('role', 'none');
         icon.setAttribute('tabindex', this.disabled() ? '-1' : '0');
         icon.setAttribute('role', 'button');
-        icon.setAttribute(
-          'aria-label',
-          `Remover ${this.getOptionLabel(items[index])}`
-        );
-        icon.setAttribute('aria-disabled', String(!this.canRemoveSelection()));
+        icon.setAttribute('aria-label', `Remover ${this.getOptionLabel(items[index])}`);
+        icon.setAttribute('aria-disabled', String(!canRemove));
       });
-  }
-
-  private getEmittedValue(items: DropdownItem[]): any {
-    if (this.returnFullObject()) {
-      return this.isMultiple() ? items : items[0] || null;
-    }
-    const values = items.map((item) => this.getOptionValue(item));
-    return this.isMultiple() ? values : (values[0] ?? null);
-  }
-
-  private getOptionValue(item: DropdownItem): unknown {
-    return Reflect.get(item, this.propValue());
-  }
-
-  private sameOption(first: DropdownItem, second: DropdownItem): boolean {
-    const [firstValue, secondValue] = [
-      this.getOptionValue(first),
-      this.getOptionValue(second),
-    ];
-    return firstValue === undefined && secondValue === undefined
-      ? this.getOptionLabel(first) === this.getOptionLabel(second)
-      : Object.is(firstValue, secondValue);
-  }
-
-  private optionMatchesValue(option: DropdownItem, value: unknown): boolean {
-    const isObj = value !== null && typeof value === 'object';
-    const valueToCompare = isObj ? Reflect.get(value, this.propValue()) : value;
-
-    if (valueToCompare === undefined && isObj) {
-      const valueLabel = Reflect.get(value, this.propLabel());
-      return (
-        valueLabel !== undefined &&
-        this.getOptionLabel(option) === String(valueLabel)
-      );
-    }
-    if (valueToCompare === undefined) {
-      return false;
-    }
-    return Object.is(this.getOptionValue(option), valueToCompare);
-  }
-
-  private setupResizeObserver(): void {
-    const trigger = this.selectTrigger()?.nativeElement;
-    if (!trigger || typeof ResizeObserver === 'undefined') return;
-
-    this.resizeObserver = new ResizeObserver(() => this.updateVisibleCount());
-    this.resizeObserver.observe(trigger);
-    this.destroyRef.onDestroy(() => this.resizeObserver?.disconnect());
-  }
-
-  private updateVisibleCount(): void {
-    const items = this.dropdownSelectedItems();
-    const trigger = this.selectTrigger()?.nativeElement;
-    const measurement = this.measurementContainer()?.nativeElement;
-    const selectedValue =
-      trigger?.querySelector<HTMLElement>('.selected-value');
-
-    if (
-      !this.isMultiple() ||
-      !items.length ||
-      !trigger ||
-      !selectedValue ||
-      !measurement
-    ) {
-      this.visibleCount.set(null);
-      return;
-    }
-
-    const availableWidth = selectedValue.getBoundingClientRect().width;
-    const chipWidths = Array.from(
-      measurement.querySelectorAll<HTMLElement>('ion-chip')
-    ).map((el) => el.getBoundingClientRect().width);
-
-    if (
-      availableWidth <= 0 ||
-      !chipWidths.length ||
-      chipWidths.every((w) => w === 0)
-    ) {
-      this.visibleCount.set(null);
-      return;
-    }
-
-    const counterMeasure = measurement.querySelector<HTMLElement>(
-      '.overflow-counter-measure'
-    );
-    const getCounterWidth = (hiddenCount: number): number => {
-      if (!counterMeasure) return 30;
-      counterMeasure.textContent = `+${hiddenCount}`;
-      return counterMeasure.getBoundingClientRect().width;
-    };
-
-    this.visibleCount.set(
-      calculateVisibleChipCount(
-        chipWidths,
-        availableWidth,
-        CHIP_GAP,
-        getCounterWidth
-      )
-    );
   }
 }

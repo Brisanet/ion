@@ -5,9 +5,7 @@ type Mode = 'default' | 'multiple';
 
 export type IonSelectType = 'single' | 'multi';
 export type IonSelectSize = 'base' | 'large';
-export type IonSelectStatus = 'default'  | 'error' | 'success'; 
 
-// dead code
 export interface IonSelectProps {
   mode?: Mode;
   placeholder?: string;
