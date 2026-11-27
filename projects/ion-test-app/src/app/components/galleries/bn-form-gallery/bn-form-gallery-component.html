@@ -1,0 +1,89 @@
+<div
+  style="
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  "
+>
+  <bn-form [formGroup]="formGroup" [fields]="formFields"></bn-form>
+  <ion-button label="Enviar" (click)="submitForm()"></ion-button>
+</div>
+
+<bn-filter
+  pageTitle="Filtros de Personagens"
+  [fields]="filterFields()"
+  (applied)="handleFilterApplied($event)"
+></bn-filter>
+
+<bn-about
+  [headerButton]="headerButton"
+  [pageTitle]="pageTitle"
+  [fields]="aboutFields"
+  (applied)="handleFilterApplied($event)"
+></bn-about>
+
+<div style="margin-top: 20px">
+  <ion-button label="Abrir Wizard" (ionOnClick)="openWizard()"></ion-button>
+</div>
+
+<section>
+  <h2>Easy Edit Drawer</h2>
+  <div style="display: flex; gap: 16px; flex-wrap: wrap">
+    <ion-button label="Editar Usuário" (click)="openEditDrawer()"></ion-button>
+  </div>
+  <div style="margin-top: 10px">
+    <strong>JSON atual:</strong>
+    <pre>{{ editData() | json }}</pre>
+  </div>
+</section>
+
+<bn-edit-drawer
+  [isOpen]="isEditDrawerOpen()"
+  [loading]="simulatingLoading()"
+  [fields]="editFormFields"
+  [data]="editData()"
+  title="Editar Perfil"
+  iconTitle="pencil"
+  (ionOnSave)="saveEdit($event)"
+  (ionOnClose)="isEditDrawerOpen.set(false)"
+></bn-edit-drawer>
+
+<section>
+  <h2>Ion Drawer</h2>
+  <div style="display: flex; gap: 16px; flex-wrap: wrap">
+    <ion-button
+      label="Abrir Direita"
+      (click)="openDrawer('right')"
+    ></ion-button>
+    <ion-button
+      label="Abrir Esquerda"
+      (click)="openDrawer('left')"
+    ></ion-button>
+    <ion-button label="Abrir Cima" (click)="openDrawer('top')"></ion-button>
+    <ion-button
+      label="Abrir 75% Baixo"
+      (click)="openDrawer('bottom', 75)"
+    ></ion-button>
+    <ion-button
+      label="Abrir 50% (Direita)"
+      (click)="openDrawer('right', 50)"
+    ></ion-button>
+  </div>
+</section>
+
+<ion-drawer
+  [isOpen]="isDrawerOpen()"
+  [direction]="drawerDirection()"
+  [size]="drawerSize()"
+  title="Título do Drawer"
+  iconTitle="box"
+  (ionOnClose)="closeDrawer()"
+  [submitButton]="submitButton()"
+  [cancelButton]="{ label: 'Cancelar' }"
+  [secondaryButton]="secondaryButton()"
+  (ionOnSubmit)="submitDrawer()"
+>
+  <bn-form [formGroup]="editFormGroup" [fields]="editFormFields"></bn-form>
+</ion-drawer>
