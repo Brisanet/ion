@@ -21,8 +21,8 @@ export interface IonDatePickerInputComponentProps {
   icon?: boolean;
   placeholder?: string | [string, string];
   disabled?: boolean;
-  valid?: boolean;
-  invalid?: boolean;
+  valid?: boolean | [boolean, boolean];
+  invalid?: boolean | [boolean, boolean];
 }
 
 @Component({
@@ -50,7 +50,6 @@ export class IonDatePickerInputComponent {
   disabled = input<boolean>(false);
   invalid = input<boolean | [boolean, boolean]>(false);
   valid = input<boolean | [boolean, boolean]>(false);
-  errorMsg = input<string | [string, string]>('');
   pointerFocus = signal<boolean>(false);
 
   dateParts = computed(() => {
@@ -82,32 +81,33 @@ export class IonDatePickerInputComponent {
     return Array.isArray(p) ? p[1] ?? 'Selecione a data': p;
   });
 
-  startInvalid = computed(() => {
+  singleInvalid = computed(() => this.rangeStartInvalid() || this.rangeEndInvalid());
+  singleValid = computed(
+    () => !this.singleInvalid() && (this.rangeStartValid() || this.rangeEndValid())
+  );
+
+  rangeStartInvalid = computed(() => {
     const val = this.invalid();
     return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
   });
 
-  endInvalid = computed(() =>{
-    const val = this.invalid();
-    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val)
-  });
-
-  startValid = computed(() => {
-    if (this.startInvalid()) return false;
+  rangeStartValid = computed(() => {
+    if (this.rangeStartInvalid()) return false;
     const val = this.valid();
     return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
   });
 
-  endValid = computed(() => {
-    if (this.endInvalid()) return false;
-    const val = this.valid();
+  rangeEndInvalid = computed(() => {
+    const val = this.invalid();
     return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
   });
 
-  joinedInvalid = computed(() => this.startInvalid() || this.endInvalid());
-  joinedValid = computed(
-    () => !this.joinedInvalid() && (this.startValid() || this.endValid())
-  );
+
+  rangeEndValid = computed(() => {
+    if (this.rangeEndInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
+  });
 
   onPointerDown(): void {
     this.pointerFocus.set(true);

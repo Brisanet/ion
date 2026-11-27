@@ -19,7 +19,7 @@
   [cdkConnectedOverlayOrigin]="trigger"
   [cdkConnectedOverlayOpen]="showDatepicker()"
   [cdkConnectedOverlayPositions]="overlayPositions()"
-  (overlayOutsideClick)="setVisibleCalendar(false)"
+  (overlayOutsideClick)="setVisibleCalendar(!showDatepicker())"
 >
   <div class="container-calendar" data-testid="container-calendar">
     <div class="container-body" [class.container-range-body]="rangePicker()">
