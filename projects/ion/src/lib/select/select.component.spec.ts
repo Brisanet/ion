@@ -220,7 +220,7 @@ describe('IonSelectComponent', () => {
   });
 
   describe('new inputs, slots, and accessibility', () => {
-    it('should support type (single/multi precedence) and size inputs', () => {
+    it('should support single/multiple modes and size inputs', () => {
       const fixture = TestBed.createComponent(IonSelectComponent);
       fixture.componentRef.setInput('options', options);
       fixture.componentRef.setInput('multiple', true);
@@ -236,8 +236,7 @@ describe('IonSelectComponent', () => {
           .textContent
       ).toContain('Apple');
 
-      fixture.componentRef.setInput('multiple', true);
-      fixture.componentRef.setInput('type', 'single');
+      fixture.componentRef.setInput('multiple', false);
       fixture.componentRef.setInput('value', 'apple');
       fixture.detectChanges();
 
@@ -247,11 +246,11 @@ describe('IonSelectComponent', () => {
       ).toContain('Apple');
     });
 
-    it('should render label, supportingText, and status/invalid validation classes', () => {
+    it('should render label, supportingText, and invalid/valid validation classes', () => {
       const fixture = TestBed.createComponent(IonSelectComponent);
       fixture.componentRef.setInput('label', 'Fruit');
       fixture.componentRef.setInput('supportingText', 'Choose one');
-      fixture.componentRef.setInput('status', 'error');
+      fixture.componentRef.setInput('invalid', true);
       fixture.detectChanges();
 
       const trigger = screen.getByTestId('ion-select');
@@ -259,7 +258,8 @@ describe('IonSelectComponent', () => {
       expect(screen.getByText('Choose one').classList).toContain('error-text');
       expect(trigger.classList).toContain('invalid');
 
-      fixture.componentRef.setInput('status', 'success');
+      fixture.componentRef.setInput('invalid', false);
+      fixture.componentRef.setInput('valid', true);
       fixture.detectChanges();
       expect(screen.getByText('Choose one').classList).toContain(
         'success-text'

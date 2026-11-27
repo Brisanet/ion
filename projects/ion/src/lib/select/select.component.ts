@@ -82,7 +82,7 @@ export class IonSelectComponent {
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
   measurementContainer = viewChild<ElementRef<HTMLElement>>('measurementContainer');
   isError = computed(() => Boolean(this.invalid()));
-  isSuccess = computed(() => Boolean(this.valid()));
+  isSuccess = computed(() => !this.isError() && Boolean(this.valid()));
   hasNoOptions = computed(() => !this.loading() && this.dropdownOptions().length === 0);
 
   activeDescendantId = computed(() => {
@@ -199,7 +199,6 @@ export class IonSelectComponent {
           }
         }
       },
-      { allowSignalWrites: true }
     );
 
     effect(() => {
@@ -222,7 +221,6 @@ export class IonSelectComponent {
           this.closeDropdown();
         }
       },
-      { allowSignalWrites: true }
     );
 
     effect(() => {
