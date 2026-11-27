@@ -20,9 +20,7 @@
     role="combobox"
     aria-haspopup="listbox"
     [attr.aria-expanded]="showDropdown()"
-    [attr.aria-controls]="
-      showDropdown() && !loading() && options().length > 0 ? listboxId : null
-    "
+    [attr.aria-controls]="showDropdown() && !loading() && dropdownOptions().length > 0 ? listboxId : null"
     [attr.aria-activedescendant]="activeDescendantId()"
     [attr.aria-labelledby]="label() ? labelId : null"
     [attr.aria-label]="label() ? null : placeholder()"

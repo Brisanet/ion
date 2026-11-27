@@ -18,10 +18,7 @@ import {
 import { IonIconComponent } from '../icon/icon.component';
 import { IonDropdownComponent } from '../dropdown/dropdown.component';
 import { DropdownItem, DropdownParams } from '../core/types/dropdown';
-import {
-  IonSelectSize,
-  IonSelectType,
-} from '../core/types/select';
+import { IonSelectSize, IonSelectType } from '../core/types/select';
 import { IonChipComponent } from '../chip/chip.component';
 import { calculateVisibleChipCount } from './calculate-visible-chip-count';
 
@@ -73,20 +70,15 @@ export class IonSelectComponent {
   showDropdown = signal(false);
   activeOptionIndex = signal<number | null>(null);
   dropdownSelectedItems = signal<DropdownItem[] | any[]>([]);
+  searchTerm = signal('');
   visibleCount = signal<number | null>(null);
 
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
-  measurementContainer =
-    viewChild<ElementRef<HTMLElement>>('measurementContainer');
-
-  isMultiple = computed(
-    () =>
-      this.type() === 'multi' ||
-      (this.type() === undefined && this.multiple())
-  );
+  measurementContainer = viewChild<ElementRef<HTMLElement>>('measurementContainer');
+  isMultiple = computed(() => this.type() === 'multi' || (this.type() === undefined && this.multiple()));
   isError = computed(() => this.invalid() || this.invalid() === true);
   isSuccess = computed(() => !this.isError() && this.valid() === true);
-  hasNoOptions = computed(() => !this.loading() && this.options().length === 0);
+  hasNoOptions = computed(() => !this.loading() && this.dropdownOptions().length === 0);
 
   activeDescendantId = computed(() => {
     const index = this.activeOptionIndex();
@@ -101,7 +93,7 @@ export class IonSelectComponent {
   });
 
   accessibilityAnnouncement = computed(() => {
-    const count = this.options().length;
+    const count = this.dropdownOptions().length;
     const selectedLabel = this.getSelectedLabel();
     const optionsMessage = count
       ? `${count} ${count === 1 ? 'opção disponível' : 'opções disponíveis'}.`
@@ -137,10 +129,19 @@ export class IonSelectComponent {
 
   dropdownOptions = computed(() => {
     const selectedItems = this.dropdownSelectedItems();
-    return this.options().map((option) => ({
-      ...option,
-      selected: selectedItems.some((s) => this.sameOption(s, option)),
-    }));
+    const searchTerm = this.enableSearch()
+      ? this.searchTerm().trim().toLowerCase()
+      : '';
+    return this.options()
+      .map((option) => ({
+        ...option,
+        selected: selectedItems.some((s) => this.sameOption(s, option)),
+      }))
+      .filter(
+        (option) =>
+          !searchTerm ||
+          this.getOptionLabel(option).toLowerCase().includes(searchTerm)
+      );
   });
 
   private destroyRef = inject(DestroyRef);
@@ -213,7 +214,7 @@ export class IonSelectComponent {
     effect(
       () => {
         if (this.disabled()) {
-          this.showDropdown.set(false);
+          this.closeDropdown();
         }
       },
       { allowSignalWrites: true }
@@ -269,21 +270,31 @@ export class IonSelectComponent {
           break;
         }
         const enabled = this.getEnabledOptionIndices();
+        const isDown = event.key === 'ArrowDown';
+        const atBoundary =
+          !enabled.length ||
+          this.activeOptionIndex() ===
+            enabled[isDown ? enabled.length - 1 : 0];
         const clearBtn =
           this.dropdownPanel?.querySelector<HTMLElement>('.clear-button');
-        if (
-          event.key === 'ArrowDown' &&
-          this.activeOptionIndex() === enabled[enabled.length - 1] &&
+        const searchInput = this.dropdownPanel?.querySelector<HTMLElement>('input');
+        const canClear =
           this.isMultiple() &&
-          this.dropdownSelectedItems().length > 0 &&
-          !this.required() &&
-          clearBtn
-        ) {
-          this.activeOptionIndex.set(null);
-          clearBtn.focus();
-        } else {
-          this.moveActiveOption(event.key === 'ArrowDown' ? 1 : -1);
+          this.dropdownSelectedItems().length > 0 && !this.required() && !!clearBtn;
+
+        if (atBoundary) {
+          const target = isDown
+            ? canClear
+              ? clearBtn
+              : searchInput
+            : searchInput ?? (canClear ? clearBtn : null);
+          if (target) {
+            this.activeOptionIndex.set(null);
+            target.focus();
+            break;
+          }
         }
+        this.moveActiveOption(isDown ? 1 : -1);
         break;
       }
       case 'Enter': {
@@ -322,10 +333,11 @@ export class IonSelectComponent {
   }
 
   handleOverlayKeydown(event: KeyboardEvent): void {
+    const target = event.target;
     if (
       !this.showDropdown() ||
-      !(event.target instanceof HTMLElement) ||
-      !this.dropdownPanel?.contains(event.target)
+      !(target instanceof HTMLElement) ||
+      !this.dropdownPanel?.contains(target)
     ) {
       return;
     }
@@ -334,21 +346,39 @@ export class IonSelectComponent {
       event.preventDefault();
       this.closeDropdown();
       this.selectTrigger()?.nativeElement.focus();
-    } else if (
-      event.target.classList.contains('clear-button') &&
-      (event.key === 'ArrowUp' || event.key === 'ArrowDown')
-    ) {
-      event.preventDefault();
-      this.selectTrigger()?.nativeElement.focus();
-      this.setInitialActiveOption(event.key === 'ArrowUp');
-    } else if (
-      event.target.tagName === 'INPUT' &&
-      (event.key === 'ArrowDown' || event.key === 'ArrowUp')
-    ) {
-      event.preventDefault();
-      this.selectTrigger()?.nativeElement.focus();
-      this.moveActiveOption(event.key === 'ArrowDown' ? 1 : -1);
+      return;
     }
+
+    const isClear = target.classList.contains('clear-button');
+    const isInput = target.tagName === 'INPUT';
+    if ((!isClear && !isInput) || !['ArrowDown', 'ArrowUp'].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+    const isDown = event.key === 'ArrowDown';
+    const enabled = this.getEnabledOptionIndices();
+    const nextControl = isClear
+      ? this.dropdownPanel.querySelector<HTMLElement>('input')
+      : this.isMultiple() && this.dropdownSelectedItems().length > 0 && !this.required()
+        ? this.dropdownPanel.querySelector<HTMLElement>('.clear-button')
+        : null;
+
+    if (nextControl && (!enabled.length || isClear === isDown)) {
+      nextControl.focus();
+      return;
+    }
+
+    if (!enabled.length) return;
+
+    this.selectTrigger()?.nativeElement.focus();
+    const idx = enabled[isDown ? 0 : enabled.length - 1];
+    this.activeOptionIndex.set(idx);
+    requestAnimationFrame(() =>
+      document
+        .getElementById(`${this.listboxId}-option-${idx}`)
+        ?.scrollIntoView?.({ block: 'nearest' })
+    );
   }
 
   handleSelect(selectedItems: DropdownItem[]): void {
@@ -376,10 +406,23 @@ export class IonSelectComponent {
     if (this.isMultiple() && selectedItems.length === 0) {
       queueMicrotask(() => {
         if (!this.clearButtonActivated) {
-          this.handleSelect(selectedItems);
+          const visibleOptions = this.dropdownOptions();
+          const hiddenSelectedItems = this.dropdownSelectedItems().filter(
+            (item) =>
+              !visibleOptions.some((option) => this.sameOption(item, option))
+          );
+          this.handleSelect(hiddenSelectedItems);
         }
         this.clearButtonActivated = false;
       });
+      return;
+    }
+    if (this.isMultiple()) {
+      const visibleOptions = this.dropdownOptions();
+      const hiddenSelectedItems = this.dropdownSelectedItems().filter(
+        (item) => !visibleOptions.some((option) => this.sameOption(item, option))
+      );
+      this.handleSelect([...hiddenSelectedItems, ...selectedItems]);
       return;
     }
     this.handleSelect(selectedItems);
@@ -420,6 +463,7 @@ export class IonSelectComponent {
   closeDropdown(): void {
     this.showDropdown.set(false);
     this.activeOptionIndex.set(null);
+    this.searchTerm.set('');
     this.dropdownPanel = null;
   }
 
@@ -482,6 +526,8 @@ export class IonSelectComponent {
   }
 
   handleSearch(value: string): void {
+    this.searchTerm.set(value);
+    this.activeOptionIndex.set(null);
     this.search.emit(value);
   }
 
@@ -684,7 +730,6 @@ export class IonSelectComponent {
       CHIP_GAP,
       getCounterWidth
     );
-
     this.visibleCount.set(count);
   }
 
