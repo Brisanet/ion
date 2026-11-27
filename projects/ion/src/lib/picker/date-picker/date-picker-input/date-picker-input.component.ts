@@ -73,12 +73,12 @@ export class IonDatePickerInputComponent {
 
   startPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[0] ?? 'Selecione a data': p;
+    return Array.isArray(p) ? p[0] ?? 'Selecione a data' : p;
   });
 
   endPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[1] ?? 'Selecione a data': p;
+    return Array.isArray(p) ? p[1] ?? 'Selecione a data' : p;
   });
 
   singleInvalid = computed(() => this.rangeStartInvalid() || this.rangeEndInvalid());
@@ -101,7 +101,6 @@ export class IonDatePickerInputComponent {
     const val = this.invalid();
     return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
   });
-
 
   rangeEndValid = computed(() => {
     if (this.rangeEndInvalid()) return false;
