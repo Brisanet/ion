@@ -71,7 +71,6 @@
           layout="split"
           [invalid]="[true, false]"
           [valid]="[false, true]"
-          [errorMsg]="['Data inicial obrigatória', '']"
           placeholder="Selecione a data"
           (event)="onDateChange('ruleSplitGranular', $event)"
         ></ion-date-picker>
@@ -153,7 +152,7 @@
             <ion-button
               label="Formato ISO (YYYY-MM-DD)"
               [type]="sandboxIsoFormat() ? 'primary' : 'secondary'"
-              (ionOnClick)="sandboxIsoFormat.set(!sandboxIsoFormat())"
+              (ionOnClick)="toggleSandboxIsoFormat()"
             ></ion-button>
           </div>
         </div>
@@ -166,7 +165,6 @@
           [invalid]="sandboxStatus() === 'invalid'"
           [valid]="sandboxStatus() === 'valid'"
           [disabled]="sandboxStatus() === 'disabled'"
-          [errorMsg]="sandboxStatus() === 'invalid' ? 'Mensagem de erro no sandbox.' : ''"
           [disabledDate]="sandboxBlockWeekends() ? disableWeekends : undefined"
           [format]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
           [formatInDateInput]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
