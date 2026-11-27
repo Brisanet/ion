@@ -52,8 +52,6 @@ export interface IonControlPickerComponentProps {
 export class IonControlPickerComponent {
   month = input<string>('');
   year = input<string>('');
-  invalid = input<boolean>(false);
-  valid = input<boolean>(false);
   controlPickerEvent = output<ControlEvent>();
   TooltipPosition = TooltipPosition;
 
