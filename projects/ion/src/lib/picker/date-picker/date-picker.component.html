@@ -10,7 +10,7 @@
   [valid]="valid()"
   [invalid]="invalid()"
   [placeholder]="placeholder()"
-  (click)="setVisibleCalendar(true)"
+  (click)="setVisibleCalendar(!showDatepicker())"
   (clearDate)="clearDate()"
 ></date-picker-input>
 
@@ -27,8 +27,7 @@
         <ion-control-picker
           [month]="calendarMonth()"
           [year]="calendarYear()"
-          (controlPickerEvent)="events($event)"
-          
+          (controlPickerEvent)="events($event)"         
         ></ion-control-picker>
       </div>
       <div class="content">
