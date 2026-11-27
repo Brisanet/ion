@@ -1,0 +1,178 @@
+<div class="gallery-container">
+  <header>
+    <h1>Text Input Range</h1>
+  </header>
+
+  <!-- SEÇÃO 1: MODOS E LAYOUTS DE SELEÇÃO -->
+  <section class="gallery-section">
+    <h2>1. Modos e Layouts de Seleção (Single vs. Range)</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <span class="badge">Single · layout="default"</span>
+        <ion-date-picker
+          [rangePicker]="false"
+          layout="default"
+          placeholder="Selecione uma data"
+          (event)="onDateChange('singleDefault', $event)"
+        ></ion-date-picker>
+      </div>
+
+      <div class="gallery-card">
+        <span class="badge">Single · layout="joined"</span>
+        <ion-date-picker
+          [rangePicker]="false"
+          layout="joined"
+          placeholder="Selecione a data"
+          (event)="onDateChange('singleJoined', $event)"
+        ></ion-date-picker>
+      </div>
+
+      <div class="gallery-card">
+        <span class="badge">Range · layout="default"</span>
+        <ion-date-picker
+          [rangePicker]="true"
+          layout="default"
+          placeholder="Selecione o período"
+          (event)="onDateChange('rangeDefault', $event)"
+        ></ion-date-picker>
+      </div>
+
+      <div class="gallery-card">
+        <span class="badge">Range · layout="split"</span>
+        <ion-date-picker
+          [rangePicker]="true"
+          layout="split"
+          placeholder="Selecione a data"
+          (event)="onDateChange('rangeSplit', $event)"
+        ></ion-date-picker>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 2: REGRAS DE CALENDÁRIO, ATALHOS E FORMATOS -->
+  <section class="gallery-section">
+    <h2>2. Regras de Calendário, Atalhos e Formatos</h2>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <span class="badge">formatInDateInput="YYYY-MM-DD" · ISO</span>
+        <ion-date-picker
+          [rangePicker]="true"
+          layout="split"
+          format="YYYY-MM-DD"
+          formatInDateInput="YYYY-MM-DD"
+          [value]="preselectedRangeDates"
+          (event)="onDateChange('ruleIsoFormat', $event)"
+        ></ion-date-picker>
+      </div>
+      <div class="gallery-card">
+        <span class="badge">Split · Validação Granular [invalid, valid]</span>
+        <ion-date-picker
+          [rangePicker]="true"
+          layout="split"
+          [invalid]="[true, false]"
+          [valid]="[false, true]"
+          placeholder="Selecione a data"
+          (event)="onDateChange('ruleSplitGranular', $event)"
+        ></ion-date-picker>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO 3: SANDBOX INTERATIVO -->
+  <section class="gallery-section">
+    <h2>3. Sandbox Interativo</h2>
+    <div class="gallery-grid single-column">
+      <div class="gallery-card">
+        <div class="sandbox-controls">
+          <div class="control-group">
+            <span class="control-label">Modo:</span>
+            <ion-button
+              label="Single"
+              [type]="!sandboxRange() ? 'primary' : 'secondary'"
+              (ionOnClick)="setSandboxRange(false)"
+            ></ion-button>
+            <ion-button
+              label="Range"
+              [type]="sandboxRange() ? 'primary' : 'secondary'"
+              (ionOnClick)="setSandboxRange(true)"
+            ></ion-button>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Layout:</span>
+            @for (item of availableLayouts(); track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxLayout() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="setSandboxLayout(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Size:</span>
+            @for (item of sizes; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxSize() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxSize.set(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Estado:</span>
+            @for (item of statuses; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxStatus() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxStatus.set(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Direction:</span>
+            @for (dir of directions; track dir.value) {
+              <ion-button
+                [label]="dir.label"
+                [type]="sandboxDirection() === dir.value ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxDirection.set(dir.value)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Regras:</span>
+            <ion-button
+              label="Bloquear fins de semana"
+              [type]="sandboxBlockWeekends() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxBlockWeekends.set(!sandboxBlockWeekends())"
+            ></ion-button>
+            <ion-button
+              label="Formato ISO (YYYY-MM-DD)"
+              [type]="sandboxIsoFormat() ? 'primary' : 'secondary'"
+              (ionOnClick)="toggleSandboxIsoFormat()"
+            ></ion-button>
+          </div>
+        </div>
+      @for (key of [sandboxResetKey()]; track key){
+        <ion-date-picker
+          [rangePicker]="sandboxRange()"
+          [layout]="sandboxLayout()"
+          [size]="sandboxSize()"
+          [direction]="sandboxDirection()"
+          [invalid]="sandboxStatus() === 'invalid'"
+          [valid]="sandboxStatus() === 'valid'"
+          [disabled]="sandboxStatus() === 'disabled'"
+          [disabledDate]="sandboxBlockWeekends() ? disableWeekends : undefined"
+          [format]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
+          [formatInDateInput]="sandboxIsoFormat() ? 'YYYY-MM-DD' : 'DD/MM/YYYY'"
+          [placeholder]="sandboxRange() ? 'Selecione o período' : 'Selecione a data'"
+          (event)="onSandboxEvent($event)"
+        ></ion-date-picker>
+      }
+      </div>
+    </div>
+  </section>
+</div>

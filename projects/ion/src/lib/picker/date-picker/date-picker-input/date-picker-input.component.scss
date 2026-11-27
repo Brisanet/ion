@@ -3,14 +3,14 @@
 
 $split-gap: 8px;
 
-@mixin theme-states($hover-color: var(--picker-hover-color), $focus-color: $hover-color) {
+@mixin theme-states($hover-token, $focus-token: $hover-token) {
   &:hover:not(:focus-within) {
-    border-color: $hover-color;
+    border-color: ion-theme($hover-token);
   }
 
   &:focus-within {
     border-width: 2px;
-    border-color: $focus-color;
+    border-color: ion-theme($focus-token);
   }
 }
 
@@ -25,8 +25,8 @@ $split-gap: 8px;
   }
 }
 
-@mixin focus-double-ring($focus-color: var(--picker-hover-color)) {
-  outline: 2px solid $focus-color;
+@mixin focus-double-ring($focus-token) {
+  outline: 2px solid ion-theme($focus-token);
   outline-offset: 2px;
 }
 
@@ -37,9 +37,6 @@ $split-gap: 8px;
 .container-input,
 .layout-split,
 .layout-joined {
-  --picker-color: #{ion-theme(date-picker-range-input-primary-color)};
-  --picker-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
-
   display: flex;
   width: 100%;
   box-sizing: border-box;
@@ -59,7 +56,7 @@ $split-gap: 8px;
   }
 
   &:not(.disabled):not(.invalid):not(.valid) {
-    @include theme-states;
+    @include theme-states(date-picker-range-input-primary-hover-color);
   }
 
   &.valid:not(.disabled),
@@ -116,7 +113,7 @@ $split-gap: 8px;
   .layout-split:not(.disabled):not(:has(ion-input.invalid)):not(:has(ion-input.valid)),
   .container-input:not(:has(.disabled)):not(:has(ion-input.invalid)):not(:has(ion-input.valid)) {
     &:has(:focus-visible) {
-      @include focus-double-ring;
+      @include focus-double-ring(date-picker-range-input-primary-hover-color);
     }
   }
 }
@@ -146,8 +143,8 @@ $split-gap: 8px;
     }
 
     ion-input:not(.disabled) {
-      --current-theme-color: var(--picker-color);
-      --current-hover-color: var(--picker-hover-color);
+      --current-theme-color: #{ion-theme(date-picker-range-input-primary-color)};
+      --current-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
     }
   }
 
@@ -159,7 +156,7 @@ $split-gap: 8px;
     }
 
     ion-input:not(.invalid):not(.valid) .input-container div.input:not(.disabled) {
-      @include theme-states;
+      @include theme-states(date-picker-range-input-primary-hover-color);
     }
 
     ion-input.valid .input-container div.input:not(.disabled) {
@@ -198,7 +195,7 @@ $split-gap: 8px;
 :host:not(.pointer-focus) ::ng-deep .layout-split:not(.disabled):has(:focus-visible) {
   ion-input:not(.invalid):not(.valid) .input-container div.input:not(.disabled) {
     border-width: 2px;
-    border-color: var(--picker-hover-color);
+    border-color: ion-theme(date-picker-range-input-primary-hover-color);
   }
 
   ion-input.valid .input-container div.input:not(.disabled) {

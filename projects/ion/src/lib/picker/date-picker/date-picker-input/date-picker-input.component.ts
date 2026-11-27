@@ -128,7 +128,7 @@ export class IonDatePickerInputComponent {
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',
-    size: 'lg',
+    size: this.size() === 'large' ? 'lg' : 'md',
   }));
 
   clearDateValue(): void {

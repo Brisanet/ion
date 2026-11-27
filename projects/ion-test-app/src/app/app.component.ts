@@ -56,9 +56,6 @@ import {
   IonNotificationService,
   IonMessageComponent,
   IonInputCounterComponent,
-  IonDatepickerComponent,
-  CalendarDirection,
-  PreDefinedRangeConfig,
   IonSimpleMenuComponent,
   IonModalService,
   SidebarItem,
@@ -91,6 +88,7 @@ import { ColorGalleryComponent } from './components/galleries/color-gallery/colo
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
 import { TextInputGalleryComponent } from './components/galleries/text-galleries/text-input-gallery/text-input-gallery-component';
+import { TextInputRangeGalleryComponent } from './components/galleries/text-galleries/text-input-range-gallery/text-input-range-gallery-component';
 type FromYourRepository = {
   id?: number;
   title_like?: string;
@@ -167,7 +165,6 @@ class ModalLongContentComponent {
     IonTabGroupComponent,
     IonInputCounterComponent,
     IonMessageComponent,
-    IonDatepickerComponent,
     IonCardComponent,
     IonCardHeaderComponent,
     IonCardFooterComponent,
@@ -186,6 +183,7 @@ class ModalLongContentComponent {
     ColorGalleryComponent,
     TypographyGalleryComponent,
     TextInputGalleryComponent,
+    TextInputRangeGalleryComponent,
     JsonPipe,
   ],
   templateUrl: './app.component.html',
@@ -957,41 +955,6 @@ export class AppComponent implements OnInit {
       'This is a notification message',
     );
   }
-
-  // Date Picker Examples
-  CalendarDirection = CalendarDirection;
-  datePickerValue: string[] = [];
-  dateRangePickerValue: string[] = [];
-  datePickerWithPredefinedValue: string[] = [];
-
-  predefinedRanges: PreDefinedRangeConfig[] = [
-    { label: 'Últimos 7 dias', duration: 'P7D', isFuture: false },
-    { label: 'Últimos 30 dias', duration: 'P30D', isFuture: false },
-    { label: 'Últimos 90 dias', duration: 'P90D', isFuture: false },
-    { label: 'Próximos 7 dias', duration: 'P7D', isFuture: true },
-    { label: 'Próximos 30 dias', duration: 'P30D', isFuture: true },
-  ];
-
-  handleDatePickerChange(dates: string[]): void {
-    console.log('Date selected:', dates);
-    this.datePickerValue = dates;
-  }
-
-  handleDateRangePickerChange(dates: string[]): void {
-    console.log('Date range selected:', dates);
-    this.dateRangePickerValue = dates;
-  }
-
-  handleDatePickerWithPredefinedChange(dates: string[]): void {
-    console.log('Date range with predefined selected:', dates);
-    this.datePickerWithPredefinedValue = dates;
-  }
-
-  disabledDateExample = (currentDate: Date): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return currentDate < today;
-  };
 
   simpleMenuProfile = {
     imageUrl: 'https://i.pravatar.cc/150?img=12',
