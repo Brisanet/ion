@@ -353,6 +353,12 @@
       border: 1px solid ion-theme(select-menu-border-color);
     }
 
+    &.dropdown-item-active:not(.dropdown-disabled),
+    &:focus-visible {
+      outline: 2px solid ion-theme(select-focus-color);
+      outline-offset: -2px;
+    }
+
     &.dropdown-item-selected:not(.dropdown-disabled) {
       background: ion-theme(select-menu-item-selected-background-color);
       color: ion-theme(select-menu-item-selected-text-color);
@@ -365,13 +371,5 @@
       cursor: not-allowed;
       user-select: none;
     }
-  }
-}
-
-::ng-deep .container-options[data-select-field-id] {
-  .ion-dropdown-item.dropdown-item-active:not(.dropdown-disabled),
-  .ion-dropdown-item:focus-visible {
-    outline: 2px solid ion-theme(select-focus-color);
-    outline-offset: -2px;
   }
 }

@@ -24,6 +24,10 @@ import { calculateVisibleChipCount } from './calculate-visible-chip-count';
 
 const CHIP_GAP = 8;
 const CHIP_REMOVE_KEYS = new Set(['Backspace', 'Delete', 'Enter', ' ', 'Spacebar']);
+const getProp = (target: unknown, key: string): unknown =>
+  target !== null && typeof target === 'object'
+    ? (target as Record<string, unknown>)[key]
+    : undefined;
 
 @Component({
   selector: 'ion-select',
@@ -32,7 +36,10 @@ const CHIP_REMOVE_KEYS = new Set(['Backspace', 'Delete', 'Enter', ' ', 'Spacebar
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(document:keydown)': 'handleOverlayKeydown($event)' },
+  host: {
+    '(document:keydown)': 'handleOverlayKeydown($event)',
+    '(document:focusin)': 'handleOverlayFocusIn($event)',
+  },
 })
 export class IonSelectComponent {
   private static nextInstanceId = 0;
@@ -68,14 +75,14 @@ export class IonSelectComponent {
   // Signals
   showDropdown = signal(false);
   activeOptionIndex = signal<number | null>(null);
-  dropdownSelectedItems = signal<DropdownItem[] | any[]>([]);
+  dropdownSelectedItems = signal<DropdownItem[]>([]);
   searchTerm = signal('');
   visibleCount = signal<number | null>(null);
 
   selectTrigger = viewChild<ElementRef<HTMLElement>>('selectTrigger');
   measurementContainer = viewChild<ElementRef<HTMLElement>>('measurementContainer');
-  isError = computed(() => this.invalid() || this.invalid() === true);
-  isSuccess = computed(() => !this.isError() && this.valid() === true);
+  isError = computed(() => Boolean(this.invalid()));
+  isSuccess = computed(() => Boolean(this.valid()));
   hasNoOptions = computed(() => !this.loading() && this.dropdownOptions().length === 0);
 
   activeDescendantId = computed(() => {
@@ -363,6 +370,7 @@ export class IonSelectComponent {
         : null;
 
     if (nextControl && (!enabled.length || isClear === isDown)) {
+      this.activeOptionIndex.set(null);
       nextControl.focus();
       return;
     }
@@ -377,6 +385,18 @@ export class IonSelectComponent {
         .getElementById(`${this.listboxId}-option-${idx}`)
         ?.scrollIntoView?.({ block: 'nearest' })
     );
+  }
+  
+  handleOverlayFocusIn(event: FocusEvent): void {
+    const target = event.target;
+    if (
+      this.showDropdown() &&
+      target instanceof HTMLElement &&
+      this.dropdownPanel?.contains(target) &&
+      (target.tagName === 'INPUT' || target.classList.contains('clear-button'))
+    ) {
+      this.activeOptionIndex.set(null);
+    }
   }
 
   handleSelect(selectedItems: DropdownItem[]): void {
@@ -479,8 +499,7 @@ export class IonSelectComponent {
   }
 
   getOptionLabel(item: DropdownItem): string {
-    const prop = this.propLabel();
-    return String((item as any)?.[prop] || item?.label || '');
+    return String(getProp(item, this.propLabel()) || item?.label || '');
   }
 
   onChipClick(event: MouseEvent, item: DropdownItem): void {
@@ -539,9 +558,9 @@ export class IonSelectComponent {
         ? finalSelected
         : finalSelected[0] || null
       : this.multiple()
-        ? finalSelected.map((item) => (item as any)[prop])
+        ? finalSelected.map((item) => getProp(item, prop))
         : finalSelected.length > 0
-          ? (finalSelected[0] as any)[prop]
+          ? getProp(finalSelected[0], prop)
           : null;
 
     this.valueChange.emit(emitValue);
@@ -549,8 +568,8 @@ export class IonSelectComponent {
 
   private sameOption(first: DropdownItem, second: DropdownItem): boolean {
     const prop = this.propValue();
-    const firstVal = (first as any)?.[prop];
-    const secondVal = (second as any)?.[prop];
+    const firstVal = getProp(first, prop);
+    const secondVal = getProp(second, prop);
     return firstVal === undefined && secondVal === undefined
       ? this.getOptionLabel(first) === this.getOptionLabel(second)
       : firstVal === secondVal;
@@ -559,8 +578,8 @@ export class IonSelectComponent {
   private optionMatchesValue(option: DropdownItem, val: unknown): boolean {
     const prop = this.propValue();
     const valToCompare =
-      val !== null && typeof val === 'object' ? (val as any)[prop] : val;
-    return valToCompare !== undefined && (option as any)[prop] === valToCompare;
+      val !== null && typeof val === 'object' ? getProp(val, prop) : val;
+    return valToCompare !== undefined && getProp(option, prop) === valToCompare;
   }
 
   private getEnabledOptionIndices(): number[] {
@@ -571,6 +590,15 @@ export class IonSelectComponent {
   }
 
   private setInitialActiveOption(preferLast: boolean): void {
+    if (this.enableSearch()) {
+      this.activeOptionIndex.set(null);
+      afterNextRender(
+        () => this.dropdownPanel?.querySelector<HTMLElement>('input')?.focus(),
+        { injector: this.injector }
+      );
+      return;
+    }
+
     const enabled = this.getEnabledOptionIndices();
     if (!enabled.length) {
       this.activeOptionIndex.set(null);
