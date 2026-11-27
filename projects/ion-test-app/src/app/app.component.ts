@@ -25,9 +25,7 @@ import {
   IonTooltipDirective,
   TooltipPosition,
   TooltipTrigger,
-  IonInputComponent,
   IonTabComponent,
-  TabSize,
   IonHeadingComponent,
   IonLinkComponent,
   IonTripleToggleComponent,
@@ -35,6 +33,8 @@ import {
   IonPopoverDirective,
   PopoverPosition,
   PopoverTrigger,
+  IonTableComponent,
+  ConfigTable,
   IonSwitchComponent,
   IonPopConfirmDirective,
   IonNoDataComponent,
@@ -65,6 +65,7 @@ import { CardBodyComponent } from './card-body.component';
 import { ColorGalleryComponent } from './components/galleries/color-gallery/color-gallery-component';
 import { IconGalleryComponent } from './components/galleries/icon-gallery/icon-gallery.component';
 import { TypographyGalleryComponent } from './components/galleries/typography-gallery/typography-gallery';
+import { TextInputGalleryComponent } from './components/galleries/text-galleries/text-input-gallery/text-input-gallery-component';
 import { BnFormGalleryComponent } from './components/galleries/bn-form-gallery/bn-form-gallery-component';
 import { DatePickerGalleryComponent } from './components/galleries/date-picker-gallery/date-picker-gallery-component';
 import { SmartTableGalleryComponent } from './components/galleries/tables-galleries/smart-table-gallery/smart-table-gallery-component';
@@ -109,8 +110,8 @@ class ModalLongContentComponent {
     IonBadgeComponent,
     IonButtonComponent,
     IonCheckboxComponent,
-    IonIconComponent,
     IonInfoBadgeComponent,
+    IonIconComponent,
     IonAccordionComponent,
     IonDividerComponent,
     IonSkeletonComponent,
@@ -122,7 +123,6 @@ class ModalLongContentComponent {
     IonRadioComponent,
     IonPaginationComponent,
     IonTooltipDirective,
-    IonInputComponent,
     IonTabComponent,
     IonHeadingComponent,
     IonTagComponent,
@@ -151,6 +151,7 @@ class ModalLongContentComponent {
     IonNavbarComponent,
     ColorGalleryComponent,
     TypographyGalleryComponent,
+    TextInputGalleryComponent,
     BnFormGalleryComponent,
     DatePickerGalleryComponent,
     SmartTableGalleryComponent,
@@ -195,13 +196,6 @@ export class AppComponent {
     name: 'Dynamic Content',
     value: 123,
   };
-
-  // Input examples
-  basicInputValue = '';
-  emailInputValue = '';
-  passwordInputValue = '';
-  searchInputValue = '';
-  inputWithMaxLength = '';
 
   handleInputButtonClick(value?: string): void {
     console.log('Input button clicked!', value);

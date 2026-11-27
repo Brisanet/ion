@@ -1,0 +1,104 @@
+<div class="gallery-container">
+  <header>
+    <h1>Text Input</h1>
+  </header>
+
+  <!-- SEÇÃO 1: SANDBOX INTERATIVO -->
+  <section class="gallery-section">
+    <h2> Sandbox Interativo</h2>
+    <div class="gallery-grid single-column">
+      <div class="gallery-card">
+        <div class="sandbox-controls">
+          <div class="control-group">
+            <span class="control-label">Size:</span>
+            @for (item of sizes; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxSize() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxSize.set(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Estado:</span>
+            @for (item of statuses; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxStatus() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxStatus.set(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Tipo:</span>
+            @for (item of inputTypes; track item) {
+              <ion-button
+                [label]="item"
+                [type]="sandboxType() === item ? 'primary' : 'secondary'"
+                (ionOnClick)="sandboxType.set(item)"
+              ></ion-button>
+            }
+          </div>
+
+          <div class="control-group">
+            <span class="control-label">Slots e Recursos:</span>
+            <ion-button
+              label="Prefixo (R$)"
+              [type]="sandboxPrefix() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxPrefix.set(!sandboxPrefix())"
+            ></ion-button>
+
+            <ion-button
+              label="Leading Icon"
+              [type]="sandboxLeftIcon() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxLeftIcon.set(!sandboxLeftIcon())"
+            ></ion-button>
+
+            <ion-button
+              label="Trailing Icon"
+              [type]="sandboxClearButton() ? 'primary' : 'secondary'"
+              [disabled]="sandboxInputButton()"
+              (ionOnClick)="toggleSandboxClearButton()"
+            ></ion-button>
+
+            <ion-button
+              label="MaxLength (30)"
+              [type]="sandboxMaxLength() ? 'primary' : 'secondary'"
+              (ionOnClick)="sandboxMaxLength.set(!sandboxMaxLength())"
+            ></ion-button>
+
+            <ion-button
+              label="Botão Integrado"
+              [type]="sandboxInputButton() ? 'primary' : 'secondary'"
+              [disabled]="sandboxClearButton()"
+              (ionOnClick)="toggleSandboxInputButton()"
+            ></ion-button>
+          </div>
+        </div>
+
+        <ion-input
+          label="Campo Interativo (Sandbox)"
+          placeholder="Digite ou navegue com Tab para testar..."
+          [size]="sandboxSize()"
+          [inputType]="sandboxType()"
+          [invalid]="sandboxStatus() === 'invalid'"
+          [valid]="sandboxStatus() === 'valid'"
+          [disabled]="sandboxStatus() === 'disabled'"
+          [errorMsg]="sandboxStatus() === 'invalid' ? 'Mensagem de erro simulada no sandbox.' : ''"
+          [validMsg]="sandboxStatus() === 'valid' ? 'Campo validado com sucesso.' : ''"
+          [helperText]="sandboxStatus() === 'default' ? 'Texto auxiliar de apoio ao preenchimento.' : ''"
+          [prefix]="sandboxPrefix() ? 'R$' : ''"
+          [leftIcon]="sandboxLeftIcon() ? 'search' : ''"
+          [clearButton]="sandboxClearButton()"
+          [maxLength]="sandboxMaxLength() ? 30 : null"
+          [inputButton]="sandboxInputButton()"
+          [inputButtonConfig]="{ label: 'Confirmar' }"
+          [(value)]="sandboxValue"
+          (clickButton)="onSandboxButtonClick()"
+        ></ion-input>
+      </div>
+    </div>
+  </section>
+</div>

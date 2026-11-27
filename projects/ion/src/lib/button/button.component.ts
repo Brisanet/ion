@@ -35,7 +35,8 @@ import { IonBadgeComponent } from '../badge/badge.component';
 })
 export class IonButtonComponent {
   label = input<string>();
-  ariaLabel = input<string>();
+  ariaLabel = input<string | undefined>(undefined, { alias: 'aria-label' });
+  ariaPressed = input<boolean | undefined>(undefined, { alias: 'aria-pressed' });
   tooltip = input<string>();
   type = input<Type>('primary');
   size = input<Size>('md');
@@ -80,7 +81,6 @@ export class IonButtonComponent {
 
   // Computed
   public iconSize = computed(() => ButtonIconSizeOptions[this.size()]);
-
   constructor() {
     effect(() => {
       this._label.set(this.label());
