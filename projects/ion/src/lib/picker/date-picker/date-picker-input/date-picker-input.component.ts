@@ -15,7 +15,12 @@ import {
 
 export interface IonDatePickerInputComponentProps {
   date?: string | string[];
-  placeholder?: string;
+  layout?: DatePickerLayout;
+  rangePicker?: boolean;
+  size?: DatePickerSize;
+  icon?: boolean;
+  placeholder?: string | [string, string];
+  disabled?: boolean;
   valid?: boolean;
   invalid?: boolean;
 }
@@ -69,12 +74,12 @@ export class IonDatePickerInputComponent {
 
   startPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[0] : p;
+    return Array.isArray(p) ? p[0] ?? 'Selecione a data': p;
   });
 
   endPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[1] : p;
+    return Array.isArray(p) ? p[1] ?? 'Selecione a data': p;
   });
 
   startInvalid = computed(() => {
