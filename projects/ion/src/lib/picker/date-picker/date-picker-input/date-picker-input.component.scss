@@ -1,7 +1,123 @@
-.container-input {
-  width: 100%;
+@import '../../../../styles/index.scss';
+@import '../../../../styles/themes/theme.scss';
 
-  &.range {
+$split-gap: 8px;
+
+@mixin theme-states($hover-token, $focus-token) {
+  &:hover:not(:focus-within) {
+    border-color: ion-theme($hover-token);
+  }
+
+  &:focus-within {
+    border-width: 2px;
+    border-color: ion-theme($focus-token);
+  }
+}
+@mixin focus-double-ring($focus-token) {
+  outline: 2px solid ion-theme($focus-token);
+  outline-offset: 2px;
+}
+
+.container-input,
+.layout-split,
+.layout-joined {
+  --picker-color: #{ion-theme(date-picker-range-input-primary-color)};
+  --picker-hover-color: #{ion-theme(date-picker-range-input-primary-hover-color)};
+
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: ion-theme(date-picker-range-input-border-radius);
+}
+
+.layout-joined {
+  align-items: center;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid ion-theme(date-picker-range-input-border-color);
+  background-color: ion-theme(date-picker-range-input-background-color);
+  transition: border-color 0.1s ease;
+
+  &.size-large {
+    height: 56px;
+  }
+
+  &:not(.disabled) {
+    @include theme-states(
+      date-picker-range-input-primary-hover-color,
+      date-picker-range-input-primary-hover-color
+    );
+  }
+
+  &.disabled {
+    border-color: ion-theme(date-picker-range-input-disabled-border-color);
+    background-color: ion-theme(date-picker-range-input-disabled-background-color);
+    cursor: not-allowed;
+  }
+}
+
+.layout-split {
+  align-items: center;
+  gap: $split-gap;
+
+  .split-separator {
+    flex-shrink: 0;
+    color: ion-theme(date-picker-range-input-text-color);
+    user-select: none;
+  }
+}
+
+:host:not(.pointer-focus) {
+  .layout-joined:not(.disabled):has(:focus-visible),
+  .layout-split:not(.disabled):has(:focus-visible),
+  .container-input:not(:has(.disabled)):has(:focus-visible) {
+    @include focus-double-ring(
+      date-picker-range-input-primary-hover-color
+    );
+  }
+}
+
+:host ::ng-deep .layout-joined {
+  ion-input,
+  ion-input .input-container {
     width: 100%;
+    height: 100%;
+  }
+
+  ion-input .input {
+    height: 100%;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+}
+
+:host ::ng-deep {
+  .container-input,
+  .layout-joined,
+  .layout-split {
+    ion-input .input {
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    ion-input:not(.disabled) {
+      --current-theme-color: var(--picker-color);
+      --current-hover-color: var(--picker-hover-color);
+    }
+  }
+
+  .container-input,
+  .layout-split {
+    ion-input {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    & ion-input .input:not(.disabled) {
+      @include theme-states(
+        date-picker-range-input-primary-hover-color,
+        date-picker-range-input-primary-color
+      );
+    }
   }
 }

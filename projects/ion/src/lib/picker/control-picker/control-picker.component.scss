@@ -11,9 +11,15 @@
 .container-buttons,
 .container-labels {
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   background-color: transparent;
+}
+
+.container-controls {
+  width: 100%;
 }
 
 .container-buttons {

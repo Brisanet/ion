@@ -1746,10 +1746,36 @@
       ></ion-button>
     </div>
   </section>
-
+  
   <section>
     <h2>Date Picker</h2>
     <div style="display: flex; flex-direction: column; gap: 30px">
+      <div>
+        <h3>Default Date Picker</h3>
+        <ion-date-picker
+        [rangePicker]="true"
+        layout="default"
+        size="base"
+        (event)="handleDateRangePickerChange($event)"
+        ></ion-date-picker>
+      </div>
+      <div>
+        <h3>Joined Date Picker</h3>
+        <ion-date-picker
+        [rangePicker]="false"
+        layout="joined"
+        size="large"
+        (event)="handleDatePickerChange($event)"
+        ></ion-date-picker>
+      </div>
+      <div>
+        <h3>Split Date Picker</h3>
+        <ion-date-picker
+        [rangePicker]="true"
+        layout="split"
+        (event)="handleDateRangePickerChange($event)"
+        ></ion-date-picker>
+      </div>
       <div>
         <h3>Basic Date Picker</h3>
         <ion-date-picker
