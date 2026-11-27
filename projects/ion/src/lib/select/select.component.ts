@@ -332,6 +332,11 @@ export class IonSelectComponent {
           this.selectTrigger()?.nativeElement.focus();
         }
         break;
+      case 'Tab':
+        if (this.showDropdown()) {
+          this.closeDropdown();
+        }
+        break;
     }
   }
 
