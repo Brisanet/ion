@@ -1,0 +1,181 @@
+<section
+  class="select-gallery"
+  [attr.data-theme-preview]="themePreview()"
+>
+  <header class="select-gallery__header">
+    <div>
+      <h2>Select · Sandbox Interativo</h2>
+      <p>
+        Configure propriedades, estados e temas em tempo real para testar o
+        <code>IonSelectComponent</code>.
+      </p>
+    </div>
+  </header>
+
+  <section class="select-gallery__group" aria-labelledby="select-gallery-sandbox">
+    <div class="select-gallery__section-bar">
+      <h3 id="select-gallery-sandbox">Sandbox configurável</h3>
+      <div class="select-gallery__actions">
+        <ion-button
+          label="Testar overflow (+N)"
+          type="secondary"
+          size="md"
+          iconType="plus"
+          (ionOnClick)="applyOverflowPreset()"
+        ></ion-button>
+        <ion-button
+          label="Limpar seleção"
+          type="primary"
+          size="md"
+          iconType="trash2"
+          (ionOnClick)="clearSandboxSelection()"
+        ></ion-button>
+        <ion-button
+          label="Resetar sandbox"
+          type="secondary"
+          size="md"
+          iconType="refresh-cw"
+          (ionOnClick)="resetSandbox()"
+        ></ion-button>
+      </div>
+    </div>
+
+    <div class="select-gallery__sandbox">
+      <div class="select-gallery__stage">
+        <div class="select-gallery__stage-preview">
+          <ion-select
+            [label]="sandboxLabel()"
+            [placeholder]="sandboxPlaceholder()"
+            [supportingText]="sandboxSupportingText()"
+            [multiple]="sandboxMultiple()"
+            [size]="sandboxSize()"
+            [invalid]="sandboxInvalid()"
+            [valid]="sandboxValid()"
+            [required]="flags().required"
+            [disabled]="flags().disabled"
+            [loading]="flags().loading"
+            [enableSearch]="flags().enableSearch"
+            [returnFullObject]="flags().returnFullObject"
+            [propLabel]="activePropLabel()"
+            [propValue]="activePropValue()"
+            [options]="sandboxSourceOptions()"
+            [value]="sandboxValue()"
+            (valueChange)="onSandboxValueChange($event)"
+            (selected)="onSandboxSelected($event)"
+            (search)="onSandboxSearch($event)"
+          >
+            @if (flags().leadingSlot) {
+              <ion-icon ionSelectLeading type="search" [size]="20"></ion-icon>
+            }
+            @if (flags().actionSlot) {
+              <ion-button
+                ionSelectAction
+                label="Ação"
+                type="ghost"
+                size="sm"
+                (ionOnClick)="onSandboxActionClick()"
+              ></ion-button>
+            }
+          </ion-select>
+        </div>
+
+        <div class="select-gallery__telemetry">
+          <div>
+            <strong>Value emitido:</strong>
+            <code>{{ sandboxFormattedValue() }}</code>
+          </div>
+          <div>
+            <strong>Itens selecionados ({{ sandboxSelectedItems().length }}):</strong>
+            <span>
+              {{ sandboxSelectedItems().length ? sandboxSelectedItems().length + ' item(ns)' : 'nenhum' }}
+            </span>
+          </div>
+          <div>
+            <strong>Props ativas:</strong>
+            <code>label="{{ activePropLabel() }}" · value="{{ activePropValue() }}"</code>
+          </div>
+          <div>
+            <strong>Termo de busca:</strong>
+            <code>{{ sandboxSearchTerm() || '""' }}</code>
+          </div>
+          <div>
+            <strong>Último evento:</strong>
+            <code>{{ sandboxEventLog() }}</code>
+          </div>
+        </div>
+      </div>
+
+      <div class="select-gallery__control-row">
+        <ion-select
+          label="Modo (multiple)"
+          size="base"
+          [required]="true"
+          [options]="modeOptions"
+          [value]="sandboxMultiple() ? 'multi' : 'single'"
+          (valueChange)="onSandboxModeChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Tamanho (size)"
+          size="base"
+          [required]="true"
+          [options]="sizeOptions"
+          [value]="sandboxSize()"
+          (valueChange)="onSandboxSizeChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Validação (invalid / valid)"
+          size="base"
+          [required]="true"
+          [options]="validationOptions"
+          [value]="sandboxValidation()"
+          (valueChange)="onSandboxValidationChange($event)"
+        ></ion-select>
+
+        <ion-select
+          label="Conjunto de opções"
+          size="base"
+          [required]="true"
+          [options]="scenarioOptions"
+          [value]="sandboxScenario()"
+          (valueChange)="onSandboxScenarioChange($event)"
+        ></ion-select>
+
+        <div class="select-gallery__field">
+          <span class="select-gallery__field-label">Rótulo (label)</span>
+          <ion-input
+            placeholder="Vazio usa placeholder no aria-label..."
+            [clearButton]="true"
+            [value]="sandboxLabel()"
+            (valueChange)="onSandboxLabelChange($event)"
+          ></ion-input>
+        </div>
+
+        <div class="select-gallery__field">
+          <span class="select-gallery__field-label">Texto de apoio (supportingText)</span>
+          <ion-input
+            placeholder="Digite o texto de apoio..."
+            [clearButton]="true"
+            [value]="sandboxSupportingText()"
+            (valueChange)="onSandboxSupportingTextChange($event)"
+          ></ion-input>
+        </div>
+
+        @for (ctrl of toggleControls; track ctrl.key) {
+          <div class="select-gallery__field">
+            <span class="select-gallery__field-label">{{ ctrl.fieldLabel }}</span>
+            <ion-button
+              [label]="flags()[ctrl.key] ? ctrl.activeLabel : ctrl.inactiveLabel"
+              [type]="flags()[ctrl.key] ? 'primary' : 'secondary'"
+              [iconType]="flags()[ctrl.key] ? 'check' : 'close'"
+              size="lg"
+              [expand]="true"
+              (ionOnClick)="toggleFlag(ctrl.key)"
+            ></ion-button>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</section>
