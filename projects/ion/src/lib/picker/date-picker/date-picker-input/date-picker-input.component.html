@@ -4,11 +4,14 @@
       class="input-wrapper layout-joined"
       [class.disabled]="disabled()"
       [class.size-large]="size() === 'large'"
+      [class.invalid]="singleInvalid()"
+      [class.valid]="singleValid()"
       data-testid="date-picker-input-joined"
     >
       <ion-input
         [size]="size()"
         [value]="startDate()"
+        [attr.aria-invalid]="singleInvalid() || null"
         [placeholder]="startPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
         iconDirection="left"
@@ -25,11 +28,15 @@
     <div
       class="input-wrapper layout-split"
       [class.disabled]="disabled()"
+      [class.size-large]="size() === 'large'"
       data-testid="date-picker-input-split"
     >
       <ion-input
         [size]="size()"
         [value]="startDate()"
+        [class.invalid]="rangeStartInvalid()"
+        [class.valid]="rangeStartValid()"
+        [attr.aria-invalid]="rangeStartInvalid() || null"
         [placeholder]="startPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
         iconDirection="left"
@@ -37,11 +44,14 @@
         [disabled]="disabled()"
       ></ion-input>
 
-      <span class="split-separator">–</span>
+      <span class="split-separator" aria-hidden="true">–</span>
 
       <ion-input
         [size]="size()"
         [value]="endDate()"
+        [class.invalid]="rangeEndInvalid()"
+        [class.valid]="rangeEndValid()"
+        [attr.aria-invalid]="rangeEndInvalid() || null"
         [placeholder]="endPlaceholder()"
         [iconInput]="icon() ? 'calendar' : ''"
         iconDirection="left"
@@ -69,6 +79,9 @@
         iconDirection="right"
         [inputButton]="hasDate()"
         [inputButtonConfig]="clearButtonConfig()"
+        [class.invalid]="singleInvalid()"
+        [class.valid]="singleValid()"
+        [attr.aria-invalid]="singleInvalid() || null"
         [readonly]="true"
         [disabled]="disabled()"
         (clickButton)="clearDateValue()"

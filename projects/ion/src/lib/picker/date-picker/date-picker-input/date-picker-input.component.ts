@@ -21,6 +21,8 @@ export interface IonDatePickerInputComponentProps {
   icon?: boolean;
   placeholder?: string | [string, string];
   disabled?: boolean;
+  valid?: boolean | [boolean, boolean];
+  invalid?: boolean | [boolean, boolean];
 }
 
 @Component({
@@ -46,7 +48,10 @@ export class IonDatePickerInputComponent {
   placeholder = input<string | [string, string]>('Selecione a data');
   clearDate = output<void>();
   disabled = input<boolean>(false);
+  invalid = input<boolean | [boolean, boolean]>(false);
+  valid = input<boolean | [boolean, boolean]>(false);
   pointerFocus = signal<boolean>(false);
+
   dateParts = computed(() => {
     const date = this.date();
     return Array.isArray(date) ? date : date ? [date] : [];
@@ -68,14 +73,41 @@ export class IonDatePickerInputComponent {
 
   startPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[0] ?? 'Selecione a data': p;
+    return Array.isArray(p) ? p[0] ?? 'Selecione a data' : p;
   });
 
   endPlaceholder = computed(() => {
     const p = this.placeholder();
-    return Array.isArray(p) ? p[1] ?? 'Selecione a data': p;
+    return Array.isArray(p) ? p[1] ?? 'Selecione a data' : p;
   });
-  
+
+  singleInvalid = computed(() => this.rangeStartInvalid() || this.rangeEndInvalid());
+  singleValid = computed(
+    () => !this.singleInvalid() && (this.rangeStartValid() || this.rangeEndValid())
+  );
+
+  rangeStartInvalid = computed(() => {
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  rangeStartValid = computed(() => {
+    if (this.rangeStartInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[0]) : Boolean(val);
+  });
+
+  rangeEndInvalid = computed(() => {
+    const val = this.invalid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
+  });
+
+  rangeEndValid = computed(() => {
+    if (this.rangeEndInvalid()) return false;
+    const val = this.valid();
+    return Array.isArray(val) ? Boolean(val[1]) : Boolean(val);
+  });
+
   onPointerDown(): void {
     this.pointerFocus.set(true);
   }
@@ -93,7 +125,6 @@ export class IonDatePickerInputComponent {
       this.pointerFocus.set(false);
     }
   }
-
   clearButtonConfig = computed<IonButtonProps>(() => ({
     iconType: 'close-solid',
     type: 'ghost',

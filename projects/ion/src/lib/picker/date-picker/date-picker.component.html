@@ -7,6 +7,8 @@
   [size]="size()"
   [icon]="icon()"
   [disabled]="disabled()"
+  [valid]="valid()"
+  [invalid]="invalid()"
   [placeholder]="placeholder()"
   (click)="setVisibleCalendar(!showDatepicker())"
   (clearDate)="clearDate()"
@@ -25,7 +27,7 @@
         <ion-control-picker
           [month]="calendarMonth()"
           [year]="calendarYear()"
-          (controlPickerEvent)="events($event)"
+          (controlPickerEvent)="events($event)"       
         ></ion-control-picker>
       </div>
       <div class="content">

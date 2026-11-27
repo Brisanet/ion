@@ -61,6 +61,8 @@ export class IonDatepickerComponent {
     );
   layout = input<DatePickerLayout>('default');
   size = input<DatePickerSize>('base');
+  invalid = input<boolean | [boolean, boolean]>(false);
+  valid = input<boolean | [boolean, boolean]>(false);
   icon = input<boolean>(true);
   rangePicker = input<boolean>(false);
   predefinedRanges = input<PreDefinedRangeConfig[]>([]);
